@@ -1,0 +1,9 @@
+.DS_Store
+*.DS_Store
+*npm-debug.log
+node_modules/
+ios/Podfile.lock
+ios/Pods/
+ios.xcodeproj/project.xcworkspace/xcuserdata/
+ios.xcworkspace/
+ios/ViroMediaApp.xcodeproj/xcuserdata/
