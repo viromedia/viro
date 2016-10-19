@@ -1,0 +1,152 @@
+/**
+ * Copyright (c) 2015-present, Viro Media, Inc.
+ * All rights reserved.
+ *
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
+ */
+'use strict';
+
+/**
+ * Pull in all imports required for this control.
+ */
+import React, { Component } from 'react';
+import {
+  ViroImage,
+  ViroView,
+  ViroAnimations,
+  ViroAnimatedComponent,
+} from 'react-viro';
+
+/**
+ * Pull in all the images needed for this control.
+ */
+var infoIconImage = require('../res/icon_info.png');
+
+/**
+ * Required library when defining our own proptypes for this custom control.
+ */
+var PropTypes = require('react/lib/ReactPropTypes');
+
+/**
+ * Tags for referencing the animation component views used to execute animations on
+ * our Icon Card and our Content Card views.
+ */
+var CONTENT_CARD_REF = 'contentCard';
+var ICON_CARD_REF = 'iconCard';
+
+/**
+ * Custom control that toggles between two viro images: an Icon Card and a Content Card.
+ * This control can be given a reference to the required('./image') content to be displayed,
+ * and as well as the size it should be scaled to. Note that the Icon Card is displayed by default.
+ *
+ * Accepted propTypes:
+ * @content - Reference to the require('./image') content to displayed upon clicking of the Icon Card.
+ * @contentCardScale - The size of the Content Card that it should be animated to.
+ */
+var InfoElement = React.createClass({
+    propTypes: {
+        content: PropTypes.number, // Opaque type returned by require('./image.jpg')
+        contentCardScale: PropTypes.arrayOf(PropTypes.number),
+    },
+
+    getInitialState(){
+        return {
+            iconCardAnimation:"showIconAnim",
+            contentCardAnimation:"hideAnim",
+        }
+    },
+
+    /**
+     * Displays either an Icon Card or a Content Card. The Icon Card is displayed by default
+     * until the user does click it (_onCardTap). We then animate the Icon Card out, and the Content
+     * Card in, and vice versa if the user clicks on it again.
+     */
+    render:function(){
+            return (
+                <ViroView onTap={this._onCardTap} {...this.props}>
+                    {/* Info Card */}
+                    <ViroAnimatedComponent animation={this.state.iconCardAnimation} run={false} loop={true}
+                                           ref={ICON_CARD_REF} onFinish={this._animateIconCardFinished}>
+                        <ViroImage
+                            transformBehaviors={["billboard"]}
+                            width={1}
+                            height={1}
+                            opacity={1.0}
+                            scale={[0.5, 0.5, 0.5]}
+                            source={infoIconImage}/>
+                    </ViroAnimatedComponent>
+
+                    {/* Content Card*/}
+                    <ViroView scale={[this.props.contentCardScale[0], this.props.contentCardScale[1], this.props.contentCardScale[2]]}
+                              transformBehaviors={["billboard"]}>
+                        <ViroAnimatedComponent animation={this.state.contentCardAnimation} run={false} loop={false}
+                                               ref={CONTENT_CARD_REF} onFinish={this._animateContentCardFinished}>
+                            <ViroImage
+                                width={1}
+                                height={1}
+                                opacity={0.0}
+                                scale={[.1,.1,.1]}
+                                source={this.props.content} />
+                        </ViroAnimatedComponent>
+                    </ViroView>
+                </ViroView>
+        );
+    },
+
+    /**
+     * Attached callback to the onTap event of this control. We then
+     * animate in / out either the Icon or Content card correspondingly.
+     */
+    _onCardTap(){
+        var showContentCard = this.state.contentCardAnimation == "hideAnim";
+        if (showContentCard == true){
+            this._animateIconCard(!showContentCard);
+        } else {
+            this._animateContentCard(showContentCard);
+        }
+    },
+
+    /**
+     * Show and hide animations for both the Icon and Content Card in this control.
+     */
+    _animateIconCard(isVisible){
+        this.setState({
+            iconCardAnimation: isVisible? "showIconAnim": "hideAnim",
+        });
+
+        this.refs[ICON_CARD_REF].startAnimation();
+    },
+
+    _animateContentCard(isVisible){
+        this.setState({
+            contentCardAnimation: isVisible? "showContentCardAnim": "hideAnim",
+        });
+        this.refs[CONTENT_CARD_REF].startAnimation();
+    },
+
+    /**
+     * Animation callbacks for displaying either the Content
+     * card after hiding the Icon card and vice versa.
+     */
+    _animateIconCardFinished(){
+        if (this.state.iconCardAnimation == "hideAnim"){
+            this._animateContentCard(true);
+        }
+    },
+
+    _animateContentCardFinished(){
+        if (this.state.contentCardAnimation == "hideAnim"){
+            this._animateIconCard(true);
+        }
+    }
+});
+
+ViroAnimations.registerAnimations({
+    hideAnim: {properties:{scaleX:.1, scaleY:.1, scaleZ:.1, opacity:0.0}, easing:"Bounce", duration:100},
+    showContentCardAnim: {properties:{scaleX:1, scaleY:1, scaleZ:1, opacity:1.0}, easing:"PowerDecel", duration:150},
+    showIconAnim: {properties:{scaleX:.5, scaleY:.5, scaleZ:.5, opacity:1.0}, easing:"PowerDecel", duration:150},
+});
+
+module.exports = InfoElement;
