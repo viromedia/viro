@@ -1,0 +1,4 @@
+REVIEWBOARD_URL = "https://rbcommons.com/s/viromedia"
+REPOSITORY = "viromedia/viro-code-samples"
+BRANCH = "master"
+LAND_DEST_BRANCH = "master"
