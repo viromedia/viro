@@ -7,6 +7,6 @@
   },
   "dependencies": {
     "react": "15.3.1",
-    "react-viro": "0.0.38"
+    "react-viro": "0.0.42"
   }
 }

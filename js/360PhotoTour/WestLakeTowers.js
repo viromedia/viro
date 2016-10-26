@@ -17,11 +17,10 @@ import { polarToCartesian } from 'polarToCartesian';
 import {
     StyleSheet,
     ViroScene,
-    ViroOmniLight,
     Viro360Photo,
     ViroAnimations,
     ViroAnimatedComponent,
-    ViroView,
+    ViroNode,
     ViroImage,
 } from 'react-viro';
 
@@ -54,8 +53,6 @@ var OfficeTourSplashScene = React.createClass({
     render: function() {
         return (
             <ViroScene style={styles.container}>
-                <ViroOmniLight position={[0, 0, 0]} color="#ffffff"
-                               attenuationStartDistance={40} attenuationEndDistance={50}/>
                 <Viro360Photo source={backgroundImage} onLoadEnd={this._onBackgroundPhotoLoadEnd}/>
 
                 {
@@ -78,7 +75,7 @@ var OfficeTourSplashScene = React.createClass({
      */
     _getInfoControls(){
         return(
-            <ViroView opacity={0.0} >
+            <ViroNode opacity={0.0} >
                 <InfoElement content={slutWindowCard} contentCardScale={[3.67,4,1]} position={polarToCartesian([-5, 0, 0])}/>
                 <InfoElement content={monorailInfoCard} contentCardScale={[3.67,4,1]} position={polarToCartesian([-5, 77, -10])}/>
                 <InfoElement content={statueWindowCard} contentCardScale={[4,3.95,2]} position={polarToCartesian([-5, 277, 0])}/>
@@ -88,7 +85,7 @@ var OfficeTourSplashScene = React.createClass({
                     rotation={[-90, 0, 0]}
                     source={backImage}
                     onTap={this._onBackTapped}/>
-            </ViroView>
+            </ViroNode>
         );
     },
 

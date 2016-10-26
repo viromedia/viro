@@ -22,7 +22,7 @@ import {
     Materials,
     ViroAnimations,
     ViroAnimatedComponent,
-    ViroView,
+    ViroNode,
     ViroSpinner,
     ViroText,
     ViroSphere
@@ -41,13 +41,13 @@ var LoadingSpinner = React.createClass({
         var spinnerPosition = polarToCartesian([0, 0, 0]);
         var textPosition = polarToCartesian([1, -25, -40]);
         return (
-            <ViroView {...this.props}>
-                {/* NOTE: Additional layer of ViroView is placed to get around a temporary billboarding bug */}
-                <ViroView position={polarToCartesian([0, 0, 0])} transformBehaviors={["billboard"]}>
+            <ViroNode {...this.props}>
+                {/* NOTE: Additional layer of ViroNode is placed to get around a temporary billboarding bug */}
+                <ViroNode position={polarToCartesian([0, 0, 0])} transformBehaviors={["billboard"]}>
                     <ViroSpinner position={spinnerPosition} scale={[.7,.7,.1]} spinnerType='dark' />
                     <ViroText style={styles.spinnerTextStyle} position={textPosition} text="Loading ...." />
-                </ViroView>
-            </ViroView>
+                </ViroNode>
+            </ViroNode>
         );
     },
 });

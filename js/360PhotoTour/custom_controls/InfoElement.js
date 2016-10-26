@@ -14,7 +14,7 @@
 import React, { Component } from 'react';
 import {
   ViroImage,
-  ViroView,
+  ViroNode,
   ViroAnimations,
   ViroAnimatedComponent,
 } from 'react-viro';
@@ -65,7 +65,7 @@ var InfoElement = React.createClass({
      */
     render:function(){
             return (
-                <ViroView onTap={this._onCardTap} {...this.props}>
+                <ViroNode onTap={this._onCardTap} {...this.props}>
                     {/* Info Card */}
                     <ViroAnimatedComponent animation={this.state.iconCardAnimation} run={false} loop={true}
                                            ref={ICON_CARD_REF} onFinish={this._animateIconCardFinished}>
@@ -79,7 +79,7 @@ var InfoElement = React.createClass({
                     </ViroAnimatedComponent>
 
                     {/* Content Card*/}
-                    <ViroView scale={[this.props.contentCardScale[0], this.props.contentCardScale[1], this.props.contentCardScale[2]]}
+                    <ViroNode scale={[this.props.contentCardScale[0], this.props.contentCardScale[1], this.props.contentCardScale[2]]}
                               transformBehaviors={["billboard"]}>
                         <ViroAnimatedComponent animation={this.state.contentCardAnimation} run={false} loop={false}
                                                ref={CONTENT_CARD_REF} onFinish={this._animateContentCardFinished}>
@@ -90,8 +90,8 @@ var InfoElement = React.createClass({
                                 scale={[.1,.1,.1]}
                                 source={this.props.content} />
                         </ViroAnimatedComponent>
-                    </ViroView>
-                </ViroView>
+                    </ViroNode>
+                </ViroNode>
         );
     },
 

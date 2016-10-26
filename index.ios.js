@@ -20,6 +20,7 @@ import {
 var scenes = {
 //  'Flickr Photo Explorer': require('./js/FlickrPhotoExplorer/MainScene'),
     '360 Photo Tour': require('./js/360PhotoTour/MainScene'),
+//  'Human Body': require('./js/HumanBody/MainScene'),
 //  'Viro Media Player': require('./js/ViroMediaPlayer/MainScene'),
 //  'Inside the Human Body': require('./js/HumanBody/MainScene'),
 }

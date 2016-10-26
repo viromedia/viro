@@ -16,12 +16,11 @@ import React, { Component } from 'react';
 import {
     StyleSheet,
     ViroScene,
-    ViroOmniLight,
     Viro360Photo,
     ViroImage,
     ViroAnimations,
     ViroAnimatedComponent,
-    ViroView,
+    ViroNode,
     ViroText
 } from 'react-viro';
 
@@ -47,8 +46,6 @@ var MainScene = React.createClass({
     render: function() {
         return (
             <ViroScene style={styles.container}>
-                <ViroOmniLight position={[0, 0, 0]} color="#ffffff"
-                               attenuationStartDistance={40} attenuationEndDistance={50}/>
                 <Viro360Photo source={backgroundImage} onLoadEnd={this._onBackgroundPhotoLoadEnd}/>
                 <ViroAnimatedComponent animation="showTitleAnimation"
                                        run={this.state.runShowTitleAnimation} loop={false}>
