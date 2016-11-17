@@ -3,10 +3,11 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "node node_modules/react-viro/local-cli/cli.js start"
+    "start": "node node_modules/react-viro/local-cli/cli.js start",
+    "postinstall": "npm install -g ngrok@2.2.3"
   },
   "dependencies": {
     "react": "15.3.1",
-    "react-viro": "0.0.42"
+    "react-viro": "0.0.45"
   }
 }
