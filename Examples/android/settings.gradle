@@ -1,0 +1,3 @@
+rootProject.name = 'ViroSample'
+
+include ':app', ':gvr_common', ':viro_renderer', ':viro_bridge'

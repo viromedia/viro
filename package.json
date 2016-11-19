@@ -1,0 +1,19 @@
+{
+  "name": "react-viro",
+  "main": "index.js",
+  "version": "0.0.1",
+  "scripts": {
+    "start": "node Examples/node_modules/react-native/local-cli/cli.js start",
+    "test": "jest"
+  },
+  "jest": {
+    "preset": "jest-react-native"
+  },
+  "peerDependencies": {
+    "react": ">=15.3.2",
+    "react-native": ">=0.37.0"
+  },
+  "files": [
+    "components"
+  ]
+}
