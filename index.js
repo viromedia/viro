@@ -1,6 +1,6 @@
 /**
- * Copyright (c) 2015-present, Facebook, Inc.
- * All rights reserved.
+ * Copyright (c) 2016-present, Viro Media, Inc.
+ * All rights reserved. 
  *
  */
 'use strict';

@@ -4,6 +4,7 @@
 /android/app/gradlew
 /android/app/gradlew.bat
 /android/.idea
+*.gradle/
 
 Examples/android/app/build/
 Examples/android/app/gradle/
@@ -21,6 +22,6 @@ Examples/android/local.properties
 # Node
 Examples/node_modules
 
-
-
-
+*.DS_Store
+*local.properties
+*build/
