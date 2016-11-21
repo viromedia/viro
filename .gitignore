@@ -10,12 +10,13 @@ Examples/android/app/gradle/
 Examples/android/app/gradlew
 Examples/android/app/gradlew.bat
 Examples/android/app/.idea
+*.iml
 
 # Android
 Examples/android/.idea
 Examples/android/.gradle
 Examples/android/local.properties
-Examples/android/*.iml
+
 
 # Node
 Examples/node_modules
