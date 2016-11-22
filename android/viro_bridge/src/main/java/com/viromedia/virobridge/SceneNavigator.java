@@ -6,47 +6,34 @@ package com.viromedia.virobridge;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
-import android.graphics.Point;
 import android.os.Bundle;
 import android.util.AttributeSet;
-import android.util.DisplayMetrics;
-import android.util.Log;
-import android.view.Display;
-import android.view.View;
 import android.widget.FrameLayout;
 
-import com.facebook.react.bridge.LifecycleEventListener;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.viro.renderer.ViroGvrLayout;
 
 /**
  * SceneNavigator manages the various scenes that a Viro App can navigate between.
  */
-public class SceneNavigator extends FrameLayout implements LifecycleEventListener,Application.ActivityLifecycleCallbacks {
+public class SceneNavigator extends FrameLayout implements Application.ActivityLifecycleCallbacks {
     private ViroGvrLayout mViroGvrLayout;
-    private Point mScreenSize;
-    private DisplayMetrics mMetrics;
 
     public SceneNavigator(ReactApplicationContext reactContext){
         this(reactContext.getBaseContext(), null, -1);
-        reactContext.addLifecycleEventListener(this);
-        Application app = (Application)reactContext.getApplicationContext();
+
+        Application app = (Application )reactContext.getApplicationContext();
         app.registerActivityLifecycleCallbacks(this);
 
         mViroGvrLayout = new ViroGvrLayout(reactContext.getCurrentActivity());
+        addView(mViroGvrLayout);
 
-        LayoutParams rlp = new LayoutParams(
-                LayoutParams.MATCH_PARENT,
-                LayoutParams.MATCH_PARENT
-        );
-
-        Display screenDisplay = reactContext.getCurrentActivity().getWindowManager().getDefaultDisplay();
-        mScreenSize = new Point();
-        screenDisplay.getSize(mScreenSize);
-        mMetrics = app.getResources().getDisplayMetrics();
-
-       // this.setLayoutParams(rlp);
-       this.addView(mViroGvrLayout, rlp);
+        /**
+         * Call onCreate() here for the gvrLayout as the Activity has
+         * already progressed beyond onCreate and is within onResume
+         * by the time we construct a SceneNavigator.
+         */
+        mViroGvrLayout.onCreate();
     }
 
     public SceneNavigator(Context context) {
@@ -62,37 +49,8 @@ public class SceneNavigator extends FrameLayout implements LifecycleEventListene
     }
 
     @Override
-    public void onHostResume() {
-        mViroGvrLayout.onCreate(null);
-        mViroGvrLayout.onResume();
-    }
-
-    @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec){
-        int parentWidth = MeasureSpec.getSize(widthMeasureSpec);
-        int parentHeight = MeasureSpec.getSize(heightMeasureSpec);
-        super.onMeasure(parentWidth,parentHeight);
-
-        LayoutParams parms = new LayoutParams(mMetrics.widthPixels, mMetrics.heightPixels);
-
-        this.setLayoutParams(parms);
-        this.setMeasuredDimension(mMetrics.widthPixels, mMetrics.heightPixels);
-      //  super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-    }
-
-    @Override
-    public void onHostPause() {
-        //No-op
-    }
-
-    @Override
-    public void onHostDestroy() {
-        //No-op
-    }
-
-    @Override
     public void onActivityCreated(Activity activity, Bundle bundle) {
-        //No-op
+        mViroGvrLayout.onCreate();
     }
 
     @Override
@@ -102,11 +60,11 @@ public class SceneNavigator extends FrameLayout implements LifecycleEventListene
 
     @Override
     public void onActivityResumed(Activity activity) {
-        //No-op
+        mViroGvrLayout.onResume();
     }
 
     @Override
-    public void onActivityPaused(Activity activity) {
+    public void onActivityPaused(Activity activity){
         mViroGvrLayout.onPause();
     }
 

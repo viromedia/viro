@@ -9,7 +9,8 @@
 var NativeModules = require('NativeModules');
 var PropTypes = require('react/lib/ReactPropTypes');
 var React = require('React');
-import { requireNativeComponent, View } from 'react-native';
+
+import { requireNativeComponent, View, StyleSheet } from 'react-native';
 
 var ViroSceneNavigator = React.createClass({
   propTypes: {
@@ -17,10 +18,19 @@ var ViroSceneNavigator = React.createClass({
   },
   render: function() {
     return (
-        <VRTSceneNavigator {...this.props} />
+        <VRTSceneNavigator {...this.props} style={...this.props.style, ...styles.container}/>
     );
   }
 });
+
+var styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+});
+
 
 var VRTSceneNavigator = requireNativeComponent(
     'VRTSceneNavigator', ViroSceneNavigator
