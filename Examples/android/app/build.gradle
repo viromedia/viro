@@ -1,5 +1,5 @@
 apply plugin: "com.android.application"
-
+apply from: "../../node_modules/react-native/react.gradle"
 import com.android.build.OutputFile
 
 /**
@@ -65,8 +65,6 @@ import com.android.build.OutputFile
  * ]
  */
 
-apply from: "../../node_modules/react-native/react.gradle"
-
 /**
  * Set this to true to create two separate APKs instead of one:
  *   - An APK that only works on ARM devices
@@ -131,9 +129,9 @@ dependencies {
     compile "com.facebook.react:react-native:+"  // From node_modules
 
     // Viro modules
-    compile project(':gvr_common')
-    compile project(':viro_renderer')
-    compile project(':viro_bridge')
+    compile project(path: ':gvr_common')
+    compile project(path: ':viro_renderer')
+    compile project(path: ':viro_bridge')
     compile 'com.google.protobuf.nano:protobuf-javanano:3.0.0-alpha-7'
 }
 

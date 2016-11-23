@@ -1,3 +1,7 @@
 rootProject.name = 'ViroSample'
 
 include ':app', ':gvr_common', ':viro_renderer', ':viro_bridge'
+
+project(':gvr_common').projectDir = new File('../../android/gvr_common')
+project(':viro_renderer').projectDir = new File('../../android/viro_renderer')
+project(':viro_bridge').projectDir = new File('../../android/viro_bridge')

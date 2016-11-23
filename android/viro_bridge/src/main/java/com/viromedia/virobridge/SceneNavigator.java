@@ -33,7 +33,7 @@ public class SceneNavigator extends FrameLayout implements Application.ActivityL
          * already progressed beyond onCreate and is within onResume
          * by the time we construct a SceneNavigator.
          */
-        mViroGvrLayout.onCreate();
+        mViroGvrLayout.onCreate(null);
     }
 
     public SceneNavigator(Context context) {
@@ -50,7 +50,7 @@ public class SceneNavigator extends FrameLayout implements Application.ActivityL
 
     @Override
     public void onActivityCreated(Activity activity, Bundle bundle) {
-        mViroGvrLayout.onCreate();
+        mViroGvrLayout.onCreate(null);
     }
 
     @Override
