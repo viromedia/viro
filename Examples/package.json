@@ -8,7 +8,8 @@
   },
   "dependencies": {
     "react": "15.3.2",
-    "react-native": "0.37.0"
+    "react-native": "0.37.0",
+    "react-viro": "../"
   },
   "jest": {
     "preset": "jest-react-native"
