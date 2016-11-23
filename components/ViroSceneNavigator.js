@@ -18,7 +18,7 @@ var ViroSceneNavigator = React.createClass({
   },
   render: function() {
     return (
-        <VRTSceneNavigator {...this.props} style=style={this.props.style, styles.container}/>
+        <VRTSceneNavigator {...this.props} style={this.props.style, styles.container}/>
     );
   }
 });
