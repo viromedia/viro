@@ -16,13 +16,15 @@ import {
 
 import {
   ViroSceneNavigator,
-  TestView
+  ViroScene
 } from 'react-viro';
 
 export default class ViroSample extends Component {
   render() {
     return (
-        <ViroSceneNavigator />
+        <ViroSceneNavigator>
+          <ViroScene />
+        </ViroSceneNavigator>
     );
   }
 }

@@ -8,7 +8,7 @@
 const ReactViro = {
   // Components
   get ViroSceneNavigator() { return require('./components/ViroSceneNavigator'); },
+  get ViroScene() { return require('./components/ViroScene'); }
 }
-
 
 module.exports = ReactViro;

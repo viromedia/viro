@@ -10,30 +10,21 @@ var NativeModules = require('NativeModules');
 var PropTypes = require('react/lib/ReactPropTypes');
 var React = require('React');
 
-import { requireNativeComponent, View, StyleSheet } from 'react-native';
+import { requireNativeComponent, View } from 'react-native';
 
-var ViroSceneNavigator = React.createClass({
+var ViroScene = React.createClass({
   propTypes: {
     ...View.propTypes,
   },
   render: function() {
     return (
-        <VRTSceneNavigator {...this.props} style={this.props.style, styles.container}/>
+        <VRTScene {...this.props} />
     );
   }
 });
 
-var styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-});
-
-
-var VRTSceneNavigator = requireNativeComponent(
-    'VRTSceneNavigator', ViroSceneNavigator
+var VRTScene = requireNativeComponent(
+    'VRTScene', ViroScene
 );
 
-module.exports = ViroSceneNavigator;
+module.exports = ViroScene;

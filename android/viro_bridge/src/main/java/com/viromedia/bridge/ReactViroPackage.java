@@ -1,5 +1,5 @@
 /**
- * Copyright @2016 ViroMedia. All rights reserved.
+ * Copyright © 2016 Viro Media. All rights reserved.
  */
 package com.viromedia.bridge;
 
@@ -8,6 +8,7 @@ import com.facebook.react.bridge.JavaScriptModule;
 import com.facebook.react.bridge.NativeModule;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.uimanager.ViewManager;
+import com.viromedia.bridge.view.SceneManager;
 import com.viromedia.bridge.view.SceneNavigatorManager;
 
 import java.util.Arrays;
@@ -31,6 +32,8 @@ public class ReactViroPackage implements ReactPackage {
 
     @Override
     public List<ViewManager> createViewManagers(ReactApplicationContext reactContext) {
-        return Arrays.<ViewManager>asList(new SceneNavigatorManager(reactContext));
+        return Arrays.<ViewManager>asList(
+                new SceneNavigatorManager(reactContext),
+                new SceneManager(reactContext));
     }
 }
