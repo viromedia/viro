@@ -1,7 +1,7 @@
 /**
  * Copyright @2016 ViroMedia. All rights reserved.
  */
-package com.viromedia.virobridge;
+package com.viromedia.bridge.view;
 
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.uimanager.SimpleViewManager;
