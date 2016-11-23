@@ -130,7 +130,8 @@ dependencies {
 
     // Viro modules
     compile project(path: ':gvr_common')
-    compile project(path: ':viro_renderer')
+    releaseCompile project(path: ':viro_renderer', configuration: 'release')
+    debugCompile project(path: ':viro_renderer', configuration: 'debug')
     compile project(path: ':viro_bridge')
     compile 'com.google.protobuf.nano:protobuf-javanano:3.0.0-alpha-7'
 }
