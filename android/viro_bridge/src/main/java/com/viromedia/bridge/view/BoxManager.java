@@ -7,21 +7,25 @@ import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.uimanager.SimpleViewManager;
 import com.facebook.react.uimanager.ThemedReactContext;
 
-public class SceneManager extends SimpleViewManager<Scene> {
+/**
+ * BoxManager for building a {@link Box}
+ * corresponding to the ViroBox.js control.
+ */
+public class BoxManager extends SimpleViewManager<Box> {
     private final ReactApplicationContext mContext;
 
-    public SceneManager(ReactApplicationContext context){
+    public BoxManager(ReactApplicationContext context){
         mContext = context;
     }
 
     @Override
     public String getName() {
-        return "VRTScene";
+        return "VRTBox";
     }
 
     @Override
-    protected Scene createViewInstance(ThemedReactContext reactContext) {
-        return new Scene(mContext);
+    protected Box createViewInstance(ThemedReactContext reactContext) {
+        return new Box(mContext);
     }
 
 }

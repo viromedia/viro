@@ -8,8 +8,9 @@ import com.facebook.react.bridge.JavaScriptModule;
 import com.facebook.react.bridge.NativeModule;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.uimanager.ViewManager;
-import com.viromedia.bridge.view.SceneManager;
-import com.viromedia.bridge.view.SceneNavigatorManager;
+import com.viromedia.bridge.viewgroups.SceneManager;
+import com.viromedia.bridge.view.BoxManager;
+import com.viromedia.bridge.viewgroups.SceneNavigatorManager;
 
 import java.util.Arrays;
 import java.util.List;
@@ -34,6 +35,7 @@ public class ReactViroPackage implements ReactPackage {
     public List<ViewManager> createViewManagers(ReactApplicationContext reactContext) {
         return Arrays.<ViewManager>asList(
                 new SceneNavigatorManager(reactContext),
-                new SceneManager(reactContext));
+                new SceneManager(reactContext),
+                new BoxManager(reactContext));
     }
 }

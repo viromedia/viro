@@ -16,14 +16,17 @@ import {
 
 import {
   ViroSceneNavigator,
-  ViroScene
+  ViroScene,
+  ViroBox
 } from 'react-viro';
 
 export default class ViroSample extends Component {
   render() {
     return (
         <ViroSceneNavigator>
-          <ViroScene />
+          <ViroScene >
+            <ViroBox/>
+          </ViroScene>
         </ViroSceneNavigator>
     );
   }

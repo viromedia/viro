@@ -1,14 +1,15 @@
 /**
  * Copyright © 2016 Viro Media. All rights reserved.
  */
-package com.viromedia.bridge.view;
+package com.viromedia.bridge.viewgroups;
 
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.uimanager.ViewGroupManager;
 import com.facebook.react.uimanager.ThemedReactContext;
 
 /**
- * SceneNavigatorManager for building a {@link SceneNavigator} corresponding to the ViroSceneNavigator.js control.
+ * SceneNavigatorManager for building a {@link SceneNavigator}
+ * corresponding to the ViroSceneNavigator.js control.
  */
 public class SceneNavigatorManager extends ViewGroupManager<SceneNavigator> {
     private final ReactApplicationContext mContext;
