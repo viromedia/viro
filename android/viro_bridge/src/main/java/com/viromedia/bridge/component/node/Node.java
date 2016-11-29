@@ -9,14 +9,26 @@ import android.view.View;
 import android.widget.FrameLayout;
 
 import com.viro.renderer.jni.NodeJni;
+import com.viromedia.bridge.component.AnimatedComponent;
+import com.viromedia.bridge.component.Component;
+import com.viromedia.bridge.component.Light;
+
+import java.util.ArrayList;
 
 /**
- * Node is inherited from all container views (any view that has at least
- * one child view, whether it be of type VRTControl or VRTGroup). It also contains
- * a node to which all child views are parented to.
+ * Node is inherited by any component which is represented by a VRONode in native
  */
-public class Node extends FrameLayout {
+public class Node extends Component {
+
     private final NodeJni mNodeJni;
+
+    protected ArrayList<String> materials;
+    protected double[] position;
+    protected double[] rotation;
+    protected double[] scale;
+    protected double opacity;
+    protected ArrayList<String> transformBehaviors;
+    protected boolean visible;
 
     public Node(Context context) {
         this(context, null, -1, -1);
@@ -39,17 +51,36 @@ public class Node extends FrameLayout {
         return mNodeJni;
     }
 
+    // TODO: handle children separate from android viewgroup childViews
     @Override
     public void addView(View child, int index) {
         super.addView(child, index);
-        final Node childNode = (Node)child;
-        mNodeJni.addChildNode(childNode.mNodeJni);
+
+        if (child instanceof Light) {
+            // TODO: Add a light
+        } else if (child instanceof Node) {
+            final Node childNode = (Node) child;
+            mNodeJni.addChildNode(childNode.mNodeJni);
+        } else if (child instanceof AnimatedComponent) {
+            // TODO: handle AnimatedComponents
+        } else {
+            // TODO: Throw Error? Red Screen?
+        }
     }
 
     @Override
     public void removeView(View child) {
         super.addView(child);
-        final Node childNode = (Node)child;
-        mNodeJni.removeChildNode(childNode.mNodeJni);
+
+        if (child instanceof Light) {
+            // TODO: Add a light
+        } else if (child instanceof Node) {
+            final Node childNode = (Node) child;
+            mNodeJni.removeChildNode(childNode.mNodeJni);
+        } else if (child instanceof AnimatedComponent) {
+            // TODO: handle AnimatedComponents
+        } else {
+            // TODO: Throw Error? Red Screen?
+        }
     }
 }
