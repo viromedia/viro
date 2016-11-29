@@ -1,13 +1,13 @@
 /**
  * Copyright © 2016 Viro Media. All rights reserved.
  */
-package com.viromedia.bridge.viewgroups;
+package com.viromedia.bridge.view;
 
 import android.content.Context;
 import android.util.AttributeSet;
 import com.viro.renderer.jni.SceneJni;
 
-public class Scene extends VRTGroup {
+public class Scene extends Node {
     private static final String TAG = Scene.class.getSimpleName();
     private final SceneJni mNativeScene;
 
@@ -25,7 +25,7 @@ public class Scene extends VRTGroup {
 
     public Scene(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
-        mNativeScene = new SceneJni(mNode);
+        mNativeScene = new SceneJni(getNodeJni());
     }
 
     public SceneJni getNativeScene(){

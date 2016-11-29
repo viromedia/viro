@@ -1,7 +1,7 @@
 /**
  * Copyright © 2016 Viro Media. All rights reserved.
  */
-package com.viromedia.bridge.viewgroups;
+package com.viromedia.bridge.view;
 
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.uimanager.ViewGroupManager;
