@@ -1,7 +1,7 @@
 /**
  * Copyright © 2016 Viro Media. All rights reserved.
  */
-package com.viromedia.bridge.view;
+package com.viromedia.bridge.component;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -11,6 +11,7 @@ import android.widget.FrameLayout;
 
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.viro.renderer.jni.ViroGvrLayout;
+import com.viromedia.bridge.component.node.Scene;
 
 import java.util.ArrayList;
 

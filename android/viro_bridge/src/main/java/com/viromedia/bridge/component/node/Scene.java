@@ -1,7 +1,7 @@
 /**
  * Copyright © 2016 Viro Media. All rights reserved.
  */
-package com.viromedia.bridge.view;
+package com.viromedia.bridge.component.node;
 
 import android.content.Context;
 import android.util.AttributeSet;

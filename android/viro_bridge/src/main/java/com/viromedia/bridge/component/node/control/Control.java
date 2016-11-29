@@ -1,13 +1,13 @@
 /**
  * Copyright © 2016 Viro Media. All rights reserved.
  */
-package com.viromedia.bridge.view;
+package com.viromedia.bridge.component.node.control;
 
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.viro.renderer.jni.NodeJni;
+import com.viromedia.bridge.component.node.Node;
 
 /**
  * Control is inherited by all Viro UI controls that

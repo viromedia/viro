@@ -8,9 +8,9 @@ import com.facebook.react.bridge.JavaScriptModule;
 import com.facebook.react.bridge.NativeModule;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.uimanager.ViewManager;
-import com.viromedia.bridge.view.SceneManager;
-import com.viromedia.bridge.view.BoxManager;
-import com.viromedia.bridge.view.SceneNavigatorManager;
+import com.viromedia.bridge.component.node.SceneManager;
+import com.viromedia.bridge.component.node.control.BoxManager;
+import com.viromedia.bridge.component.SceneNavigatorManager;
 
 import java.util.Arrays;
 import java.util.List;
