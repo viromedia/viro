@@ -14,7 +14,7 @@ public class Box extends Control {
          * TODO
          * Pass in dimension / positional properties of a given ViroBox when creating the native BoxJNI element.
          */
-        BoxJni boxGeometry = new BoxJni(reactContext.getBaseContext(), 2,4,2);
+        BoxJni boxGeometry = new BoxJni(2,4,2);
         getNodeJni().setGeometry(boxGeometry);
         getNodeJni().setPosition(0,0,-5);
     }
