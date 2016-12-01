@@ -11,6 +11,7 @@ import com.facebook.react.uimanager.ViewManager;
 import com.viromedia.bridge.component.node.SceneManager;
 import com.viromedia.bridge.component.node.control.BoxManager;
 import com.viromedia.bridge.component.SceneNavigatorManager;
+import com.viromedia.bridge.module.MaterialManager;
 
 import java.util.Arrays;
 import java.util.List;
@@ -23,7 +24,9 @@ import static java.util.Collections.emptyList;
 public class ReactViroPackage implements ReactPackage {
     @Override
     public List<NativeModule> createNativeModules(ReactApplicationContext reactContext) {
-        return emptyList();
+        return Arrays.<NativeModule>asList(
+                new MaterialManager(reactContext)
+        );
     }
 
     @Override

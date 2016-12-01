@@ -17,7 +17,8 @@ import {
 import {
   ViroSceneNavigator,
   ViroScene,
-  ViroBox
+  ViroBox,
+  Materials,
 } from 'react-viro';
 
 export default class ViroSample extends Component {
@@ -49,6 +50,33 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#333333',
     marginBottom: 5,
+  },
+});
+
+Materials.createMaterials({
+  blue: {
+    shininess: 2.0,
+    lightingModel: "Lambert",
+    diffuseColor: "#0000ff"
+  },
+  black: {
+    shininess: 2.0,
+    lightingModel: "Lambert",
+    diffuseColor: "#000000"
+  },
+  red: {
+    shininess: 2.0,
+    lightingModel: "Lambert",
+    diffuseColor: "#ff0000"
+  },
+  wework_title: {
+    shininess: 1.0,
+    lightingModel: "Lambert",
+    // TODO: we currently can't create any image-backed resources
+    //diffuseTexture: require("./js/res/new_menu_screen.jpg"),
+    readsFromDepthBuffer: false,
+    cullMode: "None",
+    fresnelExponent: .5,
   },
 });
 
