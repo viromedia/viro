@@ -5,13 +5,13 @@ package com.viromedia.bridge.component.node.control;
 
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.uimanager.ThemedReactContext;
-import com.facebook.react.uimanager.ViewGroupManager;
+import com.viromedia.bridge.component.node.NodeManager;
 
 /**
  * BoxManager for building a {@link Box}
  * corresponding to the ViroBox.js control.
  */
-public class BoxManager extends ViewGroupManager<Box> {
+public class BoxManager extends NodeManager<Box> {
     private final ReactApplicationContext mContext;
 
     public BoxManager(ReactApplicationContext context){

@@ -16,6 +16,8 @@ public class Box extends Control {
          */
         BoxJni boxGeometry = new BoxJni(2,4,2);
         getNodeJni().setGeometry(boxGeometry);
-        getNodeJni().setPosition(0,0,-5);
+
+        float[] position = {0,0,-5};
+        getNodeJni().setPosition(position);
     }
 }

@@ -5,14 +5,14 @@ package com.viromedia.bridge.component.node;
 
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.uimanager.ThemedReactContext;
-import com.facebook.react.uimanager.ViewGroupManager;
 
 /**
  * SceneManager for building a {@link Scene}
  * corresponding to the ViroScene.js control.
  */
-public class SceneManager extends ViewGroupManager<Scene> {
-    private final ReactApplicationContext mContext;
+public class SceneManager extends ViroViewGroupManager<Scene> {
+    protected final ReactApplicationContext mContext;
+
     public SceneManager(ReactApplicationContext context){
         mContext = context;
     }

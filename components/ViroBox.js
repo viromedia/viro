@@ -14,7 +14,6 @@ import { requireNativeComponent, View } from 'react-native';
 
 var ViroBox = React.createClass({
   propTypes: {
-    ...View.propTypes,
   },
   render: function() {
     return (
