@@ -26,7 +26,7 @@ export default class ViroSample extends Component {
     return (
         <ViroSceneNavigator>
           <ViroScene >
-            <ViroBox/>
+
           </ViroScene>
         </ViroSceneNavigator>
     );

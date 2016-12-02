@@ -25,7 +25,7 @@ import com.facebook.react.uimanager.ViewManager;
  *
  * IMPORTANT NOTE: This class is copied from {@link com.facebook.react.uimanager.ViewGroupManager}
  * but instead extends from ViewManager and ReactShadowNode to prevent the inclusion of
- * required Android Proptypes.
+ * required Android Prop Types.
  */
 public abstract class ViroViewGroupManager <T extends ViewGroup>
         extends ViewManager<T, ReactShadowNode> {

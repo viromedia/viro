@@ -44,7 +44,9 @@ public abstract class NodeManager <T extends Node> extends ViroViewGroupManager<
         }
 
         float[] result = new float[value.size()];
-        toFloatArray(value, result);
+        for (int i = 0; i < value.size(); i++) {
+            result[i] = (float) value.getDouble(i);
+        }
         return result;
     }
 
