@@ -11,6 +11,7 @@ const ReactViro = {
   get ViroScene() { return require('./components/ViroScene'); },
   get ViroBox() { return require('./components/ViroBox'); },
   get Materials() { return require('./components/Material/Materials'); },
+  get ViroVideo() { return require('./components/ViroVideo'); },
 }
 
 module.exports = ReactViro;

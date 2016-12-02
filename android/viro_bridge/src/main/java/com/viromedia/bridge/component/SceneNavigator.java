@@ -8,11 +8,10 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
-
 import com.facebook.react.bridge.ReactApplicationContext;
+import com.viro.renderer.jni.RenderContextJni;
 import com.viro.renderer.jni.ViroGvrLayout;
 import com.viromedia.bridge.component.node.Scene;
-
 import java.util.ArrayList;
 
 /**
@@ -40,11 +39,17 @@ public class SceneNavigator extends FrameLayout {
      */
     private final ArrayList<Scene> mSceneArray = new ArrayList<Scene>();
 
+    /**
+     * Context passed around to views to get render specific information.
+     */
+    private RenderContextJni mRenderContext;
+
     public SceneNavigator(ReactApplicationContext reactContext) {
         this(reactContext.getBaseContext(), null, -1);
 
         mViroGvrLayout = new ViroGvrLayout(reactContext.getCurrentActivity(), true);
         addView(mViroGvrLayout);
+        mRenderContext = mViroGvrLayout.getRenderContextRef();
     }
 
     public SceneNavigator(Context context) {
@@ -71,12 +76,16 @@ public class SceneNavigator extends FrameLayout {
         // This is how react adds child views
         super.addView(child, index);
 
-        if (!(child instanceof Scene)){
-            Log.e(TAG, "Attempted to add a non-scene element to SceneNavigator!");
+        if (child instanceof  ViroGvrLayout){
             return;
         }
 
+        if (!(child instanceof Scene)){
+            throw new IllegalArgumentException("Attempted to add a non-scene element to SceneNavigator");
+        }
+
         Scene childScene = (Scene)child;
+        childScene.setRenderContext(mRenderContext);
         mSceneArray.add(index, childScene);
         if (mSelectedSceneIndex == index){
             mViroGvrLayout.setScene(mSceneArray.get(mSelectedSceneIndex).getNativeScene());
@@ -85,7 +94,6 @@ public class SceneNavigator extends FrameLayout {
 
     @Override
     public void removeView(View view){
-        mViroGvrLayout.removeView(view);
         super.removeView(view);
     }
 }

@@ -22,16 +22,14 @@ import {
 } from 'react-viro';
 
 export default class ViroSample extends Component {
-  render() {
-    return (
-        <ViroSceneNavigator>
-          <ViroScene >
-
-          </ViroScene>
-        </ViroSceneNavigator>
-    );
-  }
-}
+    render() {
+        return (
+                <ViroSceneNavigator>
+                  <ViroScene />
+                </ViroSceneNavigator>
+            );
+    }
+};
 
 const styles = StyleSheet.create({
   container: {

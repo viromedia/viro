@@ -51,6 +51,7 @@ public class Node extends Component {
     @Override
     public void addView(View child, int index) {
         super.addView(child, index);
+
         if (child instanceof Light) {
             // TODO: Add a light
         } else if (child instanceof Node) {
@@ -65,7 +66,7 @@ public class Node extends Component {
 
     @Override
     public void removeView(View child) {
-        super.addView(child);
+        super.removeView(child);
 
         if (child instanceof Light) {
             // TODO: Add a light

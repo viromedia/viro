@@ -11,6 +11,7 @@ import com.facebook.react.uimanager.ViewManager;
 import com.viromedia.bridge.component.node.SceneManager;
 import com.viromedia.bridge.component.node.control.BoxManager;
 import com.viromedia.bridge.component.SceneNavigatorManager;
+import com.viromedia.bridge.component.node.control.VideoSurfaceManager;
 import com.viromedia.bridge.module.MaterialManager;
 
 import java.util.Arrays;
@@ -39,6 +40,7 @@ public class ReactViroPackage implements ReactPackage {
         return Arrays.<ViewManager>asList(
                 new SceneNavigatorManager(reactContext),
                 new SceneManager(reactContext),
-                new BoxManager(reactContext));
+                new BoxManager(reactContext),
+                new VideoSurfaceManager(reactContext));
     }
 }
