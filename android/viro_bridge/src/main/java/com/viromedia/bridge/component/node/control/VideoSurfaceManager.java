@@ -19,10 +19,9 @@ import java.util.Map;
  * corresponding to the ViroVideo.js control.
  */
 public class VideoSurfaceManager extends NodeManager<VideoSurface> {
-    private final ReactApplicationContext mContext;
 
-    public VideoSurfaceManager(ReactApplicationContext context){
-        mContext = context;
+    public VideoSurfaceManager(ReactApplicationContext context) {
+        super(context);
     }
 
     @Override
@@ -32,7 +31,7 @@ public class VideoSurfaceManager extends NodeManager<VideoSurface> {
 
     @Override
     protected VideoSurface createViewInstance(ThemedReactContext reactContext) {
-        VideoSurface video =  new VideoSurface(mContext);
+        VideoSurface video =  new VideoSurface(getContext());
         return video;
     }
 

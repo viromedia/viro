@@ -5,6 +5,7 @@ package com.viromedia.bridge.component.node.control;
 
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.uimanager.ThemedReactContext;
+import com.facebook.react.uimanager.annotations.ReactProp;
 import com.viromedia.bridge.component.node.NodeManager;
 
 /**
@@ -12,10 +13,9 @@ import com.viromedia.bridge.component.node.NodeManager;
  * corresponding to the ViroBox.js control.
  */
 public class BoxManager extends NodeManager<Box> {
-    private final ReactApplicationContext mContext;
 
     public BoxManager(ReactApplicationContext context){
-        mContext = context;
+        super(context);
     }
 
     @Override
@@ -25,7 +25,21 @@ public class BoxManager extends NodeManager<Box> {
 
     @Override
     protected Box createViewInstance(ThemedReactContext reactContext) {
-        return new Box(mContext);
+        return new Box(getContext());
     }
 
+    @ReactProp(name = "width", defaultFloat = 1.0f)
+    public void setWidth(Box box, float width) {
+        box.setWidth(width);
+    }
+
+    @ReactProp(name = "height", defaultFloat = 1.0f)
+    public void setHeight(Box box, float height) {
+        box.setWidth(height);
+    }
+
+    @ReactProp(name = "length", defaultFloat = 1.0f)
+    public void setLength(Box box, float length) {
+        box.setLength(length);
+    }
 }

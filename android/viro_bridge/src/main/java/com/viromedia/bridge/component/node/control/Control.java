@@ -33,11 +33,11 @@ public class Control extends Node {
 
     @Override
     public void addView(View child, int index) {
-        // TODO: show red screen
+        throw new IllegalStateException("Can't add child. Controls should not have children views.");
     }
 
     @Override
     public void removeView(View child) {
-        // TODO: show red screen
+        throw new IllegalStateException("Can't remove child. Controls should not have children views.");
     }
 }

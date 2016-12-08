@@ -5,27 +5,37 @@ package com.viromedia.bridge.component.node;
 
 import android.support.annotation.Nullable;
 
+import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.uimanager.annotations.ReactProp;
+import com.viro.renderer.jni.MaterialJni;
+import com.viromedia.bridge.module.MaterialManager;
+
+import java.util.ArrayList;
 
 /**
  * Abstract NodeManager for setting {@link Node} Control properties.
  * NOTE: Always extend from this class for all Node Viro controls.
  */
 public abstract class NodeManager <T extends Node> extends ViroViewGroupManager<T>{
-    @ReactProp(name = "position", defaultFloat = 1f)
-    public void setPosition(T view, ReadableArray sources) {
-        view.setPosition(toFloatArray(sources));
+
+    public NodeManager(ReactApplicationContext context) {
+        super(context);
     }
 
-    @ReactProp(name = "rotation", defaultFloat = 1f)
-    public void setRotation(Node view, ReadableArray sources) {
-        view.setRotation(toFloatArray(sources));
+    @ReactProp(name = "position")
+    public void setPosition(T view, ReadableArray position) {
+        view.setPosition(toFloatArray(position));
     }
 
-    @ReactProp(name = "scale", defaultFloat = 1f)
-    public void setScale(Node view, ReadableArray sources) {
-        view.setScale(toFloatArray(sources));
+    @ReactProp(name = "rotation")
+    public void setRotation(Node view, ReadableArray rotation) {
+        view.setRotation(toFloatArray(rotation));
+    }
+
+    @ReactProp(name = "scale")
+    public void setScale(Node view, ReadableArray scale) {
+        view.setScale(toFloatArray(scale));
     }
 
     @ReactProp(name = "opacity", defaultFloat = 1f)
@@ -36,6 +46,22 @@ public abstract class NodeManager <T extends Node> extends ViroViewGroupManager<
     @ReactProp(name = "visible", defaultBoolean = true)
     public void setVisible(Node view, boolean visibility) {
         view.setVisible(visibility);
+    }
+
+    @ReactProp(name = "materials")
+    public void setMaterials(Node view, ReadableArray materials) {
+        // get material manager
+        MaterialManager materialManager = getContext().getNativeModule(MaterialManager.class);
+
+        ArrayList<MaterialJni> nativeMaterials = new ArrayList<>();
+        for (int i = 0; i < materials.size(); i++) {
+            MaterialJni nativeMaterial = materialManager.getMaterial(materials.getString(i));
+            if (nativeMaterial == null) {
+                throw new IllegalArgumentException("Material [" + materials.getString(i) + "] not found. Did you create it?");
+            }
+            nativeMaterials.add(nativeMaterial);
+        }
+        view.setMaterials(nativeMaterials);
     }
 
     private static @Nullable float[] toFloatArray(@Nullable ReadableArray value) {

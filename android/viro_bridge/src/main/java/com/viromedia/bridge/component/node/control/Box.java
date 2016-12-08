@@ -7,17 +7,51 @@ import com.facebook.react.bridge.ReactApplicationContext;
 import com.viro.renderer.jni.BoxJni;
 
 public class Box extends Control {
+    private BoxJni mNativeBox;
+    private float mWidth = 1.0f;
+    private float mHeight = 1.0f;
+    private float mLength = 1.0f;
+
     public Box(ReactApplicationContext reactContext) {
         super(reactContext);
+        createNativeBox();
+    }
 
-        /**
-         * TODO
-         * Pass in dimension / positional properties of a given ViroBox when creating the native BoxJNI element.
-         */
-        BoxJni boxGeometry = new BoxJni(2,4,2);
-        getNodeJni().setGeometry(boxGeometry);
+    public void setWidth(float width) {
+        if (width < 0) {
+            throw new IllegalArgumentException("Width of a box cannot be smaller than 0");
+        }
+        mWidth = width;
+        createNativeBox();
+    }
 
-        float[] position = {0,0,-5};
-        getNodeJni().setPosition(position);
+    public void setHeight(float height) {
+        if (height < 0) {
+            throw new IllegalArgumentException("Height of a box cannot be smaller than 0");
+        }
+        mHeight = height;
+        createNativeBox();
+    }
+
+    public void setLength(float length) {
+        if (length < 0) {
+            throw new IllegalArgumentException("Length of a box cannot be smaller than 0");
+        }
+        mLength = length;
+        createNativeBox();
+    }
+
+    /**
+     * Because we can't modify the width/height/length of a box, we need to
+     * create a new box, set it on the node, and then delete the old box for
+     * now.
+     */
+    private void createNativeBox() {
+        BoxJni oldBox = mNativeBox;
+        mNativeBox = new BoxJni(mWidth, mHeight, mLength);
+        setGeometry(mNativeBox);
+        if (oldBox != null) {
+            oldBox.destroy();
+        }
     }
 }

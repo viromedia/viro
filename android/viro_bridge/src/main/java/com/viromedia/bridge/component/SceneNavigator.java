@@ -5,13 +5,14 @@ package com.viromedia.bridge.component;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.viro.renderer.jni.RenderContextJni;
 import com.viro.renderer.jni.ViroGvrLayout;
 import com.viromedia.bridge.component.node.Scene;
+import com.viromedia.bridge.utility.ViroLog;
+
 import java.util.ArrayList;
 
 /**
@@ -22,7 +23,7 @@ import java.util.ArrayList;
  * not take into consideration the logic needed for multiple scene handling.
  */
 public class SceneNavigator extends FrameLayout {
-    private static final String TAG = SceneNavigator.class.getSimpleName();
+    private static final String TAG = ViroLog.getTag(SceneNavigator.class);
 
     /**
      * Layout containing our renderer
@@ -65,18 +66,15 @@ public class SceneNavigator extends FrameLayout {
     }
 
     @Override
-    public void addView(View child) {
-        // This is called by us in the constructor
-        super.addView(child);
-        Log.d(TAG, "Adding a view! " + child.getClass().getSimpleName());
-    }
-
-    @Override
     public void addView(View child, int index) {
-        // This is how react adds child views
-        super.addView(child, index);
-
-        if (child instanceof  ViroGvrLayout){
+        if (child instanceof ViroGvrLayout) {
+            // only add a view to the childViews if it's a ViroGvrLayout. This function is called
+            // by the single argument addView(child) method.
+            super.addView(child, index);
+            return;
+        } else if (!(child instanceof Scene)){
+            ViroLog.error(TAG, "Attempted to add a non-scene element [" + child.getClass().getSimpleName()
+                    + "] to SceneNavigator!");
             return;
         }
 
@@ -94,6 +92,11 @@ public class SceneNavigator extends FrameLayout {
 
     @Override
     public void removeView(View view){
-        super.removeView(view);
+        if (view instanceof ViroGvrLayout){
+            super.removeView(view);
+        } else if (view instanceof Scene) {
+            // TODO: also remove Scene from mViroGvrLayout if it's the current scene too.
+            mSceneArray.remove(view);
+        }
     }
 }

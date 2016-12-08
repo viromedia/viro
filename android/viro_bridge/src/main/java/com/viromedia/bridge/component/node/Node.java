@@ -8,10 +8,13 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import com.viro.renderer.jni.BaseGeometry;
+import com.viro.renderer.jni.MaterialJni;
 import com.viro.renderer.jni.NodeJni;
 import com.viromedia.bridge.component.AnimatedComponent;
 import com.viromedia.bridge.component.Component;
 import com.viromedia.bridge.component.Light;
+
+import java.util.List;
 
 /**
  * Node is inherited by any component which is represented by a VRONode in native
@@ -23,6 +26,7 @@ public class Node extends Component {
     protected float[] mScale;
     protected float mOpacity;
     protected boolean mVisible;
+    protected List<MaterialJni> mMaterials;
 
     // TODO: Handle Event, Flex box properties, and TransformBehaviors
 
@@ -120,5 +124,13 @@ public class Node extends Component {
 
     protected void setGeometry(BaseGeometry geometry){
         mNodeJni.setGeometry(geometry);
+        if (mMaterials != null) {
+            mNodeJni.setMaterials(mMaterials);
+        }
+    }
+
+    protected void setMaterials(List<MaterialJni> materials) {
+        mMaterials = materials;
+        mNodeJni.setMaterials(materials);
     }
 }

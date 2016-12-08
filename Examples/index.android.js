@@ -22,14 +22,17 @@ import {
 } from 'react-viro';
 
 export default class ViroSample extends Component {
-    render() {
-        return (
-                <ViroSceneNavigator>
-                  <ViroScene />
-                </ViroSceneNavigator>
-            );
-    }
-};
+  render() {
+    return (
+      <ViroSceneNavigator>
+        <ViroScene >
+          <ViroBox materials="wework_title" position={[0, 0, -5]} scale={[2, 4, 2]} />
+          <ViroBox materials="box_texture" position={[1, 5, -2]} scale={[3,3,3]} />
+        </ViroScene>
+      </ViroSceneNavigator>
+    );
+  }
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -69,13 +72,14 @@ Materials.createMaterials({
   },
   wework_title: {
     shininess: 1.0,
-    lightingModel: "Lambert",
-    // TODO: we currently can't create any image-backed resources
-    //diffuseTexture: require("./js/res/new_menu_screen.jpg"),
-    readsFromDepthBuffer: false,
-    cullMode: "None",
+    lightingModel: "Constant",
+    diffuseTexture: {"uri": "https://s3-us-west-2.amazonaws.com/viro/guadalupe_360.jpg"},
+    diffuseTexture: require("./js/res/new_menu_screen.jpg"),
     fresnelExponent: .5,
   },
+  box_texture: {
+    diffuseTexture: require("./js/res/sun_2302.jpg"),
+  }
 });
 
 AppRegistry.registerComponent('ViroSample', () => ViroSample);

@@ -14,6 +14,7 @@ import java.util.WeakHashMap;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.uimanager.ReactShadowNode;
 import com.facebook.react.uimanager.ViewManager;
 
@@ -30,7 +31,17 @@ import com.facebook.react.uimanager.ViewManager;
 public abstract class ViroViewGroupManager <T extends ViewGroup>
         extends ViewManager<T, ReactShadowNode> {
 
+    private final ReactApplicationContext mContext;
+
     public static WeakHashMap<View, Integer> mZIndexHash = new WeakHashMap<>();
+
+    public ViroViewGroupManager(ReactApplicationContext context) {
+        mContext = context;
+    }
+
+    public ReactApplicationContext getContext() {
+        return mContext;
+    }
 
     @Override
     public ReactShadowNode createShadowNodeInstance() {

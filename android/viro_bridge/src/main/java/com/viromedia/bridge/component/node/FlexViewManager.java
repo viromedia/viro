@@ -7,7 +7,7 @@ package com.viromedia.bridge.component.node;
 import com.facebook.react.uimanager.ThemedReactContext;
 import com.facebook.react.uimanager.ViewGroupManager;
 
-public class FlexViewManager  extends ViewGroupManager<FlexView> {
+public class FlexViewManager extends ViewGroupManager<FlexView> {
     @Override
     public String getName() {
         return "VRTFlexView";
