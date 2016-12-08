@@ -3,11 +3,11 @@
  */
 package com.viromedia.bridge.component.node.control;
 
-import android.view.View;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
 import com.viro.renderer.jni.RenderContextJni;
-import com.viro.renderer.jni.VideoSurfaceJni;
+import com.viro.renderer.jni.SurfaceJni;
+import com.viro.renderer.jni.VideoTextureJni;
 
 public class VideoSurface extends Control {
     private final float UNSET = -1f;
@@ -18,7 +18,8 @@ public class VideoSurface extends Control {
     private boolean mMuted;
     private float mVolume;
     private String mSource;
-    private VideoSurfaceJni mVideoSurfaceJni = null;
+    private SurfaceJni mSurfaceJni = null;
+    private VideoTextureJni mVideoTextureJni = null;
     private ReactApplicationContext mContext;
 
     public VideoSurface(ReactApplicationContext reactContext) {
@@ -27,8 +28,13 @@ public class VideoSurface extends Control {
     }
 
     public void tearDown() {
-        if (mVideoSurfaceJni != null) {
-            mVideoSurfaceJni.delete();
+        if (mSurfaceJni != null) {
+            mSurfaceJni.delete();
+            mSurfaceJni = null;
+        }
+        if (mVideoTextureJni != null){
+            mVideoTextureJni.delete();
+            mVideoTextureJni = null;
         }
     }
 
@@ -37,22 +43,34 @@ public class VideoSurface extends Control {
             return;
         }
 
-        if (mVideoSurfaceJni != null) {
-            mVideoSurfaceJni.delete();
+        if (mVideoTextureJni != null) {
+            mVideoTextureJni.delete();
+            mVideoTextureJni = null;
         }
 
-        mVideoSurfaceJni = new VideoSurfaceJni(mWidth, mHeight, mSource, mRenderContext);
-        getNodeJni().setGeometry(mVideoSurfaceJni);
+        if (mSurfaceJni != null) {
+            mSurfaceJni.delete();
+            mSurfaceJni = null;
+        }
+
+        // Create Texture
+        mVideoTextureJni = new VideoTextureJni();
+        mVideoTextureJni.loadSource(mSource, mRenderContext);
+        mVideoTextureJni.setVideoDelegate(new VideoTextureJni.VideoDelegate() {
+            @Override
+            public void onVideoFinish() {
+                playerDidFinishPlaying();
+            }
+        });
+
+        // Create surface and apply video texture
+        mSurfaceJni = new SurfaceJni(mWidth, mHeight);
+        mSurfaceJni.setVideoTexture(mVideoTextureJni);
+        getNodeJni().setGeometry(mSurfaceJni);
         setLoop(mLoop);
         setMuted(mMuted);
         setVolume(mVolume);
         setPaused(mPaused);
-        mVideoSurfaceJni.setVideoDelegate(new VideoSurfaceJni.VideoDelegate() {
-            @Override
-            public void onVideoFinish() {
-                reactVideoFinishedCallback();
-            }
-        });
     }
 
     @Override
@@ -79,45 +97,45 @@ public class VideoSurface extends Control {
     public void setPaused(boolean paused) {
         mPaused = paused;
 
-        if (mVideoSurfaceJni == null) {
+        if (mVideoTextureJni == null) {
             return;
         }
 
         if (mPaused) {
-            mVideoSurfaceJni.pause();
+            mVideoTextureJni.pause();
         } else {
-            mVideoSurfaceJni.play();
+            mVideoTextureJni.play();
         }
     }
 
     public void setLoop(boolean loop) {
         mLoop = loop;
-        if (mVideoSurfaceJni != null) {
-            mVideoSurfaceJni.setLoop(loop);
+        if (mVideoTextureJni != null) {
+            mVideoTextureJni.setLoop(loop);
         }
     }
 
     public void setMuted(boolean muted) {
         mMuted = muted;
-        if (mVideoSurfaceJni != null) {
-            mVideoSurfaceJni.setMuted(muted);
+        if (mVideoTextureJni != null) {
+            mVideoTextureJni.setMuted(muted);
         }
     }
 
     public void setVolume(float volume) {
         mVolume = volume;
-        if (mVideoSurfaceJni != null) {
-            mVideoSurfaceJni.setVolume(volume);
+        if (mVideoTextureJni != null) {
+            mVideoTextureJni.setVolume(volume);
         }
     }
 
     public void seekToTime(int time) {
-        if (mVideoSurfaceJni != null) {
-            mVideoSurfaceJni.seekToTime(time);
+        if (mVideoTextureJni != null) {
+            mVideoTextureJni.seekToTime(time);
         }
     }
 
-    private void reactVideoFinishedCallback() {
+    private void playerDidFinishPlaying() {
         mContext.getJSModule(RCTEventEmitter.class).receiveEvent(
                 getId(),
                 VideoSurfaceManager.VIDEO_FINISHED_CALLBACK,

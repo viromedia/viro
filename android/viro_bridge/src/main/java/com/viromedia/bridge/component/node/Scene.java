@@ -6,6 +6,7 @@ package com.viromedia.bridge.component.node;
 import android.content.Context;
 import android.util.AttributeSet;
 import com.viro.renderer.jni.SceneJni;
+import com.viro.renderer.jni.VideoTextureJni;
 
 public class Scene extends Node {
     private static final String TAG = Scene.class.getSimpleName();
@@ -30,5 +31,9 @@ public class Scene extends Node {
 
     public SceneJni getNativeScene(){
         return mNativeScene;
+    }
+
+    public void setBackgroundVideoTexture(VideoTextureJni videoTexture){
+        mNativeScene.setBackgroundVideoTexture(videoTexture);
     }
 }

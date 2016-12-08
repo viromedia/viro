@@ -5,15 +5,19 @@ package com.viromedia.bridge.component;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import com.viro.renderer.jni.RenderContextJni;
+import com.viromedia.bridge.component.node.Scene;
 
 /**
  * Base class for any Viro UI Component. Equivalent to the VRTView in iOS.
  */
 public class Component extends FrameLayout {
+    private static String TAG = Component.class.getSimpleName();
     protected RenderContextJni mRenderContext = null;
+    protected Scene mScene = null;
 
     public Component(Context context) {
         this(context, null, -1, -1);
@@ -50,11 +54,23 @@ public class Component extends FrameLayout {
     public void setRenderContext(RenderContextJni context){
         mRenderContext = context;
 
-        // Update our child views with the context as well.
+        // Update our child views with the scene as well.
         for (int i = getChildCount() - 1; i >= 0; i--) {
             final View child = getChildAt(i);
             if (child instanceof Component){
                 ((Component)child).setRenderContext(context);
+            }
+        }
+    }
+
+    public void setScene(Scene scene){
+        mScene = scene;
+
+        // Update our child views with the context as well.
+        for (int i = getChildCount() - 1; i >= 0; i--) {
+            final View child = getChildAt(i);
+            if (child instanceof Component){
+                ((Component)child).setScene(scene);
             }
         }
     }
@@ -67,10 +83,18 @@ public class Component extends FrameLayout {
     public void addView(View child, int index) {
         super.addView(child, index);
 
+        if (!(child instanceof Component)){
+            throw new IllegalArgumentException("Attempted to add a non-Component child.");
+        }
+
         if (mRenderContext != null &&
-                (child instanceof Component) &&
                 ((Component) child).mRenderContext == null){
             ((Component) child).setRenderContext(mRenderContext);
+        }
+
+        if (mScene != null &&
+                ((Component) child).mScene == null){
+            ((Component) child).setScene(mScene);
         }
     }
 }

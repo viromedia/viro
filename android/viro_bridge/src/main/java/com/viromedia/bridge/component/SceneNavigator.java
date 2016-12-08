@@ -84,6 +84,7 @@ public class SceneNavigator extends FrameLayout {
 
         Scene childScene = (Scene)child;
         childScene.setRenderContext(mRenderContext);
+        childScene.setScene(childScene);
         mSceneArray.add(index, childScene);
         if (mSelectedSceneIndex == index){
             mViroGvrLayout.setScene(mSceneArray.get(mSelectedSceneIndex).getNativeScene());

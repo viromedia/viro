@@ -25,6 +25,10 @@ var ViroVideo = React.createClass({
     opacity: PropTypes.number,
     visible: PropTypes.bool,
 
+    materials: PropTypes.oneOfType([
+      PropTypes.arrayOf(PropTypes.string),
+      PropTypes.string
+    ]),
     width: PropTypes.number,
     height: PropTypes.number,
     paused: PropTypes.bool,
