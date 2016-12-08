@@ -18,11 +18,9 @@ import {
 
 
 var scenes = {
-//  'Flickr Photo Explorer': require('./js/FlickrPhotoExplorer/MainScene'),
     '360 Photo Tour': require('./js/360PhotoTour/MainScene'),
-//  'Human Body': require('./js/HumanBody/MainScene'),
-//  'Viro Media Player': require('./js/ViroMediaPlayer/MainScene'),
-//  'Inside the Human Body': require('./js/HumanBody/MainScene'),
+    'Hello World': require('./js/HelloWorld/HelloWorldScene'),
+    'Human Body': require('./js/HumanBody/MainScene'),
 }
 
 var ViroCodeSamplesSceneNavigator = React.createClass({
@@ -36,7 +34,7 @@ var ViroCodeSamplesSceneNavigator = React.createClass({
           scene: scenes['360 Photo Tour'],
         }}
         viroAppProps={{...this.props}}
-        apiKey="YOUR_API_KEY_HERE"
+        apiKey="1487A37C-0E71-49D8-97D7-F709BA3FC7B0"
       />
     );
   }
