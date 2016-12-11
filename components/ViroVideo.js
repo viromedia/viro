@@ -6,26 +6,31 @@
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  */
+import { requireNativeComponent, View } from 'react-native';
+
 var NativeMethodsMixin = require('react/lib/NativeMethodsMixin');
 var NativeModules = require('NativeModules');
 var PropTypes = require('react/lib/ReactPropTypes');
 var React = require('React');
 var StyleSheet = require('StyleSheet');
 var ViroVideoManager = require('NativeModules').VideoSurfaceManager;
-var requireNativeComponent = require('requireNativeComponent');
 var resolveAssetSource = require('resolveAssetSource');
 var findNodeHandle = require('react/lib/findNodeHandle');
 var RCT_VIDEO_REF = 'virovideocomponent';
 
 var ViroVideo = React.createClass({
   propTypes: {
+    ...View.propTypes,
     position: PropTypes.arrayOf(PropTypes.number),
     rotation: PropTypes.arrayOf(PropTypes.number),
     scale: PropTypes.arrayOf(PropTypes.number),
     opacity: PropTypes.number,
     visible: PropTypes.bool,
-
     materials: PropTypes.oneOfType([
+      PropTypes.arrayOf(PropTypes.string),
+      PropTypes.string
+    ]),
+    transformBehaviors: PropTypes.oneOfType([
       PropTypes.arrayOf(PropTypes.string),
       PropTypes.string
     ]),
@@ -64,6 +69,10 @@ var ViroVideo = React.createClass({
     }
 
     var source = resolveAssetSource(this.props.source);
+    // Since materials and transformBehaviors can be either a string or an array, convert the string to a 1-element array.
+    let materials = typeof this.props.materials === 'string' ? new Array(this.props.materials) : this.props.materials;
+    let transformBehaviors = typeof this.props.transformBehaviors === 'string' ?
+        new Array(this.props.transformBehaviors) : this.props.transformBehaviors;
     return (
       <VRTVideoSurface ref={RCT_VIDEO_REF}
         style={[this.props.style]} {...this.props} source={source} onFinish={this._onFinish}

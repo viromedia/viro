@@ -12,7 +12,8 @@ const ReactViro = {
   get ViroBox() { return require('./components/ViroBox'); },
   get Materials() { return require('./components/Material/Materials'); },
   get ViroVideo() { return require('./components/ViroVideo'); },
-  get Viro360Video() {return require ('./components/Viro360Video');},
+  get Viro360Video() {return require ('./components/Viro360Video'); },
+  get ViroNode() { return require('./components/ViroNode'); },
 }
 
 module.exports = ReactViro;

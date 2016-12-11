@@ -19,15 +19,18 @@ import {
   ViroScene,
   ViroBox,
   Materials,
+  ViroNode,
 } from 'react-viro';
 
 export default class ViroSample extends Component {
   render() {
     return (
       <ViroSceneNavigator>
-        <ViroScene >
-          <ViroBox materials="wework_title" position={[0, 0, -5]} scale={[2, 4, 2]} />
-          <ViroBox materials="box_texture" position={[1, 5, -2]} scale={[3,3,3]} />
+        <ViroScene position={[0,0,0]}>
+          <ViroNode position={[2, -3, 0]} >
+            <ViroBox materials="wework_title" position={[0, 0, -5]} scale={[2, 4, 2]} transformBehaviors={["billboard"]} />
+            <ViroBox materials="box_texture" position={[1, 5, -2]} scale={[3,3,3]} transformBehaviors={["billboard"]} />
+          </ViroNode>
         </ViroScene>
       </ViroSceneNavigator>
     );

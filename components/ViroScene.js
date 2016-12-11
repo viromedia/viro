@@ -6,11 +6,11 @@
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  */
+import { requireNativeComponent, View } from 'react-native';
+
 var NativeModules = require('NativeModules');
 var PropTypes = require('react/lib/ReactPropTypes');
 var React = require('React');
-
-import { requireNativeComponent, View } from 'react-native';
 
 var ViroScene = React.createClass({
   propTypes: {

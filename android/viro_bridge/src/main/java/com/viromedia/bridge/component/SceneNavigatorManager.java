@@ -11,11 +11,10 @@ import com.facebook.react.uimanager.ThemedReactContext;
  * SceneNavigatorManager for building a {@link SceneNavigator}
  * corresponding to the ViroSceneNavigator.js control.
  */
-public class SceneNavigatorManager extends ViewGroupManager<SceneNavigator> {
-    private final ReactApplicationContext mContext;
+public class SceneNavigatorManager extends ViroViewGroupManager<SceneNavigator> {
 
     public SceneNavigatorManager(ReactApplicationContext context){
-        mContext = context;
+        super(context);
     }
 
     @Override
@@ -25,6 +24,6 @@ public class SceneNavigatorManager extends ViewGroupManager<SceneNavigator> {
 
     @Override
     protected SceneNavigator createViewInstance(ThemedReactContext reactContext) {
-        return new SceneNavigator(mContext);
+        return new SceneNavigator(getContext());
     }
 }

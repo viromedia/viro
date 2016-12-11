@@ -9,6 +9,7 @@ import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.uimanager.annotations.ReactProp;
 import com.viro.renderer.jni.MaterialJni;
+import com.viromedia.bridge.component.ViroViewGroupManager;
 import com.viromedia.bridge.module.MaterialManager;
 
 import java.util.ArrayList;
@@ -17,7 +18,7 @@ import java.util.ArrayList;
  * Abstract NodeManager for setting {@link Node} Control properties.
  * NOTE: Always extend from this class for all Node Viro controls.
  */
-public abstract class NodeManager <T extends Node> extends ViroViewGroupManager<T>{
+public abstract class NodeManager <T extends Node> extends ViroViewGroupManager<T> {
 
     public NodeManager(ReactApplicationContext context) {
         super(context);
@@ -62,6 +63,15 @@ public abstract class NodeManager <T extends Node> extends ViroViewGroupManager<
             nativeMaterials.add(nativeMaterial);
         }
         view.setMaterials(nativeMaterials);
+    }
+
+    @ReactProp(name = "transformBehaviors")
+    public void setTransformBehaviors(Node view, ReadableArray transformBehaviors) {
+        String[] behaviors = new String[transformBehaviors.size()];
+        for (int i = 0; i < transformBehaviors.size(); i++) {
+            behaviors[i] = transformBehaviors.getString(i);
+        }
+        view.setTransformBehaviors(behaviors);
     }
 
     private static @Nullable float[] toFloatArray(@Nullable ReadableArray value) {

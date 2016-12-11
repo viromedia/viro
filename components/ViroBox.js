@@ -7,14 +7,15 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
+import { requireNativeComponent, View } from 'react-native';
+
 var NativeModules = require('NativeModules');
 var PropTypes = require('react/lib/ReactPropTypes');
 var React = require('React');
 
-var requireNativeComponent = require('requireNativeComponent');
-
 var ViroBox = React.createClass({
   propTypes: {
+    ...View.propTypes,
     position: PropTypes.arrayOf(PropTypes.number),
     scale: PropTypes.arrayOf(PropTypes.number),
     rotation: PropTypes.arrayOf(PropTypes.number),
@@ -27,9 +28,16 @@ var ViroBox = React.createClass({
       PropTypes.arrayOf(PropTypes.string),
       PropTypes.string
     ]),
+    transformBehaviors: PropTypes.oneOfType([
+      PropTypes.arrayOf(PropTypes.string),
+      PropTypes.string
+    ]),
   },
   render: function() {
+    // Since materials and transformBehaviors can be either a string or an array, convert the string to a 1-element array.
     let materials = typeof this.props.materials === 'string' ? new Array(this.props.materials) : this.props.materials;
+    let transformBehaviors = typeof this.props.transformBehaviors === 'string' ?
+        new Array(this.props.transformBehaviors) : this.props.transformBehaviors;
 
     if (this.props.material) {
       console.error('The <ViroBox> component takes a `materials` property rather than `material`.');

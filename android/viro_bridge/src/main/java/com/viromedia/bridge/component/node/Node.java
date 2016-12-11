@@ -133,4 +133,8 @@ public class Node extends Component {
         mMaterials = materials;
         mNodeJni.setMaterials(materials);
     }
+
+    protected void setTransformBehaviors(String[] transformBehaviors) {
+        mNodeJni.setTransformBehaviors(transformBehaviors);
+    }
 }
