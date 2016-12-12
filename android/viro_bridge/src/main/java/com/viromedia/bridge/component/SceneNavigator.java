@@ -10,6 +10,7 @@ import android.widget.FrameLayout;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.viro.renderer.jni.RenderContextJni;
 import com.viro.renderer.jni.ViroGvrLayout;
+import com.viro.renderer.jni.VrView;
 import com.viromedia.bridge.component.node.Scene;
 import com.viromedia.bridge.utility.ViroLog;
 
@@ -26,9 +27,9 @@ public class SceneNavigator extends FrameLayout {
     private static final String TAG = ViroLog.getTag(SceneNavigator.class);
 
     /**
-     * Layout containing our renderer
+     * View containing our renderer
      */
-    private ViroGvrLayout mViroGvrLayout;
+    private VrView mVrView;
 
     /**
      * Currently rendered scene
@@ -48,9 +49,9 @@ public class SceneNavigator extends FrameLayout {
     public SceneNavigator(ReactApplicationContext reactContext) {
         this(reactContext.getBaseContext(), null, -1);
 
-        mViroGvrLayout = new ViroGvrLayout(reactContext.getCurrentActivity(), true);
-        addView(mViroGvrLayout);
-        mRenderContext = mViroGvrLayout.getRenderContextRef();
+        mVrView = new ViroGvrLayout(reactContext.getCurrentActivity());
+        addView((ViroGvrLayout)mVrView);
+        mRenderContext = mVrView.getRenderContextRef();
     }
 
     public SceneNavigator(Context context) {
@@ -85,9 +86,10 @@ public class SceneNavigator extends FrameLayout {
         Scene childScene = (Scene)child;
         childScene.setRenderContext(mRenderContext);
         childScene.setScene(childScene);
+        childScene.setNativeRenderer(mVrView.getNativeRenderer());
         mSceneArray.add(index, childScene);
         if (mSelectedSceneIndex == index){
-            mViroGvrLayout.setScene(mSceneArray.get(mSelectedSceneIndex).getNativeScene());
+            mVrView.setScene(mSceneArray.get(mSelectedSceneIndex).getNativeScene());
         }
     }
 
@@ -99,5 +101,9 @@ public class SceneNavigator extends FrameLayout {
             // TODO: also remove Scene from mViroGvrLayout if it's the current scene too.
             mSceneArray.remove(view);
         }
+    }
+
+    public void setVrModeEnabled(boolean vrModeEnabled) {
+        mVrView.setVrModeEnabled(vrModeEnabled);
     }
 }

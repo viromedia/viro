@@ -36,11 +36,6 @@ var ViroNode = React.createClass({
     ]),
     visible: PropTypes.bool,
     opacity: PropTypes.number,
-
-    materials: PropTypes.oneOfType([
-      PropTypes.arrayOf(PropTypes.string),
-      PropTypes.string
-    ]),
   },
 
   render: function() {
@@ -56,7 +51,7 @@ var ViroNode = React.createClass({
 
 var VRTViewContainer = requireNativeComponent(
   'VRTViewContainer', ViroNode, {
-    nativeOnly: {onTap: true, onGaze: true}
+    nativeOnly: {onTap: true, onGaze: true, materials: []}
   }
 );
 

@@ -15,6 +15,18 @@ import { requireNativeComponent, View, StyleSheet } from 'react-native';
 var ViroSceneNavigator = React.createClass({
   propTypes: {
     ...View.propTypes,
+    /**
+     * Calling vrModeEnabled allows switching to and from VR mode.
+     * When set to false, it transitions back to pre-VR (mono) mode.
+     * When set to true, we set thie view into a full VR mode.
+     * This is set to true by default.
+     */
+    vrModeEnabled: PropTypes.bool,
+  },
+  getDefaultProps: function() {
+    return {
+      vrModeEnabled: true,
+    };
   },
   render: function() {
     return (

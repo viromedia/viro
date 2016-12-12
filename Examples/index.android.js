@@ -20,13 +20,15 @@ import {
   ViroBox,
   Materials,
   ViroNode,
+  ViroOrbitCamera,
 } from 'react-viro';
 
 export default class ViroSample extends Component {
   render() {
     return (
       <ViroSceneNavigator>
-        <ViroScene position={[0,0,0]}>
+        <ViroScene position={[0,0,0]} reticleEnabled={false} >
+          <ViroOrbitCamera position={[0, 0, 0]} focalPoint={[0, 0, -3]}/>
           <ViroNode position={[2, -3, 0]} >
             <ViroBox materials="wework_title" position={[0, 0, -5]} scale={[2, 4, 2]} transformBehaviors={["billboard"]} />
             <ViroBox materials="box_texture" position={[1, 5, -2]} scale={[3,3,3]} transformBehaviors={["billboard"]} />

@@ -6,6 +6,7 @@ package com.viromedia.bridge.component.node;
 
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.uimanager.ThemedReactContext;
+import com.facebook.react.uimanager.annotations.ReactProp;
 import com.viromedia.bridge.component.ViroViewGroupManager;
 
 /**
@@ -26,5 +27,10 @@ public class SceneManager extends ViroViewGroupManager<Scene> {
     @Override
     protected Scene createViewInstance(ThemedReactContext reactContext) {
         return new Scene(getContext());
+    }
+
+    @ReactProp(name = "reticleEnabled", defaultBoolean = true)
+    public void setReticleEnabled(Scene scene, boolean enable) {
+        scene.setReticleEnabled(enable);
     }
 }
