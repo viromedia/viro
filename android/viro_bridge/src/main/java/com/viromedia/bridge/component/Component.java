@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import com.viro.renderer.jni.RenderContextJni;
+import com.viro.renderer.jni.SceneJni;
 import com.viromedia.bridge.component.node.Scene;
 
 /**
@@ -95,6 +96,42 @@ public class Component extends FrameLayout {
         if (mScene != null &&
                 ((Component) child).mScene == null){
             ((Component) child).setScene(mScene);
+        }
+    }
+
+    public void sceneWillAppear() {
+        for (int i = getChildCount() - 1; i >= 0; i--) {
+            final View child = getChildAt(i);
+            if (child instanceof Component){
+                ((Component)child).sceneWillAppear();
+            }
+        }
+    }
+
+    public void sceneDidAppear() {
+        for (int i = getChildCount() - 1; i >= 0; i--) {
+            final View child = getChildAt(i);
+            if (child instanceof Component){
+                ((Component)child).sceneDidAppear();
+            }
+        }
+    }
+
+    public void sceneWillDisappear() {
+        for (int i = getChildCount() - 1; i >= 0; i--) {
+            final View child = getChildAt(i);
+            if (child instanceof Component){
+                ((Component)child).sceneWillDisappear();
+            }
+        }
+    }
+
+    public void sceneDidDisappear() {
+        for (int i = getChildCount() - 1; i >= 0; i--) {
+            final View child = getChildAt(i);
+            if (child instanceof Component){
+                ((Component)child).sceneDidDisappear();
+            }
         }
     }
 }

@@ -34,7 +34,7 @@ public class SceneNavigator extends FrameLayout {
     /**
      * Currently rendered scene
      */
-    private int mSelectedSceneIndex = 0;
+    private int mSelectedSceneIndex = -1;
 
     /**
      * Array of scenes given by the bridge for the renderer to switch to.
@@ -88,9 +88,22 @@ public class SceneNavigator extends FrameLayout {
         childScene.setScene(childScene);
         childScene.setNativeRenderer(mVrView.getNativeRenderer());
         mSceneArray.add(index, childScene);
-        if (mSelectedSceneIndex == index){
-            mVrView.setScene(mSceneArray.get(mSelectedSceneIndex).getNativeScene());
+
+        // Adding the scene view can occur after the prop type is set on the bridge.
+        // Thus, refresh the selection of the current scene as needed.
+        if (index == mSelectedSceneIndex){
+            setCurrentSceneIndex(mSelectedSceneIndex);
         }
+    }
+
+    public void setCurrentSceneIndex(int index){
+        mSelectedSceneIndex = index;
+
+        if (index < 0 || index >= mSceneArray.size()){
+            // Scene object may not yet have been initialized, so return here.
+            return;
+        }
+        mVrView.setScene(mSceneArray.get(mSelectedSceneIndex).getNativeScene());
     }
 
     @Override

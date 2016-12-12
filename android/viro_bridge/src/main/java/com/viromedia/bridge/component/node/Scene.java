@@ -5,7 +5,6 @@ package com.viromedia.bridge.component.node;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 
 import com.viro.renderer.jni.SceneJni;
@@ -14,7 +13,7 @@ import com.viro.renderer.jni.RendererJni;
 import com.viromedia.bridge.component.Camera;
 import com.viromedia.bridge.component.OrbitCamera;
 
-public class Scene extends Node {
+public class Scene extends Node implements SceneJni.SceneDelegate {
     private static final String TAG = Scene.class.getSimpleName();
     private final SceneJni mNativeScene;
     private RendererJni mNativeRenderer;
@@ -36,6 +35,7 @@ public class Scene extends Node {
     public Scene(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         mNativeScene = new SceneJni(getNodeJni());
+        mNativeScene.registerDelegate(this);
     }
 
     public SceneJni getNativeScene(){
@@ -77,5 +77,28 @@ public class Scene extends Node {
                 mNativeRenderer.setOrbitCameraFocalPoint(((OrbitCamera) mCamera).getFocalPoint());
             }
         }
+    }
+    /**
+     * Attach Renderer Delegate callbacks to the Scene to be propagated
+     * across all of it's child views.
+     */
+    @Override
+    public void onSceneWillAppear() {
+        sceneWillAppear();
+    }
+
+    @Override
+    public void onSceneDidAppear() {
+        sceneDidAppear();
+    }
+
+    @Override
+    public void onSceneWillDisappear() {
+        sceneWillDisappear();
+    }
+
+    @Override
+    public void onSceneDidDisappear() {
+        sceneDidDisappear();
     }
 }

@@ -32,4 +32,11 @@ public class SceneNavigatorManager extends ViroViewGroupManager<SceneNavigator> 
     public void setVrModeEnabled(SceneNavigator navigator, boolean vrModeEnabled) {
         navigator.setVrModeEnabled(vrModeEnabled);
     }
+
+    @ReactProp(name = "currentSceneIndex")
+    public void setCurrentSceneIndex(SceneNavigator view, int selectedIndex) {
+        view.setCurrentSceneIndex(selectedIndex);
+    }
+
+
 }

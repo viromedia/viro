@@ -141,4 +141,12 @@ public class VideoSurface extends Control {
                 VideoSurfaceManager.VIDEO_FINISHED_CALLBACK,
                 null);
     }
+
+    @Override
+    public void sceneWillDisappear() {
+        if (mVideoTextureJni != null){
+            mVideoTextureJni.pause();
+        }
+    }
+
 }
