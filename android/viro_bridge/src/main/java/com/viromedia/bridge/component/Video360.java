@@ -27,11 +27,13 @@ public class Video360 extends Component {
         mContext = reactContext;
     }
 
-    public void tearDown() {
+    @Override
+    protected void onTearDown(){
         if (videoTextureJni != null){
             videoTextureJni.delete();
             videoTextureJni = null;
         }
+        super.onTearDown();
     }
 
     private void resetVideo() {

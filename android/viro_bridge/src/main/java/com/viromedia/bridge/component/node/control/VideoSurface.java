@@ -27,7 +27,8 @@ public class VideoSurface extends Control {
         mContext = reactContext;
     }
 
-    public void tearDown() {
+    @Override
+    protected void onTearDown(){
         if (mSurfaceJni != null) {
             mSurfaceJni.delete();
             mSurfaceJni = null;
@@ -36,6 +37,7 @@ public class VideoSurface extends Control {
             mVideoTextureJni.delete();
             mVideoTextureJni = null;
         }
+        super.onTearDown();
     }
 
     private void resetVideo() {

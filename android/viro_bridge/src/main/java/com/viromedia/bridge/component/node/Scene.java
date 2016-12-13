@@ -38,6 +38,12 @@ public class Scene extends Node implements SceneJni.SceneDelegate {
         mNativeScene.registerDelegate(this);
     }
 
+    @Override
+    protected void onTearDown(){
+        mNativeScene.destroy();
+        super.onTearDown();
+    }
+
     public SceneJni getNativeScene(){
         return mNativeScene;
     }

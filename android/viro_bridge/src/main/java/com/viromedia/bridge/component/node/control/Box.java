@@ -21,12 +21,19 @@ public class Box extends Control {
         createNativeBox();
     }
 
+    @Override
+    protected void onTearDown(){
+        if (mNativeBox != null){
+            mNativeBox.destroy();
+        }
+        super.onTearDown();
+    }
+
     public void setWidth(float width) {
         if (width < 0) {
             throw new IllegalArgumentException("Width of a box cannot be smaller than 0");
         }
         mWidth = width;
-        createNativeBox();
     }
 
     public void setHeight(float height) {
@@ -34,7 +41,6 @@ public class Box extends Control {
             throw new IllegalArgumentException("Height of a box cannot be smaller than 0");
         }
         mHeight = height;
-        createNativeBox();
     }
 
     public void setLength(float length) {
@@ -42,7 +48,6 @@ public class Box extends Control {
             throw new IllegalArgumentException("Length of a box cannot be smaller than 0");
         }
         mLength = length;
-        createNativeBox();
     }
 
     /**
@@ -57,5 +62,10 @@ public class Box extends Control {
         if (oldBox != null) {
             oldBox.destroy();
         }
+    }
+
+    @Override
+    protected void onPropsSet(){
+        createNativeBox();
     }
 }

@@ -51,6 +51,14 @@ public class Node extends Component {
         return mNodeJni;
     }
 
+    @Override
+    protected void onTearDown(){
+        super.onTearDown();
+        if (mNodeJni != null){
+            mNodeJni.destroy();
+        }
+    }
+
     // TODO: handle children separate from android viewgroup childViews
     @Override
     public void addView(View child, int index) {

@@ -99,6 +99,21 @@ public class Component extends FrameLayout {
         }
     }
 
+    /**
+     * Called when view is detached from view hierarchy and allows
+     * for some additional cleanup.
+     */
+    protected void onTearDown() {
+        // No-op
+    }
+
+    /**
+     * Callback that will be triggered after all ReactProp are updated.
+     */
+    protected void onPropsSet() {
+        // No-op
+    }
+
     public void sceneWillAppear() {
         for (int i = getChildCount() - 1; i >= 0; i--) {
             final View child = getChildAt(i);
