@@ -16,6 +16,7 @@ const ReactViro = {
   get ViroNode() { return require('./components/ViroNode'); },
   get ViroCamera() { return require('./components/ViroCamera'); },
   get ViroOrbitCamera() { return require('./components/ViroOrbitCamera'); },
+  get ViroSphere() { return require('./components/ViroSphere'); },
 }
 
 module.exports = ReactViro;

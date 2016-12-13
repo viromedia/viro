@@ -15,6 +15,7 @@ import com.viromedia.bridge.component.node.NodeContainerManager;
 import com.viromedia.bridge.component.node.SceneManager;
 import com.viromedia.bridge.component.node.control.BoxManager;
 import com.viromedia.bridge.component.SceneNavigatorManager;
+import com.viromedia.bridge.component.node.control.SphereManager;
 import com.viromedia.bridge.component.node.control.VideoSurfaceManager;
 import com.viromedia.bridge.module.MaterialManager;
 
@@ -49,7 +50,8 @@ public class ReactViroPackage implements ReactPackage {
                 new Video360Manager(reactContext),
                 new NodeContainerManager(reactContext),
                 new CameraManager(reactContext),
-                new OrbitCameraManager(reactContext)
+                new OrbitCameraManager(reactContext),
+                new SphereManager(reactContext)
         );
     }
 }
