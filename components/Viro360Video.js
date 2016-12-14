@@ -11,13 +11,14 @@
  */
 'use strict';
 
+import { requireNativeComponent, View } from 'react-native';
+
 var NativeMethodsMixin = require('react/lib/NativeMethodsMixin');
 var NativeModules = require('NativeModules');
 var PropTypes = require('react/lib/ReactPropTypes');
 var React = require('React');
 var StyleSheet = require('StyleSheet');
 var Viro360VideoManager = require('NativeModules').Video360Manager;
-var requireNativeComponent = require('requireNativeComponent');
 var resolveAssetSource = require('resolveAssetSource');
 var findNodeHandle = require('react/lib/findNodeHandle');
 
@@ -30,6 +31,8 @@ var Viro360Video = React.createClass({
   mixins: [NativeMethodsMixin],
 
   propTypes: {
+    ...View.propTypes,
+
     /**
      * The video uri to play
      */

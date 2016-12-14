@@ -28,7 +28,7 @@ public class Video360 extends Component {
     }
 
     @Override
-    protected void onTearDown(){
+    protected void onTearDown() {
         if (videoTextureJni != null){
             videoTextureJni.delete();
             videoTextureJni = null;

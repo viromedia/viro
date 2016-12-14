@@ -80,12 +80,16 @@ public class ImageDownloader {
                             }
                         }
                         dataSource.close();
-                        latch.countDown();
+                        if (latch != null) {
+                            latch.countDown();
+                        }
                     }
 
                     @Override
                     protected void onFailureImpl(DataSource<CloseableReference<CloseableImage>> dataSource) {
-                        latch.countDown();
+                        if (latch != null) {
+                            latch.countDown();
+                        }
                         Throwable t = dataSource.getFailureCause();
                         throw new IllegalStateException("Error downloading image: " + t.getMessage());
                     }

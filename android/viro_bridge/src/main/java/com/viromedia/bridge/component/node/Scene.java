@@ -8,6 +8,7 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import com.viro.renderer.jni.SceneJni;
+import com.viro.renderer.jni.TextureJni;
 import com.viro.renderer.jni.VideoTextureJni;
 import com.viro.renderer.jni.RendererJni;
 import com.viromedia.bridge.component.Camera;
@@ -63,6 +64,14 @@ public class Scene extends Node implements SceneJni.SceneDelegate {
         if (mNativeRenderer != null) {
             mNativeRenderer.enableReticle(enable);
         }
+    }
+
+    public void setBackgroundImageTexture(TextureJni texture) {
+        mNativeScene.setBackgroundImageTexture(texture);
+    }
+
+    public void setBackgroundRotation(float[] rotation) {
+        mNativeScene.setBackgroundRotation(rotation);
     }
 
     @Override

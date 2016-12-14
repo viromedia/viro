@@ -1,0 +1,106 @@
+/**
+ * Copyright © 2016 Viro Media. All rights reserved.
+ */
+package com.viromedia.bridge.component;
+
+
+import android.graphics.Bitmap;
+
+import com.facebook.react.bridge.ReactApplicationContext;
+import com.facebook.react.bridge.ReadableArray;
+import com.facebook.react.bridge.ReadableMap;
+import com.facebook.react.uimanager.events.RCTEventEmitter;
+import com.viro.renderer.jni.ImageJni;
+import com.viro.renderer.jni.TextureJni;
+import com.viromedia.bridge.component.node.Scene;
+import com.viromedia.bridge.utility.ImageDownloadListener;
+import com.viromedia.bridge.utility.ImageDownloader;
+
+public class Photo360 extends Component {
+    private final ReactApplicationContext mContext;
+    private ReadableMap mSourceMap;
+    private float[] mRotation;
+    private ImageJni mLatestImage;
+    private TextureJni mLatestTexture;
+
+    public Photo360(ReactApplicationContext context) {
+        super(context);
+        mContext = context;
+    }
+
+    public void setSource(ReadableMap source) {
+        mSourceMap = source;
+    }
+
+    public void setRotation(ReadableArray rotation) {
+        float[] rotationArr = {(float) rotation.getDouble(0),
+                (float) rotation.getDouble(1), (float)rotation.getDouble(2)};
+        mRotation = rotationArr;
+    }
+
+    @Override
+    public void onPropsSet() {
+        super.onPropsSet();
+        ImageDownloader downloader = new ImageDownloader(getContext());
+
+        if (mSourceMap != null) {
+            imageDownloadDidStart();
+            downloader.getImageAsync(mSourceMap, new ImageDownloadListener() {
+                @Override
+                public void completed(Bitmap result) {
+                    if (mLatestImage != null) {
+                        mLatestImage.destroy();
+                    }
+
+                    if (mLatestTexture != null) {
+                        mLatestTexture.destroy();
+                    }
+
+                    mLatestImage = new ImageJni(result);
+                    mLatestTexture = new TextureJni(mLatestImage);
+
+                    if (mScene != null) {
+                        mScene.setBackgroundImageTexture(mLatestTexture);
+                        mScene.setBackgroundRotation(mRotation);
+                    }
+                    imageDownloadDidFinish();
+                }
+            });
+        }
+    }
+
+    @Override
+    public void onTearDown() {
+        if (mLatestImage != null) {
+            mLatestImage.destroy();
+            mLatestImage = null;
+        }
+
+        if (mLatestTexture != null) {
+            mLatestTexture.destroy();
+            mLatestTexture = null;
+        }
+    }
+
+    @Override
+    public void setScene(Scene scene) {
+        super.setScene(scene);
+        mScene.setBackgroundImageTexture(mLatestTexture);
+    }
+
+    private void imageDownloadDidStart() {
+        mContext.getJSModule(RCTEventEmitter.class).receiveEvent(
+                getId(),
+                Photo360Manager.PHOTO_360_LOAD_START,
+                null
+        );
+    }
+
+    private void imageDownloadDidFinish() {
+        mContext.getJSModule(RCTEventEmitter.class).receiveEvent(
+                getId(),
+                Photo360Manager.PHOTO_360_LOAD_END,
+                null
+        );
+    }
+}
