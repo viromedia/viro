@@ -141,6 +141,7 @@ const int k2DPointsPerSpatialUnit = 1000;
 }
 
 - (void)setTransformBehaviors:(NSArray<NSString *> *)behaviors {
+  [self node]->removeAllConstraints();
   for (NSString *behavior in behaviors) {
     if ([behavior caseInsensitiveCompare:@"billboard"] == NSOrderedSame) {
       [self node]->addConstraint(std::make_shared<VROBillboardConstraint>(VROBillboardAxis::All));

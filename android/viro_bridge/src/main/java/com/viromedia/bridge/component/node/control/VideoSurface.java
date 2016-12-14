@@ -8,6 +8,8 @@ import com.facebook.react.uimanager.events.RCTEventEmitter;
 import com.viro.renderer.jni.RenderContextJni;
 import com.viro.renderer.jni.SurfaceJni;
 import com.viro.renderer.jni.VideoTextureJni;
+import com.viromedia.bridge.utility.ViroEvents;
+import com.viromedia.bridge.utility.ViroLog;
 
 public class VideoSurface extends Control {
     private final float UNSET = -1f;
@@ -140,7 +142,7 @@ public class VideoSurface extends Control {
     private void playerDidFinishPlaying() {
         mContext.getJSModule(RCTEventEmitter.class).receiveEvent(
                 getId(),
-                VideoSurfaceManager.VIDEO_FINISHED_CALLBACK,
+                ViroEvents.ON_FINISH,
                 null);
     }
 

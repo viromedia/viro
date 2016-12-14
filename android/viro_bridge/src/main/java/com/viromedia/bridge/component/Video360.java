@@ -8,6 +8,7 @@ import com.facebook.react.uimanager.events.RCTEventEmitter;
 import com.viro.renderer.jni.RenderContextJni;
 import com.viro.renderer.jni.VideoTextureJni;
 import com.viromedia.bridge.component.node.Scene;
+import com.viromedia.bridge.utility.ViroEvents;
 
 /**
  * Contains a VideoTexture that is set as a background video on the scene.
@@ -19,7 +20,7 @@ public class Video360 extends Component {
     private boolean mMuted;
     private float mVolume;
 
-    private VideoTextureJni videoTextureJni = null;
+    private VideoTextureJni mVideoTextureJni = null;
     private ReactApplicationContext mContext;
 
     public Video360(ReactApplicationContext reactContext) {
@@ -29,9 +30,9 @@ public class Video360 extends Component {
 
     @Override
     protected void onTearDown() {
-        if (videoTextureJni != null){
-            videoTextureJni.delete();
-            videoTextureJni = null;
+        if (mVideoTextureJni != null){
+            mVideoTextureJni.delete();
+            mVideoTextureJni = null;
         }
         super.onTearDown();
     }
@@ -41,15 +42,15 @@ public class Video360 extends Component {
             return;
         }
 
-        if (videoTextureJni != null) {
-            videoTextureJni.delete();
-            videoTextureJni = null;
+        if (mVideoTextureJni != null) {
+            mVideoTextureJni.delete();
+            mVideoTextureJni = null;
         }
 
         // Create Texture
-        videoTextureJni = new VideoTextureJni();
-        videoTextureJni.loadSource(mSource, mRenderContext);
-        videoTextureJni.setVideoDelegate(new VideoTextureJni.VideoDelegate() {
+        mVideoTextureJni = new VideoTextureJni();
+        mVideoTextureJni.loadSource(mSource, mRenderContext);
+        mVideoTextureJni.setVideoDelegate(new VideoTextureJni.VideoDelegate() {
             @Override
             public void onVideoFinish() {
                 reactVideoFinishedCallback();
@@ -59,6 +60,10 @@ public class Video360 extends Component {
         setMuted(mMuted);
         setVolume(mVolume);
         setPaused(mPaused);
+
+        if (mScene != null) {
+            mScene.setBackgroundVideoTexture(mVideoTextureJni);
+        }
     }
 
     @Override
@@ -70,7 +75,7 @@ public class Video360 extends Component {
     @Override
     public void setScene(Scene scene){
         super.setScene(scene);
-        mScene.setBackgroundVideoTexture(videoTextureJni);
+        mScene.setBackgroundVideoTexture(mVideoTextureJni);
     }
 
     public void setSource(String source) {
@@ -81,48 +86,48 @@ public class Video360 extends Component {
     public void setPaused(boolean paused) {
         mPaused = paused;
 
-        if (videoTextureJni == null) {
+        if (mVideoTextureJni == null) {
             return;
         }
 
         if (mPaused) {
-            videoTextureJni.pause();
+            mVideoTextureJni.pause();
         } else {
-            videoTextureJni.play();
+            mVideoTextureJni.play();
         }
     }
 
     public void setLoop(boolean loop) {
         mLoop = loop;
-        if (videoTextureJni != null) {
-            videoTextureJni.setLoop(loop);
+        if (mVideoTextureJni != null) {
+            mVideoTextureJni.setLoop(loop);
         }
     }
 
     public void setMuted(boolean muted) {
         mMuted = muted;
-        if (videoTextureJni != null) {
-            videoTextureJni.setMuted(muted);
+        if (mVideoTextureJni != null) {
+            mVideoTextureJni.setMuted(muted);
         }
     }
 
     public void setVolume(float volume) {
         mVolume = volume;
-        if (videoTextureJni != null) {
-            videoTextureJni.setVolume(volume);
+        if (mVideoTextureJni != null) {
+            mVideoTextureJni.setVolume(volume);
         }
     }
 
     public void seekToTime(int time) {
-        if (videoTextureJni != null) {
-            videoTextureJni.seekToTime(time);
+        if (mVideoTextureJni != null) {
+            mVideoTextureJni.seekToTime(time);
         }
     }
 
     private void reactVideoFinishedCallback() {
         mContext.getJSModule(RCTEventEmitter.class).receiveEvent(
                 getId(),
-                Video360Manager.VIDEO_FINISHED_CALLBACK,
+                ViroEvents.ON_FINISH,
                 null);
     }
 }

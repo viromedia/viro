@@ -15,10 +15,13 @@ import com.viro.renderer.jni.SurfaceJni;
 import com.viro.renderer.jni.TextureJni;
 import com.viromedia.bridge.utility.ImageDownloadListener;
 import com.viromedia.bridge.utility.ImageDownloader;
+import com.viromedia.bridge.utility.ViroEvents;
+import com.viromedia.bridge.utility.ViroLog;
 
 import java.util.List;
 
 public class Image extends Control {
+    private static final String TAG = ViroLog.getTag(Image.class);
     private final ReactApplicationContext mContext;
     private final MaterialJni mDefaultMaterial;
     private SurfaceJni mNativeSurface;
@@ -44,6 +47,9 @@ public class Image extends Control {
     }
 
     public void setPlaceholderSource(ReadableMap placeholderSource) {
+        if (placeholderSource == null) {
+            ViroLog.warn(TAG, "PlaceholderSource shouldn't be null. We should've provided a default.");
+        }
         mPlaceholderSourceMap = placeholderSource;
     }
 
@@ -66,7 +72,7 @@ public class Image extends Control {
     @Override
     public void onPropsSet() {
         super.onPropsSet();
-        ImageDownloader downloader = new ImageDownloader(getContext());
+        final ImageDownloader downloader = new ImageDownloader(getContext());
 
         if (mNativeSurface == null) {
             mNativeSurface = new SurfaceJni(mWidth, mHeight);
@@ -78,10 +84,22 @@ public class Image extends Control {
         getNodeJni().setGeometry(mNativeSurface);
         mGeometryNeedsUpdate = false;
 
+        // If an image isn't already set, then first fetch the placeholder (which should be on disk)
+        // before downloading/fetching the source image. Otherwise, just immediately get the source.
         if (!mIsImageSet && mPlaceholderSourceMap != null) {
-            setImageOnSurface(downloader.getImageSync(mPlaceholderSourceMap));
+            downloader.getImageAsync(mPlaceholderSourceMap, new ImageDownloadListener() {
+                @Override
+                public void completed(Bitmap result) {
+                    setImageOnSurface(result);
+                    downloadSourceImage(downloader);
+                }
+            });
+        } else {
+            downloadSourceImage(downloader);
         }
+    }
 
+    private void downloadSourceImage(ImageDownloader downloader) {
         if (mSourceMap != null) {
             imageDownloadDidStart();
             downloader.getImageAsync(mSourceMap, new ImageDownloadListener() {
@@ -148,7 +166,7 @@ public class Image extends Control {
     private void imageDownloadDidStart() {
         mContext.getJSModule(RCTEventEmitter.class).receiveEvent(
                 getId(),
-                ImageManager.IMAGE_LOAD_START,
+                ViroEvents.ON_LOAD_START,
                 null
         );
     }
@@ -156,7 +174,7 @@ public class Image extends Control {
     private void imageDownloadDidFinish() {
         mContext.getJSModule(RCTEventEmitter.class).receiveEvent(
                 getId(),
-                ImageManager.IMAGE_LOAD_END,
+                ViroEvents.ON_LOAD_END,
                 null
         );
     }

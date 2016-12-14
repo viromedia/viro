@@ -10,6 +10,8 @@ import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.common.MapBuilder;
 import com.facebook.react.uimanager.ThemedReactContext;
 import com.facebook.react.uimanager.annotations.ReactProp;
+import com.viromedia.bridge.utility.ViroEvents;
+
 import java.util.Map;
 
 /**
@@ -57,13 +59,11 @@ public class Video360Manager extends ViroViewGroupManager<Video360> {
         view.setSource(map.getString("uri"));
     }
 
-
-    protected final static String VIDEO_FINISHED_CALLBACK = "onFinish";
     @Override
     public @Nullable Map getExportedCustomDirectEventTypeConstants() {
         return MapBuilder.of(
-                VIDEO_FINISHED_CALLBACK,
-                MapBuilder.of("registrationName", VIDEO_FINISHED_CALLBACK)
+                ViroEvents.ON_FINISH,
+                MapBuilder.of("registrationName", ViroEvents.ON_FINISH)
         );
     }
 }

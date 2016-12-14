@@ -28,19 +28,40 @@ import {
 } from 'react-viro';
 
 var scene1 = React.createClass({
-    render: function() {
+  render: function() {
     return (
         <ViroScene position={[0,0,0]} reticleEnabled={false} >
-          <Viro360Photo source={{uri: "http://c5.staticflickr.com/8/7472/15972826220_d3c90c1fc9_h.jpg"}} rotation={[0,0,0]} />
+          <Viro360Photo source={{uri: "http://c5.staticflickr.com/8/7472/15972826220_d3c90c1fc9_h.jpg"}}
+            rotation={[90,0,0]} onLoadStart={this._onLoadStart("360Photo")}
+             onLoadEnd={this._onLoadEnd("360Photo")} />
           <ViroOrbitCamera position={[0, 0, 1]} focalPoint={[0, 0, -3]}/>
           <ViroNode position={[2, -3, 0]} >
             <ViroBox materials="wework_title" position={[0, 0, -5]} scale={[2, 4, 2]} transformBehaviors={["billboard"]} />
             <ViroBox materials="box_texture" position={[1, 5, -2]} scale={[3,3,3]} transformBehaviors={["billboard"]} />
           </ViroNode>
-          <ViroVideo height={4} width={4} position={[-1,0,-3]} source={{"uri":"https://s3-us-west-2.amazonaws.com/viro/Climber1Top.mp4"}}/>
-          <ViroImage position={[0, 0, -2]} source={{uri: "http://c5.staticflickr.com/8/7472/15972826220_d3c90c1fc9_h.jpg"}} />
+          <ViroVideo
+            height={4} width={4} position={[-1,0,-3]} onFinish={this._onFinish("Video")}
+            source={{"uri":"https://s3-us-west-2.amazonaws.com/viro/Climber1Top.mp4"}}
+          />
+          <ViroImage position={[0, 0, -2]} source={{uri: "https://upload.wikimedia.org/wikipedia/commons/7/74/Earth_poster_large.jpg"}}
+            onLoadStart={this._onLoadStart("Image")} onLoadEnd={this._onLoadEnd("Image")} />
         </ViroScene>
     );
+  },
+  _onLoadStart(component) {
+    return () => {
+      console.log("scene1 " + component + " load start");
+    }
+  },
+  _onLoadEnd(component) {
+    return () => {
+      console.log("scene1 " + component + " load end");
+    }
+  },
+  _onFinish(component) {
+    return () => {
+      console.log("scene1 " + component + " finished");
+    }
   }
 });
 

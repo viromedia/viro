@@ -134,8 +134,8 @@ var ViroImage = React.createClass({
     nativeProps.source = imgsrc;
     nativeProps.placeHolderSource = placeHoldersrc;
     nativeProps.transformBehaviors = transformBehaviors;
-    nativeProps.onViroImageLoadStart = this._onLoadStart;
-    nativeProps.onViroImageLoadEnd = this._onLoadEnd;
+    nativeProps.onLoadStartViro = this._onLoadStart;
+    nativeProps.onLoadEndViro = this._onLoadEnd;
     nativeProps.style = [this.props.style];
     return (
       <VRTImage {...nativeProps} />

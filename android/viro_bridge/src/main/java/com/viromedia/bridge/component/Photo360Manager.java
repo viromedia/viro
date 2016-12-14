@@ -10,6 +10,7 @@ import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.common.MapBuilder;
 import com.facebook.react.uimanager.ThemedReactContext;
 import com.facebook.react.uimanager.annotations.ReactProp;
+import com.viromedia.bridge.utility.ViroEvents;
 
 import java.util.Map;
 
@@ -38,13 +39,10 @@ public class Photo360Manager extends ViroViewGroupManager<Photo360> {
         view.setRotation(rotation);
     }
 
-    protected final static String PHOTO_360_LOAD_START = "onViro360PhotoLoadStart";
-    protected final static String PHOTO_360_LOAD_END = "onViro360PhotoLoadEnd";
-
     @Override
     public Map getExportedCustomDirectEventTypeConstants() {
         return MapBuilder.of(
-                PHOTO_360_LOAD_START, MapBuilder.of("registrationName", PHOTO_360_LOAD_START),
-                PHOTO_360_LOAD_END, MapBuilder.of("registrationName", PHOTO_360_LOAD_END));
+                ViroEvents.ON_LOAD_START, MapBuilder.of("registrationName", ViroEvents.ON_LOAD_START),
+                ViroEvents.ON_LOAD_END, MapBuilder.of("registrationName", ViroEvents.ON_LOAD_END));
     }
 }

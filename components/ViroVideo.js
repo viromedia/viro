@@ -59,6 +59,10 @@ var ViroVideo = React.createClass({
     return findNodeHandle(this.refs[RCT_VIDEO_REF]);
   },
 
+  _onFinish: function(event: Event) {
+    this.props.onFinish && this.props.onFinish(event);
+  },
+
   render: function() {
     if (this.props.src) {
       console.error('The <ViroVideo> component takes a `source` property rather than `src`.');
@@ -73,31 +77,29 @@ var ViroVideo = React.createClass({
     let materials = typeof this.props.materials === 'string' ? new Array(this.props.materials) : this.props.materials;
     let transformBehaviors = typeof this.props.transformBehaviors === 'string' ?
         new Array(this.props.transformBehaviors) : this.props.transformBehaviors;
+
+    let nativeProps = Object.assign({}, this.props);
+    nativeProps.ref = RCT_VIDEO_REF;
+    nativeProps.style = [this.props.style];
+    nativeProps.source = source;
+    nativeProps.materials = materials;
+    nativeProps.transformBehaviors = transformBehaviors;
+    nativeProps.onFinishViro = this._onFinish;
+
     return (
-      <VRTVideoSurface ref={RCT_VIDEO_REF}
-        style={[this.props.style]} {...this.props} source={source} onFinish={this._onFinish}
-      />
+      <VRTVideoSurface {...nativeProps} />
     );
   },
 
   seekToTime(timeInSeconds) {
     ViroVideoManager.seekToTime(this.getNodeHandle(), timeInSeconds);
   },
-
-  _onFinish(event: Event) {
-      if (!this.props.onFinish) {
-        return;
-      }
-
-      this.props.onFinish();
-    }
 });
 
 var VRTVideoSurface = requireNativeComponent(
     'VRTVideoSurface', ViroVideo, {
       nativeOnly: {onFinish: true}
     }
-
 );
 
 module.exports = ViroVideo;

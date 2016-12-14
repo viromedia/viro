@@ -87,8 +87,8 @@ var Viro360Photo = React.createClass({
     // Create native props object.
     let nativeProps = Object.assign({}, this.props);
     nativeProps.source = imgsrc;
-    nativeProps.onViro360PhotoLoadStart = this._onLoadStart;
-    nativeProps.onViro360PhotoLoadEnd = this._onLoadEnd;
+    nativeProps.onLoadStartViro = this._onLoadStart;
+    nativeProps.onLoadEndViro = this._onLoadEnd;
 
     return (
       <VRO360Photo {...nativeProps} />

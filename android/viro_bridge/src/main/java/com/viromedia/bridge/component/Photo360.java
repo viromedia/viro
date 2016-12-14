@@ -15,6 +15,7 @@ import com.viro.renderer.jni.TextureJni;
 import com.viromedia.bridge.component.node.Scene;
 import com.viromedia.bridge.utility.ImageDownloadListener;
 import com.viromedia.bridge.utility.ImageDownloader;
+import com.viromedia.bridge.utility.ViroEvents;
 
 public class Photo360 extends Component {
     private final ReactApplicationContext mContext;
@@ -91,7 +92,7 @@ public class Photo360 extends Component {
     private void imageDownloadDidStart() {
         mContext.getJSModule(RCTEventEmitter.class).receiveEvent(
                 getId(),
-                Photo360Manager.PHOTO_360_LOAD_START,
+                ViroEvents.ON_LOAD_START,
                 null
         );
     }
@@ -99,7 +100,7 @@ public class Photo360 extends Component {
     private void imageDownloadDidFinish() {
         mContext.getJSModule(RCTEventEmitter.class).receiveEvent(
                 getId(),
-                Photo360Manager.PHOTO_360_LOAD_END,
+                ViroEvents.ON_LOAD_END,
                 null
         );
     }

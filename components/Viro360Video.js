@@ -60,29 +60,30 @@ var Viro360Video = React.createClass({
     return findNodeHandle(this.refs[RCT_360_VIDEO_REF]);
   },
 
+  _onFinish(event: Event) {
+    this.props.onFinish && this.props.onFinish(event);
+  },
+
   render: function() {
     if (this.props.src) {
       console.error('The <Viro360Video> component takes a `source` property rather than `src`.');
     }
 
     var vidsrc = resolveAssetSource(this.props.source);
+
+    let nativeProps = Object.assign({}, this.props);
+    nativeProps.ref = RCT_360_VIDEO_REF;
+    nativeProps.source = vidsrc;
+    nativeProps.onFinishViro = this._onFinish;
+
     return (
-      <VRO360Video ref={RCT_360_VIDEO_REF}
-        {...this.props} source={vidsrc} onFinish={this._onFinish} />
+      <VRO360Video {...nativeProps} />
     );
   },
 
   seekToTime(timeInSeconds) {
     Viro360VideoManager.seekToTime(this.getNodeHandle(), timeInSeconds);
   },
-
-  _onFinish(event: Event) {
-        if (!this.props.onFinish) {
-          return;
-        }
-
-        this.props.onFinish();
-  }
 });
 
 var VRO360Video = requireNativeComponent(

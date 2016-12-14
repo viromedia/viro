@@ -9,6 +9,7 @@ import com.facebook.react.common.MapBuilder;
 import com.facebook.react.uimanager.ThemedReactContext;
 import com.facebook.react.uimanager.annotations.ReactProp;
 import com.viromedia.bridge.component.node.NodeManager;
+import com.viromedia.bridge.utility.ViroEvents;
 
 import java.util.Map;
 
@@ -49,14 +50,11 @@ public class ImageManager extends NodeManager<Image> {
         view.setHeight(height);
     }
 
-    protected final static String IMAGE_LOAD_START = "onViroImageLoadStart";
-    protected final static String IMAGE_LOAD_END = "onViroImageLoadEnd";
-
     @Override
     public Map getExportedCustomDirectEventTypeConstants() {
         return MapBuilder.of(
-                IMAGE_LOAD_START, MapBuilder.of("registrationName", IMAGE_LOAD_START),
-                IMAGE_LOAD_END, MapBuilder.of("registrationName", IMAGE_LOAD_END));
+                ViroEvents.ON_LOAD_START, MapBuilder.of("registrationName", ViroEvents.ON_LOAD_START),
+                ViroEvents.ON_LOAD_END, MapBuilder.of("registrationName", ViroEvents.ON_LOAD_END));
     }
 
 }
