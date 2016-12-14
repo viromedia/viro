@@ -1,0 +1,4 @@
+pod 'GVRSDK', '1.0.0'
+
+target 'ViroReact' do
+end

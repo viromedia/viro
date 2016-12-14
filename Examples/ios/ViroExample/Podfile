@@ -1,0 +1,3 @@
+target 'ViroExample' do
+    pod 'GVRSDK', '1.0.0'
+end

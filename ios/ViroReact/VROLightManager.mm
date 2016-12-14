@@ -1,0 +1,85 @@
+//
+//  VROLightManager.m
+//  React
+//
+//  Created by Vik Advani on 1/8/16.
+//  Copyright © 2016 Viro Media. All rights reserved.
+//
+
+#import "VRTLight.h"
+#import "VROLightManager.h"
+
+@implementation VROLightManager
+
+RCT_EXPORT_MODULE()
+RCT_EXPORT_VIEW_PROPERTY(color, UIColor)
+
+@end
+
+@implementation VRODirectionalLightManager
+
+
+RCT_EXPORT_MODULE()
+
+RCT_EXPORT_VIEW_PROPERTY(color, UIColor)
+RCT_EXPORT_VIEW_PROPERTY(direction, NSNumberArray)
+
+- (VRTView *)view
+{
+  return [[VRTDirectionalLight alloc] initWithBridge:self.bridge];
+}
+
+@end
+
+
+@implementation VROSpotLightManager
+
+RCT_EXPORT_MODULE()
+
+RCT_EXPORT_VIEW_PROPERTY(outerAngle, float)
+RCT_EXPORT_VIEW_PROPERTY(innerAngle, float)
+RCT_EXPORT_VIEW_PROPERTY(attenuationStartDistance, float)
+RCT_EXPORT_VIEW_PROPERTY(attenuationEndDistance, float)
+RCT_EXPORT_VIEW_PROPERTY(position, NSNumberArray)
+RCT_EXPORT_VIEW_PROPERTY(color, UIColor)
+RCT_EXPORT_VIEW_PROPERTY(direction, NSNumberArray)
+
+- (VRTView *)view
+{
+  return [[VRTSpotLight alloc] initWithBridge:self.bridge];
+}
+
+@end
+
+
+@implementation VROAmbientLightManager
+
+RCT_EXPORT_MODULE()
+
+RCT_EXPORT_VIEW_PROPERTY(color, UIColor)
+
+- (VRTView *)view
+{
+  return [[VRTAmbientLight alloc] initWithBridge:self.bridge];
+}
+
+@end
+
+
+@implementation VROOmniLightManager
+
+RCT_EXPORT_MODULE()
+
+RCT_EXPORT_VIEW_PROPERTY(attenuationStartDistance, float)
+RCT_EXPORT_VIEW_PROPERTY(attenuationEndDistance, float)
+RCT_EXPORT_VIEW_PROPERTY(position, NSNumberArray)
+RCT_EXPORT_VIEW_PROPERTY(color, UIColor)
+
+- (VRTView *)view
+{
+  return [[VRTOmniLight alloc] initWithBridge:self.bridge];
+}
+
+@end
+
+

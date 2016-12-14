@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workspace
+   version = "1.0">
+   <FileRef
+      location = "group:ViroExample/ViroExample.xcodeproj">
+   </FileRef>
+   <Group
+      location = "container:"
+      name = "Libraries">
+      <FileRef
+         location = "group:../node_modules/react-native/Libraries/Image/RCTImage.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:../node_modules/react-native/Libraries/Network/RCTNetwork.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:../node_modules/react-native/Libraries/Text/RCTText.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:../node_modules/react-native/Libraries/ActionSheetIOS/RCTActionSheet.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:../node_modules/react-native/Libraries/WebSocket/RCTWebSocket.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:../../ios/Pods/Pods.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:../../ios/ViroReact.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:../node_modules/react-native/React/React.xcodeproj">
+      </FileRef>
+   </Group>
+   <FileRef
+      location = "group:ViroExample/Pods/Pods.xcodeproj">
+   </FileRef>
+</Workspace>

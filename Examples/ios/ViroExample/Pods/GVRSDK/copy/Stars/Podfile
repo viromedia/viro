@@ -1,0 +1,3 @@
+target 'Stars' do
+  pod 'GVRSDK'
+end

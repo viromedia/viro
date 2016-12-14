@@ -1,0 +1,70 @@
+// Grouped in 4N slots (int and float take 1N, vec3 takes 3N, vec4 takes 4N)
+struct VROLightUniforms {
+    int type;
+    highp float attenuation_start_distance;
+    highp float attenuation_end_distance;
+    highp float attenuation_falloff_exp;
+    
+    highp vec3 position;
+    highp vec3 direction;
+    
+    lowp vec3 color;
+    highp float spot_inner_angle;
+    
+    highp float spot_outer_angle;
+    lowp float padding3;
+    lowp float padding4;
+    lowp float padding5;
+};
+
+layout (std140) uniform lighting {
+    int num_lights;
+    lowp float padding0, padding1, padding2;
+    
+    lowp vec3 ambient_light_color;
+    VROLightUniforms lights[8];
+};
+
+highp float compute_attenuation(const VROLightUniforms light,
+                                highp vec3 surface_pos,
+                                out highp vec3 surface_to_light) {
+    
+    highp float attenuation = 1.0;
+    
+    // Directional light
+    if (light.type == 1) {
+        surface_to_light = normalize(light.direction);
+        attenuation = 1.0;
+    }
+    
+    // Omni + Spot lights
+    else {
+        surface_to_light = -normalize(light.position.xyz - surface_pos);
+        highp float distance_to_light = length(light.position.xyz - surface_pos);
+        highp float d = clamp((distance_to_light - light.attenuation_start_distance) /
+                              (light.attenuation_end_distance - light.attenuation_start_distance),
+                               0.0, 1.0);
+        
+        attenuation = 1.0 - pow(d, 1.0 / light.attenuation_falloff_exp);
+        
+        // Spot light
+        if (light.type == 3) {
+            highp float light_surface_angle = acos(dot(surface_to_light, normalize(light.direction)));
+            if (light_surface_angle > light.spot_inner_angle) {
+                highp float t = clamp((light_surface_angle - light.spot_inner_angle) / light.spot_outer_angle, 0.0, 1.0);
+                attenuation = mix(attenuation, 0.0, t);
+            }
+        }
+    }
+    
+    return attenuation;
+}
+
+lowp vec4 compute_reflection(highp vec3 surface_position, highp vec3 camera_position, lowp vec3 normal,
+                             samplerCube reflect_sampler) {
+    
+    highp vec3 surface_to_camera = normalize(surface_position - camera_position);
+    highp vec3 reflect_ray = reflect(surface_to_camera, -normal);
+    
+    return texture(reflect_sampler, vec3(reflect_ray.xy, -reflect_ray.z));
+}
