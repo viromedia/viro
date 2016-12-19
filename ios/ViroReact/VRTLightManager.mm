@@ -1,5 +1,5 @@
 //
-//  VROLightManager.m
+//  VRTLightManager.m
 //  React
 //
 //  Created by Vik Advani on 1/8/16.
@@ -7,16 +7,16 @@
 //
 
 #import "VRTLight.h"
-#import "VROLightManager.h"
+#import "VRTLightManager.h"
 
-@implementation VROLightManager
+@implementation VRTLightManager
 
 RCT_EXPORT_MODULE()
 RCT_EXPORT_VIEW_PROPERTY(color, UIColor)
 
 @end
 
-@implementation VRODirectionalLightManager
+@implementation VRTDirectionalLightManager
 
 
 RCT_EXPORT_MODULE()
@@ -32,7 +32,7 @@ RCT_EXPORT_VIEW_PROPERTY(direction, NSNumberArray)
 @end
 
 
-@implementation VROSpotLightManager
+@implementation VRTSpotLightManager
 
 RCT_EXPORT_MODULE()
 
@@ -52,7 +52,7 @@ RCT_EXPORT_VIEW_PROPERTY(direction, NSNumberArray)
 @end
 
 
-@implementation VROAmbientLightManager
+@implementation VRTAmbientLightManager
 
 RCT_EXPORT_MODULE()
 
@@ -66,7 +66,7 @@ RCT_EXPORT_VIEW_PROPERTY(color, UIColor)
 @end
 
 
-@implementation VROOmniLightManager
+@implementation VRTOmniLightManager
 
 RCT_EXPORT_MODULE()
 

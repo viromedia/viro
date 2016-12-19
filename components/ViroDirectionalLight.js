@@ -32,7 +32,7 @@ var ViroDirectionalLight = React.createClass({
 
   render: function() {
       return (
-        <VRODirectionalLight
+        <VRTDirectionalLight
           {...this.props}
           style={[this.props.style]}
         />
@@ -40,8 +40,8 @@ var ViroDirectionalLight = React.createClass({
   }
 });
 
-var VRODirectionalLight = requireNativeComponent(
-  'VRODirectionalLight',
+var VRTDirectionalLight = requireNativeComponent(
+  'VRTDirectionalLight',
   ViroDirectionalLight
 );
 

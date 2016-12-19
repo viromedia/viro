@@ -1,6 +1,6 @@
 /**
  * Copyright (c) 2016-present, Viro Media, Inc.
- * All rights reserved. 
+ * All rights reserved.
  *
  */
 'use strict';
@@ -19,6 +19,7 @@ const ReactViro = {
   get ViroSphere() { return require('./components/ViroSphere'); },
   get ViroImage() { return require('./components/ViroImage'); },
   get Viro360Photo() { return require('./components/Viro360Photo'); },
+  get ViroDirectionalLight() { return require('./components/ViroDirectionalLight'); },
 }
 
 module.exports = ReactViro;

@@ -28,7 +28,7 @@ var scene_ios_test = React.createClass({
         <ViroScene>
             <ViroDirectionalLight color="#ffffff" direction={[0, 0, -1.0]} />
             <Viro360Photo source={{uri: "http://c5.staticflickr.com/8/7472/15972826220_d3c90c1fc9_h.jpg"}} rotation={[0,0,0]} />
-            <ViroBox materials="wework_title" position={[0, .2, -3]} scale={[1, 1, 1] onTap={}}  />
+            <ViroBox materials="wework_title" position={[0, .2, -3]} scale={[1, 1, 1]}   />
         </ViroScene>
     );
   }

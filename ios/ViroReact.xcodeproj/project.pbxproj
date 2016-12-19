@@ -17,7 +17,7 @@
 		8BE0D49E1DFA15880032AB99 /* VROButtonManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8BE0D4721DFA15880032AB99 /* VROButtonManager.mm */; };
 		8BE0D49F1DFA15880032AB99 /* VROComponentData.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8BE0D4751DFA15880032AB99 /* VROComponentData.mm */; };
 		8BE0D4A01DFA15880032AB99 /* VROHUDManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8BE0D4771DFA15880032AB99 /* VROHUDManager.mm */; };
-		8BE0D4A11DFA15880032AB99 /* VROLightManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8BE0D4791DFA15880032AB99 /* VROLightManager.mm */; };
+		8BE0D4A11DFA15880032AB99 /* VRTLightManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8BE0D4791DFA15880032AB99 /* VRTLightManager.mm */; };
 		8BE0D4A21DFA15880032AB99 /* VRTSceneManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8BE0D47B1DFA15880032AB99 /* VRTSceneManager.mm */; };
 		8BE0D4A31DFA15880032AB99 /* VRTSceneNavigatorManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8BE0D47D1DFA15880032AB99 /* VRTSceneNavigatorManager.mm */; };
 		8BE0D4A41DFA15880032AB99 /* VROTextManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8BE0D47F1DFA15880032AB99 /* VROTextManager.mm */; };
@@ -105,8 +105,8 @@
 		8BE0D4751DFA15880032AB99 /* VROComponentData.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = VROComponentData.mm; path = ViroReact/VROComponentData.mm; sourceTree = "<group>"; };
 		8BE0D4761DFA15880032AB99 /* VROHUDManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VROHUDManager.h; path = ViroReact/VROHUDManager.h; sourceTree = "<group>"; };
 		8BE0D4771DFA15880032AB99 /* VROHUDManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = VROHUDManager.mm; path = ViroReact/VROHUDManager.mm; sourceTree = "<group>"; };
-		8BE0D4781DFA15880032AB99 /* VROLightManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VROLightManager.h; path = ViroReact/VROLightManager.h; sourceTree = "<group>"; };
-		8BE0D4791DFA15880032AB99 /* VROLightManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = VROLightManager.mm; path = ViroReact/VROLightManager.mm; sourceTree = "<group>"; };
+		8BE0D4781DFA15880032AB99 /* VRTLightManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VRTLightManager.h; path = ViroReact/VRTLightManager.h; sourceTree = "<group>"; };
+		8BE0D4791DFA15880032AB99 /* VRTLightManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = VRTLightManager.mm; path = ViroReact/VRTLightManager.mm; sourceTree = "<group>"; };
 		8BE0D47A1DFA15880032AB99 /* VRTSceneManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VRTSceneManager.h; path = ViroReact/VRTSceneManager.h; sourceTree = "<group>"; };
 		8BE0D47B1DFA15880032AB99 /* VRTSceneManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = VRTSceneManager.mm; path = ViroReact/VRTSceneManager.mm; sourceTree = "<group>"; };
 		8BE0D47C1DFA15880032AB99 /* VRTSceneNavigatorManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VRTSceneNavigatorManager.h; path = ViroReact/VRTSceneNavigatorManager.h; sourceTree = "<group>"; };
@@ -264,8 +264,8 @@
 				8BE0D4751DFA15880032AB99 /* VROComponentData.mm */,
 				8BE0D4761DFA15880032AB99 /* VROHUDManager.h */,
 				8BE0D4771DFA15880032AB99 /* VROHUDManager.mm */,
-				8BE0D4781DFA15880032AB99 /* VROLightManager.h */,
-				8BE0D4791DFA15880032AB99 /* VROLightManager.mm */,
+				8BE0D4781DFA15880032AB99 /* VRTLightManager.h */,
+				8BE0D4791DFA15880032AB99 /* VRTLightManager.mm */,
 				8BE0D47A1DFA15880032AB99 /* VRTSceneManager.h */,
 				8BE0D47B1DFA15880032AB99 /* VRTSceneManager.mm */,
 				8BE0D47C1DFA15880032AB99 /* VRTSceneNavigatorManager.h */,
@@ -503,7 +503,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8BE0D4A11DFA15880032AB99 /* VROLightManager.mm in Sources */,
+				8BE0D4A11DFA15880032AB99 /* VRTLightManager.mm in Sources */,
 				8BE0D50A1DFA3D9B0032AB99 /* VRTSceneNavigator.mm in Sources */,
 				8BE0D4F81DFA3D9B0032AB99 /* VRTAnimatedComponent.mm in Sources */,
 				8BE0D4FB1DFA3D9B0032AB99 /* VRTButton.mm in Sources */,
