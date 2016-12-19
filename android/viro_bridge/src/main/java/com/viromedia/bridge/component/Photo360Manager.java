@@ -15,6 +15,7 @@ import com.viromedia.bridge.utility.ViroEvents;
 import java.util.Map;
 
 public class Photo360Manager extends ViroViewGroupManager<Photo360> {
+
     public Photo360Manager(ReactApplicationContext context) {
         super(context);
     }

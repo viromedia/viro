@@ -74,6 +74,9 @@ public class Scene extends Node implements SceneJni.SceneDelegate {
         mNativeScene.setBackgroundRotation(rotation);
     }
 
+    public void setBackgroundCubeImageTexture(TextureJni texture) {
+        mNativeScene.setBackgroundCubeImageTexture(texture);
+    }
     @Override
     public void addView(View child, int index) {
         super.addView(child, index);

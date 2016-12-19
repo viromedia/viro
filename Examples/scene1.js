@@ -23,7 +23,7 @@ import {
   ViroOrbitCamera,
   ViroImage,
   ViroVideo,
-  Viro360Photo,
+  ViroSkyBox,
   Viro360Video
 } from 'react-viro';
 
@@ -31,9 +31,12 @@ var scene1 = React.createClass({
   render: function() {
     return (
         <ViroScene position={[0,0,0]} reticleEnabled={false} >
-          <Viro360Photo source={{uri: "http://c5.staticflickr.com/8/7472/15972826220_d3c90c1fc9_h.jpg"}}
-            rotation={[90,0,0]} onLoadStart={this._onLoadStart("360Photo")}
-             onLoadEnd={this._onLoadEnd("360Photo")} />
+          <ViroSkyBox source={{nx:require("./js/res/sun_2302.jpg"),
+                       px:require("./js/res/sun_2302.jpg"),
+                       ny:require("./js/res/sun_2302.jpg"),
+                       py:require("./js/res/sun_2302.jpg"),
+                       nz:require("./js/res/sun_2302.jpg"),
+                       pz:require("./js/res/sun_2302.jpg")}} />
           <ViroOrbitCamera position={[0, 0, 1]} focalPoint={[0, 0, -3]}/>
           <ViroNode position={[2, -3, 0]} >
             <ViroBox materials="wework_title" position={[0, 0, -5]} scale={[2, 4, 2]} transformBehaviors={["billboard"]} />

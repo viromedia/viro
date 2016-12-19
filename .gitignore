@@ -17,6 +17,7 @@ Examples/android/app/.idea
 Examples/android/.idea
 Examples/android/.gradle
 Examples/android/local.properties
+.idea
 
 #iOS
 ios/Pods/Pods.xcodeproj/xcuserdata/

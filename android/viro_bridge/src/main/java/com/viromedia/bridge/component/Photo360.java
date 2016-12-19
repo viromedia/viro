@@ -46,6 +46,7 @@ public class Photo360 extends Component {
 
         if (mSourceMap != null) {
             imageDownloadDidStart();
+
             downloader.getImageAsync(mSourceMap, new ImageDownloadListener() {
                 @Override
                 public void completed(Bitmap result) {
@@ -86,7 +87,10 @@ public class Photo360 extends Component {
     @Override
     public void setScene(Scene scene) {
         super.setScene(scene);
-        mScene.setBackgroundImageTexture(mLatestTexture);
+        if (mLatestTexture != null) {
+            mScene.setBackgroundImageTexture(mLatestTexture);
+            mScene.setBackgroundRotation(mRotation);
+        }
     }
 
     private void imageDownloadDidStart() {

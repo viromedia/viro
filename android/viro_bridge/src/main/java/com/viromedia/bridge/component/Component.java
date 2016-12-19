@@ -5,11 +5,9 @@ package com.viromedia.bridge.component;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import com.viro.renderer.jni.RenderContextJni;
-import com.viro.renderer.jni.SceneJni;
 import com.viromedia.bridge.component.node.Scene;
 
 /**
@@ -19,6 +17,8 @@ public class Component extends FrameLayout {
     private static String TAG = Component.class.getSimpleName();
     protected RenderContextJni mRenderContext = null;
     protected Scene mScene = null;
+
+    private static Boolean IS_TORN_DOWN = false;
 
     public Component(Context context) {
         this(context, null, -1, -1);
@@ -104,7 +104,7 @@ public class Component extends FrameLayout {
      * for some additional cleanup.
      */
     protected void onTearDown() {
-        // No-op
+        IS_TORN_DOWN = true;
     }
 
     /**
@@ -114,6 +114,16 @@ public class Component extends FrameLayout {
         // No-op
     }
 
+    /**
+     * Helper method to indicate if teardown has already happened for this component. Package
+     * protected since this should be needed only from com.viromedia.bridge.component. Extend if
+     * needed later
+     *
+     * @return
+     */
+    boolean isTornDown() {
+        return IS_TORN_DOWN;
+    }
     public void sceneWillAppear() {
         for (int i = getChildCount() - 1; i >= 0; i--) {
             final View child = getChildAt(i);
