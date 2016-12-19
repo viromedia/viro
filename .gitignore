@@ -22,6 +22,7 @@ Examples/android/local.properties
 ios/Pods/Pods.xcodeproj/xcuserdata/
 ios/ViroReact.xcodeproj/xcuserdata/
 ios/ViroReact.xcworkspace/xcuserdata/
+Examples/ios/ViroExample.xcworkspace/xcuserdata/
 
 # Node
 Examples/node_modules
