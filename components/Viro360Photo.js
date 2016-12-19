@@ -11,14 +11,11 @@
  */
 'use strict';
 
-import { requireNativeComponent, View } from 'react-native';
-
+import { requireNativeComponent, View, StyleSheet } from 'react-native';
+import React, { Component } from 'react';
+import resolveAssetSource from "react-native/Libraries/Image/resolveAssetSource";
 var NativeMethodsMixin = require('react/lib/NativeMethodsMixin');
-var NativeModules = require('NativeModules');
 var PropTypes = require('react/lib/ReactPropTypes');
-var React = require('React');
-var StyleSheet = require('StyleSheet');
-var resolveAssetSource = require('resolveAssetSource');
 
 /**
  * Used to render a 360 photos in a sphere.
@@ -95,7 +92,6 @@ var Viro360Photo = React.createClass({
     );
   }
 });
-
 
 var VRO360Photo = requireNativeComponent(
   'VRO360Photo', Viro360Photo

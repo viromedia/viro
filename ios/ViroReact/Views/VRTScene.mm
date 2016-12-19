@@ -40,6 +40,7 @@
 }
 
 - (void)setView:(id <VROView>)view {
+    NSLog(@"Set view invoked");
   _sceneController = [[RCTSceneController alloc] initWithView:view sceneDelegate:self];
   [_sceneController setHoverEnabled:YES boundsOnly:YES];
   _sceneController.scene->addNode(self.node);
@@ -150,7 +151,6 @@
 }
 
 - (void)startIncomingTransition:(VRORenderContext *)context duration:(float)duration {
-  
   
   if (self.scene->getBackground()) {
     self.scene->getBackground()->getMaterials().front()->setTransparency(0.0);

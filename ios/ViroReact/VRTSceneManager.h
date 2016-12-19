@@ -1,5 +1,5 @@
 //
-//  VROSceneManager.h
+//  VRTSceneManager.h
 //  React
 //
 //  Created by Vik Advani on 11/3/15.
@@ -10,6 +10,6 @@
 #import "RCTBridge.h"
 #import "ViroViewManager.h"
 
-@interface VROSceneManager : ViroViewManager
+@interface VRTSceneManager : ViroViewManager
 
 @end

@@ -12,13 +12,13 @@
 'use strict';
 
 var NativeMethodsMixin = require('react/lib/NativeMethodsMixin');
-var NativeModules = require('NativeModules');
+var NativeModules = require('react-native').NativeModules;
 var PropTypes = require('react/lib/ReactPropTypes');
-var React = require('React');
 var invariant = require('fbjs/lib/invariant');
 var findNodeHandle = require('react/lib/findNodeHandle');
-var ViroSceneNavigatorManager = require('NativeModules').SceneNavigatorManager;
+var ViroSceneNavigatorManager = NativeModules.SceneNavigatorManager;
 import { requireNativeComponent, View, StyleSheet } from 'react-native';
+import React, { Component } from 'react';
 var SCENE_NAVIGATOR_REF = 'viroscenenavigator';
 
 type Scene = {
@@ -44,6 +44,8 @@ var ViroSceneNavigator = React.createClass({
         vrModeEnabled: PropTypes.bool,
 
         ...View.propTypes,
+
+        apiKey: PropTypes.string.isRequired,
         /**
          * ViroSceneNavigator uses "scene" objects like the following to
          * describe a scene.

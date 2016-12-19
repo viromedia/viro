@@ -6,11 +6,11 @@
 //  Copyright © 2015 Viro Media. All rights reserved.
 //
 
-#import "VROBoxManager.h"
+#import "VRTBoxManager.h"
 #import "VRTBox.h"
 
 
-@implementation VROBoxManager
+@implementation VRTBoxManager
 
 RCT_EXPORT_MODULE()
 
@@ -22,10 +22,11 @@ RCT_EXPORT_VIEW_PROPERTY(scale, NSNumberArray)
 RCT_EXPORT_VIEW_PROPERTY(rotation, NSNumberArray)
 RCT_EXPORT_VIEW_PROPERTY(materials, NSArray<NSString *>)
 RCT_EXPORT_VIEW_PROPERTY(visible, BOOL)
-RCT_EXPORT_VIEW_PROPERTY(onTap, RCTDirectEventBlock)
-RCT_EXPORT_VIEW_PROPERTY(onGaze, RCTDirectEventBlock)
+//RCT_EXPORT_VIEW_PROPERTY(onTap, RCTDirectEventBlock)
+//RCT_EXPORT_VIEW_PROPERTY(onGaze, RCTDirectEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(opacity, float)
 RCT_EXPORT_VIEW_PROPERTY(transformBehaviors, NSArray<NSString *>)
+
 
 - (VRTView *)view
 {

@@ -11,13 +11,11 @@
 
 'use strict';
 
+import React, { Component } from 'react';
+import { requireNativeComponent, View, StyleSheet } from 'react-native';
 var NativeMethodsMixin = require('react/lib/NativeMethodsMixin');
-var NativeModules = require('NativeModules');
 var PropTypes = require('react/lib/ReactPropTypes');
-var React = require('React');
-var StyleSheet = require('StyleSheet');
 
-import { requireNativeComponent, View } from 'react-native';
 
 /**
  * Used to render a ViroSphere

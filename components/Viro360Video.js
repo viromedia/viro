@@ -11,15 +11,12 @@
  */
 'use strict';
 
-import { requireNativeComponent, View } from 'react-native';
-
+import { requireNativeComponent, View, StyleSheet} from 'react-native';
+import React, { Component } from 'react';
+import resolveAssetSource from "react-native/Libraries/Image/resolveAssetSource";
 var NativeMethodsMixin = require('react/lib/NativeMethodsMixin');
-var NativeModules = require('NativeModules');
 var PropTypes = require('react/lib/ReactPropTypes');
-var React = require('React');
-var StyleSheet = require('StyleSheet');
-var Viro360VideoManager = require('NativeModules').Video360Manager;
-var resolveAssetSource = require('resolveAssetSource');
+var Viro360VideoManager = require('react-native').NativeModules.Video360Manager;
 var findNodeHandle = require('react/lib/findNodeHandle');
 
 var RCT_360_VIDEO_REF = 'viro360videocomponent';

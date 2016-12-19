@@ -169,7 +169,8 @@ const int k2DPointsPerSpatialUnit = 1000;
     std::shared_ptr<VROGeometry> geometry = node->getGeometry();
     
     if (geometry) {
-      VROMaterialManager *materialManager = [self.bridge materialManager];
+      VROMaterialManager *materialManager = [self.bridge moduleForClass:[VROMaterialManager class]];
+      //VROMaterialManager *materialManager = [self.bridge materialManager];
       std::vector<std::shared_ptr<VROMaterial>> tempMaterials;
 
       for(NSString *materialName in self.materials) {
@@ -240,7 +241,7 @@ const int k2DPointsPerSpatialUnit = 1000;
   // Always place the children of views .01 in front of the parent. This helps with z-fighting and ensures that the child is always in front of the parent for hit detection
   float zIncrementToAvoidZFighting = 0.01;
   
-  [self node]->setPosition({(float)transformedX, (float)transformedY, zIncrementToAvoidZFighting});
+  //VA: Uncomment when flexbox ready[self node]->setPosition({(float)transformedX, (float)transformedY, zIncrementToAvoidZFighting});
   CGPoint scale = [self fudgeFlexboxScaleX:width3d  Y:height3d];
   
   // Since VRTFlexView containers are actual size using width and height, set child components to appopriate width/height. If components don't have width/height attrib, use scale for now.
@@ -254,7 +255,7 @@ const int k2DPointsPerSpatialUnit = 1000;
     [flexview setHeight:bounds.size.height/ k2DPointsPerSpatialUnit];
   }
   else {
-    [self node]->setScale({(float)scale.x, (float)scale.y, 1.0});
+    //VA: Uncomment when flexbox ready[self node]->setScale({(float)scale.x, (float)scale.y, 1.0});
   }
 
   // Avoid crashes due to nan coords

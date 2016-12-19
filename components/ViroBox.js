@@ -8,10 +8,8 @@
  */
 
 import { requireNativeComponent, View } from 'react-native';
-
-var NativeModules = require('NativeModules');
+import React, { Component } from 'react';
 var PropTypes = require('react/lib/ReactPropTypes');
-var React = require('React');
 
 var ViroBox = React.createClass({
   propTypes: {

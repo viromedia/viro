@@ -11,13 +11,10 @@
  */
 'use strict';
 
-import { requireNativeComponent, View } from 'react-native';
-
+import { requireNativeComponent, View, StyleSheet } from 'react-native';
+import React, { Component } from 'react';
 var NativeMethodsMixin = require('react/lib/NativeMethodsMixin');
-var NativeModules = require('NativeModules');
 var PropTypes = require('react/lib/ReactPropTypes');
-var React = require('React');
-var StyleSheet = require('StyleSheet');
 
 var ViroOrbitCamera = React.createClass({
   mixins: [NativeMethodsMixin],

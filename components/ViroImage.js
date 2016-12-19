@@ -11,14 +11,12 @@
  */
 'use strict';
 
-import { requireNativeComponent, View } from 'react-native';
-
+import { requireNativeComponent, View, StyleSheet } from 'react-native';
+import resolveAssetSource from "react-native/Libraries/Image/resolveAssetSource";
+import React, { Component } from 'react';
 var NativeMethodsMixin = require('react/lib/NativeMethodsMixin');
-var NativeModules = require('NativeModules');
+var NativeModules = require('react-native').NativeModules;
 var PropTypes = require('react/lib/ReactPropTypes');
-var React = require('React');
-var StyleSheet = require('StyleSheet');
-var resolveAssetSource = require('resolveAssetSource');
 
 // TODO: add styles
 // var ViroPropTypes = require('ViroPropTypes');

@@ -10,5 +10,5 @@
 #import "ViroViewManager.h"
 #import "VRTEventDelegate.h"
 
-@interface VROBoxManager : ViroViewManager<VRTEventDelegate>
+@interface VRTBoxManager : ViroViewManager<VRTEventDelegate>
 @end

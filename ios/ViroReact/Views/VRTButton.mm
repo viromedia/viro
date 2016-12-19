@@ -178,7 +178,8 @@ NSString * const kDefaultSource = @"defaultSource";
 - (std::shared_ptr<VROMaterial>)createMaterial:(std::shared_ptr<VROTexture>)texture {
   std::shared_ptr<VROMaterial> newMaterial;
   if(self.materials) {
-    VROMaterialManager *materialManager = [self.bridge materialManager];
+     VROMaterialManager *materialManager = [self.bridge moduleForClass:[VROMaterialManager class]];
+    // = [self.bridge materialManager];
     std::shared_ptr<VROMaterial> setMaterial = [materialManager getMaterialByName:self.materials[0]];
     // Create a copy of the material property within which we can set the diffuse content.
     newMaterial = std::make_shared<VROMaterial>(setMaterial);

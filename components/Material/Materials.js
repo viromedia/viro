@@ -10,12 +10,12 @@
  * @flow
  */
 
-var MaterialManager = require('NativeModules').VROMaterialManager;
+import resolveAssetSource from "react-native/Libraries/Image/resolveAssetSource";
+var MaterialManager = require('react-native').NativeModules.VROMaterialManager;
 var MaterialPropTypes = require('./MaterialPropTypes');
-var resolveAssetSource = require('resolveAssetSource');
 var MaterialValidation = require('./MaterialValidation');
 var invariant = require('fbjs/lib/invariant');
-var processColor = require('processColor');
+var processColor = require('react-native').processColor;
 
 class Materials {
 

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016-present, Viro, Inc.
+ * Copyright (c) 2015-present, Viro, Inc.
  * All rights reserved.
  *
  * This source code is licensed under the BSD-style license found in the
@@ -15,21 +15,24 @@ import {
 } from 'react-native';
 
 import {
-  ViroSceneNavigator,
   ViroScene,
   ViroBox,
+  ViroDirectionalLight,
+  Viro360Photo,
+  Materials,
 } from 'react-viro';
 
-var InitialScene = require('./scene1');
-export default class ViroSample extends Component {
-  render() {
+var scene_ios_test = React.createClass({
+    render: function() {
     return (
-      <ViroSceneNavigator apiKey="7EEDCB99-2C3B-4681-AE17-17BC165BF792"
-       initialScene={{scene: InitialScene}}
-        />
+        <ViroScene>
+            <ViroDirectionalLight color="#ffffff" direction={[0, 0, -1.0]} />
+            <Viro360Photo source={{uri: "http://c5.staticflickr.com/8/7472/15972826220_d3c90c1fc9_h.jpg"}} rotation={[0,0,0]} />
+            <ViroBox materials="wework_title" position={[0, .2, -3]} scale={[1, 1, 1] onTap={}}  />
+        </ViroScene>
     );
   }
-}
+});
 
 const styles = StyleSheet.create({
   container: {
@@ -51,5 +54,12 @@ const styles = StyleSheet.create({
   },
 });
 
+Materials.createMaterials({
+  wework_title: {
+    shininess: 1.0,
+    lightingModel: "Constant",
+    diffuseColor: "#ff0000",
+  },
+})
 
-AppRegistry.registerComponent('ViroSample', () => ViroSample);
+module.exports = scene_ios_test;

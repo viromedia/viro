@@ -12,6 +12,7 @@
 #import "RCTComponent.h"
 #import "RCTBridge.h"
 #import "UIView+React.h"
+#import "VROMaterialManager.h"
 
 typedef NS_ENUM(NSInteger, ViroConstraintType) {
   ViroConstraintTypeNone,

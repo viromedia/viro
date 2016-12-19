@@ -49,7 +49,6 @@ RCT_MULTI_ENUM_CONVERTER(UIAccessibilityTraits, (@{
 
 @implementation ViroViewManager
 
-@synthesize bridge = _bridge;
 
 RCT_EXPORT_MODULE()
 
@@ -302,7 +301,7 @@ RCT_EXPORT_SHADOW_PROPERTY(flexWrap, CSSWrapType)
 RCT_EXPORT_SHADOW_PROPERTY(justifyContent, CSSJustify)
 RCT_EXPORT_SHADOW_PROPERTY(alignItems, CSSAlign)
 RCT_EXPORT_SHADOW_PROPERTY(alignSelf, CSSAlign)
-//RCT_EXPORT_SHADOW_PROPERTY(position, CSSPositionType)
+RCT_EXPORT_SHADOW_PROPERTY(position, NSNumberArray)
 
 RCT_EXPORT_SHADOW_PROPERTY(onLayout, BOOL)
 

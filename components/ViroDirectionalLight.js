@@ -6,7 +6,7 @@
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  *
- * @providesModule ViroCamera
+ * @providesModule ViroDirectionalLight
  * @flow
  */
 'use strict';
@@ -14,26 +14,35 @@
 import { requireNativeComponent, View, StyleSheet } from 'react-native';
 import React, { Component } from 'react';
 var NativeMethodsMixin = require('react/lib/NativeMethodsMixin');
+var NativeModules = require('react-native').NativeModules;
 var PropTypes = require('react/lib/ReactPropTypes');
+var ColorPropType = require('react-native').ColorPropType;
 
 
-var ViroCamera = React.createClass({
+/**
+ * Used to render a ViroDirectionalLight
+ */
+var ViroDirectionalLight = React.createClass({
   mixins: [NativeMethodsMixin],
 
   propTypes: {
-    ...View.propTypes,
-    position: PropTypes.arrayOf(PropTypes.number),
+    color: ColorPropType,
+    direction: PropTypes.arrayOf(PropTypes.number),
   },
 
   render: function() {
-    return (
-      <VRTCamera {...this.props} />
-    );
+      return (
+        <VRODirectionalLight
+          {...this.props}
+          style={[this.props.style]}
+        />
+      );
   }
 });
 
-var VRTCamera = requireNativeComponent(
-  'VRTCamera', ViroCamera
+var VRODirectionalLight = requireNativeComponent(
+  'VRODirectionalLight',
+  ViroDirectionalLight
 );
 
-module.exports = ViroCamera;
+module.exports = ViroDirectionalLight;

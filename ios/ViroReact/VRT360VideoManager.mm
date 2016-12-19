@@ -6,11 +6,11 @@
 //  Copyright © 2016 Viro Media. All rights reserved.
 //
 
-#import "VRO360VideoManager.h"
+#import "VRT360VideoManager.h"
 #import "VRT360Video.h"
 #import "ViroUIManager.h"
 
-@implementation VRO360VideoManager
+@implementation VRT360VideoManager
 
 RCT_EXPORT_MODULE()
 
