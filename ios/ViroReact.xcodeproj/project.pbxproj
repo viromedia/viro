@@ -70,6 +70,16 @@
 		8D7FF77A67F625D2046F82FD /* libPods-ViroReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D00D2E18A27112F2AE615B22 /* libPods-ViroReact.a */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		8BDD9DA21E09F39B00A42870 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8BDD9D9E1E09F39B00A42870 /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 4B33BA0D74E94909898237A117E85E60;
+			remoteInfo = "Pods-ViroReact";
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXCopyFilesBuildPhase section */
 		8BE0D4521DFA0D050032AB99 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -83,6 +93,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		8BDD9D9E1E09F39B00A42870 /* Pods.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Pods.xcodeproj; path = Pods/Pods.xcodeproj; sourceTree = "<group>"; };
 		8BE0D4541DFA0D050032AB99 /* libViroReact.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libViroReact.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		8BE0D4611DFA15880032AB99 /* RCTSceneController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RCTSceneController.h; path = ViroReact/RCTSceneController.h; sourceTree = "<group>"; };
 		8BE0D4621DFA15880032AB99 /* RCTSceneController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = RCTSceneController.mm; path = ViroReact/RCTSceneController.mm; sourceTree = "<group>"; };
@@ -234,6 +245,14 @@
 				D00D2E18A27112F2AE615B22 /* libPods-ViroReact.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		8BDD9D9F1E09F39B00A42870 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8BDD9DA31E09F39B00A42870 /* libPods-ViroReact.a */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		8BE0D44B1DFA0D050032AB99 = {
@@ -406,6 +425,7 @@
 		D237462BE0F14310B5EAE72D /* Pods */ = {
 			isa = PBXGroup;
 			children = (
+				8BDD9D9E1E09F39B00A42870 /* Pods.xcodeproj */,
 				D73C4F5968AA1DBB40C6B454 /* Pods-ViroReact.debug.xcconfig */,
 				A81D35054D51980438423FFB /* Pods-ViroReact.release.xcconfig */,
 			);
@@ -458,12 +478,28 @@
 			mainGroup = 8BE0D44B1DFA0D050032AB99;
 			productRefGroup = 8BE0D4551DFA0D050032AB99 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 8BDD9D9F1E09F39B00A42870 /* Products */;
+					ProjectRef = 8BDD9D9E1E09F39B00A42870 /* Pods.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				8BE0D4531DFA0D050032AB99 /* ViroReact */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		8BDD9DA31E09F39B00A42870 /* libPods-ViroReact.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libPods-ViroReact.a";
+			remoteRef = 8BDD9DA21E09F39B00A42870 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXShellScriptBuildPhase section */
 		713F299271F49D887E056747 /* [CP] Copy Pods Resources */ = {
