@@ -13,6 +13,7 @@
 #include <stack>
 #include <vector>
 #include <string>
+#include <algorithm>
 #include "VROMatrix4f.h"
 #include "VROQuaternion.h"
 #include "VRORenderContext.h"

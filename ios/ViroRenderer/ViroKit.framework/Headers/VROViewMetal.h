@@ -6,6 +6,9 @@
 //  Copyright © 2016 Viro Media. All rights reserved.
 //
 
+#include "VRODefines.h"
+#if VRO_METAL
+
 #import <Metal/Metal.h>
 #import <MetalKit/MetalKit.h>
 #import <memory>
@@ -14,3 +17,5 @@
 @interface VROViewMetal : MTKView <MTKViewDelegate, VROView>
 
 @end
+
+#endif

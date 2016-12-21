@@ -9,6 +9,9 @@
 #ifndef VROConcurrentBuffer_h
 #define VROConcurrentBuffer_h
 
+#include "VRODefines.h"
+#if VRO_METAL
+
 #include <stdio.h>
 #include "VROEye.h"
 #include <Metal/Metal.h>
@@ -61,4 +64,5 @@ private:
     
 };
 
+#endif
 #endif /* VROConcurrentBuffer_h */

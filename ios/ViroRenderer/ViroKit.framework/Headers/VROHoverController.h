@@ -12,6 +12,7 @@
 #include "VROFrameListener.h"
 #include "VROQuaternion.h"
 #include <functional>
+#include <memory>
 
 class VROScene;
 class VRONode;

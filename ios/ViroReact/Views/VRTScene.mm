@@ -135,7 +135,7 @@
 }
 
 - (void)sceneDidAppear:(VRORenderContext *)context driver:(VRODriver *)driver {
-  self.scene->getBackgroundAudioPlayer().play();
+  
 }
 
 - (void)sceneWillDisappear:(VRORenderContext *)context driver:(VRODriver *)driver {
@@ -143,7 +143,6 @@
   for(VRTView *view in _childViews) {
     [view viewWillDisappear];
   }
-  self.scene->getBackgroundAudioPlayer().pause();
 }
 
 - (void)sceneDidDisappear:(VRORenderContext *)context driver:(VRODriver *)driver {

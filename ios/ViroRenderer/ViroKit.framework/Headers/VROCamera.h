@@ -12,7 +12,13 @@
 #include "VROVector3f.h"
 #include "VROQuaternion.h"
 #include "VROMatrix4f.h"
+#include "VROViewport.h"
+#include "VROFieldOfView.h"
 
+enum class VROCameraRotationType {
+    Standard,
+    Orbit
+};
 
 /*
  The default forward and up vectors. These are rotated by the base and head
@@ -31,6 +37,8 @@ public:
     void setPosition(VROVector3f position);
     void setHeadRotation(VROMatrix4f headRotation);
     void setBaseRotation(VROMatrix4f baseRotation);
+    void setViewport(VROViewport viewport);
+    void setFOV(VROFieldOfView fov);
     
     VROVector3f getPosition() const {
         return _position;
@@ -45,6 +53,8 @@ public:
         return _rotation;
     }
     VROMatrix4f computeLookAtMatrix() const;
+    
+    float getWorldPerScreen(float distance) const;
     
 private:
     
@@ -79,6 +89,12 @@ private:
      rotation plus base rotation.
      */
     VROMatrix4f _baseRotation;
+    
+    /*
+     The current viewport and FOV.
+     */
+    VROViewport _viewport;
+    VROFieldOfView _fov;
     
     void onRotationChanged();
     

@@ -17,40 +17,17 @@ class VRONode;
 /*
  Attaches to a VROHoverController to respond to hover events.
  */
-class VROHoverDelegate {
+class VROHoverDelegate : public std::enable_shared_from_this<VROHoverDelegate> {
     
 public:
     
-    VROHoverDelegate(bool hitTestBoundsOnly,
-                     std::function<bool(std::shared_ptr<VRONode> node)> isHoverable,
-                     std::function<void(std::shared_ptr<VRONode> node)> hoverOn,
-                     std::function<void(std::shared_ptr<VRONode> node)> hoverOff) :
-        _hitTestBoundsOnly(hitTestBoundsOnly),
-        _isHoverable(isHoverable),
-        _hoverOn(hoverOn),
-        _hoverOff(hoverOff)
-    {}
+    VROHoverDelegate() {}
+    virtual ~VROHoverDelegate() {}
     
-    bool isHitTestBoundsOnly() const {
-        return _hitTestBoundsOnly;
-    }
-    
-    bool isHoverable(std::shared_ptr<VRONode> node) const {
-        return _isHoverable(node);
-    }
-    void hoverOn(std::shared_ptr<VRONode> node) {
-        _hoverOn(node);
-    }
-    void hoverOff(std::shared_ptr<VRONode> node) {
-        _hoverOff(node);
-    }
-    
-private:
-    
-    bool _hitTestBoundsOnly;
-    
-    std::function<bool(std::shared_ptr<VRONode> node)> _isHoverable;
-    std::function<void(std::shared_ptr<VRONode> node)> _hoverOn, _hoverOff;
+    virtual bool isHoverTestBoundsOnly() const = 0;
+    virtual bool isHoverable(std::shared_ptr<VRONode> node) = 0;
+    virtual void hoverOnNode(std::shared_ptr<VRONode> node) = 0;
+    virtual void hoverOffNode(std::shared_ptr<VRONode> node) = 0;
     
 };
 

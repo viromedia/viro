@@ -22,7 +22,7 @@ public:
     
     static std::shared_ptr<VROSkybox> createSkybox(std::shared_ptr<VROTexture> textureCube);
     static std::shared_ptr<VROSkybox> createSkybox(VROVector4f color);
-    ~VROSkybox();
+    virtual ~VROSkybox();
     
 private:
     

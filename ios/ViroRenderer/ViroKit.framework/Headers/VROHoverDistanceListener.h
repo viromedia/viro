@@ -20,7 +20,7 @@ class VROHoverDistanceListener {
     
 public:
     
-    virtual void onHoverDistanceChanged(float distance) = 0;
+    virtual void onHoverDistanceChanged(float distance, const VRORenderContext &context) = 0;
     
 };
 

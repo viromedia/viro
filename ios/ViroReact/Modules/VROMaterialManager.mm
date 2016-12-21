@@ -69,8 +69,10 @@
                                                 driver:(VRODriver *)driver {
   
   NSURL *videoURL = [NSURL URLWithString:path];
-  std::shared_ptr<VROVideoTexture> videoTexture = std::make_shared<VROVideoTexture>();
-  videoTexture->loadVideo(videoURL, context->getFrameSynchronizer(), *driver);
+  std::string url = std::string([[videoURL description] UTF8String]);
+    
+  std::shared_ptr<VROVideoTexture> videoTexture = std::make_shared<VROVideoTextureiOS>();
+  videoTexture->loadVideo(url, context->getFrameSynchronizer(), *driver);
   videoTexture->prewarm();
   
   return videoTexture;
@@ -108,7 +110,7 @@ RCT_EXPORT_METHOD(setJSMaterials:(NSDictionary *)materialsDict)
 
 - (std::shared_ptr<VROTexture>)createTexture2D:(id)json {
   UIImage *image = [self retrieveImage:json];
-  return std::make_shared<VROTexture>(image);
+  return std::make_shared<VROTexture>(std::make_shared<VROImageiOS>(image));
 }
 
 - (std::shared_ptr<VROTexture>)createTextureCubeMap:(NSDictionary *)cubeMapDict {
@@ -143,13 +145,13 @@ RCT_EXPORT_METHOD(setJSMaterials:(NSDictionary *)materialsDict)
   }
   
   // create cube texture with following images in this order
-  std::vector<UIImage *> cubeImages =  {
-    cubeMapImages[@"px"],
-    cubeMapImages[@"nx"],
-    cubeMapImages[@"py"],
-    cubeMapImages[@"ny"],
-    cubeMapImages[@"pz"],
-    cubeMapImages[@"nz"]
+  std::vector<std::shared_ptr<VROImage>> cubeImages =  {
+      std::make_shared<VROImageiOS>(cubeMapImages[@"px"]),
+      std::make_shared<VROImageiOS>(cubeMapImages[@"nx"]),
+      std::make_shared<VROImageiOS>(cubeMapImages[@"py"]),
+      std::make_shared<VROImageiOS>(cubeMapImages[@"ny"]),
+      std::make_shared<VROImageiOS>(cubeMapImages[@"pz"]),
+      std::make_shared<VROImageiOS>(cubeMapImages[@"nz"])
   };
   
   return std::make_shared<VROTexture>(cubeImages);
@@ -241,46 +243,46 @@ RCT_EXPORT_METHOD(setJSMaterials:(NSDictionary *)materialsDict)
   
   VROVector4f vecColor(r, g, b, a);
   if([@"diffuseColor" caseInsensitiveCompare:materialPropertyName] == NSOrderedSame){
-    material->getDiffuse().setContents(vecColor);
+    material->getDiffuse().setColor(vecColor);
   }else if([@"specularColor" caseInsensitiveCompare:materialPropertyName] == NSOrderedSame){
-    material->getSpecular().setContents(vecColor);
+    material->getSpecular().setColor(vecColor);
   }else if([@"normalColor" caseInsensitiveCompare:materialPropertyName] == NSOrderedSame){
-    material->getNormal().setContents(vecColor);
+    material->getNormal().setColor(vecColor);
   }else if([@"reflectiveColor" caseInsensitiveCompare:materialPropertyName] == NSOrderedSame){
-    material->getReflective().setContents(vecColor);
+    material->getReflective().setColor(vecColor);
   }else if([@"emissionColor" caseInsensitiveCompare:materialPropertyName] == NSOrderedSame){
-    material->getEmission().setContents(vecColor);
+    material->getEmission().setColor(vecColor);
   }else if([@"transparentColor" caseInsensitiveCompare:materialPropertyName] == NSOrderedSame){
-    material->getTransparent().setContents(vecColor);
+    material->getTransparent().setColor(vecColor);
   }else if([@"multiplyColor" caseInsensitiveCompare:materialPropertyName] == NSOrderedSame){
-    material->getMultiply().setContents(vecColor);
+    material->getMultiply().setColor(vecColor);
   }else if([@"ambientOcclusionColor" caseInsensitiveCompare:materialPropertyName] == NSOrderedSame){
-    material->getAmbientOcclusion().setContents(vecColor);
+    material->getAmbientOcclusion().setColor(vecColor);
   }else if([@"selfIlluminationColor" caseInsensitiveCompare:materialPropertyName] == NSOrderedSame){
-    material->getSelfIllumination().setContents(vecColor);
+    material->getSelfIllumination().setColor(vecColor);
   }
   
 }
 
 - (void)setTextureForMaterial:(std::shared_ptr<VROMaterial>)material texture:(std::shared_ptr<VROTexture>)texture name:(NSString *)materialPropertyName {
   if([@"diffuseTexture" caseInsensitiveCompare:materialPropertyName] == NSOrderedSame){
-    material->getDiffuse().setContents(texture);
+    material->getDiffuse().setTexture(texture);
   }else if([@"specularTexture" caseInsensitiveCompare:materialPropertyName] == NSOrderedSame){
-    material->getSpecular().setContents(texture);
+    material->getSpecular().setTexture(texture);
   }else if([@"normalTexture" caseInsensitiveCompare:materialPropertyName] == NSOrderedSame){
-    material->getNormal().setContents(texture);
+    material->getNormal().setTexture(texture);
   }else if([@"reflectiveTexture" caseInsensitiveCompare:materialPropertyName] == NSOrderedSame){
-    material->getReflective().setContentsCube(texture);
+    material->getReflective().setTexture(texture);
   }else if([@"emissionTexture" caseInsensitiveCompare:materialPropertyName] == NSOrderedSame){
-    material->getEmission().setContents(texture);
+    material->getEmission().setTexture(texture);
   }else if([@"transparentTexture" caseInsensitiveCompare:materialPropertyName] == NSOrderedSame){
-   material->getTransparent().setContents(texture);
+   material->getTransparent().setTexture(texture);
   }else if([@"multiplyTexture" caseInsensitiveCompare:materialPropertyName] == NSOrderedSame){
-    material->getMultiply().setContents(texture);
+    material->getMultiply().setTexture(texture);
   }else if([@"ambientOcclusionTexture" caseInsensitiveCompare:materialPropertyName] == NSOrderedSame){
-    material->getAmbientOcclusion().setContents(texture);
+    material->getAmbientOcclusion().setTexture(texture);
   }else if([@"selfIlluminationTexture" caseInsensitiveCompare:materialPropertyName] == NSOrderedSame){
-    material->getSelfIllumination().setContents(texture);
+    material->getSelfIllumination().setTexture(texture);
   }
 }
   

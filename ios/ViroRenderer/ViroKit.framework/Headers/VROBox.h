@@ -29,7 +29,7 @@ private:
     
     static void buildBox(VROShapeVertexLayout *vertexLayout, float width, float height,
                          float length);
-    
+
 };
 
 #endif /* VROBox_h */

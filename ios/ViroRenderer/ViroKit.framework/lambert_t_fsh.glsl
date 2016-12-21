@@ -6,7 +6,7 @@ uniform lowp vec4 material_diffuse_surface_color;
 uniform lowp float material_diffuse_intensity;
 uniform lowp float material_alpha;
 
-uniform sampler2D texture;
+uniform sampler2D diffuse_texture;
 
 in lowp vec3 v_normal;
 in highp vec2 v_texcoord;
@@ -26,5 +26,5 @@ void main() {
     lambert.diffuse_intensity = material_diffuse_intensity;
     lambert.material_alpha = material_alpha;
 
-    frag_color = lambert_lighting_diffuse_texture(lambert, texture);
+    frag_color = lambert_lighting_diffuse_texture(lambert, diffuse_texture);
 }

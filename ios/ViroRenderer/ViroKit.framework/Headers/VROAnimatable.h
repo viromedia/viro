@@ -13,6 +13,7 @@
 #include <string>
 #include "VROVector3f.h"
 #include <functional>
+#include <memory>
 
 class VROAnimation;
 

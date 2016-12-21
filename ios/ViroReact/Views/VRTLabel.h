@@ -15,8 +15,6 @@
 - (instancetype)initWithBridge:(RCTBridge *)bridge;
 
 @property (nonatomic, copy) NSArray<NSNumber *> *position;
-@property(nonatomic, strong) VROWorldUIView * vroUIView;
-@property(nonatomic, strong) UILabel *label;
 
 @property (nonatomic, strong) UIColor *color;
 @property (nonatomic, copy) NSString *fontFamily;

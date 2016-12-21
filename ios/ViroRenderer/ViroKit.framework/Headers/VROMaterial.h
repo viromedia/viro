@@ -64,6 +64,17 @@ public:
      */
     VROMaterial(std::shared_ptr<VROMaterial> material);
     
+    /*
+     Set a name for this material. No functionality, only used for 
+     debugging.
+     */
+    void setName(std::string name) {
+        _name = name;
+    }
+    std::string getName() const {
+        return _name;
+    }
+    
     uint32_t getMaterialId() const {
         return _materialId;
     }

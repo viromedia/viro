@@ -9,6 +9,8 @@
 #ifndef VROVideoDelegate_h
 #define VROVideoDelegate_h
 
+#import <Foundation/Foundation.h>
+
 @protocol VROVideoDelegate <NSObject>
 
 - (void)videoDidFinish;

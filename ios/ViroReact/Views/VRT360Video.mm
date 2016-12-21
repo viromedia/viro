@@ -95,9 +95,10 @@
   
   RCTImageSource *imageSource = [RCTConvert RCTImageSource:self.source];
   NSURL *videoURL = imageSource.request.URL;
-  
-  _videoTexture = std::make_shared<VROVideoTexture>();
-  _videoTexture->loadVideo(videoURL, self.context->getFrameSynchronizer(), *self.driver);
+  std::string url = std::string([[videoURL description] UTF8String]);
+
+  _videoTexture = std::make_shared<VROVideoTextureiOS>();
+  _videoTexture->loadVideo(url, self.context->getFrameSynchronizer(), *self.driver);
   _videoTexture->prewarm();
 
   self.scene->setBackgroundSphere(_videoTexture);
@@ -115,7 +116,7 @@
   _videoTexture->setVolume(self.volume);
   _videoTexture->setMuted(self.muted);
   _videoTexture->setLoop(self.loop);
-  _videoTexture->setDelegate(self);
+  _videoTexture->setDelegate(std::make_shared<VROVideoDelegateiOS>(self));
 }
 
 - (void)viewWillAppear {

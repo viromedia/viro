@@ -70,6 +70,7 @@ const int kPlayTrackOnce = 0;
   NSMutableArray *_currentlyQueuedTrack;
   NSURL *_currentTrackUrl;
   BOOL _loopingTrack;
+  std::shared_ptr<VROAudioPlayer> _audioPlayer;
 }
 
 RCT_EXPORT_MODULE()
@@ -83,16 +84,24 @@ RCT_EXPORT_MODULE()
 
 -(void)setCurrentScene:(VRTScene *)sceneView {
   _currentSceneView = sceneView;
+  _audioPlayer.reset();
+    
   if([_currentlyQueuedTrack count] > 0){
     VROSoundTrack *currentTrack = [_currentlyQueuedTrack objectAtIndex:0];
     // Set the track if the track is local OR if it has already been loaded
     if([currentTrack.url isFileURL] || currentTrack.soundData) {
-      [_currentSceneView scene]->getBackgroundAudioPlayer().setTrack(currentTrack.soundData, _loopingTrack ? kLoopTrack: kPlayTrackOnce);
+      std::shared_ptr<VROData> data = std::make_shared<VROData>(currentTrack.soundData.bytes,
+                                                                currentTrack.soundData.length);
+      _audioPlayer = std::make_shared<VROAudioPlayeriOS>(data);
+      _audioPlayer->setLoop(_loopingTrack);
+      
       [_currentlyQueuedTrack removeObjectAtIndex:0];
     }
   }
-
-  [_currentSceneView scene]->getBackgroundAudioPlayer().play();
+    
+  if (_audioPlayer) {
+    _audioPlayer->play();
+  }
 }
 
 RCT_EXPORT_METHOD(playBackgroundAudio:(NSDictionary *)sceneTrack loop:(BOOL)isLooping) {
@@ -120,8 +129,12 @@ RCT_EXPORT_METHOD(playBackgroundAudio:(NSDictionary *)sceneTrack loop:(BOOL)isLo
           VROSoundTrack *queuedSong = [_currentlyQueuedTrack objectAtIndex:0];
           queuedSong.soundData = data;
           if(queuedSong.url == URL && _currentSceneView != nil) {
-            [_currentSceneView scene]->getBackgroundAudioPlayer().setTrack(data, _loopingTrack ? kLoopTrack: kPlayTrackOnce);
-            [_currentSceneView scene]->getBackgroundAudioPlayer().play();
+            std::shared_ptr<VROData> sound = std::make_shared<VROData>(data.bytes, data.length);
+
+            _audioPlayer = std::make_shared<VROAudioPlayeriOS>(sound);
+            _audioPlayer->setLoop(_loopingTrack);
+            _audioPlayer->play();
+            
             [_currentlyQueuedTrack removeAllObjects];
           }
         }
@@ -131,15 +144,19 @@ RCT_EXPORT_METHOD(playBackgroundAudio:(NSDictionary *)sceneTrack loop:(BOOL)isLo
   }
   
   if(_currentSceneView != nil) {
-    [_currentSceneView scene]->getBackgroundAudioPlayer().setTrack(URL, _loopingTrack ? kLoopTrack: kPlayTrackOnce);
-    [_currentSceneView scene]->getBackgroundAudioPlayer().play();
+    std::string url = std::string([[URL description] UTF8String]);
+
+    _audioPlayer = std::make_shared<VROAudioPlayeriOS>(url);
+    _audioPlayer->setLoop(_loopingTrack);
+    _audioPlayer->play();
+      
     [_currentlyQueuedTrack removeAllObjects];
   }
 }
 
 RCT_EXPORT_METHOD(stopBackgroundAudio) {
-  if(_currentSceneView != nil) {
-    [_currentSceneView scene]->getBackgroundAudioPlayer().stop();
+  if(_audioPlayer) {
+    _audioPlayer->pause();
   }
 }
 
@@ -176,10 +193,11 @@ RCT_EXPORT_METHOD(playSoundEffect:(NSDictionary *)soundDict) {
 - (SoundWrapper *)createAndCacheSoundEffectWithURL:(NSURL *)url data:(NSData *)data key:(NSString *)key {
   std::shared_ptr<VROSoundEffect> sound;
   if(data != nil) {
-    sound = std::make_shared<VROSoundEffect>(data);
+    sound = std::make_shared<VROSoundEffectiOS>(std::make_shared<VROData>(data.bytes, data.length));
   }
   else {
-    sound = std::make_shared<VROSoundEffect>(url);
+    std::string urlStr = std::string([[url description] UTF8String]);
+    sound = std::make_shared<VROSoundEffectiOS>(urlStr);
   }
   
   SoundWrapper *soundWrapper = [[SoundWrapper alloc] initWithSound:sound];

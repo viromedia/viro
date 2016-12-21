@@ -121,7 +121,15 @@
       UIImage *nz = [self.downloadedImages objectForKey:@"nz"];
       
       if (px != nil && nx != nil && py != nil && ny != nil && pz != nil && nz != nil) {
-        std::vector<UIImage *> cubeImages =  { px, nx, py, ny, pz, nz };
+        std::vector<std::shared_ptr<VROImage>> cubeImages =  {
+            std::make_shared<VROImageiOS>(px),
+            std::make_shared<VROImageiOS>(nx),
+            std::make_shared<VROImageiOS>(py),
+            std::make_shared<VROImageiOS>(ny),
+            std::make_shared<VROImageiOS>(pz),
+            std::make_shared<VROImageiOS>(nz)
+        };
+        
         _cubeTexture = std::make_shared<VROTexture>(cubeImages);
         [self updateSceneWithSkybox];
         

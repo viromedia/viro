@@ -60,7 +60,7 @@
     CGFloat red,green,blue, alpha;
     [_backgroundColor getRed:&red green:&green blue:&blue alpha:&alpha];
     VROVector4f vecColor(red, green, blue, alpha);
-    newMaterial->getDiffuse().setContents(vecColor);
+    newMaterial->getDiffuse().setColor(vecColor);
     _backgroundColorMaterial = newMaterial;
     if(_surface && _height > 0.0 && _width > 0.0) {
       [self createSurface];

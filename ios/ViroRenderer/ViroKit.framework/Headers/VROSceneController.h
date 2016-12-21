@@ -16,12 +16,22 @@ class VRONode;
 class VROScene;
 class VRORenderContext;
 class VROHoverDelegate;
+class VROSceneControlleriOS;
 
 @class VROScreenUIView;
 
 @interface VROSceneController : NSObject
 
-- (id)initWithView:(id <VROView>)view;
+- (id)init;
+
+@property (readonly, nonatomic) std::shared_ptr<VROSceneControlleriOS> internal;
+
+#pragma mark - Control Methods
+
+- (void)setHoverEnabled:(BOOL)enabled boundsOnly:(BOOL)boundsOnly;
+- (std::shared_ptr<VROScene>)scene;
+
+#pragma mark - Delegate Methods
 
 - (void)sceneWillAppear:(VRORenderContext *)context driver:(VRODriver *)driver;
 - (void)sceneDidAppear:(VRORenderContext *)context driver:(VRODriver *)driver;
@@ -40,10 +50,7 @@ class VROHoverDelegate;
 - (BOOL)isHoverable:(std::shared_ptr<VRONode>)node;
 - (void)hoverOnNode:(std::shared_ptr<VRONode>)node;
 - (void)hoverOffNode:(std::shared_ptr<VRONode>)node;
-- (void)setHoverEnabled:(BOOL)enabled boundsOnly:(BOOL)boundsOnly;
 
 - (void)reticleTapped:(VROVector3f)ray context:(const VRORenderContext *)context;
-
-- (std::shared_ptr<VROScene>)scene;
 
 @end

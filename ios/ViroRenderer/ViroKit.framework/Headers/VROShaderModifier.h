@@ -6,24 +6,24 @@
 //  Copyright © 2016 Viro Media. All rights reserved.
 //
 
+#ifndef VROShaderModifier_h
+#define VROShaderModifier_h
+
 #include <stdlib.h>
 #include <vector>
 #include <string>
 #include <functional>
+#include <memory>
 #include <map>
-
-#import <GLKit/GLKit.h>
-#import <OpenGLES/EAGL.h>
-#import <OpenGLES/ES2/gl.h>
-#import <OpenGLES/ES2/glext.h>
-#import <OpenGLES/ES3/glext.h>
+#include "VROOpenGL.h"
 
 class VROUniform;
 
 typedef std::function<void(VROUniform *uniform, GLuint location)> VROUniformBindingBlock;
 
 enum class VROShaderEntryPoint {
-    Geometry
+    Geometry, // Modify vertex shader
+    Surface   // Modify fragment shader
 };
 
 enum class VROShaderSection {
@@ -46,8 +46,19 @@ public:
     VROShaderModifier(VROShaderEntryPoint entryPoint, std::vector<std::string> input);
     virtual ~VROShaderModifier();
     
+    VROShaderEntryPoint getEntryPoint() const {
+        return _entryPoint;
+    }
     int getShaderModifierId() const {
         return _shaderModifierId;
+    }
+    
+    /*
+     Add a string of text and what it should be replaced with. This will perform
+     a find and replace on the modified shader.
+     */
+    void addReplacement(std::string stringMatching, std::string replacementString) {
+        _replacements[stringMatching] = replacementString;
     }
     
     /*
@@ -75,6 +86,14 @@ public:
     std::vector<std::string> getUniforms() const;
     
     /*
+     Get the replacement map, used to replace matching lines of code in the
+     modified shader with new lines of code.
+     */
+    const std::map<std::string, std::string> &getReplacements() const {
+        return _replacements;
+    }
+    
+    /*
      Get the uniform declaration code. This gets placed at the top of the file.
      */
     std::string getUniformsSource() const {
@@ -93,8 +112,21 @@ private:
     
     int _shaderModifierId;
     
+    /*
+     The new uniforms this shader modifier will add. Single string containing
+     the uniform declarations, with newlines between them.
+     */
     std::string _uniforms;
+    
+    /*
+     The code this modifier is adding to the body of the shader.
+     */
     std::string _body;
+    
+    /*
+     Map of lines this modifier will replace in the shader it modifies.
+     */
+    std::map<std::string, std::string> _replacements;
     
     VROShaderEntryPoint _entryPoint;
     std::map<std::string, VROUniformBindingBlock> _uniformBinders;
@@ -102,8 +134,24 @@ private:
     /*
      Extract the uniforms from the given source string and return them in a new
      string. Mutate the given string, removing the uniforms from the input source.
+     For example, if the input is:
+     
+     uniform float testA;
+     uniform float testB;
+     _geometry.position.x = _geometry.position.x + testA;
+     
+     then this function will return:
+     
+     uniform float testA;
+     uniform float testB;
+     
+     and the input string will be mutated to:
+     
+     _geometry.position.x = _geometry.position.x + testA;
      */
-    std::string extractUniforms(std::string *source);
-    void extractNextUniform(std::string *uniforms, std::string *body);
+    std::string extractUniforms(std::string *source) const;
+    void extractNextUniform(std::string *uniforms, std::string *body) const;
     
 };
+
+#endif

@@ -9,9 +9,9 @@
 #ifndef VROVideoSurface_h
 #define VROVideoSurface_h
 
-#import "VROSurface.h"
-#include "VROVideoDelegate.h"
-#import <memory>
+#include "VROSurface.h"
+#include "VROVideoDelegateInternal.h"
+#include <memory>
 
 class VRORenderContext;
 class VRODriver;
@@ -25,8 +25,9 @@ class VROVideoSurface : public VROSurface {
 public:
     
     static std::shared_ptr<VROVideoSurface> createVideoSurface(float width, float height,
-                                                               NSURL *url,
+                                                               std::string url,
                                                                std::shared_ptr<VROFrameSynchronizer> frameSynchronizer,
+                                                               std::shared_ptr<VROVideoTexture> texture,
                                                                VRODriver &driver);
     
     void pause();
@@ -36,7 +37,7 @@ public:
     void setVolume(float volume);
     void setLoop(bool loop);
     void seekToTime(int seconds);
-    void setDelegate(id <VROVideoDelegate> delegate);
+    void setDelegate(std::shared_ptr<VROVideoDelegateInternal> delegate);
   
     ~VROVideoSurface();
     

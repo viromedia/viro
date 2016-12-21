@@ -16,6 +16,8 @@ FOUNDATION_EXPORT const unsigned char ViroKitVersionString[];
 
 // In this header, you should import all the public headers of your framework using statements like #import <ViroKit/PublicHeader.h>
 
+#import <ViroKit/VRODefines.h>
+#import <ViroKit/VROOpenGL.h>
 #import <ViroKit/VROSceneController.h>
 #import <ViroKit/VROView.h>
 #import <ViroKit/VROViewMetal.h>
@@ -30,6 +32,7 @@ FOUNDATION_EXPORT const unsigned char ViroKitVersionString[];
 
 // Model Loader
 #import <ViroKit/VROLoader.h>
+#import <ViroKit/VROOBJLoader.h>
 
 // Core Scene Graph
 #import <ViroKit/VROScene.h>
@@ -43,6 +46,8 @@ FOUNDATION_EXPORT const unsigned char ViroKitVersionString[];
 #import <ViroKit/VROMaterialVisual.h>
 #import <ViroKit/VROTexture.h>
 #import <ViroKit/VROLight.h>
+#import <ViroKit/VROImage.h>
+#import <ViroKit/VROImageiOS.h>
 #import <ViroKit/VROShaderModifier.h>
 #import <ViroKit/VROShaderProgram.h>
 #import <ViroKit/VROTransaction.h>
@@ -56,27 +61,28 @@ FOUNDATION_EXPORT const unsigned char ViroKitVersionString[];
 #import <ViroKit/VROTimingFunctionEaseOut.h>
 #import <ViroKit/VROTimingFunctionLinear.h>
 #import <ViroKit/VROTimingFunctionPowerDeceleration.h>
-#import <ViroKit/VROVideoTexture.h>
 #import <ViroKit/VROAction.h>
 #import <ViroKit/VROHitTestResult.h>
 #import <ViroKit/VROConstraint.h>
 #import <ViroKit/VROBillboardConstraint.h>
 #import <ViroKit/VROTransformConstraint.h>
 
-// Layer
-#import <ViroKit/VROLayer.h>
-#import <ViroKit/VRORect.h>
-#import <ViroKit/VROSize.h>
-#import <ViroKit/VROWorldUIView.h>
-#import <ViroKit/VROScreenUIView.h>
+// UI
 #import <ViroKit/VROReticle.h>
+#import <ViroKit/VROText.h>
+#import <ViroKit/VROTypeface.h>
+
+// Video
+#import <ViroKit/VROVideoSurface.h>
+#import <ViroKit/VROVideoTexture.h>
+#import <ViroKit/VROVideoTextureiOS.h>
+#import <ViroKit/VROVideoDelegateiOS.h>
 
 // Audio
 #import <ViroKit/VROAudioPlayer.h>
+#import <ViroKit/VROAudioPlayeriOS.h>
 #import <ViroKit/VROSoundEffect.h>
-
-// Layout
-#import <ViroKit/VROCrossLayout.h>
+#import <ViroKit/VROSoundEffectiOS.h>
 
 // Math
 #import <ViroKit/VROQuaternion.h>
@@ -95,7 +101,6 @@ FOUNDATION_EXPORT const unsigned char ViroKitVersionString[];
 #import <ViroKit/VROSphere.h>
 #import <ViroKit/VROSurface.h>
 #import <ViroKit/VROPolyline.h>
-#import <ViroKit/VROVideoSurface.h>
 #import <ViroKit/VROTorusKnot.h>
 #import <ViroKit/VROShapeUtils.h>
 

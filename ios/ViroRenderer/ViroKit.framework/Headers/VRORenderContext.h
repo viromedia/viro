@@ -10,7 +10,6 @@
 #define VRORenderContext_h
 
 #include <stdio.h>
-#include <UIKit/UIKit.h>
 #include <vector>
 #include <memory>
 #include "VROFrameListener.h"

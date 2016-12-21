@@ -20,6 +20,7 @@ class VROPolyline : public VROGeometry, public VROAnimatable {
 public:
     
     static std::shared_ptr<VROPolyline> createPolyline(std::vector<VROVector3f> &path, float width);
+    virtual ~VROPolyline() {}
     
     /*
      Set the width. Animatable.

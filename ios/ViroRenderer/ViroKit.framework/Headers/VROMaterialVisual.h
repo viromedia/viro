@@ -29,12 +29,6 @@ enum class VROFilterMode {
     Linear
 };
 
-enum class VROContentsType {
-    Fixed = 1,
-    Texture2D = 2,
-    TextureCube = 4
-};
-
 class VROMaterial;
 
 /*
@@ -52,7 +46,6 @@ public:
         _material(material),
         _permissibleContentsMask(permissibleContentsMask),
         _heartbeat(std::make_shared<VROMaterialVisualHeartbeat>()),
-        _contentsType(VROContentsType::Fixed),
         _contentsColor({ 1.0, 1.0, 1.0, 1.0 }),
         _intensity(1.0),
         _wrapS(VROWrapMode::Clamp),
@@ -69,27 +62,24 @@ public:
     VROMaterialVisual(const VROMaterialVisual &visual);
     
     void clear();
-    void setContents(VROVector4f contents);
-    void setContents(std::shared_ptr<VROTexture> texture);
-    void setContentsCube(std::shared_ptr<VROTexture> texture);
+    void setColor(VROVector4f contents);
+    void setTexture(std::shared_ptr<VROTexture> texture);
     
-    VROContentsType getContentsType() const {
-        return _contentsType;
-    }
-    
-    VROVector4f getContentsColor() const {
-        if (_contentsType == VROContentsType::Fixed) {
-            return _contentsColor;
+    VROTextureType getTextureType() const {
+        if (_contentsTexture) {
+            return _contentsTexture->getType();
         }
         else {
-            return { 1.0, 1.0, 1.0, 1.0 };
+            return VROTextureType::None;
         }
     }
     
-    std::shared_ptr<VROTexture> getContentsTexture() const {
-        if (_contentsType == VROContentsType::Texture2D ||
-            _contentsType == VROContentsType::TextureCube) {
-            
+    VROVector4f getColor() const {
+        return _contentsColor;
+    }
+    
+    std::shared_ptr<VROTexture> getTexture() const {
+        if (_contentsTexture) {
             return _contentsTexture;
         }
         else {
@@ -121,18 +111,12 @@ private:
     std::shared_ptr<VROMaterialVisualHeartbeat> _heartbeat;
     
     /*
-     Indicates the content type for this visual.
-     */
-    VROContentsType _contentsType;
-    
-    /*
-     If the visual is determined by a fixed color, _contentsColor is populated.
+     The color component of the visual.
      */
     VROVector4f _contentsColor;
     
     /*
-     If the visual is determined by a texture, this variable will be populated
-     with the texture.
+     The texture component of the visual.
      */
     std::shared_ptr<VROTexture> _contentsTexture;
     

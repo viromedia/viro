@@ -10,7 +10,6 @@
 #define VROTIME_H_
 
 #include <time.h>
-#include <sys/timeb.h>
 #include <stdlib.h>
 #include <stdint.h>
 

@@ -85,9 +85,12 @@
   // If an asset is passed with a full uri, that uri is preserved and passed to the video surface
   RCTImageSource *imageSource = [RCTConvert RCTImageSource:self.source];
   NSURL *videoURL = imageSource.request.URL;
+  std::string url = std::string([[videoURL description] UTF8String]);
   
-  _surface = VROVideoSurface::createVideoSurface(1, 1, videoURL,
-                                                 self.context->getFrameSynchronizer(), *self.driver);
+  std::shared_ptr<VROVideoTexture> videoTexture = std::make_shared<VROVideoTextureiOS>();
+  _surface = VROVideoSurface::createVideoSurface(1, 1, url,
+                                                 self.context->getFrameSynchronizer(),
+                                                 videoTexture, *self.driver);
   _surface->getMaterials().front()->setReadsFromDepthBuffer(false);
   
   if (self.paused) {
@@ -99,7 +102,7 @@
   _surface->setVolume(self.volume);
   _surface->setMuted(self.muted);
   _surface->setLoop(self.loop);
-  _surface->setDelegate(self);
+  _surface->setDelegate(std::make_shared<VROVideoDelegateiOS>(self));
   
   [self node]->setGeometry(_surface);
 }

@@ -45,15 +45,15 @@ lowp vec3 apply_light_phong(const VROLightUniforms light,
 lowp vec4 phong_lighting_diffuse_fixed(VROPhongLighting phong,
                                        sampler2D specular_texture) {
     
-    lowp vec3 ambient_light_color = phong.ambient_color * phong.material_color.xyz;
+    lowp vec3 light_ambient_color = phong.ambient_color * phong.material_color.xyz;
 
     lowp vec4 material_diffuse_color = phong.material_color * phong.diffuse_intensity;
     lowp vec4 material_specular_color = texture(specular_texture, phong.texcoord);
     highp vec3 surface_to_camera = normalize(phong.camera_position - phong.surface_position);
     
-    lowp vec3 diffuse_light_color = vec3(0, 0, 0);
+    lowp vec3 light_diffuse_color = vec3(0, 0, 0);
     for (int i = 0; i < num_lights; i++) {
-        diffuse_light_color += apply_light_phong(lights[i],
+        light_diffuse_color += apply_light_phong(lights[i],
                                                  phong.surface_position,
                                                  phong.normal,
                                                  surface_to_camera,
@@ -62,7 +62,7 @@ lowp vec4 phong_lighting_diffuse_fixed(VROPhongLighting phong,
                                                  phong.material_shininess);
     }
     
-    return vec4(ambient_light_color + diffuse_light_color,
+    return vec4(light_ambient_color + light_diffuse_color,
                 phong.material_alpha * phong.material_color.a);
 }
 
@@ -70,16 +70,15 @@ lowp vec4 phong_lighting_diffuse_texture(VROPhongLighting phong,
                                          sampler2D diffuse_texture,
                                          sampler2D specular_texture) {
     
-    lowp vec4 diffuse_texture_color = texture(diffuse_texture, phong.texcoord);
-    lowp vec3 ambient_light_color = phong.ambient_color * diffuse_texture_color.xyz;
+    lowp vec4 material_diffuse_color = texture(diffuse_texture, phong.texcoord) * phong.material_color * phong.diffuse_intensity;
+    lowp vec3 light_ambient_color = phong.ambient_color * material_diffuse_color.xyz;
 
-    lowp vec4 material_diffuse_color  = diffuse_texture_color * phong.diffuse_intensity;
     lowp vec4 material_specular_color = texture(specular_texture, phong.texcoord);
     highp vec3 surface_to_camera = normalize(phong.camera_position - phong.surface_position);
     
-    lowp vec3 diffuse_light_color = vec3(0, 0, 0);
+    lowp vec3 light_diffuse_color = vec3(0, 0, 0);
     for (int i = 0; i < num_lights; i++) {
-        diffuse_light_color += apply_light_phong(lights[i],
+        light_diffuse_color += apply_light_phong(lights[i],
                                                     phong.surface_position,
                                                     phong.normal,
                                                     surface_to_camera,
@@ -88,6 +87,6 @@ lowp vec4 phong_lighting_diffuse_texture(VROPhongLighting phong,
                                                     phong.material_shininess);
     }
     
-    return vec4(ambient_light_color + diffuse_light_color,
-                phong.material_alpha * diffuse_texture_color.a);
+    return vec4(light_ambient_color + light_diffuse_color,
+                phong.material_alpha * material_diffuse_color.a);
 }

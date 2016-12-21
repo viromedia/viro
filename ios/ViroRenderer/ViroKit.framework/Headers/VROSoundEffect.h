@@ -10,21 +10,15 @@
 #define VROSoundEffect_h
 
 #include <stdio.h>
-#include <AVFoundation/AVFoundation.h>
+#include <string>
 
 class VROSoundEffect {
     
 public:
     
-    VROSoundEffect(NSURL *url);
-    VROSoundEffect(NSData *data);
-    virtual ~VROSoundEffect();
+    virtual ~VROSoundEffect() {}
     
-    void play();
-    
-private:
-    
-    AVAudioPlayer *_player;
+    virtual void play() = 0;
     
 };
 

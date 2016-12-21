@@ -19,7 +19,7 @@ public:
     
     static std::shared_ptr<VROTorusKnot> createTorusKnot(float p, float q, float tubeRadius,
                                                          int segments, int slices);
-    ~VROTorusKnot();
+    virtual ~VROTorusKnot();
     
 private:
     

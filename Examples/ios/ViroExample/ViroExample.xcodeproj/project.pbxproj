@@ -450,6 +450,7 @@
 				TargetAttributes = {
 					8BE0D4141DF9DCFE0032AB99 = {
 						CreatedOnToolsVersion = 7.3;
+						DevelopmentTeam = ***REMOVED***;
 					};
 					8BE0D42D1DF9DCFE0032AB99 = {
 						CreatedOnToolsVersion = 7.3;
@@ -785,6 +786,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -823,6 +825,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
@@ -835,6 +838,7 @@
 			baseConfigurationReference = A5EDB411D854AE0107065CAA /* Pods-ViroExample.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = ***REMOVED***;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../../../ios/ViroRenderer/**";
 				HEADER_SEARCH_PATHS = "../../node_modules/react-native/React/**";
@@ -850,6 +854,7 @@
 			baseConfigurationReference = 06D7246F15472C51E7D45313 /* Pods-ViroExample.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = ***REMOVED***;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../../../ios/ViroRenderer/**";
 				HEADER_SEARCH_PATHS = "../../node_modules/react-native/React/**";

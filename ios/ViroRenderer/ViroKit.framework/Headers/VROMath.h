@@ -11,7 +11,7 @@
 
 #include <stdio.h>
 #include <vector>
-#include <GLKit/GLKit.h>
+#include <cstdlib>
 #include "VROVector3f.h"
 #include "VROMatrix4f.h"
 #include "VROBoundingBox.h"
@@ -21,14 +21,11 @@ static float kEpsilon = 0.00000001;
 
 VROMatrix4f matrix_from_scale(float sx, float sy, float sz);
 VROMatrix4f matrix_from_translation(float x, float y, float z);
-VROMatrix4f matrix_from_rotation(float radians, float x, float y, float z);
 VROMatrix4f matrix_from_perspective_fov_aspectLH(const float fovY, const float aspect,
                                                      const float nearZ, const float farZ);
 VROMatrix4f matrix_for_frustum(const float left, const float right,
                                const float bottom, const float top,
                                const float znear, const float zfar);
-
-VROMatrix4f matrix_float4x4_from_GL(GLKMatrix4 glmatrix);
 
 VROMatrix4f VROMathComputeLookAtMatrix(VROVector3f eye, VROVector3f forward, VROVector3f up);
 
@@ -151,5 +148,7 @@ short VROFloatToFloat16(float value);
 
 VROVector3f VROMathGetCenter(std::vector<VROVector3f> &vertices);
 VROBoundingBox VROMathGetBoundingBox(std::vector<VROVector3f> &vertices);
+
+uint32_t VROMathRoundUpToNextPow2(uint32_t v);
 
 #endif /* VROMath_h */

@@ -157,15 +157,15 @@ NSString * const kDefaultSource = @"defaultSource";
 - (void)imageLoaderDidEnd:(VRTImageAsyncLoader *)loader success:(BOOL)success image:(UIImage *)image {
   if(success && image!=nil) {
     if([loader.tag isEqualToString:kGazeSource]) {
-      _gazeTexture = std::make_shared<VROTexture>(image);
+      _gazeTexture = std::make_shared<VROTexture>(std::make_shared<VROImageiOS>(image));
       _gazeMaterial = [self createMaterial:_gazeTexture];
     }
     else if([loader.tag isEqualToString:kTapSource]) {
-      _tapTexture = std::make_shared<VROTexture>(image);
+      _tapTexture = std::make_shared<VROTexture>(std::make_shared<VROImageiOS>(image));
       _tapMaterial = [self createMaterial:_tapTexture];
     }
     else if([loader.tag isEqualToString:kDefaultSource]) {
-      _defaultTexture = std::make_shared<VROTexture>(image);
+      _defaultTexture = std::make_shared<VROTexture>(std::make_shared<VROImageiOS>(image));
       _defaultMaterial = [self createMaterial:_defaultTexture];
       [self node]->getGeometry()->getMaterials().clear();
       [self node]->getGeometry()->getMaterials().push_back(_defaultMaterial);
@@ -186,7 +186,7 @@ NSString * const kDefaultSource = @"defaultSource";
   } else {
     newMaterial = std::make_shared<VROMaterial>();
   }
-  newMaterial->getDiffuse().setContents(texture);
+  newMaterial->getDiffuse().setTexture(texture);
   return newMaterial;
 }
 

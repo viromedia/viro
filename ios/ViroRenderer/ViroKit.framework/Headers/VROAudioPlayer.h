@@ -9,30 +9,23 @@
 #ifndef VROAudioPlayer_h
 #define VROAudioPlayer_h
 
-#include <Foundation/Foundation.h>
-#include <AVFoundation/AVFoundation.h>
+#include <string>
+
+class VROData;
 
 class VROAudioPlayer {
     
 public:
     
-    VROAudioPlayer();
-    virtual ~VROAudioPlayer();
+    virtual ~VROAudioPlayer() {}
     
-    void setTrack(NSURL *url, int loopCount);
-    void setTrack(NSData *data, int loopCount);
-    void play();
-    void stop();
-    void pause();
-    void playIfPaused();
-
-private:
+    virtual void setLoop(bool loop) = 0;
+    virtual void play() = 0;
+    virtual void pause() = 0;
+    virtual void setVolume(float volume) = 0;
+    virtual void setMuted(bool muted) = 0;
+    virtual void seekToTime(float seconds) = 0;
     
-    AVAudioPlayer *_player;
-    bool _paused; // whether or not paused has been called
-  
-    void doFadeThenPause();
-    void doFadeThenStop();
 };
 
 #endif /* VROAudioPlayer_h */

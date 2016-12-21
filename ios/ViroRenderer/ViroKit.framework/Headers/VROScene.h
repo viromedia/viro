@@ -13,7 +13,6 @@
 #include <vector>
 #include <memory>
 #include "VROAllocationTracker.h"
-#include "VROAudioPlayer.h"
 #include "VROSortKey.h"
 #include "VROQuaternion.h"
 
@@ -25,6 +24,7 @@ class VROGeometry;
 class VROHitTestResult;
 class VROVector3f;
 class VROVector4f;
+class VROAudioPlayer;
 
 class VROScene : public std::enable_shared_from_this<VROScene> {
     
@@ -69,14 +69,6 @@ public:
     std::vector<VROHitTestResult> hitTest(VROVector3f ray, const VRORenderContext &context,
                                           bool boundsOnly = false);
     
-    
-    /*
-     Get the audio player for the background track in this scene.
-     */
-    VROAudioPlayer &getBackgroundAudioPlayer() {
-        return _backgroundAudio;
-    }
-    
 private:
     
     /*
@@ -88,21 +80,16 @@ private:
      The background visual to display. Rendered before any nodes.
      */
     std::shared_ptr<VROGeometry> _background;
-
+    
     /*
      The rotation to apply to the background geometry
      */
     VROQuaternion _backgroundRotation;
-
+    
     /*
      The nodes ordered for rendering by their sort keys.
      */
     std::vector<VROSortKey> _keys;
-    
-    /*
-     The audio player for the background track of this scene.
-     */
-    VROAudioPlayer _backgroundAudio;
     
 };
 

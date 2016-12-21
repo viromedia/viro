@@ -318,7 +318,7 @@ RCT_EXPORT_METHOD(setJSAnimations:(NSDictionary *)animationsDict)
     VROVector4f vecColor(r, g, b, a);
     if (node->getGeometry()) {
         std::shared_ptr<VROGeometry> geometry = node->getGeometry();
-        geometry->getMaterials()[0]->getDiffuse().setContents(vecColor);
+        geometry->getMaterials()[0]->getDiffuse().setColor(vecColor);
     }
 }
 

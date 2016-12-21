@@ -58,9 +58,9 @@ static float const kDefaultHeight = 1;
 - (void)setPlaceHolderSource:(UIImage *)placeHolderSource {
   _placeHolderSource = placeHolderSource;
   if(!_materialAddedToScene && !_imageAddedToScene) {
-    std::shared_ptr<VROTexture> placeHolderTexture = std::make_shared<VROTexture>(placeHolderSource);
+    std::shared_ptr<VROTexture> placeHolderTexture = std::make_shared<VROTexture>(std::make_shared<VROImageiOS>(placeHolderSource));
     std::shared_ptr<VROMaterial> placeHolderMaterial = std::make_shared<VROMaterial>();
-    placeHolderMaterial->getDiffuse().setContents(placeHolderTexture);
+    placeHolderMaterial->getDiffuse().setTexture(placeHolderTexture);
     _surface->getMaterials().clear();
     _surface->getMaterials().push_back(placeHolderMaterial);
   }
@@ -118,7 +118,7 @@ static float const kDefaultHeight = 1;
   if(!_imageAddedToScene && _texture) {
     // Copy existing default material properties if default exists and change just the diffuse texture.
     std::shared_ptr<VROMaterial> newMaterial = _defaultMaterial ? std::make_shared<VROMaterial>(_defaultMaterial) : std::make_shared<VROMaterial>();
-    newMaterial->getDiffuse().setContents(_texture);
+    newMaterial->getDiffuse().setTexture(_texture);
     _surface->getMaterials().clear();
     _surface->getMaterials().push_back(newMaterial);
     _imageAddedToScene = YES;
@@ -151,7 +151,7 @@ static float const kDefaultHeight = 1;
 - (void)imageLoaderDidEnd:(VRTImageAsyncLoader *)loader success:(BOOL)success image:(UIImage *)image {
   dispatch_async(dispatch_get_main_queue(), ^{
     if(success && image!=nil) {
-      _texture = std::make_shared<VROTexture>(image);
+      _texture = std::make_shared<VROTexture>(std::make_shared<VROImageiOS>(image));
       // Check if width and height were set as props, if not recreate surface using aspect ratio of image.
       if(!_widthOrHeightPropSet){
         float ratio = image.size.width/image.size.height;

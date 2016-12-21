@@ -44,9 +44,9 @@ static const CGFloat kTextMaxVerticalLength = 2000;
 - (instancetype)initWithBridge:(RCTBridge *)bridge {
   self = [super initWithBridge:bridge];
   if (self) {
-    self.vroUIView = [[VROWorldUIView alloc] initWithFrame:CGRectMake(0, 0, 100, 10)];
-    self.vroUIView.vroLayer->getMaterial()->setWritesToDepthBuffer(true);
-    self.vroUIView.vroLayer->getMaterial()->setReadsFromDepthBuffer(true);
+    //TODO self.vroUIView = [[VROWorldUIView alloc] initWithFrame:CGRectMake(0, 0, 100, 10)];
+    //TODO self.vroUIView.vroLayer->getMaterial()->setWritesToDepthBuffer(true);
+    //TODO self.vroUIView.vroLayer->getMaterial()->setReadsFromDepthBuffer(true);
     _boundsCalculated = false;
     _width = 1.0;
     _ratio = 1.0;
@@ -58,11 +58,11 @@ static const CGFloat kTextMaxVerticalLength = 2000;
 
 - (void)setText:(NSString *)text {
   _text = text;
-  if (self.label && self.driver) {
+  // TODO if (self.label && self.driver) {
     BOOL isWithinFlexView =  [self isWithinFlexView];
     [self sizeAndUpdateLabel:_frame isInFlexView:isWithinFlexView];
-    [self.vroUIView updateWithDriver:self.driver];
-  }
+  // TODO  [self.vroUIView updateWithDriver:self.driver];
+  // TODO }
 }
 
 - (NSAttributedString *)_attributedStringWithFontFamily:(NSString *)fontFamily
@@ -209,7 +209,7 @@ static const CGFloat kTextMaxVerticalLength = 2000;
   _rotation = [rotation copy];
   float rotationValues[3];
   populateFloatArrayFromNSArray(_rotation, rotationValues, 3);
-  self.vroUIView.vroLayer->setRotation({toRadians(rotationValues[0]), toRadians(rotationValues[1]), toRadians(rotationValues[2])});
+  // TODO self.vroUIView.vroLayer->setRotation({toRadians(rotationValues[0]), toRadians(rotationValues[1]), toRadians(rotationValues[2])});
 }
 
 - (void)setScale:(NSArray<NSNumber *> *)scale
@@ -226,9 +226,9 @@ static const CGFloat kTextMaxVerticalLength = 2000;
  */
 - (void)sizeAndUpdateLabel:(CGRect)frame isInFlexView:(BOOL)isInFlexView {
 
-  if(!self.label) {
-    self.label = [[UILabel alloc] initWithFrame:self.vroUIView.bounds];
-  }
+  // TODO if(!self.label) {
+  // TODO  self.label = [[UILabel alloc] initWithFrame:self.vroUIView.bounds];
+  // TODO }
   
   if(!self.color) {
     self.color = [UIColor blackColor];
@@ -237,8 +237,8 @@ static const CGFloat kTextMaxVerticalLength = 2000;
   BOOL useBackgroundColor = YES;
   if(!self.backgroundColor) {
     useBackgroundColor = NO;
-    [self.vroUIView setBackgroundColor:[UIColor clearColor]];
-    [self.label setBackgroundColor:[UIColor clearColor]];
+  // TODO   [self.vroUIView setBackgroundColor:[UIColor clearColor]];
+  // TODO   [self.label setBackgroundColor:[UIColor clearColor]];
   }
 
   if(frame.size.width <= 0 || frame.size.height <=0) {
@@ -266,9 +266,9 @@ static const CGFloat kTextMaxVerticalLength = 2000;
                                                  context:nil];
     
     // The label will only take up it's space, while the parent UIView will take up kPointsPerSpatialCoord and the label height.
-    [self.vroUIView setFrame:CGRectMake(0, 0, kTextPointsPerSpatialCoord, paragraphRect.size.height)];
+    // TODO [self.vroUIView setFrame:CGRectMake(0, 0, kTextPointsPerSpatialCoord, paragraphRect.size.height)];
     CGFloat xOffset = kTextPointsPerSpatialCoord/2 - paragraphRect.size.width/2;
-    [self.label setFrame:CGRectMake(xOffset, 0, paragraphRect.size.width, paragraphRect.size.height)];
+    // TODO [self.label setFrame:CGRectMake(xOffset, 0, paragraphRect.size.width, paragraphRect.size.height)];
   } else {
     
     CTFramesetterRef framesetter = CTFramesetterCreateWithAttributedString((__bridge CFAttributedStringRef)attributedText);
@@ -283,51 +283,51 @@ static const CGFloat kTextMaxVerticalLength = 2000;
     // For spatial panels, the width of the parent frame will always be kPointsPerSpatialCoord.
     // The height will also be set to kPointsPerSpatialPanel times the height to width ratio of the panel frame. This ensures that as the panel scales, the text will always be the same size.
     float heightToWidthRatio = scaleHeight / scaleWidth;
-    [self.vroUIView setFrame:CGRectMake(0, 0, kTextPointsPerSpatialCoord, kTextPointsPerSpatialCoord*heightToWidthRatio)];
-    [self.label setFrame:CGRectMake(0, 0, fitSize.width, fitSize.height)];
+    // TODO [self.vroUIView setFrame:CGRectMake(0, 0, kTextPointsPerSpatialCoord, kTextPointsPerSpatialCoord*heightToWidthRatio)];
+    // TODO [self.label setFrame:CGRectMake(0, 0, fitSize.width, fitSize.height)];
     
     // Readjust frame if the label is too small to take up entire length of parent view and is meant to be center or right aligned.
     if(fitSize.width < kTextPointsPerSpatialCoord) {
       if(self.textAlign == NSTextAlignmentRight) {
         CGFloat xOffset = kTextPointsPerSpatialCoord - fitSize.width;
-        [self.label setFrame:CGRectMake(xOffset, 0, fitSize.width, fitSize.height)];
+       // TODO  [self.label setFrame:CGRectMake(xOffset, 0, fitSize.width, fitSize.height)];
       }
       else if(self.textAlign == NSTextAlignmentCenter) {
         CGFloat xOffset = kTextPointsPerSpatialCoord/2 - fitSize.width/2;
-        [self.label setFrame:CGRectMake(xOffset, 0, fitSize.width, fitSize.height)];
+        // TODO [self.label setFrame:CGRectMake(xOffset, 0, fitSize.width, fitSize.height)];
       }
     }
   }
   
   if(self.maxLines > 1) {
-    [self.label setNumberOfLines:self.maxLines];
-    self.label.lineBreakMode = NSLineBreakByWordWrapping;
+    // TODO [self.label setNumberOfLines:self.maxLines];
+    // TODO self.label.lineBreakMode = NSLineBreakByWordWrapping;
   }else{
     // Auto wrap the text.
-    self.label.lineBreakMode = NSLineBreakByWordWrapping;
-    [self.label setNumberOfLines:0];
+    // TODO self.label.lineBreakMode = NSLineBreakByWordWrapping;
+    // TODO [self.label setNumberOfLines:0];
   }
   
-  [self.label setAttributedText:attributedText];
-  [self.vroUIView addSubview:self.label];
+  // TODO [self.label setAttributedText:attributedText];
+  // TODO [self.vroUIView addSubview:self.label];
   
-  CGRect fittedFrame = self.label.frame;
-  float ratio = fittedFrame.size.height/fittedFrame.size.width;
-  _ratio = ratio;
+  // TODO CGRect fittedFrame = self.label.frame;
+  // TODO float ratio = fittedFrame.size.height/fittedFrame.size.width;
+  // TODO _ratio = ratio;
   
-  self.vroUIView.vroLayer->setOpacity(1);
+  // TODO self.vroUIView.vroLayer->setOpacity(1);
   _boundsCalculated = YES;
 
   if(!isInFlexView) {
     // Have the 3d coord scale for text be width(default 1.0 unit) by height(height = label height/kPointsPerSpatialCoord. This ensures all text is same width and height regardless of length of text.
-    _ratio = fittedFrame.size.height/kTextPointsPerSpatialCoord;
+    // TODO _ratio = fittedFrame.size.height/kTextPointsPerSpatialCoord;
     // Offset the position when setting the frame, since frame takes the bottom position of the text.
-    self.vroUIView.vroLayer->setFrame(VRORectMake([_position[0] floatValue] - _width/2.0f,[_position[1] floatValue] - (_width * _ratio)/2.0f,[_position[2] floatValue], _width, _width * _ratio));
+    // TODO self.vroUIView.vroLayer->setFrame(VRORectMake([_position[0] floatValue] - _width/2.0f,[_position[1] floatValue] - (_width * _ratio)/2.0f,[_position[2] floatValue], _width, _width * _ratio));
   } else {
     [super reactSetFrame:frame];
   }
   if(self.driver) {
-    [self.vroUIView updateWithDriver:self.driver];
+    // TODO [self.vroUIView updateWithDriver:self.driver];
   }
   else {
     // When viewDidAppear is invoked, the driver will be avail and we can update then.
@@ -348,7 +348,7 @@ static const CGFloat kTextMaxVerticalLength = 2000;
   BOOL isFlexboxComponent = [self isWithinFlexView];
  
   if(_needsUpdating) {
-    [self.vroUIView updateWithDriver:self.driver];
+    // TODO [self.vroUIView updateWithDriver:self.driver];
     _needsUpdating = NO;
   }
   
@@ -372,7 +372,8 @@ static const CGFloat kTextMaxVerticalLength = 2000;
 
 //override node to return vroLayer of vroUIView
 - (std::shared_ptr<VRONode>) node {
-  return self.vroUIView.vroLayer;
+  // TODO return self.vroUIView.vroLayer;
+    return {};
 }
 
 

@@ -6,6 +6,8 @@
 //  Copyright © 2015 Viro Media. All rights reserved.
 //
 
+#include "VRODefines.h"
+
 #pragma once
 //// Test debug defines
 //#ifdef NDEBUG
@@ -14,30 +16,10 @@
 //#pragma message "NDEBUG is not #defined."
 //#endif
 
-#undef PASSERT_INNERLOOPS_ENABLED // Do not defined, unless you want passert_innerloop() asserts
+#undef PASSERT_INNERLOOPS_ENABLED // Do not define, unless you want passert_innerloop() asserts
 // to run, which are passert_msg() calls that are made inside inner loops, which would slow down
 // the app massively if on.  Used for debugging those particular loops only, and left off to not slow
 // the app down for other developers.
-
-#ifndef __OBJC__
-#define ANDROID_BUILD
-#endif
-
-
-#ifdef ANDROID_BUILD
-
-#include <android/log.h>
-#include <jni.h>
-#include <sys/system_properties.h>
-
-#else // #ifdef ANDROID_BUILD
-
-#import <OpenGLES/EAGL.h>
-#import <OpenGLES/ES1/glext.h>
-#import <OpenGLES/ES2/gl.h>
-#import <OpenGLES/ES2/glext.h>
-
-#endif // #ifdef ANDROID_BUILD
 
 /////////////////////////////////////////////////////////////////////////////////
 //
@@ -47,7 +29,11 @@
 #pragma mark -
 #pragma mark Android Logging
 
-#ifdef ANDROID_BUILD
+#if VRO_PLATFORM_ANDROID
+
+#include <android/log.h>
+#include <jni.h>
+#include <sys/system_properties.h>
 
 // --------------------------------
 // Escape sequences for logging color:
@@ -113,7 +99,7 @@
 // default background color
 #define ANSIBackDefault "\e[1;49m"
 
-#else 
+#elif VRO_PLATFORM_IOS
 
 /*
  ANSI colors don't resolve on the iOS debug console, so we
@@ -157,7 +143,7 @@
 #define ANSIBackWhite ""
 #define ANSIBackDefault ""
 
-#endif // #ifdef ANDROID_BUILD
+#endif
 
 /////////////////////////////////////////////////////////////////////////////////
 //
@@ -169,10 +155,10 @@
 
 // define LOG_TAG, if not already defined
 #ifndef LOG_TAG
-#define LOG_TAG "Maps-Polaris"
+#define LOG_TAG "Viro"
 #endif
 
-#ifdef ANDROID_BUILD
+#if VRO_PLATFORM_ANDROID
 
 // Why do-while(0)?
 // --------------------
@@ -282,7 +268,7 @@
 #define passert(condition) \
     do \
     { \
-        if ((condition)) {                               \
+        if (!(condition)) {                               \
             _pabort(__FILE__, __LINE__, __func__,                   \
                     "ASSERTION FAILED\n"                            \
                     "  Expression: %s",                             \
@@ -349,12 +335,7 @@ toLevel(const char* value) {
         logLevel != ANDROID_LOG_SILENT && level >= logLevel;    \
     })
 
-/*
- Passes the WTF error up to Java land.
- */
-void pwtf(const char *fmt, ...);
-
-#else // #ifdef ANDROID_BUILD
+#elif VRO_PLATFORM_IOS
 
 /////////////////////////////////////////////////////////////////////////////////
 //
@@ -363,6 +344,9 @@ void pwtf(const char *fmt, ...);
 /////////////////////////////////////////////////////////////////////////////////
 #pragma mark -
 #pragma mark iOS Logging
+
+#include <assert.h>
+#include <Foundation/Foundation.h>
 
 #define passert(condition) (assert(condition))
 
@@ -393,11 +377,6 @@ NSLog(@"Error: "#message, ##__VA_ARGS__); \
 #define pfatal(message,...) \
 do { \
 NSLog(@"Fatal Error: "#message, ##__VA_ARGS__); \
-} while (0)
-
-#define pwtf(message,...) \
-do { \
-NSLog(@"WTF: "#message, ##__VA_ARGS__); \
 } while (0)
 
 #if VRO_THREADPOOL_LOG
@@ -451,7 +430,7 @@ do { \
 \
 } while (0)
 
-#endif // #ifdef ANDROID_BUILD
+#endif
 
 /////////////////////////////////////////////////////////////////////////////////
 //
@@ -654,8 +633,8 @@ do { \
     } while (0)
 
 #if VRO_SECURITY_LOG
-#define psecurityinfo(message,...) pinfo("Maps-Security:: "#message, ##__VA_ARGS__)
-#define psecurityerr(message,...) perr("Maps-Security:: "#message, ##__VA_ARGS__)
+#define psecurityinfo(message,...) pinfo("Viro-Security:: "#message, ##__VA_ARGS__)
+#define psecurityerr(message,...) perr("Viro-Security:: "#message, ##__VA_ARGS__)
 #else
 #define psecurityinfo(message,...) ((void)0)
 #define psecurityerr(message,...) ((void)0)

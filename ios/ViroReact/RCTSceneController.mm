@@ -11,7 +11,7 @@
 @implementation RCTSceneController
 
 - (instancetype)initWithView:(id <VROView>)view sceneDelegate:(id<VRTSceneDelegate>)delegate {
-  self = [super initWithView:view];
+  self = [super init];
   if(self){
     self.sceneDelegate = delegate;
   }

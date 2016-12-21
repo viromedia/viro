@@ -21,6 +21,7 @@ public:
     float w;
     
     VROVector4f();
+    VROVector4f(const float *components, int count);
     VROVector4f(float x, float y, float z, float w);
     VROVector4f(const VROVector4f &vector);
     virtual ~VROVector4f();
