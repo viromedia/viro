@@ -27,6 +27,36 @@
   return self;
 }
 
+- (void)setOBJMaterials:(std::shared_ptr<VROGeometry>)geometry {
+    if (!geometry) {
+        return;
+    }
+    
+    VROMaterialManager *materialManager = [self.bridge moduleForClass:[VROMaterialManager class]];
+    
+    /*
+     The materials set for a 3D model overwrite the materials set by the
+     OBJ loader.
+     */
+    for (int i = 0; i < [self.materials count]; i++) {
+        NSString *materialName = [self.materials objectAtIndex:i];
+        
+        std::shared_ptr<VROMaterial> material = [materialManager getMaterialByName:materialName];
+        if (material != NULL) {
+            if (i < geometry->getMaterials().size()) {
+                geometry->getMaterials()[i] = material;
+            }
+            else {
+                RCTLogError(@"Model has %d elements, material %d [%@] cannot be set",
+                            geometry->getMaterials().size(), i, materialName);
+            }
+        }
+        else {
+            RCTLogError(@"Unknown material name: \"%@\"", materialName);
+        }
+    }
+}
+
 - (void)setSource:(NSDictionary *)modelDict {
   if (![NSThread isMainThread]) {
     RCTLogWarn(@"Calling [RCTConvert setSource:] on a background thread is not recommended");
@@ -42,31 +72,19 @@
     RCTLogError(@"Unable to load 3D model object with no path");
   }
   
-  // TODO: check scheme to see if equal to 'file, 'data' or 'http' to handle streaming models.
   _url = [RCTConvert NSURL:path];
-  // NSString *scheme = _url.scheme.lowercaseString;
-  
-  downloadDataWithURL(_url, ^(NSData *data, NSError *error) {
-    if (error.code == NSURLErrorCancelled){
-      return;
-    }
-    
-    if (!error) {
-      NSString *fileName = [NSString stringWithFormat:@"%@_%@", [[NSProcessInfo processInfo] globallyUniqueString], @"model.obj"];
-      NSURL *fileURL = [NSURL fileURLWithPath:[NSTemporaryDirectory() stringByAppendingPathComponent:fileName]];
-      
-      [data writeToURL:fileURL atomically:NO];
-      
-      std::shared_ptr<VRONode> modelNode =  VROLoader::loadURL(fileURL)[0];
-      [self node]->setGeometry(modelNode->getGeometry());
-      [self applyMaterials];
-      
-      NSError *deleteError = nil;
-      [[NSFileManager defaultManager] removeItemAtURL:fileURL error:&deleteError];
-    }
-  });
-  
+  std::string url = std::string([[_url description] UTF8String]);
+  std::string base = url.substr(0, url.find_last_of('/'));
 
+  VROOBJLoader::loadOBJFromURL(url, base, true,
+    [self](std::shared_ptr<VRONode> node, bool success) {
+        if (!success) {
+            return;
+        }
+        
+        [self setOBJMaterials:node->getGeometry()];
+        self.node->setGeometry(node->getGeometry());
+    });
 }
 
 @end
