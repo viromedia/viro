@@ -95,7 +95,7 @@ var ViroVideo = React.createClass({
 
 var VRTVideoSurface = requireNativeComponent(
     'VRTVideoSurface', ViroVideo, {
-      nativeOnly: {onFinish: true}
+      nativeOnly: {onFinishViro: true}
     }
 );
 

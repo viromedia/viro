@@ -25,8 +25,8 @@
 @implementation VRTSkybox
 
 @synthesize onTap = _onTap;
-@synthesize onLoadStart = _onLoadStart;
-@synthesize onLoadEnd = _onLoadEnd;
+@synthesize onViroSkyBoxLoadStart = _onViroSkyBoxLoadStart;
+@synthesize onViroSkyBoxLoadEnd = _onViroSkyBoxLoadEnd;
 @synthesize source = _source;
 
 - (instancetype)initWithBridge:(RCTBridge *)bridge {
@@ -50,12 +50,12 @@
 }
 
 - (void)setOnLoadStart:(RCTDirectEventBlock)onLoadStart {
-  _onLoadStart = onLoadStart;
+  _onViroSkyBoxLoadStart = onLoadStart;
   [self loadImageWhenReady];
 }
 
 - (void)setOnLoadEnd:(RCTDirectEventBlock)onLoadEnd {
-  _onLoadEnd = onLoadEnd;
+  _onViroSkyBoxLoadEnd = onLoadEnd;
   [self loadImageWhenReady];
 }
 
@@ -102,8 +102,8 @@
 - (void)imageLoaderDidStart:(VRTImageAsyncLoader *)loader {
   // Invoke these delegates only once (for the px image)
   if (loader.tag == @"px") {
-    if(self.onLoadStart) {
-      self.onLoadStart(nil);
+    if(self.onViroSkyBoxLoadStart) {
+      self.onViroSkyBoxLoadStart(nil);
     }
   }
 }
@@ -136,8 +136,8 @@
         [self.downloadedImages removeAllObjects];
       }
       
-      if(self.onLoadEnd) {
-        self.onLoadEnd(@{@"success":@(success)});
+      if(self.onViroSkyBoxLoadEnd) {
+        self.onViroSkyBoxLoadEnd(@{@"success":@(success)});
       }
     }
   });

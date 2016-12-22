@@ -20,8 +20,8 @@
 @property (nonatomic, assign) float height;
 @property (nonatomic, copy) RCTImageSource *source;
 @property (nonatomic, copy) UIImage *placeHolderSource;
-@property (nonatomic, copy) RCTDirectEventBlock onLoadStart;
-@property (nonatomic, copy) RCTDirectEventBlock onLoadEnd;
+@property (nonatomic, copy) RCTDirectEventBlock onLoadStartViro;
+@property (nonatomic, copy) RCTDirectEventBlock onLoadEndViro;
 
 
 @end

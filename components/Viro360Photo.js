@@ -94,7 +94,9 @@ var Viro360Photo = React.createClass({
 });
 
 var VRO360Photo = requireNativeComponent(
-  'VRO360Photo', Viro360Photo
+  'VRO360Photo', Viro360Photo, {
+    nativeOnly: {onLoadStartViro: true, onLoadEndViro: true}
+  }
 );
 
 module.exports = Viro360Photo;

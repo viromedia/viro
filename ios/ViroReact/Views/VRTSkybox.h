@@ -16,8 +16,8 @@
 
 @property (nonatomic) UIColor *color;
 @property (nonatomic) VRTCubeMap *source;
-@property (nonatomic, copy) RCTDirectEventBlock onLoadStart;
-@property (nonatomic, copy) RCTDirectEventBlock onLoadEnd;
+@property (nonatomic, copy) RCTDirectEventBlock onViroSkyBoxLoadStart;
+@property (nonatomic, copy) RCTDirectEventBlock onViroSkyBoxLoadEnd;
 
 - (instancetype)initWithBridge:(RCTBridge *)bridge;
 

@@ -143,7 +143,7 @@ var ViroImage = React.createClass({
 
 var VRTImage = requireNativeComponent(
   'VRTImage', ViroImage, {
-    nativeOnly: {onTap: true, onGaze: true, onLoadStart: true, onLoadEnd: true}
+    nativeOnly: {onTap: true, onGaze: true, onLoadStartViro: true, onLoadEndViro: true}
   }
 );
 

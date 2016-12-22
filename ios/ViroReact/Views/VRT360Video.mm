@@ -134,8 +134,8 @@
 #pragma mark VROVideoDelegate implementation
 
 - (void)videoDidFinish {
-  if (self.onFinish) {
-    self.onFinish(@{@"finished": @(true),});
+  if (self.onFinishViro) {
+    self.onFinishViro(@{@"finished": @(true),});
   }
 }
 

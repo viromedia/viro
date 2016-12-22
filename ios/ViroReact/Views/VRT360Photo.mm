@@ -25,8 +25,8 @@
 }
 
 @synthesize onTap = _onTap;
-@synthesize onLoadStart = _onLoadStart;
-@synthesize onLoadEnd = _onLoadEnd;
+@synthesize onLoadStartViro = _onLoadStartViro;
+@synthesize onLoadEndViro = _onLoadEndViro;
 @synthesize source = _source;
 @synthesize rotation = _rotation;
 
@@ -49,13 +49,13 @@
 
 }
 
-- (void)setOnLoadStart:(RCTDirectEventBlock)onLoadStart {
-  _onLoadStart = onLoadStart;
+- (void)setOnLoadStartViro:(RCTDirectEventBlock)onLoadStart {
+  _onLoadStartViro = onLoadStart;
   [self loadImageWhenReady];
 }
 
-- (void)setOnLoadEnd:(RCTDirectEventBlock)onLoadEnd {
-  _onLoadEnd = onLoadEnd;
+- (void)setOnLoadEndViro:(RCTDirectEventBlock)onLoadEnd {
+  _onLoadEndViro = onLoadEnd;
   [self loadImageWhenReady];
 }
 
@@ -98,8 +98,8 @@
 #pragma mark - VRTAsyncLoaderEventDelegate
 
 - (void)imageLoaderDidStart:(VRTImageAsyncLoader *)loader {
-  if(self.onLoadStart) {
-    self.onLoadStart(nil);
+  if(self.onLoadStartViro) {
+    self.onLoadStartViro(nil);
   }
 }
 
@@ -107,8 +107,8 @@
   dispatch_async(dispatch_get_main_queue(), ^{
     _sphereTexture = std::make_shared<VROTexture>(std::make_shared<VROImageiOS>(image));
     [self updateSceneWithSphereTexture];
-    if(self.onLoadEnd) {
-      self.onLoadEnd(@{@"success":@(success)});
+    if(self.onLoadEndViro) {
+      self.onLoadEndViro(@{@"success":@(success)});
     }
   });
 }

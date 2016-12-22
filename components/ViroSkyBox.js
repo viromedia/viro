@@ -108,7 +108,9 @@ var ViroSkybox = React.createClass({
 });
 
 var VRTSkybox = requireNativeComponent(
-  'VRTSkybox', ViroSkybox
+  'VRTSkybox', ViroSkybox, {
+    nativeOnly: {onViroSkyBoxLoadStart: true, onViroSkyBoxLoadEnd: true}
+  }
 );
 
 module.exports = ViroSkybox;

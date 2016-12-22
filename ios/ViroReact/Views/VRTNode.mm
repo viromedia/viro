@@ -247,8 +247,8 @@ const int k2DPointsPerSpatialUnit = 1000;
   // Since VRTFlexView containers are actual size using width and height, set child components to appopriate width/height. If components don't have width/height attrib, use scale for now.
   if([self isKindOfClass:[VRTImage class]]) {
     VRTImage *image = (VRTImage *)self;
-    [image setWidth:bounds.size.width/ k2DPointsPerSpatialUnit];
-    [image setHeight:bounds.size.height/ k2DPointsPerSpatialUnit];
+    //VA: Uncomment when flexbox ready...[image setWidth:bounds.size.width/ k2DPointsPerSpatialUnit];
+    //VA: Uncomment when flexbox ready...[image setHeight:bounds.size.height/ k2DPointsPerSpatialUnit];
   } else if([self isKindOfClass:[VRTFlexView class]]) {
     VRTFlexView *flexview = (VRTFlexView *)self;
     [flexview setWidth:bounds.size.width/ k2DPointsPerSpatialUnit];

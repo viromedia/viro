@@ -13,10 +13,9 @@
 @implementation VRO360PhotoManager
 
 RCT_EXPORT_MODULE()
-
 RCT_EXPORT_VIEW_PROPERTY(source, RCTImageSource)
-RCT_EXPORT_VIEW_PROPERTY(onLoadStart, RCTDirectEventBlock)
-RCT_EXPORT_VIEW_PROPERTY(onLoadEnd, RCTDirectEventBlock)
+RCT_EXPORT_VIEW_PROPERTY(onLoadStartViro, RCTDirectEventBlock)
+RCT_EXPORT_VIEW_PROPERTY(onLoadEndViro, RCTDirectEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(rotation, NSNumberArray)
 
 - (VRT360Photo *)view

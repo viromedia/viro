@@ -14,8 +14,8 @@
 @interface VRT360Photo : VRTControl<VRTImageAsyncLoaderEventDelegate>
 
 @property (nonatomic, copy) RCTImageSource *source;
-@property (nonatomic, copy) RCTDirectEventBlock onLoadStart;
-@property (nonatomic, copy) RCTDirectEventBlock onLoadEnd;
+@property (nonatomic, copy) RCTDirectEventBlock onLoadStartViro;
+@property (nonatomic, copy) RCTDirectEventBlock onLoadEndViro;
 
 - (instancetype)initWithBridge:(RCTBridge *)bridge;
 

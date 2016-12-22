@@ -85,7 +85,7 @@ var Viro360Video = React.createClass({
 
 var VRO360Video = requireNativeComponent(
   'VRT360Video', Viro360Video, {
-    nativeOnly: {onFinish: true}
+    nativeOnly: {onFinishViro: true}
   }
 );
 

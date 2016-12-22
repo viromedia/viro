@@ -89,12 +89,12 @@ static float const kDefaultHeight = 1;
 }
 
 - (void)setOnLoadStart:(RCTDirectEventBlock)onLoadStart {
-  _onLoadStart = onLoadStart;
+  _onLoadStartViro = onLoadStart;
   [self loadImageWhenReady];
 }
 
 - (void)setOnLoadEnd:(RCTDirectEventBlock)onLoadEnd {
-  _onLoadEnd = onLoadEnd;
+  _onLoadEndViro = onLoadEnd;
   [self loadImageWhenReady];
 }
 
@@ -143,8 +143,8 @@ static float const kDefaultHeight = 1;
 #pragma mark - VRTAsyncLoaderEventDelegate
 
 - (void)imageLoaderDidStart:(VRTImageAsyncLoader *)loader {
-  if(self.onLoadStart) {
-    self.onLoadStart(nil);
+  if(self.onLoadStartViro) {
+    self.onLoadStartViro(nil);
   }
 }
 
@@ -164,8 +164,8 @@ static float const kDefaultHeight = 1;
       }
     }
 
-    if(self.onLoadEnd) {
-      self.onLoadEnd(@{@"success":@(success)});
+    if(self.onLoadEndViro) {
+      self.onLoadEndViro(@{@"success":@(success)});
     }
   });
 }
