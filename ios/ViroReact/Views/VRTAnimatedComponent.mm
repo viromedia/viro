@@ -7,7 +7,7 @@
 //
 
 #import "VRTAnimatedComponent.h"
-#import "VROAnimationManager.h"
+#import "VRTAnimationManager.h"
 #import "VRTNode.h"
 
 @implementation VRTAnimatedComponent {
@@ -18,7 +18,7 @@
     NSMutableDictionary *_propCheckPoints;
     std::shared_ptr<VROGeometry> _childGeometry;
     BOOL _viewAdded;
-    VROAnimationManager *_animationManager;
+    VRTAnimationManager *_animationManager;
     NSInteger _completedAnimationChainCount;
     BOOL _scheduledNewAnimation;
     std::vector<std::shared_ptr<VROTransaction>> _currentRunningAnimationTransactions;

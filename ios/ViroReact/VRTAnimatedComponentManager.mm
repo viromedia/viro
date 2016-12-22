@@ -1,17 +1,17 @@
 //
-//  VROAnimatedComponentManager.m
+//  VRTAnimatedComponentManager.m
 //  React
 //
 //  Created by Vik Advani on 2/19/16.
 //  Copyright © 2016 Facebook. All rights reserved.
 //
 
-#import "VROAnimatedComponentManager.h"
+#import "VRTAnimatedComponentManager.h"
 #import "VRTAnimatedComponent.h"
 #import "ViroUIManager.h"
 #import "VRTAnimatedComponentShadowView.h"
 
-@implementation VROAnimatedComponentManager
+@implementation VRTAnimatedComponentManager
 
 RCT_EXPORT_MODULE()
 

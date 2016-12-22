@@ -1,5 +1,5 @@
 //
-//  VROAnimationManager.h
+//  VRTAnimationManager.h
 //  React
 //
 //  Created by Vik Advani on 2/17/16.
@@ -19,7 +19,7 @@
 @property (nonatomic, assign) VROTimingFunctionType functionType;
 @end
 
-@interface VROAnimationManager : NSObject <RCTBridgeModule>
+@interface VRTAnimationManager : NSObject <RCTBridgeModule>
 
 @property (nonatomic, copy) NSDictionary<NSString *, NSDictionary *> *animations;
 @property (nonatomic, copy) NSDictionary<NSString *, NSMutableArray *> *animationChains;
@@ -31,11 +31,11 @@
 
 @end
 
-@implementation RCTBridge (VROAnimationManager)
+@implementation RCTBridge (VRTAnimationManager)
 
-- (VROAnimationManager *)animationManager
+- (VRTAnimationManager *)animationManager
 {
-    return [self moduleForClass:[VROAnimationManager class]];
+    return [self moduleForClass:[VRTAnimationManager class]];
 }
 
 @end

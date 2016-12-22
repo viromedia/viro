@@ -1,5 +1,5 @@
 //
-//  VROAnimatedComponentManager.h
+//  VRTAnimatedComponentManager.h
 //  React
 //
 //  Created by Vik Advani on 2/19/16.
@@ -9,6 +9,6 @@
 #import <Foundation/Foundation.h>
 #import "ViroViewManager.h"
 
-@interface VROAnimatedComponentManager : ViroViewManager<VRTEventDelegate>
+@interface VRTAnimatedComponentManager : ViroViewManager<VRTEventDelegate>
 
 @end

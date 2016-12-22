@@ -1,28 +1,24 @@
 //
-//  VROAnimationManager.m
+//  VRTAnimationManager.m
 //  React
 //
 //  Created by Vik Advani on 2/17/16.
 //  Copyright © 2016 Viro Media. All rights reserved.
 //
 
-#import "VROAnimationManager.h"
+#import "VRTAnimationManager.h"
 #import <ViroKit/ViroKit.h>
-
-
 
 @interface NullableValue:NSObject
 
 @property (nonatomic, retain) NSNumber *number;
 @property (nonatomic, assign) BOOL isAdditive;
 
-
 - (instancetype)initWithNumber:(NSNumber *) number isAdditive:(BOOL)additive;
 - (instancetype)init;
 - (BOOL)isNull;
 - (BOOL)isAdditive;
 - (float)getFloatValue;
-
 
 @end
 
@@ -71,7 +67,7 @@
 }
 @end
 
-@implementation VROAnimationManager {
+@implementation VRTAnimationManager {
     NSMutableDictionary *_animationPropertyDictionary;
     NSMutableDictionary *_animationChainDictionary;
 }
