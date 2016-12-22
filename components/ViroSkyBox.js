@@ -11,15 +11,14 @@
  */
 'use strict';
 
-import { requireNativeComponent, View } from 'react-native';
+import { requireNativeComponent, View, StyleSheet } from 'react-native';
+import React, { Component } from 'react';
+import resolveAssetSource from "react-native/Libraries/Image/resolveAssetSource";
 
 var NativeMethodsMixin = require('react/lib/NativeMethodsMixin');
-var NativeModules = require('NativeModules');
+var NativeModules = require('react-native').NativeModules;
 var PropTypes = require('react/lib/ReactPropTypes');
-var React = require('React');
 var CubeMapPropType = require('./Material/CubeMapPropType');
-var StyleSheet = require('StyleSheet');
-var resolveAssetSource = require('resolveAssetSource');
 
 /**
  * Used to render a skybox as a scene background.
