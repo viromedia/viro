@@ -21,6 +21,9 @@ import {
   Viro360Photo,
   Materials,
   Viro3DObject,
+  ViroAnimations,
+  ViroImage,
+  ViroAnimatedComponent,
 } from 'react-viro';
 
 var scene_ios_test = React.createClass({
@@ -34,6 +37,12 @@ var scene_ios_test = React.createClass({
                           position={[-0.0, -100, -10]}
                           scale={[0.1, 0.1, 0.1]}
                            />
+
+            <ViroAnimatedComponent animation="animateImage" run={true}>
+              <ViroImage source={require('./js/res/card_main.png')} height={2} width={4}
+                         position={[0, 0, -5]}
+                         scale={[0.1, 0.1, 0.1]} />
+            </ViroAnimatedComponent>
         </ViroScene>
     );
   }
@@ -66,5 +75,12 @@ Materials.createMaterials({
     diffuseColor: "#ff0000",
   },
 })
+
+ViroAnimations.registerAnimations({
+    animateImage:{properties:{scaleX:1.0, scaleY:0.6, scaleZ:1.0,
+                              opacity: 1.0},
+                  easing:"Bounce",
+                  duration: 5000},
+});
 
 module.exports = scene_ios_test;
