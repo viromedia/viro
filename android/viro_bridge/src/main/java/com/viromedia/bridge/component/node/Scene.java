@@ -87,6 +87,13 @@ public class Scene extends Node implements SceneJni.SceneDelegate {
         }
     }
 
+    @Override
+    public void onLayout(boolean changed, int left, int top, int right, int bottom) {
+        super.onLayout(changed, left, top, right, bottom);
+        // The scene's onLayout is when we know that ALL the views are ready to be laid out again.
+        recalcLayout();
+    }
+
     private void setCameraIfPossible() {
         if (mCamera != null && mNativeRenderer != null) {
             mNativeRenderer.setCameraPosition(mCamera.getPosition());

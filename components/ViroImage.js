@@ -11,17 +11,18 @@
  */
 'use strict';
 
-import { requireNativeComponent, View, StyleSheet } from 'react-native';
+import { requireNativeComponent, View } from 'react-native';
 import resolveAssetSource from "react-native/Libraries/Image/resolveAssetSource";
-import React, { Component } from 'react';
+import React from 'react';
+
 var NativeMethodsMixin = require('react/lib/NativeMethodsMixin');
 var NativeModules = require('react-native').NativeModules;
 var PropTypes = require('react/lib/ReactPropTypes');
+var StyleSheet = require('react-native/Libraries/StyleSheet/StyleSheet');
 
-// TODO: add styles
-// var ViroPropTypes = require('ViroPropTypes');
-// var StyleSheetPropType = require('StyleSheetPropType');
-// var stylePropType = StyleSheetPropType(ViroPropTypes);
+var ViroPropTypes = require('./Styles/ViroPropTypes');
+var StyleSheetPropType = require('react-native/Libraries/StyleSheet/StyleSheetPropType');
+var stylePropType = StyleSheetPropType(ViroPropTypes);
 
 /**
  * Used to render a ViroImage
@@ -60,8 +61,7 @@ var ViroImage = React.createClass({
       PropTypes.string
     ]),
     visible: PropTypes.bool,
-    // TODO: add styles
-    //style: stylePropType,
+    style: stylePropType,
 
     // Required to be local source static image by using require(''./image.jpg').
     // or by specifying local uri.

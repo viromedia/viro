@@ -17,12 +17,12 @@ import {
   ViroSceneNavigator,
 } from 'react-viro';
 
-var InitialScene = require('./scene1');
+var InitialScene = require('./js/FlexViewTest');
 
 export default class ViroSample extends Component {
   render() {
     return (
-      <ViroSceneNavigator
+      <ViroSceneNavigator apiKey="ANDROID_DOESNT_YET_NEED_A_KEY"
         initialScene={{scene: InitialScene}}
         />
     );

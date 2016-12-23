@@ -13,6 +13,7 @@ import com.viromedia.bridge.component.SkyBoxManager;
 import com.viromedia.bridge.component.Video360Manager;
 import com.viromedia.bridge.component.CameraManager;
 import com.viromedia.bridge.component.OrbitCameraManager;
+import com.viromedia.bridge.component.node.FlexViewManager;
 import com.viromedia.bridge.component.node.NodeContainerManager;
 import com.viromedia.bridge.component.node.SceneManager;
 import com.viromedia.bridge.component.node.control.BoxManager;
@@ -57,7 +58,8 @@ public class ReactViroPackage implements ReactPackage {
                 new SphereManager(reactContext),
                 new ImageManager(reactContext),
                 new Photo360Manager(reactContext),
-                new SkyBoxManager(reactContext)
+                new SkyBoxManager(reactContext),
+                new FlexViewManager(reactContext)
         );
     }
 }

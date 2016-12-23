@@ -5,9 +5,13 @@ package com.viromedia.bridge.component.node;
 
 import android.support.annotation.Nullable;
 
+import com.facebook.csslayout.CSSConstants;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReadableArray;
+import com.facebook.react.uimanager.LayoutShadowNode;
+import com.facebook.react.uimanager.ViewProps;
 import com.facebook.react.uimanager.annotations.ReactProp;
+import com.facebook.react.uimanager.annotations.ReactPropGroup;
 import com.viro.renderer.jni.MaterialJni;
 import com.viromedia.bridge.component.ViroViewGroupManager;
 import com.viromedia.bridge.module.MaterialManager;
@@ -19,6 +23,8 @@ import java.util.ArrayList;
  * NOTE: Always extend from this class for all Node Viro controls.
  */
 public abstract class NodeManager <T extends Node> extends ViroViewGroupManager<T> {
+
+    public static final float s2DUnitPer3DUnit = 1000;
 
     public NodeManager(ReactApplicationContext context) {
         super(context);
@@ -74,6 +80,54 @@ public abstract class NodeManager <T extends Node> extends ViroViewGroupManager<
         view.setTransformBehaviors(behaviors);
     }
 
+    @Override
+    public LayoutShadowNode createShadowNodeInstance() {
+        return new FlexEnabledShadowNode();
+    }
+
+
+    /**
+     * This shadow node is so that views associated with FlexViews (and FlexViews themselves) have
+     * their properties properly converted from 3D to 2D units. It's easiest if we just make all Nodes
+     * have FlexEnabledShadowNodes, and the components can choose whether or not
+     */
+    protected class FlexEnabledShadowNode extends ViroLayoutShadowNode {
+
+        @ReactProp(name = "width", defaultFloat = 1)
+        public void setWidth(float width) {
+            super.setWidth(width * s2DUnitPer3DUnit);
+        }
+
+        @ReactProp(name = "height", defaultFloat = 1)
+        public void setHeight(float height) {
+            super.setHeight(height * s2DUnitPer3DUnit);
+        }
+
+        @ReactPropGroup(names = {
+                ViewProps.PADDING,
+                ViewProps.PADDING_VERTICAL,
+                ViewProps.PADDING_HORIZONTAL,
+                ViewProps.PADDING_LEFT,
+                ViewProps.PADDING_RIGHT,
+                ViewProps.PADDING_TOP,
+                ViewProps.PADDING_BOTTOM,
+        }, defaultFloat = CSSConstants.UNDEFINED)
+        public void setPaddings(int index, float padding) {
+            super.setPaddings(index, padding * s2DUnitPer3DUnit);
+        }
+
+        @ReactPropGroup(names = {
+                ViewProps.BORDER_WIDTH,
+                ViewProps.BORDER_LEFT_WIDTH,
+                ViewProps.BORDER_RIGHT_WIDTH,
+                ViewProps.BORDER_TOP_WIDTH,
+                ViewProps.BORDER_BOTTOM_WIDTH,
+        }, defaultFloat = CSSConstants.UNDEFINED)
+        public void setBorderWidths(int index, float borderWidth) {
+            super.setBorderWidths(index, borderWidth * s2DUnitPer3DUnit);
+        }
+    }
+
     private static @Nullable float[] toFloatArray(@Nullable ReadableArray value) {
         if (value == null){
             throw new IllegalArgumentException("Can't convert a null ReadableArray to a float[].");
@@ -84,13 +138,5 @@ public abstract class NodeManager <T extends Node> extends ViroViewGroupManager<
             result[i] = (float) value.getDouble(i);
         }
         return result;
-    }
-
-    private static int toFloatArray(ReadableArray value, float[] into) {
-        int length = value.size() > into.length ? into.length : value.size();
-        for (int i = 0; i < length; i++) {
-            into[i] = (float) value.getDouble(i);
-        }
-        return value.size();
     }
 }

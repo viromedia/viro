@@ -7,19 +7,28 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
 
+import com.facebook.react.uimanager.PixelUtil;
 import com.viro.renderer.jni.BaseGeometry;
 import com.viro.renderer.jni.MaterialJni;
 import com.viro.renderer.jni.NodeJni;
 import com.viromedia.bridge.component.AnimatedComponent;
 import com.viromedia.bridge.component.Component;
 import com.viromedia.bridge.component.Light;
+import com.viromedia.bridge.component.node.control.Image;
 
 import java.util.List;
+
+import static com.viromedia.bridge.component.node.NodeManager.s2DUnitPer3DUnit;
 
 /**
  * Node is inherited by any component which is represented by a VRONode in native
  */
 public class Node extends Component {
+
+    // Always place the children of views .01 in front of the parent. This helps with z-fighting
+    // and ensures that the child is always in front of the parent for hit detection
+    private static final float sZIncrementToAvoidZFighting = (float) 0.01;
+
     private NodeJni mNodeJni;
     protected float[] mPosition;
     protected float[] mRotation;
@@ -27,8 +36,6 @@ public class Node extends Component {
     protected float mOpacity;
     protected boolean mVisible;
     protected List<MaterialJni> mMaterials;
-
-    // TODO: Handle Event, Flex box properties, and TransformBehaviors
 
     public Node(Context context) {
         this(context, null, -1, -1);
@@ -92,7 +99,78 @@ public class Node extends Component {
         }
     }
 
-    protected void setPosition(float[] position){
+    @Override
+    public void recalcLayout() {
+        // Nodes should attempt to recalc, but if it fails it should always call super.recalcLayout() to recurse.
+        attemptRecalcLayout();
+        super.recalcLayout();
+    }
+
+    protected void attemptRecalcLayout() {
+        // Attempt to find a Node parent OR Node grandparent if the parent is an AnimatedComponent
+        Node superView = null;
+        if (getParent() != null && getParent() instanceof FlexView) {
+            superView = (Node) getParent();
+        } else if(getParent() != null && getParent() instanceof AnimatedComponent) {
+            if (getParent().getParent() != null && getParent().getParent() instanceof Node) {
+                superView = (Node) getParent().getParent();
+            }
+        }
+
+        // if we failed to find an acceptable parent, just return.
+        if (superView == null) {
+            return;
+        }
+
+        float[] position = get2DPosition();
+        float[] size = get2DSize();
+
+        float[] parentPosition = superView.get2DPosition();
+        float[] parentSize = superView.get2DSize();
+
+        // flip y because in our 3D coordinates, y increases as you go up, rather than downwards on mobile/web.
+        float transformedY = parentSize[1] - position[1];
+
+        // transform by subtracting by center of superview
+        float transformedX = position[0] - parentPosition[0];
+        transformedY = transformedY - parentPosition[1];
+
+        // we need the factor that the CSS algorithm applies to the original width/height.
+        float pixelsPerDIP = PixelUtil.toPixelFromDIP(1.0);
+
+        // calculate 3D size/position
+        float width3d = size[0] / pixelsPerDIP / s2DUnitPer3DUnit;
+        float height3d = size[1] / pixelsPerDIP / s2DUnitPer3DUnit;
+        transformedX = transformedX / pixelsPerDIP / s2DUnitPer3DUnit;
+        transformedY = transformedY / pixelsPerDIP / s2DUnitPer3DUnit;
+
+        // set position.
+        setPosition(new float[]{transformedX, transformedY, sZIncrementToAvoidZFighting});
+
+        // set the size (either through scale or width/height if the node supports it).
+        if (this instanceof Image) {
+            Image image = (Image) this;
+            image.setWidth(width3d);
+            image.setHeight(height3d);
+            image.onPropsSet();
+        } else if (this instanceof FlexView) {
+            FlexView flexView = (FlexView) this;
+            flexView.setWidth(width3d);
+            flexView.setHeight(height3d);
+        } else {
+            this.setScale(new float[]{width3d, height3d, 1});
+        }
+
+        // normalize the center point and bounds so that they assume left & top == 0;
+        setPivotX(size[0]/2);
+        setPivotY(size[1]/2);
+        setLeft(0);
+        setTop(0);
+        setRight((int) size[0]);
+        setBottom((int) size[1]);
+    }
+
+    protected void setPosition(float[] position) {
         if (position.length != 3){
             throw new IllegalArgumentException("Missing a position value: All three " +
                     "[x,y,z] axis value are needed.");
@@ -120,17 +198,17 @@ public class Node extends Component {
         mNodeJni.setScale(scale);
     }
 
-    protected void setOpacity(float opacity){
+    protected void setOpacity(float opacity) {
         mOpacity = opacity;
         mNodeJni.setOpacity(opacity);
     }
 
-    protected void setVisible(boolean visible){
+    protected void setVisible(boolean visible) {
         mVisible = visible;
         mNodeJni.setVisible(visible);
     }
 
-    protected void setGeometry(BaseGeometry geometry){
+    protected void setGeometry(BaseGeometry geometry) {
         mNodeJni.setGeometry(geometry);
         if (mMaterials != null) {
             mNodeJni.setMaterials(mMaterials);
@@ -144,5 +222,15 @@ public class Node extends Component {
 
     protected void setTransformBehaviors(String[] transformBehaviors) {
         mNodeJni.setTransformBehaviors(transformBehaviors);
+    }
+
+    protected float[] get2DPosition() {
+        float[] arr = {getLeft() + getPivotX(), getTop() + getPivotY()};
+        return arr;
+    }
+
+    protected float[] get2DSize() {
+        float[] arr = {getRight() - getLeft(), getBottom() - getTop()};
+        return arr;
     }
 }

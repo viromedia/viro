@@ -45,7 +45,7 @@ public abstract class ViroViewGroupManager<T extends ViewGroup>
         // no-op
     }
 
-    private class ViroLayoutShadowNode extends LayoutShadowNode {
+    protected class ViroLayoutShadowNode extends LayoutShadowNode {
 
         @ReactProp(name = "position")
         public void setPosition(@Nullable ReadableArray position) {

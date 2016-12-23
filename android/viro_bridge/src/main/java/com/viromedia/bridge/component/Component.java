@@ -6,14 +6,15 @@ package com.viromedia.bridge.component;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
-import android.widget.FrameLayout;
+
+import com.facebook.react.views.view.ReactViewGroup;
 import com.viro.renderer.jni.RenderContextJni;
 import com.viromedia.bridge.component.node.Scene;
 
 /**
  * Base class for any Viro UI Component. Equivalent to the VRTView in iOS.
  */
-public class Component extends FrameLayout {
+public class Component extends ReactViewGroup {
     private static String TAG = Component.class.getSimpleName();
     protected RenderContextJni mRenderContext = null;
     protected Scene mScene = null;
@@ -33,7 +34,7 @@ public class Component extends FrameLayout {
     }
 
     public Component(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
+        super(context);
     }
 
     public void componentWillAppear() {
@@ -85,7 +86,8 @@ public class Component extends FrameLayout {
         super.addView(child, index);
 
         if (!(child instanceof Component)){
-            throw new IllegalArgumentException("Attempted to add a non-Component child.");
+            throw new IllegalArgumentException("Attempted to add a non-Component child of type: [" +
+                    child.getClass().getSimpleName() + "].");
         }
 
         if (mRenderContext != null &&
@@ -115,15 +117,32 @@ public class Component extends FrameLayout {
     }
 
     /**
-     * Helper method to indicate if teardown has already happened for this component. Package
-     * protected since this should be needed only from com.viromedia.bridge.component. Extend if
-     * needed later
+     * This function is used by FlexViews and the controls that go inside them in order for them
+     * to properly convert their 2D layout values to 3D-space. This is because React Native seems
+     * to call onLayout() from the bottom of the view tree upwards which means when a component gets
+     * its layout values, it is unable to get those of its parent to properly set.
      *
-     * @return
+     * An invariant of this function is that by the end of this function, the Component's pivotX,
+     * pivotY, left, top, right and bottom properties are properly set.
      */
-    boolean isTornDown() {
+    public void recalcLayout() {
+        // Loop over every child of a scene. Ideally only particular nodes should respond.
+        for(int i = 0; i < getChildCount(); i++) {
+            if (getChildAt(i) instanceof Component) {
+                ((Component) getChildAt(i)).recalcLayout();
+            }
+        }
+    }
+
+    /**
+     * Helper method to indicate if teardown has already happened for this component.
+     *
+     * @return whether or not this component has already been torn down.
+     */
+    protected boolean isTornDown() {
         return IS_TORN_DOWN;
     }
+
     public void sceneWillAppear() {
         for (int i = getChildCount() - 1; i >= 0; i--) {
             final View child = getChildAt(i);

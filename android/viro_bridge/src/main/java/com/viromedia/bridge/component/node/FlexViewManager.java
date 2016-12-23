@@ -4,10 +4,18 @@
 package com.viromedia.bridge.component.node;
 
 
-import com.facebook.react.uimanager.ThemedReactContext;
-import com.facebook.react.uimanager.ViewGroupManager;
+import android.util.Log;
 
-public class FlexViewManager extends ViewGroupManager<FlexView> {
+import com.facebook.react.bridge.ReactApplicationContext;
+import com.facebook.react.uimanager.ThemedReactContext;
+import com.facebook.react.uimanager.annotations.ReactProp;
+
+public class FlexViewManager extends NodeManager<FlexView> {
+
+    public FlexViewManager(ReactApplicationContext context) {
+        super(context);
+    }
+
     @Override
     public String getName() {
         return "VRTFlexView";
@@ -16,5 +24,20 @@ public class FlexViewManager extends ViewGroupManager<FlexView> {
     @Override
     protected FlexView createViewInstance(ThemedReactContext reactContext) {
         return new FlexView(reactContext);
+    }
+
+    @ReactProp(name = "width", defaultFloat = 1)
+    public void setWidth(FlexView view, float width) {
+        view.setWidth(width);
+    }
+
+    @ReactProp(name = "height", defaultFloat = 1)
+    public void setHeight(FlexView view, float height) {
+        view.setHeight(height);
+    }
+
+    @ReactProp(name = "backgroundColor")
+    public void setBackgroundColor(FlexView view, int color) {
+        view.setBackgroundColor(color);
     }
 }

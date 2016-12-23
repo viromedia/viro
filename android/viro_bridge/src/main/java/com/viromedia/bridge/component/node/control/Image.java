@@ -158,6 +158,7 @@ public class Image extends Control {
         if (mLatestImageTexture != null) {
             mLatestImageTexture.destroy();
         }
+
         mLatestImage = new ImageJni(image);
         mLatestImageTexture = new TextureJni(mLatestImage);
         mNativeSurface.setImageTexture(mLatestImageTexture);

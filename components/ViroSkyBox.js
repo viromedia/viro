@@ -17,6 +17,23 @@ import resolveAssetSource from "react-native/Libraries/Image/resolveAssetSource"
 
 var NativeMethodsMixin = require('react/lib/NativeMethodsMixin');
 var NativeModules = require('react-native').NativeModules;
+
+/*
+import {
+   requireNativeComponent,
+   View,
+   StyleSheet,
+   NativeModules,
+   resolveAssetSource
+} from 'react-native';
+
+import 
+  React,
+  {
+    NativeMethodsMixin,
+  }
+from 'react';
+*/
 var PropTypes = require('react/lib/ReactPropTypes');
 var CubeMapPropType = require('./Material/CubeMapPropType');
 
