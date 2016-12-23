@@ -382,6 +382,7 @@ DEFINE_PROCESS_META_PROPS(Border);
     NSArray<VRTShadowView *> *subviews = [subview reactSubviews];
     // subviews of VRTAnimatedComponent are allowed only 1 child.
     if(subviews.count > 0 ) {
+    [subviews[0] removeReactSubview:subviews[0]];
       [self insertReactSubview:subviews[0] atIndex:atIndex];
     }
     
