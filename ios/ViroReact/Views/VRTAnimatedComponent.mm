@@ -42,7 +42,7 @@
 
 #pragma mark - VRTView overrides.
 
-- (void)insertReactSubview:(id<VROComponent>)subview atIndex:(NSInteger)atIndex {
+- (void)insertReactSubview:(UIView *)subview atIndex:(NSInteger)atIndex {
     self.vroSubview = (VRTNode *)subview;
 
     BOOL childFound = false;
@@ -68,14 +68,14 @@
         [self updateAnimation];
     }
 
-    //VA: Uncomment THIS: [super insertReactSubview:subview atIndex:atIndex];
+    [super insertReactSubview:subview atIndex:atIndex];
 }
 
-- (void)removeReactSubview:(id<VROComponent>)subview {
+- (void)removeReactSubview:(UIView *)subview {
     _viewAdded = false;
 
     self.vroSubview.node->removeFromParentNode();
-    //VA: Uncomment THIS: [super removeReactSubview:subview];
+    [super removeReactSubview:subview];
 }
 
 - (void)viewWillAppear {
@@ -140,7 +140,7 @@
         }
     } else {
         _scheduledNewAnimation = true;
-        [self performSelector:@selector(startNewAnimation) withObject: self afterDelay: (self.delay / 1000)];
+        [self performSelector:@selector(startNewAnimation) withObject:self afterDelay: (self.delay / 1000)];
     }
 }
 
@@ -157,7 +157,7 @@
         }
     } else if (_scheduledNewAnimation){
         _scheduledNewAnimation = false;
-        [NSObject cancelPreviousPerformRequestsWithTarget: self selector:@selector(startNewAnimation) object: self];
+        [NSObject cancelPreviousPerformRequestsWithTarget: self selector:@selector(startNewAnimation) object:self];
     }
 }
 

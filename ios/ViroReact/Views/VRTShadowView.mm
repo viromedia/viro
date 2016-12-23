@@ -377,23 +377,7 @@ DEFINE_PROCESS_META_PROPS(Border);
 
 - (void)insertReactSubview:(VRTShadowView *)subview atIndex:(NSInteger)atIndex
 {
-  
-  if([subview isKindOfClass:[VRTAnimatedComponentShadowView class]]) {
-    NSArray<VRTShadowView *> *subviews = [subview reactSubviews];
-    // subviews of VRTAnimatedComponent are allowed only 1 child.
-    if(subviews.count > 0 ) {
-    [subviews[0] removeReactSubview:subviews[0]];
-      [self insertReactSubview:subviews[0] atIndex:atIndex];
-    }
-    
-    return;
-  }
-  
   [_reactSubviews insertObject:subview atIndex:atIndex];
-  if([subview isKindOfClass:[VRTAnimatedComponentShadowView class]]) {
-    return;
-  }
-
   if (![self isCSSLeafNode]) {
     CSSNodeInsertChild(_cssNode, subview.cssNode, atIndex);
   }

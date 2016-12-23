@@ -40,7 +40,6 @@
 }
 
 - (void)setView:(id <VROView>)view {
-    NSLog(@"Set view invoked");
   _sceneController = [[RCTSceneController alloc] initWithView:view sceneDelegate:self];
   [_sceneController setHoverEnabled:YES boundsOnly:YES];
   _sceneController.scene->addNode(self.node);

@@ -77,8 +77,7 @@ Materials.createMaterials({
 })
 
 ViroAnimations.registerAnimations({
-    animateImage:{properties:{scaleX:1.0, scaleY:0.6, scaleZ:1.0,
-                              opacity: 1.0},
+    animateImage:{properties:{scaleX:1.0, scaleY:0.8, scaleZ:1.0},
                   easing:"Bounce",
                   duration: 5000},
 });

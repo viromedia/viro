@@ -38,7 +38,6 @@
     return self;
 }
 
-
 -(BOOL)isNull {
     if(self.number == nil) {
         return true;
@@ -72,12 +71,9 @@
     NSMutableDictionary *_animationChainDictionary;
 }
 
-
-
 @synthesize bridge = _bridge;
 
 RCT_EXPORT_MODULE()
-
 
 RCT_EXPORT_METHOD(setJSAnimations:(NSDictionary *)animationsDict)
 {
@@ -103,7 +99,6 @@ RCT_EXPORT_METHOD(setJSAnimations:(NSDictionary *)animationsDict)
         }
     }
 }
-
 
 - (instancetype)init
 {
@@ -131,7 +126,7 @@ RCT_EXPORT_METHOD(setJSAnimations:(NSDictionary *)animationsDict)
     float delayInSeconds = [delayMilliseconds floatValue] / 1000.0;
 
     VROTimingFunctionType type = VROTimingFunctionType::Linear;
-    if (!functionType){
+    if (functionType){
         type = [self convertTimingFunction:functionType];
     }
 
@@ -140,6 +135,7 @@ RCT_EXPORT_METHOD(setJSAnimations:(NSDictionary *)animationsDict)
     [property setDurationMilliseconds:durationInSeconds];
     [property setFunctionType:type];
     [property setPropertyDictionary:propertyDictionary];
+    
     return property;
 }
 
@@ -158,7 +154,6 @@ RCT_EXPORT_METHOD(setJSAnimations:(NSDictionary *)animationsDict)
     NullableValue *rotateZ = [self getValue:@"rotateZ" properties:propertyDict];
 
     NullableValue *opacity = [self getValue:@"opacity" properties:propertyDict];
-
     NullableValue *color = [self getValue:@"color" properties:propertyDict];
 
     [self animatePosition:node posX:positionX posY:positionY posZ:positionZ];
@@ -178,9 +173,7 @@ RCT_EXPORT_METHOD(setJSAnimations:(NSDictionary *)animationsDict)
     return [number floatValue];
 }
 
-
 - (NullableValue *)getValue:(NSString *)propertyName properties:(NSDictionary *)propertyDictionary {
-
     NullableValue *nullableValue = [[NullableValue alloc] init];
 
     id value = propertyDictionary[propertyName];
@@ -221,7 +214,8 @@ RCT_EXPORT_METHOD(setJSAnimations:(NSDictionary *)animationsDict)
             return nullableValue;
         }
 
-    }else if([value isKindOfClass:[NSNumber class]]) {
+    }
+    else if([value isKindOfClass:[NSNumber class]]) {
         NSNumber *number = (NSNumber *)value;
         nullableValue = [[NullableValue alloc] initWithNumber:number isAdditive:false];
         return nullableValue;
@@ -252,7 +246,6 @@ RCT_EXPORT_METHOD(setJSAnimations:(NSDictionary *)animationsDict)
 
 //helper methods to animate various properties
 - (void)animatePosition:(VRONode *const)node posX:(NullableValue *)positionX posY:(NullableValue *)positionY posZ:(NullableValue *)positionZ {
-
     if([positionX isNull] && [positionY isNull] && [positionZ isNull]) {
         return;
     }
@@ -264,20 +257,16 @@ RCT_EXPORT_METHOD(setJSAnimations:(NSDictionary *)animationsDict)
     if([positionX isAdditive]){
         posx += node->getPosition().x;
     }
-
     if([positionY isAdditive]){
         posy += node->getPosition().y;
     }
-
     if([positionZ isAdditive]){
         posz += node->getPosition().z;
     }
-
     node->setPosition({posx, posy, posz});
 }
 
 - (void)animateScale:(VRONode *const)node scaleX:(NullableValue *)scaleX scaleY:(NullableValue *)scaleY scaleZ:(NullableValue *)scaleZ {
-
     if(![scaleX isNull] || ![scaleY isNull] || ![scaleZ isNull]) {
         float scalex = ([scaleX isNull]) ? node->getScale().x : [scaleX getFloatValue];
         float scaley = ([scaleY isNull]) ? node->getScale().y : [scaleY getFloatValue];
@@ -286,11 +275,9 @@ RCT_EXPORT_METHOD(setJSAnimations:(NSDictionary *)animationsDict)
         if([scaleX isAdditive]){
             scalex += node->getScale().x;
         }
-
         if([scaleY isAdditive]){
             scaley += node->getScale().y;
         }
-
         if([scaleZ isAdditive]){
             scalez += node->getScale().z;
         }
@@ -299,10 +286,10 @@ RCT_EXPORT_METHOD(setJSAnimations:(NSDictionary *)animationsDict)
 }
 
 - (void)animateColor:(VRONode *const)node color:(NullableValue *)color {
-
     if([color isNull]) {
         return;
     }
+    
     NSUInteger colorVal = (NSUInteger)[color getIntValue];
 
     //parse the int into seperate color components.
@@ -341,19 +328,16 @@ RCT_EXPORT_METHOD(setJSAnimations:(NSDictionary *)animationsDict)
             rotatex += storedRotateX;
             propCheckPoints[@"rotateX"] = [[NSNumber alloc] initWithFloat:rotatex];
         }
-
         if([rotateY isAdditive]) {
             float storedRotateY = [self getStoredProperty:propCheckPoints propName:@"rotateY"];
             rotatey += storedRotateY;
             propCheckPoints[@"rotateY"] = [[NSNumber alloc] initWithFloat:rotatey];
         }
-
         if([rotateZ isAdditive]) {
             float storedRotateZ = [self getStoredProperty:propCheckPoints propName:@"rotateZ"];
             rotatez += storedRotateZ;
             propCheckPoints[@"rotateZ"] = [[NSNumber alloc] initWithFloat:rotatez];;
         }
-
         node->setRotation({rotatex, rotatey, rotatez});
     }
 }
