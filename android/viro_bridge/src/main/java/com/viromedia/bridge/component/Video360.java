@@ -21,11 +21,9 @@ public class Video360 extends Component {
     private float mVolume;
 
     private VideoTextureJni mVideoTextureJni = null;
-    private ReactApplicationContext mContext;
 
     public Video360(ReactApplicationContext reactContext) {
-        super(reactContext.getBaseContext());
-        mContext = reactContext;
+        super(reactContext);
     }
 
     @Override
@@ -125,7 +123,7 @@ public class Video360 extends Component {
     }
 
     private void reactVideoFinishedCallback() {
-        mContext.getJSModule(RCTEventEmitter.class).receiveEvent(
+        mReactContext.getJSModule(RCTEventEmitter.class).receiveEvent(
                 getId(),
                 ViroEvents.ON_FINISH,
                 null);

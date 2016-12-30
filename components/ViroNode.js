@@ -33,6 +33,24 @@ var ViroNode = React.createClass({
     ]),
     visible: PropTypes.bool,
     opacity: PropTypes.number,
+
+    /**
+     * Callback that is called when user gazes on the node.
+     */
+    onGaze: React.PropTypes.func,
+
+    /**
+     * Callback that is called when user taps on the node.
+     */
+    onTap: React.PropTypes.func,
+  },
+
+  _onGaze: function(event: Event) {
+    this.props.onGaze && this.props.onGaze(event.nativeEvent.isGazing);
+  },
+
+  _onTap: function(event: Event) {
+    this.props.onTap && this.props.onTap();
   },
 
   render: function() {
@@ -40,7 +58,13 @@ var ViroNode = React.createClass({
     let transformBehaviors = typeof this.props.transformBehaviors === 'string' ?
         new Array(this.props.transformBehaviors) : this.props.transformBehaviors;
     return (
-      <VRTViewContainer {...this.props} transformBehaviors={transformBehaviors} />
+      <VRTViewContainer
+        {...this.props}
+        transformBehaviors={transformBehaviors}
+        canGaze={this.props.onGaze != undefined}
+        canTap={this.props.onTap != undefined}
+        onTapViro={this._onTap}
+        onGazeViro={this._onGaze}/>
     );
   }
 });
@@ -48,7 +72,7 @@ var ViroNode = React.createClass({
 
 var VRTViewContainer = requireNativeComponent(
   'VRTViewContainer', ViroNode, {
-    nativeOnly: {onTap: true, onGaze: true, materials: []}
+    nativeOnly: {canTap: true, canGaze: true, materials: []}
   }
 );
 

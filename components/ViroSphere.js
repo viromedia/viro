@@ -42,6 +42,24 @@ var ViroSphere = React.createClass({
       PropTypes.arrayOf(PropTypes.string),
       PropTypes.string
     ]),
+
+    /**
+     * Callback that is called when user gazes on the sphere.
+     */
+    onGaze: React.PropTypes.func,
+
+    /**
+     * Callback that is called when user taps on the sphere.
+     */
+    onTap: React.PropTypes.func,
+  },
+
+  _onGaze: function(event: Event) {
+    this.props.onGaze && this.props.onGaze(event.nativeEvent.isGazing);
+  },
+
+  _onTap: function(event: Event) {
+    this.props.onTap && this.props.onTap();
   },
 
   render: function() {
@@ -53,14 +71,23 @@ var ViroSphere = React.createClass({
     let transformBehaviors = typeof this.props.transformBehaviors === 'string' ?
         new Array(this.props.transformBehaviors) : this.props.transformBehaviors;
     return (
-      <VRTSphere {...this.props} materials={materials} transformBehaviors={transformBehaviors} />
+      <VRTSphere
+        {...this.props}
+        materials={materials}
+        transformBehaviors={transformBehaviors}
+        canGaze={this.props.onGaze != undefined}
+        canTap={this.props.onTap != undefined}
+        onTapViro={this._onTap}
+        onGazeViro={this._onGaze}/>
     );
   }
 });
 
 
 var VRTSphere = requireNativeComponent(
-  'VRTSphere', ViroSphere
+  'VRTSphere', ViroSphere , {
+    nativeOnly: {canTap: true, canGaze: true }
+  }
 );
 
 

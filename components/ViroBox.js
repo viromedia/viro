@@ -30,7 +30,25 @@ var ViroBox = React.createClass({
       PropTypes.arrayOf(PropTypes.string),
       PropTypes.string
     ]),
+    /**
+     * Callback that is called when user gazes on the node.
+     */
+    onGaze: React.PropTypes.func,
+
+    /**
+     * Callback that is called when user taps on the node.
+     */
+    onTap: React.PropTypes.func,
   },
+
+  _onGaze: function(event: Event) {
+    this.props.onGaze && this.props.onGaze(event.nativeEvent.isGazing);
+  },
+
+  _onTap: function(event: Event) {
+    this.props.onTap && this.props.onTap();
+  },
+
   render: function() {
     // Since materials and transformBehaviors can be either a string or an array, convert the string to a 1-element array.
     let materials = typeof this.props.materials === 'string' ? new Array(this.props.materials) : this.props.materials;
@@ -47,13 +65,21 @@ var ViroBox = React.createClass({
       }
     }
     return (
-        <VRTBox {...this.props} materials={materials} />
+        <VRTBox
+            {...this.props}
+            materials={materials}
+            canGaze={this.props.onGaze != undefined}
+            canTap={this.props.onTap != undefined}
+            onTapViro={this._onTap}
+            onGazeViro={this._onGaze}/>
     );
   }
 });
 
 var VRTBox = requireNativeComponent(
-    'VRTBox', ViroBox
+    'VRTBox', ViroBox, {
+        nativeOnly: {canTap: true, canGaze: true }
+    }
 );
 
 module.exports = ViroBox;

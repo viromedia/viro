@@ -11,7 +11,6 @@ import com.facebook.react.uimanager.ThemedReactContext;
 import com.facebook.react.uimanager.annotations.ReactProp;
 
 public class FlexViewManager extends NodeManager<FlexView> {
-
     public FlexViewManager(ReactApplicationContext context) {
         super(context);
     }
@@ -23,7 +22,7 @@ public class FlexViewManager extends NodeManager<FlexView> {
 
     @Override
     protected FlexView createViewInstance(ThemedReactContext reactContext) {
-        return new FlexView(reactContext);
+        return new FlexView(getContext());
     }
 
     @ReactProp(name = "width", defaultFloat = 1)

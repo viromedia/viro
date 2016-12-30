@@ -3,10 +3,8 @@
  */
 package com.viromedia.bridge.component.node;
 
-import android.content.Context;
-import android.util.AttributeSet;
 import android.view.View;
-
+import com.facebook.react.bridge.ReactApplicationContext;
 import com.viro.renderer.jni.SceneJni;
 import com.viro.renderer.jni.TextureJni;
 import com.viro.renderer.jni.VideoTextureJni;
@@ -20,21 +18,8 @@ public class Scene extends Node implements SceneJni.SceneDelegate {
     private RendererJni mNativeRenderer;
     private Camera mCamera;
     private boolean mReticleEnabled = true;
-
-    public Scene(Context context) {
-        this(context, null, -1 -1);
-    }
-
-    public Scene(Context context, AttributeSet attrs) {
-        this(context, attrs, -1 -1);
-    }
-
-    public Scene(Context context, AttributeSet attrs, int defStyleAttr) {
-        this(context, attrs, defStyleAttr, -1);
-    }
-
-    public Scene(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
+    public Scene(ReactApplicationContext reactContext) {
+        super(reactContext);
         mNativeScene = new SceneJni(getNodeJni());
         mNativeScene.registerDelegate(this);
     }

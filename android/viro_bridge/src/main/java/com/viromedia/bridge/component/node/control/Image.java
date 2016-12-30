@@ -22,7 +22,6 @@ import java.util.List;
 
 public class Image extends Control {
     private static final String TAG = ViroLog.getTag(Image.class);
-    private final ReactApplicationContext mContext;
     private final MaterialJni mDefaultMaterial;
     private SurfaceJni mNativeSurface;
     private ImageJni mLatestImage;
@@ -38,7 +37,6 @@ public class Image extends Control {
 
     public Image(ReactApplicationContext context) {
         super(context);
-        mContext = context;
         mDefaultMaterial = new MaterialJni();
     }
 
@@ -56,7 +54,7 @@ public class Image extends Control {
     public void setWidth(float width) {
         mWidth = width;
         mGeometryNeedsUpdate = true;
-    }
+}
 
     public void setHeight(float height) {
         mHeight = height;
@@ -134,7 +132,6 @@ public class Image extends Control {
         }
     }
 
-
     private void setMaterialOnSurface() {
         if (mNativeSurface == null) {
             return;
@@ -165,7 +162,7 @@ public class Image extends Control {
     }
 
     private void imageDownloadDidStart() {
-        mContext.getJSModule(RCTEventEmitter.class).receiveEvent(
+        mReactContext.getJSModule(RCTEventEmitter.class).receiveEvent(
                 getId(),
                 ViroEvents.ON_LOAD_START,
                 null
@@ -173,7 +170,7 @@ public class Image extends Control {
     }
 
     private void imageDownloadDidFinish() {
-        mContext.getJSModule(RCTEventEmitter.class).receiveEvent(
+        mReactContext.getJSModule(RCTEventEmitter.class).receiveEvent(
                 getId(),
                 ViroEvents.ON_LOAD_END,
                 null

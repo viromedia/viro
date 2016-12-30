@@ -22,11 +22,9 @@ public class VideoSurface extends Control {
     private String mSource;
     private SurfaceJni mSurfaceJni = null;
     private VideoTextureJni mVideoTextureJni = null;
-    private ReactApplicationContext mContext;
 
     public VideoSurface(ReactApplicationContext reactContext) {
-        super(reactContext.getBaseContext());
-        mContext = reactContext;
+        super(reactContext);
     }
 
     @Override
@@ -140,7 +138,7 @@ public class VideoSurface extends Control {
     }
 
     private void playerDidFinishPlaying() {
-        mContext.getJSModule(RCTEventEmitter.class).receiveEvent(
+        mReactContext.getJSModule(RCTEventEmitter.class).receiveEvent(
                 getId(),
                 ViroEvents.ON_FINISH,
                 null);

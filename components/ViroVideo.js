@@ -46,6 +46,16 @@ var ViroVideo = React.createClass({
     ]),
 
     /**
+     * Callback that is called when user gazes on the node.
+     */
+    onGaze: React.PropTypes.func,
+
+    /**
+     * Callback that is called when user taps on the node.
+     */
+    onTap: React.PropTypes.func,
+
+    /**
      * Callback that is called when the video is finished playing. This
      * function isn't called at the end of a video if looping is enabled.
      */
@@ -58,6 +68,14 @@ var ViroVideo = React.createClass({
 
   _onFinish: function(event: Event) {
     this.props.onFinish && this.props.onFinish(event);
+  },
+
+  _onGaze: function(event: Event) {
+    this.props.onGaze && this.props.onGaze(event.nativeEvent.isGazing);
+  },
+
+  _onTap: function(event: Event) {
+    this.props.onTap && this.props.onTap();
   },
 
   render: function() {
@@ -82,9 +100,13 @@ var ViroVideo = React.createClass({
     nativeProps.materials = materials;
     nativeProps.transformBehaviors = transformBehaviors;
     nativeProps.onFinishViro = this._onFinish;
+    nativeProps.onTapViro = this._onTap;
+    nativeProps.onGazeViro = this._onGaze;
+    nativeProps.canGaze = this.props.onGaze != undefined;
+    nativeProps.canTap = this.props.onTap != undefined;
 
     return (
-      <VRTVideoSurface {...nativeProps} />
+      <VRTVideoSurface {...nativeProps}/>
     );
   },
 
@@ -95,7 +117,7 @@ var ViroVideo = React.createClass({
 
 var VRTVideoSurface = requireNativeComponent(
     'VRTVideoSurface', ViroVideo, {
-      nativeOnly: {onFinishViro: true}
+      nativeOnly: {onFinishViro: true, canTap: true, canGaze: true }
     }
 );
 

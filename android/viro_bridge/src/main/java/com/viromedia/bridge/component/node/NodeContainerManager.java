@@ -8,7 +8,6 @@ import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.uimanager.ThemedReactContext;
 
 public class NodeContainerManager extends NodeManager<NodeContainer> {
-
     public NodeContainerManager(ReactApplicationContext context) {
         super(context);
     }
@@ -20,6 +19,6 @@ public class NodeContainerManager extends NodeManager<NodeContainer> {
 
     @Override
     protected NodeContainer createViewInstance(ThemedReactContext reactContext) {
-        return new NodeContainer(reactContext);
+        return new NodeContainer(getContext());
     }
 }

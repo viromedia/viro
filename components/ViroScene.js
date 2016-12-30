@@ -18,16 +18,42 @@ var ViroScene = React.createClass({
      * Flag for displaying the reticle. True by default.
      */
     reticleEnabled:PropTypes.bool,
+
+    /**
+     * Callback that is called when user gazes on the node.
+     */
+    onGaze: React.PropTypes.func,
+
+    /**
+     * Callback that is called when user taps on the node.
+     */
+    onTap: React.PropTypes.func,
   },
+
+  _onGaze: function(event: Event) {
+    this.props.onGaze && this.props.onGaze(event.nativeEvent.isGazing);
+  },
+
+  _onTap: function(event: Event) {
+    this.props.onTap && this.props.onTap();
+  },
+
   render: function() {
     return (
-        <VRTScene {...this.props} />
+        <VRTScene
+            {...this.props}
+            canGaze={this.props.onGaze != undefined}
+            canTap={this.props.onTap != undefined}
+            onTapViro={this._onTap}
+            onGazeViro={this._onGaze}/>
     );
   }
 });
 
 var VRTScene = requireNativeComponent(
-    'VRTScene', ViroScene
+    'VRTScene', ViroScene, {
+        nativeOnly: {canTap: true, canGaze: true }
+    }
 );
 
 module.exports = ViroScene;

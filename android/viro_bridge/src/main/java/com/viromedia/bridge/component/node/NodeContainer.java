@@ -3,16 +3,10 @@
  */
 package com.viromedia.bridge.component.node;
 
-
-import android.content.Context;
-import android.util.AttributeSet;
-
-import com.viromedia.bridge.component.node.Node;
+import com.facebook.react.bridge.ReactApplicationContext;
 
 public class NodeContainer extends Node {
-
-    public NodeContainer(Context context) {
+    public NodeContainer(ReactApplicationContext context) {
         super(context);
     }
-
 }

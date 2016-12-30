@@ -7,6 +7,7 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
 
+import com.facebook.react.bridge.ReactApplicationContext;
 import com.viromedia.bridge.component.node.Node;
 
 /**
@@ -15,20 +16,13 @@ import com.viromedia.bridge.component.node.Node;
  */
 public class Control extends Node {
 
-    public Control(Context context) {
-        this(context, null, -1, -1);
+    public Control(ReactApplicationContext reactContext) {
+        this(reactContext.getBaseContext(), null, -1, -1, reactContext);
     }
 
-    public Control(Context context, AttributeSet attrs) {
-        this(context, attrs, -1, -1);
-    }
-
-    public Control(Context context, AttributeSet attrs, int defStyleAttr) {
-        this(context, attrs, defStyleAttr, -1);
-    }
-
-    public Control(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
+    public Control(Context context, AttributeSet attrs, int defStyleAttr,
+                     int defStyleRes, ReactApplicationContext reactContext) {
+        super(context, attrs, defStyleAttr, defStyleRes, reactContext);
     }
 
     @Override

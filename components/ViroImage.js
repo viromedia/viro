@@ -75,6 +75,16 @@ var ViroImage = React.createClass({
     ]),
 
     /**
+     * Callback that is called when user gazes on image card.
+     */
+    onGaze: React.PropTypes.func,
+
+    /**
+     * Callback that is called when user taps on image card.
+     */
+    onTap: React.PropTypes.func,
+
+    /**
      * Callback triggered when we are processing the assets to be
      * displayed in this ViroImage (either downloading / reading from file).
      */
@@ -103,7 +113,16 @@ var ViroImage = React.createClass({
     this.props.onLoadEnd && this.props.onLoadEnd(event);
   },
 
+  _onGaze: function(event: Event) {
+    this.props.onGaze && this.props.onGaze(event.nativeEvent.isGazing);
+  },
+
+  _onTap: function(event: Event) {
+    this.props.onTap && this.props.onTap();
+  },
+
   render: function() {
+
     var defaultPlaceHolder = require('./Resources/viro_blank.png');
     var imgsrc = resolveAssetSource(this.props.source);
     var placeHoldersrc;
@@ -135,15 +154,20 @@ var ViroImage = React.createClass({
     nativeProps.onLoadStartViro = this._onLoadStart;
     nativeProps.onLoadEndViro = this._onLoadEnd;
     nativeProps.style = [this.props.style];
+    nativeProps.onTapViro = this._onTap;
+    nativeProps.onGazeViro = this._onGaze;
+    nativeProps.canGaze = this.props.onGaze != undefined;
+    nativeProps.canTap = this.props.onTap != undefined;
+
     return (
-      <VRTImage {...nativeProps} />
+      <VRTImage {...nativeProps}/>
     );
   }
 });
 
 var VRTImage = requireNativeComponent(
   'VRTImage', ViroImage, {
-    nativeOnly: {onTap: true, onGaze: true, onLoadStartViro: true, onLoadEndViro: true}
+    nativeOnly: {canTap: true, canGaze: true, onLoadStartViro: true, onLoadEndViro: true}
   }
 );
 

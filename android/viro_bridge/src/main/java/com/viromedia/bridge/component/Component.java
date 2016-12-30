@@ -6,8 +6,9 @@ package com.viromedia.bridge.component;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
-
 import com.facebook.react.views.view.ReactViewGroup;
+import android.widget.FrameLayout;
+import com.facebook.react.bridge.ReactApplicationContext;
 import com.viro.renderer.jni.RenderContextJni;
 import com.viromedia.bridge.component.node.Scene;
 
@@ -17,24 +18,27 @@ import com.viromedia.bridge.component.node.Scene;
 public class Component extends ReactViewGroup {
     private static String TAG = Component.class.getSimpleName();
     protected RenderContextJni mRenderContext = null;
+    protected ReactApplicationContext mReactContext = null;
     protected Scene mScene = null;
 
     private static Boolean IS_TORN_DOWN = false;
 
+    public Component(ReactApplicationContext reactContext) {
+        this(reactContext.getBaseContext(), null, -1, -1, reactContext);
+    }
+
     public Component(Context context) {
-        this(context, null, -1, -1);
+        this(context, null, -1, -1, null);
     }
 
-    public Component(Context context, AttributeSet attrs) {
-        this(context, attrs, -1, -1);
+    public Component(Context context, AttributeSet attrs, int defStyleAttr,
+                     int defStyleRes, ReactApplicationContext reactContext) {
+        super(context, attrs, defStyleAttr, defStyleRes);
+        mReactContext = reactContext;
     }
 
-    public Component(Context context, AttributeSet attrs, int defStyleAttr) {
-        this(context, attrs, defStyleAttr, -1);
-    }
-
-    public Component(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context);
+    public ReactApplicationContext getReactContext(){
+        return mReactContext;
     }
 
     public void componentWillAppear() {

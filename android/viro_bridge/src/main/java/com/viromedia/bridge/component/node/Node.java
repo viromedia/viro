@@ -9,13 +9,16 @@ import android.view.View;
 
 import com.facebook.react.uimanager.PixelUtil;
 import com.viro.renderer.jni.BaseGeometry;
+import com.viro.renderer.jni.EventDelegateJni;
 import com.viro.renderer.jni.MaterialJni;
 import com.viro.renderer.jni.NodeJni;
 import com.viromedia.bridge.component.AnimatedComponent;
 import com.viromedia.bridge.component.Component;
 import com.viromedia.bridge.component.Light;
 import com.viromedia.bridge.component.node.control.Image;
+import com.viromedia.bridge.utility.ViroEvents;
 
+import java.lang.ref.WeakReference;
 import java.util.List;
 
 import static com.viromedia.bridge.component.node.NodeManager.s2DUnitPer3DUnit;
@@ -24,11 +27,11 @@ import static com.viromedia.bridge.component.node.NodeManager.s2DUnitPer3DUnit;
  * Node is inherited by any component which is represented by a VRONode in native
  */
 public class Node extends Component {
-
     // Always place the children of views .01 in front of the parent. This helps with z-fighting
     // and ensures that the child is always in front of the parent for hit detection
     private static final float sZIncrementToAvoidZFighting = (float) 0.01;
-
+    protected final static boolean DEFAULT_CAN_TAP = false;
+    protected final static boolean DEFAULT_CAN_GAZE = false;
     private NodeJni mNodeJni;
     protected float[] mPosition;
     protected float[] mRotation;
@@ -36,22 +39,21 @@ public class Node extends Component {
     protected float mOpacity;
     protected boolean mVisible;
     protected List<MaterialJni> mMaterials;
+    private EventDelegateJni mEventDelegateJni;
 
-    public Node(Context context) {
-        this(context, null, -1, -1);
+    public Node(ReactApplicationContext reactContext) {
+        this(reactContext.getBaseContext(), null, -1, -1, reactContext);
     }
 
-    public Node(Context context, AttributeSet attrs) {
-        this(context, attrs, -1, -1);
-    }
-
-    public Node(Context context, AttributeSet attrs, int defStyleAttr) {
-        this(context, attrs, defStyleAttr, -1);
-    }
-
-    public Node(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
+    public Node(Context context, AttributeSet attrs, int defStyleAttr,
+                     int defStyleRes, ReactApplicationContext reactContext) {
+        super(context, attrs, defStyleAttr, defStyleRes, reactContext);
         mNodeJni = new NodeJni(context);
+
+        // Create and attach callbacks.
+        mEventDelegateJni = new EventDelegateJni();
+        mEventDelegateJni.setEventDelegateCallback(new NodeEventDelegate(this));
+        mNodeJni.setEventDelegateJni(mEventDelegateJni);
     }
 
     public NodeJni getNodeJni(){
@@ -62,6 +64,8 @@ public class Node extends Component {
     protected void onTearDown(){
         super.onTearDown();
         if (mNodeJni != null){
+            mEventDelegateJni.setEventDelegateCallback(null);
+            mEventDelegateJni.destroy();
             mNodeJni.destroy();
         }
     }
@@ -232,5 +236,48 @@ public class Node extends Component {
     protected float[] get2DSize() {
         float[] arr = {getRight() - getLeft(), getBottom() - getTop()};
         return arr;
+    }
+
+    protected void setCanGaze(boolean canGaze){
+        mEventDelegateJni.setEventEnabled(EventDelegateJni.EventType.ON_GAZE, canGaze);
+    }
+
+    protected void setCanTap(boolean canTap){
+        mEventDelegateJni.setEventEnabled(EventDelegateJni.EventType.ON_TAP, canTap);
+    }
+
+    private static class NodeEventDelegate implements EventDelegateJni.EventDelegateCallback {
+        private WeakReference<Node> weakComponent;
+        public NodeEventDelegate(Node node){
+            weakComponent = new WeakReference<Node>(node);
+        }
+
+        @Override
+        public void onTapped() {
+            Node node = weakComponent.get();
+            if (node == null){
+                return;
+            }
+
+            node.getReactContext().getJSModule(RCTEventEmitter.class).receiveEvent(
+                    node.getId(),
+                    ViroEvents.ON_TAP,
+                    null);
+        }
+
+        @Override
+        public void onGaze(boolean isGazing) {
+            Node node = weakComponent.get();
+            if (node == null){
+                return;
+            }
+
+            WritableMap event = Arguments.createMap();
+            event.putBoolean("isGazing", isGazing);
+            node.getReactContext().getJSModule(RCTEventEmitter.class).receiveEvent(
+                    node.getId(),
+                    ViroEvents.ON_GAZE,
+                    event);
+        }
     }
 }

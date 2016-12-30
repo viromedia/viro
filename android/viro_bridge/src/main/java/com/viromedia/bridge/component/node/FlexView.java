@@ -4,15 +4,15 @@
 package com.viromedia.bridge.component.node;
 
 import android.content.Context;
-
 import com.viro.renderer.jni.BaseGeometry;
 import com.viro.renderer.jni.MaterialJni;
 import com.viro.renderer.jni.SurfaceJni;
 
 import java.util.List;
+import android.util.AttributeSet;
+import com.facebook.react.bridge.ReactApplicationContext;
 
 public class FlexView extends Node {
-
     private static final int COLOR_NOT_SET = -1;
     private static final int TRANSPARENT_COLOR = 0;
     private static final String DIFFUSE_COLOR_NAME  = "diffuseColor";
@@ -27,7 +27,7 @@ public class FlexView extends Node {
     private SurfaceJni mNativeSurface;
     private MaterialJni mNativeColorMaterial;
 
-    public FlexView(Context context) {
+    public FlexView(ReactApplicationContext context) {
         super(context);
         mDefaultMaterial = new MaterialJni();
         mDefaultMaterial.setColor(TRANSPARENT_COLOR, DIFFUSE_COLOR_NAME);

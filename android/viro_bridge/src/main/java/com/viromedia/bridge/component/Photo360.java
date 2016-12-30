@@ -18,7 +18,6 @@ import com.viromedia.bridge.utility.ImageDownloader;
 import com.viromedia.bridge.utility.ViroEvents;
 
 public class Photo360 extends Component {
-    private final ReactApplicationContext mContext;
     private ReadableMap mSourceMap;
     private float[] mRotation;
     private ImageJni mLatestImage;
@@ -26,7 +25,6 @@ public class Photo360 extends Component {
 
     public Photo360(ReactApplicationContext context) {
         super(context);
-        mContext = context;
     }
 
     public void setSource(ReadableMap source) {
@@ -94,7 +92,7 @@ public class Photo360 extends Component {
     }
 
     private void imageDownloadDidStart() {
-        mContext.getJSModule(RCTEventEmitter.class).receiveEvent(
+        mReactContext.getJSModule(RCTEventEmitter.class).receiveEvent(
                 getId(),
                 ViroEvents.ON_LOAD_START,
                 null
@@ -102,7 +100,7 @@ public class Photo360 extends Component {
     }
 
     private void imageDownloadDidFinish() {
-        mContext.getJSModule(RCTEventEmitter.class).receiveEvent(
+        mReactContext.getJSModule(RCTEventEmitter.class).receiveEvent(
                 getId(),
                 ViroEvents.ON_LOAD_END,
                 null
