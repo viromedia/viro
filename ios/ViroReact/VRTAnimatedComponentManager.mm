@@ -23,9 +23,7 @@ RCT_EXPORT_VIEW_PROPERTY(onFinish, RCTDirectEventBlock);
 
 - (VRTView *)view
 {
-  VRTAnimatedComponent *component = [[VRTAnimatedComponent alloc] initWithBridge:self.bridge];
-  component.delegate = self;
-  return component;
+  return [[VRTAnimatedComponent alloc] initWithBridge:self.bridge];
 }
 
 - (VRTShadowView *)shadowView {

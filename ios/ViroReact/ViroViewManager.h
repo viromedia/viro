@@ -15,7 +15,6 @@
 #import "RCTViewManager.h"
 #import "RCTConvert.h"
 #import "RCTLog.h"
-#import "VRTEventDelegate.h"
 
 @class RCTBridge;
 @class RCTEventDispatcher;
@@ -27,7 +26,7 @@
 
 typedef void (^ViroViewManagerUIBlock)(ViroUIManager *uiManager, NSDictionary<NSNumber *, VRTView *> *viewRegistry);
 
-@interface ViroViewManager : RCTViewManager <RCTBridgeModule, VRTEventDelegate>
+@interface ViroViewManager : RCTViewManager <RCTBridgeModule>
 
 -(BOOL)isRootFlexBoxPanel;
 

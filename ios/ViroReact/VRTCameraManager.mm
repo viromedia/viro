@@ -17,8 +17,7 @@ RCT_EXPORT_MODULE()
 RCT_EXPORT_VIEW_PROPERTY(position, NSArray<NSNumber *>)
 
 - (VRTView *)view {
-  VRTCamera *camera = [[VRTCamera alloc] initWithBridge:self.bridge];
-  return camera;
+  return [[VRTCamera alloc] initWithBridge:self.bridge];
 }
 
 @end

@@ -22,9 +22,7 @@ RCT_EXPORT_VIEW_PROPERTY(onViroSkyBoxLoadEnd, RCTDirectEventBlock)
 
 - (VRTSkybox *)view
 {
-  VRTSkybox *skybox = [[VRTSkybox alloc] initWithBridge:self.bridge];
-  skybox.delegate = self;
-  return skybox;
+  return [[VRTSkybox alloc] initWithBridge:self.bridge];
 }
 
 @end

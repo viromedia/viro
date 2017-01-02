@@ -12,7 +12,6 @@
 #import "VRTImage.h"
 #import "VRTButton.h"
 #import "VRTHUD.h"
-#import "RCTSceneController.h"
 #import "RCTConvert.h"
 #import "VRTNode.h"
 #import "VRTFlexView.h"
@@ -34,6 +33,10 @@ const int k2DPointsPerSpatialUnit = 1000;
     _visible = YES; // default to visible.
     _opacity = 1.0; //default opacity to 1.0
     _highAccuracyGaze = NO;
+      
+    // Create and attach event delegate
+    _eventDelegate = std::make_shared<VROEventDelegateiOS>(self);
+    _node->setEventDelegate(_eventDelegate);
   }
   
   return self;
@@ -112,6 +115,24 @@ const int k2DPointsPerSpatialUnit = 1000;
   }
   
   [super removeReactSubview:subview];
+}
+
+-(void)setOnTapViro:(RCTDirectEventBlock)block {
+    _onTapViro = block;
+}
+
+-(void)setOnGazeViro:(RCTDirectEventBlock)block {
+    _onGazeViro = block;
+}
+
+-(void)setCanGaze:(BOOL)canGaze {
+    _canGaze = canGaze;
+    self.eventDelegate->setEnabledEvent(VROEventDelegate::EventType::ON_GAZE, canGaze);
+}
+
+-(void)setCanTap:(BOOL)canTap {
+    _canTap = canTap;
+    self.eventDelegate->setEnabledEvent(VROEventDelegate::EventType::ON_TAP, canTap);
 }
 
 - (void)setPosition:(NSArray<NSNumber *> *)position {
@@ -280,27 +301,17 @@ const int k2DPointsPerSpatialUnit = 1000;
   return NO;
 }
 
-// Default implementation returns no.
-- (BOOL)didViewHit:(VROHitTestResult)hitResult {
-  if (self.node.get() == hitResult.getNode().get()) {
-    return YES;
-  }
-  return NO;
-}
+#pragma mark default implementations for VRTEventDelegateProtocol
 
-// Execute the given hit event
-- (BOOL)invokeHitEvent {
-  // if an onTap function was provided in React, then return YES to signal that we've handled the onTap event.
-  if (self.onTap && self.delegate) {
-    [self.delegate onTap:self];
-    return YES;
-  }
-  return NO;
+-(void)onTapped {
+    if (self.onTapViro != nil) {
+        self.onTapViro(@{@"tapped": @(true),});
+    }
 }
-
-// Check if this node has an _onGaze function.
-- (BOOL)hoverable {
-  return self.onGaze ? YES : NO;
+-(void)onGaze:(BOOL)isGazing {
+    if (self.onTapViro != nil) {
+        self.onGazeViro(@{@"isGazing": @(isGazing),});
+    }
 }
 
 @end

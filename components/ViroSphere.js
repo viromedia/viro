@@ -86,7 +86,7 @@ var ViroSphere = React.createClass({
 
 var VRTSphere = requireNativeComponent(
   'VRTSphere', ViroSphere , {
-    nativeOnly: {canTap: true, canGaze: true }
+    nativeOnly: {canTap: true, canGaze: true, onTapViro:true, onGazeViro:true}
   }
 );
 

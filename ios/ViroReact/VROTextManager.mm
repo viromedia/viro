@@ -39,14 +39,14 @@ RCT_EXPORT_VIEW_PROPERTY(opacity, CGFloat)
 
 RCT_EXPORT_VIEW_PROPERTY(transformBehaviors, NSArray<NSString *>)
 
-RCT_EXPORT_VIEW_PROPERTY(onTap, RCTDirectEventBlock)
-RCT_EXPORT_VIEW_PROPERTY(onGaze, RCTDirectEventBlock)
+RCT_EXPORT_VIEW_PROPERTY(onTapViro, RCTDirectEventBlock)
+RCT_EXPORT_VIEW_PROPERTY(onGazeViro, RCTDirectEventBlock)
+RCT_EXPORT_VIEW_PROPERTY(canTap, BOOL)
+RCT_EXPORT_VIEW_PROPERTY(canGaze, BOOL)
 
 - (VRTView *)view
 {
-  VRTLabel *label = [[VRTLabel alloc] initWithBridge:self.bridge];
-  label.delegate = self;
-  return label;
+  return [[VRTLabel alloc] initWithBridge:self.bridge];
 }
 
 - (VRTLabelShadowView *)shadowView

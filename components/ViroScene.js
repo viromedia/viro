@@ -52,7 +52,7 @@ var ViroScene = React.createClass({
 
 var VRTScene = requireNativeComponent(
     'VRTScene', ViroScene, {
-        nativeOnly: {canTap: true, canGaze: true }
+        nativeOnly: {canTap: true, canGaze: true, onTapViro:true, onGazeViro:true}
     }
 );
 

@@ -127,16 +127,16 @@ static NSString *const kVRTInvalidAPIKeyMessage = @"The given API Key is either 
   if (_currentScene == sceneView) {
     return;
   }
-  
-  if([_vroView sceneController] == nil) {
-    [_vroView setSceneController:sceneView.sceneController];
-  }else{
-    [_vroView setSceneController:sceneView.sceneController duration:1 timingFunction:VROTimingFunctionType::EaseIn];
+
+  if(_currentScene == nil) {
+    [_vroView setSceneController:[sceneView sceneController]];
+  } else {
+    [_vroView setSceneController:[sceneView sceneController] duration:1 timingFunction:VROTimingFunctionType::EaseIn];
   }
   
-  _currentScene = sceneView;
   VROAudioManager *audioManager = [self.bridge audioManager];
   [audioManager setCurrentScene:_currentScene];
+  _currentScene = sceneView;
 }
 
 - (void)userDidRequestExitVR {

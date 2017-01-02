@@ -8,8 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "ViroViewManager.h"
-#import "VRTEventDelegate.h"
 
-@interface VRTOrbitCameraManager : ViroViewManager<VRTEventDelegate>
+@interface VRTOrbitCameraManager : ViroViewManager
 
 @end

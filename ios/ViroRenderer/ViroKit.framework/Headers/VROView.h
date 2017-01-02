@@ -13,7 +13,7 @@
 #import "VROCamera.h"
 #import <memory>
 
-@class VROSceneController;
+class VROSceneController;
 class VROScene;
 class VROReticle;
 class VROFrameSynchronizer;
@@ -27,10 +27,10 @@ typedef void (^VROViewValidApiKeyBlock)(BOOL);
 
 @property (nonatomic, unsafe_unretained) IBOutlet id <VRORenderDelegate> renderDelegate;
 @property (nonatomic, readonly) std::shared_ptr<VROReticle> reticle;
-@property (readwrite, nonatomic) VROSceneController *sceneController;
+@property (readwrite, nonatomic) std::shared_ptr<VROSceneController> sceneController;
 
-- (void)setSceneController:(VROSceneController *)sceneController animated:(BOOL)animated;
-- (void)setSceneController:(VROSceneController *)sceneController duration:(float)seconds
+- (void)setSceneController:(std::shared_ptr<VROSceneController>)sceneController animated:(BOOL)animated;
+- (void)setSceneController:(std::shared_ptr<VROSceneController>)sceneController duration:(float)seconds
             timingFunction:(VROTimingFunctionType)timingFunctionType;
 
 - (void)setPosition:(VROVector3f)position;

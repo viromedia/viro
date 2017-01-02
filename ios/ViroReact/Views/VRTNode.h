@@ -13,11 +13,12 @@
 
 extern const int k2DPointsPerSpatialUnit;
 
-@interface VRTNode : VRTView
+@interface VRTNode : VRTView<VROEventDelegateProtocol>
 
 - (instancetype)initWithBridge:(RCTBridge *)bridge;
 
-@property (readonly, nonatomic) std::shared_ptr<VRONode> node;
+@property (readwrite, nonatomic) std::shared_ptr<VRONode> node;
+@property (readwrite, nonatomic) std::shared_ptr<VROEventDelegateiOS> eventDelegate;
 
 // Rendering properties
 @property (nonatomic, copy, nullable) NSArray<NSString *> *materials;
@@ -29,8 +30,10 @@ extern const int k2DPointsPerSpatialUnit;
 @property (nonatomic, assign) BOOL visible;
 
 // Event properties
-@property (nonatomic, copy, nullable) RCTDirectEventBlock onTap;
-@property (nonatomic, copy, nullable) RCTDirectEventBlock onGaze;
+@property (nonatomic, copy, nullable) RCTDirectEventBlock onTapViro;
+@property (nonatomic, copy, nullable) RCTDirectEventBlock onGazeViro;
+@property (nonatomic, assign) BOOL canGaze;
+@property (nonatomic, assign) BOOL canTap;
 @property (nonatomic, assign) BOOL highAccuracyGaze;
 
 // Used for Flexbox enabled components, no-op for non flexbox related components.
@@ -44,4 +47,7 @@ extern const int k2DPointsPerSpatialUnit;
 // Apply materials stored in _materials property to current node geometry if geometry is not null.
 - (void)applyMaterials;
 
+// VROEventDelegateProtocol
+- (void)onGaze:(bool)isGazing;
+- (void)onTapped;
 @end

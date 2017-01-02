@@ -40,7 +40,7 @@ public:
     
     void updateSortKeys(const VRORenderContext &context,
                         VRODriver &driver);
-    
+
     /*
      Add a new root node to the scene.
      */
@@ -61,14 +61,6 @@ public:
     std::shared_ptr<VROGeometry> getBackground() const {
         return _background;
     }
-    
-    /*
-     Perform a hit test against all of the root nodes (and their
-     children) in the scene.
-     */
-    std::vector<VROHitTestResult> hitTest(VROVector3f ray, const VRORenderContext &context,
-                                          bool boundsOnly = false);
-    
 private:
     
     /*
@@ -90,7 +82,6 @@ private:
      The nodes ordered for rendering by their sort keys.
      */
     std::vector<VROSortKey> _keys;
-    
 };
 
 #endif /* VROScene_h */

@@ -24,7 +24,6 @@
 
 @implementation VRTSkybox
 
-@synthesize onTap = _onTap;
 @synthesize onViroSkyBoxLoadStart = _onViroSkyBoxLoadStart;
 @synthesize onViroSkyBoxLoadEnd = _onViroSkyBoxLoadEnd;
 @synthesize source = _source;

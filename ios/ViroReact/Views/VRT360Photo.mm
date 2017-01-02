@@ -24,7 +24,6 @@
   VRTImageAsyncLoader *_imageAsyncLoader;
 }
 
-@synthesize onTap = _onTap;
 @synthesize onLoadStartViro = _onLoadStartViro;
 @synthesize onLoadEndViro = _onLoadEndViro;
 @synthesize source = _source;

@@ -18,8 +18,7 @@ RCT_EXPORT_VIEW_PROPERTY(position, NSArray<NSNumber *>)
 RCT_EXPORT_VIEW_PROPERTY(focalPoint, NSArray<NSNumber *>)
 
 - (VRTView *)view {
-  VRTOrbitCamera *camera = [[VRTOrbitCamera alloc] initWithBridge:self.bridge];
-  return camera;
+  return [[VRTOrbitCamera alloc] initWithBridge:self.bridge];
 }
 
 @end

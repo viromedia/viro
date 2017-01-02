@@ -23,6 +23,7 @@
 #include "VROBoundingBox.h"
 #include "VROSortKey.h"
 #include "VROLog.h"
+#include "VROEventDelegate.h"
 
 class VROGeometry;
 class VROLight;
@@ -201,12 +202,25 @@ public:
      Hit testing.
      */
     VROBoundingBox getBoundingBox(const VRORenderContext &context);
-    std::vector<VROHitTestResult> hitTest(VROVector3f ray, const VRORenderContext &context,
+    std::vector<VROHitTestResult> hitTest(VROVector3f ray, VROVector3f origin,
                                           bool boundsOnly = false);
     
     void setSelectable(bool selectable) {
         _selectable = selectable;
     }
+
+    void setEventDelegate(std::shared_ptr<VROEventDelegate> delgate){
+        auto autoWeakDelegate = delgate;
+        _eventDelegateWeak = autoWeakDelegate;
+    }
+
+    std::shared_ptr<VROEventDelegate> getEventDelegate(){
+        if (_eventDelegateWeak.expired()){
+            return nullptr;
+        }
+        return _eventDelegateWeak.lock();
+    }
+
     bool isSelectable() const {
         return _selectable;
     }
@@ -273,6 +287,10 @@ private:
      */
     bool _selectable;
 
+    /**
+     * Delegate through which events are notified from the VROEventManager.
+     */
+    std::weak_ptr<VROEventDelegate> _eventDelegateWeak;
 
     /*
      True if we want to perform more accurate hit testing against this node's geometry
@@ -299,8 +317,8 @@ private:
     /*
      Hit test helper functions.
      */
-    void hitTest(VROVector3f ray, VROMatrix4f parentTransform, bool boundsOnly,
-                 const VRORenderContext &context, std::vector<VROHitTestResult> &results);
+    void hitTest(VROVector3f ray,  VROMatrix4f parentTransform,  bool boundsOnly,
+                 VROVector3f origin, std::vector<VROHitTestResult> &results);
     bool hitTestGeometry(VROVector3f ray, VROVector3f origin, VROMatrix4f transform);
 
 };

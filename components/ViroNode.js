@@ -72,7 +72,7 @@ var ViroNode = React.createClass({
 
 var VRTViewContainer = requireNativeComponent(
   'VRTViewContainer', ViroNode, {
-    nativeOnly: {canTap: true, canGaze: true, materials: []}
+    nativeOnly: {canTap: true, canGaze: true, materials: [], onTapViro:true, onGazeViro:true}
   }
 );
 

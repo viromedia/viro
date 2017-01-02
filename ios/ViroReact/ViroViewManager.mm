@@ -108,26 +108,6 @@ RCT_EXPORT_MODULE()
   return nil;
 }
 
-#pragma mark default implementations for VRTEventDelegate
-
--(void)onTap:(VRTView *)view {
-  if ([view isKindOfClass:[VRTNode class]]) {
-    VRTNode *nodeView = (VRTNode *)view;
-    if (nodeView.onTap != nil) {
-      nodeView.onTap(@{@"tapped": @(true),});
-    }
-  }
-}
-
--(void)onGaze:(VRTView *)view state:(BOOL)isGazing {
-  if ([view isKindOfClass:[VRTNode class]]) {
-    VRTNode *nodeView = (VRTNode *)view;
-    if (nodeView.onGaze != nil) {
-      nodeView.onGaze(@{@"isGazing": @(isGazing),});
-    }
-  }
-}
-
 - (ViroViewManagerUIBlock)uiBlockToAmendWithShadowView:(__unused VRTShadowView *)shadowView
 {
   return nil;

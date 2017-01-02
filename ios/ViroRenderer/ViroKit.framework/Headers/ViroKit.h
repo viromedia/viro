@@ -27,8 +27,6 @@ FOUNDATION_EXPORT const unsigned char ViroKitVersionString[];
 #import <ViroKit/VRODriver.h>
 #import <ViroKit/VRORenderParameters.h>
 #import <ViroKit/VROFrameListener.h>
-#import <ViroKit/VROHoverController.h>
-#import <ViroKit/VROHoverDelegate.h>
 
 // Model Loader
 #import <ViroKit/VROLoader.h>
@@ -36,8 +34,9 @@ FOUNDATION_EXPORT const unsigned char ViroKitVersionString[];
 
 // Core Scene Graph
 #import <ViroKit/VROScene.h>
-#import <ViroKit/VROSceneControllerInternal.h>
+#import <ViroKit/VROSceneDelegateiOS.h>
 #import <ViroKit/VROCamera.h>
+#import <ViroKit/VROEventDelegateiOS.h>
 #import <ViroKit/VRONode.h>
 #import <ViroKit/VROGeometry.h>
 #import <ViroKit/VROGeometryElement.h>

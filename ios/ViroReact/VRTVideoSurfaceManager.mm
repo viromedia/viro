@@ -18,8 +18,10 @@ RCT_EXPORT_VIEW_PROPERTY(position, NSNumberArray)
 RCT_EXPORT_VIEW_PROPERTY(rotation, NSNumberArray)
 RCT_EXPORT_VIEW_PROPERTY(scale, NSNumberArray)
 RCT_EXPORT_VIEW_PROPERTY(visible, BOOL)
-//RCT_EXPORT_VIEW_PROPERTY(onTap, RCTDirectEventBlock)
-//RCT_EXPORT_VIEW_PROPERTY(onGaze, RCTDirectEventBlock)
+RCT_EXPORT_VIEW_PROPERTY(onTapViro, RCTDirectEventBlock)
+RCT_EXPORT_VIEW_PROPERTY(onGazeViro, RCTDirectEventBlock)
+RCT_EXPORT_VIEW_PROPERTY(canTap, BOOL)
+RCT_EXPORT_VIEW_PROPERTY(canGaze, BOOL)
 RCT_EXPORT_VIEW_PROPERTY(transformBehaviors, NSArray<NSString *>)
 RCT_EXPORT_VIEW_PROPERTY(opacity, float)
 RCT_EXPORT_VIEW_PROPERTY(paused, BOOL)
@@ -30,9 +32,7 @@ RCT_EXPORT_VIEW_PROPERTY(onFinishViro, RCTDirectEventBlock)
 
 - (VRTVideoSurface *)view
 {
-  VRTVideoSurface *surface = [[VRTVideoSurface alloc] initWithBridge:self.bridge];
-  surface.delegate = self;
-  return surface;
+  return [[VRTVideoSurface alloc] initWithBridge:self.bridge];
 }
 
 RCT_EXPORT_METHOD(seekToTime:(nonnull NSNumber *)reactTag time:(NSInteger)time)

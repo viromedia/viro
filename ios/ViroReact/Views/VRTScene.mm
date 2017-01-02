@@ -11,24 +11,31 @@
 #import "VRTCamera.h"
 #import "VRTOrbitCamera.h"
 #import "VROMaterialManager.h"
-#import "RCTSceneController.h"
 #import "RCTConvert.h"
 #import "VRTNode.h"
 #import "VRTLog.h"
 #import "VRTTreeNode.h"
 #import <map>
 
-
 @implementation VRTScene {
-  
   id <VROView> _vroView;
   VRTCamera *_camera;
   std::map<std::shared_ptr<VRONode>, float> _storedRootNodeOpacities;
-  
+  std::shared_ptr<VROSceneControllerDelegateiOS> _delegate;
+  std::shared_ptr<VROSceneController> _sceneController;
 }
 
 - (instancetype)initWithBridge:(RCTBridge *)bridge  {
   self = [super initWithBridge:bridge];
+  // Create VROSceneController.
+  _sceneController = std::make_shared<VROSceneController>();
+
+  // Create and attach delegate
+  _delegate = std::make_shared<VROSceneControllerDelegateiOS>(self);
+  _sceneController->setDelegate(_delegate);
+
+  //Set root node for this scene
+  _sceneController->getScene()->addNode(self.node);
   if (self) {
     _recticleEnabled = true;
   }
@@ -40,23 +47,24 @@
 }
 
 - (void)setView:(id <VROView>)view {
-  _sceneController = [[RCTSceneController alloc] initWithView:view sceneDelegate:self];
-  [_sceneController setHoverEnabled:YES boundsOnly:YES];
-  _sceneController.scene->addNode(self.node);
   _vroView = view;
   [self setCameraIfAvailable];
   _vroView.reticle->setEnabled(_recticleEnabled);
 }
 
--(void)setReticleEnabled:(BOOL)enabled{
+-(void)setReticleEnabled:(BOOL)enabled {
   _recticleEnabled = enabled;
   if (_vroView){
     _vroView.reticle->setEnabled(enabled);
   }
 }
 
+- (std::shared_ptr<VROSceneController>)sceneController {
+    return _sceneController;
+}
+
 - (std::shared_ptr<VROScene>)scene {
-  return _sceneController.scene;
+    return _sceneController->getScene();
 }
 
 #pragma mark - Scene plumbing to VROView
@@ -120,7 +128,7 @@
   }
 }
 
-#pragma mark - VRTSceneDelegate methods.
+#pragma mark - VROSceneDelegateiOS methods.
 
 - (void)sceneWillAppear:(VRORenderContext *)context driver:(VRODriver *)driver {
   self.driver = driver;
@@ -145,7 +153,7 @@
 }
 
 - (void)sceneDidDisappear:(VRORenderContext *)context driver:(VRODriver *)driver {
-  
+
 }
 
 - (void)startIncomingTransition:(VRORenderContext *)context duration:(float)duration {
@@ -224,125 +232,6 @@
 
 - (void)sceneWillRender:(const VRORenderContext *)context {
   self.context = (VRORenderContext *)context;
-}
-
-/**
- * This function takes a VRONode and checks whether it is hoverable by finding its
- * corresponding VRTNode and asking the VRTNode if it is hoverable.
- */
-- (BOOL)isHoverable:(std::shared_ptr<VRONode>)node {
-  VRTView *candidate = [self findNode:node fromVrtView:self];
-  return candidate ? [candidate hoverable] : NO;
-}
-
-- (void)hoverOnNode:(std::shared_ptr<VRONode>)node {
-  [self hoverNode:node onNode:YES];
-}
-
-- (void)hoverOffNode:(std::shared_ptr<VRONode>)node {
-  [self hoverNode:node onNode:NO];
-}
-
-/**
- * This function is called when the given node is either hovered on or off.
- *
- * node - the node whose hover state changed.
- * onNode - whether or not the hovering is on or off the given node.
- */
-- (void)hoverNode:(std::shared_ptr<VRONode>)node onNode:(BOOL)onNode {
-  // If node is null, nothing is being hovered upon, and the user
-  // is currently focusing on the background of the current scene.
-  if (!node){
-      [self.delegate onGaze:self state:onNode];
-      return;
-  }
-
-  VRTView *candidate = [self findNode:node fromVrtView:self];
-  if (candidate) {
-      [candidate.delegate onGaze:candidate state:onNode];
-  }
-}
-
-/**
- * This function takes a VRONode and attempts to find a VRTView that corresponds
- * to it starting from the given VRTView.
- */
-- (VRTView *)findNode:(std::shared_ptr<VRONode>)node fromVrtView:(VRTView *)view {
-  // only VRTNodes have a corresponding VRONode
-  if ([view isKindOfClass:[VRTNode class]]) {
-    VRTNode *nodeView = (VRTNode *)view;
-    if (nodeView.node.get() == node.get()) {
-      return nodeView;
-    }
-  }
-  for (VRTView *subView in [view reactSubviews]) {
-    VRTView *candidate = [self findNode:node fromVrtView:subView];
-    if (candidate) {
-      return candidate;
-    }
-  }
-  // make sure we check all child views before we give up on this subtree
-  return nil;
-}
-
-/**
- * This function is invoked when the reticle is tapped. It first asks the renderer for all
- * the views which were intersected by the given ray representing the camera direction. It
- * then creates a z-depth tree based on the hit results and iterates over the tree in a
- * depth first order while calling 'invokeHitEvent' on all the views until one responds.
- */
-- (void)reticleTapped:(VROVector3f)ray context:(const VRORenderContext *)context {
-  // fetch all the views in increasing distance from the camera that intersects with the given ray.
-  std::vector<VROHitTestResult> results = _sceneController.scene->hitTest(ray, *context, false);
-
-  // Log some debug info if debug mode is enabled.
-  if ([VRTLog debugEnabled]){
-    [self logSceneDebugInfo:context];
-  }
-
-  // For each hit, get the path to it from the scene. We should ALWAYS be able to
-  // find the view.
-  NSMutableArray<NSArray<VRTView *> *> *pathsToResults = [[NSMutableArray alloc] init];
-  for (VROHitTestResult result: results) {
-    NSArray<VRTView *> *pathToResult = [self viewHierarchyOfResult:result];
-    if (!pathToResult) {
-      RCTLogError(@"Hit result doesn't exist in view hierarchy!");
-    }
-    [pathsToResults addObject:pathToResult];
-  }
-
-  // Create a tree out of the path to each hit result.
-  VRTTreeNode *zDepthTree = [[VRTTreeNode alloc] initWithValue:self];
-
-  for (NSArray *path: pathsToResults) {
-    VRTTreeNode *currentNode = zDepthTree;
-    for (int i = 1; i < path.count; i++) {
-      VRTTreeNode *childNode = [currentNode childWithValue:path[i]];
-      if (!childNode) {
-        childNode = [[VRTTreeNode alloc] initWithValue:path[i]];
-        [currentNode addChild:childNode];
-      }
-      currentNode = childNode;
-    }
-  }
-
-  // Perform a depth-first ordered iteration over the tree.
-  [self invokeHitEventOnTree:zDepthTree];
-}
-
-/**
- * Private helper function to call invokeHitEvent on the given tree depth-first and stopping
- * as soon as any view/node has handled the event.
- */
-- (BOOL)invokeHitEventOnTree:(VRTTreeNode *)tree {
-  for (VRTTreeNode *childNode: [tree getChildren]) {
-    if ([self invokeHitEventOnTree:childNode]) {
-      return YES;
-    }
-  }
-  // base case after the recursion makes this depth-first.
-  VRTView *rootView = (VRTView *)tree.value;
-  return [rootView invokeHitEvent];
 }
 
 /**

@@ -84,10 +84,6 @@ NSString * const kDefaultSource = @"defaultSource";
   VROTransaction::commit();
 }
 
-- (BOOL)hoverable{
-  return _gazeMaterial != NULL || [super hoverable];
-}
-
 - (void)onGazeStart {
   if (_gazeMaterial){
     [self node]->getGeometry()->getMaterials().clear();
@@ -189,5 +185,27 @@ NSString * const kDefaultSource = @"defaultSource";
   newMaterial->getDiffuse().setTexture(texture);
   return newMaterial;
 }
+
+-(void)setCanGaze:(BOOL)canGaze {
+    [super setCanGaze: _gazeMaterial != NULL || canGaze];
+}
+
+-(void)onTapped{
+    [super onTapped];
+    
+    /*
+     * Because Cardboard doesn't have onTap up events, we simulate the tapping event upon
+     * a button by calling onTapDown then an onTapUp event. We can tie the down and up
+     * events once they are available.
+     */
+    [self onTapDown];
+    [self onTapUp];
+}
+
+-(void)onGaze:(BOOL)isGazing {
+    [super onGaze:isGazing];
+    isGazing? [self onGazeStart] : [self onGazeEnd];
+}
+
 
 @end

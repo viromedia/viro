@@ -20,8 +20,10 @@ RCT_EXPORT_VIEW_PROPERTY(scale, NSNumberArray)
 RCT_EXPORT_VIEW_PROPERTY(rotation, NSNumberArray)
 RCT_EXPORT_VIEW_PROPERTY(transformBehaviors, NSArray<NSString *>)
 RCT_EXPORT_VIEW_PROPERTY(visible, BOOL)
-RCT_EXPORT_VIEW_PROPERTY(onTap, RCTDirectEventBlock)
+RCT_EXPORT_VIEW_PROPERTY(onTapViro, RCTDirectEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onGaze, RCTDirectEventBlock)
+RCT_EXPORT_VIEW_PROPERTY(canTap, BOOL)
+RCT_EXPORT_VIEW_PROPERTY(canGaze, BOOL)
 RCT_EXPORT_VIEW_PROPERTY(opacity, float)
 
 
@@ -32,9 +34,7 @@ RCT_EXPORT_VIEW_PROPERTY(opacity, float)
 
 -(VRTNodeContainer *)view
 {
-  VRTNodeContainer *node = [[VRTNodeContainer alloc] initWithBridge:self.bridge];
-  node.delegate = self;
-  return node;
+  return [[VRTNodeContainer alloc] initWithBridge:self.bridge];
 }
 
 @end

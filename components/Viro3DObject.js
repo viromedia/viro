@@ -104,8 +104,14 @@ var Viro3DObject = React.createClass({
     }
     return (
       <VRT3DObject
-        {...this.props} onTap={this._onTap} onGaze={onGaze} source={modelsrc}
-        materials={materials} transformBehaviors={transformBehaviors}
+        {...this.props}
+        source={modelsrc}
+        materials={materials}
+        transformBehaviors={transformBehaviors}
+        canGaze={this.props.onGaze != undefined}
+        canTap={this.props.onTap != undefined}
+        onTapViro={this._onTap}
+        onGazeViro={this._onGaze}
       />
     );
   }
@@ -113,7 +119,7 @@ var Viro3DObject = React.createClass({
 
 var VRT3DObject = requireNativeComponent(
   'VRT3DObject', Viro3DObject, {
-    nativeOnly: {onTap: true, onGaze: true}
+    nativeOnly: {canTap: true, canGaze: true, onTapViro:true, onGazeViro:true}
   }
 );
 

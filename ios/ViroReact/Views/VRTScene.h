@@ -9,15 +9,13 @@
 #import <Foundation/Foundation.h>
 #import "VRTNode.h"
 #import "RCTBridge.h"
-#import "VRTSceneDelegate.h"
 
-@interface VRTScene : VRTNode<VRTSceneDelegate>
-
-@property (nonatomic, readonly) VROSceneController *sceneController;
+@interface VRTScene : VRTNode<VROSceneDelegateProtocol>
 @property (nonatomic, assign) BOOL recticleEnabled;
 
 - (instancetype)initWithBridge:(RCTBridge *)bridge;
 - (std::shared_ptr<VROScene>)scene;
+- (std::shared_ptr<VROSceneController>)sceneController;
 - (NSArray<NSNumber *> *)cameraPosition;
 
 - (void)setView:(id <VROView>)view;

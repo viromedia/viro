@@ -25,10 +25,6 @@ static float const kDefaultHeight = 1;
   std::shared_ptr<VROMaterial> _defaultMaterial;
 }
 
-@synthesize onGaze = _onGaze;
-@synthesize onTap = _onTap;
-@synthesize delegate = _delegate;
-
 -(instancetype)initWithBridge:(RCTBridge *)bridge {
   self = [super initWithBridge:bridge];
   if (self) {

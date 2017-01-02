@@ -9,6 +9,6 @@
 #import <Foundation/Foundation.h>
 #import "ViroViewManager.h"
 
-@interface VRTImageManager : ViroViewManager<VRTEventDelegate>
+@interface VRTImageManager : ViroViewManager
 
 @end

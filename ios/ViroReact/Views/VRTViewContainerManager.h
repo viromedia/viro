@@ -8,8 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "ViroViewManager.h"
-#import "VRTEventDelegate.h"
 
-@interface VRTViewContainerManager : ViroViewManager<VRTEventDelegate>
+@interface VRTViewContainerManager : ViroViewManager
 
 @end

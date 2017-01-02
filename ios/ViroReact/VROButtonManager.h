@@ -8,7 +8,7 @@
 #import <Foundation/Foundation.h>
 #import "ViroViewManager.h"
 
-@interface VROButtonManager : ViroViewManager<VRTEventDelegate>
+@interface VROButtonManager : ViroViewManager
 
 @end
 

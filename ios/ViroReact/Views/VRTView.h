@@ -7,7 +7,6 @@
 //
 
 #import <ViroKit/ViroKit.h>
-#import "VRTEventDelegate.h"
 #import "VROComponent.h"
 #import "RCTComponent.h"
 #import "RCTBridge.h"
@@ -23,7 +22,6 @@ typedef NS_ENUM(NSInteger, ViroConstraintType) {
     @protected NSMutableArray *_childViews;
 }
 
-@property (nonatomic, weak, nullable) id<VRTEventDelegate> delegate;
 @property(nullable, nonatomic, weak) VRTView *superview;
 
 @property (nonatomic, readonly, weak) RCTBridge *bridge;
@@ -52,21 +50,4 @@ typedef NS_ENUM(NSInteger, ViroConstraintType) {
 
 // Method invoked before view is hidden
 - (void)viewWillDisappear;
-
-// Returns this view or any child view that matches the hitResult, nil otherwise.
-- (VRTView *)findViewHit:(VROHitTestResult)hitResult;
-
-// Returns an array of VRTViews representing the view hierarchy of the view that matches
-// the given hitResult starting from the top (this view), nil otherwise.
-- (NSArray<VRTView *> *)viewHierarchyOfResult:(VROHitTestResult)hitResult;
-
-// Attempts to execute the given hit event and returns whether or not it was handled
-- (BOOL)invokeHitEvent;
-
-// Return true if the view hits the given hit result.
-- (BOOL)didViewHit:(VROHitTestResult)hitResult;
-
-// Whether or not this element is hoverable
-- (BOOL)hoverable;
-
 @end

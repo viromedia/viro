@@ -1,56 +1,144 @@
 //
 //  VROSceneController.h
-//  ViroRenderer
+//  ViroKit
 //
-//  Created by Raj Advani on 3/25/16.
-//  Copyright © 2016 Viro Media. All rights reserved.
+//  Copyright © 2015 Viro Media. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import <memory>
-#import "VROVector3f.h"
-#import "VRORenderDelegate.h"
-#import "VROView.h"
+#ifndef ANDROID_VROSCENECONTROLLER_H
+#define ANDROID_VROSCENECONTROLLER_H
+#include <memory>
+#include "VROScene.h"
+#include "VROLog.h"
 
-class VRONode;
 class VROScene;
+class VROVector3f;
+class VRODriver;
 class VRORenderContext;
-class VROHoverDelegate;
-class VROSceneControlleriOS;
 
-@class VROScreenUIView;
+/*
+ * TODO VIRO-494: Remove Scene Controller in favor of VROScene. With a
+ * SceneDelegate that both ios (VROSceneDelegateiOS) and Java (VROSceneDelegateJNI)
+ * Will extend from. Scene changes will then be notified through its Delegate.
+ */
+class VROSceneController {
 
-@interface VROSceneController : NSObject
+public:
+    // Delegate for callbacks across the bridge
+    class VROSceneControllerDelegate {
+    public:
+        virtual void onSceneWillAppear(VRORenderContext * context, VRODriver *driver){};
+        virtual void onSceneDidAppear(VRORenderContext * context, VRODriver *driver){};
+        virtual void onSceneWillDisappear(VRORenderContext * context, VRODriver *driver){};
+        virtual void onSceneDidDisappear(VRORenderContext * context, VRODriver *driver){};
+        virtual void startIncomingTransition(VRORenderContext * context, float duration){};
+        virtual void startOutgoingTransition(VRORenderContext * context, float duration){};
+        virtual void endIncomingTransition(VRORenderContext * context) {};
+        virtual void endOutgoingTransition(VRORenderContext * context) {};
+        virtual void animateIncomingTransition(VRORenderContext * context, float t){};
+        virtual void animateOutgoingTransition(VRORenderContext * context, float t){};
+    };
 
-- (id)init;
+    void setDelegate(std::shared_ptr<VROSceneControllerDelegate> delegate){
+        auto autoWeakDelegate = delegate;
+        _sceneDelegateWeak = autoWeakDelegate;
+    }
 
-@property (readonly, nonatomic) std::shared_ptr<VROSceneControlleriOS> internal;
+    VROSceneController() {
+        _scene = std::make_shared<VROScene>();
+    }
+    virtual ~VROSceneController() {}
 
-#pragma mark - Control Methods
+    std::shared_ptr<VROScene> getScene() {
+        return _scene;
+    }
 
-- (void)setHoverEnabled:(BOOL)enabled boundsOnly:(BOOL)boundsOnly;
-- (std::shared_ptr<VROScene>)scene;
+    /*
+     Scene appeared delegate methods.
+     */
+    void onSceneWillAppear(VRORenderContext *context, VRODriver &driver) {
+        if (_sceneDelegateWeak.expired()){
+            return;
+        }
 
-#pragma mark - Delegate Methods
+        _sceneDelegateWeak.lock()->onSceneWillAppear(context, &driver);
+    }
+    void onSceneDidAppear(VRORenderContext *context, VRODriver &driver) {
+        if (_sceneDelegateWeak.expired()){
+            return;
+        }
 
-- (void)sceneWillAppear:(VRORenderContext *)context driver:(VRODriver *)driver;
-- (void)sceneDidAppear:(VRORenderContext *)context driver:(VRODriver *)driver;
-- (void)sceneWillDisappear:(VRORenderContext *)context driver:(VRODriver *)driver;
-- (void)sceneDidDisappear:(VRORenderContext *)context driver:(VRODriver *)driver;
+        _sceneDelegateWeak.lock()->onSceneDidAppear(context, &driver);
+    }
+    void onSceneWillDisappear(VRORenderContext *context, VRODriver &driver) {
+        if (_sceneDelegateWeak.expired()){
+            return;
+        }
 
-- (void)startIncomingTransition:(VRORenderContext *)context duration:(float)duration;
-- (void)startOutgoingTransition:(VRORenderContext *)context duration:(float)duration;
-- (void)endIncomingTransition:(VRORenderContext *)context;
-- (void)endOutgoingTransition:(VRORenderContext *)context;
-- (void)animateIncomingTransition:(VRORenderContext *)context percentComplete:(float)t;
-- (void)animateOutgoingTransition:(VRORenderContext *)context percentComplete:(float)t;
+        _sceneDelegateWeak.lock()->onSceneWillDisappear(context, &driver);
+    }
+    void onSceneDidDisappear(VRORenderContext *context, VRODriver &driver) {
+        if (_sceneDelegateWeak.expired()){
+            return;
+        }
+        
+        _sceneDelegateWeak.lock()->onSceneDidDisappear(context, &driver);
+    }
 
-- (void)sceneWillRender:(const VRORenderContext *)context;
+    /*
+     Scene animation delegate methods.
+     */
+    void startIncomingTransition(VRORenderContext *context, float duration){
+        if (_sceneDelegateWeak.expired()){
+            return;
+        }
 
-- (BOOL)isHoverable:(std::shared_ptr<VRONode>)node;
-- (void)hoverOnNode:(std::shared_ptr<VRONode>)node;
-- (void)hoverOffNode:(std::shared_ptr<VRONode>)node;
+        _sceneDelegateWeak.lock()->startIncomingTransition(context, duration);
+    }
+    void startOutgoingTransition(VRORenderContext *context, float duration){
+        if (_sceneDelegateWeak.expired()){
+            return;
+        }
 
-- (void)reticleTapped:(VROVector3f)ray context:(const VRORenderContext *)context;
+        _sceneDelegateWeak.lock()->startOutgoingTransition(context, duration);
+    }
+    void endIncomingTransition(VRORenderContext *context) {
+        if (_sceneDelegateWeak.expired()){
+            return;
+        }
 
-@end
+        _sceneDelegateWeak.lock()->endIncomingTransition(context);
+    }
+    void endOutgoingTransition(VRORenderContext *context) {
+        if (_sceneDelegateWeak.expired()){
+            return;
+        }
+        
+        _sceneDelegateWeak.lock()->endOutgoingTransition(context);
+    }
+    void animateIncomingTransition(VRORenderContext *context, float t){
+        if (_sceneDelegateWeak.expired()){
+            return;
+        }
+
+        _sceneDelegateWeak.lock()->animateIncomingTransition(context, t);
+    }
+    void animateOutgoingTransition(VRORenderContext *context, float t){
+        if (_sceneDelegateWeak.expired()){
+            return;
+        }
+
+        _sceneDelegateWeak.lock()->animateOutgoingTransition(context, t);
+    }
+
+    /*
+     Per-frame rendering delegate methods.
+     */
+    void sceneWillRender(const VRORenderContext *context) {}
+
+private:
+    std::shared_ptr<VROScene> _scene;
+    std::weak_ptr<VROSceneControllerDelegate> _sceneDelegateWeak;
+};
+
+#endif //ANDROID_VROSCENECONTROLLER_H

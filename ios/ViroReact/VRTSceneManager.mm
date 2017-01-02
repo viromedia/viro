@@ -19,15 +19,15 @@
 
 RCT_EXPORT_MODULE()
 
-//RCT_EXPORT_VIEW_PROPERTY(onGaze, RCTDirectEventBlock)
-//RCT_EXPORT_VIEW_PROPERTY(onTap, RCTDirectEventBlock)
+RCT_EXPORT_VIEW_PROPERTY(onGazeViro, RCTDirectEventBlock)
+RCT_EXPORT_VIEW_PROPERTY(onTapViro, RCTDirectEventBlock)
+RCT_EXPORT_VIEW_PROPERTY(canTap, BOOL)
+RCT_EXPORT_VIEW_PROPERTY(canGaze, BOOL)
 RCT_EXPORT_VIEW_PROPERTY(reticleEnabled, BOOL)
 
 - (VRTView *)view
 {
-  VRTScene * view = [[VRTScene alloc] initWithBridge:self.bridge];
-  view.delegate = self;
-  return view;
+  return [[VRTScene alloc] initWithBridge:self.bridge];
 }
 
 - (VRTSceneShadowView *)shadowView
