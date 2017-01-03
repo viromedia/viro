@@ -25,6 +25,7 @@ const ReactViro = {
   get ViroAnimations() { return require('./components/Animation/ViroAnimations'); },
   get ViroDirectionalLight() { return require('./components/ViroDirectionalLight'); },
   get ViroFlexView() { return require('./components/ViroFlexView'); },
+  get ViroUtils() { return require('./components/Utilities/ViroUtils'); },
 }
 
 module.exports = ReactViro;

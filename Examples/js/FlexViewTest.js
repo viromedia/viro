@@ -27,14 +27,17 @@ import {
   Viro360Photo,
   Viro360Video,
   ViroFlexView,
+  PolarToCartesian,
 } from 'react-viro';
+
+let polarToCartesian = PolarToCartesian.polarToCartesian;
 
 var FlexViewTest = React.createClass({
   render: function() {
     return (
       <ViroScene reticleEnabled={true} >
 
-        <ViroFlexView style={styles.containerVertical} position={[0, 0, -2]} width={3} height={2}>
+        <ViroFlexView style={styles.containerVertical} position={polarToCartesian([2, 0, 30])} width={3} height={2}>
           <ViroFlexView style={styles.containerInner} >
             <ViroImage style={{flex:1}} source={{uri: "http://wiki.magicc.org/images/c/ce/MAGICC_logo_small.jpg"}}
               onLoadStart={this._onLoadStart("Image")} onLoadEnd={this._onLoadEnd("Image")} />
