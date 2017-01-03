@@ -170,7 +170,6 @@ const int k2DPointsPerSpatialUnit = 1000;
     
     if (geometry) {
       VROMaterialManager *materialManager = [self.bridge moduleForClass:[VROMaterialManager class]];
-      //VROMaterialManager *materialManager = [self.bridge materialManager];
       std::vector<std::shared_ptr<VROMaterial>> tempMaterials;
 
       for(NSString *materialName in self.materials) {
@@ -183,7 +182,9 @@ const int k2DPointsPerSpatialUnit = 1000;
         }
       }
 
-      geometry->getMaterials() = tempMaterials;
+      if (tempMaterials.size() > 0) {
+        geometry->getMaterials() = tempMaterials;
+      }
     }
   }
 }
