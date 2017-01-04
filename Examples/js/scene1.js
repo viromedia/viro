@@ -18,7 +18,7 @@ import {
   ViroSceneNavigator,
   ViroScene,
   ViroBox,
-  Materials,
+  ViroMaterials,
   ViroNode,
   ViroOrbitCamera,
   ViroImage,
@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
   },
 });
 
-Materials.createMaterials({
+ViroMaterials.createMaterials({
   blue: {
     shininess: 2.0,
     lightingModel: "Lambert",

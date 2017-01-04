@@ -10,7 +10,7 @@ const ReactViro = {
   get ViroSceneNavigator() { return require('./components/ViroSceneNavigator'); },
   get ViroScene() { return require('./components/ViroScene'); },
   get ViroBox() { return require('./components/ViroBox'); },
-  get Materials() { return require('./components/Material/Materials'); },
+  get ViroMaterials() { return require('./components/Material/ViroMaterials'); },
   get ViroVideo() { return require('./components/ViroVideo'); },
   get Viro360Video() {return require ('./components/Viro360Video'); },
   get ViroNode() { return require('./components/ViroNode'); },

@@ -19,7 +19,7 @@ import {
   ViroBox,
   ViroDirectionalLight,
   Viro360Photo,
-  Materials,
+  ViroMaterials,
   Viro3DObject,
   ViroAnimations,
   ViroImage,
@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
   },
 });
 
-Materials.createMaterials({
+ViroMaterials.createMaterials({
   wework_title: {
     shininess: 1.0,
     lightingModel: "Constant",

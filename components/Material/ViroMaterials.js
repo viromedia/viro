@@ -6,7 +6,7 @@
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  *
- * @providesModule Materials
+ * @providesModule ViroMaterials
  * @flow
  */
 
@@ -17,7 +17,7 @@ var MaterialValidation = require('./MaterialValidation');
 var invariant = require('fbjs/lib/invariant');
 var processColor = require('react-native').processColor;
 
-class Materials {
+class ViroMaterials {
 
   static createMaterials(materials:{[key:string]: any}){
     var result = {};
@@ -55,4 +55,4 @@ class Materials {
   }
 }
 
-module.exports = Materials;
+module.exports = ViroMaterials;

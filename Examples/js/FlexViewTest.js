@@ -18,7 +18,7 @@ import {
   ViroSceneNavigator,
   ViroScene,
   ViroBox,
-  Materials,
+  ViroMaterials,
   ViroNode,
   ViroOrbitCamera,
   ViroCamera,
@@ -106,7 +106,7 @@ const styles = StyleSheet.create({
   },
 });
 
-Materials.createMaterials({
+ViroMaterials.createMaterials({
   sunTexture: {
     diffuseTexture: require("./res/sun_2302.jpg"),
   }
