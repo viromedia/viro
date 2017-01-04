@@ -20,7 +20,7 @@ import {
   ViroBox,
 } from 'react-viro';
 
-var InitialScene = require('./scene1');
+var InitialScene = require('./js/FlexViewTest');
 export default class ViroSample extends Component {
   render() {
     return (

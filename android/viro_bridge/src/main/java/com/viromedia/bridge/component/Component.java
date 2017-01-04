@@ -33,7 +33,7 @@ public class Component extends ReactViewGroup {
 
     public Component(Context context, AttributeSet attrs, int defStyleAttr,
                      int defStyleRes, ReactApplicationContext reactContext) {
-        super(context, attrs, defStyleAttr, defStyleRes);
+        super(context);
         mReactContext = reactContext;
     }
 

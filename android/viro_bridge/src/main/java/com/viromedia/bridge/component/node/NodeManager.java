@@ -8,12 +8,9 @@ import android.support.annotation.Nullable;
 import com.facebook.csslayout.CSSConstants;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReadableArray;
-<<<<<<< c93ac017596dbb23afe50252988147042c2c365d
 import com.facebook.react.uimanager.LayoutShadowNode;
 import com.facebook.react.uimanager.ViewProps;
-=======
 import com.facebook.react.common.MapBuilder;
->>>>>>> VIRO-645: Event Managing for Android (Bridge)
 import com.facebook.react.uimanager.annotations.ReactProp;
 import com.facebook.react.uimanager.annotations.ReactPropGroup;
 import com.viro.renderer.jni.MaterialJni;
@@ -155,8 +152,6 @@ public abstract class NodeManager <T extends Node> extends ViroViewGroupManager<
         }
         return result;
     }
-<<<<<<< c93ac017596dbb23afe50252988147042c2c365d
-=======
 
     private static int toFloatArray(ReadableArray value, float[] into) {
         int length = value.size() > into.length ? into.length : value.size();
@@ -172,5 +167,4 @@ public abstract class NodeManager <T extends Node> extends ViroViewGroupManager<
                 ViroEvents.ON_GAZE, MapBuilder.of("registrationName", ViroEvents.ON_GAZE),
                 ViroEvents.ON_TAP, MapBuilder.of("registrationName", ViroEvents.ON_TAP));
     }
->>>>>>> VIRO-645: Event Managing for Android (Bridge)
 }

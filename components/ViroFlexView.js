@@ -72,6 +72,11 @@ var ViroFlexView = React.createClass({
     this.props.onGaze && this.props.onGaze(event.nativeEvent.isGazing);
   },
 
+  _onTap: function(event: Event) {
+    this.props.onTap && this.props.onTap();
+  },
+
+
   render: function() {
     let onGaze = this.props.onGaze ? this._onGaze : undefined;
     // Since materials and transformBehaviors can be either a string or an array, convert the string to a 1-element array.
@@ -85,7 +90,10 @@ var ViroFlexView = React.createClass({
     let nativeProps = Object.assign({}, this.props);
     nativeProps.materials = materials;
     nativeProps.transformBehaviors = transformBehaviors;
-
+    nativeProps.onTapViro = this._onTap;
+    nativeProps.onGazeViro = this._onGaze;
+    nativeProps.canGaze = this.props.onGaze != undefined;
+    nativeProps.canTap = this.props.onTap != undefined;
     return (
       <VROFlexView {...nativeProps} />
     );
@@ -95,7 +103,7 @@ var ViroFlexView = React.createClass({
 
 var VROFlexView = requireNativeComponent(
   'VRTFlexView', ViroFlexView, {
-    nativeOnly: {onTap: true, onGaze: true}
+    nativeOnly: {canTap: true, canGaze: true, onTapViro:true, onGazeViro:true}
   }
 );
 
