@@ -41,3 +41,6 @@ var ViroCodeSamplesSceneNavigator = React.createClass({
 });
 
 AppRegistry.registerComponent('ViroCodeSamples', () => ViroCodeSamplesSceneNavigator);
+
+// register the component again as ViroSample to enable use with the testbed app
+AppRegistry.registerComponent('ViroSample', () => ViroCodeSamplesSceneNavigator);
