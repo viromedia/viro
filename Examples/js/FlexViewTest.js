@@ -27,10 +27,10 @@ import {
   Viro360Photo,
   Viro360Video,
   ViroFlexView,
-  PolarToCartesian,
+  ViroUtils,
 } from 'react-viro';
 
-let polarToCartesian = PolarToCartesian.polarToCartesian;
+let polarToCartesian = ViroUtils.polarToCartesian;
 
 var FlexViewTest = React.createClass({
   render: function() {
