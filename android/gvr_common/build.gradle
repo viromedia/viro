@@ -1,2 +1,2 @@
 configurations.maybeCreate("default")
-artifacts.add("default", file('gvr_common.aar'))
+artifacts.add("default", file('sdk-common-1.10.0.aar'))
