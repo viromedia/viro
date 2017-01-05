@@ -157,7 +157,7 @@ class VROQuaternion {
 		void toAngleAxis (float &angle, VROVector3f& axis) const;
 
 		//! Output this quaternion to an euler angle (radians)
-		void toEuler(VROVector3f& euler) const;
+		VROVector3f toEuler() const;
 
 		//! Set quaternion to identity
 		VROQuaternion &makeIdentity();

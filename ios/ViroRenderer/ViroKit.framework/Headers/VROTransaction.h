@@ -81,6 +81,10 @@ public:
     static void setAnimationDuration(float durationSeconds);
     static float getAnimationDuration();
 
+    /*
+     Set the time in seconds that we wait before the animation starts (after
+     the animation is committed).
+     */
     static void setAnimationDelay(float delaySeconds);
 
     /*

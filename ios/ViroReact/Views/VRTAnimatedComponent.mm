@@ -10,37 +10,65 @@
 #import "VRTAnimationManager.h"
 #import "VRTNode.h"
 
+enum class VRTAnimatedComponentState {
+    Scheduled,
+    Running,
+    Paused,
+    Terminated
+};
+
+@interface VRTAnimatedComponent ()
+
+@property (readwrite, nonatomic) BOOL viewAdded;
+@property (readwrite, nonatomic) VRTAnimatedComponentState state;
+@property (readwrite, nonatomic) VRTAnimationManager *animationManager;
+@property (readwrite, nonatomic) std::shared_ptr<VROExecutableAnimation> executableAnimation;
+
+@end
+
 @implementation VRTAnimatedComponent {
-    /*
-     Dictionary used for animated values that are additive, ie rotationX += 15 per loop.
-     Store current rotation values in this dictionary.
-     */
-    NSMutableDictionary *_propCheckPoints;
+
     std::shared_ptr<VROGeometry> _childGeometry;
-    BOOL _viewAdded;
     VRTAnimationManager *_animationManager;
-    NSInteger _completedAnimationChainCount;
-    BOOL _scheduledNewAnimation;
-    std::vector<std::shared_ptr<VROTransaction>> _currentRunningAnimationTransactions;
+    
 }
 
 - (instancetype)initWithBridge:(RCTBridge *)bridge  {
     self = [super initWithBridge:bridge];
     if (self) {
-        _propCheckPoints = [[NSMutableDictionary alloc] init];
-
         self.delay = -1.0f;
         self.loop = false;
         self.run = true;
+        
+        self.viewAdded = false;
+        self.state = VRTAnimatedComponentState::Terminated;
+        
         _animationManager = [self.bridge animationManager];
-        _completedAnimationChainCount = 0;
-        _viewAdded = false;
-        _scheduledNewAnimation = false;
     }
     return self;
 }
 
-#pragma mark - VRTView overrides.
+- (void)dealloc {
+    // Cleanup any transactions that were paused
+    if (self.executableAnimation) {
+        self.executableAnimation->terminate();
+        self.executableAnimation.reset();
+    }
+}
+
+#pragma mark - VRTView overrides
+
+- (std::shared_ptr<VRONode>) node {
+    return [self.vroSubview node];
+}
+
+- (id<VROComponent>)reactSuperview {
+    return nil;
+}
+
+- (NSNumber *)reactTagAtPoint:(CGPoint)point {
+    return nil;
+}
 
 - (void)insertReactSubview:(UIView *)subview atIndex:(NSInteger)atIndex {
     self.vroSubview = (VRTNode *)subview;
@@ -81,7 +109,6 @@
 - (void)viewWillAppear {
     [super viewWillAppear];
     _viewAdded = true;
-
     [self updateAnimation];
 }
 
@@ -91,197 +118,102 @@
 }
 
 - (void)setAnimation:(NSString *)animation {
-  _animation = animation;
-  if (!_currentRunningAnimationTransactions.empty()) {
-    _currentRunningAnimationTransactions.clear();
-  }
-
-  [self updateAnimation];
-}
-
-// Override node to return vroLayer of vroUIView
-- (std::shared_ptr<VRONode>) node {
-    return [self.vroSubview node];
-}
-
-- (id<VROComponent>)reactSuperview {
-    return nil;
-}
-
-- (NSNumber *)reactTagAtPoint:(CGPoint)point {
-    return nil;
+    _animation = animation;
+    [self updateAnimation];
 }
 
 - (void)updateAnimation {
-   if (self.vroSubview == nil) {
-     return;
-   }
-  
-   _childGeometry = [self.vroSubview node]->getGeometry();
-   if (self.run){
-      [self startAnimation];
-   } else {
-      [self pauseAnimation];
-  }
-}
-
-/**
- * Schedules the start of a new animation. If there are currently running
- * animations, it resumes them. If there is a delay associated with this
- * AnimationComponent, we start a new animation with the given delay.
- */
--(void)startAnimation{
-    if (!_currentRunningAnimationTransactions.empty()){
-        std::vector<std::shared_ptr<VROTransaction>>::iterator it;
-        std::vector<std::shared_ptr<VROTransaction>> runningTransactions = _currentRunningAnimationTransactions;
-        for (it = runningTransactions.begin(); it != runningTransactions.end(); ++it) {
-            std::shared_ptr<VROTransaction> transaction = *it;
-            VROTransaction::resume(transaction);
-        }
-    } else {
-        _scheduledNewAnimation = true;
-        [self performSelector:@selector(startNewAnimation) withObject:self afterDelay: (self.delay / 1000)];
+    if (!self.vroSubview) {
+        return;
+    }
+    
+    _childGeometry = [self.vroSubview node]->getGeometry();
+    if (self.run) {
+        [self playAnimation];
+    }
+    else {
+        [self pauseAnimation];
     }
 }
 
-/**
- * Pauses currently running animations.
+/*
+ Plays the animation. If the animation is paused, resumes the animation.
+ Otherwise starts a new animation if is not running. If there is a delay 
+ associated with this VRTAnimatedComponent, we start a new animation with the 
+ given delay.
  */
--(void)pauseAnimation{
-    if (!_currentRunningAnimationTransactions.empty()){
-        std::vector<std::shared_ptr<VROTransaction>>::iterator it;
-        std::vector<std::shared_ptr<VROTransaction>> runningTransactions = _currentRunningAnimationTransactions;
-        for (it = runningTransactions.begin(); it != runningTransactions.end(); ++it) {
-            std::shared_ptr<VROTransaction> transaction = *it;
-            VROTransaction::pause(transaction);
-        }
-    } else if (_scheduledNewAnimation){
-        _scheduledNewAnimation = false;
-        [NSObject cancelPreviousPerformRequestsWithTarget: self selector:@selector(startNewAnimation) object:self];
+- (void)playAnimation {
+    if (self.state == VRTAnimatedComponentState::Paused) {
+        self.executableAnimation->resume();
+        self.state = VRTAnimatedComponentState::Running;
+        
+        NSLog(@"Resuming paused animation");
+    }
+    else if (self.state == VRTAnimatedComponentState::Terminated) {
+        self.state = VRTAnimatedComponentState::Scheduled;
+        [self performSelector:@selector(startAnimation) withObject:self afterDelay:self.delay / 1000.0];
+        
+        NSLog(@"Scheduled animation with delay %f", self.delay / 1000.0);
+    }
+    else {
+        NSLog(@"Unable to play animation in state %d", self.state);
     }
 }
 
-/**
- * Grabs an Animation Property corresponding to the animation name associated
- * with this AnimatedComponent from the animation manager and animates them
- * (either as a single animation or as a part of an array of
- * chain of animations).
- */
--(void)startNewAnimation {
-    _scheduledNewAnimation = false;
+- (void)pauseAnimation {
+    if (self.state == VRTAnimatedComponentState::Running) {
+        self.executableAnimation->pause();
+        self.state = VRTAnimatedComponentState::Paused;
+    }
+    else if (self.state == VRTAnimatedComponentState::Scheduled) {
+        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(startAnimation) object:self];
+        self.state = VRTAnimatedComponentState::Terminated;
+        self.executableAnimation.reset();
+    }
+}
+
+- (void)startAnimation {
+    if (self.state != VRTAnimatedComponentState::Scheduled) {
+        NSLog(@"Aborted starting new animation, was no longer scheduled");
+        return;
+    }
+    
     if(_childGeometry != nil){
         // Show the geometry if it isn't being shown yet.
         [self.vroSubview node]->setGeometry(_childGeometry);
     }
 
-    // If we have a bunch of animation chains, start animating them in parallel.
-    NSArray *chainArray = [_animationManager getAnimationChainForName:self.animation];
-    if (chainArray != nil && [chainArray count] >0){
-        _completedAnimationChainCount = 0;
-        for (NSArray *chain in chainArray){
-            [self animatePropertyChain:chain atIndex:0];
-        }
-        return;
+    _executableAnimation = [_animationManager animationForName:self.animation];
+    NSLog(@"Starting animation %s", _executableAnimation->toString().c_str());
+
+    if (_executableAnimation) {
+        __weak VRTAnimatedComponent *weakSelf = self;
+        _executableAnimation->execute(self.vroSubview.node,
+                                      [weakSelf] {
+                                          if (weakSelf) {
+                                              [weakSelf onAnimationFinish];
+                                          }
+                                      });
+        self.state = VRTAnimatedComponentState::Running;
     }
-
-    // Else we are animating a single animation block.
-    AnimationProperty *animProperty = [_animationManager getAnimationPropertyForName:self.animation];
-    if (animProperty) {
-        [self animateProperty:animProperty];
-        return;
-    }
-    NSLog(@"ERROR: Attempted to start processing unknown animation!");
-}
-
-- (void)animateProperty:(AnimationProperty *)animProperty{
-    __weak VRTAnimatedComponent *weakSelf = self;
-    AnimationFinishedBlock animationFinishedCallback = ^(NSArray *currentChain, NSInteger currentIndex){
-        if (weakSelf) {
-            [weakSelf onAnimationFinish];
-        }
-    };
-    [self transactAnimationProperties:animProperty
-                         withCallback:animationFinishedCallback
-                            withChain:nil
-                       withChainIndex:0
-                         withpropChck:_propCheckPoints];
-}
-
-- (void)animatePropertyChain:(NSArray *)animationChain atIndex:(NSInteger)index{
-    __weak VRTAnimatedComponent *weakSelf = self;
-    AnimationFinishedBlock animationFinishedCallback = ^(NSArray *chain, NSInteger currentIndex){
-        if (!weakSelf) {
-            return;
-        }
-
-        [weakSelf onAnimatePropertyChainCallback:chain atIndex:currentIndex];
-    };
-
-    // Begin the animation with the above animationFinishedCallback.
-    NSString *currentAnimation = [animationChain objectAtIndex:index];
-    AnimationProperty *animProperty = [_animationManager getAnimationPropertyForName:currentAnimation];
-    [self transactAnimationProperties:animProperty
-                         withCallback:animationFinishedCallback
-                            withChain:animationChain
-                       withChainIndex:index
-                         withpropChck:_propCheckPoints];
-}
-
-- (void)onAnimatePropertyChainCallback:(NSArray*)chain atIndex:(NSInteger)currentIndex{
-    // Animate the rest of the animations within this chain if we haven't yet done so.
-    if (currentIndex < [chain count] -1){
-        [self animatePropertyChain:chain atIndex:currentIndex+1];
-        return;
-    }
-
-    // Else, we have completed this animation chain. Finish the animation if we
-    // have completed animating all animation chains.
-    NSArray *chainArray = [_animationManager getAnimationChainForName:self.animation];
-    _completedAnimationChainCount++;
-    if (_completedAnimationChainCount >= [chainArray count]){
-        [self onAnimationFinish];
-    }
-}
-
-- (void)transactAnimationProperties:(AnimationProperty *)animationProperty
-                       withCallback:(AnimationFinishedBlock)animationFinishedBlock
-                          withChain:(NSArray*)chain
-                     withChainIndex:(NSInteger) chainIndex
-                       withpropChck:(NSMutableDictionary *)propCheckPoints{
-    VROTransaction::begin();
-    VROTransaction::setAnimationDelay(animationProperty.delayMilliseconds);
-    VROTransaction::setAnimationDuration(animationProperty.durationMilliseconds);
-    VROTransaction::setTimingFunction(animationProperty.functionType);
-    VROTransaction::setFinishCallback([animationFinishedBlock, chain, chainIndex]() -> void {
-        animationFinishedBlock(chain, chainIndex);
-    });
-
-    [_animationManager mapAnimatedPropertiesToNode:[self.vroSubview node].get()
-                                        properties:animationProperty.propertyDictionary
-                                   propCheckPoints:propCheckPoints];
-    _currentRunningAnimationTransactions.push_back(VROTransaction::commit());
-}
-
--(void)dealloc {
-    // Cleanup any transactions that were paused.
-    if (!_currentRunningAnimationTransactions.empty()){
-        std::vector<std::shared_ptr<VROTransaction>>::iterator it;
-        std::vector<std::shared_ptr<VROTransaction>> runningTransactions = _currentRunningAnimationTransactions;
-        for (it = runningTransactions.begin(); it != runningTransactions.end(); ++it) {
-            std::shared_ptr<VROTransaction> transaction = *it;
-            VROTransaction::terminate(transaction);
-        }
+    else {
+        NSLog(@"Error: attempted to start processing unknown animation!");
+        self.state = VRTAnimatedComponentState::Terminated;
     }
 }
 
 -(void)onAnimationFinish {
-    _currentRunningAnimationTransactions.clear();
-    if (self.onFinish){
+    if (self.onFinish) {
         self.onFinish(nil);
     }
-
-    if (self.loop && self.run){
-        [self startAnimation];
+    
+    self.state = VRTAnimatedComponentState::Terminated;
+    self.executableAnimation.reset();
+    
+    NSLog(@"Animation finished [looping %d, running %d]", self.loop, self.run);
+    if (self.loop && self.run) {
+        [self playAnimation];
     }
 }
+
 @end

@@ -52,7 +52,7 @@ class ViroAnimationValidation {
 
   /**
    * Iterate through array to determine if there are empty chains (invalid)
-   * or if there are any non-string or empty elements within a given chain (invalid)
+   * or if there are any empty elements within a given chain (invalid)
    */
   static validateAnimationChain(name, animations) {
     if (!__DEV__) {
@@ -71,15 +71,6 @@ class ViroAnimationValidation {
         animationError("Invalid chain: individual Animation chain must be a non empty array!",
             animations[name], 'AnimationValidation ' + name);
         return;
-      }
-      var currentChain = arrayChains[chainIndex];
-      for (var animationIndex = 0; animationIndex < currentChain.length; animationIndex++){
-        var animationName = currentChain[animationIndex];
-        if (!animationName || !(animationName.constructor===String) || animationName.length === 0){
-          animationError("Invalid animation within chain: Animation must be a non-empty string!",
-              animations[name], 'AnimationValidation ' + name);
-          return;
-        }
       }
     }
   }

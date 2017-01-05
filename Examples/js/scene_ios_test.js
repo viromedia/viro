@@ -38,7 +38,7 @@ var scene_ios_test = React.createClass({
                           scale={[0.1, 0.1, 0.1]}
                            />
 
-            <ViroAnimatedComponent animation="animateImage" run={true}>
+            <ViroAnimatedComponent animation="animateImage" run={true} loop={true} delay={3000}>
               <ViroImage source={require('./js/res/card_main.png')} height={2} width={4}
                          position={[0, 0, -5]}
                          scale={[0.1, 0.1, 0.1]} />
@@ -77,9 +77,15 @@ ViroMaterials.createMaterials({
 })
 
 ViroAnimations.registerAnimations({
-    animateImage:{properties:{scaleX:1.0, scaleY:0.8, scaleZ:1.0},
+    moveRight:{properties:{positionX:"+0.5"}, duration: 1000},
+    rotate:{properties:{rotateZ:"+45"}, duration:1000},
+    scale:{properties:{scaleX:1.0, scaleY:0.8, scaleZ:1.0},
                   easing:"Bounce",
                   duration: 5000},
+    animateImage:[
+                  ["moveRight", "rotate"],
+                  ["scale"],
+    ],
 });
 
 module.exports = scene_ios_test;

@@ -2415,9 +2415,17 @@
 		<data>
 		bm1PbkQlLEdFNFwY4KnREoiYkV8=
 		</data>
+		<key>Headers/VROAnimationChain.h</key>
+		<data>
+		C5wj8VvE1VVSJ5amccDGAR7+JwI=
+		</data>
 		<key>Headers/VROAnimationFloat.h</key>
 		<data>
 		uC8RLfazN1jT8khbSfLMPIC6bJQ=
+		</data>
+		<key>Headers/VROAnimationGroup.h</key>
+		<data>
+		+X3fx3iGYeVeEA5iU9TJpy4z2yM=
 		</data>
 		<key>Headers/VROAnimationQuaternion.h</key>
 		<data>
@@ -2482,6 +2490,10 @@
 		<key>Headers/VROEventDelegateiOS.h</key>
 		<data>
 		N35gPwLFO6dxrb//WeM3CwuqW1k=
+		</data>
+		<key>Headers/VROExecutableAnimation.h</key>
+		<data>
+		NAuBpA6YX/j/oi8/A9iF+UClnU4=
 		</data>
 		<key>Headers/VROFieldOfView.h</key>
 		<data>
@@ -2595,9 +2607,13 @@
 		<data>
 		QjpfNxjyosDocYJrOj0VS43IAS0=
 		</data>
+		<key>Headers/VROPropertyAnimation.h</key>
+		<data>
+		+y3vs9ETBuiJnifViwBAw06eHA0=
+		</data>
 		<key>Headers/VROQuaternion.h</key>
 		<data>
-		i3S6mI3yPg0iZFJdyaE5y4bj/bo=
+		dx5f2ZBvrtS1CZ/14by2MbBdlQk=
 		</data>
 		<key>Headers/VRORenderContext.h</key>
 		<data>
@@ -2621,7 +2637,7 @@
 		</data>
 		<key>Headers/VROSceneController.h</key>
 		<data>
-		aYuW88yFGNZV6ySYFp9Fu8LeEgA=
+		eEksGDgivA/NwyOmoWbLlYWGOoo=
 		</data>
 		<key>Headers/VROSceneDelegateiOS.h</key>
 		<data>
@@ -2717,7 +2733,7 @@
 		</data>
 		<key>Headers/VROTransaction.h</key>
 		<data>
-		xNnnH6YAIbZX/960aGb+ABGoOdo=
+		VBjNdCsjUFS4AM/ZwfwThk2mfGI=
 		</data>
 		<key>Headers/VROTransformConstraint.h</key>
 		<data>
@@ -2785,11 +2801,11 @@
 		</data>
 		<key>Headers/ViroKit.h</key>
 		<data>
-		/BlbxMpfWQ3j9NaniPCy+1NjlLA=
+		IQL4G+uTrwrSgUyegfZgWi9VzNE=
 		</data>
 		<key>Info.plist</key>
 		<data>
-		1h5uAGanKboEsuNrbNhuiR9iABk=
+		bLKbr5EMbjSD8y0rKGW+CXSxat8=
 		</data>
 		<key>MaterialRobotoFontLoader.bundle/Roboto-Black.ttf</key>
 		<data>
@@ -7144,6 +7160,17 @@
 			/CTFzBSIW2Aw8WQONf905OTvl6kuS3fyZRITW2dQzqE=
 			</data>
 		</dict>
+		<key>Headers/VROAnimationChain.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			C5wj8VvE1VVSJ5amccDGAR7+JwI=
+			</data>
+			<key>hash2</key>
+			<data>
+			/FcH3GKy0fgqnFl/6Dcr/FD2THOtQqWk8NbyzgeVeQg=
+			</data>
+		</dict>
 		<key>Headers/VROAnimationFloat.h</key>
 		<dict>
 			<key>hash</key>
@@ -7153,6 +7180,17 @@
 			<key>hash2</key>
 			<data>
 			Kpov9hQsiiE17fikLB4CuBXQVpZvLHNVe1QNPfur00A=
+			</data>
+		</dict>
+		<key>Headers/VROAnimationGroup.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			+X3fx3iGYeVeEA5iU9TJpy4z2yM=
+			</data>
+			<key>hash2</key>
+			<data>
+			0TLv1EVwYrPuw6Dt8SKZbzSVj/b3KU+lLeKhmlrBwUc=
 			</data>
 		</dict>
 		<key>Headers/VROAnimationQuaternion.h</key>
@@ -7329,6 +7367,17 @@
 			<key>hash2</key>
 			<data>
 			zx7ZWCGzmiaTb6wxkS9sIG+wYnhCKhz1dOGRnKyuVX0=
+			</data>
+		</dict>
+		<key>Headers/VROExecutableAnimation.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			NAuBpA6YX/j/oi8/A9iF+UClnU4=
+			</data>
+			<key>hash2</key>
+			<data>
+			wKScGKpA0CPG5Vrnsiu4HGxU3byBdQBk7sZU6y2iyI8=
 			</data>
 		</dict>
 		<key>Headers/VROFieldOfView.h</key>
@@ -7639,15 +7688,26 @@
 			90HogQbAobY/mSJjUk1ramV3/fPpRm/o1j/e+9+//RE=
 			</data>
 		</dict>
+		<key>Headers/VROPropertyAnimation.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			+y3vs9ETBuiJnifViwBAw06eHA0=
+			</data>
+			<key>hash2</key>
+			<data>
+			d+i+HE1L0DI+VKy2yYjFVwzTlnt7lKLoxX7FcPjCHMc=
+			</data>
+		</dict>
 		<key>Headers/VROQuaternion.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			i3S6mI3yPg0iZFJdyaE5y4bj/bo=
+			dx5f2ZBvrtS1CZ/14by2MbBdlQk=
 			</data>
 			<key>hash2</key>
 			<data>
-			PAWTkEbD0KxKrAg87zWF686gZU/0jooovUCoOCPg2lc=
+			euVJoCsE1KAjk6W6sOV+fZyzfhaUUzk6tJTvNWKRZsM=
 			</data>
 		</dict>
 		<key>Headers/VRORenderContext.h</key>
@@ -7709,11 +7769,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			aYuW88yFGNZV6ySYFp9Fu8LeEgA=
+			eEksGDgivA/NwyOmoWbLlYWGOoo=
 			</data>
 			<key>hash2</key>
 			<data>
-			ohRUbkdTCrQLhSQf2fz1Ib/0RKBGxK9kd7WbVbiqfAU=
+			rAfXPPWIPh08DbDRkr7v2da/aoclMC5m+WpVSj3KlsY=
 			</data>
 		</dict>
 		<key>Headers/VROSceneDelegateiOS.h</key>
@@ -7973,11 +8033,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			xNnnH6YAIbZX/960aGb+ABGoOdo=
+			VBjNdCsjUFS4AM/ZwfwThk2mfGI=
 			</data>
 			<key>hash2</key>
 			<data>
-			znNipOrQ6NVV2PjKN2n/m4a4l5gwuaqMTrDi/ZCE5yE=
+			gMy14HOi0bH7em6WhRwHd7r42R+9PaWjlax5OjcZbno=
 			</data>
 		</dict>
 		<key>Headers/VROTransformConstraint.h</key>
@@ -8160,11 +8220,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			/BlbxMpfWQ3j9NaniPCy+1NjlLA=
+			IQL4G+uTrwrSgUyegfZgWi9VzNE=
 			</data>
 			<key>hash2</key>
 			<data>
-			RcQaOvAv6vuGUkKQokYCEoh4cTTqyK/qSFNuy+8b3mQ=
+			M/38tSVTVl0OhDLWt2a+RbEsTsEMn1W5W0Td4G3uZ5U=
 			</data>
 		</dict>
 		<key>MaterialRobotoFontLoader.bundle/Roboto-Black.ttf</key>

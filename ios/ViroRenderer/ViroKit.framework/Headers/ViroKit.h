@@ -50,8 +50,18 @@ FOUNDATION_EXPORT const unsigned char ViroKitVersionString[];
 #import <ViroKit/VROShaderModifier.h>
 #import <ViroKit/VROShaderProgram.h>
 #import <ViroKit/VROTransaction.h>
+#import <ViroKit/VROHitTestResult.h>
+#import <ViroKit/VROConstraint.h>
+#import <ViroKit/VROBillboardConstraint.h>
+#import <ViroKit/VROTransformConstraint.h>
+
+// Animation
 #import <ViroKit/VROAnimation.h>
 #import <ViroKit/VROAnimatable.h>
+#import <ViroKit/VROPropertyAnimation.h>
+#import <ViroKit/VROExecutableAnimation.h>
+#import <ViroKit/VROAnimationGroup.h>
+#import <ViroKit/VROAnimationChain.h>
 #import <ViroKit/VROTimingFunction.h>
 #import <ViroKit/VROTimingFunctionBounce.h>
 #import <ViroKit/VROTimingFunctionCubicBezier.h>
@@ -61,10 +71,6 @@ FOUNDATION_EXPORT const unsigned char ViroKitVersionString[];
 #import <ViroKit/VROTimingFunctionLinear.h>
 #import <ViroKit/VROTimingFunctionPowerDeceleration.h>
 #import <ViroKit/VROAction.h>
-#import <ViroKit/VROHitTestResult.h>
-#import <ViroKit/VROConstraint.h>
-#import <ViroKit/VROBillboardConstraint.h>
-#import <ViroKit/VROTransformConstraint.h>
 
 // UI
 #import <ViroKit/VROReticle.h>

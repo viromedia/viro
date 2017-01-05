@@ -17,7 +17,7 @@ class VRODriver;
 class VRORenderContext;
 
 /*
- * TODO VIRO-494: Remove Scene Controller in favor of VROScene. With a
+ * TODO VIRO-708: Remove Scene Controller in favor of VROScene. With a
  * SceneDelegate that both ios (VROSceneDelegateiOS) and Java (VROSceneDelegateJNI)
  * Will extend from. Scene changes will then be notified through its Delegate.
  */

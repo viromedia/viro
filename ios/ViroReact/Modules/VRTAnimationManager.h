@@ -12,22 +12,12 @@
 #import "RCTBridge.h"
 #import "VRTAnimatedComponent.h"
 
-@interface AnimationProperty : NSObject
-@property (nonatomic, copy) NSDictionary *propertyDictionary;
-@property (nonatomic, assign) float durationMilliseconds;
-@property (nonatomic, assign) float delayMilliseconds;
-@property (nonatomic, assign) VROTimingFunctionType functionType;
-@end
-
 @interface VRTAnimationManager : NSObject <RCTBridgeModule>
 
 @property (nonatomic, copy) NSDictionary<NSString *, NSDictionary *> *animations;
-@property (nonatomic, copy) NSDictionary<NSString *, NSMutableArray *> *animationChains;
 
-- (void)loadAnimations;
-- (AnimationProperty *)getAnimationPropertyForName:(NSString *)name;
-- (NSArray *)getAnimationChainForName:(NSString *)name;
-- (void)mapAnimatedPropertiesToNode:(VRONode *const)node properties:(NSDictionary *)propertyDict propCheckPoints:(NSMutableDictionary *)propCheckPoints;
+- (void)parseAnimations;
+- (std::shared_ptr<VROExecutableAnimation>)animationForName:(NSString *)name;
 
 @end
 
