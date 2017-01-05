@@ -96,10 +96,24 @@ public:
     VROQuaternion getRotation() const {
         return _rotation;
     }
+    VROVector3f getRotationEuler() const {
+        return _euler;
+    }
     
+    /*
+     Set the rotation, position, or scale. Animatable.
+     */
     void setRotation(VROQuaternion rotation);
     void setPosition(VROVector3f position);
     void setScale(VROVector3f scale);
+    
+    /*
+     Set the rotation as a vector of Euler angles. Using this method
+     will update the Euler angles stored internally in a predictable
+     way. Setting rotation by quaternion updates Euler angles in an 
+     unpredictable way (i.e. the quaternion axis may change).
+     */
+    void setRotationEuler(VROVector3f euler);
     
     float getOpacity() const {
         return _opacity;
@@ -247,8 +261,15 @@ private:
     
     VROVector3f _scale;
     VROVector3f _position;
-    VROQuaternion _rotation;
     VROVector3f _pivot;
+    
+    /*
+     Rotation is stored as a quaternion, but we also maintain euler angles
+     for use in animation (since we cannot additively rotate by reading euler
+     angles from a quaternion and writing them again).
+     */
+    VROQuaternion _rotation;
+    VROVector3f _euler;
     
     /*
      User-defined rendering order for this node.

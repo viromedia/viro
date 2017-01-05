@@ -2577,7 +2577,7 @@
 		</data>
 		<key>Headers/VROMath.h</key>
 		<data>
-		7t71w+TO4linSBeVx802iZKrmes=
+		/GFFpayPr2GAwUr/kLOp68HjXLs=
 		</data>
 		<key>Headers/VROMatrix4f.h</key>
 		<data>
@@ -2585,7 +2585,7 @@
 		</data>
 		<key>Headers/VRONode.h</key>
 		<data>
-		UPgPhzYkdhOXNVwo9Uj7+bs/WaQ=
+		1xD7WIUdmpK9I7NMImiSlEP+SCg=
 		</data>
 		<key>Headers/VROOBJLoader.h</key>
 		<data>
@@ -7604,11 +7604,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			7t71w+TO4linSBeVx802iZKrmes=
+			/GFFpayPr2GAwUr/kLOp68HjXLs=
 			</data>
 			<key>hash2</key>
 			<data>
-			e44skDRWi5hgNlEgEASAyMHDYSrzXvBhJzcwqPX6qHI=
+			fmZ0Vd1Cbfu/PZ1ZkKalBvAmUBvC58w6uJlm1jqWVRQ=
 			</data>
 		</dict>
 		<key>Headers/VROMatrix4f.h</key>
@@ -7626,11 +7626,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			UPgPhzYkdhOXNVwo9Uj7+bs/WaQ=
+			1xD7WIUdmpK9I7NMImiSlEP+SCg=
 			</data>
 			<key>hash2</key>
 			<data>
-			SGk6Zsvl7UzvFz2t5SIKSpKLCJGiyXkoCSJasPy3flo=
+			V+oejc2n/QiPE6KVnbppg5RvaY/LCcjn5SZVUFuBIVg=
 			</data>
 		</dict>
 		<key>Headers/VROOBJLoader.h</key>

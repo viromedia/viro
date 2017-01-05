@@ -17,7 +17,7 @@ var NativeMethodsMixin = require('react/lib/NativeMethodsMixin');
 var NativeModules = require('react-native').NativeModules;
 var PropTypes = require('react/lib/ReactPropTypes');
 var findNodeHandle = require('react/lib/findNodeHandle');
-var ViroAnimatedComponentManager = require('react-native').NativeModules.VROAnimatedComponentManager;
+var ViroAnimatedComponentManager = require('react-native').NativeModules.VRTAnimatedComponentManager;
 
 var RCT_ANIMATED_COMPONENT_REF = 'animatedcomp';
 /**

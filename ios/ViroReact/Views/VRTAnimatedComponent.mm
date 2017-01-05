@@ -146,14 +146,10 @@ enum class VRTAnimatedComponentState {
     if (self.state == VRTAnimatedComponentState::Paused) {
         self.executableAnimation->resume();
         self.state = VRTAnimatedComponentState::Running;
-        
-        NSLog(@"Resuming paused animation");
     }
     else if (self.state == VRTAnimatedComponentState::Terminated) {
         self.state = VRTAnimatedComponentState::Scheduled;
         [self performSelector:@selector(startAnimation) withObject:self afterDelay:self.delay / 1000.0];
-        
-        NSLog(@"Scheduled animation with delay %f", self.delay / 1000.0);
     }
     else {
         NSLog(@"Unable to play animation in state %d", self.state);
@@ -184,7 +180,6 @@ enum class VRTAnimatedComponentState {
     }
 
     _executableAnimation = [_animationManager animationForName:self.animation];
-    NSLog(@"Starting animation %s", _executableAnimation->toString().c_str());
 
     if (_executableAnimation) {
         __weak VRTAnimatedComponent *weakSelf = self;
@@ -210,7 +205,6 @@ enum class VRTAnimatedComponentState {
     self.state = VRTAnimatedComponentState::Terminated;
     self.executableAnimation.reset();
     
-    NSLog(@"Animation finished [looping %d, running %d]", self.loop, self.run);
     if (self.loop && self.run) {
         [self playAnimation];
     }

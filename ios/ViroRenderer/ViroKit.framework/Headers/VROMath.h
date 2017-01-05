@@ -104,6 +104,11 @@ float VROMathNormalizeAnglePI(float rad);
 float VROMathAngleDistance(float radA, float radB);
 
 /*
+ Normalize the angles in the given vector between [0, 2PI].
+ */
+VROVector3f VROMathNormalizeAngles2PI(VROVector3f vector);
+
+/*
  Take the fast (inverse) square root of the given number.
  */
 float VROMathFastSquareRoot(float x);
