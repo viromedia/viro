@@ -78,7 +78,7 @@ var AnimationTest = React.createClass({
             <ViroImage  position={[1, 0, -4]}  transformBehaviors={["billboard"]}  />
         </ViroAnimatedComponent>
 
-         <ViroAnimatedComponent animation="rotateAndMovePicture" run={true} loop={true} onFinish={this._onAnimationFinished}>
+         <ViroAnimatedComponent animation="rotateAndMovePicture" run={true} loop={true} onStart={this._onAnimationStarted} onFinish={this._onAnimationFinished}>
              <ViroImage materials={["cardpetite"]} position={[1, -1, -4]} scale={[.5, .5, .5]} />
          </ViroAnimatedComponent>
      </ViroScene>
@@ -93,6 +93,9 @@ var AnimationTest = React.createClass({
     this.refs[PETITECARD_REF].startAnimation();
     this.refs[PETITECARDTWO_REF].startAnimation();
   });
+  },
+  _onAnimationStarted() {
+      console.log("AnimationTest on Animation Started");
   },
   _onAnimationFinished(){
       console.log("AnimationTest on Animation Finished!");

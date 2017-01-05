@@ -30,6 +30,7 @@ var ViroAnimatedComponent = React.createClass({
     animation: PropTypes.string,
     delay: PropTypes.number,
     loop: PropTypes.bool,
+    onStart: React.PropTypes.func,
     onFinish: React.PropTypes.func,
     run: PropTypes.bool,
   },

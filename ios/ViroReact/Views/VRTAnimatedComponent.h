@@ -10,7 +10,6 @@
 #import "RCTBridge.h"
 #import "VRTView.h"
 #import "VRTNode.h"
-typedef void (^AnimationFinishedBlock)(NSArray *animationChain, NSInteger atIndex);
 
 @interface VRTAnimatedComponent : VRTView
 @property (nonatomic, copy) NSString *animation;
@@ -18,6 +17,8 @@ typedef void (^AnimationFinishedBlock)(NSArray *animationChain, NSInteger atInde
 @property (nonatomic, assign) BOOL loop;
 @property (nonatomic, assign) BOOL run;
 @property (nonatomic, strong) VRTNode *vroSubview;
+
+@property (nonatomic, copy) RCTDirectEventBlock onStart;
 @property (nonatomic, copy) RCTDirectEventBlock onFinish;
 
 - (instancetype)initWithBridge:(RCTBridge *)bridge;

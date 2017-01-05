@@ -189,6 +189,9 @@ enum class VRTAnimatedComponentState {
                                               [weakSelf onAnimationFinish];
                                           }
                                       });
+        if (self.onStart) {
+            self.onStart(nil);
+        }
         self.state = VRTAnimatedComponentState::Running;
     }
     else {
