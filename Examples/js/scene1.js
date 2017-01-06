@@ -31,12 +31,12 @@ var scene1 = React.createClass({
   render: function() {
     return (
         <ViroScene position={[0,0,0]} reticleEnabled={false} >
-          <ViroSkyBox source={{nx:require("./js/res/sun_2302.jpg"),
-                       px:require("./js/res/sun_2302.jpg"),
-                       ny:require("./js/res/sun_2302.jpg"),
-                       py:require("./js/res/sun_2302.jpg"),
-                       nz:require("./js/res/sun_2302.jpg"),
-                       pz:require("./js/res/sun_2302.jpg")}} />
+          <ViroSkyBox source={{nx:require("./res/sun_2302.jpg"),
+                       px:require("./res/sun_2302.jpg"),
+                       ny:require("./res/sun_2302.jpg"),
+                       py:require("./res/sun_2302.jpg"),
+                       nz:require("./res/sun_2302.jpg"),
+                       pz:require("./res/sun_2302.jpg")}} />
           <ViroOrbitCamera position={[0, 0, 1]} focalPoint={[0, 0, -3]}/>
           <ViroNode position={[2, -3, 0]} >
             <ViroBox materials="wework_title" position={[0, 0, -5]} scale={[2, 4, 2]} transformBehaviors={["billboard"]} />
@@ -108,11 +108,11 @@ ViroMaterials.createMaterials({
     shininess: 1.0,
     lightingModel: "Constant",
     diffuseTexture: {"uri": "https://s3-us-west-2.amazonaws.com/viro/guadalupe_360.jpg"},
-    diffuseTexture: require("./js/res/new_menu_screen.jpg"),
+    diffuseTexture: require("./res/new_menu_screen.jpg"),
     fresnelExponent: .5,
   },
   box_texture: {
-    diffuseTexture: require("./js/res/sun_2302.jpg"),
+    diffuseTexture: require("./res/sun_2302.jpg"),
   }
 });
 
