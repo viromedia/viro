@@ -16,6 +16,7 @@
 
 #include "VROGeometry.h"
 #include "VROShapeUtils.h"
+#include "VROVector4f.h"
 
 class VROMaterial;
 class VROTexture;
@@ -76,7 +77,8 @@ public:
      The maxLines parameter, if set, caps the number of lines; when zero, there is no
      limit to the number of lines generated.
      */
-    static std::shared_ptr<VROText> createText(std::string text, std::shared_ptr<VROTypeface> typeface, float width, float height,
+    static std::shared_ptr<VROText> createText(std::string text, std::shared_ptr<VROTypeface> typeface, VROVector4f color,
+                                               float width, float height,
                                                VROTextHorizontalAlignment horizontalAlignment, VROTextVerticalAlignment verticalAlignment,
                                                VROLineBreakMode lineBreakMode, VROTextClipMode clipMode, int maxLines = 0);
     
@@ -85,14 +87,14 @@ public:
      The box is centered at the parent node's position, and the text is aligned within the
      box according to the given alignment.
      */
-    static std::shared_ptr<VROText> createSingleLineText(std::string text, std::shared_ptr<VROTypeface> typeface, float width,
-                                                         VROTextHorizontalAlignment alignment, VROTextClipMode clipMode);
+    static std::shared_ptr<VROText> createSingleLineText(std::string text, std::shared_ptr<VROTypeface> typeface, VROVector4f color,
+                                                         float width, VROTextHorizontalAlignment alignment, VROTextClipMode clipMode);
 
     /*
      Helper method to create a centered single-line text. The text will be centered (vertically
      and horizontally) about the parent node's position.
      */
-    static std::shared_ptr<VROText> createSingleLineText(std::string text, std::shared_ptr<VROTypeface> typeface);
+    static std::shared_ptr<VROText> createSingleLineText(std::string text, std::shared_ptr<VROTypeface> typeface, VROVector4f color);
     
     /*
      Return the width and height of a text object displaying the given string, with the
@@ -128,6 +130,7 @@ private:
     
     static void buildText(std::string &text,
                           std::shared_ptr<VROTypeface> &typeface,
+                          VROVector4f color,
                           float width,
                           float height,
                           VROTextHorizontalAlignment horizontalAlignment,
