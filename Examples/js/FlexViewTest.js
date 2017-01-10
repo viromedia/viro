@@ -28,6 +28,8 @@ import {
   Viro360Video,
   ViroFlexView,
   ViroUtils,
+  ViroAnimations,
+  ViroAnimatedComponent
 } from 'react-viro';
 
 let polarToCartesian = ViroUtils.polarToCartesian;
@@ -37,7 +39,7 @@ var FlexViewTest = React.createClass({
     return (
       <ViroScene reticleEnabled={true} >
 
-        <ViroFlexView style={styles.containerVertical} position={polarToCartesian([2, 0, 30])} width={3} height={2}>
+        <ViroFlexView style={styles.containerVertical} position={polarToCartesian([2, 0, 60])} width={3} height={2}>
           <ViroFlexView style={styles.containerInner} >
             <ViroImage style={{flex:1}} source={{uri: "http://wiki.magicc.org/images/c/ce/MAGICC_logo_small.jpg"}}
               onLoadStart={this._onLoadStart("Image")} onLoadEnd={this._onLoadEnd("Image")} />
@@ -59,24 +61,33 @@ var FlexViewTest = React.createClass({
           <ViroFlexView style={{flex:1, backgroundColor: "#ff0000",}} />
           <ViroFlexView style={{flex:1}} materials={"sunTexture"} />
         </ViroFlexView>
+
+        <ViroAnimatedComponent animation="rotateAndMovePicture" run={true} loop={false} onFinish={this._onAnimationFinished}>
+          <ViroImage source={{uri: "http://wiki.magicc.org/images/c/ce/MAGICC_logo_small.jpg"}} position={[1, -1, -4]} scale={[.5, .5, .5]} />
+        </ViroAnimatedComponent>
+
       </ViroScene>
     );
   },
+
   _onLoadStart(component) {
     return () => {
-      console.log("scene1 " + component + " load start");
+      console.log("flexViewTest " + component + " load start");
     }
   },
   _onLoadEnd(component) {
     return () => {
-      console.log("scene1 " + component + " load end");
+      console.log("flexViewTest " + component + " load end");
     }
   },
   _onFinish(component) {
     return () => {
-      console.log("scene1 " + component + " finished");
+      console.log("flexViewTest " + component + " finished");
     }
-  }
+  },
+  _onAnimationFinished(){
+    console.log("AnimationTest on Animation Finished!");
+  },
 });
 
 const styles = StyleSheet.create({
@@ -109,7 +120,26 @@ const styles = StyleSheet.create({
 ViroMaterials.createMaterials({
   sunTexture: {
     diffuseTexture: require("./res/sun_2302.jpg"),
-  }
+  },
+  cardpetite: {
+    shininess : 1.0,
+    lightingModel: "Constant",
+    diffuseTexture: require('./res/card_petite_ansu.png'),
+  },
+});
+
+ViroAnimations.registerAnimations({
+    moveRight:{properties:{positionX:"+3"}, duration: 3000},
+    moveLeft:{properties:{positionX:"+-3"}, duration: 3000},
+    rotate:{properties:{rotateZ:"+90"}, duration:3000},
+    rotateY:{properties:{rotateY:"+180"}, duration:1500},
+    rotateAndMovePicture:[
+        ["moveLeft", "moveRight"],
+        ["moveRight", "moveLeft"],
+        ["rotateY", "rotateY"],
+        ["rotate"],
+
+    ],
 });
 
 module.exports = FlexViewTest;

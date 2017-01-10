@@ -19,8 +19,8 @@ RCT_EXPORT_VIEW_PROPERTY(animation, NSString);
 RCT_EXPORT_VIEW_PROPERTY(loop, BOOL);
 RCT_EXPORT_VIEW_PROPERTY(delay, float);
 RCT_EXPORT_VIEW_PROPERTY(run, BOOL);
-RCT_EXPORT_VIEW_PROPERTY(onStart, RCTDirectEventBlock);
-RCT_EXPORT_VIEW_PROPERTY(onFinish, RCTDirectEventBlock);
+RCT_EXPORT_VIEW_PROPERTY(onStartViro, RCTDirectEventBlock);
+RCT_EXPORT_VIEW_PROPERTY(onFinishViro, RCTDirectEventBlock);
 
 - (VRTView *)view
 {
@@ -29,32 +29,6 @@ RCT_EXPORT_VIEW_PROPERTY(onFinish, RCTDirectEventBlock);
 
 - (VRTShadowView *)shadowView {
   return [VRTAnimatedComponentShadowView new];
-}
-
-RCT_EXPORT_METHOD(startAnimation:(nonnull NSNumber *)reactTag)
-{
-  [self.bridge.viroUIManager addUIBlock:^(__unused ViroUIManager *uiManager, NSDictionary<NSNumber *, VRTView *> *viewRegistry) {
-    VRTView *view = viewRegistry[reactTag];
-    if (![view isKindOfClass:[VRTAnimatedComponent class]]) {
-      RCTLogError(@"Invalid view returned from registry, expecting VRTAnimatedComponent, got: %@", view);
-    } else {
-      VRTAnimatedComponent *component = (VRTAnimatedComponent *)view;
-      [component setRun:YES];
-    }
-  }];
-}
-
-RCT_EXPORT_METHOD(stopAnimation:(nonnull NSNumber *)reactTag)
-{
-  [self.bridge.viroUIManager addUIBlock:^(__unused ViroUIManager *uiManager, NSDictionary<NSNumber *, VRTView *> *viewRegistry) {
-      VRTView *view = viewRegistry[reactTag];
-      if (![view isKindOfClass:[VRTAnimatedComponent class]]) {
-        RCTLogError(@"Invalid view returned from registry, expecting VRTAnimatedComponent, got: %@", view);
-      } else {
-        VRTAnimatedComponent *component = (VRTAnimatedComponent *)view;
-          [component setRun:NO];
-      }
-  }];
 }
 
 @end

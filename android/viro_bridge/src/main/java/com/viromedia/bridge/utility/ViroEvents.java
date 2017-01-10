@@ -13,5 +13,6 @@ public class ViroEvents {
     public static final String ON_LOAD_END = "onLoadEndViro";
     public static final String ON_TAP = "onTapViro";
     public static final String ON_GAZE = "onGazeViro";
+    public static final String ON_START = "onStartViro";
     public static final String ON_FINISH = "onFinishViro";
 }

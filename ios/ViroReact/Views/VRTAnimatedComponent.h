@@ -18,8 +18,8 @@
 @property (nonatomic, assign) BOOL run;
 @property (nonatomic, strong) VRTNode *vroSubview;
 
-@property (nonatomic, copy) RCTDirectEventBlock onStart;
-@property (nonatomic, copy) RCTDirectEventBlock onFinish;
+@property (nonatomic, copy) RCTDirectEventBlock onStartViro;
+@property (nonatomic, copy) RCTDirectEventBlock onFinishViro;
 
 - (instancetype)initWithBridge:(RCTBridge *)bridge;
 

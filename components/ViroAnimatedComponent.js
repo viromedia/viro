@@ -11,15 +11,11 @@
  */
 'use strict';
 
-import { requireNativeComponent, View, StyleSheet } from 'react-native';
-import React, { Component } from 'react';
+import { requireNativeComponent, View, StyleSheet, Platform } from 'react-native';
+import React from 'react';
 var NativeMethodsMixin = require('react/lib/NativeMethodsMixin');
-var NativeModules = require('react-native').NativeModules;
 var PropTypes = require('react/lib/ReactPropTypes');
-var findNodeHandle = require('react/lib/findNodeHandle');
-var ViroAnimatedComponentManager = require('react-native').NativeModules.VRTAnimatedComponentManager;
 
-var RCT_ANIMATED_COMPONENT_REF = 'animatedcomp';
 /**
  * Used to render a ViroAnimatedComponent
  */
@@ -27,6 +23,7 @@ var ViroAnimatedComponent = React.createClass({
   mixins: [NativeMethodsMixin],
 
   propTypes: {
+    ...View.propTypes,
     animation: PropTypes.string,
     delay: PropTypes.number,
     loop: PropTypes.bool,
@@ -35,33 +32,30 @@ var ViroAnimatedComponent = React.createClass({
     run: PropTypes.bool,
   },
 
-  getWebViewHandle: function(): any {
-    return findNodeHandle(this.refs[RCT_ANIMATED_COMPONENT_REF]);
+  _onStart: function(event: Event) {
+    this.props.onStart && this.props.onStart();
   },
 
-  startAnimation: function() {
-    ViroAnimatedComponentManager.startAnimation(this.getWebViewHandle());
-  },
-
-  stopAnimation: function() {
-    ViroAnimatedComponentManager.stopAnimation(this.getWebViewHandle());
+  _onFinish: function(event: Event) {
+    this.props.onFinish && this.props.onFinish();
   },
 
   render: function() {
+    let nativeProps = Object.assign({}, this.props);
+    nativeProps.onFinishViro = this._onFinish;
+    nativeProps.onStartViro = this._onStart;
+
     return (
-      <VROAnimatedComponent
-        ref={RCT_ANIMATED_COMPONENT_REF}
-        {...this.props}
-        style={[this.props.style]}
-      />
+      <VRTAnimatedComponent {...nativeProps} />
     );
   }
 });
 
 
-var VROAnimatedComponent = requireNativeComponent(
-  'VRTAnimatedComponent',
-  ViroAnimatedComponent
+var VRTAnimatedComponent = requireNativeComponent(
+  'VRTAnimatedComponent', ViroAnimatedComponent, {
+    nativeOnly: { onStartViro:true, onFinishViro:true }
+  }
 );
 
 module.exports = ViroAnimatedComponent;

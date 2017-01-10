@@ -86,7 +86,23 @@ public class Node extends Component {
             final Node childNode = (Node) child;
             mNodeJni.addChildNode(childNode.mNodeJni);
         } else if (child instanceof AnimatedComponent) {
-            // TODO: handle AnimatedComponents
+            // We want the AnimatedComponent to be "invisible" to the scene graph so we need to add
+            // the children of the AnimatedComponent to the parent of the AnimatedComponent natively.
+            // Otherwise the parent of an AnimatedComponent has no idea that it has extra children
+            // natively.
+            // Note: AnimatedComponents can only have 1 child right now, so the loop is just
+            // futureproofing
+            AnimatedComponent animatedComponent = (AnimatedComponent) child;
+            for (int i = 0; i < animatedComponent.getChildCount(); i++) {
+                if (!(animatedComponent.getChildAt(i) instanceof Node)) {
+                    continue;
+                }
+
+                Node animatedTarget = (Node) animatedComponent.getChildAt(i);
+                if (!containsChild(animatedTarget)) {
+                    addNativeChild(animatedTarget);
+                }
+            }
         } else {
             // TODO: Throw Error? Red Screen?
         }
@@ -102,10 +118,32 @@ public class Node extends Component {
             final Node childNode = (Node) child;
             mNodeJni.removeChildNode(childNode.mNodeJni);
         } else if (child instanceof AnimatedComponent) {
-            // TODO: handle AnimatedComponents
+            AnimatedComponent animatedComponent = (AnimatedComponent) child;
+            for (int i = 0; i < animatedComponent.getChildCount(); i++) {
+                if (!(animatedComponent.getChildAt(i) instanceof Node)) {
+                    continue;
+                }
+
+                Node animatedTarget = (Node) animatedComponent.getChildAt(i);
+                if (containsChild(animatedTarget)) {
+                    removeNativeChild(animatedTarget);
+                }
+            }
         } else {
             // TODO: Throw Error? Red Screen?
         }
+    }
+
+    public boolean containsChild(Node child) {
+        return mNodeJni.containsChild(child.getNodeJni());
+    }
+
+    public void addNativeChild(Node child) {
+        mNodeJni.addChildNode(child.getNodeJni());
+    }
+
+    public void removeNativeChild(Node child) {
+        mNodeJni.removeChildNode(child.getNodeJni());
     }
 
     @Override
@@ -116,12 +154,12 @@ public class Node extends Component {
     }
 
     protected void attemptRecalcLayout() {
-        // Attempt to find a Node parent OR Node grandparent if the parent is an AnimatedComponent
+        // Attempt to find a FlexView parent OR FlexView grandparent if the parent is an AnimatedComponent
         Node superView = null;
         if (getParent() != null && getParent() instanceof FlexView) {
             superView = (Node) getParent();
         } else if(getParent() != null && getParent() instanceof AnimatedComponent) {
-            if (getParent().getParent() != null && getParent().getParent() instanceof Node) {
+            if (getParent().getParent() != null && getParent().getParent() instanceof FlexView) {
                 superView = (Node) getParent().getParent();
             }
         }

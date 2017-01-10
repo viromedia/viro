@@ -103,7 +103,6 @@ const int k2DPointsPerSpatialUnit = 1000;
     /*
      Remove the child (the target of the animation) from the node.
      */
-    NSArray *subsubViews = [vroView reactSubviews];
     for(VRTView *subsubview in [vroView reactSubviews]) {
       if (![subsubview isKindOfClass:[VRTNode class]]) {
         continue;

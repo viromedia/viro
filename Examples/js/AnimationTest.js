@@ -20,7 +20,7 @@ This class tests the following:
  */
 'use strict';
 
-import React, { Component } from 'react';
+import React, { Platform } from 'react';
 import {
   StyleSheet,
   ViroScene,
@@ -41,58 +41,56 @@ var PETITECARDTWO_REF = 'petitecardtwocard';
 var AnimationTest = React.createClass({
   getInitialState() {
     return {
-       showMainCard: true,
+       mainAnimationIn: false,
+       mainAnimation: 'cardOut',
+       runAnimation: false,
     };
   },
   render: function() {
-    var mainAnimation = 'card' + (this.state.showMainCard ? 'In' : 'Out');
     return (
      <ViroScene >
 
         <Viro360Photo source={require('./res/360_diving.jpg')}  />
-        <ViroAnimatedComponent animation={mainAnimation} run={false} ref={MAINCARD_REF} >
-            <ViroImage materials={["cardmain"]} position={[0, -.5, -2]} scale={[.1, .1, .1]} onTap={this._onTapShowMain} />
+        <ViroAnimatedComponent animation={this.state.mainAnimation} run={this.state.runAnimation} ref={MAINCARD_REF} loop={false} >
+            <ViroImage source={require('./res/card_main.png')} position={[0, -.5, -2]} scale={[.1, .1, .1]} />
         </ViroAnimatedComponent>
 
-        <ViroAnimatedComponent animation={mainAnimation} run={false} ref={MAINCARDTWO_REF}  >
-            <ViroImage materials={["cardpetite"]} position={[0, -.2, -2]} scale={[.1, .1, .1]} onTap={this._onTapShowMain}  />
+        <ViroAnimatedComponent animation={this.state.mainAnimation} run={this.state.runAnimation} ref={MAINCARDTWO_REF} loop={false} >
+            <ViroImage source={require('./res/card_petite_ansu.png')} position={[0, -.2, -2]} scale={[.1, .1, .1]} onTap={this._onTapShowMain}  />
         </ViroAnimatedComponent>
 
-        <ViroAnimatedComponent animation={mainAnimation} run={false} ref={PETITECARD_REF}  >
-            <ViroImage materials={["cardmain"]} position={[0, 0, -2]} scale={[.1, .1, .1]} onTap={this._onTapShowMain} />
+        <ViroAnimatedComponent animation={this.state.mainAnimation} run={this.state.runAnimation} ref={PETITECARD_REF} loop={false}  >
+            <ViroImage source={require('./res/card_main.png')} position={[0, 0, -2]} scale={[.1, .1, .1]} onTap={this._onTapShowMain} />
         </ViroAnimatedComponent>
 
-        <ViroAnimatedComponent animation={mainAnimation} run={false} ref={PETITECARDTWO_REF}  >
-            <ViroImage materials={["cardpetite"]} position={[0, .2, -2]} scale={[.1, .1, .1]} onTap={this._onTapShowMain} />
+        <ViroAnimatedComponent animation={this.state.mainAnimation} run={this.state.runAnimation} ref={PETITECARDTWO_REF} loop={false} >
+            <ViroImage source={require('./res/card_petite_ansu.png')} position={[0, .2, -2]} scale={[.1, .1, .1]} onTap={this._onTapShowMain} />
         </ViroAnimatedComponent>
 
-        <ViroAnimatedComponent animation="testLoopRotate" run={true} loop={true} >
-            <ViroImage materials={["poidot"]} position={[1, .4, -2]} />
+        <ViroAnimatedComponent animation="testLoopRotate" run={true} loop={true} onFinish={this._onAnimationFinished} onStart={this._onAnimationStarted} >
+            <ViroImage source={require('./res/poi_dot.png')} position={[1, .4, -2]} />
         </ViroAnimatedComponent>
 
          <ViroAnimatedComponent animation="testPositionMove" run={true} loop={false} >
-             <ViroImage materials={["poidot"]} position={[-1, 0, -8]}  opacity={0.0} transformBehaviors={["billboard"]}/>
+             <ViroImage source={require('./res/poi_dot.png')} position={[-1, 0, -8]}  opacity={0.0} transformBehaviors={["billboard"]}/>
          </ViroAnimatedComponent>
 
         <ViroAnimatedComponent animation="testLoopColor" run={true}  >
-            <ViroImage  position={[1, 0, -4]}  transformBehaviors={["billboard"]}  />
+            <ViroImage source={require('./res/card_main.png')} position={[1, 0, -4]}  transformBehaviors={["billboard"]} onTap={this._onTapShowMain} />
         </ViroAnimatedComponent>
 
-         <ViroAnimatedComponent animation="rotateAndMovePicture" run={true} loop={true} onStart={this._onAnimationStarted} onFinish={this._onAnimationFinished}>
-             <ViroImage materials={["cardpetite"]} position={[1, -1, -4]} scale={[.5, .5, .5]} />
+         <ViroAnimatedComponent animation="rotateAndMovePicture" run={true} loop={true} >
+             <ViroImage source={require('./res/card_petite_ansu.png')} position={[1, -1, -4]} scale={[.5, .5, .5]} />
          </ViroAnimatedComponent>
      </ViroScene>
     );
   },
   _onTapShowMain() {
     this.setState({
-      showMainCard: !this.state.showMainCard,
-    }, function startCardAnimations() {
-    this.refs[MAINCARDTWO_REF].startAnimation();
-    this.refs[MAINCARD_REF].startAnimation();
-    this.refs[PETITECARD_REF].startAnimation();
-    this.refs[PETITECARDTWO_REF].startAnimation();
-  });
+      mainAnimation: 'card' + (this.state.mainAnimationIn ? 'In' : 'Out'),
+      mainAnimationIn: !this.state.mainAnimationIn,
+      runAnimation: true,
+    });
   },
   _onAnimationStarted() {
       console.log("AnimationTest on Animation Started");
@@ -125,11 +123,16 @@ ViroAnimations.registerAnimations({
     cardIn:{properties:{scaleX:1, scaleY:.6, scaleZ:1, opacity: 1}, easing:"Bounce", duration: 5000},
 
     testLoopRotate:{properties:{rotateY:"+45"}, duration:1000},
-    testLoopColor:{properties:{color:"#ffff00"}, duration:10000},
+    testLoopColorYellow:{properties:{color:"#ffff00"}, duration:10000},
+    testLoopColorBlue:{properties:{color:"#ffff00"}, duration:10000},
+    testLoopColor:[
+      ["testLoopColorYellow", "testLoopColorBlue"]
+    ],
+
 
     cardOutScale:{properties:{opacity: 0.0}, easing:"EaseOut", delay:2000, duration: 5000},
     cardOutOpacity:{properties:{scaleX:.1, scaleY:.1, scaleZ:.1}, easing:"EaseOut", delay:1000, duration: 2500},
-    cardout:[
+    cardOut:[
         ["cardOutScale"],
         ["cardOutOpacity"]
     ],

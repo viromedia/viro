@@ -28,7 +28,6 @@ enum class VRTAnimatedComponentState {
 
 @implementation VRTAnimatedComponent {
 
-    std::shared_ptr<VROGeometry> _childGeometry;
     VRTAnimationManager *_animationManager;
     
 }
@@ -127,7 +126,6 @@ enum class VRTAnimatedComponentState {
         return;
     }
     
-    _childGeometry = [self.vroSubview node]->getGeometry();
     if (self.run) {
         [self playAnimation];
     }
@@ -173,11 +171,6 @@ enum class VRTAnimatedComponentState {
         NSLog(@"Aborted starting new animation, was no longer scheduled");
         return;
     }
-    
-    if(_childGeometry != nil){
-        // Show the geometry if it isn't being shown yet.
-        [self.vroSubview node]->setGeometry(_childGeometry);
-    }
 
     _executableAnimation = [_animationManager animationForName:self.animation];
 
@@ -189,8 +182,8 @@ enum class VRTAnimatedComponentState {
                                               [weakSelf onAnimationFinish];
                                           }
                                       });
-        if (self.onStart) {
-            self.onStart(nil);
+        if (self.onStartViro) {
+            self.onStartViro(nil);
         }
         self.state = VRTAnimatedComponentState::Running;
     }
@@ -201,8 +194,8 @@ enum class VRTAnimatedComponentState {
 }
 
 -(void)onAnimationFinish {
-    if (self.onFinish) {
-        self.onFinish(nil);
+    if (self.onFinishViro) {
+        self.onFinishViro(nil);
     }
     
     self.state = VRTAnimatedComponentState::Terminated;
