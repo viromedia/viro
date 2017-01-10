@@ -22,6 +22,10 @@ import {
   ViroNode,
   ViroOrbitCamera,
   ViroCamera,
+  ViroAmbientLight,
+  ViroOmniLight,
+  ViroSpotLight,
+  ViroDirectionalLight,
   ViroImage,
   ViroVideo,
   Viro360Image,
@@ -36,10 +40,16 @@ import {
 let polarToCartesian = ViroUtils.polarToCartesian;
 
 var FlexViewTest = React.createClass({
+  getInitialState: function() {
+    return {addLight: false};
+  },
   render: function() {
     return (
-      <ViroScene reticleEnabled={true} >
-
+      <ViroScene reticleEnabled={true} onTap={this._addRemoveLight}>
+      	{this._addGetLight()}
+      	<Viro360Image source={require("./res/360_diving.jpg")} rotation={[0,0,0]}/>
+      	<ViroBox materials="box_material" position={[-2, 0, -3]} scale={[2,2,2]}/>
+      
         <ViroVideo source={{uri: "https://s3.amazonaws.com/viro.video/Climber2Top.mp4"}} position={[0,-1, -1]} />
 
         <ViroFlexView style={styles.containerVertical} position={polarToCartesian([2, 0, 30])} width={3} height={2}>
@@ -92,6 +102,19 @@ var FlexViewTest = React.createClass({
   _onAnimationFinished(){
     console.log("AnimationTest on Animation Finished!");
   },
+  _addRemoveLight(component) {
+    console.log("remove light called");
+    this.setState({
+      addLight: !this.state.addLight,
+    });
+  },
+  _addGetLight(component){
+    if (this.state.addLight) {
+      return (<ViroAmbientLight color="#ffff00"/>);
+    } else {
+     return;  
+    }
+  }
 });
 
 const styles = StyleSheet.create({
@@ -133,6 +156,11 @@ ViroMaterials.createMaterials({
     lightingModel: "Constant",
     diffuseTexture: require('./res/card_petite_ansu.png'),
   },
+  box_material: {
+    shininess: 2.0,
+    lightingModel: "Blinn",
+    diffuseColor: "#ffffff"  
+  }
 });
 
 ViroAnimations.registerAnimations({

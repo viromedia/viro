@@ -10,10 +10,14 @@ import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.uimanager.ViewManager;
 import com.viromedia.bridge.component.AnimatedComponentManager;
 import com.viromedia.bridge.component.Image360Manager;
+import com.viromedia.bridge.component.AmbientLightManager;
+import com.viromedia.bridge.component.DirectionalLightManager;
+import com.viromedia.bridge.component.OmniLightManager;
 import com.viromedia.bridge.component.SkyBoxManager;
+import com.viromedia.bridge.component.SpotLightManager;
+import com.viromedia.bridge.component.Video360Manager;
 import com.viromedia.bridge.component.CameraManager;
 import com.viromedia.bridge.component.OrbitCameraManager;
-import com.viromedia.bridge.component.Video360Manager;
 import com.viromedia.bridge.component.node.FlexViewManager;
 import com.viromedia.bridge.component.node.NodeContainerManager;
 import com.viromedia.bridge.component.node.SceneManager;
@@ -65,7 +69,12 @@ public class ReactViroPackage implements ReactPackage {
                 new SkyBoxManager(reactContext),
                 new FlexViewManager(reactContext),
                 new AnimatedComponentManager(reactContext),
-                new SurfaceManager(reactContext)
+                new SurfaceManager(reactContext),
+                new FlexViewManager(reactContext),
+                new DirectionalLightManager(reactContext),
+                new AmbientLightManager(reactContext),
+                new SpotLightManager(reactContext),
+                new OmniLightManager(reactContext)
         );
     }
 }

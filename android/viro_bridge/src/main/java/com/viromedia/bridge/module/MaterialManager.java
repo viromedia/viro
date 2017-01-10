@@ -5,8 +5,6 @@
 package com.viromedia.bridge.module;
 
 
-import android.graphics.Bitmap;
-
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
@@ -16,12 +14,10 @@ import com.facebook.react.bridge.ReadableType;
 import com.viro.renderer.jni.ImageJni;
 import com.viro.renderer.jni.MaterialJni;
 import com.viro.renderer.jni.TextureJni;
-import com.viromedia.bridge.utility.ImageDownloadListener;
 import com.viromedia.bridge.utility.ImageDownloader;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.CountDownLatch;
 
 
 public class MaterialManager extends ReactContextBaseJavaModule {

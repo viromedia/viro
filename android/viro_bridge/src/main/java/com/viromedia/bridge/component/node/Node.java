@@ -8,7 +8,6 @@ import android.util.AttributeSet;
 import android.view.View;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.Arguments;
-import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
 import com.facebook.react.uimanager.PixelUtil;
@@ -81,7 +80,7 @@ public class Node extends Component {
         super.addView(child, index);
 
         if (child instanceof Light) {
-            // TODO: Add a light
+            ((Light)child).addToNode(mNodeJni);
         } else if (child instanceof Node) {
             final Node childNode = (Node) child;
             mNodeJni.addChildNode(childNode.mNodeJni);
@@ -109,29 +108,41 @@ public class Node extends Component {
     }
 
     @Override
-    public void removeView(View child) {
-        super.removeView(child);
+    public void removeViewAt(int index) {
+
+        View child = getChildAt(index);
 
         if (child instanceof Light) {
-            // TODO: Add a light
+
+            ((Light)child).removeFromNode(mNodeJni);
         } else if (child instanceof Node) {
+
             final Node childNode = (Node) child;
             mNodeJni.removeChildNode(childNode.mNodeJni);
         } else if (child instanceof AnimatedComponent) {
+
             AnimatedComponent animatedComponent = (AnimatedComponent) child;
+
             for (int i = 0; i < animatedComponent.getChildCount(); i++) {
+
                 if (!(animatedComponent.getChildAt(i) instanceof Node)) {
+
                     continue;
                 }
 
                 Node animatedTarget = (Node) animatedComponent.getChildAt(i);
+
                 if (containsChild(animatedTarget)) {
+
                     removeNativeChild(animatedTarget);
                 }
             }
         } else {
             // TODO: Throw Error? Red Screen?
         }
+
+        super.removeViewAt(index);
+
     }
 
     public boolean containsChild(Node child) {

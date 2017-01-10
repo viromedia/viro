@@ -1,3 +1,4 @@
+
 /**
  * Copyright (c) 2015-present, Viro, Inc.
  * All rights reserved.
@@ -6,7 +7,7 @@
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  *
- * @providesModule ViroDirectionalLight
+ * @providesModule ViroAmbientLight
  * @flow
  */
 'use strict';
@@ -19,10 +20,11 @@ var NativeModules = require('react-native').NativeModules;
 var PropTypes = require('react/lib/ReactPropTypes');
 var ColorPropType = require('react-native').ColorPropType;
 
+
 /**
- * Used to render a ViroDirectionalLight
+ * Used to render a ViroAmbientLight
  */
-var ViroDirectionalLight = React.createClass({
+var ViroAmbientLight = React.createClass({
   mixins: [NativeMethodsMixin],
 
   propTypes: {
@@ -31,7 +33,6 @@ var ViroDirectionalLight = React.createClass({
       PropTypes.string,
       PropTypes.number
     ]),
-    direction: PropTypes.arrayOf(PropTypes.number).isRequired,
   },
 
   render: function() {
@@ -49,16 +50,16 @@ var ViroDirectionalLight = React.createClass({
       }
 
       return (
-        <VRTDirectionalLight
+        <VRTAmbientLight
           {...nativeProps}
         />
       );
   }
 });
 
-var VRTDirectionalLight = requireNativeComponent(
-  'VRTDirectionalLight',
-  ViroDirectionalLight
+var VRTAmbientLight = requireNativeComponent(
+  'VRTAmbientLight',
+  ViroAmbientLight
 );
 
-module.exports = ViroDirectionalLight;
+module.exports = ViroAmbientLight;

@@ -6,7 +6,7 @@
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  *
- * @providesModule ViroDirectionalLight
+ * @providesModule ViroOmniLight
  * @flow
  */
 'use strict';
@@ -20,18 +20,20 @@ var PropTypes = require('react/lib/ReactPropTypes');
 var ColorPropType = require('react-native').ColorPropType;
 
 /**
- * Used to render a ViroDirectionalLight
+ * Used to render a ViroOmniLight
  */
-var ViroDirectionalLight = React.createClass({
+var ViroOmniLight = React.createClass({
   mixins: [NativeMethodsMixin],
 
   propTypes: {
     ...View.propTypes,
+    position: PropTypes.arrayOf(PropTypes.number),
     color: PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.number
     ]),
-    direction: PropTypes.arrayOf(PropTypes.number).isRequired,
+    attenuationStartDistance: PropTypes.number,
+    attenuationEndDistance: PropTypes.number,
   },
 
   render: function() {
@@ -47,18 +49,17 @@ var ViroDirectionalLight = React.createClass({
           nativeProps.color = argb;
         }
       }
-
       return (
-        <VRTDirectionalLight
+        <VRTOmniLight
           {...nativeProps}
         />
       );
   }
 });
 
-var VRTDirectionalLight = requireNativeComponent(
-  'VRTDirectionalLight',
-  ViroDirectionalLight
+var VRTOmniLight = requireNativeComponent(
+  'VRTOmniLight',
+  ViroOmniLight
 );
 
-module.exports = ViroDirectionalLight;
+module.exports = ViroOmniLight;

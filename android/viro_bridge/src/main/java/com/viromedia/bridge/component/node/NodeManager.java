@@ -16,6 +16,7 @@ import com.facebook.react.uimanager.annotations.ReactPropGroup;
 import com.viro.renderer.jni.MaterialJni;
 import com.viromedia.bridge.component.ViroViewGroupManager;
 import com.viromedia.bridge.module.MaterialManager;
+import com.viromedia.bridge.utility.Helper;
 import com.viromedia.bridge.utility.ViroEvents;
 
 import java.util.ArrayList;
@@ -35,17 +36,17 @@ public abstract class NodeManager <T extends Node> extends ViroViewGroupManager<
 
     @ReactProp(name = "position")
     public void setPosition(T view, ReadableArray position) {
-        view.setPosition(toFloatArray(position));
+        view.setPosition(Helper.toFloatArray(position));
     }
 
     @ReactProp(name = "rotation")
     public void setRotation(Node view, ReadableArray rotation) {
-        view.setRotation(toFloatArray(rotation));
+        view.setRotation(Helper.toFloatArray(rotation));
     }
 
     @ReactProp(name = "scale")
     public void setScale(Node view, ReadableArray scale) {
-        view.setScale(toFloatArray(scale));
+        view.setScale(Helper.toFloatArray(scale));
     }
 
     @ReactProp(name = "opacity", defaultFloat = 1f)
@@ -139,26 +140,6 @@ public abstract class NodeManager <T extends Node> extends ViroViewGroupManager<
         public void setBorderWidths(int index, float borderWidth) {
             super.setBorderWidths(index, borderWidth * s2DUnitPer3DUnit);
         }
-    }
-
-    private static @Nullable float[] toFloatArray(@Nullable ReadableArray value) {
-        if (value == null){
-            throw new IllegalArgumentException("Can't convert a null ReadableArray to a float[].");
-        }
-
-        float[] result = new float[value.size()];
-        for (int i = 0; i < value.size(); i++) {
-            result[i] = (float) value.getDouble(i);
-        }
-        return result;
-    }
-
-    private static int toFloatArray(ReadableArray value, float[] into) {
-        int length = value.size() > into.length ? into.length : value.size();
-        for (int i = 0; i < length; i++) {
-            into[i] = (float) value.getDouble(i);
-        }
-        return value.size();
     }
 
     @Override
