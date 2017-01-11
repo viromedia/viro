@@ -9,11 +9,11 @@ import com.facebook.react.bridge.NativeModule;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.uimanager.ViewManager;
 import com.viromedia.bridge.component.AnimatedComponentManager;
-import com.viromedia.bridge.component.Photo360Manager;
+import com.viromedia.bridge.component.Image360Manager;
 import com.viromedia.bridge.component.SkyBoxManager;
-import com.viromedia.bridge.component.Video360Manager;
 import com.viromedia.bridge.component.CameraManager;
 import com.viromedia.bridge.component.OrbitCameraManager;
+import com.viromedia.bridge.component.Video360Manager;
 import com.viromedia.bridge.component.node.FlexViewManager;
 import com.viromedia.bridge.component.node.NodeContainerManager;
 import com.viromedia.bridge.component.node.SceneManager;
@@ -60,7 +60,7 @@ public class ReactViroPackage implements ReactPackage {
                 new OrbitCameraManager(reactContext),
                 new SphereManager(reactContext),
                 new ImageManager(reactContext),
-                new Photo360Manager(reactContext),
+                new Image360Manager(reactContext),
                 new SkyBoxManager(reactContext),
                 new FlexViewManager(reactContext),
                 new AnimatedComponentManager(reactContext)

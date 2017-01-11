@@ -24,7 +24,7 @@ import {
   ViroCamera,
   ViroImage,
   ViroVideo,
-  Viro360Photo,
+  Viro360Image,
   Viro360Video,
   ViroFlexView,
   ViroUtils,
@@ -39,7 +39,9 @@ var FlexViewTest = React.createClass({
     return (
       <ViroScene reticleEnabled={true} >
 
-        <ViroFlexView style={styles.containerVertical} position={polarToCartesian([2, 0, 60])} width={3} height={2}>
+        <ViroVideo source={{uri: "https://s3.amazonaws.com/viro.video/Climber2Top.mp4"}} position={[0,-1, -1]} />
+
+        <ViroFlexView style={styles.containerVertical} position={polarToCartesian([2, 0, 30])} width={3} height={2}>
           <ViroFlexView style={styles.containerInner} >
             <ViroImage style={{flex:1}} source={{uri: "http://wiki.magicc.org/images/c/ce/MAGICC_logo_small.jpg"}}
               onLoadStart={this._onLoadStart("Image")} onLoadEnd={this._onLoadEnd("Image")} />
@@ -69,7 +71,9 @@ var FlexViewTest = React.createClass({
       </ViroScene>
     );
   },
-
+  /*
+  <Viro360Image source={{uri: "http://cdn3-www.dogtime.com/assets/uploads/gallery/pembroke-welsh-corgi-dog-breed-pictures/prance-8.jpg"}} rotation={[-30,90,0]} />
+  */
   _onLoadStart(component) {
     return () => {
       console.log("flexViewTest " + component + " load start");

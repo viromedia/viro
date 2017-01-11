@@ -1,5 +1,5 @@
 //
-//  VRO360PhotoManager.h
+//  VRO360ImageManager.h
 //  React
 //
 //  Created by Vik Advani on 3/3/16.
@@ -9,6 +9,6 @@
 #import <Foundation/Foundation.h>
 #import "ViroViewManager.h"
 
-@interface VRO360PhotoManager : ViroViewManager
+@interface VRO360ImageManager : ViroViewManager
 
 @end

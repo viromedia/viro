@@ -94,7 +94,7 @@
   } else if (!self.context || !self.driver || _didUpdateSurface) {
     return;
   }
-
+  
   // All asset types can be converted into an RCTImageSource(should be renamed to RCTAssetSource) when using the 'require() statement).
   // If an asset is passed with a full uri, that uri is preserved and passed to the video surface
   RCTImageSource *imageSource = [RCTConvert RCTImageSource:self.source];
@@ -118,6 +118,9 @@
   _videoTexture->setDelegate(std::make_shared<VROVideoDelegateiOS>(self));
   
   [self node]->setGeometry(_surface);
+
+  // set that we did in fact update the surface
+  _didUpdateSurface = YES;
 }
 
 - (void)viewWillAppear {

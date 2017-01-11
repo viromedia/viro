@@ -34,7 +34,9 @@ public:
     
     void execute(std::shared_ptr<VRONode> node,
                  std::function<void()> onFinished);
-    
+
+    // This function adds an animation to the end of the chain.
+    void addAnimation(std::shared_ptr<VROExecutableAnimation> animation);
     void pause();
     void resume();
     void terminate();

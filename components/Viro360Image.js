@@ -6,7 +6,7 @@
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  *
- * @providesModule Viro360Photo
+ * @providesModule Viro360Image
  * @flow
  */
 'use strict';
@@ -18,9 +18,9 @@ var NativeMethodsMixin = require('react/lib/NativeMethodsMixin');
 var PropTypes = require('react/lib/ReactPropTypes');
 
 /**
- * Used to render a 360 photos in a sphere.
+ * Used to render a 360 image in a sphere.
  */
-var Viro360Photo = React.createClass({
+var Viro360Image = React.createClass({
   mixins: [NativeMethodsMixin],
 
   propTypes: {
@@ -70,15 +70,15 @@ var Viro360Photo = React.createClass({
   render: function() {
     var imgsrc = resolveAssetSource(this.props.source);
     if (this.props.src) {
-      console.error('The <Viro360Photo> component takes a `source` property rather than `src`.');
+      console.error('The <Viro360Image> component takes a `source` property rather than `src`.');
     }
 
     if (this.props.onGaze) {
-      console.error('The <Viro360Photo> component does not take on an `onGaze` property. Pass the `onGaze` prop to <ViroScene> instead.');
+      console.error('The <Viro360Image> component does not take on an `onGaze` property. Pass the `onGaze` prop to <ViroScene> instead.');
     }
 
     if (this.props.onTap) {
-      console.error('The <Viro360Photo> component does not take on an `onTap` property. Pass the `onTap` prop to <ViroScene> instead.');
+      console.error('The <Viro360Image> component does not take on an `onTap` property. Pass the `onTap` prop to <ViroScene> instead.');
     }
 
     // Create native props object.
@@ -88,15 +88,15 @@ var Viro360Photo = React.createClass({
     nativeProps.onLoadEndViro = this._onLoadEnd;
 
     return (
-      <VRO360Photo {...nativeProps} />
+      <VRO360Image {...nativeProps} />
     );
   }
 });
 
-var VRO360Photo = requireNativeComponent(
-  'VRO360Photo', Viro360Photo, {
+var VRO360Image = requireNativeComponent(
+  'VRO360Image', Viro360Image, {
     nativeOnly: {onLoadStartViro: true, onLoadEndViro: true}
   }
 );
 
-module.exports = Viro360Photo;
+module.exports = Viro360Image;

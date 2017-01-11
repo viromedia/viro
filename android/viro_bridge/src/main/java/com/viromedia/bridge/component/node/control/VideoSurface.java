@@ -12,13 +12,12 @@ import com.viromedia.bridge.utility.ViroEvents;
 import com.viromedia.bridge.utility.ViroLog;
 
 public class VideoSurface extends Control {
-    private final float UNSET = -1f;
-    private float mWidth = UNSET;
-    private float mHeight = UNSET;
-    private boolean mPaused;
-    private boolean mLoop;
-    private boolean mMuted;
-    private float mVolume;
+    private float mWidth = 1;
+    private float mHeight = 1;
+    private boolean mPaused = false;
+    private boolean mLoop = false;
+    private boolean mMuted = false;
+    private float mVolume = 1;
     private String mSource;
     private SurfaceJni mSurfaceJni = null;
     private VideoTextureJni mVideoTextureJni = null;
@@ -41,7 +40,7 @@ public class VideoSurface extends Control {
     }
 
     private void resetVideo() {
-        if (mRenderContext == null || mWidth == UNSET || mHeight == UNSET || mSource == null) {
+        if (mRenderContext == null || mSource == null) {
             return;
         }
 

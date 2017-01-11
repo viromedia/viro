@@ -18,7 +18,7 @@ import {
   ViroScene,
   ViroBox,
   ViroDirectionalLight,
-  Viro360Photo,
+  Viro360Image,
   ViroMaterials,
   Viro3DObject,
   ViroAnimations,

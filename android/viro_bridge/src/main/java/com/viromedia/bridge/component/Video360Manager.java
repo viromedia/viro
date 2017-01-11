@@ -6,6 +6,7 @@ package com.viromedia.bridge.component;
 import android.support.annotation.Nullable;
 
 import com.facebook.react.bridge.ReactApplicationContext;
+import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.common.MapBuilder;
 import com.facebook.react.uimanager.ThemedReactContext;
@@ -57,6 +58,11 @@ public class Video360Manager extends ViroViewGroupManager<Video360> {
     @ReactProp(name = "source")
     public void setSource(Video360 view, @Nullable ReadableMap map) {
         view.setSource(map.getString("uri"));
+    }
+
+    @ReactProp(name = "rotation")
+    public void setRotation(Video360 view, ReadableArray rotation) {
+        view.setRotation(rotation);
     }
 
     @Override

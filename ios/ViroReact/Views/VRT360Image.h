@@ -1,5 +1,5 @@
 //
-//  VRT360Photo.h
+//  VRT360Image.h
 //  React
 //
 //  Created by Vik Advani on 3/3/16.
@@ -11,7 +11,7 @@
 #import "VRTControl.h"
 #import "VRTImageAsyncLoaderEventDelegate.h"
 
-@interface VRT360Photo : VRTControl<VRTImageAsyncLoaderEventDelegate>
+@interface VRT360Image : VRTControl<VRTImageAsyncLoaderEventDelegate>
 
 @property (nonatomic, copy) RCTImageSource *source;
 @property (nonatomic, copy) RCTDirectEventBlock onLoadStartViro;

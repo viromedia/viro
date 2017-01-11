@@ -1,5 +1,5 @@
 //
-//  VRT360Photo.m
+//  VRT360Image.m
 //  React
 //
 //  Created by Vik Advani on 3/3/16.
@@ -7,7 +7,7 @@
 //
 
 #import "VROUtils.h"
-#import "VRT360Photo.h"
+#import "VRT360Image.h"
 #import "RCTConvert.h"
 #import "RCTUtils.h"
 #import "VRTImageAsyncLoader.h"
@@ -18,7 +18,7 @@
 
 @end
 
-@implementation VRT360Photo {
+@implementation VRT360Image {
   std::shared_ptr<VROTexture> _sphereTexture;
   BOOL _sphereTextureAddedToScene;
   VRTImageAsyncLoader *_imageAsyncLoader;

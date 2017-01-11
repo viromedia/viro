@@ -26,7 +26,7 @@ import {
   ViroScene,
   ViroOmniLight,
   ViroImage,
-  Viro360Photo,
+  Viro360Image,
   ViroMaterials,
   ViroAnimations,
   ViroAnimatedComponent,
@@ -50,9 +50,9 @@ var AnimationTest = React.createClass({
     return (
      <ViroScene >
 
-        <Viro360Photo source={require('./res/360_diving.jpg')}  />
-        <ViroAnimatedComponent animation={this.state.mainAnimation} run={this.state.runAnimation} ref={MAINCARD_REF} loop={false} >
-            <ViroImage source={require('./res/card_main.png')} position={[0, -.5, -2]} scale={[.1, .1, .1]} />
+        <Viro360Image source={require('./res/360_diving.jpg')}  />
+        <ViroAnimatedComponent animation={mainAnimation} run={false} ref={MAINCARD_REF} >
+            <ViroImage materials={["cardmain"]} position={[0, -.5, -2]} scale={[.1, .1, .1]} onTap={this._onTapShowMain} />
         </ViroAnimatedComponent>
 
         <ViroAnimatedComponent animation={this.state.mainAnimation} run={this.state.runAnimation} ref={MAINCARDTWO_REF} loop={false} >

@@ -14,29 +14,29 @@ import com.viromedia.bridge.utility.ViroEvents;
 
 import java.util.Map;
 
-public class Photo360Manager extends ViroViewGroupManager<Photo360> {
+public class Image360Manager extends ViroViewGroupManager<Image360> {
 
-    public Photo360Manager(ReactApplicationContext context) {
+    public Image360Manager(ReactApplicationContext context) {
         super(context);
     }
 
     @Override
     public String getName() {
-        return "VRO360Photo";
+        return "VRO360Image";
     }
 
     @Override
-    protected Photo360 createViewInstance(ThemedReactContext reactContext) {
-        return new Photo360(getContext());
+    protected Image360 createViewInstance(ThemedReactContext reactContext) {
+        return new Image360(getContext());
     }
 
     @ReactProp(name = "source")
-    public void setSource(Photo360 view, ReadableMap source) {
+    public void setSource(Image360 view, ReadableMap source) {
         view.setSource(source);
     }
 
     @ReactProp(name = "rotation")
-    public void setRotation(Photo360 view, ReadableArray rotation) {
+    public void setRotation(Image360 view, ReadableArray rotation) {
         view.setRotation(rotation);
     }
 

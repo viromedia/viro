@@ -17,13 +17,15 @@ import com.viromedia.bridge.utility.ImageDownloadListener;
 import com.viromedia.bridge.utility.ImageDownloader;
 import com.viromedia.bridge.utility.ViroEvents;
 
-public class Photo360 extends Component {
+public class Image360 extends Component {
+    private static final float[] sDefaultRotation = {0, 0, 0};
+
     private ReadableMap mSourceMap;
     private float[] mRotation;
     private ImageJni mLatestImage;
     private TextureJni mLatestTexture;
 
-    public Photo360(ReactApplicationContext context) {
+    public Image360(ReactApplicationContext context) {
         super(context);
     }
 
@@ -32,9 +34,13 @@ public class Photo360 extends Component {
     }
 
     public void setRotation(ReadableArray rotation) {
-        float[] rotationArr = {(float) rotation.getDouble(0),
-                (float) rotation.getDouble(1), (float)rotation.getDouble(2)};
-        mRotation = rotationArr;
+        if (rotation == null) {
+            mRotation = sDefaultRotation;
+        } else {
+            float[] rotationArr = {(float) rotation.getDouble(0),
+                    (float) rotation.getDouble(1), (float) rotation.getDouble(2)};
+            mRotation = rotationArr;
+        }
     }
 
     @Override

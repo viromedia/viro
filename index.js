@@ -18,7 +18,7 @@ const ReactViro = {
   get ViroOrbitCamera() { return require('./components/ViroOrbitCamera'); },
   get ViroSphere() { return require('./components/ViroSphere'); },
   get ViroImage() { return require('./components/ViroImage'); },
-  get Viro360Photo() { return require('./components/Viro360Photo'); },
+  get Viro360Image() { return require('./components/Viro360Image'); },
   get ViroSkyBox() { return require('./components/ViroSkyBox'); },
   get Viro3DObject() { return require('./components/Viro3DObject'); },
   get ViroAnimatedComponent() { return require('./components/ViroAnimatedComponent'); },
