@@ -15,7 +15,7 @@
 #import "RCTBridge.h"
 #import "VRTImage.h"
 #import "VRTButton.h"
-#import "VRTLabel.h"
+#import "VRTText.h"
 #import "VRTVideoSurface.h"
 #import "VRTNodeContainer.h"
 
@@ -133,7 +133,7 @@
   VRTView *vrtView = (VRTView *)view;
   if ([vrtView isKindOfClass:[VRTImage class]] ||
           [vrtView isKindOfClass:[VRTButton class]] ||
-          [vrtView isKindOfClass:[VRTLabel class]] ||
+          [vrtView isKindOfClass:[VRTText class]] ||
           [vrtView isKindOfClass:[VRTFlexView class]] ||
           [vrtView isKindOfClass:[VRTVideoSurface class]] ||
           [vrtView isKindOfClass:[VRTAnimatedComponent class]]) {

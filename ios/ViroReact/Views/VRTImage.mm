@@ -7,7 +7,6 @@
 //
 
 #import "VRTImage.h"
-#import "VRTLabel.h"
 #import "RCTLog.h"
 #import "VROMaterialManager.h"
 #import "VRTImageAsyncLoader.h"

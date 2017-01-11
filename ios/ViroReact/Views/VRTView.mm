@@ -75,11 +75,11 @@ if([subview respondsToSelector:@selector(material)]) {
    viewWillAppear on insertion. Note if the scene has not yet appeared, then
    viewWillAppear will be run when it *does* appear (see VRTScene::sceneWillAppear).
    */
-  if (self.scene) {
+  
+  if (self.scene && self.driver && self.context) {
     view.context = self.context;
     view.driver = self.driver;
     view.scene = self.scene;
-    
     [view viewWillAppear];
   }
 }
@@ -116,7 +116,7 @@ if([subview respondsToSelector:@selector(material)]) {
     }
 }
 
--(void)viewWillDisappear{
+-(void)viewWillDisappear {
   for (id childView in _childViews) {
     VRTView *view = (VRTView *)childView;
     [view viewWillDisappear];

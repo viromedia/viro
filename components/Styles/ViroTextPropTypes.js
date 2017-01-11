@@ -12,69 +12,29 @@
  */
 'use strict';
 
-import ReactPropTypes from 'react';
-import ColorPropType from 'react-native';
 
-var ViroStylePropTypes = require('ViroPropTypes');
-
+var ColorPropType = require('react-native').ColorPropType;
+var ViroStylePropTypes = require('./ViroPropTypes');
+var PropTypes = require('react/lib/ReactPropTypes');
 
 var ViroTextStylePropTypes =  Object.assign(Object.create(ViroStylePropTypes), {
   color: ColorPropType,
-  backgroundColor: ColorPropType,
-  fontFamily: ReactPropTypes.string,
-  fontSize: ReactPropTypes.number,
-  fontStyle: ReactPropTypes.oneOf(['normal', 'italic']),
+  fontFamily: PropTypes.string,
+  fontSize: PropTypes.number,
+
   /**
-   * Specifies font weight. The values 'normal' and 'bold' are supported for
-   * most fonts. Not all fonts have a variant for each of the numeric values,
-   * in that case the closest one is chosen.
+   * Specifies text alignment.
    */
-  fontWeight: ReactPropTypes.oneOf(
-    ['normal' /*default*/, 'bold',
-     '100', '200', '300', '400', '500', '600', '700', '800', '900']
+  textAlign: PropTypes.oneOf(
+    [ 'left'/*default*/, 'right', 'center', 'justify']
   ),
-  textShadowOffset: ReactPropTypes.shape(
-    {width: ReactPropTypes.number, height: ReactPropTypes.number}
+
+  textAlignVertical: PropTypes.oneOf(
+    ['top' /*default*/, 'bottom', 'center']
   ),
-  textShadowRadius: ReactPropTypes.number,
-  textShadowColor: ColorPropType,
-  /**
-   * @platform ios
-   */
-  letterSpacing: ReactPropTypes.number,
-  lineHeight: ReactPropTypes.number,
-  /**
-   * Specifies text alignment. The value 'justify' is only supported on iOS and
-   * fallbacks to `left` on Android.
-   */
-  textAlign: ReactPropTypes.oneOf(
-    ['auto' /*default*/, 'left', 'right', 'center', 'justify']
-  ),
-  /**
-   * @platform android
-   */
-  textAlignVertical: ReactPropTypes.oneOf(
-    ['auto' /*default*/, 'top', 'bottom', 'center']
-  ),
-  textDecorationLine: ReactPropTypes.oneOf(
-    ['none' /*default*/, 'underline', 'line-through', 'underline line-through']
-  ),
-  /**
-   * @platform ios
-   */
-  textDecorationStyle: ReactPropTypes.oneOf(
-    ['solid' /*default*/, 'double', 'dotted','dashed']
-  ),
-  /**
-   * @platform ios
-   */
-  textDecorationColor: ColorPropType,
-  /**
-   * @platform ios
-   */
-  writingDirection: ReactPropTypes.oneOf(
-    ['auto' /*default*/, 'ltr', 'rtl']
-  ),
+
+  textClipMode: PropTypes.oneOf(['none', 'cliptobounds']),
+  textLineBreakMode: PropTypes.oneOf(['wordwrap','charwrap','justify','none'])
 });
 
 module.exports = ViroTextStylePropTypes;

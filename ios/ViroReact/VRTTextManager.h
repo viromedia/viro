@@ -1,5 +1,5 @@
 //
-//  VROLabelManager.h
+//  VRTTextManager.h
 //  React
 //
 //  Created by Vik Advani on 1/13/16.
@@ -9,6 +9,6 @@
 #import <Foundation/Foundation.h>
 #import "ViroViewManager.h"
 
-@interface VROTextManager : ViroViewManager
+@interface VRTTextManager : ViroViewManager
 
 @end

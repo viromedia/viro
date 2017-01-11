@@ -23,7 +23,9 @@ import {
   Viro3DObject,
   ViroAnimations,
   ViroImage,
+  ViroText,
   ViroAnimatedComponent,
+  Viro360Video,
 } from 'react-viro';
 
 var scene_ios_test = React.createClass({
@@ -31,21 +33,36 @@ var scene_ios_test = React.createClass({
     return (
         <ViroScene>
             <ViroDirectionalLight color="#ffffff" direction={[0, 0, -1.0]} />
-            <Viro360Photo source={{uri: "http://c5.staticflickr.com/8/7472/15972826220_d3c90c1fc9_h.jpg"}} rotation={[0,0,0]} />
-
-            <Viro3DObject source={require('./js/res/male02.obj')}
+            <Viro360Video source={{uri: "https://s3-us-west-2.amazonaws.com/viro/360_surf.mp4"}} onLoadStart={this._onLoadStart("Start")} onLoadEnd={this._onLoadEnd("End")} rotation={[0,0,0]} />
+          <ViroText style={styles.baseText} position={[0,0, -8]} text="Testing!!!" />
+          <ViroImage width={5.0} height={10.0} position={[6, .1, -8.1]} rotation={[0, 0, 0]} source={{uri: "http://wiki.magicc.org/images/c/ce/MAGICC_logo_small.jpg"}} />
+          <ViroText style={{fontFamily: 'Helvetica-Bold', fontSize:10, textAlign:'center', textAlignVertical:'bottom', textClipMode:'cliptobounds', color:'#ff0000'}} text="Canada is the NYTimes place to visit this year. With it's beautiful cities and epic landscapes, our neighbor up north is full of splendor and adventure. Plus their president is cool :)."  width={5.0} height={10.0} position={[6, .1, -8]} rotation={[0, 0, 0]} />
+          <ViroText style={{fontFamily: 'Helvetica-Bold', fontSize:12, textAlign:'left'}} text="Rotated Bold underlined Helvetica up in here!" width={5.0} position={[-3, .1, -8]} rotation={[0, -25, 0]} />
+          <ViroText style={styles.baseText} position={[0,-1, -8]} text="Longer text that is within 1 thingy" />
+          <ViroText style={styles.baseTextTwo} width={10.0} position={[0,1.5, -8]} text="Testing same text different width and length up in here. Know what I mean?" />
+          <Viro3DObject source={require('./res/male02.obj')}
                           position={[-0.0, -100, -10]}
                           scale={[0.1, 0.1, 0.1]}
                            />
 
-            <ViroAnimatedComponent animation="animateImage" run={true} loop={true} delay={3000}>
-              <ViroImage source={require('./js/res/card_main.png')} height={2} width={4}
+              <ViroImage source={require('./res/card_main.png')} height={2} width={4}
                          position={[0, 0, -5]}
                          scale={[0.1, 0.1, 0.1]} />
-            </ViroAnimatedComponent>
+
         </ViroScene>
     );
-  }
+  },
+  _onLoadStart(startText) {
+    return () => {
+      console.log("360 photo started");
+    }
+  },
+
+  _onLoadEnd(endText) {
+    return () => {
+      console.log("360 photo ended");
+    }
+  },
 });
 
 const styles = StyleSheet.create({
@@ -65,6 +82,16 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#333333',
     marginBottom: 5,
+  },
+  baseText: {
+      fontFamily: 'Courier',
+      fontSize: 20,
+      color: '#ffff00',
+  },
+  baseTextTwo: {
+      fontFamily: 'Arial',
+      fontSize: 12,
+      color: '#ffffff',
   },
 });
 

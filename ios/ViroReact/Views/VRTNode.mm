@@ -15,7 +15,7 @@
 #import "RCTConvert.h"
 #import "VRTNode.h"
 #import "VRTFlexView.h"
-#import "VRTLabel.h"
+#import "VRTText.h"
 #import "VROUtils.h"
 #import "VRTAnimatedComponent.h"
 #import "VROMaterialManager.h"
