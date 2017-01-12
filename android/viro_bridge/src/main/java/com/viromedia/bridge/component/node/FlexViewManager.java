@@ -4,6 +4,7 @@
 package com.viromedia.bridge.component.node;
 
 
+import android.graphics.Color;
 import android.util.Log;
 
 import com.facebook.react.bridge.ReactApplicationContext;
@@ -35,8 +36,8 @@ public class FlexViewManager extends NodeManager<FlexView> {
         view.setHeight(height);
     }
 
-    @ReactProp(name = "backgroundColor")
-    public void setBackgroundColor(FlexView view, int color) {
-        view.setBackgroundColor(color);
+    @ReactProp(name = "backgroundColor", defaultDouble = Color.TRANSPARENT)
+    public void setBackgroundColor(FlexView view, double color) {
+        view.setBackgroundColor((long) color);
     }
 }

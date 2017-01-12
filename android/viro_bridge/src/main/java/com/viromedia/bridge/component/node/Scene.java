@@ -63,6 +63,10 @@ public class Scene extends Node implements SceneJni.SceneDelegate {
         mNativeScene.setBackgroundCubeImageTexture(texture);
     }
 
+    public void setBackgroundCubeWithColor(long color) {
+        mNativeScene.setBackgroundCubeWithColor(color);
+    }
+
     @Override
     public void addView(View child, int index) {
         super.addView(child, index);

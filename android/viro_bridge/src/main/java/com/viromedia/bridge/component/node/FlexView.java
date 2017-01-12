@@ -9,19 +9,19 @@ import com.viro.renderer.jni.MaterialJni;
 import com.viro.renderer.jni.SurfaceJni;
 
 import java.util.List;
+
+import android.graphics.Color;
 import android.util.AttributeSet;
 import com.facebook.react.bridge.ReactApplicationContext;
 
 public class FlexView extends Node {
-    private static final int COLOR_NOT_SET = -1;
-    private static final int TRANSPARENT_COLOR = 0;
     private static final String DIFFUSE_COLOR_NAME  = "diffuseColor";
 
     // in accordance with how React Views behave. If you don't set a height/width on a FlexView then
     // it's width/height is 0.
     private float mWidth = 0;
     private float mHeight = 0;
-    private int mBackgroundColor = -1;
+    private long mBackgroundColor = Color.TRANSPARENT;
 
     private final MaterialJni mDefaultMaterial;
     private SurfaceJni mNativeSurface;
@@ -30,7 +30,7 @@ public class FlexView extends Node {
     public FlexView(ReactApplicationContext context) {
         super(context);
         mDefaultMaterial = new MaterialJni();
-        mDefaultMaterial.setColor(TRANSPARENT_COLOR, DIFFUSE_COLOR_NAME);
+        mDefaultMaterial.setColor(Color.TRANSPARENT, DIFFUSE_COLOR_NAME);
         mDefaultMaterial.setWritesToDepthBuffer(true);
         mDefaultMaterial.setReadsFromDepthBuffer(true);
     }
@@ -43,7 +43,7 @@ public class FlexView extends Node {
         mHeight = height;
     }
 
-    public void setBackgroundColor(int color) {
+    public void setBackgroundColor(long color) {
         mBackgroundColor = color;
         setBackgroundOnSurface();
     }
@@ -55,11 +55,7 @@ public class FlexView extends Node {
     @Override
     protected void setMaterials(List<MaterialJni> materials) {
         mMaterials = materials;
-
-        if (mBackgroundColor != COLOR_NOT_SET) {
-            // only set background on surface if a color isn't set.
-            setBackgroundOnSurface();
-        }
+        setBackgroundOnSurface();
     }
 
     /**
@@ -143,7 +139,7 @@ public class FlexView extends Node {
             return;
         }
 
-        if (mBackgroundColor != COLOR_NOT_SET) {
+        if (mBackgroundColor != Color.TRANSPARENT) {
             // destroy the old color material
             if (mNativeColorMaterial != null) {
                 mNativeColorMaterial.destroy();

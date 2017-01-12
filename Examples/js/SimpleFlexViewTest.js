@@ -22,10 +22,6 @@ import {
   ViroNode,
   ViroOrbitCamera,
   ViroCamera,
-  ViroAmbientLight,
-  ViroOmniLight,
-  ViroSpotLight,
-  ViroDirectionalLight,
   ViroImage,
   ViroVideo,
   Viro360Image,
@@ -41,23 +37,20 @@ import {
 let polarToCartesian = ViroUtils.polarToCartesian;
 
 var FlexViewTest = React.createClass({
-  getInitialState: function() {
-    return {addLight: false};
-  },
   render: function() {
+    console.log("kirby", "in here!");
     return (
-      <ViroScene reticleEnabled={true} onTap={this._addRemoveLight}>
-      	{this._addGetLight()}
-        <ViroBox materials="box_material" position={[-2, 0, -3]} scale={[2,2,2]}/>
-      
+      <ViroScene reticleEnabled={true} >
+
         <ViroSkyBox color="#ff69b4" />
 
-        <ViroVideo source={{uri: "https://s3.amazonaws.com/viro.video/Climber2Top.mp4"}} position={[0,-1, -1]} />
+        <ViroImage style={{flex:1}} source={{uri: "http://wiki.magicc.org/images/c/ce/MAGICC_logo_small.jpg"}}
+          onLoadStart={this._onLoadStart("Image")} onLoadEnd={this._onLoadEnd("Image")} position={[0,0,-3]} scale={[4,4,0]}/>
 
-        <ViroFlexView style={styles.containerVertical} position={polarToCartesian([2, 0, 30])} width={3} height={2}>
+        <ViroFlexView style={styles.containerVertical} position={polarToCartesian([2, 0, 0])} width={3} height={2} opacity={1}>
           <ViroFlexView style={styles.containerInner} >
             <ViroSurface style={{flex:1}} materials={["redColor"]} />
-            <ViroImage style={{flex:1}} source={{uri: "http://wiki.magicc.org/images/c/ce/MAGICC_logo_small.jpg"}}
+            <ViroImage style={{flex:1}} source ={require("./res/sun_2302.jpg")}
               onLoadStart={this._onLoadStart("Image")} onLoadEnd={this._onLoadEnd("Image")} />
           </ViroFlexView>
           <ViroFlexView style={styles.containerInner} >
@@ -65,20 +58,6 @@ var FlexViewTest = React.createClass({
               onLoadStart={this._onLoadStart("Image")} onLoadEnd={this._onLoadEnd("Image")} />
           </ViroFlexView>
         </ViroFlexView>
-
-        <ViroFlexView style={styles.containerHorizontal} position={[2, 0, 0]} width={3} height={2} transformBehaviors={"billboard"} >
-          <ViroImage style={{flex:1}} source={{uri: "http://wiki.magicc.org/images/c/ce/MAGICC_logo_small.jpg"}} />
-          <ViroImage style={{flex:1}} source={{uri: "http://wiki.magicc.org/images/c/ce/MAGICC_logo_small.jpg"}} />
-        </ViroFlexView>
-      
-        <ViroFlexView style={styles.containerHorizontal} position={[-2, 0, 0]} width={3} height={2} transformBehaviors={"billboard"} >
-          <ViroFlexView style={{flex:1, backgroundColor: "#ff0000",}} />
-          <ViroFlexView style={{flex:1}} materials={"sunTexture"} />
-        </ViroFlexView>
-
-        <ViroAnimatedComponent animation="rotateAndMovePicture" run={true} loop={false} onFinish={this._onAnimationFinished}>
-          <ViroImage source={{uri: "http://wiki.magicc.org/images/c/ce/MAGICC_logo_small.jpg"}} position={[1, -1, -4]} scale={[.5, .5, .5]} />
-        </ViroAnimatedComponent>
 
       </ViroScene>
     );
@@ -104,19 +83,6 @@ var FlexViewTest = React.createClass({
   _onAnimationFinished(){
     console.log("AnimationTest on Animation Finished!");
   },
-  _addRemoveLight(component) {
-    console.log("remove light called");
-    this.setState({
-      addLight: !this.state.addLight,
-    });
-  },
-  _addGetLight(component){
-    if (this.state.addLight) {
-      return (<ViroAmbientLight color="#ffff00"/>);
-    } else {
-     return;  
-    }
-  }
 });
 
 const styles = StyleSheet.create({
@@ -158,11 +124,6 @@ ViroMaterials.createMaterials({
     lightingModel: "Constant",
     diffuseTexture: require('./res/card_petite_ansu.png'),
   },
-  box_material: {
-    shininess: 2.0,
-    lightingModel: "Blinn",
-    diffuseColor: "#ffffff"  
-  }
 });
 
 ViroAnimations.registerAnimations({

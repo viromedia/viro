@@ -21,20 +21,28 @@ import java.util.Map;
 import java.util.concurrent.CountDownLatch;
 
 public class SkyBox extends Component {
+    private static final long COLOR_NOT_SET = 0;
+
     private final ReactApplicationContext mContext;
     private ReadableMap mSourceMap;
     private Map<String, ImageJni> mImageJniMap = new HashMap<>();
     private TextureJni mLatestTexture;
     private ImageDownloader mImageDownloader;
+    private long mColor;
 
     public SkyBox(ReactApplicationContext context) {
         super(context);
         mContext = context;
         mImageDownloader = new ImageDownloader(getContext());
+        mColor = COLOR_NOT_SET;
     }
 
     public void setSource(ReadableMap source) {
         mSourceMap = source;
+    }
+
+    public void setColor(long color) {
+        mColor = color;
     }
 
     @Override
@@ -53,6 +61,10 @@ public class SkyBox extends Component {
                 if (type.name().equals(ReadableType.Map.name())) {
                     getImageForCubeFace(key, mSourceMap.getMap(key), latch);
                 }
+            }
+        } else if (mColor != COLOR_NOT_SET) {
+            if (mScene != null) {
+                mScene.setBackgroundCubeWithColor(mColor);
             }
         }
     }
@@ -107,8 +119,9 @@ public class SkyBox extends Component {
     public void setScene(Scene scene) {
         super.setScene(scene);
         if (mLatestTexture != null) {
-
             mScene.setBackgroundCubeImageTexture(mLatestTexture);
+        } else if (mColor != COLOR_NOT_SET) {
+            mScene.setBackgroundCubeWithColor(mColor);
         }
     }
 

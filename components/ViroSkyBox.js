@@ -11,31 +11,16 @@
  */
 'use strict';
 
-import { requireNativeComponent, View, StyleSheet } from 'react-native';
+import { requireNativeComponent, View, StyleSheet, Platform } from 'react-native';
 import React, { Component } from 'react';
 import resolveAssetSource from "react-native/Libraries/Image/resolveAssetSource";
-
+import normalizeColor from "react-native/Libraries/StyleSheet/normalizeColor"
 var NativeMethodsMixin = require('react/lib/NativeMethodsMixin');
 var NativeModules = require('react-native').NativeModules;
 
-/*
-import {
-   requireNativeComponent,
-   View,
-   StyleSheet,
-   NativeModules,
-   resolveAssetSource
-} from 'react-native';
-
-import 
-  React,
-  {
-    NativeMethodsMixin,
-  }
-from 'react';
-*/
 var PropTypes = require('react/lib/ReactPropTypes');
 var CubeMapPropType = require('./Material/CubeMapPropType');
+
 
 /**
  * Used to render a skybox as a scene background.
@@ -49,11 +34,10 @@ var ViroSkybox = React.createClass({
      * The source cube map. Either this or a color must be specified.
      */
     source: CubeMapPropType,
-
-    /**
-     * TODO VIRO-621 Add support for color prop type
-     */
-    color: PropTypes.string,
+    color: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number
+    ]),
 
     /**
      * Callback triggered when we are processing the assets to be
@@ -97,30 +81,33 @@ var ViroSkybox = React.createClass({
       console.error('The <Viro360Photo> component does not take on an `onTap` property. Pass the `onTap` prop to <ViroScene> instead.');
     }
 
+    // Create and set the native props.
+    var skyboxDict = {};
+    let nativeProps = Object.assign({}, this.props);
 
     if (this.props.source !== undefined) {
-      var skyboxDict = {};
-
       for (var key in this.props.source) {
         var s = resolveAssetSource(this.props.source[key]);
         skyboxDict[key] = s;
       }
-
-      // Create native props object.
-      let nativeProps = Object.assign({}, this.props);
       nativeProps.source = skyboxDict;
-      nativeProps.onViroSkyBoxLoadStart = this._onLoadStart;
-      nativeProps.onViroSkyBoxLoadEnd = this._onLoadEnd;
+    }
 
-      return (
-        <VRTSkybox {...nativeProps}/>
-      );
+    nativeProps.onViroSkyBoxLoadStart = this._onLoadStart;
+    nativeProps.onViroSkyBoxLoadEnd = this._onLoadEnd;
+
+    let rgba = normalizeColor(this.props.color);
+    let argb = ((rgba & 0xff) << 24) | (rgba >> 8);
+    // iOS takes color in the form rgba, Android takes argb
+    if (Platform.OS === 'ios') {
+      nativeProps.color = rgba;
+    } else if (Platform.OS === 'android') {
+      nativeProps.color = argb;
     }
-    else {
-      return (
-        <VRTSkybox {...this.props} />
-      )
-    }
+
+    return (
+      <VRTSkybox {...nativeProps}/>
+    );
   }
 });
 

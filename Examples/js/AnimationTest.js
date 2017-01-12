@@ -51,7 +51,7 @@ var AnimationTest = React.createClass({
      <ViroScene >
 
         <Viro360Image source={require('./res/360_diving.jpg')}  />
-        <ViroAnimatedComponent animation={mainAnimation} run={false} ref={MAINCARD_REF} >
+        <ViroAnimatedComponent animation={this.state.mainAnimation} run={false} ref={MAINCARD_REF} >
             <ViroImage materials={["cardmain"]} position={[0, -.5, -2]} scale={[.1, .1, .1]} onTap={this._onTapShowMain} />
         </ViroAnimatedComponent>
 

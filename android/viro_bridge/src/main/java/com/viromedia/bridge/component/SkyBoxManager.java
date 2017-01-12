@@ -33,6 +33,14 @@ public class SkyBoxManager extends ViroViewGroupManager<SkyBox> {
         view.setSource(source);
     }
 
+    /**
+     * Color is expecting a double because ReactNative doesn't support a long prop type
+     */
+    @ReactProp(name = "color", defaultDouble = 0)
+    public void setColor(SkyBox view, double color) {
+        view.setColor((long) color);
+    }
+
     protected final static String SKYBOX_LOAD_START = "onViroSkyBoxLoadStart";
     protected final static String SKYBOX_LOAD_END = "onViroSkyBoxLoadEnd";
 
