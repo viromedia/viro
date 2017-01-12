@@ -354,7 +354,7 @@ RCT_EXPORT_METHOD(setJSMaterials:(NSDictionary *)materialsDict)
   if(materialWrapper != nil){
     return [materialWrapper getMaterial];
   }
-  return NULL;
+  return nil;
 }
 
 - (NSDictionary *)getVideoTexturesForMaterialName:(NSString *)name {
@@ -362,7 +362,7 @@ RCT_EXPORT_METHOD(setJSMaterials:(NSDictionary *)materialsDict)
   if(materialWrapper != nil){
     return [materialWrapper getVideoTextures];
   }
-  return NULL;
+  return nil;
 }
 
 @end

@@ -29,7 +29,8 @@ import {
   ViroFlexView,
   ViroUtils,
   ViroAnimations,
-  ViroAnimatedComponent
+  ViroAnimatedComponent,
+  ViroSurface,
 } from 'react-viro';
 
 let polarToCartesian = ViroUtils.polarToCartesian;
@@ -43,8 +44,7 @@ var FlexViewTest = React.createClass({
 
         <ViroFlexView style={styles.containerVertical} position={polarToCartesian([2, 0, 30])} width={3} height={2}>
           <ViroFlexView style={styles.containerInner} >
-            <ViroImage style={{flex:1}} source={{uri: "http://wiki.magicc.org/images/c/ce/MAGICC_logo_small.jpg"}}
-              onLoadStart={this._onLoadStart("Image")} onLoadEnd={this._onLoadEnd("Image")} />
+            <ViroSurface style={{flex:1}} materials={["redColor"]} />
             <ViroImage style={{flex:1}} source={{uri: "http://wiki.magicc.org/images/c/ce/MAGICC_logo_small.jpg"}}
               onLoadStart={this._onLoadStart("Image")} onLoadEnd={this._onLoadEnd("Image")} />
           </ViroFlexView>
@@ -124,6 +124,9 @@ const styles = StyleSheet.create({
 ViroMaterials.createMaterials({
   sunTexture: {
     diffuseTexture: require("./res/sun_2302.jpg"),
+  },
+  redColor: {
+    diffuseColor: "#ff0000"
   },
   cardpetite: {
     shininess : 1.0,

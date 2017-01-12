@@ -39,12 +39,14 @@ static float const kDefaultHeight = 1;
   return self;
 }
 
+/**
+ * Override the VRTNode's setMaterial because we only want to set a material
+ * iff a source was set. So don't call super below.
+ */
 - (void)setMaterials:(NSArray<NSString *> *)materialArray {
-  [super setMaterials:materialArray];
-
   if([materialArray count] >= 1) {
     VROMaterialManager *materialManager = [self.bridge materialManager];
-    _defaultMaterial =  [materialManager getMaterialByName:materialArray[0]];
+    _defaultMaterial = [materialManager getMaterialByName:materialArray[0]];
   }
   _materialAddedToScene = YES;
 }

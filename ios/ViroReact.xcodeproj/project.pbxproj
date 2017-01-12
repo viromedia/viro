@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8A31CFA41E27047100550CFE /* VRTSurfaceManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8A31CFA31E27047100550CFE /* VRTSurfaceManager.mm */; };
+		8A31CFB41E2705EC00550CFE /* VRTSurface.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8A31CFB31E2705EC00550CFE /* VRTSurface.mm */; };
 		8BE0D4981DFA15880032AB99 /* ViroUIManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8BE0D4661DFA15880032AB99 /* ViroUIManager.mm */; };
 		8BE0D4991DFA15880032AB99 /* ViroViewManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8BE0D4681DFA15880032AB99 /* ViroViewManager.mm */; };
 		8BE0D49A1DFA15880032AB99 /* VRO360ImageManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8BE0D46A1DFA15880032AB99 /* VRO360ImageManager.mm */; };
@@ -92,6 +94,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		8A31CFA21E27047100550CFE /* VRTSurfaceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VRTSurfaceManager.h; path = ViroReact/VRTSurfaceManager.h; sourceTree = "<group>"; };
+		8A31CFA31E27047100550CFE /* VRTSurfaceManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = VRTSurfaceManager.mm; path = ViroReact/VRTSurfaceManager.mm; sourceTree = "<group>"; };
+		8A31CFB21E2705EC00550CFE /* VRTSurface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VRTSurface.h; path = ViroReact/Views/VRTSurface.h; sourceTree = "<group>"; };
+		8A31CFB31E2705EC00550CFE /* VRTSurface.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = VRTSurface.mm; path = ViroReact/Views/VRTSurface.mm; sourceTree = "<group>"; };
 		8BDD9D9E1E09F39B00A42870 /* Pods.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Pods.xcodeproj; path = Pods/Pods.xcodeproj; sourceTree = "<group>"; };
 		8BE0D4541DFA0D050032AB99 /* libViroReact.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libViroReact.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		8BE0D4651DFA15880032AB99 /* ViroUIManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ViroUIManager.h; path = ViroReact/ViroUIManager.h; sourceTree = "<group>"; };
@@ -268,6 +274,8 @@
 				8BE0D46D1DFA15880032AB99 /* VRTAnimatedComponentManager.h */,
 				8BE0D46E1DFA15880032AB99 /* VRTAnimatedComponentManager.mm */,
 				8BE0D46F1DFA15880032AB99 /* VRTBoxManager.h */,
+				8A31CFA21E27047100550CFE /* VRTSurfaceManager.h */,
+				8A31CFA31E27047100550CFE /* VRTSurfaceManager.mm */,
 				8BE0D4701DFA15880032AB99 /* VRTBoxManager.mm */,
 				8BE0D4711DFA15880032AB99 /* VROButtonManager.h */,
 				8BE0D4721DFA15880032AB99 /* VROButtonManager.mm */,
@@ -389,6 +397,8 @@
 				8BE0D4EC1DFA3D9B0032AB99 /* VRTSkybox.mm */,
 				8BE0D4ED1DFA3D9B0032AB99 /* VRTSphere.h */,
 				8BE0D4EE1DFA3D9B0032AB99 /* VRTSphere.mm */,
+				8A31CFB21E2705EC00550CFE /* VRTSurface.h */,
+				8A31CFB31E2705EC00550CFE /* VRTSurface.mm */,
 				8BE0D4EF1DFA3D9B0032AB99 /* VRTVideoSurface.h */,
 				8BE0D4F01DFA3D9B0032AB99 /* VRTVideoSurface.mm */,
 				8BE0D4F11DFA3D9B0032AB99 /* VRTView.h */,
@@ -452,7 +462,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0730;
-				ORGANIZATIONNAME = "Vik Advani";
+				ORGANIZATIONNAME = "Viro Media";
 				TargetAttributes = {
 					8BE0D4531DFA0D050032AB99 = {
 						CreatedOnToolsVersion = 7.3;
@@ -555,6 +565,7 @@
 				8BE0D5001DFA3D9B0032AB99 /* VRTHUDComponent.mm in Sources */,
 				8BE0D4981DFA15880032AB99 /* ViroUIManager.mm in Sources */,
 				8BE0D4FF1DFA3D9B0032AB99 /* VRTHUD.mm in Sources */,
+				8A31CFA41E27047100550CFE /* VRTSurfaceManager.mm in Sources */,
 				8BE0D5081DFA3D9B0032AB99 /* VRTOrbitCamera.mm in Sources */,
 				8BE0D4AC1DFA15880032AB99 /* VRTOrbitCameraManager.mm in Sources */,
 				8BE0D5011DFA3D9B0032AB99 /* VRTImage.mm in Sources */,
@@ -573,6 +584,7 @@
 				8BE0D4A41DFA15880032AB99 /* VRTTextManager.mm in Sources */,
 				8BE0D5021DFA3D9B0032AB99 /* VRTText.mm in Sources */,
 				8BE0D5261DFA3DEA0032AB99 /* VRTTreeNode.m in Sources */,
+				8A31CFB41E2705EC00550CFE /* VRTSurface.mm in Sources */,
 				8BE0D49E1DFA15880032AB99 /* VROButtonManager.mm in Sources */,
 				8BE0D5101DFA3D9B0032AB99 /* VRTVideoSurface.mm in Sources */,
 				8BE0D5061DFA3D9B0032AB99 /* VRTNodeContainer.mm in Sources */,

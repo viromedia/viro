@@ -18,6 +18,7 @@
 #import "VRTText.h"
 #import "VRTVideoSurface.h"
 #import "VRTNodeContainer.h"
+#import "VRTSurface.h"
 
 @implementation VRTFlexView {
   std::shared_ptr<VROSurface> _surface;
@@ -136,7 +137,8 @@
           [vrtView isKindOfClass:[VRTText class]] ||
           [vrtView isKindOfClass:[VRTFlexView class]] ||
           [vrtView isKindOfClass:[VRTVideoSurface class]] ||
-          [vrtView isKindOfClass:[VRTAnimatedComponent class]]) {
+          [vrtView isKindOfClass:[VRTAnimatedComponent class]] ||
+          [vrtView isKindOfClass:[VRTSurface class]]) {
     [super insertReactSubview:view atIndex:index];
   } else {
     RCTLogError(@"ERROR: Only 2D components are allowed in a Flex View container: %@", NSStringFromClass([view class]));

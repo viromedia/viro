@@ -54,7 +54,7 @@ public class Image extends Control {
     public void setWidth(float width) {
         mWidth = width;
         mGeometryNeedsUpdate = true;
-}
+    }
 
     public void setHeight(float height) {
         mHeight = height;

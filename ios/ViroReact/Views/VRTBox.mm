@@ -25,24 +25,24 @@
 }
 
 -(void)setWidth:(float)width {
-  if (width <= 0) {
-    RCTLogError(@"Box width must be greater than 0");
+  if (width < 0) {
+    RCTLogError(@"Box width must be >= 0");
   }
   _width = width;
   [self updateGeometry];
 }
 
 -(void)setHeight:(float)height {
-  if (height <= 0) {
-    RCTLogError(@"Box height must be greater than 0");
+  if (height < 0) {
+    RCTLogError(@"Box height must be >= 0");
   }
   _height = height;
   [self updateGeometry];
 }
 
 -(void)setLength:(float)length {
-  if (length <= 0) {
-    RCTLogError(@"Box length must be greater than 0");
+  if (length < 0) {
+    RCTLogError(@"Box length must be >= 0");
   }
   _length = length;
   [self updateGeometry];

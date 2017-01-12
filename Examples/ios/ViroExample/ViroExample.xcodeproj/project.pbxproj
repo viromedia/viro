@@ -446,7 +446,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0730;
-				ORGANIZATIONNAME = "Vik Advani";
+				ORGANIZATIONNAME = "Viro Media";
 				TargetAttributes = {
 					8BE0D4141DF9DCFE0032AB99 = {
 						CreatedOnToolsVersion = 7.3;

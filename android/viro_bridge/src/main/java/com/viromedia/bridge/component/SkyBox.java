@@ -127,11 +127,11 @@ public class SkyBox extends Component {
             mLatestTexture.destroy();
         }
 
+        mLatestTexture = new TextureJni(mImageJniMap.get("px"), mImageJniMap.get("nx"),
+                mImageJniMap.get("py"), mImageJniMap.get("ny"),
+                mImageJniMap.get("pz"), mImageJniMap.get("nz"));
 
         if (mScene != null) {
-            mLatestTexture = new TextureJni(mImageJniMap.get("px"), mImageJniMap.get("nx"),
-                    mImageJniMap.get("py"), mImageJniMap.get("ny"),
-                    mImageJniMap.get("pz"), mImageJniMap.get("nz"));
             mScene.setBackgroundCubeImageTexture(mLatestTexture);
         }
         mContext.getJSModule(RCTEventEmitter.class).receiveEvent(

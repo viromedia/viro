@@ -41,7 +41,7 @@ var ViroImage = React.createClass({
       }),
       // Opaque type returned by require('./image.jpg')
       PropTypes.number,
-    ]),
+    ]).isRequired,
 
     /**
      * The position of the card
