@@ -17,6 +17,8 @@
 @property (nonatomic, assign) BOOL loop;
 @property (nonatomic, assign) BOOL muted;
 @property (nonatomic, assign) float volume;
+@property (nonatomic, assign) float width;
+@property (nonatomic, assign) float height;
 @property (nonatomic, copy, nullable) RCTDirectEventBlock onFinishViro;
 
 - (instancetype)initWithBridge:(RCTBridge *)bridge;

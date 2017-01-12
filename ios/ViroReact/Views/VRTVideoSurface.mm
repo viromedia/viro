@@ -12,7 +12,8 @@
 #import "VROUtils.h"
 
 @implementation VRTVideoSurface{
-  std::shared_ptr<VROVideoSurface> _surface;
+  std::shared_ptr<VROSurface> _surface;
+  std::shared_ptr<VROVideoTexture> _videoTexture;
   BOOL _didUpdateSurface;
 }
 
@@ -23,54 +24,67 @@
     _loop = NO;
     _volume = 1;
     _paused = NO;
+    _width = 1;
+    _height = 1;
     _didUpdateSurface = NO;
   }
   return self;
 }
 
 - (void)seekToTime:(NSInteger)time {
-  if (_surface) {
-    _surface->seekToTime(time);
+  if (_videoTexture) {
+    _videoTexture->seekToTime(time);
   }
 }
 
 - (void)setPaused:(BOOL)paused {
   _paused = paused;
   if (_surface) {
-    _paused ? _surface->pause() : _surface->play();
+    _paused ? _videoTexture->pause() : _videoTexture->play();
   }
 }
 
 - (void)setLoop:(BOOL)loop {
   _loop = loop;
-  if (_surface) {
-    _surface->setLoop(loop);
+  if (_videoTexture) {
+    _videoTexture->setLoop(loop);
     // If we're not paused, call play again because we could get into the state
     // where we're at the end of a video w/ loop false, if the user sets it to
     // loop true, setPaused could get called first before setLoop and it wont play
     if (!_paused) {
-      _surface->play();
+      _videoTexture->play();
     }
   }
 }
 
 - (void)setMuted:(BOOL)muted {
   _muted = muted;
-  if (_surface) {
-    _surface->setMuted(muted);
+  if (_videoTexture) {
+    _videoTexture->setMuted(muted);
   }
 }
 
 - (void)setVolume:(float)volume {
   _volume = volume;
-  if (_surface) {
-    _surface->setVolume(volume);
+  if (_videoTexture) {
+    _videoTexture->setVolume(volume);
   }
 }
 
 - (void)setSource:(NSDictionary *)source {
   _source = source;
   _didUpdateSurface = NO;
+  [self updateSurface];
+}
+
+-(void)setWidth:(float)width {
+  _width = width;
+  [self updateSurface];
+  
+}
+
+-(void)setHeight:(float)height {
+  _height = height;
   [self updateSurface];
 }
 
@@ -87,22 +101,21 @@
   NSURL *videoURL = imageSource.request.URL;
   std::string url = std::string([[videoURL description] UTF8String]);
   
-  std::shared_ptr<VROVideoTexture> videoTexture = std::make_shared<VROVideoTextureiOS>();
-  _surface = VROVideoSurface::createVideoSurface(1, 1, url,
-                                                 self.context->getFrameSynchronizer(),
-                                                 videoTexture, *self.driver);
-  _surface->getMaterials().front()->setReadsFromDepthBuffer(false);
+  _videoTexture = std::make_shared<VROVideoTextureiOS>();
+  _surface = VROSurface::createSurface(_width, _height);
+  _videoTexture->loadVideo(url, self.context->getFrameSynchronizer(), *self.driver);
   
+  _surface->getMaterials().front()->getDiffuse().setTexture(_videoTexture);
   if (self.paused) {
-    _surface->pause();
+    _videoTexture->pause();
   } else {
-    _surface->play();
+    _videoTexture->play();
   }
 
-  _surface->setVolume(self.volume);
-  _surface->setMuted(self.muted);
-  _surface->setLoop(self.loop);
-  _surface->setDelegate(std::make_shared<VROVideoDelegateiOS>(self));
+  _videoTexture->setVolume(self.volume);
+  _videoTexture->setMuted(self.muted);
+  _videoTexture->setLoop(self.loop);
+  _videoTexture->setDelegate(std::make_shared<VROVideoDelegateiOS>(self));
   
   [self node]->setGeometry(_surface);
 }
@@ -111,10 +124,9 @@
   [self updateSurface];
 }
 
-
 - (void)viewWillDisappear {
-  if (_surface) {
-    _surface->pause();
+  if (_videoTexture) {
+    _videoTexture->pause();
   }
 }
 
