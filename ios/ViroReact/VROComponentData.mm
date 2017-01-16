@@ -380,7 +380,7 @@ break; \
   }
   
   [props enumerateKeysAndObjectsUsingBlock:^(NSString *key, id json, __unused BOOL *stop) {
-    [self propBlockForKey:key inDictionary:self->_shadowPropBlocks](shadowView, json);
+    //[self propBlockForKey:key inDictionary:self->_shadowPropBlocks](shadowView, json);
   }];
   
   if ([shadowView respondsToSelector:@selector(didSetProps:)]) {

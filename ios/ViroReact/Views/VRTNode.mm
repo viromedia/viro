@@ -226,70 +226,10 @@ const int k2DPointsPerSpatialUnit = 1000;
   CGPoint position = {CGRectGetMidX(frame), CGRectGetMidY(frame)};
   CGRect bounds = {CGPointZero, frame.size};
   
-  VRTNode *superview = nil;
-  if ([self superview] && [[self superview] isKindOfClass:[VRTNode class]]) {
-    superview = (VRTNode *)[self superview];
-  } else if([self superview] && [[self superview] isKindOfClass:[VRTAnimatedComponent class]]) {
-    if([[[self superview] superview] isKindOfClass:[VRTNode class]]) {
-      superview = (VRTNode *)[[self superview] superview];
-    }
-  }
   
-  //the 2d center of the superview, ie if the parent has a width and height of 5000 points, this is: 2500,2500.
-  CGPoint centerPointParent2d = [superview centerPoint2D];
-  
-  //the 2d bounds, width and height of parent.
-  CGRect boundsParent2d = [superview bounds2D];
-  
-  if(superview != nil) {
-    VROVector3f superviewPos = superview.node->getPosition();
-  }
-  //flip y because our y increases as it goes 'up', instead of increasing downward with mobile.
-  CGFloat transformedY = boundsParent2d.size.height - position.y;
-  
-  //transform by subtracting from center of superview.
-  CGFloat transformedX = position.x - centerPointParent2d.x;
-  transformedY = transformedY - centerPointParent2d.y;
-  
-  //Now make into 3d bounds and 3d position
-  CGFloat width3d = bounds.size.width / k2DPointsPerSpatialUnit;
-  CGFloat height3d = bounds.size.height / k2DPointsPerSpatialUnit;
-  
-  //multiply by height and width of parent to get correct position
-  transformedX /= k2DPointsPerSpatialUnit;
-  transformedY /= k2DPointsPerSpatialUnit;
-  
-  // Always place the children of views .01 in front of the parent. This helps with z-fighting and ensures that the child is always in front of the parent for hit detection
-  float zIncrementToAvoidZFighting = 0.01;
-  
-  //VA: Uncomment when flexbox ready[self node]->setPosition({(float)transformedX, (float)transformedY, zIncrementToAvoidZFighting});
-  CGPoint scale = [self fudgeFlexboxScaleX:width3d  Y:height3d];
-  
-  // Since VRTFlexView containers are actual size using width and height, set child components to appopriate width/height. If components don't have width/height attrib, use scale for now.
-  if([self isKindOfClass:[VRTImage class]]) {
-    VRTImage *image = (VRTImage *)self;
-    //VA: Uncomment when flexbox ready...[image setWidth:bounds.size.width/ k2DPointsPerSpatialUnit];
-    //VA: Uncomment when flexbox ready...[image setHeight:bounds.size.height/ k2DPointsPerSpatialUnit];
-  } else if([self isKindOfClass:[VRTFlexView class]]) {
-    VRTFlexView *flexview = (VRTFlexView *)self;
-    [flexview setWidth:bounds.size.width/ k2DPointsPerSpatialUnit];
-    [flexview setHeight:bounds.size.height/ k2DPointsPerSpatialUnit];
-  }
-  else {
-    //VA: Uncomment when flexbox ready[self node]->setScale({(float)scale.x, (float)scale.y, 1.0});
-  }
-
-  // Avoid crashes due to nan coords
-  if (isnan(position.x) || isnan(position.y) ||
-      isnan(bounds.origin.x) || isnan(bounds.origin.y) ||
-      isnan(bounds.size.width) || isnan(bounds.size.height)) {
-    RCTLogError(@"Invalid layout for (%@)%@. position: %@. bounds: %@",
-                self.reactTag, self, NSStringFromCGPoint(position), NSStringFromCGRect(bounds));
-    return;
-  }
-  
-  self.centerPoint2D = CGPointMake(bounds.size.width/2, bounds.size.height/2);
-  self.bounds2D = bounds;
+  self.position2DFlex = position;
+  self.centerPoint2DFlex = CGPointMake(bounds.size.width/2, bounds.size.height/2);
+  self.bounds2DFlex = bounds;
 }
 
 -(CGPoint)fudgeFlexboxScaleX:(float)width3d  Y:(float)height3d {

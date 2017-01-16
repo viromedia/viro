@@ -37,8 +37,9 @@ extern const int k2DPointsPerSpatialUnit;
 @property (nonatomic, assign) BOOL highAccuracyGaze;
 
 // Used for Flexbox enabled components, no-op for non flexbox related components.
-@property(nonatomic) CGPoint centerPoint2D;
-@property(nonatomic) CGRect bounds2D;
+@property(nonatomic) CGPoint position2DFlex;
+@property(nonatomic) CGPoint centerPoint2DFlex;;
+@property(nonatomic) CGRect bounds2DFlex;
 
 - (void)reactSetFrame:(CGRect)frame;
 - (BOOL)isRootFlexboxView;

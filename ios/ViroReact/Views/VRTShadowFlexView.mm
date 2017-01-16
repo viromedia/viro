@@ -44,15 +44,5 @@
   }
 }
 
-- (NSMutableOrderedSet<VRTShadowView *> *)collectViewsWithUpdatedFrames
-{
-  [self applySizeConstraints];
-  
-  CSSNodeCalculateLayout(self.cssNode, CSSUndefined, CSSUndefined, CSSDirectionInherit);
-  
-  NSMutableOrderedSet<VRTShadowView *> *viewsWithNewFrame = [NSMutableOrderedSet orderedSet];
-  [self applyLayoutNode:self.cssNode viewsWithNewFrame:viewsWithNewFrame absolutePosition:CGPointZero];
-  return viewsWithNewFrame;
-}
 
 @end

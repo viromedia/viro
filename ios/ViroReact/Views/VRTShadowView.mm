@@ -19,6 +19,7 @@
 //  7. Rename all RCTProcessMetaProps in didSetProps to VRTProcessMetaProps
 
 #import "VRTShadowView.h"
+#import "VRTNode.h"
 
 #import "RCTConvert.h"
 #import "RCTLog.h"
@@ -26,6 +27,11 @@
 #import "UIView+React.h"
 #import "UIView+Private.h"
 #import "VRTAnimatedComponentShadowView.h"
+#import "VRTAnimatedComponent.h"
+#import "VRTImage.h"
+#import "VRTFlexView.h"
+#import "VRTSurface.h"
+#import "VRTVideoSurface.h"
 
 
 typedef void (^VRTActionBlock)(VRTShadowView *shadowViewSelf, id value);
@@ -34,16 +40,6 @@ typedef void (^VRTResetActionBlock)(VRTShadowView *shadowViewSelf);
 static NSString *const RCTBackgroundColorProp = @"backgroundColor";
 extern const int k2DPointsPerSpatialUnit;
 
-typedef NS_ENUM(unsigned int, meta_prop_t) {
-  META_PROP_LEFT,
-  META_PROP_TOP,
-  META_PROP_RIGHT,
-  META_PROP_BOTTOM,
-  META_PROP_HORIZONTAL,
-  META_PROP_VERTICAL,
-  META_PROP_ALL,
-  META_PROP_COUNT,
-};
 
 @implementation VRTShadowView
 {
@@ -55,546 +51,270 @@ typedef NS_ENUM(unsigned int, meta_prop_t) {
   BOOL _recomputeMargin;
   BOOL _recomputeBorder;
   BOOL _didUpdateSubviews;
-  float _paddingMetaProps[META_PROP_COUNT];
-  float _marginMetaProps[META_PROP_COUNT];
-  float _borderMetaProps[META_PROP_COUNT];
 }
 
 @synthesize reactTag = _reactTag;
 
-// cssNode api
-
-static void RCTPrint(void *context)
-{
-  VRTShadowView *shadowView = (__bridge VRTShadowView *)context;
-  printf("%s(%zd), ", shadowView.viewName.UTF8String, shadowView.reactTag.integerValue);
-}
-
-// Enforces precedence rules, e.g. marginLeft > marginHorizontal > margin.
-#define DEFINE_PROCESS_META_PROPS(type)                                                            \
-static void RCTProcessMetaProps##type(const float metaProps[META_PROP_COUNT], CSSNodeRef node) {   \
-if (!CSSValueIsUndefined(metaProps[META_PROP_LEFT])) {                                           \
-CSSNodeStyleSet##type(node, CSSEdgeStart, metaProps[META_PROP_LEFT]);                          \
-} else if (!CSSValueIsUndefined(metaProps[META_PROP_HORIZONTAL])) {                              \
-CSSNodeStyleSet##type(node, CSSEdgeStart, metaProps[META_PROP_HORIZONTAL]);                    \
-} else if (!CSSValueIsUndefined(metaProps[META_PROP_ALL])) {                                     \
-CSSNodeStyleSet##type(node, CSSEdgeStart, metaProps[META_PROP_ALL]);                           \
-} else {                                                                                         \
-CSSNodeStyleSet##type(node, CSSEdgeStart, 0);                                                  \
-}                                                                                                \
-\
-if (!CSSValueIsUndefined(metaProps[META_PROP_RIGHT])) {                                          \
-CSSNodeStyleSet##type(node, CSSEdgeEnd, metaProps[META_PROP_RIGHT]);                           \
-} else if (!CSSValueIsUndefined(metaProps[META_PROP_HORIZONTAL])) {                              \
-CSSNodeStyleSet##type(node, CSSEdgeEnd, metaProps[META_PROP_HORIZONTAL]);                      \
-} else if (!CSSValueIsUndefined(metaProps[META_PROP_ALL])) {                                     \
-CSSNodeStyleSet##type(node, CSSEdgeEnd, metaProps[META_PROP_ALL]);                             \
-} else {                                                                                         \
-CSSNodeStyleSet##type(node, CSSEdgeEnd, 0);                                                    \
-}                                                                                                \
-\
-if (!CSSValueIsUndefined(metaProps[META_PROP_TOP])) {                                            \
-CSSNodeStyleSet##type(node, CSSEdgeTop, metaProps[META_PROP_TOP]);                             \
-} else if (!CSSValueIsUndefined(metaProps[META_PROP_VERTICAL])) {                                \
-CSSNodeStyleSet##type(node, CSSEdgeTop, metaProps[META_PROP_VERTICAL]);                        \
-} else if (!CSSValueIsUndefined(metaProps[META_PROP_ALL])) {                                     \
-CSSNodeStyleSet##type(node, CSSEdgeTop, metaProps[META_PROP_ALL]);                             \
-} else {                                                                                         \
-CSSNodeStyleSet##type(node, CSSEdgeTop, 0);                                                    \
-}                                                                                                \
-\
-if (!CSSValueIsUndefined(metaProps[META_PROP_BOTTOM])) {                                         \
-CSSNodeStyleSet##type(node, CSSEdgeBottom, metaProps[META_PROP_BOTTOM]);                       \
-} else if (!CSSValueIsUndefined(metaProps[META_PROP_VERTICAL])) {                                \
-CSSNodeStyleSet##type(node, CSSEdgeBottom, metaProps[META_PROP_VERTICAL]);                     \
-} else if (!CSSValueIsUndefined(metaProps[META_PROP_ALL])) {                                     \
-CSSNodeStyleSet##type(node, CSSEdgeBottom, metaProps[META_PROP_ALL]);                          \
-} else {                                                                                         \
-CSSNodeStyleSet##type(node, CSSEdgeBottom, 0);                                                 \
-}                                                                                                \
-}
-
-DEFINE_PROCESS_META_PROPS(Padding);
-DEFINE_PROCESS_META_PROPS(Margin);
-DEFINE_PROCESS_META_PROPS(Border);
-
-// The absolute stuff is so that we can take into account our absolute position when rounding in order to
-// snap to the pixel grid. For example, say you have the following structure:
-//
-// +--------+---------+--------+
-// |        |+-------+|        |
-// |        ||       ||        |
-// |        |+-------+|        |
-// +--------+---------+--------+
-//
-// Say the screen width is 320 pts so the three big views will get the following x bounds from our layout system:
-// {0, 106.667}, {106.667, 213.333}, {213.333, 320}
-//
-// Assuming screen scale is 2, these numbers must be rounded to the nearest 0.5 to fit the pixel grid:
-// {0, 106.5}, {106.5, 213.5}, {213.5, 320}
-// You'll notice that the three widths are 106.5, 107, 106.5.
-//
-// This is great for the parent views but it gets trickier when we consider rounding for the subview.
-//
-// When we go to round the bounds for the subview in the middle, it's relative bounds are {0, 106.667}
-// which gets rounded to {0, 106.5}. This will cause the subview to be one pixel smaller than it should be.
-// this is why we need to pass in the absolute position in order to do the rounding relative to the screen's
-// grid rather than the view's grid.
-//
-// After passing in the absolutePosition of {106.667, y}, we do the following calculations:
-// absoluteLeft = round(absolutePosition.x + viewPosition.left) = round(106.667 + 0) = 106.5
-// absoluteRight = round(absolutePosition.x + viewPosition.left + viewSize.left) + round(106.667 + 0 + 106.667) = 213.5
-// width = 213.5 - 106.5 = 107
-// You'll notice that this is the same width we calculated for the parent view because we've taken its position into account.
-
-- (void)applyLayoutNode:(CSSNodeRef)node
-      viewsWithNewFrame:(NSMutableOrderedSet<VRTShadowView *> *)viewsWithNewFrame
-       absolutePosition:(CGPoint)absolutePosition
-{
-  if (!CSSNodeGetHasNewLayout(node)) {
-    return;
-  }
-  CSSNodeSetHasNewLayout(node, false);
-  
-  CGPoint absoluteTopLeft = {
-    absolutePosition.x + CSSNodeLayoutGetLeft(node),
-    absolutePosition.y + CSSNodeLayoutGetTop(node)
-  };
-  
-  CGPoint absoluteBottomRight = {
-    absolutePosition.x + CSSNodeLayoutGetLeft(node) + CSSNodeLayoutGetWidth(node),
-    absolutePosition.y + CSSNodeLayoutGetTop(node) + CSSNodeLayoutGetHeight(node)
-  };
-  
-  CGRect frame = {{
-    RCTRoundPixelValue(CSSNodeLayoutGetLeft(node)),
-    RCTRoundPixelValue(CSSNodeLayoutGetTop(node)),
-  }, {
-    RCTRoundPixelValue(absoluteBottomRight.x - absoluteTopLeft.x),
-    RCTRoundPixelValue(absoluteBottomRight.y - absoluteTopLeft.y)
-  }};
-  
-  if (!CGRectEqualToRect(frame, _frame)) {
-    _frame = frame;
-    [viewsWithNewFrame addObject:self];
-  }
-  
-  absolutePosition.x += CSSNodeLayoutGetLeft(node);
-  absolutePosition.y += CSSNodeLayoutGetTop(node);
-  
-  [self applyLayoutToChildren:node viewsWithNewFrame:viewsWithNewFrame absolutePosition:absolutePosition];
-}
-
-- (void)applyLayoutToChildren:(CSSNodeRef)node
-            viewsWithNewFrame:(NSMutableOrderedSet<VRTShadowView *> *)viewsWithNewFrame
-             absolutePosition:(CGPoint)absolutePosition
-{
-  for (unsigned int i = 0; i < CSSNodeChildCount(node); ++i) {
-    VRTShadowView *child = (VRTShadowView *)_reactSubviews[i];
-    [child applyLayoutNode:CSSNodeGetChild(node, i)
-         viewsWithNewFrame:viewsWithNewFrame
-          absolutePosition:absolutePosition];
-  }
-}
-
-- (NSDictionary<NSString *, id> *)processUpdatedProperties:(NSMutableSet<VRTApplierBlock> *)applierBlocks
-                                          parentProperties:(NSDictionary<NSString *, id> *)parentProperties
-{
-  // TODO: we always refresh all propagated properties when propagation is
-  // dirtied, but really we should track which properties have changed and
-  // only update those.
-  
-  if (_didUpdateSubviews) {
-    _didUpdateSubviews = NO;
-    [self didUpdateReactSubviews];
-    [applierBlocks addObject:^(NSDictionary<NSNumber *, VRTView *> *viewRegistry) {
-      VRTView *view = viewRegistry[self->_reactTag];
-      //VA: (Not needed for ViroReact) [view clearSortedSubviews];
-      //VA: (Not needed for ViroReact)  [view didUpdateReactSubviews];
-    }];
-  }
-  
-  if (!_backgroundColor) {
-    UIColor *parentBackgroundColor = parentProperties[RCTBackgroundColorProp];
-    if (parentBackgroundColor) {
-      [applierBlocks addObject:^(NSDictionary<NSNumber *, VRTView *> *viewRegistry) {
-        VRTView *view = viewRegistry[self->_reactTag];
-        //VA: Not needed as of now[view reactSetInheritedBackgroundColor:parentBackgroundColor];
-      }];
-    }
-  } else {
-    // Update parent properties for children
-    NSMutableDictionary<NSString *, id> *properties = [NSMutableDictionary dictionaryWithDictionary:parentProperties];
-    CGFloat alpha = CGColorGetAlpha(_backgroundColor.CGColor);
-    if (alpha < 1.0) {
-      // If bg is non-opaque, don't propagate further
-      properties[RCTBackgroundColorProp] = [UIColor clearColor];
-    } else {
-      properties[RCTBackgroundColorProp] = _backgroundColor;
-    }
-    return properties;
-  }
-  return parentProperties;
-}
-
-- (void)collectUpdatedProperties:(NSMutableSet<VRTApplierBlock> *)applierBlocks
-                parentProperties:(NSDictionary<NSString *, id> *)parentProperties
-{
-  if (_propagationLifecycle == VRTUpdateLifecycleComputed && [parentProperties isEqualToDictionary:_lastParentProperties]) {
-    return;
-  }
-  _propagationLifecycle = VRTUpdateLifecycleComputed;
-  _lastParentProperties = parentProperties;
-  NSDictionary<NSString *, id> *nextProps = [self processUpdatedProperties:applierBlocks parentProperties:parentProperties];
-  for (VRTShadowView *child in _reactSubviews) {
-    [child collectUpdatedProperties:applierBlocks parentProperties:nextProps];
-  }
-}
-
-- (void)collectUpdatedFrames:(NSMutableOrderedSet<VRTShadowView *> *)viewsWithNewFrame
-                   withFrame:(CGRect)frame
-                      hidden:(BOOL)hidden
-            absolutePosition:(CGPoint)absolutePosition
-{
-  if (_hidden != hidden) {
-    // The hidden state has changed. Even if the frame hasn't changed, add
-    // this ShadowView to viewsWithNewFrame so the UIManager will process
-    // this ShadowView's UIView and update its hidden state.
-    _hidden = hidden;
-    [viewsWithNewFrame addObject:self];
-  }
-  
-  if (!CGRectEqualToRect(frame, _frame)) {
-    CSSNodeStyleSetPositionType(_cssNode, CSSPositionTypeAbsolute);
-    CSSNodeStyleSetWidth(_cssNode, frame.size.width);
-    CSSNodeStyleSetHeight(_cssNode, frame.size.height);
-    CSSNodeStyleSetPosition(_cssNode, CSSEdgeLeft, frame.origin.x);
-    CSSNodeStyleSetPosition(_cssNode, CSSEdgeTop, frame.origin.y);
-  }
-  
-  CSSNodeCalculateLayout(_cssNode, frame.size.width, frame.size.height, CSSDirectionInherit);
-  [self applyLayoutNode:_cssNode viewsWithNewFrame:viewsWithNewFrame absolutePosition:absolutePosition];
-}
-
-- (CGRect)measureLayoutRelativeToAncestor:(VRTShadowView *)ancestor
-{
-  CGPoint offset = CGPointZero;
-  NSInteger depth = 30; // max depth to search
-  VRTShadowView *shadowView = self;
-  while (depth && shadowView && shadowView != ancestor) {
-    offset.x += shadowView.frame.origin.x;
-    offset.y += shadowView.frame.origin.y;
-    shadowView = shadowView->_superview;
-    depth--;
-  }
-  if (ancestor != shadowView) {
-    return CGRectNull;
-  }
-  return (CGRect){offset, self.frame.size};
-}
-
-- (BOOL)viewIsDescendantOf:(VRTShadowView *)ancestor
-{
-  NSInteger depth = 30; // max depth to search
-  VRTShadowView *shadowView = self;
-  while (depth && shadowView && shadowView != ancestor) {
-    shadowView = shadowView->_superview;
-    depth--;
-  }
-  return ancestor == shadowView;
-}
-
-- (instancetype)init
-{
-  if ((self = [super init])) {
-    
-    _frame = CGRectMake(0, 0, CSSUndefined, CSSUndefined);
-    
-    for (unsigned int ii = 0; ii < META_PROP_COUNT; ii++) {
-      _paddingMetaProps[ii] = CSSUndefined;
-      _marginMetaProps[ii] = CSSUndefined;
-      _borderMetaProps[ii] = CSSUndefined;
-    }
-    
-    _newView = YES;
-    _propagationLifecycle = VRTUpdateLifecycleUninitialized;
-    _textLifecycle = VRTUpdateLifecycleUninitialized;
-    
-    _reactSubviews = [NSMutableArray array];
-    
-    _cssNode = CSSNodeNew();
-    CSSNodeSetContext(_cssNode, (__bridge void *)self);
-    CSSNodeSetPrintFunc(_cssNode, RCTPrint);
-  }
-  return self;
-}
-
-- (BOOL)isReactRootView
-{
-  return RCTIsReactRootView(self.reactTag);
-}
-
-- (void)dealloc
-{
-  CSSNodeFree(_cssNode);
-}
-
-- (BOOL)isCSSLeafNode
-{
-  return NO;
-}
-
-- (void)dirtyPropagation
-{
-  if (_propagationLifecycle != VRTUpdateLifecycleDirtied) {
-    _propagationLifecycle = VRTUpdateLifecycleDirtied;
-    [_superview dirtyPropagation];
-  }
-}
-
-- (BOOL)isPropagationDirty
-{
-  return _propagationLifecycle != VRTUpdateLifecycleComputed;
-}
-
-- (void)dirtyText
-{
-  if (_textLifecycle != VRTUpdateLifecycleDirtied) {
-    _textLifecycle = VRTUpdateLifecycleDirtied;
-    [_superview dirtyText];
-  }
-}
-
-- (BOOL)isTextDirty
-{
-  return _textLifecycle != VRTUpdateLifecycleComputed;
-}
-
-- (void)setTextComputed
-{
-  _textLifecycle = VRTUpdateLifecycleComputed;
-}
-
-- (void)insertReactSubview:(VRTShadowView *)subview atIndex:(NSInteger)atIndex
-{
-  [_reactSubviews insertObject:subview atIndex:atIndex];
-  if (![self isCSSLeafNode]) {
-    CSSNodeInsertChild(_cssNode, subview.cssNode, atIndex);
-  }
-  subview->_superview = self;
-  _didUpdateSubviews = YES;
-  [self dirtyText];
-  [self dirtyPropagation];
-}
-
-- (void)removeReactSubview:(VRTShadowView *)subview
-{
-  [subview dirtyText];
-  [subview dirtyPropagation];
-  _didUpdateSubviews = YES;
-  subview->_superview = nil;
-  [_reactSubviews removeObject:subview];
-  if (![self isCSSLeafNode]) {
-    CSSNodeRemoveChild(_cssNode, subview.cssNode);
-  }
-}
 
 - (NSArray<VRTShadowView *> *)reactSubviews
 {
   return _reactSubviews;
 }
 
-- (VRTShadowView *)reactSuperview
-{
-  return _superview;
-}
-
-- (NSNumber *)reactTagAtPoint:(CGPoint)point
-{
-  for (VRTShadowView *shadowView in _reactSubviews) {
-    if (CGRectContainsPoint(shadowView.frame, point)) {
-      CGPoint relativePoint = point;
-      CGPoint origin = shadowView.frame.origin;
-      relativePoint.x -= origin.x;
-      relativePoint.y -= origin.y;
-      return [shadowView reactTagAtPoint:relativePoint];
-    }
-  }
-  return self.reactTag;
-}
-
-- (NSString *)description
-{
-  NSString *description = super.description;
-  description = [[description substringToIndex:description.length - 1] stringByAppendingFormat:@"; viewName: %@; reactTag: %@; frame: %@>", self.viewName, self.reactTag, NSStringFromCGRect(self.frame)];
-  return description;
-}
-
-- (void)addRecursiveDescriptionToString:(NSMutableString *)string atLevel:(NSUInteger)level
-{
-  for (NSUInteger i = 0; i < level; i++) {
-    [string appendString:@"  | "];
-  }
-  
-  [string appendString:self.description];
-  [string appendString:@"\n"];
-  
-  for (VRTShadowView *subview in _reactSubviews) {
-    [subview addRecursiveDescriptionToString:string atLevel:level + 1];
-  }
-}
-
-- (NSString *)recursiveDescription
-{
-  NSMutableString *description = [NSMutableString string];
-  [self addRecursiveDescriptionToString:description atLevel:0];
-  return description;
+//Override padding, margin and dimension methods that convert 3d units into 2d ones for the flexbox algorithm.
+// Padding
+- (void)setPadding:(CGFloat)padding {
+  [super setPadding:padding * k2DPointsPerSpatialUnit];
 }
 
 // Margin
-
-#define RCT_MARGIN_PROPERTY(prop, metaProp)       \
-- (void)setMargin##prop:(CGFloat)value            \
-{                                                 \
-CGFloat normalizedValue = value * k2DPointsPerSpatialUnit; \
-_marginMetaProps[META_PROP_##metaProp] = normalizedValue; \
-_recomputeMargin = YES;                         \
-}                                                 \
-- (CGFloat)margin##prop                           \
-{                                                 \
-return _marginMetaProps[META_PROP_##metaProp];  \
+- (void)setMargin:(CGFloat)margin {
+  [super setMargin:margin * k2DPointsPerSpatialUnit];
 }
 
-RCT_MARGIN_PROPERTY(, ALL)
-RCT_MARGIN_PROPERTY(Vertical, VERTICAL)
-RCT_MARGIN_PROPERTY(Horizontal, HORIZONTAL)
-RCT_MARGIN_PROPERTY(Top, TOP)
-RCT_MARGIN_PROPERTY(Left, LEFT)
-RCT_MARGIN_PROPERTY(Bottom, BOTTOM)
-RCT_MARGIN_PROPERTY(Right, RIGHT)
-
-// Padding
-
-#define RCT_PADDING_PROPERTY(prop, metaProp)       \
-- (void)setPadding##prop:(CGFloat)value            \
-{                                                  \
- CGFloat normalizedValue = value * k2DPointsPerSpatialUnit; \
-_paddingMetaProps[META_PROP_##metaProp] = normalizedValue; \
-_recomputePadding = YES;                         \
-}                                                  \
-- (CGFloat)padding##prop                           \
-{                                                  \
-return _paddingMetaProps[META_PROP_##metaProp];  \
+- (void)setMarginTop:(CGFloat)marginTop {
+  [super setMarginTop:marginTop * k2DPointsPerSpatialUnit];
 }
 
-RCT_PADDING_PROPERTY(, ALL)
-RCT_PADDING_PROPERTY(Vertical, VERTICAL)
-RCT_PADDING_PROPERTY(Horizontal, HORIZONTAL)
-RCT_PADDING_PROPERTY(Top, TOP)
-RCT_PADDING_PROPERTY(Left, LEFT)
-RCT_PADDING_PROPERTY(Bottom, BOTTOM)
-RCT_PADDING_PROPERTY(Right, RIGHT)
-
-- (UIEdgeInsets)paddingAsInsets
-{
-    if (CSSNodeLayoutGetDirection(_cssNode) == CSSDirectionRTL) {
-        return (UIEdgeInsets){
-            CSSNodeStyleGetPadding(_cssNode, CSSEdgeTop),
-            !CSSValueIsUndefined(CSSNodeStyleGetPadding(_cssNode, CSSEdgeEnd)) ?
-            CSSNodeStyleGetPadding(_cssNode, CSSEdgeEnd) :
-            CSSNodeStyleGetPadding(_cssNode, CSSEdgeLeft),
-            CSSNodeStyleGetPadding(_cssNode, CSSEdgeBottom),
-            !CSSValueIsUndefined(CSSNodeStyleGetPadding(_cssNode, CSSEdgeStart)) ?
-            CSSNodeStyleGetPadding(_cssNode, CSSEdgeStart) :
-            CSSNodeStyleGetPadding(_cssNode, CSSEdgeRight)
-        };
-    } else {
-        return (UIEdgeInsets){
-            CSSNodeStyleGetPadding(_cssNode, CSSEdgeTop),
-            !CSSValueIsUndefined(CSSNodeStyleGetPadding(_cssNode, CSSEdgeStart)) ?
-            CSSNodeStyleGetPadding(_cssNode, CSSEdgeStart) :
-            CSSNodeStyleGetPadding(_cssNode, CSSEdgeLeft),
-            CSSNodeStyleGetPadding(_cssNode, CSSEdgeBottom),
-            !CSSValueIsUndefined(CSSNodeStyleGetPadding(_cssNode, CSSEdgeEnd)) ?
-            CSSNodeStyleGetPadding(_cssNode, CSSEdgeEnd) :
-            CSSNodeStyleGetPadding(_cssNode, CSSEdgeRight)
-        };
-    }
+- (void)setMarginBottom:(CGFloat)marginBottom {
+  [super setMarginBottom:marginBottom * k2DPointsPerSpatialUnit];
 }
+
+- (void)setMarginLeft:(CGFloat)marginLeft {
+  [super setMarginLeft:marginLeft * k2DPointsPerSpatialUnit];
+}
+
+- (void)setMarginRight:(CGFloat)marginRight {
+  [super setMarginRight:marginRight * k2DPointsPerSpatialUnit];
+}
+
+- (void)setMarginVertical:(CGFloat)marginVertical {
+  [super setMarginVertical:marginVertical * k2DPointsPerSpatialUnit];
+}
+
+- (void)setMarginHorizontal:(CGFloat)marginHorizontal {
+  [super setMarginHorizontal:marginHorizontal * k2DPointsPerSpatialUnit];
+}
+
+
+- (void)setPaddingVertical:(CGFloat)paddingAmount{
+  [super setPaddingVertical:paddingAmount * k2DPointsPerSpatialUnit];
+}
+
+- (void)setPaddingHorizontal:(CGFloat)paddingAmount {
+  [super setPaddingHorizontal:paddingAmount * k2DPointsPerSpatialUnit];
+}
+
+- (void)setPaddingTop:(CGFloat)paddingAmount {
+  [super setPaddingTop:paddingAmount * k2DPointsPerSpatialUnit];
+}
+
+- (void)setPaddingLeft:(CGFloat)paddingAmount {
+  [super setPaddingLeft:paddingAmount * k2DPointsPerSpatialUnit];
+}
+
+- (void)setPaddingRight:(CGFloat)paddingAmount {
+  [super setPaddingRight:paddingAmount * k2DPointsPerSpatialUnit];
+}
+
+- (void)setPaddingBottom:(CGFloat)paddingAmount {
+  [super setPaddingBottom:paddingAmount * k2DPointsPerSpatialUnit];
+}
+
+
 
 // Border
 
-#define RCT_BORDER_PROPERTY(prop, metaProp)            \
-- (void)setBorder##prop##Width:(CGFloat)value          \
-{                                                      \
- CGFloat normalizedValue = value * k2DPointsPerSpatialUnit; \
-_borderMetaProps[META_PROP_##metaProp] = normalizedValue;      \
-_recomputeBorder = YES;                              \
-}                                                      \
-- (CGFloat)border##prop##Width                         \
-{                                                      \
-return _borderMetaProps[META_PROP_##metaProp];       \
+- (void)setBorderWidth:(CGFloat)borderWidth {
+  [super setBorderWidth:borderWidth * k2DPointsPerSpatialUnit];
 }
 
-RCT_BORDER_PROPERTY(, ALL)
-RCT_BORDER_PROPERTY(Top, TOP)
-RCT_BORDER_PROPERTY(Left, LEFT)
-RCT_BORDER_PROPERTY(Bottom, BOTTOM)
-RCT_BORDER_PROPERTY(Right, RIGHT)
+- (void)setBorderTopWidth:(CGFloat)borderTopWidth {
+  [super setBorderTopWidth:borderTopWidth * k2DPointsPerSpatialUnit];
+}
+
+- (void)setBorderLeftWidth:(CGFloat)borderLeftWidth {
+  [super setBorderLeftWidth:borderLeftWidth * k2DPointsPerSpatialUnit];
+}
+
+- (void)setBorderRightWidth:(CGFloat)borderRightWidthAmount {
+  [super setBorderRightWidth:borderRightWidthAmount * k2DPointsPerSpatialUnit];
+}
+
+- (void)setBorderBottomWidth:(CGFloat)borderBottomWidthAmount {
+  [super setBorderBottomWidth:borderBottomWidthAmount * k2DPointsPerSpatialUnit];
+}
 
 // Dimensions
 
-
-#define RCT_DIMENSION_PROPERTY(setProp, getProp, cssProp)           \
-- (void)set##setProp:(CGFloat)value                                 \
-{                                                                   \
-CGFloat normalizedValue = value * k2DPointsPerSpatialUnit;         \
-CSSNodeStyleSet##cssProp(_cssNode, normalizedValue);                 \
-[self dirtyText];                                                 \
-}                                                                   \
-- (CGFloat)getProp                                                  \
-{                                                                   \
-return CSSNodeStyleGet##cssProp(_cssNode);                        \
+- (void)setWidth:(CGFloat)width {
+  [super setWidth:width * k2DPointsPerSpatialUnit];
 }
 
-RCT_DIMENSION_PROPERTY(Width, width, Width)
-RCT_DIMENSION_PROPERTY(Height, height, Height)
-RCT_DIMENSION_PROPERTY(MinWidth, minWidth, MinWidth)
-RCT_DIMENSION_PROPERTY(MinHeight, minHeight, MinHeight)
-RCT_DIMENSION_PROPERTY(MaxWidth, maxWidth, MaxWidth)
-RCT_DIMENSION_PROPERTY(MaxHeight, maxHeight, MaxHeight)
+- (void)setHeight:(CGFloat)heightAmount {
+  [super setHeight:heightAmount * k2DPointsPerSpatialUnit];
+}
+
+- (void)setMinWidth:(CGFloat)minWidthAmount {
+  [super setMinWidth:minWidthAmount * k2DPointsPerSpatialUnit];
+}
+
+- (void)setMinHeight:(CGFloat)minHeightAmount {
+  [super setMinHeight:minHeightAmount * k2DPointsPerSpatialUnit];
+}
+
+- (void)setMaxWidth:(CGFloat)maxWidthAmount {
+  [super setMaxWidth:maxWidthAmount * k2DPointsPerSpatialUnit];
+}
+
+- (void)setMaxHeight:(CGFloat)maxHeightAmount {
+  [super setMaxHeight:maxHeightAmount * k2DPointsPerSpatialUnit];
+}
+
 
 // Position
 
-// Position
-
-#define RCT_POSITION_PROPERTY(setProp, getProp, edge)               \
-- (void)set##setProp:(CGFloat)value                                 \
-{                                                                   \
-CSSNodeStyleSetPosition(_cssNode, edge, value);                   \
-[self dirtyText];                                                 \
-}                                                                   \
-- (CGFloat)getProp                                                  \
-{                                                                   \
-return CSSNodeStyleGetPosition(_cssNode, edge);                   \
+- (void)setTop:(CGFloat)topAmount {
+  [super setTop:topAmount * k2DPointsPerSpatialUnit];
 }
 
-RCT_POSITION_PROPERTY(Top, top, CSSEdgeTop)
-RCT_POSITION_PROPERTY(Right, right, CSSEdgeEnd)
-RCT_POSITION_PROPERTY(Bottom, bottom, CSSEdgeBottom)
-RCT_POSITION_PROPERTY(Left, left, CSSEdgeStart)
+- (void)setBottom:(CGFloat)bottomAmount {
+  [super setBottom:bottomAmount * k2DPointsPerSpatialUnit];
+}
+
+- (void)setRight:(CGFloat)rightAmount {
+  [super setRight:rightAmount * k2DPointsPerSpatialUnit];
+}
+
+- (void)setLeft:(CGFloat)leftAmount {
+  [super setLeft:leftAmount * k2DPointsPerSpatialUnit];
+}
 
 
-- (void)setFrame:(CGRect)frame
-{
-    if (!CGRectEqualToRect(frame, _frame)) {
-        _frame = frame;
-        CSSNodeStyleSetPosition(_cssNode, CSSEdgeLeft, CGRectGetMinX(frame));
-        CSSNodeStyleSetPosition(_cssNode, CSSEdgeTop, CGRectGetMinY(frame));
-        CSSNodeStyleSetWidth(_cssNode, CGRectGetWidth(frame));
-        CSSNodeStyleSetHeight(_cssNode, CGRectGetHeight(frame));
+- (NSDictionary<NSString *, id> *)processUpdatedProperties:(NSMutableSet<RCTApplierBlock> *)applierBlocks
+                                          parentProperties:(NSDictionary<NSString *, id> *)parentProperties {
+  
+  [applierBlocks addObject:^(NSDictionary<NSNumber *, UIView *> *viewRegistry) {
+    // If the view is not of type VRTNode then ignore.
+    if(![viewRegistry[self.reactTag] isKindOfClass:[VRTNode class]]) {
+      return;
     }
+
+    VRTNode *node = (VRTNode *)viewRegistry[self.reactTag];
+    VRTNode *superview = nil;
+
+    // Root flexbox views don't need to run this block.
+    if([node isRootFlexboxView]) {
+      return;
+    }
+
+    // Check if this view is in a flexbox container, if not then return
+    if(![self isWithinFlexBoxContainer:node]) {
+      return;
+    }
+
+    
+    // Find superview, skipping over animated components.
+    if (node.superview && [node.superview isKindOfClass:[VRTNode class]]) {
+      superview = (VRTNode *)node.superview;
+    } else if(node.superview && [node.superview isKindOfClass:[VRTAnimatedComponent class]]) {
+      if([[node.superview superview] isKindOfClass:[VRTNode class]]) {
+        superview = (VRTNode *)[[self superview] superview];
+      }
+    }
+
+    if(!superview) {
+      return;
+    }
+    
+    // Avoid crashes due to nan coords
+    if (isnan(node.position2DFlex.x) || isnan(node.position2DFlex.y) ||
+        isnan(node.bounds2DFlex.origin.x) || isnan(node.bounds2DFlex.origin.y) ||
+        isnan(node.bounds2DFlex.size.width) || isnan(node.bounds2DFlex.size.height)) {
+      RCTLogError(@"Invalid layout for (%@)%@. position: %@. bounds: %@",
+                  self.reactTag, self, NSStringFromCGPoint(node.position2DFlex), NSStringFromCGRect(node.bounds2DFlex));
+      return;
+    }
+    
+    // The 2d center of the superview, ie if the parent has a width and height of 5000 points, this is: 2500,2500.
+    CGPoint centerPointParent2d = [superview centerPoint2DFlex];
+
+    // The 2d bounds, width and height of parent.
+    CGRect boundsParent2d = [superview bounds2DFlex];
+
+    if(superview != nil) {
+      VROVector3f superviewPos = superview.node->getPosition();
+    }
+
+    // Flip y because our y increases as it goes 'up', instead of increasing downward with mobile.
+    CGFloat transformedY = boundsParent2d.size.height - node.position2DFlex.y;
+
+    // Transform by subtracting from center of superview.
+    CGFloat transformedX = node.position2DFlex.x - centerPointParent2d.x;
+    transformedY = transformedY - centerPointParent2d.y;
+
+    // Now make into 3d bounds and 3d position
+    CGFloat width3d = node.bounds2DFlex.size.width / k2DPointsPerSpatialUnit;
+    CGFloat height3d =  node.bounds2DFlex.size.height / k2DPointsPerSpatialUnit;
+
+    // Multiply by height and width of parent to get correct position
+    transformedX /= k2DPointsPerSpatialUnit;
+    transformedY /= k2DPointsPerSpatialUnit;
+
+    // Always place the children of views .01 meters in front of the parent. This helps with z-fighting and ensures that the child is always in front of the parent for hit detection
+    float zIncrementToAvoidZFighting = .01;
+    [node node]->setPosition({(float)transformedX, (float)transformedY, zIncrementToAvoidZFighting});
+
+    // Since VRTFlexView containers are actual size using width and height, set child components to appopriate width/height. If components don't have width/height attrib, use scale for now.
+    if([node isKindOfClass:[VRTImage class]]) {
+      VRTImage *image = (VRTImage *)node;
+      //NSLog(@"Flex image position(%f, %f), size:(%f, %f)", transformedX, transformedY,node.bounds2DFlex.size.width/ k2DPointsPerSpatialUnit, node.bounds2DFlex.size.height/ k2DPointsPerSpatialUnit );
+      [image setWidth:node.bounds2DFlex.size.width/ k2DPointsPerSpatialUnit];
+      [image setHeight:node.bounds2DFlex.size.height/ k2DPointsPerSpatialUnit];
+    } else if([node isKindOfClass:[VRTFlexView class]]) {
+      VRTFlexView *flexview = (VRTFlexView *)node;
+       //NSLog(@"Flex view position(%f, %f), size(%f, %f)", transformedX, transformedY,node.bounds2DFlex.size.width/ k2DPointsPerSpatialUnit,  node.bounds2DFlex.size.height/ k2DPointsPerSpatialUnit);
+      [flexview setWidth:node.bounds2DFlex.size.width/ k2DPointsPerSpatialUnit];
+      [flexview setHeight:node.bounds2DFlex.size.height/ k2DPointsPerSpatialUnit];
+    }
+    else if([node isKindOfClass:[VRTSurface class]]) {
+      VRTSurface *surface = (VRTSurface *)node;
+      //NSLog(@"Flex surface position(%f, %f), size:(%f, %f)", transformedX, transformedY,node.bounds2DFlex.size.width/ k2DPointsPerSpatialUnit, node.bounds2DFlex.size.height/ k2DPointsPerSpatialUnit );
+      [surface setWidth:node.bounds2DFlex.size.width/ k2DPointsPerSpatialUnit];
+      [surface setHeight:node.bounds2DFlex.size.height/ k2DPointsPerSpatialUnit];
+    }
+    else if([node isKindOfClass:[VRTVideoSurface class]]) {
+      VRTVideoSurface *surface = (VRTVideoSurface *)node;
+      //NSLog(@"Video surface position(%f, %f), size:(%f, %f)", transformedX, transformedY,node.bounds2DFlex.size.width/ k2DPointsPerSpatialUnit, node.bounds2DFlex.size.height/ k2DPointsPerSpatialUnit );
+      [surface setWidth:node.bounds2DFlex.size.width/ k2DPointsPerSpatialUnit];
+      [surface setHeight:node.bounds2DFlex.size.height/ k2DPointsPerSpatialUnit];
+    }
+    else {
+      //VA: TODO, VIRO-742 if we want flex for componenents that don't have width and height property then uncomment below line.
+      //[self node]->setScale({(float)scale.x, (float)scale.y, 1.0});
+    }
+  }];
+  return nil;
 }
+
+// Traverse up the view hierachy to see if the node is under a rootflexview. Return true if it is, false otherwise.
+- (BOOL)isWithinFlexBoxContainer:(VRTNode *)node {
+  if([node isRootFlexboxView]) {
+    return YES;
+  }
+  
+  VRTNode *superview = (VRTNode *)node.superview;
+  while(superview) {
+    if([superview isKindOfClass:[VRTNode class]]) {
+      if([superview isRootFlexboxView]) {
+        return YES;
+      }
+    }
+    superview = superview.superview;
+  }
+  return NO;
+}
+
 
 static inline void RCTAssignSuggestedDimension(CSSNodeRef cssNode, CSSDimension dimension, CGFloat amount)
 {
@@ -614,85 +334,9 @@ static inline void RCTAssignSuggestedDimension(CSSNodeRef cssNode, CSSDimension 
   }
 }
 
-- (void)setIntrinsicContentSize:(CGSize)size
-{
-    if (CSSNodeStyleGetFlexGrow(_cssNode) == 0 && CSSNodeStyleGetFlexShrink(_cssNode) == 0) {
-        RCTAssignSuggestedDimension(_cssNode, CSSDimensionHeight, size.height);
-        RCTAssignSuggestedDimension(_cssNode, CSSDimensionWidth, size.width);
-    }
-}
-
-- (void)setTopLeft:(CGPoint)topLeft
-{
-    CSSNodeStyleSetPosition(_cssNode, CSSEdgeLeft, topLeft.x);
-    CSSNodeStyleSetPosition(_cssNode, CSSEdgeTop, topLeft.y);
-}
-
-
-- (void)setSize:(CGSize)size
-{
-  CSSNodeStyleSetWidth(_cssNode, size.width);
-  CSSNodeStyleSetHeight(_cssNode, size.height);
-}
-
-// Flex
-
-#define RCT_STYLE_PROPERTY(setProp, getProp, cssProp, type) \
-- (void)set##setProp:(type)value                            \
-{                                                           \
-CSSNodeStyleSet##cssProp(_cssNode, value);                \
-}                                                           \
-- (type)getProp                                             \
-{                                                           \
-return CSSNodeStyleGet##cssProp(_cssNode);                \
-}
-
-RCT_STYLE_PROPERTY(FlexGrow, flexGrow, FlexGrow, CGFloat)
-RCT_STYLE_PROPERTY(FlexShrink, flexShrink, FlexShrink, CGFloat)
-RCT_STYLE_PROPERTY(FlexBasis, flexBasis, FlexBasis, CGFloat)
-RCT_STYLE_PROPERTY(FlexDirection, flexDirection, FlexDirection, CSSFlexDirection)
-RCT_STYLE_PROPERTY(JustifyContent, justifyContent, JustifyContent, CSSJustify)
-RCT_STYLE_PROPERTY(AlignSelf, alignSelf, AlignSelf, CSSAlign)
-RCT_STYLE_PROPERTY(AlignItems, alignItems, AlignItems, CSSAlign)
-RCT_STYLE_PROPERTY(Position, position, PositionType, CSSPositionType)
-RCT_STYLE_PROPERTY(FlexWrap, flexWrap, FlexWrap, CSSWrapType)
-RCT_STYLE_PROPERTY(Overflow, overflow, Overflow, CSSOverflow)
-
-- (void)setBackgroundColor:(UIColor *)color
-{
-  _backgroundColor = color;
-  [self dirtyPropagation];
-}
-
-- (void)setZIndex:(NSInteger)zIndex
-{
-  _zIndex = zIndex;
-  if (_superview) {
-    // Changing zIndex means the subview order of the parent needs updating
-    _superview->_didUpdateSubviews = YES;
-    [_superview dirtyPropagation];
-  }
-}
-
 - (void)didUpdateReactSubviews
 {
   // Does nothing by default
-}
-
-- (void)didSetProps:(__unused NSArray<NSString *> *)changedProps
-{
-    if (_recomputePadding) {
-        RCTProcessMetaPropsPadding(_paddingMetaProps, _cssNode);
-    }
-    if (_recomputeMargin) {
-        RCTProcessMetaPropsMargin(_marginMetaProps, _cssNode);
-    }
-    if (_recomputeBorder) {
-        RCTProcessMetaPropsBorder(_borderMetaProps, _cssNode);
-    }
-    _recomputeMargin = NO;
-    _recomputePadding = NO;
-    _recomputeBorder = NO;
 }
 
 @end

@@ -115,6 +115,12 @@ static float const kDefaultHeight = 1;
   if(!_imageAddedToScene && _texture) {
     // Copy existing default material properties if default exists and change just the diffuse texture.
     std::shared_ptr<VROMaterial> newMaterial = _defaultMaterial ? std::make_shared<VROMaterial>(_defaultMaterial) : std::make_shared<VROMaterial>();
+    if(!_defaultMaterial) {
+      // if there is no default material, make sure we make the material read and write from the depth buffer.
+      newMaterial->setWritesToDepthBuffer(true);
+      newMaterial->setReadsFromDepthBuffer(true);
+    }
+
     newMaterial->getDiffuse().setTexture(_texture);
     _surface->getMaterials().clear();
     _surface->getMaterials().push_back(newMaterial);
@@ -156,7 +162,7 @@ static float const kDefaultHeight = 1;
         _surface = VROSurface::createSurface(_width, _height);
         [self updateImage];
         [self node]->setGeometry(_surface);
-      }else{
+      } else {
         [self updateImage];
       }
     }

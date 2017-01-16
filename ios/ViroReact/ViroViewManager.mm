@@ -108,16 +108,6 @@ RCT_EXPORT_MODULE()
   return nil;
 }
 
-- (ViroViewManagerUIBlock)uiBlockToAmendWithShadowView:(__unused VRTShadowView *)shadowView
-{
-  return nil;
-}
-
-- (ViroViewManagerUIBlock)uiBlockToAmendWithShadowViewRegistry:(__unused RCTSparseArray *)shadowViewRegistry
-{
-  return nil;
-}
-
 -(BOOL)isRootFlexBoxPanel {
   return NO;
 }
