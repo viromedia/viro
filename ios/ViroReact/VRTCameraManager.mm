@@ -1,5 +1,5 @@
 //
-//  VRTCameraManager.m
+//  VRTCameraManager.mm
 //  React
 //
 //  Created by Raj Advani on 10/5/16.

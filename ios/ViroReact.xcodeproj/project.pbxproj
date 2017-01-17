@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		8A31CFA41E27047100550CFE /* VRTSurfaceManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8A31CFA31E27047100550CFE /* VRTSurfaceManager.mm */; };
 		8A31CFB41E2705EC00550CFE /* VRTSurface.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8A31CFB31E2705EC00550CFE /* VRTSurface.mm */; };
+		8BDD9DD71E2EDC5200A42870 /* VRTCameraManager.h in Sources */ = {isa = PBXBuildFile; fileRef = 8BE0D4861DFA15880032AB99 /* VRTCameraManager.h */; };
+		8BDD9DD81E2EDC5200A42870 /* VRTCameraManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8BE0D4871DFA15880032AB99 /* VRTCameraManager.mm */; };
 		8BE0D4981DFA15880032AB99 /* ViroUIManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8BE0D4661DFA15880032AB99 /* ViroUIManager.mm */; };
 		8BE0D4991DFA15880032AB99 /* ViroViewManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8BE0D4681DFA15880032AB99 /* ViroViewManager.mm */; };
 		8BE0D49A1DFA15880032AB99 /* VRO360ImageManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8BE0D46A1DFA15880032AB99 /* VRO360ImageManager.mm */; };
@@ -540,6 +542,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8BDD9DD71E2EDC5200A42870 /* VRTCameraManager.h in Sources */,
+				8BDD9DD81E2EDC5200A42870 /* VRTCameraManager.mm in Sources */,
 				8BE0D4A11DFA15880032AB99 /* VRTLightManager.mm in Sources */,
 				8BE0D50A1DFA3D9B0032AB99 /* VRTSceneNavigator.mm in Sources */,
 				8BE0D4F81DFA3D9B0032AB99 /* VRTAnimatedComponent.mm in Sources */,
