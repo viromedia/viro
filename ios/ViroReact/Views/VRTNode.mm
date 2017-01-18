@@ -190,21 +190,25 @@ const int k2DPointsPerSpatialUnit = 1000;
     
     if (geometry) {
       VROMaterialManager *materialManager = [self.bridge moduleForClass:[VROMaterialManager class]];
-      std::vector<std::shared_ptr<VROMaterial>> tempMaterials;
+      
+        for (int i = 0; i < self.materials.count; i++) {
+            NSString *materialName = [self.materials objectAtIndex:i];
+            std::shared_ptr<VROMaterial> material = [materialManager getMaterialByName:materialName];
+            if (material == NULL) {
+                RCTLogError(@"Unknown Material Name: \"%@\"", materialName);
+                return;
+            }
 
-      for(NSString *materialName in self.materials) {
-        std::shared_ptr<VROMaterial> material = [materialManager getMaterialByName:materialName];
-        if(material != NULL) {
-          tempMaterials.push_back(material);
-        } else {
-          RCTLogError(@"Unknown Material Name: \"%@\"", materialName);
-          return;
+            // Copy the material into the geometry if the geometry already has a
+            // default material in that slot. Otherwise copy the material and add it
+            // to the geometry.
+            if (i < geometry->getMaterials().size()) {
+                geometry->getMaterials()[i]->copyFrom(material);
+            }
+            else {
+                geometry->getMaterials().push_back(std::make_shared<VROMaterial>(material));
+            }
         }
-      }
-
-      if (tempMaterials.size() > 0) {
-        geometry->getMaterials() = tempMaterials;
-      }
     }
   }
 }
