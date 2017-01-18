@@ -67,10 +67,6 @@ public class MaterialManager extends ReactContextBaseJavaModule {
 
     private MaterialWrapper createMaterial(ReadableMap materialMap) {
         final MaterialJni nativeMaterial = new MaterialJni();
-        // default settings for material
-        nativeMaterial.setWritesToDepthBuffer(true);
-        nativeMaterial.setReadsFromDepthBuffer(true);
-
         MaterialWrapper materialWrapper = new MaterialWrapper(nativeMaterial);
 
         ReadableMapKeySetIterator iter = materialMap.keySetIterator();

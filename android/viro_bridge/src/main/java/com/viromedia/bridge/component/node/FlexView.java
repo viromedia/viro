@@ -31,8 +31,6 @@ public class FlexView extends Node {
         super(context);
         mDefaultMaterial = new MaterialJni();
         mDefaultMaterial.setColor(Color.TRANSPARENT, DIFFUSE_COLOR_NAME);
-        mDefaultMaterial.setWritesToDepthBuffer(true);
-        mDefaultMaterial.setReadsFromDepthBuffer(true);
     }
 
     public void setWidth(float width) {
@@ -145,8 +143,6 @@ public class FlexView extends Node {
                 mNativeColorMaterial.destroy();
             }
             mNativeColorMaterial = new MaterialJni();
-            mNativeColorMaterial.setWritesToDepthBuffer(true);
-            mNativeColorMaterial.setReadsFromDepthBuffer(true);
             mNativeColorMaterial.setColor(mBackgroundColor, DIFFUSE_COLOR_NAME);
             mNativeSurface.setMaterial(mNativeColorMaterial);
         } else if (mMaterials != null && mMaterials.size() > 0) {
