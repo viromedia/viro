@@ -174,15 +174,15 @@ private:
      clip text vertically (horizontal edges are implicitly taken care of by the wrapping
      function). When char/word wrapping is off, we also have to clip text horizontally.
      */
-    static std::vector<VROTextLine> wrapByWords(std::string &text, int maxWidth, int maxHeight, int maxLines,
+    static std::vector<VROTextLine> wrapByWords(std::string &text, float maxWidth, float maxHeight, int maxLines,
                                                 std::shared_ptr<VROTypeface> &typeface,
                                                 VROTextClipMode clipMode,
                                                 std::map<FT_ULong, std::unique_ptr<VROGlyph>> &glyphMap);
-    static std::vector<VROTextLine> wrapByChars(std::string &text, int maxWidth, int maxHeight, int maxLines,
+    static std::vector<VROTextLine> wrapByChars(std::string &text, float maxWidth, float maxHeight, int maxLines,
                                                 std::shared_ptr<VROTypeface> &typeface,
                                                 VROTextClipMode clipMode,
                                                 std::map<FT_ULong, std::unique_ptr<VROGlyph>> &glyphMap);
-    static std::vector<VROTextLine> wrapByNewlines(std::string &text, int maxWidth, int maxHeight, int maxLines,
+    static std::vector<VROTextLine> wrapByNewlines(std::string &text, float maxWidth, float maxHeight, int maxLines,
                                                    std::shared_ptr<VROTypeface> &typeface,
                                                    VROTextClipMode clipMode,
                                                    std::map<FT_ULong, std::unique_ptr<VROGlyph>> &glyphMap);
@@ -193,7 +193,7 @@ private:
      it can be used with left, right, and centered horizontal alignment. To achieve traditional 
      justified text as seen in newspapers, use it with VROTextHorizontalAlignment::Left.
      */
-    static std::vector<VROTextLine> justify(std::string &text, int maxWidth, int maxHeight, int maxLines,
+    static std::vector<VROTextLine> justify(std::string &text, float maxWidth, float maxHeight, int maxLines,
                                             std::shared_ptr<VROTypeface> &typeface,
                                             VROTextClipMode clipMode,
                                             std::map<FT_ULong, std::unique_ptr<VROGlyph>> &glyphMap);
@@ -204,7 +204,7 @@ private:
     static std::vector<std::string> divideIntoParagraphs(std::string &text);
     static float getLengthOfWord(const std::string &word, std::map<FT_ULong, std::unique_ptr<VROGlyph>> &glyphMap);
 
-    static bool isAnotherLineAvailable(size_t numLinesNow, int maxHeight, int maxLines,
+    static bool isAnotherLineAvailable(size_t numLinesNow, float maxHeight, int maxLines,
                                        std::shared_ptr<VROTypeface> &typeface, VROTextClipMode clipMode);
     
     float _width, _height;

@@ -7,7 +7,7 @@
 //
 
 #import "VRTTextManager.h"
-#import "VRTLabelShadowView.h"
+#import "VRTShadowView.h"
 #import "VRTText.h"
 
 @implementation VRTTextManager
@@ -43,9 +43,9 @@ RCT_EXPORT_VIEW_PROPERTY(canGaze, BOOL)
   return [[VRTText alloc] initWithBridge:self.bridge];
 }
 
-- (VRTLabelShadowView *)shadowView
+- (VRTShadowView *)shadowView
 {
-  return [VRTLabelShadowView new];
+  return [VRTShadowView new];
 }
 
 

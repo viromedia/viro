@@ -31,6 +31,7 @@
 #import "VRTImage.h"
 #import "VRTFlexView.h"
 #import "VRTSurface.h"
+#import "VRTText.h"
 #import "VRTVideoSurface.h"
 
 
@@ -288,6 +289,11 @@ extern const int k2DPointsPerSpatialUnit;
       //NSLog(@"Video surface position(%f, %f), size:(%f, %f)", transformedX, transformedY,node.bounds2DFlex.size.width/ k2DPointsPerSpatialUnit, node.bounds2DFlex.size.height/ k2DPointsPerSpatialUnit );
       [surface setWidth:node.bounds2DFlex.size.width/ k2DPointsPerSpatialUnit];
       [surface setHeight:node.bounds2DFlex.size.height/ k2DPointsPerSpatialUnit];
+    }
+    else if([node isKindOfClass:[VRTText class]]) {
+      VRTText *text = (VRTText *)node;
+      [text setWidth:node.bounds2DFlex.size.width/ k2DPointsPerSpatialUnit];
+      [text setHeight:node.bounds2DFlex.size.height/ k2DPointsPerSpatialUnit];
     }
     else {
       //VA: TODO, VIRO-742 if we want flex for componenents that don't have width and height property then uncomment below line.

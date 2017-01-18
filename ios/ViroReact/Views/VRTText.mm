@@ -42,13 +42,26 @@ NSString *const VRTLabelReactTagAttributeName = @"ReactTagAttributeName";
     _textAlign = VROTextHorizontalAlignment::Left;
     _textAlignVertical = VROTextVerticalAlignment::Top;
   }
-  
   return self;
 }
 
 - (void)setText:(NSString *)text {
   _text = text;
   if (self.driver) {
+    [self updateLabel];
+  }
+}
+
+-(void)setWidth:(float)width {
+  _width = width;
+  if(self.driver) {
+    [self updateLabel];
+  }
+}
+
+-(void)setHeight:(float)height {
+  _height = height;
+  if(self.driver) {
     [self updateLabel];
   }
 }
@@ -74,13 +87,6 @@ NSString *const VRTLabelReactTagAttributeName = @"ReactTagAttributeName";
                                  self.textLineBreakMode, self.textClipMode, self.maxLines);
   
   [self node]->setGeometry(_vroText);
-}
-
-
-// Called when the text is part of a flexbox layout.
-- (void)reactSetFrame:(CGRect)frame {
-  _frame = frame;
-  //TODO: Fill this in as part of flexbox code.
 }
 
 // Method invoked before being added to scene, meant to overridden by subclasses.
