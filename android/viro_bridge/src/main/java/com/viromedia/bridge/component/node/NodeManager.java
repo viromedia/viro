@@ -99,6 +99,10 @@ public abstract class NodeManager <T extends Node> extends ViroViewGroupManager<
         return new FlexEnabledShadowNode();
     }
 
+    @Override
+    public Class<? extends LayoutShadowNode> getShadowNodeClass() {
+        return FlexEnabledShadowNode.class;
+    }
 
     /**
      * This shadow node is so that views associated with FlexViews (and FlexViews themselves) have

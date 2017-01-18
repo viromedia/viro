@@ -70,6 +70,10 @@ public class Image extends Control {
     @Override
     public void onPropsSet() {
         super.onPropsSet();
+        updateImage();
+    }
+
+    public void updateImage() {
         final ImageDownloader downloader = new ImageDownloader(getContext());
 
         if (mNativeSurface == null) {

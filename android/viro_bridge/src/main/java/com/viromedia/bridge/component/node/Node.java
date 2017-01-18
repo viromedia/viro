@@ -20,6 +20,7 @@ import com.viromedia.bridge.component.AnimatedComponent;
 import com.viromedia.bridge.component.Component;
 import com.viromedia.bridge.component.Light;
 import com.viromedia.bridge.component.node.control.Image;
+import com.viromedia.bridge.component.node.control.Surface;
 import com.viromedia.bridge.utility.ViroEvents;
 
 import java.lang.ref.WeakReference;
@@ -44,6 +45,19 @@ public class Node extends Component {
     protected boolean mVisible;
     protected List<MaterialJni> mMaterials;
     private EventDelegateJni mEventDelegateJni;
+
+    // these are used to preserve the old 2D layout values which we'll store before and restore after
+    // calling attemptRecalcLayout
+    protected int mOldLeft;
+    protected int mOldTop;
+    protected int mOldRight;
+    protected int mOldBottom;
+
+    /**
+     * This field is set to true when during a property setting iteration, this Node is one of the
+     * highest elements in the scene tree that had its properties set/changed.
+     */
+    protected boolean mIsTopMostChangedElement = false;
 
     public Node(ReactApplicationContext reactContext) {
         this(reactContext.getBaseContext(), null, -1, -1, reactContext);
@@ -158,10 +172,48 @@ public class Node extends Component {
     }
 
     @Override
+    protected void onPropsSet() {
+        super.onPropsSet();
+        // Because props are set from the bottom of the scene tree up, if props are set on this
+        // Node, then we know its the top-most changed element.
+        mIsTopMostChangedElement = true;
+        setChildrenNotTopMostChangedElement();
+    }
+
+    /**
+     * This function ensures that the children of this element aren't the top-most changed element.
+     */
+    protected void setChildrenNotTopMostChangedElement() {
+        for (int i = 0; i < getChildCount(); i++) {
+            View child = getChildAt(i);
+            if (child instanceof Node) {
+                ((Node) child).mIsTopMostChangedElement = false;
+                ((Node) child).setChildrenNotTopMostChangedElement();
+            }
+        }
+    }
+
+    @Override
+    public void onLayout(boolean changed, int left, int top, int right, int bottom) {
+        super.onLayout(changed, left, top, right, bottom);
+        // Only call recalcLayout if we're the top-most changed element because we don't want to
+        // recalc the 3D position/size N times (N = number of changed elements).
+        if (mIsTopMostChangedElement) {
+            recalcLayout();
+        }
+    }
+
+    @Override
     public void recalcLayout() {
+        // First thing we should do is store our old 2d bounds
+        store2DBounds();
+
         // Nodes should attempt to recalc, but if it fails it should always call super.recalcLayout() to recurse.
         attemptRecalcLayout();
         super.recalcLayout();
+
+        // once we've laid out all the children, we need to restore the 2D bounds
+        restore2DBounds();
     }
 
     protected void attemptRecalcLayout() {
@@ -205,23 +257,30 @@ public class Node extends Component {
         // set position.
         setPosition(new float[]{transformedX, transformedY, sZIncrementToAvoidZFighting});
 
+        // TODO: create Flexible interface
         // set the size (either through scale or width/height if the node supports it).
         if (this instanceof Image) {
             Image image = (Image) this;
             image.setWidth(width3d);
             image.setHeight(height3d);
-            image.onPropsSet();
+            image.updateImage();
         } else if (this instanceof FlexView) {
             FlexView flexView = (FlexView) this;
             flexView.setWidth(width3d);
             flexView.setHeight(height3d);
+        } else if (this instanceof Surface) {
+            Surface surface = (Surface) this;
+            surface.setWidth(width3d);
+            surface.setHeight(height3d);
+            surface.updateSurface();
         } else {
             this.setScale(new float[]{width3d, height3d, 1});
         }
 
-        // normalize the center point and bounds so that they assume left & top == 0;
-        setPivotX(size[0]/2);
-        setPivotY(size[1]/2);
+        // normalize bounds so that they assume left & top == 0, we shouldn't set the pivots because
+        // 1) they're already correct
+        // 2) if you set pivots, the view will cease to use its default (center) and use the value you
+        //    give it (see View's setPivotX/setPivotY javadocs)
         setLeft(0);
         setTop(0);
         setRight((int) size[0]);
@@ -238,7 +297,7 @@ public class Node extends Component {
         mNodeJni.setPosition(position);
     }
 
-    protected void setRotation(float[] rotation){
+    protected void setRotation(float[] rotation) {
         if (rotation.length != 3){
             throw new IllegalArgumentException("Missing a rotation value: All three " +
                     "[x,y,z] axis values are needed.");
@@ -247,7 +306,7 @@ public class Node extends Component {
         mNodeJni.setRotation(rotation);
     }
 
-    protected void setScale(float[] scale){
+    protected void setScale(float[] scale) {
         if (scale.length != 3){
             throw new IllegalArgumentException("Missing a scale value: All three " +
                     "[x,y,z] axis values are needed.");
@@ -292,11 +351,25 @@ public class Node extends Component {
         return arr;
     }
 
-    protected void setCanGaze(boolean canGaze){
+    protected void store2DBounds() {
+        mOldLeft = getLeft();
+        mOldTop = getTop();
+        mOldRight = getRight();
+        mOldBottom = getBottom();
+    }
+
+    protected void restore2DBounds() {
+        setLeft(mOldLeft);
+        setTop(mOldTop);
+        setRight(mOldRight);
+        setBottom(mOldBottom);
+    }
+
+    protected void setCanGaze(boolean canGaze) {
         mEventDelegateJni.setEventEnabled(EventDelegateJni.EventType.ON_GAZE, canGaze);
     }
 
-    protected void setCanTap(boolean canTap){
+    protected void setCanTap(boolean canTap) {
         mEventDelegateJni.setEventEnabled(EventDelegateJni.EventType.ON_TAP, canTap);
     }
 

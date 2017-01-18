@@ -30,6 +30,10 @@ public class Surface extends Control {
     @Override
     public void onPropsSet() {
         super.onPropsSet();
+        updateSurface();
+    }
+
+    public void updateSurface() {
         if (mNativeSurface == null) {
             mNativeSurface = new SurfaceJni(mWidth, mHeight);
         } else if (mGeometryNeedsUpdate) {
@@ -39,5 +43,4 @@ public class Surface extends Control {
         }
         setGeometry(mNativeSurface);
     }
-
 }

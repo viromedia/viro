@@ -14,6 +14,7 @@ import com.facebook.datasource.BaseDataSubscriber;
 import com.facebook.datasource.DataSource;
 import com.facebook.datasource.DataSubscriber;
 import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.imagepipeline.core.DefaultExecutorSupplier;
 import com.facebook.imagepipeline.core.ImagePipeline;
 import com.facebook.imagepipeline.image.CloseableBitmap;
 import com.facebook.imagepipeline.image.CloseableImage;
@@ -31,10 +32,14 @@ public class ImageDownloader {
     private static final String TAG = ViroLog.getTag(ImageDownloader.class);
     private final Context mContext;
     private final ConcurrentHashMap<CountDownLatch, Bitmap> mImageMap;
+    private final DefaultExecutorSupplier mExecutorSupplier;
+
 
     public ImageDownloader(Context context) {
         mContext = context;
         mImageMap = new ConcurrentHashMap<>();
+        mExecutorSupplier = new DefaultExecutorSupplier(1);
+
     }
 
     public Bitmap getImageSync(ReadableMap map) {
@@ -95,6 +100,6 @@ public class ImageDownloader {
                     }
                 };
 
-        dataSource.subscribe(dataSubscriber, CallerThreadExecutor.getInstance());
+        dataSource.subscribe(dataSubscriber, mExecutorSupplier.forBackgroundTasks());
     }
 }

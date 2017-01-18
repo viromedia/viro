@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2015-present, Viro, Inc.
+ * Copyright (c) 2017-present, Viro, Inc.
  * All rights reserved.
  *
  * This source code is licensed under the BSD-style license found in the
@@ -36,53 +36,63 @@ import {
 
 let polarToCartesian = ViroUtils.polarToCartesian;
 
+var stateOne = {
+  flex: {flex: 1},
+  material: "redColor",
+  width: 3
+};
+
+var stateTwo = {
+  flex: {flex: 2},
+  material: "greenColor",
+  width: 3
+}
+
+/*
+ This file tests a simple flex view and updating properties within it.
+ */
 var FlexViewTest = React.createClass({
+  getInitialState: function() {
+    return {
+      ...stateOne,
+      state: 1
+    }
+  },
   render: function() {
-    console.log("kirby", "in here!");
     return (
-      <ViroScene reticleEnabled={true} >
+      <ViroScene reticleEnabled={true} onTap={this._onTap}>
 
         <ViroSkyBox color="#ff69b4" />
 
-        <ViroImage style={{flex:1}} source={{uri: "http://wiki.magicc.org/images/c/ce/MAGICC_logo_small.jpg"}}
-          onLoadStart={this._onLoadStart("Image")} onLoadEnd={this._onLoadEnd("Image")} position={[0,0,-3]} scale={[4,4,0]}/>
-
         <ViroFlexView style={styles.containerVertical} position={polarToCartesian([2, 0, 0])} width={3} height={2} opacity={1}>
           <ViroFlexView style={styles.containerInner} >
-            <ViroSurface style={{flex:1}} materials={["redColor"]} />
-            <ViroImage style={{flex:1}} source ={require("./res/sun_2302.jpg")}
-              onLoadStart={this._onLoadStart("Image")} onLoadEnd={this._onLoadEnd("Image")} />
+            <ViroSurface style={this.state.flex} materials={"redColor"} />
+            <ViroImage style={{flex:1}} source ={require("./res/sun_2302.jpg")} />
           </ViroFlexView>
           <ViroFlexView style={styles.containerInner} >
-            <ViroImage style={{flex:1}} source={{uri: "http://wiki.magicc.org/images/c/ce/MAGICC_logo_small.jpg"}}
-              onLoadStart={this._onLoadStart("Image")} onLoadEnd={this._onLoadEnd("Image")} />
+            <ViroImage style={{flex:1}} source={{uri: "http://wiki.magicc.org/images/c/ce/MAGICC_logo_small.jpg"}} />
           </ViroFlexView>
         </ViroFlexView>
 
       </ViroScene>
     );
   },
+  _onTap(component) {
+    if (this.state.state == 1) {
+      this.setState({
+        ...stateTwo,
+        state: 2
+      })
+    } else {
+      this.setState({
+        ...stateOne,
+        state: 1
+      })
+    }
+  },
   /*
   <Viro360Image source={{uri: "http://cdn3-www.dogtime.com/assets/uploads/gallery/pembroke-welsh-corgi-dog-breed-pictures/prance-8.jpg"}} rotation={[-30,90,0]} />
   */
-  _onLoadStart(component) {
-    return () => {
-      console.log("flexViewTest " + component + " load start");
-    }
-  },
-  _onLoadEnd(component) {
-    return () => {
-      console.log("flexViewTest " + component + " load end");
-    }
-  },
-  _onFinish(component) {
-    return () => {
-      console.log("flexViewTest " + component + " finished");
-    }
-  },
-  _onAnimationFinished(){
-    console.log("AnimationTest on Animation Finished!");
-  },
 });
 
 const styles = StyleSheet.create({
@@ -95,49 +105,28 @@ const styles = StyleSheet.create({
     padding: .1,
     backgroundColor: "#0000ff",
   },
+  containerInnerTwo: {
+    flexDirection: 'row',
+    flex: 2,
+    padding: .1,
+    backgroundColor: "#0000ff",
+  },
   containerHorizontal: {
     flexDirection: 'row',
     padding: .1,
   },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    color: '#333333',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
 });
 
+stateOne.innerStyle = styles.containerInner;
+stateTwo.innerStyle = styles.containerInnerTwo;
+
 ViroMaterials.createMaterials({
-  sunTexture: {
-    diffuseTexture: require("./res/sun_2302.jpg"),
-  },
   redColor: {
     diffuseColor: "#ff0000"
   },
-  cardpetite: {
-    shininess : 1.0,
-    lightingModel: "Constant",
-    diffuseTexture: require('./res/card_petite_ansu.png'),
+  greenColor: {
+    diffuseColor: "#00ff00"
   },
-});
-
-ViroAnimations.registerAnimations({
-    moveRight:{properties:{positionX:"+3"}, duration: 3000},
-    moveLeft:{properties:{positionX:"+-3"}, duration: 3000},
-    rotate:{properties:{rotateZ:"+90"}, duration:3000},
-    rotateY:{properties:{rotateY:"+180"}, duration:1500},
-    rotateAndMovePicture:[
-        ["moveLeft", "moveRight"],
-        ["moveRight", "moveLeft"],
-        ["rotateY", "rotateY"],
-        ["rotate"],
-
-    ],
 });
 
 module.exports = FlexViewTest;
