@@ -128,17 +128,17 @@ public class AnimationManager extends ReactContextBaseJavaModule {
 
     private BaseAnimation parseAnimationMap(ReadableMap animationMap) {
         ReadableMap propertyMap = animationMap.getMap("properties");
-        String positionX = getPropertyAsString(propertyMap, "positionX");
-        String positionY = getPropertyAsString(propertyMap, "positionY");
-        String positionZ = getPropertyAsString(propertyMap, "positionZ");
-        String scaleX = getPropertyAsString(propertyMap, "scaleX");
-        String scaleY = getPropertyAsString(propertyMap, "scaleY");
-        String scaleZ = getPropertyAsString(propertyMap, "scaleZ");
-        String rotateX = getPropertyAsString(propertyMap, "rotateX");
-        String rotateY = getPropertyAsString(propertyMap, "rotateY");
-        String rotateZ = getPropertyAsString(propertyMap, "rotateZ");
-        String opacity = getPropertyAsString(propertyMap, "opacity");
-        String color = getPropertyAsString(propertyMap, "color");
+        String positionX = getFloatPropertyAsString(propertyMap, "positionX");
+        String positionY = getFloatPropertyAsString(propertyMap, "positionY");
+        String positionZ = getFloatPropertyAsString(propertyMap, "positionZ");
+        String scaleX = getFloatPropertyAsString(propertyMap, "scaleX");
+        String scaleY = getFloatPropertyAsString(propertyMap, "scaleY");
+        String scaleZ = getFloatPropertyAsString(propertyMap, "scaleZ");
+        String rotateX = getFloatPropertyAsString(propertyMap, "rotateX");
+        String rotateY = getFloatPropertyAsString(propertyMap, "rotateY");
+        String rotateZ = getFloatPropertyAsString(propertyMap, "rotateZ");
+        String opacity = getFloatPropertyAsString(propertyMap, "opacity");
+        String color = getIntPropertyAsString(propertyMap, "color");
 
         int durationMilliseconds = getPropertyAsInt(animationMap, "duration");
         int delayMilliseconds = getPropertyAsInt(animationMap, "delay");
@@ -146,7 +146,7 @@ public class AnimationManager extends ReactContextBaseJavaModule {
         float durationSeconds = durationMilliseconds == Integer.MIN_VALUE ? 0 : durationMilliseconds / 1000f;
         float delaySeconds = delayMilliseconds == Integer.MIN_VALUE ? 0 : delayMilliseconds / 1000f;
 
-        String functionType = getPropertyAsString(animationMap, "easing");
+        String functionType = getFloatPropertyAsString(animationMap, "easing");
         if (functionType == null) {
             functionType = "Linear";
         }
@@ -156,17 +156,34 @@ public class AnimationManager extends ReactContextBaseJavaModule {
     }
 
     /**
-     * This method tries to return the property pointed to by the key as a String from the map.
+     * This method tries to return the floating-point property pointed to by the key as a String from the map.
      * @param map the property map
      * @param key the key of the property we want
      * @return a String or null
      */
-    private String getPropertyAsString(ReadableMap map, String key) {
+    private String getFloatPropertyAsString(ReadableMap map, String key) {
         if (map.hasKey(key)) {
             if (map.getType(key) == ReadableType.String) {
                 return map.getString(key);
             } else if (map.getType(key) == ReadableType.Number) {
                 return Double.toString(map.getDouble(key));
+            }
+        }
+        return null;
+    }
+
+    /**
+     * This method tries to return the int property pointed to by the key as a String from the map.
+     * @param map the property map
+     * @param key the key of the property we want
+     * @return a String or null
+     */
+    private String getIntPropertyAsString(ReadableMap map, String key) {
+        if (map.hasKey(key)) {
+            if (map.getType(key) == ReadableType.String) {
+                return map.getString(key);
+            } else if (map.getType(key) == ReadableType.Number) {
+                return Integer.toString(map.getInt(key));
             }
         }
         return null;
