@@ -33,7 +33,6 @@ static NSString *const kVRTInvalidAPIKeyMessage = @"The given API Key is either 
                                                                       [[UIScreen mainScreen] bounds].size.width,
                                                                       [[UIScreen mainScreen] bounds].size.height)];
         _vroView.renderDelegate = self;
-        _vroView.reticle->setEnabled(true);
         [self setFrame:CGRectMake(0, 0,
                                        [[UIScreen mainScreen] bounds].size.width,
                                        [[UIScreen mainScreen] bounds].size.height)];

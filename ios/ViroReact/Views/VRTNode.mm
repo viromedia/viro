@@ -126,22 +126,31 @@ const int k2DPointsPerSpatialUnit = 1000;
   [super removeReactSubview:subview];
 }
 
--(void)setOnTapViro:(RCTDirectEventBlock)block {
-    _onTapViro = block;
+-(void)onHoverViro:(RCTDirectEventBlock)block {
+    _onHoverViro = block;
 }
 
--(void)setOnGazeViro:(RCTDirectEventBlock)block {
-    _onGazeViro = block;
+-(void)onClickViro:(RCTDirectEventBlock)block {
+    _onClickViro = block;
 }
 
--(void)setCanGaze:(BOOL)canGaze {
-    _canGaze = canGaze;
-    self.eventDelegate->setEnabledEvent(VROEventDelegate::EventType::ON_GAZE, canGaze);
+-(void)onTouchViro:(RCTDirectEventBlock)block {
+    _onTouchViro = block;
 }
 
--(void)setCanTap:(BOOL)canTap {
-    _canTap = canTap;
-    self.eventDelegate->setEnabledEvent(VROEventDelegate::EventType::ON_TAP, canTap);
+-(void)setCanHover:(BOOL)canHover {
+    _canHover = canHover;
+    self.eventDelegate->setEnabledEvent(VROEventDelegate::EventAction::ON_HOVER, canHover);
+}
+
+-(void)setCanClick:(BOOL)canClick {
+    _canClick = canClick;
+    self.eventDelegate->setEnabledEvent(VROEventDelegate::EventAction::ON_CLICK, canClick);
+}
+
+-(void)setCanTouch:(BOOL)canTouch{
+    _canTouch = canTouch;
+    self.eventDelegate->setEnabledEvent(VROEventDelegate::EventAction::ON_TOUCH, canTouch);
 }
 
 - (void)setPosition:(NSArray<NSNumber *> *)position {
@@ -256,15 +265,33 @@ const int k2DPointsPerSpatialUnit = 1000;
 
 #pragma mark default implementations for VRTEventDelegateProtocol
 
--(void)onTapped {
-    if (self.onTapViro != nil) {
-        self.onTapViro(@{@"tapped": @(true),});
-    }
-}
--(void)onGaze:(BOOL)isGazing {
-    if (self.onTapViro != nil) {
-        self.onGazeViro(@{@"isGazing": @(isGazing),});
+-(void)onHover:(int)source isHovering:(bool)isHovering {
+    if (self.onHoverViro != nil) {
+        self.onHoverViro(@{@"source": @(source),
+                         @"isHovering":@(isHovering)});
     }
 }
 
+-(void)onClick:(int)source clickState:(VROEventDelegate::ClickState)clickState{
+    if (self.onClickViro != nil) {
+        self.onClickViro(@{@"source": @(source),
+                          @"clickState":@(clickState)});
+    }
+}
+
+-(void)onTouch:(int)source
+    touchState:(VROEventDelegate::TouchState)touchState
+          xPos:(float)x
+          yPos:(float)y {
+    if (self.onTouchViro != nil) {
+        NSArray *posArray = [NSArray arrayWithObjects:
+                             [NSNumber numberWithFloat:x],
+                             [NSNumber numberWithFloat:y], nil];
+        self.onTouchViro(@{@"source": @(source),
+                         @"touchState":@(touchState),
+                         @"touchPos":posArray});
+
+    }
+
+}
 @end

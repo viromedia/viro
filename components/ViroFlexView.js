@@ -57,25 +57,31 @@ var ViroFlexView = React.createClass({
       PropTypes.arrayOf(PropTypes.string),
       PropTypes.string
     ]),
-    /**
-     * Callback that is called when user gazes on box.
-     */
-    onGaze: React.PropTypes.func,
-
-    /**
-     * Callback that is called when user taps on box.
-     */
-    onTap: React.PropTypes.func,
+    onHover: React.PropTypes.func,
+    onClick: React.PropTypes.func,
+    onClickState: React.PropTypes.func,
+    onTouch: React.PropTypes.func,
   },
 
-  _onGaze: function(event: Event) {
-    this.props.onGaze && this.props.onGaze(event.nativeEvent.isGazing);
+  _onHover: function(event: Event) {
+    this.props.onHover && this.props.onHover(event.nativeEvent.source, event.nativeEvent.isHovering);
   },
 
-  _onTap: function(event: Event) {
-    this.props.onTap && this.props.onTap();
+  _onClick: function(event: Event) {
+    this.props.onClick && this.props.onClick(event.nativeEvent.source);
   },
 
+  _onClickState: function(event: Event) {
+    this.props.onClickState && this.props.onClickState(event.nativeEvent.source, event.nativeEvent.clickState);
+    let CLICKED = 3; // Value representation of Clicked ClickState within EventDelegateJni.
+    if (event.nativeEvent.clickState == CLICKED){
+        this._onClick(event)
+    }
+  },
+
+  _onTouch: function(event: Event) {
+    this.props.onTouch && this.props.onTouch(event.nativeEvent.source, event.nativeEvent.touchState);
+  },
 
   render: function() {
     let onGaze = this.props.onGaze ? this._onGaze : undefined;
@@ -90,10 +96,12 @@ var ViroFlexView = React.createClass({
     let nativeProps = Object.assign({}, this.props);
     nativeProps.materials = materials;
     nativeProps.transformBehaviors = transformBehaviors;
-    nativeProps.onTapViro = this._onTap;
-    nativeProps.onGazeViro = this._onGaze;
-    nativeProps.canGaze = this.props.onGaze != undefined;
-    nativeProps.canTap = this.props.onTap != undefined;
+    nativeProps.onHoverViro = this._onHover;
+    nativeProps.onClickViro = this._onClickState;
+    nativeProps.onTouchViro = this._onTouch;
+    nativeProps.canHover = this.props.onHover != undefined;
+    nativeProps.canClick = this.props.onClick != undefined || this.props.onClickState != undefined;
+    nativeProps.canTouch = this.props.onTouch != undefined;
     return (
       <VROFlexView {...nativeProps} />
     );
@@ -103,7 +111,13 @@ var ViroFlexView = React.createClass({
 
 var VROFlexView = requireNativeComponent(
   'VRTFlexView', ViroFlexView, {
-    nativeOnly: {canTap: true, canGaze: true, onTapViro:true, onGazeViro:true}
+    nativeOnly: {
+            canHover: true,
+            canClick: true,
+            canTouch: true,
+            onHoverViro:true,
+            onClickViro:true,
+            onTouchViro:true}
   }
 );
 

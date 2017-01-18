@@ -50,8 +50,18 @@ public class SceneNavigator extends FrameLayout {
         this(reactContext.getBaseContext(), null, -1);
 
         mVrView = new ViroGvrLayout(reactContext.getCurrentActivity());
-        addView((ViroGvrLayout)mVrView);
+        /**
+         * TODO VIRO-728: be able to add a generic renderView instead of a ViroGvrLayout.
+         */
+        ViroGvrLayout gvrLayout = (ViroGvrLayout)mVrView;
+        addView(gvrLayout);
         mRenderContext = mVrView.getRenderContextRef();
+        /*
+         * Trigger VrView's onActivityStarted and onActivityResumed of the vrView as
+         * React creates it's views within the activity's onResume().
+         */
+        gvrLayout.onActivityStarted(reactContext.getCurrentActivity());
+        gvrLayout.onActivityResumed(reactContext.getCurrentActivity());
     }
 
     public SceneNavigator(Context context) {

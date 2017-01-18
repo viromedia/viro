@@ -11,8 +11,9 @@ package com.viromedia.bridge.utility;
 public class ViroEvents {
     public static final String ON_LOAD_START = "onLoadStartViro";
     public static final String ON_LOAD_END = "onLoadEndViro";
-    public static final String ON_TAP = "onTapViro";
-    public static final String ON_GAZE = "onGazeViro";
     public static final String ON_START = "onStartViro";
     public static final String ON_FINISH = "onFinishViro";
+    public static final String ON_HOVER = "onHoverViro";
+    public static final String ON_CLICK = "onClickViro";
+    public static final String ON_TOUCH = "onTouchViro";
 }

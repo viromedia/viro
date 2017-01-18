@@ -14,28 +14,31 @@ var ViroCameraModule = require('react-native').NativeModules.VRTCameraModule;
 var ViroScene = React.createClass({
   propTypes: {
     ...View.propTypes,
-    /**
-     * Flag for displaying the reticle. True by default.
-     */
-    reticleEnabled:PropTypes.bool,
 
-    /**
-     * Callback that is called when user gazes on the node.
-     */
-    onGaze: React.PropTypes.func,
-
-    /**
-     * Callback that is called when user taps on the node.
-     */
-    onTap: React.PropTypes.func,
+    onHover: React.PropTypes.func,
+    onClick: React.PropTypes.func,
+    onClickState: React.PropTypes.func,
+    onTouch: React.PropTypes.func,
   },
 
-  _onGaze: function(event: Event) {
-    this.props.onGaze && this.props.onGaze(event.nativeEvent.isGazing);
+  _onHover: function(event: Event) {
+    this.props.onHover && this.props.onHover(event.nativeEvent.source, event.nativeEvent.isHovering);
   },
 
-  _onTap: function(event: Event) {
-    this.props.onTap && this.props.onTap();
+  _onClick: function(event: Event) {
+    this.props.onClick && this.props.onClick(event.nativeEvent.source);
+  },
+
+  _onClickState: function(event: Event) {
+    this.props.onClickState && this.props.onClickState(event.nativeEvent.source, event.nativeEvent.clickState);
+    let CLICKED = 3; // Value representation of Clicked ClickState within EventDelegateJni.
+    if (event.nativeEvent.clickState == CLICKED){
+        this._onClick(event)
+    }
+  },
+
+  _onTouch: function(event: Event) {
+    this.props.onTouch && this.props.onTouch(event.nativeEvent.source, event.nativeEvent.touchState);
   },
 
   async getCameraPositionAsync() {
@@ -69,10 +72,12 @@ var ViroScene = React.createClass({
     return (
         <VRTScene
             {...this.props}
-            canGaze={this.props.onGaze != undefined}
-            canTap={this.props.onTap != undefined}
-            onTapViro={this._onTap}
-            onGazeViro={this._onGaze}/>
+            canHover={this.props.onHover != undefined}
+            canClick={this.props.onClick != undefined || this.props.onClickState != undefined}
+            canTouch={this.props.onTouch != undefined}
+            onHoverViro={this._onHover}
+            onClickViro={this._onClickState}
+            onTouchViro={this._onTouch}/>
     );
   },
 });
@@ -85,7 +90,13 @@ ViroScene.childContextTypes = {
 
 var VRTScene = requireNativeComponent(
     'VRTScene', ViroScene, {
-        nativeOnly: {canTap: true, canGaze: true, onTapViro:true, onGazeViro:true}
+        nativeOnly: {
+             canHover: true,
+             canClick: true,
+             canTouch: true,
+             onHoverViro:true,
+             onClickViro:true,
+             onTouchViro:true}
     }
 );
 

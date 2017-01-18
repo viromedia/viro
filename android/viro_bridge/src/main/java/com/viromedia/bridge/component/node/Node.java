@@ -8,6 +8,8 @@ import android.util.AttributeSet;
 import android.view.View;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.Arguments;
+import com.facebook.react.bridge.ReactApplicationContext;
+import com.facebook.react.bridge.WritableArray;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
 import com.facebook.react.uimanager.PixelUtil;
@@ -36,8 +38,9 @@ public class Node extends Component {
     // Always place the children of views .01 in front of the parent. This helps with z-fighting
     // and ensures that the child is always in front of the parent for hit detection
     private static final float sZIncrementToAvoidZFighting = (float) 0.01;
-    protected final static boolean DEFAULT_CAN_TAP = false;
-    protected final static boolean DEFAULT_CAN_GAZE = false;
+    protected final static boolean DEFAULT_CAN_HOVER = false;
+    protected final static boolean DEFAULT_CAN_CLICK = false;
+    protected final static boolean DEFAULT_CAN_TOUCH = false;
     private NodeJni mNodeJni;
     protected float[] mPosition;
     protected float[] mRotation;
@@ -370,12 +373,16 @@ public class Node extends Component {
         setBottom(mOldBottom);
     }
 
-    protected void setCanGaze(boolean canGaze) {
-        mEventDelegateJni.setEventEnabled(EventDelegateJni.EventType.ON_GAZE, canGaze);
+    protected void setCanHover(boolean canHover){
+        mEventDelegateJni.setEventEnabled(EventDelegateJni.EventAction.ON_HOVER, canHover);
     }
 
-    protected void setCanTap(boolean canTap) {
-        mEventDelegateJni.setEventEnabled(EventDelegateJni.EventType.ON_TAP, canTap);
+    protected void setCanClick(boolean canClick){
+        mEventDelegateJni.setEventEnabled(EventDelegateJni.EventAction.ON_CLICK, canClick);
+    }
+
+    protected void setCanTouch(boolean canTouch){
+        mEventDelegateJni.setEventEnabled(EventDelegateJni.EventAction.ON_TOUCH, canTouch);
     }
 
     private static class NodeEventDelegate implements EventDelegateJni.EventDelegateCallback {
@@ -385,31 +392,67 @@ public class Node extends Component {
         }
 
         @Override
-        public void onTapped() {
-            Node node = weakComponent.get();
-            if (node == null){
-                return;
-            }
-
-            node.getReactContext().getJSModule(RCTEventEmitter.class).receiveEvent(
-                    node.getId(),
-                    ViroEvents.ON_TAP,
-                    null);
-        }
-
-        @Override
-        public void onGaze(boolean isGazing) {
+        public void onHover(int source, boolean isHovering) {
             Node node = weakComponent.get();
             if (node == null){
                 return;
             }
 
             WritableMap event = Arguments.createMap();
-            event.putBoolean("isGazing", isGazing);
+            event.putInt("source", source);
+            event.putBoolean("isHovering", isHovering);
             node.getReactContext().getJSModule(RCTEventEmitter.class).receiveEvent(
                     node.getId(),
-                    ViroEvents.ON_GAZE,
+                    ViroEvents.ON_HOVER,
                     event);
+        }
+
+        @Override
+        public void onClick(int source, EventDelegateJni.ClickState clickState) {
+            Node node = weakComponent.get();
+            if (node == null){
+                return;
+            }
+
+            WritableMap event = Arguments.createMap();
+            event.putInt("source", source);
+            event.putInt("clickState", clickState.mTypeId);
+            node.getReactContext().getJSModule(RCTEventEmitter.class).receiveEvent(
+                    node.getId(),
+                    ViroEvents.ON_CLICK,
+                    event);
+        }
+
+        @Override
+        public void onTouch(int source, EventDelegateJni.TouchState touchState, float touchPadPos[]){
+            Node node = weakComponent.get();
+            if (node == null){
+                return;
+            }
+
+            WritableMap event = Arguments.createMap();
+            event.putInt("source", source);
+            event.putInt("touchState", touchState.mTypeId);
+
+            WritableArray touchPos = Arguments.createArray();
+            touchPos.pushDouble(touchPadPos[0]);
+            touchPos.pushDouble(touchPadPos[1]);
+
+            event.putArray("touchPos", touchPos);
+            node.getReactContext().getJSModule(RCTEventEmitter.class).receiveEvent(
+                    node.getId(),
+                    ViroEvents.ON_TOUCH,
+                    event);
+        }
+
+        @Override
+        public void onMove(int i, float[] floats, float[] floats1) {
+            //No-op
+        }
+
+        @Override
+        public void onControllerStatus(int i, EventDelegateJni.ControllerStatus controllerStatus) {
+            //No-op
         }
     }
 }

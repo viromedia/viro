@@ -12,6 +12,7 @@
 #include <stdio.h>
 #include <vector>
 #include <memory>
+#include "VROInputPresenter.h"
 #include "VROAllocationTracker.h"
 #include "VROSortKey.h"
 #include "VROQuaternion.h"
@@ -61,6 +62,8 @@ public:
     std::shared_ptr<VROGeometry> getBackground() const {
         return _background;
     }
+    void setControllerPresenter(std::shared_ptr<VROInputPresenter> presenter);
+
 private:
     
     /*
@@ -72,6 +75,11 @@ private:
      The background visual to display. Rendered before any nodes.
      */
     std::shared_ptr<VROGeometry> _background;
+
+    /*
+     UI representation of the underlying controller
+     */
+    std::shared_ptr<VROInputPresenter> _controllerPresenter;
     
     /*
      The rotation to apply to the background geometry

@@ -29,24 +29,31 @@ public:
     void trigger();
     void renderEye(VROEyeType eye, const VRORenderContext *renderContext, VRODriver *driver);
 
-    void setDepth(float depth);
+    void setPosition(VROVector3f position);
     void setRadius(float radius);
     void setThickness(float thickness);
 
     void setEnabled(bool enabled);
-
+    void setPointerMode(bool isPointerMode);
+    bool getPointerMode();
 private:
 
+    /**
+     * Set to true by controllers if the reticle can be pointed with (like a laser
+     * pointer) - usually used for hand held controllers like daydream.
+     * False if we wish to lock the reticle to the center of the screen - usually
+     * used for fixed controllers like cardboard.
+     */
+    bool _isPointerFixed;
     bool _enabled;
     float _size;
     float _thickness;
     float _endThickness;
 
+    std::shared_ptr<VRORenderContext> _context;
     std::shared_ptr<VRONode> _node;
     std::shared_ptr<VROPolyline> _polyline;
-
     std::vector<VROVector3f> createArc(float radius, int numSegments);
-
 };
 
 #endif

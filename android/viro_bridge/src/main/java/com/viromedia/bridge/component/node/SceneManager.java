@@ -29,19 +29,14 @@ public class SceneManager extends ViroViewGroupManager<Scene> {
         return new Scene(getContext());
     }
 
-    @ReactProp(name = "reticleEnabled", defaultBoolean = true)
-    public void setReticleEnabled(Scene scene, boolean enable) {
-        scene.setReticleEnabled(enable);
+    @ReactProp(name = "canClick", defaultBoolean = Node.DEFAULT_CAN_CLICK)
+    public void setCanClick(Node view, boolean canClick) {
+        view.setCanClick(canClick);
     }
 
-    @ReactProp(name = "canTap", defaultBoolean = Node.DEFAULT_CAN_TAP)
-    public void setHitable(Scene scene, boolean canTap) {
-        scene.setCanTap(canTap);
-    }
-
-    @ReactProp(name = "canGaze", defaultBoolean = Node.DEFAULT_CAN_GAZE)
-    public void setCanHover(Scene scene, boolean canGaze) {
-        scene.setCanGaze(canGaze);
+    @ReactProp(name = "canHover", defaultBoolean = Node.DEFAULT_CAN_HOVER)
+    public void setCanHover(Node view, boolean canHover) {
+        view.setCanHover(canHover);
     }
 
 }

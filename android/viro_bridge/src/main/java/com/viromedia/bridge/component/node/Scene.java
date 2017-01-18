@@ -42,15 +42,7 @@ public class Scene extends Node implements SceneJni.SceneDelegate {
 
     public void setNativeRenderer(RendererJni nativeRenderer) {
         mNativeRenderer = nativeRenderer;
-        mNativeRenderer.enableReticle(mReticleEnabled);
         setCameraIfPossible();
-    }
-
-    public void setReticleEnabled(boolean enable) {
-        mReticleEnabled = enable;
-        if (mNativeRenderer != null) {
-            mNativeRenderer.enableReticle(enable);
-        }
     }
 
     public void setBackgroundImageTexture(TextureJni texture) {

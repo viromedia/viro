@@ -49,14 +49,6 @@
 - (void)setView:(id <VROView>)view {
   _vroView = view;
   [self setCameraIfAvailable];
-  _vroView.reticle->setEnabled(_recticleEnabled);
-}
-
--(void)setReticleEnabled:(BOOL)enabled {
-  _recticleEnabled = enabled;
-  if (_vroView){
-    _vroView.reticle->setEnabled(enabled);
-  }
 }
 
 - (std::shared_ptr<VROSceneController>)sceneController {

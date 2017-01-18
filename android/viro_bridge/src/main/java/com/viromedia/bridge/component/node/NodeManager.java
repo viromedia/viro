@@ -59,14 +59,19 @@ public abstract class NodeManager <T extends Node> extends ViroViewGroupManager<
         view.setVisible(visibility);
     }
 
-    @ReactProp(name = "canTap", defaultBoolean = Node.DEFAULT_CAN_TAP)
-    public void setCanTap(Node view, boolean canTap) {
-        view.setCanTap(canTap);
+    @ReactProp(name = "canHover", defaultBoolean = Node.DEFAULT_CAN_HOVER)
+    public void setCanHover(Node view, boolean canHover) {
+        view.setCanHover(canHover);
     }
 
-    @ReactProp(name = "canGaze", defaultBoolean = Node.DEFAULT_CAN_GAZE)
-    public void setCanGaze(Node view, boolean canGaze) {
-        view.setCanGaze(canGaze);
+    @ReactProp(name = "canClick", defaultBoolean = Node.DEFAULT_CAN_CLICK)
+    public void setCanClick(Node view, boolean canClick) {
+        view.setCanClick(canClick);
+    }
+
+    @ReactProp(name = "canTouch", defaultBoolean = Node.DEFAULT_CAN_TOUCH)
+    public void setCanTouch(Node view, boolean canTouch) {
+        view.setCanTouch(canTouch);
     }
 
     @ReactProp(name = "materials")
@@ -149,7 +154,8 @@ public abstract class NodeManager <T extends Node> extends ViroViewGroupManager<
     @Override
     public Map getExportedCustomDirectEventTypeConstants() {
         return MapBuilder.of(
-                ViroEvents.ON_GAZE, MapBuilder.of("registrationName", ViroEvents.ON_GAZE),
-                ViroEvents.ON_TAP, MapBuilder.of("registrationName", ViroEvents.ON_TAP));
+                ViroEvents.ON_HOVER, MapBuilder.of("registrationName", ViroEvents.ON_HOVER),
+                ViroEvents.ON_CLICK, MapBuilder.of("registrationName", ViroEvents.ON_CLICK),
+                ViroEvents.ON_TOUCH, MapBuilder.of("registrationName", ViroEvents.ON_TOUCH));
     }
 }

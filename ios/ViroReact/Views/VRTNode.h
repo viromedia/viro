@@ -30,10 +30,12 @@ extern const int k2DPointsPerSpatialUnit;
 @property (nonatomic, assign) BOOL visible;
 
 // Event properties
-@property (nonatomic, copy, nullable) RCTDirectEventBlock onTapViro;
-@property (nonatomic, copy, nullable) RCTDirectEventBlock onGazeViro;
-@property (nonatomic, assign) BOOL canGaze;
-@property (nonatomic, assign) BOOL canTap;
+@property (nonatomic, copy, nullable) RCTDirectEventBlock onHoverViro;
+@property (nonatomic, copy, nullable) RCTDirectEventBlock onClickViro;
+@property (nonatomic, copy, nullable) RCTDirectEventBlock onTouchViro;
+@property (nonatomic, assign) BOOL canHover;
+@property (nonatomic, assign) BOOL canClick;
+@property (nonatomic, assign) BOOL canTouch;
 @property (nonatomic, assign) BOOL highAccuracyGaze;
 
 // Used for Flexbox enabled components, no-op for non flexbox related components.
@@ -49,6 +51,7 @@ extern const int k2DPointsPerSpatialUnit;
 - (void)applyMaterials;
 
 // VROEventDelegateProtocol
-- (void)onGaze:(bool)isGazing;
-- (void)onTapped;
+- (void) onHover:(int)source isHovering:(bool)isHovering;
+- (void) onClick:(int)source clickState:(VROEventDelegate::ClickState)clickState;
+- (void) onTouch:(int)source touchState:(VROEventDelegate::TouchState)clickState xPos:(float)x yPos:(float)y;
 @end

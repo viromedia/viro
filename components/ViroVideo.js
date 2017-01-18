@@ -45,15 +45,10 @@ var ViroVideo = React.createClass({
         PropTypes.number
     ]),
 
-    /**
-     * Callback that is called when user gazes on the node.
-     */
-    onGaze: React.PropTypes.func,
-
-    /**
-     * Callback that is called when user taps on the node.
-     */
-    onTap: React.PropTypes.func,
+    onHover: React.PropTypes.func,
+    onClick: React.PropTypes.func,
+    onClickState: React.PropTypes.func,
+    onTouch: React.PropTypes.func,
 
     /**
      * Callback that is called when the video is finished playing. This
@@ -70,12 +65,24 @@ var ViroVideo = React.createClass({
     this.props.onFinish && this.props.onFinish(event);
   },
 
-  _onGaze: function(event: Event) {
-    this.props.onGaze && this.props.onGaze(event.nativeEvent.isGazing);
+  _onHover: function(event: Event) {
+    this.props.onHover && this.props.onHover(event.nativeEvent.source, event.nativeEvent.isHovering);
   },
 
-  _onTap: function(event: Event) {
-    this.props.onTap && this.props.onTap();
+  _onClick: function(event: Event) {
+    this.props.onClick && this.props.onClick(event.nativeEvent.source);
+  },
+
+  _onClickState: function(event: Event) {
+    this.props.onClickState && this.props.onClickState(event.nativeEvent.source, event.nativeEvent.clickState);
+    let CLICKED = 3; // Value representation of Clicked ClickState within EventDelegateJni.
+    if (event.nativeEvent.clickState == CLICKED){
+        this._onClick(event)
+    }
+  },
+
+  _onTouch: function(event: Event) {
+    this.props.onTouch && this.props.onTouch(event.nativeEvent.source, event.nativeEvent.touchState);
   },
 
   render: function() {
@@ -100,10 +107,12 @@ var ViroVideo = React.createClass({
     nativeProps.materials = materials;
     nativeProps.transformBehaviors = transformBehaviors;
     nativeProps.onFinishViro = this._onFinish;
-    nativeProps.onTapViro = this._onTap;
-    nativeProps.onGazeViro = this._onGaze;
-    nativeProps.canGaze = this.props.onGaze != undefined;
-    nativeProps.canTap = this.props.onTap != undefined;
+    nativeProps.onHoverViro = this._onHover;
+    nativeProps.onClickViro = this._onClickState;
+    nativeProps.onTouchViro = this._onTouch;
+    nativeProps.canHover = this.props.onHover != undefined;
+    nativeProps.canClick = this.props.onClick != undefined || this.props.onClickState != undefined;
+    nativeProps.canTouch = this.props.onTouch != undefined;
 
     return (
       <VRTVideoSurface {...nativeProps}/>
@@ -117,7 +126,14 @@ var ViroVideo = React.createClass({
 
 var VRTVideoSurface = requireNativeComponent(
     'VRTVideoSurface', ViroVideo, {
-      nativeOnly: {onFinishViro: true, canTap: true, canGaze: true, onTapViro:true, onGazeViro:true}
+      nativeOnly: {
+            onFinishViro: true,
+                canHover: true,
+                canClick: true,
+                canTouch: true,
+                onHoverViro:true,
+                onClickViro:true,
+                onTouchViro:true}
     }
 );
 
