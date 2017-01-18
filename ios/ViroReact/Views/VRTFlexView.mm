@@ -55,8 +55,6 @@
   _backgroundColor = backgroundColor;
   if(_backgroundColor != nil) {
     std::shared_ptr<VROMaterial> newMaterial =  std::make_shared<VROMaterial>();
-    newMaterial->setWritesToDepthBuffer(true);
-    newMaterial->setReadsFromDepthBuffer(true);
     // Create new background color material.
     CGFloat red,green,blue, alpha;
     [_backgroundColor getRed:&red green:&green blue:&blue alpha:&alpha];

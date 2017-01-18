@@ -171,9 +171,6 @@ RCT_EXPORT_METHOD(setJSMaterials:(NSDictionary *)materialsDict)
 
 - (MaterialWrapper *)createMaterial:(NSDictionary *)material {
   std::shared_ptr<VROMaterial> vroMaterial = std::make_shared<VROMaterial>();
-  //default settings for material
-  vroMaterial->setWritesToDepthBuffer(true);
-  vroMaterial->setReadsFromDepthBuffer(true);
   MaterialWrapper *materialWrapper = [[MaterialWrapper alloc] initWithMaterial:vroMaterial];
   
   for(id key in material) {
