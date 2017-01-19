@@ -31,6 +31,8 @@
     _surface = NULL;
     _width = -1.0;
     _height = -1.0;
+      
+    [self node]->setHierarchicalRendering(true);
   }
   return self;
 }
@@ -114,12 +116,10 @@
     if(_backgroundColorMaterial) {
       [self node]->getGeometry()->getMaterials().clear();
       [self node]->getGeometry()->getMaterials().push_back(_backgroundColorMaterial);
-      return;
     }
 
-    if(self.materials) {
+    else if(self.materials) {
       [self applyMaterials];
-      return;
     }
   } else {
     [self node]->setGeometry(NULL);

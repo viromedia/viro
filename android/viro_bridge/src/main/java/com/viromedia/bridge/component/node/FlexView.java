@@ -31,6 +31,7 @@ public class FlexView extends Node {
         super(context);
         mDefaultMaterial = new MaterialJni();
         mDefaultMaterial.setColor(Color.TRANSPARENT, DIFFUSE_COLOR_NAME);
+        getNodeJni().setHierarchicalRendering(true);
     }
 
     public void setWidth(float width) {
