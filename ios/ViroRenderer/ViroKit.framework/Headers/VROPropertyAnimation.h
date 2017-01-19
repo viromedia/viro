@@ -13,6 +13,23 @@
 #include <string>
 #include <memory>
 
+/*
+ Animated property values can be of the following types.
+ */
+enum class VROValueType {
+    Float,
+    Int
+};
+
+/*
+ Encapsulates different types of animation values.
+ */
+class VROAnimationValue {
+public:
+    VROValueType type;
+    float valueFloat;
+    int valueInt;
+};
 
 /*
  Represents a single animated property of a node, material, or something else.
@@ -23,14 +40,14 @@ public:
     
     static std::shared_ptr<VROPropertyAnimation> parse(const std::string &name, const std::string &value);
     
-    VROPropertyAnimation(std::string propertyName, float value, bool isAdditive) :
+    VROPropertyAnimation(std::string propertyName, VROAnimationValue value, bool isAdditive) :
         _propertyName(propertyName),
         _value(value),
         _isAdditive(isAdditive) {}
     virtual ~VROPropertyAnimation() {}
     
     std::string getPropertyName() const { return _propertyName; }
-    float getValue() const { return _value; }
+    VROAnimationValue getValue() const { return _value; }
     bool isAdditive() const { return _isAdditive; }
     
     std::string toString() const;
@@ -38,7 +55,7 @@ public:
 private:
     
     const std::string _propertyName;
-    const float _value;
+    const VROAnimationValue _value;
     const bool _isAdditive;
     
 };

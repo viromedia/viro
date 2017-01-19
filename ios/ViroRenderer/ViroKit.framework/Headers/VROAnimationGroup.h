@@ -29,11 +29,11 @@ public:
     static std::shared_ptr<VROAnimationGroup> parse(float duration, float delay, std::string functionName,
                                                     std::map<std::string, std::string> &properties);
     
-    VROAnimationGroup(float duration, float delay,
+    VROAnimationGroup(float durationSeconds, float delaySeconds,
                       VROTimingFunctionType timingFunction,
                       std::map<std::string, std::shared_ptr<VROPropertyAnimation>> &animations) :
-        _durationMillis(duration),
-        _delayMillis(delay),
+        _duration(durationSeconds),
+        _delay(delaySeconds),
         _timingFunctionType(timingFunction),
         _animations(animations) {}
     virtual ~VROAnimationGroup() {}
@@ -51,8 +51,8 @@ private:
     
     static VROTimingFunctionType parseTimingFunction(std::string &name);
     
-    float _durationMillis;
-    float _delayMillis;
+    float _duration;
+    float _delay;
     VROTimingFunctionType _timingFunctionType;
     
     std::shared_ptr<VROTransaction> _transaction;

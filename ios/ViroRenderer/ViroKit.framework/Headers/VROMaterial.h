@@ -65,6 +65,12 @@ public:
     VROMaterial(std::shared_ptr<VROMaterial> material);
     
     /*
+     Copy function, to write over all properties of this material with the
+     properties of the given material.
+     */
+    void copyFrom(std::shared_ptr<VROMaterial> material);
+    
+    /*
      Set a name for this material. No functionality, only used for 
      debugging.
      */

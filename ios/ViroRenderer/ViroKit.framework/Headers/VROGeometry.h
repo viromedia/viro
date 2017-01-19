@@ -27,7 +27,6 @@ class VROGeometryElement;
 class VROGeometrySource;
 class VROGeometrySubstrate;
 class VROMatrix4f;
-class VRORenderParameters;
 enum class VROGeometrySourceSemantic;
 
 /*
@@ -87,7 +86,7 @@ public:
                 const VRORenderContext &context,
                 VRODriver &driver);
     
-    void updateSortKeys(VRONode *node, uint32_t lightsHash,
+    void updateSortKeys(VRONode *node, uint32_t depth, uint32_t lightsHash,
                         float opacity, float distanceFromCamera, float zFar,
                         VRODriver &driver);
     void getSortKeys(std::vector<VROSortKey> *outKeys);

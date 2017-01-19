@@ -62,7 +62,8 @@ public:
                 const VRORenderContext &context,
                 VRODriver &driver);
     
-    void updateSortKeys(VRORenderParameters &params,
+    void updateSortKeys(uint32_t depth,
+                        VRORenderParameters &params,
                         const VRORenderContext &context,
                         VRODriver &driver);
     void getSortKeys(std::vector<VROSortKey> *outKeys);
@@ -115,6 +116,21 @@ public:
      */
     void setRotationEuler(VROVector3f euler);
     
+    /*
+     These piecewise setters are used in order to change one axis
+     only, without altering the remaining axes. Useful when animating
+     across multiple axes across separate calls. Animatable.
+     */
+    void setPositionX(float x);
+    void setPositionY(float y);
+    void setPositionZ(float z);
+    void setScaleX(float x);
+    void setScaleY(float y);
+    void setScaleZ(float z);
+    void setRotationEulerX(float radians);
+    void setRotationEulerY(float radians);
+    void setRotationEulerZ(float radians);
+    
     float getOpacity() const {
         return _opacity;
     }
@@ -136,6 +152,13 @@ public:
     }
     void setRenderingOrder(int renderingOrder) {
         _renderingOrder = renderingOrder;
+    }
+    
+    bool isHierarchicalRendering() const {
+        return _hierarchicalRendering;
+    }
+    void setHierarchicalRendering(bool hierarchicalRendering) {
+        _hierarchicalRendering = hierarchicalRendering;
     }
     
     /*
@@ -308,8 +331,8 @@ private:
      */
     bool _selectable;
 
-    /**
-     * Delegate through which events are notified from the VROEventManager.
+    /*
+     Delegate through which events are notified from the VROEventManager.
      */
     std::weak_ptr<VROEventDelegate> _eventDelegateWeak;
 
@@ -328,6 +351,13 @@ private:
      Constraints on the node, which can modify the node's transformation matrix.
      */
     std::vector<std::shared_ptr<VROConstraint>> _constraints;
+    
+    /*
+     True indicates that this node's descendants (children, grand-children, and so on)
+     should be rendered by order of their scene graph depth. Useful when rendering
+     2D layouts like flexbox views. Defaults to false.
+     */
+     bool _hierarchicalRendering;
     
     /*
      Action processing: execute all current actions and remove those that are

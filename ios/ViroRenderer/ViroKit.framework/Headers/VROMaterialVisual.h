@@ -61,6 +61,12 @@ public:
      */
     VROMaterialVisual(const VROMaterialVisual &visual);
     
+    /*
+     Copy from the given visual to this one. Does NOT copy the
+     parent material, however.
+     */
+    void copyFrom(const VROMaterialVisual &visual);
+    
     void clear();
     void setColor(VROVector4f contents);
     void setTexture(std::shared_ptr<VROTexture> texture);
