@@ -67,13 +67,12 @@ NSString *const VRTLabelReactTagAttributeName = @"ReactTagAttributeName";
 }
 
 - (void)updateLabel {
-  
   NSString *fontFam = ([self.fontFamily length]) ? self.fontFamily: _defaultFont;
 
   std::string fontFamily = std::string([fontFam UTF8String]);
   int fontSize = (int)self.fontSize;
 
-  std::shared_ptr<VROTypeface>  typeFace = self.driver->newTypeface(fontFamily, fontSize);
+  std::shared_ptr<VROTypeface> typeFace = self.driver->newTypeface(fontFamily, fontSize);
   std::string text = std::string([_text UTF8String]);
   VROVector4f colorVector(1.0f, 1.0f, 1.0f, 1.0f);
   

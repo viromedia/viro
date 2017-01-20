@@ -17,6 +17,7 @@
   if (self) {
     //Set flex to 1 as default for text view
     [super setFlex:1];
+    CSSNodeSetIsTextnode(self.cssNode, true);
   }
   return self;
 }

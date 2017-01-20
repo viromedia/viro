@@ -42,55 +42,45 @@ import {
 let polarToCartesian = ViroUtils.polarToCartesian;
 
 var TextTest = React.createClass({
-  getInitialState: function() {
-    return {addLight: false};
-  },
+
   render: function() {
     return (
-      <ViroScene reticleEnabled={true} onTap={this._addRemoveLight}>
+      <ViroScene reticleEnabled={true} >
 
         <ViroFlexView style={styles.containerVertical} position={polarToCartesian([2, 0, 0])} width={3} height={2}>
           <ViroFlexView style={styles.containerInner} >
             <ViroText style={styles.baseTextTwo} text="I'm testing this to see if it works" />
-            <ViroImage style={{flex:1}} source={{uri: "http://wiki.magicc.org/images/c/ce/MAGICC_logo_small.jpg"}}
-              onLoadStart={this._onLoadStart("Image")} onLoadEnd={this._onLoadEnd("Image")} />
+            <ViroImage style={{flex:1}} source={{uri: "http://wiki.magicc.org/images/c/ce/MAGICC_logo_small.jpg"}} />
           </ViroFlexView>
           <ViroFlexView style={styles.containerInner} >
-            <ViroImage style={{flex:1}} source={{uri: "http://wiki.magicc.org/images/c/ce/MAGICC_logo_small.jpg"}}
-              onLoadStart={this._onLoadStart("Image")} onLoadEnd={this._onLoadEnd("Image")} />
+            <ViroImage style={{flex:1}} source={{uri: "http://wiki.magicc.org/images/c/ce/MAGICC_logo_small.jpg"}} />
           </ViroFlexView>
         </ViroFlexView>
-
+        <ViroFlexView style={styles.containerVertical} width={2} height={2} materials="cardpetite" position={[-2, 0, -1]}>
+          <ViroText style={styles.baseTextTwo}  text="Centered Text!" />
+          <ViroText style={styles.baseTextTwo}  text="Centered Text Two!" />
+        </ViroFlexView>
+        <ViroFlexView style={styles.containerVerticalTwo} backgroundColor="#333333" position={[2.3, 0, -2.5]} width={3} height={3} >
+          <ViroText style={styles.baseTextThree} height={.5} text="Base text three!" />
+          <ViroText style={styles.baseTextThree} height={.5} text="Base text three again!" />
+        </ViroFlexView>
+        <ViroText style={styles.baseTextTwo} position={[0,-1, -1]} width={2} height={4} text="I'm testing this to see if it works, this is the best most tremendous text engine. You won't be disappointed, believe me!" />
         <ViroText style={styles.baseTextTwo} position={[0,-1, -1]} width={2} height={4} text="I'm testing this to see if it works, this is the best most tremendous text engine. You won't be disappointed, believe me!" />
       </ViroScene>
     );
-  },
-  /*
-  <Viro360Image source={{uri: "http://cdn3-www.dogtime.com/assets/uploads/gallery/pembroke-welsh-corgi-dog-breed-pictures/prance-8.jpg"}} rotation={[-30,90,0]} />
-  */
-  _onLoadStart(component) {
-    return () => {
-      console.log("flexViewTest " + component + " load start");
-    }
-  },
-  _onLoadEnd(component) {
-    return () => {
-      console.log("flexViewTest " + component + " load end");
-    }
-  },
-  _onFinish(component) {
-    return () => {
-      console.log("flexViewTest " + component + " finished");
-    }
-  },
-  _onAnimationFinished(){
-    console.log("AnimationTest on Animation Finished!");
   },
 });
 
 const styles = StyleSheet.create({
   containerVertical: {
     flexDirection: 'column',
+  },
+  containerVertical: {
+    flexDirection: 'column',
+  },
+  containerVerticalTwo: {
+    flexDirection: 'column',
+    justifyContent: 'flex-start'
   },
   containerInner: {
     flexDirection: 'row',
@@ -118,15 +108,15 @@ const styles = StyleSheet.create({
       fontSize: 20,
       color: '#ffffff',
       flex: 1,
-      textAlignVertical: 'bottom',
+      textAlignVertical: 'center',
       textAlign: 'center',
   },
   baseTextThree: {
      fontFamily: 'Courier',
      fontSize: 20,
-     color: '#555555',
+     color: '#ffffff',
      flex: 1,
-     textAlign: 'right',
+     textAlign: 'center',
  },
 });
 
