@@ -22,7 +22,7 @@ public class Image360Manager extends ViroViewGroupManager<Image360> {
 
     @Override
     public String getName() {
-        return "VRO360Image";
+        return "VRT360Image";
     }
 
     @Override
