@@ -10,7 +10,7 @@
 #import "VRTScene.h"
 #import "RCTConvert.h"
 #import "RCTLog.h"
-#import "VROUtils.h"
+#import "VRTUtils.h"
 
 @interface SoundWrapper:NSObject {
   

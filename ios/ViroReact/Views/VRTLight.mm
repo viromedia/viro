@@ -8,7 +8,7 @@
 
 #import <ViroKit/ViroKit.h>
 #import "VRTLight.h"
-#import "VROUtils.h"
+#import "VRTUtils.h"
 
 @interface VRTLight ()
 

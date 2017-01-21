@@ -9,7 +9,7 @@
 #import "VRT3DObject.h"
 #import "RCTConvert.h"
 #import "VROMaterialManager.h"
-#import "VROUtils.h"
+#import "VRTUtils.h"
 
 @implementation VRT3DObject {
   

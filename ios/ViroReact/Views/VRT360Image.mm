@@ -6,7 +6,7 @@
 //  Copyright © 2016 Viro Media. All rights reserved.
 //
 
-#import "VROUtils.h"
+#import "VRTUtils.h"
 #import "VRT360Image.h"
 #import "RCTConvert.h"
 #import "RCTUtils.h"

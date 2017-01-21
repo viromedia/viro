@@ -7,7 +7,7 @@
 //
 #import <CoreText/CoreText.h>
 #import "VRTText.h"
-#import "VROUtils.h"
+#import "VRTUtils.h"
 #import "ViroUIManager.h"
 #import "VRTFlexView.h"
 #import "RCTConvert.h"

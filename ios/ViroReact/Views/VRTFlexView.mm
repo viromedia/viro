@@ -14,7 +14,6 @@
 #import "RCTLog.h"
 #import "RCTBridge.h"
 #import "VRTImage.h"
-#import "VRTButton.h"
 #import "VRTText.h"
 #import "VRTVideoSurface.h"
 #import "VRTNodeContainer.h"
@@ -131,7 +130,6 @@
 - (void)insertReactSubview:(UIView *)view atIndex:(NSInteger)index {
   VRTView *vrtView = (VRTView *)view;
   if ([vrtView isKindOfClass:[VRTImage class]] ||
-          [vrtView isKindOfClass:[VRTButton class]] ||
           [vrtView isKindOfClass:[VRTText class]] ||
           [vrtView isKindOfClass:[VRTFlexView class]] ||
           [vrtView isKindOfClass:[VRTVideoSurface class]] ||

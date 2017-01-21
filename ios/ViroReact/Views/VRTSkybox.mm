@@ -7,7 +7,7 @@
 //
 
 #import "VRTSkybox.h"
-#import "VROUtils.h"
+#import "VRTUtils.h"
 #import "RCTConvert.h"
 #import "RCTUtils.h"
 #import "RCTLog.h"

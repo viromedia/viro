@@ -8,7 +8,7 @@
 
 #import "VRTImageAsyncLoader.h"
 #import "RCTImageSource.h"
-#import "VROUtils.h"
+#import "VRTUtils.h"
 
 
 @implementation VRTImageAsyncLoader {

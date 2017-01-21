@@ -7,7 +7,7 @@
 //
 
 #import "VRTHUDComponent.h"
-#import "VROUtils.h"
+#import "VRTUtils.h"
 
 @implementation VRTHUDLabel {
   CGFloat _screenWidth;

@@ -7,7 +7,7 @@
 //
 
 #import "VRTView.h"
-#import "VROUtils.h"
+#import "VRTUtils.h"
 #import "RCTLog.h"
 #import "VROMaterialManager.h"
 #import <UIKit/UIKit.h>

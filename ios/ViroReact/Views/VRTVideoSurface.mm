@@ -9,7 +9,7 @@
 #import "VRTVideoSurface.h"
 #import "RCTImageSource.h"
 #import "RCTConvert.h"
-#import "VROUtils.h"
+#import "VRTUtils.h"
 
 @implementation VRTVideoSurface{
   std::shared_ptr<VROSurface> _surface;

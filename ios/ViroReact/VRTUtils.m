@@ -1,12 +1,12 @@
 //
-//  VROUtils.m
+//  VRTUtils.m
 //  React
 //
 //  Created by Vik Advani on 1/8/16.
 //  Copyright © 2016 Viro Media. All rights reserved.
 //
 
-#import "VROUtils.h"
+#import "VRTUtils.h"
 #import "RCTUtils.h"
 
 

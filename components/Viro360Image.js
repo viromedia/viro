@@ -88,13 +88,13 @@ var Viro360Image = React.createClass({
     nativeProps.onLoadEndViro = this._onLoadEnd;
 
     return (
-      <VRO360Image {...nativeProps} />
+      <VRT360Image {...nativeProps} />
     );
   }
 });
 
-var VRO360Image = requireNativeComponent(
-  'VRO360Image', Viro360Image, {
+var VRT360Image = requireNativeComponent(
+  'VRT360Image', Viro360Image, {
     nativeOnly: {onLoadStartViro: true, onLoadEndViro: true}
   }
 );

@@ -6,11 +6,11 @@
 //  Copyright © 2016 Viro Media. All rights reserved.
 //
 
-#import "VRO360ImageManager.h"
+#import "VRT360ImageManager.h"
 #import "VRT360Image.h"
 #import "RCTImageSource.h"
 
-@implementation VRO360ImageManager
+@implementation VRT360ImageManager
 
 RCT_EXPORT_MODULE()
 RCT_EXPORT_VIEW_PROPERTY(source, RCTImageSource)
