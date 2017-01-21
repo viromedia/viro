@@ -63,7 +63,7 @@
 		8BE0D5121DFA3D9B0032AB99 /* VRTViewContainerManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8BE0D4F41DFA3D9B0032AB99 /* VRTViewContainerManager.mm */; };
 		8BE0D5191DFA3DB20032AB99 /* VRTAnimationManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8BE0D5141DFA3DB20032AB99 /* VRTAnimationManager.mm */; };
 		8BE0D51A1DFA3DB20032AB99 /* VROAudioManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8BE0D5161DFA3DB20032AB99 /* VROAudioManager.mm */; };
-		8BE0D51B1DFA3DB20032AB99 /* VROMaterialManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8BE0D5181DFA3DB20032AB99 /* VROMaterialManager.mm */; };
+		8BE0D51B1DFA3DB20032AB99 /* VRTMaterialManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8BE0D5181DFA3DB20032AB99 /* VRTMaterialManager.mm */; };
 		8BE0D5241DFA3DEA0032AB99 /* VRTCubeMap.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BE0D51E1DFA3DEA0032AB99 /* VRTCubeMap.m */; };
 		8BE0D5251DFA3DEA0032AB99 /* VRTImageAsyncLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BE0D5201DFA3DEA0032AB99 /* VRTImageAsyncLoader.m */; };
 		8BE0D5261DFA3DEA0032AB99 /* VRTTreeNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BE0D5231DFA3DEA0032AB99 /* VRTTreeNode.m */; };
@@ -208,8 +208,8 @@
 		8BE0D5141DFA3DB20032AB99 /* VRTAnimationManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = VRTAnimationManager.mm; path = ViroReact/Modules/VRTAnimationManager.mm; sourceTree = "<group>"; };
 		8BE0D5151DFA3DB20032AB99 /* VROAudioManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VROAudioManager.h; path = ViroReact/Modules/VROAudioManager.h; sourceTree = "<group>"; };
 		8BE0D5161DFA3DB20032AB99 /* VROAudioManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = VROAudioManager.mm; path = ViroReact/Modules/VROAudioManager.mm; sourceTree = "<group>"; };
-		8BE0D5171DFA3DB20032AB99 /* VROMaterialManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VROMaterialManager.h; path = ViroReact/Modules/VROMaterialManager.h; sourceTree = "<group>"; };
-		8BE0D5181DFA3DB20032AB99 /* VROMaterialManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = VROMaterialManager.mm; path = ViroReact/Modules/VROMaterialManager.mm; sourceTree = "<group>"; };
+		8BE0D5171DFA3DB20032AB99 /* VRTMaterialManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VRTMaterialManager.h; path = ViroReact/Modules/VRTMaterialManager.h; sourceTree = "<group>"; };
+		8BE0D5181DFA3DB20032AB99 /* VRTMaterialManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = VRTMaterialManager.mm; path = ViroReact/Modules/VRTMaterialManager.mm; sourceTree = "<group>"; };
 		8BE0D51D1DFA3DEA0032AB99 /* VRTCubeMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VRTCubeMap.h; path = ViroReact/Utility/VRTCubeMap.h; sourceTree = "<group>"; };
 		8BE0D51E1DFA3DEA0032AB99 /* VRTCubeMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VRTCubeMap.m; path = ViroReact/Utility/VRTCubeMap.m; sourceTree = "<group>"; };
 		8BE0D51F1DFA3DEA0032AB99 /* VRTImageAsyncLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VRTImageAsyncLoader.h; path = ViroReact/Utility/VRTImageAsyncLoader.h; sourceTree = "<group>"; };
@@ -328,8 +328,8 @@
 				8BE0D5141DFA3DB20032AB99 /* VRTAnimationManager.mm */,
 				8BE0D5151DFA3DB20032AB99 /* VROAudioManager.h */,
 				8BE0D5161DFA3DB20032AB99 /* VROAudioManager.mm */,
-				8BE0D5171DFA3DB20032AB99 /* VROMaterialManager.h */,
-				8BE0D5181DFA3DB20032AB99 /* VROMaterialManager.mm */,
+				8BE0D5171DFA3DB20032AB99 /* VRTMaterialManager.h */,
+				8BE0D5181DFA3DB20032AB99 /* VRTMaterialManager.mm */,
 			);
 			name = Modules;
 			sourceTree = "<group>";
@@ -548,7 +548,7 @@
 				8BE0D50B1DFA3D9B0032AB99 /* VRTSceneShadowView.mm in Sources */,
 				8BE0D50D1DFA3D9B0032AB99 /* VRTShadowView.mm in Sources */,
 				8BE0D4A71DFA15880032AB99 /* VRT3DObjectManager.mm in Sources */,
-				8BE0D51B1DFA3DB20032AB99 /* VROMaterialManager.mm in Sources */,
+				8BE0D51B1DFA3DB20032AB99 /* VRTMaterialManager.mm in Sources */,
 				8BE0D4AE1DFA15880032AB99 /* VRTSphereManager.mm in Sources */,
 				8BE0D4A01DFA15880032AB99 /* VROHUDManager.mm in Sources */,
 				8BE0D49A1DFA15880032AB99 /* VRT360ImageManager.mm in Sources */,

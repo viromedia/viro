@@ -1,5 +1,5 @@
 //
-//  VROMaterialManager.m
+//  VRTMaterialManager.m
 //  React
 //
 //  Created by Vik Advani on 1/20/16.
@@ -7,14 +7,14 @@
 //
 
 
-#import "VROMaterialManager.h"
+#import "VRTMaterialManager.h"
 #import "RCTConvert.h"
 
-@implementation RCTBridge (VROMaterialManager)
+@implementation RCTBridge (VRTMaterialManager)
 
-- (VROMaterialManager *)materialManager
+- (VRTMaterialManager *)materialManager
 {
-  return [self moduleForClass:[VROMaterialManager class]];
+  return [self moduleForClass:[VRTMaterialManager class]];
 }
 
 @end
@@ -55,7 +55,7 @@
 
 @end
 
-@implementation VROMaterialManager{
+@implementation VRTMaterialManager{
 
     //dictionary of images, so we only load images once.
     NSMutableDictionary * _imageDictionary;

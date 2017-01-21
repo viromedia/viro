@@ -1,5 +1,5 @@
 //
-//  VROMaterialManager.h
+//  VRTMaterialManager.h
 //  React
 //
 //  Created by Vik Advani on 1/20/16.
@@ -12,7 +12,7 @@
 #import "RCTBridge.h"
 
 
-@interface VROMaterialManager : NSObject <RCTBridgeModule>
+@interface VRTMaterialManager : NSObject <RCTBridgeModule>
 
 + (std::shared_ptr<VROVideoTexture>)createVideoTexture:(NSString *)path
                                          renderContext:(VRORenderContext *)context
@@ -32,9 +32,9 @@
 
 @end
 
-@interface RCTBridge (VROMaterialManager)
+@interface RCTBridge (VRTMaterialManager)
 
-- (VROMaterialManager *)materialManager;
+- (VRTMaterialManager *)materialManager;
 
 @end
 

@@ -7,7 +7,7 @@
 //
 #import <ViroKit/ViroKit.h>
 #import "VRTBox.h"
-#import "VROMaterialManager.h"
+#import "VRTMaterialManager.h"
 #import "RCTLog.h"
 
 @implementation VRTBox {

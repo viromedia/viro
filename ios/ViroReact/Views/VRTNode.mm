@@ -17,7 +17,7 @@
 #import "VRTText.h"
 #import "VRTUtils.h"
 #import "VRTAnimatedComponent.h"
-#import "VROMaterialManager.h"
+#import "VRTMaterialManager.h"
 
 const int k2DPointsPerSpatialUnit = 1000;
 
@@ -188,7 +188,7 @@ const int k2DPointsPerSpatialUnit = 1000;
     std::shared_ptr<VROGeometry> geometry = node->getGeometry();
     
     if (geometry) {
-      VROMaterialManager *materialManager = [self.bridge moduleForClass:[VROMaterialManager class]];
+      VRTMaterialManager *materialManager = [self.bridge moduleForClass:[VRTMaterialManager class]];
       
         for (int i = 0; i < self.materials.count; i++) {
             NSString *materialName = [self.materials objectAtIndex:i];

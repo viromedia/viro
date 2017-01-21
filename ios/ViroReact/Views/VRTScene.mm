@@ -10,7 +10,7 @@
 #import "VRTScene.h"
 #import "VRTCamera.h"
 #import "VRTOrbitCamera.h"
-#import "VROMaterialManager.h"
+#import "VRTMaterialManager.h"
 #import "RCTConvert.h"
 #import "VRTNode.h"
 #import "VRTLog.h"

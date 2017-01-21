@@ -9,7 +9,7 @@
 #import "VRTView.h"
 #import "VRTUtils.h"
 #import "RCTLog.h"
-#import "VROMaterialManager.h"
+#import "VRTMaterialManager.h"
 #import <UIKit/UIKit.h>
 #import <objc/runtime.h>
 
@@ -24,7 +24,7 @@
 if([subview respondsToSelector:@selector(material)]) {
   NSString *materialName = [vroView material];
   if(materialName != nil){
-    VROMaterialManager *materialManager = [_bridge materialManager];
+    VRTMaterialManager *materialManager = [_bridge materialManager];
     NSDictionary *videoTextures= [materialManager getVideoTexturesForMaterialName:materialName];
     std::shared_ptr<VROMaterial> material = [materialManager getMaterialByName:materialName];
     if(videoTextures != nil){
@@ -32,7 +32,7 @@ if([subview respondsToSelector:@selector(material)]) {
       // TODO The render context and driver are NOT set anywhere!
       for(id key in videoTextures){
         NSString *path = videoTextures[(NSString *)key];
-        std::shared_ptr<VROVideoTexture> videoTexture = [VROMaterialManager createVideoTextureForMaterial:material videoPath:path name:(NSString *)key renderContext:self.renderContext driver:self.driver];
+        std::shared_ptr<VROVideoTexture> videoTexture = [VRTMaterialManager createVideoTextureForMaterial:material videoPath:path name:(NSString *)key renderContext:self.renderContext driver:self.driver];
         [materialManager setTextureForMaterial:material texture:videoTexture name:materialPropertyName];
 
       }

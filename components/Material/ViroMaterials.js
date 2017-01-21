@@ -11,7 +11,7 @@
  */
 
 import resolveAssetSource from "react-native/Libraries/Image/resolveAssetSource";
-var MaterialManager = require('react-native').NativeModules.VROMaterialManager;
+var MaterialManager = require('react-native').NativeModules.VRTMaterialManager;
 var MaterialPropTypes = require('./MaterialPropTypes');
 var MaterialValidation = require('./MaterialValidation');
 var invariant = require('fbjs/lib/invariant');

@@ -8,7 +8,7 @@
 
 #import "VRTImage.h"
 #import "RCTLog.h"
-#import "VROMaterialManager.h"
+#import "VRTMaterialManager.h"
 #import "VRTImageAsyncLoader.h"
 
 static float const kDefaultWidth = 1;

@@ -10,7 +10,7 @@
 #import "VRTScene.h"
 #import "VRTVideoSurface.h"
 #import "VRTAnimatedComponent.h"
-#import "VROMaterialManager.h"
+#import "VRTMaterialManager.h"
 #import "RCTLog.h"
 #import "RCTBridge.h"
 #import "VRTImage.h"

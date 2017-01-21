@@ -8,7 +8,7 @@
 
 #import "VRT3DObject.h"
 #import "RCTConvert.h"
-#import "VROMaterialManager.h"
+#import "VRTMaterialManager.h"
 #import "VRTUtils.h"
 
 @implementation VRT3DObject {
@@ -32,7 +32,7 @@
         return;
     }
     
-    VROMaterialManager *materialManager = [self.bridge moduleForClass:[VROMaterialManager class]];
+    VRTMaterialManager *materialManager = [self.bridge moduleForClass:[VRTMaterialManager class]];
     
     /*
      The materials set for a 3D model overwrite the materials set by the

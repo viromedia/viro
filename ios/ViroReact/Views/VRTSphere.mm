@@ -7,7 +7,7 @@
 
 #import <ViroKit/ViroKit.h>
 #import "VRTSphere.h"
-#import "VROMaterialManager.h"
+#import "VRTMaterialManager.h"
 #import "RCTLog.h"
 
 static NSUInteger const kDefaultWidthSegment = 20;

@@ -8,7 +8,7 @@
 
 #import "VRTCamera.h"
 #import <ViroKit/ViroKit.h>
-#import "VROMaterialManager.h"
+#import "VRTMaterialManager.h"
 
 static NSArray *const kDefaultCameraPosition  = @[@0, @0, @0];
 
