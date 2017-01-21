@@ -40,7 +40,7 @@ public class MaterialManager extends ReactContextBaseJavaModule {
 
     @Override
     public String getName() {
-        return "VROMaterialManager";
+        return "VRTMaterialManager";
     }
 
     public MaterialJni getMaterial(String name) {
