@@ -67,49 +67,46 @@
     return _sceneController->getScene();
 }
 
-#pragma mark - Scene plumbing to VROView
+#pragma mark - Camera
 
 - (void)setCameraIfAvailable {
-  if (_camera && _vroView) {
-    NSArray <NSNumber *> *positionArray = _camera.position;
-    VROVector3f position = VROVector3f([positionArray[0] floatValue],
-                                       [positionArray[1] floatValue],
-                                       [positionArray[2] floatValue]);
-    [_vroView setPosition:position];
-    
-    VROCameraRotationType rotationType = [_camera rotationType];
-    [_vroView setCameraRotationType:rotationType];
-    
-    if (rotationType == VROCameraRotationType::Orbit) {
-      VRTOrbitCamera *orbitCamera = (VRTOrbitCamera *) _camera;
-      
-      NSArray <NSNumber *> *focalPointArray = orbitCamera.focalPoint;
-      VROVector3f focalPoint = VROVector3f([focalPointArray[0] floatValue],
-                                           [focalPointArray[1] floatValue],
-                                           [focalPointArray[2] floatValue]);
-      [_vroView setOrbitFocalPoint:focalPoint];
+    if (!_camera || !_vroView) {
+        return;
     }
+    
+    VRTView *pointOfView = [_camera superview];
+    if (![pointOfView isKindOfClass:[VRTNode class]]) {
+        RCTLogError(@"Camera superview is not a VRTNode!");
+        return;
+    }
+    
+    VRTNode *node = (VRTNode *)pointOfView;
+    [_vroView setPointOfView:node.node];
+}
+
+- (void)setCamera:(VRTCamera *)camera {
+  _camera = camera;
+  [self setCameraIfAvailable];
+}
+
+- (void)removeCamera:(VRTCamera *)camera {
+  if (_camera != camera) {
+      return;
   }
+    
+  if (_vroView) {
+    [_vroView setPointOfView:nullptr];
+  }
+  _camera = nil;
 }
 
 #pragma mark - Scene-specific subviews
 
 - (void)insertReactSubview:(UIView *)view atIndex:(NSInteger)atIndex {
-  VRTView *component = (VRTView *)view;
-
-  if ([component isKindOfClass:[VRTCamera class]]) {
-    _camera = (VRTCamera *)component;
-    [self setCameraIfAvailable];
-  }
-  
   [super insertReactSubview:view atIndex:atIndex];
 }
 
 - (void)removeReactSubview:(UIView *)subview {
-  if ([subview isKindOfClass:[VRTCamera class]]) {
-    _camera = nil;
-  }
-  
   [super removeReactSubview:subview];
 }
 

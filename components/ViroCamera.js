@@ -16,13 +16,25 @@ import React, { Component } from 'react';
 var NativeMethodsMixin = require('react/lib/NativeMethodsMixin');
 var PropTypes = require('react/lib/ReactPropTypes');
 
-
 var ViroCamera = React.createClass({
   mixins: [NativeMethodsMixin],
 
   propTypes: {
     ...View.propTypes,
     position: PropTypes.arrayOf(PropTypes.number),
+    active: PropTypes.bool,
+  },
+
+  componentDidMount() {
+    this.context.cameraDidMount(this);
+  },
+
+  componentWillUnmount() {
+    this.context.cameraWillUnmount(this);
+  },
+
+  componentWillReceiveProps(nextProps) {
+    this.context.cameraWillReceiveProps(this, nextProps);
   },
 
   render: function() {
@@ -31,6 +43,12 @@ var ViroCamera = React.createClass({
     );
   }
 });
+
+ViroCamera.contextTypes = {
+  cameraDidMount: React.PropTypes.func,
+  cameraWillUnmount: React.PropTypes.func,
+  cameraWillReceiveProps: React.PropTypes.func,
+};
 
 var VRTCamera = requireNativeComponent(
   'VRTCamera', ViroCamera

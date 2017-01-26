@@ -16,6 +16,7 @@
 class VROSceneController;
 class VROScene;
 class VROReticle;
+class VRONode;
 class VROFrameSynchronizer;
 enum class VROTimingFunctionType;
 
@@ -33,11 +34,7 @@ typedef void (^VROViewValidApiKeyBlock)(BOOL);
 - (void)setSceneController:(std::shared_ptr<VROSceneController>)sceneController duration:(float)seconds
             timingFunction:(VROTimingFunctionType)timingFunctionType;
 
-- (void)setPosition:(VROVector3f)position;
-- (void)setBaseRotation:(VROQuaternion)rotation;
-- (void)setCameraRotationType:(VROCameraRotationType)type;
-- (void)setOrbitFocalPoint:(VROVector3f)focalPt;
-
+- (void)setPointOfView:(std::shared_ptr<VRONode>)node;
 - (void)validateApiKey:(NSString *)apiKey withCompletionBlock:(VROViewValidApiKeyBlock)completionBlock;
 
 /*

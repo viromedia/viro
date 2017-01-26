@@ -36,6 +36,7 @@ FOUNDATION_EXPORT const unsigned char ViroKitVersionString[];
 #import <ViroKit/VROScene.h>
 #import <ViroKit/VROSceneDelegateiOS.h>
 #import <ViroKit/VROCamera.h>
+#import <ViroKit/VRONodeCamera.h>
 #import <ViroKit/VROEventDelegateiOS.h>
 #import <ViroKit/VRONode.h>
 #import <ViroKit/VROGeometry.h>

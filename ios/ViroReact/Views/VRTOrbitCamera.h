@@ -13,6 +13,7 @@
 
 - (instancetype)initWithBridge:(RCTBridge *)bridge;
 
+- (void)setFocalPoint:(NSArray<NSNumber *> *)focal;
 @property (nonatomic, copy) NSArray<NSNumber *> *focalPoint;
 
 @end

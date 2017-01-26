@@ -28,6 +28,7 @@
 class VROGeometry;
 class VROLight;
 class VROAction;
+class VRONodeCamera;
 class VROHitTestResult;
 class VROConstraint;
 
@@ -77,6 +78,16 @@ public:
     }
     std::shared_ptr<VROGeometry> getGeometry() const {
         return _geometry;
+    }
+    
+    /*
+     Camera.
+     */
+    void setCamera(std::shared_ptr<VRONodeCamera> camera) {
+        _camera = camera;
+    }
+    const std::shared_ptr<VRONodeCamera> &getCamera() const {
+        return _camera;
     }
     
     /*
@@ -281,6 +292,7 @@ private:
     
     std::shared_ptr<VROGeometry> _geometry;
     std::vector<std::shared_ptr<VROLight>> _lights;
+    std::shared_ptr<VRONodeCamera> _camera;
     
     VROVector3f _scale;
     VROVector3f _position;

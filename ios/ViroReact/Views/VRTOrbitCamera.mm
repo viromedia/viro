@@ -7,6 +7,7 @@
 //
 
 #import "VRTOrbitCamera.h"
+#import "VRTUtils.h"
 
 static NSArray *const kDefaultOrbitFocalPoint = @[@0, @0, @0];
 
@@ -17,10 +18,19 @@ static NSArray *const kDefaultOrbitFocalPoint = @[@0, @0, @0];
 - (instancetype)initWithBridge:(RCTBridge *)bridge {
   self = [super initWithBridge:bridge];
   if (self) {
-    _focalPoint = kDefaultOrbitFocalPoint;
+    self.focalPoint = kDefaultOrbitFocalPoint;
+    self.nodeCamera->setRotationType(VROCameraRotationType::Orbit);
   }
   
   return self;
+}
+
+- (void)setFocalPoint:(NSArray<NSNumber *> *)focal {
+    _focalPoint = [focal copy];
+    
+    float values[3];
+    populateFloatArrayFromNSArray(focal, values, 3);
+    self.nodeCamera->setOrbitFocalPoint({values[0], values[1], values[2]});
 }
 
 - (VROCameraRotationType)rotationType {

@@ -16,6 +16,7 @@
 #import "VRTFlexView.h"
 #import "VRTText.h"
 #import "VRTUtils.h"
+#import "VRTCamera.h"
 #import "VRTAnimatedComponent.h"
 #import "VRTMaterialManager.h"
 
@@ -47,6 +48,12 @@ const int k2DPointsPerSpatialUnit = 1000;
   if ([vroView isKindOfClass:[VRTLight class]]) {
     VRTLight *light = (VRTLight *)vroView;
     self.node->addLight([light light]);
+  }
+    
+  else if ([vroView isKindOfClass:[VRTCamera class]]) {
+    VRTCamera *camera = (VRTCamera *)vroView;
+    std::shared_ptr<VRONodeCamera> nodeCamera = camera.nodeCamera;
+    self.node->setCamera(nodeCamera);
   }
   
   else if ([vroView isKindOfClass:[VRTNode class]]) {
@@ -91,6 +98,10 @@ const int k2DPointsPerSpatialUnit = 1000;
   if ([vroView isKindOfClass:[VRTLight class]]) {
     VRTLight *light = (VRTLight *)vroView;
     self.node->removeLight([light light]);
+  }
+    
+  if ([vroView isKindOfClass:[VRTCamera class]]) {
+    self.node->setCamera(nullptr);
   }
   
   else if ([vroView isKindOfClass:[VRTNode class]]) {

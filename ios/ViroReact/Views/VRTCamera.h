@@ -16,7 +16,9 @@
 
 - (VROCameraRotationType)rotationType;
 
-@property (nonatomic, copy) NSArray<NSNumber *> *position;
+- (void)setPosition:(NSArray<NSNumber *> *)position;
 
+@property (nonatomic, copy) NSArray<NSNumber *> *position;
+@property (readonly, nonatomic) std::shared_ptr<VRONodeCamera> nodeCamera;
 
 @end

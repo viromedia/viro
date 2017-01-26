@@ -17,6 +17,7 @@ import com.viro.renderer.jni.EventDelegateJni;
 import com.viro.renderer.jni.MaterialJni;
 import com.viro.renderer.jni.NodeJni;
 import com.viromedia.bridge.component.AnimatedComponent;
+import com.viromedia.bridge.component.Camera;
 import com.viromedia.bridge.component.Component;
 import com.viromedia.bridge.component.Light;
 import com.viromedia.bridge.component.node.control.Image;
@@ -94,7 +95,9 @@ public class Node extends Component {
         super.addView(child, index);
 
         if (child instanceof Light) {
-            ((Light)child).addToNode(mNodeJni);
+            ((Light) child).addToNode(mNodeJni);
+        } else if (child instanceof Camera) {
+            ((Camera) child).addToNode(mNodeJni);
         } else if (child instanceof Node) {
             final Node childNode = (Node) child;
             mNodeJni.addChildNode(childNode.mNodeJni);
@@ -128,7 +131,9 @@ public class Node extends Component {
 
         if (child instanceof Light) {
 
-            ((Light)child).removeFromNode(mNodeJni);
+            ((Light) child).removeFromNode(mNodeJni);
+        } else if (child instanceof Camera) {
+            ((Camera) child).removeFromNode(mNodeJni);
         } else if (child instanceof Node) {
 
             final Node childNode = (Node) child;

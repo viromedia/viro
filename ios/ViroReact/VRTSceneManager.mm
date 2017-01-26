@@ -10,7 +10,9 @@
 #import "RCTConvert.h"
 #include "VRTScene.h"
 #include "VRTSceneShadowView.h"
-#import "ViroUIManager.h"
+#import "RCTUIManager.h"
+#import "VRTCamera.h"
+#import "RCTBridge.h"
 #import <ViroKit/ViroKit.h>
 
 @implementation VRTSceneManager {
@@ -33,19 +35,6 @@ RCT_EXPORT_VIEW_PROPERTY(reticleEnabled, BOOL)
 - (VRTSceneShadowView *)shadowView
 {
   return [VRTSceneShadowView new];
-}
-
-RCT_EXPORT_METHOD(getCameraPosition:(nonnull NSNumber *)reactTag
-                  resolve:(RCTPromiseResolveBlock)resolve
-                  reject:(RCTPromiseRejectBlock)reject) {
-  [self.bridge.viroUIManager addUIBlock:^(__unused ViroUIManager *uiManager, NSDictionary<NSNumber *, VRTView *> *viewRegistry) {
-    VRTView *view = viewRegistry[reactTag];
-    if (![view isKindOfClass:[VRTScene class]]) {
-      RCTLogError(@"Invalid view returned from registry, expecting VRTScene, got: %@", view);
-    } else {
-      resolve(((VRTScene *)view).cameraPosition);
-    }
-  }];
 }
 
 @end

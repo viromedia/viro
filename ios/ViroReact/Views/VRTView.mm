@@ -13,34 +13,6 @@
 #import <UIKit/UIKit.h>
 #import <objc/runtime.h>
 
-/*
- TODO
- 
- Old code for starting video textures. This needs to be run somewhere if we want
- video textures to run automatically. Place in viewWillAppear:?
- 
- VRTView *vroView = (VRTView *)view;
-
-if([subview respondsToSelector:@selector(material)]) {
-  NSString *materialName = [vroView material];
-  if(materialName != nil){
-    VRTMaterialManager *materialManager = [_bridge materialManager];
-    NSDictionary *videoTextures= [materialManager getVideoTexturesForMaterialName:materialName];
-    std::shared_ptr<VROMaterial> material = [materialManager getMaterialByName:materialName];
-    if(videoTextures != nil){
-      
-      // TODO The render context and driver are NOT set anywhere!
-      for(id key in videoTextures){
-        NSString *path = videoTextures[(NSString *)key];
-        std::shared_ptr<VROVideoTexture> videoTexture = [VRTMaterialManager createVideoTextureForMaterial:material videoPath:path name:(NSString *)key renderContext:self.renderContext driver:self.driver];
-        [materialManager setTextureForMaterial:material texture:videoTexture name:materialPropertyName];
-
-      }
-    }
-  }
-}
- */
-
 @implementation VRTView
 
 - (instancetype)initWithBridge:(RCTBridge *)bridge {
@@ -75,7 +47,6 @@ if([subview respondsToSelector:@selector(material)]) {
    viewWillAppear on insertion. Note if the scene has not yet appeared, then
    viewWillAppear will be run when it *does* appear (see VRTScene::sceneWillAppear).
    */
-  
   if (self.scene && self.driver && self.context) {
     view.context = self.context;
     view.driver = self.driver;

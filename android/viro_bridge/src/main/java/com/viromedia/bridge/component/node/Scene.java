@@ -4,6 +4,8 @@
 package com.viromedia.bridge.component.node;
 
 import android.view.View;
+import android.view.ViewParent;
+
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.viro.renderer.jni.SceneJni;
 import com.viro.renderer.jni.TextureJni;
@@ -70,21 +72,29 @@ public class Scene extends Node implements SceneJni.SceneDelegate {
     @Override
     public void addView(View child, int index) {
         super.addView(child, index);
-
-        if (child instanceof Camera) {
-            mCamera = (Camera) child;
-            setCameraIfPossible();
-        }
     }
 
     private void setCameraIfPossible() {
         if (mCamera != null && mNativeRenderer != null) {
-            mNativeRenderer.setCameraPosition(mCamera.getPosition());
-            mNativeRenderer.setCameraRotationType(mCamera.getRotationType());
-            if (mCamera instanceof OrbitCamera) {
-                mNativeRenderer.setOrbitCameraFocalPoint(((OrbitCamera) mCamera).getFocalPoint());
-            }
+            Node parent = (Node) mCamera.getParent();
+            mNativeRenderer.setPointOfView(parent.getNodeJni());
         }
+    }
+
+    public void setCamera(Camera camera) {
+        mCamera = camera;
+        setCameraIfPossible();
+    }
+
+    public void removeCamera(Camera camera) {
+        if (mCamera != camera) {
+            return;
+        }
+
+        if (mNativeRenderer != null) {
+            mNativeRenderer.setPointOfView(null);
+        }
+        mCamera = null;
     }
 
     /**

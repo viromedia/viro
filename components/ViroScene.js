@@ -6,10 +6,10 @@
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  */
-import { requireNativeComponent, View } from 'react-native';
+import { requireNativeComponent, findNodeHandle, View } from 'react-native';
 import React, { Component } from 'react';
 var PropTypes = require('react/lib/ReactPropTypes');
-
+var ViroCameraModule = require('react-native').NativeModules.VRTCameraModule;
 
 var ViroScene = React.createClass({
   propTypes: {
@@ -38,6 +38,29 @@ var ViroScene = React.createClass({
     this.props.onTap && this.props.onTap();
   },
 
+  getChildContext: function() {
+    return {
+      cameraDidMount: function(camera) {
+        if (camera.props.active) {
+          ViroCameraModule.setSceneCamera(findNodeHandle(this), findNodeHandle(camera));
+        }
+      }.bind(this),
+      cameraWillUnmount: function(camera) {
+        if (camera.props.active) {
+          ViroCameraModule.removeSceneCamera(findNodeHandle(this), findNodeHandle(camera));
+        }
+      }.bind(this),
+      cameraWillReceiveProps: function(camera, nextProps) {
+        if (nextProps.active) {
+          ViroCameraModule.setSceneCamera(findNodeHandle(this), findNodeHandle(camera));
+        }
+        else {
+          ViroCameraModule.removeSceneCamera(findNodeHandle(this), findNodeHandle(camera));
+        }
+      }.bind(this),
+    };
+  },
+
   render: function() {
     return (
         <VRTScene
@@ -47,8 +70,14 @@ var ViroScene = React.createClass({
             onTapViro={this._onTap}
             onGazeViro={this._onGaze}/>
     );
-  }
+  },
 });
+
+ViroScene.childContextTypes = {
+  cameraDidMount: React.PropTypes.func,
+  cameraWillUnmount: React.PropTypes.func,
+  cameraWillReceiveProps: React.PropTypes.func,
+};
 
 var VRTScene = requireNativeComponent(
     'VRTScene', ViroScene, {

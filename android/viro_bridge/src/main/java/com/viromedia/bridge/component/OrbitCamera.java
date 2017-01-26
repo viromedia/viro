@@ -26,4 +26,9 @@ public class OrbitCamera extends Camera {
         return mFocalPoint;
     }
 
+    @Override
+    public void onPropsSet() {
+        super.onPropsSet();
+        mNativeCamera.setOrbitFocalPoint(mFocalPoint);
+    }
 }

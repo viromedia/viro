@@ -69,6 +69,7 @@
 		8BE0D5261DFA3DEA0032AB99 /* VRTTreeNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BE0D5231DFA3DEA0032AB99 /* VRTTreeNode.m */; };
 		8BE0D52E1DFA468F0032AB99 /* ViroKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BE0D52D1DFA468F0032AB99 /* ViroKit.framework */; };
 		8D7FF77A67F625D2046F82FD /* libPods-ViroReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D00D2E18A27112F2AE615B22 /* libPods-ViroReact.a */; };
+		8FD1D4B91E3A484000EE2859 /* VRTCameraModule.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8FD1D4B81E3A484000EE2859 /* VRTCameraModule.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -218,6 +219,8 @@
 		8BE0D5221DFA3DEA0032AB99 /* VRTTreeNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VRTTreeNode.h; path = ViroReact/Utility/VRTTreeNode.h; sourceTree = "<group>"; };
 		8BE0D5231DFA3DEA0032AB99 /* VRTTreeNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VRTTreeNode.m; path = ViroReact/Utility/VRTTreeNode.m; sourceTree = "<group>"; };
 		8BE0D52D1DFA468F0032AB99 /* ViroKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ViroKit.framework; path = ViroRenderer/ViroKit.framework; sourceTree = "<group>"; };
+		8FD1D4B81E3A484000EE2859 /* VRTCameraModule.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = VRTCameraModule.mm; path = ViroReact/Modules/VRTCameraModule.mm; sourceTree = "<group>"; };
+		8FD1D4BB1E3A486500EE2859 /* VRTCameraModule.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = VRTCameraModule.h; path = ViroReact/Modules/VRTCameraModule.h; sourceTree = "<group>"; };
 		A81D35054D51980438423FFB /* Pods-ViroReact.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ViroReact.release.xcconfig"; path = "Pods/Target Support Files/Pods-ViroReact/Pods-ViroReact.release.xcconfig"; sourceTree = "<group>"; };
 		D00D2E18A27112F2AE615B22 /* libPods-ViroReact.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ViroReact.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D73C4F5968AA1DBB40C6B454 /* Pods-ViroReact.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ViroReact.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ViroReact/Pods-ViroReact.debug.xcconfig"; sourceTree = "<group>"; };
@@ -330,6 +333,8 @@
 				8BE0D5161DFA3DB20032AB99 /* VROAudioManager.mm */,
 				8BE0D5171DFA3DB20032AB99 /* VRTMaterialManager.h */,
 				8BE0D5181DFA3DB20032AB99 /* VRTMaterialManager.mm */,
+				8FD1D4BB1E3A486500EE2859 /* VRTCameraModule.h */,
+				8FD1D4B81E3A484000EE2859 /* VRTCameraModule.mm */,
 			);
 			name = Modules;
 			sourceTree = "<group>";
@@ -565,6 +570,7 @@
 				8BE0D4F51DFA3D9B0032AB99 /* VRT3DObject.mm in Sources */,
 				8BE0D4A91DFA15880032AB99 /* VRTFlexViewManager.mm in Sources */,
 				8BE0D5251DFA3DEA0032AB99 /* VRTImageAsyncLoader.m in Sources */,
+				8FD1D4B91E3A484000EE2859 /* VRTCameraModule.mm in Sources */,
 				8BE0D4F71DFA3D9B0032AB99 /* VRT360Video.mm in Sources */,
 				8BE0D5091DFA3D9B0032AB99 /* VRTScene.mm in Sources */,
 				8BE0D51A1DFA3DB20032AB99 /* VROAudioManager.mm in Sources */,

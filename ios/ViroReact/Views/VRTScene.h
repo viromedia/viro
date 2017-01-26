@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "VRTNode.h"
 #import "RCTBridge.h"
+#import "VRTCamera.h"
 
 @interface VRTScene : VRTNode<VROSceneDelegateProtocol>
 @property (nonatomic, assign) BOOL recticleEnabled;
@@ -19,5 +20,8 @@
 - (NSArray<NSNumber *> *)cameraPosition;
 
 - (void)setView:(id <VROView>)view;
+
+- (void)setCamera:(VRTCamera *)camera;
+- (void)removeCamera:(VRTCamera *)camera;
 
 @end
