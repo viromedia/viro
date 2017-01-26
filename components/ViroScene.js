@@ -38,6 +38,10 @@ var ViroScene = React.createClass({
     this.props.onTap && this.props.onTap();
   },
 
+  async getCameraPositionAsync() {
+    return await ViroCameraModule.getCameraPosition(findNodeHandle(this));
+  },
+
   getChildContext: function() {
     return {
       cameraDidMount: function(camera) {

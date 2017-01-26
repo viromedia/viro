@@ -97,6 +97,15 @@ public class Scene extends Node implements SceneJni.SceneDelegate {
         mCamera = null;
     }
 
+    public float[] getCameraPosition() {
+        if (mRenderContext == null) {
+            return new float[] {0, 0, 0};
+        }
+        else {
+            return mRenderContext.getCameraPosition();
+        }
+    }
+
     /**
      * Attach Renderer Delegate callbacks to the Scene to be propagated
      * across all of it's child views.

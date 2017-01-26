@@ -5,9 +5,12 @@ package com.viromedia.bridge.module;
 
 import android.view.View;
 
+import com.facebook.react.bridge.Arguments;
+import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
+import com.facebook.react.bridge.WritableArray;
 import com.facebook.react.uimanager.NativeViewHierarchyManager;
 import com.facebook.react.uimanager.UIBlock;
 import com.facebook.react.uimanager.UIManagerModule;
@@ -26,6 +29,28 @@ public class CameraModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
+    public void getCameraPosition(final int sceneTag, final Promise promise) {
+        UIManagerModule uiManager = getReactApplicationContext().getNativeModule(UIManagerModule.class);
+        uiManager.addUIBlock(new UIBlock() {
+            @Override
+            public void execute(NativeViewHierarchyManager nativeViewHierarchyManager) {
+                View sceneView = nativeViewHierarchyManager.resolveView(sceneTag);
+                if (sceneView instanceof Scene) {
+                    Scene scene = (Scene) sceneView;
+                    float[] position = scene.getCameraPosition();
+
+                    WritableArray array = Arguments.createArray();
+                    array.pushDouble(position[0]);
+                    array.pushDouble(position[1]);
+                    array.pushDouble(position[2]);;
+
+                    promise.resolve(array);;
+                }
+            }
+        });
+    }
+
+    @ReactMethod
     public void setSceneCamera(final int sceneTag, final int cameraTag) {
         UIManagerModule uiManager = getReactApplicationContext().getNativeModule(UIManagerModule.class);
         uiManager.addUIBlock(new UIBlock() {
@@ -35,7 +60,6 @@ public class CameraModule extends ReactContextBaseJavaModule {
                 View cameraView = nativeViewHierarchyManager.resolveView(cameraTag);
 
                 if (!(cameraView instanceof Camera)) {
-
                     //RCTLogError(@"Invalid view returned when setting camera: expected VRTCamera, got [%@]", cameraView);
                 }
                 else if (!(sceneView instanceof Scene)) {

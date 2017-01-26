@@ -128,7 +128,9 @@
 #pragma mark - VROSceneDelegateiOS methods.
 
 - (void)sceneWillAppear:(VRORenderContext *)context driver:(VRODriver *)driver {
+  self.context = context;
   self.driver = driver;
+    
   for(VRTView *view in _childViews) {
     view.context = context;
     view.driver = driver;
