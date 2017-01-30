@@ -24,6 +24,7 @@
 #include "VROSortKey.h"
 #include "VROLog.h"
 #include "VROEventDelegate.h"
+#include "VROSound.h"
 
 class VROGeometry;
 class VROLight;
@@ -202,7 +203,23 @@ public:
     std::vector<std::shared_ptr<VROLight>> &getLights() {
         return _lights;
     }
-    
+
+    /*
+    Sounds.
+     */
+    void addSound(std::shared_ptr<VROSound> sound) {
+        if (sound->getType() == VROSoundType::Spatial) {
+            _sounds.push_back(sound);
+        }
+    }
+    void removeSound(std::shared_ptr<VROSound> sound) {
+        _sounds.erase(
+                std::remove_if(_sounds.begin(), _sounds.end(),
+                               [sound](std::shared_ptr<VROSound> candidate) {
+                                   return candidate == sound;
+                               }), _sounds.end());
+    }
+
     /*
      Child management.
      */
@@ -292,6 +309,7 @@ private:
     
     std::shared_ptr<VROGeometry> _geometry;
     std::vector<std::shared_ptr<VROLight>> _lights;
+    std::vector<std::shared_ptr<VROSound>> _sounds;
     std::shared_ptr<VRONodeCamera> _camera;
     
     VROVector3f _scale;

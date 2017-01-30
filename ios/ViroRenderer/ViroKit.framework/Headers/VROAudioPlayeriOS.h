@@ -16,7 +16,7 @@ class VROAudioPlayeriOS : public VROAudioPlayer {
     
 public:
     
-    VROAudioPlayeriOS(std::string url);
+    VROAudioPlayeriOS(std::string url, bool isLocalUrl);
     VROAudioPlayeriOS(std::shared_ptr<VROData> data);
     virtual ~VROAudioPlayeriOS();
     

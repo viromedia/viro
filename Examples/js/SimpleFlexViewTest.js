@@ -32,6 +32,7 @@ import {
   ViroAnimatedComponent,
   ViroSurface,
   ViroSkyBox,
+  ViroSpatialSound,
 } from 'react-viro';
 
 let polarToCartesian = ViroUtils.polarToCartesian;
@@ -39,13 +40,29 @@ let polarToCartesian = ViroUtils.polarToCartesian;
 var stateOne = {
   flex: {flex: 1},
   material: "redColor",
-  width: 3
+  width: 3,
+  showSurface: true,
 };
 
 var stateTwo = {
   flex: {flex: 2},
   material: "greenColor",
-  width: 3
+  width: 3,
+  showSurface: false,
+}
+
+var soundRoom = {
+  size: [15, 2, 3],
+  wallMaterial: "CURTAIN_HEAVY",
+  floorMaterial: "CURTAIN_HEAVY",
+  ceilingMaterial: "CURTAIN_HEAVY"
+}
+
+var soundRoom1 = {
+  size: [15, 2, 3],
+  wallMaterial: "transparent",
+  floorMaterial: "transparent",
+  ceilingMaterial: "transparent"
 }
 
 /*
@@ -55,22 +72,29 @@ var FlexViewTest = React.createClass({
   getInitialState: function() {
     return {
       ...stateOne,
-      state: 1
+      state: 1,
+      soundSource: 1,
+      position: [5,0,0]
     }
   },
   render: function() {
     return (
-      <ViroScene reticleEnabled={true} onTap={this._onTap}>
+      <ViroScene reticleEnabled={true} onTap={this._onTap} soundRoom={this.state.state == 1 ? soundRoom : soundRoom1} >
 
         <ViroSkyBox color="#ff69b4" />
 
+        <ViroAnimatedComponent animation="testLoopRotate" run={true} loop={true} >
+          <ViroNode>
+            <ViroSpatialSound source={{uri : "http://www.kozco.com/tech/32.mp3"}} loop={true} position={this.state.position} />
+          </ViroNode>
+        </ViroAnimatedComponent>
+
+        {this._getAdditionalSounds()}
+
         <ViroFlexView style={styles.containerVertical} position={polarToCartesian([2, 0, 0])} width={3} height={2} opacity={1}>
           <ViroFlexView style={styles.containerInner} >
-            <ViroSurface style={this.state.flex} materials={"redColor"} />
-            <ViroImage style={{flex:1}} source ={require("./res/sun_2302.jpg")} />
-          </ViroFlexView>
-          <ViroFlexView style={styles.containerInner} >
-            <ViroImage style={{flex:1}} source={{uri: "http://wiki.magicc.org/images/c/ce/MAGICC_logo_small.jpg"}} />
+            {this._getSurface()}
+            <ViroImage style={{flex:1}} source={{uri: "http://weknowyourdreams.com/images/sun/sun-02.jpg"}} />
           </ViroFlexView>
         </ViroFlexView>
 
@@ -81,13 +105,36 @@ var FlexViewTest = React.createClass({
     if (this.state.state == 1) {
       this.setState({
         ...stateTwo,
-        state: 2
+        state: 2,
+        soundSource: 2,
+        position: [5,0,0],
       })
     } else {
       this.setState({
         ...stateOne,
-        state: 1
+        state: 1,
+        soundSource: 1,
+        position: [5,0,0],
       })
+    }
+  },
+  _getSurface(component) {
+    if (this.state.showSurface) {
+      return (<ViroSurface style={{flex:1}} materials={"redColor"} />)
+    }
+  },
+  _getSoundSource(component) {
+    if (this.state.soundSource == 1) {
+      return require("./res/btn_tap.mp3")
+    } else {
+      return {uri: 'http://www.bensound.com/royalty-free-music?download=dubstep'};
+    }
+  },
+  _getAdditionalSounds(component) {
+    if (this.state.state == 1) {
+      return (<ViroSpatialSound source={{uri : "http://www.kozco.com/tech/32.mp3"}} loop={true} position={this.state.position} />);
+    } else {
+      return;
     }
   },
   /*
@@ -127,6 +174,10 @@ ViroMaterials.createMaterials({
   greenColor: {
     diffuseColor: "#00ff00"
   },
+});
+
+ViroAnimations.registerAnimations({
+  testLoopRotate:{properties:{rotateZ:"+45"}, duration:500},
 });
 
 module.exports = FlexViewTest;

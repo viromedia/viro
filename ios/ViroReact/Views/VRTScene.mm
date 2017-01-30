@@ -17,12 +17,23 @@
 #import "VRTTreeNode.h"
 #import <map>
 
+static NSString *const kSizeKey = @"size";
+static NSString *const kWallMaterialKey = @"wallMaterial";
+static NSString *const kCeilingMaterialKey = @"ceilingMaterial";
+static NSString *const kFloorMaterialKey = @"floorMaterial";
+static NSString *const kDefaultMaterial = @"transparent";
+static NSArray<NSNumber *> *const kDefaultSize = @[@(0), @(0), @(0)];
+
 @implementation VRTScene {
   id <VROView> _vroView;
   VRTCamera *_camera;
   std::map<std::shared_ptr<VRONode>, float> _storedRootNodeOpacities;
   std::shared_ptr<VROSceneControllerDelegateiOS> _delegate;
   std::shared_ptr<VROSceneController> _sceneController;
+  NSArray<NSNumber *> *_size;
+  NSString *_wallMaterial;
+  NSString *_ceilingMaterial;
+  NSString *_floorMaterial;
 }
 
 - (instancetype)initWithBridge:(RCTBridge *)bridge  {
@@ -39,6 +50,11 @@
   if (self) {
     _recticleEnabled = true;
   }
+    
+  _size = kDefaultSize;
+  _wallMaterial = kDefaultMaterial;
+  _ceilingMaterial = kDefaultMaterial;
+  _floorMaterial = kDefaultMaterial;
   return self;
 }
 
@@ -51,12 +67,35 @@
   [self setCameraIfAvailable];
 }
 
+-(void)setDriver:(VRODriver *)driver {
+    [super setDriver:driver];
+    self.driver->setSoundRoom([[_size objectAtIndex:0] floatValue], [[_size objectAtIndex:1] floatValue], [[_size objectAtIndex:2] floatValue], [_wallMaterial UTF8String], [_ceilingMaterial UTF8String], [_floorMaterial UTF8String]);
+}
+
 - (std::shared_ptr<VROSceneController>)sceneController {
     return _sceneController;
 }
 
 - (std::shared_ptr<VROScene>)scene {
     return _sceneController->getScene();
+}
+
+- (void)setSoundRoom:(NSDictionary *)soundRoom {
+    if (soundRoom) {
+        _size = [soundRoom objectForKey:kSizeKey] ? [soundRoom objectForKey:kSizeKey] : kDefaultSize;
+        _wallMaterial = [soundRoom objectForKey:kWallMaterialKey] ? [soundRoom objectForKey:kWallMaterialKey] : kDefaultMaterial;
+        _ceilingMaterial = [soundRoom objectForKey:kCeilingMaterialKey] ? [soundRoom objectForKey:kCeilingMaterialKey] : kCeilingMaterialKey;
+        _floorMaterial = [soundRoom objectForKey:kFloorMaterialKey] ? [soundRoom objectForKey:kFloorMaterialKey] : kFloorMaterialKey;
+    } else {
+        _size = kDefaultSize;
+        _wallMaterial = kDefaultMaterial;
+        _ceilingMaterial = kDefaultMaterial;
+        _floorMaterial = kDefaultMaterial;
+    }
+
+    if (self.driver) {
+        self.driver->setSoundRoom([[_size objectAtIndex:0] floatValue], [[_size objectAtIndex:1] floatValue], [[_size objectAtIndex:2] floatValue], [_wallMaterial UTF8String], [_ceilingMaterial UTF8String], [_floorMaterial UTF8String]);
+    }
 }
 
 #pragma mark - Camera

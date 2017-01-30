@@ -24,4 +24,6 @@
 - (void)setCamera:(VRTCamera *)camera;
 - (void)removeCamera:(VRTCamera *)camera;
 
+- (void)setSoundRoom:(NSDictionary *)soundRoom;
+
 @end

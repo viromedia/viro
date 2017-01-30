@@ -32,6 +32,9 @@ const ReactViro = {
   get ViroText() { return require('./components/ViroText'); },
   get ViroSurface() { return require('./components/ViroSurface'); },
   get ViroButton() { return require('./components/ViroButton'); },
+  get ViroSound() { return require('./components/ViroSound'); },
+  get ViroSoundField() { return require('./components/ViroSoundField'); },
+  get ViroSpatialSound() { return require('./components/ViroSpatialSound'); },
 }
 
 module.exports = ReactViro;

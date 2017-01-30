@@ -14,6 +14,9 @@ import com.viromedia.bridge.component.AmbientLightManager;
 import com.viromedia.bridge.component.DirectionalLightManager;
 import com.viromedia.bridge.component.OmniLightManager;
 import com.viromedia.bridge.component.SkyBoxManager;
+import com.viromedia.bridge.component.SoundFieldManager;
+import com.viromedia.bridge.component.SoundManager;
+import com.viromedia.bridge.component.SpatialSoundManager;
 import com.viromedia.bridge.component.SpotLightManager;
 import com.viromedia.bridge.component.Video360Manager;
 import com.viromedia.bridge.component.CameraManager;
@@ -76,7 +79,10 @@ public class ReactViroPackage implements ReactPackage {
                 new DirectionalLightManager(reactContext),
                 new AmbientLightManager(reactContext),
                 new SpotLightManager(reactContext),
-                new OmniLightManager(reactContext)
+                new OmniLightManager(reactContext),
+                new SoundManager(reactContext),
+                new SoundFieldManager(reactContext),
+                new SpatialSoundManager(reactContext)
         );
     }
 }

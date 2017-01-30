@@ -38,37 +38,38 @@ public class VideoSurfaceManager extends NodeManager<VideoSurface> {
     }
 
     @ReactProp(name = "width", defaultFloat = 1f)
-    public void setWidth(VideoSurface view, float opacity) {
-        view.setWidth(opacity);
+    public void setWidth(VideoSurface view, float width) {
+        view.setWidth(width);
     }
 
     @ReactProp(name = "height", defaultFloat = 1f)
-    public void setHeight(VideoSurface view, float opacity) {
-        view.setHeight(opacity);
+    public void setHeight(VideoSurface view, float height) {
+        view.setHeight(height);
     }
 
     @ReactProp(name = "paused", defaultBoolean = true)
-    public void setPaused(VideoSurface view, boolean visibility) {
-        view.setPaused(visibility);
+    public void setPaused(VideoSurface view, boolean paused) {
+        view.setPaused(paused);
     }
 
     @ReactProp(name = "loop", defaultBoolean = false)
-    public void setLoop(VideoSurface view, boolean visibility) {
-        view.setLoop(visibility);
+    public void setLoop(VideoSurface view, boolean loop) {
+        view.setLoop(loop);
     }
 
     @ReactProp(name = "muted", defaultBoolean = false)
-    public void setMuted(VideoSurface view, boolean visibility) {
-        view.setMuted(visibility);
+    public void setMuted(VideoSurface view, boolean muted) {
+        view.setMuted(muted);
     }
 
     @ReactProp(name = "volume", defaultFloat = 1f)
-    public void setVolume(VideoSurface view, float opacity) {
-        view.setVolume(opacity);
+    public void setVolume(VideoSurface view, float volume) {
+        view.setVolume(volume);
     }
 
     @ReactProp(name = "source")
     public void setSource(VideoSurface view, @Nullable ReadableMap map) {
+        // TODO: verify/make sure this work with local files (ie. release builds)
         view.setSource(map.getString("uri"));
     }
 

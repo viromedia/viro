@@ -13,7 +13,7 @@ public class Helper {
 
     public static @Nullable float[] toFloatArray(@Nullable ReadableArray value) {
         if (value == null){
-            throw new IllegalArgumentException("Can't convert a null ReadableArray to a float[].");
+            return null;
         }
 
         float[] result = new float[value.size()];

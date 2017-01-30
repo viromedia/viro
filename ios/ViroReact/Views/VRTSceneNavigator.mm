@@ -12,7 +12,6 @@
 #import "VRTScene.h"
 #import "RCTAssert.h"
 #import "RCTLog.h"
-#import "VROAudioManager.h"
 #import "VRTNotifications.h"
 
 static NSString *const kVRTInvalidAPIKeyMessage = @"The given API Key is either missing or invalid! If you have not signed up for the Viro Media alpha program, please do so at www.viromedia.com. Otherwise, contact info@viromedia.com if you have a valid key and are encountering this error.";
@@ -134,8 +133,6 @@ static NSString *const kVRTInvalidAPIKeyMessage = @"The given API Key is either 
   }
 
   _currentScene = sceneView;
-  VROAudioManager *audioManager = [self.bridge audioManager];
-  [audioManager setCurrentScene:_currentScene];
 }
 
 - (void)userDidRequestExitVR {

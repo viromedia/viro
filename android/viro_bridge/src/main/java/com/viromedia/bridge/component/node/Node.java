@@ -133,7 +133,6 @@ public class Node extends Component {
         View child = getChildAt(index);
 
         if (child instanceof Light) {
-
             ((Light) child).removeFromNode(mNodeJni);
         } else if (child instanceof Camera) {
             ((Camera) child).removeFromNode(mNodeJni);

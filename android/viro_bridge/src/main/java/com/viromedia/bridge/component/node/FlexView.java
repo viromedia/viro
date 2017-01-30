@@ -6,6 +6,7 @@ package com.viromedia.bridge.component.node;
 import android.content.Context;
 import com.viro.renderer.jni.BaseGeometry;
 import com.viro.renderer.jni.MaterialJni;
+import com.viro.renderer.jni.SoundJni;
 import com.viro.renderer.jni.SurfaceJni;
 
 import java.util.List;

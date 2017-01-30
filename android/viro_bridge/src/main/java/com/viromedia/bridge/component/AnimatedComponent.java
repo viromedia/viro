@@ -104,7 +104,7 @@ public class AnimatedComponent extends Component {
         }
 
         // TODO: for now since AnimatedComponent can only have 1 child, we know that after this
-        // method is called onece, we have all our childen set. If we accept more than 1 child in
+        // method is called once, we have all our childen set. If we accept more than 1 child in
         // the future, we'll need to figure out a better way to figure this out.
         onChildrenSet();
     }

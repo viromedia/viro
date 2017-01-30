@@ -11,6 +11,7 @@ import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
 import com.viro.renderer.jni.ImageJni;
 import com.viro.renderer.jni.MaterialJni;
+import com.viro.renderer.jni.RenderContextJni;
 import com.viro.renderer.jni.SurfaceJni;
 import com.viro.renderer.jni.TextureJni;
 import com.viromedia.bridge.utility.ImageDownloadListener;
@@ -114,6 +115,11 @@ public class Image extends Control {
                 }
             });
         }
+    }
+
+    @Override
+    public void setRenderContext(RenderContextJni context) {
+        super.setRenderContext(context);
     }
 
     @Override

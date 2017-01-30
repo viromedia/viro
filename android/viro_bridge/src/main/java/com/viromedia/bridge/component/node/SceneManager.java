@@ -5,6 +5,8 @@ package com.viromedia.bridge.component.node;
 
 
 import com.facebook.react.bridge.ReactApplicationContext;
+import com.facebook.react.bridge.ReactMethod;
+import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.uimanager.ThemedReactContext;
 import com.facebook.react.uimanager.annotations.ReactProp;
 import com.viromedia.bridge.component.ViroViewGroupManager;
@@ -39,4 +41,8 @@ public class SceneManager extends ViroViewGroupManager<Scene> {
         view.setCanHover(canHover);
     }
 
+    @ReactProp(name = "soundRoom")
+    public void setSoundRoom(Scene scene, ReadableMap soundRoom) {
+        scene.setSoundRoom(soundRoom);
+    }
 }

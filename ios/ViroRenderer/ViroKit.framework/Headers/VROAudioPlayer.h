@@ -10,6 +10,8 @@
 #define VROAudioPlayer_h
 
 #include <string>
+#include <memory>
+#include "VROSoundDelegateInternal.h"
 
 class VROData;
 
@@ -25,7 +27,11 @@ public:
     virtual void setVolume(float volume) = 0;
     virtual void setMuted(bool muted) = 0;
     virtual void seekToTime(float seconds) = 0;
-    
+    virtual void setDelegate(std::shared_ptr<VROSoundDelegateInternal> delegate) {
+        _delegate = delegate;
+    }
+protected:
+    std::shared_ptr<VROSoundDelegateInternal> _delegate;
 };
 
 #endif /* VROAudioPlayer_h */

@@ -19,6 +19,16 @@ var ViroScene = React.createClass({
     onClick: React.PropTypes.func,
     onClickState: React.PropTypes.func,
     onTouch: React.PropTypes.func,
+    /**
+     * Describes the acoustic properties of the room around the user
+     */
+    soundRoom: PropTypes.shape({
+      // The x, y and z dimensions of the room
+      size: PropTypes.arrayOf(PropTypes.number).isRequired,
+      wallMaterial: PropTypes.string,
+      ceilingMaterial: PropTypes.string,
+      floorMaterial: PropTypes.string,
+    }),
   },
 
   _onHover: function(event: Event) {
@@ -26,7 +36,7 @@ var ViroScene = React.createClass({
   },
 
   _onClick: function(event: Event) {
-    this.props.onClick && this.props.onClick(event.nativeEvent.source);
+    this.props.onClick && this.props.onClick(event.nativeEvent.source);  
   },
 
   _onClickState: function(event: Event) {
