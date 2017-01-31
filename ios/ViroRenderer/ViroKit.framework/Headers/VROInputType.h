@@ -24,8 +24,9 @@ namespace ViroDayDream{
         Controller = 1,
         TouchPad = 2,
         AppButton = 3,
-        VolUpButton = 4,
-        VolDownButton = 5
+        HomeButton = 4,
+        VolUpButton = 5,
+        VolDownButton = 6
     };
 }
 
@@ -33,6 +34,14 @@ namespace ViroCardBoard{
     enum InputSource{
         Controller=1,
         ViewerButton = 2
+    };
+}
+
+namespace ViroOculus{
+    enum InputSource{
+        Controller = 1,
+        TouchPad = 2,
+        BackButton = 3
     };
 }
 #endif

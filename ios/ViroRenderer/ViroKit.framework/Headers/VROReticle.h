@@ -11,6 +11,8 @@
 
 #include <memory>
 #include <vector>
+#include "VROSurface.h"
+#include "VROTexture.h"
 
 class VRONode;
 class VROPolyline;
@@ -23,7 +25,7 @@ class VROReticle {
 
 public:
 
-    VROReticle();
+    VROReticle(std::shared_ptr<VROTexture> icon);
     virtual ~VROReticle();
 
     void trigger();
@@ -54,6 +56,7 @@ private:
     std::shared_ptr<VRONode> _node;
     std::shared_ptr<VROPolyline> _polyline;
     std::vector<VROVector3f> createArc(float radius, int numSegments);
+    std::shared_ptr<VROSurface> _reticleIcon;
 };
 
 #endif

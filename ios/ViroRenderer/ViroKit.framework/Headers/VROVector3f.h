@@ -166,6 +166,13 @@ inline VROVector3f operator*(VROVector3f lhs, const float multiplier) {
     return lhs; // return the result by value
 }
 
+inline VROVector3f operator*(VROVector3f lhs, VROVector3f rhs) {
+    lhs.x *= rhs.x;
+    lhs.y *= rhs.y;
+    lhs.z *= rhs.z;
+    return lhs; // return the result by value
+}
+
 inline VROVector3f operator/(VROVector3f lhs, const float divisor) {
     lhs.x /= divisor;
     lhs.y /= divisor;

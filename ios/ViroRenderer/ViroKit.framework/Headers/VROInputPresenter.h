@@ -25,7 +25,7 @@ static const float kReticleSizeMultiple = 3;
 class VROInputPresenter : public VROEventDelegate {
 public:
     VROInputPresenter(std::shared_ptr<VRORenderContext> context) {
-        _reticle = std::make_shared<VROReticle>();
+        _reticle = nullptr;
         _context = context;
         _rootNode = std::make_shared<VRONode>();
         _delegate = nullptr;
@@ -36,7 +36,6 @@ public:
     std::shared_ptr<VRONode> getRootNode(){
         return _rootNode;
     }
-
     /**
      * Event delegate for triggering calls back to Controller_JNI.
      */
@@ -81,11 +80,20 @@ public:
     std::shared_ptr<VROReticle> getReticle() {
             return _reticle;
     }
+
+    void setReticle(std::shared_ptr<VROReticle> reticle){
+        _reticle = reticle;
+    }
+
 protected:
     std::shared_ptr<VRONode> _rootNode;
     std::shared_ptr<VROEventDelegate> _delegate;
 
     void onReticleGazeHit(float distance, VROVector3f hitLocation){
+        if (_reticle == nullptr){
+            return;
+        }
+
         float depth = -distance;
 
         if (_reticle->getPointerMode()){
