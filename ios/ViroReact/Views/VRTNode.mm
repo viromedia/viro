@@ -140,17 +140,17 @@ const int k2DPointsPerSpatialUnit = 1000;
 
 -(void)setCanHover:(BOOL)canHover {
     _canHover = canHover;
-    self.eventDelegate->setEnabledEvent(VROEventDelegate::EventAction::ON_HOVER, canHover);
+    self.eventDelegate->setEnabledEvent(VROEventDelegate::EventAction::OnHover, canHover);
 }
 
 -(void)setCanClick:(BOOL)canClick {
     _canClick = canClick;
-    self.eventDelegate->setEnabledEvent(VROEventDelegate::EventAction::ON_CLICK, canClick);
+    self.eventDelegate->setEnabledEvent(VROEventDelegate::EventAction::OnClick, canClick);
 }
 
 -(void)setCanTouch:(BOOL)canTouch{
     _canTouch = canTouch;
-    self.eventDelegate->setEnabledEvent(VROEventDelegate::EventAction::ON_TOUCH, canTouch);
+    self.eventDelegate->setEnabledEvent(VROEventDelegate::EventAction::OnTouch, canTouch);
 }
 
 - (void)setPosition:(NSArray<NSNumber *> *)position {
