@@ -318,6 +318,8 @@
 				8BE0D4811DFA15880032AB99 /* VRTUtils.m */,
 				8BE0D4821DFA15880032AB99 /* VRTVideoSurfaceManager.h */,
 				8BE0D4831DFA15880032AB99 /* VRTVideoSurfaceManager.mm */,
+				8BE0D4F31DFA3D9B0032AB99 /* VRTViewContainerManager.h */,
+				8BE0D4F41DFA3D9B0032AB99 /* VRTViewContainerManager.mm */,
 			);
 			sourceTree = "<group>";
 		};
@@ -405,8 +407,6 @@
 				8BE0D4F01DFA3D9B0032AB99 /* VRTVideoSurface.mm */,
 				8BE0D4F11DFA3D9B0032AB99 /* VRTView.h */,
 				8BE0D4F21DFA3D9B0032AB99 /* VRTView.mm */,
-				8BE0D4F31DFA3D9B0032AB99 /* VRTViewContainerManager.h */,
-				8BE0D4F41DFA3D9B0032AB99 /* VRTViewContainerManager.mm */,
 			);
 			name = Views;
 			sourceTree = "<group>";
