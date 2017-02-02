@@ -5,7 +5,6 @@ package com.viromedia.bridge.component.node;
 
 
 import android.graphics.Color;
-import android.util.Log;
 
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.uimanager.ThemedReactContext;

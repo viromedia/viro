@@ -3,12 +3,9 @@
  */
 package com.viromedia.bridge.component.node.control;
 
-import android.util.Log;
-import android.view.View;
 
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.viro.renderer.jni.BoxJni;
-import com.viromedia.bridge.component.Component;
 
 public class Box extends Control {
     private BoxJni mNativeBox;

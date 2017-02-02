@@ -24,6 +24,7 @@ import com.viromedia.bridge.component.Component;
 import com.viromedia.bridge.component.Light;
 import com.viromedia.bridge.component.node.control.Image;
 import com.viromedia.bridge.component.node.control.Surface;
+import com.viromedia.bridge.component.node.control.Text;
 import com.viromedia.bridge.utility.ViroEvents;
 
 import java.lang.ref.WeakReference;
@@ -280,6 +281,11 @@ public class Node extends Component {
             surface.setWidth(width3d);
             surface.setHeight(height3d);
             surface.updateSurface();
+        } else if (this instanceof Text) {
+            Text text = (Text) this;
+            text.setWidth(width3d);
+            text.setHeight(height3d);
+            text.onPropsSet();
         } else {
             this.setScale(new float[]{width3d, height3d, 1});
         }

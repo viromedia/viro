@@ -46,6 +46,7 @@ var TextTest = React.createClass({
   render: function() {
     return (
       <ViroScene reticleEnabled={true} >
+        <ViroSkyBox color="#ff69b4" />
 
         <ViroFlexView style={styles.containerVertical} position={polarToCartesian([2, 0, 0])} width={3} height={2}>
           <ViroFlexView style={styles.containerInner} >
@@ -60,11 +61,11 @@ var TextTest = React.createClass({
           <ViroText style={styles.baseTextTwo}  text="Centered Text!" />
           <ViroText style={styles.baseTextTwo}  text="Centered Text Two!" />
         </ViroFlexView>
-        <ViroFlexView style={styles.containerVerticalTwo} backgroundColor="#333333" position={[2.3, 0, -2.5]} width={3} height={3} >
+        <ViroFlexView style={styles.containerVerticalTwo} position={[2.3, 0, -2.5]} width={3} height={3} >
           <ViroText style={styles.baseTextThree} height={.5} text="Base text three!" />
           <ViroText style={styles.baseTextThree} height={.5} text="Base text three again!" />
         </ViroFlexView>
-        <ViroText style={styles.baseTextTwo} position={[0,-1, -1]} width={2} height={4} text="I'm testing this to see if it works, this is the best most tremendous text engine. You won't be disappointed, believe me!" />
+
         <ViroText style={styles.baseTextTwo} position={[0,-1, -1]} width={2} height={4} text="I'm testing this to see if it works, this is the best most tremendous text engine. You won't be disappointed, believe me!" />
       </ViroScene>
     );

@@ -46,13 +46,19 @@ public class SceneNavigator extends FrameLayout {
      */
     private RenderContextJni mRenderContext;
 
+    private boolean mViewAdded = false;
+    private boolean mGLInialized = false;
     public SceneNavigator(ReactApplicationContext reactContext) {
         this(reactContext.getBaseContext(), null, -1);
 
-        mVrView = new ViroGvrLayout(reactContext.getCurrentActivity());
-        /**
-         * TODO VIRO-728: be able to add a generic renderView instead of a ViroGvrLayout.
-         */
+        mVrView = new ViroGvrLayout(reactContext.getCurrentActivity(),
+                new ViroGvrLayout.GlListener() {
+            @Override
+            public void onGlInitialized() {
+                mGLInialized = true;
+                setRenderContext();
+            }
+        });
         ViroGvrLayout gvrLayout = (ViroGvrLayout)mVrView;
         addView(gvrLayout);
         mRenderContext = mVrView.getRenderContextRef();
@@ -94,15 +100,25 @@ public class SceneNavigator extends FrameLayout {
         }
 
         Scene childScene = (Scene)child;
-        childScene.setRenderContext(mRenderContext);
-        childScene.setScene(childScene);
-        childScene.setNativeRenderer(mVrView.getNativeRenderer());
         mSceneArray.add(index, childScene);
 
         // Adding the scene view can occur after the prop type is set on the bridge.
         // Thus, refresh the selection of the current scene as needed.
         if (index == mSelectedSceneIndex){
             setCurrentSceneIndex(mSelectedSceneIndex);
+        }
+
+        mViewAdded = true;
+        // In case gl was initialized before views were added.
+        setRenderContext();
+    }
+
+    private void setRenderContext() {
+        if (mViewAdded && mGLInialized) {
+            Scene childScene = mSceneArray.get(mSelectedSceneIndex);
+            childScene.setRenderContext(mRenderContext);
+            childScene.setScene(childScene);
+            childScene.setNativeRenderer(mVrView.getNativeRenderer());
         }
     }
 

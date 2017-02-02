@@ -29,6 +29,7 @@ var ViroText = React.createClass({
   mixins: [NativeMethodsMixin],
 
   propTypes: {
+    ...View.propTypes,
     position: PropTypes.arrayOf(PropTypes.number),
     rotation: PropTypes.arrayOf(PropTypes.number),
     text: PropTypes.string,
@@ -84,7 +85,7 @@ var ViroText = React.createClass({
 var VRTText = requireNativeComponent(
   'VRTText',
   ViroText, {
-    nativeOnly: {canTap: true, canGaze: true, onTapViro:true, onGazeViro:true}
+    nativeOnly: {canTap: true, canGaze: true, onTapViro:true, onGazeViro:true, scale:[1,1,1], materials:[]}
 });
 
 module.exports = ViroText;
