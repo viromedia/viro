@@ -3,12 +3,10 @@
  */
 package com.viromedia.bridge.component;
 
-
-import android.content.Context;
-
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.viro.renderer.jni.BaseSoundJni;
 import com.viro.renderer.jni.NodeJni;
+import com.viro.renderer.jni.SoundDataJni;
 import com.viro.renderer.jni.SpatialSoundJni;
 
 public class SpatialSound extends BaseSound {
@@ -71,4 +69,8 @@ public class SpatialSound extends BaseSound {
         return new SpatialSoundJni(path, mRenderContext, this, local);
     }
 
+    @Override
+    protected BaseSoundJni getNativeSound(SoundDataJni data) {
+        return new SpatialSoundJni(data, mRenderContext, this);
+    }
 }

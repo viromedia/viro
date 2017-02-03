@@ -10,14 +10,20 @@
 #define VROAudioPlayeriOS_h
 
 #include "VROAudioPlayer.h"
+#include "VROSoundDataDelegate.h"
+#include "VROSoundData.h"
 #include <AVFoundation/AVFoundation.h>
 
-class VROAudioPlayeriOS : public VROAudioPlayer {
+class VROAudioPlayeriOS : public VROAudioPlayer, public VROSoundDataDelegate, public std::enable_shared_from_this<VROAudioPlayeriOS> {
     
 public:
-    
     VROAudioPlayeriOS(std::string url, bool isLocalUrl);
     VROAudioPlayeriOS(std::shared_ptr<VROData> data);
+    
+    // Use static create over the VROSoundData constructor (so that you don't need to call setup).
+    static std::shared_ptr<VROAudioPlayeriOS> create(std::shared_ptr<VROSoundData> data);
+    VROAudioPlayeriOS(std::shared_ptr<VROSoundData> data);
+
     virtual ~VROAudioPlayeriOS();
     
     void setLoop(bool loop);
@@ -27,12 +33,19 @@ public:
     
     void setMuted(bool muted);
     void seekToTime(float seconds);
+
+    #pragma mark VROSoundDataDelegate Implementation
+    void dataIsReady();
     
 private:
     
     AVAudioPlayer *_player;
     float _playVolume;
+    bool _muted;
+    bool _paused;
+    std::shared_ptr<VROSoundData> _data;
     
+    void setup();
     void doFadeThenPause();
     void doFadeThenStop();
     

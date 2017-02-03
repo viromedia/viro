@@ -11,6 +11,7 @@
 
 #include <vector>
 #include "VRODefines.h"
+#include "VROSoundData.h"
 
 class VROGeometry;
 class VROMaterial;
@@ -44,7 +45,9 @@ public:
     virtual VROTextureSubstrate *newTextureSubstrate(VROTextureType type, VROTextureFormat format, std::shared_ptr<VROData> data,
                                                      int width, int height) = 0;
     virtual VROVideoTextureCache *newVideoTextureCache() = 0;
+    virtual std::shared_ptr<VROSound> newSound(std::shared_ptr<VROSoundData> data, VROSoundType type) = 0;
     virtual std::shared_ptr<VROSound> newSound(std::string path, VROSoundType type) = 0;
+    virtual std::shared_ptr<VROAudioPlayer> newAudioPlayer(std::shared_ptr<VROSoundData> data) = 0;
     virtual std::shared_ptr<VROAudioPlayer> newAudioPlayer(std::string path) = 0;
     virtual std::shared_ptr<VROTypeface> newTypeface(std::string typeface, int size) = 0;
     virtual void setSoundRoom(float sizeX, float sizeY, float sizeZ, std::string wallMaterial,

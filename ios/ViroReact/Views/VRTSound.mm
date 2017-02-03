@@ -8,6 +8,7 @@
 
 #import "VRTSound.h"
 #import "RCTLog.h"
+#import "VRTSoundModule.h"
 
 static NSString *const kNameKey = @"name";
 static NSString *const kUriKey = @"uri";
@@ -134,8 +135,13 @@ static NSString *const kWebPrefix = @"http";
     
     _shouldReset = NO;
 
-    if ([_source objectForKey:kNameKey]) {
-        [self getSoundForName:[_source objectForKey:kNameKey]];
+    NSString *name = [_source objectForKey:kNameKey];
+    if (name) {
+        std::shared_ptr<VROSoundData> data = [self getDataForName:name];
+        if (data == nullptr) {
+            RCTLogError(@"Sound w/ name [%@] was not preloaded", name);
+        }
+        [self createSoundWithData:data local:false];
     } else if([_source objectForKey:kUriKey]) {
         NSString *uri = [_source objectForKey:kUriKey];
         if ([uri hasPrefix:kLocalPrefix]) {
@@ -161,8 +167,18 @@ static NSString *const kWebPrefix = @"http";
     _sound->setDelegate(std::make_shared<VROSoundDelegateiOS>(self));
 }
 
-- (void)getSoundForName:(NSString *)name {
-    // TODO: VIRO-749 implement this with preloading
+- (void)createSoundWithData:(std::shared_ptr<VROSoundData>)data local:(BOOL)local {
+    // TODO: VIRO-756 implement loading from local resources
+    if (_sound) {
+        _sound->pause();
+    }
+    _sound = self.driver->newSound(data, self.soundType);
+    _sound->setDelegate(std::make_shared<VROSoundDelegateiOS>(self));
+}
+
+- (std::shared_ptr<VROSoundData>)getDataForName:(NSString *)name {
+    VRTSoundModule *soundModule = [self.bridge moduleForClass:[VRTSoundModule class]];
+    return [soundModule dataForName:name];
 }
 
 - (void)setNativeProps {
@@ -249,7 +265,15 @@ static NSString *const kWebPrefix = @"http";
     }
     _player = self.driver->newAudioPlayer(std::string([path UTF8String]));
     _player->setDelegate(std::make_shared<VROSoundDelegateiOS>(self));
+}
 
+- (void)createSoundWithData:(std::shared_ptr<VROSoundData>)data local:(BOOL)local {
+    // TODO: VIRO-756 implement loading from local resources
+    if (_player) {
+        _player->pause();
+    }
+    _player = self.driver->newAudioPlayer(data);
+    _player->setDelegate(std::make_shared<VROSoundDelegateiOS>(self));
 }
 
 - (void)setNativeProps {

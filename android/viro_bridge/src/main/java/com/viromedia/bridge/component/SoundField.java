@@ -9,6 +9,7 @@ import android.content.Context;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReadableMap;
 import com.viro.renderer.jni.BaseSoundJni;
+import com.viro.renderer.jni.SoundDataJni;
 import com.viro.renderer.jni.SoundFieldJni;
 
 public class SoundField extends BaseSound {
@@ -43,5 +44,10 @@ public class SoundField extends BaseSound {
     @Override
     protected BaseSoundJni getNativeSound(String path, boolean local) {
         return new SoundFieldJni(path, mRenderContext, this, local);
+    }
+
+    @Override
+    protected BaseSoundJni getNativeSound(SoundDataJni data) {
+        return new SoundFieldJni(data, mRenderContext, this);
     }
 }

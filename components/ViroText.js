@@ -110,7 +110,8 @@ var VRTText = requireNativeComponent(
   'VRTText',
   ViroText, {
     nativeOnly: {
-                scale:[1,1,1], materials:[]
+                scale:[1,1,1],
+                materials:[],
                 canHover: true,
                 canClick: true,
                 canTouch: true,
@@ -120,7 +121,8 @@ var VRTText = requireNativeComponent(
                 onClickViro:true,
                 onTouchViro:true,
                 onScrollViro:true,
-                onSwipeViro:true}
+                onSwipeViro:true
+      }
 });
 
 module.exports = ViroText;

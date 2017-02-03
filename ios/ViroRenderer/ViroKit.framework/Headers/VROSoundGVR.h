@@ -13,19 +13,34 @@
 #include <memory>
 #include <map>
 #include "VROSound.h"
+#include "VROSoundData.h"
+#include "VROSoundDataDelegate.h"
 #include "vr/gvr/capi/include/gvr_audio.h"
 
-class VROSoundGVR : public VROSound {
+
+class VROSoundGVR : public VROSound, public VROSoundDataDelegate,  public std::enable_shared_from_this<VROSoundGVR> {
     
 public:
-    
-    /*
-     Construct a new sound from the given path. If given a relative path, the file
-     can refer directly to an asset in the /assets directory. The file may also be
-     an absolute path or an external URL (set isLocalFile to false);
+
+    /**
+     * Note: we should use the static factory create methods rather than the constructors, because
+     * they automatically call the init function (vs having to call it manually ourselves)
      */
+    static std::shared_ptr<VROSoundGVR> create(std::string path,
+                                               std::shared_ptr<gvr::AudioApi> gvrAudio,
+                                               VROSoundType type,
+                                               bool isLocalFile);
+
+    static std::shared_ptr<VROSoundGVR> create(std::shared_ptr<VROSoundData> data,
+                                               std::shared_ptr<gvr::AudioApi> gvrAudio,
+                                               VROSoundType type);
+
     VROSoundGVR(std::string path, std::shared_ptr<gvr::AudioApi> gvrAudio,
-                    VROSoundType type, bool isLocalFile);
+                VROSoundType type, bool isLocalFile);
+
+    VROSoundGVR(std::shared_ptr<VROSoundData> data, std::shared_ptr<gvr::AudioApi> gvrAudio,
+                VROSoundType type);
+
     virtual ~VROSoundGVR();
     
     virtual void play();
@@ -56,20 +71,27 @@ public:
     virtual void setDistanceRolloffModel(VROSoundRolloffModel model, float minDistance,
                                          float maxDistance);
 
+    virtual void setDelegate(std::shared_ptr<VROSoundDelegateInternal> delegate);
+
+    #pragma mark VROSoundDataDelegate Implementation
+    void dataIsReady();
 
 private:
-    
+
+    /*
+     * Private methods
+     */
+    void setup();
+    void setProperties();
+
+    /*
+     * Private fields
+     */
+    bool _ready = false;
+    std::shared_ptr<VROSoundData> _data;
     std::shared_ptr<gvr::AudioApi> _gvrAudio;
-    std::string _originalPath;
-    std::string _fileName;
-    bool _isReady = false;
     gvr::AudioSourceId _audioId = -1;
     gvr_audio_distance_rolloff_type _gvrRolloffType = GVR_AUDIO_ROLLOFF_NONE;
-    
-    void setProperties();
-    void loadSound(std::string path, std::function<void(std::string)> onFinish);
-
-    static std::map<std::string, std::string> _preloadedFiles;
 };
 
 #endif /* VROSoundGVR_h */

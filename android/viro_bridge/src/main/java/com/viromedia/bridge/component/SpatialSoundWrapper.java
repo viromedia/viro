@@ -69,6 +69,14 @@ public class SpatialSoundWrapper extends Node {
     }
 
     @Override
+    protected void onTearDown() {
+        super.onTearDown();
+        if (mInnerSound != null) {
+            mInnerSound.onTearDown();
+        }
+    }
+
+    @Override
     public void setRenderContext(RenderContextJni context) {
         mInnerSound.setRenderContext(context);
     }

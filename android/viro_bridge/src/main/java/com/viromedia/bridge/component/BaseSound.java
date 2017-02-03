@@ -11,8 +11,9 @@ import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
 import com.viro.renderer.jni.BaseSoundJni;
 import com.viro.renderer.jni.RenderContextJni;
+import com.viro.renderer.jni.SoundDataJni;
 import com.viro.renderer.jni.SoundDelegate;
-import com.viro.renderer.jni.SoundJni;
+import com.viromedia.bridge.module.SoundModule;
 import com.viromedia.bridge.utility.ViroEvents;
 
 public abstract class BaseSound extends Component implements SoundDelegate {
@@ -100,7 +101,6 @@ public abstract class BaseSound extends Component implements SoundDelegate {
 
         if (mNativeSound != null) {
             mNativeSound.pause();
-            // TODO: VIRO-749 only destroy if your original source isn't preloaded.
             mNativeSound.destroy();
         }
 
@@ -108,11 +108,12 @@ public abstract class BaseSound extends Component implements SoundDelegate {
 
         // figure out what type of audio I have
         if (mSource.hasKey(NAME)) {
-            mNativeSound = getSoundForName(mSource.getString(NAME));
-            if (mNativeSound == null) {
+            SoundDataJni data = getSoundDataForName(mSource.getString(NAME));
+            if (data == null) {
                 throw new IllegalArgumentException("Unknown Sound source with name: ["
                         + mSource.getString(NAME) + "]");
             }
+            mNativeSound = getNativeSound(data);
             mNativeSound.setDelegate(this);
         } else if (mSource.hasKey(URI)) {
             String uri = mSource.getString(URI);
@@ -131,9 +132,17 @@ public abstract class BaseSound extends Component implements SoundDelegate {
         setNativeProps();
     }
 
-    private SoundJni getSoundForName(String name) {
-        // TODO: VIRO-749 do this when you enable preloading
-        return null;
+    private SoundDataJni getSoundDataForName(String name) {
+        SoundModule soundModule = mReactContext.getNativeModule(SoundModule.class);
+        return soundModule.getSoundData(name);
+    }
+
+    @Override
+    protected void onTearDown() {
+        super.onTearDown();
+        if (mNativeSound != null) {
+            mNativeSound.destroy();
+        }
     }
 
     @Override
@@ -160,4 +169,6 @@ public abstract class BaseSound extends Component implements SoundDelegate {
      * @return the native sound object
      */
     protected abstract BaseSoundJni getNativeSound(String path, boolean local);
+
+    protected abstract BaseSoundJni getNativeSound(SoundDataJni data);
 }

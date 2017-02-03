@@ -89,6 +89,9 @@ FOUNDATION_EXPORT const unsigned char ViroKitVersionString[];
 #import <ViroKit/VROAudioPlayeriOS.h>
 #import <ViroKit/VROSound.h>
 #import <ViroKit/VROSoundGVR.h>
+#import <ViroKit/VROSoundData.h>
+#import <ViroKit/VROSoundDataGVR.h>
+#import <ViroKit/VROSoundDataDelegate.h>
 #import <ViroKit/VROSoundDelegate.h>
 #import <ViroKit/VROSoundDelegateiOS.h>
 

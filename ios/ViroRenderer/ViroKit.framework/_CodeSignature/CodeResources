@@ -2441,7 +2441,7 @@
 		</data>
 		<key>Headers/VROAudioPlayeriOS.h</key>
 		<data>
-		rCCi/pKPIR14QivH2AvWBkxh3xk=
+		sLMVni1om9Lw3J4o/HmPa8JUiK4=
 		</data>
 		<key>Headers/VROBillboardConstraint.h</key>
 		<data>
@@ -2481,11 +2481,15 @@
 		</data>
 		<key>Headers/VRODriver.h</key>
 		<data>
-		rKR/yAsCXAmbhrdwUbr+KSrzOOk=
+		WdJVIA1g505UCsg5fZOdCIP4zn0=
 		</data>
 		<key>Headers/VROEventDelegate.h</key>
 		<data>
+<<<<<<< 19929844a006f4ad7c032da96b36342c39d3d3cc
 		1vGAw7xJrj1P1ra/7+UL/qLVjis=
+=======
+		uPjU7Kkzd4gvTcB2xCntw9qxDfQ=
+>>>>>>> VIRO-762 Implement Preloading Audio Files (bridge)
 		</data>
 		<key>Headers/VROEventDelegateiOS.h</key>
 		<data>
@@ -2677,7 +2681,19 @@
 		</data>
 		<key>Headers/VROSound.h</key>
 		<data>
-		cMAMc07yktffdMrSvHdqN76nZZ8=
+		pOjed55iNS40hHpBi+bI4SsfANE=
+		</data>
+		<key>Headers/VROSoundData.h</key>
+		<data>
+		5LU19zGlcn2Cg+4gtyDDuFfx7XQ=
+		</data>
+		<key>Headers/VROSoundDataDelegate.h</key>
+		<data>
+		xXstTb5RFhLSxpJgU9zZsK4IhKY=
+		</data>
+		<key>Headers/VROSoundDataGVR.h</key>
+		<data>
+		zeZVOLe05JU+OkzCTMXxBq5R9G0=
 		</data>
 		<key>Headers/VROSoundDelegate.h</key>
 		<data>
@@ -2693,7 +2709,11 @@
 		</data>
 		<key>Headers/VROSoundGVR.h</key>
 		<data>
+<<<<<<< 19929844a006f4ad7c032da96b36342c39d3d3cc
 		gUTMCB/Cz6kzD7Er0mssp+oJsIM=
+=======
+		O/4qyhl++SFm6WkklVh7N/6RRT0=
+>>>>>>> VIRO-762 Implement Preloading Audio Files (bridge)
 		</data>
 		<key>Headers/VROSphere.h</key>
 		<data>
@@ -2825,7 +2845,7 @@
 		</data>
 		<key>Headers/ViroKit.h</key>
 		<data>
-		A0V+i16iCZclsQKgl9181PIBYU0=
+		fi47cGkwkYckZiUcd8BNmSEq/tg=
 		</data>
 		<key>Info.plist</key>
 		<data>
@@ -7254,11 +7274,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			rCCi/pKPIR14QivH2AvWBkxh3xk=
+			sLMVni1om9Lw3J4o/HmPa8JUiK4=
 			</data>
 			<key>hash2</key>
 			<data>
-			L3D72b/aBHgZlpKQxyB60DHzrKEKx+blO0LngHcLbHs=
+			74cokVRPob9qDM5KCiYGHRyyXODCDZi1KSXNwX9Myjo=
 			</data>
 		</dict>
 		<key>Headers/VROBillboardConstraint.h</key>
@@ -7364,22 +7384,30 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			rKR/yAsCXAmbhrdwUbr+KSrzOOk=
+			WdJVIA1g505UCsg5fZOdCIP4zn0=
 			</data>
 			<key>hash2</key>
 			<data>
-			SuXyGD2f5VWTyO1+hG/zTCzCny8EKZowqiZV4RCX2so=
+			OuVzaLSIuIw1ZB6vvhvHDthh3aZuywCS0Z9celQPD3Q=
 			</data>
 		</dict>
 		<key>Headers/VROEventDelegate.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
+<<<<<<< 19929844a006f4ad7c032da96b36342c39d3d3cc
 			1vGAw7xJrj1P1ra/7+UL/qLVjis=
 			</data>
 			<key>hash2</key>
 			<data>
 			0LHDxU/ZFMl9wX3h1RmyBRmXbkTlNp9B2kpivgmcEGg=
+=======
+			uPjU7Kkzd4gvTcB2xCntw9qxDfQ=
+			</data>
+			<key>hash2</key>
+			<data>
+			bH9Rs3gUCC/Al6HkdbbUo9qRmy6WXhk91YNGTy+NYRE=
+>>>>>>> VIRO-762 Implement Preloading Audio Files (bridge)
 			</data>
 		</dict>
 		<key>Headers/VROEventDelegateiOS.h</key>
@@ -7903,11 +7931,44 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			cMAMc07yktffdMrSvHdqN76nZZ8=
+			pOjed55iNS40hHpBi+bI4SsfANE=
 			</data>
 			<key>hash2</key>
 			<data>
-			nuCzsECmIa79wIjIx7udDdc2qvoMELMlyhSBJ+3N6jQ=
+			/qLK+3tC01FO5o2LoLlasw/L499B9YQS4b+RFu7P/h0=
+			</data>
+		</dict>
+		<key>Headers/VROSoundData.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			5LU19zGlcn2Cg+4gtyDDuFfx7XQ=
+			</data>
+			<key>hash2</key>
+			<data>
+			k0nKjJXROjEEMmfSv2ND9ER2A6eo0dZ6silIq8jc5XA=
+			</data>
+		</dict>
+		<key>Headers/VROSoundDataDelegate.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			xXstTb5RFhLSxpJgU9zZsK4IhKY=
+			</data>
+			<key>hash2</key>
+			<data>
+			VHWcZzbFATWjY5esSOLfrj8mGLhXIudQKrOTldXlfVE=
+			</data>
+		</dict>
+		<key>Headers/VROSoundDataGVR.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			zeZVOLe05JU+OkzCTMXxBq5R9G0=
+			</data>
+			<key>hash2</key>
+			<data>
+			GS7E7SpDtQ+iGxuFzs4IFs8Ns8zK4Q20PBR8zTm/kWQ=
 			</data>
 		</dict>
 		<key>Headers/VROSoundDelegate.h</key>
@@ -7947,11 +8008,19 @@
 		<dict>
 			<key>hash</key>
 			<data>
+<<<<<<< 19929844a006f4ad7c032da96b36342c39d3d3cc
 			gUTMCB/Cz6kzD7Er0mssp+oJsIM=
 			</data>
 			<key>hash2</key>
 			<data>
 			xrk9jbAkzbj/GR6O20vja1Rzbjua/Wccga/58UI190Y=
+=======
+			O/4qyhl++SFm6WkklVh7N/6RRT0=
+			</data>
+			<key>hash2</key>
+			<data>
+			4qRDo3lUmD7Q7btRw65fTUhOhacVURO0DGVJ4FVReKg=
+>>>>>>> VIRO-762 Implement Preloading Audio Files (bridge)
 			</data>
 		</dict>
 		<key>Headers/VROSphere.h</key>
@@ -8310,11 +8379,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			A0V+i16iCZclsQKgl9181PIBYU0=
+			fi47cGkwkYckZiUcd8BNmSEq/tg=
 			</data>
 			<key>hash2</key>
 			<data>
-			1pbOVov+xTdhGMqlAMIrxR2H3JT8wFl94tyqdkCOPQ4=
+			cvcKx5kfzQ1QPMPG5MsXsY8PgSRIddTrLw7Ka04iEgU=
 			</data>
 		</dict>
 		<key>MaterialRobotoFontLoader.bundle/Roboto-Black.ttf</key>

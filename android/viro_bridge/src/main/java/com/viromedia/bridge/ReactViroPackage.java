@@ -34,6 +34,7 @@ import com.viromedia.bridge.component.node.control.VideoSurfaceManager;
 import com.viromedia.bridge.module.AnimationManager;
 import com.viromedia.bridge.module.CameraModule;
 import com.viromedia.bridge.module.MaterialManager;
+import com.viromedia.bridge.module.SoundModule;
 
 import java.util.Arrays;
 import java.util.List;
@@ -49,7 +50,8 @@ public class ReactViroPackage implements ReactPackage {
         return Arrays.<NativeModule>asList(
                 new MaterialManager(reactContext),
                 new AnimationManager(reactContext),
-                new CameraModule(reactContext)
+                new CameraModule(reactContext),
+                new SoundModule(reactContext)
         );
     }
 
