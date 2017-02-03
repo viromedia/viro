@@ -42,6 +42,9 @@ public class Node extends Component {
     protected final static boolean DEFAULT_CAN_HOVER = false;
     protected final static boolean DEFAULT_CAN_CLICK = false;
     protected final static boolean DEFAULT_CAN_TOUCH = false;
+    protected final static boolean DEFAULT_CAN_SCROLL = false;
+    protected final static boolean DEFAULT_CAN_SWIPE = false;
+
     private NodeJni mNodeJni;
     protected float[] mPosition;
     protected float[] mRotation;
@@ -390,6 +393,14 @@ public class Node extends Component {
         mEventDelegateJni.setEventEnabled(EventDelegateJni.EventAction.ON_TOUCH, canTouch);
     }
 
+    protected void setCanScroll(boolean canScroll){
+        mEventDelegateJni.setEventEnabled(EventDelegateJni.EventAction.ON_SCROLL, canScroll);
+    }
+
+    protected void setCanSwipe(boolean canSwipe){
+        mEventDelegateJni.setEventEnabled(EventDelegateJni.EventAction.ON_SWIPE, canSwipe);
+    }
+
     private static class NodeEventDelegate implements EventDelegateJni.EventDelegateCallback {
         private WeakReference<Node> weakComponent;
         public NodeEventDelegate(Node node){
@@ -442,8 +453,8 @@ public class Node extends Component {
             WritableArray touchPos = Arguments.createArray();
             touchPos.pushDouble(touchPadPos[0]);
             touchPos.pushDouble(touchPadPos[1]);
-
             event.putArray("touchPos", touchPos);
+
             node.getReactContext().getJSModule(RCTEventEmitter.class).receiveEvent(
                     node.getId(),
                     ViroEvents.ON_TOUCH,
@@ -458,6 +469,42 @@ public class Node extends Component {
         @Override
         public void onControllerStatus(int i, EventDelegateJni.ControllerStatus controllerStatus) {
             //No-op
+        }
+
+        @Override
+        public void onSwipe(int source, EventDelegateJni.SwipeState swipeState) {
+            Node node = weakComponent.get();
+            if (node == null){
+                return;
+            }
+
+            WritableMap event = Arguments.createMap();
+            event.putInt("source", source);
+            event.putInt("swipeState", swipeState.mTypeId);
+            node.getReactContext().getJSModule(RCTEventEmitter.class).receiveEvent(
+                    node.getId(),
+                    ViroEvents.ON_SWIPE,
+                    event);
+        }
+
+        @Override
+        public void onScroll(int source, float x, float y) {
+            Node node = weakComponent.get();
+            if (node == null){
+                return;
+            }
+
+            WritableMap event = Arguments.createMap();
+            event.putInt("source", source);
+            WritableArray scrollPos = Arguments.createArray();
+            scrollPos.pushDouble(x);
+            scrollPos.pushDouble(y);
+
+            event.putArray("scrollPos", scrollPos);
+            node.getReactContext().getJSModule(RCTEventEmitter.class).receiveEvent(
+                    node.getId(),
+                    ViroEvents.ON_SCROLL,
+                    event);
         }
     }
 }

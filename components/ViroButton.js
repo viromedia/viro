@@ -24,6 +24,9 @@ var ViroNode = require('./ViroNode');
 var ViroImage = require('./ViroImage');
 var ViroAnimatedComponent = require('./ViroAnimatedComponent');
 var ViroAnimations = require('./Animation/ViroAnimations');
+var BTN_TYPE_HOVER = 'hovering';
+var BTN_TYPE_NORMAL = 'normal';
+var BTN_TYPE_CLICKED = 'clicked';
 /**
  * Composite controle for 2D button 
  */
@@ -82,18 +85,15 @@ var ViroAnimations = require('./Animation/ViroAnimations');
   	width: PropTypes.number,
     style: stylePropType,
 
-    /**
-     * Callback that is called when user gazes on image card.
-     */
-    onGaze: React.PropTypes.func,
-
-    /**
-     * Callback that is called when user taps on image card.
-     */
-    onTap: React.PropTypes.func,
+    onHover: React.PropTypes.func,
+    onClick: React.PropTypes.func,
+    onClickState: React.PropTypes.func,
+    onTouch: React.PropTypes.func,
+    onScroll: React.PropTypes.func,
+    onSwipe: React.PropTypes.func,
   },
   getInitialState: function() {
-    return {buttonType: 'normal'};
+    return {buttonType: BTN_TYPE_NORMAL};
   },
   render: function() {
 
@@ -113,14 +113,14 @@ var ViroAnimations = require('./Animation/ViroAnimations');
 
     let buttonScale = [1,1,1];
     switch(this.state.buttonType) {
-      case 'gazing':
+      case BTN_TYPE_HOVER:
         if (this.props.gazeSource) {
           gazeSrcVisible = this.props.visible && true;
           tapSrcVisible = false;
           normalSrcVisible = false;
         }
         break;
-      case 'tapped':
+      case BTN_TYPE_CLICKED:
         if (this.props.tapSource) {
           // start scale for button animation
           buttonScale = [0.9, 0.9, 0.9];
@@ -137,51 +137,84 @@ var ViroAnimations = require('./Animation/ViroAnimations');
     }
 
     return (
-    	<ViroNode position={this.props.position} onGaze={this._onGaze} onTap={this._onTap}>
-        <ViroImage source={this.props.source} rotation={this.props.rotation} scale={buttonScale} 
-          opacity={this.props.opacity} transformBehaviors={this.props.transformBehaviors} visible={normalSrcVisible} 
-          height={this.props.height} width={this.props.width} materials={this.props.materials} />
+        <ViroNode
+            position={this.props.position}
+            onClickState={this.props.onClickState}
+            onTouch={this.props.onTouch}
+            onScroll={this.props.onScroll}
+            onSwipe={this.props.onSwipe}
+            onHover={this._onButtonHover}
+            onClick={this._onButtonClicked}>
 
-        <ViroImage source={this.props.gazeSource} rotation={this.props.rotation} scale={buttonScale} 
-          opacity={this.props.opacity} transformBehaviors={this.props.transformBehaviors} visible={gazeSrcVisible} 
-          height={this.props.height} width={this.props.width} materials={this.props.materials} />
+            <ViroImage
+                source={this.props.source}
+                rotation={this.props.rotation}
+                scale={buttonScale}
+                opacity={this.props.opacity}
+                transformBehaviors={this.props.transformBehaviors}
+                visible={normalSrcVisible}
+                height={this.props.height}
+                width={this.props.width}
+                materials={this.props.materials} />
 
-        <ViroAnimatedComponent animation="tapAnimation" run={tapSrcVisible} onFinish={this._onAnimationFinished}>
-          <ViroImage source={this.props.tapSource} rotation={this.props.rotation} scale={buttonScale} 
-            opacity={this.props.opacity} transformBehaviors={this.props.transformBehaviors} visible={tapSrcVisible} 
-            height={this.props.height} width={this.props.width} materials={this.props.materials} />
-        </ViroAnimatedComponent>
+            <ViroImage
+                source={this.props.gazeSource}
+                rotation={this.props.rotation}
+                scale={buttonScale}
+                opacity={this.props.opacity}
+                transformBehaviors={this.props.transformBehaviors}
+                visible={gazeSrcVisible}
+                height={this.props.height}
+                width={this.props.width}
+                materials={this.props.materials} />
+
+            <ViroAnimatedComponent
+                animation="tapAnimation"
+                run={tapSrcVisible}
+                onFinish={this._onAnimationFinished}>
+
+                    <ViroImage
+                        source={this.props.tapSource}
+                        rotation={this.props.rotation}
+                        scale={buttonScale}
+                        opacity={this.props.opacity}
+                        transformBehaviors={this.props.transformBehaviors}
+                        visible={tapSrcVisible}
+                        height={this.props.height}
+                        width={this.props.width}
+                        materials={this.props.materials} />
+
+            </ViroAnimatedComponent>
     	</ViroNode>
 
     );
   },
   
-  _onGaze: function(isGazing) {
-  	if (this.props.onGaze && isGazing) {
-	  	this.setState({
-	  		buttonType: 'gazing'
-	  	});
-      this.props.onGaze(isGazing); 	  			
-  	} else if (!isGazing) {
+  _onButtonHover: function(source, isHovering) {
+    if (this.props.onHover && isHovering) {
+        this.setState({
+            buttonType: BTN_TYPE_HOVER
+        });
+      this.props.onHover(source, isHovering);
+    } else if (!isHovering) {
       this.setState({
-        buttonType: 'normal'
+        buttonType: BTN_TYPE_NORMAL
       });
     }
   },
 
-  _onTap: function() {
-  	if (this.props.onTap) {
+  _onButtonClicked: function(source) {
+    if (this.props.onClick) {
       this.setState({
-        buttonType: 'tapped'
+        buttonType: BTN_TYPE_CLICKED
       });
-
-      this.props.onTap();  		
-  	}
+      this.props.onClick(source);
+    }
   },
 
   _onAnimationFinished: function() {
     this.setState({
-      buttonType: 'gazing'
+      buttonType: BTN_TYPE_HOVER
     });
   }
  });

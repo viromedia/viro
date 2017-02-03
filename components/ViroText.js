@@ -45,24 +45,42 @@ var ViroText = React.createClass({
       PropTypes.arrayOf(PropTypes.string),
       PropTypes.string
     ]),
-    /**
-     * Callback that is called when user taps on the text control
-     */
-    onTap: React.PropTypes.func,
-    /**
-     * Callback that is called when user gazes on a text control
-     */
-    onGaze: React.PropTypes.func,
+
+    onHover: React.PropTypes.func,
+    onClick: React.PropTypes.func,
+    onClickState: React.PropTypes.func,
+    onTouch: React.PropTypes.func,
+    onScroll: React.PropTypes.func,
+    onSwipe: React.PropTypes.func,
   },
 
-  _onGaze: function(event: Event) {
-    this.props.onGaze && this.props.onGaze(event.nativeEvent.isGazing);
+  _onHover: function(event: Event) {
+    this.props.onHover && this.props.onHover(event.nativeEvent.source, event.nativeEvent.isHovering);
   },
 
-  _onTap: function(event: Event) {
-    this.props.onTap && this.props.onTap();
+  _onClick: function(event: Event) {
+    this.props.onClick && this.props.onClick(event.nativeEvent.source);
   },
 
+  _onClickState: function(event: Event) {
+    this.props.onClickState && this.props.onClickState(event.nativeEvent.source, event.nativeEvent.clickState);
+    let CLICKED = 3; // Value representation of Clicked ClickState within EventDelegateJni.
+    if (event.nativeEvent.clickState == CLICKED){
+        this._onClick(event)
+    }
+  },
+
+  _onTouch: function(event: Event) {
+    this.props.onTouch && this.props.onTouch(event.nativeEvent.source, event.nativeEvent.touchState, event.nativeEvent.touchPos);
+  },
+
+  _onScroll: function(event: Event) {
+      this.props.onScroll && this.props.onScroll(event.nativeEvent.source, event.nativeEvent.scrollPos);
+  },
+
+  _onSwipe: function(event: Event) {
+      this.props.onSwipe && this.props.onSwipe(event.nativeEvent.source, event.nativeEvent.swipeState);
+  },
   render: function() {
     let onGaze = this.props.onGaze ? this._onGaze : undefined;
     // Since materials and transformBehaviors can be either a string or an array, convert the string to a 1-element array.
@@ -72,10 +90,16 @@ var ViroText = React.createClass({
       <VRTText
         {...this.props}
         style={[this.props.style]}
-        canGaze={this.props.onGaze != undefined}
-        canTap={this.props.onTap != undefined}
-        onTapViro={this._onTap}
-        onGazeViro={this._onGaze}
+        canHover={this.props.onHover != undefined}
+        canClick={this.props.onClick != undefined || this.props.onClickState != undefined}
+        canTouch={this.props.onTouch != undefined}
+        canScroll={this.props.onScroll != undefined}
+        canSwipe={this.props.onSwipe != undefined}
+        onHoverViro={this._onHover}
+        onClickViro={this._onClickState}
+        onTouchViro={this._onTouch}
+        onScrollViro={this._onScroll}
+        onSwipeViro={this._onSwipe}
         transformBehaviors={transformBehaviors}
       />
     );
@@ -85,7 +109,18 @@ var ViroText = React.createClass({
 var VRTText = requireNativeComponent(
   'VRTText',
   ViroText, {
-    nativeOnly: {canTap: true, canGaze: true, onTapViro:true, onGazeViro:true, scale:[1,1,1], materials:[]}
+    nativeOnly: {
+                scale:[1,1,1], materials:[]
+                canHover: true,
+                canClick: true,
+                canTouch: true,
+                canScroll: true,
+                canSwipe: true,
+                onHoverViro:true,
+                onClickViro:true,
+                onTouchViro:true,
+                onScrollViro:true,
+                onSwipeViro:true}
 });
 
 module.exports = ViroText;

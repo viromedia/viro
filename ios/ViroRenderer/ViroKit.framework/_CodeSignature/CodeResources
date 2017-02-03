@@ -2437,11 +2437,19 @@
 		</data>
 		<key>Headers/VROAudioPlayer.h</key>
 		<data>
+<<<<<<< a245810dd6a4971852c65d43107c11a970e111f9
 		Z7yeDTeZyifOBsNNlwnTUr12SKM=
 		</data>
 		<key>Headers/VROAudioPlayeriOS.h</key>
 		<data>
 		rCCi/pKPIR14QivH2AvWBkxh3xk=
+=======
+		HBMPEsq0HgmB6BBDVvkffd/Bdpw=
+		</data>
+		<key>Headers/VROAudioPlayeriOS.h</key>
+		<data>
+		hTaO3ry06ocg4Y8QaDVPFGa4yJQ=
+>>>>>>> VIRO-761: Swipe and Scroll Gestures (Bridge)
 		</data>
 		<key>Headers/VROBillboardConstraint.h</key>
 		<data>
@@ -2481,11 +2489,19 @@
 		</data>
 		<key>Headers/VRODriver.h</key>
 		<data>
+<<<<<<< a245810dd6a4971852c65d43107c11a970e111f9
 		rKR/yAsCXAmbhrdwUbr+KSrzOOk=
 		</data>
 		<key>Headers/VROEventDelegate.h</key>
 		<data>
 		15F+Um8S7YyxuAHb6WUw6kvJ2+w=
+=======
+		m8xj+wzHBeT7U1cEkcZcVYET4Q8=
+		</data>
+		<key>Headers/VROEventDelegate.h</key>
+		<data>
+		1vGAw7xJrj1P1ra/7+UL/qLVjis=
+>>>>>>> VIRO-761: Swipe and Scroll Gestures (Bridge)
 		</data>
 		<key>Headers/VROEventDelegateiOS.h</key>
 		<data>
@@ -2551,6 +2567,17 @@
 		<data>
 		7vUTBruztJpQbOe09YT3YWnWbRU=
 		</data>
+<<<<<<< a245810dd6a4971852c65d43107c11a970e111f9
+=======
+		<key>Headers/VROInputPresenter.h</key>
+		<data>
+		Irrsmq7YJ+QP5VRRhKEYQ8G2KKM=
+		</data>
+		<key>Headers/VROInputType.h</key>
+		<data>
+		FkBnxk0RAe3w2wxo6xgSTWH4WJY=
+		</data>
+>>>>>>> VIRO-761: Swipe and Scroll Gestures (Bridge)
 		<key>Headers/VROLight.h</key>
 		<data>
 		PZTD9kFPBJhul/a80L5lj7rU0cI=
@@ -2585,7 +2612,11 @@
 		</data>
 		<key>Headers/VRONode.h</key>
 		<data>
+<<<<<<< a245810dd6a4971852c65d43107c11a970e111f9
 		KdcWpt/uBmrKaKITAYycVKdwCiI=
+=======
+		ObneMGPGjOY5lelOxvRupbFzvIQ=
+>>>>>>> VIRO-761: Swipe and Scroll Gestures (Bridge)
 		</data>
 		<key>Headers/VRONodeCamera.h</key>
 		<data>
@@ -2633,11 +2664,19 @@
 		</data>
 		<key>Headers/VROReticle.h</key>
 		<data>
+<<<<<<< a245810dd6a4971852c65d43107c11a970e111f9
 		pulmSWijudW3+MQcErj28nSVp8o=
 		</data>
 		<key>Headers/VROScene.h</key>
 		<data>
 		Jje+JWNP0uGxgRtzO1J9/bJBaNc=
+=======
+		D9glopG8Q+bcpwkTzApciqWiLwc=
+		</data>
+		<key>Headers/VROScene.h</key>
+		<data>
+		n8rwFpy+jt4raCGYU4rpdgk6i+I=
+>>>>>>> VIRO-761: Swipe and Scroll Gestures (Bridge)
 		</data>
 		<key>Headers/VROSceneController.h</key>
 		<data>
@@ -2667,6 +2706,7 @@
 		<data>
 		mJXB2laIJdB1M4oMLdiQIym/81M=
 		</data>
+<<<<<<< a245810dd6a4971852c65d43107c11a970e111f9
 		<key>Headers/VROSound.h</key>
 		<data>
 		cMAMc07yktffdMrSvHdqN76nZZ8=
@@ -2686,6 +2726,15 @@
 		<key>Headers/VROSoundGVR.h</key>
 		<data>
 		WfPplo4zRSjpCcdd/AEYqdhuOZM=
+=======
+		<key>Headers/VROSoundEffect.h</key>
+		<data>
+		Vy37OUeVi+KyD+G/da/AIFyIXLw=
+		</data>
+		<key>Headers/VROSoundEffectiOS.h</key>
+		<data>
+		WeDD/BjFM8dYmy2ZOZL2Qmk698s=
+>>>>>>> VIRO-761: Swipe and Scroll Gestures (Bridge)
 		</data>
 		<key>Headers/VROSphere.h</key>
 		<data>
@@ -2769,7 +2818,11 @@
 		</data>
 		<key>Headers/VROVector3f.h</key>
 		<data>
+<<<<<<< a245810dd6a4971852c65d43107c11a970e111f9
 		tlqjvJg/f2vhfoC6ax3K112BhTg=
+=======
+		4Yodd9YvFRreejNNwwPxprWDW3g=
+>>>>>>> VIRO-761: Swipe and Scroll Gestures (Bridge)
 		</data>
 		<key>Headers/VROVector4f.h</key>
 		<data>
@@ -2817,11 +2870,19 @@
 		</data>
 		<key>Headers/ViroKit.h</key>
 		<data>
+<<<<<<< a245810dd6a4971852c65d43107c11a970e111f9
 		A0V+i16iCZclsQKgl9181PIBYU0=
 		</data>
 		<key>Info.plist</key>
 		<data>
 		y9yztvkiwcUIHlPz2A0NgzzN+Ok=
+=======
+		oQdT2uw6V09zh1zDUSx9B23405U=
+		</data>
+		<key>Info.plist</key>
+		<data>
+		1h5uAGanKboEsuNrbNhuiR9iABk=
+>>>>>>> VIRO-761: Swipe and Scroll Gestures (Bridge)
 		</data>
 		<key>MaterialRobotoFontLoader.bundle/Roboto-Black.ttf</key>
 		<data>
@@ -7235,22 +7296,38 @@
 		<dict>
 			<key>hash</key>
 			<data>
+<<<<<<< a245810dd6a4971852c65d43107c11a970e111f9
 			Z7yeDTeZyifOBsNNlwnTUr12SKM=
 			</data>
 			<key>hash2</key>
 			<data>
 			8t1+mEkt1dmGQ8uUxGo65ZE1TGhoTRYnYZXERCxjsmY=
+=======
+			HBMPEsq0HgmB6BBDVvkffd/Bdpw=
+			</data>
+			<key>hash2</key>
+			<data>
+			cl0mlTx9bdYSdES7RNKFLYEmyf2WTLCT8ucOFlkXAQ4=
+>>>>>>> VIRO-761: Swipe and Scroll Gestures (Bridge)
 			</data>
 		</dict>
 		<key>Headers/VROAudioPlayeriOS.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
+<<<<<<< a245810dd6a4971852c65d43107c11a970e111f9
 			rCCi/pKPIR14QivH2AvWBkxh3xk=
 			</data>
 			<key>hash2</key>
 			<data>
 			L3D72b/aBHgZlpKQxyB60DHzrKEKx+blO0LngHcLbHs=
+=======
+			hTaO3ry06ocg4Y8QaDVPFGa4yJQ=
+			</data>
+			<key>hash2</key>
+			<data>
+			YpZtm1ZIUyPVwWdLwriO7WCwln67peKTBP4wsTigmT4=
+>>>>>>> VIRO-761: Swipe and Scroll Gestures (Bridge)
 			</data>
 		</dict>
 		<key>Headers/VROBillboardConstraint.h</key>
@@ -7356,22 +7433,38 @@
 		<dict>
 			<key>hash</key>
 			<data>
+<<<<<<< a245810dd6a4971852c65d43107c11a970e111f9
 			rKR/yAsCXAmbhrdwUbr+KSrzOOk=
 			</data>
 			<key>hash2</key>
 			<data>
 			SuXyGD2f5VWTyO1+hG/zTCzCny8EKZowqiZV4RCX2so=
+=======
+			m8xj+wzHBeT7U1cEkcZcVYET4Q8=
+			</data>
+			<key>hash2</key>
+			<data>
+			QQ2LMIbklAWFKfncC9QQWfir4+jMueFkJYgMCef31xA=
+>>>>>>> VIRO-761: Swipe and Scroll Gestures (Bridge)
 			</data>
 		</dict>
 		<key>Headers/VROEventDelegate.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
+<<<<<<< a245810dd6a4971852c65d43107c11a970e111f9
 			15F+Um8S7YyxuAHb6WUw6kvJ2+w=
 			</data>
 			<key>hash2</key>
 			<data>
 			e1YLh0FoaGzSgdCJ6o4unhWEDdr8+L0MxIYFrYV4TDU=
+=======
+			1vGAw7xJrj1P1ra/7+UL/qLVjis=
+			</data>
+			<key>hash2</key>
+			<data>
+			0LHDxU/ZFMl9wX3h1RmyBRmXbkTlNp9B2kpivgmcEGg=
+>>>>>>> VIRO-761: Swipe and Scroll Gestures (Bridge)
 			</data>
 		</dict>
 		<key>Headers/VROEventDelegateiOS.h</key>
@@ -7550,6 +7643,31 @@
 			40Cr82ns4l7VR8CS92KKaIq29QsnlXw6JcjP82BrHaU=
 			</data>
 		</dict>
+<<<<<<< a245810dd6a4971852c65d43107c11a970e111f9
+=======
+		<key>Headers/VROInputPresenter.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			Irrsmq7YJ+QP5VRRhKEYQ8G2KKM=
+			</data>
+			<key>hash2</key>
+			<data>
+			7rNFW2EuON7l0MOAlFBdwWh6v4jcZf3aL48/LV3ZDRs=
+			</data>
+		</dict>
+		<key>Headers/VROInputType.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			FkBnxk0RAe3w2wxo6xgSTWH4WJY=
+			</data>
+			<key>hash2</key>
+			<data>
+			XLBAk+ri//RMdVlWDA92ru4jDugoLOz6LwuI4jVT84w=
+			</data>
+		</dict>
+>>>>>>> VIRO-761: Swipe and Scroll Gestures (Bridge)
 		<key>Headers/VROLight.h</key>
 		<dict>
 			<key>hash</key>
@@ -7642,11 +7760,19 @@
 		<dict>
 			<key>hash</key>
 			<data>
+<<<<<<< a245810dd6a4971852c65d43107c11a970e111f9
 			KdcWpt/uBmrKaKITAYycVKdwCiI=
 			</data>
 			<key>hash2</key>
 			<data>
 			CKe2+w+hyPwhf7rPaLAz4czE5ZOSJhdPjk02psueEQg=
+=======
+			ObneMGPGjOY5lelOxvRupbFzvIQ=
+			</data>
+			<key>hash2</key>
+			<data>
+			RiwabbuXF3tmFoTwWmTg8iKmjNs3J0IBAO3aSvvtZFc=
+>>>>>>> VIRO-761: Swipe and Scroll Gestures (Bridge)
 			</data>
 		</dict>
 		<key>Headers/VRONodeCamera.h</key>
@@ -7774,22 +7900,38 @@
 		<dict>
 			<key>hash</key>
 			<data>
+<<<<<<< a245810dd6a4971852c65d43107c11a970e111f9
 			pulmSWijudW3+MQcErj28nSVp8o=
 			</data>
 			<key>hash2</key>
 			<data>
 			tGihEAUw/FQMFnVigiVVhb9FT33n8wWmVaT2acq55Ow=
+=======
+			D9glopG8Q+bcpwkTzApciqWiLwc=
+			</data>
+			<key>hash2</key>
+			<data>
+			F/BaNwHEmGjFV7JSmITvh/MNEIaL82MYTbZ4O2ZDr48=
+>>>>>>> VIRO-761: Swipe and Scroll Gestures (Bridge)
 			</data>
 		</dict>
 		<key>Headers/VROScene.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
+<<<<<<< a245810dd6a4971852c65d43107c11a970e111f9
 			Jje+JWNP0uGxgRtzO1J9/bJBaNc=
 			</data>
 			<key>hash2</key>
 			<data>
 			SssrGiLpYX4MQTtM8A20DEXG5xiqodJEvkh6ybX6L+I=
+=======
+			n8rwFpy+jt4raCGYU4rpdgk6i+I=
+			</data>
+			<key>hash2</key>
+			<data>
+			ygjIu1yB78ZK2VJB+b7P/NOPinBSu38bKWQl11LILlI=
+>>>>>>> VIRO-761: Swipe and Scroll Gestures (Bridge)
 			</data>
 		</dict>
 		<key>Headers/VROSceneController.h</key>
@@ -7869,6 +8011,7 @@
 			fLjHcpXiuVTN6ir9jX5TM6e/0JgQAXuzjCzfN9F0IBU=
 			</data>
 		</dict>
+<<<<<<< a245810dd6a4971852c65d43107c11a970e111f9
 		<key>Headers/VROSound.h</key>
 		<dict>
 			<key>hash</key>
@@ -7922,6 +8065,28 @@
 			<key>hash2</key>
 			<data>
 			hX65j7R/TesZDZEYkcjl/5xqLh7hYgWFJjMYDuTQYPM=
+=======
+		<key>Headers/VROSoundEffect.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			Vy37OUeVi+KyD+G/da/AIFyIXLw=
+			</data>
+			<key>hash2</key>
+			<data>
+			9PXLd5VC9wvBOPTZvj8g0z8i0GmvADQeWvfCAou25M0=
+			</data>
+		</dict>
+		<key>Headers/VROSoundEffectiOS.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			WeDD/BjFM8dYmy2ZOZL2Qmk698s=
+			</data>
+			<key>hash2</key>
+			<data>
+			FGSS6MwnEG/wV0B8gV+d1vZJmkWwH6nicHRjobWpbQk=
+>>>>>>> VIRO-761: Swipe and Scroll Gestures (Bridge)
 			</data>
 		</dict>
 		<key>Headers/VROSphere.h</key>
@@ -8148,11 +8313,19 @@
 		<dict>
 			<key>hash</key>
 			<data>
+<<<<<<< a245810dd6a4971852c65d43107c11a970e111f9
 			tlqjvJg/f2vhfoC6ax3K112BhTg=
 			</data>
 			<key>hash2</key>
 			<data>
 			KlvR7jHdAPLzIwAQegWakGia7qH77opFmp/yx9RJ4Eo=
+=======
+			4Yodd9YvFRreejNNwwPxprWDW3g=
+			</data>
+			<key>hash2</key>
+			<data>
+			L2RLLI2c8iVO2HtekdtaJmw1NdEEwePX3MyApJio7BI=
+>>>>>>> VIRO-761: Swipe and Scroll Gestures (Bridge)
 			</data>
 		</dict>
 		<key>Headers/VROVector4f.h</key>
@@ -8280,11 +8453,19 @@
 		<dict>
 			<key>hash</key>
 			<data>
+<<<<<<< a245810dd6a4971852c65d43107c11a970e111f9
 			A0V+i16iCZclsQKgl9181PIBYU0=
 			</data>
 			<key>hash2</key>
 			<data>
 			1pbOVov+xTdhGMqlAMIrxR2H3JT8wFl94tyqdkCOPQ4=
+=======
+			oQdT2uw6V09zh1zDUSx9B23405U=
+			</data>
+			<key>hash2</key>
+			<data>
+			nLC2ao4bciFMSP4Pnnef0IzMigXmUC5ZBlDMGFZcOt0=
+>>>>>>> VIRO-761: Swipe and Scroll Gestures (Bridge)
 			</data>
 		</dict>
 		<key>MaterialRobotoFontLoader.bundle/Roboto-Black.ttf</key>

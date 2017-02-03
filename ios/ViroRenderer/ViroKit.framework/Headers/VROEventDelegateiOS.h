@@ -17,8 +17,8 @@
  */
 @protocol VROEventDelegateProtocol<NSObject>
 @required
-- (void)onTapped;
-- (void)onGaze:(bool)isGazing;
+- (void)onHover:(int)source isHovering:(bool)isHovering;
+- (void)onClick:(int)source clickState:(VROEventDelegate::ClickState)clickState;
 @end
 
 /**
@@ -34,14 +34,12 @@ public:
     /*
      * Delegate events triggered by the EventManager.
      */
-    virtual void onTapped() {
-        [_delegate onTapped];
+    virtual void onHover(int source, bool isHovering) {
+        [_delegate onHover:source isHovering:isHovering];
     }
-    virtual void onGaze(bool isGazing) {
-        [_delegate onGaze:isGazing];
-    }
-    virtual void onGazeHitDistance(float distance) {
-        //No-op
+    
+    virtual void onClick(int source, ClickState clickState) {
+        [_delegate onClick:source clickState:clickState];
     }
 private:
     id<VROEventDelegateProtocol> _delegate;

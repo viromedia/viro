@@ -47,6 +47,8 @@ var ViroSphere = React.createClass({
     onClick: React.PropTypes.func,
     onClickState: React.PropTypes.func,
     onTouch: React.PropTypes.func,
+    onScroll: React.PropTypes.func,
+    onSwipe: React.PropTypes.func,
   },
 
   _onHover: function(event: Event) {
@@ -66,9 +68,16 @@ var ViroSphere = React.createClass({
   },
 
   _onTouch: function(event: Event) {
-    this.props.onTouch && this.props.onTouch(event.nativeEvent.source, event.nativeEvent.touchState);
+    this.props.onTouch && this.props.onTouch(event.nativeEvent.source, event.nativeEvent.touchState, event.nativeEvent.touchPos);
   },
 
+  _onScroll: function(event: Event) {
+      this.props.onScroll && this.props.onScroll(event.nativeEvent.source, event.nativeEvent.scrollPos);
+  },
+
+  _onSwipe: function(event: Event) {
+      this.props.onSwipe && this.props.onSwipe(event.nativeEvent.source, event.nativeEvent.swipeState);
+  },
   render: function() {
     if (this.props.material) {
       console.error('The <ViroSphere> component takes a `materials` property rather than `material`.');
@@ -85,9 +94,14 @@ var ViroSphere = React.createClass({
         canHover={this.props.onHover != undefined}
         canClick={this.props.onClick != undefined || this.props.onClickState != undefined}
         canTouch={this.props.onTouch != undefined}
+        canScroll={this.props.onScroll != undefined}
+        canSwipe={this.props.onSwipe != undefined}
         onHoverViro={this._onHover}
         onClickViro={this._onClickState}
-        onTouchViro={this._onTouch}/>
+        onTouchViro={this._onTouch}
+        onScrollViro={this._onScroll}
+        onSwipeViro={this._onSwipe}
+        />
     );
   }
 });
@@ -96,12 +110,16 @@ var ViroSphere = React.createClass({
 var VRTSphere = requireNativeComponent(
   'VRTSphere', ViroSphere , {
     nativeOnly: {
-                canHover: true,
-                canClick: true,
-                canTouch: true,
-                onHoverViro:true,
-                onClickViro:true,
-                onTouchViro:true}
+            canHover: true,
+            canClick: true,
+            canTouch: true,
+            canScroll: true,
+            canSwipe: true,
+            onHoverViro:true,
+            onClickViro:true,
+            onTouchViro:true,
+            onScrollViro:true,
+            onSwipeViro:true}
   }
 );
 

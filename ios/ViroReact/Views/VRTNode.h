@@ -32,10 +32,8 @@ extern const int k2DPointsPerSpatialUnit;
 // Event properties
 @property (nonatomic, copy, nullable) RCTDirectEventBlock onHoverViro;
 @property (nonatomic, copy, nullable) RCTDirectEventBlock onClickViro;
-@property (nonatomic, copy, nullable) RCTDirectEventBlock onTouchViro;
 @property (nonatomic, assign) BOOL canHover;
 @property (nonatomic, assign) BOOL canClick;
-@property (nonatomic, assign) BOOL canTouch;
 @property (nonatomic, assign) BOOL highAccuracyGaze;
 
 // Used for Flexbox enabled components, no-op for non flexbox related components.

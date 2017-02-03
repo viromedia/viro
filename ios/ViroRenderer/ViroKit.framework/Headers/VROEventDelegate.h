@@ -35,7 +35,9 @@ public:
         OnClick = 2,
         OnTouch = 3,
         OnMove = 4,
-        OnControllerStatus = 5
+        OnControllerStatus = 5,
+        OnSwipe = 6,
+        OnScroll = 7
     };
 
     /**
@@ -54,6 +56,13 @@ public:
         TouchDown = 1,
         TouchDownMove = 2,
         TouchUp = 3,
+    };
+
+    enum SwipeState{
+        SwipeUp = 1,
+        SwipeDown = 2,
+        SwipeLeft = 3,
+        SwipeRight = 4
     };
 
     /**
@@ -79,6 +88,8 @@ public:
         _enabledEventMap[VROEventDelegate::EventAction::OnTouch] = false;
         _enabledEventMap[VROEventDelegate::EventAction::OnMove] = false;
         _enabledEventMap[VROEventDelegate::EventAction::OnControllerStatus] = false;
+        _enabledEventMap[VROEventDelegate::EventAction::OnSwipe] = false;
+        _enabledEventMap[VROEventDelegate::EventAction::OnScroll] = false;
     }
 
     /**
@@ -117,6 +128,14 @@ public:
     }
 
     virtual void onGazeHit(int source, float distance, VROVector3f hitLocation) {
+        //No-op
+    }
+
+    virtual void onSwipe(int source, SwipeState swipeState) {
+        //No-op
+    }
+
+    virtual void onScroll(int source, float x, float y) {
         //No-op
     }
 private:

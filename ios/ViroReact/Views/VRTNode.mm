@@ -134,10 +134,6 @@ const int k2DPointsPerSpatialUnit = 1000;
     _onClickViro = block;
 }
 
--(void)onTouchViro:(RCTDirectEventBlock)block {
-    _onTouchViro = block;
-}
-
 -(void)setCanHover:(BOOL)canHover {
     _canHover = canHover;
     self.eventDelegate->setEnabledEvent(VROEventDelegate::EventAction::OnHover, canHover);
@@ -146,11 +142,6 @@ const int k2DPointsPerSpatialUnit = 1000;
 -(void)setCanClick:(BOOL)canClick {
     _canClick = canClick;
     self.eventDelegate->setEnabledEvent(VROEventDelegate::EventAction::OnClick, canClick);
-}
-
--(void)setCanTouch:(BOOL)canTouch{
-    _canTouch = canTouch;
-    self.eventDelegate->setEnabledEvent(VROEventDelegate::EventAction::OnTouch, canTouch);
 }
 
 - (void)setPosition:(NSArray<NSNumber *> *)position {
@@ -277,21 +268,5 @@ const int k2DPointsPerSpatialUnit = 1000;
         self.onClickViro(@{@"source": @(source),
                           @"clickState":@(clickState)});
     }
-}
-
--(void)onTouch:(int)source
-    touchState:(VROEventDelegate::TouchState)touchState
-          xPos:(float)x
-          yPos:(float)y {
-    if (self.onTouchViro != nil) {
-        NSArray *posArray = [NSArray arrayWithObjects:
-                             [NSNumber numberWithFloat:x],
-                             [NSNumber numberWithFloat:y], nil];
-        self.onTouchViro(@{@"source": @(source),
-                         @"touchState":@(touchState),
-                         @"touchPos":posArray});
-
-    }
-
 }
 @end

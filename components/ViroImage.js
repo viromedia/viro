@@ -78,6 +78,8 @@ var ViroImage = React.createClass({
     onClick: React.PropTypes.func,
     onClickState: React.PropTypes.func,
     onTouch: React.PropTypes.func,
+    onScroll: React.PropTypes.func,
+    onSwipe: React.PropTypes.func,
 
     /**
      * Callback triggered when we are processing the assets to be
@@ -125,9 +127,16 @@ var ViroImage = React.createClass({
   },
 
   _onTouch: function(event: Event) {
-    this.props.onTouch && this.props.onTouch(event.nativeEvent.source, event.nativeEvent.touchState);
+    this.props.onTouch && this.props.onTouch(event.nativeEvent.source, event.nativeEvent.touchState, event.nativeEvent.touchPos);
   },
 
+  _onScroll: function(event: Event) {
+      this.props.onScroll && this.props.onScroll(event.nativeEvent.source, event.nativeEvent.scrollPos);
+  },
+
+  _onSwipe: function(event: Event) {
+      this.props.onSwipe && this.props.onSwipe(event.nativeEvent.source, event.nativeEvent.swipeState);
+  },
   render: function() {
 
     var defaultPlaceHolder = require('./Resources/viro_blank.png');
@@ -164,9 +173,13 @@ var ViroImage = React.createClass({
     nativeProps.onHoverViro = this._onHover;
     nativeProps.onClickViro = this._onClickState;
     nativeProps.onTouchViro = this._onTouch;
+    nativeProps.onScrollViro = this._onScroll;
+    nativeProps.onSwipeViro = this._onSwipe;
     nativeProps.canHover = this.props.onHover != undefined;
     nativeProps.canClick = this.props.onClick != undefined || this.props.onClickState != undefined;
     nativeProps.canTouch = this.props.onTouch != undefined;
+    nativeProps.canScroll = this.props.onScroll != undefined;
+    nativeProps.canSwipe = this.props.onSwipe != undefined;
 
     return (
       <VRTImage {...nativeProps}/>
@@ -177,14 +190,18 @@ var ViroImage = React.createClass({
 var VRTImage = requireNativeComponent(
   'VRTImage', ViroImage, {
     nativeOnly: {
-        onLoadStartViro: true,
-        onLoadEndViro: true,
-        canHover: true,
-        canClick: true,
-        canTouch: true,
-        onHoverViro:true,
-        onClickViro:true,
-        onTouchViro:true}
+            onLoadStartViro: true,
+            onLoadEndViro: true,
+            canHover: true,
+            canClick: true,
+            canTouch: true,
+            canScroll: true,
+            canSwipe: true,
+            onHoverViro:true,
+            onClickViro:true,
+            onTouchViro:true,
+            onScrollViro:true,
+            onSwipeViro:true}
   }
 );
 
