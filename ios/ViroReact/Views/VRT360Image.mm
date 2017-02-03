@@ -78,7 +78,7 @@
   [_imageAsyncLoader loadImage:imageSource];
 }
 
--(void)updateSceneWithSphereTexture{
+-(void)updateSceneWithSphereTexture {
   if(!_sphereTextureAddedToScene && _sphereTexture && self.scene) {
     self.scene->setBackgroundSphere(_sphereTexture);
     float rotationValues[3] = {0.0f, 0.0f, 0.0f};

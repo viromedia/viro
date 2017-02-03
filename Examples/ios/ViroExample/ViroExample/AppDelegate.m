@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #include "RCTBundleURLProvider.h"
+#include "VRTBundleURLProvider.h"
 #include "RCTRootView.h"
 
 @interface AppDelegate ()
@@ -22,15 +23,25 @@
     // if this is set to YES, then we will enter VR immediately, else
     // we'll show a screen with an "Enter VR" button.
     BOOL enterVrImmediately = YES;
+    BOOL usingNgrok = YES;
     if (enterVrImmediately) {
-        NSURL *jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index.ios"
+        NSURL *jsCodeLocation = nil;
+#ifdef DEBUG
+        if(usingNgrok) {
+          VRTBundleURLProvider *bundleProvider = [[VRTBundleURLProvider alloc] init];
+          jsCodeLocation = [bundleProvider jsBundleURLForBundleRoot:@"index.ios" fallbackResource:nil];
+        }
+#endif
+        if(jsCodeLocation == nil) {
+          jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index.ios"
                                                                                fallbackResource:nil];
-        
+        }
+
         RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation
                                                             moduleName:@"ViroSample"
                                                      initialProperties:nil
                                                          launchOptions:launchOptions];
-        
+
         self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
         UIViewController *rootViewController = [UIViewController new];
         rootViewController.view = rootView;

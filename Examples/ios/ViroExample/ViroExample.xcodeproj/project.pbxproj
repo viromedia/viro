@@ -393,6 +393,7 @@
 				8BE0D5351DFF494E0032AB99 /* ShellScript */,
 				78E72CE123D22A61488E4DCD /* [CP] Embed Pods Frameworks */,
 				3F40BDC48FB6296CC4E1E2E3 /* [CP] Copy Pods Resources */,
+				8BDD9E001E44794F00A42870 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -672,6 +673,19 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ViroExample/Pods-ViroExample-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		8BDD9E001E44794F00A42870 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\nDEST=$CONFIGURATION_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH\nendpointfile=\"ngrokendpoint.txt\"\n\nif [[ -e \"$SRCROOT/../../../ios/$endpointfile\" ]]; then\necho \"Ngrok endpoint file found, copying over...\"\n\ncp \"$SRCROOT/../../../ios/$endpointfile\" \"$DEST/$endpointfile\"\nbreak;\nfi";
+		};
 		8BE0D5351DFF494E0032AB99 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -841,7 +855,10 @@
 				DEVELOPMENT_TEAM = ***REMOVED***;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../../../ios/ViroRenderer/**";
-				HEADER_SEARCH_PATHS = "../../node_modules/react-native/React/**";
+				HEADER_SEARCH_PATHS = (
+					"../../node_modules/react-native/React/**",
+					"../../../ios/**",
+				);
 				INFOPLIST_FILE = ViroExample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = viro.ViroExample;
@@ -857,7 +874,10 @@
 				DEVELOPMENT_TEAM = ***REMOVED***;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../../../ios/ViroRenderer/**";
-				HEADER_SEARCH_PATHS = "../../node_modules/react-native/React/**";
+				HEADER_SEARCH_PATHS = (
+					"../../node_modules/react-native/React/**",
+					"../../../ios/**",
+				);
 				INFOPLIST_FILE = ViroExample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = viro.ViroExample;

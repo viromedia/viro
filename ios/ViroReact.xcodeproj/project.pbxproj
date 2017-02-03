@@ -13,6 +13,7 @@
 		8A31CFB41E2705EC00550CFE /* VRTSurface.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8A31CFB31E2705EC00550CFE /* VRTSurface.mm */; };
 		8BDD9DD71E2EDC5200A42870 /* VRTCameraManager.h in Sources */ = {isa = PBXBuildFile; fileRef = 8BE0D4861DFA15880032AB99 /* VRTCameraManager.h */; };
 		8BDD9DD81E2EDC5200A42870 /* VRTCameraManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8BE0D4871DFA15880032AB99 /* VRTCameraManager.mm */; };
+		8BDD9E1B1E453F3500A42870 /* VRTBundleURLProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BDD9E1A1E453F3500A42870 /* VRTBundleURLProvider.m */; };
 		8BE0D4981DFA15880032AB99 /* ViroUIManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8BE0D4661DFA15880032AB99 /* ViroUIManager.mm */; };
 		8BE0D4991DFA15880032AB99 /* ViroViewManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8BE0D4681DFA15880032AB99 /* ViroViewManager.mm */; };
 		8BE0D49A1DFA15880032AB99 /* VRT360ImageManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8BE0D46A1DFA15880032AB99 /* VRT360ImageManager.mm */; };
@@ -105,6 +106,8 @@
 		8A31CFB21E2705EC00550CFE /* VRTSurface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VRTSurface.h; path = ViroReact/Views/VRTSurface.h; sourceTree = "<group>"; };
 		8A31CFB31E2705EC00550CFE /* VRTSurface.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = VRTSurface.mm; path = ViroReact/Views/VRTSurface.mm; sourceTree = "<group>"; };
 		8BDD9D9E1E09F39B00A42870 /* Pods.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Pods.xcodeproj; path = Pods/Pods.xcodeproj; sourceTree = "<group>"; };
+		8BDD9E191E453F3500A42870 /* VRTBundleURLProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VRTBundleURLProvider.h; path = ViroReact/VRTBundleURLProvider.h; sourceTree = "<group>"; };
+		8BDD9E1A1E453F3500A42870 /* VRTBundleURLProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VRTBundleURLProvider.m; path = ViroReact/VRTBundleURLProvider.m; sourceTree = "<group>"; };
 		8BE0D4541DFA0D050032AB99 /* libViroReact.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libViroReact.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		8BE0D4651DFA15880032AB99 /* ViroUIManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ViroUIManager.h; path = ViroReact/ViroUIManager.h; sourceTree = "<group>"; };
 		8BE0D4661DFA15880032AB99 /* ViroUIManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = ViroUIManager.mm; path = ViroReact/ViroUIManager.mm; sourceTree = "<group>"; };
@@ -277,6 +280,8 @@
 				8BE0D4751DFA15880032AB99 /* VROComponentData.mm */,
 				8BE0D4761DFA15880032AB99 /* VROHUDManager.h */,
 				8BE0D4771DFA15880032AB99 /* VROHUDManager.mm */,
+				8BDD9E191E453F3500A42870 /* VRTBundleURLProvider.h */,
+				8BDD9E1A1E453F3500A42870 /* VRTBundleURLProvider.m */,
 				8BE0D4841DFA15880032AB99 /* VRT3DObjectManager.h */,
 				8BE0D4851DFA15880032AB99 /* VRT3DObjectManager.mm */,
 				8BE0D4691DFA15880032AB99 /* VRT360ImageManager.h */,
@@ -447,6 +452,7 @@
 				8BE0D4511DFA0D050032AB99 /* Frameworks */,
 				8BE0D4521DFA0D050032AB99 /* CopyFiles */,
 				713F299271F49D887E056747 /* [CP] Copy Pods Resources */,
+				8BDD9E1D1E453F9000A42870 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -535,6 +541,19 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
+		8BDD9E1D1E453F9000A42870 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = $SRCROOT/ngrok_launch.sh;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -560,6 +579,7 @@
 				8BE0D50D1DFA3D9B0032AB99 /* VRTShadowView.mm in Sources */,
 				8BE0D4A71DFA15880032AB99 /* VRT3DObjectManager.mm in Sources */,
 				8BE0D51B1DFA3DB20032AB99 /* VRTMaterialManager.mm in Sources */,
+				8BDD9E1B1E453F3500A42870 /* VRTBundleURLProvider.m in Sources */,
 				8BE0D4AE1DFA15880032AB99 /* VRTSphereManager.mm in Sources */,
 				8BE0D4A01DFA15880032AB99 /* VROHUDManager.mm in Sources */,
 				8BE0D49A1DFA15880032AB99 /* VRT360ImageManager.mm in Sources */,
