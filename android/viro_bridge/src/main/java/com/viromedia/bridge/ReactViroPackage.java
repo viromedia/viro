@@ -45,6 +45,17 @@ import static java.util.Collections.emptyList;
  * ReactViroPackage class containing an array of all ViroViewManagers to be created.
  */
 public class ReactViroPackage implements ReactPackage {
+
+    public enum ViroPlatform {
+        OVR, GVR
+    }
+
+    private final ViroPlatform mViroPlatform;
+
+    public ReactViroPackage(ViroPlatform platform) {
+        mViroPlatform = platform;
+    }
+
     @Override
     public List<NativeModule> createNativeModules(ReactApplicationContext reactContext) {
         return Arrays.<NativeModule>asList(
@@ -63,7 +74,7 @@ public class ReactViroPackage implements ReactPackage {
     @Override
     public List<ViewManager> createViewManagers(ReactApplicationContext reactContext) {
         return Arrays.<ViewManager>asList(
-                new SceneNavigatorManager(reactContext),
+                new SceneNavigatorManager(reactContext, mViroPlatform),
                 new SceneManager(reactContext),
                 new BoxManager(reactContext),
                 new VideoSurfaceManager(reactContext),

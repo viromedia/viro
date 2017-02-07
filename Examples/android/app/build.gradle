@@ -1,4 +1,5 @@
 apply plugin: "com.android.application"
+
 apply from: "../../node_modules/react-native/react.gradle"
 import com.android.build.OutputFile
 
@@ -103,9 +104,24 @@ android {
         }
     }
     buildTypes {
+        debug {
+            applicationIdSuffix ".debug"
+        }
         release {
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+        }
+    }
+    productFlavors {
+        gvr {
+            resValue "string", "app_name", "ViroSample-gvr"
+            applicationIdSuffix ".gvr"
+            buildConfigField "String", "VR_PLATFORM", "\"GVR\""
+        }
+        ovr {
+            resValue "string", "app_name", "ViroSample-ovr"
+            applicationIdSuffix ".ovr"
+            buildConfigField "String", "VR_PLATFORM", "\"OVR\""
         }
     }
     // applicationVariants are e.g. debug, release
@@ -113,7 +129,7 @@ android {
         variant.outputs.each { output ->
             // For each separate APK per architecture, set a unique version code as described here:
             // http://tools.android.com/tech-docs/new-build-system/user-guide/apk-splits
-            def versionCodes = ["armeabi-v7a":1, "x86":2]
+            def versionCodes = ["armeabi-v7a": 1, "x86": 2]
             def abi = output.getFilter(OutputFile.ABI)
             if (abi != null) {  // null for the universal-debug, universal-release variants
                 output.versionCodeOverride =
@@ -121,6 +137,7 @@ android {
             }
         }
     }
+    sourceSets { main { assets.srcDirs = ['src/main/assets', 'src/main/assets/'] } }
 }
 
 dependencies {
@@ -130,8 +147,6 @@ dependencies {
 
     // Viro modules
     compile project(path: ':gvr_common')
-    releaseCompile project(path: ':viro_renderer', configuration: 'release')
-    debugCompile project(path: ':viro_renderer', configuration: 'debug')
     compile project(path: ':viro_bridge')
     compile 'com.google.protobuf.nano:protobuf-javanano:3.0.0-alpha-7'
 }

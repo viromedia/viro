@@ -3,14 +3,15 @@
  */
 package com.viromedia.bridge.component;
 
-import android.content.Context;
-import android.util.AttributeSet;
 import android.view.View;
 import android.widget.FrameLayout;
 import com.facebook.react.bridge.ReactApplicationContext;
+import com.viro.renderer.jni.GlListener;
 import com.viro.renderer.jni.RenderContextJni;
 import com.viro.renderer.jni.ViroGvrLayout;
+import com.viro.renderer.jni.ViroOvrView;
 import com.viro.renderer.jni.VrView;
+import com.viromedia.bridge.ReactViroPackage;
 import com.viromedia.bridge.component.node.Scene;
 import com.viromedia.bridge.utility.ViroLog;
 
@@ -42,50 +43,54 @@ public class SceneNavigator extends FrameLayout {
     private final ArrayList<Scene> mSceneArray = new ArrayList<Scene>();
 
     /**
+     * The platform that the developer has requested.
+     */
+    private final ReactViroPackage.ViroPlatform mPlatform;
+
+    /**
      * Context passed around to views to get render specific information.
      */
     private RenderContextJni mRenderContext;
 
     private boolean mViewAdded = false;
     private boolean mGLInialized = false;
-    public SceneNavigator(ReactApplicationContext reactContext) {
-        this(reactContext.getBaseContext(), null, -1);
 
-        mVrView = new ViroGvrLayout(reactContext.getCurrentActivity(),
-                new ViroGvrLayout.GlListener() {
-            @Override
-            public void onGlInitialized() {
-                mGLInialized = true;
-                setRenderContext();
-            }
-        });
-        ViroGvrLayout gvrLayout = (ViroGvrLayout)mVrView;
-        addView(gvrLayout);
+    public SceneNavigator(ReactApplicationContext reactContext,
+                          ReactViroPackage.ViroPlatform platform) {
+        super(reactContext.getBaseContext(), null, -1);
+        mPlatform = platform;
+
+        switch (mPlatform) {
+            case OVR:
+                mVrView = new ViroOvrView(reactContext.getCurrentActivity(),
+                        new InnerGlListener());
+                break;
+            case GVR:
+                // default case is to use GVR
+            default:
+                ViroGvrLayout gvrLayout = new ViroGvrLayout(reactContext.getCurrentActivity(),
+                        new InnerGlListener());
+                mVrView = gvrLayout;
+        }
+
+        View baseVrView = (View)mVrView;
+        addView(baseVrView);
+
+
         mRenderContext = mVrView.getRenderContextRef();
+
         /*
          * Trigger VrView's onActivityStarted and onActivityResumed of the vrView as
          * React creates it's views within the activity's onResume().
          */
-        gvrLayout.onActivityStarted(reactContext.getCurrentActivity());
-        gvrLayout.onActivityResumed(reactContext.getCurrentActivity());
-    }
-
-    public SceneNavigator(Context context) {
-        this(context, null, -1);
-    }
-
-    public SceneNavigator(Context context, AttributeSet attrs) {
-        this(context, attrs, -1);
-    }
-
-    public SceneNavigator(Context context, AttributeSet attrs, int defStyle) {
-        super(context, attrs, defStyle);
+        mVrView.onActivityStarted(reactContext.getCurrentActivity());
+        mVrView.onActivityResumed(reactContext.getCurrentActivity());
     }
 
     @Override
     public void addView(View child, int index) {
-        if (child instanceof ViroGvrLayout) {
-            // only add a view to the childViews if it's a ViroGvrLayout. This function is called
+        if (child instanceof VrView) {
+            // only add a view to the childViews if it's a VrView. This function is called
             // by the single argument addView(child) method.
             super.addView(child, index);
             return;
@@ -144,5 +149,13 @@ public class SceneNavigator extends FrameLayout {
 
     public void setVrModeEnabled(boolean vrModeEnabled) {
         mVrView.setVrModeEnabled(vrModeEnabled);
+    }
+
+    private class InnerGlListener implements GlListener {
+        @Override
+        public void onGlInitialized() {
+            mGLInialized = true;
+            setRenderContext();
+        }
     }
 }

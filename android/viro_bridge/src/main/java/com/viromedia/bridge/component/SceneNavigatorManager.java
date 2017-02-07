@@ -7,6 +7,7 @@ import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.uimanager.ViewGroupManager;
 import com.facebook.react.uimanager.ThemedReactContext;
 import com.facebook.react.uimanager.annotations.ReactProp;
+import com.viromedia.bridge.ReactViroPackage;
 
 /**
  * SceneNavigatorManager for building a {@link SceneNavigator}
@@ -14,8 +15,12 @@ import com.facebook.react.uimanager.annotations.ReactProp;
  */
 public class SceneNavigatorManager extends ViroViewGroupManager<SceneNavigator> {
 
-    public SceneNavigatorManager(ReactApplicationContext context){
+    private final ReactViroPackage.ViroPlatform mPlatform;
+
+    public SceneNavigatorManager(ReactApplicationContext context,
+                                 ReactViroPackage.ViroPlatform platform) {
         super(context);
+        mPlatform = platform;
     }
 
     @Override
@@ -25,7 +30,7 @@ public class SceneNavigatorManager extends ViroViewGroupManager<SceneNavigator> 
 
     @Override
     protected SceneNavigator createViewInstance(ThemedReactContext reactContext) {
-        return new SceneNavigator(getContext());
+        return new SceneNavigator(getContext(), mPlatform);
     }
 
     @ReactProp(name = "vrModeEnabled", defaultBoolean = true)
