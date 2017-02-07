@@ -63,6 +63,7 @@ public:
         return _background;
     }
     void setControllerPresenter(std::shared_ptr<VROInputPresenter> presenter);
+    std::shared_ptr<VROInputPresenter> getControllerPresenter();
 
 private:
     

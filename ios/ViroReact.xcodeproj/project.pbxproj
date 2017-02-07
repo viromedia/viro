@@ -208,6 +208,8 @@
 		8BE0D52E1DFA468F0032AB99 /* ViroKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BE0D52D1DFA468F0032AB99 /* ViroKit.framework */; };
 		8D7FF77A67F625D2046F82FD /* libPods-ViroReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D00D2E18A27112F2AE615B22 /* libPods-ViroReact.a */; };
 		8FD1D4B91E3A484000EE2859 /* VRTCameraModule.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8FD1D4B81E3A484000EE2859 /* VRTCameraModule.mm */; };
+		A5F6D4011E4B0DFF00655F60 /* VRTController.mm in Sources */ = {isa = PBXBuildFile; fileRef = A5F6D4001E4B0DFF00655F60 /* VRTController.mm */; };
+		A5F6D4051E4B179700655F60 /* VRTControllerManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = A5F6D4041E4B179700655F60 /* VRTControllerManager.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -389,6 +391,10 @@
 		8BE0D52D1DFA468F0032AB99 /* ViroKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ViroKit.framework; path = ViroRenderer/ViroKit.framework; sourceTree = "<group>"; };
 		8FD1D4B81E3A484000EE2859 /* VRTCameraModule.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = VRTCameraModule.mm; path = ViroReact/Modules/VRTCameraModule.mm; sourceTree = "<group>"; };
 		8FD1D4BB1E3A486500EE2859 /* VRTCameraModule.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = VRTCameraModule.h; path = ViroReact/Modules/VRTCameraModule.h; sourceTree = "<group>"; };
+		A5F6D3FF1E4B0DFF00655F60 /* VRTController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VRTController.h; path = ViroReact/Views/VRTController.h; sourceTree = "<group>"; };
+		A5F6D4001E4B0DFF00655F60 /* VRTController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = VRTController.mm; path = ViroReact/Views/VRTController.mm; sourceTree = "<group>"; };
+		A5F6D4031E4B179700655F60 /* VRTControllerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VRTControllerManager.h; path = ViroReact/VRTControllerManager.h; sourceTree = "<group>"; };
+		A5F6D4041E4B179700655F60 /* VRTControllerManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = VRTControllerManager.mm; path = ViroReact/VRTControllerManager.mm; sourceTree = "<group>"; };
 		A81D35054D51980438423FFB /* Pods-ViroReact.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ViroReact.release.xcconfig"; path = "Pods/Target Support Files/Pods-ViroReact/Pods-ViroReact.release.xcconfig"; sourceTree = "<group>"; };
 		D00D2E18A27112F2AE615B22 /* libPods-ViroReact.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ViroReact.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D73C4F5968AA1DBB40C6B454 /* Pods-ViroReact.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ViroReact.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ViroReact/Pods-ViroReact.debug.xcconfig"; sourceTree = "<group>"; };
@@ -481,7 +487,13 @@
 				8BE0D4761DFA15880032AB99 /* VROHUDManager.h */,
 				8BE0D4771DFA15880032AB99 /* VROHUDManager.mm */,
 				8BDD9E191E453F3500A42870 /* VRTBundleURLProvider.h */,
+<<<<<<< 12a085a057966c75e6c9980c29044547752449ee
 				8BDD9E1A1E453F3500A42870 /* VRTBundleURLProvider.mm */,
+=======
+				A5F6D4031E4B179700655F60 /* VRTControllerManager.h */,
+				A5F6D4041E4B179700655F60 /* VRTControllerManager.mm */,
+				8BDD9E1A1E453F3500A42870 /* VRTBundleURLProvider.m */,
+>>>>>>> VIRO-773: Controller Js Bridge Component (Bridge)
 				8BE0D4841DFA15880032AB99 /* VRT3DObjectManager.h */,
 				8BE0D4851DFA15880032AB99 /* VRT3DObjectManager.mm */,
 				8BE0D4691DFA15880032AB99 /* VRT360ImageManager.h */,
@@ -556,6 +568,8 @@
 		8BE0D4B81DFA3D8A0032AB99 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				A5F6D3FF1E4B0DFF00655F60 /* VRTController.h */,
+				A5F6D4001E4B0DFF00655F60 /* VRTController.mm */,
 				8BE0D4B91DFA3D9B0032AB99 /* VRT3DObject.h */,
 				8BE0D4BA1DFA3D9B0032AB99 /* VRT3DObject.mm */,
 				8BE0D4BB1DFA3D9B0032AB99 /* VRT360Image.h */,
@@ -1015,6 +1029,7 @@
 				8BE0D4AC1DFA15880032AB99 /* VRTOrbitCameraManager.mm in Sources */,
 				8BE0D5011DFA3D9B0032AB99 /* VRTImage.mm in Sources */,
 				8BE0D4F51DFA3D9B0032AB99 /* VRT3DObject.mm in Sources */,
+				A5F6D4051E4B179700655F60 /* VRTControllerManager.mm in Sources */,
 				8BE0D4A91DFA15880032AB99 /* VRTFlexViewManager.mm in Sources */,
 				8BE0D5251DFA3DEA0032AB99 /* VRTImageAsyncLoader.m in Sources */,
 				8FD1D4B91E3A484000EE2859 /* VRTCameraModule.mm in Sources */,
@@ -1037,7 +1052,12 @@
 				8BE0D50E1DFA3D9B0032AB99 /* VRTSkybox.mm in Sources */,
 				8BE0D49B1DFA15880032AB99 /* VRT360VideoManager.mm in Sources */,
 				8BE0D5191DFA3DB20032AB99 /* VRTAnimationManager.mm in Sources */,
+<<<<<<< 12a085a057966c75e6c9980c29044547752449ee
 				8BE0D4A51DFA15880032AB99 /* VRTUtils.mm in Sources */,
+=======
+				8BE0D4A51DFA15880032AB99 /* VRTUtils.m in Sources */,
+				A5F6D4011E4B0DFF00655F60 /* VRTController.mm in Sources */,
+>>>>>>> VIRO-773: Controller Js Bridge Component (Bridge)
 				8BE0D4FA1DFA3D9B0032AB99 /* VRTBox.mm in Sources */,
 				8A130DAE1E43A8AB0050D83B /* VRTSoundModule.mm in Sources */,
 				8BE0D4A31DFA15880032AB99 /* VRTSceneNavigatorManager.mm in Sources */,

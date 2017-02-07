@@ -27,7 +27,6 @@ typedef void (^VROViewValidApiKeyBlock)(BOOL);
 @required
 
 @property (nonatomic, unsafe_unretained) IBOutlet id <VRORenderDelegate> renderDelegate;
-@property (nonatomic, readonly) std::shared_ptr<VROReticle> reticle;
 @property (readwrite, nonatomic) std::shared_ptr<VROSceneController> sceneController;
 
 - (void)setSceneController:(std::shared_ptr<VROSceneController>)sceneController animated:(BOOL)animated;

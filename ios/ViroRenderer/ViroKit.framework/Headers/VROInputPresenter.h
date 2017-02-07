@@ -28,7 +28,6 @@ public:
         _reticle = nullptr;
         _context = context;
         _rootNode = std::make_shared<VRONode>();
-        _delegate = nullptr;
     }
 
     ~VROInputPresenter() {}
@@ -36,40 +35,67 @@ public:
     std::shared_ptr<VRONode> getRootNode(){
         return _rootNode;
     }
+
+    void setEventDelegate(std::shared_ptr<VROEventDelegate> delegate){
+        _eventDelegateWeak = delegate;
+    }
+
     /**
      * Event delegate for triggering calls back to Controller_JNI.
      */
-    void setEventDelegate(std::shared_ptr<VROEventDelegate> delegate){
-        _delegate = delegate;
+    std::shared_ptr<VROEventDelegate> getDelegate(){
+        if (_eventDelegateWeak.expired()){
+            return nullptr;
+        }
+        return _eventDelegateWeak.lock();
     }
 
     virtual void onHover(int source, bool isHovering) {
-        if (_delegate != nullptr){
-            _delegate->onHover(source, isHovering);
+        std::shared_ptr<VROEventDelegate> delegate = getDelegate();
+        if (delegate != nullptr && delegate->isEventEnabled(VROEventDelegate::EventAction::OnHover)){
+            delegate->onHover(source, isHovering);
         }
     }
 
     virtual void onClick(int source, ClickState clickState) {
-        if (_delegate != nullptr){
-            _delegate->onClick(source, clickState);
+        std::shared_ptr<VROEventDelegate> delegate = getDelegate();
+        if (delegate != nullptr && delegate->isEventEnabled(VROEventDelegate::EventAction::OnClick)){
+            delegate->onClick(source, clickState);
         }
     }
 
     virtual void onTouch(int source, TouchState state, float x, float y){
-        if (_delegate != nullptr){
-            _delegate->onTouch(source, state, x, y);
+        std::shared_ptr<VROEventDelegate> delegate = getDelegate();
+        if (delegate != nullptr && delegate->isEventEnabled(VROEventDelegate::EventAction::OnTouch)){
+            delegate->onTouch(source, state, x, y);
         }
     }
 
     virtual void onMove(int source, VROVector3f rotation, VROVector3f position) {
-        if (_delegate != nullptr){
-            _delegate->onMove(source, rotation, position);
+        std::shared_ptr<VROEventDelegate> delegate = getDelegate();
+        if (delegate != nullptr && delegate->isEventEnabled(VROEventDelegate::EventAction::OnMove)){
+            delegate->onMove(source, rotation, position);
         }
     }
 
     virtual void onControllerStatus(int source, ControllerStatus status) {
-        if (_delegate != nullptr){
-            _delegate->onControllerStatus(source, status);
+        std::shared_ptr<VROEventDelegate> delegate = getDelegate();
+        if (delegate != nullptr && delegate->isEventEnabled(VROEventDelegate::EventAction::OnControllerStatus)){
+            delegate->onControllerStatus(source, status);
+        }
+    }
+
+    virtual void onSwipe(int source, SwipeState swipeState) {
+        std::shared_ptr<VROEventDelegate> delegate = getDelegate();
+        if (delegate != nullptr && delegate->isEventEnabled(VROEventDelegate::EventAction::OnSwipe)){
+            delegate->onSwipe(source, swipeState);
+        }
+    }
+
+    virtual void onScroll(int source, float x, float y) {
+        std::shared_ptr<VROEventDelegate> delegate = getDelegate();
+        if (delegate != nullptr && delegate->isEventEnabled(VROEventDelegate::EventAction::OnScroll)){
+            delegate->onScroll(source, x, y);
         }
     }
 
@@ -87,7 +113,7 @@ public:
 
 protected:
     std::shared_ptr<VRONode> _rootNode;
-    std::shared_ptr<VROEventDelegate> _delegate;
+    std::weak_ptr<VROEventDelegate> _eventDelegateWeak;
 
     void onReticleGazeHit(float distance, VROVector3f hitLocation){
         if (_reticle == nullptr){

@@ -24,6 +24,7 @@ public:
     virtual ~VROInputPresenterCardboardiOS() {}
 
     void onClick(int source, ClickState clickState) {
+        VROInputPresenter::onClick(source, clickState);
         if (clickState==ClickState::ClickUp){
             getReticle()->trigger();
         }

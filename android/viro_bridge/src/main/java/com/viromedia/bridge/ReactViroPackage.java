@@ -9,6 +9,7 @@ import com.facebook.react.bridge.NativeModule;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.uimanager.ViewManager;
 import com.viromedia.bridge.component.AnimatedComponentManager;
+import com.viromedia.bridge.component.ControllerManager;
 import com.viromedia.bridge.component.Image360Manager;
 import com.viromedia.bridge.component.AmbientLightManager;
 import com.viromedia.bridge.component.DirectionalLightManager;
@@ -100,7 +101,8 @@ public class ReactViroPackage implements ReactPackage {
                 new SpatialSoundManager(reactContext),
                 new OmniLightManager(reactContext),
                 new TextManager(reactContext),
-                new Object3dManager(reactContext)
+                new Object3dManager(reactContext),
+                new ControllerManager(reactContext)
         );
     }
 }

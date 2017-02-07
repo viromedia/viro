@@ -24,6 +24,7 @@ import com.viromedia.bridge.component.Light;
 import com.viromedia.bridge.component.node.control.Image;
 import com.viromedia.bridge.component.node.control.Surface;
 import com.viromedia.bridge.component.node.control.Text;
+import com.viromedia.bridge.utility.ComponentEventDelegate;
 import com.viromedia.bridge.utility.ViroEvents;
 
 import java.lang.ref.WeakReference;
@@ -77,7 +78,7 @@ public class Node extends Component {
 
         // Create and attach callbacks.
         mEventDelegateJni = new EventDelegateJni();
-        mEventDelegateJni.setEventDelegateCallback(new NodeEventDelegate(this));
+        mEventDelegateJni.setEventDelegateCallback(new ComponentEventDelegate(this));
         mNodeJni.setEventDelegateJni(mEventDelegateJni);
     }
 
@@ -398,112 +399,5 @@ public class Node extends Component {
 
     protected void setCanSwipe(boolean canSwipe){
         mEventDelegateJni.setEventEnabled(EventDelegateJni.EventAction.ON_SWIPE, canSwipe);
-    }
-
-    private static class NodeEventDelegate implements EventDelegateJni.EventDelegateCallback {
-        private WeakReference<Node> weakComponent;
-        public NodeEventDelegate(Node node){
-            weakComponent = new WeakReference<Node>(node);
-        }
-
-        @Override
-        public void onHover(int source, boolean isHovering) {
-            Node node = weakComponent.get();
-            if (node == null){
-                return;
-            }
-
-            WritableMap event = Arguments.createMap();
-            event.putInt("source", source);
-            event.putBoolean("isHovering", isHovering);
-            node.getReactContext().getJSModule(RCTEventEmitter.class).receiveEvent(
-                    node.getId(),
-                    ViroEvents.ON_HOVER,
-                    event);
-        }
-
-        @Override
-        public void onClick(int source, EventDelegateJni.ClickState clickState) {
-            Node node = weakComponent.get();
-            if (node == null){
-                return;
-            }
-
-            WritableMap event = Arguments.createMap();
-            event.putInt("source", source);
-            event.putInt("clickState", clickState.mTypeId);
-            node.getReactContext().getJSModule(RCTEventEmitter.class).receiveEvent(
-                    node.getId(),
-                    ViroEvents.ON_CLICK,
-                    event);
-        }
-
-        @Override
-        public void onTouch(int source, EventDelegateJni.TouchState touchState, float touchPadPos[]){
-            Node node = weakComponent.get();
-            if (node == null){
-                return;
-            }
-
-            WritableMap event = Arguments.createMap();
-            event.putInt("source", source);
-            event.putInt("touchState", touchState.mTypeId);
-
-            WritableArray touchPos = Arguments.createArray();
-            touchPos.pushDouble(touchPadPos[0]);
-            touchPos.pushDouble(touchPadPos[1]);
-            event.putArray("touchPos", touchPos);
-
-            node.getReactContext().getJSModule(RCTEventEmitter.class).receiveEvent(
-                    node.getId(),
-                    ViroEvents.ON_TOUCH,
-                    event);
-        }
-
-        @Override
-        public void onMove(int i, float[] floats, float[] floats1) {
-            //No-op
-        }
-
-        @Override
-        public void onControllerStatus(int i, EventDelegateJni.ControllerStatus controllerStatus) {
-            //No-op
-        }
-
-        @Override
-        public void onSwipe(int source, EventDelegateJni.SwipeState swipeState) {
-            Node node = weakComponent.get();
-            if (node == null){
-                return;
-            }
-
-            WritableMap event = Arguments.createMap();
-            event.putInt("source", source);
-            event.putInt("swipeState", swipeState.mTypeId);
-            node.getReactContext().getJSModule(RCTEventEmitter.class).receiveEvent(
-                    node.getId(),
-                    ViroEvents.ON_SWIPE,
-                    event);
-        }
-
-        @Override
-        public void onScroll(int source, float x, float y) {
-            Node node = weakComponent.get();
-            if (node == null){
-                return;
-            }
-
-            WritableMap event = Arguments.createMap();
-            event.putInt("source", source);
-            WritableArray scrollPos = Arguments.createArray();
-            scrollPos.pushDouble(x);
-            scrollPos.pushDouble(y);
-
-            event.putArray("scrollPos", scrollPos);
-            node.getReactContext().getJSModule(RCTEventEmitter.class).receiveEvent(
-                    node.getId(),
-                    ViroEvents.ON_SCROLL,
-                    event);
-        }
     }
 }
