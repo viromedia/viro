@@ -37,7 +37,6 @@ public:
     virtual void onHover(int source, bool isHovering) {
         [_delegate onHover:source isHovering:isHovering];
     }
-    
     virtual void onClick(int source, ClickState clickState) {
         [_delegate onClick:source clickState:clickState];
     }
