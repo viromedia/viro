@@ -1,5 +1,4 @@
 apply plugin: 'com.android.library'
-apply from: "../../Examples/node_modules/react-native/react.gradle"
 
 android {
     compileSdkVersion 25

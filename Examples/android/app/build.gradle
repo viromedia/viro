@@ -85,6 +85,15 @@ android {
     compileSdkVersion 25
     buildToolsVersion "25.0.0"
 
+    signingConfigs {
+        release {
+            storeFile file(VIROBRIDGE_RELEASE_STORE_FILE)
+            storePassword VIROBRIDGE_RELEASE_STORE_PASSWORD
+            keyAlias VIROBRIDGE_RELEASE_KEY_ALIAS
+            keyPassword VIROBRIDGE_RELEASE_KEY_PASSWORD
+        }
+    }
+
     defaultConfig {
         applicationId "com.virosample"
         minSdkVersion 23
@@ -110,6 +119,7 @@ android {
         release {
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+            signingConfig signingConfigs.release
         }
     }
     productFlavors {
