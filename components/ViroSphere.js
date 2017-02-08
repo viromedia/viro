@@ -49,6 +49,20 @@ var ViroSphere = React.createClass({
     onTouch: React.PropTypes.func,
     onScroll: React.PropTypes.func,
     onSwipe: React.PropTypes.func,
+
+    /**
+     * Enables high accuracy gaze collision checks for this object.
+     * This can be useful for complex 3D objects where the default
+     * checking method of bounding boxes do not provide adequate
+     * collision detection coverage.
+     *
+     * NOTE: Enabling high accuracy gaze collision checks has a high
+     * performance cost and should be used sparingly / only when
+     * necessary.
+     *
+     * Flag is set to false by default.
+     */
+    highAccuracyGaze:PropTypes.bool,
   },
 
   _onHover: function(event: Event) {

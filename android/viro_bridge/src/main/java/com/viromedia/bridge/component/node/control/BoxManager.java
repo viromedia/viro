@@ -6,6 +6,7 @@ package com.viromedia.bridge.component.node.control;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.uimanager.ThemedReactContext;
 import com.facebook.react.uimanager.annotations.ReactProp;
+import com.viromedia.bridge.component.node.Node;
 import com.viromedia.bridge.component.node.NodeManager;
 
 /**
@@ -41,5 +42,10 @@ public class BoxManager extends NodeManager<Box> {
     @ReactProp(name = "length", defaultFloat = 1.0f)
     public void setLength(Box box, float length) {
         box.setLength(length);
+    }
+
+    @ReactProp(name = "highAccuracyGaze", defaultBoolean = Node.DEFAULT_HIGH_ACCURACY_GAZE)
+    public void setHighAccuracyGaze(Box box, boolean highAccuracyGaze) {
+        box.setHighAccuracyGaze(highAccuracyGaze);
     }
 }

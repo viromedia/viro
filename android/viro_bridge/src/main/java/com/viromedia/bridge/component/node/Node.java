@@ -7,10 +7,6 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
 import com.facebook.react.bridge.ReactApplicationContext;
-import com.facebook.react.bridge.Arguments;
-import com.facebook.react.bridge.WritableArray;
-import com.facebook.react.bridge.WritableMap;
-import com.facebook.react.uimanager.events.RCTEventEmitter;
 import com.facebook.react.uimanager.PixelUtil;
 
 import com.viro.renderer.jni.BaseGeometry;
@@ -25,9 +21,7 @@ import com.viromedia.bridge.component.node.control.Image;
 import com.viromedia.bridge.component.node.control.Surface;
 import com.viromedia.bridge.component.node.control.Text;
 import com.viromedia.bridge.utility.ComponentEventDelegate;
-import com.viromedia.bridge.utility.ViroEvents;
 
-import java.lang.ref.WeakReference;
 import java.util.List;
 
 import static com.viromedia.bridge.component.node.NodeManager.s2DUnitPer3DUnit;
@@ -44,6 +38,7 @@ public class Node extends Component {
     protected final static boolean DEFAULT_CAN_TOUCH = false;
     protected final static boolean DEFAULT_CAN_SCROLL = false;
     protected final static boolean DEFAULT_CAN_SWIPE = false;
+    public final static boolean DEFAULT_HIGH_ACCURACY_GAZE = false;
 
     private NodeJni mNodeJni;
     protected float[] mPosition;
@@ -51,6 +46,7 @@ public class Node extends Component {
     protected float[] mScale;
     protected float mOpacity;
     protected boolean mVisible;
+    protected boolean mHighAccuracyGazeEnabled;
     protected List<MaterialJni> mMaterials;
     private EventDelegateJni mEventDelegateJni;
 
@@ -339,6 +335,11 @@ public class Node extends Component {
     protected void setVisible(boolean visible) {
         mVisible = visible;
         mNodeJni.setVisible(visible);
+    }
+
+    public void setHighAccuracyGaze(boolean highAccuracyGazeEnabled){
+        mHighAccuracyGazeEnabled = highAccuracyGazeEnabled;
+        mNodeJni.setHighAccuracyGaze(highAccuracyGazeEnabled);
     }
 
     protected void setGeometry(BaseGeometry geometry) {
