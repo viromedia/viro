@@ -5,6 +5,8 @@
 package com.viromedia.bridge.module;
 
 
+import android.net.Uri;
+
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
@@ -14,6 +16,7 @@ import com.facebook.react.bridge.ReadableType;
 import com.viro.renderer.jni.ImageJni;
 import com.viro.renderer.jni.MaterialJni;
 import com.viro.renderer.jni.TextureJni;
+import com.viromedia.bridge.utility.Helper;
 import com.viromedia.bridge.utility.ImageDownloader;
 
 import java.util.HashMap;
@@ -81,6 +84,7 @@ public class MaterialManager extends ReactContextBaseJavaModule {
                 }
 
                 String path = parseImagePath(materialMap, materialPropertyName);
+                Uri uri = Helper.parseUri(path, mContext);
                 if (path != null) {
                     if (isVideoTexture(path)) {
                         materialWrapper.addVideoTexturePath(materialPropertyName, path);
@@ -89,7 +93,7 @@ public class MaterialManager extends ReactContextBaseJavaModule {
                             setImageOnMaterial(mImageMap.get(materialPropertyName), nativeMaterial, materialPropertyName);
                         } else {
                             ImageDownloader downloader = new ImageDownloader(mContext);
-                            ImageJni nativeImage = new ImageJni(downloader.getImageSync(materialMap.getMap(materialPropertyName)));
+                            ImageJni nativeImage = new ImageJni(downloader.getImageSync(uri));
                             setImageOnMaterial(nativeImage, nativeMaterial, materialPropertyName);
                         }
                     }

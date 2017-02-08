@@ -7,8 +7,8 @@ package com.viromedia.bridge.utility;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.net.Uri;
 
-import com.facebook.common.executors.CallerThreadExecutor;
 import com.facebook.common.references.CloseableReference;
 import com.facebook.datasource.BaseDataSubscriber;
 import com.facebook.datasource.DataSource;
@@ -19,6 +19,7 @@ import com.facebook.imagepipeline.core.ImagePipeline;
 import com.facebook.imagepipeline.image.CloseableBitmap;
 import com.facebook.imagepipeline.image.CloseableImage;
 import com.facebook.imagepipeline.request.ImageRequest;
+import com.facebook.imagepipeline.request.ImageRequestBuilder;
 import com.facebook.react.bridge.ReadableMap;
 
 import java.util.concurrent.ConcurrentHashMap;
@@ -30,6 +31,7 @@ import java.util.concurrent.CountDownLatch;
  */
 public class ImageDownloader {
     private static final String TAG = ViroLog.getTag(ImageDownloader.class);
+    private static final String URI_KEY = "uri";
     private final Context mContext;
     private final ConcurrentHashMap<CountDownLatch, Bitmap> mImageMap;
     private final DefaultExecutorSupplier mExecutorSupplier;
@@ -42,9 +44,28 @@ public class ImageDownloader {
 
     }
 
+    /**
+     * This method fetches an image synchronously.
+     *
+     * @param map a ReadableMap with a "uri" key, ideally the same one we get from the JS layer
+     * @return the bitmap containing the image data
+     */
     public Bitmap getImageSync(ReadableMap map) {
+        if (!map.hasKey(URI_KEY)) {
+            throw new IllegalArgumentException("Unable to find \"uri\" key in given source map.");
+        }
+        return getImageSync(Helper.parseUri(map.getString(URI_KEY), mContext));
+    }
+
+    /**
+     * This method fetches an image synchronously.
+     *
+     * @param uri a URI representing the location of the image to fetch.
+     * @return the bitmap containing the image data.
+     */
+    public Bitmap getImageSync(Uri uri) {
         CountDownLatch latch = new CountDownLatch(1);
-        getImage(map, latch, null);
+        getImage(uri, latch, null);
         try {
             latch.await();
         } catch (InterruptedException e) {
@@ -55,17 +76,28 @@ public class ImageDownloader {
         return toReturn;
     }
 
+    /**
+     * This method fetches an image asynchrously
+     *
+     * @param map a ReadableMap with a "uri" key, ideally the same one we get from the JS layer
+     * @param listener object that will be called once the image is fetched.
+     */
     public void getImageAsync(ReadableMap map, ImageDownloadListener listener) {
         if (listener == null) {
             ViroLog.warn(TAG, "The given ImageDownloadListener is null. Doing nothing.");
             return;
         }
-        getImage(map, null, listener);
+
+        if (!map.hasKey(URI_KEY)) {
+            throw new IllegalArgumentException("Unable to find \"uri\" key in given source map.");
+        }
+
+        getImage(Helper.parseUri(map.getString(URI_KEY), mContext), null, listener);
     }
 
-    private void getImage(ReadableMap map, final CountDownLatch latch, final ImageDownloadListener listener) {
+    private void getImage(Uri uri, final CountDownLatch latch, final ImageDownloadListener listener) {
         ImagePipeline imagePipeline = Fresco.getImagePipeline();
-        ImageRequest request = ImageRequest.fromUri(map.getString("uri"));
+        ImageRequest request = ImageRequestBuilder.newBuilderWithSource(uri).build();
         DataSource<CloseableReference<CloseableImage>> dataSource = imagePipeline.fetchDecodedImage(request, mContext);
 
         DataSubscriber<CloseableReference<CloseableImage>> dataSubscriber =
@@ -102,4 +134,5 @@ public class ImageDownloader {
 
         dataSource.subscribe(dataSubscriber, mExecutorSupplier.forBackgroundTasks());
     }
+
 }

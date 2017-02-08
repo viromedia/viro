@@ -23,17 +23,17 @@ public class SoundFieldManager extends ViroViewGroupManager<SoundField> {
     }
 
     @Override
-    protected SoundField createViewInstance(ThemedReactContext reactContext) {
+    public SoundField createViewInstance(ThemedReactContext reactContext) {
         return new SoundField(reactContext);
     }
 
     @ReactProp(name = "source")
-    protected void setSource(SoundField sound, ReadableMap source) {
+    public void setSource(SoundField sound, ReadableMap source) {
         sound.setSource(source);
     }
 
     @ReactProp(name = "paused", defaultBoolean = false)
-    protected void setPaused(SoundField sound, boolean paused) {
+    public void setPaused(SoundField sound, boolean paused) {
         sound.setPaused(paused);
     }
 

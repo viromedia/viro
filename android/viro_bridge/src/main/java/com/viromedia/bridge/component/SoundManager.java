@@ -20,32 +20,32 @@ public class SoundManager extends ViroViewGroupManager<Sound> {
     }
 
     @Override
-    protected Sound createViewInstance(ThemedReactContext reactContext) {
+    public Sound createViewInstance(ThemedReactContext reactContext) {
         return new Sound(reactContext);
     }
 
     @ReactProp(name = "source")
-    protected void setSource(Sound sound, ReadableMap source) {
+    public void setSource(Sound sound, ReadableMap source) {
         sound.setSource(source);
     }
 
     @ReactProp(name = "paused", defaultBoolean = false)
-    protected void setPaused(Sound sound, boolean paused) {
+    public void setPaused(Sound sound, boolean paused) {
         sound.setPaused(paused);
     }
 
     @ReactProp(name = "volume", defaultFloat = 1.0f)
-    protected void setVolume(Sound sound, float volume) {
+    public void setVolume(Sound sound, float volume) {
         sound.setVolume(volume);
     }
 
     @ReactProp(name = "muted", defaultBoolean = false)
-    protected void setMuted(Sound sound, boolean muted) {
+    public void setMuted(Sound sound, boolean muted) {
         sound.setMuted(muted);
     }
 
     @ReactProp(name = "loop", defaultBoolean = false)
-    protected void setLoop(Sound sound, boolean loop) {
+    public void setLoop(Sound sound, boolean loop) {
         sound.setLoop(loop);
     }
 }
