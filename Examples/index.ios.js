@@ -20,7 +20,8 @@ import {
   ViroBox,
 } from 'react-viro';
 
-var InitialScene = require('./js/TextTest');
+
+var InitialScene = require('./js/ColorAnimationTest');
 
 export default class ViroSample extends Component {
   render() {
