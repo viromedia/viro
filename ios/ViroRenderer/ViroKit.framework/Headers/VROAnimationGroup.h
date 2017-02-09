@@ -15,6 +15,7 @@
 #include "VROPropertyAnimation.h"
 #include "VROTimingFunction.h"
 #include "VROExecutableAnimation.h"
+#include "VROAnimateMaterialDelegateInternal.h"
 
 class VRONode;
 
@@ -44,7 +45,7 @@ public:
     void pause();
     void resume();
     void terminate();
-    
+    void setDelegate(std::shared_ptr<VROAnimateMaterialDelegateInternal> delegate);
     std::string toString() const;
     
 private:
@@ -62,9 +63,14 @@ private:
     void animateColor(std::shared_ptr<VRONode> &node);
     void animateOpacity(std::shared_ptr<VRONode> &node);
     void animateRotation(std::shared_ptr<VRONode> &node);
-
-    std::map<std::string, std::shared_ptr<VROPropertyAnimation>> _animations;
+    void animateMaterial(std::shared_ptr<VRONode> &node);
+  
+    std::shared_ptr<VROAnimateMaterialDelegateInternal> getDelegate();
     
+    std::map<std::string, std::shared_ptr<VROPropertyAnimation>> _animations;
+  
+    std::weak_ptr<VROAnimateMaterialDelegateInternal> _delegate;
+  
 };
 
 #endif /* VROAnimationGroup_h */

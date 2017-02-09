@@ -7,6 +7,7 @@
 //
 
 #import "VRTAnimationManager.h"
+#import "VRTMaterialManager.h"
 #import <ViroKit/ViroKit.h>
 #import "RCTLog.h"
 
@@ -17,7 +18,7 @@
 @implementation VRTAnimationManager {
     
     std::map<std::string, std::shared_ptr<VROExecutableAnimation>> _parsedAnimations;
-    
+    std::shared_ptr<VROAnimateMaterialDelegateiOS> _delegate;
 }
 
 @synthesize bridge = _bridge;
@@ -32,7 +33,7 @@ RCT_EXPORT_METHOD(setJSAnimations:(NSDictionary *)animationsDict)
 
 - (instancetype)init {
     self = [super init];
-    
+  _delegate = std::make_shared<VROAnimateMaterialDelegateiOS>(self);
     return self;
 }
 
@@ -119,6 +120,7 @@ RCT_EXPORT_METHOD(setJSAnimations:(NSDictionary *)animationsDict)
     [self populateValue:@"rotateZ" properties:propertyDict inMap:propertyAnimations];
     [self populateValue:@"opacity" properties:propertyDict inMap:propertyAnimations];
     [self populateValue:@"color" properties:propertyDict inMap:propertyAnimations];
+    [self populateValue:@"material" properties:propertyDict inMap:propertyAnimations];
 
     NSNumber *durationMilliseconds = animationDictionary[@"duration"];
     NSNumber *delayMilliseconds = animationDictionary[@"delay"];
@@ -130,9 +132,12 @@ RCT_EXPORT_METHOD(setJSAnimations:(NSDictionary *)animationsDict)
     
     float durationInSeconds = [durationMilliseconds floatValue] / 1000.0;
     float delayInSeconds = [delayMilliseconds floatValue] / 1000.0;
-
-    return VROAnimationGroup::parse(durationInSeconds, delayInSeconds,
-                                    std::string([functionType UTF8String]), propertyAnimations);
+    std::shared_ptr<VROAnimationGroup> animationGroup = VROAnimationGroup::parse(durationInSeconds, delayInSeconds, std::string([functionType UTF8String]), propertyAnimations);
+    id value = propertyDict[@"material"];
+    if (value != nil) {
+      animationGroup->setDelegate(_delegate);
+    }
+  return animationGroup;
 }
 
 - (void)populateValue:(NSString *)propertyName properties:(NSDictionary *)propertyDictionary
@@ -149,6 +154,29 @@ RCT_EXPORT_METHOD(setJSAnimations:(NSDictionary *)animationsDict)
     else if ([value isKindOfClass:[NSNumber class]]) {
         map[std::string([propertyName UTF8String])] = std::string([[value stringValue] UTF8String]);
     }
+}
+
+#pragma mark VROAnimateMaterialDelegate implementation
+- (void)onAnimateMaterial:(std::shared_ptr<VRONode>)node materialName:(std::string) materialName {
+  
+  VRTMaterialManager *materialManager = [self.bridge moduleForClass:[VRTMaterialManager class]];
+  NSString *objCMaterialName = [NSString stringWithUTF8String:materialName.c_str()];
+  std::shared_ptr<VROMaterial> material = [materialManager getMaterialByName:objCMaterialName];
+  
+  if(material != NULL && node != NULL) {
+    if(material->getDiffuse().getTexture() != getBlankTexture()) {
+      node->getGeometry()->getMaterials().front()->getDiffuse().setTexture(material->getDiffuse().getTexture());
+    }else {
+      node->getGeometry()->getMaterials().front()->getDiffuse().setColor(material->getDiffuse().getColor());
+    }
+    
+    node->getGeometry()->getMaterials().front()->setShininess(material->getShininess());
+    node->getGeometry()->getMaterials().front()->setFresnelExponent(material->getFresnelExponent());
+    node->getGeometry()->getMaterials().front()->setCullMode(material->getCullMode());
+    node->getGeometry()->getMaterials().front()->setLightingModel(material->getLightingModel());
+    node->getGeometry()->getMaterials().front()->setWritesToDepthBuffer(material->getWritesToDepthBuffer());
+    node->getGeometry()->getMaterials().front()->setReadsFromDepthBuffer(material->getReadsFromDepthBuffer());
+  }
 }
 
 @end

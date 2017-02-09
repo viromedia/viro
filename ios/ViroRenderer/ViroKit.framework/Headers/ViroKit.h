@@ -72,6 +72,8 @@ FOUNDATION_EXPORT const unsigned char ViroKitVersionString[];
 #import <ViroKit/VROTimingFunctionLinear.h>
 #import <ViroKit/VROTimingFunctionPowerDeceleration.h>
 #import <ViroKit/VROAction.h>
+#import <ViroKit/VROAnimateMaterialDelegate.h>
+#import <ViroKit/VROAnimateMaterialDelegateiOS.h>
 
 // UI
 #import <ViroKit/VROReticle.h>

@@ -18,7 +18,8 @@
  */
 enum class VROValueType {
     Float,
-    Int
+    Int,
+    String,
 };
 
 /*
@@ -29,6 +30,7 @@ public:
     VROValueType type;
     float valueFloat;
     int valueInt;
+    std::string valueString;
 };
 
 /*

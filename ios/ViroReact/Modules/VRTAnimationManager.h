@@ -12,7 +12,8 @@
 #import "RCTBridge.h"
 #import "VRTAnimatedComponent.h"
 
-@interface VRTAnimationManager : NSObject <RCTBridgeModule>
+
+@interface VRTAnimationManager : NSObject <RCTBridgeModule, VROAnimateMaterialDelegate>
 
 @property (nonatomic, copy) NSDictionary<NSString *, NSDictionary *> *animations;
 

@@ -177,7 +177,7 @@ RCT_EXPORT_METHOD(setJSMaterials:(NSDictionary *)materialsDict)
     NSString *materialPropertyName = (NSString *)key;
     
     if([materialPropertyName hasSuffix:@"texture"] || [materialPropertyName hasSuffix:@"Texture"]) {
-      if([materialPropertyName caseInsensitiveCompare:@"reflectiveTexture"] == NSOrderedSame) {
+      if([materialPropertyName caseInsensitiveCompare:@"reflectiveTexture"] ==  NSOrderedSame) {
         std::shared_ptr<VROTexture> texture = [self createTextureCubeMap:material[key]];
         [self setTextureForMaterial:vroMaterial texture:texture name:materialPropertyName];
         

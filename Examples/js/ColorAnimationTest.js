@@ -48,7 +48,7 @@ var ColorAnimationTest = React.createClass({
           <ViroImage source={require('./res/card_main.png')} position={[0, .5, -1]} />
         </ViroAnimatedComponent>
 
-        <ViroAnimatedComponent animation="testLoopColor" run={true} loop={true} >
+        <ViroAnimatedComponent animation="testLoopColorYellowMaterial" run={true} loop={true} >
           <ViroImage source={require('./res/card_main.png')} position={[0, -.5, -1]} />
         </ViroAnimatedComponent>
       </ViroScene>
@@ -63,6 +63,12 @@ ViroMaterials.createMaterials({
   redColor: {
     diffuseColor: "#ff0000"
   },
+  blueColor: {
+    diffuseColor: "#ff0000"
+  },
+  yellowColor: {
+    diffuseColor: "#ffff0000"
+  },
   cardpetite: {
     shininess : 1.0,
     lightingModel: "Constant",
@@ -73,8 +79,9 @@ ViroMaterials.createMaterials({
 ViroAnimations.registerAnimations({
     cardIn:{properties:{scaleX:1, scaleY:.6, scaleZ:1, opacity: 1}, easing:"Bounce", duration: 5000},
 
-    testLoopColorYellow:{properties:{color:"#ffff00"}, duration:3000},
-    testLoopColorBlue:{properties:{color:"#0000ff"}, duration:3000},
+    testLoopColorYellow:{properties:{material:"yellowColor"}, duration:3000},
+    testLoopColorYellowMaterial:{properties:{material:"redColor"}, duration:3000},
+    testLoopColorBlue:{properties:{material:"blueColor"}, duration:3000},
     testLoopColor:[
       ["testLoopColorYellow", "testLoopColorBlue"]
     ],

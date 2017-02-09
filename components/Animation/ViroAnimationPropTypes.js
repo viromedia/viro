@@ -14,7 +14,6 @@
 
 var createStrictShapeTypeChecker = require('react-native/Libraries/Utilities/createStrictShapeTypeChecker');
 var ReactPropTypes = require('react/lib/ReactPropTypes');
-var ColorPropType = require('react-native').ColorPropType;
 
 var ViroAnimationPropTypes = {
   duration: ReactPropTypes.number.isRequired,
@@ -72,7 +71,7 @@ var ViroAnimationPropTypes = {
         opacity:   ReactPropTypes.oneOfType([
                    ReactPropTypes.number,
                    ReactPropTypes.string]),
-        color:     ColorPropType,
+        material:  ReactPropTypes.string,
       }
     ).isRequired,
 };
