@@ -47,7 +47,7 @@ done
 api_output=$(curl --fail --silent GET http://localhost:4040/api/tunnels)
 
 endPointFound=0
-if [[ $api_output =~ .*(https:.*\.io)\",\"proto\":\"https\" ]]
+if [[ $api_output =~ .*(http:.*\.io)\",\"proto\":\"http\" ]]
   then
       ngrokendpoint="${BASH_REMATCH[1]}"
       box_out "NGrok Packager Server endpoint: ${ngrokendpoint}"    # echo tunnel endpoint
