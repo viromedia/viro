@@ -131,7 +131,7 @@ android {
         ovr {
             resValue "string", "app_name", "ViroSample-ovr"
             applicationIdSuffix ".ovr"
-            buildConfigField "String", "VR_PLATFORM", "\"OVR\""
+            buildConfigField "String", "VR_PLATFORM", "\"OVR_MOBILE\""
         }
     }
     // applicationVariants are e.g. debug, release

@@ -61,7 +61,7 @@ public class SceneNavigator extends FrameLayout {
         mPlatform = platform;
 
         switch (mPlatform) {
-            case OVR:
+            case OVR_MOBILE:
                 mVrView = new ViroOvrView(reactContext.getCurrentActivity(),
                         new InnerGlListener());
                 break;
@@ -75,7 +75,6 @@ public class SceneNavigator extends FrameLayout {
 
         View baseVrView = (View)mVrView;
         addView(baseVrView);
-
 
         mRenderContext = mVrView.getRenderContextRef();
 

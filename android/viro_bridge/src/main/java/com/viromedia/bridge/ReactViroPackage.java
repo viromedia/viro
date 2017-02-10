@@ -47,7 +47,7 @@ import static java.util.Collections.emptyList;
 public class ReactViroPackage implements ReactPackage {
 
     public enum ViroPlatform {
-        OVR, GVR
+        GVR, OVR_MOBILE
     }
 
     private final ViroPlatform mViroPlatform;
