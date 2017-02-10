@@ -35,3 +35,4 @@ Examples/node_modules
 *.DS_Store
 *local.properties
 *build/
+react-viro*.tgz

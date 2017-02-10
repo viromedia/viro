@@ -14,6 +14,9 @@
     "react-native": ">=0.37.0"
   },
   "files": [
-    "components"
+    "components",
+    "android/react_viro",
+    "android/viro_renderer",
+    "android/gvr_common"
   ]
 }
