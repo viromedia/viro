@@ -43,9 +43,12 @@ let polarToCartesian = ViroUtils.polarToCartesian;
 
 var TextTest = React.createClass({
 
+  _platformUpdate: function(updates) {
+    console.log("Platform updated! platform: " + updates.vrPlatform + ", headset: " + updates.headset + ", controller: " + updates.controller);
+  },
   render: function() {
     return (
-      <ViroScene reticleEnabled={true} >
+      <ViroScene reticleEnabled={true} onPlatformUpdate={this._platformUpdate} >
         <ViroSkyBox color="#ff69b4" />
 
         <ViroFlexView style={styles.containerVertical} position={polarToCartesian([2, 0, 0])} width={3} height={2}>

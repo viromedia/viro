@@ -13,6 +13,7 @@
 
 @interface VRTScene : VRTNode<VROSceneDelegateProtocol>
 @property (nonatomic, assign) BOOL recticleEnabled;
+@property (nonatomic, copy, nullable) RCTDirectEventBlock onPlatformUpdateViro;
 
 - (instancetype)initWithBridge:(RCTBridge *)bridge;
 - (std::shared_ptr<VROScene>)scene;

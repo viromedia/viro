@@ -3,11 +3,15 @@
  */
 package com.viromedia.bridge.component;
 
+
 import com.facebook.react.bridge.ReactApplicationContext;
-import com.facebook.react.uimanager.ViewGroupManager;
+import com.facebook.react.common.MapBuilder;
 import com.facebook.react.uimanager.ThemedReactContext;
 import com.facebook.react.uimanager.annotations.ReactProp;
 import com.viromedia.bridge.ReactViroPackage;
+import com.viromedia.bridge.utility.ViroEvents;
+
+import java.util.Map;
 
 /**
  * SceneNavigatorManager for building a {@link SceneNavigator}
@@ -42,6 +46,5 @@ public class SceneNavigatorManager extends ViroViewGroupManager<SceneNavigator> 
     public void setCurrentSceneIndex(SceneNavigator view, int selectedIndex) {
         view.setCurrentSceneIndex(selectedIndex);
     }
-
 
 }

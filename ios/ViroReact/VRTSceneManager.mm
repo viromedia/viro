@@ -26,6 +26,8 @@ RCT_EXPORT_VIEW_PROPERTY(onClickViro, RCTDirectEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(canHover, BOOL)
 RCT_EXPORT_VIEW_PROPERTY(canClick, BOOL)
 RCT_EXPORT_VIEW_PROPERTY(soundRoom, NSDictionary)
+RCT_EXPORT_VIEW_PROPERTY(onPlatformUpdateViro, RCTDirectEventBlock)
+
 
 - (VRTView *)view
 {

@@ -5,14 +5,18 @@ package com.viromedia.bridge.component.node;
 
 import android.view.View;
 
+import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReadableMap;
+import com.facebook.react.bridge.WritableMap;
+import com.facebook.react.uimanager.events.RCTEventEmitter;
 import com.viro.renderer.jni.SceneJni;
 import com.viro.renderer.jni.TextureJni;
 import com.viro.renderer.jni.VideoTextureJni;
 import com.viro.renderer.jni.RendererJni;
 import com.viromedia.bridge.component.Camera;
 import com.viromedia.bridge.utility.Helper;
+import com.viromedia.bridge.utility.ViroEvents;
 
 public class Scene extends Node implements SceneJni.SceneDelegate {
     private static final String TAG = Scene.class.getSimpleName();
@@ -26,11 +30,15 @@ public class Scene extends Node implements SceneJni.SceneDelegate {
     private final SceneJni mNativeScene;
     private RendererJni mNativeRenderer;
     private Camera mCamera;
-    private boolean mReticleEnabled = true;
     private float[] mSoundRoomSize = DEFAULT_SIZE;
     private String mWallMaterial;
     private String mCeilingMaterial;
     private String mFloorMaterial;
+
+    // Platform Information (set by SceneNavigator.java)
+    private String mVrPlatform;
+    private String mHeadset;
+    private String mController;
 
     public Scene(ReactApplicationContext reactContext) {
         super(reactContext);
@@ -118,6 +126,46 @@ public class Scene extends Node implements SceneJni.SceneDelegate {
         else {
             return mRenderContext.getCameraPosition();
         }
+    }
+
+    /**
+     * Override the setId function to notify the JS layer of the platform information. We do this
+     * here because if you can't emit events to the JS layer before ID is set.
+     */
+    @Override
+    public void setId(int id) {
+        super.setId(id);
+        // make sure platform info was set before we go notifying js of nothing.
+        if (mVrPlatform != null) {
+            notifyPlatformInformation();
+        }
+    }
+
+    /**
+     * This method is called to set the platform information on the Scene so that it can call
+     * the listener in javascript to let developers listen for the platform.
+     */
+    public void setPlatformInformation(String vrPlatform, String headset, String controller) {
+        mVrPlatform = vrPlatform;
+        mHeadset = headset;
+        mController = controller;
+
+        if (getId() != View.NO_ID) {
+            notifyPlatformInformation();
+        }
+    }
+
+    private void notifyPlatformInformation() {
+        WritableMap event = Arguments.createMap();
+        event.putString("vrPlatform", mVrPlatform);
+        event.putString("headset", mHeadset);
+        event.putString("controller", mController);
+        WritableMap eventContainer = Arguments.createMap();
+        eventContainer.putMap("platformInfoViro", event);
+        mReactContext.getJSModule(RCTEventEmitter.class).receiveEvent(
+                getId(),
+                ViroEvents.ON_PLATFORM_UPDATE,
+                eventContainer);
     }
 
     /**

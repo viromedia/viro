@@ -5,6 +5,7 @@ package com.viromedia.bridge.component;
 
 import android.view.View;
 import android.widget.FrameLayout;
+
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.viro.renderer.jni.GlListener;
 import com.viro.renderer.jni.RenderContextJni;
@@ -52,6 +53,8 @@ public class SceneNavigator extends FrameLayout {
      */
     private RenderContextJni mRenderContext;
 
+    private final ReactApplicationContext mReactContext;
+
     private boolean mViewAdded = false;
     private boolean mGLInialized = false;
 
@@ -59,6 +62,7 @@ public class SceneNavigator extends FrameLayout {
                           ReactViroPackage.ViroPlatform platform) {
         super(reactContext.getBaseContext(), null, -1);
         mPlatform = platform;
+        mReactContext = reactContext;
 
         switch (mPlatform) {
             case OVR_MOBILE:
@@ -84,6 +88,8 @@ public class SceneNavigator extends FrameLayout {
          */
         mVrView.onActivityStarted(reactContext.getCurrentActivity());
         mVrView.onActivityResumed(reactContext.getCurrentActivity());
+
+        notifyScenePlatformInformation();
     }
 
     @Override
@@ -93,18 +99,15 @@ public class SceneNavigator extends FrameLayout {
             // by the single argument addView(child) method.
             super.addView(child, index);
             return;
-        } else if (!(child instanceof Scene)){
-            ViroLog.error(TAG, "Attempted to add a non-scene element [" + child.getClass().getSimpleName()
+        } else if (!(child instanceof Scene)) {
+            throw new IllegalArgumentException("Attempted to add a non-scene element [" + child.getClass().getSimpleName()
                     + "] to SceneNavigator!");
-            return;
-        }
-
-        if (!(child instanceof Scene)){
-            throw new IllegalArgumentException("Attempted to add a non-scene element to SceneNavigator");
         }
 
         Scene childScene = (Scene)child;
         mSceneArray.add(index, childScene);
+        childScene.setPlatformInformation(mVrView.getVRPlatform(), mVrView.getHeadset(),
+                mVrView.getController());
 
         // Adding the scene view can occur after the prop type is set on the bridge.
         // Thus, refresh the selection of the current scene as needed.
@@ -155,6 +158,13 @@ public class SceneNavigator extends FrameLayout {
         public void onGlInitialized() {
             mGLInialized = true;
             setRenderContext();
+        }
+    }
+
+    private void notifyScenePlatformInformation() {
+        for (Scene scene: mSceneArray) {
+            scene.setPlatformInformation(mVrView.getVRPlatform(), mVrView.getHeadset(),
+                    mVrView.getController());
         }
     }
 }

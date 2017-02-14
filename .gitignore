@@ -28,6 +28,7 @@ Examples/ios/ViroExample/Pods/Pods.xcodeproj/xcuserdata/
 Examples/ios/ViroExample/ViroExample.xcodeproj/xcuserdata/
 Examples/ios/ViroExample/ViroExample.xcworkspace/xcuserdata/
 Examples/ios/ViroExample/ViroExample.xcworkspace/xcshareddata/
+ios/ngrokendpoint.txt
 
 # Node
 Examples/node_modules

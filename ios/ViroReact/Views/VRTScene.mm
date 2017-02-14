@@ -98,6 +98,16 @@ static NSArray<NSNumber *> *const kDefaultSize = @[@(0), @(0), @(0)];
     }
 }
 
+-(void)setOnPlatformUpdateViro:(RCTDirectEventBlock)onPlatformUpdateViro {
+    _onPlatformUpdateViro = onPlatformUpdateViro;
+    // since we're on iOS, the platform information is all known, so simply call the function as soon as it is set.
+    if (_onPlatformUpdateViro) {
+        _onPlatformUpdateViro(@{@"platformInfoViro": @{@"vrPlatform" : @"gvr",
+                                                       @"headset" : @"cardboard",
+                                                       @"controller" : @"cardboard"}});
+    }
+}
+
 #pragma mark - Camera
 
 - (void)setCameraIfAvailable {

@@ -21,6 +21,7 @@ var ViroScene = React.createClass({
     onTouch: React.PropTypes.func,
     onScroll: React.PropTypes.func,
     onSwipe: React.PropTypes.func,
+    onPlatformUpdate: React.PropTypes.func,
     /**
      * Describes the acoustic properties of the room around the user
      */
@@ -54,11 +55,15 @@ var ViroScene = React.createClass({
   },
 
   _onScroll: function(event: Event) {
-      this.props.onScroll && this.props.onScroll(event.nativeEvent.source, event.nativeEvent.scrollPos);
+    this.props.onScroll && this.props.onScroll(event.nativeEvent.source, event.nativeEvent.scrollPos);
   },
 
   _onSwipe: function(event: Event) {
-      this.props.onSwipe && this.props.onSwipe(event.nativeEvent.source, event.nativeEvent.swipeState);
+    this.props.onSwipe && this.props.onSwipe(event.nativeEvent.source, event.nativeEvent.swipeState);
+  },
+
+  _onPlatformUpdate: function(event: Event) {
+    this.props.onPlatformUpdate && this.props.onPlatformUpdate(event.nativeEvent.platformInfoViro);
   },
 
   async getCameraPositionAsync() {
@@ -90,19 +95,20 @@ var ViroScene = React.createClass({
 
   render: function() {
     return (
-        <VRTScene
-            {...this.props}
-            canHover={this.props.onHover != undefined}
-            canClick={this.props.onClick != undefined || this.props.onClickState != undefined}
-            canTouch={this.props.onTouch != undefined}
-            canScroll={this.props.onScroll != undefined}
-            canSwipe={this.props.onSwipe != undefined}
-            onHoverViro={this._onHover}
-            onClickViro={this._onClickState}
-            onTouchViro={this._onTouch}
-            onScrollViro={this._onScroll}
-            onSwipeViro={this._onSwipe}
-            />
+      <VRTScene
+        {...this.props}
+        canHover={this.props.onHover != undefined}
+        canClick={this.props.onClick != undefined || this.props.onClickState != undefined}
+        canTouch={this.props.onTouch != undefined}
+        canScroll={this.props.onScroll != undefined}
+        canSwipe={this.props.onSwipe != undefined}
+        onHoverViro={this._onHover}
+        onClickViro={this._onClickState}
+        onTouchViro={this._onTouch}
+        onScrollViro={this._onScroll}
+        onSwipeViro={this._onSwipe}
+        onPlatformUpdateViro={this._onPlatformUpdate}
+        />
     );
   },
 });
@@ -116,16 +122,18 @@ ViroScene.childContextTypes = {
 var VRTScene = requireNativeComponent(
     'VRTScene', ViroScene, {
         nativeOnly: {
-            canHover: true,
-            canClick: true,
-            canTouch: true,
-            canScroll: true,
-            canSwipe: true,
-            onHoverViro:true,
-            onClickViro:true,
-            onTouchViro:true,
-            onScrollViro:true,
-            onSwipeViro:true}
+          canHover: true,
+          canClick: true,
+          canTouch: true,
+          canScroll: true,
+          canSwipe: true,
+          onHoverViro: true,
+          onClickViro: true,
+          onTouchViro: true,
+          onScrollViro: true,
+          onSwipeViro: true,
+          onPlatformUpdateViro: true
+        }
     }
 );
 
