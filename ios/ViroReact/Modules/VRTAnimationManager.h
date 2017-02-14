@@ -13,7 +13,7 @@
 #import "VRTAnimatedComponent.h"
 
 
-@interface VRTAnimationManager : NSObject <RCTBridgeModule, VROAnimateMaterialDelegate>
+@interface VRTAnimationManager : NSObject <RCTBridgeModule>
 
 @property (nonatomic, copy) NSDictionary<NSString *, NSDictionary *> *animations;
 

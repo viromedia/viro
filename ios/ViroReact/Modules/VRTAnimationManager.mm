@@ -11,6 +11,29 @@
 #import <ViroKit/ViroKit.h>
 #import "RCTLog.h"
 
+class VROLazyMaterialReact : public VROLazyMaterial {
+public:
+    
+    VROLazyMaterialReact(NSString *materialName, VRTMaterialManager *materialManager) :
+        _materialName(materialName),
+        _materialManager(materialManager) {}
+    
+    std::shared_ptr<VROMaterial> get() {
+        if (_materialManager) {
+            return [_materialManager getMaterialByName:_materialName];
+        }
+        else {
+            return nullptr;
+        }
+    }
+    
+private:
+    
+    NSString *_materialName;
+    __weak VRTMaterialManager *_materialManager;
+    
+};
+
 @interface VRTAnimationManager ()
 
 @end
@@ -18,7 +41,7 @@
 @implementation VRTAnimationManager {
     
     std::map<std::string, std::shared_ptr<VROExecutableAnimation>> _parsedAnimations;
-    std::shared_ptr<VROAnimateMaterialDelegateiOS> _delegate;
+    
 }
 
 @synthesize bridge = _bridge;
@@ -33,7 +56,6 @@ RCT_EXPORT_METHOD(setJSAnimations:(NSDictionary *)animationsDict)
 
 - (instancetype)init {
     self = [super init];
-  _delegate = std::make_shared<VROAnimateMaterialDelegateiOS>(self);
     return self;
 }
 
@@ -121,6 +143,15 @@ RCT_EXPORT_METHOD(setJSAnimations:(NSDictionary *)animationsDict)
     [self populateValue:@"opacity" properties:propertyDict inMap:propertyAnimations];
     [self populateValue:@"color" properties:propertyDict inMap:propertyAnimations];
     [self populateValue:@"material" properties:propertyDict inMap:propertyAnimations];
+    
+    VRTMaterialManager *materialManager = [self.bridge moduleForClass:[VRTMaterialManager class]];
+    std::vector<std::shared_ptr<VROLazyMaterial>> materialAnimations;
+    
+    // Currently we only support animating the index 0 material.
+    NSString *material = propertyDict[@"material"];
+    if (material != nil) {
+        materialAnimations.push_back(std::make_shared<VROLazyMaterialReact>(material, materialManager));
+    }
 
     NSNumber *durationMilliseconds = animationDictionary[@"duration"];
     NSNumber *delayMilliseconds = animationDictionary[@"delay"];
@@ -132,12 +163,9 @@ RCT_EXPORT_METHOD(setJSAnimations:(NSDictionary *)animationsDict)
     
     float durationInSeconds = [durationMilliseconds floatValue] / 1000.0;
     float delayInSeconds = [delayMilliseconds floatValue] / 1000.0;
-    std::shared_ptr<VROAnimationGroup> animationGroup = VROAnimationGroup::parse(durationInSeconds, delayInSeconds, std::string([functionType UTF8String]), propertyAnimations);
-    id value = propertyDict[@"material"];
-    if (value != nil) {
-      animationGroup->setDelegate(_delegate);
-    }
-  return animationGroup;
+    return VROAnimationGroup::parse(durationInSeconds, delayInSeconds,
+                                    std::string([functionType UTF8String]),
+                                    propertyAnimations, materialAnimations);
 }
 
 - (void)populateValue:(NSString *)propertyName properties:(NSDictionary *)propertyDictionary
@@ -154,29 +182,6 @@ RCT_EXPORT_METHOD(setJSAnimations:(NSDictionary *)animationsDict)
     else if ([value isKindOfClass:[NSNumber class]]) {
         map[std::string([propertyName UTF8String])] = std::string([[value stringValue] UTF8String]);
     }
-}
-
-#pragma mark VROAnimateMaterialDelegate implementation
-- (void)onAnimateMaterial:(std::shared_ptr<VRONode>)node materialName:(std::string) materialName {
-  
-  VRTMaterialManager *materialManager = [self.bridge moduleForClass:[VRTMaterialManager class]];
-  NSString *objCMaterialName = [NSString stringWithUTF8String:materialName.c_str()];
-  std::shared_ptr<VROMaterial> material = [materialManager getMaterialByName:objCMaterialName];
-  
-  if(material != NULL && node != NULL) {
-    if(material->getDiffuse().getTexture() != getBlankTexture()) {
-      node->getGeometry()->getMaterials().front()->getDiffuse().setTexture(material->getDiffuse().getTexture());
-    }else {
-      node->getGeometry()->getMaterials().front()->getDiffuse().setColor(material->getDiffuse().getColor());
-    }
-    
-    node->getGeometry()->getMaterials().front()->setShininess(material->getShininess());
-    node->getGeometry()->getMaterials().front()->setFresnelExponent(material->getFresnelExponent());
-    node->getGeometry()->getMaterials().front()->setCullMode(material->getCullMode());
-    node->getGeometry()->getMaterials().front()->setLightingModel(material->getLightingModel());
-    node->getGeometry()->getMaterials().front()->setWritesToDepthBuffer(material->getWritesToDepthBuffer());
-    node->getGeometry()->getMaterials().front()->setReadsFromDepthBuffer(material->getReadsFromDepthBuffer());
-  }
 }
 
 @end

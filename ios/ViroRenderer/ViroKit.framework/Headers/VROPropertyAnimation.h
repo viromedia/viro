@@ -18,8 +18,7 @@
  */
 enum class VROValueType {
     Float,
-    Int,
-    String,
+    Int
 };
 
 /*
@@ -30,11 +29,10 @@ public:
     VROValueType type;
     float valueFloat;
     int valueInt;
-    std::string valueString;
 };
 
 /*
- Represents a single animated property of a node, material, or something else.
+ Represents a single animated property of a node (e.g. position, scale, rotation).
  */
 class VROPropertyAnimation {
     

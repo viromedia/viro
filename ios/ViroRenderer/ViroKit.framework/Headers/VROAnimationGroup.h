@@ -13,14 +13,15 @@
 #include <vector>
 #include <map>
 #include "VROPropertyAnimation.h"
+#include "VROMaterialAnimation.h"
 #include "VROTimingFunction.h"
 #include "VROExecutableAnimation.h"
-#include "VROAnimateMaterialDelegateInternal.h"
 
 class VRONode;
+class VROLazyMaterial;
 
 /*
- An animation group is a set of VROPropertyAnimations that
+ An animation group is a set of property and material animations that
  execute simultaneously.
  */
 class VROAnimationGroup : public VROExecutableAnimation {
@@ -28,15 +29,18 @@ class VROAnimationGroup : public VROExecutableAnimation {
 public:
     
     static std::shared_ptr<VROAnimationGroup> parse(float duration, float delay, std::string functionName,
-                                                    std::map<std::string, std::string> &properties);
+                                                    std::map<std::string, std::string> &properties,
+                                                    std::vector<std::shared_ptr<VROLazyMaterial>> materials);
     
     VROAnimationGroup(float durationSeconds, float delaySeconds,
                       VROTimingFunctionType timingFunction,
-                      std::map<std::string, std::shared_ptr<VROPropertyAnimation>> &animations) :
+                      std::map<std::string, std::shared_ptr<VROPropertyAnimation>> &propertyAnimations,
+                      std::vector<std::shared_ptr<VROMaterialAnimation>> &materialAnimations) :
         _duration(durationSeconds),
         _delay(delaySeconds),
         _timingFunctionType(timingFunction),
-        _animations(animations) {}
+        _propertyAnimations(propertyAnimations),
+        _materialAnimations(materialAnimations) {}
     virtual ~VROAnimationGroup() {}
     
     void execute(std::shared_ptr<VRONode> node,
@@ -45,7 +49,6 @@ public:
     void pause();
     void resume();
     void terminate();
-    void setDelegate(std::shared_ptr<VROAnimateMaterialDelegateInternal> delegate);
     std::string toString() const;
     
 private:
@@ -64,12 +67,9 @@ private:
     void animateOpacity(std::shared_ptr<VRONode> &node);
     void animateRotation(std::shared_ptr<VRONode> &node);
     void animateMaterial(std::shared_ptr<VRONode> &node);
-  
-    std::shared_ptr<VROAnimateMaterialDelegateInternal> getDelegate();
     
-    std::map<std::string, std::shared_ptr<VROPropertyAnimation>> _animations;
-  
-    std::weak_ptr<VROAnimateMaterialDelegateInternal> _delegate;
+    std::map<std::string, std::shared_ptr<VROPropertyAnimation>> _propertyAnimations;
+    std::vector<std::shared_ptr<VROMaterialAnimation>> _materialAnimations;
   
 };
 

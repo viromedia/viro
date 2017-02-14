@@ -48,7 +48,7 @@ var ColorAnimationTest = React.createClass({
           <ViroImage source={require('./res/card_main.png')} position={[0, .5, -1]} />
         </ViroAnimatedComponent>
 
-        <ViroAnimatedComponent animation="testLoopColorYellowMaterial" run={true} loop={true} >
+        <ViroAnimatedComponent animation="testAnimateTexture" run={true} loop={true} >
           <ViroImage source={require('./res/card_main.png')} position={[0, -.5, -1]} />
         </ViroAnimatedComponent>
       </ViroScene>
@@ -74,6 +74,11 @@ ViroMaterials.createMaterials({
     lightingModel: "Constant",
     diffuseTexture: require('./res/card_petite_ansu.png'),
   },
+  cardmain: {
+    shininess : 1.0,
+    lightingModel: "Constant",
+    diffuseTexture: require('./res/card_main.png'),
+  },
 });
 
 ViroAnimations.registerAnimations({
@@ -85,6 +90,7 @@ ViroAnimations.registerAnimations({
     testLoopColor:[
       ["testLoopColorYellow", "testLoopColorBlue"]
     ],
+    testAnimateTexture:{properties:{material:"cardpetite"}, duration:3000},
 
     testMakeOpaque: {properties:{opacity:1.0}, duration: 1000},
     testMakeTransparent: {properties:{opacity:0}, duration: 1000},
