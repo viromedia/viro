@@ -27,7 +27,7 @@ void populateIntArrayFromNSArray(NSArray<NSNumber *> *arraySource, int arrayDest
   int index =0;
   for (NSNumber *value in arraySource) {
     arrayDest[index] = [value intValue];
-    index++;
+    index++;  
     if(index >=totalCount){
       break;
     }
