@@ -26,6 +26,7 @@ var Viro3DObject = React.createClass({
   mixins: [NativeMethodsMixin],
 
   propTypes: {
+    ...View.propTypes,
     position: PropTypes.arrayOf(PropTypes.number),
     scale: PropTypes.arrayOf(PropTypes.number),
     rotation: PropTypes.arrayOf(PropTypes.number),

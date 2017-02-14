@@ -32,8 +32,8 @@ var scene_ios_test = React.createClass({
     render: function() {
     return (
         <ViroScene>
-            <ViroDirectionalLight color="#ffffff" direction={[0, 0, -1.0]} />
-            <Viro360Video source={{uri: "https://s3-us-west-2.amazonaws.com/viro/360_surf.mp4"}} onLoadStart={this._onLoadStart("Start")} onLoadEnd={this._onLoadEnd("End")} rotation={[0,0,0]} />
+          <ViroDirectionalLight color="#ffffff" direction={[0, 0, -1.0]} />
+          <Viro360Video source={{uri: "https://s3-us-west-2.amazonaws.com/viro/360_surf.mp4"}} onLoadStart={this._onLoadStart("Start")} onLoadEnd={this._onLoadEnd("End")} rotation={[0,0,0]} />
           <ViroText style={styles.baseText} position={[0,0, -8]} text="Testing!!!" />
           <ViroImage width={5.0} height={10.0} position={[6, .1, -8.1]} rotation={[0, 0, 0]} source={{uri: "http://wiki.magicc.org/images/c/ce/MAGICC_logo_small.jpg"}} />
           <ViroText style={{fontFamily: 'Helvetica-Bold', fontSize:10, textAlign:'center', textAlignVertical:'bottom', textClipMode:'cliptobounds', color:'#ff0000'}} text="Canada is the NYTimes place to visit this year. With it's beautiful cities and epic landscapes, our neighbor up north is full of splendor and adventure. Plus their president is cool :)."  width={5.0} height={10.0} position={[6, .1, -8]} rotation={[0, 0, 0]} />
@@ -44,11 +44,13 @@ var scene_ios_test = React.createClass({
                           position={[-0.0, -100, -10]}
                           scale={[0.1, 0.1, 0.1]}
                            />
-
-              <ViroImage source={require('./res/card_main.png')} height={2} width={4}
+          <Viro3DObject source={require('./res/heart.obj')}
+                          position={[0.2, -5.5, -1.15]}
+                          materials={["heart"]}
+                           />
+          <ViroImage source={require('./res/card_main.png')} height={2} width={4}
                          position={[0, 0, -5]}
                          scale={[0.1, 0.1, 0.1]} />
-
         </ViroScene>
     );
   },
@@ -100,6 +102,10 @@ ViroMaterials.createMaterials({
     shininess: 1.0,
     lightingModel: "Constant",
     diffuseColor: "#ff0000",
+  },
+  heart: {
+    lightingModel: "Constant",
+    diffuseTexture: require('./res/heart_d.jpg'),
   },
 })
 

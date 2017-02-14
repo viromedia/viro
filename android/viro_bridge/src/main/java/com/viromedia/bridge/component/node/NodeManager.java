@@ -3,8 +3,6 @@
  */
 package com.viromedia.bridge.component.node;
 
-import android.support.annotation.Nullable;
-
 import com.facebook.csslayout.CSSConstants;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReadableArray;

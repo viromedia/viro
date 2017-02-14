@@ -55,7 +55,7 @@ public class DirectionalLight extends Light {
     public void onPropsSet() {
         super.onPropsSet();
 
-        if (mNativeLight != null) {
+        if (mNativeLight == null) {
 
             mNativeLight = new DirectionalLightJni(mColor, mDirection);
         } else {

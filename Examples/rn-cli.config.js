@@ -23,7 +23,7 @@ module.exports = {
   },
 
   getAssetExts() {
-    return ["obj"];
+    return ["obj", "mtl"];
   },
 
   getBlacklistRE() {

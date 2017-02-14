@@ -14,7 +14,7 @@ import com.viromedia.bridge.component.node.NodeManager;
  */
 public class BoxManager extends NodeManager<Box> {
 
-    public BoxManager(ReactApplicationContext context){
+    public BoxManager(ReactApplicationContext context) {
         super(context);
     }
 
