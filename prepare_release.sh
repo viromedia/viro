@@ -11,7 +11,7 @@ echo '== Clearing out the old build artifacts =='
 rm android/viro_bridge/build/outputs/aar/*.aar
 
 echo '== Building the React-Viro library =='
-( cd android && gradle assemble )
+( cd android && ./gradlew assemble )
 
 echo '== Checking for build artifacts =='
 if [ ! -f android/viro_bridge/build/outputs/aar/viro_bridge-debug.aar ]
