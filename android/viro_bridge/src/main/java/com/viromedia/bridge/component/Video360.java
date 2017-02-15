@@ -51,20 +51,33 @@ public class Video360 extends Component {
 
         // Create Texture
         mVideoTextureJni = new VideoTextureJni();
-        mVideoTextureJni.loadSource(mSource, mRenderContext);
         mVideoTextureJni.setVideoDelegate(new VideoTextureJni.VideoDelegate() {
             @Override
             public void onVideoFinish() {
+                if (isTornDown()){
+                    return;
+                }
+
                 reactVideoFinishedCallback();
             }
+
+            @Override
+            public void onReady() {
+                if (isTornDown()){
+                    return;
+                }
+
+                updateVideoTexture();
+                mVideoTextureJni.loadSource(mSource, mRenderContext);
+                setLoop(mLoop);
+                setMuted(mMuted);
+                setVolume(mVolume);
+                setPaused(mPaused);
+            }
         });
-        setLoop(mLoop);
-        setMuted(mMuted);
-        setVolume(mVolume);
-        setPaused(mPaused);
 
         if (mScene != null) {
-            mScene.setBackgroundVideoTexture(mVideoTextureJni);
+            updateVideoTexture();
             mScene.setBackgroundRotation(mRotation);
         }
     }
@@ -78,8 +91,14 @@ public class Video360 extends Component {
     @Override
     public void setScene(Scene scene){
         super.setScene(scene);
-        mScene.setBackgroundVideoTexture(mVideoTextureJni);
+        updateVideoTexture();
         mScene.setBackgroundRotation(mRotation);
+    }
+
+    private void updateVideoTexture(){
+        if (mScene != null && mVideoTextureJni != null && mVideoTextureJni.isReady()) {
+            mScene.setBackgroundVideoTexture(mVideoTextureJni);
+        }
     }
 
     public void setSource(String source) {

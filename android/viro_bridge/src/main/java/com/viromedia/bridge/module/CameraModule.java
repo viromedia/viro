@@ -14,6 +14,8 @@ import com.facebook.react.bridge.WritableArray;
 import com.facebook.react.uimanager.NativeViewHierarchyManager;
 import com.facebook.react.uimanager.UIBlock;
 import com.facebook.react.uimanager.UIManagerModule;
+import com.viro.renderer.jni.CameraCallback;
+import com.viro.renderer.jni.RenderContextJni;
 import com.viromedia.bridge.component.Camera;
 import com.viromedia.bridge.component.node.Scene;
 
@@ -37,14 +39,17 @@ public class CameraModule extends ReactContextBaseJavaModule {
                 View sceneView = nativeViewHierarchyManager.resolveView(sceneTag);
                 if (sceneView instanceof Scene) {
                     Scene scene = (Scene) sceneView;
-                    float[] position = scene.getCameraPosition();
 
-                    WritableArray array = Arguments.createArray();
-                    array.pushDouble(position[0]);
-                    array.pushDouble(position[1]);
-                    array.pushDouble(position[2]);;
-
-                    promise.resolve(array);;
+                    scene.getCameraPositionAsync(new CameraCallback() {
+                        @Override
+                        public void onGetCameraPosition(float x, float y, float z) {
+                            WritableArray array = Arguments.createArray();
+                            array.pushDouble(x);
+                            array.pushDouble(y);
+                            array.pushDouble(z);
+                            promise.resolve(array);
+                        }
+                    });
                 }
             }
         });

@@ -21,7 +21,7 @@ public class Image360 extends Component {
     private static final float[] sDefaultRotation = {0, 0, 0};
 
     private ReadableMap mSourceMap;
-    private float[] mRotation;
+    private float[] mRotation = sDefaultRotation;
     private ImageJni mLatestImage;
     private TextureJni mLatestTexture;
 

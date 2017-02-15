@@ -55,19 +55,33 @@ public class VideoSurface extends Control {
         }
 
         // Create Texture
+        mSurfaceJni = new SurfaceJni(mWidth, mHeight);
+        getNodeJni().setGeometry(mSurfaceJni);
         mVideoTextureJni = new VideoTextureJni();
-        mVideoTextureJni.loadSource(mSource, mRenderContext);
         mVideoTextureJni.setVideoDelegate(new VideoTextureJni.VideoDelegate() {
             @Override
             public void onVideoFinish() {
+                if (isTornDown()){
+                    return;
+                }
+
                 playerDidFinishPlaying();
             }
-        });
+            @Override
+            public void onReady() {
+                if (isTornDown()){
+                    return;
+                }
 
-        // Create surface and apply video texture
-        mSurfaceJni = new SurfaceJni(mWidth, mHeight);
+                loadVideo();
+            }
+        });
+    }
+
+    private void loadVideo(){
         mSurfaceJni.setVideoTexture(mVideoTextureJni);
-        getNodeJni().setGeometry(mSurfaceJni);
+        mVideoTextureJni.loadSource(mSource, mRenderContext);
+        setVolume(mVolume);
         setLoop(mLoop);
         setMuted(mMuted);
         setVolume(mVolume);

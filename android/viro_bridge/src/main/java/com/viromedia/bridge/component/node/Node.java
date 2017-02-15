@@ -129,32 +129,23 @@ public class Node extends Component {
 
     @Override
     public void removeViewAt(int index) {
-
         View child = getChildAt(index);
-
         if (child instanceof Light) {
             ((Light) child).removeFromNode(mNodeJni);
         } else if (child instanceof Camera) {
             ((Camera) child).removeFromNode(mNodeJni);
         } else if (child instanceof Node) {
-
             final Node childNode = (Node) child;
             mNodeJni.removeChildNode(childNode.mNodeJni);
         } else if (child instanceof AnimatedComponent) {
-
             AnimatedComponent animatedComponent = (AnimatedComponent) child;
-
             for (int i = 0; i < animatedComponent.getChildCount(); i++) {
-
                 if (!(animatedComponent.getChildAt(i) instanceof Node)) {
-
                     continue;
                 }
 
                 Node animatedTarget = (Node) animatedComponent.getChildAt(i);
-
                 if (containsChild(animatedTarget)) {
-
                     removeNativeChild(animatedTarget);
                 }
             }
@@ -163,11 +154,19 @@ public class Node extends Component {
         }
 
         super.removeViewAt(index);
-
     }
 
+    /*
+     * Determines non-recursively if the child is within the given parent viewgroup.
+     */
     public boolean containsChild(Node child) {
-        return mNodeJni.containsChild(child.getNodeJni());
+        for (int i = 0; i < this.getChildCount(); i ++) {
+            View view = getChildAt(i);
+            if (view == child) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public void addNativeChild(Node child) {

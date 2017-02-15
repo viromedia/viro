@@ -10,6 +10,8 @@ import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
+import com.viro.renderer.jni.CameraCallback;
+import com.viro.renderer.jni.RenderContextJni;
 import com.viro.renderer.jni.SceneJni;
 import com.viro.renderer.jni.TextureJni;
 import com.viro.renderer.jni.VideoTextureJni;
@@ -119,12 +121,12 @@ public class Scene extends Node implements SceneJni.SceneDelegate {
         mCamera = null;
     }
 
-    public float[] getCameraPosition() {
+    public void getCameraPositionAsync(CameraCallback callback) {
         if (mRenderContext == null) {
-            return new float[] {0, 0, 0};
+            callback.onGetCameraPosition(0,0,0);
         }
         else {
-            return mRenderContext.getCameraPosition();
+            mRenderContext.getCameraPosition(callback);
         }
     }
 
