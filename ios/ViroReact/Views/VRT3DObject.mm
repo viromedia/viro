@@ -84,6 +84,10 @@
         
         [self setOBJMaterials:node->getGeometry()];
         self.node->setGeometry(node->getGeometry());
+        
+        if (self.onLoadViro) {
+            self.onLoadViro(nil);
+        }
     });
 }
 

@@ -15,5 +15,6 @@
 - (instancetype)initWithBridge:(RCTBridge *)bridge;
 
 @property (readwrite, nonatomic) NSDictionary *source;
+@property (nonatomic, copy, nullable) RCTDirectEventBlock onLoadViro;
 
 @end
