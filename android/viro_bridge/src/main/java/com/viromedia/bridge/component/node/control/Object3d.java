@@ -4,9 +4,11 @@
 package com.viromedia.bridge.component.node.control;
 
 import com.facebook.react.bridge.ReactApplicationContext;
+import com.facebook.react.uimanager.events.RCTEventEmitter;
 import com.viro.renderer.jni.AsyncObjListener;
 import com.viro.renderer.jni.MaterialJni;
 import com.viro.renderer.jni.ObjectJni;
+import com.viromedia.bridge.utility.ViroEvents;
 
 import java.util.List;
 
@@ -49,6 +51,8 @@ public class Object3d extends Control {
         super.onPropsSet();
 
         ObjectJni oldObject3d = mNative3dObject;
+        loadDidStart();
+
         mNative3dObject = new ObjectJni(mSource, new AsyncObjListener() {
             @Override
             public void onObjLoaded() {
@@ -57,6 +61,7 @@ public class Object3d extends Control {
                     // set materials on the node after it's finished loading OBJ
                     setMaterials(mMaterials);
                 }
+                loadDidEnd();
             }
         });
         setGeometry(mNative3dObject);
@@ -64,6 +69,22 @@ public class Object3d extends Control {
         if (oldObject3d != null) {
             mNative3dObject.destroy();
         }
+    }
+
+    private void loadDidStart() {
+        mReactContext.getJSModule(RCTEventEmitter.class).receiveEvent(
+                getId(),
+                ViroEvents.ON_LOAD_START,
+                null
+        );
+    }
+
+    private void loadDidEnd() {
+        mReactContext.getJSModule(RCTEventEmitter.class).receiveEvent(
+                getId(),
+                ViroEvents.ON_LOAD_END,
+                null
+        );
     }
 
 }

@@ -43,7 +43,8 @@ var scene_ios_test = React.createClass({
           <Viro3DObject source={require('./res/male02.obj')}
                           position={[-0.0, -100, -10]}
                           scale={[0.1, 0.1, 0.1]}
-                          onLoad={this._onLoadObj}
+                          onLoadStart={this._onLoadObjStart}
+                          onLoadEnd={this._onLoadObjEnd}
                            />
           <Viro3DObject source={require('./res/heart.obj')}
                           position={[0.2, -5.5, -1.15]}
@@ -55,8 +56,11 @@ var scene_ios_test = React.createClass({
         </ViroScene>
     );
   },
-  _onLoadObj() {
-      console.log("Loaded the male02 OBJ file");
+  _onLoadObjStart() {
+      console.log("Started loading male02 OBJ file");
+  },
+  _onLoadObjEnd() {
+      console.log("Finished loading male02 OBJ file")
   },
   _onLoadStart(startText) {
     return () => {

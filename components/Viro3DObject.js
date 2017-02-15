@@ -58,7 +58,8 @@ var Viro3DObject = React.createClass({
     onTouch: React.PropTypes.func,
     onScroll: React.PropTypes.func,
     onSwipe: React.PropTypes.func,
-    onLoad: React.PropTypes.func,
+    onLoadStart: React.PropTypes.func,
+    onLoadEnd: React.PropTypes.func,
 
     /**
      * Enables high accuracy gaze collision checks for this object.
@@ -103,8 +104,12 @@ var Viro3DObject = React.createClass({
       this.props.onSwipe && this.props.onSwipe(event.nativeEvent.source, event.nativeEvent.scrollPos);
   },
 
-  _onLoad: function(event: Event) {
-      this.props.onLoad && this.props.onLoad(event);
+  _onLoadStart: function(event: Event) {
+      this.props.onLoadStart && this.props.onLoadStart(event);
+  },
+
+  _onLoadEnd: function(event: Event) {
+      this.props.onLoadEnd && this.props.onLoadEnd(event);
   },
 
   render: function() {
@@ -137,7 +142,8 @@ var Viro3DObject = React.createClass({
         onTouchViro={this._onTouch}
         onScrollViro={this._onScroll}
         onSwipeViro={this._onSwipe}
-        onLoadViro={this._onLoad}
+        onLoadStartViro={this._onLoadStart}
+        onLoadEndViro={this._onLoadEnd}
       />
     );
   }
@@ -156,7 +162,8 @@ var VRT3DObject = requireNativeComponent(
             onTouchViro:true,
             onScrollViro:true,
             onSwipeViro:true,
-            onLoadViro:true}
+            onLoadStartViro:true,
+            onLoadEndViro:true}
   }
 );
 

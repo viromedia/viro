@@ -26,7 +26,8 @@ RCT_EXPORT_VIEW_PROPERTY(canHover, BOOL)
 RCT_EXPORT_VIEW_PROPERTY(canClick, BOOL)
 RCT_EXPORT_VIEW_PROPERTY(transformBehaviors, NSArray<NSString *>)
 RCT_EXPORT_VIEW_PROPERTY(highAccuracyGaze, BOOL)
-RCT_EXPORT_VIEW_PROPERTY(onLoadViro, RCTDirectEventBlock)
+RCT_EXPORT_VIEW_PROPERTY(onLoadStartViro, RCTDirectEventBlock)
+RCT_EXPORT_VIEW_PROPERTY(onLoadEndViro, RCTDirectEventBlock)
 
 - (VRT3DObject *)view
 {

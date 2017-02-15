@@ -57,18 +57,18 @@
     }
 }
 
-- (void)setSource:(NSDictionary *)modelDict {
+- (void)didSetProps:(NSArray<NSString *> *)changedProps {
   if (![NSThread isMainThread]) {
-    RCTLogWarn(@"Calling [RCTConvert setSource:] on a background thread is not recommended");
+    RCTLogWarn(@"Calling [RCTConvert didSetProps:] on a background thread is not recommended");
     dispatch_sync(dispatch_get_main_queue(), ^{
-      [self setSource:modelDict];
+        [self didSetProps:changedProps];
     });
     
     return;
   }
   
   NSString *path;
-  if (!(path = [RCTConvert NSString:modelDict[@"uri"]])) {
+  if (!(path = [RCTConvert NSString:self.source[@"uri"]])) {
     RCTLogError(@"Unable to load 3D model object with no path");
   }
   
@@ -76,6 +76,10 @@
   std::string url = std::string([[_url description] UTF8String]);
   std::string base = url.substr(0, url.find_last_of('/'));
 
+  if (self.onLoadStartViro) {
+      self.onLoadStartViro(nil);
+  }
+    
   VROOBJLoader::loadOBJFromURL(url, base, true,
     [self](std::shared_ptr<VRONode> node, bool success) {
         if (!success) {
@@ -85,8 +89,8 @@
         [self setOBJMaterials:node->getGeometry()];
         self.node->setGeometry(node->getGeometry());
         
-        if (self.onLoadViro) {
-            self.onLoadViro(nil);
+        if (self.onLoadEndViro) {
+            self.onLoadEndViro(nil);
         }
     });
 }
