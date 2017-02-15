@@ -14,6 +14,8 @@ import com.viro.renderer.jni.AnimationChainJni;
 import com.viro.renderer.jni.AnimationGroupJni;
 import com.viro.renderer.jni.BaseAnimation;
 import com.viro.renderer.jni.BaseAnimation.ExecutionType;
+import com.viro.renderer.jni.LazyMaterialJni;
+import com.viro.renderer.jni.MaterialJni;
 import com.viromedia.bridge.utility.ViroLog;
 
 import java.util.HashMap;
@@ -22,6 +24,26 @@ import java.util.HashMap;
 public class AnimationManager extends ReactContextBaseJavaModule {
 
     private static final String TAG = ViroLog.getTag(AnimationManager.class);
+
+    static class LazyMaterialReact extends LazyMaterialJni {
+
+        private String mName;
+        private MaterialManager mMaterialManager;
+
+        public LazyMaterialReact(String name, MaterialManager manager) {
+            mName = name;
+            mMaterialManager = manager;
+        }
+
+        public long get() {
+            MaterialJni material = mMaterialManager.getMaterial(mName);
+            if (material == null) {
+                return 0;
+            }
+
+            return material.getNativeRef();
+        }
+    }
 
     private final HashMap<String, BaseAnimation> mParsedAnimations;
     private ReadableMap mRawAnimations;
@@ -140,6 +162,15 @@ public class AnimationManager extends ReactContextBaseJavaModule {
         String opacity = getFloatPropertyAsString(propertyMap, "opacity");
         String color = getIntPropertyAsString(propertyMap, "color");
 
+        LazyMaterialJni lazyMaterial = null;
+
+        // Currently we only support animating the index 0 material.
+        if (propertyMap.hasKey("material")) {
+            String material = propertyMap.getString("material");
+            MaterialManager materialManager = getReactApplicationContext().getNativeModule(MaterialManager.class);
+            lazyMaterial = new LazyMaterialReact(material, materialManager);
+        }
+
         int durationMilliseconds = getPropertyAsInt(animationMap, "duration");
         int delayMilliseconds = getPropertyAsInt(animationMap, "delay");
 
@@ -152,7 +183,7 @@ public class AnimationManager extends ReactContextBaseJavaModule {
         }
         return new AnimationGroupJni(positionX, positionY, positionZ,
                 scaleX, scaleY, scaleZ, rotateX, rotateY, rotateZ,
-                opacity, color, durationSeconds, delaySeconds, functionType);
+                opacity, color, lazyMaterial, durationSeconds, delaySeconds, functionType);
     }
 
     /**
