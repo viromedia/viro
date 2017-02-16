@@ -149,6 +149,7 @@
 		8BDD9FF01E53AACE00A42870 /* VRTVideoSurfaceManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 8BE0D4821DFA15880032AB99 /* VRTVideoSurfaceManager.h */; };
 		8BDD9FF11E53AACE00A42870 /* VRTViewContainerManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 8BE0D4F31DFA3D9B0032AB99 /* VRTViewContainerManager.h */; };
 		8BDD9FF31E53C8AF00A42870 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BDD9FF21E53C8AF00A42870 /* libReact.a */; };
+		8BDDA0211E55A9B900A42870 /* ViroReactFramework.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8BDD9F581E53A70000A42870 /* ViroReactFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		8BE0D4981DFA15880032AB99 /* ViroUIManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8BE0D4661DFA15880032AB99 /* ViroUIManager.mm */; };
 		8BE0D4991DFA15880032AB99 /* ViroViewManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8BE0D4681DFA15880032AB99 /* ViroViewManager.mm */; };
 		8BE0D49A1DFA15880032AB99 /* VRT360ImageManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8BE0D46A1DFA15880032AB99 /* VRT360ImageManager.mm */; };
@@ -227,6 +228,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		8BDDA01F1E55A9AA00A42870 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(SRCROOT)/dist";
+			dstSubfolderSpec = 0;
+			files = (
+				8BDDA0211E55A9B900A42870 /* ViroReactFramework.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8BE0D4521DFA0D050032AB99 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -721,6 +732,7 @@
 				8BDD9F541E53A70000A42870 /* Frameworks */,
 				8BDD9F551E53A70000A42870 /* Headers */,
 				8BDD9F561E53A70000A42870 /* Resources */,
+				8BDDA01F1E55A9AA00A42870 /* CopyFiles */,
 			);
 			buildRules = (
 			);
