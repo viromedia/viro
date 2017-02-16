@@ -14,6 +14,8 @@ import com.facebook.react.views.imagehelper.ResourceDrawableIdHelper;
 
 public class Helper {
 
+    private static final String RESOURCE_SCHEME = "res";
+
     public static @Nullable float[] toFloatArray(@Nullable ReadableArray value) {
         if (value == null){
             return null;
@@ -26,6 +28,12 @@ public class Helper {
         return result;
     }
 
+    /**
+     * This method takes a path and creates a Uri for it. If given a normal http path,
+     * it'll leave it alone, but given a resource file name (that React gives us), it'll
+     * return the corresponding android-resource:// uri (this is what React Native's
+     * Image uses/does).
+     */
     public static Uri parseUri(String path, Context context) {
         if (path == null) {
             return null;
@@ -34,6 +42,10 @@ public class Helper {
         Uri tempUri = Uri.parse(path);
         // if the scheme is null, then it's a local resource
         return tempUri.getScheme() == null ? computeLocalUri(path, context) : tempUri;
+    }
+
+    public static boolean isResourceUri(Uri uri) {
+        return uri.getScheme().equals(RESOURCE_SCHEME);
     }
 
     private static Uri computeLocalUri(String path, Context context) {

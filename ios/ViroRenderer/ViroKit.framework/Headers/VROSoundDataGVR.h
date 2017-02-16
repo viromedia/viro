@@ -30,10 +30,14 @@ public:
 private:
     std::string _path;
     std::string _localPath;
+    bool _local = false;
     bool _ready = false;
 
     void setup();
     void notifyDelegateIfReady();
-    void loadSound(std::string path, std::function<void(std::string)> onFinish);
+    void loadSoundFromURL(std::string path,
+                          std::function<void(std::string)> onFinish);
+    void loadSoundFromResource(std::string path,
+                               std::function<void(std::string)> onFinish);
 };
 #endif /* VROSoundDataGVR_h */

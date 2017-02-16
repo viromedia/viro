@@ -51,7 +51,7 @@ public:
                                                      int width, int height, std::vector<uint32_t> mipSizes) = 0;
     virtual VROVideoTextureCache *newVideoTextureCache() = 0;
     virtual std::shared_ptr<VROSound> newSound(std::shared_ptr<VROSoundData> data, VROSoundType type) = 0;
-    virtual std::shared_ptr<VROSound> newSound(std::string path, VROSoundType type) = 0;
+    virtual std::shared_ptr<VROSound> newSound(std::string path, VROSoundType type, bool local) = 0;
     virtual std::shared_ptr<VROAudioPlayer> newAudioPlayer(std::shared_ptr<VROSoundData> data) = 0;
     virtual std::shared_ptr<VROAudioPlayer> newAudioPlayer(std::string path) = 0;
     virtual std::shared_ptr<VROTypeface> newTypeface(std::string typeface, int size) = 0;

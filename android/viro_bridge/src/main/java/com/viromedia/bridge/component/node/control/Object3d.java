@@ -9,6 +9,7 @@ import com.viro.renderer.jni.AsyncObjListener;
 import com.viro.renderer.jni.MaterialJni;
 import com.viro.renderer.jni.ObjectJni;
 import com.viromedia.bridge.utility.ViroEvents;
+import com.viromedia.bridge.utility.Helper;
 
 import java.util.List;
 
@@ -32,7 +33,7 @@ public class Object3d extends Control {
         if (source == null || source.trim().isEmpty()) {
             throw new IllegalArgumentException("source is a required prop for Viro3DObject");
         }
-        mSource = source;
+        mSource = Helper.parseUri(source, mReactContext).toString();
     }
 
     @Override

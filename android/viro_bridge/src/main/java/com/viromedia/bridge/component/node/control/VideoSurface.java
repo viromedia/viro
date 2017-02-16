@@ -8,8 +8,8 @@ import com.facebook.react.uimanager.events.RCTEventEmitter;
 import com.viro.renderer.jni.RenderContextJni;
 import com.viro.renderer.jni.SurfaceJni;
 import com.viro.renderer.jni.VideoTextureJni;
+import com.viromedia.bridge.utility.Helper;
 import com.viromedia.bridge.utility.ViroEvents;
-import com.viromedia.bridge.utility.ViroLog;
 
 public class VideoSurface extends Control {
     private float mWidth = 1;
@@ -91,7 +91,7 @@ public class VideoSurface extends Control {
     }
 
     public void setSource(String source) {
-        mSource = source;
+        mSource = Helper.parseUri(source, getContext()).toString();
         resetVideo();
     }
 

@@ -26,6 +26,13 @@ public class SoundModule extends ReactContextBaseJavaModule {
         return "VRTSoundModule";
     }
 
+    /**
+     * This function takes a map of keys to sounds and creates SoundDataJni objects
+     * to prefetch the data before storing them in a local map. We currently only
+     * support external urls (web-based).
+     *
+     * @param soundMap a map of String keys to String url's.
+     */
     @ReactMethod
     public void preloadSounds(ReadableMap soundMap) {
         ReadableMapKeySetIterator iter = soundMap.keySetIterator();

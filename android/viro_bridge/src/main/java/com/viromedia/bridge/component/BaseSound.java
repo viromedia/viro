@@ -3,8 +3,8 @@
  */
 package com.viromedia.bridge.component;
 
-
 import android.content.Context;
+import android.net.Uri;
 
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReadableMap;
@@ -14,13 +14,13 @@ import com.viro.renderer.jni.RenderContextJni;
 import com.viro.renderer.jni.SoundDataJni;
 import com.viro.renderer.jni.SoundDelegate;
 import com.viromedia.bridge.module.SoundModule;
+import com.viromedia.bridge.utility.Helper;
 import com.viromedia.bridge.utility.ViroEvents;
 
 public abstract class BaseSound extends Component implements SoundDelegate {
 
     protected static final String NAME = "name";
     protected static final String URI = "uri";
-    protected static final String LOCAL_PREFIX = "file";
     protected static final String WEB_PREFIX = "http";
 
     protected BaseSoundJni mNativeSound;
@@ -116,15 +116,8 @@ public abstract class BaseSound extends Component implements SoundDelegate {
             mNativeSound = getNativeSound(data);
             mNativeSound.setDelegate(this);
         } else if (mSource.hasKey(URI)) {
-            String uri = mSource.getString(URI);
-            if (uri.startsWith(LOCAL_PREFIX)) {
-                // TODO: VIRO-756 validate on release builds that the local prefix is correct
-                mNativeSound = getNativeSound(uri, true);
-            } else if (uri.startsWith(WEB_PREFIX)) {
-                mNativeSound = getNativeSound(uri, false);
-            } else {
-                throw new IllegalArgumentException("Unknown path to sound: [" + uri + "]");
-            }
+            Uri uri = Helper.parseUri(mSource.getString(URI), getContext());
+            mNativeSound = getNativeSound(uri.toString(), Helper.isResourceUri(uri));
         } else {
             throw new IllegalArgumentException("Unknown sound source.");
         }
@@ -158,7 +151,6 @@ public abstract class BaseSound extends Component implements SoundDelegate {
         mReactContext.getJSModule(RCTEventEmitter.class).receiveEvent(getId(),
                 ViroEvents.ON_FINISH,
                 null);
-
     }
 
     /**

@@ -118,7 +118,7 @@ var SoundTest = React.createClass({
     }
   },
   _getAdditionalSounds(component) {
-    if (this.state.state == 1 && true) {
+    if (this.state.state == 1 || true) {
       return;
     } else {
       return (<ViroSpatialSound source={{uri : "http://www.kozco.com/tech/32.mp3"}} loop={true} position={this.state.position} />);
@@ -126,7 +126,7 @@ var SoundTest = React.createClass({
   },
   _getSource(component) {
     if (this.state.state == 1) {
-      return "g_note";
+      return require("./res/metronome.mp3");
     } else {
       return "cube_sound";
     }

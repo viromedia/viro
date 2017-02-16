@@ -163,7 +163,7 @@ static NSString *const kWebPrefix = @"http";
     if (_sound) {
         _sound->pause();
     }
-    _sound = self.driver->newSound(std::string([path UTF8String]), self.soundType);
+    _sound = self.driver->newSound(std::string([path UTF8String]), self.soundType, local);
     _sound->setDelegate(std::make_shared<VROSoundDelegateiOS>(self));
 }
 
