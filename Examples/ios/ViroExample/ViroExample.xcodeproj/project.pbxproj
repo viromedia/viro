@@ -13,6 +13,8 @@
 		8BDB54B31DFFEE8900179AEF /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BDB54B21DFFEE8900179AEF /* libRCTText.a */; };
 		8BDB54B51DFFEE8F00179AEF /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BDB54B41DFFEE8F00179AEF /* libRCTActionSheet.a */; };
 		8BDB54B71DFFEE9600179AEF /* libRCTWebSocket.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BDB54B61DFFEE9600179AEF /* libRCTWebSocket.a */; };
+		8BDDA0091E53DAE300A42870 /* ViroReactFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BDDA0061E53DA2100A42870 /* ViroReactFramework.framework */; };
+		8BDDA00A1E53DAE600A42870 /* ViroReactFramework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8BDDA0061E53DA2100A42870 /* ViroReactFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		8BE0D41A1DF9DCFE0032AB99 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BE0D4191DF9DCFE0032AB99 /* main.m */; };
 		8BE0D41D1DF9DCFE0032AB99 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BE0D41C1DF9DCFE0032AB99 /* AppDelegate.m */; };
 		8BE0D4201DF9DCFE0032AB99 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BE0D41F1DF9DCFE0032AB99 /* ViewController.m */; };
@@ -21,9 +23,6 @@
 		8BE0D4281DF9DCFE0032AB99 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8BE0D4261DF9DCFE0032AB99 /* LaunchScreen.storyboard */; };
 		8BE0D4331DF9DCFE0032AB99 /* ViroExampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BE0D4321DF9DCFE0032AB99 /* ViroExampleTests.m */; };
 		8BE0D43E1DF9DCFE0032AB99 /* ViroExampleUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BE0D43D1DF9DCFE0032AB99 /* ViroExampleUITests.m */; };
-		8BE0D4B11DFA1EE70032AB99 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BE0D4AF1DFA1EE70032AB99 /* libReact.a */; };
-		8BE0D4B21DFA1EE70032AB99 /* libViroReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BE0D4B01DFA1EE70032AB99 /* libViroReact.a */; };
-		8BE0D5281DFA442D0032AB99 /* ViroKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BE0D5271DFA442D0032AB99 /* ViroKit.framework */; };
 		8BE0D52B1DFA44EA0032AB99 /* ViroKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8BE0D5271DFA442D0032AB99 /* ViroKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
@@ -112,6 +111,20 @@
 			remoteGlobalIDString = 8BE0D4541DFA0D050032AB99;
 			remoteInfo = ViroReact;
 		};
+		8BDDA0051E53DA2100A42870 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8BDD9D981E09F38900A42870 /* ViroReact.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8BDD9F581E53A70000A42870;
+			remoteInfo = ViroReactFramework;
+		};
+		8BDDA0071E53DA2100A42870 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8BDD9D981E09F38900A42870 /* ViroReact.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8BDD9F611E53A70000A42870;
+			remoteInfo = ViroReactFrameworkTests;
+		};
 		8BE0D42F1DF9DCFE0032AB99 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 8BE0D40D1DF9DCFE0032AB99 /* Project object */;
@@ -136,6 +149,7 @@
 			dstSubfolderSpec = 10;
 			files = (
 				8BE0D52B1DFA44EA0032AB99 /* ViroKit.framework in Embed Frameworks */,
+				8BDDA00A1E53DAE600A42870 /* ViroReactFramework.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -184,9 +198,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8BE0D5281DFA442D0032AB99 /* ViroKit.framework in Frameworks */,
-				8BE0D4B11DFA1EE70032AB99 /* libReact.a in Frameworks */,
-				8BE0D4B21DFA1EE70032AB99 /* libViroReact.a in Frameworks */,
+				8BDDA0091E53DAE300A42870 /* ViroReactFramework.framework in Frameworks */,
 				0D852EDC5DA6EB38F3F224D6 /* libPods-ViroExample.a in Frameworks */,
 				8BDB54AF1DFFEE7300179AEF /* libRCTImage.a in Frameworks */,
 				8BDB54B11DFFEE7E00179AEF /* libRCTNetwork.a in Frameworks */,
@@ -293,6 +305,8 @@
 			isa = PBXGroup;
 			children = (
 				8BDD9D9D1E09F38900A42870 /* libViroReact.a */,
+				8BDDA0061E53DA2100A42870 /* ViroReactFramework.framework */,
+				8BDDA0081E53DA2100A42870 /* ViroReactFrameworkTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -596,6 +610,20 @@
 			fileType = archive.ar;
 			path = libViroReact.a;
 			remoteRef = 8BDD9D9C1E09F38900A42870 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		8BDDA0061E53DA2100A42870 /* ViroReactFramework.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = ViroReactFramework.framework;
+			remoteRef = 8BDDA0051E53DA2100A42870 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		8BDDA0081E53DA2100A42870 /* ViroReactFrameworkTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = ViroReactFrameworkTests.xctest;
+			remoteRef = 8BDDA0071E53DA2100A42870 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */

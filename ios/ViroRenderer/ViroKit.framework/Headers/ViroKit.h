@@ -117,6 +117,11 @@ FOUNDATION_EXPORT const unsigned char ViroKitVersionString[];
 #import <ViroKit/VROTorusKnot.h>
 #import <ViroKit/VROShapeUtils.h>
 
+// Controller
+#import <ViroKit/VROInputControllerBase.h>
+#import <ViroKit/VROInputControllerCardboardiOS.h>
+#import <ViroKit/VROInputPresenterCardboardiOS.h>
+
 // Util
 #import <ViroKit/VROTime.h>
 #import <ViroKit/VROLog.h>
@@ -125,3 +130,5 @@ FOUNDATION_EXPORT const unsigned char ViroKitVersionString[];
 #import <ViroKit/VROData.h>
 #import <ViroKit/VROGeometryUtil.h>
 #import <ViroKit/VROTextureUtil.h>
+
+

@@ -1069,6 +1069,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "${PODS_ROOT}/GVRSDK/Libraries";
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = (
 					"-isystem",
 					"\"${PODS_ROOT}/Headers/Public\"",
@@ -1107,6 +1108,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "${PODS_ROOT}/GVRSDK/Libraries";
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = (
 					"-isystem",
 					"\"${PODS_ROOT}/Headers/Public\"",
@@ -1276,6 +1278,7 @@
 				8BDD9F6A1E53A70000A42870 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		8BDD9F6F1E53A70000A42870 /* Build configuration list for PBXNativeTarget "ViroReactFrameworkTests" */ = {
 			isa = XCConfigurationList;
@@ -1284,6 +1287,7 @@
 				8BDD9F6C1E53A70000A42870 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		8BE0D44F1DFA0D050032AB99 /* Build configuration list for PBXProject "ViroReact" */ = {
 			isa = XCConfigurationList;
