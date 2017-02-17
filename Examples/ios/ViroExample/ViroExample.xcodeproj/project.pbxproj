@@ -13,7 +13,6 @@
 		8BDB54B31DFFEE8900179AEF /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BDB54B21DFFEE8900179AEF /* libRCTText.a */; };
 		8BDB54B51DFFEE8F00179AEF /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BDB54B41DFFEE8F00179AEF /* libRCTActionSheet.a */; };
 		8BDB54B71DFFEE9600179AEF /* libRCTWebSocket.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BDB54B61DFFEE9600179AEF /* libRCTWebSocket.a */; };
-		8BDDA00A1E53DAE600A42870 /* ViroReactFramework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8BDDA0061E53DA2100A42870 /* ViroReactFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		8BDDA0321E565ED600A42870 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BDD9D8D1E09EBFF00A42870 /* libReact.a */; };
 		8BDDA0331E565ED600A42870 /* libViroReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BDD9D9D1E09F38900A42870 /* libViroReact.a */; };
 		8BDDA0341E565EEE00A42870 /* ViroKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BE0D5271DFA442D0032AB99 /* ViroKit.framework */; };
@@ -151,7 +150,6 @@
 			dstSubfolderSpec = 10;
 			files = (
 				8BE0D52B1DFA44EA0032AB99 /* ViroKit.framework in Embed Frameworks */,
-				8BDDA00A1E53DAE600A42870 /* ViroReactFramework.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
