@@ -57,8 +57,8 @@ var Viro360Video = React.createClass({
     return findNodeHandle(this.refs[RCT_360_VIDEO_REF]);
   },
 
-  _onFinish(event: Event) {
-    this.props.onFinish && this.props.onFinish(event);
+  _onFinish() {
+    this.props.onFinish && this.props.onFinish();
   },
 
   render: function() {

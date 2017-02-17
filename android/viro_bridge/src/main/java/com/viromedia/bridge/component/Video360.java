@@ -124,6 +124,10 @@ public class Video360 extends Component {
         mLoop = loop;
         if (mVideoTextureJni != null) {
             mVideoTextureJni.setLoop(loop);
+
+            if (!mPaused) {
+                mVideoTextureJni.play();
+            }
         }
     }
 

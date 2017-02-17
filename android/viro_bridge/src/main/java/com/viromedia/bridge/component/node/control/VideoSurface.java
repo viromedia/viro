@@ -127,6 +127,10 @@ public class VideoSurface extends Control {
         mLoop = loop;
         if (mVideoTextureJni != null) {
             mVideoTextureJni.setLoop(loop);
+
+            if (!mPaused) {
+                mVideoTextureJni.play();
+            }
         }
     }
 
