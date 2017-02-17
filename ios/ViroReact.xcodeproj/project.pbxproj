@@ -487,13 +487,9 @@
 				8BE0D4761DFA15880032AB99 /* VROHUDManager.h */,
 				8BE0D4771DFA15880032AB99 /* VROHUDManager.mm */,
 				8BDD9E191E453F3500A42870 /* VRTBundleURLProvider.h */,
-<<<<<<< 12a085a057966c75e6c9980c29044547752449ee
-				8BDD9E1A1E453F3500A42870 /* VRTBundleURLProvider.mm */,
-=======
 				A5F6D4031E4B179700655F60 /* VRTControllerManager.h */,
 				A5F6D4041E4B179700655F60 /* VRTControllerManager.mm */,
-				8BDD9E1A1E453F3500A42870 /* VRTBundleURLProvider.m */,
->>>>>>> VIRO-773: Controller Js Bridge Component (Bridge)
+				8BDD9E1A1E453F3500A42870 /* VRTBundleURLProvider.mm */,
 				8BE0D4841DFA15880032AB99 /* VRT3DObjectManager.h */,
 				8BE0D4851DFA15880032AB99 /* VRT3DObjectManager.mm */,
 				8BE0D4691DFA15880032AB99 /* VRT360ImageManager.h */,
@@ -1052,12 +1048,8 @@
 				8BE0D50E1DFA3D9B0032AB99 /* VRTSkybox.mm in Sources */,
 				8BE0D49B1DFA15880032AB99 /* VRT360VideoManager.mm in Sources */,
 				8BE0D5191DFA3DB20032AB99 /* VRTAnimationManager.mm in Sources */,
-<<<<<<< 12a085a057966c75e6c9980c29044547752449ee
 				8BE0D4A51DFA15880032AB99 /* VRTUtils.mm in Sources */,
-=======
-				8BE0D4A51DFA15880032AB99 /* VRTUtils.m in Sources */,
 				A5F6D4011E4B0DFF00655F60 /* VRTController.mm in Sources */,
->>>>>>> VIRO-773: Controller Js Bridge Component (Bridge)
 				8BE0D4FA1DFA3D9B0032AB99 /* VRTBox.mm in Sources */,
 				8A130DAE1E43A8AB0050D83B /* VRTSoundModule.mm in Sources */,
 				8BE0D4A31DFA15880032AB99 /* VRTSceneNavigatorManager.mm in Sources */,
