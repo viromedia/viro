@@ -10,6 +10,7 @@
 #define VROTextureUtil_h
 
 #include <memory>
+#include <vector>
 
 class VROTexture;
 class VRODriver;
@@ -34,6 +35,16 @@ public:
      */
     static std::shared_ptr<VROData> readASTCHeader(const uint8_t *data, int length, VROTextureFormat *outFormat,
                                                    int *outWidth, int *outHeight);
+    
+    /*
+     Read a texture file with a PKM header. Read the width and height from the header then
+     strip it out and return the raw texture data, with successive mipmap levels concatenated
+     contiguously together.
+     
+     The size of each mipmap level is returned in the outMipmaps vector.
+     */
+    static std::shared_ptr<VROData> readKTXHeader(const uint8_t *data, uint32_t length, VROTextureFormat *outFormat,
+                                                  int *outWidth, int *outHeight, std::vector<uint32_t> *outMipSizes);
     
 };
 

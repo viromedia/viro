@@ -2457,7 +2457,7 @@
 		</data>
 		<key>Headers/VROByteBuffer.h</key>
 		<data>
-		1KFpT/eUUuZ2PT1Ta01cDOG2HNg=
+		fMGUg5qT0fs3K/S91+6FsCKV7Eo=
 		</data>
 		<key>Headers/VROCamera.h</key>
 		<data>
@@ -2481,7 +2481,7 @@
 		</data>
 		<key>Headers/VRODriver.h</key>
 		<data>
-		WdJVIA1g505UCsg5fZOdCIP4zn0=
+		Ep+kaFxDrjYHaqo9oYrMpPV8s4I=
 		</data>
 		<key>Headers/VROEventDelegate.h</key>
 		<data>
@@ -2741,11 +2741,11 @@
 		</data>
 		<key>Headers/VROTexture.h</key>
 		<data>
-		Jfyvnt+yCAtbyQ57B4riB/d4FS4=
+		5baYbCyLjOITOcdM0xbrXfLJ+/Y=
 		</data>
 		<key>Headers/VROTextureUtil.h</key>
 		<data>
-		EzXDR+H9d+bIRj4VDsAVwKgmrAw=
+		Nj10Tmrh7mtqbXy4Q0egK0XiYDE=
 		</data>
 		<key>Headers/VROTime.h</key>
 		<data>
@@ -2861,7 +2861,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		1h5uAGanKboEsuNrbNhuiR9iABk=
+		djnshbOJwXSHzDlAq4J1+ddFy6E=
 		</data>
 		<key>MaterialRobotoFontLoader.bundle/Roboto-Black.ttf</key>
 		<data>
@@ -7330,11 +7330,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			1KFpT/eUUuZ2PT1Ta01cDOG2HNg=
+			fMGUg5qT0fs3K/S91+6FsCKV7Eo=
 			</data>
 			<key>hash2</key>
 			<data>
-			dQj2t0y3N+JN7Je6dcGOeVQw8cMqxnd2oP2/3uuz0jk=
+			l8u3taVxSHNBiIxXCZhY6rC99Yc0bcoXV9fmKcSn7Eo=
 			</data>
 		</dict>
 		<key>Headers/VROCamera.h</key>
@@ -7396,11 +7396,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			WdJVIA1g505UCsg5fZOdCIP4zn0=
+			Ep+kaFxDrjYHaqo9oYrMpPV8s4I=
 			</data>
 			<key>hash2</key>
 			<data>
-			OuVzaLSIuIw1ZB6vvhvHDthh3aZuywCS0Z9celQPD3Q=
+			bVzremwt+Zq61rgaiB2EblQa1Q/16jOarnL0ynllgIY=
 			</data>
 		</dict>
 		<key>Headers/VROEventDelegate.h</key>
@@ -8111,22 +8111,22 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			Jfyvnt+yCAtbyQ57B4riB/d4FS4=
+			5baYbCyLjOITOcdM0xbrXfLJ+/Y=
 			</data>
 			<key>hash2</key>
 			<data>
-			Z9wSyCVVWL3oNIeOLz6OsgUzL1HUv3bV0TJ5F0OToK0=
+			Qq93IIIO6N7ggw/YAgT3BWmS5NIZlQtqMJfGtPGktOQ=
 			</data>
 		</dict>
 		<key>Headers/VROTextureUtil.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			EzXDR+H9d+bIRj4VDsAVwKgmrAw=
+			Nj10Tmrh7mtqbXy4Q0egK0XiYDE=
 			</data>
 			<key>hash2</key>
 			<data>
-			/CmcRZvMYMjVmKzmce2VoBYKnk2Vwp2hgdyu8YewUSY=
+			BVY8e8B+8MHO5UDui05Sv0OMB1EFM6roJnJOOwp6epc=
 			</data>
 		</dict>
 		<key>Headers/VROTime.h</key>

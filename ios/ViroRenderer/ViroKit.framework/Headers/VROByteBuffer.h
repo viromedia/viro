@@ -155,6 +155,15 @@ public:
      Set position to zero.
      */
     void rewind();
+    
+    /*
+     Invoke to make the ByteBuffer *not* delete its underlying bytes when
+     deallocated. This is useful when we want to move the data to another
+     container like VROData without performing a copy.
+     */
+    void releaseBytes() {
+        _freeOnDealloc = false;
+    }
 
     /*
      Write methods.

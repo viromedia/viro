@@ -110,7 +110,9 @@ RCT_EXPORT_METHOD(setJSMaterials:(NSDictionary *)materialsDict)
 
 - (std::shared_ptr<VROTexture>)createTexture2D:(id)json {
   UIImage *image = [self retrieveImage:json];
-  return std::make_shared<VROTexture>(std::make_shared<VROImageiOS>(image));
+    return std::make_shared<VROTexture>(VROTextureInternalFormat::RGBA8,
+                                        VROMipmapMode::Runtime,
+                                        std::make_shared<VROImageiOS>(image));
 }
 
 - (std::shared_ptr<VROTexture>)createTextureCubeMap:(NSDictionary *)cubeMapDict {
@@ -154,7 +156,7 @@ RCT_EXPORT_METHOD(setJSMaterials:(NSDictionary *)materialsDict)
       std::make_shared<VROImageiOS>(cubeMapImages[@"nz"])
   };
   
-  return std::make_shared<VROTexture>(cubeImages);
+    return std::make_shared<VROTexture>(VROTextureInternalFormat::RGBA8, cubeImages);
 }
 
 -(UIImage *)retrieveImage:(id)json {

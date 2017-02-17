@@ -13,6 +13,10 @@
 #include <vector>
 #include "VRODefines.h"
 
+// Constants for ETC2 ripped from NDKr9 headers
+#define GL_COMPRESSED_RGB8_ETC2                          0x9274
+#define GL_COMPRESSED_RGBA8_ETC2_EAC                     0x9278
+
 class VROTextureSubstrate;
 class VRODriver;
 class VROImage;
@@ -25,10 +29,26 @@ enum class VROTextureType {
     TextureEGLImage = 8
 };
 
+// Texture formats for source data
 enum class VROTextureFormat {
-    ETC2,
+    ETC2_RGBA8_EAC,
     ASTC_4x4_LDR,
     RGBA8,
+};
+
+// Texture formats for storage on the GPU
+// (e.g. we can load an RGBA8 texture and store it as RGBA4 to
+//       preserve GPU memory)
+enum class VROTextureInternalFormat {
+    RGBA8,
+    RGBA4,
+    RGB565,
+};
+
+enum class VROMipmapMode {
+    None,          // Do not use mipmaps
+    Pregenerated,  // Mipmaps are baked into the texture data
+    Runtime,       // Build mipmaps at texture loading time
 };
 
 class VROTexture {
@@ -47,17 +67,27 @@ public:
     VROTexture(VROTextureType type, std::unique_ptr<VROTextureSubstrate> substrate);
     
     /*
-     Create a new VROTexture from a VROImage. If a render context is supplied, then
+     Create a new VROTexture from a VROImage. If a driver is supplied, then
      the texture will be prewarmed.
      */
-    VROTexture(std::shared_ptr<VROImage> image, VRODriver *driver = nullptr);
-    VROTexture(std::vector<std::shared_ptr<VROImage>> &images, VRODriver *driver = nullptr);
+    VROTexture(VROTextureInternalFormat internalFormat,
+               VROMipmapMode mipmapMode,
+               std::shared_ptr<VROImage> image,
+               VRODriver *driver = nullptr);
+    VROTexture(VROTextureInternalFormat internalFormat,
+               std::vector<std::shared_ptr<VROImage>> &images,
+               VRODriver *driver = nullptr);
     
     /*
      Create a new VROTexture from the given raw data in the given format.
      */
-    VROTexture(VROTextureType type, VROTextureFormat format,
-               std::shared_ptr<VROData> data, int width, int height,
+    VROTexture(VROTextureType type,
+               VROTextureFormat format,
+               VROTextureInternalFormat internalFormat,
+               VROMipmapMode mipmapMode,
+               std::vector<std::shared_ptr<VROData>> &data,
+               int width, int height,
+               std::vector<uint32_t> mipSizes,
                VRODriver *driver = nullptr);
     
     virtual ~VROTexture();
@@ -89,16 +119,37 @@ private:
      
      Vector of images is used for cube textures.
      */
-    std::shared_ptr<VROImage> _image;
-    std::vector<std::shared_ptr<VROImage>> _imagesCube;
+    std::vector<std::shared_ptr<VROImage>> _images;
     
     /*
      If the underlying texture is compressed, its raw data is retined until the
-     substrate is populated.
+     substrate is populated. Cube textures contain six faces, all other
+     textures will only have one element in this vector.
      */
-    std::shared_ptr<VROData> _data;
+    std::vector<std::shared_ptr<VROData>> _data;
+    
+    /*
+     The format of the source data (_data).
+     */
     VROTextureFormat _format;
+    
+    /*
+     The format in which we want to store the data on the GPU.
+     (defaults to RGBA8, and is ignored if we're using a compressed
+     source data format: compressed textures are always stored in their
+     source format).
+     */
+    VROTextureInternalFormat _internalFormat;
     int _width, _height;
+    
+    /*
+     The mipmap generation mode for this texture. Determines if mipmaps
+     are loaded from the source data (pregenerated), generated at runtime,
+     or not used at all. The _mipSizes vector indicates the compessed size
+     of each mip-level in the source data, if _mipmapMode = Pregenerated.
+     */
+    VROMipmapMode _mipmapMode;
+    std::vector<uint32_t> _mipSizes;
     
     /*
      Representation of the texture in the underlying hardware.

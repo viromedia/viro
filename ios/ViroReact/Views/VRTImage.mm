@@ -62,7 +62,9 @@ static float const kDefaultHeight = 1;
 
     // Set the placeholder while the image loads
     if(_placeholderSource) {
-        std::shared_ptr<VROTexture> placeholderTexture = std::make_shared<VROTexture>(std::make_shared<VROImageiOS>(_placeholderSource));
+        std::shared_ptr<VROTexture> placeholderTexture = std::make_shared<VROTexture>(VROTextureInternalFormat::RGBA8,
+                                                                                      VROMipmapMode::Runtime,
+                                                                                      std::make_shared<VROImageiOS>(_placeholderSource));
         _surface->getMaterials().front()->getDiffuse().setTexture(placeholderTexture);
     }
     
@@ -83,7 +85,9 @@ static float const kDefaultHeight = 1;
 - (void)imageLoaderDidEnd:(VRTImageAsyncLoader *)loader success:(BOOL)success image:(UIImage *)image {
   dispatch_async(dispatch_get_main_queue(), ^{
     if (success && image!=nil) {
-      _texture = std::make_shared<VROTexture>(std::make_shared<VROImageiOS>(image));
+        _texture = std::make_shared<VROTexture>(VROTextureInternalFormat::RGBA8,
+                                                VROMipmapMode::Runtime,
+                                                std::make_shared<VROImageiOS>(image));
         
       // Check if width and height were set as props. If not, recreate the surface using
       // the aspect ratio of image.
