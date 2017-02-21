@@ -49,6 +49,7 @@ var ViroVideo = React.createClass({
     onTouch: React.PropTypes.func,
     onScroll: React.PropTypes.func,
     onSwipe: React.PropTypes.func,
+    onDrag: React.PropTypes.func,
 
     /**
      * Callback that is called when the video is finished playing. This
@@ -104,6 +105,11 @@ var ViroVideo = React.createClass({
       this.props.onSwipe && this.props.onSwipe(event.nativeEvent.source, event.nativeEvent.swipeState);
   },
 
+  _onDrag: function(event: Event) {
+      this.props.onDrag
+        && this.props.onDrag(event.nativeEvent.source, event.nativeEvent.dragToPos);
+  },
+
   render: function() {
     if (this.props.src) {
       console.error('The <ViroVideo> component takes a `source` property rather than `src`.');
@@ -132,12 +138,13 @@ var ViroVideo = React.createClass({
     nativeProps.onTouchViro = this._onTouch;
     nativeProps.onScrollViro = this._onScroll;
     nativeProps.onSwipeViro = this._onSwipe;
+    nativeProps.onDrag = this._onDrag;
     nativeProps.canHover = this.props.onHover != undefined;
     nativeProps.canClick = this.props.onClick != undefined || this.props.onClickState != undefined;
     nativeProps.canTouch = this.props.onTouch != undefined;
     nativeProps.canScroll = this.props.onScroll != undefined;
     nativeProps.canSwipe = this.props.onSwipe != undefined;
-
+    nativeProps.canDrag = this.props.onDrag != undefined;
     return (
       <VRTVideoSurface {...nativeProps}/>
     );
@@ -158,11 +165,13 @@ var VRTVideoSurface = requireNativeComponent(
             canTouch: true,
             canScroll: true,
             canSwipe: true,
+            canDrag: true,
             onHoverViro:true,
             onClickViro:true,
             onTouchViro:true,
             onScrollViro:true,
-            onSwipeViro:true
+            onSwipeViro:true,
+            onDragViro:true
             }
     }
 );

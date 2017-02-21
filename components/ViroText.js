@@ -49,6 +49,7 @@ var ViroText = React.createClass({
     onTouch: React.PropTypes.func,
     onScroll: React.PropTypes.func,
     onSwipe: React.PropTypes.func,
+    onDrag: React.PropTypes.func
   },
 
   _onHover: function(event: Event) {
@@ -78,6 +79,11 @@ var ViroText = React.createClass({
   _onSwipe: function(event: Event) {
       this.props.onSwipe && this.props.onSwipe(event.nativeEvent.source, event.nativeEvent.swipeState);
   },
+
+  _onDrag: function(event: Event) {
+      this.props.onDrag
+        && this.props.onDrag(event.nativeEvent.source, event.nativeEvent.dragToPos);
+  },
   render: function() {
     let onGaze = this.props.onGaze ? this._onGaze : undefined;
     // Since materials and transformBehaviors can be either a string or an array, convert the string to a 1-element array.
@@ -92,11 +98,13 @@ var ViroText = React.createClass({
         canTouch={this.props.onTouch != undefined}
         canScroll={this.props.onScroll != undefined}
         canSwipe={this.props.onSwipe != undefined}
+        canDrag={this.props.onDrag != undefined}
         onHoverViro={this._onHover}
         onClickViro={this._onClickState}
         onTouchViro={this._onTouch}
         onScrollViro={this._onScroll}
         onSwipeViro={this._onSwipe}
+        onDragViro={this._onDrag}
         transformBehaviors={transformBehaviors}
       />
     );
@@ -114,11 +122,13 @@ var VRTText = requireNativeComponent(
                 canTouch: true,
                 canScroll: true,
                 canSwipe: true,
+                canDrag: true,
                 onHoverViro:true,
                 onClickViro:true,
                 onTouchViro:true,
                 onScrollViro:true,
-                onSwipeViro:true
+                onSwipeViro:true,
+                onDragViro:true
       }
 });
 

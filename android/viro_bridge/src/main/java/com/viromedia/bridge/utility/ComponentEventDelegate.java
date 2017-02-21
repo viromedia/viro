@@ -112,6 +112,27 @@ public class ComponentEventDelegate implements EventDelegateJni.EventDelegateCal
     }
 
     @Override
+    public void onDrag(int source, float x, float y, float z) {
+        Component node = weakComponent.get();
+        if (node == null){
+            return;
+        }
+
+        WritableMap event = Arguments.createMap();
+        event.putInt("source", source);
+        WritableArray dragToPos = Arguments.createArray();
+        dragToPos.pushDouble(x);
+        dragToPos.pushDouble(y);
+        dragToPos.pushDouble(z);
+        event.putArray("dragToPos", dragToPos);
+
+        node.getReactContext().getJSModule(RCTEventEmitter.class).receiveEvent(
+                node.getId(),
+                ViroEvents.ON_DRAG,
+                event);
+    }
+
+    @Override
     public void onControllerStatus(int source, EventDelegateJni.ControllerStatus controllerStatus) {
         Component node = weakComponent.get();
         if (node == null){

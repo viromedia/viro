@@ -82,6 +82,11 @@ public abstract class NodeManager <T extends Node> extends ViroViewGroupManager<
         view.setCanSwipe(canSwipe);
     }
 
+    @ReactProp(name = "canDrag", defaultBoolean = Node.DEFAULT_CAN_DRAG)
+    public void setCanDrag(Node view, boolean canDrag) {
+        view.setCanDrag(canDrag);
+    }
+
     @ReactProp(name = "materials")
     public void setMaterials(Node view, ReadableArray materials) {
         // get material manager
@@ -166,6 +171,7 @@ public abstract class NodeManager <T extends Node> extends ViroViewGroupManager<
                 ViroEvents.ON_CLICK, MapBuilder.of("registrationName", ViroEvents.ON_CLICK),
                 ViroEvents.ON_TOUCH, MapBuilder.of("registrationName", ViroEvents.ON_TOUCH),
                 ViroEvents.ON_SWIPE, MapBuilder.of("registrationName", ViroEvents.ON_SWIPE),
-                ViroEvents.ON_SCROLL, MapBuilder.of("registrationName", ViroEvents.ON_SCROLL));
+                ViroEvents.ON_SCROLL, MapBuilder.of("registrationName", ViroEvents.ON_SCROLL),
+                ViroEvents.ON_DRAG, MapBuilder.of("registrationName", ViroEvents.ON_DRAG));
     }
 }

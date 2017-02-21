@@ -60,6 +60,7 @@ var ViroSphere = React.createClass({
      * Flag is set to false by default.
      */
     highAccuracyGaze:PropTypes.bool,
+    onDrag: React.PropTypes.func,
   },
 
   _onHover: function(event: Event) {
@@ -89,6 +90,11 @@ var ViroSphere = React.createClass({
   _onSwipe: function(event: Event) {
       this.props.onSwipe && this.props.onSwipe(event.nativeEvent.source, event.nativeEvent.swipeState);
   },
+
+  _onDrag: function(event: Event) {
+      this.props.onDrag
+        && this.props.onDrag(event.nativeEvent.source, event.nativeEvent.dragToPos);
+  },
   render: function() {
     if (this.props.material) {
       console.error('The <ViroSphere> component takes a `materials` property rather than `material`.');
@@ -107,11 +113,13 @@ var ViroSphere = React.createClass({
         canTouch={this.props.onTouch != undefined}
         canScroll={this.props.onScroll != undefined}
         canSwipe={this.props.onSwipe != undefined}
+        canDrag={this.props.onDrag != undefined}
         onHoverViro={this._onHover}
         onClickViro={this._onClickState}
         onTouchViro={this._onTouch}
         onScrollViro={this._onScroll}
         onSwipeViro={this._onSwipe}
+        onDragViro={this._onDrag}
         />
     );
   }
@@ -126,11 +134,13 @@ var VRTSphere = requireNativeComponent(
             canTouch: true,
             canScroll: true,
             canSwipe: true,
+            canDrag: true,
             onHoverViro:true,
             onClickViro:true,
             onTouchViro:true,
             onScrollViro:true,
-            onSwipeViro:true}
+            onSwipeViro:true,
+            onDragViro:true,}
   }
 );
 

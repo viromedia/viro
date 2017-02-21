@@ -55,8 +55,13 @@ var Viro3DObject = React.createClass({
     onTouch: React.PropTypes.func,
     onScroll: React.PropTypes.func,
     onSwipe: React.PropTypes.func,
+<<<<<<< HEAD
     onLoadStart: React.PropTypes.func,
     onLoadEnd: React.PropTypes.func,
+=======
+    onLoad: React.PropTypes.func,
+    onDrag: React.PropTypes.func,
+>>>>>>> ebba333... VIRO-797: Drag and Drop Support (Bridge)
 
     /**
      * Enables high accuracy gaze collision checks for this object.
@@ -109,6 +114,10 @@ var Viro3DObject = React.createClass({
       this.props.onLoadEnd && this.props.onLoadEnd(event);
   },
 
+  _onDrag: function(event: Event) {
+      this.props.onDrag
+        && this.props.onDrag(event.nativeEvent.source, event.nativeEvent.dragToPos);
+  },
   render: function() {
     var modelsrc = resolveAssetSource(this.props.source);
     let onGaze = this.props.onGaze ? this._onGaze : undefined;
@@ -134,11 +143,13 @@ var Viro3DObject = React.createClass({
         canTouch={this.props.onTouch != undefined}
         canScroll={this.props.onScroll != undefined}
         canSwipe={this.props.onSwipe != undefined}
+        canDrag={this.props.onDrag != undefined}
         onHoverViro={this._onHover}
         onClickViro={this._onClickState}
         onTouchViro={this._onTouch}
         onScrollViro={this._onScroll}
         onSwipeViro={this._onSwipe}
+        onDragViro={this._onDrag}
         onLoadStartViro={this._onLoadStart}
         onLoadEndViro={this._onLoadEnd}
       />
@@ -154,11 +165,13 @@ var VRT3DObject = requireNativeComponent(
             canTouch: true,
             canScroll: true,
             canSwipe: true,
+            canDrag: true,
             onHoverViro:true,
             onClickViro:true,
             onTouchViro:true,
             onScrollViro:true,
             onSwipeViro:true,
+            onDragViro:true,
             onLoadStartViro:true,
             onLoadEndViro:true}
   }

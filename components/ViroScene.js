@@ -127,11 +127,13 @@ var VRTScene = requireNativeComponent(
           canTouch: true,
           canScroll: true,
           canSwipe: true,
+          canDrag: true,
           onHoverViro: true,
           onClickViro: true,
           onTouchViro: true,
           onScrollViro: true,
           onSwipeViro: true,
+          onDragViro:true,
           onPlatformUpdateViro: true
         }
     }

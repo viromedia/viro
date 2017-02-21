@@ -88,6 +88,7 @@ var BTN_TYPE_CLICKED = 'clicked';
     onTouch: React.PropTypes.func,
     onScroll: React.PropTypes.func,
     onSwipe: React.PropTypes.func,
+    onDrag: React.PropTypes.func,
   },
   getInitialState: function() {
     return {buttonType: BTN_TYPE_NORMAL};
@@ -141,7 +142,8 @@ var BTN_TYPE_CLICKED = 'clicked';
             onScroll={this.props.onScroll}
             onSwipe={this.props.onSwipe}
             onHover={this._onButtonHover}
-            onClick={this._onButtonClicked}>
+            onClick={this._onButtonClicked}
+            onDrag={this.props.onDrag}>
 
             <ViroImage
                 source={this.props.source}

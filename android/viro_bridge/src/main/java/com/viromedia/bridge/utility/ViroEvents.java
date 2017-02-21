@@ -19,6 +19,7 @@ public class ViroEvents {
     public static final String ON_TOUCH = "onTouchViro";
     public static final String ON_SWIPE = "onSwipeViro";
     public static final String ON_SCROLL = "onScrollViro";
+    public static final String ON_DRAG = "onDragViro";
     public static final String ON_PLATFORM_UPDATE = "onPlatformUpdateViro";
     public static final String ON_CONTROLLER_STATUS = "onControllerStatusViro";
 }

@@ -39,6 +39,7 @@ public class Node extends Component {
     protected final static boolean DEFAULT_CAN_SCROLL = false;
     protected final static boolean DEFAULT_CAN_SWIPE = false;
     public final static boolean DEFAULT_HIGH_ACCURACY_GAZE = false;
+    protected final static boolean DEFAULT_CAN_DRAG = false;
 
     private NodeJni mNodeJni;
     protected float[] mPosition;
@@ -399,5 +400,9 @@ public class Node extends Component {
 
     protected void setCanSwipe(boolean canSwipe){
         mEventDelegateJni.setEventEnabled(EventDelegateJni.EventAction.ON_SWIPE, canSwipe);
+    }
+
+    protected void setCanDrag(boolean canDrag){
+        mEventDelegateJni.setEventEnabled(EventDelegateJni.EventAction.ON_DRAG, canDrag);
     }
 }
