@@ -20,6 +20,7 @@
 @property (nonatomic, assign) float width;
 @property (nonatomic, assign) float height;
 @property (nonatomic, copy, nullable) RCTDirectEventBlock onFinishViro;
+@property (nonatomic, copy, nullable) RCTDirectEventBlock onUpdateTimeViro;
 
 - (instancetype)initWithBridge:(RCTBridge *)bridge;
 - (void)seekToTime:(NSInteger)time;

@@ -14,6 +14,7 @@
 @protocol VROVideoDelegate <NSObject>
 
 - (void)videoDidFinish;
+- (void)videoDidUpdateTime:(int)currentTimeInSeconds totalTimeInSeconds:(int)seconds;
 
 @end
 

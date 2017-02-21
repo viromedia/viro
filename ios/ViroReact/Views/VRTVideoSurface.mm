@@ -141,4 +141,11 @@
   }
 }
 
+- (void)videoDidUpdateTime:(int)currentTimeInSeconds totalTimeInSeconds:(int)totalTime{
+    if (self.onUpdateTimeViro) {
+        self.onUpdateTimeViro(@{@"currentTime": @(currentTimeInSeconds),});
+        self.onUpdateTimeViro(@{@"totalTime": @(totalTime)});
+    }
+}
+
 @end

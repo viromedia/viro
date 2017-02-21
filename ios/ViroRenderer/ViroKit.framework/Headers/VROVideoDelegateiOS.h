@@ -25,6 +25,10 @@ public:
         [_delegate videoDidFinish];
     }
     
+    void onVideoUpdatedTime(int currentTimeInSeconds, int totalTimeInSeconds){
+        [_delegate videoDidUpdateTime:currentTimeInSeconds totalTimeInSeconds:totalTimeInSeconds];
+    }
+
 private:
     
     id <VROVideoDelegate> _delegate;

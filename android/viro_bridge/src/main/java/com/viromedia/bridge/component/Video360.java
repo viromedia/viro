@@ -3,8 +3,10 @@
  */
 package com.viromedia.bridge.component;
 
+import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReadableArray;
+import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
 import com.viro.renderer.jni.RenderContextJni;
 import com.viro.renderer.jni.VideoTextureJni;
@@ -63,7 +65,7 @@ public class Video360 extends Component {
 
             @Override
             public void onReady() {
-                if (isTornDown()){
+                if (isTornDown()) {
                     return;
                 }
 
@@ -73,6 +75,11 @@ public class Video360 extends Component {
                 setMuted(mMuted);
                 setVolume(mVolume);
                 setPaused(mPaused);
+            }
+
+            @Override
+            public void onVideoUpdatedTime(int currentTime, int totalVideoTime){
+                reactPlayerOnUpdateTime(currentTime, totalVideoTime);
             }
         });
 
@@ -169,5 +176,15 @@ public class Video360 extends Component {
                 getId(),
                 ViroEvents.ON_FINISH,
                 null);
+    }
+
+    private void reactPlayerOnUpdateTime(int currentTime, int totalTime) {
+        WritableMap event = Arguments.createMap();
+        event.putInt("currentTime", currentTime);
+        event.putInt("totalTime", totalTime);
+        mReactContext.getJSModule(RCTEventEmitter.class).receiveEvent(
+                getId(),
+                ViroEvents.ON_UPDATE_TIME,
+                event);
     }
 }

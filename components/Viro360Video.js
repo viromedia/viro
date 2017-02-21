@@ -51,6 +51,13 @@ var Viro360Video = React.createClass({
      * function isn't called at the end of a video if looping is enabled.
      */
     onFinish: React.PropTypes.func,
+
+    /**
+      * Callback that is called when the current playback position has changed.
+      * This is called in the form:
+      *     onUpdateTime(currentPlaybackTimeInSeconds, totalPlayBackDurationInSeconds);
+      */
+    onUpdateTime: React.PropTypes.func,
   },
 
   getNodeHandle: function(): any {
@@ -59,6 +66,10 @@ var Viro360Video = React.createClass({
 
   _onFinish() {
     this.props.onFinish && this.props.onFinish();
+  },
+
+  _onUpdateTime: function(event: Event) {
+    this.props.onUpdateTime && this.props.onUpdateTime(event.nativeEvent.currentTime, event.nativeEvent.totalTime);
   },
 
   render: function() {
@@ -72,7 +83,7 @@ var Viro360Video = React.createClass({
     nativeProps.ref = RCT_360_VIDEO_REF;
     nativeProps.source = vidsrc;
     nativeProps.onFinishViro = this._onFinish;
-
+    nativeProps.onUpdateTimeViro = this._onUpdateTime;
     return (
       <VRO360Video {...nativeProps} />
     );
@@ -85,7 +96,7 @@ var Viro360Video = React.createClass({
 
 var VRO360Video = requireNativeComponent(
   'VRT360Video', Viro360Video, {
-    nativeOnly: {onFinishViro: true}
+    nativeOnly: {onUpdateTimeViro: true, onFinishViro: true}
   }
 );
 

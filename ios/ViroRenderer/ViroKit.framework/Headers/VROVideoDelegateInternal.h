@@ -17,7 +17,7 @@ public:
     virtual ~VROVideoDelegateInternal() {}
     
     virtual void videoDidFinish() = 0;
-    
+    virtual void onVideoUpdatedTime(int currentTimeInSeconds, int totalTimeInSeconds) = 0;
 };
 
 #endif /* VROVideoDelegateInternal_h */

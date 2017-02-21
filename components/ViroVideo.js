@@ -56,7 +56,14 @@ var ViroVideo = React.createClass({
      * Callback that is called when the video is finished playing. This
      * function isn't called at the end of a video if looping is enabled.
      */
-    onFinish: React.PropTypes.func
+    onFinish: React.PropTypes.func,
+
+    /**
+      * Callback that is called when the current playback position has changed.
+      * This is called in the form:
+      *     onUpdateTime(currentPlaybackTimeInSeconds, totalPlayBackDurationInSeconds);
+      */
+    onUpdateTime: React.PropTypes.func,
   },
 
   getNodeHandle: function(): any {
@@ -65,6 +72,10 @@ var ViroVideo = React.createClass({
 
   _onFinish: function() {
     this.props.onFinish && this.props.onFinish();
+  },
+
+  _onUpdateTime: function(event: Event) {
+    this.props.onUpdateTime && this.props.onUpdateTime(event.nativeEvent.currentTime, event.nativeEvent.totalTime);
   },
 
   _onHover: function(event: Event) {
@@ -117,6 +128,7 @@ var ViroVideo = React.createClass({
     nativeProps.materials = materials;
     nativeProps.transformBehaviors = transformBehaviors;
     nativeProps.onFinishViro = this._onFinish;
+    nativeProps.onUpdateTimeViro = this._onUpdateTime;
     nativeProps.onHoverViro = this._onHover;
     nativeProps.onClickViro = this._onClickState;
     nativeProps.onTouchViro = this._onTouch;
@@ -141,6 +153,7 @@ var ViroVideo = React.createClass({
 var VRTVideoSurface = requireNativeComponent(
     'VRTVideoSurface', ViroVideo, {
       nativeOnly: {
+            onUpdateTimeViro: true,
             onFinishViro: true,
             canHover: true,
             canClick: true,

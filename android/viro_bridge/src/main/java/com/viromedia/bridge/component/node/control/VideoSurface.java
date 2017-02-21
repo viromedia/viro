@@ -3,7 +3,9 @@
  */
 package com.viromedia.bridge.component.node.control;
 
+import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.ReactApplicationContext;
+import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
 import com.viro.renderer.jni.RenderContextJni;
 import com.viro.renderer.jni.SurfaceJni;
@@ -69,11 +71,15 @@ public class VideoSurface extends Control {
             }
             @Override
             public void onReady() {
-                if (isTornDown()){
+                if (isTornDown()) {
                     return;
                 }
 
                 loadVideo();
+            }
+            @Override
+            public void onVideoUpdatedTime(int currentTime, int totalVideoTime){
+                playerOnUpdateTime(currentTime, totalVideoTime);
             }
         });
     }
@@ -159,6 +165,17 @@ public class VideoSurface extends Control {
                 getId(),
                 ViroEvents.ON_FINISH,
                 null);
+    }
+
+    private void playerOnUpdateTime(int currentTime, int totalTime) {
+        WritableMap event = Arguments.createMap();
+        event.putInt("currentTime", currentTime);
+        event.putInt("totalTime", totalTime);
+
+        mReactContext.getJSModule(RCTEventEmitter.class).receiveEvent(
+                getId(),
+                ViroEvents.ON_UPDATE_TIME,
+                event);
     }
 
     @Override

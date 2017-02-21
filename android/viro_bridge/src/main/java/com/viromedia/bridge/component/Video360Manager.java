@@ -68,8 +68,8 @@ public class Video360Manager extends ViroViewGroupManager<Video360> {
     @Override
     public @Nullable Map getExportedCustomDirectEventTypeConstants() {
         return MapBuilder.of(
-                ViroEvents.ON_FINISH,
-                MapBuilder.of("registrationName", ViroEvents.ON_FINISH)
+                ViroEvents.ON_FINISH, MapBuilder.of("registrationName", ViroEvents.ON_FINISH),
+                ViroEvents.ON_UPDATE_TIME, MapBuilder.of("registrationName", ViroEvents.ON_UPDATE_TIME)
         );
     }
 }

@@ -17,6 +17,7 @@
 @property (nonatomic, assign) BOOL muted;
 @property (nonatomic, assign) float volume;
 @property (nonatomic, copy, nullable) RCTDirectEventBlock onFinishViro;
+@property (nonatomic, copy, nullable) RCTDirectEventBlock onUpdateTimeViro;
 
 - (instancetype)initWithBridge:(RCTBridge *)bridge;
 - (void)seekToTime:(NSInteger)time;

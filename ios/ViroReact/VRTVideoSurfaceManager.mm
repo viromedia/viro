@@ -31,6 +31,7 @@ RCT_EXPORT_VIEW_PROPERTY(volume, float)
 RCT_EXPORT_VIEW_PROPERTY(width, float)
 RCT_EXPORT_VIEW_PROPERTY(height, float)
 RCT_EXPORT_VIEW_PROPERTY(onFinishViro, RCTDirectEventBlock)
+RCT_EXPORT_VIEW_PROPERTY(onUpdateTimeViro, RCTDirectEventBlock)
 
 - (VRTVideoSurface *)view
 {
