@@ -55,13 +55,9 @@ var Viro3DObject = React.createClass({
     onTouch: React.PropTypes.func,
     onScroll: React.PropTypes.func,
     onSwipe: React.PropTypes.func,
-<<<<<<< HEAD
     onLoadStart: React.PropTypes.func,
     onLoadEnd: React.PropTypes.func,
-=======
-    onLoad: React.PropTypes.func,
     onDrag: React.PropTypes.func,
->>>>>>> ebba333... VIRO-797: Drag and Drop Support (Bridge)
 
     /**
      * Enables high accuracy gaze collision checks for this object.
