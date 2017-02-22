@@ -103,3 +103,9 @@ LINE_TO_APPEND_TO=$(echo $LINE_TO_APPEND_TO | sed -e 's/[]\/$*.^|[]/\\&/g')
 sed -i '' "s/$LINE_TO_APPEND_TO/&"$'\\\n'"$LINE_TO_ADD2/" $TARGET_FILEPATH
 sed -i '' "s/$LINE_TO_APPEND_TO/&"$'\\\n'"$LINE_TO_ADD1/" $TARGET_FILEPATH
 
+echo "Updating gradle-wrapper.properties"
+
+TARGET_FILEPATH=$(find android -name gradle-wrapper.properties)
+
+sed -i '' "s/gradle-2.4-all/gradle-2.14.1-all/" $TARGET_FILEPATH
+
