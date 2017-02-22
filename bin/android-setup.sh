@@ -26,7 +26,7 @@ LINE_TO_EDIT=$(grep "$SEARCH_PATTERN" "$TARGET_FILEPATH")
 # "$LINE_TO_ADD/" <- substitute a variable & finish sed pattern format
 sed -i '' "s/$LINE_TO_EDIT/&,"$'\\\n'"$LINE_TO_ADD/" $TARGET_FILEPATH
 
-LINE_TO_ADD="import com.viromedia.bridge.ReactViroPackage"
+LINE_TO_ADD="import com.viromedia.bridge.ReactViroPackage;"
 SEARCH_PATTERN='import com.facebook.react.shell.MainReactPackage;'
 LINE_TO_EDIT=$(grep "$SEARCH_PATTERN" "$TARGET_FILEPATH")
 
@@ -39,7 +39,7 @@ cat << EOF >> $TARGET_FILEPATH
 include ':react_viro', ':gvr_common', ':viro_renderer'
 project(':gvr_common').projectDir = new File('../node_modules/react-viro/android/gvr_common')
 project(':viro_renderer').projectDir = new File('../node_modules/react-viro/android/viro_renderer')
-project(':react_viro').projectDir = new File('../node_modules/react-viro/android/react_viro')"
+project(':react_viro').projectDir = new File('../node_modules/react-viro/android/react_viro')
 EOF
 
 echo "Updating Project's build.gradle"
