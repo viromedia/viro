@@ -3,7 +3,6 @@
  */
 package com.viromedia.bridge.component.node;
 
-import com.facebook.csslayout.CSSConstants;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.uimanager.LayoutShadowNode;
@@ -11,6 +10,7 @@ import com.facebook.react.uimanager.ViewProps;
 import com.facebook.react.common.MapBuilder;
 import com.facebook.react.uimanager.annotations.ReactProp;
 import com.facebook.react.uimanager.annotations.ReactPropGroup;
+import com.facebook.yoga.YogaConstants;
 import com.viro.renderer.jni.MaterialJni;
 import com.viromedia.bridge.component.ViroViewGroupManager;
 import com.viromedia.bridge.module.MaterialManager;
@@ -147,7 +147,7 @@ public abstract class NodeManager <T extends Node> extends ViroViewGroupManager<
                 ViewProps.PADDING_RIGHT,
                 ViewProps.PADDING_TOP,
                 ViewProps.PADDING_BOTTOM,
-        }, defaultFloat = CSSConstants.UNDEFINED)
+        }, defaultFloat = YogaConstants.UNDEFINED)
         public void setPaddings(int index, float padding) {
             super.setPaddings(index, padding * s2DUnitPer3DUnit);
         }
@@ -158,7 +158,7 @@ public abstract class NodeManager <T extends Node> extends ViroViewGroupManager<
                 ViewProps.BORDER_RIGHT_WIDTH,
                 ViewProps.BORDER_TOP_WIDTH,
                 ViewProps.BORDER_BOTTOM_WIDTH,
-        }, defaultFloat = CSSConstants.UNDEFINED)
+        }, defaultFloat = YogaConstants.UNDEFINED)
         public void setBorderWidths(int index, float borderWidth) {
             super.setBorderWidths(index, borderWidth * s2DUnitPer3DUnit);
         }
