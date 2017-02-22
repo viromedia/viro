@@ -31,3 +31,4 @@ rm android/react_viro/*.aar
 cp android/viro_bridge/build/outputs/aar/viro_bridge-debug.aar android/react_viro/react_viro-debug.aar
 cp android/viro_bridge/build/outputs/aar/viro_bridge-release.aar android/react_viro/react_viro-release.aar
 
+npm pack

@@ -10,8 +10,8 @@
     "preset": "jest-react-native"
   },
   "peerDependencies": {
-    "react": ">=15.3.2",
-    "react-native": ">=0.37.0"
+    "react": "15.4.2",
+    "react-native": "0.41.2" 
   },
   "files": [
     "components",
@@ -19,6 +19,7 @@
     "android/viro_renderer",
     "android/gvr_common",
     "ios/dist",
-    "ios/ViroReact.podspec"
+    "ios/ViroReact.podspec",
+    "bin"
   ]
 }
