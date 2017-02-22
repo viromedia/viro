@@ -8,7 +8,7 @@
 
 #import <React/RCTConvert.h>
 #import "VRTMaterialManager.h"
-
+#import "VRTImage.h"
 
 @implementation RCTBridge (VRTMaterialManager)
 
@@ -110,16 +110,20 @@ RCT_EXPORT_METHOD(setJSMaterials:(NSDictionary *)materialsDict)
 
 - (std::shared_ptr<VROTexture>)createTexture2D:(id)json {
   UIImage *image = [self retrieveImage:json];
-    return std::make_shared<VROTexture>(VROTextureInternalFormat::RGBA8,
-                                        VROMipmapMode::Runtime,
-                                        std::make_shared<VROImageiOS>(image));
+  VROTextureInternalFormat format = [self parseImageFormat:json];
+  VROMipmapMode mipmap = [self parseImageMipmapMode:json];
+    
+  return std::make_shared<VROTexture>(format,
+                                      mipmap,
+                                      std::make_shared<VROImageiOS>(image));
 }
 
 - (std::shared_ptr<VROTexture>)createTextureCubeMap:(NSDictionary *)cubeMapDict {
   if (!cubeMapDict) {
     RCTLogError(@"Error creating cube map: ensure the nx, px, ny, py, nz, and pz params are passed in the body of the cube map texture");
   }
-  
+    
+  VROTextureInternalFormat format = [self parseImageFormat:cubeMapDict];
   NSMutableDictionary *cubeMapImages = [[NSMutableDictionary alloc] init];
   
   CGFloat cubeSize = -1;
@@ -156,7 +160,7 @@ RCT_EXPORT_METHOD(setJSMaterials:(NSDictionary *)materialsDict)
       std::make_shared<VROImageiOS>(cubeMapImages[@"nz"])
   };
   
-    return std::make_shared<VROTexture>(VROTextureInternalFormat::RGBA8, cubeImages);
+  return std::make_shared<VROTexture>(format, cubeImages);
 }
 
 -(UIImage *)retrieveImage:(id)json {
@@ -165,6 +169,9 @@ RCT_EXPORT_METHOD(setJSMaterials:(NSDictionary *)materialsDict)
   UIImage *image = _imageDictionary[path];
   if(image == nil){
     image = [RCTConvert UIImage:json];
+    if (!image) {
+      image = [RCTConvert UIImage:[json objectForKey:@"source"]];
+    }
     [_imageDictionary setObject:image forKey:path];
   }
   
@@ -308,21 +315,58 @@ RCT_EXPORT_METHOD(setJSMaterials:(NSDictionary *)materialsDict)
   return false;
 }
 
-
 - (NSString *)parseImagePath:(id)json {
   NSString *path;
   if ([json isKindOfClass:[NSString class]]) {
     path = json;
-  } else if ([json isKindOfClass:[NSDictionary class]]) {
-    if (!(path = [RCTConvert NSString:json[@"uri"]])) {
-      return nil;
+  }
+    
+  // The image dictionary is either the top-level element of diffuse-texture,
+  // or it's under the 'source' key.
+  else if ([json isKindOfClass:[NSDictionary class]]) {
+    NSDictionary *dictionary = (NSDictionary *)json;
+    if ([dictionary objectForKey:@"source"]) {
+      dictionary = [dictionary objectForKey:@"source"];
     }
     
-  } else {
+    path = [RCTConvert NSString:dictionary[@"uri"]];
+    if (!path) {
+      return nil;
+    }
+  }
+  else {
     RCTLogConvertError(json, @"an image");
     return nil;
   }
   return path;
+}
+
+- (VROTextureInternalFormat)parseImageFormat:(id)json {
+  VROTextureInternalFormat format = VROTextureInternalFormat::RGBA8;
+  if ([json isKindOfClass:[NSDictionary class]]) {
+    NSDictionary *dictionary = (NSDictionary *)json;
+      
+    NSObject *formatValue = [dictionary objectForKey:@"format"];
+    if (formatValue) {
+      format = [RCTConvert VROTextureInternalFormat:[json objectForKey:@"format"]];
+    }
+  }
+  return format;
+}
+
+- (VROMipmapMode)parseImageMipmapMode:(id)json {
+  VROMipmapMode mipmapMode = VROMipmapMode::Runtime;
+  if ([json isKindOfClass:[NSDictionary class]]) {
+    NSDictionary *dictionary = (NSDictionary *)json;
+      
+    NSObject *boolValue = [dictionary objectForKey:@"mipmap"];
+    if (boolValue) {
+      if (![RCTConvert BOOL:boolValue]) {
+        mipmapMode = VROMipmapMode::None;
+      }
+    }
+  }
+  return mipmapMode;
 }
 
 //Convert string to property VROTransparencyMode enum,

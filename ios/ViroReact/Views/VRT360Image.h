@@ -16,6 +16,7 @@
 @property (nonatomic, copy) RCTImageSource *source;
 @property (nonatomic, copy) RCTDirectEventBlock onLoadStartViro;
 @property (nonatomic, copy) RCTDirectEventBlock onLoadEndViro;
+@property (nonatomic, assign) VROTextureInternalFormat format;
 
 - (instancetype)initWithBridge:(RCTBridge *)bridge;
 

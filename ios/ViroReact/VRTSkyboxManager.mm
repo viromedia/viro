@@ -19,6 +19,7 @@ RCT_EXPORT_VIEW_PROPERTY(source, VRTCubeMap)
 RCT_EXPORT_VIEW_PROPERTY(color, UIColor)
 RCT_EXPORT_VIEW_PROPERTY(onViroSkyBoxLoadStart, RCTDirectEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onViroSkyBoxLoadEnd, RCTDirectEventBlock)
+RCT_EXPORT_VIEW_PROPERTY(format, VROTextureInternalFormat)
 
 - (VRTSkybox *)view
 {

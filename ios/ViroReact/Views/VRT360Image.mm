@@ -34,6 +34,7 @@
   self = [super initWithBridge:bridge];
   if (self) {
     _sphereTextureAddedToScene = NO;
+    _format = VROTextureInternalFormat::RGBA8;
     _imageAsyncLoader = [[VRTImageAsyncLoader alloc] initWithDelegate:self];
   }
   
@@ -104,7 +105,7 @@
 
 - (void)imageLoaderDidEnd:(VRTImageAsyncLoader *)loader success:(BOOL)success image:(UIImage *)image {
   dispatch_async(dispatch_get_main_queue(), ^{
-      _sphereTexture = std::make_shared<VROTexture>(VROTextureInternalFormat::RGBA8,
+      _sphereTexture = std::make_shared<VROTexture>(self.format,
                                                     VROMipmapMode::None, // Don't mipmap 360 images, wastes memory
                                                     std::make_shared<VROImageiOS>(image));
     [self updateSceneWithSphereTexture];

@@ -34,6 +34,7 @@
   if (self) {
     self.imageAsyncLoaders = [[NSMutableDictionary alloc] init];
     self.downloadedImages = [[NSMutableDictionary alloc] init];
+    self.format = VROTextureInternalFormat::RGBA8;
   }
   
   return self;
@@ -130,7 +131,7 @@
             std::make_shared<VROImageiOS>(nz)
         };
         
-          _cubeTexture = std::make_shared<VROTexture>(VROTextureInternalFormat::RGBA8, cubeImages);
+        _cubeTexture = std::make_shared<VROTexture>(self.format, cubeImages);
         [self updateSceneWithSkybox];
         
         [self.downloadedImages removeAllObjects];

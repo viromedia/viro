@@ -78,23 +78,27 @@ public class MaterialManager extends ReactContextBaseJavaModule {
 
             if (materialPropertyName.endsWith("texture") || materialPropertyName.endsWith("Texture")) {
                 if (materialPropertyName.equalsIgnoreCase("reflectiveTexture")) {
-                    TextureJni nativeTexture = createTextureCubeMap(materialMap.getMap(materialPropertyName));
+                    TextureJni nativeTexture = createTextureCubeMap(materialMap.getMap(materialPropertyName), "RGBA8");
                     setTextureOnMaterial(nativeMaterial, nativeTexture, materialPropertyName);
                     continue;
                 }
 
                 String path = parseImagePath(materialMap, materialPropertyName);
+                String format = parseImageFormat(materialMap, materialPropertyName);
+                boolean mipmap = parseImageMipmap(materialMap, materialPropertyName);
+
                 Uri uri = Helper.parseUri(path, mContext);
                 if (path != null) {
                     if (isVideoTexture(path)) {
                         materialWrapper.addVideoTexturePath(materialPropertyName, path);
                     } else {
                         if (mImageMap.get(materialPropertyName) != null) {
-                            setImageOnMaterial(mImageMap.get(materialPropertyName), nativeMaterial, materialPropertyName);
+                            setImageOnMaterial(mImageMap.get(materialPropertyName), format, mipmap, nativeMaterial,
+                                    materialPropertyName);
                         } else {
                             ImageDownloader downloader = new ImageDownloader(mContext);
                             ImageJni nativeImage = new ImageJni(downloader.getImageSync(uri));
-                            setImageOnMaterial(nativeImage, nativeMaterial, materialPropertyName);
+                            setImageOnMaterial(nativeImage, format, mipmap, nativeMaterial, materialPropertyName);
                         }
                     }
                 }
@@ -122,8 +126,9 @@ public class MaterialManager extends ReactContextBaseJavaModule {
         return materialWrapper;
     }
 
-    private void setImageOnMaterial(ImageJni image, MaterialJni material, String name) {
-        TextureJni nativeTexture = new TextureJni(image);
+    private void setImageOnMaterial(ImageJni image, String format, boolean mipmap,
+                                    MaterialJni material, String name) {
+        TextureJni nativeTexture = new TextureJni(image, format, mipmap);
         setTextureOnMaterial(material, nativeTexture, name);
     }
 
@@ -134,7 +139,7 @@ public class MaterialManager extends ReactContextBaseJavaModule {
         nativeTexture.destroy();
     }
 
-    private TextureJni createTextureCubeMap(ReadableMap textureMap) {
+    private TextureJni createTextureCubeMap(ReadableMap textureMap, String format) {
         ReadableMapKeySetIterator iter = textureMap.keySetIterator();
 
         if (!iter.hasNextKey()) {
@@ -179,17 +184,42 @@ public class MaterialManager extends ReactContextBaseJavaModule {
         // create and return a TextureJni w/ all 6 sides.
         return new TextureJni(cubeMapImages.get("px"), cubeMapImages.get("nx"),
                               cubeMapImages.get("py"), cubeMapImages.get("ny"),
-                              cubeMapImages.get("pz"), cubeMapImages.get("nz"));
+                              cubeMapImages.get("pz"), cubeMapImages.get("nz"), format);
     }
 
     private String parseImagePath(ReadableMap map, String key) {
         if (map.getType(key) == ReadableType.String) {
             return map.getString(key);
         } else if (map.getType(key) == ReadableType.Map) {
-            return map.getMap(key).getString("uri");
+            if (map.getMap(key).hasKey("source") && map.getMap(key).getType("source") == ReadableType.Map) {
+                return map.getMap(key).getMap("source").getString("uri");
+            }
+            else {
+                return map.getMap(key).getString("uri");
+            }
         }
         // We don't know how to parse anything else... so just return.
         return null;
+    }
+
+    private String parseImageFormat(ReadableMap map, String key) {
+        String format = "RGBA8";
+        if (map.getType(key) == ReadableType.Map) {
+            if (map.getMap(key).hasKey("format")) {
+                format = map.getMap(key).getString("format");
+            }
+        }
+        return format;
+    }
+
+    private boolean parseImageMipmap(ReadableMap map, String key) {
+        boolean mipmap = true;
+        if (map.getType(key) == ReadableType.Map) {
+            if (map.getMap(key).hasKey("mipmap")) {
+                mipmap = map.getMap(key).getBoolean("mipmap");
+            }
+        }
+        return mipmap;
     }
 
     private boolean isVideoTexture(String path) {

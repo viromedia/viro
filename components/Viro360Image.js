@@ -35,6 +35,7 @@ var Viro360Image = React.createClass({
       PropTypes.number,
     ]).isRequired,
     rotation: PropTypes.arrayOf(PropTypes.number),
+    format: PropTypes.oneOf(['RGBA8', 'RGBA4', 'RGB565']),
 
     /**
      * Callback triggered when we are processing the assets to be

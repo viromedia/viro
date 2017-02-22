@@ -28,6 +28,8 @@ static float const kDefaultHeight = 1;
     _width = kDefaultWidth;
     _height = kDefaultHeight;
     _widthOrHeightPropSet = NO;
+    _mipmap = YES;
+    _format = VROTextureInternalFormat::RGBA8;
   }
   
   return self;
@@ -61,7 +63,7 @@ static float const kDefaultHeight = 1;
     [self updateSurface];
 
     // Set the placeholder while the image loads
-    if(_placeholderSource) {
+    if(_placeholderSource && _source) {
         std::shared_ptr<VROTexture> placeholderTexture = std::make_shared<VROTexture>(VROTextureInternalFormat::RGBA8,
                                                                                       VROMipmapMode::Runtime,
                                                                                       std::make_shared<VROImageiOS>(_placeholderSource));
@@ -85,8 +87,8 @@ static float const kDefaultHeight = 1;
 - (void)imageLoaderDidEnd:(VRTImageAsyncLoader *)loader success:(BOOL)success image:(UIImage *)image {
   dispatch_async(dispatch_get_main_queue(), ^{
     if (success && image!=nil) {
-        _texture = std::make_shared<VROTexture>(VROTextureInternalFormat::RGBA8,
-                                                VROMipmapMode::Runtime,
+        _texture = std::make_shared<VROTexture>(self.format,
+                                                self.mipmap ? VROMipmapMode::Runtime : VROMipmapMode::None,
                                                 std::make_shared<VROImageiOS>(image));
         
       // Check if width and height were set as props. If not, recreate the surface using
@@ -107,3 +109,25 @@ static float const kDefaultHeight = 1;
 }
 
 @end
+
+@implementation RCTConvert (VRTImage)
+
++ (VROTextureInternalFormat)VROTextureInternalFormat:(id)json {
+    if (![json isKindOfClass:[NSString class]]) {
+        return VROTextureInternalFormat::RGBA8;
+    }
+    
+    NSString *value = (NSString *)json;
+    if([value caseInsensitiveCompare:@"RGBA8"] == NSOrderedSame ) {
+        return VROTextureInternalFormat::RGBA8;
+    } else if([value caseInsensitiveCompare:@"RGBA4"] == NSOrderedSame) {
+        return VROTextureInternalFormat::RGBA4;
+    } else if([value caseInsensitiveCompare:@"RGB565"] == NSOrderedSame) {
+        return VROTextureInternalFormat::RGB565;
+    }
+    
+    return VROTextureInternalFormat::RGBA8;;
+}
+
+@end
+

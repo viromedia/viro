@@ -32,11 +32,11 @@ var scene1 = React.createClass({
     return (
         <ViroScene position={[0,0,0]} reticleEnabled={false} >
           <ViroSkyBox source={{nx:require("./res/sun_2302.jpg"),
-                       px:require("./res/sun_2302.jpg"),
-                       ny:require("./res/sun_2302.jpg"),
-                       py:require("./res/sun_2302.jpg"),
-                       nz:require("./res/sun_2302.jpg"),
-                       pz:require("./res/sun_2302.jpg")}} />
+                               px:require("./res/sun_2302.jpg"),
+                               ny:require("./res/sun_2302.jpg"),
+                               py:require("./res/sun_2302.jpg"),
+                               nz:require("./res/sun_2302.jpg"),
+                               pz:require("./res/sun_2302.jpg")}} format="RGBA8" />
           <ViroOrbitCamera position={[0, 0, 1]} focalPoint={[0, 0, -3]}/>
           <ViroNode position={[2, -3, 0]} >
             <ViroBox materials="wework_title" position={[0, 0, -5]} scale={[2, 4, 2]} transformBehaviors={["billboard"]} />
@@ -46,7 +46,7 @@ var scene1 = React.createClass({
             height={4} width={4} position={[-1,0,-3]} onFinish={this._onFinish("Video")}
             source={{"uri":"https://s3-us-west-2.amazonaws.com/viro/Climber1Top.mp4"}}
           />
-          <ViroImage position={[0, 0, -2]} source={{uri: "https://upload.wikimedia.org/wikipedia/commons/7/74/Earth_poster_large.jpg"}}
+          <ViroImage position={[0, 0, -2]} format="RGBA8" mipmap={true} source={{uri: "https://upload.wikimedia.org/wikipedia/commons/7/74/Earth_poster_large.jpg"}}
             onLoadStart={this._onLoadStart("Image")} onLoadEnd={this._onLoadEnd("Image")} />
         </ViroScene>
     );

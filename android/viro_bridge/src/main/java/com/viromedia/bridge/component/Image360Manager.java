@@ -40,6 +40,9 @@ public class Image360Manager extends ViroViewGroupManager<Image360> {
         view.setRotation(rotation);
     }
 
+    @ReactProp(name = "format")
+    public void setFormat(Image360 view, String format) { view.setFormat(format); }
+
     @Override
     public Map getExportedCustomDirectEventTypeConstants() {
         return MapBuilder.of(

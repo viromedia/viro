@@ -16,6 +16,7 @@
 
 @property (nonatomic) UIColor *color;
 @property (nonatomic) VRTCubeMap *source;
+@property (nonatomic, assign) VROTextureInternalFormat format;
 @property (nonatomic, copy) RCTDirectEventBlock onViroSkyBoxLoadStart;
 @property (nonatomic, copy) RCTDirectEventBlock onViroSkyBoxLoadEnd;
 

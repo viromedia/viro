@@ -50,6 +50,12 @@ public class ImageManager extends NodeManager<Image> {
         view.setHeight(height);
     }
 
+    @ReactProp(name = "mipmap")
+    public void setMipmap(Image view, boolean mipmap) { view.setMipmap(mipmap); }
+
+    @ReactProp(name = "format")
+    public void setFormat(Image view, String format) { view.setFormat(format); }
+
     @Override
     public Map getExportedCustomDirectEventTypeConstants() {
         return MapBuilder.of(

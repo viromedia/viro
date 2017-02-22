@@ -29,6 +29,7 @@ public class SkyBox extends Component {
     private TextureJni mLatestTexture;
     private ImageDownloader mImageDownloader;
     private long mColor;
+    private String mFormat = "RGBA8";
 
     public SkyBox(ReactApplicationContext context) {
         super(context);
@@ -125,6 +126,10 @@ public class SkyBox extends Component {
         }
     }
 
+    public void setFormat(String format) {
+        mFormat = format;
+    }
+
     private void imageDownloadDidStart() {
         mContext.getJSModule(RCTEventEmitter.class).receiveEvent(
                 getId(),
@@ -139,10 +144,9 @@ public class SkyBox extends Component {
         if (mLatestTexture != null) {
             mLatestTexture.destroy();
         }
-
         mLatestTexture = new TextureJni(mImageJniMap.get("px"), mImageJniMap.get("nx"),
                 mImageJniMap.get("py"), mImageJniMap.get("ny"),
-                mImageJniMap.get("pz"), mImageJniMap.get("nz"));
+                mImageJniMap.get("pz"), mImageJniMap.get("nz"), mFormat);
 
         if (mScene != null) {
             mScene.setBackgroundCubeImageTexture(mLatestTexture);

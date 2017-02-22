@@ -41,6 +41,9 @@ public class SkyBoxManager extends ViroViewGroupManager<SkyBox> {
         view.setColor((long) color);
     }
 
+    @ReactProp(name = "format")
+    public void setFormat(SkyBox view, String format) { view.setFormat(format); }
+
     protected final static String SKYBOX_LOAD_START = "onViroSkyBoxLoadStart";
     protected final static String SKYBOX_LOAD_END = "onViroSkyBoxLoadEnd";
 

@@ -115,7 +115,7 @@ var materials = ViroMaterials.createMaterials({
   cardmain: {
     shininess : 1.0,
     lightingModel: "Constant",
-    diffuseTexture: require('./res/card_main.png'),
+    diffuseTexture: {source:require('./res/card_main.png'), format:"RGBA4", mipmap:true},
   },
 });
 

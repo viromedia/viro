@@ -24,6 +24,7 @@ public class Image360 extends Component {
     private float[] mRotation = sDefaultRotation;
     private ImageJni mLatestImage;
     private TextureJni mLatestTexture;
+    private String mFormat = "RGBA8";
 
     public Image360(ReactApplicationContext context) {
         super(context);
@@ -63,7 +64,7 @@ public class Image360 extends Component {
                     }
 
                     mLatestImage = new ImageJni(result);
-                    mLatestTexture = new TextureJni(mLatestImage);
+                    mLatestTexture = new TextureJni(mLatestImage, mFormat, false);
 
                     if (mScene != null) {
                         mScene.setBackgroundImageTexture(mLatestTexture);
@@ -95,6 +96,10 @@ public class Image360 extends Component {
             mScene.setBackgroundImageTexture(mLatestTexture);
             mScene.setBackgroundRotation(mRotation);
         }
+    }
+
+    public void setFormat(String format) {
+        mFormat = format;
     }
 
     private void imageDownloadDidStart() {

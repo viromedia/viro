@@ -36,7 +36,13 @@ class ViroMaterials {
               reflectiveShape[cubeMapTexture] = cubeMapSource;
             }
             resultMaterial[materialProperty] = reflectiveShape;
-          }else {
+          }
+          else if (materialDict[materialProperty].hasOwnProperty('source')){
+            var source = resolveAssetSource(materialDict[materialProperty]['source']);
+            resultMaterial[materialProperty] = materialDict[materialProperty];
+            resultMaterial[materialProperty]['source'] = source;
+          }
+          else {
             var source = resolveAssetSource(materialDict[materialProperty]);
             resultMaterial[materialProperty] = source;
           }

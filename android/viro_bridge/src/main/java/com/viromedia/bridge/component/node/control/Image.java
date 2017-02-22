@@ -33,6 +33,9 @@ public class Image extends Control {
     private float mWidth = 1;
     private float mHeight = 1;
 
+    private boolean mMipmap = true;
+    private String mFormat = "RGBA8";
+
     private boolean mGeometryNeedsUpdate = false;
     private boolean mIsImageSet = false;
 
@@ -62,6 +65,14 @@ public class Image extends Control {
         mGeometryNeedsUpdate = true;
     }
 
+    public void setMipmap(boolean mipmap) {
+        mMipmap = mipmap;
+    }
+
+    public void setFormat(String format) {
+        mFormat = format;
+    }
+
     @Override
     public void setMaterials(List<MaterialJni> materials) {
         // Override materials setting because we want to control which materials are set.
@@ -89,7 +100,7 @@ public class Image extends Control {
 
         // If an image isn't already set, then first fetch the placeholder (which should be on disk)
         // before downloading/fetching the source image. Otherwise, just immediately get the source.
-        if (!mIsImageSet && mPlaceholderSourceMap != null) {
+        if (!mIsImageSet && mPlaceholderSourceMap != null && mSourceMap != null) {
             downloader.getImageAsync(mPlaceholderSourceMap, new ImageDownloadListener() {
                 @Override
                 public void completed(Bitmap result) {
@@ -114,6 +125,11 @@ public class Image extends Control {
                     imageDownloadDidFinish();
                 }
             });
+        }
+
+        // If no source was provided, just set the material
+        else {
+            setMaterialOnSurface();
         }
     }
 
@@ -167,7 +183,7 @@ public class Image extends Control {
         }
 
         mLatestImage = new ImageJni(image);
-        mLatestImageTexture = new TextureJni(mLatestImage);
+        mLatestImageTexture = new TextureJni(mLatestImage, mFormat, mMipmap);
         mNativeSurface.setImageTexture(mLatestImageTexture);
     }
 

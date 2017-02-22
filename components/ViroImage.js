@@ -71,6 +71,9 @@ var ViroImage = React.createClass({
       PropTypes.number,
     ]),
 
+    mipmap: PropTypes.bool,
+    format: PropTypes.oneOf(['RGBA8', 'RGBA4', 'RGB565']),
+
     onHover: React.PropTypes.func,
     onClick: React.PropTypes.func,
     onClickState: React.PropTypes.func,

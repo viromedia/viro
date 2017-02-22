@@ -30,7 +30,8 @@ RCT_EXPORT_VIEW_PROPERTY(onLoadStartViro, RCTDirectEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onLoadEndViro, RCTDirectEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(source, RCTImageSource)
 RCT_EXPORT_VIEW_PROPERTY(placeHolderSource, UIImage)
-
+RCT_EXPORT_VIEW_PROPERTY(mipmap, BOOL)
+RCT_EXPORT_VIEW_PROPERTY(format, VROTextureInternalFormat)
 
 - (VRTImage *)view
 {
