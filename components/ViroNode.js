@@ -13,15 +13,12 @@
 
 import { requireNativeComponent, View, StyleSheet } from 'react-native';
 import React, { Component } from 'react';
-var NativeMethodsMixin = require('react/lib/NativeMethodsMixin');
 var PropTypes = require('react/lib/ReactPropTypes');
 
 /**
  * Absolute container for Viro Controls
  */
 var ViroNode = React.createClass({
-  mixins: [NativeMethodsMixin],
-
   propTypes: {
     ...View.propTypes,
     position: PropTypes.arrayOf(PropTypes.number),

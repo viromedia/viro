@@ -6,9 +6,10 @@
 //
 
 #import <ViroKit/ViroKit.h>
+#import <React/RCTLog.h>
 #import "VRTSphere.h"
 #import "VRTMaterialManager.h"
-#import "RCTLog.h"
+
 
 static NSUInteger const kDefaultWidthSegment = 20;
 static NSUInteger const kDefaultHeightSegment = 20;

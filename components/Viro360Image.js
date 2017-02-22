@@ -14,14 +14,12 @@
 import { requireNativeComponent, View, StyleSheet } from 'react-native';
 import React, { Component } from 'react';
 import resolveAssetSource from "react-native/Libraries/Image/resolveAssetSource";
-var NativeMethodsMixin = require('react/lib/NativeMethodsMixin');
 var PropTypes = require('react/lib/ReactPropTypes');
 
 /**
  * Used to render a 360 image in a sphere.
  */
 var Viro360Image = React.createClass({
-  mixins: [NativeMethodsMixin],
 
   propTypes: {
     ...View.propTypes,

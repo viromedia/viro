@@ -14,11 +14,9 @@
 import { requireNativeComponent, View, Platform } from 'react-native';
 import resolveAssetSource from "react-native/Libraries/Image/resolveAssetSource";
 import React from 'react';
-var NativeMethodsMixin = require('react/lib/NativeMethodsMixin');
 var PropTypes = require('react/lib/ReactPropTypes');
 
 var ViroSpatialSound = React.createClass({
-  mixins: [NativeMethodsMixin],
   propTypes: {
     ...View.propTypes,
 

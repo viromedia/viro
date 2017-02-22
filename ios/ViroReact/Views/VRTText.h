@@ -7,9 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <React/RCTTextDecorationLineType.h>
+#import <React/RCTConvert.h>
 #import "VRTControl.h"
-#import "RCTTextDecorationLineType.h"
-#import "RCTConvert.h"
+
 
 @interface VRTText : VRTControl
 

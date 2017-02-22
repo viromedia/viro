@@ -6,8 +6,8 @@
 //  Copyright © 2017 Viro Media. All rights reserved.
 //
 
+#import <React/RCTLog.h>
 #import "VRTSound.h"
-#import "RCTLog.h"
 #import "VRTSoundModule.h"
 
 static NSString *const kNameKey = @"name";

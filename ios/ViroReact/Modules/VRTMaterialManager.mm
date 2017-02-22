@@ -6,9 +6,9 @@
 //  Copyright © 2016 Viro Media.. All rights reserved.
 //
 
-
+#import <React/RCTConvert.h>
 #import "VRTMaterialManager.h"
-#import "RCTConvert.h"
+
 
 @implementation RCTBridge (VRTMaterialManager)
 

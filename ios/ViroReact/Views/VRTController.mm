@@ -3,9 +3,10 @@
 //  React
 //
 #import <ViroKit/ViroKit.h>
+#import <React/RCTLog.h>
 #import "VRTController.h"
 #import "VRTMaterialManager.h"
-#import "RCTLog.h"
+
 
 @implementation VRTController {
     std::shared_ptr<VROInputPresenter> _presenter;

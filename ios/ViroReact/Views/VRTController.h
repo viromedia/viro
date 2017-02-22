@@ -6,8 +6,9 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <React/RCTBridge.h>
 #import "VRTView.h"
-#import "RCTBridge.h"
+
 
 @interface VRTController : VRTView<VROEventDelegateProtocol>
 

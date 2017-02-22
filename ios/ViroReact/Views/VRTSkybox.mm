@@ -6,11 +6,12 @@
 //  Copyright © 2016 Viro Media. All rights reserved.
 //
 
+#import <React/RCTConvert.h>
+#import <React/RCTUtils.h>
+#import <React/RCTLog.h>
 #import "VRTSkybox.h"
 #import "VRTUtils.h"
-#import "RCTConvert.h"
-#import "RCTUtils.h"
-#import "RCTLog.h"
+
 #import "VRTImageAsyncLoader.h"
 
 @interface VRTSkybox ()

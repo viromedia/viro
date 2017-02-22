@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <ViroKit/ViroKit.h>
-#import "RCTBridgeModule.h"
+#import <React/RCTBridgeModule.h>
 
 @interface VRTSoundModule : NSObject <RCTBridgeModule>
 

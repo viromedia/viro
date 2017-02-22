@@ -13,7 +13,6 @@
 
 import { requireNativeComponent, View, StyleSheet } from 'react-native';
 import React, { Component } from 'react';
-var NativeMethodsMixin = require('react/lib/NativeMethodsMixin');
 var NativeModules = require('react-native').NativeModules;
 var PropTypes = require('react/lib/ReactPropTypes');
 
@@ -23,8 +22,6 @@ import resolveAssetSource from "react-native/Libraries/Image/resolveAssetSource"
  * Used to render a Viro3DObject
  */
 var Viro3DObject = React.createClass({
-  mixins: [NativeMethodsMixin],
-
   propTypes: {
     ...View.propTypes,
     position: PropTypes.arrayOf(PropTypes.number),

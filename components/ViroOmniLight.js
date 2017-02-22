@@ -14,7 +14,6 @@
 import { requireNativeComponent, View, StyleSheet, Platform } from 'react-native';
 import React, { Component } from 'react';
 import normalizeColor from "react-native/Libraries/StyleSheet/normalizeColor"
-var NativeMethodsMixin = require('react/lib/NativeMethodsMixin');
 var NativeModules = require('react-native').NativeModules;
 var PropTypes = require('react/lib/ReactPropTypes');
 var ColorPropType = require('react-native').ColorPropType;
@@ -23,8 +22,6 @@ var ColorPropType = require('react-native').ColorPropType;
  * Used to render a ViroOmniLight
  */
 var ViroOmniLight = React.createClass({
-  mixins: [NativeMethodsMixin],
-
   propTypes: {
     ...View.propTypes,
     position: PropTypes.arrayOf(PropTypes.number),

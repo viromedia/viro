@@ -6,6 +6,7 @@
 //  Copyright © 2016 Viro Media. All rights reserved.
 //
 
+#include <React/RCTComponent.h>
 #import "VRTAnimatedComponent.h"
 #import "VRTAnimationManager.h"
 #import "VRTNode.h"
@@ -61,7 +62,7 @@ enum class VRTAnimatedComponentState {
     return [self.vroSubview node];
 }
 
-- (id<VROComponent>)reactSuperview {
+- (id<RCTComponent>)reactSuperview {
     return nil;
 }
 

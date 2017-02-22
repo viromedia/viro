@@ -7,8 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <React/RCTBridge.h>
 #import "VRTNode.h"
-#import "RCTBridge.h"
 #import "VRTCamera.h"
 
 @interface VRTScene : VRTNode<VROSceneDelegateProtocol>

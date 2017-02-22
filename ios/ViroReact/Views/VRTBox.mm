@@ -6,9 +6,10 @@
 //  Copyright © 2016 Viro Media. All rights reserved.
 //
 #import <ViroKit/ViroKit.h>
+#import <React/RCTLog.h>
 #import "VRTBox.h"
 #import "VRTMaterialManager.h"
-#import "RCTLog.h"
+
 
 @implementation VRTBox {
   std::shared_ptr<VROBox> _box;

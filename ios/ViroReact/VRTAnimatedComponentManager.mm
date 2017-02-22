@@ -8,7 +8,6 @@
 
 #import "VRTAnimatedComponentManager.h"
 #import "VRTAnimatedComponent.h"
-#import "ViroUIManager.h"
 #import "VRTAnimatedComponentShadowView.h"
 
 @implementation VRTAnimatedComponentManager

@@ -10,11 +10,11 @@
 #import <UIKit/UIKit.h>
 
 
-#import "RCTBridgeModule.h"
-#import "RCTEventDispatcher.h"
-#import "RCTViewManager.h"
-#import "RCTConvert.h"
-#import "RCTLog.h"
+#import <React/RCTBridgeModule.h>
+#import <React/RCTEventDispatcher.h>
+#import <React/RCTViewManager.h>
+#import <React/RCTConvert.h>
+#import <React/RCTLog.h>
 
 @class RCTBridge;
 @class RCTEventDispatcher;

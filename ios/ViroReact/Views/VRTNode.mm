@@ -6,12 +6,12 @@
 //  Copyright © 2016 Viro Media. All rights reserved.
 //
 
+#import <React/RCTConvert.h>
 #import "VRTNode.h"
 #import "VRTScene.h"
 #import "VRTLight.h"
 #import "VRTImage.h"
 #import "VRTHUD.h"
-#import "RCTConvert.h"
 #import "VRTNode.h"
 #import "VRTFlexView.h"
 #import "VRTText.h"

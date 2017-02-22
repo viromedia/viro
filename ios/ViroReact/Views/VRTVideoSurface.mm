@@ -6,9 +6,9 @@
 //  Copyright © 2016 Viro Media. All rights reserved.
 //
 
+#import <React/RCTImageSource.h>
+#import <React/RCTConvert.h>
 #import "VRTVideoSurface.h"
-#import "RCTImageSource.h"
-#import "RCTConvert.h"
 #import "VRTUtils.h"
 
 @implementation VRTVideoSurface{

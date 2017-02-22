@@ -6,8 +6,8 @@
 //  Copyright © 2016 Viro Media. All rights reserved.
 //
 
+#import <React/RCTConvert.h>
 #import "VRT3DObject.h"
-#import "RCTConvert.h"
 #import "VRTMaterialManager.h"
 #import "VRTUtils.h"
 

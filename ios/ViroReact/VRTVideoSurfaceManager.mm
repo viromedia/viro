@@ -6,9 +6,9 @@
 //  Copyright © 2016 Viro Media. All rights reserved.
 //
 
+#import <React/RCTUIManager.h>
 #import "VRTVideoSurfaceManager.h"
 #import "VRTVideoSurface.h"
-#import "ViroUIManager.h"
 
 @implementation VRTVideoSurfaceManager
 RCT_EXPORT_MODULE()
@@ -40,8 +40,8 @@ RCT_EXPORT_VIEW_PROPERTY(onUpdateTimeViro, RCTDirectEventBlock)
 
 RCT_EXPORT_METHOD(seekToTime:(nonnull NSNumber *)reactTag time:(NSInteger)time)
 {
-  [self.bridge.viroUIManager addUIBlock:^(__unused ViroUIManager *uiManager, NSDictionary<NSNumber *, VRTView *> *viewRegistry) {
-    VRTView *view = viewRegistry[reactTag];
+  [self.bridge.uiManager addUIBlock:^(__unused RCTUIManager *uiManager, NSDictionary<NSNumber *, UIView *> *viewRegistry) {
+    VRTView *view = (VRTView *)viewRegistry[reactTag];
     if (![view isKindOfClass:[VRTVideoSurface class]]) {
       RCTLogError(@"Invalid view returned from registry, expecting VRTVideoSurface, got: %@", view);
     } else {

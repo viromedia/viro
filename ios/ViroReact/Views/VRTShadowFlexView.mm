@@ -6,7 +6,7 @@
 //  Copyright © 2016 Viro Media. All rights reserved.
 //
 
-#import "RCTI18nUtil.h"
+#import <React/RCTI18nUtil.h>
 #import "VRTShadowFlexView.h"
 
 @implementation VRTShadowFlexView
@@ -20,11 +20,12 @@
   self = [super init];
   if (self) {
     if ([[RCTI18nUtil sharedInstance] isRTL]) {
-      CSSNodeStyleSetDirection(self.cssNode, CSSDirectionRTL);
+      YGNodeStyleSetDirection(self.cssNode, YGDirectionRTL);
     }
   }
   return self;
 }
+
 
 - (void)applySizeConstraints
 {
@@ -32,17 +33,18 @@
     case RCTRootViewSizeFlexibilityNone:
       break;
     case RCTRootViewSizeFlexibilityWidth:
-      CSSNodeStyleSetWidth(self.cssNode, CSSUndefined);
+      YGNodeStyleSetWidth(self.cssNode, YGUndefined);
       break;
     case RCTRootViewSizeFlexibilityHeight:
-      CSSNodeStyleSetHeight(self.cssNode, CSSUndefined);
+      YGNodeStyleSetHeight(self.cssNode, YGUndefined);
       break;
     case RCTRootViewSizeFlexibilityWidthAndHeight:
-      CSSNodeStyleSetWidth(self.cssNode, CSSUndefined);
-      CSSNodeStyleSetHeight(self.cssNode, CSSUndefined);
+      YGNodeStyleSetWidth(self.cssNode, YGUndefined);
+      YGNodeStyleSetHeight(self.cssNode, YGUndefined);
       break;
   }
 }
+
 
 
 @end

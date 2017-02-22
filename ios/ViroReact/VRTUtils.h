@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "RCTDefines.h"
+#import <React/RCTDefines.h>
 
 // Populate NSarray values into regular C float array
 RCT_EXTERN void populateFloatArrayFromNSArray(NSArray<NSNumber *> *arraySource, float arrayDest[], int totalCount);

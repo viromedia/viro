@@ -8,10 +8,10 @@
 //
 
 #import <ViroKit/ViroKit.h>
+#import <React/RCTAssert.h>
+#import <React/RCTLog.h>
 #import "VRTSceneNavigator.h"
 #import "VRTScene.h"
-#import "RCTAssert.h"
-#import "RCTLog.h"
 #import "VRTNotifications.h"
 
 static NSString *const kVRTInvalidAPIKeyMessage = @"The given API Key is either missing or invalid! If you have not signed up for the Viro Media alpha program, please do so at www.viromedia.com. Otherwise, contact info@viromedia.com if you have a valid key and are encountering this error.";

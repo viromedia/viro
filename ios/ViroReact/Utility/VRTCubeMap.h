@@ -7,8 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "RCTConvert.h"
-#import "RCTImageSource.h"
+#import <React/RCTConvert.h>
+#import <React/RCTImageSource.h>
 
 @interface VRTCubeMap : NSObject
 

@@ -6,8 +6,8 @@
 //  Copyright © 2016 Viro Media. All rights reserved.
 //
 
+#import <React/RCTImageSource.h>
 #import "VRTImageAsyncLoader.h"
-#import "RCTImageSource.h"
 #import "VRTUtils.h"
 
 

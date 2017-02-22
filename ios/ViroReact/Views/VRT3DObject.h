@@ -7,8 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <React/RCTBridge.h>
 #import "VRTControl.h"
-#import "RCTBridge.h"
+
 
 @interface VRT3DObject : VRTControl
 

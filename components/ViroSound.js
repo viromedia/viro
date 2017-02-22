@@ -15,7 +15,6 @@ import { requireNativeComponent, View } from 'react-native';
 import resolveAssetSource from "react-native/Libraries/Image/resolveAssetSource";
 import React from 'react';
 
-var NativeMethodsMixin = require('react/lib/NativeMethodsMixin');
 var PropTypes = require('react/lib/ReactPropTypes');
 var SoundModule = require('react-native').NativeModules.VRTSoundModule;
 
@@ -28,7 +27,6 @@ var ViroSound = React.createClass({
       SoundModule.unloadSounds(soundKeys);
     }
   },
-  mixins: [NativeMethodsMixin],
   propTypes: {
     ...View.propTypes,
 

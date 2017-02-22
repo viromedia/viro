@@ -6,10 +6,11 @@
 //  Copyright © 2016 Viro Media. All rights reserved.
 //
 
+#include <React/RCTConvert.h>
+#include <React/RCTImageSource.h>
 #import "VRTUtils.h"
 #import "VRT360Video.h"
-#include "RCTConvert.h"
-#include "RCTImageSource.h"
+
 
 @implementation VRT360Video {
   std::shared_ptr<VROVideoTexture> _videoTexture;

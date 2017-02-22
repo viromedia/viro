@@ -7,9 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <React/RCTBridge.h>
+#import <React/RCTImageSource.h>
 #import "VRTControl.h"
-#import "RCTBridge.h"
-#import "RCTImageSource.h"
+
 #import "VRTImageAsyncLoaderEventDelegate.h"
 
 @interface VRTImage : VRTControl<VRTImageAsyncLoaderEventDelegate>

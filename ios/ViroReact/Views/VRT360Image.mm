@@ -6,10 +6,10 @@
 //  Copyright © 2016 Viro Media. All rights reserved.
 //
 
+#import <React/RCTConvert.h>
+#import <React/RCTUtils.h>
 #import "VRTUtils.h"
 #import "VRT360Image.h"
-#import "RCTConvert.h"
-#import "RCTUtils.h"
 #import "VRTImageAsyncLoader.h"
 
 @interface RCTImageSource (Viro)

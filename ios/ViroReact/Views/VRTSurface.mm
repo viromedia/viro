@@ -6,8 +6,9 @@
 //  Copyright © 2017 Viro Media. All rights reserved.
 //
 #import <ViroKit/ViroKit.h>
+#import <React/RCTLog.h>
 #import "VRTSurface.h"
-#import "RCTLog.h"
+
 
 static float const kDefaultWidth = 1;
 static float const kDefaultHeight = 1;

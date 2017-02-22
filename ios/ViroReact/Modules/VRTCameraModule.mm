@@ -6,8 +6,8 @@
 //  Copyright © 2017 Viro Media. All rights reserved.
 //
 
+#import <React/RCTUIManager.h>
 #import "VRTCameraModule.h"
-#import "RCTUIManager.h"
 #import "VRTScene.h"
 
 @implementation VRTCameraModule

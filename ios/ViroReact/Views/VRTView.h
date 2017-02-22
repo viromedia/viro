@@ -7,10 +7,9 @@
 //
 
 #import <ViroKit/ViroKit.h>
-#import "VROComponent.h"
-#import "RCTComponent.h"
-#import "RCTBridge.h"
-#import "UIView+React.h"
+#import <React/RCTComponent.h>
+#import <React/RCTBridge.h>
+#import <React/UIView+React.h>
 #import "VRTMaterialManager.h"
 
 typedef NS_ENUM(NSInteger, ViroConstraintType) {

@@ -11,13 +11,11 @@
  */
 'use strict';
 
-var NativeMethodsMixin = require('react/lib/NativeMethodsMixin');
 var NativeModules = require('react-native').NativeModules;
 var PropTypes = require('react/lib/ReactPropTypes');
 var invariant = require('fbjs/lib/invariant');
-var findNodeHandle = require('react/lib/findNodeHandle');
 var ViroSceneNavigatorManager = NativeModules.SceneNavigatorManager;
-import { requireNativeComponent, View, StyleSheet } from 'react-native';
+import { requireNativeComponent, View, StyleSheet, findNodeHandle } from 'react-native';
 import React, { Component } from 'react';
 var SCENE_NAVIGATOR_REF = 'viroscenenavigator';
 
@@ -32,8 +30,6 @@ var mathRandomOffset = 0;
  * ViroSceneNavigator is used to transition between multiple scenes.
  */
 var ViroSceneNavigator = React.createClass({
-  mixins: [NativeMethodsMixin],
-
   propTypes: {
         /**
          * Calling vrModeEnabled allows switching to and from VR mode.

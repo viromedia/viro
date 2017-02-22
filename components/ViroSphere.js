@@ -13,7 +13,6 @@
 
 import React, { Component } from 'react';
 import { requireNativeComponent, View, StyleSheet } from 'react-native';
-var NativeMethodsMixin = require('react/lib/NativeMethodsMixin');
 var PropTypes = require('react/lib/ReactPropTypes');
 
 
@@ -21,8 +20,6 @@ var PropTypes = require('react/lib/ReactPropTypes');
  * Used to render a ViroSphere
  */
 var ViroSphere = React.createClass({
-  mixins: [NativeMethodsMixin],
-
   propTypes: {
     ...View.propTypes,
     position: PropTypes.arrayOf(PropTypes.number),

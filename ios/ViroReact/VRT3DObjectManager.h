@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "RCTBridge.h"
+#import <React/RCTBridge.h>
 #import "ViroViewManager.h"
 
 @interface VRT3DObjectManager : ViroViewManager

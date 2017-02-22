@@ -17,6 +17,8 @@
     "components",
     "android/react_viro",
     "android/viro_renderer",
-    "android/gvr_common"
+    "android/gvr_common",
+    "ios/dist",
+    "ios/ViroReact.podspec"
   ]
 }

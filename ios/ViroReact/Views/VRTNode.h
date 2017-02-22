@@ -7,9 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <React/RCTComponent.h>
+#import <React/RCTBridge.h>
 #import "VRTView.h"
-#import "RCTComponent.h"
-#import "RCTBridge.h"
+
 
 extern const int k2DPointsPerSpatialUnit;
 

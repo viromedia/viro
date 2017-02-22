@@ -18,14 +18,15 @@
 //  6. Rename RCTProcessMetaProps VRTProcessMetaProps
 //  7. Rename all RCTProcessMetaProps in didSetProps to VRTProcessMetaProps
 
+#import <React/RCTConvert.h>
+#import <React/RCTLog.h>
+#import <React/RCTUtils.h>
+#import <React/UIView+React.h>
 #import "VRTShadowView.h"
 #import "VRTNode.h"
 
-#import "RCTConvert.h"
-#import "RCTLog.h"
-#import "RCTUtils.h"
-#import "UIView+React.h"
-#import "UIView+Private.h"
+
+#import <React/UIView+Private.h>
 #import "VRTAnimatedComponentShadowView.h"
 #import "VRTAnimatedComponent.h"
 #import "VRTImage.h"
@@ -64,61 +65,61 @@ extern const int k2DPointsPerSpatialUnit;
 
 //Override padding, margin and dimension methods that convert 3d units into 2d ones for the flexbox algorithm.
 // Padding
-- (void)setPadding:(CGFloat)padding {
+- (void)setPadding:(float)padding {
   [super setPadding:padding * k2DPointsPerSpatialUnit];
 }
 
 // Margin
-- (void)setMargin:(CGFloat)margin {
+- (void)setMargin:(float)margin {
   [super setMargin:margin * k2DPointsPerSpatialUnit];
 }
 
-- (void)setMarginTop:(CGFloat)marginTop {
+- (void)setMarginTop:(float)marginTop {
   [super setMarginTop:marginTop * k2DPointsPerSpatialUnit];
 }
 
-- (void)setMarginBottom:(CGFloat)marginBottom {
+- (void)setMarginBottom:(float)marginBottom {
   [super setMarginBottom:marginBottom * k2DPointsPerSpatialUnit];
 }
 
-- (void)setMarginLeft:(CGFloat)marginLeft {
+- (void)setMarginLeft:(float)marginLeft {
   [super setMarginLeft:marginLeft * k2DPointsPerSpatialUnit];
 }
 
-- (void)setMarginRight:(CGFloat)marginRight {
+- (void)setMarginRight:(float)marginRight {
   [super setMarginRight:marginRight * k2DPointsPerSpatialUnit];
 }
 
-- (void)setMarginVertical:(CGFloat)marginVertical {
+- (void)setMarginVertical:(float)marginVertical {
   [super setMarginVertical:marginVertical * k2DPointsPerSpatialUnit];
 }
 
-- (void)setMarginHorizontal:(CGFloat)marginHorizontal {
+- (void)setMarginHorizontal:(float)marginHorizontal {
   [super setMarginHorizontal:marginHorizontal * k2DPointsPerSpatialUnit];
 }
 
 
-- (void)setPaddingVertical:(CGFloat)paddingAmount{
+- (void)setPaddingVertical:(float)paddingAmount{
   [super setPaddingVertical:paddingAmount * k2DPointsPerSpatialUnit];
 }
 
-- (void)setPaddingHorizontal:(CGFloat)paddingAmount {
+- (void)setPaddingHorizontal:(float)paddingAmount {
   [super setPaddingHorizontal:paddingAmount * k2DPointsPerSpatialUnit];
 }
 
-- (void)setPaddingTop:(CGFloat)paddingAmount {
+- (void)setPaddingTop:(float)paddingAmount {
   [super setPaddingTop:paddingAmount * k2DPointsPerSpatialUnit];
 }
 
-- (void)setPaddingLeft:(CGFloat)paddingAmount {
+- (void)setPaddingLeft:(float)paddingAmount {
   [super setPaddingLeft:paddingAmount * k2DPointsPerSpatialUnit];
 }
 
-- (void)setPaddingRight:(CGFloat)paddingAmount {
+- (void)setPaddingRight:(float)paddingAmount {
   [super setPaddingRight:paddingAmount * k2DPointsPerSpatialUnit];
 }
 
-- (void)setPaddingBottom:(CGFloat)paddingAmount {
+- (void)setPaddingBottom:(float)paddingAmount {
   [super setPaddingBottom:paddingAmount * k2DPointsPerSpatialUnit];
 }
 
@@ -126,68 +127,68 @@ extern const int k2DPointsPerSpatialUnit;
 
 // Border
 
-- (void)setBorderWidth:(CGFloat)borderWidth {
+- (void)setBorderWidth:(float)borderWidth {
   [super setBorderWidth:borderWidth * k2DPointsPerSpatialUnit];
 }
 
-- (void)setBorderTopWidth:(CGFloat)borderTopWidth {
+- (void)setBorderTopWidth:(float)borderTopWidth {
   [super setBorderTopWidth:borderTopWidth * k2DPointsPerSpatialUnit];
 }
 
-- (void)setBorderLeftWidth:(CGFloat)borderLeftWidth {
+- (void)setBorderLeftWidth:(float)borderLeftWidth {
   [super setBorderLeftWidth:borderLeftWidth * k2DPointsPerSpatialUnit];
 }
 
-- (void)setBorderRightWidth:(CGFloat)borderRightWidthAmount {
+- (void)setBorderRightWidth:(float)borderRightWidthAmount {
   [super setBorderRightWidth:borderRightWidthAmount * k2DPointsPerSpatialUnit];
 }
 
-- (void)setBorderBottomWidth:(CGFloat)borderBottomWidthAmount {
+- (void)setBorderBottomWidth:(float)borderBottomWidthAmount {
   [super setBorderBottomWidth:borderBottomWidthAmount * k2DPointsPerSpatialUnit];
 }
 
 // Dimensions
 
-- (void)setWidth:(CGFloat)width {
+- (void)setWidth:(float)width {
   [super setWidth:width * k2DPointsPerSpatialUnit];
 }
 
-- (void)setHeight:(CGFloat)heightAmount {
+- (void)setHeight:(float)heightAmount {
   [super setHeight:heightAmount * k2DPointsPerSpatialUnit];
 }
 
-- (void)setMinWidth:(CGFloat)minWidthAmount {
+- (void)setMinWidth:(float)minWidthAmount {
   [super setMinWidth:minWidthAmount * k2DPointsPerSpatialUnit];
 }
 
-- (void)setMinHeight:(CGFloat)minHeightAmount {
+- (void)setMinHeight:(float)minHeightAmount {
   [super setMinHeight:minHeightAmount * k2DPointsPerSpatialUnit];
 }
 
-- (void)setMaxWidth:(CGFloat)maxWidthAmount {
+- (void)setMaxWidth:(float)maxWidthAmount {
   [super setMaxWidth:maxWidthAmount * k2DPointsPerSpatialUnit];
 }
 
-- (void)setMaxHeight:(CGFloat)maxHeightAmount {
+- (void)setMaxHeight:(float)maxHeightAmount {
   [super setMaxHeight:maxHeightAmount * k2DPointsPerSpatialUnit];
 }
 
 
 // Position
 
-- (void)setTop:(CGFloat)topAmount {
+- (void)setTop:(float)topAmount {
   [super setTop:topAmount * k2DPointsPerSpatialUnit];
 }
 
-- (void)setBottom:(CGFloat)bottomAmount {
+- (void)setBottom:(float)bottomAmount {
   [super setBottom:bottomAmount * k2DPointsPerSpatialUnit];
 }
 
-- (void)setRight:(CGFloat)rightAmount {
+- (void)setRight:(float)rightAmount {
   [super setRight:rightAmount * k2DPointsPerSpatialUnit];
 }
 
-- (void)setLeft:(CGFloat)leftAmount {
+- (void)setLeft:(float)leftAmount {
   [super setLeft:leftAmount * k2DPointsPerSpatialUnit];
 }
 
@@ -322,18 +323,18 @@ extern const int k2DPointsPerSpatialUnit;
 }
 
 
-static inline void RCTAssignSuggestedDimension(CSSNodeRef cssNode, CSSDimension dimension, CGFloat amount)
+static inline void RCTAssignSuggestedDimension(YGNodeRef cssNode, YGDimension dimension, CGFloat amount)
 {
   if (amount != UIViewNoIntrinsicMetric) {
     switch (dimension) {
-      case CSSDimensionWidth:
-        if (isnan(CSSNodeStyleGetWidth(cssNode))) {
-          CSSNodeStyleSetWidth(cssNode, amount);
+      case YGDimensionWidth:
+        if (isnan(YGNodeStyleGetWidth(cssNode).value)) {
+          YGNodeStyleSetWidth(cssNode, amount);
         }
         break;
-      case CSSDimensionHeight:
-        if (isnan(CSSNodeStyleGetHeight(cssNode))) {
-          CSSNodeStyleSetHeight(cssNode, amount);
+      case YGDimensionHeight:
+        if (isnan(YGNodeStyleGetHeight(cssNode).value)) {
+          YGNodeStyleSetHeight(cssNode, amount);
         }
         break;
     }

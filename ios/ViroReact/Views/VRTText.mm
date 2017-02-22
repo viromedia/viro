@@ -6,13 +6,13 @@
 //  Copyright © 2017 Viro Media. All rights reserved.
 //
 #import <CoreText/CoreText.h>
+#import <React/RCTConvert.h>
+#import <React/RCTLog.h>
+#import <React/RCTFont.h>
 #import "VRTText.h"
 #import "VRTUtils.h"
-#import "ViroUIManager.h"
 #import "VRTFlexView.h"
-#import "RCTConvert.h"
-#import "RCTLog.h"
-#import "RCTFont.h"
+
 
 NSString *const VRTLabelReactTagAttributeName = @"ReactTagAttributeName";
 

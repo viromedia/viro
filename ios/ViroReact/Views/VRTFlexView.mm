@@ -6,13 +6,13 @@
 //  Copyright © 2016 Viro Media. All rights reserved.
 //
 
+#import <React/RCTLog.h>
+#import <React/RCTBridge.h>
 #import "VRTFlexView.h"
 #import "VRTScene.h"
 #import "VRTVideoSurface.h"
 #import "VRTAnimatedComponent.h"
 #import "VRTMaterialManager.h"
-#import "RCTLog.h"
-#import "RCTBridge.h"
 #import "VRTImage.h"
 #import "VRTText.h"
 #import "VRTVideoSurface.h"

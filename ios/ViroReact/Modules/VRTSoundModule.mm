@@ -7,7 +7,7 @@
 //
 
 #import "VRTSoundModule.h"
-#import "RCTLog.h"
+#import <React/RCTLog.h>
 
 @interface VRTSoundModule ()
 

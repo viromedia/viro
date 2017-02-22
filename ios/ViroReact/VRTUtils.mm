@@ -7,7 +7,7 @@
 //
 
 #import "VRTUtils.h"
-#import "RCTUtils.h"
+#import <React/RCTUtils.h>
 
 
 // Populate NSarray values into regular C float array

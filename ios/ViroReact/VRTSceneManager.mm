@@ -6,13 +6,16 @@
 //  Copyright © 2015 Viro Media. All rights reserved.
 //
 
-#import "VRTSceneManager.h"
-#import "RCTConvert.h"
+
+#import <React/RCTConvert.h>
+#import <React/RCTUIManager.h>
+#import <React/RCTBridge.h>
+
 #include "VRTScene.h"
 #include "VRTSceneShadowView.h"
-#import "RCTUIManager.h"
+#import "VRTSceneManager.h"
 #import "VRTCamera.h"
-#import "RCTBridge.h"
+
 #import <ViroKit/ViroKit.h>
 
 @implementation VRTSceneManager {

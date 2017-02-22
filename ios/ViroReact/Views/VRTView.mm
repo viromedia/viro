@@ -6,9 +6,10 @@
 //  Copyright © 2016 Viro Media. All rights reserved.
 //
 
+#import <React/RCTLog.h>
+#import <React/RCTComponent.h>
 #import "VRTView.h"
 #import "VRTUtils.h"
-#import "RCTLog.h"
 #import "VRTMaterialManager.h"
 #import <UIKit/UIKit.h>
 #import <objc/runtime.h>
@@ -67,7 +68,7 @@
   return _childViews;
 }
 
-- (id<VROComponent>)reactSuperview {
+- (id<RCTComponent>)reactSuperview {
   return nil;
 }
 

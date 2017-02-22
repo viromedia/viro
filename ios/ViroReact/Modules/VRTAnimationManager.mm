@@ -6,10 +6,11 @@
 //  Copyright © 2016 Viro Media. All rights reserved.
 //
 
+#import <ViroKit/ViroKit.h>
+#import <React/RCTLog.h>
 #import "VRTAnimationManager.h"
 #import "VRTMaterialManager.h"
-#import <ViroKit/ViroKit.h>
-#import "RCTLog.h"
+
 
 class VROLazyMaterialReact : public VROLazyMaterial {
 public:

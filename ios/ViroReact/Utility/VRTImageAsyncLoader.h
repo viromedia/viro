@@ -7,8 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <React/RCTImageSource.h>
 #import "VRTImageAsyncLoaderEventDelegate.h"
-#import "RCTImageSource.h"
+
 
 @interface VRTImageAsyncLoader : NSObject
 

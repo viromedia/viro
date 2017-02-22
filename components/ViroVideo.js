@@ -6,13 +6,11 @@
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  */
-import { requireNativeComponent, View, StyleSheet } from 'react-native';
+import { requireNativeComponent, View, StyleSheet, findNodeHandle } from 'react-native';
 import resolveAssetSource from "react-native/Libraries/Image/resolveAssetSource";
 import React, { Component } from 'react';
-var NativeMethodsMixin = require('react/lib/NativeMethodsMixin');
 var PropTypes = require('react/lib/ReactPropTypes');
 var ViroVideoManager = require('react-native').NativeModules.VideoSurfaceManager;
-var findNodeHandle = require('react/lib/findNodeHandle');
 var RCT_VIDEO_REF = 'virovideocomponent';
 
 var ViroVideo = React.createClass({

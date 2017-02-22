@@ -6,9 +6,10 @@
 //  Copyright © 2016 Viro Media. All rights reserved.
 //
 
+#import <React/RCTUIManager.h>
 #import "VRTSceneNavigatorManager.h"
 #import "VRTSceneNavigator.h"
-#import "ViroUIManager.h"
+
 
 @implementation VRTSceneNavigatorManager
 
@@ -25,8 +26,8 @@ RCT_EXPORT_VIEW_PROPERTY(apiKey, NSString)
 
 RCT_EXPORT_METHOD(requestExit:(nonnull NSNumber *)reactTag)
 {
-  [self.bridge.viroUIManager addUIBlock:^(__unused ViroUIManager *uiManager, NSDictionary<NSNumber *, VRTView *> *viewRegistry) {
-    VRTView *view = viewRegistry[reactTag];
+  [self.bridge.uiManager addUIBlock:^(__unused RCTUIManager *uiManager, NSDictionary<NSNumber *, UIView *> *viewRegistry) {
+    VRTView *view = (VRTView *)viewRegistry[reactTag];
     if (![view isKindOfClass:[VRTSceneNavigator class]]) {
       RCTLogError(@"Invalid view returned from registry, expecting VRTSceneNavigator, got: %@", view);
     } else {

@@ -18,7 +18,6 @@ import {
 
 import React from 'react';
 
-var NativeMethodsMixin = require('react/lib/NativeMethodsMixin');
 var NativeModules = require('react-native/Libraries/BatchedBridge/NativeModules');
 var PropTypes = require('react/lib/ReactPropTypes');
 var StyleSheet = require('react-native/Libraries/StyleSheet/StyleSheet');
@@ -36,8 +35,6 @@ var stylePropType = StyleSheetPropType(ViroFlexViewPropTypes);
  * Used to render a ViroFlexView
  */
 var ViroFlexView = React.createClass({
-  mixins: [NativeMethodsMixin],
-
   propTypes: {
     ...View.propTypes,
     position: PropTypes.arrayOf(PropTypes.number),

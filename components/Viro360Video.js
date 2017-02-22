@@ -11,13 +11,11 @@
  */
 'use strict';
 
-import { requireNativeComponent, View, StyleSheet} from 'react-native';
+import { requireNativeComponent, View, StyleSheet, findNodeHandle} from 'react-native';
 import React, { Component } from 'react';
 import resolveAssetSource from "react-native/Libraries/Image/resolveAssetSource";
-var NativeMethodsMixin = require('react/lib/NativeMethodsMixin');
 var PropTypes = require('react/lib/ReactPropTypes');
 var Viro360VideoManager = require('react-native').NativeModules.Video360Manager;
-var findNodeHandle = require('react/lib/findNodeHandle');
 
 var RCT_360_VIDEO_REF = 'viro360videocomponent';
 
@@ -25,8 +23,6 @@ var RCT_360_VIDEO_REF = 'viro360videocomponent';
  * Used to render a 360 video on the background sphere.
  */
 var Viro360Video = React.createClass({
-  mixins: [NativeMethodsMixin],
-
   propTypes: {
     ...View.propTypes,
 

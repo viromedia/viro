@@ -6,6 +6,7 @@
 //  Copyright © 2016 Viro Media. All rights reserved.
 //
 
+#import <React/RCTComponent.h>
 #import "VRTHUD.h"
 #import "VRTHUDComponent.h"
 
@@ -20,7 +21,7 @@
   return self;
 }
 
-- (void)insertReactSubview:(id<VROComponent>)subview atIndex:(NSInteger)atIndex {
+- (void)insertReactSubview:(UIView *)subview atIndex:(NSInteger)atIndex {
   if([subview conformsToProtocol:@protocol(VRTHUDComponent)]) {
     VRTHUDLabel<VRTHUDComponent> *hudcomp = (VRTHUDLabel<VRTHUDComponent> *)subview;
     [_hudChildren addObject:[hudcomp getUIView]];

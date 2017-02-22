@@ -10,12 +10,10 @@
 
 import { requireNativeComponent, View, StyleSheet, Platform } from 'react-native';
 import React, { Component } from 'react';
-var NativeMethodsMixin = require('react/lib/NativeMethodsMixin');
 var NativeModules = require('react-native').NativeModules;
 var PropTypes = require('react/lib/ReactPropTypes');
 
 var ViroController = React.createClass({
-  mixins: [NativeMethodsMixin],
 
   propTypes: {
     ...View.propTypes,

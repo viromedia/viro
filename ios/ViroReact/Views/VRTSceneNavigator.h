@@ -7,9 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <React/RCTBridge.h>
+#import <React/RCTInvalidating.h>
 #import "VRTNode.h"
-#import "RCTBridge.h"
-#import "RCTInvalidating.h"
+
 
 @class VRTScene;
 

@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "RCTImageSource.h"
+#import <React/RCTImageSource.h>
 #import "VRTControl.h"
 #import "VRTImageAsyncLoaderEventDelegate.h"
 

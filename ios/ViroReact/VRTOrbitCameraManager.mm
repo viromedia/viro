@@ -8,7 +8,6 @@
 
 #import "VRTOrbitCameraManager.h"
 #import "VRTOrbitCamera.h"
-#import "ViroUIManager.h"
 
 @implementation VRTOrbitCameraManager
 

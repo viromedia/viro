@@ -9,11 +9,11 @@
 
 #import <UIKit/UIKit.h>
 
-#import <CSSLayout/CSSLayout.h>
-#import "VROComponent.h"
+#import <yoga/Yoga.h>
+#import <React/RCTRootView.h>
+#import <React/RCTShadowView.h>
 #import "VRTView.h"
-#import "RCTRootView.h"
-#import "RCTShadowView.h"
+
 
 @class RCTSparseArray;
 
@@ -37,13 +37,6 @@ typedef void (^VRTApplierBlock)(NSDictionary<NSNumber *, VRTView *> *viewRegistr
  */
 @interface VRTShadowView : RCTShadowView
  
-/**
- * RCTComponent interface.
- */
-- (NSArray<VRTShadowView *> *)reactSubviews NS_REQUIRES_SUPER;
-- (VRTShadowView *)reactSuperview NS_REQUIRES_SUPER;
-- (void)insertReactSubview:(VRTShadowView *)subview atIndex:(NSInteger)atIndex NS_REQUIRES_SUPER;
-- (void)removeReactSubview:(VRTShadowView *)subview NS_REQUIRES_SUPER;
 
 @property (nonatomic, weak, readonly) VRTShadowView *superview;
 

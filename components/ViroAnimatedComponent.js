@@ -13,15 +13,12 @@
 
 import { requireNativeComponent, View, StyleSheet, Platform } from 'react-native';
 import React from 'react';
-var NativeMethodsMixin = require('react/lib/NativeMethodsMixin');
 var PropTypes = require('react/lib/ReactPropTypes');
 
 /**
  * Used to render a ViroAnimatedComponent
  */
 var ViroAnimatedComponent = React.createClass({
-  mixins: [NativeMethodsMixin],
-
   propTypes: {
     ...View.propTypes,
     animation: PropTypes.string,

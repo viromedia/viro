@@ -14,7 +14,6 @@
 import { requireNativeComponent, View, StyleSheet } from 'react-native';
 import React, { Component } from 'react';
 import resolveAssetSource from "react-native/Libraries/Image/resolveAssetSource";
-var NativeMethodsMixin = require('react/lib/NativeMethodsMixin');
 var PropTypes = require('react/lib/ReactPropTypes');
 
 var ViroPropTypes = require('./Styles/ViroPropTypes');
@@ -28,11 +27,9 @@ var BTN_TYPE_HOVER = 'hovering';
 var BTN_TYPE_NORMAL = 'normal';
 var BTN_TYPE_CLICKED = 'clicked';
 /**
- * Composite controle for 2D button 
+ * Composite controle for 2D button
  */
  var ViroButton = React.createClass({
-  mixins: [NativeMethodsMixin],
-
   propTypes: {
   	...View.propTypes,
     /**
@@ -189,7 +186,7 @@ var BTN_TYPE_CLICKED = 'clicked';
 
     );
   },
-  
+
   _onButtonHover: function(source, isHovering) {
     if (this.props.onHover && isHovering) {
         this.setState({

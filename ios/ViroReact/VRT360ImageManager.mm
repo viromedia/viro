@@ -6,9 +6,10 @@
 //  Copyright © 2016 Viro Media. All rights reserved.
 //
 
+#import <React/RCTImageSource.h>
 #import "VRT360ImageManager.h"
 #import "VRT360Image.h"
-#import "RCTImageSource.h"
+
 
 @implementation VRT360ImageManager
 

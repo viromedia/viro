@@ -14,7 +14,6 @@
 import { requireNativeComponent, View } from 'react-native';
 import React from 'react';
 
-var NativeMethodsMixin = require('react/lib/NativeMethodsMixin');
 var NativeModules = require('react-native').NativeModules;
 var PropTypes = require('react/lib/ReactPropTypes');
 var StyleSheet = require('react-native/Libraries/StyleSheet/StyleSheet');
@@ -27,8 +26,6 @@ var stylePropType = StyleSheetPropType(ViroPropTypes);
  * Used to render a ViroSurface
  */
 var ViroSurface = React.createClass({
-  mixins: [NativeMethodsMixin],
-
   propTypes: {
     ...View.propTypes,
     position: PropTypes.arrayOf(PropTypes.number),
