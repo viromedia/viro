@@ -115,7 +115,7 @@ RCT_EXPORT_METHOD(setJSMaterials:(NSDictionary *)materialsDict)
     
   return std::make_shared<VROTexture>(format,
                                       mipmap,
-                                      std::make_shared<VROImageiOS>(image));
+                                      std::make_shared<VROImageiOS>(image, format));
 }
 
 - (std::shared_ptr<VROTexture>)createTextureCubeMap:(NSDictionary *)cubeMapDict {
@@ -152,12 +152,12 @@ RCT_EXPORT_METHOD(setJSMaterials:(NSDictionary *)materialsDict)
   
   // create cube texture with following images in this order
   std::vector<std::shared_ptr<VROImage>> cubeImages =  {
-      std::make_shared<VROImageiOS>(cubeMapImages[@"px"]),
-      std::make_shared<VROImageiOS>(cubeMapImages[@"nx"]),
-      std::make_shared<VROImageiOS>(cubeMapImages[@"py"]),
-      std::make_shared<VROImageiOS>(cubeMapImages[@"ny"]),
-      std::make_shared<VROImageiOS>(cubeMapImages[@"pz"]),
-      std::make_shared<VROImageiOS>(cubeMapImages[@"nz"])
+      std::make_shared<VROImageiOS>(cubeMapImages[@"px"], format),
+      std::make_shared<VROImageiOS>(cubeMapImages[@"nx"], format),
+      std::make_shared<VROImageiOS>(cubeMapImages[@"py"], format),
+      std::make_shared<VROImageiOS>(cubeMapImages[@"ny"], format),
+      std::make_shared<VROImageiOS>(cubeMapImages[@"pz"], format),
+      std::make_shared<VROImageiOS>(cubeMapImages[@"nz"], format)
   };
   
   return std::make_shared<VROTexture>(format, cubeImages);

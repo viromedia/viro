@@ -123,12 +123,12 @@
       
       if (px != nil && nx != nil && py != nil && ny != nil && pz != nil && nz != nil) {
         std::vector<std::shared_ptr<VROImage>> cubeImages =  {
-            std::make_shared<VROImageiOS>(px),
-            std::make_shared<VROImageiOS>(nx),
-            std::make_shared<VROImageiOS>(py),
-            std::make_shared<VROImageiOS>(ny),
-            std::make_shared<VROImageiOS>(pz),
-            std::make_shared<VROImageiOS>(nz)
+            std::make_shared<VROImageiOS>(px, self.format),
+            std::make_shared<VROImageiOS>(nx, self.format),
+            std::make_shared<VROImageiOS>(py, self.format),
+            std::make_shared<VROImageiOS>(ny, self.format),
+            std::make_shared<VROImageiOS>(pz, self.format),
+            std::make_shared<VROImageiOS>(nz, self.format)
         };
         
         _cubeTexture = std::make_shared<VROTexture>(self.format, cubeImages);

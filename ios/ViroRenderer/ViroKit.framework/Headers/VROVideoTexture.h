@@ -41,11 +41,7 @@ public:
      */
     virtual void prewarm() = 0;
     
-    virtual void onFrameWillRender(const VRORenderContext &context) {
-        if (_delegate != nullptr && !isPaused()) {
-            updateVideoTime();
-        }
-    }
+    virtual void onFrameWillRender(const VRORenderContext &context) {}
     virtual void onFrameDidRender(const VRORenderContext &context) {}
     
     virtual void pause() = 0;
@@ -71,24 +67,31 @@ protected:
      * Notifies delegates about the video player's current time, per second.
      */
     void updateVideoTime(){
-        double currentTime = floor(VROTimeCurrentSeconds());
+        if (_delegate == nullptr) {
+            return;
+        }
 
         /*
-         * _lastVideoTimeGetAttempt is used to reduce the amount of JNI
-         * calls (getCurrentTimeInSeconds()) to be queried every
-         * second - the lowest unit of time currently used by video players.
+         * Reduce the amount of JNI Calls to getCurrentTimeInSeconds() to
+         * a per-second basis - the lowest unit of time currently used by
+         * video players. Thus, _lastVideoTimeGetAttempt is used to filter
+         * the amount of calls made.
          */
-        if (_lastVideoTimeGetAttempt != currentTime) {
+        double currentRenderTime = floor(VROTimeCurrentSeconds());
+        if (_lastVideoTimeGetAttempt == currentRenderTime) {
+            return;
+        }
+        _lastVideoTimeGetAttempt = currentRenderTime;
 
-            _lastVideoTimeGetAttempt = currentTime;
-            int currentVideoTimeInSeconds = getCurrentTimeInSeconds();
-
-            // Only notify delegates if the last known CurrentVideoTime has changed.
-            if (_lastCurrentVideoTimeInSeconds != currentVideoTimeInSeconds) {
-                _delegate->onVideoUpdatedTime(currentVideoTimeInSeconds,
-                                              getVideoDurationInSeconds());
-                _lastCurrentVideoTimeInSeconds = currentVideoTimeInSeconds;
-            }
+        /*
+         * Only notify delegates if the last known CurrentVideoTime returned
+         * from the AVPlayer has changed.
+         */
+        int currentVideoTimeInSeconds = getCurrentTimeInSeconds();
+        if (_lastCurrentVideoTimeInSeconds != currentVideoTimeInSeconds) {
+            _delegate->onVideoUpdatedTime(currentVideoTimeInSeconds,
+                                          getVideoDurationInSeconds());
+            _lastCurrentVideoTimeInSeconds = currentVideoTimeInSeconds;
         }
     }
 

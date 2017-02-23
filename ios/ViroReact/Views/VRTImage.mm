@@ -66,7 +66,8 @@ static float const kDefaultHeight = 1;
     if(_placeholderSource && _source) {
         std::shared_ptr<VROTexture> placeholderTexture = std::make_shared<VROTexture>(VROTextureInternalFormat::RGBA8,
                                                                                       VROMipmapMode::Runtime,
-                                                                                      std::make_shared<VROImageiOS>(_placeholderSource));
+                                                                                      std::make_shared<VROImageiOS>(_placeholderSource,
+                                                                                                                    VROTextureInternalFormat::RGBA8));
         _surface->getMaterials().front()->getDiffuse().setTexture(placeholderTexture);
     }
     
@@ -89,7 +90,7 @@ static float const kDefaultHeight = 1;
     if (success && image!=nil) {
         _texture = std::make_shared<VROTexture>(self.format,
                                                 self.mipmap ? VROMipmapMode::Runtime : VROMipmapMode::None,
-                                                std::make_shared<VROImageiOS>(image));
+                                                std::make_shared<VROImageiOS>(image, self.format));
         
       // Check if width and height were set as props. If not, recreate the surface using
       // the aspect ratio of image.

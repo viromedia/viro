@@ -34,6 +34,7 @@ enum class VROTextureFormat {
     ETC2_RGBA8_EAC,
     ASTC_4x4_LDR,
     RGBA8,
+    RGB565
 };
 
 // Texture formats for storage on the GPU
