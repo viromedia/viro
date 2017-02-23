@@ -37,7 +37,8 @@ public:
         OnMove = 4,
         OnControllerStatus = 5,
         OnSwipe = 6,
-        OnScroll = 7
+        OnScroll = 7,
+        OnDrag = 8
     };
 
     /**
@@ -90,6 +91,7 @@ public:
         _enabledEventMap[VROEventDelegate::EventAction::OnControllerStatus] = false;
         _enabledEventMap[VROEventDelegate::EventAction::OnSwipe] = false;
         _enabledEventMap[VROEventDelegate::EventAction::OnScroll] = false;
+        _enabledEventMap[VROEventDelegate::EventAction::OnDrag] = false;
     }
 
     /**
@@ -136,6 +138,10 @@ public:
     }
 
     virtual void onScroll(int source, float x, float y) {
+        //No-op
+    }
+
+    virtual void onDrag(int source, VROVector3f newPosition){
         //No-op
     }
 private:

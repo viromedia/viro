@@ -103,6 +103,13 @@ public:
         //No-op
     }
 
+    virtual void onDrag(int source, VROVector3f newPosition) {
+        std::shared_ptr<VROEventDelegate> delegate = getDelegate();
+        if (delegate != nullptr && delegate->isEventEnabled(VROEventDelegate::EventAction::OnDrag)){
+            delegate->onDrag(source, newPosition);
+        }
+    }
+
     std::shared_ptr<VROReticle> getReticle() {
             return _reticle;
     }

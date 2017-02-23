@@ -22,7 +22,8 @@
 #include "VRONode.h"
 #include "VROGeometry.h"
 static const float SCENE_BACKGROUND_DIST = 5.0f;
-
+static const VROVector3f CONTROLLER_DEFAULT_POSITION = {0,0,0};
+static const float ON_DRAG_DISTANCE_THRESHOLD = 0.01;
 /**
  * Responsible for mapping generalized input data from a controller, to a unified
  * set of VROEventDelegate.EventTypes. It then notifies corresponding VROEventDelegates
@@ -36,8 +37,10 @@ class VROInputControllerBase{
 public:
     VROInputControllerBase(){
         _lastKnownPosition = VROVector3f(0,0,0);
+        _lastDraggedNodePosition = VROVector3f(0,0,0);
         _lastClickedNode = nullptr;
         _lastHoveredNode = nullptr;
+        _lastDraggedNode = nullptr;
         _scene = nullptr;
         _currentControllerStatus = VROEventDelegate::ControllerStatus::Unknown;
     }
@@ -106,8 +109,7 @@ public:
     void onControllerStatus(int source, VROEventDelegate::ControllerStatus status);
     void onButtonEvent(int source, VROEventDelegate::ClickState clickAction);
     void onTouchpadEvent(int source, VROEventDelegate::TouchState touchAction, float lastKnownX, float lastKnownY);
-    void onRotate(int source, VROQuaternion rotation);
-    void onPosition(int source, VROVector3f position);
+    void onMove(int source, VROVector3f position, VROQuaternion rotation);
     void onSwipe(int source, VROEventDelegate::SwipeState swipeState);
     void onScroll(int source, float x, float y);
 protected:
@@ -131,9 +133,11 @@ protected:
      */
     VROEventDelegate::ControllerStatus _currentControllerStatus;
 
-protected:
+    void updateHitNode(VROVector3f fromPosition, VROVector3f withDirection);
+
+private:
     /*
-     * The controller forward vector. Normalized vector indicating where the controller
+     * The pointer's normalized forward vector indicating where the controller
      * is pointing.
      */
     VROVector3f _lastKnownForward;
@@ -146,11 +150,14 @@ protected:
      * achieve the controller's current orientation.
      */
     VROQuaternion _lastKnownRotation;
-    VROVector3f _lastKnownPosition;
-    void notifyOrientationDelegates(int source);
-    void updateHitNode(VROVector3f fromPosition, VROVector3f withDirection);
 
-private:
+    VROVector3f _lastKnownPosition;
+
+    /*
+     * Last known position of the node that was dragged previously by this controller.
+     */
+    VROVector3f _lastDraggedNodePosition;
+
     std::shared_ptr<VROScene> _scene;
 
     /*
@@ -158,7 +165,7 @@ private:
      */
     std::shared_ptr<VROHitTestResult> _hitResult;
 
-    /**
+    /*
      * Last node that we have clicked down on.
      */
     std::shared_ptr<VRONode> _lastClickedNode;
@@ -187,6 +194,21 @@ private:
                                                   std::shared_ptr<VRONode> startingNode);
 
     void processGazeEvent(int source, std::shared_ptr<VRONode> node);
+
+    /**
+     * VRODraggedObject encapsulates all the information that needs to be tracked
+     * and processed for onDrag events for a given dragged node.
+     */
+    struct VRODraggedObject{
+        std::shared_ptr<VRONode> _draggedNode;
+        VROVector3f _draggedOffsetFromPointer;
+        float _draggedDistanceFromController;
+    };
+
+    /*
+     * Last hit result that we are performing a drag event on.
+     */
+    std::shared_ptr<VRODraggedObject> _lastDraggedNode;
 };
 
 #endif
