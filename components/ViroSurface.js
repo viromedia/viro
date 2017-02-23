@@ -107,7 +107,7 @@ var ViroSurface = React.createClass({
     nativeProps.onTouchViro = this._onTouch;
     nativeProps.onScrollViro = this._onScroll;
     nativeProps.onSwipeViro = this._onSwipe;
-    nativeProps.onDrag = this._onDrag;
+    nativeProps.onDragViro = this._onDrag;
     nativeProps.canHover = this.props.onHover != undefined;
     nativeProps.canClick = this.props.onClick != undefined || this.props.onClickState != undefined;
     nativeProps.canTouch = this.props.onTouch != undefined;
