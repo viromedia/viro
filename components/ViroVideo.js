@@ -41,7 +41,7 @@ var ViroVideo = React.createClass({
         }),
         // Opaque type returned by require('./test_video.mp4')
         PropTypes.number
-    ]),
+    ]).isRequired,
 
     onHover: React.PropTypes.func,
     onClick: React.PropTypes.func,
