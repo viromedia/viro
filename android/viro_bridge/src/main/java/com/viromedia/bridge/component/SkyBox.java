@@ -11,6 +11,7 @@ import com.facebook.react.bridge.ReadableMapKeySetIterator;
 import com.facebook.react.bridge.ReadableType;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
 import com.viro.renderer.jni.ImageJni;
+import com.viro.renderer.jni.TextureFormat;
 import com.viro.renderer.jni.TextureJni;
 import com.viromedia.bridge.component.node.Scene;
 import com.viromedia.bridge.utility.ImageDownloadListener;
@@ -29,7 +30,7 @@ public class SkyBox extends Component {
     private TextureJni mLatestTexture;
     private ImageDownloader mImageDownloader;
     private long mColor;
-    private String mFormat = "RGBA8";
+    private TextureFormat mFormat = TextureFormat.RGBA8;
 
     public SkyBox(ReactApplicationContext context) {
         super(context);
@@ -86,7 +87,7 @@ public class SkyBox extends Component {
                         cubeFaceImage.destroy();
                     }
 
-                    cubeFaceImage = new ImageJni(result);
+                    cubeFaceImage = new ImageJni(result, mFormat);
                     mImageJniMap.put(cubeFaceName, cubeFaceImage);
                     latch.countDown();
 
@@ -127,7 +128,8 @@ public class SkyBox extends Component {
     }
 
     public void setFormat(String format) {
-        mFormat = format;
+        mFormat = TextureFormat.forString(format);
+        mImageDownloader.setTextureFormat(mFormat);
     }
 
     private void imageDownloadDidStart() {

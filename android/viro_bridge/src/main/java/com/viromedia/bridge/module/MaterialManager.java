@@ -15,6 +15,7 @@ import com.facebook.react.bridge.ReadableMapKeySetIterator;
 import com.facebook.react.bridge.ReadableType;
 import com.viro.renderer.jni.ImageJni;
 import com.viro.renderer.jni.MaterialJni;
+import com.viro.renderer.jni.TextureFormat;
 import com.viro.renderer.jni.TextureJni;
 import com.viromedia.bridge.utility.Helper;
 import com.viromedia.bridge.utility.ImageDownloader;
@@ -78,13 +79,13 @@ public class MaterialManager extends ReactContextBaseJavaModule {
 
             if (materialPropertyName.endsWith("texture") || materialPropertyName.endsWith("Texture")) {
                 if (materialPropertyName.equalsIgnoreCase("reflectiveTexture")) {
-                    TextureJni nativeTexture = createTextureCubeMap(materialMap.getMap(materialPropertyName), "RGBA8");
+                    TextureJni nativeTexture = createTextureCubeMap(materialMap.getMap(materialPropertyName), TextureFormat.RGBA8);
                     setTextureOnMaterial(nativeMaterial, nativeTexture, materialPropertyName);
                     continue;
                 }
 
                 String path = parseImagePath(materialMap, materialPropertyName);
-                String format = parseImageFormat(materialMap, materialPropertyName);
+                TextureFormat format = parseImageFormat(materialMap, materialPropertyName);
                 boolean mipmap = parseImageMipmap(materialMap, materialPropertyName);
 
                 Uri uri = Helper.parseUri(path, mContext);
@@ -97,7 +98,9 @@ public class MaterialManager extends ReactContextBaseJavaModule {
                                     materialPropertyName);
                         } else {
                             ImageDownloader downloader = new ImageDownloader(mContext);
-                            ImageJni nativeImage = new ImageJni(downloader.getImageSync(uri));
+                            downloader.setTextureFormat(format);
+
+                            ImageJni nativeImage = new ImageJni(downloader.getImageSync(uri), format);
                             setImageOnMaterial(nativeImage, format, mipmap, nativeMaterial, materialPropertyName);
                         }
                     }
@@ -126,7 +129,7 @@ public class MaterialManager extends ReactContextBaseJavaModule {
         return materialWrapper;
     }
 
-    private void setImageOnMaterial(ImageJni image, String format, boolean mipmap,
+    private void setImageOnMaterial(ImageJni image, TextureFormat format, boolean mipmap,
                                     MaterialJni material, String name) {
         TextureJni nativeTexture = new TextureJni(image, format, mipmap);
         setTextureOnMaterial(material, nativeTexture, name);
@@ -139,7 +142,7 @@ public class MaterialManager extends ReactContextBaseJavaModule {
         nativeTexture.destroy();
     }
 
-    private TextureJni createTextureCubeMap(ReadableMap textureMap, String format) {
+    private TextureJni createTextureCubeMap(ReadableMap textureMap, TextureFormat format) {
         ReadableMapKeySetIterator iter = textureMap.keySetIterator();
 
         if (!iter.hasNextKey()) {
@@ -156,7 +159,8 @@ public class MaterialManager extends ReactContextBaseJavaModule {
                 cubeMapImages.put(key, mImageMap.get(key));
             } else {
                 ImageDownloader downloader = new ImageDownloader(mContext);
-                ImageJni nativeImage = new ImageJni(downloader.getImageSync(textureMap));
+                downloader.setTextureFormat(format);
+                ImageJni nativeImage = new ImageJni(downloader.getImageSync(textureMap), format);
                 cubeMapImages.put(key, nativeImage);
             }
 
@@ -202,11 +206,11 @@ public class MaterialManager extends ReactContextBaseJavaModule {
         return null;
     }
 
-    private String parseImageFormat(ReadableMap map, String key) {
-        String format = "RGBA8";
+    private TextureFormat parseImageFormat(ReadableMap map, String key) {
+        TextureFormat format = TextureFormat.RGBA8;
         if (map.getType(key) == ReadableType.Map) {
             if (map.getMap(key).hasKey("format")) {
-                format = map.getMap(key).getString("format");
+                format = TextureFormat.forString(map.getMap(key).getString("format"));
             }
         }
         return format;

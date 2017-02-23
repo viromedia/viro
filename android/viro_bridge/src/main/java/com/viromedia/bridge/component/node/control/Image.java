@@ -13,6 +13,7 @@ import com.viro.renderer.jni.ImageJni;
 import com.viro.renderer.jni.MaterialJni;
 import com.viro.renderer.jni.RenderContextJni;
 import com.viro.renderer.jni.SurfaceJni;
+import com.viro.renderer.jni.TextureFormat;
 import com.viro.renderer.jni.TextureJni;
 import com.viromedia.bridge.utility.ImageDownloadListener;
 import com.viromedia.bridge.utility.ImageDownloader;
@@ -34,7 +35,7 @@ public class Image extends Control {
     private float mHeight = 1;
 
     private boolean mMipmap = true;
-    private String mFormat = "RGBA8";
+    private TextureFormat mFormat = TextureFormat.RGBA8;
 
     private boolean mGeometryNeedsUpdate = false;
     private boolean mIsImageSet = false;
@@ -70,7 +71,7 @@ public class Image extends Control {
     }
 
     public void setFormat(String format) {
-        mFormat = format;
+        mFormat = TextureFormat.forString(format);
     }
 
     @Override
@@ -87,6 +88,7 @@ public class Image extends Control {
 
     public void updateImage() {
         final ImageDownloader downloader = new ImageDownloader(getContext());
+        downloader.setTextureFormat(mFormat);
 
         if (mNativeSurface == null) {
             mNativeSurface = new SurfaceJni(mWidth, mHeight);
@@ -182,7 +184,7 @@ public class Image extends Control {
             mLatestImageTexture.destroy();
         }
 
-        mLatestImage = new ImageJni(image);
+        mLatestImage = new ImageJni(image, mFormat);
         mLatestImageTexture = new TextureJni(mLatestImage, mFormat, mMipmap);
         mNativeSurface.setImageTexture(mLatestImageTexture);
     }

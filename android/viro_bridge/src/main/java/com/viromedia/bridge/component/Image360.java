@@ -11,6 +11,7 @@ import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
 import com.viro.renderer.jni.ImageJni;
+import com.viro.renderer.jni.TextureFormat;
 import com.viro.renderer.jni.TextureJni;
 import com.viromedia.bridge.component.node.Scene;
 import com.viromedia.bridge.utility.ImageDownloadListener;
@@ -24,7 +25,7 @@ public class Image360 extends Component {
     private float[] mRotation = sDefaultRotation;
     private ImageJni mLatestImage;
     private TextureJni mLatestTexture;
-    private String mFormat = "RGBA8";
+    private TextureFormat mFormat = TextureFormat.RGBA8;
 
     public Image360(ReactApplicationContext context) {
         super(context);
@@ -48,6 +49,7 @@ public class Image360 extends Component {
     public void onPropsSet() {
         super.onPropsSet();
         ImageDownloader downloader = new ImageDownloader(getContext());
+        downloader.setTextureFormat(mFormat);
 
         if (mSourceMap != null) {
             imageDownloadDidStart();
@@ -63,7 +65,7 @@ public class Image360 extends Component {
                         mLatestTexture.destroy();
                     }
 
-                    mLatestImage = new ImageJni(result);
+                    mLatestImage = new ImageJni(result, mFormat);
                     mLatestTexture = new TextureJni(mLatestImage, mFormat, false);
 
                     if (mScene != null) {
@@ -99,7 +101,7 @@ public class Image360 extends Component {
     }
 
     public void setFormat(String format) {
-        mFormat = format;
+        mFormat = TextureFormat.forString(format);
     }
 
     private void imageDownloadDidStart() {

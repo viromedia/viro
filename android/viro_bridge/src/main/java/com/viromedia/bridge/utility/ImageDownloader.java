@@ -21,6 +21,7 @@ import com.facebook.imagepipeline.image.CloseableImage;
 import com.facebook.imagepipeline.request.ImageRequest;
 import com.facebook.imagepipeline.request.ImageRequestBuilder;
 import com.facebook.react.bridge.ReadableMap;
+import com.viro.renderer.jni.TextureFormat;
 
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CountDownLatch;
@@ -35,7 +36,7 @@ public class ImageDownloader {
     private final Context mContext;
     private final ConcurrentHashMap<CountDownLatch, Bitmap> mImageMap;
     private final DefaultExecutorSupplier mExecutorSupplier;
-
+    private Bitmap.Config mConfig = Bitmap.Config.ARGB_8888;
 
     public ImageDownloader(Context context) {
         mContext = context;
@@ -73,7 +74,7 @@ public class ImageDownloader {
         }
         Bitmap toReturn = mImageMap.get(latch);
         mImageMap.remove(latch);
-        return toReturn;
+        return toReturn.copy(mConfig, false);
     }
 
     /**
@@ -111,7 +112,7 @@ public class ImageDownloader {
                         if (image instanceof CloseableBitmap) {
                             Bitmap bitmap = ((CloseableBitmap) image).getUnderlyingBitmap();
                             if (listener != null) {
-                                listener.completed(bitmap.copy(bitmap.getConfig(), true));
+                                listener.completed(bitmap.copy(mConfig, true));
                             } else {
                                 mImageMap.put(latch, bitmap);
                             }
@@ -135,4 +136,12 @@ public class ImageDownloader {
         dataSource.subscribe(dataSubscriber, mExecutorSupplier.forBackgroundTasks());
     }
 
+    public void setTextureFormat(TextureFormat format) {
+        if (format == TextureFormat.RGB565) {
+            mConfig = Bitmap.Config.RGB_565;
+        }
+        else {
+            mConfig = Bitmap.Config.ARGB_8888;
+        }
+    }
 }
