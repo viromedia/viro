@@ -20,7 +20,7 @@ var ViroOrbitCamera = React.createClass({
     ...View.propTypes,
     position: PropTypes.arrayOf(PropTypes.number),
     focalPoint: PropTypes.arrayOf(PropTypes.number),
-    active: PropTypes.bool,
+    active: PropTypes.bool.isRequired,
   },
 
   componentDidMount() {

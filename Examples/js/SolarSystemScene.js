@@ -109,6 +109,8 @@ ViroMaterials.createMaterials({
    sun_glow: {
      lightingModel: "Constant",
      diffuseTexture: require('./res/textures/sun_glow.png'),
+     writesToDepthBuffer: true,
+     readsFromDepthBuffer: true
    },
 
    earth: {

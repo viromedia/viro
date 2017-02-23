@@ -171,11 +171,11 @@ public class AnimationManager extends ReactContextBaseJavaModule {
             lazyMaterial = new LazyMaterialReact(material, materialManager);
         }
 
-        int durationMilliseconds = getPropertyAsInt(animationMap, "duration");
-        int delayMilliseconds = getPropertyAsInt(animationMap, "delay");
+        float durationMilliseconds = (float) getPropertyAsDouble(animationMap, "duration");
+        float delayMilliseconds = (float) getPropertyAsDouble(animationMap, "delay");
 
-        float durationSeconds = durationMilliseconds == Integer.MIN_VALUE ? 0 : durationMilliseconds / 1000f;
-        float delaySeconds = delayMilliseconds == Integer.MIN_VALUE ? 0 : delayMilliseconds / 1000f;
+        float durationSeconds = durationMilliseconds == Double.MIN_VALUE ? 0 : durationMilliseconds / 1000f;
+        float delaySeconds = delayMilliseconds == Double.MIN_VALUE ? 0 : delayMilliseconds / 1000f;
 
         String functionType = getFloatPropertyAsString(animationMap, "easing");
         if (functionType == null) {
@@ -221,17 +221,17 @@ public class AnimationManager extends ReactContextBaseJavaModule {
     }
 
     /**
-     * This method tries to return the property pointed to by the key as an int from the map.
+     * This method tries to return the property pointed to by the key as a double from the map.
      *
      * @param map the property map
      * @param key the key of the property we want
-     * @return an int or MIN_VALUE denoting that we didn't find the key/value pair.
+     * @return a double or MIN_VALUE denoting that we didn't find the key/value pair.
      */
-    private int getPropertyAsInt(ReadableMap map, String key) {
+    private double getPropertyAsDouble(ReadableMap map, String key) {
         if (map.hasKey(key) && map.getType(key) == ReadableType.Number) {
-            return map.getInt(key);
+            return map.getDouble(key);
         }
-        return Integer.MIN_VALUE;
+        return Double.MIN_VALUE;
     }
 
 }
