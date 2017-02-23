@@ -17,7 +17,7 @@ import {
   ViroSceneNavigator,
 } from 'react-viro';
 
-var InitialScene = require('./js/scene_ios_test');
+var InitialScene = require('./js/SolarSystemScene');
 
 export default class ViroSample extends Component {
   render() {
