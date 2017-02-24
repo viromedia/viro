@@ -39,6 +39,7 @@ public class Image extends Control {
 
     private boolean mGeometryNeedsUpdate = false;
     private boolean mIsImageSet = false;
+    private boolean mWidthOrHeightPropSet = false;
 
     public Image(ReactApplicationContext context) {
         super(context);
@@ -59,11 +60,13 @@ public class Image extends Control {
     public void setWidth(float width) {
         mWidth = width;
         mGeometryNeedsUpdate = true;
+        mWidthOrHeightPropSet = true;
     }
 
     public void setHeight(float height) {
         mHeight = height;
         mGeometryNeedsUpdate = true;
+        mWidthOrHeightPropSet = true;
     }
 
     public void setMipmap(boolean mipmap) {
@@ -86,10 +89,7 @@ public class Image extends Control {
         updateImage();
     }
 
-    public void updateImage() {
-        final ImageDownloader downloader = new ImageDownloader(getContext());
-        downloader.setTextureFormat(mFormat);
-
+    private void updateSurface() {
         if (mNativeSurface == null) {
             mNativeSurface = new SurfaceJni(mWidth, mHeight);
         } else if (mGeometryNeedsUpdate) {
@@ -99,6 +99,13 @@ public class Image extends Control {
         }
         getNodeJni().setGeometry(mNativeSurface);
         mGeometryNeedsUpdate = false;
+    }
+
+    public void updateImage() {
+        final ImageDownloader downloader = new ImageDownloader(getContext());
+        downloader.setTextureFormat(mFormat);
+
+        updateSurface();
 
         // If an image isn't already set, then first fetch the placeholder (which should be on disk)
         // before downloading/fetching the source image. Otherwise, just immediately get the source.
@@ -122,6 +129,17 @@ public class Image extends Control {
                 @Override
                 public void completed(Bitmap result) {
                     mIsImageSet = true;
+
+                    // If no width or height property was set, then base these on the
+                    // image's aspect ratio and update the surface
+                    if (!mWidthOrHeightPropSet) {
+                        float ratio = (float) result.getWidth() / (float) result.getHeight();
+                        mHeight = mWidth / ratio;
+                        mGeometryNeedsUpdate = true;
+
+                        updateSurface();
+                    }
+
                     setMaterialOnSurface();
                     setImageOnSurface(result);
                     imageDownloadDidFinish();

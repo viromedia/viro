@@ -96,7 +96,7 @@ static float const kDefaultHeight = 1;
       // the aspect ratio of image.
       if (!_widthOrHeightPropSet){
         float ratio = image.size.width / image.size.height;
-        _height = _height / ratio;
+        _height = _width / ratio;
         [self updateSurface];
       }
         
