@@ -116,14 +116,8 @@ static NSArray<NSNumber *> *const kDefaultSize = @[@(0), @(0), @(0)];
         return;
     }
     
-    VRTView *pointOfView = [_camera superview];
-    if (![pointOfView isKindOfClass:[VRTNode class]]) {
-        RCTLogError(@"Camera superview is not a VRTNode!");
-        return;
-    }
-    
-    VRTNode *node = (VRTNode *)pointOfView;
-    [_vroView setPointOfView:node.node];
+    [_vroView setPointOfView:_camera.node];
+    NSLog(@"Set camera with rotation type %d", _camera.node->getCamera()->getRotationType());
 }
 
 - (void)setCamera:(VRTCamera *)camera {

@@ -22,6 +22,7 @@ static NSArray *const kDefaultCameraPosition  = @[@0, @0, @0];
   if (self) {
     _nodeCamera = std::make_shared<VRONodeCamera>();
     self.position = kDefaultCameraPosition;
+    self.node->setCamera(_nodeCamera);
   }
   
   return self;

@@ -1,20 +1,20 @@
 /**
  * Copyright © 2016 Viro Media. All rights reserved.
  */
-package com.viromedia.bridge.component;
+package com.viromedia.bridge.component.node.control;
 
 
-import android.content.Context;
-
+import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.uimanager.annotations.ReactProp;
 import com.viro.renderer.jni.CameraJni;
 import com.viro.renderer.jni.NodeJni;
+import com.viromedia.bridge.component.Component;
 
-public class Camera extends Component {
+public class Camera extends Control {
     protected CameraJni mNativeCamera;
     private float[] mPosition;
 
-    public Camera(Context context) {
+    public Camera(ReactApplicationContext context) {
         super(context);
     }
 
@@ -56,5 +56,6 @@ public class Camera extends Component {
         }
         mNativeCamera.setPosition(mPosition);
         mNativeCamera.setRotationType(getRotationType());
+        addToNode(getNodeJni());
     }
 }

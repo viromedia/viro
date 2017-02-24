@@ -37,7 +37,9 @@ var ViroOrbitCamera = React.createClass({
 
   render: function() {
     return (
-      <VRTOrbitCamera {...this.props} />
+      <VRTOrbitCamera
+        {...this.props}
+      />
     );
   }
 });
@@ -49,7 +51,26 @@ ViroOrbitCamera.contextTypes = {
 };
 
 var VRTOrbitCamera = requireNativeComponent(
-  'VRTOrbitCamera', ViroOrbitCamera
-);
+  'VRTOrbitCamera',
+  ViroOrbitCamera, {
+    nativeOnly: {
+                scale:[1,1,1],
+                materials:[],
+                visible: true,
+                canHover: true,
+                canClick: true,
+                canTouch: true,
+                canScroll: true,
+                canSwipe: true,
+                canDrag: true,
+                onHoverViro:true,
+                onClickViro:true,
+                onTouchViro:true,
+                onScrollViro:true,
+                onSwipeViro:true,
+                onDragViro:true,
+                transformBehaviors:true,
+      }
+});
 
 module.exports = ViroOrbitCamera;

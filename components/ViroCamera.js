@@ -36,7 +36,9 @@ var ViroCamera = React.createClass({
 
   render: function() {
     return (
-      <VRTCamera {...this.props} />
+      <VRTCamera
+        {...this.props}
+      />
     );
   }
 });
@@ -48,7 +50,26 @@ ViroCamera.contextTypes = {
 };
 
 var VRTCamera = requireNativeComponent(
-  'VRTCamera', ViroCamera
-);
+  'VRTCamera',
+  ViroCamera, {
+    nativeOnly: {
+                scale:[1,1,1],
+                materials:[],
+                visible: true,
+                canHover: true,
+                canClick: true,
+                canTouch: true,
+                canScroll: true,
+                canSwipe: true,
+                canDrag: true,
+                onHoverViro:true,
+                onClickViro:true,
+                onTouchViro:true,
+                onScrollViro:true,
+                onSwipeViro:true,
+                onDragViro:true,
+                transformBehaviors:true,
+      }
+});
 
 module.exports = ViroCamera;

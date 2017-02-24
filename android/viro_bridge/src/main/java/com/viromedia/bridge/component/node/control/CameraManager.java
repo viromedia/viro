@@ -1,15 +1,17 @@
 /**
  * Copyright © 2016 Viro Media. All rights reserved.
  */
-package com.viromedia.bridge.component;
+package com.viromedia.bridge.component.node.control;
 
 
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.uimanager.ThemedReactContext;
 import com.facebook.react.uimanager.annotations.ReactProp;
+import com.viromedia.bridge.component.node.NodeManager;
+import com.viromedia.bridge.component.node.control.Camera;
 
-public class CameraManager extends ViroViewGroupManager<Camera> {
+public class CameraManager extends NodeManager<Camera> {
 
     public CameraManager(ReactApplicationContext context) {
         super(context);
@@ -22,7 +24,7 @@ public class CameraManager extends ViroViewGroupManager<Camera> {
 
     @Override
     protected Camera createViewInstance(ThemedReactContext reactContext) {
-        return new Camera(reactContext);
+        return new Camera(getContext());
     }
 
     @ReactProp(name = "position")

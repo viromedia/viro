@@ -11,12 +11,11 @@ import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
 import com.viro.renderer.jni.CameraCallback;
-import com.viro.renderer.jni.RenderContextJni;
 import com.viro.renderer.jni.SceneJni;
 import com.viro.renderer.jni.TextureJni;
 import com.viro.renderer.jni.VideoTextureJni;
 import com.viro.renderer.jni.RendererJni;
-import com.viromedia.bridge.component.Camera;
+import com.viromedia.bridge.component.node.control.Camera;
 import com.viromedia.bridge.utility.Helper;
 import com.viromedia.bridge.utility.ViroEvents;
 
@@ -100,8 +99,7 @@ public class Scene extends Node implements SceneJni.SceneDelegate {
 
     private void setCameraIfPossible() {
         if (mCamera != null && mNativeRenderer != null) {
-            Node parent = (Node) mCamera.getParent();
-            mNativeRenderer.setPointOfView(parent.getNodeJni());
+            mNativeRenderer.setPointOfView(mCamera.getNodeJni());
         }
     }
 
