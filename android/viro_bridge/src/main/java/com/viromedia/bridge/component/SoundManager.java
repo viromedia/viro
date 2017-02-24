@@ -3,10 +3,16 @@
  */
 package com.viromedia.bridge.component;
 
+import android.support.annotation.Nullable;
+
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReadableMap;
+import com.facebook.react.common.MapBuilder;
 import com.facebook.react.uimanager.ThemedReactContext;
 import com.facebook.react.uimanager.annotations.ReactProp;
+import com.viromedia.bridge.utility.ViroEvents;
+
+import java.util.Map;
 
 public class SoundManager extends ViroViewGroupManager<Sound> {
 
@@ -21,7 +27,7 @@ public class SoundManager extends ViroViewGroupManager<Sound> {
 
     @Override
     public Sound createViewInstance(ThemedReactContext reactContext) {
-        return new Sound(reactContext);
+        return new Sound(getContext());
     }
 
     @ReactProp(name = "source")
@@ -47,5 +53,12 @@ public class SoundManager extends ViroViewGroupManager<Sound> {
     @ReactProp(name = "loop", defaultBoolean = false)
     public void setLoop(Sound sound, boolean loop) {
         sound.setLoop(loop);
+    }
+
+    @Override
+    public @Nullable Map getExportedCustomDirectEventTypeConstants() {
+        return MapBuilder.of(
+                ViroEvents.ON_FINISH, MapBuilder.of("registrationName", ViroEvents.ON_FINISH)
+        );
     }
 }

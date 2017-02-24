@@ -3,7 +3,6 @@
  */
 package com.viromedia.bridge.component;
 
-import android.content.Context;
 import android.net.Uri;
 
 import com.facebook.react.bridge.ReactApplicationContext;
@@ -21,7 +20,6 @@ public abstract class BaseSound extends Component implements SoundDelegate {
 
     protected static final String NAME = "name";
     protected static final String URI = "uri";
-    protected static final String WEB_PREFIX = "http";
 
     protected BaseSoundJni mNativeSound;
     protected ReadableMap mSource;
@@ -35,10 +33,6 @@ public abstract class BaseSound extends Component implements SoundDelegate {
 
     public BaseSound(ReactApplicationContext reactContext) {
         super(reactContext.getBaseContext(), null, -1, -1, reactContext);
-    }
-
-    public BaseSound(Context context) {
-        super(context, null, -1, -1, null);
     }
 
     public void setSource(ReadableMap source) {

@@ -4,8 +4,6 @@
 package com.viromedia.bridge.component;
 
 
-import android.content.Context;
-
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.viro.renderer.jni.BaseSoundJni;
 import com.viro.renderer.jni.SoundDataJni;
@@ -15,10 +13,6 @@ public class Sound extends BaseSound {
 
     public Sound(ReactApplicationContext reactContext) {
         super(reactContext);
-    }
-
-    public Sound(Context context) {
-        super(context);
     }
 
     @Override

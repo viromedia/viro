@@ -22,10 +22,6 @@ public class SoundField extends BaseSound {
         super(reactContext);
     }
 
-    public SoundField(Context context) {
-        super(context);
-    }
-
     public void setRotation(float[] rotation) {
         mRotation = rotation == null ? DEFAULT_ROTATION : rotation;
     }

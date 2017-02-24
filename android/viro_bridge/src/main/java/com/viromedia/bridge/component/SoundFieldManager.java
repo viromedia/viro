@@ -4,12 +4,18 @@
 package com.viromedia.bridge.component;
 
 
+import android.support.annotation.Nullable;
+
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReadableMap;
+import com.facebook.react.common.MapBuilder;
 import com.facebook.react.uimanager.ThemedReactContext;
 import com.facebook.react.uimanager.annotations.ReactProp;
 import com.viromedia.bridge.utility.Helper;
+import com.viromedia.bridge.utility.ViroEvents;
+
+import java.util.Map;
 
 public class SoundFieldManager extends ViroViewGroupManager<SoundField> {
 
@@ -24,7 +30,7 @@ public class SoundFieldManager extends ViroViewGroupManager<SoundField> {
 
     @Override
     public SoundField createViewInstance(ThemedReactContext reactContext) {
-        return new SoundField(reactContext);
+        return new SoundField(getContext());
     }
 
     @ReactProp(name = "source")
@@ -55,5 +61,13 @@ public class SoundFieldManager extends ViroViewGroupManager<SoundField> {
     @ReactProp(name = "rotation")
     public void setRotation(SoundField sound, ReadableArray rotation) {
         sound.setRotation(Helper.toFloatArray(rotation));
+    }
+
+    // TODO: VIRO-758 - GVR doesn't support onFinish.
+    @Override
+    public @Nullable Map getExportedCustomDirectEventTypeConstants() {
+        return MapBuilder.of(
+                ViroEvents.ON_FINISH, MapBuilder.of("registrationName", ViroEvents.ON_FINISH)
+        );
     }
 }

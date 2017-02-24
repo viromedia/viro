@@ -95,6 +95,9 @@ var SoundTest = React.createClass({
       </ViroScene>
     );
   },
+  _onFinishSound() {
+    console.log("SoundTest onFinishSound!");
+  },
   _onClick(component) {
     if (this.state.state == 1) {
       this.setState({
@@ -118,11 +121,7 @@ var SoundTest = React.createClass({
     }
   },
   _getAdditionalSounds(component) {
-    if (this.state.state == 1 || true) {
-      return;
-    } else {
-      return (<ViroSpatialSound source={{uri : "http://www.kozco.com/tech/32.mp3"}} loop={true} position={this.state.position} />);
-    }
+    return (<ViroSound source={{uri : "http://www.freesound.org/data/previews/146/146887_197046-lq.mp3"}} loop={false} position={this.state.position} onFinish={this._onFinishSound}/>);
   },
   _getSource(component) {
     if (this.state.state == 1) {

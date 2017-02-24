@@ -4,12 +4,18 @@
 package com.viromedia.bridge.component;
 
 
+import android.support.annotation.Nullable;
+
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReadableMap;
+import com.facebook.react.common.MapBuilder;
 import com.facebook.react.uimanager.ThemedReactContext;
 import com.facebook.react.uimanager.annotations.ReactProp;
 import com.viromedia.bridge.utility.Helper;
+import com.viromedia.bridge.utility.ViroEvents;
+
+import java.util.Map;
 
 public class SpatialSoundManager extends ViroViewGroupManager<SpatialSoundWrapper> {
 
@@ -70,5 +76,13 @@ public class SpatialSoundManager extends ViroViewGroupManager<SpatialSoundWrappe
     @ReactProp(name = "maxDistance", defaultFloat = 0f)
     public void setMaxDistance(SpatialSoundWrapper sound, float maxDistance) {
         sound.setMaxDistance(maxDistance);
+    }
+
+    // TODO: VIRO-758 - GVR doesn't support onFinish.
+    @Override
+    public @Nullable Map getExportedCustomDirectEventTypeConstants() {
+        return MapBuilder.of(
+                ViroEvents.ON_FINISH, MapBuilder.of("registrationName", ViroEvents.ON_FINISH)
+        );
     }
 }
