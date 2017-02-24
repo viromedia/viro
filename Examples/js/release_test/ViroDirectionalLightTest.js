@@ -41,21 +41,15 @@ import {
 
 let polarToCartesian = ViroUtils.polarToCartesian;
 
-var UriImage = {uri:"https://s3-us-west-2.amazonaws.com/viro/Explorer/360_horseshoe.jpg"};
-var LocalImage = require("./res/360_park.jpg");
+var ViroControllerTest = require('./ViroControllerTest');
+var ViroFlexViewTest = require('./ViroFlexViewTest');
 
-var Viro360ImageTest = require('./Viro360ImageTest');
-var ViroAmbientLightTest = require('./ViroAmbientLightTest');
-
-var Viro360VideoTest = React.createClass({
+var ViroDirectionalLightTest = React.createClass({
 
   getInitialState() {
     return {
-      get360Image:LocalImage,
-
-      showLeftArrow:false,
-      showPoiDot:false,
-      showRightArrow:false,
+      setColor:"#ffffff",
+      setDirection:[0,-1,0]
     };
   },
 
@@ -64,53 +58,68 @@ var Viro360VideoTest = React.createClass({
      <ViroScene>
      <ViroOmniLight position={[0, 0, 0]} color="#ffffff" attenuationStartDistance={40} attenuationEndDistance={50}/>
 
-     <Viro360Image
-      rotation={[0,0,0]}
-      source={this.state.get360Image}
-      onLoadStart={this._onBackgroundPhotoLoadStart}
-      onLoadEnd={this._onBackgroundPhotoLoadEnd}
+     <ViroDirectionalLight
+         color={this.state.setColor}
+         direction={this.state.setDirection}
       />
 
+      <ViroSphere
+        heightSegmentCount={20}
+        widthSegmentCount={20}
+        radius={1}
+        position={[0, 0, -3]}
+        materials={["sphere1"]}
+        facesOutward={false}
+        />
 
-     <ViroAnimatedComponent animation="fadeIn" run={this.state.showLeftArrow} loop={false}>
-     <ViroImage source={require('./res/icon_left_w.png')} position={[-2, -4, -3]} scale={[0, 0, 0]} transformBehaviors={["billboard"]} onClick={this._showPrevious} />
-     </ViroAnimatedComponent>
 
-     <ViroImage source={require('./res/poi_dot.png')} position={[0, -4, -3]} transformBehaviors={["billboard"]} onClick={this._showOther} />
+      <ViroImage source={require('./res/icon_left_w.png')} position={[-2, -4, -3]} scale={[1, 1, 1]} transformBehaviors={["billboard"]} onClick={this._showPrevious} />
 
-     <ViroAnimatedComponent animation="fadeIn" run={this.state.showRightArrow} loop={false}>
-     <ViroImage source={require('./res/icon_right_w.png')} position={[2, -4, -3]} scale={[0, 0, 0]} transformBehaviors={["billboard"]} onClick={this._showNext} />
-     </ViroAnimatedComponent>
+      <ViroImage source={require('./res/poi_dot.png')} position={[-2, -2, -3]} transformBehaviors={["billboard"]} onClick={this._colorWhite} />
+      <ViroText text="Green/Above" position={[-2, -3, -3]} height={1} width={1} transformBehaviors={["billboard"]} />
+
+      <ViroImage source={require('./res/poi_dot.png')} position={[0, -2, -3]} transformBehaviors={["billboard"]} onClick={this._colorRed} />
+      <ViroText text="Red/Left" position={[0, -3, -3]} height={1} width={1} transformBehaviors={["billboard"]} />
+
+      <ViroImage source={require('./res/poi_dot.png')} position={[2, -2, -3]} transformBehaviors={["billboard"]} onClick={this._colorBlue} />
+      <ViroText text="Blue/Back" position={[2, -3, -3]} height={1} width={1} transformBehaviors={["billboard"]} />
+
+      <ViroText text="ViroDirectionalLight" position={[0, -5, -3]} transformBehaviors={["billboard"]} />
+
+      <ViroImage source={require('./res/icon_right_w.png')} position={[2, -4, -3]} scale={[1, 1, 1]} transformBehaviors={["billboard"]} onClick={this._showNext} />
 
      </ViroScene>
 
     );
   },
 
-  _onBackgroundPhotoLoadStart(){
-      this.setState({
-          showLeftArrow:true,
-      });
-  },
-
-  _onBackgroundPhotoLoadEnd() {
-      this.setState({
-          showRightArrow:true,
-      });
-  },
-
   _showPrevious() {
     this.props.sceneNavigator.pop();
   },
 
-  _showOther() {
+  _colorWhite() {
     this.setState({
-        get360Image:UriImage,
+        setColor:"#80FF00",
+        setDirection:[0,1,0],
+      });
+  },
+
+  _colorRed() {
+    this.setState({
+        setColor:"#ff0000",
+        setDirection:[1,0,0],
+      });
+  },
+
+  _colorBlue() {
+    this.setState({
+        setColor:"#7F00FF",
+        setDirection:[0,0,-1],
       });
   },
 
   _showNext() {
-    this.props.sceneNavigator.push({scene:Viro360VideoTest});
+    this.props.sceneNavigator.push({scene:ViroFlexViewTest});
   },
 
 });
@@ -133,4 +142,15 @@ var styles = StyleSheet.create({
   },
 });
 
-module.exports = Viro360VideoTest;
+ViroMaterials.createMaterials({
+
+   sphere1: {
+     shininess : 2.0,
+     lightingModel: "Blinn",
+     diffuseTexture: require('./res/360_waikiki.jpg'),
+   },
+
+});
+
+
+module.exports = ViroDirectionalLightTest;

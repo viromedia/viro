@@ -76,7 +76,7 @@ var ViroAmbientLightTest = React.createClass({
       </ViroAnimatedComponent>
 
       <ViroImage source={require('./res/poi_dot.png')} position={[-2, -2, -3]} transformBehaviors={["billboard"]} onClick={this._colorWhite} />
-      <ViroText text="Whte" position={[-2, -3, -3]} transformBehaviors={["billboard"]} />
+      <ViroText text="White" position={[-2, -3, -3]} transformBehaviors={["billboard"]} />
 
       <ViroImage source={require('./res/poi_dot.png')} position={[0, -2, -3]} transformBehaviors={["billboard"]} onClick={this._colorRed} />
       <ViroText text="Red" position={[0, -3, -3]} transformBehaviors={["billboard"]} />

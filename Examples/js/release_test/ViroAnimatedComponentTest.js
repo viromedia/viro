@@ -140,20 +140,20 @@ var ViroAnimatedComponentTest = React.createClass({
 
   _startAnimation2() {
     this.setState({
-        animationName2:"moveDown",
+        animationName2:"sequentialAnim",
         runAnimation2:true
       });
   },
 
   _startAnimation3() {
     this.setState({
-        animationName3:"scaleSphere",
+        animationName3:"comboAnim",
         runAnimation3:true
       });
   },
 
   _showNext() {
-    this.props.sceneNavigator.push({scene:ViroAnimatedComponentTest});
+    this.props.sceneNavigator.push({scene:ViroBoxTest});
   },
 
 });
@@ -162,8 +162,16 @@ ViroAnimations.registerAnimations({
   fadeIn:{properties:{scaleX:1, scaleY:1, scaleZ:1}, duration: 5000},
   loopRotate:{properties:{rotateY:"+10"}, duration:250},
   scaleSphere:{properties:{scaleX:3, scaleY:3, scaleZ:3}, duration:5000},
-  moveRight:{properties:{positionX:"3", positionY:"3", positionZ:"-3",}, duration:5000},
+  moveRight:{properties:{positionX:"3",}, duration:5000, delay:3000},
+  moveUp:{properties:{positionY:"3",}, duration:5000},
   moveDown:{properties:{positionY:"+3",}, duration:5000},
+  sequentialAnim:[
+      ["moveUp"],
+      ["scaleSphere"],
+  ],
+  comboAnim:[
+      ["moveDown", "scaleSphere"],
+  ],
 });
 
 var styles = StyleSheet.create({

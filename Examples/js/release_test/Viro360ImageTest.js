@@ -71,7 +71,8 @@ var Viro360ImageTest = React.createClass({
       />
 
 
-     <ViroAnimatedComponent animation="fadeIn" run={this.state.showLeftArrow} loop={false}>
+
+     <ViroAnimatedComponent animation="fadeIn" run={true} loop={false}>
      <ViroImage source={require('./res/icon_left_w.png')} position={[-2, -4, -3]} scale={[0, 0, 0]} transformBehaviors={["billboard"]} onClick={this._showPrevious} />
      </ViroAnimatedComponent>
 

@@ -44,6 +44,8 @@ let polarToCartesian = ViroUtils.polarToCartesian;
 var ViroAnimatedComponentTest = require('./ViroAnimatedComponentTest');
 var ViroButtonTest = require('./ViroButtonTest');
 
+// **This test has not been done.  This is placeholder for scene and navigation arrows**
+
 var ViroBoxTest = React.createClass({
 
   getInitialState() {
@@ -95,7 +97,7 @@ var ViroBoxTest = React.createClass({
         />
       </ViroAnimatedComponent>
 
-      
+
 
       <ViroAnimatedComponent
       animation="loopRotate"
@@ -119,7 +121,7 @@ var ViroBoxTest = React.createClass({
       run={this.state.runAnimation4}
       loop={true}>
       <ViroBox
-        position={[2, -2, -4]}
+        position={[2, -1.3, -4]}
         scale={[1,1,1]}
         materials={["box1"]}
         rotation={[0,0,0]}
@@ -169,7 +171,7 @@ var ViroBoxTest = React.createClass({
   },
 
   _showNext() {
-    this.props.sceneNavigator.push({scene:ViroAnimatedComponentTest});
+    this.props.sceneNavigator.push({scene:ViroButtonTest});
   },
 
 });
@@ -198,11 +200,6 @@ ViroMaterials.createMaterials({
      shininess : 2.0,
      lightingModel: "Blinn",
      diffuseTexture: require('./res/earth.png'),
-   },
-   box2: {
-     shininess : 2.0,
-     lightingModel: "Blinn",
-     diffuseTexture: {uri:'https://s3-us-west-2.amazonaws.com/viro/Explorer/seattle1.jpg'},
    },
 
 });

@@ -42,14 +42,17 @@ import {
 let polarToCartesian = ViroUtils.polarToCartesian;
 
 var Viro360ImageTest = require('./Viro360ImageTest');
+var ViroVideoTest = require('./ViroVideoTest');
 
 var Viro3DObjectTest = React.createClass({
 
   getInitialState() {
     return {
-      showLeftArrow:false,
-      showPoiDot:false,
-      showRightArrow:false,
+      runAnimation1:false,
+      runAnimation2:false,
+      runAnimation3:false,
+      setVisibility:true,
+      runAnimation4:false,
     };
   },
 
@@ -58,18 +61,52 @@ var Viro3DObjectTest = React.createClass({
      <ViroScene>
      <ViroOmniLight position={[0, 0, 0]} color="#ffffff" attenuationStartDistance={40} attenuationEndDistance={50}/>
 
-     <Viro360Image
-      rotation={[0,0,0]}
-      source={{uri:"https://s3-us-west-2.amazonaws.com/viro/Explorer/360_horseshoe.jpg"}}  />
-
-
-     <ViroAnimatedComponent animation="fadeIn" run={this.state.showSceneItems} loop={false}>
-     <ViroImage source={{uri:"https://s3-us-west-2.amazonaws.com/viro/Explorer/poi_dot.png"}} position={[0, -4, -3]} transformBehaviors={["billboard"]} onClick={this._showFacebook} />
+     <ViroAnimatedComponent animation="loopRotate"
+      run={this.state.runAnimation1} >
+     <Viro3DObject source={require('./res/destroyer.obj')}
+       position={[1, 1, -5]}
+       materials={["grey"]}
+       rotation={[0,45,0]}
+       scale={[.1,.1,.1]}
+       onHover={this._startAnimation1}
+       onLoadEnd={this._startAnimation4}
+       />
      </ViroAnimatedComponent>
 
-     <ViroAnimatedComponent animation="fadeIn" run={this.state.showSceneItems} loop={false}>
-     <ViroImage source={{uri:"https://s3-us-west-2.amazonaws.com/viro/Explorer/poi_dot.png"}} position={[2, -4, -3]} transformBehaviors={["billboard"]} onClick={this._showNext} />
+     <Viro3DObject source={{uri:"https://s3-us-west-2.amazonaws.com/viro/heart.obj"}}
+            position={[2, -2, -5]}
+            materials={["grey"]}
+            rotation={[0,0,0]}
+            scale={[.3,.3,.3]}
+            />
+
+     <ViroAnimatedComponent animation="loopRotate"
+      run={this.state.runAnimation2} >
+     <Viro3DObject source={require('./res/xwing.obj')}
+       position={[2, -2, -5]}
+       materials={["grey"]}
+       rotation={[0,0,0]}
+       scale={[.3,.3,.3]}
+       onClick={this._startAnimation2}
+       onLoadStart={this._startAnimation3}
+       />
      </ViroAnimatedComponent>
+
+
+
+     <ViroAnimatedComponent animation="loopRotate"
+      run={this.state.runAnimation4} >
+     <Viro3DObject source={require('./res/tantiveIV.obj')}
+       position={[-2, -2, -5]}
+       materials={["grey"]}
+       rotation={[0,0,0]}
+       scale={[.2,.2,.2]}
+       />
+     </ViroAnimatedComponent>
+
+     <ViroImage source={require('./res/icon_left_w.png')} position={[-2, -4, -3]} scale={[1, 1, 1]} transformBehaviors={["billboard"]} onClick={this._showPrevious} />
+     <ViroText text="Viro3DObject" position={[0, -5, -3]} transformBehaviors={["billboard"]} />
+     <ViroImage source={require('./res/icon_right_w.png')} position={[2, -4, -3]} scale={[1, 1, 1]} transformBehaviors={["billboard"]} onClick={this._showNext} />
 
      </ViroScene>
 
@@ -77,30 +114,43 @@ var Viro3DObjectTest = React.createClass({
   },
 
 
-  _showFacebook() {
-          this.props.sceneNavigator.push({scene:FacebookScene});
-      },
+  _showPrevious() {
+    this.props.sceneNavigator.pop();
+  },
+
+  _startAnimation1() {
+    this.setState({
+        runAnimation1:true,
+      });
+  },
+
+  _startAnimation2() {
+    this.setState({
+        runAnimation2:true,
+      });
+  },
+
+  _startAnimation3() {
+    this.setState({
+        runAnimation3:true,
+      });
+  },
+
+  _setVisibility() {
+    this.setState({
+        setVisibility:!this.state.setVisibility,
+      });
+  },
+
+  _startAnimation4() {
+    this.setState({
+        runAnimation4:true,
+      });
+  },
 
   _showNext() {
-          this.props.sceneNavigator.push({scene:Viro360VideTest});
-      },
-
-  _moveForward1() {
-      if(this.state.animationPosition1==true) {
-        this.setState({
-            runAnimation1: true,
-            animationName1: "moveIn1",
-            animationPosition1: false,
-          });
-        }
-      else {
-        this.setState({
-            runAnimation1: true,
-            animationName1: "moveOut1",
-            animationPosition1: true,
-          });
-        }
-      },
+    this.props.sceneNavigator.push({scene:Viro360ImageTest});
+  },
 
 });
 
@@ -125,6 +175,16 @@ var styles = StyleSheet.create({
     color: '#ffffff',
     textAlign: 'center',
   },
+});
+
+ViroMaterials.createMaterials({
+
+   grey: {
+     shininess : 2.0,
+     lightingModel: "Blinn",
+     diffuseTexture: require('./res/grey.jpg'),
+   },
+
 });
 
 module.exports = Viro3DObjectTest;
