@@ -15,6 +15,7 @@
   
   NSURL *_url;
   std::shared_ptr<VROMaterial> _objMaterial;
+  BOOL _sourceChanged;
   std::vector<std::shared_ptr<VROMaterial>> _vroMaterialArray;
   
 }
@@ -23,7 +24,8 @@
 
 - (instancetype)initWithBridge:(RCTBridge *)bridge  {
   self = [super initWithBridge:bridge];
-  
+  _sourceChanged = NO;
+    
   return self;
 }
 
@@ -57,6 +59,11 @@
     }
 }
 
+- (void)setSource:(NSDictionary *)source {
+  _source = source;
+  _sourceChanged = YES;
+}
+
 - (void)didSetProps:(NSArray<NSString *> *)changedProps {
   if (![NSThread isMainThread]) {
     RCTLogWarn(@"Calling [RCTConvert didSetProps:] on a background thread is not recommended");
@@ -65,6 +72,11 @@
     });
     
     return;
+  }
+  
+  // Only reload the OBJ if its source changed
+  if (!_sourceChanged) {
+      return;
   }
   
   NSString *path;
@@ -77,22 +89,23 @@
   std::string base = url.substr(0, url.find_last_of('/'));
 
   if (self.onLoadStartViro) {
-      self.onLoadStartViro(nil);
+    self.onLoadStartViro(nil);
   }
     
   VROOBJLoader::loadOBJFromURL(url, base, true,
-    [self](std::shared_ptr<VRONode> node, bool success) {
-        if (!success) {
-            return;
-        }
+  [self](std::shared_ptr<VRONode> node, bool success) {
+      if (!success) {
+          return;
+      }
         
-        [self setOBJMaterials:node->getGeometry()];
-        self.node->setGeometry(node->getGeometry());
+      [self setOBJMaterials:node->getGeometry()];
+      self.node->setGeometry(node->getGeometry());
         
-        if (self.onLoadEndViro) {
-            self.onLoadEndViro(nil);
-        }
-    });
+      if (self.onLoadEndViro) {
+          self.onLoadEndViro(nil);
+      }
+  });
+  _sourceChanged = NO;
 }
 
 @end
