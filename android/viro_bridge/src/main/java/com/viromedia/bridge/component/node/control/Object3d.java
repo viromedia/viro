@@ -17,6 +17,8 @@ public class Object3d extends Control {
     private ObjectJni mNative3dObject;
     private String mSource;
     private boolean mObjLoaded = false;
+    private boolean mSourceChanged = false;
+
     public Object3d(ReactApplicationContext reactContext) {
         super(reactContext);
     }
@@ -34,6 +36,7 @@ public class Object3d extends Control {
             throw new IllegalArgumentException("source is a required prop for Viro3DObject");
         }
         mSource = Helper.parseUri(source, mReactContext).toString();
+        mSourceChanged = true;
     }
 
     @Override
@@ -46,11 +49,11 @@ public class Object3d extends Control {
 
     @Override
     protected void onPropsSet() {
-        if (mSource == null) {
+        if (mSource == null || !mSourceChanged) {
             return;
         }
-        super.onPropsSet();
 
+        super.onPropsSet();
         ObjectJni oldObject3d = mNative3dObject;
         loadDidStart();
 
@@ -62,14 +65,16 @@ public class Object3d extends Control {
                     // set materials on the node after it's finished loading OBJ
                     setMaterials(mMaterials);
                 }
+
                 loadDidEnd();
             }
         });
         setGeometry(mNative3dObject);
 
         if (oldObject3d != null) {
-            mNative3dObject.destroy();
+            oldObject3d.destroy();
         }
+        mSourceChanged = false;
     }
 
     private void loadDidStart() {
