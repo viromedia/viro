@@ -2417,7 +2417,7 @@
 		</data>
 		<key>Headers/VROAnimationChain.h</key>
 		<data>
-		If9GYNaFHobjsg88M/uoye2Z6V4=
+		nHQCRyfqniFRFZSFekpT5mqax2g=
 		</data>
 		<key>Headers/VROAnimationFloat.h</key>
 		<data>
@@ -2425,7 +2425,7 @@
 		</data>
 		<key>Headers/VROAnimationGroup.h</key>
 		<data>
-		HUq0hOTNTYEDPRRserRmm1annnc=
+		O+YcLpbvbvZayPvih0A9RaA1zVs=
 		</data>
 		<key>Headers/VROAnimationQuaternion.h</key>
 		<data>
@@ -2493,7 +2493,7 @@
 		</data>
 		<key>Headers/VROExecutableAnimation.h</key>
 		<data>
-		NAuBpA6YX/j/oi8/A9iF+UClnU4=
+		vlFXfQG+uaZ7TCRMu0l6E02q8ek=
 		</data>
 		<key>Headers/VROFieldOfView.h</key>
 		<data>
@@ -2861,7 +2861,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		y9yztvkiwcUIHlPz2A0NgzzN+Ok=
+		djnshbOJwXSHzDlAq4J1+ddFy6E=
 		</data>
 		<key>MaterialRobotoFontLoader.bundle/Roboto-Black.ttf</key>
 		<data>
@@ -7220,11 +7220,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			If9GYNaFHobjsg88M/uoye2Z6V4=
+			nHQCRyfqniFRFZSFekpT5mqax2g=
 			</data>
 			<key>hash2</key>
 			<data>
-			wTpbV3nAgrF/9w2cI7bhUSmc+wAYEKVVXtaJexobTEU=
+			G7jaWrtYIq7y4/4JYic58PUqUwaBY8IHyhbFCSZx3Wg=
 			</data>
 		</dict>
 		<key>Headers/VROAnimationFloat.h</key>
@@ -7242,11 +7242,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			HUq0hOTNTYEDPRRserRmm1annnc=
+			O+YcLpbvbvZayPvih0A9RaA1zVs=
 			</data>
 			<key>hash2</key>
 			<data>
-			TOJFd1jsHxvKa9urNic1zWmFwlPuxeSXk3HCoE95SCc=
+			r8oM9gXUb6ZH2TRjUSxnA9+kmqIL0zDL7B9x2hdHRCI=
 			</data>
 		</dict>
 		<key>Headers/VROAnimationQuaternion.h</key>
@@ -7429,11 +7429,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			NAuBpA6YX/j/oi8/A9iF+UClnU4=
+			vlFXfQG+uaZ7TCRMu0l6E02q8ek=
 			</data>
 			<key>hash2</key>
 			<data>
-			wKScGKpA0CPG5Vrnsiu4HGxU3byBdQBk7sZU6y2iyI8=
+			Ut/i+YBHMxvVhEyhJCabxKG7XO0kL713PaH5P7ro1v4=
 			</data>
 		</dict>
 		<key>Headers/VROFieldOfView.h</key>

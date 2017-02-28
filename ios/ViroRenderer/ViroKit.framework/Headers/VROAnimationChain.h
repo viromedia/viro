@@ -32,6 +32,8 @@ public:
         _numComplete(0) {}
     virtual ~VROAnimationChain() {}
     
+    std::shared_ptr<VROExecutableAnimation> copy();
+    
     void execute(std::shared_ptr<VRONode> node,
                  std::function<void()> onFinished);
 

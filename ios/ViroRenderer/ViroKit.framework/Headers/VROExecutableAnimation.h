@@ -22,6 +22,11 @@ public:
     virtual ~VROExecutableAnimation() {}
     
     /*
+     Produce a copy of this animation.
+     */
+    virtual std::shared_ptr<VROExecutableAnimation> copy() = 0;
+    
+    /*
      Execute this animation. The onFinished() callback will be invoked when the
      animation is fully executed (if it has children, this is when the last child
      finishes executing).
