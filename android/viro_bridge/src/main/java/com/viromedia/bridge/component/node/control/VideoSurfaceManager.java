@@ -4,14 +4,15 @@
 package com.viromedia.bridge.component.node.control;
 
 import android.support.annotation.Nullable;
-import android.util.Log;
 
 import com.facebook.react.bridge.ReactApplicationContext;
+import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.common.MapBuilder;
 import com.facebook.react.uimanager.ThemedReactContext;
 import com.facebook.react.uimanager.annotations.ReactProp;
 import com.viromedia.bridge.component.node.NodeManager;
+import com.viromedia.bridge.utility.ViroCommands;
 import com.viromedia.bridge.utility.ViroEvents;
 
 import java.util.Map;
@@ -80,4 +81,22 @@ public class VideoSurfaceManager extends NodeManager<VideoSurface> {
                 ViroEvents.ON_UPDATE_TIME, MapBuilder.of("registrationName", ViroEvents.ON_UPDATE_TIME)
         );
     }
+
+    @Override
+    public void receiveCommand(VideoSurface video, int commandType, @Nullable ReadableArray args) {
+        switch (commandType) {
+            case ViroCommands.SEEK_TO_TIME_INDEX:
+                video.seekToTime((int) args.getDouble(0));
+                break;
+            default:
+                throw new IllegalArgumentException("Unsupported command " + commandType
+                        + " received by" + getClass().getSimpleName());
+        }
+    }
+
+    @Override
+    public Map<String,Integer> getCommandsMap() {
+        return MapBuilder.of(ViroCommands.SEEK_TO_TIME_NAME, ViroCommands.SEEK_TO_TIME_INDEX);
+    }
+
 }

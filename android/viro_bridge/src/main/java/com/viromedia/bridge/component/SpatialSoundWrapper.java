@@ -63,6 +63,10 @@ public class SpatialSoundWrapper extends Node {
         mInnerSound.setMaxDistance(maxDistance);
     }
 
+    public void seekToTime(int seconds) {
+        mInnerSound.seekToTime(seconds);
+    }
+
     @Override
     protected void onPropsSet() {
         mInnerSound.onPropsSet();

@@ -15,9 +15,11 @@ import com.viro.renderer.jni.SoundDelegate;
 import com.viromedia.bridge.module.SoundModule;
 import com.viromedia.bridge.utility.Helper;
 import com.viromedia.bridge.utility.ViroEvents;
+import com.viromedia.bridge.utility.ViroLog;
 
 public abstract class BaseSound extends Component implements SoundDelegate {
 
+    private static final String TAG = ViroLog.getTag(BaseSound.class);
     protected static final String NAME = "name";
     protected static final String URI = "uri";
 
@@ -54,6 +56,18 @@ public abstract class BaseSound extends Component implements SoundDelegate {
 
     public void setLoop(boolean loop) {
         mLoop = loop;
+    }
+
+    public void seekToTime(int seconds) {
+        if (mNativeSound != null) {
+            mNativeSound.seekToTime(seconds);
+            if (!mPaused) {
+                mNativeSound.play();
+            }
+        } else {
+            // We should *NEVER* get in this case, so let's log in case.
+            ViroLog.warn(TAG, "seekToTime called before nativeSound was created!");
+        }
     }
 
     @Override

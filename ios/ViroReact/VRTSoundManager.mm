@@ -6,6 +6,7 @@
 //  Copyright © 2017 Viro Media. All rights reserved.
 //
 
+#import <React/RCTUIManager.h>
 #import "VRTSound.h"
 #import "VRTSoundManager.h"
 
@@ -22,6 +23,19 @@ RCT_EXPORT_VIEW_PROPERTY(onFinishViro, RCTDirectEventBlock)
 - (VRTView *)view
 {
     return [[VRTSound alloc] initWithBridge:self.bridge];
+}
+
+RCT_EXPORT_METHOD(seekToTime:(nonnull NSNumber *)reactTag time:(NSInteger)time)
+{
+    [self.bridge.uiManager addUIBlock:^(__unused RCTUIManager *uiManager, NSDictionary<NSNumber *, UIView *> *viewRegistry) {
+        VRTView *view = (VRTView *)viewRegistry[reactTag];
+        if (![view isKindOfClass:[VRTSound class]]) {
+            RCTLogError(@"Invalid view returned from registry, expecting VRTSound, got: %@", view);
+        } else {
+            VRTSound *component = (VRTSound *)view;
+            [component seekToTime:time];
+        }
+    }];
 }
 
 @end
@@ -42,6 +56,19 @@ RCT_EXPORT_VIEW_PROPERTY(onFinishViro, RCTDirectEventBlock)
     return [[VRTSoundField alloc] initWithBridge:self.bridge];
 }
 
+RCT_EXPORT_METHOD(seekToTime:(nonnull NSNumber *)reactTag time:(NSInteger)time)
+{
+    [self.bridge.uiManager addUIBlock:^(__unused RCTUIManager *uiManager, NSDictionary<NSNumber *, UIView *> *viewRegistry) {
+        VRTView *view = (VRTView *)viewRegistry[reactTag];
+        if (![view isKindOfClass:[VRTSoundField class]]) {
+            RCTLogError(@"Invalid view returned from registry, expecting VRTSoundField, got: %@", view);
+        } else {
+            VRTSoundField *component = (VRTSoundField *)view;
+            [component seekToTime:time];
+        }
+    }];
+}
+
 @end
 
 @implementation VRTSpatialSoundManager
@@ -60,6 +87,19 @@ RCT_EXPORT_VIEW_PROPERTY(onFinishViro, RCTDirectEventBlock)
 - (VRTView *)view
 {
     return [[VRTSpatialSoundWrapper alloc] initWithBridge:self.bridge];
+}
+
+RCT_EXPORT_METHOD(seekToTime:(nonnull NSNumber *)reactTag time:(NSInteger)time)
+{
+    [self.bridge.uiManager addUIBlock:^(__unused RCTUIManager *uiManager, NSDictionary<NSNumber *, UIView *> *viewRegistry) {
+        VRTView *view = (VRTView *)viewRegistry[reactTag];
+        if (![view isKindOfClass:[VRTSpatialSound class]]) {
+            RCTLogError(@"Invalid view returned from registry, expecting VRTSpatialSound, got: %@", view);
+        } else {
+            VRTSpatialSound *component = (VRTSpatialSound *)view;
+            [component seekToTime:time];
+        }
+    }];
 }
 
 @end

@@ -1,5 +1,5 @@
 //
-//  VROVideoSurfaceManager.m
+//  VRTVideoSurfaceManager.m
 //  React
 //
 //  Created by Vik Advani on 3/24/16.

@@ -155,6 +155,9 @@ public class Video360 extends Component {
     public void seekToTime(int time) {
         if (mVideoTextureJni != null) {
             mVideoTextureJni.seekToTime(time);
+            if (!mPaused) {
+                mVideoTextureJni.play();
+            }
         }
     }
 

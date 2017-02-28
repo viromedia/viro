@@ -11,10 +11,13 @@
  */
 'use strict';
 
-import { requireNativeComponent, View, Platform } from 'react-native';
+import { requireNativeComponent, View, Platform, findNodeHandle } from 'react-native';
 import resolveAssetSource from "react-native/Libraries/Image/resolveAssetSource";
 import React from 'react';
+
 var PropTypes = require('react/lib/ReactPropTypes');
+var NativeModules = require('react-native').NativeModules;
+var RCT_SPATIALSOUND_REF = 'virospatialsoundcomponent';
 
 var ViroSpatialSound = React.createClass({
   propTypes: {
@@ -56,6 +59,7 @@ var ViroSpatialSound = React.createClass({
     }
 
     let nativeProps = Object.assign({}, this.props);
+    nativeProps.ref = RCT_SPATIALSOUND_REF;
     nativeProps.source = soundSrc;
     nativeProps.onFinishViro = this._onFinish;
 
@@ -68,7 +72,25 @@ var ViroSpatialSound = React.createClass({
         <VRTSpatialSound {...nativeProps} />
       );
     }
-  }
+  },
+
+  getNodeHandle: function(): any {
+    return findNodeHandle(this.refs[RCT_SPATIALSOUND_REF]);
+  },
+
+  seekToTime(timeInSeconds) {
+    switch (Platform.OS) {
+      case 'ios':
+        NativeModules.VRTSpatialSoundManager.seekToTime(this.getNodeHandle(), timeInSeconds);
+        break;
+      case 'android':
+        NativeModules.UIManager.dispatchViewManagerCommand(
+            this.getNodeHandle(),
+            NativeModules.UIManager.VRTSpatialSound.Commands.seekToTime,
+            [ timeInSeconds ]);
+        break;
+    }
+  },
 
 });
 

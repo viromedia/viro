@@ -1,5 +1,5 @@
 //
-//  VRO360VideoManager.m
+//  VRT360VideoManager.m
 //  React
 //
 //  Created by Vik Advani on 1/28/16.

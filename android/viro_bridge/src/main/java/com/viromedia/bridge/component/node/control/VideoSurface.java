@@ -157,6 +157,9 @@ public class VideoSurface extends Control {
     public void seekToTime(int time) {
         if (mVideoTextureJni != null) {
             mVideoTextureJni.seekToTime(time);
+            if (!mPaused) {
+                mVideoTextureJni.play();
+            }
         }
     }
 

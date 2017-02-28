@@ -128,6 +128,12 @@ static NSString *const kWebPrefix = @"http";
     [self resetSound];
 }
 
+- (void)seekToTime:(NSInteger)time {
+    if (_sound) {
+        _sound->seekToTime(time);
+    }
+}
+
 - (void)resetSound {
     if (!self.driver || !_source || !_shouldReset) {
         return;
@@ -289,6 +295,12 @@ static NSString *const kWebPrefix = @"http";
     [super soundIsReady];
     if (_player) {
         self.paused ? _player->pause() : _player->play();
+    }
+}
+
+- (void)seekToTime:(NSInteger)time {
+    if (_player) {
+        _player->seekToTime(time);
     }
 }
 

@@ -11,10 +11,13 @@
  */
 'use strict';
 
-import { requireNativeComponent, View } from 'react-native';
+import { requireNativeComponent, View, findNodeHandle, Platform } from 'react-native';
 import resolveAssetSource from "react-native/Libraries/Image/resolveAssetSource";
 import React from 'react';
+
 var PropTypes = require('react/lib/ReactPropTypes');
+var NativeModules = require('react-native').NativeModules;
+var RCT_SOUNDFIELD_REF = 'virosoundfieldcomponent';
 
 var ViroSoundField = React.createClass({
   propTypes: {
@@ -53,6 +56,7 @@ var ViroSoundField = React.createClass({
     }
 
     let nativeProps = Object.assign({}, this.props);
+    nativeProps.ref = RCT_SOUNDFIELD_REF;
     nativeProps.source = soundSrc;
     nativeProps.onFinishViro = this._onFinish;
 
@@ -65,7 +69,25 @@ var ViroSoundField = React.createClass({
         <VRTSoundField {...nativeProps} />
       );
     }
-  }
+  },
+
+  getNodeHandle: function(): any {
+    return findNodeHandle(this.refs[RCT_SOUNDFIELD_REF]);
+  },
+
+  seekToTime(timeInSeconds) {
+    switch (Platform.OS) {
+      case 'ios':
+        NativeModules.VRTSoundFieldManager.seekToTime(this.getNodeHandle(), timeInSeconds);
+        break;
+      case 'android':
+        NativeModules.UIManager.dispatchViewManagerCommand(
+            this.getNodeHandle(),
+            NativeModules.UIManager.VRTSoundField.Commands.seekToTime,
+            [ timeInSeconds ]);
+        break;
+    }
+  },
 
 });
 

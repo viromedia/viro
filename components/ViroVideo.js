@@ -6,11 +6,18 @@
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  */
-import { requireNativeComponent, View, StyleSheet, findNodeHandle } from 'react-native';
+import {
+  requireNativeComponent,
+  View,
+  StyleSheet,
+  findNodeHandle,
+  Platform,
+} from 'react-native';
 import resolveAssetSource from "react-native/Libraries/Image/resolveAssetSource";
 import React, { Component } from 'react';
+
+var NativeModules = require('react-native').NativeModules;
 var PropTypes = require('react/lib/ReactPropTypes');
-var ViroVideoManager = require('react-native').NativeModules.VideoSurfaceManager;
 var RCT_VIDEO_REF = 'virovideocomponent';
 
 var ViroVideo = React.createClass({
@@ -63,10 +70,6 @@ var ViroVideo = React.createClass({
       *     onUpdateTime(currentPlaybackTimeInSeconds, totalPlayBackDurationInSeconds);
       */
     onUpdateTime: React.PropTypes.func,
-  },
-
-  getNodeHandle: function(): any {
-    return findNodeHandle(this.refs[RCT_VIDEO_REF]);
   },
 
   _onFinish: function() {
@@ -150,8 +153,22 @@ var ViroVideo = React.createClass({
     );
   },
 
+  getNodeHandle: function(): any {
+    return findNodeHandle(this.refs[RCT_VIDEO_REF]);
+  },
+
   seekToTime(timeInSeconds) {
-    ViroVideoManager.seekToTime(this.getNodeHandle(), timeInSeconds);
+    switch (Platform.OS) {
+      case 'ios':
+        NativeModules.VRTVideoSurfaceManager.seekToTime(this.getNodeHandle(), timeInSeconds);
+        break;
+      case 'android':
+        NativeModules.UIManager.dispatchViewManagerCommand(
+            this.getNodeHandle(),
+            NativeModules.UIManager.VRTVideoSurface.Commands.seekToTime,
+            [ timeInSeconds ]);
+        break;
+    }
   },
 });
 

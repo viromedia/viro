@@ -11,12 +11,18 @@
  */
 'use strict';
 
-import { requireNativeComponent, View, StyleSheet, findNodeHandle} from 'react-native';
+import {
+  requireNativeComponent,
+  View,
+  StyleSheet,
+  findNodeHandle, 
+  Platform
+} from 'react-native';
 import React, { Component } from 'react';
 import resolveAssetSource from "react-native/Libraries/Image/resolveAssetSource";
-var PropTypes = require('react/lib/ReactPropTypes');
-var Viro360VideoManager = require('react-native').NativeModules.Video360Manager;
 
+var PropTypes = require('react/lib/ReactPropTypes');
+var NativeModules = require('react-native').NativeModules;
 var RCT_360_VIDEO_REF = 'viro360videocomponent';
 
 /**
@@ -86,7 +92,17 @@ var Viro360Video = React.createClass({
   },
 
   seekToTime(timeInSeconds) {
-    Viro360VideoManager.seekToTime(this.getNodeHandle(), timeInSeconds);
+    switch (Platform.OS) {
+      case 'ios':
+        NativeModules.VRT360VideoManager.seekToTime(this.getNodeHandle(), timeInSeconds);
+        break;
+      case 'android':
+        NativeModules.UIManager.dispatchViewManagerCommand(
+            this.getNodeHandle(),
+            NativeModules.UIManager.VRT360Video.Commands.seekToTime,
+            [ timeInSeconds ]);
+        break;
+    }
   },
 });
 
