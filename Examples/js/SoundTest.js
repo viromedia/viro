@@ -170,7 +170,7 @@ ViroMaterials.createMaterials({
 });
 
 ViroAnimations.registerAnimations({
-  testLoopRotate:{properties:{rotateY:"+45"}, duration:500},
+  testLoopRotate:{properties:{rotateY:"+=45"}, duration:500},
 });
 
 ViroSound.preloadSounds({

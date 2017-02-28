@@ -49,7 +49,7 @@ var FlexViewTest = React.createClass({
       <ViroScene reticleEnabled={true} onTap={this._addRemoveLight}>
       	{this._addGetLight()}
         <ViroBox materials="box_material" position={[-2, 0, -3]} scale={[2,2,2]}/>
-      
+
         <ViroSkyBox color="#ff69b4" />
 
         <ViroVideo source={{uri: "https://s3.amazonaws.com/viro.video/Climber2Top.mp4"}} position={[0,-1, -1]} />
@@ -70,7 +70,7 @@ var FlexViewTest = React.createClass({
           <ViroImage style={{flex:1}} source={{uri: "http://wiki.magicc.org/images/c/ce/MAGICC_logo_small.jpg"}} />
           <ViroImage style={{flex:1}} source={{uri: "http://wiki.magicc.org/images/c/ce/MAGICC_logo_small.jpg"}} />
         </ViroFlexView>
-      
+
         <ViroFlexView style={styles.containerHorizontal} position={[-2, 0, 0]} width={3} height={2} transformBehaviors={"billboard"} >
           <ViroFlexView style={{flex:1, backgroundColor: "#ff0000",}} />
           <ViroFlexView style={{flex:1}} materials={"sunTexture"} />
@@ -114,7 +114,7 @@ var FlexViewTest = React.createClass({
     if (this.state.addLight) {
       return (<ViroAmbientLight color="#ffff00"/>);
     } else {
-     return;  
+     return;
     }
   }
 });
@@ -161,15 +161,15 @@ ViroMaterials.createMaterials({
   box_material: {
     shininess: 2.0,
     lightingModel: "Blinn",
-    diffuseColor: "#ffffff"  
+    diffuseColor: "#ffffff"
   }
 });
 
 ViroAnimations.registerAnimations({
-    moveRight:{properties:{positionX:"+3"}, duration: 3000},
-    moveLeft:{properties:{positionX:"+-3"}, duration: 3000},
-    rotate:{properties:{rotateZ:"+90"}, duration:3000},
-    rotateY:{properties:{rotateY:"+180"}, duration:1500},
+    moveRight:{properties:{positionX:"+=3"}, duration: 3000},
+    moveLeft:{properties:{positionX:"-=3"}, duration: 3000},
+    rotate:{properties:{rotateZ:"+=90"}, duration:3000},
+    rotateY:{properties:{rotateY:"+=180"}, duration:1500},
     rotateAndMovePicture:[
         ["moveLeft", "moveRight"],
         ["moveRight", "moveLeft"],

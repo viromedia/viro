@@ -122,7 +122,7 @@ var materials = ViroMaterials.createMaterials({
 ViroAnimations.registerAnimations({
     cardIn:{properties:{scaleX:1, scaleY:.6, scaleZ:1, opacity: 1}, easing:"Bounce", duration: 5000},
 
-    testLoopRotate:{properties:{rotateY:"+45"}, duration:1000},
+    testLoopRotate:{properties:{rotateY:"+=45"}, duration:1000},
     testLoopColorYellow:{properties:{color:"#ffff00"}, duration:10000},
     testLoopColorBlue:{properties:{color:"#ffff00"}, duration:10000},
     testLoopColor:[
@@ -137,16 +137,16 @@ ViroAnimations.registerAnimations({
         ["cardOutOpacity"]
     ],
 
-    testPositionMoveEaseInPosition:{properties:{positionZ:"+6", opacity: 1.0}, easing:"EaseIn", duration: 6000},
+    testPositionMoveEaseInPosition:{properties:{positionZ:"+=6", opacity: 1.0}, easing:"EaseIn", duration: 6000},
     testPositionMoveBounceScale:{properties:{scaleX:2, scaleY:2}, easing:"Bounce", delay:6000, duration: 4000},
     testPositionMove:[
         ["testPositionMoveEaseInPosition"],
         ["testPositionMoveBounceScale"]
     ],
 
-    moveRight:{properties:{positionX:"+0.3"}, duration: 10000},
-    moveLeft:{properties:{positionX:"-0.3", rotateZ:"+45"}, duration: 10000},
-    rotate:{properties:{rotateZ:"+45"}, duration:1000},
+    moveRight:{properties:{positionX:"+=0.3"}, duration: 10000},
+    moveLeft:{properties:{positionX:"-=0.3", rotateZ:"+45"}, duration: 10000},
+    rotate:{properties:{rotateZ:"+=45"}, duration:1000},
     rotateAndMovePicture:[
         ["moveRight", "moveLeft"],
         ["rotate"]

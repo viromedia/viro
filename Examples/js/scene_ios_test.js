@@ -117,8 +117,8 @@ ViroMaterials.createMaterials({
 })
 
 ViroAnimations.registerAnimations({
-    moveRight:{properties:{positionX:"+0.5"}, duration: 1000},
-    rotate:{properties:{rotateZ:"+45"}, duration:1000},
+    moveRight:{properties:{positionX:"+=0.5"}, duration: 1000},
+    rotate:{properties:{rotateZ:"+=45"}, duration:1000},
     scale:{properties:{scaleX:1.0, scaleY:0.8, scaleZ:1.0},
                   easing:"Bounce",
                   duration: 5000},

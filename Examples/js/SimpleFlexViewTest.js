@@ -177,7 +177,7 @@ ViroMaterials.createMaterials({
 });
 
 ViroAnimations.registerAnimations({
-  testLoopRotate:{properties:{rotateZ:"+45"}, duration:500},
+  testLoopRotate:{properties:{rotateZ:"+=45"}, duration:500},
 });
 
 module.exports = FlexViewTest;

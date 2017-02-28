@@ -36,8 +36,8 @@ var HelloWorldScene = React.createClass({
         <ViroAmbientLight color="#ffffff" />
 
         <ViroNode position={[0, 0, 0]}>
-          <ViroFlexView style={{flexDirection: 'column', padding: .1, justifyContent: 'center'}} 
-                  width={1.8} height={1.0} 
+          <ViroFlexView style={{flexDirection: 'column', padding: .1, justifyContent: 'center'}}
+                  width={1.8} height={1.0}
                   position={[7, 4, 0.0]}
                   materials={["label_flex_view"]}
                   transformBehaviors={["billboard"]}>
@@ -56,27 +56,27 @@ var HelloWorldScene = React.createClass({
               rotation={[90,0,0]}
               transformBehaviors={["billboard"]} />
 
-          <ViroAnimatedComponent animation='loopRevolveAroundSun' 
-              run={true} loop={true}>                     
+          <ViroAnimatedComponent animation='loopRevolveAroundSun'
+              run={true} loop={true}>
 
             <ViroNode position={[0, 0, 0]} >
 
-              <ViroFlexView style={{flexDirection: 'column', padding: .1}} 
-                  width={1.0} height={1.0} 
+              <ViroFlexView style={{flexDirection: 'column', padding: .1}}
+                  width={1.0} height={1.0}
                   position={[-11.6, 1.5, 0.0]}
                   materials={["label_flex_view"]}
                   transformBehaviors={["billboard"]}>
               </ViroFlexView>
 
-              <ViroAnimatedComponent animation='loopRotateEarth' 
+              <ViroAnimatedComponent animation='loopRotateEarth'
                                          run={true} loop={true}>
                 <Viro3DObject source={require('./res/3d_objects/earth.obj')}
                                 position={[-11.6, 0, 0]}
                                 scale={[2.5, 2.5, 2.5]}
                                 materials={["earth"]} />
               </ViroAnimatedComponent>
- 
-              <ViroAnimatedComponent animation='loopRevolveAroundEarth' 
+
+              <ViroAnimatedComponent animation='loopRevolveAroundEarth'
                            run={true} loop={true}>
                 <ViroNode position={[-11.6, 0, 0]} >
                   <ViroNode position={[0.85, 0, 0]} >
@@ -95,10 +95,10 @@ var HelloWorldScene = React.createClass({
 });
 
 ViroAnimations.registerAnimations({
-  loopRotateEarth:{properties:{rotateY:"+45"}, duration:200},
-  loopRevolveAroundEarth:{properties:{rotateY:"+45"}, duration:200*27.32*45/365},
-  loopRevolveAroundSun:{properties:{rotateY:"+45"}, duration:200*365*45/365},
-  loopNegativeRevolveAroundSun:{properties:{rotateY:"-45"}, duration:200*365*45/365},
+  loopRotateEarth:{properties:{rotateY:"+=45"}, duration:200},
+  loopRevolveAroundEarth:{properties:{rotateY:"+=45"}, duration:200*27.32*45/365},
+  loopRevolveAroundSun:{properties:{rotateY:"+=45"}, duration:200*365*45/365},
+  loopNegativeRevolveAroundSun:{properties:{rotateY:"-=45"}, duration:200*365*45/365},
 });
 
 ViroMaterials.createMaterials({

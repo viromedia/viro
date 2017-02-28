@@ -144,10 +144,10 @@ ViroMaterials.createMaterials({
 });
 
 ViroAnimations.registerAnimations({
-    moveRight:{properties:{positionX:"+3"}, duration: 3000},
-    moveLeft:{properties:{positionX:"+-3"}, duration: 3000},
-    rotate:{properties:{rotateZ:"+90"}, duration:3000},
-    rotateY:{properties:{rotateY:"+180"}, duration:1500},
+    moveRight:{properties:{positionX:"+=3"}, duration: 3000},
+    moveLeft:{properties:{positionX:"-=3"}, duration: 3000},
+    rotate:{properties:{rotateZ:"+=90"}, duration:3000},
+    rotateY:{properties:{rotateY:"+=180"}, duration:1500},
     rotateAndMovePicture:[
         ["moveLeft", "moveRight"],
         ["moveRight", "moveLeft"],
