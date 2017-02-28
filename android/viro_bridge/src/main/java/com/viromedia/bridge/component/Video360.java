@@ -24,7 +24,7 @@ public class Video360 extends Component {
     private boolean mLoop = false;
     private boolean mMuted = false;
     private float mVolume = 1;
-    private float[] mRotation;
+    private float[] mRotation = sDefaultRotation;
 
     private VideoTextureJni mVideoTextureJni = null;
 
