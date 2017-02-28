@@ -46,7 +46,10 @@
         std::shared_ptr<VROMaterial> material = [materialManager getMaterialByName:materialName];
         if (material != NULL) {
             if (i < geometry->getMaterials().size()) {
-                geometry->getMaterials()[i] = material;
+                // Always copy materials from the material manager, as they may be
+                // modified by animations, etc. and we don't want these changes to
+                // propagate to the reference material held by the material manager
+                geometry->getMaterials()[i] = std::make_shared<VROMaterial>(material);
             }
             else {
                 RCTLogError(@"Model has %d elements, material %d [%@] cannot be set",

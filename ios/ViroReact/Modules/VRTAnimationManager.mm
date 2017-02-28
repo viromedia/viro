@@ -143,7 +143,6 @@ RCT_EXPORT_METHOD(setJSAnimations:(NSDictionary *)animationsDict)
     [self populateValue:@"rotateZ" properties:propertyDict inMap:propertyAnimations];
     [self populateValue:@"opacity" properties:propertyDict inMap:propertyAnimations];
     [self populateValue:@"color" properties:propertyDict inMap:propertyAnimations];
-    [self populateValue:@"material" properties:propertyDict inMap:propertyAnimations];
     
     VRTMaterialManager *materialManager = [self.bridge moduleForClass:[VRTMaterialManager class]];
     std::vector<std::shared_ptr<VROLazyMaterial>> materialAnimations;

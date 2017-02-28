@@ -2485,7 +2485,7 @@
 		</data>
 		<key>Headers/VROEventDelegate.h</key>
 		<data>
-		1vGAw7xJrj1P1ra/7+UL/qLVjis=
+		19seKPkfxGfYu+/AIALcIpo4hJw=
 		</data>
 		<key>Headers/VROEventDelegateiOS.h</key>
 		<data>
@@ -2549,11 +2549,11 @@
 		</data>
 		<key>Headers/VROImageiOS.h</key>
 		<data>
-		a9DMF5Y7d4cUIOfw/BQ0pYOgYyw=
+		wXoIrNosxyvhMVnCdBOeePOPvY0=
 		</data>
 		<key>Headers/VROInputControllerBase.h</key>
 		<data>
-		VoZ8vuOtIFNYjcv1eawexovOmVs=
+		8V7ZfgukzllhKYhpAJtoCynwCmg=
 		</data>
 		<key>Headers/VROInputControllerCardboardiOS.h</key>
 		<data>
@@ -2561,7 +2561,7 @@
 		</data>
 		<key>Headers/VROInputPresenter.h</key>
 		<data>
-		mnnrmYVOAcRShSkElhJWzerhjrY=
+		pTcr705b8/+LkVTaSAu+ZuZsuHU=
 		</data>
 		<key>Headers/VROInputPresenterCardboardiOS.h</key>
 		<data>
@@ -7407,11 +7407,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			1vGAw7xJrj1P1ra/7+UL/qLVjis=
+			19seKPkfxGfYu+/AIALcIpo4hJw=
 			</data>
 			<key>hash2</key>
 			<data>
-			0LHDxU/ZFMl9wX3h1RmyBRmXbkTlNp9B2kpivgmcEGg=
+			AmfIfKjK7hbK5S3jxmhsyxz9DkKzO7CFMtaLw3Ew1xA=
 			</data>
 		</dict>
 		<key>Headers/VROEventDelegateiOS.h</key>
@@ -7583,22 +7583,22 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			a9DMF5Y7d4cUIOfw/BQ0pYOgYyw=
+			wXoIrNosxyvhMVnCdBOeePOPvY0=
 			</data>
 			<key>hash2</key>
 			<data>
-			wW7Ts4rhbEXgAROjOenD/Ga43h+tIq6Zwl4i9LKUB18=
+			+Afm/vrn+EQwsDemvQ2JMxBKaVvGp89dheKS5xiki0Q=
 			</data>
 		</dict>
 		<key>Headers/VROInputControllerBase.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			VoZ8vuOtIFNYjcv1eawexovOmVs=
+			8V7ZfgukzllhKYhpAJtoCynwCmg=
 			</data>
 			<key>hash2</key>
 			<data>
-			yX0IgaOSOy0yjIKPJiwzhGjtMlpUkrzTiMKHBh4zoGk=
+			+Mpz2dnUXykdQZeaklVFlHgO/yRan3vc1sPQb+/8Geo=
 			</data>
 		</dict>
 		<key>Headers/VROInputControllerCardboardiOS.h</key>
@@ -7616,11 +7616,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			mnnrmYVOAcRShSkElhJWzerhjrY=
+			pTcr705b8/+LkVTaSAu+ZuZsuHU=
 			</data>
 			<key>hash2</key>
 			<data>
-			eNf+ro2AUJxBKnFWVLPc/WxaJXzM36aFITEo9FgYwW8=
+			q/iVmTNuxL+iHCNTb+KhJrEygVrIsfjzTJzV6yJCYLI=
 			</data>
 		</dict>
 		<key>Headers/VROInputPresenterCardboardiOS.h</key>
