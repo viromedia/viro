@@ -20,7 +20,9 @@ Examples/android/local.properties
 .idea
 
 #iOS
-ios/dist/
+ios/dist/ViroKit.framework
+ios/dist/lib
+ios/dist/include
 ios/Pods/Pods.xcodeproj/xcuserdata/
 ios/ViroReact.xcodeproj/xcuserdata/
 ios/ViroReact.xcworkspace/xcuserdata/
