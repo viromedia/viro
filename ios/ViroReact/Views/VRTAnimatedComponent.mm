@@ -173,7 +173,7 @@ enum class VRTAnimatedComponentState {
         return;
     }
 
-    _executableAnimation = [_animationManager animationForName:self.animation];
+    _executableAnimation = [_animationManager animationForName:self.animation]->copy();
 
     if (_executableAnimation) {
         __weak VRTAnimatedComponent *weakSelf = self;

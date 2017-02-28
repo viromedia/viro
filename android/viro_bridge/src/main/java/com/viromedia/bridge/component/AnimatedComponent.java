@@ -59,7 +59,7 @@ public class AnimatedComponent extends Component {
         }
         mState = AnimationState.TERMINATED;
 
-        mAnimation = mManager.getAnimation(animationName);
+        mAnimation = mManager.getAnimation(animationName).copy();
         if (mAnimation == null) {
             throw new IllegalArgumentException("Animation [" + animationName + "] does not exist." +
                     " Have you registered it with ViroAnimations.registerAnimations()?");

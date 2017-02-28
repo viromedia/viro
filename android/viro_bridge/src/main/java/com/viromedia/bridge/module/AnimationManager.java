@@ -35,6 +35,10 @@ public class AnimationManager extends ReactContextBaseJavaModule {
             mMaterialManager = manager;
         }
 
+        public LazyMaterialJni copy() {
+            return new LazyMaterialReact(mName, mMaterialManager);
+        }
+
         public long get() {
             MaterialJni material = mMaterialManager.getMaterial(mName);
             if (material == null) {
