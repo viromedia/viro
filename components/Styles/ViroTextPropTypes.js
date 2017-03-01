@@ -33,7 +33,7 @@ var ViroTextStylePropTypes =  Object.assign(Object.create(ViroStylePropTypes), {
     ['top' /*default*/, 'bottom', 'center']
   ),
 
-  textClipMode: PropTypes.oneOf(['none', 'cliptobounds']),
+  textClipMode: PropTypes.oneOf(['none', 'clipToBounds']),
   textLineBreakMode: PropTypes.oneOf(['wordwrap','charwrap','justify','none'])
 });
 

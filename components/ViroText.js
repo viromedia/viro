@@ -34,7 +34,7 @@ var ViroText = React.createClass({
     width: PropTypes.number,
     height: PropTypes.number,
     maxLines: PropTypes.number,
-    textClipMode: PropTypes.oneOf(['none, cliptobounds']),
+    textClipMode: PropTypes.oneOf(['none', 'clipToBounds']),
     textLineBreakMode: PropTypes.oneOf(['wordwrap','charwrap','justify','none']),
     visible: PropTypes.bool,
     style: stylePropType,
