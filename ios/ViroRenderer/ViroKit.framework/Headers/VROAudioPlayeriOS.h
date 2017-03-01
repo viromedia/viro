@@ -14,6 +14,17 @@
 #include "VROSoundData.h"
 #include <AVFoundation/AVFoundation.h>
 
+/*
+ Simple object that wraps a VROSoundDelegateInternal object and acts as a delegate for the AVAudioPlayer
+ */
+@interface VROAudioPlayerDelegate : NSObject <AVAudioPlayerDelegate>
+
+- (id)initWithSoundDelegate:(std::shared_ptr<VROSoundDelegateInternal>)soundDelegate;
+
+- (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag;
+
+@end
+
 class VROAudioPlayeriOS : public VROAudioPlayer, public VROSoundDataDelegate, public std::enable_shared_from_this<VROAudioPlayeriOS> {
     
 public:
@@ -40,6 +51,7 @@ public:
 private:
     
     AVAudioPlayer *_player;
+    VROAudioPlayerDelegate *_audioDelegate;
     float _playVolume;
     bool _muted;
     bool _paused;

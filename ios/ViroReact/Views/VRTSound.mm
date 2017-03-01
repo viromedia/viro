@@ -240,24 +240,28 @@ static NSString *const kWebPrefix = @"http";
 }
 
 - (void)setPaused:(BOOL)paused {
+    [super setPaused:paused];
     if (_player) {
         paused ? _player->pause() : _player->play();
     }
 }
 
 - (void)setMuted:(BOOL)muted {
+    [super setMuted:muted];
     if (_player) {
         _player->setMuted(muted);
     }
 }
 
 - (void)setLoop:(BOOL)loop {
+    [super setLoop:loop];
     if (_player) {
         _player->setLoop(loop);
     }
 }
 
 - (void)setVolume:(float)volume {
+    [super setVolume:volume];
     if (_player) {
         _player->setVolume(volume);
     }
@@ -284,21 +288,20 @@ static NSString *const kWebPrefix = @"http";
 
 - (void)setNativeProps {
     if (_player) {
-        self.paused ? _player->pause() : _player->play();
         _player->setMuted(self.muted);
         _player->setLoop(self.loop);
         _player->setVolume(self.volume);
+        self.paused ? _player->pause() : _player->play();
     }
 }
 
 - (void)soundIsReady {
     [super soundIsReady];
-    if (_player) {
-        self.paused ? _player->pause() : _player->play();
-    }
+    [self setNativeProps];
 }
 
 - (void)seekToTime:(NSInteger)time {
+    [super seekToTime:time];
     if (_player) {
         _player->seekToTime(time);
     }
