@@ -1558,6 +1558,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/ViroRenderer",
 				);
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)/../Examples/node_modules/react-native/React/**",
 					"$(inherited)/**",
