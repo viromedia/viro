@@ -19,6 +19,7 @@ static float const kDefaultHeight = 1;
   VRTImageAsyncLoader *_loader;
   std::shared_ptr<VROTexture> _texture;
   BOOL _widthOrHeightPropSet;
+  BOOL _sourceChanged;
 }
 
 -(instancetype)initWithBridge:(RCTBridge *)bridge {
@@ -29,6 +30,7 @@ static float const kDefaultHeight = 1;
     _height = kDefaultHeight;
     _widthOrHeightPropSet = NO;
     _mipmap = YES;
+    _sourceChanged = NO;
     _format = VROTextureInternalFormat::RGBA8;
   }
   
@@ -40,41 +42,48 @@ static float const kDefaultHeight = 1;
 }
 
 - (void)setSource:(RCTImageSource *)source {
-    _source = source;
+  _source = source;
+  _sourceChanged = YES;
 }
 
 - (void)setWidth:(float)width {
-    _width = width;
-    _widthOrHeightPropSet = YES;
+  _width = width;
+  _widthOrHeightPropSet = YES;
 }
 
 - (void)setHeight:(float)height {
-    _height = height;
-    _widthOrHeightPropSet = YES;
+  _height = height;
+  _widthOrHeightPropSet = YES;
 }
 
 - (void)updateSurface {
-    _surface = VROSurface::createSurface(_width, _height);
-    [self node]->setGeometry(_surface);
-    [self applyMaterials];
+  _surface = VROSurface::createSurface(_width, _height);
+  [self node]->setGeometry(_surface);
+  [self applyMaterials];
 }
 
 - (void)didSetProps:(NSArray<NSString *> *)changedProps {
-    [self updateSurface];
+  [self updateSurface];
 
+  if (_sourceChanged) {
     // Set the placeholder while the image loads
-    if(_placeholderSource && _source) {
-        std::shared_ptr<VROTexture> placeholderTexture = std::make_shared<VROTexture>(VROTextureInternalFormat::RGBA8,
-                                                                                      VROMipmapMode::Runtime,
-                                                                                      std::make_shared<VROImageiOS>(_placeholderSource,
-                                                                                                                    VROTextureInternalFormat::RGBA8));
+    if (_placeholderSource && _source) {
+      std::shared_ptr<VROTexture> placeholderTexture = std::make_shared<VROTexture>(VROTextureInternalFormat::RGBA8,
+                                                                                    VROMipmapMode::Runtime,
+                                                                                    std::make_shared<VROImageiOS>(_placeholderSource,
+                                                                                                                  VROTextureInternalFormat::RGBA8));
         _surface->getMaterials().front()->getDiffuse().setTexture(placeholderTexture);
     }
     
     // Start loading the image
     if (_source) {
-        [_loader loadImage:_source];
+      [_loader loadImage:_source];
     }
+    _sourceChanged = NO;
+  }
+  else if (_texture) {
+    _surface->getMaterials().front()->getDiffuse().setTexture(_texture);
+  }
 }
 
 #pragma mark - VRTAsyncLoaderEventDelegate

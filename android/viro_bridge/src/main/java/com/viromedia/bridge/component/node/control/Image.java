@@ -5,12 +5,15 @@ package com.viromedia.bridge.component.node.control;
 
 
 import android.graphics.Bitmap;
+import android.os.Handler;
+import android.os.Looper;
 
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
 import com.viro.renderer.jni.ImageJni;
 import com.viro.renderer.jni.MaterialJni;
+import com.viro.renderer.jni.PlatformUtil;
 import com.viro.renderer.jni.RenderContextJni;
 import com.viro.renderer.jni.SurfaceJni;
 import com.viro.renderer.jni.TextureFormat;
@@ -40,14 +43,20 @@ public class Image extends Control {
     private boolean mGeometryNeedsUpdate = false;
     private boolean mIsImageSet = false;
     private boolean mWidthOrHeightPropSet = false;
+    private boolean mSourceChanged = false;
+
+    private Handler mMainHandler;
 
     public Image(ReactApplicationContext context) {
         super(context);
         mDefaultMaterial = new MaterialJni();
+        mMainHandler = new Handler(Looper.getMainLooper());
+        mSourceChanged = false;
     }
 
     public void setSource(ReadableMap source) {
         mSourceMap = source;
+        mSourceChanged = true;
     }
 
     public void setPlaceholderSource(ReadableMap placeholderSource) {
@@ -86,7 +95,11 @@ public class Image extends Control {
     @Override
     public void onPropsSet() {
         super.onPropsSet();
-        updateImage();
+
+        if (mSourceChanged) {
+            updateImage();
+            mSourceChanged = false;
+        }
     }
 
     private void updateSurface() {
@@ -127,22 +140,28 @@ public class Image extends Control {
             imageDownloadDidStart();
             downloader.getImageAsync(mSourceMap, new ImageDownloadListener() {
                 @Override
-                public void completed(Bitmap result) {
-                    mIsImageSet = true;
+                public void completed(final Bitmap result) {
+                    mMainHandler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            mIsImageSet = true;
 
-                    // If no width or height property was set, then base these on the
-                    // image's aspect ratio and update the surface
-                    if (!mWidthOrHeightPropSet) {
-                        float ratio = (float) result.getWidth() / (float) result.getHeight();
-                        mHeight = mWidth / ratio;
-                        mGeometryNeedsUpdate = true;
+                            // If no width or height property was set, then base these on the
+                            // image's aspect ratio and update the surface
+                            if (!mWidthOrHeightPropSet) {
+                                float ratio = (float) result.getWidth() / (float) result.getHeight();
+                                mHeight = mWidth / ratio;
+                                mGeometryNeedsUpdate = true;
 
-                        updateSurface();
-                    }
+                                updateSurface();
+                            }
 
-                    setMaterialOnSurface();
-                    setImageOnSurface(result);
-                    imageDownloadDidFinish();
+                            setMaterialOnSurface();
+                            setImageOnSurface(result);
+                            imageDownloadDidFinish();
+                        }
+                    });
+
                 }
             });
         }
