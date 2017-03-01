@@ -82,7 +82,8 @@ var GroupTestBasicAnimation = React.createClass({
                   <ViroBox
                       position={[-1 , 1, 0]}
                       scale={[0.4 , 0.4 , 0.4]}
-                      materials={["redColor"]}
+                      rotation={[40,45,0]}
+                      materials={["redColor", "blueColor","redColor", "blueColor","redColor", "blueColor"]}
                       height={1}
                       width={1}
                       length={1}
@@ -296,10 +297,13 @@ var styles = StyleSheet.create({
 
 ViroMaterials.createMaterials({
   sunTexture: {
-    diffuseTexture: require("./res/sun_2302.jpg"),
+    diffuseTexture: require("../res/sun_2302.jpg"),
   },
   redColor: {
     diffuseColor: "#ff0000"
+  },
+  blueColor: {
+    diffuseColor: "#0000ff"
   },
   heart: {
       lightingModel: "Constant",

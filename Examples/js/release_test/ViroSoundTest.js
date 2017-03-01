@@ -1,93 +1,334 @@
 /**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *//**
-  * Sample React Native App
-  * https://github.com/facebook/react-native
-  */
- 'use strict';
+ * Copyright (c) 2017-present, Viro, Inc.
+ * All rights reserved.
+ *
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
+ */
+import React, { Component } from 'react';
+import {
+  AppRegistry,
+  StyleSheet,
+  Text,
+  View
+} from 'react-native';
 
- import React, { Component } from 'react';
- import {
-   AppRegistry,
-   StyleSheet,
-   Text,
-   View
- } from 'react-native';
+import {
+  ViroSceneNavigator,
+  ViroScene,
+  ViroBox,
+  ViroMaterials,
+  ViroNode,
+  ViroOrbitCamera,
+  ViroCamera,
+  ViroImage,
+  ViroVideo,
+  Viro360Image,
+  Viro360Video,
+  ViroFlexView,
+  ViroUtils,
+  ViroAnimations,
+  ViroAnimatedComponent,
+  ViroSurface,
+  ViroSkyBox,
+  ViroSpatialSound,
+  ViroSound,ViroText,
+} from 'react-viro';
 
- import {
-   ViroSceneNavigator,
-   ViroScene,
-   ViroBox,
-   ViroMaterials,
-   ViroNode,
-   ViroOrbitCamera,
-   ViroCamera,
-   ViroAmbientLight,
-   ViroOmniLight,
-   ViroSpotLight,
-   ViroDirectionalLight,
-   ViroImage,
-   ViroVideo,
-   Viro360Image,
-   Viro360Video,
-   ViroFlexView,
-   ViroUtils,
-   ViroText,
-   ViroAnimations,
-   ViroAnimatedComponent,
-   ViroSurface,
-   ViroSkyBox,
-   ViroSphere,
-   Viro3DObject,
- } from 'react-viro';
+let polarToCartesian = ViroUtils.polarToCartesian;
 
- let polarToCartesian = ViroUtils.polarToCartesian;
+var stateOne = {
+  flex: {flex: 1},
+  material: "redColor",
+  width: 3,
+  showSurface: true,
+};
 
- var ViroSoundFieldTest = require('./ViroSoundFieldTest');
- var ViroSpatialSoundTest = require('./ViroSpatialSoundTest');
+var stateTwo = {
+  flex: {flex: 2},
+  material: "greenColor",
+  width: 3,
+  showSurface: false,
+}
 
- // **This test has not been done.  This is placeholder for scene and navigation arrows**
+var soundRoom = {
+  size: [15, 2, 3],
+  wallMaterial: "CURTAIN_HEAVY",
+  floorMaterial: "CURTAIN_HEAVY",
+  ceilingMaterial: "CURTAIN_HEAVY"
+}
 
- var ViroSoundTest = React.createClass({
+var soundRoom1 = {
+  size: [15, 2, 3],
+  wallMaterial: "transparent",
+  floorMaterial: "transparent",
+  ceilingMaterial: "transparent"
+}
 
-   getInitialState() {
-     return {
+/*
+ This file tests a simple flex view and updating properties within it.
+ */
+var SoundTest = React.createClass({
+  getInitialState: function() {
+    return {
+      ...stateOne,
+      state: 1,
+      soundSource: 1,
+      position: [15,0,0],
+      currentSoundTest:1,
 
-     };
-   },
+      volume: 1,
+      isPlaying: false,
+      looping: false,
+      mute: false,
+      volume: 0.3,
+      toggleSource:1,
 
-   render: function() {
-     return (
-      <ViroScene>
-      <ViroOmniLight position={[0, 0, 0]} color="#ffffff" attenuationStartDistance={40} attenuationEndDistance={50}/>
+      maxDistance: 14,
+      minDisatnce: 12,
+      soundRoom:1
 
-      <Viro360Image
-       rotation={[0,0,0]}
-       source={require("./res/360_park.jpg")}
-       />
+    }
+  },
 
-
-       <ViroImage source={require('./res/icon_left_w.png')} position={[-2, -4, -3]} scale={[1, 1, 1]} transformBehaviors={["billboard"]} onClick={this._showPrevious} />
-       <ViroText text="ViroSound" position={[0, -5, -3]} transformBehaviors={["billboard"]} />
-       <ViroImage source={require('./res/icon_right_w.png')} position={[2, -4, -3]} scale={[1, 1, 1]} transformBehaviors={["billboard"]} onClick={this._showNext} />
+  render: function() {
+    return (
+      <ViroScene reticleEnabled={true} onClick={this._onClick} soundRoom={this.state.soundRoom == 1 ? soundRoom : soundRoom1} >
+        <ViroSkyBox color="#ff69b4" />
+        {this._getSoundControls()}
 
 
+        {this._testNormalSound()}
+        {this._testSpatialSound()}
       </ViroScene>
+    );
+  },
+  _getSoundControls(){
+    var stringSource = "local";
+    if (this.state.toggleSource == 1){
+        stringSource = "remote uri";
+    } else if (this.state.toggleSource == 2){
+        stringSource = "preloaded";
+    }
 
-     );
-   },
+    return(
+       <ViroNode position={[0,0,-4]}>
 
-   _showPrevious() {
-     this.props.sceneNavigator.pop();
-   },
+       <ViroText style={styles.centeredText} position={[-2,1, 0]} width={2} height ={2}
+        text={"Toggle isPlaying: " + this.state.isPlaying} textLineBreakMode='justify' onClick={this._togglePlay}/>
 
-   _showNext() {
-     this.props.sceneNavigator.push({scene:ViroSpatialSoundTest});
-   },
+       <ViroText style={styles.centeredText} position={[0,1, 0]} width={2} height ={2}
+        text={"Toggle Loop " + this.state.looping} textLineBreakMode='justify' onClick={this._toggleLoop}/>
+
+       <ViroText style={styles.centeredText} position={[2,1, 0]} width={2} height ={2}
+        text={"Toggle Mute: " + this.state.mute} textLineBreakMode='justify' onClick={this._toggleMute}/>
+
+       <ViroText style={styles.centeredText} position={[-2, 0, 0]} text={"Change Volume from: " + this.state.volume}
+        width={2} height ={2}  onClick={this._toggleVolume} onClick={this._unloadSound}/>
+
+       <ViroText style={styles.centeredText} position={[0,0, 0]} width={2} height ={2}
+        text={" Toggle Source: " + stringSource} textLineBreakMode='justify' onClick={this._toggleSource}/>
+
+        <ViroText style={styles.centeredText} position={[2,0, 0]} width={2} height ={2}
+                text={"Preload Sound"} textLineBreakMode='justify' onClick={this._preloadSound}/>
+
+        <ViroText style={styles.centeredText} position={[-2,-1, 0]} width={2} height ={2}
+                text={"Unload Preloaded Sound"} textLineBreakMode='justify' onClick={this._unloadSound}/>
+
+        </ViroNode>
+
+    );
+
+  },
+
+  _togglePlay(){
+    this.setState({
+          isPlaying:!this.state.isPlaying
+     });
+  },
+  _toggleLoop(){
+    this.setState({
+          looping:!this.state.looping
+     });
+  },
+  _toggleMute(){
+    this.setState({
+          mute:!this.state.mute
+     });
+  },
+
+  _toggleVolume() {
+      this.setState({
+        volume: Math.random(),
+      });
+  },
+  _toggleSource(){
+    var newToggleSource = this.state.toggleSource + 1;
+    if (newToggleSource > 3){
+        newToggleSource = 1;
+    }
+
+    this.setState({
+          toggleSource:newToggleSource
+     });
+  },
+  _preloadSound(){
+
+  },
+  _unloadSound(){
+
+  },
+
+  _getSpatialControls(){
+    return(
+        <ViroNode position={[0,0,-4]}>
+         <ViroText style={styles.centeredText}  position={[-1,-3, 0]} width={2} height={2}
+                text={"Toggle distance: " + this.state.minDistance + " - " + this.state.maxDistance}
+                onClick={this._toggleDistance}/>
+
+         <ViroText style={styles.centeredText} position={[1,-3, 0]} width={2} height ={2}
+                text={"Toggle room materials: " + this.state.isPlaying}  onClick={this._togglePlay}/>
+        </ViroNode>
+        );
+  },
+
+  _toggleDistance(){
+    var newMax = this.state.maxDistance + 1;
+    var newMin = this.state.minDisatnce + 1;
+
+    if (newMax > 18){
+        newMax = 14;
+    }
+
+    if (newMin > 16){
+        newMin = 12;
+    }
+
+    this.setState({
+              maxDistance:newMax,
+              minDisatnce:newMin
+         });
+
+  },
+  _toggleRoomMaterial(){
+    var newRoomMateralFlag = this.state.soundRoom == 1 ? 0 : 1;
+
+    this.setState({
+              soundRoom:newRoomMateralFlag
+         });
+  },
+
+  _testNormalSound(){
+    if (this.currentSoundTest == 3){
+        return(
+            <ViroSound
+                paused={!this.state.isPlaying}
+                muted={this.state.mute}
+                source={this._getSource()}
+                loop={this.state.looping}
+                position={this.state.position}
+                volume={this.state.volume}
+                onFinish={this.onFinishSound}/>
+        );
+    }
+  },
 
 
- });
+  _testSpatialSound(){
+    if (this.currentSoundTest == 2){
+        return(
+               <ViroNode>
+                         {this._getSpatialControls()}
+
+                <ViroAnimatedComponent animation="testLoopRotate" run={true} loop={true} >
+                  <ViroNode>
+                    <ViroSpatialSound
+                        rolloffModel="linear"
+                        paused={!this.state.isPlaying}
+                        muted={this.state.mute}
+                        position={this.state.position}
+                        source={this._getSource()}
+                        loop={this.state.looping}
+                        volume={this.state.volume}
+                        onFinish={this.onFinishSpatial}/>
+                  </ViroNode>
+                </ViroAnimatedComponent>
+                </ViroNode>
+        );
+    }
+  },
+
+  _getSurface(component) {
+    if (this.state.showSurface) {
+      return (<ViroSurface style={{flex:1}} materials={"redColor"} />)
+    }
+  },
+
+  _getAdditionalSounds(component) {
+    if (this.state.state == 1 || true) {
+      return;
+    } else {
+      return (<ViroSpatialSound source={{uri : "http://www.kozco.com/tech/32.mp3"}} loop={true} position={this.state.position} />);
+    }
+  },
+  _getSource(component) {
+      var stringSource = require("../res/metronome.mp3");
+      if (this.state.toggleSource == 1){
+          stringSource = "http://soundbible.com/grab.php?id=2148&type=mp3";
+      } else if (this.state.toggleSource == 2){
+          stringSource = "cube_sound";
+      }
+      return stringSource;
+/*
+    if (this.state.state == 1) {
+      return require("./res/metronome.mp3");
+    } else {
+      return "cube_sound";
+    }*/
+  },
+
+  onFinishSound(){
+    console.log("ViroSoundTest OnFinished playing normal sound");
+  },
 
 
- module.exports = ViroSoundTest;
+  onFinishSpatial(){
+    console.log("ViroSoundTest OnFinished playing Spatial sound");
+  },
+  /*
+  <Viro360Image source={{uri: "http://cdn3-www.dogtime.com/assets/uploads/gallery/pembroke-welsh-corgi-dog-breed-pictures/prance-8.jpg"}} rotation={[-30,90,0]} />
+  */
+});
+
+
+var styles = StyleSheet.create({
+  centeredText: {
+      fontFamily: 'Arial',
+      fontSize: 25,
+      color: '#ffffff',
+      textAlignVertical: 'center',
+      textAlign: 'center',
+  },
+});
+
+ViroMaterials.createMaterials({
+  redColor: {
+    diffuseColor: "#ff0000"
+  },
+  greenColor: {
+    diffuseColor: "#00ff00"
+  },
+});
+
+ViroAnimations.registerAnimations({
+  testLoopRotate:{properties:{rotateY:"+45"}, duration:500},
+});
+
+ViroSound.preloadSounds({
+  "metronome" : "http://www.kozco.com/tech/32.mp3",
+  "cube_sound" : "https://s3-us-west-2.amazonaws.com/viro/cube_sound.wav",
+  "g_note" : "http://www.jetcityorange.com/musical-notes/G4-392.0.mp3",
+});
+
+module.exports = SoundTest;

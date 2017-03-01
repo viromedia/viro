@@ -53,40 +53,76 @@
 
    getInitialState() {
      return {
-
+        widthSegCount:5,
+        heightSegCount:5,
+        radius:1,
+        facesOutward:true
      };
    },
 
    render: function() {
      return (
       <ViroScene>
-      <ViroOmniLight position={[0, 0, 0]} color="#ffffff" attenuationStartDistance={40} attenuationEndDistance={50}/>
-
-      <Viro360Image
-       rotation={[0,0,0]}
-       source={require("./res/360_park.jpg")}
-       />
-
-
-       <ViroImage source={require('./res/icon_left_w.png')} position={[-2, -4, -3]} scale={[1, 1, 1]} transformBehaviors={["billboard"]} onClick={this._showPrevious} />
-       <ViroText text="ViroSphere" position={[0, -5, -3]} transformBehaviors={["billboard"]} />
-       <ViroImage source={require('./res/icon_right_w.png')} position={[2, -4, -3]} scale={[1, 1, 1]} transformBehaviors={["billboard"]} onClick={this._showNext} />
-
-
+         <ViroNode position={[0,0,-4]}>
+                <ViroSphere
+                      position={[0, 3, 0]}
+                      scale={[0.5, 0.5, 0.5]}
+                      widthSegmentCount={this.state.widthSegCount}
+                      heightSegmentCount={this.state.heightSegCount}
+                      radius={this.state.radius}
+                      facesOutward={this.state.facesOutward}
+                      materials={["redColor"]}
+                      />
+            <ViroText fontSize={this.state.fontSize}  position={[-2, 0, 0]} width={4} height ={2}
+                text={"Toggle width Seg count: " + this.state.widthSegCount} />
+            <ViroText fontSize={this.state.fontSize}  position={[-2, -1.5, 0]} width={4} height ={2}
+                text={"Toggle height Seg count: " + this.state.heightSegCount} />
+            <ViroText fontSize={this.state.fontSize}  position={[-2, -3, 0]} width={4} height ={2}
+                text={"Toggle Radius: " + this.state.radius} />
+            <ViroText fontSize={this.state.fontSize}  position={[-2, -4.5, 0]} width={4} height ={2}
+                text={"Toggle faces outward: " + this.state.facesOutward} />
+       </ViroNode>
       </ViroScene>
 
      );
    },
 
-   _showPrevious() {
-     this.props.sceneNavigator.pop();
+   _toggleWidSegCount() {
+     var newWidthSegCount = this.state.widthSegCount + 1;
+     if (newWidthSegCount > 15){
+        newWidthSegCount = 2;
+     }
+
+     this.setState({
+        widthSegCount:newWidthSegCount,
+     });
    },
 
-   _showNext() {
-     this.props.sceneNavigator.push({scene:ViroSpinnerTest});
+   _toggleHeightSegCount() {
+     var newHeightSegCount = this.state.heightSegCount + 1;
+     if (newHeightSegCount > 15){
+        newHeightSegCount = 2;
+     }
+
+     this.setState({
+        heightSegCount:newHeightSegCount,
+     });
    },
+   _toggleRadius() {
+     var newRadius = this.state.radius + 0.5;
+     if (newRadius > 5){
+        newRadius = 0.5;
+     }
 
-
+     this.setState({
+        radius:newRadius,
+     });
+   },
+   _toggleFacesOutwards() {
+     this.setState({
+             facesOutward:!facesOutward,
+     });
+   },
  });
 
 

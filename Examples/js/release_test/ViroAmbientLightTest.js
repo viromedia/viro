@@ -41,9 +41,6 @@ import {
 
 let polarToCartesian = ViroUtils.polarToCartesian;
 
-var Viro360VideoTest = require('./Viro360VideoTest');
-var ViroAnimatedComponentTest = require('./ViroAnimatedComponentTest');
-
 var ViroAmbientLightTest = React.createClass({
 
   getInitialState() {
