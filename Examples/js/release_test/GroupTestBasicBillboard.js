@@ -69,9 +69,6 @@ var GroupTestBasicBillboard = React.createClass({
         newTransformBehaviors=["billboardY"];
         transformText = "billboardY";
     } else if (this.state.transformFlag == 3){
-        newTransformBehaviors=["billboardZ"];
-        transformText = "billboardZ";
-    } else if (this.state.transformFlag == 4){
               newTransformBehaviors=["billboardX", "billboardY"];
               transformText = "billboardX + billboardY";
     }else {
@@ -195,7 +192,7 @@ var GroupTestBasicBillboard = React.createClass({
 
   _toggleTransform(){
     var newtransformflag = this.state.transformFlag + 1;
-    if (newtransformflag > 5){
+    if (newtransformflag > 4){
         newtransformflag = 0;
     }
      this.setState({

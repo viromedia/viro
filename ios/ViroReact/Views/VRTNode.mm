@@ -172,9 +172,6 @@ const int k2DPointsPerSpatialUnit = 1000;
     if ([behavior caseInsensitiveCompare:@"billboardY"] == NSOrderedSame) {
       [self node]->addConstraint(std::make_shared<VROBillboardConstraint>(VROBillboardAxis::Y));
     }
-    if ([behavior caseInsensitiveCompare:@"billboardZ"] == NSOrderedSame) {
-      [self node]->addConstraint(std::make_shared<VROBillboardConstraint>(VROBillboardAxis::Z));
-    }
   }
 }
 

@@ -116,25 +116,7 @@ var ViroBoxTest = React.createClass({
         onScroll={this._startAnimation3}
         />
       </ViroAnimatedComponent>
-
-      <ViroAnimatedComponent
-      animation="loopRotate"
-      run={this.state.runAnimation4}
-      loop={true}>
-      <ViroBox
-        position={[2, -1.3, -4]}
-        scale={[1,1,1]}
-        materials={["box1"]}
-        rotation={[0,0,0]}
-        height={2*this.state.toggleWHL}
-        width={4*this.state.toggleWHL}
-        length={3*this.state.toggleWHL}
-        transformBehaviors={["billboardZ"]}
-        onSwipe={this._startAnimation4}
-        />
-      </ViroAnimatedComponent>
-
-
+      
     <ViroText fontSize={this.state.fontSize} style={styles.centeredText} position={[0,-3, -3]} width={2} height ={2} fontFamily={'Arial'}
         text={"Toggle WHL: " + this.state.toggleWHL} textLineBreakMode='justify' onClick={this._toggleWHL}/>
 
