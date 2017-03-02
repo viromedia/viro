@@ -24,7 +24,7 @@ NSString *const VRTLabelReactTagAttributeName = @"ReactTagAttributeName";
   NSMutableAttributedString *_cachedMutableAttributedString;
   BOOL _boundsCalculated;
   CGRect _frame;
-  
+  BOOL _textNeedsUpdate;
 }
 
 - (instancetype)initWithBridge:(RCTBridge *)bridge {
@@ -41,28 +41,70 @@ NSString *const VRTLabelReactTagAttributeName = @"ReactTagAttributeName";
     _textLineBreakMode = VROLineBreakMode::WordWrap;
     _textAlign = VROTextHorizontalAlignment::Left;
     _textAlignVertical = VROTextVerticalAlignment::Top;
+    _textNeedsUpdate = NO;
   }
   return self;
 }
 
 - (void)setText:(NSString *)text {
   _text = text;
-  if (self.driver) {
-    [self updateLabel];
-  }
+  _textNeedsUpdate = YES;
 }
 
--(void)setWidth:(float)width {
+- (void)setWidth:(float)width {
   _width = width;
-  if(self.driver) {
-    [self updateLabel];
-  }
+  _textNeedsUpdate = YES;
 }
 
--(void)setHeight:(float)height {
+- (void)setHeight:(float)height {
   _height = height;
-  if(self.driver) {
+  _textNeedsUpdate = YES;
+}
+
+- (void)setColor:(UIColor *)color {
+  _color = color;
+  _textNeedsUpdate = YES;
+}
+
+- (void)setFontFamily:(NSString *)fontFamily {
+  _fontFamily = [fontFamily copy];
+  _textNeedsUpdate = YES;
+}
+
+- (void)setFontSize:(CGFloat)fontSize {
+  _fontSize = fontSize;
+  _textNeedsUpdate = YES;
+}
+
+- (void)setMaxLines:(NSUInteger)maxLines {
+  _maxLines = maxLines;
+  _textNeedsUpdate = YES;
+}
+
+- (void)setTextAlign:(VROTextHorizontalAlignment)textAlign {
+  _textAlign = textAlign;
+  _textNeedsUpdate = YES;
+}
+
+- (void)setTextAlignVertical:(VROTextVerticalAlignment)textAlignVertical {
+  _textAlignVertical = textAlignVertical;
+  _textNeedsUpdate = YES;
+}
+
+- (void)setTextLineBreakMode:(VROLineBreakMode)textLineBreakMode {
+  _textLineBreakMode = textLineBreakMode;
+  _textNeedsUpdate = YES;
+}
+
+- (void)setTextClipMode:(VROTextClipMode)textClipMode {
+  _textClipMode = textClipMode;
+  _textNeedsUpdate = YES;
+}
+
+- (void)didSetProps:(NSArray<NSString *> *)changedProps {
+  if (self.driver && _textNeedsUpdate) {
     [self updateLabel];
+    _textNeedsUpdate = NO;
   }
 }
 

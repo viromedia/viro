@@ -24,10 +24,8 @@
 @property (nonatomic, assign) VROTextVerticalAlignment textAlignVertical;
 @property (nonatomic, assign) VROLineBreakMode textLineBreakMode;
 @property (nonatomic, assign) VROTextClipMode textClipMode;
-
 @property (nonatomic, assign) float width;
 @property (nonatomic, assign) float height;
-
 
 @end
 
