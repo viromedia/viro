@@ -34,7 +34,8 @@ private:
     
     VROBillboardAxis _freeAxis;
     
-    VROQuaternion computeAxisRotation(VROVector3f defaultAxis, VROVector3f objToCamProj);
+    VROQuaternion computeAxisRotation(VROVector3f lookAt, VROVector3f defaultAxis,
+                                      VROVector3f objToCamProj);
     
 };
 
