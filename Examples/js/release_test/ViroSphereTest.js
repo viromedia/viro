@@ -44,8 +44,6 @@
 
  let polarToCartesian = ViroUtils.polarToCartesian;
 
- var ViroSpatialSoundTest = require('./ViroSpatialSoundTest');
- var ViroSpinnerTest = require('./ViroSpinnerTest');
 
  // **This test has not been done.  This is placeholder for scene and navigation arrows**
 
@@ -73,13 +71,13 @@
                       facesOutward={this.state.facesOutward}
                       materials={["redColor"]}
                       />
-            <ViroText fontSize={this.state.fontSize}  position={[-2, 0, 0]} width={4} height ={2}
+            <ViroText style={styles.baseTextTwo} fontSize={this.state.fontSize}  position={[-2, 0, 0]} width={4} height ={2}
                 text={"Toggle width Seg count: " + this.state.widthSegCount} />
-            <ViroText fontSize={this.state.fontSize}  position={[-2, -1.5, 0]} width={4} height ={2}
+            <ViroText style={styles.baseTextTwo} fontSize={this.state.fontSize}  position={[0, 0, 0]} width={4} height ={2}
                 text={"Toggle height Seg count: " + this.state.heightSegCount} />
-            <ViroText fontSize={this.state.fontSize}  position={[-2, -3, 0]} width={4} height ={2}
+            <ViroText style={styles.baseTextTwo} fontSize={this.state.fontSize}  position={[2, 0, 0]} width={4} height ={2}
                 text={"Toggle Radius: " + this.state.radius} />
-            <ViroText fontSize={this.state.fontSize}  position={[-2, -4.5, 0]} width={4} height ={2}
+            <ViroText style={styles.baseTextTwo} fontSize={this.state.fontSize}  position={[0, -1, 0]} width={4} height ={2}
                 text={"Toggle faces outward: " + this.state.facesOutward} />
        </ViroNode>
       </ViroScene>
@@ -125,5 +123,36 @@
    },
  });
 
+
+ViroMaterials.createMaterials({
+  redColor: {
+  fresnelExponent: .5,
+   shininess: 2.0,
+    diffuseColor: "#ff0000"
+  }
+  });
+
+
+var styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  elementText: {
+    fontFamily: 'HelveticaNeue-Medium',
+    fontSize: 30,
+    color: '#ffffff',
+    textAlign: 'center',
+  },
+  baseTextTwo: {
+      fontFamily: 'Arial',
+      fontSize: 20,
+      color: '#ffffff',
+      flex: 1,
+      textAlignVertical: 'center',
+      textAlign: 'center',
+  },
+});
 
  module.exports = ViroSphereTest;

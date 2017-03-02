@@ -43,7 +43,7 @@ var LocalButtonImage = require("./res/icon_live.jpg");
 
 var TEST_COMPONENT_NUM = 11;
 
-var GroupTestPropPosition = React.createClass({
+var GroupTestBasicProps = React.createClass({
   getInitialState() {
     var offsetArray = [11];
     var i;
@@ -109,7 +109,8 @@ var GroupTestPropPosition = React.createClass({
                       scale={[0.5* this.state.offsetData[3].scale, 0.5* this.state.offsetData[3].scale, 0.1]}
                       rotation={[0,this.state.offsetData[3].rotate,0]}
                       onClick={this._elementClick(3)}
-                      source={{uri: "https://upload.wikimedia.org/wikipedia/commons/7/74/Earth_poster_large.jpg"}} visible={this.state.offsetData[3].isVisible}/>
+                      source={{uri: "https://upload.wikimedia.org/wikipedia/commons/7/74/Earth_poster_large.jpg"}}
+                      visible={this.state.offsetData[3].isVisible}/>
 
                   <ViroNode
                     position={[-1 + this.state.offsetData[4].translate, 0, 0]} opacity={this.state.offsetData[4].opacity}
@@ -148,14 +149,18 @@ var GroupTestPropPosition = React.createClass({
                       onClick={this._elementClick(7)}
                       height={1} visible={this.state.offsetData[7].isVisible}/>
 
+
+{/*
+Note: Re-enable opacity for text once VIRO-885 is fixed
+*/}
                   <ViroText
-                      position={[-1 + this.state.offsetData[8].translate, -1, 0]} opacity={this.state.offsetData[8].opacity}
+                      position={[-1 + this.state.offsetData[8].translate, -1, 0]}
                        scale={[0.5 * this.state.offsetData[8].scale, 0.5 * this.state.offsetData[8].scale, 0.1]}
                        rotation={[0,this.state.offsetData[8].rotate,0]}
                       style={styles.baseTextTwo}
                       onClick={this._elementClick(8)}
-                      text="This is a Viro Text"  visible={this.state.offsetData[8].isVisible}/>
-
+                      text="This is a Viro Text"  />
+{/*
                   <ViroVideo
                       visible={this.state.offsetData[9].isVisible} opacity={this.state.offsetData[9].opacity}
                       position={[0+ this.state.offsetData[9].translate , -1,0]}
@@ -164,7 +169,7 @@ var GroupTestPropPosition = React.createClass({
                       height={4} width={4}
                       onClick={this._elementClick(9)}
                       source={{"uri":"https://s3-us-west-2.amazonaws.com/viro/Climber1Top.mp4"}} />
-
+*/}
                  <ViroText
                       position={[-1.5 , -2, 0]}
                       scale={[1, 1, 0.1]}
@@ -219,8 +224,6 @@ var GroupTestPropPosition = React.createClass({
 
   _elementClick(item){
         return () => {
-              console.log("Daniel scene1 " + item + " onCLick");
-
               var currentOffsetData = this.state.offsetData[item];
               if (this.state.currentToggle == 1){
                 currentOffsetData.translate = currentOffsetData.translate == 0.1 ? 0 : 0.1;
@@ -327,7 +330,7 @@ var styles = StyleSheet.create({
 
 ViroMaterials.createMaterials({
   sunTexture: {
-    diffuseTexture: require("./res/sun_2302.jpg"),
+    diffuseTexture: require("../res/sun_2302.jpg"),
   },
   redColor: {
     diffuseColor: "#ff0000"
@@ -338,4 +341,4 @@ ViroMaterials.createMaterials({
     },
  });
 
-module.exports = GroupTestPropPosition;
+module.exports = GroupTestBasicProps;

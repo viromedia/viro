@@ -88,7 +88,7 @@ var GroupTestMaterials = React.createClass({
                     <Viro3DObject source={require('../res/heart.obj')}
                              scale={[1.8 , 1.8  , 1.8]}
                               position={[-2.5 , -4.3 , -1.15]}
-                              materials={["heart",newMaterial]}/>
+                              materials={["heart"]}/>
                   <ViroBox
                       position={[-1 , 1, 0]}
                       scale={[0.4 , 0.4 , 0.4]}
@@ -159,12 +159,6 @@ var GroupTestMaterials = React.createClass({
                       scale={[0.5 , 0.5, 0.1]}
                       style={styles.baseTextTwo}
                       text="This is a Viro Text"/>
-                  <ViroVideo
-                   materials={[newMaterial]}
-                      position={[0 , -1,0]}
-                      scale={[0.1, 0.1, 0.1]}
-                      height={4} width={4}
-                      source={{"uri":"https://s3-us-west-2.amazonaws.com/viro/Climber1Top.mp4"}} />
 
                 </ViroNode>
 
@@ -241,7 +235,8 @@ ViroMaterials.createMaterials({
   blueCullModeFront: {
     shininess: 2.0,
     lightingModel: "Blinn",
-    diffuseColor: "#0000ff"
+    diffuseColor: "#0000ff",
+    cullMode:'Front'
   },
 
   heart: {

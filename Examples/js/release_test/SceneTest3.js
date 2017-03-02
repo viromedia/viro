@@ -31,9 +31,6 @@ import {
 var SceneTest3 = React.createClass({
 
   render: function() {
-
-    console.log("Daniel"," the prop type is : " + this.props.title);
-
     return (
         <ViroScene position={[0,0,0]} reticleEnabled={false} >
 
@@ -81,10 +78,8 @@ var SceneTest3 = React.createClass({
 
 
         if (isJumping){
-         console.log("Daniel"," Jumping to : " + sceneKey);
         this.props.sceneNavigator.jump(sceneKey, {scene:scene, passProps:{title:sceneKey}});
         } else {
-        console.log("Daniel"," Pushing to : " + sceneKey);
         this.props.sceneNavigator.push(sceneKey, {scene:scene, passProps:{title:sceneKey}});
         }
 

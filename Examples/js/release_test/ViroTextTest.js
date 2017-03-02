@@ -40,12 +40,15 @@ import {
 } from 'react-viro';
 
 let polarToCartesian = ViroUtils.polarToCartesian;
-var longText ="I'm testing this to see if it works, this is the best most tremendous text engine. You won't be disappointed, believe me!";
+var longTextTag ="I'm testing this to see if it works, this is the best most tremendous text engine. You won't be disappointed, believe me!";
+var longTextTag2 = "Changed text should see lots of #: ########### ########### ############### ########## ###### ########## ########## ###### End of #."
 var ViroTextTest = React.createClass({
 
   getInitialState() {
     return {
-      fontSize:20
+      color:1,
+      fontSize:20,
+      longText:longTextTag
     }
   },
 
@@ -65,7 +68,26 @@ var ViroTextTest = React.createClass({
         });
   },
 
+  _toggleColor(){
+    var newColor = this.state.color == 1 ? 0 : 1;
+    this.setState({
+              color: newColor,
+            });
+  },
+
+  _toggleTextValue(){
+    var newText = this.state.longText == longTextTag ? longTextTag2 : longTextTag;
+    this.setState({
+              longText: newText,
+            });
+
+  },
+
   render: function() {
+    var newStyle;
+     if (this.state.color == 1) { newStyle = styles.centeredText} else {
+      newStyle = styles.centeredTextBlue;
+      }
     return (
       <ViroScene reticleEnabled={true} onPlatformUpdate={this._platformUpdate} >
         <ViroSkyBox color="#ff69b4" />
@@ -73,59 +95,59 @@ var ViroTextTest = React.createClass({
         <ViroNode  position={[0,0,-6]}>
 
         <ViroFlexView style={styles.containerVertical} width={2} height={0.8} materials="redColor" position={[-4,2,0]} onClick={this._toggleFontSize}>
-          <ViroText fontSize={this.state.fontSize} style={styles.centeredText}  text={ "Toggle Font Size: " + this.state.fontSize} />
+          <ViroText fontSize={this.state.fontSize} style={newStyle}  text={ "Toggle Font Size: " + this.state.fontSize} />
         </ViroFlexView>
 
-        <ViroFlexView style={styles.containerVertical} width={2} height={0.8} materials="redColor" position={[-4,1,0]}>
-          <ViroText fontSize={this.state.fontSize} style={styles.centeredText}  text="Toogle Font Color!" />
+        <ViroFlexView style={styles.containerVertical} width={2} height={0.8} materials="redColor" position={[-4,1,0]} onClick={this._toggleColor}>
+          <ViroText fontSize={this.state.fontSize} style={newStyle}  text="Toogle Font Color!" />
         </ViroFlexView>
 
-        <ViroFlexView style={styles.containerVertical} width={2} height={0.8} materials="redColor" position={[-4,0,0]}>
-          <ViroText fontSize={this.state.fontSize} style={styles.centeredText}  text="Toggle something else" />
+        <ViroFlexView style={styles.containerVertical} width={2} height={0.8} materials="redColor" position={[-4,0,0]} onClick={this._toggleTextValue}>
+          <ViroText fontSize={this.state.fontSize} style={newStyle}  text="Toggle text value" />
         </ViroFlexView>
 
         <ViroFlexView style={styles.containerVertical} width={2} height={0.8} materials="redColor" position={[-1, 2, 0]}>
-          <ViroText fontSize={this.state.fontSize} style={styles.centeredText}  text="Vertical Centered Text Top!" textAlignVertical={"top"}/>
+          <ViroText fontSize={this.state.fontSize} style={newStyle}  text="Vertical Centered Text Top!" textAlignVertical={"top"}/>
         </ViroFlexView>
 
         <ViroFlexView style={styles.containerVertical} width={2} height={0.8} materials="redColor" position={[-1, 1, 0]}>
-          <ViroText fontSize={this.state.fontSize} style={styles.centeredText}  text="Vertical Centered Text Center!" textAlignVertical={"center"}/>
+          <ViroText fontSize={this.state.fontSize} style={newStyle}  text="Vertical Centered Text Center!" textAlignVertical={"center"}/>
         </ViroFlexView>
 
         <ViroFlexView style={styles.containerVertical} width={2} height={0.8} materials="redColor" position={[-1, 0, 0]}>
-          <ViroText fontSize={this.state.fontSize} style={styles.centeredText}  text="Vertical Centered Text Bottom!" textAlignVertical={"bottom"}/>
+          <ViroText fontSize={this.state.fontSize} style={newStyle}  text="Vertical Centered Text Bottom!" textAlignVertical={"bottom"}/>
         </ViroFlexView>
 
         <ViroFlexView style={styles.containerVertical} width={2} height={0.8} materials="redColor" position={[2, 2, 0]}>
-          <ViroText fontSize={this.state.fontSize} style={styles.centeredText}  text="Horizontal Centered Text Left!"  textAlign={"left"}/>
+          <ViroText fontSize={this.state.fontSize} style={newStyle}  text="Horizontal Centered Text Left!"  textAlign={"left"}/>
         </ViroFlexView>
 
         <ViroFlexView style={styles.containerVertical} width={2} height={0.8} materials="redColor" position={[2, 1, 0]}>
-          <ViroText fontSize={this.state.fontSize} style={styles.centeredText}  text="Horizontal Centered Text Center!" textAlign={"center"}/>
+          <ViroText fontSize={this.state.fontSize} style={newStyle}  text="Horizontal Centered Text Center!" textAlign={"center"}/>
         </ViroFlexView>
 
         <ViroFlexView style={styles.containerVertical} width={2} height={0.8} materials="redColor" position={[2, 0, 0]}>
-          <ViroText fontSize={this.state.fontSize} style={styles.centeredText}  text="Horizontal Centered Text Right!" textAlign={"right"}/>
+          <ViroText fontSize={this.state.fontSize} style={newStyle}  text="Horizontal Centered Text Right!" textAlign={"right"}/>
         </ViroFlexView>
 
         <ViroFlexView style={styles.containerVertical}  width={2} height={1}  materials="redColor"position={[-4,-1, 0]}>
-            <ViroText fontSize={this.state.fontSize} style={styles.baseTextTwo}  text={"TEXT IN FLEX BOX TEST: This text is supposed to be larger than the flex box? " + longText}/>
+            <ViroText fontSize={this.state.fontSize} style={newStyle}  text={"TEXT IN FLEX BOX TEST: This text is supposed to be larger than the flex box? " + this.state.longText}/>
         </ViroFlexView>
 
-       <ViroText fontSize={this.state.fontSize} color="#000000" position={[-1,-2, 0]} width={2} height ={2} maxLines={3}
-       text={"MAX LINE TEST See a max of three lines for this text view only three lines if not it is a BUG do you see the end of this sentence go beyond three lines? " + longText} />
+       <ViroText fontSize={this.state.fontSize}  style={newStyle} position={[-1,-2, 0]} width={2} height ={2} maxLines={3}
+       text={"MAX LINE TEST See a max of three lines for this text view only three lines if not it is a BUG do you see the end of this sentence go beyond three lines? " + this.state.longText} />
 
-       <ViroText fontSize={this.state.fontSize}  position={[-4,-4, 0]} width={2} height ={2}
-       text={"Text should be clipped to bounds ." + longText} textClipMode={"cliptobounds"}/>
+       <ViroText fontSize={this.state.fontSize}  style={newStyle}  position={[-4,-4, 0]} width={2} height ={2}
+       text={"Text should be clipped to bounds ." + this.state.longText + this.state.longText} textClipMode={"cliptobounds"}/>
 
-       <ViroText fontSize={this.state.fontSize} position={[2, -2, 0]} width={2} height ={2} fontFamily={'Arial'}
-        text={"TextLineBreak for a word-wrap Test!" + longText} textLineBreakMode='wordwrap'/>
+       <ViroText fontSize={this.state.fontSize} style={newStyle}  position={[2, -2, 0]} width={2} height ={2} fontFamily={'Arial'}
+        text={"TextLineBreak for a word-wrap Test!" + this.state.longText} textLineBreakMode='wordwrap'/>
 
-       <ViroText fontSize={this.state.fontSize} position={[-1,-3, 0]} width={2} height ={2} fontFamily={'Arial'}
-        text={"TextLineBreak for a charWrap test!" + longText} textLineBreakMode='charwrap'/>
+       <ViroText fontSize={this.state.fontSize} style={newStyle} position={[-1,-3, 0]} width={2} height ={2} fontFamily={'Arial'}
+        text={"TextLineBreak for a charWrap test!" + this.state.longText} textLineBreakMode='charwrap'/>
 
-       <ViroText fontSize={this.state.fontSize} position={[2,-4, 0]} width={2} height ={2} fontFamily={'Arial'}
-        text={"TextLineBreak for a justify test!" + longText} textLineBreakMode='justify'/>
+       <ViroText fontSize={this.state.fontSize} style={newStyle} position={[2,-4, 0]} width={2} height ={2} fontFamily={'Arial'}
+        text={"TextLineBreak for a justify test!" + this.state.longText} textLineBreakMode='justify'/>
        </ViroNode>
 
       </ViroScene>
@@ -133,22 +155,8 @@ var ViroTextTest = React.createClass({
   },
 });
 
-ViroMaterials.createMaterials({
-  redColor: {
-    diffuseColor: "#ff0000"
-  },
-  cardpetite: {
-    shininess : 1.0,
-    lightingModel: "Constant",
-    diffuseTexture: require('../res/card_petite_ansu.png'),
-  },
-  box_material: {
-    shininess: 2.0,
-    lightingModel: "Blinn",
-    diffuseColor: "#ffffff"
-  }
-});
-const styles = StyleSheet.create({
+
+var styles = StyleSheet.create({
   containerVertical: {
     flexDirection: 'column',
   },
@@ -161,6 +169,12 @@ const styles = StyleSheet.create({
         color: '#ffffff',
         flex: 1,
    },
+
+      centeredTextBlue: {
+           fontFamily: 'Arial',
+           color: '#0000ff',
+           flex: 1,
+      },
 
    horizontalCenteredText: {
         fontFamily: 'Arial',
@@ -214,6 +228,22 @@ const styles = StyleSheet.create({
      flex: 1,
      textAlign: 'center',
  },
+});
+
+ViroMaterials.createMaterials({
+  redColor: {
+    diffuseColor: "#ff0000"
+  },
+  cardpetite: {
+    shininess : 1.0,
+    lightingModel: "Constant",
+    diffuseTexture: require('../res/card_petite_ansu.png'),
+  },
+  box_material: {
+    shininess: 2.0,
+    lightingModel: "Blinn",
+    diffuseColor: "#ffffff"
+  }
 });
 
 

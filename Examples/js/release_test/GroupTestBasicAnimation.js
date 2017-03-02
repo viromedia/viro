@@ -246,7 +246,6 @@ var GroupTestBasicAnimation = React.createClass({
   },
 
     _togglePlay(){
-             console.log("Daniel play");
         var newRunAnimation = !this.state.runAnimation;
         var newPlayText = "Pause";
         if (!newRunAnimation){
@@ -259,7 +258,6 @@ var GroupTestBasicAnimation = React.createClass({
     },
 
   _toggleLoop(){
-     console.log("Daniel play");
     var loopText = "Loop On";
     if (this.state.willLoop){
         loopText = "Loop Off";
@@ -314,16 +312,16 @@ ViroMaterials.createMaterials({
 
 
 ViroAnimations.registerAnimations({
-    testLoopRotate:{properties:{rotateZ:"+45"}, duration:2000, easing:"EaseInEaseOut"},
+    testLoopRotate:{properties:{rotateZ:"+=45"}, duration:2000, easing:"EaseInEaseOut"},
 
-    moveRight:{properties:{positionX:"+0.3"}, duration: 2000, easing:"Linear"},
-    moveLeft:{properties:{positionX:"+-0.3"}, duration: 2000, easing:"Linear"},
+    moveRight:{properties:{positionX:"+=0.3"}, duration: 2000, easing:"Linear"},
+    moveLeft:{properties:{positionX:"-=0.3"}, duration: 2000, easing:"Linear"},
     testLoopMove:[
         ["moveRight", "moveLeft"]
     ],
 
-    scaleUp:{properties:{scaleX:"+0.2"}, duration: 2000, easing:"Bounce"},
-    scaleDown:{properties:{scaleX:"+-0.2"}, duration: 2000, easing:"Bounce"},
+    scaleUp:{properties:{scaleX:"+=0.2"}, duration: 2000, easing:"Bounce"},
+    scaleDown:{properties:{scaleX:"-=0.2"}, duration: 2000, easing:"Bounce"},
     testLoopScale:[
         ["scaleUp", "scaleDown"]
     ],

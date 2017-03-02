@@ -160,7 +160,7 @@ var ViroAnimatedComponentTest = React.createClass({
 
 ViroAnimations.registerAnimations({
   fadeIn:{properties:{scaleX:1, scaleY:1, scaleZ:1}, duration: 5000},
-  loopRotate:{properties:{rotateY:"+10"}, duration:250},
+  loopRotate:{properties:{rotateY:"+=10"}, duration:250},
   scaleSphere:{properties:{scaleX:3, scaleY:3, scaleZ:3}, duration:5000},
   moveRight:{properties:{positionX:"3",}, duration:5000, delay:3000},
   moveUp:{properties:{positionY:"3",}, duration:5000},

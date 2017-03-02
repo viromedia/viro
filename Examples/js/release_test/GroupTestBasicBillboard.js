@@ -88,15 +88,13 @@ var GroupTestBasicBillboard = React.createClass({
 
                 <ViroNode position={[0.8 , 0, -3.5]} >
 
-                { /* Re-enable once VIRO-828 is fixed
 
                     <Viro3DObject source={require('../res/heart.obj')}
                              scale={[1.8 , 1.8  , 1.8]}
                               position={[-2.5 , -4.3 , -1.15]}
                               materials={["heart"]}
                               transformBehaviors={newTransformBehaviors}/>
-                              */
-                    }
+
                   <ViroBox
                       position={[-1 , 1, 0]}
                       scale={[0.4 , 0.4 , 0.4]}
@@ -122,7 +120,6 @@ var GroupTestBasicBillboard = React.createClass({
                       materials={["redColor"]}
                       width={3}
                       height={2} />
-{ /* Re-enable once VIRO-828 is fixed
                   <ViroImage
                   transformBehaviors={newTransformBehaviors}
                       width={1} height={1}
@@ -131,8 +128,7 @@ var GroupTestBasicBillboard = React.createClass({
                       scale={[0.5, 0.5, 0.1]}
                       source={{uri: "https://upload.wikimedia.org/wikipedia/commons/7/74/Earth_poster_large.jpg"}}
                       />
-*/
-                    }
+
                   <ViroNode
                   transformBehaviors={newTransformBehaviors}
                     position={[-1, 0, 0]}
@@ -155,7 +151,7 @@ var GroupTestBasicBillboard = React.createClass({
 
                   <ViroSpinner
                   transformBehaviors={newTransformBehaviors}
-                      position={[1, 0, 0]}
+                      position={[0 , -1,0]}
                       scale={[0.3, 0.3, 0.1]}/>
 
                   <ViroSurface
@@ -172,7 +168,7 @@ var GroupTestBasicBillboard = React.createClass({
                       scale={[0.5 , 0.5, 0.1]}
                       style={styles.baseTextTwo}
                       text="This is a Viro Text"/>
-{ /* Re-enable once VIRO-828 is fixed
+{ /* Re-enable once Video is fixed in ios
                   <ViroVideo
                   transformBehaviors={newTransformBehaviors}
                       position={[0 , -1,0]}
@@ -256,12 +252,12 @@ ViroMaterials.createMaterials({
 ViroAnimations.registerAnimations({
     testLoopRotate:{properties:{rotateZ:"+45"}, duration:2000, easing:"EaseInEaseOut"},
 
-    moveRight:{properties:{positionX:"+9.5"}, duration: 2000, easing:"Linear", delay:2000},
-    moveLeft:{properties:{positionX:"+-9.5"}, duration: 2000, easing:"Linear"},
-    moveUp:{properties:{positionY:"+9.5"}, duration: 2000, easing:"Linear", delay:2000},
-    moveDown:{properties:{positionY:"+-9.5"}, duration: 2000, easing:"Linear"},
-    moveBack:{properties:{positionY:"+-9.5", positionZ:"+-9.5"}, duration: 2000, easing:"Linear", delay:2000},
-    moveForth:{properties:{positionY:"+9.5", positionZ:"+9.5"}, duration: 2000, easing:"Linear"},
+    moveRight:{properties:{positionX:"+=9.5"}, duration: 2000, easing:"Linear", delay:2000},
+    moveLeft:{properties:{positionX:" -=9.5"}, duration: 2000, easing:"Linear"},
+    moveUp:{properties:{positionY:"+=9.5"}, duration: 2000, easing:"Linear", delay:2000},
+    moveDown:{properties:{positionY:"-=9.5"}, duration: 2000, easing:"Linear"},
+    moveBack:{properties:{positionY:"-=9.5", positionZ:"-=9.5"}, duration: 2000, easing:"Linear", delay:2000},
+    moveForth:{properties:{positionY:"+=9.5", positionZ:"+=9.5"}, duration: 2000, easing:"Linear"},
     testLoopMove:[
         ["moveRight", "moveLeft", "moveUp", "moveDown", "moveBack", "moveForth"]
     ],

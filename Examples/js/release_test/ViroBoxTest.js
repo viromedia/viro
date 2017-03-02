@@ -54,6 +54,7 @@ var ViroBoxTest = React.createClass({
       runAnimation2:false,
       runAnimation3:false,
       runAnimation4:false,
+      toggleWHL:1,
     };
   },
 
@@ -71,9 +72,9 @@ var ViroBoxTest = React.createClass({
         scale={[1,1,1]}
         materials={["box1"]}
         rotation={[0,0,0]}
-        height={1}
-        width={1}
-        length={1}
+        height={1*this.state.toggleWHL}
+        width={1*this.state.toggleWHL}
+        length={1*this.state.toggleWHL}
         opacity={.5}
         transformBehaviors={["billboard"]}
         onHover={this._startAnimation1}
@@ -89,9 +90,9 @@ var ViroBoxTest = React.createClass({
         scale={[1,1,1]}
         materials={["box1"]}
         rotation={[0,45,0]}
-        height={1}
-        width={1}
-        length={1}
+        height={1*this.state.toggleWHL}
+        width={1*this.state.toggleWHL}
+        length={1*this.state.toggleWHL}
         transformBehaviors={["billboardX"]}
         onClick={this._startAnimation2}
         />
@@ -108,9 +109,9 @@ var ViroBoxTest = React.createClass({
         scale={[2,2,2]}
         materials={["box1"]}
         rotation={[0,0,0]}
-        height={1}
-        width={1}
-        length={1}
+        height={1*this.state.toggleWHL}
+        width={1*this.state.toggleWHL}
+        length={1*this.state.toggleWHL}
         transformBehaviors={["billboardY"]}
         onScroll={this._startAnimation3}
         />
@@ -125,13 +126,19 @@ var ViroBoxTest = React.createClass({
         scale={[1,1,1]}
         materials={["box1"]}
         rotation={[0,0,0]}
-        height={2}
-        width={4}
-        length={3}
+        height={2*this.state.toggleWHL}
+        width={4*this.state.toggleWHL}
+        length={3*this.state.toggleWHL}
         transformBehaviors={["billboardZ"]}
         onSwipe={this._startAnimation4}
         />
       </ViroAnimatedComponent>
+
+
+    <ViroText fontSize={this.state.fontSize} style={styles.centeredText} position={[0,-3, -3]} width={2} height ={2} fontFamily={'Arial'}
+        text={"Toggle WHL: " + this.state.toggleWHL} textLineBreakMode='justify' onClick={this._toggleWHL}/>
+
+
 
       <ViroImage source={require('./res/icon_left_w.png')} position={[-2, -4, -3]} scale={[1, 1, 1]} transformBehaviors={["billboard"]} onClick={this._showPrevious} />
       <ViroText text="ViroBox" position={[0, -5, -3]} transformBehaviors={["billboard"]} />
@@ -140,6 +147,15 @@ var ViroBoxTest = React.createClass({
      </ViroScene>
 
     );
+  },
+  _toggleWHL(){
+    var newWhlScale = this.state.toggleWHL + 0.4;
+    if (newWhlScale > 2){
+        newWhlScale = 1;
+    }
+     this.setState({
+                  toggleWHL: newWhlScale,
+                });
   },
 
   _showPrevious() {
@@ -177,7 +193,7 @@ var ViroBoxTest = React.createClass({
 });
 
 ViroAnimations.registerAnimations({
-  loopRotate:{properties:{rotateY:"+10"}, duration:250},
+  loopRotate:{properties:{rotateY:"+=10"}, duration:250},
 });
 
 var styles = StyleSheet.create({
@@ -192,6 +208,12 @@ var styles = StyleSheet.create({
     color: '#ffffff',
     textAlign: 'center',
   },
+
+   centeredText: {
+        fontSize: 20,
+        fontFamily: 'Arial',
+        color: '#ffffff',
+   },
 });
 
 ViroMaterials.createMaterials({

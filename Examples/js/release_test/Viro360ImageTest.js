@@ -107,7 +107,7 @@ var Viro360ImageTest = React.createClass({
 
   _showOther() {
     this.setState({
-        getAsset:UriAsset,
+        get360Image:Uri360Image,
       });
   },
 

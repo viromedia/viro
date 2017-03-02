@@ -51,7 +51,7 @@ var Viro360VideoTest = React.createClass({
 
   getInitialState() {
     return {
-      get360Video:Local360Video,
+      get360Video:Uri360Video,
       videoMuted:false,
       videoPaused:false,
       volumeSet:1,
@@ -70,6 +70,7 @@ var Viro360VideoTest = React.createClass({
       muted={this.state.videoMuted}
       paused={this.state.videoPaused}
       volume={this.state.volumeSet}
+      onUpdateTime={this._updateTime}
       loop={true}
       />
 
@@ -101,6 +102,18 @@ var Viro360VideoTest = React.createClass({
 
     );
   },
+
+
+  _updateTime(current, total) {
+    console.log("Viro360VideoTest On time update-> Current: " + current+ ", total: " + total);
+  },
+
+  _showOther() {
+    this.setState({
+        get360Video:Local360Video,
+      });
+  },
+
 
   _showPrevious() {
     this.props.sceneNavigator.pop();
