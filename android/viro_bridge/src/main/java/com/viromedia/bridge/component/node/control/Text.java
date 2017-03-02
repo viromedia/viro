@@ -28,7 +28,7 @@ public class Text extends Control {
     private String mHorizontalAlignment = "Left";
     private String mVerticalAlignment = "Top";
     private String mTextLineBreakMode = "WordWrap";
-    private String mTextClipMode = "None";
+    private String mTextClipMode = "ClipToBounds";
     public Text(ReactApplicationContext context) {
         super(context);
     }
