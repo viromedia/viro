@@ -32,6 +32,15 @@ public:
 };
 
 /*
+ Determines if animation assigns values, or adds/multiplies.
+ */
+enum class VROAnimationOperation {
+    Add,
+    Multiply,
+    Assign
+};
+
+/*
  Represents a single animated property of a node (e.g. position, scale, rotation).
  */
 class VROPropertyAnimation {
@@ -40,15 +49,29 @@ public:
     
     static std::shared_ptr<VROPropertyAnimation> parse(const std::string &name, const std::string &value);
     
-    VROPropertyAnimation(std::string propertyName, VROAnimationValue value, bool isAdditive) :
+    VROPropertyAnimation(std::string propertyName, VROAnimationValue value, VROAnimationOperation op) :
         _propertyName(propertyName),
         _value(value),
-        _isAdditive(isAdditive) {}
+        _op(op) {}
     virtual ~VROPropertyAnimation() {}
     
     std::string getPropertyName() const { return _propertyName; }
     VROAnimationValue getValue() const { return _value; }
-    bool isAdditive() const { return _isAdditive; }
+    VROAnimationOperation getOp() const { return _op; }
+    
+    float processOp(float input) const {
+        switch (_op) {
+            case VROAnimationOperation::Assign:
+                return _value.valueFloat;
+            case VROAnimationOperation::Add:
+                return _value.valueFloat + input;
+            case VROAnimationOperation::Multiply:
+                return _value.valueFloat * input;
+                
+            default:
+                return _value.valueFloat;
+        }
+    }
     
     std::string toString() const;
     
@@ -56,7 +79,7 @@ private:
     
     const std::string _propertyName;
     const VROAnimationValue _value;
-    const bool _isAdditive;
+    const VROAnimationOperation _op;
     
 };
 

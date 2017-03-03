@@ -86,7 +86,7 @@ var GroupTestBasicProps = React.createClass({
 
                   <ViroButton
                       position={[0 + this.state.offsetData[1].translate, 1, 0]} opacity={this.state.offsetData[1].opacity}
-                      scale={[0.08 * this.state.offsetData[1].scale, 0.08* this.state.offsetData[1].scale, 0.1]}
+                      scale={[0.4 * this.state.offsetData[1].scale, 0.4 * this.state.offsetData[1].scale, 0.4]}
                       rotation={[0,this.state.offsetData[1].rotate,0]}
                       source={LocalButtonImage}
                       gazeSource={LocalButtonImage}

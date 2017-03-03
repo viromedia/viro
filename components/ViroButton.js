@@ -109,7 +109,7 @@ var BTN_TYPE_CLICKED = 'clicked';
     var gazeSrcVisible;
     var tapSrcVisible;
 
-    let buttonScale = [1,1,1];
+    let buttonScale = this.props.scale;
     switch(this.state.buttonType) {
       case BTN_TYPE_HOVER:
         if (this.props.gazeSource) {
@@ -121,7 +121,9 @@ var BTN_TYPE_CLICKED = 'clicked';
       case BTN_TYPE_CLICKED:
         if (this.props.tapSource) {
           // start scale for button animation
-          buttonScale = [0.9, 0.9, 0.9];
+          buttonScale = [0.9 * this.props.scale[0],
+                         0.9 * this.props.scale[1],
+                         0.9 * this.props.scale[2]];
           gazeSrcVisible = false;
           tapSrcVisible = this.props.visible && true;
           normalSrcVisible = false;
@@ -221,9 +223,9 @@ var BTN_TYPE_CLICKED = 'clicked';
 ViroAnimations.registerAnimations({
   tapAnimation: {
     properties: {
-      scaleX: 1,
-      scaleY: 1,
-      scaleZ: 1
+      scaleX:"/=0.9",
+      scaleY:"/=0.9",
+      scaleZ:"/=0.9"
     },
     easing: "Bounce",
     duration: 500,
