@@ -17,9 +17,10 @@
 @interface VRTSkybox ()
 
 @property (readwrite, nonatomic) std::shared_ptr<VROTexture> cubeTexture;
-@property (readwrite, nonatomic) BOOL cubeTextureAddedToScene;
 @property (readwrite, nonatomic) NSMutableDictionary<NSString *, VRTImageAsyncLoader *> *imageAsyncLoaders;
 @property (readwrite, nonatomic) NSMutableDictionary<NSString *, UIImage *> *downloadedImages;
+@property (readwrite, nonatomic) BOOL useImageForScene;
+@property (readwrite, nonatomic) BOOL skyboxNeedsUpdate;
 
 @end
 
@@ -35,6 +36,8 @@
     self.imageAsyncLoaders = [[NSMutableDictionary alloc] init];
     self.downloadedImages = [[NSMutableDictionary alloc] init];
     self.format = VROTextureInternalFormat::RGBA8;
+    self.useImageForScene = YES;
+    self.skyboxNeedsUpdate = NO;
   }
   
   return self;
@@ -42,45 +45,46 @@
 
 - (void)setColor:(UIColor *)color {
   _color = color;
-  [self updateSceneWithSkybox];
+  _useImageForScene = (color == nil);
+  _skyboxNeedsUpdate = YES;
 }
 
 - (void)setSource:(VRTCubeMap *)source {
   _source = source;
-  [self loadImageWhenReady];
+  _useImageForScene = (source != nil);
+  _skyboxNeedsUpdate = YES;
 }
 
 - (void)setOnLoadStart:(RCTDirectEventBlock)onLoadStart {
   _onViroSkyBoxLoadStart = onLoadStart;
-  [self loadImageWhenReady];
 }
 
 - (void)setOnLoadEnd:(RCTDirectEventBlock)onLoadEnd {
   _onViroSkyBoxLoadEnd = onLoadEnd;
-  [self loadImageWhenReady];
 }
 
-- (void)loadImageWhenReady {
-  if (self.source && !self.color) {
-    self.cubeTextureAddedToScene = false;
-    [self.downloadedImages removeAllObjects];
+- (void)setFormat:(VROTextureInternalFormat)format {
+  _format = format;
+  _skyboxNeedsUpdate = YES;
+}
+
+- (void)loadImageAsync {
+  [self.downloadedImages removeAllObjects];
+  
+  for (NSString *key in [VRTCubeMap keys]) {
+    VRTImageAsyncLoader *loader = [[VRTImageAsyncLoader alloc] initWithDelegate:self];
+    loader.tag = key;
     
-    for (NSString *key in [VRTCubeMap keys]) {
-      VRTImageAsyncLoader *loader = [[VRTImageAsyncLoader alloc] initWithDelegate:self];
-      loader.tag = key;
-      
-      [self.imageAsyncLoaders setObject:loader forKey:key];
-      RCTImageSource *imageSource = [self.source imageSourceForKey:key];
-      [loader loadImage:imageSource];
-    }
+    [self.imageAsyncLoaders setObject:loader forKey:key];
+    RCTImageSource *imageSource = [self.source imageSourceForKey:key];
+    [loader loadImage:imageSource];
   }
 }
 
 -(void)updateSceneWithSkybox {
-  if(!_cubeTextureAddedToScene && self.scene) {
-    if (_cubeTexture) {
+  if(self.scene) {
+    if (_useImageForScene && _cubeTexture) {
       self.scene->setBackgroundCube(_cubeTexture);
-      _cubeTextureAddedToScene = YES;
     }
     else if (_color) {
       CGFloat r, g, b, a;
@@ -88,7 +92,6 @@
       
       VROVector4f v(r, g, b, a);
       self.scene->setBackgroundCube(v);
-      _cubeTextureAddedToScene = YES;
     }
   }
 }
@@ -96,6 +99,18 @@
 - (void)viewWillAppear {
   //if the image loading is before the scene is set, then set the image.
   [self updateSceneWithSkybox];
+}
+
+- (void)didSetProps:(NSArray<NSString *> *)changedProps {
+  if (self.skyboxNeedsUpdate) {
+    if (self.source && self.useImageForScene) {
+      [self loadImageAsync];
+    }
+    else {
+      [self updateSceneWithSkybox];
+    }
+    self.skyboxNeedsUpdate = NO;
+  }
 }
 
 #pragma mark - VRTAsyncLoaderEventDelegate

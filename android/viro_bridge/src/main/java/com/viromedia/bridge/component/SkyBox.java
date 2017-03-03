@@ -31,6 +31,8 @@ public class SkyBox extends Component {
     private ImageDownloader mImageDownloader;
     private long mColor;
     private TextureFormat mFormat = TextureFormat.RGBA8;
+    private boolean mSkyboxNeedsUpdate = false;
+    private boolean mUseTextureForSkybox = true;
 
     public SkyBox(ReactApplicationContext context) {
         super(context);
@@ -41,33 +43,41 @@ public class SkyBox extends Component {
 
     public void setSource(ReadableMap source) {
         mSourceMap = source;
+        mUseTextureForSkybox = (source != null);
+        mSkyboxNeedsUpdate = true;
     }
 
     public void setColor(long color) {
         mColor = color;
+        mUseTextureForSkybox = (color != COLOR_NOT_SET);
+        mSkyboxNeedsUpdate = true;
     }
 
     @Override
     public void onPropsSet() {
         super.onPropsSet();
 
-        if (mSourceMap != null) {
-            imageDownloadDidStart();
-            ReadableMapKeySetIterator iterator = mSourceMap.keySetIterator();
-            // We'll use this latch to find out when all the 6 images for the skybox have downloaded
-            CountDownLatch latch = new CountDownLatch(6);
+        if (mSkyboxNeedsUpdate) {
+            if (mUseTextureForSkybox && mSourceMap != null) {
+                imageDownloadDidStart();
+                ReadableMapKeySetIterator iterator = mSourceMap.keySetIterator();
+                // We'll use this latch to find out when all the 6 images for the skybox have downloaded
+                CountDownLatch latch = new CountDownLatch(6);
 
-            while (iterator.hasNextKey()) {
-                String key = iterator.nextKey();
-                ReadableType type = mSourceMap.getType(key);
-                if (type.name().equals(ReadableType.Map.name())) {
-                    getImageForCubeFace(key, mSourceMap.getMap(key), latch);
+                while (iterator.hasNextKey()) {
+                    String key = iterator.nextKey();
+                    ReadableType type = mSourceMap.getType(key);
+                    if (type.name().equals(ReadableType.Map.name())) {
+                        getImageForCubeFace(key, mSourceMap.getMap(key), latch);
+                    }
+                }
+            } else if (mColor != COLOR_NOT_SET) {
+                if (mScene != null) {
+                    mScene.setBackgroundCubeWithColor(mColor);
                 }
             }
-        } else if (mColor != COLOR_NOT_SET) {
-            if (mScene != null) {
-                mScene.setBackgroundCubeWithColor(mColor);
-            }
+
+            mSkyboxNeedsUpdate = false;
         }
     }
 
@@ -130,6 +140,7 @@ public class SkyBox extends Component {
     public void setFormat(String format) {
         mFormat = TextureFormat.forString(format);
         mImageDownloader.setTextureFormat(mFormat);
+        mSkyboxNeedsUpdate = true;
     }
 
     private void imageDownloadDidStart() {
@@ -150,7 +161,7 @@ public class SkyBox extends Component {
                 mImageJniMap.get("py"), mImageJniMap.get("ny"),
                 mImageJniMap.get("pz"), mImageJniMap.get("nz"), mFormat);
 
-        if (mScene != null) {
+        if (mScene != null && mUseTextureForSkybox) {
             mScene.setBackgroundCubeImageTexture(mLatestTexture);
         }
         mContext.getJSModule(RCTEventEmitter.class).receiveEvent(
