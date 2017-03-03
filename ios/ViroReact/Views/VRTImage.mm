@@ -19,7 +19,8 @@ static float const kDefaultHeight = 1;
   VRTImageAsyncLoader *_loader;
   std::shared_ptr<VROTexture> _texture;
   BOOL _widthOrHeightPropSet;
-  BOOL _sourceChanged;
+  BOOL _widthOrHeightChanged;
+  BOOL _imageNeedsDownload;
 }
 
 -(instancetype)initWithBridge:(RCTBridge *)bridge {
@@ -29,8 +30,9 @@ static float const kDefaultHeight = 1;
     _width = kDefaultWidth;
     _height = kDefaultHeight;
     _widthOrHeightPropSet = NO;
+    _widthOrHeightChanged = YES;
     _mipmap = YES;
-    _sourceChanged = NO;
+    _imageNeedsDownload = NO;
     _format = VROTextureInternalFormat::RGBA8;
   }
   
@@ -43,29 +45,43 @@ static float const kDefaultHeight = 1;
 
 - (void)setSource:(RCTImageSource *)source {
   _source = source;
-  _sourceChanged = YES;
+  _imageNeedsDownload = YES;
+}
+
+- (void)setFormat:(VROTextureInternalFormat)format {
+  _format = format;
+  _imageNeedsDownload = YES;
 }
 
 - (void)setWidth:(float)width {
   _width = width;
   _widthOrHeightPropSet = YES;
+  _widthOrHeightChanged = YES;
 }
 
 - (void)setHeight:(float)height {
   _height = height;
   _widthOrHeightPropSet = YES;
+  _widthOrHeightChanged = YES;
 }
 
 - (void)updateSurface {
   _surface = VROSurface::createSurface(_width, _height);
   [self node]->setGeometry(_surface);
   [self applyMaterials];
+  
+  if (_texture) {
+    _surface->getMaterials().front()->getDiffuse().setTexture(_texture);
+  }
 }
 
 - (void)didSetProps:(NSArray<NSString *> *)changedProps {
-  [self updateSurface];
+  if (_widthOrHeightChanged) {
+    [self updateSurface];
+    _widthOrHeightChanged = NO;
+  }
 
-  if (_sourceChanged) {
+  if (_imageNeedsDownload) {
     // Set the placeholder while the image loads
     if (_placeholderSource && _source) {
       std::shared_ptr<VROTexture> placeholderTexture = std::make_shared<VROTexture>(VROTextureInternalFormat::RGBA8,
@@ -79,7 +95,7 @@ static float const kDefaultHeight = 1;
     if (_source) {
       [_loader loadImage:_source];
     }
-    _sourceChanged = NO;
+    _imageNeedsDownload = NO;
   }
   else if (_texture) {
     _surface->getMaterials().front()->getDiffuse().setTexture(_texture);
@@ -107,6 +123,8 @@ static float const kDefaultHeight = 1;
         float ratio = image.size.width / image.size.height;
         _height = _width / ratio;
         [self updateSurface];
+        
+        _widthOrHeightChanged = NO;
       }
         
       _surface->getMaterials().front()->getDiffuse().setTexture(_texture);

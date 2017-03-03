@@ -13,7 +13,6 @@ import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
 import com.viro.renderer.jni.ImageJni;
 import com.viro.renderer.jni.MaterialJni;
-import com.viro.renderer.jni.PlatformUtil;
 import com.viro.renderer.jni.RenderContextJni;
 import com.viro.renderer.jni.SurfaceJni;
 import com.viro.renderer.jni.TextureFormat;
@@ -43,7 +42,7 @@ public class Image extends Control {
     private boolean mGeometryNeedsUpdate = false;
     private boolean mIsImageSet = false;
     private boolean mWidthOrHeightPropSet = false;
-    private boolean mSourceChanged = false;
+    private boolean mImageNeedsDownload = false;
 
     private Handler mMainHandler;
 
@@ -51,12 +50,12 @@ public class Image extends Control {
         super(context);
         mDefaultMaterial = new MaterialJni();
         mMainHandler = new Handler(Looper.getMainLooper());
-        mSourceChanged = false;
+        mImageNeedsDownload = false;
     }
 
     public void setSource(ReadableMap source) {
         mSourceMap = source;
-        mSourceChanged = true;
+        mImageNeedsDownload = true;
     }
 
     public void setPlaceholderSource(ReadableMap placeholderSource) {
@@ -84,6 +83,7 @@ public class Image extends Control {
 
     public void setFormat(String format) {
         mFormat = TextureFormat.forString(format);
+        mImageNeedsDownload = true;
     }
 
     @Override
@@ -96,29 +96,39 @@ public class Image extends Control {
     public void onPropsSet() {
         super.onPropsSet();
 
-        if (mSourceChanged) {
+        updateSurface();
+        if (mImageNeedsDownload) {
             updateImage();
-            mSourceChanged = false;
+            mImageNeedsDownload = false;
         }
     }
 
     private void updateSurface() {
+        boolean createdNewSurface = false;
+
         if (mNativeSurface == null) {
             mNativeSurface = new SurfaceJni(mWidth, mHeight);
-        } else if (mGeometryNeedsUpdate) {
+            createdNewSurface = true;
+        }
+        else if (mGeometryNeedsUpdate) {
             SurfaceJni newSurface = new SurfaceJni(mWidth, mHeight, mNativeSurface);
             mNativeSurface.destroy();
             mNativeSurface = newSurface;
+            createdNewSurface = true;
         }
-        getNodeJni().setGeometry(mNativeSurface);
+
+        if (createdNewSurface) {
+            getNodeJni().setGeometry(mNativeSurface);
+            if (mLatestImageTexture != null) {
+                mNativeSurface.setImageTexture(mLatestImageTexture);
+            }
+        }
         mGeometryNeedsUpdate = false;
     }
 
     public void updateImage() {
         final ImageDownloader downloader = new ImageDownloader(getContext());
         downloader.setTextureFormat(mFormat);
-
-        updateSurface();
 
         // If an image isn't already set, then first fetch the placeholder (which should be on disk)
         // before downloading/fetching the source image. Otherwise, just immediately get the source.
