@@ -47,4 +47,12 @@ public class SceneNavigatorManager extends ViroViewGroupManager<SceneNavigator> 
         view.setCurrentSceneIndex(selectedIndex);
     }
 
+    @Override
+    protected void onAfterUpdateTransaction(SceneNavigator view) {
+        super.onAfterUpdateTransaction(view);
+        if (view instanceof SceneNavigator) {
+            ((SceneNavigator) view).onPropsSet();
+        }
+    }
+
 }

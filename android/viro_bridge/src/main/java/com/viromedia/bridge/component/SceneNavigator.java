@@ -58,6 +58,9 @@ public class SceneNavigator extends FrameLayout {
     private boolean mViewAdded = false;
     private boolean mGLInialized = false;
 
+    private boolean mVrModeEnabled = true;
+    private boolean mHasSetVrMode = false;
+
     public SceneNavigator(ReactApplicationContext reactContext,
                           ReactViroPackage.ViroPlatform platform) {
         super(reactContext.getBaseContext(), null, -1);
@@ -150,7 +153,7 @@ public class SceneNavigator extends FrameLayout {
     }
 
     public void setVrModeEnabled(boolean vrModeEnabled) {
-        mVrView.setVrModeEnabled(vrModeEnabled);
+        mVrModeEnabled = vrModeEnabled;
     }
 
     private class InnerGlListener implements GlListener {
@@ -165,6 +168,13 @@ public class SceneNavigator extends FrameLayout {
         for (Scene scene: mSceneArray) {
             scene.setPlatformInformation(mVrView.getVRPlatform(), mVrView.getHeadset(),
                     mVrView.getController());
+        }
+    }
+
+    public void onPropsSet() {
+        if (!mHasSetVrMode) {
+            mHasSetVrMode = true;
+            mVrView.setVrModeEnabled(mVrModeEnabled);
         }
     }
 }
