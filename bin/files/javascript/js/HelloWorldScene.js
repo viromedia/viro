@@ -20,7 +20,7 @@ var HelloWorldScene = React.createClass({
     return (
      <ViroScene>
        <Viro360Image source={require('./res/guadalupe_360.jpg')} />
-       <ViroText text="Hello World!" position={[0, 0, -2]} style={styles.helloWorldTextStyle} />
+       <ViroText text="Hello World!" width={2} height={2} position={[0, 0, -2]} style={styles.helloWorldTextStyle} />
      </ViroScene>
     );
   },

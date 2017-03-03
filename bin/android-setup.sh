@@ -15,6 +15,21 @@ if [ "$VIRO_VERBOSE" = true ]; then
   echo "Running with verbose logging"
 fi
 
+isosx() {
+  if [[ $OSTYPE == darwin* ]]; then
+    return 0 # in bash 0 is true!
+  else
+    return 1
+  fi
+}
+
+vsed() {
+  if isosx; then
+    sed -i '' "$@"
+  else
+    sed -i "$@"
+  fi
+}
 
 
 echo 'Editing MainApplication.java'
@@ -29,14 +44,14 @@ LINE_TO_EDIT=$(grep "$SEARCH_PATTERN" "$TARGET_FILEPATH")
 # "s/$LINE_TO_EDIT/&," <- & means the same thing w/ an added comma
 # $'\\\n' <- evaluates to a newline character
 # "$LINE_TO_ADD/" <- substitute a variable & finish sed pattern format
-sed -i '' "s/$LINE_TO_EDIT/&,"$'\\\n'"$LINE_TO_ADD/" $TARGET_FILEPATH
+vsed "s/$LINE_TO_EDIT/&,"$'\\\n'"$LINE_TO_ADD/" $TARGET_FILEPATH
 
 LINE_TO_ADD="import com.viromedia.bridge.ReactViroPackage;"
 SEARCH_PATTERN='import com.facebook.react.shell.MainReactPackage;'
 LINE_TO_EDIT=$(grep "$SEARCH_PATTERN" "$TARGET_FILEPATH")
 
 # Adding another line
-sed -i '' "s/$LINE_TO_EDIT/&"$'\\\n'$'\\\n'"$LINE_TO_ADD/" $TARGET_FILEPATH
+vsed "s/$LINE_TO_EDIT/&"$'\\\n'$'\\\n'"$LINE_TO_ADD/" $TARGET_FILEPATH
 
 
 
@@ -61,7 +76,7 @@ TARGET_FILEPATH=android/build.gradle
 SEARCH_PATTERN=classpath
 LINE_TO_REPLACE=$(grep "$SEARCH_PATTERN" "$TARGET_FILEPATH")
 
-sed -i '' "s/$LINE_TO_REPLACE/$LINE_TO_ADD/g" $TARGET_FILEPATH
+vsed "s/$LINE_TO_REPLACE/$LINE_TO_ADD/g" $TARGET_FILEPATH
 
 
 
@@ -73,20 +88,20 @@ LINE_TO_ADD="        minSdkVersion 23"
 SEARCH_PATTERN="minSdkVersion"
 LINE_TO_REPLACE=$(grep "$SEARCH_PATTERN" "$TARGET_FILEPATH")
 
-sed -i '' "s/$LINE_TO_REPLACE/$LINE_TO_ADD/g" $TARGET_FILEPATH
+vsed "s/$LINE_TO_REPLACE/$LINE_TO_ADD/g" $TARGET_FILEPATH
 
 LINE_TO_ADD="        targetSdkVersion 25"
 SEARCH_PATTERN="targetSdkVersion"
 LINE_TO_REPLACE=$(grep "$SEARCH_PATTERN" "$TARGET_FILEPATH")
 
 # Replacing dependencies by first deleting 2 lines and then inserting a few more
-sed -i '' "s/$LINE_TO_REPLACE/$LINE_TO_ADD/g" $TARGET_FILEPATH
+vsed "s/$LINE_TO_REPLACE/$LINE_TO_ADD/g" $TARGET_FILEPATH
 
 SEARCH_PATTERN="dependencies {"
 LINE_NUMBER=$(grep -n "$SEARCH_PATTERN" "$TARGET_FILEPATH" | cut -d ':' -f 1)
 
 # delete 2 lines
-sed -i '' -e "$(($LINE_NUMBER+1)),$(($LINE_NUMBER+3))d" $TARGET_FILEPATH
+vsed -e "$(($LINE_NUMBER+1)),$(($LINE_NUMBER+3))d" $TARGET_FILEPATH
 
 LINES_TO_ADD=("    compile fileTree(dir: 'libs', include: ['*.jar'])"
 "    compile 'com.android.support:appcompat-v7:25.0.0'"
@@ -102,7 +117,7 @@ LINE_TO_APPEND_AFTER=$(grep "$SEARCH_PATTERN" "$TARGET_FILEPATH")
 INDEX=$((${#LINES_TO_ADD[@]}-1))
 while [ $INDEX -ge 0 ];
 do
-  sed -i '' "s/$LINE_TO_APPEND_AFTER/&"$'\\\n'"${LINES_TO_ADD[$INDEX]}/" $TARGET_FILEPATH
+  vsed "s/$LINE_TO_APPEND_AFTER/&"$'\\\n'"${LINES_TO_ADD[$INDEX]}/" $TARGET_FILEPATH
   INDEX=$(($INDEX-1))
 done
 
@@ -124,7 +139,7 @@ LINE_TO_PREPEND_TO=$(grep "$SEARCH_PATTERN" "$TARGET_FILEPATH")
 INDEX=0
 while [ $INDEX -lt $((${#LINES_TO_PREPEND[@]})) ];
 do
-  sed -i '' "s/$LINE_TO_PREPEND_TO/${LINES_TO_PREPEND[$INDEX]}"$'\\\n'"&/" $TARGET_FILEPATH
+  vsed "s/$LINE_TO_PREPEND_TO/${LINES_TO_PREPEND[$INDEX]}"$'\\\n'"&/" $TARGET_FILEPATH
   INDEX=$(($INDEX+1))
 done
 
@@ -142,8 +157,8 @@ LINE_TO_APPEND_TO=$(grep "$SEARCH_PATTERN" "$TARGET_FILEPATH")
 LINE_TO_APPEND_TO=$(echo $LINE_TO_APPEND_TO | sed -e 's/[]\/$*.^|[]/\\&/g')
 
 # since we're appending to the line, add the 2nd line before the 1st (although in this case it doesnt really matter)
-sed -i '' "s/$LINE_TO_APPEND_TO/&"$'\\\n'"$LINE_TO_ADD2/" $TARGET_FILEPATH
-sed -i '' "s/$LINE_TO_APPEND_TO/&"$'\\\n'"$LINE_TO_ADD1/" $TARGET_FILEPATH
+vsed "s/$LINE_TO_APPEND_TO/&"$'\\\n'"$LINE_TO_ADD2/" $TARGET_FILEPATH
+vsed "s/$LINE_TO_APPEND_TO/&"$'\\\n'"$LINE_TO_ADD1/" $TARGET_FILEPATH
 
 
 
@@ -157,7 +172,7 @@ echo "Updating gradle-wrapper.properties"
 
 TARGET_FILEPATH=$(find android -name gradle-wrapper.properties)
 
-sed -i '' "s/gradle-2.4-all/gradle-2.14.1-all/" $TARGET_FILEPATH
+vsed "s/gradle-2.4-all/gradle-2.14.1-all/" $TARGET_FILEPATH
 
 
 
@@ -166,5 +181,5 @@ echo "Updating strings.xml"
 TARGET_FILEPATH=$(find android -name strings.xml)
 
 # deleting 2nd line in file
-sed -i '' '2d' $TARGET_FILEPATH
+vsed '2d' $TARGET_FILEPATH
 
