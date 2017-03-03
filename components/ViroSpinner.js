@@ -93,13 +93,13 @@ var ViroSpinner = React.createClass({
 ViroAnimations.registerAnimations({
   _ViroSpinner_counterClockwiseZ: {
     properties: {
-      rotateZ: "+90"
+      rotateZ: "+=90"
     },
     duration: 250, //.25 seconds
   },
   _ViroSpinner_clockwiseZ: {
     properties: {
-      rotateZ: "+270"
+      rotateZ: "+=270"
     },
     duration: 250, //.25 seconds
   },
