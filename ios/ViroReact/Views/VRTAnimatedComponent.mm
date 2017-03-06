@@ -24,6 +24,7 @@ enum class VRTAnimatedComponentState {
 @property (readwrite, nonatomic) VRTAnimatedComponentState state;
 @property (readwrite, nonatomic) VRTAnimationManager *animationManager;
 @property (readwrite, nonatomic) std::shared_ptr<VROExecutableAnimation> executableAnimation;
+@property (readwrite, nonatomic) BOOL animationNeedsUpdate;
 
 @end
 
@@ -39,7 +40,8 @@ enum class VRTAnimatedComponentState {
         self.delay = -1.0f;
         self.loop = false;
         self.run = true;
-        
+        self.animationNeedsUpdate = false;
+      
         self.viewAdded = false;
         self.state = VRTAnimatedComponentState::Terminated;
         
@@ -114,12 +116,17 @@ enum class VRTAnimatedComponentState {
 
 - (void)setRun:(BOOL)run {
     _run = run;
-    [self updateAnimation];
+    _animationNeedsUpdate = YES;
 }
 
 - (void)setAnimation:(NSString *)animation {
+    if (self.executableAnimation) {
+        self.executableAnimation->terminate();
+    }
+    self.state = VRTAnimatedComponentState::Terminated;
+    
     _animation = animation;
-    [self updateAnimation];
+    _animationNeedsUpdate = YES;
 }
 
 - (void)updateAnimation {
@@ -132,6 +139,13 @@ enum class VRTAnimatedComponentState {
     }
     else {
         [self pauseAnimation];
+    }
+}
+
+- (void)didSetProps:(NSArray<NSString *> *)changedProps {
+    if (_animationNeedsUpdate) {
+        [self updateAnimation];
+        _animationNeedsUpdate = NO;
     }
 }
 
