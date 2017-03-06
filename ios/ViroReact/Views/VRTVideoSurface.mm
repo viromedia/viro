@@ -14,7 +14,7 @@
 @implementation VRTVideoSurface{
   std::shared_ptr<VROSurface> _surface;
   std::shared_ptr<VROVideoTexture> _videoTexture;
-  BOOL _didUpdateSurface;
+  BOOL _videoSurfaceNeedsUpdate;
 }
 
 - (instancetype)initWithBridge:(RCTBridge *)bridge {
@@ -26,7 +26,7 @@
     _paused = NO;
     _width = 1;
     _height = 1;
-    _didUpdateSurface = NO;
+    _videoSurfaceNeedsUpdate = NO;
   }
   return self;
 }
@@ -73,25 +73,25 @@
 
 - (void)setSource:(NSDictionary *)source {
   _source = source;
-  _didUpdateSurface = NO;
-  [self updateSurface];
+  _videoSurfaceNeedsUpdate = YES;
 }
 
 -(void)setWidth:(float)width {
   _width = width;
-  [self updateSurface];
-  
+  _videoSurfaceNeedsUpdate = YES;
 }
 
 -(void)setHeight:(float)height {
   _height = height;
-  [self updateSurface];
+  _videoSurfaceNeedsUpdate = YES;
 }
 
 - (void)updateSurface {
+  if (!_videoSurfaceNeedsUpdate || !self.context || !self.driver) {
+    return;
+  }
   if (!self.source) {
-    RCTLogError(@"Source should not be nil.");
-  } else if (!self.context || !self.driver || _didUpdateSurface) {
+    RCTLogError(@"ViroVideo source should not be nil");
     return;
   }
   
@@ -120,7 +120,11 @@
   [self node]->setGeometry(_surface);
 
   // set that we did in fact update the surface
-  _didUpdateSurface = YES;
+  _videoSurfaceNeedsUpdate = NO;
+}
+
+- (void)didSetProps:(NSArray<NSString *> *)changedProps {
+  [self updateSurface];
 }
 
 - (void)viewWillAppear {
