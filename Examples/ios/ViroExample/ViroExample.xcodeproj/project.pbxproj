@@ -817,7 +817,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "export NODE_BINARY=node\n\n$SRCROOT/../../node_modules/react-native/packager/react-native-xcode.sh Examples/ViroSample/ViroSample.ios.js";
+			shellScript = "export NODE_BINARY=node\n\n$SRCROOT/../../node_modules/react-native/packager/react-native-xcode.sh $SRCROOT/../../index.ios.js";
 		};
 /* End PBXShellScriptBuildPhase section */
 
