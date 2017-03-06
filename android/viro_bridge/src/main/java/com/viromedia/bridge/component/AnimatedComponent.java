@@ -24,7 +24,8 @@ public class AnimatedComponent extends Component {
         SCHEDULED, RUNNING, PAUSED, TERMINATED
     }
 
-    private BaseAnimation mAnimation = null;
+    private String mAnimation = null;
+    private BaseAnimation mExecutableAnimation = null;
     private float mDelayInMilliseconds = 0; // milliseconds
     private boolean mLoop = false;
     private boolean mRun = true;
@@ -54,16 +55,11 @@ public class AnimatedComponent extends Component {
 
     public void setAnimation(String animationName) {
         // Terminate the old animation if there was one and reset the state
-        if (mAnimation != null) {
-            mAnimation.terminate();
+        if (mExecutableAnimation != null) {
+            mExecutableAnimation.terminate();
         }
         mState = AnimationState.TERMINATED;
-
-        mAnimation = mManager.getAnimation(animationName).copy();
-        if (mAnimation == null) {
-            throw new IllegalArgumentException("Animation [" + animationName + "] does not exist." +
-                    " Have you registered it with ViroAnimations.registerAnimations()?");
-        }
+        mAnimation = animationName;
     }
 
     public void setLoop(boolean loop) {
@@ -139,7 +135,9 @@ public class AnimatedComponent extends Component {
         if (mState == AnimationState.SCHEDULED) {
             mMainLoopHandler.removeCallbacks(mDelayedRunner);
         } else if (mState == AnimationState.RUNNING || mState == AnimationState.PAUSED) {
-            mAnimation.terminate();
+            if (mExecutableAnimation != null) {
+                mExecutableAnimation.terminate();
+            }
         }
         mState = AnimationState.TERMINATED;
     }
@@ -168,7 +166,7 @@ public class AnimatedComponent extends Component {
             mState = AnimationState.SCHEDULED;
             mMainLoopHandler.postDelayed(mDelayedRunner, (long) mDelayInMilliseconds);
         } else if(mState == AnimationState.PAUSED) {
-            mAnimation.resume();
+            mExecutableAnimation.resume();
             onStartAnimation();
         } else {
             ViroLog.warn(TAG, "Unable to play animation in state " + mState.name());
@@ -180,7 +178,7 @@ public class AnimatedComponent extends Component {
      */
     private void pauseAnimation() {
         if (mState == AnimationState.RUNNING) {
-            mAnimation.pause();
+            mExecutableAnimation.pause();
             mState = AnimationState.PAUSED;
         } else if (mState == AnimationState.SCHEDULED) {
             mState = AnimationState.TERMINATED;
@@ -197,20 +195,24 @@ public class AnimatedComponent extends Component {
             return;
         }
 
+        mExecutableAnimation = mManager.getAnimation(mAnimation).copy();
+        if (mExecutableAnimation == null) {
+            throw new IllegalArgumentException("Animation [" + mAnimation + "] does not exist." +
+                    " Have you registered it with ViroAnimations.registerAnimations()?");
+        }
+
         onStartAnimation();
 
-        if (mAnimation != null) {
-            final WeakReference<AnimatedComponent> weakSelf = new WeakReference<>(this);
-            mAnimation.execute(mChildNode.getNodeJni(), new BaseAnimation.AnimationDelegate() {
-                @Override
-                public void onFinish() {
-                    AnimatedComponent self = weakSelf.get();
-                    if (weakSelf != null) {
-                        self.onFinishAnimation();
-                    }
+        final WeakReference<AnimatedComponent> weakSelf = new WeakReference<>(this);
+        mExecutableAnimation.execute(mChildNode.getNodeJni(), new BaseAnimation.AnimationDelegate() {
+            @Override
+            public void onFinish() {
+                AnimatedComponent self = weakSelf.get();
+                if (weakSelf != null) {
+                    self.onFinishAnimation();
                 }
-            });
-        }
+            }
+        });
     }
 
     /**
