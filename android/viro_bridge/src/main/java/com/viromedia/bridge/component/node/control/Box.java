@@ -12,6 +12,7 @@ public class Box extends Control {
     private float mWidth = 1.0f;
     private float mHeight = 1.0f;
     private float mLength = 1.0f;
+    private boolean mBoxNeedsUpdate = false;
 
     public Box(ReactApplicationContext reactContext) {
         super(reactContext);
@@ -31,6 +32,7 @@ public class Box extends Control {
             throw new IllegalArgumentException("Width of a box cannot be smaller than 0");
         }
         mWidth = width;
+        mBoxNeedsUpdate = true;
     }
 
     public void setHeight(float height) {
@@ -38,6 +40,7 @@ public class Box extends Control {
             throw new IllegalArgumentException("Height of a box cannot be smaller than 0");
         }
         mHeight = height;
+        mBoxNeedsUpdate = true;
     }
 
     public void setLength(float length) {
@@ -45,6 +48,7 @@ public class Box extends Control {
             throw new IllegalArgumentException("Length of a box cannot be smaller than 0");
         }
         mLength = length;
+        mBoxNeedsUpdate = true;
     }
 
     /**
@@ -63,6 +67,9 @@ public class Box extends Control {
 
     @Override
     protected void onPropsSet(){
-        createNativeBox();
+        if (mBoxNeedsUpdate) {
+            createNativeBox();
+            mBoxNeedsUpdate = false;
+        }
     }
 }

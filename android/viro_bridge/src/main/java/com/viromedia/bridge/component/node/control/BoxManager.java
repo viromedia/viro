@@ -36,7 +36,7 @@ public class BoxManager extends NodeManager<Box> {
 
     @ReactProp(name = "height", defaultFloat = 1.0f)
     public void setHeight(Box box, float height) {
-        box.setWidth(height);
+        box.setHeight(height);
     }
 
     @ReactProp(name = "length", defaultFloat = 1.0f)

@@ -13,46 +13,56 @@
 
 @implementation VRTBox {
   std::shared_ptr<VROBox> _box;
+  bool _boxNeedsUpdate;
 }
 
--(instancetype)initWithBridge:(RCTBridge *)bridge {
+- (instancetype)initWithBridge:(RCTBridge *)bridge {
   self = [super initWithBridge:bridge];
   if (self) {
     _box = VROBox::createBox(1, 1, 1);
+    _boxNeedsUpdate = NO;
     [self node]->setGeometry(_box);
   }
   
   return self;
 }
 
--(void)setWidth:(float)width {
+- (void)setWidth:(float)width {
   if (width < 0) {
     RCTLogError(@"Box width must be >= 0");
   }
   _width = width;
-  [self updateGeometry];
+  _boxNeedsUpdate = YES;
 }
 
--(void)setHeight:(float)height {
+- (void)setHeight:(float)height {
   if (height < 0) {
     RCTLogError(@"Box height must be >= 0");
   }
   _height = height;
-  [self updateGeometry];
+  _boxNeedsUpdate = YES;
 }
 
--(void)setLength:(float)length {
+- (void)setLength:(float)length {
   if (length < 0) {
     RCTLogError(@"Box length must be >= 0");
   }
   _length = length;
-  [self updateGeometry];
+  _boxNeedsUpdate = YES;
 }
 
--(void)updateGeometry {
-  _box = VROBox::createBox(_width, _height, _length);
-  [self node]->setGeometry(_box);
+- (void)updateGeometry {
+  if (_boxNeedsUpdate) {
+    _box = VROBox::createBox(_width, _height, _length);
+    [self node]->setGeometry(_box);
+    
+    _boxNeedsUpdate = NO;
+  }
   [self applyMaterials];
+}
+
+- (void)didSetProps:(NSArray<NSString *> *)changedProps {
+  [self updateGeometry];
 }
 
 @end
