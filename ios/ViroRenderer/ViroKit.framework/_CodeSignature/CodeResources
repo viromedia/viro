@@ -2441,7 +2441,7 @@
 		</data>
 		<key>Headers/VROAudioPlayeriOS.h</key>
 		<data>
-		sLMVni1om9Lw3J4o/HmPa8JUiK4=
+		G4+V/Tsk8uTeZiJO3nmXiTZASho=
 		</data>
 		<key>Headers/VROBillboardConstraint.h</key>
 		<data>
@@ -2577,7 +2577,7 @@
 		</data>
 		<key>Headers/VROLight.h</key>
 		<data>
-		PZTD9kFPBJhul/a80L5lj7rU0cI=
+		dus0US20ddFfGjhN4S8pyhudj6Q=
 		</data>
 		<key>Headers/VROLoader.h</key>
 		<data>
@@ -2641,7 +2641,7 @@
 		</data>
 		<key>Headers/VROPropertyAnimation.h</key>
 		<data>
-		sk+FHj1Bvzy0CGsCkOmtLhOJGXg=
+		uuCIYePIx0XxhANCYEV8wmwFwis=
 		</data>
 		<key>Headers/VROQuaternion.h</key>
 		<data>
@@ -7286,11 +7286,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			sLMVni1om9Lw3J4o/HmPa8JUiK4=
+			G4+V/Tsk8uTeZiJO3nmXiTZASho=
 			</data>
 			<key>hash2</key>
 			<data>
-			74cokVRPob9qDM5KCiYGHRyyXODCDZi1KSXNwX9Myjo=
+			Tj4Vr+O4e2sJsvJVsNBkGeAwvsrQAbnUrGn/ffsQ1vs=
 			</data>
 		</dict>
 		<key>Headers/VROBillboardConstraint.h</key>
@@ -7660,11 +7660,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			PZTD9kFPBJhul/a80L5lj7rU0cI=
+			dus0US20ddFfGjhN4S8pyhudj6Q=
 			</data>
 			<key>hash2</key>
 			<data>
-			nyTwF2uMrRDgtSaWyR0wLFr8HWEQK7FiLIlBz+j660Q=
+			/w5PNLLBzZGAzI9j17vFoRjPNNJKamLCnHO+ZhMJx7w=
 			</data>
 		</dict>
 		<key>Headers/VROLoader.h</key>
@@ -7836,11 +7836,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			sk+FHj1Bvzy0CGsCkOmtLhOJGXg=
+			uuCIYePIx0XxhANCYEV8wmwFwis=
 			</data>
 			<key>hash2</key>
 			<data>
-			7DjOuXMOlcZhAqRCYc+/H6cNof7vI2bSL14b6TiLpLQ=
+			CJ67ybAHMNOiU8ao7emIr3VwoyWDdVSIbJGdXbOHGdk=
 			</data>
 		</dict>
 		<key>Headers/VROQuaternion.h</key>

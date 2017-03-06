@@ -12,11 +12,13 @@
 #include <string>
 #include <vector>
 #include <atomic>
+#include <memory>
 #include "VROVector3f.h"
 #include "VROVector4f.h"
 #include "VROAnimatable.h"
 
 static std::atomic_int sLightId;
+class VROLightingUBO;
 
 enum class VROLightType {
     Ambient,
@@ -115,12 +117,15 @@ public:
         return _spotOuterAngle;
     }
     
-    bool isUpdated() const {
-        return _updated;
+    /*
+     Lights hold onto their UBOs so that they can propagate their
+     updates to them. Each time a light is updated, it pushes the
+     update to all of its parent UBOs.
+     */
+    void addUBO(std::shared_ptr<VROLightingUBO> ubo) {
+        _ubos.push_back(ubo);
     }
-    void setIsUpdated(bool updated) {
-        _updated = updated;
-    }
+    void propagateUpdates();
     
 private:
     
@@ -156,8 +161,13 @@ private:
      */
     VROVector3f _transformedPosition;
     
+    /*
+     Weak refs to all UBOs that use this light. Needed so that when this
+     light is updated, we can flag the UBO as a whole as requiring an 
+     update.
+     */
+    std::vector<std::weak_ptr<VROLightingUBO>> _ubos;
+    
 };
-
-
 
 #endif /* VROLight_h */
