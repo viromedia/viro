@@ -51,10 +51,9 @@ public class SpotLight extends Light {
     }
 
     public void setDirection(float[] direction) {
-        if (mDirection == null) {
+        if (direction == null) {
             throw new IllegalArgumentException("Direction cannot be null for SpotLight");
         }
-
         this.mDirection = direction;
     }
 
