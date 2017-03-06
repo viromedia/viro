@@ -62,6 +62,16 @@
      return (
       <ViroScene>
          <ViroNode position={[0,0,-4]}>
+
+
+           <ViroOmniLight
+                             position={[0, 1, 2]}
+                             color={"#ffffff"}
+                             attenuationStartDistance={30}
+                             attenuationEndDistance={40} />
+
+
+
                 <ViroSphere
                       position={[0, 3, 0]}
                       scale={[0.5, 0.5, 0.5]}
@@ -72,13 +82,13 @@
                       materials={["redColor"]}
                       />
             <ViroText style={styles.baseTextTwo} fontSize={this.state.fontSize}  position={[-2, 0, 0]} width={4} height ={2}
-                text={"Toggle width Seg count: " + this.state.widthSegCount} />
+                text={"Toggle width Seg count: " + this.state.widthSegCount} onClick={this._toggleWidSegCount}/>
             <ViroText style={styles.baseTextTwo} fontSize={this.state.fontSize}  position={[0, 0, 0]} width={4} height ={2}
-                text={"Toggle height Seg count: " + this.state.heightSegCount} />
+                text={"Toggle height Seg count: " + this.state.heightSegCount} onClick={this._toggleHeightSegCount}/>
             <ViroText style={styles.baseTextTwo} fontSize={this.state.fontSize}  position={[2, 0, 0]} width={4} height ={2}
-                text={"Toggle Radius: " + this.state.radius} />
+                text={"Toggle Radius: " + this.state.radius} onClick={this._toggleRadius}/>
             <ViroText style={styles.baseTextTwo} fontSize={this.state.fontSize}  position={[0, -1, 0]} width={4} height ={2}
-                text={"Toggle faces outward: " + this.state.facesOutward} />
+                text={"Toggle faces outward: " + this.state.facesOutward} onClick={this._toggleFacesOutwards}/>
        </ViroNode>
       </ViroScene>
 
@@ -87,7 +97,7 @@
 
    _toggleWidSegCount() {
      var newWidthSegCount = this.state.widthSegCount + 1;
-     if (newWidthSegCount > 15){
+     if (newWidthSegCount > 35){
         newWidthSegCount = 2;
      }
 
@@ -98,7 +108,7 @@
 
    _toggleHeightSegCount() {
      var newHeightSegCount = this.state.heightSegCount + 1;
-     if (newHeightSegCount > 15){
+     if (newHeightSegCount > 35){
         newHeightSegCount = 2;
      }
 
@@ -107,8 +117,8 @@
      });
    },
    _toggleRadius() {
-     var newRadius = this.state.radius + 0.5;
-     if (newRadius > 5){
+     var newRadius = this.state.radius + 2;
+     if (newRadius > 20){
         newRadius = 0.5;
      }
 
@@ -118,7 +128,7 @@
    },
    _toggleFacesOutwards() {
      this.setState({
-             facesOutward:!facesOutward,
+             facesOutward:!this.state.facesOutward,
      });
    },
  });
@@ -128,6 +138,7 @@ ViroMaterials.createMaterials({
   redColor: {
   fresnelExponent: .5,
    shininess: 2.0,
+   lightingModel: "Lambert",
     diffuseColor: "#ff0000"
   }
   });

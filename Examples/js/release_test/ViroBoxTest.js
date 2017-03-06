@@ -40,9 +40,7 @@ import {
 } from 'react-viro';
 
 let polarToCartesian = ViroUtils.polarToCartesian;
-
-var ViroAnimatedComponentTest = require('./ViroAnimatedComponentTest');
-var ViroButtonTest = require('./ViroButtonTest');
+var UriImage = {uri:"https://lh3.googleusercontent.com/dB3Dvgf3VIglusoGJAfpNUAANhTXW8K9mvIsiIPkhJUAbAKGKJcEMPTf0mkSexzLM5o=w300"};
 
 // **This test has not been done.  This is placeholder for scene and navigation arrows**
 
@@ -55,6 +53,7 @@ var ViroBoxTest = React.createClass({
       runAnimation3:false,
       runAnimation4:false,
       toggleWHL:1,
+      currentMaterial:"box1"
     };
   },
 
@@ -70,7 +69,7 @@ var ViroBoxTest = React.createClass({
       <ViroBox
         position={[-2, 2, -4]}
         scale={[1,1,1]}
-        materials={["box1"]}
+        materials={[this.state.currentMaterial]}
         rotation={[0,0,0]}
         height={1*this.state.toggleWHL}
         width={1*this.state.toggleWHL}
@@ -88,7 +87,7 @@ var ViroBoxTest = React.createClass({
       <ViroBox
         position={[2, 2, -4]}
         scale={[1,1,1]}
-        materials={["box1"]}
+        materials={[this.state.currentMaterial]}
         rotation={[0,45,0]}
         height={1*this.state.toggleWHL}
         width={1*this.state.toggleWHL}
@@ -105,9 +104,9 @@ var ViroBoxTest = React.createClass({
       run={this.state.runAnimation3}
       loop={true}>
       <ViroBox
-        position={[-2, -2, -4]}
+        position={[-3, -3, -4]}
         scale={[2,2,2]}
-        materials={["box1"]}
+        materials={[this.state.currentMaterial]}
         rotation={[0,0,0]}
         height={1*this.state.toggleWHL}
         width={1*this.state.toggleWHL}
@@ -116,19 +115,40 @@ var ViroBoxTest = React.createClass({
         onScroll={this._startAnimation3}
         />
       </ViroAnimatedComponent>
-      
-    <ViroText fontSize={this.state.fontSize} style={styles.centeredText} position={[0,-3, -3]} width={2} height ={2} fontFamily={'Arial'}
+      <ViroAnimatedComponent
+      animation="loopRotate"
+      run={this.state.runAnimation4}
+      loop={true}>
+      <ViroBox
+        position={[2, -1.3, -4]}
+        scale={[1,1,1]}
+        materials={[this.state.currentMaterial]}
+        rotation={[0,0,0]}
+        height={2*this.state.toggleWHL}
+        width={4*this.state.toggleWHL}
+        length={3*this.state.toggleWHL}
+        transformBehaviors={["billboardZ"]}
+        onSwipe={this._startAnimation4}
+        />
+      </ViroAnimatedComponent>
+
+
+    <ViroText fontSize={this.state.fontSize} style={styles.centeredText} position={[0,-4, -3]} width={2} height ={2} fontFamily={'Arial'}
         text={"Toggle WHL: " + this.state.toggleWHL} textLineBreakMode='justify' onClick={this._toggleWHL}/>
 
+    <ViroText fontSize={this.state.fontSize} style={styles.centeredText} position={[0,-5, -3]} width={2} height ={2} fontFamily={'Arial'}
+        text={"Toggle material. " } textLineBreakMode='justify' onClick={this._toggleMaterial}/>
 
-
-      <ViroImage source={require('./res/icon_left_w.png')} position={[-2, -4, -3]} scale={[1, 1, 1]} transformBehaviors={["billboard"]} onClick={this._showPrevious} />
-      <ViroText text="ViroBox" position={[0, -5, -3]} transformBehaviors={["billboard"]} />
-      <ViroImage source={require('./res/icon_right_w.png')} position={[2, -4, -3]} scale={[1, 1, 1]} transformBehaviors={["billboard"]} onClick={this._showNext} />
 
      </ViroScene>
 
     );
+  },
+  _toggleMaterial(){
+    var newMat = this.state.currentMaterial == "box1" ? "box2" : "box1";
+      this.setState({
+                      currentMaterial: newMat,
+                    });
   },
   _toggleWHL(){
     var newWhlScale = this.state.toggleWHL + 0.4;
@@ -205,6 +225,12 @@ ViroMaterials.createMaterials({
      lightingModel: "Blinn",
      diffuseTexture: require('./res/earth.png'),
    },
+
+   box2: {
+     shininess : 2.0,
+     lightingModel: "Blinn",
+    diffuseTexture:UriImage,
+   }
 
 });
 

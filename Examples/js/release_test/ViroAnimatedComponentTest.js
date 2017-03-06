@@ -41,136 +41,170 @@ import {
 
 let polarToCartesian = ViroUtils.polarToCartesian;
 
-var ViroAmbientLightTest = require('./ViroAmbientLightTest');
-var ViroBoxTest = require('./ViroBoxTest');
-
 var ViroAnimatedComponentTest = React.createClass({
 
   getInitialState() {
     return {
-      animationName1:"loopRotate",
-      runAnimation1:false,
-      animationName2:"loopRotate",
-      runAnimation2:false,
-      animationName3:"loopRotate",
-      runAnimation3:false,
+      animationName:"loopRotate",
+      playAnim:false,
+      durationSlowDown:1,
+      animationDelay:0,
+      animationComponentDelay:0,
+      animLoop:false,
+      animationType:1,
     };
   },
 
   render: function() {
+    var currentAnim;
+    if ( this.state.animationType == 1){
+        currentAnim = "sequentialAnim";
+    } else if ( this.state.animationType == 2) {
+        currentAnim = "loopRotate";
+    } else {
+        currentAnim = "parallelAnim";
+    }
+
     return (
      <ViroScene>
      <ViroOmniLight position={[0, 0, 0]} color="#ffffff" attenuationStartDistance={40} attenuationEndDistance={50}/>
 
       <ViroAnimatedComponent
-      animation="loopRotate"
-      run={true}
-      loop={true}>
+      animation={currentAnim}
+      delay={this.state.animationComponentDelay}
+      run={this.state.playAnim}
+      loop={this.state.animLoop}
+        onStart={this._onStart}
+        onFinish={this._onFinish}>
       <ViroSphere
         heightSegmentCount={20}
         widthSegmentCount={20}
         radius={.5}
-        position={[0, 0, -3]}
-        materials={["sphere1"]}
-        facesOutward={false}
-        onClick={this._startAnimation1}
-        />
-      </ViroAnimatedComponent>
-
-      <ViroAnimatedComponent
-      animation={this.state.animationName1}
-      run={this.state.runAnimation1}
-      onStart={this._startAnimation2}
-      onFinish={this._startAnimation3}>
-      <ViroSphere
-        heightSegmentCount={20}
-        widthSegmentCount={20}
-        radius={.5}
-        position={[-3, -3, -5]}
+        position={[-1, 0, -3]}
         materials={["sphere1"]}
         facesOutward={false}
         />
       </ViroAnimatedComponent>
 
-      <ViroAnimatedComponent
-      animation={this.state.animationName2}
-      run={this.state.runAnimation2}
-      delay={1000}>
-      <ViroSphere
-        heightSegmentCount={20}
-        widthSegmentCount={20}
-        radius={.5}
-        position={[2, -2, -5]}
-        materials={["sphere1"]}
-        facesOutward={false}
-        />
-      </ViroAnimatedComponent>
+      <ViroNode position={[0,-2,-3]}>
+               <ViroText style={styles.baseTextTwo}  position={[-2,1, 0]} width={2} height ={2}
+                      text={"isPlaying: " + this.state.playAnim}
+                      onClick={this._togglePlay}/>
 
-      <ViroAnimatedComponent
-      animation={this.state.animationName3}
-      run={this.state.runAnimation3}>
-      <ViroBox
-        heightSegmentCount={20}
-        widthSegmentCount={20}
-        radius={.5}
-        position={[-3, 0, -5]}
-        materials={["sphere1"]}
-        />
-      </ViroAnimatedComponent>
+               <ViroText style={styles.baseTextTwo}  position={[0,1, 0]} width={2} height ={2}
+                      text={"Toggle Speed: " + this.state.durationSlowDown + "X slower"}
+                      onClick={this._toggleSpeed}/>
 
-      <ViroImage source={require('./res/icon_left_w.png')} position={[-2, -4, -3]} scale={[1, 1, 1]} transformBehaviors={["billboard"]} onClick={this._showPrevious} />
-      <ViroText text="ViroAnimatedComponent" position={[0, -5, -3]} transformBehaviors={["billboard"]} />
-      <ViroImage source={require('./res/icon_right_w.png')} position={[2, -4, -3]} scale={[1, 1, 1]} transformBehaviors={["billboard"]} onClick={this._showNext} />
+               <ViroText style={styles.baseTextTwo}  position={[2,1, 0]} width={2} height ={2}
+                      text={"IsLooping: " + this.state.animLoop}
+                      onClick={this._toggleLoop}/>
 
+               <ViroText style={styles.baseTextTwo}  position={[-2,0, 0]} width={2} height ={2}
+                      text={"Animation Type: " + currentAnim}
+                      onClick={this._toggleAnimationType}/>
+
+               <ViroText style={styles.baseTextTwo}  position={[0,0, 0]} width={2} height ={2}
+                      text={"AnimComponent Delay: " + this.state.animationComponentDelay}
+                      onClick={this._toggleDelayComponent}/>
+
+               <ViroText style={styles.baseTextTwo}  position={[2,0, 0]} width={2} height ={2}
+                      text={"Animation Delay: " + this.state.animationDelay}
+                      onClick={this._toggleDelayAnimation}/>
+            </ViroNode>
      </ViroScene>
 
     );
   },
 
-  _showPrevious() {
-    this.props.sceneNavigator.pop();
+  _togglePlay(){
+  this.setState({
+              playAnim:!this.state.playAnim
+             });
   },
 
-  _startAnimation1() {
+  _toggleSpeed(){
+    var newSpeed = this.state.durationSlowDown + 1.5;
+    if (newSpeed > 6){
+        newSpeed = 1;
+    }
+    this._updateAnimation(newSpeed, this.state.animationDelay);
     this.setState({
-        animationName1:"moveRight",
-        runAnimation1:true
-      });
+            durationSlowDown:newSpeed
+           });
   },
 
-  _startAnimation2() {
+  _toggleLoop(){
+        this.setState({
+                    animLoop:!this.state.animLoop
+                   });
+  },
+
+  _toggleDelayComponent(){
+    var newDelay = this.state.animationComponentDelay + 2000;
+    if (newDelay > 6000){
+        newDelay = 0;
+    }
+
+     this.setState({
+            animationComponentDelay:newDelay
+           });
+  },
+
+  _toggleDelayAnimation(){
+    var newDelay = this.state.animationDelay + 2000;
+    if (newDelay > 6000){
+        newDelay = 0;
+    }
+    this._updateAnimation(this.state.durationSlowDown, newDelay);
     this.setState({
-        animationName2:"sequentialAnim",
-        runAnimation2:true
-      });
+            animationDelay:newDelay
+           });
   },
 
-  _startAnimation3() {
-    this.setState({
-        animationName3:"comboAnim",
-        runAnimation3:true
-      });
+  _toggleAnimationType(){
+    var newType = this.state.animationType + 1;
+        if (newType > 3){
+            newType = 1;
+        }
+        this.setState({
+                animationType:newType
+               });
   },
 
-  _showNext() {
-    this.props.sceneNavigator.push({scene:ViroBoxTest});
+  _updateAnimation(slowDownMultiplier, animDelay){
+    ViroAnimations.registerAnimations({
+        moveRight:{properties:{positionX:"+=3",}, duration:500*slowDownMultiplier, delay:animDelay},
+        moveLeft:{properties:{positionX:"-=3",}, duration:500*slowDownMultiplier, delay:animDelay},
+        loopRotate:{properties:{rotateY:"+=180"}, duration:500*slowDownMultiplier},
+        sequentialAnim:[
+              ["moveRight","moveLeft"]
+        ],
+        parallelAnim:[
+              ["moveRight","moveLeft"],
+              ["loopRotate"]
+        ]
+      });
+
   },
+  _onStart(){
+    console.log("ViroAnimatedComponent onStart();");
+  },
+  _onFinish(){
+    console.log("ViroAnimatedComponent onFinish();");
+  }
 
 });
 
 ViroAnimations.registerAnimations({
-  fadeIn:{properties:{scaleX:1, scaleY:1, scaleZ:1}, duration: 5000},
-  loopRotate:{properties:{rotateY:"+=10"}, duration:250},
-  scaleSphere:{properties:{scaleX:3, scaleY:3, scaleZ:3}, duration:5000},
-  moveRight:{properties:{positionX:"3",}, duration:5000, delay:3000},
-  moveUp:{properties:{positionY:"3",}, duration:5000},
-  moveDown:{properties:{positionY:"+3",}, duration:5000},
+  moveRight:{properties:{positionX:"+=3",}, duration:500, delay:0},
+  moveLeft:{properties:{positionX:"-=3",}, duration:500, delay:0},
+  loopRotate:{properties:{rotateY:"+=180"}, duration:500},
   sequentialAnim:[
-      ["moveUp"],
-      ["scaleSphere"],
+        ["moveRight","moveLeft"]
   ],
-  comboAnim:[
-      ["moveDown", "scaleSphere"],
+  parallelAnim:[
+        ["moveRight","moveLeft"],
+        ["loopRotate"]
   ],
 });
 
@@ -186,6 +220,13 @@ var styles = StyleSheet.create({
     color: '#ffffff',
     textAlign: 'center',
   },
+    baseTextTwo: {
+        fontFamily: 'Arial',
+        fontSize: 20,
+        color: '#ffffff',
+        textAlignVertical: 'center',
+        textAlign: 'center',
+    }
 });
 
 ViroMaterials.createMaterials({

@@ -47,7 +47,7 @@
 
  // **This test has not been done.  This is placeholder for scene and navigation arrows**
 
- var ViroSpotlightTest = React.createClass({
+ var ViroLightTest = React.createClass({
 
    getInitialState() {
      return {
@@ -325,4 +325,4 @@ ViroMaterials.createMaterials({
   },
  });
 
- module.exports = ViroSpotlightTest;
+ module.exports = ViroLightTest;

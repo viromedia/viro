@@ -44,15 +44,13 @@ let polarToCartesian = ViroUtils.polarToCartesian;
 var Uri360Image = {uri:"https://s3-us-west-2.amazonaws.com/viro/Explorer/360_horseshoe.jpg"};
 var Local360Image = require("./res/360_park.jpg");
 
-var Viro3DObjectTest = require('./Viro3DObjectTest');
-var Viro360VideoTest = require('./Viro360VideoTest');
-
 var Viro360ImageTest = React.createClass({
 
   getInitialState() {
     return {
-      get360Image:Local360Image,
-
+      current360Image:Local360Image,
+      format:"RGBA8",
+      rotationY: 0,
       showLeftArrow:false,
       showRightArrow:false,
     };
@@ -64,57 +62,63 @@ var Viro360ImageTest = React.createClass({
      <ViroOmniLight position={[0, 0, 0]} color="#ffffff" attenuationStartDistance={40} attenuationEndDistance={50}/>
 
      <Viro360Image
-      rotation={[0,0,0]}
-      source={this.state.get360Image}
+      rotation={[0,this.state.rotationY,0]}
+      source={this.state.current360Image}
       onLoadStart={this._onBackgroundPhotoLoadStart}
       onLoadEnd={this._onBackgroundPhotoLoadEnd}
+      format={this.state.format}
       />
 
 
-
-     <ViroAnimatedComponent animation="fadeIn" run={true} loop={false}>
-     <ViroImage source={require('./res/icon_left_w.png')} position={[-2, -4, -3]} scale={[0, 0, 0]} transformBehaviors={["billboard"]} onClick={this._showPrevious} />
-     </ViroAnimatedComponent>
-
+     <ViroText style={styles.elementText}  position={[-1,-3, -5]} width={2} height ={2}
+                    text={"Toggle Format: " + this.state.format}
+                    onClick={this._toggleFormat}/>
+     <ViroText style={styles.elementText}  position={[1,-3, -5]} width={2} height ={2}
+                         text={"Toggle Rotation: " + this.state.rotationY}
+                         onClick={this._toggleRotation}/>
      <ViroImage source={require('./res/poi_dot.png')} position={[0, -4, -3]} transformBehaviors={["billboard"]} onClick={this._showOther} />
-
      <ViroText text="Viro360Image" position={[0, -5, -3]} transformBehaviors={["billboard"]} />
-
-     <ViroAnimatedComponent animation="fadeIn" run={this.state.showRightArrow} loop={false}>
-     <ViroImage source={require('./res/icon_right_w.png')} position={[2, -4, -3]} scale={[0, 0, 0]} transformBehaviors={["billboard"]} onClick={this._showNext} />
-     </ViroAnimatedComponent>
-
      </ViroScene>
 
     );
   },
 
   _onBackgroundPhotoLoadStart(){
-      this.setState({
-          showLeftArrow:true,
-      });
+      console.log("Viro360ImageTest: _onLoadStart");
   },
 
   _onBackgroundPhotoLoadEnd() {
-      this.setState({
-          showRightArrow:true,
-      });
-  },
-
-  _showPrevious() {
-    this.props.sceneNavigator.pop();
+      console.log("Viro360ImageTest: _onLoadEnd");
   },
 
   _showOther() {
+    var newImage = this.state.current360Image == Uri360Image ? Local360Image : Uri360Image;
     this.setState({
-        get360Image:Uri360Image,
+        current360Image:newImage,
       });
   },
-
-  _showNext() {
-    this.props.sceneNavigator.push({scene:Viro360VideoTest});
-  },
-
+    _toggleRotation() {
+        var newRotation = this.state.rotationY + 10;
+        if (newRotation == 360){
+            newRotation = 0;
+        }
+        this.setState({
+                          rotationY:newRotation
+                });
+    },
+  _toggleFormat() {
+        var newState;
+        if (this.state.format == "RGBA8"){
+            newState="RGBA4";
+        } else if (this.state.format == "RGBA4"){
+            newState="RGB565";
+        } else if (this.state.format == "RGB565"){
+            newState="RGBA8";
+        }
+         this.setState({
+                            format:newState
+                        });
+   },
 });
 
 ViroAnimations.registerAnimations({

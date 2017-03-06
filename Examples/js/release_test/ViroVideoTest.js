@@ -47,7 +47,7 @@ var ViroVideoTest = React.createClass({
           style={styles.baseTextTwo} onClick={this._toggleLooping} transformBehaviors={["billboard"]}/>
         <ViroText position={polarToCartesian([2, -10, -5])} text="Restart"
           style={styles.baseTextTwo} onClick={this._restartVideo} transformBehaviors={["billboard"]}/>
-        <ViroText position={polarToCartesian([2, -10, -10])} text="Toggle Pause"
+        <ViroText position={polarToCartesian([2, -10, -10])} text={"IsVideoPlaying: " + this.state.videoPaused}
           style={styles.baseTextTwo} onClick={this._togglePauseVideo} transformBehaviors={["billboard"]}/>
         <ViroText position={polarToCartesian([2, -10, -15])} text={this._getMuteText()}
           style={styles.baseTextTwo} onClick={this._muteVideo} transformBehaviors={["billboard"]}/>
@@ -88,7 +88,7 @@ var ViroVideoTest = React.createClass({
     })
   },
   _getMuteText() {
-    return this.state.muteVideo ? "Unmute" : "Mute";
+    return this.state.muteVideo ? "IsMute: True" : "IsMute: False";
   },
   _muteVideo() {
     this.setState({
@@ -101,7 +101,7 @@ var ViroVideoTest = React.createClass({
     })
   },
   _getLoopingText() {
-    return this.state.loopVideo ? "Disable Looping" : "Enable Looping";
+    return this.state.loopVideo ? "IsLooping: True" : "IsLooping: False";
   },
   _toggleLooping() {
     this.setState({
