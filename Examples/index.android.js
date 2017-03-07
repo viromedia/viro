@@ -17,7 +17,7 @@ import {
   ViroSceneNavigator,
 } from 'react-viro';
 
-var InitialScene = require('./js/whackamole/MainMenu');
+var InitialScene = require('./js/photo_viewer/HomeMenuScene');
 
 export default class ViroSample extends Component {
   render() {
