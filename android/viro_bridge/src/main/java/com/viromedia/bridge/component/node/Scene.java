@@ -48,7 +48,7 @@ public class Scene extends Node implements SceneJni.SceneDelegate {
     }
 
     @Override
-    protected void onTearDown(){
+    public void onTearDown(){
         mNativeScene.destroy();
         super.onTearDown();
     }

@@ -20,6 +20,13 @@ public class Component extends ReactViewGroup {
     protected ReactApplicationContext mReactContext = null;
     protected Scene mScene = null;
 
+    /*
+     Flipped to true when the NativeViewHierarchyManager alerts us that
+     this view has been dropped, in NativeViewHierarchyManager.dropView().
+     We tear down dropped views when we removeAllChildren.
+     */
+    private boolean mFlaggedForTearDown = false;
+
     private static Boolean IS_TORN_DOWN = false;
 
     public Component(ReactApplicationContext reactContext) {
@@ -105,11 +112,22 @@ public class Component extends ReactViewGroup {
     }
 
     /**
-     * Called when view is detached from view hierarchy and allows
-     * for some additional cleanup.
+     * Invoked when it is safe to cleanup the view, and
+     * native references (renderer references) can be safely deleted.
+     * This is only invoked after the view is detached from the view
+     * hierarchy by the NativeViewHierarchyManager, *and* the view has
+     * been removed from the tree via removeViewAt from its parent.
      */
-    protected void onTearDown() {
+    public void onTearDown() {
         IS_TORN_DOWN = true;
+    }
+
+    public void flagForTearDown() {
+        mFlaggedForTearDown = true;
+    }
+
+    public boolean isFlaggedForTearDown() {
+        return mFlaggedForTearDown;
     }
 
     /**

@@ -7,7 +7,6 @@ import android.content.Context;
 
 import com.viro.renderer.jni.NodeJni;
 import com.viro.renderer.jni.SpotLightJni;
-import com.viromedia.bridge.component.node.Scene;
 
 public class SpotLight extends Light {
     private static final float[] DEFAULT_POSITION = {0, 0, 0};
@@ -38,7 +37,7 @@ public class SpotLight extends Light {
     }
 
     @Override
-    protected void onTearDown(){
+    public void onTearDown(){
         if (mNativeLight != null){
             mNativeLight.destroy();
             mNativeLight = null;

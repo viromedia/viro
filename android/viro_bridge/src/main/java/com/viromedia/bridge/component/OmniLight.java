@@ -4,12 +4,9 @@
 package com.viromedia.bridge.component;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.viro.renderer.jni.NodeJni;
 import com.viro.renderer.jni.OmniLightJni;
-import com.viro.renderer.jni.SpotLightJni;
-import com.viromedia.bridge.component.node.Scene;
 
 public class OmniLight extends Light {
 
@@ -37,7 +34,7 @@ public class OmniLight extends Light {
     }
 
     @Override
-    protected void onTearDown(){
+    public void onTearDown(){
         if (mNativeLight != null){
             mNativeLight.destroy();
             mNativeLight = null;

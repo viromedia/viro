@@ -20,7 +20,7 @@ public class Box extends Control {
     }
 
     @Override
-    protected void onTearDown(){
+    public void onTearDown(){
         if (mNativeBox != null){
             mNativeBox.destroy();
         }

@@ -5,10 +5,8 @@ package com.viromedia.bridge.component.node.control;
 
 
 import com.facebook.react.bridge.ReactApplicationContext;
-import com.facebook.react.uimanager.annotations.ReactProp;
 import com.viro.renderer.jni.CameraJni;
 import com.viro.renderer.jni.NodeJni;
-import com.viromedia.bridge.component.Component;
 
 public class Camera extends Control {
     protected CameraJni mNativeCamera;
@@ -19,7 +17,7 @@ public class Camera extends Control {
     }
 
     @Override
-    protected void onTearDown(){
+    public void onTearDown(){
         if (mNativeCamera != null){
             mNativeCamera.destroy();
             mNativeCamera = null;

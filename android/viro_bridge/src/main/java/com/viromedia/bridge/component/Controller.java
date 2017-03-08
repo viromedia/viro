@@ -28,7 +28,7 @@ public class Controller extends Component  {
         mEventDelegateJni = new EventDelegateJni();
     }
     @Override
-    protected void onTearDown(){
+    public void onTearDown(){
         if (mEventDelegateJni != null) {
             mEventDelegateJni.destroy();
             mEventDelegateJni = null;

@@ -7,7 +7,6 @@ import android.content.Context;
 
 import com.viro.renderer.jni.DirectionalLightJni;
 import com.viro.renderer.jni.NodeJni;
-import com.viromedia.bridge.component.node.Scene;
 
 public class DirectionalLight extends Light {
 
@@ -32,7 +31,7 @@ public class DirectionalLight extends Light {
     }
 
     @Override
-    protected void onTearDown(){
+    public void onTearDown(){
         if (mNativeLight != null){
             mNativeLight.destroy();
             mNativeLight = null;

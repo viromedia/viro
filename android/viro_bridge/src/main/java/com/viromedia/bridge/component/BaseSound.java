@@ -139,7 +139,7 @@ public abstract class BaseSound extends Component implements SoundDelegate {
     }
 
     @Override
-    protected void onTearDown() {
+    public void onTearDown() {
         super.onTearDown();
         if (mNativeSound != null) {
             mNativeSound.destroy();

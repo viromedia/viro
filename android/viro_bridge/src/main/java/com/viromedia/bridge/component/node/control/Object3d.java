@@ -24,7 +24,7 @@ public class Object3d extends Control {
     }
 
     @Override
-    protected void onTearDown() {
+    public void onTearDown() {
         if (mNative3dObject != null){
             mNative3dObject.destroy();
         }

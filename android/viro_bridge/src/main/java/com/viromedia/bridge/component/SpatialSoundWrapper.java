@@ -73,7 +73,7 @@ public class SpatialSoundWrapper extends Node {
     }
 
     @Override
-    protected void onTearDown() {
+    public void onTearDown() {
         super.onTearDown();
         if (mInnerSound != null) {
             mInnerSound.onTearDown();

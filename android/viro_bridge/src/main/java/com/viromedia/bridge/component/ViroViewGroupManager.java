@@ -61,7 +61,7 @@ public abstract class ViroViewGroupManager<T extends ViewGroup>
     public void onDropViewInstance(T view) {
         super.onDropViewInstance(view);
         if (view instanceof Component){
-            ((Component) view).onTearDown();
+            ((Component) view).flagForTearDown();
         }
     }
 

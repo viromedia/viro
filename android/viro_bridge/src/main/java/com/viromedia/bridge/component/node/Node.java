@@ -14,7 +14,6 @@ import com.viro.renderer.jni.EventDelegateJni;
 import com.viro.renderer.jni.MaterialJni;
 import com.viro.renderer.jni.NodeJni;
 import com.viromedia.bridge.component.AnimatedComponent;
-import com.viromedia.bridge.component.node.control.Camera;
 import com.viromedia.bridge.component.Component;
 import com.viromedia.bridge.component.Light;
 import com.viromedia.bridge.component.node.control.Image;
@@ -84,7 +83,7 @@ public class Node extends Component {
     }
 
     @Override
-    protected void onTearDown(){
+    public void onTearDown() {
         super.onTearDown();
         if (mNodeJni != null){
             mEventDelegateJni.setEventDelegateCallback(null);
@@ -151,6 +150,18 @@ public class Node extends Component {
         }
 
         super.removeViewAt(index);
+
+        /*
+         We tear down views only after they've been both flagged for drop
+         (the NativeViewHierarchyManager has deleted references to them),
+         and after they've been removed (the renderer no longer needs them).
+         */
+        if (child instanceof Component) {
+            Component component = (Component) child;
+            if (component.isFlaggedForTearDown()) {
+                component.onTearDown();
+            }
+        }
     }
 
     /*

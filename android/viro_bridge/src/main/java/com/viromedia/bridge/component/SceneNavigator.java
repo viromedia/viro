@@ -20,10 +20,6 @@ import java.util.ArrayList;
 
 /**
  * SceneNavigator manages the various scenes that a Viro App can navigate between.
- *
- * TODO:
- * Add Scene Navigation support! This only supports adding one view and does
- * not take into consideration the logic needed for multiple scene handling.
  */
 public class SceneNavigator extends FrameLayout {
     private static final String TAG = ViroLog.getTag(SceneNavigator.class);
@@ -121,6 +117,7 @@ public class SceneNavigator extends FrameLayout {
         mViewAdded = true;
         // In case gl was initialized before views were added.
         setRenderContext();
+        super.addView(child, index);
     }
 
     private void setRenderContext() {
@@ -134,21 +131,27 @@ public class SceneNavigator extends FrameLayout {
 
     public void setCurrentSceneIndex(int index){
         mSelectedSceneIndex = index;
-
         if (index < 0 || index >= mSceneArray.size()){
             // Scene object may not yet have been initialized, so return here.
             return;
         }
+
         mVrView.setScene(mSceneArray.get(mSelectedSceneIndex).getNativeScene());
     }
 
     @Override
-    public void removeView(View view){
-        if (view instanceof ViroGvrLayout){
-            super.removeView(view);
-        } else if (view instanceof Scene) {
-            // TODO: also remove Scene from mViroGvrLayout if it's the current scene too.
+    public void removeViewAt(int index) {
+        View view = getChildAt(index);
+        if (view instanceof Scene) {
             mSceneArray.remove(view);
+        }
+        super.removeViewAt(index);
+
+        if ((view instanceof Component)) {
+            Component component = (Component) view;
+            if (component.isFlaggedForTearDown()) {
+                component.onTearDown();
+            }
         }
     }
 

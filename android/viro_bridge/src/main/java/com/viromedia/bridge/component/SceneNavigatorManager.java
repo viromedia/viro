@@ -54,5 +54,4 @@ public class SceneNavigatorManager extends ViroViewGroupManager<SceneNavigator> 
             ((SceneNavigator) view).onPropsSet();
         }
     }
-
 }

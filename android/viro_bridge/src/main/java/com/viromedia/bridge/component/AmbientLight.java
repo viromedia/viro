@@ -29,7 +29,7 @@ public class AmbientLight extends Light {
     }
 
     @Override
-    protected void onTearDown(){
+    public void onTearDown(){
         if (mNativeLight != null){
             mNativeLight.destroy();
             mNativeLight = null;

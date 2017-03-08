@@ -29,7 +29,7 @@ public class VideoSurface extends Control {
     }
 
     @Override
-    protected void onTearDown(){
+    public void onTearDown(){
         if (mSurfaceJni != null) {
             mSurfaceJni.destroy();
             mSurfaceJni = null;
