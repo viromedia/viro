@@ -11,6 +11,8 @@ import com.facebook.react.uimanager.ThemedReactContext;
 import com.facebook.react.uimanager.annotations.ReactProp;
 import com.viromedia.bridge.utility.Helper;
 
+import javax.annotation.Nullable;
+
 
 public class DirectionalLightManager extends ViroViewGroupManager<DirectionalLight> {
 
@@ -28,9 +30,13 @@ public class DirectionalLightManager extends ViroViewGroupManager<DirectionalLig
         return new DirectionalLight(reactContext);
     }
 
-    @ReactProp(name = "color", defaultInt = Color.WHITE)
-    public void setColor(DirectionalLight directionalLight, int color) {
-        directionalLight.setColor(color);
+    @ReactProp(name = "color", customType = "Color")
+    public void setColor(DirectionalLight directionalLight, @Nullable Integer color) {
+        if(color == null) {
+            directionalLight.setColor(Color.WHITE);
+        }else {
+            directionalLight.setColor(color);
+        }
     }
 
     @ReactProp(name = "direction")

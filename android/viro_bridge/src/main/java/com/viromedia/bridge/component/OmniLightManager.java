@@ -11,6 +11,8 @@ import com.facebook.react.uimanager.ThemedReactContext;
 import com.facebook.react.uimanager.annotations.ReactProp;
 import com.viromedia.bridge.utility.Helper;
 
+import javax.annotation.Nullable;
+
 public class OmniLightManager extends ViroViewGroupManager<OmniLight> {
 
     public OmniLightManager(ReactApplicationContext context) {
@@ -27,9 +29,13 @@ public class OmniLightManager extends ViroViewGroupManager<OmniLight> {
         return new OmniLight(reactContext);
     }
 
-    @ReactProp(name = "color", defaultInt = Color.WHITE)
-    public void setColor(OmniLight omniLight, int color) {
-        omniLight.setColor(color);
+    @ReactProp(name = "color", customType = "Color")
+    public void setColor(OmniLight omniLight, @Nullable Integer color) {
+        if(color == null) {
+            omniLight.setColor(Color.WHITE);
+        } else {
+            omniLight.setColor(color);
+        }
     }
 
     @ReactProp(name = "position")

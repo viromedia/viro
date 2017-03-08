@@ -26,25 +26,13 @@ var ColorPropType = require('react-native').ColorPropType;
 var ViroAmbientLight = React.createClass({
   propTypes: {
     ...View.propTypes,
-    color: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.number
-    ]),
+    color: ColorPropType,
   },
 
   render: function() {
       let nativeProps = Object.assign({}, this.props);
       nativeProps.style=[this.props.style];
-      if (this.props.color) {
-        let rgba = normalizeColor(this.props.color);
-        let argb = ((rgba & 0xff) << 24) | (rgba >> 8);
-        // iOS takes color in the form rgba, Android takes argb
-        if (Platform.OS === 'ios') {
-          nativeProps.color = rgba;
-        } else if (Platform.OS === 'android') {
-          nativeProps.color = argb;
-        }
-      }
+      nativeProps.color = this.props.color;
 
       return (
         <VRTAmbientLight

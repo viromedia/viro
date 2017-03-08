@@ -13,6 +13,7 @@
 
 var ReactPropTypes = require('react/lib/ReactPropTypes');
 var CubeMapPropType = require('./CubeMapPropType');
+var ColorPropType = require('react-native').ColorPropType;
 
 var MaterialPropTypes = {
   shininess: ReactPropTypes.number,
@@ -31,15 +32,15 @@ var MaterialPropTypes = {
   multiplyTexture: ReactPropTypes.any,
   ambientOcclusionTexture: ReactPropTypes.any,
   selfIlluminationTexture: ReactPropTypes.any,
-  diffuseColor: ReactPropTypes.string,
-  specularColor: ReactPropTypes.string,
-  normalColor: ReactPropTypes.string,
-  reflectiveColor: ReactPropTypes.string,
-  emissionColor: ReactPropTypes.string,
-  transparentColor: ReactPropTypes.string,
-  multiplyColor: ReactPropTypes.string,
-  ambientOcclusionColor: ReactPropTypes.string,
-  selfIlluminationColor: ReactPropTypes.string,
+  diffuseColor: ColorPropType,
+  specularColor: ColorPropType,
+  normalColor: ColorPropType,
+  reflectiveColor: ColorPropType,
+  emissionColor: ColorPropType,
+  transparentColor: ColorPropType,
+  multiplyColor: ColorPropType,
+  ambientOcclusionColor: ColorPropType,
+  selfIlluminationColor: ColorPropType,
 };
 
 module.exports = MaterialPropTypes;

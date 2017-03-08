@@ -19,6 +19,7 @@ var NativeModules = require('react-native').NativeModules;
 
 var PropTypes = require('react/lib/ReactPropTypes');
 var CubeMapPropType = require('./Material/CubeMapPropType');
+var ColorPropType = require('react-native').ColorPropType;
 
 
 /**
@@ -32,10 +33,7 @@ var ViroSkybox = React.createClass({
      * The source cube map. Either this or a color must be specified.
      */
     source: CubeMapPropType,
-    color: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.number
-    ]),
+    color: ColorPropType,
     format: PropTypes.oneOf(['RGBA8', 'RGBA4', 'RGB565']),
 
     /**
@@ -94,15 +92,7 @@ var ViroSkybox = React.createClass({
 
     nativeProps.onViroSkyBoxLoadStart = this._onLoadStart;
     nativeProps.onViroSkyBoxLoadEnd = this._onLoadEnd;
-
-    let rgba = normalizeColor(this.props.color);
-    let argb = ((rgba & 0xff) << 24) | (rgba >> 8);
-    // iOS takes color in the form rgba, Android takes argb
-    if (Platform.OS === 'ios') {
-      nativeProps.color = rgba;
-    } else if (Platform.OS === 'android') {
-      nativeProps.color = argb;
-    }
+    nativeProps.color = this.props.color;
 
     return (
       <VRTSkybox {...nativeProps}/>

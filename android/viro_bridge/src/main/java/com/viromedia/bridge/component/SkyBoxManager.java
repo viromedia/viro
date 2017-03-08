@@ -9,6 +9,7 @@ import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.common.MapBuilder;
 import com.facebook.react.uimanager.ThemedReactContext;
 import com.facebook.react.uimanager.annotations.ReactProp;
+import javax.annotation.Nullable;
 
 import java.util.Map;
 
@@ -36,9 +37,11 @@ public class SkyBoxManager extends ViroViewGroupManager<SkyBox> {
     /**
      * Color is expecting a double because ReactNative doesn't support a long prop type
      */
-    @ReactProp(name = "color", defaultDouble = 0)
-    public void setColor(SkyBox view, double color) {
-        view.setColor((long) color);
+    @ReactProp(name = "color", customType = "Color")
+    public void setColor(SkyBox view, @Nullable Integer color) {
+        if(color != null) {
+            view.setColor((long) color);
+        }
     }
 
     @ReactProp(name = "format")

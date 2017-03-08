@@ -9,6 +9,7 @@ import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.uimanager.ThemedReactContext;
 import com.facebook.react.uimanager.annotations.ReactProp;
 
+import javax.annotation.Nullable;
 
 
 public class AmbientLightManager extends ViroViewGroupManager<AmbientLight> {
@@ -27,9 +28,13 @@ public class AmbientLightManager extends ViroViewGroupManager<AmbientLight> {
         return new AmbientLight(reactContext);
     }
 
-    @ReactProp(name = "color", defaultInt = Color.WHITE)
-    public void setColor(AmbientLight ambientLight, int color) {
-        ambientLight.setColor(color);
+    @ReactProp(name = "color", customType = "Color")
+    public void setColor(AmbientLight ambientLight, @Nullable Integer color) {
+        if(color == null) {
+            ambientLight.setColor(Color.WHITE);
+        } else {
+            ambientLight.setColor(color);
+        }
     }
 
 }

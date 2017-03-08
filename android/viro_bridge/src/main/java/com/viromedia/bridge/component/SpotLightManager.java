@@ -12,6 +12,8 @@ import com.facebook.react.uimanager.ThemedReactContext;
 import com.facebook.react.uimanager.annotations.ReactProp;
 import com.viromedia.bridge.utility.Helper;
 
+import javax.annotation.Nullable;
+
 public class SpotLightManager extends ViroViewGroupManager<SpotLight> {
 
     public SpotLightManager(ReactApplicationContext context) {
@@ -28,10 +30,15 @@ public class SpotLightManager extends ViroViewGroupManager<SpotLight> {
         return new SpotLight(reactContext);
     }
 
-    @ReactProp(name = "color", defaultInt = Color.WHITE)
-    public void setColor(SpotLight spotLight, int color) {
-        spotLight.setColor(color);
+    @ReactProp(name = "color", customType = "Color")
+    public void setColor(SpotLight spotLight, @Nullable Integer color) {
+        if(color == null) {
+            spotLight.setColor(Color.WHITE);
+        } else {
+            spotLight.setColor(color);
+        }
     }
+
 
     @ReactProp(name = "direction")
     public void setDirection(SpotLight spotLight, ReadableArray direction) {
