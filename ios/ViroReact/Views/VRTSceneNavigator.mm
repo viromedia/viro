@@ -76,8 +76,8 @@ static NSString *const kVRTInvalidAPIKeyMessage = @"The given API Key is either 
       return;
   }
 
-  VRTScene *scene = [_currentViews objectAtIndex:index];
-  [self setSceneView:scene];
+  VRTScene *sceneView = [_currentViews objectAtIndex:index];
+  [self setSceneView:sceneView];
 }
 
 - (void)removeReactSubview:(UIView *)subview {
