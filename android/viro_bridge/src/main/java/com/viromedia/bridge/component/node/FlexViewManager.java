@@ -35,8 +35,12 @@ public class FlexViewManager extends NodeManager<FlexView> {
         view.setHeight(height);
     }
 
-    @ReactProp(name = "backgroundColor", defaultDouble = Color.TRANSPARENT)
-    public void setBackgroundColor(FlexView view, double color) {
-        view.setBackgroundColor((long) color);
+    @ReactProp(name = "backgroundColor", customType = "Color")
+    public void setBackgroundColor(FlexView view, Integer color) {
+        if(color == null){
+            view.setBackgroundColor(Color.TRANSPARENT);
+        } else {
+            view.setBackgroundColor((long) color);
+        }
     }
 }
