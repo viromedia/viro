@@ -147,7 +147,9 @@ static NSString *const kWebPrefix = @"http";
         if (data == nullptr) {
             RCTLogError(@"Sound w/ name [%@] was not preloaded", name);
         }
-        [self createSoundWithData:data local:false];
+        else {
+            [self createSoundWithData:data local:false];
+        }
     } else if([_source objectForKey:kUriKey]) {
         NSString *uri = [_source objectForKey:kUriKey];
         if ([uri hasPrefix:kLocalPrefix]) {
