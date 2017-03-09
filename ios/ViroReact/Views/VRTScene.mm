@@ -172,7 +172,7 @@ static NSArray<NSNumber *> *const kDefaultSize = @[@(0), @(0), @(0)];
     view.driver = driver;
     view.scene = [self scene];
     
-    [view viewWillAppear];
+    [view sceneWillAppear];
   }
 }
 
@@ -183,7 +183,7 @@ static NSArray<NSNumber *> *const kDefaultSize = @[@(0), @(0), @(0)];
 - (void)sceneWillDisappear:(VRORenderContext *)context driver:(VRODriver *)driver {
   self.driver = driver;
   for(VRTView *view in _childViews) {
-    [view viewWillDisappear];
+    [view sceneWillDisappear];
   }
 }
 

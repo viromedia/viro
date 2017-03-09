@@ -120,9 +120,15 @@
   _videoTexture->setDelegate(std::make_shared<VROVideoDelegateiOS>(self));
 }
 
-- (void)viewWillAppear {
+- (void)sceneWillAppear {
   if (!_sphereTextureAddedToScene) {
     [self updateSceneWithSphereTexture];
+  }
+}
+
+- (void)sceneWillDisappear {
+  if (_sphereTextureAddedToScene) {
+    _videoTexture->pause();
   }
 }
 

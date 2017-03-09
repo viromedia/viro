@@ -127,8 +127,14 @@
   [self updateSurface];
 }
 
-- (void)viewWillAppear {
+- (void)sceneWillAppear {
   [self updateSurface];
+}
+
+- (void)sceneWillDisappear {
+  if (_videoTexture) {
+    _videoTexture->pause();
+  }
 }
 
 - (void)viewWillDisappear {

@@ -26,7 +26,7 @@ typedef NS_ENUM(NSInteger, ViroConstraintType) {
 @property (nonatomic, readonly, weak) RCTBridge *bridge;
 
 /*
- The following variables are only valid after viewWillAppear is 
+ The following variables are only valid after sceneWillAppear is 
  invoked.
  */
 @property (nonatomic, readwrite) VRORenderContext *context;
@@ -44,9 +44,14 @@ typedef NS_ENUM(NSInteger, ViroConstraintType) {
 // View/ShadowView is a root view
 - (BOOL)isReactRootView;
 
-// Method invoked before view is displayed
+// Methods invoked before views are added and removed from the React
+// tree
 - (void)viewWillAppear;
-
-// Method invoked before view is hidden
 - (void)viewWillDisappear;
+
+// Methods invoked when the scene to which the views belong appears
+// and disappears
+- (void)sceneWillAppear;
+- (void)sceneWillDisappear;
+
 @end

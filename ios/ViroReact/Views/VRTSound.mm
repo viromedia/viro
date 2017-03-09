@@ -221,6 +221,18 @@ static NSString *const kWebPrefix = @"http";
     }
 }
 
+- (void)sceneWillDisappear {
+    if (_sound) {
+        _sound->pause();
+    }
+}
+
+- (void)viewWillDisappear {
+    if (_sound) {
+        _sound->pause();
+    }
+}
+
 @end
 
 #pragma mark - Sound
@@ -306,6 +318,18 @@ static NSString *const kWebPrefix = @"http";
     [super seekToTime:time];
     if (_player) {
         _player->seekToTime(time);
+    }
+}
+
+- (void)sceneWillDisappear {
+    if (_player) {
+        _player->pause();
+    }
+}
+
+- (void)viewWillDisappear {
+    if (_player) {
+        _player->pause();
     }
 }
 

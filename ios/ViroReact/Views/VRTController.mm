@@ -26,8 +26,8 @@
   return self;
 }
 
-- (void)viewWillAppear{
-    [super viewWillAppear];
+- (void)sceneWillAppear{
+    [super sceneWillAppear];
 
     _presenter = self.scene->getControllerPresenter();
     _presenter->setEventDelegate(_eventDelegate);

@@ -131,8 +131,8 @@ NSString *const VRTLabelReactTagAttributeName = @"ReactTagAttributeName";
 }
 
 // Method invoked before being added to scene, meant to overridden by subclasses.
-- (void)viewWillAppear {
-  [super viewWillAppear];
+- (void)sceneWillAppear {
+  [super sceneWillAppear];
   [self updateLabel];
 }
 

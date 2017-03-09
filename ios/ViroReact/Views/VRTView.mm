@@ -45,23 +45,29 @@
   
   /*
    If the scene has appeared, meaning the renderer is ready, then invoke 
-   viewWillAppear on insertion. Note if the scene has not yet appeared, then
-   viewWillAppear will be run when it *does* appear (see VRTScene::sceneWillAppear).
+   sceneWillAppear on insertion. Note if the scene has not yet appeared, then
+   sceneWillAppear will be run when it *does* appear (see VRTScene::sceneWillAppear).
    */
   if (self.scene && self.driver && self.context) {
     view.context = self.context;
     view.driver = self.driver;
     view.scene = self.scene;
-    [view viewWillAppear];
+    [view sceneWillAppear];
   }
+  
+  // viewWillAppear is always invoked when a view is added to the React tree
+  [view viewWillAppear];
 }
 
 - (void)removeReactSubview:(UIView *)subview {
   // Subclasses must override to perform physical actions (i.e. removing
-  // nodes from the renderer), then invoke this
+  // nodes from the renderer)
+    
+  VRTView *view = (VRTView *)subview;
+  [view viewWillDisappear];
   
   [_childViews removeObject:subview];
-  ((VRTView *) subview).superview = NULL;
+  view.superview = NULL;
 }
 
 - (NSArray *)reactSubviews {
@@ -81,14 +87,28 @@
   return false;
 }
 
-- (void)viewWillAppear {
+- (void)sceneWillAppear {
     for (id childView in _childViews) {
       VRTView *view = (VRTView *)childView;
-      [view viewWillAppear];
+      [view sceneWillAppear];
     }
 }
 
--(void)viewWillDisappear {
+- (void)sceneWillDisappear {
+  for (id childView in _childViews) {
+    VRTView *view = (VRTView *)childView;
+    [view sceneWillDisappear];
+  }
+}
+
+- (void)viewWillAppear {
+  for (id childView in _childViews) {
+    VRTView *view = (VRTView *)childView;
+    [view viewWillAppear];
+  }
+}
+
+- (void)viewWillDisappear {
   for (id childView in _childViews) {
     VRTView *view = (VRTView *)childView;
     [view viewWillDisappear];

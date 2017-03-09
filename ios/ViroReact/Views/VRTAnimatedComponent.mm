@@ -92,7 +92,7 @@ enum class VRTAnimatedComponentState {
         }
     }
 
-    // If the parent view is added before the child, viewWillAppear:
+    // If the parent view is added before the child, sceneWillAppear:
     // will have already been invoked, so run the animation here
     if (_viewAdded){
         [self updateAnimation];
@@ -108,8 +108,8 @@ enum class VRTAnimatedComponentState {
     [super removeReactSubview:subview];
 }
 
-- (void)viewWillAppear {
-    [super viewWillAppear];
+- (void)sceneWillAppear {
+    [super sceneWillAppear];
     _viewAdded = true;
     [self updateAnimation];
 }

@@ -85,11 +85,11 @@
   return NO;
 }
 
-- (void)viewWillAppear {
+- (void)sceneWillAppear {
   if(self.materials != nil || self.backgroundColor!=nil) {
     [self createSurface];
   }
-  [super viewWillAppear];
+  [super sceneWillAppear];
 
 }
 

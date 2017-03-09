@@ -90,7 +90,7 @@
   }
 }
 
-- (void)viewWillAppear {
+- (void)sceneWillAppear {
   //if the image loading is before the scene is set, then set the image.
   [self updateSceneWithSphereTexture];
 }
