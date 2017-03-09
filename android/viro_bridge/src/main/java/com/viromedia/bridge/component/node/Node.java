@@ -277,7 +277,7 @@ public class Node extends Component {
             Image image = (Image) this;
             image.setWidth(width3d);
             image.setHeight(height3d);
-            image.updateImage();
+            image.onPropsSet();
         } else if (this instanceof FlexView) {
             FlexView flexView = (FlexView) this;
             flexView.setWidth(width3d);

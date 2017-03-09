@@ -95,7 +95,6 @@ public class Image extends Control {
     @Override
     public void onPropsSet() {
         super.onPropsSet();
-
         updateSurface();
         if (mImageNeedsDownload) {
             updateImage();
@@ -105,7 +104,6 @@ public class Image extends Control {
 
     private void updateSurface() {
         boolean createdNewSurface = false;
-
         if (mNativeSurface == null) {
             mNativeSurface = new SurfaceJni(mWidth, mHeight);
             createdNewSurface = true;
@@ -135,9 +133,14 @@ public class Image extends Control {
         if (!mIsImageSet && mPlaceholderSourceMap != null && mSourceMap != null) {
             downloader.getImageAsync(mPlaceholderSourceMap, new ImageDownloadListener() {
                 @Override
-                public void completed(Bitmap result) {
-                    setImageOnSurface(result);
-                    downloadSourceImage(downloader);
+                public void completed(final Bitmap result) {
+                    mMainHandler.post(new Runnable() {
+                        public void run() {
+                            setImageOnSurface(result);
+                            downloadSourceImage(downloader);
+                        }
+                    });
+
                 }
             });
         } else {
@@ -162,13 +165,13 @@ public class Image extends Control {
                                 float ratio = (float) result.getWidth() / (float) result.getHeight();
                                 mHeight = mWidth / ratio;
                                 mGeometryNeedsUpdate = true;
-
                                 updateSurface();
                             }
-
+ 
                             setMaterialOnSurface();
                             setImageOnSurface(result);
                             imageDownloadDidFinish();
+
                         }
                     });
 
@@ -224,6 +227,7 @@ public class Image extends Control {
         if (mNativeSurface == null) {
             return;
         }
+
         if (mLatestImage != null) {
             mLatestImage.destroy();
         }
