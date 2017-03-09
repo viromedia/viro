@@ -206,7 +206,7 @@ ViroMaterials.createMaterials({
     spherematerial2: {
     shininess:1.0,
     lightingModel: "Blinn",
-    diffuseTexture: {uri:"http://s3-us-west-2.amazonaws.com/viro/Explorer/360_wework.jpg"},
+    diffuseTexture: require("./res/demo_wework_commons_south_4.jpg"),
   },
   spherematerial3: {
     shininess:1.0,
