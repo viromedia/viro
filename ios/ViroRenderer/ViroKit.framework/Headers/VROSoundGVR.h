@@ -88,6 +88,7 @@ private:
      * Private fields
      */
     bool _ready = false;
+    bool _paused = false;
     std::shared_ptr<VROSoundData> _data;
     std::shared_ptr<gvr::AudioApi> _gvrAudio;
     gvr::AudioSourceId _audioId = -1;

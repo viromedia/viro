@@ -55,8 +55,15 @@ private:
     float _playVolume;
     bool _muted;
     bool _paused;
+    bool _loop;
     std::shared_ptr<VROSoundData> _data;
-    
+
+    /*
+     Update the underlying iOS player with the various properties set on this
+     player (e.g. muted, loop, volume, etc.)
+     */
+    void updatePlayerProperties();
+
     void setup();
     void doFadeThenPause();
     void doFadeThenStop();
