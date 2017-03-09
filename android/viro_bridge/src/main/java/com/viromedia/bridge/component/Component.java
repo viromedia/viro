@@ -20,13 +20,6 @@ public class Component extends ReactViewGroup {
     protected ReactApplicationContext mReactContext = null;
     protected Scene mScene = null;
 
-    /*
-     Flipped to true when the NativeViewHierarchyManager alerts us that
-     this view has been dropped, in NativeViewHierarchyManager.dropView().
-     We tear down dropped views when we removeAllChildren.
-     */
-    private boolean mFlaggedForTearDown = false;
-
     private static Boolean IS_TORN_DOWN = false;
 
     public Component(ReactApplicationContext reactContext) {
@@ -120,14 +113,6 @@ public class Component extends ReactViewGroup {
      */
     public void onTearDown() {
         IS_TORN_DOWN = true;
-    }
-
-    public void flagForTearDown() {
-        mFlaggedForTearDown = true;
-    }
-
-    public boolean isFlaggedForTearDown() {
-        return mFlaggedForTearDown;
     }
 
     /**

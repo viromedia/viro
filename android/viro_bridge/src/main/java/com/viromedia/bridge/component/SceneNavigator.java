@@ -3,6 +3,8 @@
  */
 package com.viromedia.bridge.component;
 
+import android.os.Handler;
+import android.os.Looper;
 import android.view.View;
 import android.widget.FrameLayout;
 
@@ -149,9 +151,7 @@ public class SceneNavigator extends FrameLayout {
 
         if ((view instanceof Component)) {
             Component component = (Component) view;
-            if (component.isFlaggedForTearDown()) {
-                component.onTearDown();
-            }
+            component.onTearDown();
         }
     }
 
@@ -163,7 +163,13 @@ public class SceneNavigator extends FrameLayout {
         @Override
         public void onGlInitialized() {
             mGLInialized = true;
-            setRenderContext();
+            (new Handler(Looper.getMainLooper())).post(new Runnable() {
+                @Override
+                public void run() {
+                    mGLInialized = true;
+                    setRenderContext();
+                }
+            });
         }
     }
 

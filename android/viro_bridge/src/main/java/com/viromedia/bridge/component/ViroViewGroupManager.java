@@ -54,18 +54,6 @@ public abstract class ViroViewGroupManager<T extends ViewGroup>
     }
 
     /**
-     * Called when view is detached from view hierarchy and allows
-     * for some additional cleanup by the {@link Component} subclass.
-     */
-    @Override
-    public void onDropViewInstance(T view) {
-        super.onDropViewInstance(view);
-        if (view instanceof Component){
-            ((Component) view).flagForTearDown();
-        }
-    }
-
-    /**
      * Callback that will be triggered after all properties are updated in
      * current update transaction (all @ReactProp handlers for properties updated
      * in current transaction have been called). If you want to override this method

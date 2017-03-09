@@ -5,6 +5,7 @@ package com.viromedia.bridge.component;
 
 import android.net.Uri;
 
+import com.facebook.react.bridge.JSApplicationCausedNativeException;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
@@ -106,10 +107,10 @@ public abstract class BaseSound extends Component implements SoundDelegate {
         if (mRenderContext == null) {
             return;
         }
-
         if (mNativeSound != null) {
             mNativeSound.pause();
             mNativeSound.destroy();
+            mNativeSound = null;
         }
 
         mShouldResetSound = false;
@@ -118,9 +119,10 @@ public abstract class BaseSound extends Component implements SoundDelegate {
         if (mSource.hasKey(NAME)) {
             SoundDataJni data = getSoundDataForName(mSource.getString(NAME));
             if (data == null) {
-                throw new IllegalArgumentException("Unknown Sound source with name: ["
+                throw new JSApplicationCausedNativeException("Unknown Sound source with name: ["
                         + mSource.getString(NAME) + "]");
             }
+
             mNativeSound = getNativeSound(data);
             mNativeSound.setDelegate(this);
         } else if (mSource.hasKey(URI)) {
@@ -143,6 +145,7 @@ public abstract class BaseSound extends Component implements SoundDelegate {
         super.onTearDown();
         if (mNativeSound != null) {
             mNativeSound.destroy();
+            mNativeSound = null;
         }
     }
 

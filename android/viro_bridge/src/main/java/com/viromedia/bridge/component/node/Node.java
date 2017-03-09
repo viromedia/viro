@@ -152,15 +152,11 @@ public class Node extends Component {
         super.removeViewAt(index);
 
         /*
-         We tear down views only after they've been both flagged for drop
-         (the NativeViewHierarchyManager has deleted references to them),
-         and after they've been removed (the renderer no longer needs them).
+         We tear down views whenever they're removed from the tree.
          */
         if (child instanceof Component) {
             Component component = (Component) child;
-            if (component.isFlaggedForTearDown()) {
-                component.onTearDown();
-            }
+            component.onTearDown();
         }
     }
 
