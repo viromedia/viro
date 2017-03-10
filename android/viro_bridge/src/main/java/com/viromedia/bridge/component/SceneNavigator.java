@@ -123,7 +123,7 @@ public class SceneNavigator extends FrameLayout {
     }
 
     private void setRenderContext() {
-        if (mViewAdded && mGLInialized) {
+        if (mViewAdded && mGLInialized && mSelectedSceneIndex < mSceneArray.size()) {
             Scene childScene = mSceneArray.get(mSelectedSceneIndex);
             childScene.setRenderContext(mRenderContext);
             childScene.setScene(childScene);
