@@ -3,6 +3,8 @@
  */
 package com.viromedia.bridge.component.node.control;
 
+import android.net.Uri;
+
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
 import com.viro.renderer.jni.AsyncObjListener;
@@ -11,11 +13,15 @@ import com.viro.renderer.jni.ObjectJni;
 import com.viromedia.bridge.utility.ViroEvents;
 import com.viromedia.bridge.utility.Helper;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Object3d extends Control {
+
     private ObjectJni mNative3dObject;
-    private String mSource;
+    private Uri mSource;
+    private List<String> mResources = null;
     private boolean mObjLoaded = false;
     private boolean mSourceChanged = false;
 
@@ -35,8 +41,12 @@ public class Object3d extends Control {
         if (source == null || source.trim().isEmpty()) {
             throw new IllegalArgumentException("source is a required prop for Viro3DObject");
         }
-        mSource = Helper.parseUri(source, mReactContext).toString();
+        mSource = Helper.parseUri(source, mReactContext);
         mSourceChanged = true;
+    }
+
+    public void setResources(List<String> resources) {
+        mResources = resources;
     }
 
     @Override
@@ -57,7 +67,7 @@ public class Object3d extends Control {
         ObjectJni oldObject3d = mNative3dObject;
         loadDidStart();
 
-        mNative3dObject = new ObjectJni(mSource, new AsyncObjListener() {
+        AsyncObjListener listener = new AsyncObjListener() {
             @Override
             public void onObjLoaded() {
                 mObjLoaded = true;
@@ -68,7 +78,22 @@ public class Object3d extends Control {
 
                 loadDidEnd();
             }
-        });
+        };
+
+        // if the source is from resources, then pass in the resources it depends on (if any)
+        if (mSource.getScheme().equals("res")) {
+            Map<String, String> resourceMap = null;
+            if (mResources != null) {
+                resourceMap = new HashMap<>();
+                for (String resource : mResources) {
+                    Uri uri = Helper.parseUri(resource, getContext());
+                    resourceMap.put(resource, uri.toString());
+                }
+            }
+            mNative3dObject = new ObjectJni(mSource, listener, resourceMap);
+        } else {
+            mNative3dObject = new ObjectJni(mSource, listener);
+        }
         setGeometry(mNative3dObject);
 
         if (oldObject3d != null) {
@@ -92,5 +117,4 @@ public class Object3d extends Control {
                 null
         );
     }
-
 }

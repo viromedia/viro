@@ -40,7 +40,11 @@ var scene_ios_test = React.createClass({
           <ViroText style={{fontFamily: 'Helvetica-Bold', fontSize:12, textAlign:'left'}} text="Rotated Bold underlined Helvetica up in here!" width={5.0} position={[-3, .1, -8]} rotation={[0, -25, 0]} />
           <ViroText style={styles.baseText} position={[0,-1, -8]} text="Longer text that is within 1 thingy" />
           <ViroText style={styles.baseTextTwo} width={10.0} position={[0,1.5, -8]} text="Testing same text different width and length up in here. Know what I mean?" />
-          <Viro3DObject source={require('./res/male02.obj')}
+          <Viro3DObject source={require('./res/male02_obj.obj')}
+                          resources={[require('./res/male02.mtl'),
+                                      require('./res/01_-_Default1noCulling.JPG'),
+                                      require('./res/male-02-1noCulling.JPG'),
+                                      require('./res/orig_02_-_Defaul1noCulling.JPG')]}
                           position={[-0.0, -100, -10]}
                           scale={[0.1, 0.1, 0.1]}
                           onLoadStart={this._onLoadObjStart}

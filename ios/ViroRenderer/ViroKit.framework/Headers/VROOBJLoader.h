@@ -17,6 +17,7 @@
 #include <functional>
 #include "VROGeometrySource.h"
 #include "VROGeometryElement.h"
+#include "tiny_obj_loader.h"
 
 class VRONode;
 class VROTexture;
@@ -40,14 +41,24 @@ public:
                                                    bool async = false, std::function<void(std::shared_ptr<VRONode> node, bool success)> onFinish = nullptr);
     static std::shared_ptr<VRONode> loadOBJFromFile(std::string file, std::string baseDir,
                                                     bool async = false, std::function<void(std::shared_ptr<VRONode> node, bool success)> onFinish = nullptr);
-    
+    static std::shared_ptr<VRONode> loadOBJFromFileWithResources(std::string file, std::map<std::string, std::string> resourceMap,
+                                                                 bool async = false, std::function<void(std::shared_ptr<VRONode> node, bool success)> onFinish = nullptr);
 private:
     
     static void injectOBJ(std::shared_ptr<VROGeometry> geometry, std::shared_ptr<VRONode> node,
                           std::function<void(std::shared_ptr<VRONode> node, bool success)> onFinish);
     static std::shared_ptr<VROGeometry> loadOBJ(std::string file, std::string base, bool isBaseURL);
-    
+    static std::shared_ptr<VROGeometry> loadOBJ(std::string file,
+                                                std::map<std::string, std::string> resourceMap);
+
+    static std::shared_ptr<VROGeometry> processOBJ(tinyobj::attrib_t attrib,
+                                                   std::vector<tinyobj::shape_t> shapes,
+                                                   std::vector<tinyobj::material_t> materials,
+                                                   std::string base,
+                                                   bool isBaseURL,
+                                                   std::map<std::string, std::string> *resourceMap = nullptr);
     static std::shared_ptr<VROTexture> loadTexture(std::string &name, std::string &base, bool isBaseURL,
+                                                   std::map<std::string, std::string> *resourceMap,
                                                    std::map<std::string, std::shared_ptr<VROTexture>> &cache);
     
 };

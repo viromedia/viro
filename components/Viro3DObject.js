@@ -47,6 +47,14 @@ var Viro3DObject = React.createClass({
       // Opaque type returned by require('./spaceship.obj')
       PropTypes.number,
     ]).isRequired,
+    resources: PropTypes.arrayOf(
+      PropTypes.oneOfType([
+        PropTypes.shape({
+          uri: PropTypes.string,
+        }),
+        PropTypes.number,
+      ])
+    ),
     visible: PropTypes.bool,
 
     onHover: React.PropTypes.func,
@@ -116,6 +124,12 @@ var Viro3DObject = React.createClass({
   },
   render: function() {
     var modelsrc = resolveAssetSource(this.props.source);
+    var resources = null;
+    if (this.props.resources != undefined) {
+      resources = this.props.resources.map(function(resource) {
+        return resolveAssetSource(resource)
+      });
+    }
     let onGaze = this.props.onGaze ? this._onGaze : undefined;
     // Since materials and transformBehaviors can be either a string or an array, convert the string to a 1-element array.
     let materials = typeof this.props.materials === 'string' ? new Array(this.props.materials) : this.props.materials;
@@ -132,6 +146,7 @@ var Viro3DObject = React.createClass({
       <VRT3DObject
         {...this.props}
         source={modelsrc}
+        resources={resources}
         materials={materials}
         transformBehaviors={transformBehaviors}
         canHover={this.props.onHover != undefined}
