@@ -157,7 +157,7 @@ static NSString *const kWebPrefix = @"http";
         } else if ([uri hasPrefix:kWebPrefix]) {
             [self createSoundWithPath:uri local:false];
         } else {
-            RCTLogError(@"Unknown path to sound: %@", uri);
+            [self createSoundWithPath:uri local:true];
         }
     } else {
         RCTLogError(@"Unknown sound source type. %@", _source);
@@ -171,6 +171,7 @@ static NSString *const kWebPrefix = @"http";
     if (_sound) {
         _sound->pause();
     }
+
     _sound = self.driver->newSound(std::string([path UTF8String]), self.soundType, local);
     _sound->setDelegate(std::make_shared<VROSoundDelegateiOS>(self));
 }
@@ -180,6 +181,7 @@ static NSString *const kWebPrefix = @"http";
     if (_sound) {
         _sound->pause();
     }
+
     _sound = self.driver->newSound(data, self.soundType);
     _sound->setDelegate(std::make_shared<VROSoundDelegateiOS>(self));
 }
@@ -283,16 +285,15 @@ static NSString *const kWebPrefix = @"http";
 
 // Override
 - (void)createSoundWithPath:(NSString *)path local:(BOOL)local {
-    // TODO: VIRO-756 implement loading from local resources
     if (_player) {
         _player->pause();
     }
-    _player = self.driver->newAudioPlayer(std::string([path UTF8String]));
-    _player->setDelegate(std::make_shared<VROSoundDelegateiOS>(self));
+
+   _player = self.driver->newAudioPlayer(std::string([path UTF8String]), local);
+   _player->setDelegate(std::make_shared<VROSoundDelegateiOS>(self));
 }
 
 - (void)createSoundWithData:(std::shared_ptr<VROSoundData>)data local:(BOOL)local {
-    // TODO: VIRO-756 implement loading from local resources
     if (_player) {
         _player->pause();
     }
