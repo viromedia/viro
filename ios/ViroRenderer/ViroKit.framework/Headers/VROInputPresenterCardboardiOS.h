@@ -14,6 +14,7 @@
 #include "VRORenderContext.h"
 #include "VROInputControllerBase.h"
 #include "VROEventDelegate.h"
+#include "VROHitTestResult.h"
 
 class VROInputPresenterCardboardiOS : public VROInputPresenter {
 public:
@@ -29,8 +30,8 @@ public:
             getReticle()->trigger();
         }
     }
-    void onGazeHit(int source, float distance, VROVector3f hitLocation) {
-        VROInputPresenter::onReticleGazeHit(distance, hitLocation);
+    void onGazeHit(int source, const VROHitTestResult &hit) {
+        VROInputPresenter::onReticleGazeHit(hit);
      }
 };
 #endif

@@ -33,9 +33,13 @@ class VRONodeCamera;
 class VROHitTestResult;
 class VROConstraint;
 
+extern bool kDebugSortOrder;
+
 class VRONode : public VROAnimatable {
     
 public:
+    
+    static void resetDebugSortIndex();
     
     /*
      Designated initializer for nodes in the model tree.
@@ -296,7 +300,7 @@ public:
     void addConstraint(std::shared_ptr<VROConstraint> constraint);
     void removeConstraint(std::shared_ptr<VROConstraint> constraint);
     void removeAllConstraints();
-    
+
 protected:
     
     /*

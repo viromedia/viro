@@ -17,6 +17,7 @@
 #include "VROInputType.h"
 
 static const float kReticleSizeMultiple = 3;
+static const bool kDebugSceneBackgroundDistance = false;
 
 /**
  * VROInputPresenter contains all UI view implementations to be displayed for a given
@@ -99,7 +100,7 @@ public:
         }
     }
 
-    virtual void onGazeHit(int source, float distance, VROVector3f hitLocation) {
+    virtual void onGazeHit(int source, const VROHitTestResult &hit) {
         //No-op
     }
 
@@ -116,34 +117,52 @@ public:
 
     void setReticle(std::shared_ptr<VROReticle> reticle){
         _reticle = reticle;
+        _reticleInitialPositionSet = false;
     }
 
 protected:
     std::shared_ptr<VRONode> _rootNode;
     std::weak_ptr<VROEventDelegate> _eventDelegateWeak;
 
-    void onReticleGazeHit(float distance, VROVector3f hitLocation){
+    void onReticleGazeHit(const VROHitTestResult &hit){
         if (_reticle == nullptr){
             return;
         }
 
-        float depth = -distance;
+        float depth = -hit.getDistance();
 
-        if (_reticle->getPointerMode()){
-            _reticle->setPosition(hitLocation);
-        } else {
-            // Lock the Reticle's position to the center of the screen
-            // for non-pointer mode (usually Cardboard).
-            _reticle->setPosition(VROVector3f(0, 0, depth));
+        if (_reticle->getPointerMode()) {
+            _reticle->setPosition(hit.getLocation());
+            
+            float worldPerScreen = _context->getCamera().getWorldPerScreen(depth);
+            float radius = fabs(worldPerScreen) * kReticleSizeMultiple;
+            _reticle->setRadius(radius);
         }
-
-        float worldPerScreen = _context->getCamera().getWorldPerScreen(depth);
-        float radius = fabs(worldPerScreen) * kReticleSizeMultiple;
-        _reticle->setRadius(radius);
+        else {
+            // Lock the Reticle's position to the center of the screen
+            // for non-pointer mode (usually Cardboard). This works because
+            // the reticle uses the HUDView matrix as its transform, which
+            // cancels out the camera's view matrix
+            
+            // Only use the background depth if this is our first time
+            // positioning the reticle. Otherwise we maintain the current
+            // reticle depth, to avoid reticle 'popping' that occurs when
+            // the user moves from an actual focused object to the background.
+            // The background has no 'actual' depth so this is ok.
+            if (!_reticleInitialPositionSet || !hit.isBackgroundHit() || kDebugSceneBackgroundDistance) {
+                _reticle->setPosition(VROVector3f(0, 0, depth));
+                _reticleInitialPositionSet = true;
+                
+                float worldPerScreen = _context->getCamera().getWorldPerScreen(depth);
+                float radius = fabs(worldPerScreen) * kReticleSizeMultiple;
+                _reticle->setRadius(radius);
+            }
+        }
     }
 
 private:
     std::shared_ptr<VROReticle> _reticle;
     std::shared_ptr<VRORenderContext> _context;
+    bool _reticleInitialPositionSet;
 };
 #endif

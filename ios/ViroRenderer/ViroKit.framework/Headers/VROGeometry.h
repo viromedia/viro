@@ -86,8 +86,8 @@ public:
                 const VRORenderContext &context,
                 VRODriver &driver);
     
-    void updateSortKeys(VRONode *node, uint32_t depth, uint32_t lightsHash,
-                        float opacity, float distanceFromCamera, float zFar,
+    void updateSortKeys(VRONode *node, uint32_t hierarchyId, uint32_t hierarchyDepth,
+                        uint32_t lightsHash, float opacity, float distanceFromCamera, float zFar,
                         VRODriver &driver);
     void getSortKeys(std::vector<VROSortKey> *outKeys);
     

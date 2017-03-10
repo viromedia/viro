@@ -26,7 +26,8 @@ public:
     std::stack<VROMatrix4f> transforms;
     std::stack<float> opacities;
     std::vector<std::shared_ptr<VROLight>> lights;
-    std::stack<bool> hierarchical;
+    std::stack<int> hierarchical;
+    int hierarchyId;
     
 };
 

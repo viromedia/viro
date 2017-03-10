@@ -12,16 +12,17 @@
 #include "VROVector3f.h"
 #include <memory>
 
-class VROGeometry;
+class VRONode;
 
 class VROHitTestResult {
     
 public:
     
-    VROHitTestResult(std::shared_ptr<VRONode> node, VROVector3f location, float distance) :
+    VROHitTestResult(std::shared_ptr<VRONode> node, VROVector3f location, float distance, bool background) :
         _node(node),
         _location(location),
-        _distance(distance)
+        _distance(distance),
+        _background(background)
     {}
     
     ~VROHitTestResult() {}
@@ -37,12 +38,17 @@ public:
     float getDistance() const {
         return _distance;
     }
+    
+    bool isBackgroundHit() const {
+        return _background;
+    }
 
 private:
     
     std::shared_ptr<VRONode> _node;
     VROVector3f _location;
     float _distance;
+    bool _background;
 
 };
 

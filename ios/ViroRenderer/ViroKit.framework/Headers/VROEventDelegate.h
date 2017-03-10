@@ -15,6 +15,7 @@
 #include <set>
 #include <map>
 #include "VROVector3f.h"
+#include "VROHitTestResult.h"
 
 /**
  * Class for both registering for and implementing event delegate callbacks.
@@ -129,7 +130,7 @@ public:
         //No-op
     }
 
-    virtual void onGazeHit(int source, float distance, VROVector3f hitLocation) {
+    virtual void onGazeHit(int source, const VROHitTestResult &hit) {
         //No-op
     }
 

@@ -21,9 +21,9 @@
 #include "VROHitTestResult.h"
 #include "VRONode.h"
 #include "VROGeometry.h"
-static const float SCENE_BACKGROUND_DIST = 5.0f;
-static const VROVector3f CONTROLLER_DEFAULT_POSITION = {0,0,0};
+
 static const float ON_DRAG_DISTANCE_THRESHOLD = 0.01;
+
 /**
  * Responsible for mapping generalized input data from a controller, to a unified
  * set of VROEventDelegate.EventTypes. It then notifies corresponding VROEventDelegates
@@ -49,17 +49,18 @@ public:
     /**
      * The context is attached within the construction of VRORenderer.
      */
-    void setContext(std::shared_ptr<VRORenderContext> context){
-        _context = context;
-        _controllerPresenter = createPresenter(context);
-        registerEventDelegate(_controllerPresenter);
-    }
+    void setContext(std::shared_ptr<VRORenderContext> context);
+    
+    /*
+     For testing background reticle distance.
+     */
+    void debugMoveReticle();
 
     /**
      * onProcess is to be implemented by derived classes to drive the processing
      * of platform-specific input events and map them to viro-specific input events.
      */
-    virtual void onProcess(){
+    virtual void onProcess(const VROCamera &camera){
         //No-op
     }
 
@@ -184,7 +185,7 @@ private:
     /**
      * Returns the closest node that was hit.
      */
-    VROHitTestResult hitTest(VROVector3f vector, VROVector3f hitFromPosition, bool boundsOnly);
+    VROHitTestResult hitTest(VROVector3f ray, VROVector3f hitFromPosition, bool boundsOnly);
 
     /**
      * Returns the first node that is able to handle the event action by bubbling it up.

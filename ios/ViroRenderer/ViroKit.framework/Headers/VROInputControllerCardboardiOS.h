@@ -18,7 +18,7 @@ class VROInputControllerCardboardiOS : public VROInputControllerBase {
 public:
     VROInputControllerCardboardiOS(){}
     virtual ~VROInputControllerCardboardiOS(){}
-    void onProcess();
+    void onProcess(const VROCamera &camera);
     void onScreenClicked();
     std::string getHeadset();
     std::string getController();
@@ -29,6 +29,8 @@ protected:
     }
 
 private:
-    void updateOrientation();
+    
+    void updateOrientation(const VROCamera &camera);
+    
 };
 #endif

@@ -25,8 +25,18 @@ public:
     }
 
     bool operator< (const VROSortKey& r) const {
-        return std::tie(renderingOrder, graphDepth, distanceFromCamera, incoming, shader, textures, lights, material, node, elementIndex) <
-               std::tie(r.renderingOrder, r.graphDepth, r.distanceFromCamera, r.incoming, r.shader, r.textures, r.lights, r.material, r.node, r.elementIndex);
+        /*
+         If both elements are part of the same hierarchy, then include graph depth in the sort.
+         Otherwise, ignore graph depth.
+         */
+        if (hierarchyId > 0 && hierarchyId == r.hierarchyId) {
+            return std::tie(renderingOrder, hierarchyDepth, distanceFromCamera, incoming, shader, textures, lights, material, node, elementIndex) <
+            std::tie(r.renderingOrder, r.hierarchyDepth, r.distanceFromCamera, r.incoming, r.shader, r.textures, r.lights, r.material, r.node, r.elementIndex);
+        }
+        else {
+            return std::tie(renderingOrder, distanceFromCamera, incoming, shader, textures, lights, material, node, elementIndex) <
+            std::tie(r.renderingOrder, r.distanceFromCamera, r.incoming, r.shader, r.textures, r.lights, r.material, r.node, r.elementIndex);
+        }
     }
             
     /*
@@ -35,15 +45,24 @@ public:
     uint32_t renderingOrder;
     
     /*
-     The depth of the node in the scene graph. This is normally set
+     The depth of the node in its hierarchy. This is normally set
      to zero. If any of the node's parents is set to hierarchical 
-     rendering, then this is set to the node's depth in the graph.
+     rendering, then this is set to the node's depth in the hierarchy,
+     with 0 being the depth of the first hierarhical parent, 1 being
+     the depth after, etc.
      
      This ensures that when a hierarchial node is rendered, all 
      of its children will be rendered immediately after by order of 
      their depth.
      */
-    uint32_t graphDepth;
+    uint32_t hierarchyDepth;
+    
+    /*
+     The ID of the hierarchy this node resides in. When comparing two
+     nodes, we only include graph depth in the sort if the two nodes
+     are in the same hierarchy. 0 indicates we are not in a hierarchy.
+     */
+    uint32_t hierarchyId;
     
     /*
      Distance fom camera for objects is next (back to front).
