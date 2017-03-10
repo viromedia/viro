@@ -184,4 +184,22 @@ public class Component extends ReactViewGroup {
             }
         }
     }
+
+    public void onHostResume(){
+        for (int i = getChildCount() - 1; i >= 0; i--) {
+            final View child = getChildAt(i);
+            if (child instanceof Component){
+                ((Component)child).onHostResume();
+            }
+        }
+    }
+
+    public void onHostPause(){
+        for (int i = getChildCount() - 1; i >= 0; i--) {
+            final View child = getChildAt(i);
+            if (child instanceof Component){
+                ((Component)child).onHostPause();
+            }
+        }
+    }
 }

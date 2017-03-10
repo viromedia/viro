@@ -158,6 +158,32 @@ public abstract class BaseSound extends Component implements SoundDelegate {
     }
 
     @Override
+    public void onHostPause(){
+        super.onHostPause();
+        if (mNativeSound != null && !mPaused) {
+            mNativeSound.pause();
+        }
+    }
+
+    @Override
+    public void sceneWillDisappear() {
+        if (mNativeSound != null && !mPaused) {
+            mNativeSound.pause();
+        }
+    }
+
+    @Override
+    public void onHostResume(){
+        super.onHostResume();
+        onPropsSet();
+    }
+
+    @Override
+    public void sceneWillAppear() {
+        onPropsSet();
+    }
+
+    @Override
     public void onSoundFinish() {
         mReactContext.getJSModule(RCTEventEmitter.class).receiveEvent(getId(),
                 ViroEvents.ON_FINISH,

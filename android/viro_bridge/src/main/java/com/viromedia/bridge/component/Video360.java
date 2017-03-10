@@ -190,4 +190,30 @@ public class Video360 extends Component {
                 ViroEvents.ON_UPDATE_TIME,
                 event);
     }
+
+    @Override
+    public void onHostPause(){
+        super.onHostPause();
+        if (mVideoTextureJni != null) {
+            mVideoTextureJni.pause();
+        }
+    }
+
+    @Override
+    public void sceneWillDisappear() {
+        if (mVideoTextureJni != null){
+            mVideoTextureJni.pause();
+        }
+    }
+
+    @Override
+    public void onHostResume(){
+        super.onHostResume();
+        setPaused(mPaused);
+    }
+
+    @Override
+    public void sceneWillAppear() {
+        setPaused(mPaused);
+    }
 }

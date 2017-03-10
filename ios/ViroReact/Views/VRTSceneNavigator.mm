@@ -150,8 +150,12 @@ static NSString *const kVRTInvalidAPIKeyMessage = @"The given API Key is either 
   [_vroView validateApiKey:apiKey withCompletionBlock:completionBlock];
 }
 
-#pragma mark RVTInvalidating Delegate Methods
+- (void)removeFromSuperview{
+    [self viewWillDisappear];
+    [super removeFromSuperview];
+}
 
+#pragma mark RVTInvalidating Delegate Methods
 - (void)invalidate {
   _currentViews = nil;
   _currentScene = nil;

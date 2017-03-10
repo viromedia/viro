@@ -8,6 +8,7 @@ import android.os.Looper;
 import android.view.View;
 import android.widget.FrameLayout;
 
+import com.facebook.react.bridge.LifecycleEventListener;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.viro.renderer.jni.GlListener;
 import com.viro.renderer.jni.RenderContextJni;
@@ -91,6 +92,29 @@ public class SceneNavigator extends FrameLayout {
         mVrView.onActivityResumed(reactContext.getCurrentActivity());
 
         notifyScenePlatformInformation();
+
+        reactContext.addLifecycleEventListener(new LifecycleEventListener() {
+            @Override
+            public void onHostResume() {
+                if (mViewAdded && mGLInialized) {
+                    Scene childScene = mSceneArray.get(mSelectedSceneIndex);
+                    childScene.onHostResume();
+                }
+            }
+
+            @Override
+            public void onHostPause() {
+                if (mViewAdded && mGLInialized) {
+                    Scene childScene = mSceneArray.get(mSelectedSceneIndex);
+                    childScene.onHostPause();
+                }
+            }
+
+            @Override
+            public void onHostDestroy() {
+                //No-op
+            }
+        });
     }
 
     @Override
