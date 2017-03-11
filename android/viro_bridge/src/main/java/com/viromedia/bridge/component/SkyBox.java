@@ -4,7 +4,10 @@
 package com.viromedia.bridge.component;
 
 import android.graphics.Bitmap;
+import android.os.Handler;
+import android.os.Looper;
 
+import com.facebook.react.bridge.JSApplicationIllegalArgumentException;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.ReadableMapKeySetIterator;
@@ -16,6 +19,7 @@ import com.viro.renderer.jni.TextureJni;
 import com.viromedia.bridge.component.node.Scene;
 import com.viromedia.bridge.utility.ImageDownloadListener;
 import com.viromedia.bridge.utility.ImageDownloader;
+import com.viromedia.bridge.utility.ViroLog;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -24,6 +28,7 @@ import java.util.concurrent.CountDownLatch;
 public class SkyBox extends Component {
     private static final long COLOR_NOT_SET = 0;
 
+    private static final String TAG = ViroLog.getTag(SkyBox.class);
     private final ReactApplicationContext mContext;
     private ReadableMap mSourceMap;
     private Map<String, ImageJni> mImageJniMap = new HashMap<>();
@@ -92,6 +97,7 @@ public class SkyBox extends Component {
                         // Prevent memory leak if tear down already happened on this component
                         return;
                     }
+
                     ImageJni cubeFaceImage = mImageJniMap.get(cubeFaceName);
                     if (cubeFaceImage != null) {
                         cubeFaceImage.destroy();
@@ -104,6 +110,15 @@ public class SkyBox extends Component {
                     if (latch.getCount() == 0) {
                         // All 6 skybox images finished downloading.
                         imageDownloadDidFinish();
+
+                        if(result != null) {
+                            final int width = result.getWidth();
+                            final int height = result.getHeight();
+                            if(width != 8 && width != 16 && width != 32 && width != 64 && width != 128 && width != 256 && width != 512 &&
+                                    width != 1024 && width != 2048 && width != 4096 && width != 8192 && width != 16384) {
+                              ViroLog.error(TAG, "Width and height for ever skybox texture needs to be a power 2, current image dimensions are (" + width + "," + height + ")");
+                            }
+                        }
                     }
                 }
             });
