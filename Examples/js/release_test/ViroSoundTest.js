@@ -87,8 +87,8 @@ var ViroSoundTest = React.createClass({
       minDistance: 7,
       soundRoom:1,
       soundType:0,
-      soundDistance:7
-
+      soundDistance:-7,
+      cameraPos:0
     }
   },
 
@@ -106,6 +106,7 @@ var ViroSoundTest = React.createClass({
   render: function() {
     return (
       <ViroScene reticleEnabled={true} onClick={this._onClick} soundRoom={this.state.soundRoom == 1 ? soundRoom : soundRoom1} >
+        <ViroCamera position={[0, 0, this.state.cameraPos]} active={true}/>
         <ViroSkyBox color="#ff69b4" />
         {this._getSoundControls()}
 
@@ -165,24 +166,29 @@ var ViroSoundTest = React.createClass({
      var room = this.state.soundRoom == 1 ? "Curtain Heavy" : "Transparent Room";
     return(
         <ViroNode position={[0,0,-4]}>
-         <ViroText style={styles.centeredText}  position={[-2,-3, 0]} width={1.5} height={2}
+         <ViroText style={styles.centeredText}  position={[-2, -3, 0]} width={1.5} height={2}
                 text={"Toggle Atenuation distance: " + this.state.minDistance + " - " + this.state.maxDistance}
                 onClick={this._toggleAttenuationDistance}/>
+
          <ViroText style={styles.centeredText}  position={[0,-3, 0]} width={1.5} height={2}
-                text={"Toggle Sound distance: " + this.state.soundDistance}
+                text={"Toggle Sound Z: " + this.state.soundDistance}
                 onClick={this._toggleSoundDistance}/>
 
-         <ViroText style={styles.centeredText} position={[2,-3, 0]} width={1.5} height ={2}
+        <ViroText style={styles.centeredText} position={[0, -5, 0]} width={1.5} height={2}
+               text={"Toggle Camera Z: " + this.state.cameraPos}
+               onClick={this._toggleCameraPosition}/>
+
+         <ViroText style={styles.centeredText} position={[2, -3, 0]} width={1.5} height ={2}
                 text={"Toggle room materials: " + room}  onClick={this._toggleRoomMaterial}/>
         </ViroNode>
         );
   },
 
     _toggleSoundDistance(){
-        var newsoundDistance = this.state.soundDistance + 1;
+        var newsoundDistance = this.state.soundDistance - 1;
 
-        if (newsoundDistance > 13){
-            newsoundDistance = 7;
+        if (newsoundDistance < -13){
+            newsoundDistance = -7;
         }
 
         this.setState({
@@ -190,6 +196,17 @@ var ViroSoundTest = React.createClass({
              });
 
       },
+
+      _toggleCameraPosition(){
+          var newCameraDistance = this.state.cameraPos + 1;
+          if (newCameraDistance > 3){
+              newCameraDistance = -3;
+          }
+
+          this.setState({
+              cameraPos:newCameraDistance,
+          });
+        },
 
     _toggleAttenuationDistance(){
         var newMax = this.state.maxDistance + 1;
@@ -286,7 +303,7 @@ var ViroSoundTest = React.createClass({
                         muted={this.state.mute}
                         minDistance={this.state.minDistance}
                         maxDistance={this.state.maxDistance}
-                        position={[0,this.state.soundDistance,0]}
+                        position={[0,0,this.state.soundDistance]}
                         source={this._getSource()}
                         loop={this.state.looping}
                         volume={this.state.volume}
