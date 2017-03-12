@@ -52,7 +52,10 @@ public:
     VROQuaternion getRotation() const {
         return _rotation;
     }
-    VROMatrix4f computeLookAtMatrix() const;
+    VROMatrix4f getLookAtMatrix() const {
+        return _lookAtMatrix;
+    }
+    void computeLookAtMatrix();
     
     float getWorldPerScreen(float distance) const;
     
@@ -89,6 +92,13 @@ private:
      rotation plus base rotation.
      */
     VROMatrix4f _baseRotation;
+
+    /*
+     The last computed lookAt matrix for this camera. This matrix combines all rotation
+     and position information into one unified view matrix. Note like all matrices in
+     the VROCamera, this is eye-independent (the eyeFromHeadMatrix is not considered).
+     */
+    VROMatrix4f _lookAtMatrix;
     
     /*
      The current viewport and FOV.

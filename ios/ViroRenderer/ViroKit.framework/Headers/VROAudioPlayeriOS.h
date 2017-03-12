@@ -41,10 +41,10 @@ public:
     void play();
     void pause();
     void setVolume(float volume);
-    
+  void setDelegate(std::shared_ptr<VROSoundDelegateInternal> delegate);
     void setMuted(bool muted);
     void seekToTime(float seconds);
-
+  
     #pragma mark VROSoundDataDelegate Implementation
     void dataIsReady();
     
@@ -56,6 +56,7 @@ private:
     bool _muted;
     bool _paused;
     bool _loop;
+    bool _isLocal;
     std::shared_ptr<VROSoundData> _data;
 
     /*

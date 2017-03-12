@@ -209,7 +209,7 @@ public:
     }
 
     /*
-    Sounds.
+     Sounds.
      */
     void addSound(std::shared_ptr<VROSound> sound) {
         if (sound->getType() == VROSoundType::Spatial) {
