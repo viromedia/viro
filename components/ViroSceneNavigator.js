@@ -340,7 +340,8 @@ var ViroSceneNavigator = React.createClass({
       var sceneDictionary = this.state.sceneDictionary;
       for (var scene in sceneDictionary){
           var Component = sceneDictionary[scene].sceneClass.scene;
-          views.push((<Component key={'scene' + i} sceneNavigator={this.sceneNavigator} {...scene.passProps}/>));
+          var props = sceneDictionary[scene].sceneClass.passProps;
+          views.push((<Component key={'scene' + i} sceneNavigator={this.sceneNavigator} {...props}/>));
           i++;
       }
       return views;
