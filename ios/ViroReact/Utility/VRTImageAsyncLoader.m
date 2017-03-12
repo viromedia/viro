@@ -52,14 +52,11 @@
       
       if (!error) {
         UIImage *image = [[UIImage alloc] initWithData:data];
-        
         // Scale the Image, update texture to scene, trigger callbacks.
-        if ([self scaleImage:image toRCTSourceDimensions:imageSource]) {
           if(self.delegate) {
             [self.delegate imageLoaderDidEnd:self success:YES image:image];
           }
           return;
-        }
       }
 
       if(self.delegate) {
@@ -73,33 +70,6 @@
       [self.delegate imageLoaderDidEnd:self success:NO image:nil];
     }
   }
-}
-
-/**
- * Scales the image to the size of the given image source.
- * returns true if succesful.
- **/
--(BOOL)scaleImage:(UIImage *)image toRCTSourceDimensions:(RCTImageSource *)imageSourceDimension{
-  CGFloat scale = imageSourceDimension.scale;
-  if (!scale && imageSourceDimension.size.width) {
-    // If no scale provided, set scale to image width / source width
-    scale = CGImageGetWidth(image.CGImage) / imageSourceDimension.size.width;
-  }
-  
-  if (scale) {
-    image = [UIImage imageWithCGImage:image.CGImage
-                                scale:scale
-                          orientation:image.imageOrientation];
-  }
-  
-  if (!CGSizeEqualToSize(imageSourceDimension.size, CGSizeZero) &&
-      !CGSizeEqualToSize(imageSourceDimension.size, image.size)) {
-    RCTLogError(@"Image source size %@ does not match loaded image size %@.",
-                NSStringFromCGSize(imageSourceDimension.size),
-                NSStringFromCGSize(image.size));
-    return NO;
-  }
-  return YES;
 }
 
 @end
