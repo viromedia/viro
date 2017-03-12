@@ -45,8 +45,10 @@ public:
     void setMuted(bool muted);
     void seekToTime(float seconds);
   
-    #pragma mark VROSoundDataDelegate Implementation
+#pragma mark VROSoundDataDelegate Implementation
+    
     void dataIsReady();
+    void dataError();
     
 private:
     

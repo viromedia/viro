@@ -74,7 +74,9 @@ public:
     virtual void setDelegate(std::shared_ptr<VROSoundDelegateInternal> delegate);
 
     #pragma mark VROSoundDataDelegate Implementation
+
     void dataIsReady();
+    void dataError();
 
 private:
 

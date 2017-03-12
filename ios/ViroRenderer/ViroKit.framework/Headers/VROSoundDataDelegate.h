@@ -19,6 +19,7 @@ public:
     virtual ~VROSoundDataDelegate() {}
     
     virtual void dataIsReady() = 0;
+    virtual void dataError() = 0;
     
 };
 

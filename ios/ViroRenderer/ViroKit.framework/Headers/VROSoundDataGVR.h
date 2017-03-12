@@ -12,6 +12,12 @@
 #include <functional>
 #import "VROSoundData.h"
 
+enum class VROSoundDataStatus {
+    NotLoaded,
+    Ready,
+    Error
+};
+
 class VROSoundDataGVR : public VROSoundData, public std::enable_shared_from_this<VROSoundDataGVR> {
 
 public:
@@ -26,17 +32,19 @@ public:
     void setDelegate(std::weak_ptr<VROSoundDataDelegate> delegate);
 
     void ready(std::string fileName);
+    void error();
 
 private:
     std::string _path;
     std::string _localPath;
     bool _local = false;
-    bool _ready = false;
+    VROSoundDataStatus _status;
 
     void setup();
-    void notifyDelegateIfReady();
+    void notifyDelegateOfStatus();
     void loadSoundFromURL(std::string path,
-                          std::function<void(std::string)> onFinish);
+                          std::function<void(std::string)> onFinish,
+                          std::function<void()> onError);
     void loadSoundFromResource(std::string path,
                                std::function<void(std::string)> onFinish);
 };

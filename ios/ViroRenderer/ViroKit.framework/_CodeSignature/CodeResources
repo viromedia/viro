@@ -2441,7 +2441,7 @@
 		</data>
 		<key>Headers/VROAudioPlayeriOS.h</key>
 		<data>
-		IAr0LDw+JU9w7s/F7kfvdiNCJJE=
+		t+rayYJ1tU8ZKwRREOIFv6EbW1k=
 		</data>
 		<key>Headers/VROBillboardConstraint.h</key>
 		<data>
@@ -2461,7 +2461,7 @@
 		</data>
 		<key>Headers/VROCamera.h</key>
 		<data>
-		xwshp2FsCJSu68vo0b7tHNF8eC8=
+		XsqB5xgzMWjltwHBEIGRym7LozI=
 		</data>
 		<key>Headers/VROConcurrentBuffer.h</key>
 		<data>
@@ -2481,7 +2481,7 @@
 		</data>
 		<key>Headers/VRODriver.h</key>
 		<data>
-		MxAL7ia5/NOABojvkgaf8s0apLM=
+		fxs+84M04+Or25oONKCIJbVkhqE=
 		</data>
 		<key>Headers/VROEventDelegate.h</key>
 		<data>
@@ -2613,7 +2613,7 @@
 		</data>
 		<key>Headers/VRONode.h</key>
 		<data>
-		Nv3B3Y7o/EiH3vHZ3GhBBxYYrHU=
+		Y878b0am2xJBvPVk8/CtGxg47k4=
 		</data>
 		<key>Headers/VRONodeCamera.h</key>
 		<data>
@@ -7286,11 +7286,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			IAr0LDw+JU9w7s/F7kfvdiNCJJE=
+			t+rayYJ1tU8ZKwRREOIFv6EbW1k=
 			</data>
 			<key>hash2</key>
 			<data>
-			TuYEUjE92Y4JlH8SmZO3ZVC2thk0K8Y+7H5MgqLrh8o=
+			2/hRktg3cTYTrtBtH+9BemWgmtukHsRQVatNdGmI4BI=
 			</data>
 		</dict>
 		<key>Headers/VROBillboardConstraint.h</key>
@@ -7341,11 +7341,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			xwshp2FsCJSu68vo0b7tHNF8eC8=
+			XsqB5xgzMWjltwHBEIGRym7LozI=
 			</data>
 			<key>hash2</key>
 			<data>
-			x3IYNV2HeluoBCkb1hAZBklTDpfN97qBeVnxDaQmIYc=
+			DLOwBKpXP51DDxGQmNi2gmIluCTZ2+xyA7uqMC/PkNo=
 			</data>
 		</dict>
 		<key>Headers/VROConcurrentBuffer.h</key>
@@ -7396,11 +7396,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			MxAL7ia5/NOABojvkgaf8s0apLM=
+			fxs+84M04+Or25oONKCIJbVkhqE=
 			</data>
 			<key>hash2</key>
 			<data>
-			8SNNiGIec3VDoDDoNBr6QAyb9VUN5PAmcxsRSThI2m8=
+			fOmgREH3pm1awJmMtdy9/ZYboOZ0ig1XlogaNidX6rg=
 			</data>
 		</dict>
 		<key>Headers/VROEventDelegate.h</key>
@@ -7759,11 +7759,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			Nv3B3Y7o/EiH3vHZ3GhBBxYYrHU=
+			Y878b0am2xJBvPVk8/CtGxg47k4=
 			</data>
 			<key>hash2</key>
 			<data>
-			fHJ88M39KC+ijmCvSfsoIRJKJu00/FHGDz7AMfWVD+k=
+			jZ8p8zFF+6kJaWa0Q7hlhuYjTjjARsxI90u1PeaAsvQ=
 			</data>
 		</dict>
 		<key>Headers/VRONodeCamera.h</key>
