@@ -33,6 +33,10 @@ var ViroSpinner = React.createClass({
     rotation: PropTypes.arrayOf(PropTypes.number),
     scale: PropTypes.arrayOf(PropTypes.number),
     opacity: PropTypes.number,
+    materials: PropTypes.oneOfType([
+      PropTypes.arrayOf(PropTypes.string),
+      PropTypes.string
+    ]),
     transformBehaviors: PropTypes.oneOfType([
       PropTypes.arrayOf(PropTypes.string),
       PropTypes.string
@@ -70,12 +74,12 @@ var ViroSpinner = React.createClass({
             onTouch={this.props.onTouch} onDrag={this.props.onDrag}>
 
         <ViroAnimatedComponent animation="_ViroSpinner_clockwiseZ" run={true} loop={true} >
-          <ViroImage source={this._getImage1()} />
+          <ViroImage source={this._getImage1()} materials={this.props.materials} />
         </ViroAnimatedComponent>
 
         {/* Set the posititon of this one to be .01 forward of the other view to help w/ z-fighting*/}
         <ViroAnimatedComponent animation="_ViroSpinner_counterClockwiseZ" run={true} loop={true} >
-          <ViroImage position={[0, 0, .01]} source={this._getImage1a()}/>
+          <ViroImage position={[0, 0, .01]} source={this._getImage1a()} materials={this.props.materials} />
         </ViroAnimatedComponent>
       </ViroNode>
     );
