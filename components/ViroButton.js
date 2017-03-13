@@ -127,7 +127,6 @@ var BTN_TYPE_CLICKED = 'clicked';
           gazeSrcVisible = false;
           tapSrcVisible = this.props.visible && true;
           normalSrcVisible = false;
-
         }
         break;
       default:
@@ -192,12 +191,14 @@ var BTN_TYPE_CLICKED = 'clicked';
   },
 
   _onButtonHover: function(source, isHovering) {
-    if (this.props.onHover && isHovering) {
+    if (isHovering) {
         this.setState({
             buttonType: BTN_TYPE_HOVER
         });
-      this.props.onHover(source, isHovering);
-    } else if (!isHovering) {
+        if (this.props.onHover) {
+          this.props.onHover(source, isHovering);
+        }
+    } else {
       this.setState({
         buttonType: BTN_TYPE_NORMAL
       });
@@ -205,10 +206,10 @@ var BTN_TYPE_CLICKED = 'clicked';
   },
 
   _onButtonClicked: function(source) {
+    this.setState({
+      buttonType: BTN_TYPE_CLICKED
+    });
     if (this.props.onClick) {
-      this.setState({
-        buttonType: BTN_TYPE_CLICKED
-      });
       this.props.onClick(source);
     }
   },
