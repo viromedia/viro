@@ -112,22 +112,18 @@ var BTN_TYPE_CLICKED = 'clicked';
     let buttonScale = this.props.scale;
     switch(this.state.buttonType) {
       case BTN_TYPE_HOVER:
-        if (this.props.gazeSource) {
-          gazeSrcVisible = this.props.visible && true;
-          tapSrcVisible = false;
-          normalSrcVisible = false;
-        }
+        gazeSrcVisible = this.props.visible && true;
+        tapSrcVisible = false;
+        normalSrcVisible = false;
         break;
       case BTN_TYPE_CLICKED:
-        if (this.props.tapSource) {
-          // start scale for button animation
-          buttonScale = [0.9 * this.props.scale[0],
-                         0.9 * this.props.scale[1],
-                         0.9 * this.props.scale[2]];
-          gazeSrcVisible = false;
-          tapSrcVisible = this.props.visible && true;
-          normalSrcVisible = false;
-        }
+        // start scale for button animation
+        buttonScale = [0.9 * this.props.scale[0],
+                       0.9 * this.props.scale[1],
+                       0.9 * this.props.scale[2]];
+        gazeSrcVisible = false;
+        tapSrcVisible = this.props.visible && true;
+        normalSrcVisible = false;
         break;
       default:
           normalSrcVisible = this.props.visible && true;
@@ -158,7 +154,7 @@ var BTN_TYPE_CLICKED = 'clicked';
                 materials={this.props.materials} />
 
             <ViroImage
-                source={this.props.gazeSource}
+                source={this.props.gazeSource ? this.props.gazeSource : this.props.source}
                 rotation={this.props.rotation}
                 scale={buttonScale}
                 opacity={this.props.opacity}
@@ -174,7 +170,8 @@ var BTN_TYPE_CLICKED = 'clicked';
                 onFinish={this._onAnimationFinished}>
 
                     <ViroImage
-                        source={this.props.tapSource}
+                        source={this.props.tapSource ? this.props.tapSource :
+                                (this.props.gazeSource ? this.props.gazeSource : this.props.source)}
                         rotation={this.props.rotation}
                         scale={buttonScale}
                         opacity={this.props.opacity}
