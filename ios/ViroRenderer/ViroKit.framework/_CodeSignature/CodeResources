@@ -2441,7 +2441,7 @@
 		</data>
 		<key>Headers/VROAudioPlayeriOS.h</key>
 		<data>
-		t+rayYJ1tU8ZKwRREOIFv6EbW1k=
+		8x69Yxcy6CT6OnDiDmz7mL12+eU=
 		</data>
 		<key>Headers/VROBillboardConstraint.h</key>
 		<data>
@@ -2705,11 +2705,11 @@
 		</data>
 		<key>Headers/VROSoundDataDelegate.h</key>
 		<data>
-		xXstTb5RFhLSxpJgU9zZsK4IhKY=
+		oP2g9v+e8ofYbyiuBxvbdN99IRY=
 		</data>
 		<key>Headers/VROSoundDataGVR.h</key>
 		<data>
-		cnUMIePW2MOoTQZO76jCKL7yfoQ=
+		1vVtUTFcI26lFaBTdIAjJKieZgo=
 		</data>
 		<key>Headers/VROSoundDelegate.h</key>
 		<data>
@@ -2725,7 +2725,7 @@
 		</data>
 		<key>Headers/VROSoundGVR.h</key>
 		<data>
-		O3DMIerbss4gWSCbEKfqAEm94mg=
+		et2GKq906eOdYjMv7HCdtPOCQnI=
 		</data>
 		<key>Headers/VROSphere.h</key>
 		<data>
@@ -7286,11 +7286,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			t+rayYJ1tU8ZKwRREOIFv6EbW1k=
+			8x69Yxcy6CT6OnDiDmz7mL12+eU=
 			</data>
 			<key>hash2</key>
 			<data>
-			2/hRktg3cTYTrtBtH+9BemWgmtukHsRQVatNdGmI4BI=
+			Xe5HLlJYsbSkrlpx61K5t1mJZ1AE4fczh3DZJnb0Ohc=
 			</data>
 		</dict>
 		<key>Headers/VROBillboardConstraint.h</key>
@@ -8012,22 +8012,22 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			xXstTb5RFhLSxpJgU9zZsK4IhKY=
+			oP2g9v+e8ofYbyiuBxvbdN99IRY=
 			</data>
 			<key>hash2</key>
 			<data>
-			VHWcZzbFATWjY5esSOLfrj8mGLhXIudQKrOTldXlfVE=
+			5sCfF0lCYBShaphSwzjru0+m8ElNiv+kouAxyuguFHk=
 			</data>
 		</dict>
 		<key>Headers/VROSoundDataGVR.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			cnUMIePW2MOoTQZO76jCKL7yfoQ=
+			1vVtUTFcI26lFaBTdIAjJKieZgo=
 			</data>
 			<key>hash2</key>
 			<data>
-			M6CW2EDLA/DUqGPzRRRwO0RGOJXiAHOC918W1ySZygg=
+			Q9DkzgiXbHwWupwyzgPdvwF6KebcacJoFF0erwKSkyk=
 			</data>
 		</dict>
 		<key>Headers/VROSoundDelegate.h</key>
@@ -8067,11 +8067,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			O3DMIerbss4gWSCbEKfqAEm94mg=
+			et2GKq906eOdYjMv7HCdtPOCQnI=
 			</data>
 			<key>hash2</key>
 			<data>
-			0t7FqaY4ZmYJddBKJreYDl4Qp9Ls66eMU2aF8DURMFw=
+			RClgrH0nqsdEtygAzp3qMqvgQFMPMrrqHZ8lbb9l2uw=
 			</data>
 		</dict>
 		<key>Headers/VROSphere.h</key>
