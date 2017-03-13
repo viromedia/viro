@@ -48,7 +48,7 @@ extern const int k2DPointsPerSpatialUnit;
   VRTUpdateLifecycle _propagationLifecycle;
   VRTUpdateLifecycle _textLifecycle;
   NSDictionary *_lastParentProperties;
-  NSMutableArray<VRTShadowView *> *_reactSubviews;
+
   BOOL _recomputePadding;
   BOOL _recomputeMargin;
   BOOL _recomputeBorder;
@@ -57,11 +57,6 @@ extern const int k2DPointsPerSpatialUnit;
 
 @synthesize reactTag = _reactTag;
 
-
-- (NSArray<VRTShadowView *> *)reactSubviews
-{
-  return _reactSubviews;
-}
 
 //Override padding, margin and dimension methods that convert 3d units into 2d ones for the flexbox algorithm.
 // Padding
@@ -221,7 +216,7 @@ extern const int k2DPointsPerSpatialUnit;
       superview = (VRTNode *)node.superview;
     } else if(node.superview && [node.superview isKindOfClass:[VRTAnimatedComponent class]]) {
       if([[node.superview superview] isKindOfClass:[VRTNode class]]) {
-        superview = (VRTNode *)[[self superview] superview];
+        superview = (VRTNode *)[node.superview superview];
       }
     }
 
