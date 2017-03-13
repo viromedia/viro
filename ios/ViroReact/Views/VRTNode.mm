@@ -180,34 +180,36 @@ const int k2DPointsPerSpatialUnit = 1000;
   [self applyMaterials];
 }
 
+// Apply materials to the underlying geometry if materials were explicitly set
+// via the materials prop
 - (void)applyMaterials {
-  std::shared_ptr<VRONode> node = self.node;
-  if (node) {
-    std::shared_ptr<VROGeometry> geometry = node->getGeometry();
-    
-    if (geometry) {
-      VRTMaterialManager *materialManager = [self.bridge moduleForClass:[VRTMaterialManager class]];
-      
-        for (int i = 0; i < self.materials.count; i++) {
-            NSString *materialName = [self.materials objectAtIndex:i];
-            std::shared_ptr<VROMaterial> material = [materialManager getMaterialByName:materialName];
-            if (material == NULL) {
-                RCTLogError(@"Unknown Material Name: \"%@\"", materialName);
-                return;
-            }
-
-            // Copy the material into the geometry if the geometry already has a
-            // default material in that slot. Otherwise copy the material and add it
-            // to the geometry.
-            if (i < geometry->getMaterials().size()) {
-                geometry->getMaterials()[i]->copyFrom(material);
-            }
-            else {
-                geometry->getMaterials().push_back(std::make_shared<VROMaterial>(material));
-            }
-        }
-    }
+  if (!self.node || !self.materials) {
+    return;
   }
+  
+  std::shared_ptr<VROGeometry> geometry = self.node->getGeometry();
+  if (!geometry) {
+    return;
+  }
+  
+  VRTMaterialManager *materialManager = [self.bridge moduleForClass:[VRTMaterialManager class]];
+
+  std::vector<std::shared_ptr<VROMaterial>> tempMaterials;
+  for (int i = 0; i < self.materials.count; i++) {
+    NSString *materialName = [self.materials objectAtIndex:i];
+    
+    std::shared_ptr<VROMaterial> material = [materialManager getMaterialByName:materialName];
+    if (material == NULL) {
+      RCTLogError(@"Unknown Material Name: \"%@\"", materialName);
+      return;
+    }
+    
+    // Always copy materials from the material manager, as they may be
+    // modified by animations, etc. and we don't want these changes to
+    // propagate to the reference material held by the material manager
+    tempMaterials.push_back(std::make_shared<VROMaterial>(material));
+  }
+  geometry->getMaterials() = tempMaterials;
 }
 
 - (void)setVisible:(BOOL)visible {

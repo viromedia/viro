@@ -16,50 +16,14 @@
   NSURL *_url;
   std::shared_ptr<VROMaterial> _objMaterial;
   BOOL _sourceChanged;
-  std::vector<std::shared_ptr<VROMaterial>> _vroMaterialArray;
   
 }
-
-@synthesize materials = _materials;
 
 - (instancetype)initWithBridge:(RCTBridge *)bridge  {
   self = [super initWithBridge:bridge];
   _sourceChanged = NO;
     
   return self;
-}
-
-- (void)setOBJMaterials:(std::shared_ptr<VROGeometry>)geometry {
-    if (!geometry) {
-        return;
-    }
-    
-    VRTMaterialManager *materialManager = [self.bridge moduleForClass:[VRTMaterialManager class]];
-    
-    /*
-     The materials set for a 3D model overwrite the materials set by the
-     OBJ loader.
-     */
-    for (int i = 0; i < [self.materials count]; i++) {
-        NSString *materialName = [self.materials objectAtIndex:i];
-        
-        std::shared_ptr<VROMaterial> material = [materialManager getMaterialByName:materialName];
-        if (material != NULL) {
-            if (i < geometry->getMaterials().size()) {
-                // Always copy materials from the material manager, as they may be
-                // modified by animations, etc. and we don't want these changes to
-                // propagate to the reference material held by the material manager
-                geometry->getMaterials()[i] = std::make_shared<VROMaterial>(material);
-            }
-            else {
-                RCTLogError(@"Model has %d elements, material %d [%@] cannot be set",
-                            geometry->getMaterials().size(), i, materialName);
-            }
-        }
-        else {
-            RCTLogError(@"Unknown material name: \"%@\"", materialName);
-        }
-    }
 }
 
 - (void)setSource:(NSDictionary *)source {
@@ -97,16 +61,18 @@
     
   VROOBJLoader::loadOBJFromURL(url, base, true,
   [self](std::shared_ptr<VRONode> node, bool success) {
-      if (!success) {
-          return;
-      }
-        
-      [self setOBJMaterials:node->getGeometry()];
-      self.node->setGeometry(node->getGeometry());
-        
-      if (self.onLoadEndViro) {
-          self.onLoadEndViro(nil);
-      }
+    if (!success) {
+        return;
+    }
+    
+    self.node->setGeometry(node->getGeometry());
+    if (self.materials) {
+      [self applyMaterials];
+    }
+    
+    if (self.onLoadEndViro) {
+        self.onLoadEndViro(nil);
+    }
   });
   _sourceChanged = NO;
 }
