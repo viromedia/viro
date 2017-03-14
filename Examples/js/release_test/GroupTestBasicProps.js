@@ -162,7 +162,7 @@ Note: Re-enable opacity for text once VIRO-885 is fixed
                       opacity={this.state.offsetData[8].opacity}
                       visible={this.state.offsetData[8].isVisible}
                       text="This is a Viro Text"  />
-{/*
+
                   <ViroVideo
                       visible={this.state.offsetData[9].isVisible} opacity={this.state.offsetData[9].opacity}
                       position={[0+ this.state.offsetData[9].translate , -1,0]}
@@ -171,7 +171,7 @@ Note: Re-enable opacity for text once VIRO-885 is fixed
                       height={4} width={4}
                       onClick={this._elementClick(9)}
                       source={{"uri":"https://s3-us-west-2.amazonaws.com/viro/Climber1Top.mp4"}} />
-*/}
+
                  <ViroText
                       position={[-1.5 , -2, 0]}
                       scale={[1, 1, 0.1]}
