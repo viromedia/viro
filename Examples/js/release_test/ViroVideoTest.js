@@ -24,6 +24,7 @@ var VIDEO_REF = "videoref";
 let polarToCartesian = ViroUtils.polarToCartesian;
 
 var localVideo = require("./res/Titan_Touchdown.mp4");
+var ReleaseMenu = require("./ReleaseMenu.js");
 
 var ViroVideoTest = React.createClass({
   getInitialState() {
@@ -39,6 +40,7 @@ var ViroVideoTest = React.createClass({
   render: function() {
     return (
       <ViroScene>
+      <ReleaseMenu sceneNavigator={this.props.sceneNavigator}/>
         <ViroOmniLight position={[0, 0, 0]} color="#ffffff"
           attenuationStartDistance={40} attenuationEndDistance={50} />
  {this._getViroVideo()}

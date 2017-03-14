@@ -49,6 +49,7 @@ var Uri360Image = {uri:"https://s3-us-west-2.amazonaws.com/viro/Explorer/360_hor
 var Local360Image = require("./res/360_park.jpg");
 
 var placeHolderImage = require("./res/grid_bg.jpg");
+var ReleaseMenu = require("./ReleaseMenu.js");
 
 var ViroImageTest = React.createClass({
    getInitialState() {
@@ -65,6 +66,7 @@ var ViroImageTest = React.createClass({
      var image = this.state.showUrlImage ? Uri360Image : Local360Image;
       return (
             <ViroScene>
+            <ReleaseMenu sceneNavigator={this.props.sceneNavigator}/>
              <ViroImage
                 width={this.state.widthAndHeight} height={this.state.widthAndHeight}
                 format={this.state.format}

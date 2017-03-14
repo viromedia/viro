@@ -40,9 +40,8 @@ import {
 } from 'react-viro';
 
 let polarToCartesian = ViroUtils.polarToCartesian;
+var ReleaseMenu = require("./ReleaseMenu.js");
 
-var Viro360ImageTest = require('./Viro360ImageTest');
-var ViroVideoTest = require('./ViroVideoTest');
 
 var Viro3DObjectTest = React.createClass({
 
@@ -59,6 +58,7 @@ var Viro3DObjectTest = React.createClass({
   render: function() {
     return (
      <ViroScene>
+      <ReleaseMenu sceneNavigator={this.props.sceneNavigator}/>
      <ViroOmniLight position={[0, 0, 0]} color="#ffffff" attenuationStartDistance={40} attenuationEndDistance={50}/>
 
      <ViroAnimatedComponent animation="loopRotate"
@@ -74,10 +74,11 @@ var Viro3DObjectTest = React.createClass({
      </ViroAnimatedComponent>
 
      <Viro3DObject source={{uri:"https://s3-us-west-2.amazonaws.com/viro/heart.obj"}}
-            position={[2, -2, -5]}
-            materials={["grey"]}
+                    position={[-1.7 , -4.3 , -4.65]}
+
+            materials={["heart"]}
             rotation={[0,0,0]}
-            scale={[.3,.3,.3]}
+            scale={[1.8 , 1.8  , 1.8]}
             />
 
      <ViroAnimatedComponent animation="loopRotate"
@@ -103,6 +104,18 @@ var Viro3DObjectTest = React.createClass({
        scale={[.2,.2,.2]}
        />
      </ViroAnimatedComponent>
+
+
+     <Viro3DObject source={require('./res/male02_obj.obj')}
+                               resources={[require('./res/male02.mtl'),
+                                           require('./res/01_-_Default1noCulling.JPG'),
+                                           require('./res/male-02-1noCulling.JPG'),
+                                           require('./res/orig_02_-_Defaul1noCulling.JPG')]}
+                               position={[-0.0, -100, -10]}
+                               scale={[0.1, 0.1, 0.1]}
+                               onLoadStart={this._onLoadObjStart}
+                               onLoadEnd={this._onLoadObjEnd}
+                                />
 
      <ViroImage source={require('./res/icon_left_w.png')} position={[-2, -4, -3]} scale={[1, 1, 1]} transformBehaviors={["billboard"]} onClick={this._showPrevious} />
      <ViroText text="Viro3DObject" position={[0, -5, -3]} transformBehaviors={["billboard"]} />
@@ -179,6 +192,10 @@ var styles = StyleSheet.create({
 
 ViroMaterials.createMaterials({
 
+  heart: {
+      lightingModel: "Constant",
+      diffuseTexture: require('../res/heart_d.jpg'),
+    },
    grey: {
      shininess : 2.0,
      lightingModel: "Blinn",

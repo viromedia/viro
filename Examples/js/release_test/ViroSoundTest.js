@@ -65,6 +65,7 @@ var soundRoom1 = {
   floorMaterial: "transparent",
   ceilingMaterial: "transparent"
 }
+var ReleaseMenu = require("./ReleaseMenu.js");
 
 /*
  This file tests a simple flex view and updating properties within it.
@@ -106,6 +107,7 @@ var ViroSoundTest = React.createClass({
   render: function() {
     return (
       <ViroScene reticleEnabled={true} onClick={this._onClick} soundRoom={this.state.soundRoom == 1 ? soundRoom : soundRoom1} >
+        <ReleaseMenu sceneNavigator={this.props.sceneNavigator}/>
         <ViroCamera position={[0, 0, this.state.cameraPos]} active={true}/>
         <ViroSkyBox color="#ff69b4" />
         {this._getSoundControls()}

@@ -43,6 +43,7 @@ let polarToCartesian = ViroUtils.polarToCartesian;
 
 var Uri360Image = {uri:"https://s3-us-west-2.amazonaws.com/viro/Explorer/360_horseshoe.jpg"};
 var Local360Image = require("./res/360_park.jpg");
+var ReleaseMenu = require("./ReleaseMenu.js");
 
 var Viro360ImageTest = React.createClass({
 
@@ -59,6 +60,7 @@ var Viro360ImageTest = React.createClass({
   render: function() {
     return (
      <ViroScene>
+     <ReleaseMenu sceneNavigator={this.props.sceneNavigator}/>
      <ViroOmniLight position={[0, 0, 0]} color="#ffffff" attenuationStartDistance={40} attenuationEndDistance={50}/>
 
      <Viro360Image

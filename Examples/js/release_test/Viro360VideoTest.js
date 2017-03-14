@@ -43,6 +43,7 @@ let polarToCartesian = ViroUtils.polarToCartesian;
 var VIDEO_REF = "videoref";
 var Uri360Video = {uri:"https://s3-us-west-2.amazonaws.com/viro/360_surf.mp4"};
 var Local360Video = require("./res/360Asteroids.mp4");
+var ReleaseMenu = require("./ReleaseMenu.js");
 
 var Viro360VideoTest = React.createClass({
 
@@ -61,6 +62,7 @@ var Viro360VideoTest = React.createClass({
   render: function() {
     return (
      <ViroScene>
+     <ReleaseMenu sceneNavigator={this.props.sceneNavigator}/>
      <ViroOmniLight position={[0, 0, 0]} color="#ffffff" attenuationStartDistance={40} attenuationEndDistance={50}/>
      <Viro360Video
           ref={VIDEO_REF}
