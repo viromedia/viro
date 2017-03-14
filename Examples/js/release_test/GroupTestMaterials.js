@@ -59,23 +59,27 @@ var GroupTestMaterials = React.createClass({
   render: function() {
     var newMaterial;
     var transformText;
-    if (this.state.materialFlag == 0){
-        transformText = "None";
-    } else if (this.state.materialFlag == 1){
+    var heartMat;
+    if (this.state.materialFlag == 1 || this.state.materialFlag == 0){
         newMaterial="redColor";
         transformText = "redColor";
+        heartMat="heartRed";
     } else if (this.state.materialFlag == 2){
         newMaterial="blueLambert";
         transformText = "blueLambert";
+        heartMat="heartBlueLambert";
     } else if (this.state.materialFlag == 3){
         newMaterial="blueBlinn";
         transformText = "blueBlinn";
+        heartMat="heartBlueBlinn";
     } else if (this.state.materialFlag == 4){
         newMaterial="blueCullModeFront";
         transformText = "blueCullModeFront";
+        heartMat="heartCullModeFront";
     }else {
         newMaterial="sun_texture";
         transformText = "sun_texture";
+        heartMat="heartSun";
     }
 
     return (
@@ -88,7 +92,7 @@ var GroupTestMaterials = React.createClass({
                     <Viro3DObject source={require('../res/heart.obj')}
                              scale={[1.8 , 1.8  , 1.8]}
                               position={[-2.5 , -4.3 , -1.15]}
-                              materials={["heart"]}/>
+                              materials={[heartMat]}/>
                   <ViroBox
                       position={[-1 , 1, 0]}
                       scale={[0.4 , 0.4 , 0.4]}
@@ -165,12 +169,6 @@ var GroupTestMaterials = React.createClass({
                 <ViroText style={styles.baseTextTwo} position={[0.8 , -2, -3.5]} width={2} height ={2} fontFamily={'Arial'}
                       text={"Toggle material: " + transformText} textLineBreakMode='justify' onClick={this._toggleTransform}/>
 
-                   <ViroOmniLight
-                                     position={[0, 0, 0]}
-                                     color={"#ffffff"}
-                                     attenuationStartDistance={30}
-                                     attenuationEndDistance={40}/>
-
             </ViroScene>
 
     );
@@ -239,10 +237,37 @@ ViroMaterials.createMaterials({
     cullMode:'Front'
   },
 
-  heart: {
-      lightingModel: "Constant",
+  heartRed: {
+  fresnelExponent: .5,
+   shininess: 2.0,
+    diffuseColor: "#ff0000",
       diffuseTexture: require('../res/heart_d.jpg'),
     },
+heartBlueLambert: {
+  shininess: 2.0,
+  lightingModel: "Lambert",
+  diffuseColor: "#0000ff",
+    diffuseTexture: require('../res/heart_d.jpg'),
+  },
+  heartBlueBlinn: {
+  diffuseColor: "#0000ff",
+shininess: 2.0,
+lightingModel: "Blinn",
+      diffuseTexture: require('../res/heart_d.jpg'),
+    },
+    heartCullModeFront: {
+        shininess: 2.0,
+        lightingModel: "Blinn",
+        diffuseColor: "#0000ff",
+        cullMode:'Front',
+        diffuseTexture: require('../res/heart_d.jpg'),
+      },
+  heartSun: {
+              shininess: 2.0,
+              lightingModel: "Blinn",
+              cullMode:'Front',
+              diffuseTexture: require('../res/sun_2302.jpg'),
+            },
   sun_texture: {
     diffuseTexture: require("../res/sun_2302.jpg"),
   }
