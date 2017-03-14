@@ -159,6 +159,8 @@ Note: Re-enable opacity for text once VIRO-885 is fixed
                        rotation={[0,this.state.offsetData[8].rotate,0]}
                       style={styles.baseTextTwo}
                       onClick={this._elementClick(8)}
+                      opacity={this.state.offsetData[8].opacity}
+                      visible={this.state.offsetData[8].isVisible}
                       text="This is a Viro Text"  />
 {/*
                   <ViroVideo
