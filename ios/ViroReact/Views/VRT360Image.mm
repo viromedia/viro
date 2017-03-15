@@ -21,6 +21,7 @@
 @implementation VRT360Image {
   std::shared_ptr<VROTexture> _sphereTexture;
   BOOL _sphereTextureAddedToScene;
+  BOOL _imageNeedsDownload;
   VRTImageAsyncLoader *_imageAsyncLoader;
 }
 
@@ -29,11 +30,11 @@
 @synthesize source = _source;
 @synthesize rotation = _rotation;
 
-
 - (instancetype)initWithBridge:(RCTBridge *)bridge {
   self = [super initWithBridge:bridge];
   if (self) {
     _sphereTextureAddedToScene = NO;
+    _imageNeedsDownload = NO;
     _format = VROTextureInternalFormat::RGBA8;
     _imageAsyncLoader = [[VRTImageAsyncLoader alloc] initWithDelegate:self];
   }
@@ -45,18 +46,20 @@
 // Reference RCTImage package for how to do image loaders properly.
 - (void)setSource:(RCTImageSource *)source {
   _source = source;
-  [self loadImageWhenReady];
-
+  _imageNeedsDownload = YES;
 }
 
 - (void)setOnLoadStartViro:(RCTDirectEventBlock)onLoadStart {
   _onLoadStartViro = onLoadStart;
-  [self loadImageWhenReady];
 }
 
 - (void)setOnLoadEndViro:(RCTDirectEventBlock)onLoadEnd {
   _onLoadEndViro = onLoadEnd;
-  [self loadImageWhenReady];
+}
+
+- (void)setFormat:(VROTextureInternalFormat)format {
+  _format = format;
+  _imageNeedsDownload = YES;
 }
 
 - (void)setRotation:(NSArray<NSNumber *> *)rotation {
@@ -68,18 +71,16 @@
   }
 }
 
-- (void)loadImageWhenReady {
-  if (self.source){
-    [self loadImage:self.source];
+- (void)didSetProps:(NSArray<NSString *> *)changedProps {
+  if (_imageNeedsDownload && _source) {
+    _sphereTextureAddedToScene = NO;
+    [_imageAsyncLoader loadImage:_source];
+    
+    _imageNeedsDownload = NO;
   }
 }
 
--(void)loadImage:(RCTImageSource *)imageSource {
-  _sphereTextureAddedToScene = NO;
-  [_imageAsyncLoader loadImage:imageSource];
-}
-
--(void)updateSceneWithSphereTexture {
+- (void)updateSceneWithSphereTexture {
   if(!_sphereTextureAddedToScene && _sphereTexture && self.scene) {
     self.scene->setBackgroundSphere(_sphereTexture);
     float rotationValues[3] = {0.0f, 0.0f, 0.0f};
@@ -105,9 +106,9 @@
 
 - (void)imageLoaderDidEnd:(VRTImageAsyncLoader *)loader success:(BOOL)success image:(UIImage *)image {
   dispatch_async(dispatch_get_main_queue(), ^{
-      _sphereTexture = std::make_shared<VROTexture>(self.format,
-                                                    VROMipmapMode::None, // Don't mipmap 360 images, wastes memory
-                                                    std::make_shared<VROImageiOS>(image, self.format));
+    _sphereTexture = std::make_shared<VROTexture>(self.format,
+                                                  VROMipmapMode::None, // Don't mipmap 360 images, wastes memory
+                                                  std::make_shared<VROImageiOS>(image, self.format));
     [self updateSceneWithSphereTexture];
     if(self.onLoadEndViro) {
       self.onLoadEndViro(@{@"success":@(success)});
