@@ -111,6 +111,7 @@ LINES_TO_ADD=("    compile fileTree(dir: 'libs', include: ['*.jar'])"
 "    debugCompile project(path: ':react_viro', configuration: 'debug')"
 "    releaseCompile project(path: ':viro_renderer', configuration: 'release')"
 "    debugCompile project(path: ':viro_renderer', configuration: 'debug')"
+"    compile 'com.google.android.exoplayer:exoplayer:r2.2.0'"
 "    compile 'com.google.protobuf.nano:protobuf-javanano:3.0.0-alpha-7'")
 LINE_TO_APPEND_AFTER=$(grep "$SEARCH_PATTERN" "$TARGET_FILEPATH")
 
