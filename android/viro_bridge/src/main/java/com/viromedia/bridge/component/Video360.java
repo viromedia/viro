@@ -11,6 +11,7 @@ import com.facebook.react.uimanager.events.RCTEventEmitter;
 import com.viro.renderer.jni.RenderContextJni;
 import com.viro.renderer.jni.VideoTextureJni;
 import com.viromedia.bridge.component.node.Scene;
+import com.viromedia.bridge.utility.Helper;
 import com.viromedia.bridge.utility.ViroEvents;
 
 /**
@@ -109,7 +110,7 @@ public class Video360 extends Component {
     }
 
     public void setSource(String source) {
-        mSource = source;
+        mSource = Helper.parseUri(source, getContext()).toString();
         resetVideo();
     }
 

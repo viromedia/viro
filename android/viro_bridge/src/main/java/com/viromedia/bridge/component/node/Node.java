@@ -89,6 +89,7 @@ public class Node extends Component {
             mEventDelegateJni.setEventDelegateCallback(null);
             mEventDelegateJni.destroy();
             mNodeJni.destroy();
+            mNodeJni = null;
         }
     }
 
