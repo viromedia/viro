@@ -266,9 +266,9 @@ var ViroSoundTest = React.createClass({
         });
   },
   _unloadSound(){
-        ViroSound.unloadSounds({
-         "cube_sound" : "https://s3-us-west-2.amazonaws.com/viro/cube_sound.wav",
-        });
+        ViroSound.unloadSounds([
+         "cube_sound",
+       ]);
   },
 
   _toggleRoomMaterial(){
