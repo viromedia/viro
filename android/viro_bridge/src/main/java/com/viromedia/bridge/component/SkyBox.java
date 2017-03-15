@@ -114,9 +114,9 @@ public class SkyBox extends Component {
                         if(result != null) {
                             final int width = result.getWidth();
                             final int height = result.getHeight();
-                            if(width != 8 && width != 16 && width != 32 && width != 64 && width != 128 && width != 256 && width != 512 &&
-                                    width != 1024 && width != 2048 && width != 4096 && width != 8192 && width != 16384) {
-                              ViroLog.error(TAG, "Width and height for ever skybox texture needs to be a power 2, current image dimensions are (" + width + "," + height + ")");
+
+                            if(width != height) {
+                              ViroLog.error(TAG, "Width and height for skybox textures must be square, current image dimensions are (" + width + "," + height + ")");
                             }
                         }
                     }

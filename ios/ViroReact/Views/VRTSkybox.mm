@@ -128,11 +128,10 @@
   dispatch_async(dispatch_get_main_queue(), ^{
     [self.downloadedImages setValue:image forKey:loader.tag];
     //Check for image size, error in debug if the size is not power of two.
-    if(success) {
-      if(image.size.width != 8 && image.size.width != 16 && image.size.width != 32 &&image.size.width != 64 && image.size.width != 128 && image.size.width != 256 && image.size.width != 512 &&
-         image.size.width != 1024 && image.size.width != 2048 && image.size.width != 4096 && image.size.width != 8192 && image.size.width != 16384) {
-        RCTLogError(@"Width and height for ever skybox texture needs to be a power 2, current image dimensions are: %@",
-                  NSStringFromCGSize(image.size));
+    if (success) {
+      if (image.size.width != image.size.height) {
+        RCTLogError(@"Skybox textures must be square, received image with dimensions %@",
+                      NSStringFromCGSize(image.size));
       }
     }
     
