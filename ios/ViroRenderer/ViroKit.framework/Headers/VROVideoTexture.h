@@ -61,13 +61,14 @@ public:
     }
     
 protected:
-    std::shared_ptr<VROVideoDelegateInternal> _delegate;
+    std::weak_ptr<VROVideoDelegateInternal> _delegate;
 
     /*
      * Notifies delegates about the video player's current time, per second.
      */
     void updateVideoTime(){
-        if (_delegate == nullptr) {
+        std::shared_ptr<VROVideoDelegateInternal> delegate = _delegate.lock();
+        if (!delegate) {
             return;
         }
 
@@ -89,7 +90,7 @@ protected:
          */
         int currentVideoTimeInSeconds = getCurrentTimeInSeconds();
         if (_lastCurrentVideoTimeInSeconds != currentVideoTimeInSeconds) {
-            _delegate->onVideoUpdatedTime(currentVideoTimeInSeconds,
+            delegate->onVideoUpdatedTime(currentVideoTimeInSeconds,
                                           getVideoDurationInSeconds());
             _lastCurrentVideoTimeInSeconds = currentVideoTimeInSeconds;
         }
