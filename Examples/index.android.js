@@ -22,7 +22,7 @@ var InitialScene = require('./js/scene_ios_test');
 export default class ViroSample extends Component {
   render() {
     return (
-      <ViroSceneNavigator apiKey="ANDROID_DOESNT_YET_NEED_A_KEY"
+      <ViroSceneNavigator apiKey="7EEDCB99-2C3B-4681-AE17-17BC165BF792"
         initialScene={{scene: InitialScene}}
         />
     );

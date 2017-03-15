@@ -14,7 +14,7 @@
 #import "VRTScene.h"
 #import "VRTNotifications.h"
 
-static NSString *const kVRTInvalidAPIKeyMessage = @"The given API Key is either missing or invalid! If you have not signed up for the Viro Media alpha program, please do so at www.viromedia.com. Otherwise, contact info@viromedia.com if you have a valid key and are encountering this error.";
+static NSString *const kVRTInvalidAPIKeyMessage = @"The given API Key is either missing or invalid! If you have not signed up for accessing Viro Media platform, please do so at www.viromedia.com. Otherwise, contact info@viromedia.com if you have a valid key and are encountering this error.";
 
 /**
  VRTSceneNavigator manages the various scenes that a Viro App can navigate between.

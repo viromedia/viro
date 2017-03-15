@@ -47,6 +47,10 @@ public class SceneNavigatorManager extends ViroViewGroupManager<SceneNavigator> 
         view.setCurrentSceneIndex(selectedIndex);
     }
 
+    @ReactProp(name = "apiKey")
+    public void setApiKey(SceneNavigator view, String apiKey) {
+        view.setApiKey(apiKey);
+    }
     @Override
     protected void onAfterUpdateTransaction(SceneNavigator view) {
         super.onAfterUpdateTransaction(view);

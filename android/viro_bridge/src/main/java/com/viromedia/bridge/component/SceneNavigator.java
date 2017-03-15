@@ -66,6 +66,8 @@ public class SceneNavigator extends FrameLayout {
     private boolean mVrModeEnabled = true;
     private boolean mHasSetVrMode = false;
 
+    private String mApiKey;
+
     public SceneNavigator(ReactApplicationContext reactContext,
                           ReactViroPackage.ViroPlatform platform) {
         super(reactContext.getBaseContext(), null, -1);
@@ -189,6 +191,17 @@ public class SceneNavigator extends FrameLayout {
 
     public void setVrModeEnabled(boolean vrModeEnabled) {
         mVrModeEnabled = vrModeEnabled;
+    }
+
+    public void setApiKey(String apiKey) {
+
+        if (apiKey == null || apiKey.trim().isEmpty()) {
+            throw new IllegalArgumentException("The given API Key is either missing or invalid!" +
+                    " If you have not signed up for accessing Viro Media platform, please do so " +
+                    "at www.viromedia.com.");
+        }
+
+        mVrView.validateApiKey(apiKey.trim());
     }
 
     private class InnerGlListener implements GlListener {
