@@ -119,15 +119,15 @@ var ViroTextTest = React.createClass({
         </ViroFlexView>
 
         <ViroFlexView style={styles.containerVertical} width={2} height={0.8} materials="redColor" position={[2, 2, 0]}>
-          <ViroText fontSize={this.state.fontSize} style={newStyle}  text="Horizontal Centered Text Left!"  textAlign={"left"}/>
+          <ViroText fontSize={this.state.fontSize} style={newStyle} width={2} height={0.8} text="Horizontal Centered Text Left!"  textAlign={"left"}/>
         </ViroFlexView>
 
         <ViroFlexView style={styles.containerVertical} width={2} height={0.8} materials="redColor" position={[2, 1, 0]}>
-          <ViroText fontSize={this.state.fontSize} style={newStyle}  text="Horizontal Centered Text Center!" textAlign={"center"}/>
+          <ViroText fontSize={this.state.fontSize} style={newStyle} width={2} height={0.8} text="Horizontal Centered Text Center!" textAlign={"center"}/>
         </ViroFlexView>
 
         <ViroFlexView style={styles.containerVertical} width={2} height={0.8} materials="redColor" position={[2, 0, 0]}>
-          <ViroText fontSize={this.state.fontSize} style={newStyle}  text="Horizontal Centered Text Right!" textAlign={"right"}/>
+          <ViroText fontSize={this.state.fontSize} style={newStyle} width={2} height={0.8} text="Horizontal Centered Text Right!" textAlign={"right"}/>
         </ViroFlexView>
 
         <ViroFlexView style={styles.containerVertical}  width={2} height={1}  materials="redColor"position={[-4,-1, 0]}>
@@ -138,7 +138,7 @@ var ViroTextTest = React.createClass({
        text={"MAX LINE TEST See a max of three lines for this text view only three lines if not it is a BUG do you see the end of this sentence go beyond three lines? " + this.state.longText} />
 
        <ViroText fontSize={this.state.fontSize}  style={newStyle}  position={[-4,-4, 0]} width={2} height ={2}
-       text={"Text should be clipped to bounds ." + this.state.longText + this.state.longText} textClipMode={"cliptobounds"}/>
+       text={"Text should be clipped to bounds ." + this.state.longText + this.state.longText} textClipMode={"clipToBounds"}/>
 
        <ViroText fontSize={this.state.fontSize} style={newStyle}  position={[2, -2, 0]} width={2} height ={2} fontFamily={'Arial'}
         text={"TextLineBreak for a word-wrap Test!" + this.state.longText} textLineBreakMode='wordwrap'/>

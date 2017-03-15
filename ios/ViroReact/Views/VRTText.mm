@@ -215,9 +215,10 @@ NSString *const VRTLabelReactTagAttributeName = @"ReactTagAttributeName";
   
   NSString *value = (NSString *)json;
   
-  if([value caseInsensitiveCompare:@"none"]) {
+  if ([value caseInsensitiveCompare:@"none"] == NSOrderedSame) {
     return VROTextClipMode::None;
-  } else if([value caseInsensitiveCompare:@"cliptobounds"]) {
+  }
+  else if ([value caseInsensitiveCompare:@"cliptobounds"] == NSOrderedSame) {
     return VROTextClipMode::ClipToBounds;
   }
   return VROTextClipMode::None;
