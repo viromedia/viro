@@ -90,6 +90,10 @@ public class Image extends Control {
     public void setMaterials(List<MaterialJni> materials) {
         // Override materials setting because we want to control which materials are set.
         mMaterials = materials;
+        setMaterialOnSurface();
+        if (mNativeSurface != null && mLatestImageTexture != null) {
+            mNativeSurface.setImageTexture(mLatestImageTexture);
+        }
     }
 
     @Override
