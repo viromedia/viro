@@ -5,6 +5,8 @@ package com.viromedia.bridge.component;
 
 
 import android.graphics.Bitmap;
+import android.os.Handler;
+import android.os.Looper;
 
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReadableArray;
@@ -26,13 +28,18 @@ public class Image360 extends Component {
     private ImageJni mLatestImage;
     private TextureJni mLatestTexture;
     private TextureFormat mFormat = TextureFormat.RGBA8;
+    private Handler mMainHandler;
+    private boolean mImageNeedsDownload;
 
     public Image360(ReactApplicationContext context) {
         super(context);
+        mMainHandler = new Handler(Looper.getMainLooper());
+        mImageNeedsDownload = false;
     }
 
     public void setSource(ReadableMap source) {
         mSourceMap = source;
+        mImageNeedsDownload = true;
     }
 
     public void setRotation(ReadableArray rotation) {
@@ -43,39 +50,50 @@ public class Image360 extends Component {
                     (float) rotation.getDouble(1), (float) rotation.getDouble(2)};
             mRotation = rotationArr;
         }
+        if (mScene != null) {
+            mScene.setBackgroundRotation(mRotation);
+        }
     }
 
     @Override
     public void onPropsSet() {
         super.onPropsSet();
+        if (!mImageNeedsDownload || mSourceMap == null) {
+            return;
+        }
+
         ImageDownloader downloader = new ImageDownloader(getContext());
         downloader.setTextureFormat(mFormat);
 
-        if (mSourceMap != null) {
-            imageDownloadDidStart();
+        imageDownloadDidStart();
 
-            downloader.getImageAsync(mSourceMap, new ImageDownloadListener() {
-                @Override
-                public void completed(Bitmap result) {
-                    if (mLatestImage != null) {
-                        mLatestImage.destroy();
+        downloader.getImageAsync(mSourceMap, new ImageDownloadListener() {
+            @Override
+            public void completed(final Bitmap result) {
+                mMainHandler.post(new Runnable() {
+                    public void run() {
+                        if (mLatestImage != null) {
+                            mLatestImage.destroy();
+                        }
+
+                        if (mLatestTexture != null) {
+                            mLatestTexture.destroy();
+                        }
+
+                        mLatestImage = new ImageJni(result, mFormat);
+                        mLatestTexture = new TextureJni(mLatestImage, mFormat, false);
+
+                        if (mScene != null) {
+                            mScene.setBackgroundImageTexture(mLatestTexture);
+                            mScene.setBackgroundRotation(mRotation);
+                        }
+                        imageDownloadDidFinish();
                     }
+                });
+            }
+        });
 
-                    if (mLatestTexture != null) {
-                        mLatestTexture.destroy();
-                    }
-
-                    mLatestImage = new ImageJni(result, mFormat);
-                    mLatestTexture = new TextureJni(mLatestImage, mFormat, false);
-
-                    if (mScene != null) {
-                        mScene.setBackgroundImageTexture(mLatestTexture);
-                        mScene.setBackgroundRotation(mRotation);
-                    }
-                    imageDownloadDidFinish();
-                }
-            });
-        }
+        mImageNeedsDownload = false;
     }
 
     @Override
@@ -102,6 +120,7 @@ public class Image360 extends Component {
 
     public void setFormat(String format) {
         mFormat = TextureFormat.forString(format);
+        mImageNeedsDownload = true;
     }
 
     private void imageDownloadDidStart() {
