@@ -95,7 +95,7 @@ var ViroSoundTest = React.createClass({
 
     _toggleSoundType(){
       var newSoundType = this.state.soundType + 1;
-      if (newSoundType > 3){
+      if (newSoundType > 2){
           newSoundType = 0;
       }
 
@@ -252,8 +252,8 @@ var ViroSoundTest = React.createClass({
   },
   _toggleSource(){
     var newToggleSource = this.state.toggleSource + 1;
-    if (newToggleSource > 3){
-        newToggleSource = 1;
+    if (newToggleSource > 2){
+        newToggleSource = 0;
     }
 
     this.setState({
