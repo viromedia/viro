@@ -32,7 +32,6 @@ var ViroVideoTest = React.createClass({
       videoPaused: false,
       loopVideo: true,
       muteVideo: true,
-      videoSource: {uri:'https://s3.amazonaws.com/viro.video/Climber2Top.mp4'},
       volume: 1,
       showVideo: true,
     }
@@ -49,7 +48,7 @@ var ViroVideoTest = React.createClass({
           style={styles.baseTextTwo} onClick={this._toggleLooping} transformBehaviors={["billboard"]}/>
         <ViroText position={polarToCartesian([2, -10, -5])} text="Restart"
           style={styles.baseTextTwo} onClick={this._restartVideo} transformBehaviors={["billboard"]}/>
-        <ViroText position={polarToCartesian([2, -10, -10])} text={"IsVideoPlaying: " + this.state.videoPaused}
+        <ViroText position={polarToCartesian([2, -10, -10])} text={"IsVideoPlaying: " + !this.state.videoPaused}
           style={styles.baseTextTwo} onClick={this._togglePauseVideo} transformBehaviors={["billboard"]}/>
         <ViroText position={polarToCartesian([2, -10, -15])} text={this._getMuteText()}
           style={styles.baseTextTwo} onClick={this._muteVideo} transformBehaviors={["billboard"]}/>
@@ -69,7 +68,7 @@ var ViroVideoTest = React.createClass({
           onFinish={this._onVideoFinished} onUpdateTime={this._onUpdateTime}/>
       );
     } else {
-      return; (
+      return (
         <ViroVideo ref={VIDEO_REF} width={1.7} height={0.95} position={[0, 1, -2.9]} scale={[1, 1, 1]} paused={this.state.videoPaused}
           source={{uri:'https://s3.amazonaws.com/viro.video/Climber1Bottom.mp4'}} transformBehavior={["billboard"]}
           loop={this.state.loopVideo} muted={this.state.muteVideo} volume={this.state.volume}
@@ -85,7 +84,6 @@ var ViroVideoTest = React.createClass({
   },
   _changeVideoSource() {
     this.setState({
-      videoSource: {uri:'https://s3.amazonaws.com/viro.video/Climber1Bottom.mp4'},
       showVideo: !this.state.showVideo,
     })
   },
