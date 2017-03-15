@@ -48,6 +48,12 @@ public class SceneNavigator extends FrameLayout {
     private final ReactViroPackage.ViroPlatform mPlatform;
 
     /**
+     * This SceneNavigator's LifecycleEventListener to register for React LifecycleEvents.
+     * Must be deregistered onDestroy.
+     */
+    private final LifecycleEventListener mLifecycleListener;
+
+    /**
      * Context passed around to views to get render specific information.
      */
     private RenderContextJni mRenderContext;
@@ -93,7 +99,7 @@ public class SceneNavigator extends FrameLayout {
 
         notifyScenePlatformInformation();
 
-        reactContext.addLifecycleEventListener(new LifecycleEventListener() {
+        mLifecycleListener = new LifecycleEventListener() {
             @Override
             public void onHostResume() {
                 if (mViewAdded && mGLInialized) {
@@ -112,9 +118,11 @@ public class SceneNavigator extends FrameLayout {
 
             @Override
             public void onHostDestroy() {
-                //No-op
+                mReactContext.removeLifecycleEventListener(mLifecycleListener);
             }
-        });
+        };
+
+        reactContext.addLifecycleEventListener(mLifecycleListener);
     }
 
     @Override
