@@ -12,6 +12,8 @@ import com.facebook.react.uimanager.annotations.ReactProp;
 import com.viromedia.bridge.component.node.NodeManager;
 import com.viromedia.bridge.utility.Helper;
 
+import javax.annotation.Nullable;
+
 public class TextManager extends NodeManager<Text> {
     public TextManager(ReactApplicationContext context) {
         super(context);
@@ -42,9 +44,13 @@ public class TextManager extends NodeManager<Text> {
         text.setText(textString);
     }
 
-    @ReactProp(name = "color", defaultDouble = Text.DEFAULT_COLOR)
-    public void setColor(Text text, double color) {
-        text.setColor((long) color);
+    @ReactProp(name = "color", customType = "Color")
+    public void setColor(Text text, @Nullable Integer color) {
+        if(color == null) {
+            text.setColor(Color.WHITE);
+        } else {
+            text.setColor(color);
+        }
     }
 
     @ReactProp(name = "fontFamily")
