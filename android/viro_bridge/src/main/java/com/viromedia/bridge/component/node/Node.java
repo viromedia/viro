@@ -157,7 +157,7 @@ public class Node extends Component {
          */
         if (child instanceof Component) {
             Component component = (Component) child;
-            component.onTearDown();
+            //component.onTearDown();
         }
     }
 

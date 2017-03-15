@@ -183,7 +183,7 @@ public class SceneNavigator extends FrameLayout {
 
         if ((view instanceof Component)) {
             Component component = (Component) view;
-            component.onTearDown();
+            //component.onTearDown();
         }
     }
 
