@@ -15,7 +15,6 @@ static float const kDefaultWidth = 1;
 static float const kDefaultHeight = 1;
 
 @implementation VRTImage {
-  std::shared_ptr<VROSurface> _surface;
   VRTImageAsyncLoader *_loader;
   std::shared_ptr<VROTexture> _texture;
   BOOL _widthOrHeightPropSet;
@@ -66,12 +65,18 @@ static float const kDefaultHeight = 1;
 }
 
 - (void)updateSurface {
-  _surface = VROSurface::createSurface(_width, _height);
-  [self node]->setGeometry(_surface);
+  std::shared_ptr<VROSurface> surface = VROSurface::createSurface(_width, _height);
+
+  self.node->setGeometry(surface);
   [self applyMaterials];
+}
+
+// Override applyMaterials so we can set our image in front
+- (void)applyMaterials {
+  [super applyMaterials];
   
-  if (_texture) {
-    _surface->getMaterials().front()->getDiffuse().setTexture(_texture);
+  if (_texture && self.node->getGeometry()) {
+    self.node->getGeometry()->getMaterials().front()->getDiffuse().setTexture(_texture);
   }
 }
 
@@ -83,12 +88,12 @@ static float const kDefaultHeight = 1;
 
   if (_imageNeedsDownload) {
     // Set the placeholder while the image loads
-    if (_placeholderSource && _source) {
+    if (_placeholderSource && _source && !_texture && self.node && self.node->getGeometry()) {
       std::shared_ptr<VROTexture> placeholderTexture = std::make_shared<VROTexture>(VROTextureInternalFormat::RGBA8,
                                                                                     VROMipmapMode::Runtime,
                                                                                     std::make_shared<VROImageiOS>(_placeholderSource,
                                                                                                                   VROTextureInternalFormat::RGBA8));
-        _surface->getMaterials().front()->getDiffuse().setTexture(placeholderTexture);
+        self.node->getGeometry()->getMaterials().front()->getDiffuse().setTexture(placeholderTexture);
     }
     
     // Start loading the image
@@ -96,9 +101,6 @@ static float const kDefaultHeight = 1;
       [_loader loadImage:_source];
     }
     _imageNeedsDownload = NO;
-  }
-  else if (_texture) {
-    _surface->getMaterials().front()->getDiffuse().setTexture(_texture);
   }
 }
 
@@ -112,10 +114,10 @@ static float const kDefaultHeight = 1;
 
 - (void)imageLoaderDidEnd:(VRTImageAsyncLoader *)loader success:(BOOL)success image:(UIImage *)image {
   dispatch_async(dispatch_get_main_queue(), ^{
-    if (success && image!=nil) {
-        _texture = std::make_shared<VROTexture>(self.format,
-                                                self.mipmap ? VROMipmapMode::Runtime : VROMipmapMode::None,
-                                                std::make_shared<VROImageiOS>(image, self.format));
+    if (success && image) {
+      _texture = std::make_shared<VROTexture>(self.format,
+                                              self.mipmap ? VROMipmapMode::Runtime : VROMipmapMode::None,
+                                              std::make_shared<VROImageiOS>(image, self.format));
         
       // Check if width and height were set as props. If not, recreate the surface using
       // the aspect ratio of image.
@@ -126,8 +128,7 @@ static float const kDefaultHeight = 1;
         
         _widthOrHeightChanged = NO;
       }
-        
-      _surface->getMaterials().front()->getDiffuse().setTexture(_texture);
+      [self applyMaterials];
     }
 
     if(self.onLoadEndViro) {
