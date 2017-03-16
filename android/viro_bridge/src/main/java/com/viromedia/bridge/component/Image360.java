@@ -98,6 +98,7 @@ public class Image360 extends Component {
 
     @Override
     public void onTearDown() {
+        super.onTearDown();
         if (mLatestImage != null) {
             mLatestImage.destroy();
             mLatestImage = null;

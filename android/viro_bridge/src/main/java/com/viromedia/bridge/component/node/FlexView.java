@@ -78,6 +78,7 @@ public class FlexView extends Node {
         if (isTornDown()) {
             return;
         }
+        super.onTearDown();
 
         if (mNativeSurface != null) {
             mNativeSurface.destroy();

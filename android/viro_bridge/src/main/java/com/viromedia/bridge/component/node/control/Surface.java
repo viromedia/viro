@@ -43,4 +43,13 @@ public class Surface extends Control {
         }
         setGeometry(mNativeSurface);
     }
+
+    @Override
+    public void onTearDown() {
+        super.onTearDown();
+        if (mNativeSurface != null) {
+            mNativeSurface.destroy();
+            mNativeSurface = null;
+        }
+    }
 }

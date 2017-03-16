@@ -56,4 +56,13 @@ public class Sphere extends Control {
         mNativeSphere = new SphereJni(mRadius, mWidthSegmentCount, mHeightSegmentCount, mFacesOutward);
         setGeometry(mNativeSphere);
     }
+
+    @Override
+    public void onTearDown() {
+        super.onTearDown();
+        if (mNativeSphere != null) {
+            mNativeSphere.delete();
+            mNativeSphere = null;
+        }
+    }
 }
