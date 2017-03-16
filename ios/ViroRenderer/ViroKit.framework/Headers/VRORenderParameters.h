@@ -26,7 +26,8 @@ public:
     std::stack<VROMatrix4f> transforms;
     std::stack<float> opacities;
     std::vector<std::shared_ptr<VROLight>> lights;
-    std::stack<int> hierarchical;
+    std::stack<int> hierarchyDepths;
+    std::stack<float> distancesFromCamera;
     int hierarchyId;
     
 };

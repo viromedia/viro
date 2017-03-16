@@ -285,20 +285,22 @@ static NSString *const kWebPrefix = @"http";
 
 // Override
 - (void)createSoundWithPath:(NSString *)path local:(BOOL)local {
-    if (_player) {
-        _player->pause();
-    }
-
-   _player = self.driver->newAudioPlayer(std::string([path UTF8String]), local);
-   _player->setDelegate(std::make_shared<VROSoundDelegateiOS>(self));
+  if (_player) {
+    _player->pause();
+  }
+  
+  _player = self.driver->newAudioPlayer(std::string([path UTF8String]), local);
+  _player->setDelegate(std::make_shared<VROSoundDelegateiOS>(self));
+  _player->setup();
 }
 
 - (void)createSoundWithData:(std::shared_ptr<VROSoundData>)data local:(BOOL)local {
-    if (_player) {
-        _player->pause();
-    }
-    _player = self.driver->newAudioPlayer(data);
-    _player->setDelegate(std::make_shared<VROSoundDelegateiOS>(self));
+  if (_player) {
+    _player->pause();
+  }
+  _player = self.driver->newAudioPlayer(data);
+  _player->setDelegate(std::make_shared<VROSoundDelegateiOS>(self));
+  _player->setup();
 }
 
 - (void)setNativeProps {
