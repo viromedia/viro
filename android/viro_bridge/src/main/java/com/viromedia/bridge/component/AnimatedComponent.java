@@ -194,6 +194,9 @@ public class AnimatedComponent extends Component {
             ViroLog.info(TAG, "Aborted starting new animation, was no longer scheduled.");
             return;
         }
+        if (mChildNode.isTornDown()) {
+            return;
+        }
 
         mExecutableAnimation = mManager.getAnimation(mAnimation).copy();
         if (mExecutableAnimation == null) {
