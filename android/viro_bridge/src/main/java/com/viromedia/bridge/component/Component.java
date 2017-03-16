@@ -139,10 +139,6 @@ public class Component extends ReactViewGroup {
      * to mark its detached status.
      */
     private void onTreeUpdate() {
-        if (getChildCount() == 0 && getParent() == null) {
-            mDetached = true;
-        }
-
         mDetached = (getChildCount() == 0 && getParent() == null);
         if (mDetached && mDropped && !mTornDown) {
             onTearDown();
