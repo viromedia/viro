@@ -20,16 +20,15 @@
 #import "VRTSurface.h"
 
 @implementation VRTFlexView {
-  std::shared_ptr<VROSurface> _surface;
-  std::shared_ptr<VROMaterial> _backgroundColorMaterial;
+  bool _surfaceNeedsUpdate;
 }
 
 -(instancetype)initWithBridge:(RCTBridge *)bridge {
   self = [super initWithBridge:bridge];
   if(self) {
-    _surface = NULL;
     _width = -1.0;
     _height = -1.0;
+    _surfaceNeedsUpdate = NO;
       
     [self node]->setHierarchicalRendering(true);
   }
@@ -38,34 +37,19 @@
 
 - (void)setHeight:(float)height {
   _height = height;
+  _surfaceNeedsUpdate = YES;
   [self reCalcBounds];
-  if(_surface && (self.materials || self.backgroundColor) && _width > 0.0) {
-    [self createSurface];
-  }
 }
 
 - (void)setWidth:(float)width {
   _width = width;
+  _surfaceNeedsUpdate = YES;
   [self reCalcBounds];
-  if(_surface && (self.materials || self.backgroundColor) && _height > 0.0) {
-    [self createSurface];
-  }
 }
 
-- (void)setBackgroundColor:(UIColor *)backgroundColor {
-  _backgroundColor = backgroundColor;
-  if(_backgroundColor != nil) {
-    std::shared_ptr<VROMaterial> newMaterial =  std::make_shared<VROMaterial>();
-    // Create new background color material.
-    CGFloat red,green,blue, alpha;
-    [_backgroundColor getRed:&red green:&green blue:&blue alpha:&alpha];
-    VROVector4f vecColor(red, green, blue, alpha);
-    newMaterial->getDiffuse().setColor(vecColor);
-    _backgroundColorMaterial = newMaterial;
-    if(_surface && _height > 0.0 && _width > 0.0) {
-      [self createSurface];
-    }
-  }
+- (void)setFlexBackgroundColor:(UIColor *)backgroundColor {
+  _flexBackgroundColor = backgroundColor;
+  _surfaceNeedsUpdate = YES;
 }
 
 - (void)reactSetFrame:(CGRect)frame {
@@ -85,17 +69,18 @@
   return NO;
 }
 
-- (void)sceneWillAppear {
-  if(self.materials != nil || self.backgroundColor!=nil) {
-    [self createSurface];
-  }
-  [super sceneWillAppear];
-
-}
-
 - (void)reCalcBounds {
   self.bounds2DFlex = CGRectMake(0, 0, _width * k2DPointsPerSpatialUnit, _height * k2DPointsPerSpatialUnit);
   self.centerPoint2DFlex = CGPointMake( (_width * k2DPointsPerSpatialUnit/2), (_height * k2DPointsPerSpatialUnit/2));
+}
+
+- (void)didSetProps:(NSArray<NSString *> *)changedProps {
+  if (_surfaceNeedsUpdate) {
+    if ((self.materials || self.backgroundColor) && _width > 0.0) {
+      [self createSurface];
+    }
+  }
+  _surfaceNeedsUpdate = NO;
 }
 
 - (void)createSurface {
@@ -108,20 +93,16 @@
     _height = 1.0;
   }
   
-  // Background color takes precedence over a material set by the user.
-  if(self.materials != nil || _backgroundColor != nil) {
-    _surface = VROSurface::createSurface(_width, _height);
-    [self node]->setGeometry(_surface);
-    if(_backgroundColorMaterial) {
-      [self node]->getGeometry()->getMaterials().clear();
-      [self node]->getGeometry()->getMaterials().push_back(_backgroundColorMaterial);
-    }
+  std::shared_ptr<VROSurface> surface = VROSurface::createSurface(_width, _height);
+  self.node->setGeometry(surface);
+  [self applyMaterials];
+  
+  if (_flexBackgroundColor) {
+    CGFloat red,green,blue, alpha;
+    [_flexBackgroundColor getRed:&red green:&green blue:&blue alpha:&alpha];
+    VROVector4f color(red, green, blue, alpha);
 
-    else if(self.materials) {
-      [self applyMaterials];
-    }
-  } else {
-    [self node]->setGeometry(NULL);
+    surface->getMaterials().front()->getDiffuse().setColor(color);
   }
 }
 

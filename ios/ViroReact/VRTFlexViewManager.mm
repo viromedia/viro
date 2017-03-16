@@ -14,7 +14,6 @@
 
 RCT_EXPORT_MODULE()
 
-
 RCT_EXPORT_VIEW_PROPERTY(height, float)
 RCT_EXPORT_VIEW_PROPERTY(width, float)
 
@@ -30,7 +29,7 @@ RCT_EXPORT_VIEW_PROPERTY(canHover, BOOL)
 RCT_EXPORT_VIEW_PROPERTY(canClick, BOOL)
 RCT_EXPORT_VIEW_PROPERTY(transformBehaviors, NSArray<NSString *>)
 RCT_EXPORT_VIEW_PROPERTY(visible, BOOL)
-RCT_EXPORT_VIEW_PROPERTY(backgroundColor, UIColor)
+RCT_REMAP_VIEW_PROPERTY(backgroundColor, flexBackgroundColor, UIColor) //backgroundColor is reserved
 
 - (VRTFlexView *)view
 {
