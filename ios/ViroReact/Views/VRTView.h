@@ -22,7 +22,6 @@ typedef NS_ENUM(NSInteger, ViroConstraintType) {
 }
 
 @property(nullable, nonatomic, weak) VRTView *superview;
-
 @property (nonatomic, readonly, weak) RCTBridge *bridge;
 
 /*

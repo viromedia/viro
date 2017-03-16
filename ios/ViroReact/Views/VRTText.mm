@@ -136,7 +136,6 @@ NSString *const VRTLabelReactTagAttributeName = @"ReactTagAttributeName";
   [self updateLabel];
 }
 
-
 // Static function to get default font.
 + (NSString *)defaultFont {
   static NSString *defaultFontFamily;
@@ -148,7 +147,6 @@ NSString *const VRTLabelReactTagAttributeName = @"ReactTagAttributeName";
 }
 
 @end
-
 
 @implementation RCTConvert (VRTText)
 + (VROTextHorizontalAlignment)VROTextHorizontalAlignment:(id)json {
@@ -186,7 +184,6 @@ NSString *const VRTLabelReactTagAttributeName = @"ReactTagAttributeName";
   
   return VROTextVerticalAlignment::Top;
 }
-
 
 +(VROLineBreakMode)VROLineBreakMode:(id)json {
   if (![json isKindOfClass:[NSString class]]) {

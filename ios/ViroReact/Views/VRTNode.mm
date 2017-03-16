@@ -229,7 +229,6 @@ const int k2DPointsPerSpatialUnit = 1000;
   CGPoint position = {CGRectGetMidX(frame), CGRectGetMidY(frame)};
   CGRect bounds = {CGPointZero, frame.size};
   
-  
   self.position2DFlex = position;
   self.centerPoint2DFlex = CGPointMake(bounds.size.width/2, bounds.size.height/2);
   self.bounds2DFlex = bounds;
@@ -258,4 +257,5 @@ const int k2DPointsPerSpatialUnit = 1000;
                           @"clickState":@(clickState)});
     }
 }
+
 @end

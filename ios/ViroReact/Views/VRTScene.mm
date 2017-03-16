@@ -28,7 +28,7 @@ static NSArray<NSNumber *> *const kDefaultSize = @[@(0), @(0), @(0)];
 @implementation VRTScene {
   id <VROView> _vroView;
   VRTCamera *_camera;
-  std::map<std::shared_ptr<VRONode>, float> _storedRootNodeOpacities;
+  
   std::shared_ptr<VROSceneControllerDelegateiOS> _delegate;
   std::shared_ptr<VROSceneController> _sceneController;
   NSArray<NSNumber *> *_size;
@@ -70,7 +70,10 @@ static NSArray<NSNumber *> *const kDefaultSize = @[@(0), @(0), @(0)];
 
 -(void)setDriver:(VRODriver *)driver {
     [super setDriver:driver];
-    self.driver->setSoundRoom([[_size objectAtIndex:0] floatValue], [[_size objectAtIndex:1] floatValue], [[_size objectAtIndex:2] floatValue], [_wallMaterial UTF8String], [_ceilingMaterial UTF8String], [_floorMaterial UTF8String]);
+    self.driver->setSoundRoom([[_size objectAtIndex:0] floatValue],
+                              [[_size objectAtIndex:1] floatValue],
+                              [[_size objectAtIndex:2] floatValue],
+                              [_wallMaterial UTF8String], [_ceilingMaterial UTF8String], [_floorMaterial UTF8String]);
 }
 
 - (std::shared_ptr<VROSceneController>)sceneController {
@@ -129,7 +132,6 @@ static NSArray<NSNumber *> *const kDefaultSize = @[@(0), @(0), @(0)];
   if (_camera != camera) {
       return;
   }
-    
   if (_vroView) {
     [_vroView setPointOfView:nullptr];
   }
