@@ -26,19 +26,19 @@ static NSString *const kVRTInvalidAPIKeyMessage = @"The given API Key is either 
 }
 
 - (instancetype)initWithBridge:(RCTBridge *)bridge {
-    self = [super initWithBridge:bridge];
-    if (self) {
-        _vroView = [[VROViewCardboard alloc] initWithFrame:CGRectMake(0, 0,
-                                                                      [[UIScreen mainScreen] bounds].size.width,
-                                                                      [[UIScreen mainScreen] bounds].size.height)];
-        _vroView.renderDelegate = self;
-        [self setFrame:CGRectMake(0, 0,
-                                       [[UIScreen mainScreen] bounds].size.width,
-                                       [[UIScreen mainScreen] bounds].size.height)];
-        [self addSubview:(UIView *)_vroView];
-        
-        self.currentViews = [[NSMutableArray alloc] init];
-        _currentStackPosition = -1;
+  self = [super initWithBridge:bridge];
+  if (self) {
+    _vroView = [[VROViewCardboard alloc] initWithFrame:CGRectMake(0, 0,
+                                                                  [[UIScreen mainScreen] bounds].size.width,
+                                                                  [[UIScreen mainScreen] bounds].size.height)];
+    _vroView.renderDelegate = self;
+    [self setFrame:CGRectMake(0, 0,
+                              [[UIScreen mainScreen] bounds].size.width,
+                              [[UIScreen mainScreen] bounds].size.height)];
+    [self addSubview:(UIView *)_vroView];
+    
+    self.currentViews = [[NSMutableArray alloc] init];
+    _currentStackPosition = -1;
   }
   return self;
 }
@@ -95,7 +95,7 @@ static NSString *const kVRTInvalidAPIKeyMessage = @"The given API Key is either 
 }
 
 
-//VRORenderDelegate methods.
+#pragma mark - VRORenderDelegate methods
 
 - (void)setupRendererWithDriver:(VRODriver *)driver {
   
@@ -155,7 +155,8 @@ static NSString *const kVRTInvalidAPIKeyMessage = @"The given API Key is either 
     [super removeFromSuperview];
 }
 
-#pragma mark RVTInvalidating Delegate Methods
+#pragma mark RCTInvalidating methods
+
 - (void)invalidate {
   _currentViews = nil;
   _currentScene = nil;

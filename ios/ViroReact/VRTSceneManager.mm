@@ -31,7 +31,6 @@ RCT_EXPORT_VIEW_PROPERTY(canClick, BOOL)
 RCT_EXPORT_VIEW_PROPERTY(soundRoom, NSDictionary)
 RCT_EXPORT_VIEW_PROPERTY(onPlatformUpdateViro, RCTDirectEventBlock)
 
-
 - (VRTView *)view
 {
   return [[VRTScene alloc] initWithBridge:self.bridge];

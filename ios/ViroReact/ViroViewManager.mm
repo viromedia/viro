@@ -113,7 +113,7 @@ RCT_EXPORT_MODULE()
   return NO;
 }
 
-#pragma mark - viro view properties
+#pragma mark - ViroView properties
 
 RCT_EXPORT_VIEW_PROPERTY(transformBehaviors, NSArray<NSString *>)
 

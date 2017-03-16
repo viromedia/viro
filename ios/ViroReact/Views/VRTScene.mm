@@ -59,10 +59,6 @@ static NSArray<NSNumber *> *const kDefaultSize = @[@(0), @(0), @(0)];
   return self;
 }
 
-- (void)dealloc {
-  
-}
-
 - (void)setView:(id <VROView>)view {
   _vroView = view;
   [self setCameraIfAvailable];
