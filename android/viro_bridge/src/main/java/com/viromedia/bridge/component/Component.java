@@ -138,7 +138,7 @@ public class Component extends ReactViewGroup {
      * view tree. We check if its fully detached (no parents or children),
      * to mark its detached status.
      */
-    private void onTreeUpdate() {
+    public void onTreeUpdate() {
         mDetached = (getChildCount() == 0 && getParent() == null);
         if (mDetached && mDropped && !mTornDown) {
             onTearDown();
