@@ -10,17 +10,29 @@ import com.facebook.react.views.view.ReactViewGroup;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.viro.renderer.jni.RenderContextJni;
 import com.viromedia.bridge.component.node.Scene;
+import com.viromedia.bridge.utility.ViroLog;
 
 /**
  * Base class for any Viro UI Component. Equivalent to the VRTView in iOS.
  */
 public class Component extends ReactViewGroup {
+
     private static String TAG = Component.class.getSimpleName();
     protected RenderContextJni mRenderContext = null;
     protected ReactApplicationContext mReactContext = null;
     protected Scene mScene = null;
 
-    private static Boolean IS_TORN_DOWN = false;
+    /*
+     These three bools define the state of each component.
+     mDropped indicates whether the Component has been dropped by
+     the NativeViewHierarchyManager. mDetached indicates if the
+     Component is detached from the React view tree (meaning no
+     children and no parent). If both of these become true, the
+     component is torn down, releasing native resources.
+     */
+    private boolean mTornDown = false;
+    private boolean mDropped = false;
+    private boolean mDetached = false;
 
     public Component(ReactApplicationContext reactContext) {
         this(reactContext.getBaseContext(), null, -1, -1, reactContext);
@@ -93,26 +105,80 @@ public class Component extends ReactViewGroup {
                     child.getClass().getSimpleName() + "].");
         }
 
-        if (mRenderContext != null &&
-                ((Component) child).mRenderContext == null){
-            ((Component) child).setRenderContext(mRenderContext);
+        Component component = (Component) child;
+        if (mRenderContext != null && component.mRenderContext == null){
+            component.setRenderContext(mRenderContext);
+        }
+        if (mScene != null && component.mScene == null){
+            component.setScene(mScene);
         }
 
-        if (mScene != null &&
-                ((Component) child).mScene == null){
-            ((Component) child).setScene(mScene);
+        component.onTreeUpdate();
+        onTreeUpdate();
+    }
+
+    @Override
+    public void removeViewAt(int index) {
+        View child = getChildAt(index);
+        super.removeViewAt(index);
+
+        /*
+         We tear down views whenever they're removed from the tree
+         and dropped, meaning they have no children and no parent.
+         */
+        if (child instanceof Component) {
+            Component component = (Component) child;
+            component.onTreeUpdate();
+        }
+        onTreeUpdate();
+    }
+
+    /**
+     * Invoked when a view is attached or detached from the React
+     * view tree. We check if its fully detached (no parents or children),
+     * to mark its detached status.
+     */
+    private void onTreeUpdate() {
+        if (getChildCount() == 0 && getParent() == null) {
+            mDetached = true;
+        }
+
+        mDetached = (getChildCount() == 0 && getParent() == null);
+        if (mDetached && mDropped && !mTornDown) {
+            onTearDown();
+        }
+    }
+
+    /**
+     * Invoked when a view is dropped by the NativeViewHierarchyManager.
+     */
+    public final void onDrop() {
+        mDropped = true;
+        if (mDetached && mDropped && !mTornDown) {
+            onTearDown();
         }
     }
 
     /**
      * Invoked when it is safe to cleanup the view, and
      * native references (renderer references) can be safely deleted.
-     * This is only invoked after the view is detached from the view
-     * hierarchy by the NativeViewHierarchyManager, *and* the view has
-     * been removed from the tree via removeViewAt from its parent.
+     * This is only invoked after the view is dropped by the
+     * NativeViewHierarchyManager, *and* the view has been removed
+     * from the tree via removeViewAt from its parent.
+     *
+     * Children should override and invoke this super method.
      */
     public void onTearDown() {
-        IS_TORN_DOWN = true;
+        mTornDown = true;
+    }
+
+    /**
+     * Helper method to indicate if teardown has already happened for this component.
+     *
+     * @return whether or not this component has already been torn down.
+     */
+    protected boolean isTornDown() {
+        return mTornDown;
     }
 
     /**
@@ -133,20 +199,11 @@ public class Component extends ReactViewGroup {
      */
     public void recalcLayout() {
         // Loop over every child of a scene. Ideally only particular nodes should respond.
-        for(int i = 0; i < getChildCount(); i++) {
+        for (int i = 0; i < getChildCount(); i++) {
             if (getChildAt(i) instanceof Component) {
                 ((Component) getChildAt(i)).recalcLayout();
             }
         }
-    }
-
-    /**
-     * Helper method to indicate if teardown has already happened for this component.
-     *
-     * @return whether or not this component has already been torn down.
-     */
-    protected boolean isTornDown() {
-        return IS_TORN_DOWN;
     }
 
     public void sceneWillAppear() {

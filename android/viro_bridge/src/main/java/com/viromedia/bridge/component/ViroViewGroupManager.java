@@ -53,6 +53,14 @@ public abstract class ViroViewGroupManager<T extends ViewGroup>
         }
     }
 
+    @Override
+    public void onDropViewInstance(T view) {
+        super.onDropViewInstance(view);
+        if (view instanceof Component) {
+            ((Component) view).onDrop();
+        }
+    }
+
     /**
      * Callback that will be triggered after all properties are updated in
      * current update transaction (all @ReactProp handlers for properties updated
@@ -63,7 +71,7 @@ public abstract class ViroViewGroupManager<T extends ViewGroup>
     @Override
     protected void onAfterUpdateTransaction(T view) {
         super.onAfterUpdateTransaction(view);
-        if (view instanceof Component){
+        if (view instanceof Component) {
             ((Component) view).onPropsSet();
         }
     }

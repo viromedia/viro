@@ -96,8 +96,6 @@ public class Node extends Component {
     // TODO: handle children separate from android viewgroup childViews
     @Override
     public void addView(View child, int index) {
-        super.addView(child, index);
-
         if (child instanceof Light) {
             ((Light) child).addToNode(mNodeJni);
         } else if (child instanceof Node) {
@@ -124,6 +122,8 @@ public class Node extends Component {
         } else {
             // TODO: Throw Error? Red Screen?
         }
+
+        super.addView(child, index);
     }
 
     @Override
@@ -151,14 +151,6 @@ public class Node extends Component {
         }
 
         super.removeViewAt(index);
-
-        /*
-         We tear down views whenever they're removed from the tree.
-         */
-        if (child instanceof Component) {
-            Component component = (Component) child;
-            //component.onTearDown();
-        }
     }
 
     /*
