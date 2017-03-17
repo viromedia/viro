@@ -68,11 +68,7 @@ public class SceneNavigator extends FrameLayout {
             if (navigator == null) {
                 return;
             }
-
-            if (navigator.mViewAdded && navigator.mGLInitialized) {
-                Scene childScene = navigator.mSceneArray.get(navigator.mSelectedSceneIndex);
-                childScene.onHostResume();
-            }
+            navigator.onHostResume();
         }
 
         @Override
@@ -82,10 +78,7 @@ public class SceneNavigator extends FrameLayout {
                 return;
             }
 
-            if (navigator.mViewAdded && navigator.mGLInitialized) {
-                Scene childScene = navigator.mSceneArray.get(navigator.mSelectedSceneIndex);
-                childScene.onHostPause();
-            }
+            navigator.onHostPause();
         }
 
         @Override
@@ -95,7 +88,7 @@ public class SceneNavigator extends FrameLayout {
                 return;
             }
 
-            navigator.mReactContext.removeLifecycleEventListener(navigator.mLifecycleListener);
+            navigator.onHostDestroy();
         }
     }
 
@@ -277,5 +270,33 @@ public class SceneNavigator extends FrameLayout {
             scene.forceCascadeTearDown();
         }
         mVrView.destroy();
+    }
+
+    private void onHostResume() {
+        if (mViewAdded && mGLInitialized) {
+            Scene childScene = mSceneArray.get(mSelectedSceneIndex);
+            childScene.onHostResume();
+        }
+
+        if (mVrView != null){
+            mVrView.onActivityStarted(mReactContext.getCurrentActivity());
+            mVrView.onActivityResumed(mReactContext.getCurrentActivity());
+        }
+    }
+
+    private void onHostPause() {
+        if (mViewAdded && mGLInitialized) {
+            Scene childScene = mSceneArray.get(mSelectedSceneIndex);
+            childScene.onHostPause();
+        }
+
+        if (mVrView != null){
+            mVrView.onActivityPaused(mReactContext.getCurrentActivity());
+            mVrView.onActivityStopped(mReactContext.getCurrentActivity());
+        }
+    }
+
+    private void onHostDestroy() {
+        mReactContext.removeLifecycleEventListener(mLifecycleListener);
     }
 }
