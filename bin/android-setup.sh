@@ -112,7 +112,12 @@ LINES_TO_ADD=("    compile fileTree(dir: 'libs', include: ['*.jar'])"
 "    releaseCompile project(path: ':viro_renderer', configuration: 'release')"
 "    debugCompile project(path: ':viro_renderer', configuration: 'debug')"
 "    compile 'com.google.android.exoplayer:exoplayer:r2.2.0'"
-"    compile 'com.google.protobuf.nano:protobuf-javanano:3.0.0-alpha-7'")
+"    compile 'com.google.protobuf.nano:protobuf-javanano:3.0.0-alpha-7'"
+"    compile 'com.amazonaws:aws-android-sdk-core:2.2.+'"
+"    compile 'com.amazonaws:aws-android-sdk-ddb:2.2.+'"
+"    compile 'com.amazonaws:aws-android-sdk-ddb-mapper:2.2.+'"
+"    compile 'com.amazonaws:aws-android-sdk-cognito:2.2.+'"
+"    compile 'com.amazonaws:aws-android-sdk-cognitoidentityprovider:2.2.+'")
 LINE_TO_APPEND_AFTER=$(grep "$SEARCH_PATTERN" "$TARGET_FILEPATH")
 
 INDEX=$((${#LINES_TO_ADD[@]}-1))
