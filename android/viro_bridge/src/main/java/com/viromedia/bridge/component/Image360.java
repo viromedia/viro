@@ -72,6 +72,9 @@ public class Image360 extends Component {
             public void completed(final Bitmap result) {
                 mMainHandler.post(new Runnable() {
                     public void run() {
+                        if (isTornDown()) {
+                            return;
+                        }
                         if (mLatestImage != null) {
                             mLatestImage.destroy();
                         }

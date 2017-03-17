@@ -138,6 +138,9 @@ public class Image extends Control {
             downloader.getImageAsync(mPlaceholderSourceMap, new ImageDownloadListener() {
                 @Override
                 public void completed(final Bitmap result) {
+                    if (isTornDown()) {
+                        return;
+                    }
                     mMainHandler.post(new Runnable() {
                         public void run() {
                             setImageOnSurface(result);
@@ -161,6 +164,9 @@ public class Image extends Control {
                     mMainHandler.post(new Runnable() {
                         @Override
                         public void run() {
+                            if (isTornDown()) {
+                                return;
+                            }
                             mIsImageSet = true;
 
                             // If no width or height property was set, then base these on the
