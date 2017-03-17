@@ -106,10 +106,13 @@
 
 - (void)imageLoaderDidEnd:(VRTImageAsyncLoader *)loader success:(BOOL)success image:(UIImage *)image {
   dispatch_async(dispatch_get_main_queue(), ^{
-    _sphereTexture = std::make_shared<VROTexture>(self.format,
+    if(success && image!= nil) {
+      _sphereTexture = std::make_shared<VROTexture>(self.format,
                                                   VROMipmapMode::None, // Don't mipmap 360 images, wastes memory
                                                   std::make_shared<VROImageiOS>(image, self.format));
-    [self updateSceneWithSphereTexture];
+      [self updateSceneWithSphereTexture];
+    }
+
     if(self.onLoadEndViro) {
       self.onLoadEndViro(@{@"success":@(success)});
     }

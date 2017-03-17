@@ -268,28 +268,33 @@ extern const int k2DPointsPerSpatialUnit;
       //NSLog(@"Flex image position(%f, %f), size:(%f, %f)", transformedX, transformedY,node.bounds2DFlex.size.width/ k2DPointsPerSpatialUnit, node.bounds2DFlex.size.height/ k2DPointsPerSpatialUnit );
       [image setWidth:node.bounds2DFlex.size.width/ k2DPointsPerSpatialUnit];
       [image setHeight:node.bounds2DFlex.size.height/ k2DPointsPerSpatialUnit];
+      [image didSetProps:nil];
     } else if([node isKindOfClass:[VRTFlexView class]]) {
       VRTFlexView *flexview = (VRTFlexView *)node;
        //NSLog(@"Flex view position(%f, %f), size(%f, %f)", transformedX, transformedY,node.bounds2DFlex.size.width/ k2DPointsPerSpatialUnit,  node.bounds2DFlex.size.height/ k2DPointsPerSpatialUnit);
       [flexview setWidth:node.bounds2DFlex.size.width/ k2DPointsPerSpatialUnit];
       [flexview setHeight:node.bounds2DFlex.size.height/ k2DPointsPerSpatialUnit];
+      [flexview didSetProps:nil];
     }
     else if([node isKindOfClass:[VRTSurface class]]) {
       VRTSurface *surface = (VRTSurface *)node;
       //NSLog(@"Flex surface position(%f, %f), size:(%f, %f)", transformedX, transformedY,node.bounds2DFlex.size.width/ k2DPointsPerSpatialUnit, node.bounds2DFlex.size.height/ k2DPointsPerSpatialUnit );
       [surface setWidth:node.bounds2DFlex.size.width/ k2DPointsPerSpatialUnit];
       [surface setHeight:node.bounds2DFlex.size.height/ k2DPointsPerSpatialUnit];
+      [surface didSetProps:nil];
     }
     else if([node isKindOfClass:[VRTVideoSurface class]]) {
       VRTVideoSurface *surface = (VRTVideoSurface *)node;
       //NSLog(@"Video surface position(%f, %f), size:(%f, %f)", transformedX, transformedY,node.bounds2DFlex.size.width/ k2DPointsPerSpatialUnit, node.bounds2DFlex.size.height/ k2DPointsPerSpatialUnit );
       [surface setWidth:node.bounds2DFlex.size.width/ k2DPointsPerSpatialUnit];
       [surface setHeight:node.bounds2DFlex.size.height/ k2DPointsPerSpatialUnit];
+      [surface didSetProps:nil];
     }
     else if([node isKindOfClass:[VRTText class]]) {
       VRTText *text = (VRTText *)node;
       [text setWidth:node.bounds2DFlex.size.width/ k2DPointsPerSpatialUnit];
       [text setHeight:node.bounds2DFlex.size.height/ k2DPointsPerSpatialUnit];
+      [text didSetProps:nil];
     }
     else {
       //VA: TODO, VIRO-742 if we want flex for componenents that don't have width and height property then uncomment below line.
@@ -305,14 +310,19 @@ extern const int k2DPointsPerSpatialUnit;
     return YES;
   }
   
-  VRTNode *superview = (VRTNode *)node.superview;
+  VRTNode *superview = ([node.superview isKindOfClass:[VRTAnimatedComponent class]]) ? node.superview.superview : (VRTNode *)node.superview;
   while(superview) {
+
     if([superview isKindOfClass:[VRTNode class]]) {
       if([superview isRootFlexboxView]) {
         return YES;
       }
     }
     superview = superview.superview;
+    //skip checking animated component superview, ignore it when it comes to flexbox
+    if([superview isKindOfClass:[VRTAnimatedComponent class]]){
+      superview = superview.superview;
+    }
   }
   return NO;
 }

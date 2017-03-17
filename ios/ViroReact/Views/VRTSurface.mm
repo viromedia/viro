@@ -15,6 +15,7 @@ static float const kDefaultHeight = 1;
 
 @implementation VRTSurface {
   std::shared_ptr<VROSurface> _surface;
+  BOOL _surfaceNeedsUpdate;
 }
 
 - (instancetype)initWithBridge:(RCTBridge *)bridge {
@@ -24,6 +25,7 @@ static float const kDefaultHeight = 1;
     _height = kDefaultHeight;
     _surface = VROSurface::createSurface(_width, _height);
     [self node]->setGeometry(_surface);
+    _surfaceNeedsUpdate = NO;
   }
   return self;
 }
@@ -33,7 +35,7 @@ static float const kDefaultHeight = 1;
     RCTLogError(@"Surface width must be >= 0");
   }
   _width = width;
-  [self updateGeometry];
+  _surfaceNeedsUpdate = YES;
 }
 
 - (void)setHeight:(float)height {
@@ -41,13 +43,20 @@ static float const kDefaultHeight = 1;
     RCTLogError(@"Surface height must be >= 0");
   }
   _height = height;
-  [self updateGeometry];
+  _surfaceNeedsUpdate = YES;
 }
 
 - (void)updateGeometry {
   _surface = VROSurface::createSurface([self width], [self height]);
   [self node]->setGeometry(_surface);
   [self applyMaterials];
+}
+
+- (void)didSetProps:(NSArray<NSString *> *)changedProps {
+  if(_surfaceNeedsUpdate) {
+    [self updateGeometry];
+    _surfaceNeedsUpdate = NO;
+  }
 }
 
 
