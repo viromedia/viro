@@ -128,7 +128,7 @@ public class Node extends Component {
 
     @Override
     public void removeViewAt(int index) {
-        if (!mTornDown) {
+        if (!isTornDown()) {
             View child = getChildAt(index);
             if (child instanceof Light) {
                 ((Light) child).removeFromNode(mNodeJni);

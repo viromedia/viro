@@ -30,7 +30,7 @@ public class Component extends ReactViewGroup {
      children and no parent). If both of these become true, the
      component is torn down, releasing native resources.
      */
-    protected boolean mTornDown = false;
+    private boolean mTornDown = false;
     private boolean mDropped = false;
     private boolean mDetached = false;
 
