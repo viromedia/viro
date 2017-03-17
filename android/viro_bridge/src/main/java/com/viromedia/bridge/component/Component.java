@@ -155,6 +155,26 @@ public class Component extends ReactViewGroup {
         }
     }
 
+    /*
+     * Invoked when the SceneNavigator is destroyed after being detached
+     * from a window (as happens with reload). Forces a tear-down that
+     * cascades down the view tree.
+     */
+    public void forceCascadeTearDown() {
+        mDetached = true;
+        mDropped = true;
+        if (!mTornDown) {
+            onTearDown();
+        }
+
+        for (int i = 0; i < getChildCount(); i++) {
+            View child = getChildAt(i);
+            if (child instanceof Component) {
+                ((Component) child).forceCascadeTearDown();
+            }
+        }
+    }
+
     /**
      * Invoked when it is safe to cleanup the view, and
      * native references (renderer references) can be safely deleted.

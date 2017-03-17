@@ -268,4 +268,14 @@ public class SceneNavigator extends FrameLayout {
             mVrView.setVrModeEnabled(mVrModeEnabled);
         }
     }
+
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+
+        for (Scene scene : mSceneArray) {
+            scene.forceCascadeTearDown();
+        }
+        mVrView.destroy();
+    }
 }
