@@ -60,7 +60,7 @@ public:
         [_delegate startIncomingTransition:context duration:duration];
     }
     virtual void startOutgoingTransition(VRORenderContext *context, float duration){
-       [_delegate startOutgoingTransition:context duration:duration];
+        [_delegate startOutgoingTransition:context duration:duration];
     }
     virtual void endIncomingTransition(VRORenderContext *context) {
         [_delegate endIncomingTransition:context];
@@ -76,6 +76,8 @@ public:
     }
 
 private:
-    id<VROSceneDelegateProtocol> _delegate;
+  
+    __weak id<VROSceneDelegateProtocol> _delegate;
+  
 };
 #endif /* VROSceneDelegateiOS_h */

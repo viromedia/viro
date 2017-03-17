@@ -2405,7 +2405,7 @@
 		</data>
 		<key>Headers/VROAllocationTracker.h</key>
 		<data>
-		HbgEzSTTZqIhiS/x9l550ypHs5U=
+		sN4BOIxrpXrt8keO2MH6gTeVirA=
 		</data>
 		<key>Headers/VROAnimatable.h</key>
 		<data>
@@ -2437,7 +2437,7 @@
 		</data>
 		<key>Headers/VROAudioPlayer.h</key>
 		<data>
-		Z7yeDTeZyifOBsNNlwnTUr12SKM=
+		GcXsf6fI00QM0YVmjVBTuPKXB7g=
 		</data>
 		<key>Headers/VROAudioPlayeriOS.h</key>
 		<data>
@@ -2489,7 +2489,7 @@
 		</data>
 		<key>Headers/VROEventDelegateiOS.h</key>
 		<data>
-		zvTr3JfebG43FPZZfOSUh2D+VZU=
+		p7Ds7FGY+yPJjfCSKTqmGiQgIWE=
 		</data>
 		<key>Headers/VROExecutableAnimation.h</key>
 		<data>
@@ -2677,7 +2677,7 @@
 		</data>
 		<key>Headers/VROSceneDelegateiOS.h</key>
 		<data>
-		266tGblYk4oJsEgR+5N3GC2uBzQ=
+		vvPKjR3yUAM6GQnF3KF2WougSSE=
 		</data>
 		<key>Headers/VROShaderModifier.h</key>
 		<data>
@@ -2845,7 +2845,7 @@
 		</data>
 		<key>Headers/VROView.h</key>
 		<data>
-		mSUL9E8BOCHfi07W9w+mK+2+jrc=
+		jaMnO84yq3hmAGrHJPlVjSbduSc=
 		</data>
 		<key>Headers/VROViewCardboard.h</key>
 		<data>
@@ -7195,11 +7195,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			HbgEzSTTZqIhiS/x9l550ypHs5U=
+			sN4BOIxrpXrt8keO2MH6gTeVirA=
 			</data>
 			<key>hash2</key>
 			<data>
-			q60Cu8PqP1T+eJ1QypVy6RgQH2cRqbt689aUwLXADbI=
+			cR7b8xrxZpoS6LlxcwbM7DPjCJ6TkhIewgCaP08umPc=
 			</data>
 		</dict>
 		<key>Headers/VROAnimatable.h</key>
@@ -7283,11 +7283,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			Z7yeDTeZyifOBsNNlwnTUr12SKM=
+			GcXsf6fI00QM0YVmjVBTuPKXB7g=
 			</data>
 			<key>hash2</key>
 			<data>
-			8t1+mEkt1dmGQ8uUxGo65ZE1TGhoTRYnYZXERCxjsmY=
+			mHCf1+X1st+6K51UHwOH/fSv1V34kZoZ94ed1+ZPn6k=
 			</data>
 		</dict>
 		<key>Headers/VROAudioPlayeriOS.h</key>
@@ -7426,11 +7426,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			zvTr3JfebG43FPZZfOSUh2D+VZU=
+			p7Ds7FGY+yPJjfCSKTqmGiQgIWE=
 			</data>
 			<key>hash2</key>
 			<data>
-			KAJoiyf2qpodX9btLVnY1oO4vGFDe4NLCROJaGVEeDw=
+			QnD5084a6BVogzVpOVorKEMzPvHUnJR45Pm0UgSQqvs=
 			</data>
 		</dict>
 		<key>Headers/VROExecutableAnimation.h</key>
@@ -7943,11 +7943,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			266tGblYk4oJsEgR+5N3GC2uBzQ=
+			vvPKjR3yUAM6GQnF3KF2WougSSE=
 			</data>
 			<key>hash2</key>
 			<data>
-			tdVfeQ9XVh8geXL9gVlm5bLHCrB4Z0154yLrcSF5Dds=
+			IXYxcPSd7qakRzexdikkekbwyJoI4Wi8OtCbqumuu2A=
 			</data>
 		</dict>
 		<key>Headers/VROShaderModifier.h</key>
@@ -8405,11 +8405,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			mSUL9E8BOCHfi07W9w+mK+2+jrc=
+			jaMnO84yq3hmAGrHJPlVjSbduSc=
 			</data>
 			<key>hash2</key>
 			<data>
-			701eyKR19mQ4lRkseCM02ugb4MdhE1p1EpfV29qEsus=
+			HSXbwviTi+lF4ANhMdDEYrHZNzBKY7y0w5DAIM9rZ0U=
 			</data>
 		</dict>
 		<key>Headers/VROViewCardboard.h</key>
