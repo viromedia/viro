@@ -40,7 +40,7 @@ ruby proj_add_shell_script.rb "$VIRO_PROJECT_NAME"
 #modify info.plist file using PlistBuddy(installed by xcode)
 /usr/libexec/PlistBuddy -c "Add:NSAppTransportSecurity:NSAllowsArbitraryLoads bool true" $VIRO_PROJECT_NAME/Info.plist
 /usr/libexec/PlistBuddy -c "Add:NSCameraUsageDescription string" $VIRO_PROJECT_NAME/Info.plist || true
-/usr/libexec/PlistBuddy -c "Set:NSCameraUsageDescription 'Used for QR codes.'" $VIRO_PROJECT_NAME/Info.plist
+/usr/libexec/PlistBuddy -c "Set:NSCameraUsageDescription 'Camera is used to scan the QR code of your VR headset.'" $VIRO_PROJECT_NAME/Info.plist
 
 yes | cp -rf ../node_modules/react-viro/ios/dist/AppDelegate.m $VIRO_PROJECT_NAME/AppDelegate.m
 TARGET_FILEPATH=$VIRO_PROJECT_NAME/AppDelegate.m
