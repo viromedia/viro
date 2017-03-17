@@ -19,6 +19,7 @@ import com.viromedia.bridge.ReactViroPackage;
 import com.viromedia.bridge.component.node.Scene;
 import com.viromedia.bridge.utility.ViroLog;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
 /**
@@ -26,6 +27,77 @@ import java.util.ArrayList;
  */
 public class SceneNavigator extends FrameLayout {
     private static final String TAG = ViroLog.getTag(SceneNavigator.class);
+
+    private static class InnerGLListener implements GlListener {
+
+        private WeakReference<SceneNavigator> mNavigator;
+
+        public InnerGLListener(SceneNavigator navigator) {
+            mNavigator = new WeakReference<SceneNavigator>(navigator);
+        }
+
+        @Override
+        public void onGlInitialized() {
+            final SceneNavigator navigator = mNavigator.get();
+            if (navigator == null) {
+                return;
+            }
+
+            navigator.mGLInitialized = true;
+            (new Handler(Looper.getMainLooper())).post(new Runnable() {
+                @Override
+                public void run() {
+                    navigator.mGLInitialized = true;
+                    navigator.setRenderContext();
+                }
+            });
+        }
+    }
+
+    private static class SceneNavigatorLifecycleListener implements LifecycleEventListener {
+
+        private WeakReference<SceneNavigator> mNavigator;
+
+        public SceneNavigatorLifecycleListener(SceneNavigator navigator) {
+            mNavigator = new WeakReference<SceneNavigator>(navigator);
+        }
+
+        @Override
+        public void onHostResume() {
+            SceneNavigator navigator = mNavigator.get();
+            if (navigator == null) {
+                return;
+            }
+
+            if (navigator.mViewAdded && navigator.mGLInitialized) {
+                Scene childScene = navigator.mSceneArray.get(navigator.mSelectedSceneIndex);
+                childScene.onHostResume();
+            }
+        }
+
+        @Override
+        public void onHostPause() {
+            SceneNavigator navigator = mNavigator.get();
+            if (navigator == null) {
+                return;
+            }
+
+            if (navigator.mViewAdded && navigator.mGLInitialized) {
+                Scene childScene = navigator.mSceneArray.get(navigator.mSelectedSceneIndex);
+                childScene.onHostPause();
+            }
+        }
+
+        @Override
+        public void onHostDestroy() {
+            SceneNavigator navigator = mNavigator.get();
+            if (navigator == null) {
+                return;
+            }
+
+            navigator.mReactContext.removeLifecycleEventListener(navigator.mLifecycleListener);
+        }
+    }
 
     /**
      * View containing our renderer
@@ -61,7 +133,7 @@ public class SceneNavigator extends FrameLayout {
     private final ReactApplicationContext mReactContext;
 
     private boolean mViewAdded = false;
-    private boolean mGLInialized = false;
+    private boolean mGLInitialized = false;
 
     private boolean mVrModeEnabled = true;
     private boolean mHasSetVrMode = false;
@@ -74,16 +146,17 @@ public class SceneNavigator extends FrameLayout {
         mPlatform = platform;
         mReactContext = reactContext;
 
+        VrView vrView = null;
         switch (mPlatform) {
             case OVR_MOBILE:
                 mVrView = new ViroOvrView(reactContext.getCurrentActivity(),
-                        new InnerGlListener());
+                        new InnerGLListener(this));
                 break;
             case GVR:
                 // default case is to use GVR
             default:
                 ViroGvrLayout gvrLayout = new ViroGvrLayout(reactContext.getCurrentActivity(),
-                        new InnerGlListener());
+                        new InnerGLListener(this));
                 mVrView = gvrLayout;
         }
 
@@ -101,29 +174,7 @@ public class SceneNavigator extends FrameLayout {
 
         notifyScenePlatformInformation();
 
-        mLifecycleListener = new LifecycleEventListener() {
-            @Override
-            public void onHostResume() {
-                if (mViewAdded && mGLInialized) {
-                    Scene childScene = mSceneArray.get(mSelectedSceneIndex);
-                    childScene.onHostResume();
-                }
-            }
-
-            @Override
-            public void onHostPause() {
-                if (mViewAdded && mGLInialized) {
-                    Scene childScene = mSceneArray.get(mSelectedSceneIndex);
-                    childScene.onHostPause();
-                }
-            }
-
-            @Override
-            public void onHostDestroy() {
-                mReactContext.removeLifecycleEventListener(mLifecycleListener);
-            }
-        };
-
+        mLifecycleListener = new SceneNavigatorLifecycleListener(this);
         reactContext.addLifecycleEventListener(mLifecycleListener);
     }
 
@@ -157,7 +208,7 @@ public class SceneNavigator extends FrameLayout {
     }
 
     private void setRenderContext() {
-        if (mViewAdded && mGLInialized && mSelectedSceneIndex < mSceneArray.size()) {
+        if (mViewAdded && mGLInitialized && mSelectedSceneIndex < mSceneArray.size()) {
             Scene childScene = mSceneArray.get(mSelectedSceneIndex);
             childScene.setRenderContext(mRenderContext);
             childScene.setScene(childScene);
@@ -202,20 +253,6 @@ public class SceneNavigator extends FrameLayout {
         }
 
         mVrView.validateApiKey(apiKey.trim());
-    }
-
-    private class InnerGlListener implements GlListener {
-        @Override
-        public void onGlInitialized() {
-            mGLInialized = true;
-            (new Handler(Looper.getMainLooper())).post(new Runnable() {
-                @Override
-                public void run() {
-                    mGLInialized = true;
-                    setRenderContext();
-                }
-            });
-        }
     }
 
     private void notifyScenePlatformInformation() {
