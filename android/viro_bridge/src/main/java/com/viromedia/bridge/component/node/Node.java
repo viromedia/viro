@@ -128,26 +128,28 @@ public class Node extends Component {
 
     @Override
     public void removeViewAt(int index) {
-        View child = getChildAt(index);
-        if (child instanceof Light) {
-            ((Light) child).removeFromNode(mNodeJni);
-        } else if (child instanceof Node) {
-            final Node childNode = (Node) child;
-            mNodeJni.removeChildNode(childNode.mNodeJni);
-        } else if (child instanceof AnimatedComponent) {
-            AnimatedComponent animatedComponent = (AnimatedComponent) child;
-            for (int i = 0; i < animatedComponent.getChildCount(); i++) {
-                if (!(animatedComponent.getChildAt(i) instanceof Node)) {
-                    continue;
-                }
+        if (!mTornDown) {
+            View child = getChildAt(index);
+            if (child instanceof Light) {
+                ((Light) child).removeFromNode(mNodeJni);
+            } else if (child instanceof Node) {
+                final Node childNode = (Node) child;
+                mNodeJni.removeChildNode(childNode.mNodeJni);
+            } else if (child instanceof AnimatedComponent) {
+                AnimatedComponent animatedComponent = (AnimatedComponent) child;
+                for (int i = 0; i < animatedComponent.getChildCount(); i++) {
+                    if (!(animatedComponent.getChildAt(i) instanceof Node)) {
+                        continue;
+                    }
 
-                Node animatedTarget = (Node) animatedComponent.getChildAt(i);
-                if (containsChild(animatedTarget)) {
-                    removeNativeChild(animatedTarget);
+                    Node animatedTarget = (Node) animatedComponent.getChildAt(i);
+                    if (containsChild(animatedTarget)) {
+                        removeNativeChild(animatedTarget);
+                    }
                 }
+            } else {
+                // TODO: Throw Error? Red Screen?
             }
-        } else {
-            // TODO: Throw Error? Red Screen?
         }
 
         super.removeViewAt(index);
