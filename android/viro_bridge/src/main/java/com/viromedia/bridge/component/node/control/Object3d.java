@@ -70,6 +70,9 @@ public class Object3d extends Control {
         AsyncObjListener listener = new AsyncObjListener() {
             @Override
             public void onObjLoaded() {
+                if (isTornDown()) {
+                    return;
+                }
                 mObjLoaded = true;
                 if (mMaterials != null) {
                     // set materials on the node after it's finished loading OBJ
