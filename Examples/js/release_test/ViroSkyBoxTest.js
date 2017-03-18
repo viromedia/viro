@@ -117,7 +117,7 @@ var Local360Image = require("../res/sun_2302.jpg");
    _toggleImageColor() {
         var newColor = "#098765";
         if (this.state.color == newColor){
-            newColor = 0x255;
+            newColor = 0xffff;
         }
 
         this.setState({
