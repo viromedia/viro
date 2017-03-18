@@ -163,7 +163,6 @@ public class SceneNavigator extends FrameLayout {
          * React creates it's views within the activity's onResume().
          */
         mVrView.onActivityStarted(reactContext.getCurrentActivity());
-        mVrView.onActivityResumed(reactContext.getCurrentActivity());
 
         notifyScenePlatformInformation();
 
@@ -269,6 +268,7 @@ public class SceneNavigator extends FrameLayout {
         for (Scene scene : mSceneArray) {
             scene.forceCascadeTearDown();
         }
+        mVrView.onActivityStopped(mReactContext.getCurrentActivity());
         mVrView.destroy();
     }
 
@@ -279,7 +279,6 @@ public class SceneNavigator extends FrameLayout {
         }
 
         if (mVrView != null){
-            mVrView.onActivityStarted(mReactContext.getCurrentActivity());
             mVrView.onActivityResumed(mReactContext.getCurrentActivity());
         }
     }
@@ -292,7 +291,6 @@ public class SceneNavigator extends FrameLayout {
 
         if (mVrView != null){
             mVrView.onActivityPaused(mReactContext.getCurrentActivity());
-            mVrView.onActivityStopped(mReactContext.getCurrentActivity());
         }
     }
 
