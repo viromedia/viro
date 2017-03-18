@@ -14,11 +14,56 @@ import com.viromedia.bridge.component.node.Scene;
 import com.viromedia.bridge.utility.Helper;
 import com.viromedia.bridge.utility.ViroEvents;
 
+import java.lang.ref.WeakReference;
+
 /**
  * Contains a VideoTexture that is set as a background video on the scene.
  */
 public class Video360 extends Component {
     private static final float[] sDefaultRotation = {0, 0, 0};
+
+    private static class Video360Delegate implements VideoTextureJni.VideoDelegate {
+
+        private WeakReference<Video360> mVideo;
+
+        public Video360Delegate(Video360 video) {
+            mVideo = new WeakReference<Video360>(video);
+        }
+
+        @Override
+        public void onVideoFinish() {
+            Video360 video = mVideo.get();
+            if (video == null || video.isTornDown()) {
+                return;
+            }
+
+            video.reactVideoFinishedCallback();
+        }
+
+        @Override
+        public void onReady() {
+            Video360 video = mVideo.get();
+            if (video == null || video.isTornDown()) {
+                return;
+            }
+
+            video.updateVideoTexture();
+            video.mVideoTextureJni.loadSource(video.mSource, video.mRenderContext);
+            video.setLoop(video.mLoop);
+            video.setMuted(video.mMuted);
+            video.setVolume(video.mVolume);
+            video.setPaused(video.mPaused);
+        }
+
+        @Override
+        public void onVideoUpdatedTime(int currentTime, int totalVideoTime) {
+            Video360 video = mVideo.get();
+            if (video == null || video.isTornDown()) {
+                return;
+            }
+            video.reactPlayerOnUpdateTime(currentTime, totalVideoTime);
+        }
+    }
 
     private String mSource;
     private boolean mPaused = false;
@@ -28,6 +73,7 @@ public class Video360 extends Component {
     private float[] mRotation = sDefaultRotation;
 
     private VideoTextureJni mVideoTextureJni = null;
+    private VideoTextureJni.VideoDelegate mDelegate = null;
 
     public Video360(ReactApplicationContext reactContext) {
         super(reactContext);
@@ -54,35 +100,9 @@ public class Video360 extends Component {
 
         // Create Texture
         mVideoTextureJni = new VideoTextureJni();
-        mVideoTextureJni.setVideoDelegate(new VideoTextureJni.VideoDelegate() {
-            @Override
-            public void onVideoFinish() {
-                if (isTornDown()){
-                    return;
-                }
 
-                reactVideoFinishedCallback();
-            }
-
-            @Override
-            public void onReady() {
-                if (isTornDown()) {
-                    return;
-                }
-
-                updateVideoTexture();
-                mVideoTextureJni.loadSource(mSource, mRenderContext);
-                setLoop(mLoop);
-                setMuted(mMuted);
-                setVolume(mVolume);
-                setPaused(mPaused);
-            }
-
-            @Override
-            public void onVideoUpdatedTime(int currentTime, int totalVideoTime){
-                reactPlayerOnUpdateTime(currentTime, totalVideoTime);
-            }
-        });
+        mDelegate = new Video360Delegate(this);
+        mVideoTextureJni.setVideoDelegate(mDelegate);
 
         if (mScene != null) {
             updateVideoTexture();

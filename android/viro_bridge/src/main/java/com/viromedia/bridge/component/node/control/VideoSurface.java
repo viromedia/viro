@@ -13,7 +13,46 @@ import com.viro.renderer.jni.VideoTextureJni;
 import com.viromedia.bridge.utility.Helper;
 import com.viromedia.bridge.utility.ViroEvents;
 
+import java.lang.ref.WeakReference;
+
 public class VideoSurface extends Control {
+
+    private static class VideoSurfaceDelegate implements VideoTextureJni.VideoDelegate {
+
+        private WeakReference<VideoSurface> mSurface;
+
+        public VideoSurfaceDelegate(VideoSurface surface) {
+            mSurface = new WeakReference<VideoSurface>(surface);
+        }
+
+        @Override
+        public void onVideoFinish() {
+            VideoSurface surface = mSurface.get();
+            if (surface == null || surface.isTornDown()) {
+                return;
+            }
+            surface.playerDidFinishPlaying();
+        }
+
+        @Override
+        public void onReady() {
+            VideoSurface surface = mSurface.get();
+            if (surface == null || surface.isTornDown()) {
+                return;
+            }
+            surface.loadVideo();
+        }
+
+        @Override
+        public void onVideoUpdatedTime(int currentTime, int totalVideoTime) {
+            VideoSurface surface = mSurface.get();
+            if (surface == null || surface.isTornDown()) {
+                return;
+            }
+            surface.playerOnUpdateTime(currentTime, totalVideoTime);
+        }
+    }
+
     private float mWidth = 1;
     private float mHeight = 1;
     private boolean mPaused = false;
@@ -23,6 +62,7 @@ public class VideoSurface extends Control {
     private String mSource;
     private SurfaceJni mSurfaceJni = null;
     private VideoTextureJni mVideoTextureJni = null;
+    private VideoTextureJni.VideoDelegate mDelegate = null;
 
     public VideoSurface(ReactApplicationContext reactContext) {
         super(reactContext);
@@ -60,28 +100,9 @@ public class VideoSurface extends Control {
         mSurfaceJni = new SurfaceJni(mWidth, mHeight);
         getNodeJni().setGeometry(mSurfaceJni);
         mVideoTextureJni = new VideoTextureJni();
-        mVideoTextureJni.setVideoDelegate(new VideoTextureJni.VideoDelegate() {
-            @Override
-            public void onVideoFinish() {
-                if (isTornDown()){
-                    return;
-                }
 
-                playerDidFinishPlaying();
-            }
-            @Override
-            public void onReady() {
-                if (isTornDown()) {
-                    return;
-                }
-
-                loadVideo();
-            }
-            @Override
-            public void onVideoUpdatedTime(int currentTime, int totalVideoTime){
-                playerOnUpdateTime(currentTime, totalVideoTime);
-            }
-        });
+        mDelegate = new VideoSurfaceDelegate(this);
+        mVideoTextureJni.setVideoDelegate(mDelegate);
     }
 
     private void loadVideo(){
