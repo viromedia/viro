@@ -100,7 +100,7 @@ public class Scene extends Node implements SceneJni.SceneDelegate {
     }
 
     private void setCameraIfPossible() {
-        if (mCamera != null && mNativeRenderer != null) {
+        if (mCamera != null && mNativeRenderer != null && !isTornDown()) {
             mNativeRenderer.setPointOfView(mCamera.getNodeJni());
         }
     }
@@ -115,14 +115,14 @@ public class Scene extends Node implements SceneJni.SceneDelegate {
             return;
         }
 
-        if (mNativeRenderer != null) {
+        if (mNativeRenderer != null && !isTornDown()) {
             mNativeRenderer.setPointOfView(null);
         }
         mCamera = null;
     }
 
     public void getCameraPositionAsync(CameraCallback callback) {
-        if (mRenderContext == null) {
+        if (mRenderContext == null || isTornDown()) {
             callback.onGetCameraPosition(0,0,0);
         }
         else {
