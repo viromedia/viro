@@ -31,7 +31,7 @@ public:
 
 private:
     
-    id <VROVideoDelegate> _delegate;
+    __weak id <VROVideoDelegate> _delegate;
     
 };
 

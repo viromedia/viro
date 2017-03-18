@@ -15,6 +15,7 @@
   std::shared_ptr<VROSurface> _surface;
   std::shared_ptr<VROVideoTexture> _videoTexture;
   BOOL _videoSurfaceNeedsUpdate;
+  std::shared_ptr<VROVideoDelegateiOS> _videoDelegate;
 }
 
 - (instancetype)initWithBridge:(RCTBridge *)bridge {
@@ -27,6 +28,7 @@
     _width = 1;
     _height = 1;
     _videoSurfaceNeedsUpdate = NO;
+    _videoDelegate = std::make_shared<VROVideoDelegateiOS>(self);
   }
   return self;
 }
@@ -115,7 +117,7 @@
   _videoTexture->setVolume(self.volume);
   _videoTexture->setMuted(self.muted);
   _videoTexture->setLoop(self.loop);
-  _videoTexture->setDelegate(std::make_shared<VROVideoDelegateiOS>(self));
+  _videoTexture->setDelegate(_videoDelegate);
   
   [self node]->setGeometry(_surface);
 
@@ -153,8 +155,8 @@
 
 - (void)videoDidUpdateTime:(int)currentTimeInSeconds totalTimeInSeconds:(int)totalTime{
     if (self.onUpdateTimeViro) {
-        self.onUpdateTimeViro(@{@"currentTime": @(currentTimeInSeconds),});
-        self.onUpdateTimeViro(@{@"totalTime": @(totalTime)});
+        self.onUpdateTimeViro(@{@"currentTime": @(currentTimeInSeconds),
+                                @"totalTime": @(totalTime)});
     }
 }
 

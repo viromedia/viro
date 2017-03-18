@@ -202,7 +202,8 @@ private:
      */
     struct VRODraggedObject{
         std::shared_ptr<VRONode> _draggedNode;
-        VROVector3f _draggedOffsetFromPointer;
+        VROVector3f _originalHitLocation;
+        VROVector3f _originalDraggedNodePosition;
         float _draggedDistanceFromController;
     };
 

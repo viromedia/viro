@@ -14,6 +14,7 @@
 
 @implementation VRT360Video {
   std::shared_ptr<VROVideoTexture> _videoTexture;
+  std::shared_ptr<VROVideoDelegateiOS> _videoDelegate;
   BOOL _sphereTextureAddedToScene;
 }
 
@@ -27,6 +28,7 @@
     _loop = NO;
     _volume = 1;
     _paused = NO;
+    _videoDelegate = std::make_shared<VROVideoDelegateiOS>(self);
   }
   
   return self;
@@ -117,7 +119,7 @@
   _videoTexture->setVolume(self.volume);
   _videoTexture->setMuted(self.muted);
   _videoTexture->setLoop(self.loop);
-  _videoTexture->setDelegate(std::make_shared<VROVideoDelegateiOS>(self));
+  _videoTexture->setDelegate(_videoDelegate);
 }
 
 - (void)sceneWillAppear {
@@ -148,8 +150,8 @@
 
 - (void)videoDidUpdateTime:(int)currentTimeInSeconds totalTimeInSeconds:(int)totalTime{
     if (self.onUpdateTimeViro) {
-        self.onUpdateTimeViro(@{@"currentTime": @(currentTimeInSeconds),});
-        self.onUpdateTimeViro(@{@"totalTime": @(totalTime)});
+        self.onUpdateTimeViro(@{@"currentTime": @(currentTimeInSeconds),
+                                @"totalTime": @(totalTime)});
     }
 }
 
