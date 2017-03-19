@@ -19,6 +19,7 @@ import com.viromedia.bridge.component.Light;
 import com.viromedia.bridge.component.node.control.Image;
 import com.viromedia.bridge.component.node.control.Surface;
 import com.viromedia.bridge.component.node.control.Text;
+import com.viromedia.bridge.component.node.control.VideoSurface;
 import com.viromedia.bridge.utility.ComponentEventDelegate;
 
 import java.util.List;
@@ -273,6 +274,11 @@ public class Node extends Component {
             FlexView flexView = (FlexView) this;
             flexView.setWidth(width3d);
             flexView.setHeight(height3d);
+        }else if (this instanceof VideoSurface) {
+            VideoSurface videoSurface = (VideoSurface)this;
+            videoSurface.setWidth(width3d);
+            videoSurface.setHeight(height3d);
+            videoSurface.onPropsSet();
         } else if (this instanceof Surface) {
             Surface surface = (Surface) this;
             surface.setWidth(width3d);

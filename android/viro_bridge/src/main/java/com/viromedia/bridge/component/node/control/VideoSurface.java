@@ -63,6 +63,7 @@ public class VideoSurface extends Control {
     private SurfaceJni mSurfaceJni = null;
     private VideoTextureJni mVideoTextureJni = null;
     private VideoTextureJni.VideoDelegate mDelegate = null;
+    private boolean mGeometryNeedsUpdate = false;
 
     public VideoSurface(ReactApplicationContext reactContext) {
         super(reactContext);
@@ -123,22 +124,21 @@ public class VideoSurface extends Control {
 
     public void setWidth(float width) {
         mWidth = width;
-        resetVideo();
+        mGeometryNeedsUpdate = true;
     }
 
     public void setHeight(float height) {
         mHeight = height;
-        resetVideo();
+        mGeometryNeedsUpdate = true;
     }
 
     public void setSource(String source) {
         mSource = Helper.parseUri(source, getContext()).toString();
-        resetVideo();
+        mGeometryNeedsUpdate = true;
     }
 
     public void setPaused(boolean paused) {
         mPaused = paused;
-
         if (mVideoTextureJni == null) {
             return;
         }
@@ -200,6 +200,15 @@ public class VideoSurface extends Control {
                 getId(),
                 ViroEvents.ON_UPDATE_TIME,
                 event);
+    }
+
+    @Override
+    public void onPropsSet() {
+        super.onPropsSet();
+        if(mGeometryNeedsUpdate) {
+            resetVideo();
+        }
+        mGeometryNeedsUpdate = false;
     }
 
     @Override
