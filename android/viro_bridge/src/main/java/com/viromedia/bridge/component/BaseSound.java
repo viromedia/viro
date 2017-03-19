@@ -190,6 +190,11 @@ public abstract class BaseSound extends Component implements SoundDelegate {
                 null);
     }
 
+    @Override
+    public void onSoundFail(String error) {
+        onError(error);
+    }
+
     /**
      * Child classes should implement this method to return their own type of native Sound object
      *

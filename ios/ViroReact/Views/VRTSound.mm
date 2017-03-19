@@ -217,6 +217,12 @@ static NSString *const kWebPrefix = @"http";
     }
 }
 
+- (void)soundDidFail:(NSString *)error {
+    if (self.onErrorViro) {
+        self.onErrorViro(@{ @"error": error });
+    }
+}
+
 - (void)soundDidFinish {
     if (self.onFinishViro) {
         self.onFinishViro(@{@"finished": @(true),});

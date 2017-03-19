@@ -40,14 +40,18 @@ var ViroSoundField = React.createClass({
     volume: PropTypes.number,
     rotation: PropTypes.arrayOf(PropTypes.number),
     onFinish: React.PropTypes.func,
+    onError: React.PropTypes.func,
   },
 
   _onFinish: function(event: Event) {
     this.props.onFinish && this.props.onFinish(event);
   },
 
-  render: function() {
+  _onError: function(event: Event) {
+    this.props.onError && this.props.onError(event);
+  },
 
+  render: function() {
     var soundSrc = this.props.source;
     if (typeof soundSrc === 'number') {
       soundSrc = resolveAssetSource(soundSrc);
@@ -58,6 +62,7 @@ var ViroSoundField = React.createClass({
     let nativeProps = Object.assign({}, this.props);
     nativeProps.ref = RCT_SOUNDFIELD_REF;
     nativeProps.source = soundSrc;
+    nativeProps.onErrorViro = this._onError;
     nativeProps.onFinishViro = this._onFinish;
 
     if (Platform.OS === 'ios') {
@@ -93,13 +98,19 @@ var ViroSoundField = React.createClass({
 
 var VRTSound= requireNativeComponent(
   'VRTSound', ViroSoundField, {
-    nativeOnly: {onFinishViro: true}
+    nativeOnly: {
+      onFinishViro: true,
+      onErrorViro: true,
+    }
   }
 );
 
 var VRTSoundField = requireNativeComponent(
   'VRTSoundField', ViroSoundField, {
-    nativeOnly: {onFinishViro: true}
+    nativeOnly: {
+      onFinishViro: true,
+      onErrorViro: true,
+    }
   }
 );
 

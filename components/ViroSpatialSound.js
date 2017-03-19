@@ -43,10 +43,15 @@ var ViroSpatialSound = React.createClass({
     minDistance: PropTypes.number,
     maxDistance: PropTypes.number,
     onFinish: React.PropTypes.func,
+    onError: React.PropTypes.func,
   },
 
   _onFinish: function(event: Event) {
     this.props.onFinish && this.props.onFinish(event);
+  },
+
+  _onError: function(event: Event) {
+    this.props.onError && this.props.onError(event);
   },
 
   render: function() {
@@ -61,6 +66,7 @@ var ViroSpatialSound = React.createClass({
     let nativeProps = Object.assign({}, this.props);
     nativeProps.ref = RCT_SPATIALSOUND_REF;
     nativeProps.source = soundSrc;
+    nativeProps.onErrorViro = this._onError;
     nativeProps.onFinishViro = this._onFinish;
 
     if (Platform.OS === 'ios') {
@@ -96,13 +102,19 @@ var ViroSpatialSound = React.createClass({
 
 var VRTSound= requireNativeComponent(
   'VRTSound', ViroSpatialSound, {
-    nativeOnly: {onFinishViro: true}
+    nativeOnly: {
+      onFinishViro: true,
+      onErrorViro:true,
+    }
   }
 );
 
 var VRTSpatialSound= requireNativeComponent(
   'VRTSpatialSound', ViroSpatialSound, {
-    nativeOnly: {onFinishViro: true}
+    nativeOnly: {
+      onFinishViro: true,
+      onErrorViro: true,
+    }
   }
 );
 

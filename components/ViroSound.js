@@ -48,10 +48,15 @@ var ViroSound = React.createClass({
     muted: PropTypes.bool,
     volume: PropTypes.number,
     onFinish: React.PropTypes.func,
+    onError: React.PropTypes.func,
   },
 
   _onFinish: function(event: Event) {
     this.props.onFinish && this.props.onFinish(event);
+  },
+
+  _onError: function(event: Event) {
+    this.props.onError && this.props.onError(event);
   },
 
   render: function() {
@@ -67,6 +72,7 @@ var ViroSound = React.createClass({
     nativeProps.ref = RCT_SOUND_REF;
     nativeProps.source = soundSrc;
     nativeProps.onFinishViro = this._onFinish;
+    nativeProps.onErrorViro = this._onError;
 
     return (
       <VRTSound {...nativeProps} />
@@ -94,7 +100,10 @@ var ViroSound = React.createClass({
 
 var VRTSound = requireNativeComponent(
   'VRTSound', ViroSound, {
-    nativeOnly: {onFinishViro: true}
+    nativeOnly: {
+      onFinishViro: true,
+      onErrorViro: true,
+    }
   }
 );
 

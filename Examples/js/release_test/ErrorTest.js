@@ -24,6 +24,7 @@ import {
   ViroUtils,
   ViroText,
   ViroSound,
+  ViroSoundField,
   ViroSpatialSound,
   ViroSurface,
   ViroSkyBox,
@@ -48,6 +49,7 @@ var LeakTest1 = React.createClass({
       videoURL: {uri:"https://s3-us-west-2.amazonaws.com/viro/360_surf-ERROR.mp4"},
       imageURL: {uri:"https://s3-us-west-2.amazo-ERROR-naws.com/viro/Explorer/360_horseshoe-ERROR.jpg"},
       objURL:   {uri:"https://s3-us-west-2.amazonaws.com/viro/heart-ERROR.obj"},
+      soundURL: {uri :"http://www.jetcityorange.com/musical-notes/G4-392.0-ERROR.mp3"},
     };
   },
 
@@ -64,6 +66,15 @@ var LeakTest1 = React.createClass({
                 source={this.state.imageURL}
                 onError={this._onErrorImage360}
             />
+
+          <ViroSound
+                paused={false}
+                muted={false}
+                source={this.state.soundURL}
+                loop={this.state.looping}
+                volume={1.0}
+                onError={this._onErrorSound}
+          />
 
           <ViroNode position={[0.8 , 0, -3.5]}>
               <Viro3DObject
@@ -118,6 +129,7 @@ var LeakTest1 = React.createClass({
         videoURL: {uri:"https://s3-us-west-2.amazonaws.com/viro/360_surf.mp4"},
         imageURL: {uri:"https://s3-us-west-2.amazonaws.com/viro/Explorer/360_horseshoe.jpg"},
         objURL:   {uri:"https://s3-us-west-2.amazonaws.com/viro/heart.obj"},
+        soundURL: {uri :"http://www.jetcityorange.com/musical-notes/G4-392.0.mp3"},
       });
     }
     else {
@@ -126,6 +138,7 @@ var LeakTest1 = React.createClass({
         videoURL: {uri:"https://s3-us-west-2.amazonaws.com/viro/360_surf-ERROR.mp4"},
         imageURL: {uri:"https://s3-us-west-2.amazo-ERROR-naws.com/viro/Explorer/360_horseshoe-ERROR.jpg"},
         objURL:   {uri:"https://s3-us-west-2.amazonaws.com/viro/heart-ERROR.obj"},
+        soundURL: {uri :"http://www.jetcityorange.com/musical-notes/G4-392.0-ERROR.mp3"},
       });
     }
     console.log("started loading image");
@@ -149,6 +162,10 @@ var LeakTest1 = React.createClass({
 
   _onErrorOBJ(event) {
     console.log("OBJ error: " + event.nativeEvent.error);
+  },
+
+  _onErrorSound(event) {
+    console.log("Sound error: " + event.nativeEvent.error);
   },
 
   _onFinishVideo(event) {
