@@ -125,6 +125,8 @@
 - (void)sceneWillAppear {
   if (!_sphereTextureAddedToScene) {
     [self updateSceneWithSphereTexture];
+  } else {
+    [self setPaused:self.paused];
   }
 }
 

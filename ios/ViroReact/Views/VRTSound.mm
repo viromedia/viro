@@ -324,6 +324,10 @@ static NSString *const kWebPrefix = @"http";
     }
 }
 
+- (void)sceneWillAppear {
+    [self setPaused:self.paused];
+}
+
 - (void)sceneWillDisappear {
     if (_player) {
         _player->pause();

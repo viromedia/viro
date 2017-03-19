@@ -131,6 +131,9 @@
 
 - (void)sceneWillAppear {
   [self updateSurface];
+  if (_videoTexture) {
+    [self setPaused:self.paused];
+  }
 }
 
 - (void)sceneWillDisappear {
