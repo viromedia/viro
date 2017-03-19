@@ -61,6 +61,7 @@ public:
     }
     
 protected:
+  
     std::weak_ptr<VROVideoDelegateInternal> _delegate;
 
     /*

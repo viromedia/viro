@@ -2821,15 +2821,15 @@
 		</data>
 		<key>Headers/VROVideoDelegate.h</key>
 		<data>
-		li0Ib+1lMB5Cc1IaypBcdm8ZVBg=
+		JfEOE3A/dLvNstYA4xDW17q5JCk=
 		</data>
 		<key>Headers/VROVideoDelegateInternal.h</key>
 		<data>
-		aRgvxxmKh4lRUImDoNNWSjPd0Dc=
+		CG4YJTFLncKkgiK69GQD1hFRzZc=
 		</data>
 		<key>Headers/VROVideoDelegateiOS.h</key>
 		<data>
-		vg1kkchszsu+W/rrKGganMtkg3k=
+		V6K9xHgkO8m1qtWRJEbcQRQIG8U=
 		</data>
 		<key>Headers/VROVideoSurface.h</key>
 		<data>
@@ -2837,7 +2837,7 @@
 		</data>
 		<key>Headers/VROVideoTexture.h</key>
 		<data>
-		kVQUrMrY2U/fQT/EDIrClsEM8I4=
+		CegwLtoMQtFv5iP+KaJoBQcpeh8=
 		</data>
 		<key>Headers/VROVideoTextureiOS.h</key>
 		<data>
@@ -8339,33 +8339,33 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			li0Ib+1lMB5Cc1IaypBcdm8ZVBg=
+			JfEOE3A/dLvNstYA4xDW17q5JCk=
 			</data>
 			<key>hash2</key>
 			<data>
-			oPLBZ9Vexp4a3/WLmZbE8Ztc9wCEg4Q8xf8b8yZxaI0=
+			IGHSf19hws2sOGkf9eXRJSH5gXz8PUJX+cy7YxpHj9c=
 			</data>
 		</dict>
 		<key>Headers/VROVideoDelegateInternal.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			aRgvxxmKh4lRUImDoNNWSjPd0Dc=
+			CG4YJTFLncKkgiK69GQD1hFRzZc=
 			</data>
 			<key>hash2</key>
 			<data>
-			GzMcIl2f4U3LStFVWc2HpPidXhhRMxwg6cP5upon4cM=
+			M0AHPhf1T9wuXLiI3U52eK+xxeAnaBqsC4PkiLC5ZTc=
 			</data>
 		</dict>
 		<key>Headers/VROVideoDelegateiOS.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			vg1kkchszsu+W/rrKGganMtkg3k=
+			V6K9xHgkO8m1qtWRJEbcQRQIG8U=
 			</data>
 			<key>hash2</key>
 			<data>
-			vTUUImi7lVTLkEiWbYXU5Y/miEOPEmbM5g6ydpAYMv0=
+			AeEeBZjXMmPoAcCRpnPndVRaOPx/EHG/9i6vhTe2v/o=
 			</data>
 		</dict>
 		<key>Headers/VROVideoSurface.h</key>
@@ -8383,11 +8383,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			kVQUrMrY2U/fQT/EDIrClsEM8I4=
+			CegwLtoMQtFv5iP+KaJoBQcpeh8=
 			</data>
 			<key>hash2</key>
 			<data>
-			MCyG5R3V3PjPVx9TUjMhdwDzXANcVOwocLjk3AhHIOM=
+			ssRdEnFFp0B7tK4CWd9c9SLV4q001nyHUGOpifmOJeo=
 			</data>
 		</dict>
 		<key>Headers/VROVideoTextureiOS.h</key>
