@@ -6,11 +6,15 @@ package com.viromedia.bridge.component;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
+
+import com.facebook.react.bridge.Arguments;
+import com.facebook.react.bridge.WritableMap;
+import com.facebook.react.uimanager.events.RCTEventEmitter;
 import com.facebook.react.views.view.ReactViewGroup;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.viro.renderer.jni.RenderContextJni;
 import com.viromedia.bridge.component.node.Scene;
-import com.viromedia.bridge.utility.ViroLog;
+import com.viromedia.bridge.utility.ViroEvents;
 
 /**
  * Base class for any Viro UI Component. Equivalent to the VRTView in iOS.
@@ -274,5 +278,21 @@ public class Component extends ReactViewGroup {
                 ((Component)child).onHostPause();
             }
         }
+    }
+
+    /**
+     * Invoke this control's onError callback, if it has one, with the given
+     * message.
+     *
+     * @param error The error message.
+     */
+    public void onError(String error) {
+        WritableMap event = Arguments.createMap();
+        event.putString("error", error);
+
+        mReactContext.getJSModule(RCTEventEmitter.class).receiveEvent(
+                getId(),
+                ViroEvents.ON_ERROR,
+                event);
     }
 }

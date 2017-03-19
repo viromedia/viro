@@ -81,6 +81,14 @@ public class Object3d extends Control {
 
                 loadDidEnd();
             }
+
+            @Override
+            public void onObjFailed(String error) {
+                if (isTornDown()) {
+                    return;
+                }
+                onError(error);
+            }
         };
 
         // if the source is from resources, then pass in the resources it depends on (if any)

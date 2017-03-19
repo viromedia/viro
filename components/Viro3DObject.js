@@ -65,6 +65,7 @@ var Viro3DObject = React.createClass({
     onSwipe: React.PropTypes.func,
     onLoadStart: React.PropTypes.func,
     onLoadEnd: React.PropTypes.func,
+    onError: React.PropTypes.func,
     onDrag: React.PropTypes.func,
 
     /**
@@ -118,6 +119,10 @@ var Viro3DObject = React.createClass({
       this.props.onLoadEnd && this.props.onLoadEnd(event);
   },
 
+  _onError: function(event: Event) {
+    this.props.onError && this.props.onError(event);
+  },
+
   _onDrag: function(event: Event) {
       this.props.onDrag
         && this.props.onDrag(event.nativeEvent.source, event.nativeEvent.dragToPos);
@@ -163,6 +168,7 @@ var Viro3DObject = React.createClass({
         onDragViro={this._onDrag}
         onLoadStartViro={this._onLoadStart}
         onLoadEndViro={this._onLoadEnd}
+        onErrorViro={this._onError}
       />
     );
   }
@@ -184,7 +190,9 @@ var VRT3DObject = requireNativeComponent(
             onSwipeViro:true,
             onDragViro:true,
             onLoadStartViro:true,
-            onLoadEndViro:true}
+            onLoadEndViro:true,
+            onErrorViro:true,
+          }
   }
 );
 

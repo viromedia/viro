@@ -61,17 +61,20 @@
     
   VROOBJLoader::loadOBJFromURL(url, base, true,
   [self](std::shared_ptr<VRONode> node, bool success) {
-    if (!success) {
-        return;
-    }
-    
-    self.node->setGeometry(node->getGeometry());
-    if (self.materials) {
-      [self applyMaterials];
+    if (success) {
+      self.node->setGeometry(node->getGeometry());
+      if (self.materials) {
+        [self applyMaterials];
+      }
     }
     
     if (self.onLoadEndViro) {
         self.onLoadEndViro(nil);
+    }
+    if (!success) {
+      if (self.onErrorViro) {
+        self.onErrorViro(@{ @"error": @"OBJ failed to load" });
+      }
     }
   });
   _sourceChanged = NO;

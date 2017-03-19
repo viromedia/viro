@@ -157,4 +157,10 @@
     }
 }
 
+- (void)videoDidFail:(NSString *)error {
+  if (self.onErrorViro) {
+    self.onErrorViro(@{ @"error": @"Video failed to load" });
+  }
+}
+
 @end

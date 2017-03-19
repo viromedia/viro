@@ -157,10 +157,16 @@
 }
 
 - (void)videoDidUpdateTime:(int)currentTimeInSeconds totalTimeInSeconds:(int)totalTime{
-    if (self.onUpdateTimeViro) {
-        self.onUpdateTimeViro(@{@"currentTime": @(currentTimeInSeconds),
-                                @"totalTime": @(totalTime)});
-    }
+  if (self.onUpdateTimeViro) {
+    self.onUpdateTimeViro(@{@"currentTime": @(currentTimeInSeconds),
+                            @"totalTime": @(totalTime)});
+  }
+}
+
+- (void)videoDidFail:(NSString *)error {
+  if (self.onErrorViro) {
+    self.onErrorViro(@{ @"error": @"Video failed to load" });
+  }
 }
 
 @end

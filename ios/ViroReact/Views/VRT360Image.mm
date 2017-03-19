@@ -106,7 +106,7 @@
 
 - (void)imageLoaderDidEnd:(VRTImageAsyncLoader *)loader success:(BOOL)success image:(UIImage *)image {
   dispatch_async(dispatch_get_main_queue(), ^{
-    if(success && image!= nil) {
+    if(success && image) {
       _sphereTexture = std::make_shared<VROTexture>(self.format,
                                                   VROMipmapMode::None, // Don't mipmap 360 images, wastes memory
                                                   std::make_shared<VROImageiOS>(image, self.format));
@@ -115,6 +115,9 @@
 
     if(self.onLoadEndViro) {
       self.onLoadEndViro(@{@"success":@(success)});
+    }
+    if ((!success || !image) && self.onErrorViro) {
+      self.onErrorViro(@{ @"error": @"Image failed to load" });
     }
   });
 }

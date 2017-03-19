@@ -117,6 +117,7 @@ public class ImageDownloader {
                                 mImageMap.put(latch, bitmap);
                             }
                         }
+
                         dataSource.close();
                         if (latch != null) {
                             latch.countDown();
@@ -129,7 +130,9 @@ public class ImageDownloader {
                             latch.countDown();
                         }
                         Throwable t = dataSource.getFailureCause();
-                        throw new IllegalStateException("Error downloading image: " + t.getMessage());
+                        if (listener != null) {
+                            listener.failed(t.getMessage());
+                        }
                     }
                 };
 

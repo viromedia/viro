@@ -25,6 +25,7 @@
 @property (nonatomic, assign) VROTextureInternalFormat format;
 @property (nonatomic, copy) RCTDirectEventBlock onLoadStartViro;
 @property (nonatomic, copy) RCTDirectEventBlock onLoadEndViro;
+@property (nonatomic, copy) RCTDirectEventBlock onErrorViro;
 
 @end
 

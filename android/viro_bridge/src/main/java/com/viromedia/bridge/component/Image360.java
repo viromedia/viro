@@ -94,6 +94,14 @@ public class Image360 extends Component {
                     }
                 });
             }
+
+            @Override
+            public void failed(String error) {
+                if (isTornDown()) {
+                    return;
+                }
+                onError(error);
+            }
         });
 
         mImageNeedsDownload = false;

@@ -70,10 +70,21 @@ var ViroVideo = React.createClass({
       *     onUpdateTime(currentPlaybackTimeInSeconds, totalPlayBackDurationInSeconds);
       */
     onUpdateTime: React.PropTypes.func,
+
+    /**
+     * Callback triggered when the video fails to load. Invoked with
+     * {nativeEvent: {error}}
+     */
+    onError: React.PropTypes.func,
+
   },
 
   _onFinish: function() {
     this.props.onFinish && this.props.onFinish();
+  },
+
+  _onError: function(event: Event) {
+    this.props.onError && this.props.onError(event);
   },
 
   _onUpdateTime: function(event: Event) {
@@ -135,6 +146,7 @@ var ViroVideo = React.createClass({
     nativeProps.materials = materials;
     nativeProps.transformBehaviors = transformBehaviors;
     nativeProps.onFinishViro = this._onFinish;
+    nativeProps.onErrorViro = this._onError;
     nativeProps.onUpdateTimeViro = this._onUpdateTime;
     nativeProps.onHoverViro = this._onHover;
     nativeProps.onClickViro = this._onClickState;
@@ -188,7 +200,8 @@ var VRTVideoSurface = requireNativeComponent(
             onTouchViro:true,
             onScrollViro:true,
             onSwipeViro:true,
-            onDragViro:true
+            onDragViro:true,
+            onErrorViro:true,
             }
     }
 );

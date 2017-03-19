@@ -22,6 +22,7 @@ RCT_EXPORT_VIEW_PROPERTY(volume, float)
 RCT_EXPORT_VIEW_PROPERTY(rotation, NSNumberArray)
 RCT_EXPORT_VIEW_PROPERTY(onFinishViro, RCTDirectEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onUpdateTimeViro, RCTDirectEventBlock)
+RCT_EXPORT_VIEW_PROPERTY(onErrorViro, RCTDirectEventBlock)
 
 - (VRT360Video *)view
 {

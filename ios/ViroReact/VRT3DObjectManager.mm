@@ -28,6 +28,7 @@ RCT_EXPORT_VIEW_PROPERTY(transformBehaviors, NSArray<NSString *>)
 RCT_EXPORT_VIEW_PROPERTY(highAccuracyGaze, BOOL)
 RCT_EXPORT_VIEW_PROPERTY(onLoadStartViro, RCTDirectEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onLoadEndViro, RCTDirectEventBlock)
+RCT_EXPORT_VIEW_PROPERTY(onErrorViro, RCTDirectEventBlock)
 
 - (VRT3DObject *)view
 {

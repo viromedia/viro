@@ -15,7 +15,7 @@ import {
   requireNativeComponent,
   View,
   StyleSheet,
-  findNodeHandle, 
+  findNodeHandle,
   Platform
 } from 'react-native';
 import React, { Component } from 'react';
@@ -60,6 +60,13 @@ var Viro360Video = React.createClass({
       *     onUpdateTime(currentPlaybackTimeInSeconds, totalPlayBackDurationInSeconds);
       */
     onUpdateTime: React.PropTypes.func,
+
+    /**
+     * Callback triggered when the video fails to load. Invoked with
+     * {nativeEvent: {error}}
+     */
+    onError: React.PropTypes.func,
+
   },
 
   getNodeHandle: function(): any {
@@ -68,6 +75,10 @@ var Viro360Video = React.createClass({
 
   _onFinish() {
     this.props.onFinish && this.props.onFinish();
+  },
+
+  _onError: function(event: Event) {
+    this.props.onError && this.props.onError(event);
   },
 
   _onUpdateTime: function(event: Event) {
@@ -84,6 +95,7 @@ var Viro360Video = React.createClass({
     let nativeProps = Object.assign({}, this.props);
     nativeProps.ref = RCT_360_VIDEO_REF;
     nativeProps.source = vidsrc;
+    nativeProps.onErrorViro = this._onError;
     nativeProps.onFinishViro = this._onFinish;
     nativeProps.onUpdateTimeViro = this._onUpdateTime;
     return (
@@ -108,7 +120,10 @@ var Viro360Video = React.createClass({
 
 var VRO360Video = requireNativeComponent(
   'VRT360Video', Viro360Video, {
-    nativeOnly: {onUpdateTimeViro: true, onFinishViro: true}
+    nativeOnly: {
+      onUpdateTimeViro: true,
+      onErrorViro:true,
+      onFinishViro: true}
   }
 );
 

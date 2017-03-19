@@ -55,7 +55,7 @@
         lightAttenuationDistanceStart:3.5,
         lightInnerAngle:5,
         lightOuterAngle:30,
-        lightColor:"#ff0000",
+        lightColor:"#ff8888",
         sceneColor:"#ffffff",
         lightDirection:[0,-1,0],
         showAbientLight:false,
@@ -86,9 +86,9 @@
        )
    },
    _toggleColorLights(){
-        var newLightColor = "#ff0000";
-        if (this.state.lightColor == "#ff0000"){
-            newLightColor = "#0000ff";
+        var newLightColor = "#ff8888";
+        if (this.state.lightColor == "#ff8888"){
+            newLightColor = "#8888ff";
         }
 
 
@@ -237,9 +237,7 @@
           </ViroNode>
 
           <ViroNode position={[4,-2,-7]}>
-
-
-                <ViroNode position={[0, 5, 0]}>
+              <ViroNode position={[0, 5, 0]}>
                 <ViroSpotLight
                     position={[0, 0, 0]}
                     innerAngle={this.state.lightInnerAngle}
@@ -248,37 +246,35 @@
                     color={this.state.lightColor}
                     attenuationStartDistance={3.5}
                     attenuationEndDistance={5}/>
-                 </ViroNode>
-
-
-                <ViroOmniLight
+              </ViroNode>
+              <ViroOmniLight
                     position={[0, 1, 2]}
                     color={"#ffffff"}
                     attenuationStartDistance={this.state.lightAttenuationDistanceStart}
                     attenuationEndDistance={this.state.lightAttenuationDistanceStart + 3} />
 
-                <ViroBox
-                  materials={["whiteColorLambert"]}
-                  position={[-1.2 , 0, 0]}
-                  scale={[1 , 1 , 1]}
-                  height={1}
-                  width={1}
-                  length={1}/>
-                <ViroBox
-                  materials={["whiteColorLambert"]}
-                  position={[0 , 0, 0]}
-                  scale={[1 , 1 , 1]}
-                  height={1}
-                  width={1}
-                  length={1}/>
-                <ViroBox
-                  materials={["whiteColorLambert"]}
-                  position={[1.2 , 0, 0]}
-                  scale={[1 , 1 , 1]}
-                  height={1}
-                  width={1}
-                  length={1}/>
-          </ViroNode>
+              <ViroBox
+                    materials={["whiteColorLambert"]}
+                    position={[-1.2 , 0, 0]}
+                    scale={[1 , 1 , 1]}
+                    height={1}
+                    width={1}
+                    length={1}/>
+              <ViroBox
+                    materials={["whiteColorLambert"]}
+                    position={[0 , 0, 0]}
+                    scale={[1 , 1 , 1]}
+                    height={1}
+                    width={1}
+                    length={1}/>
+              <ViroBox
+                    materials={["whiteColorLambert"]}
+                    position={[1.2 , 0, 0]}
+                    scale={[1 , 1 , 1]}
+                    height={1}
+                    width={1}
+                    length={1}/>
+         </ViroNode>
       </ViroScene>
 
      );

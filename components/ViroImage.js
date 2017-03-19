@@ -81,6 +81,7 @@ var ViroImage = React.createClass({
     onScroll: React.PropTypes.func,
     onSwipe: React.PropTypes.func,
     onDrag: React.PropTypes.func,
+
     /**
      * Callback triggered when we are processing the assets to be
      * displayed in this ViroImage (either downloading / reading from file).
@@ -100,6 +101,13 @@ var ViroImage = React.createClass({
      *
      */
     onLoadEnd: React.PropTypes.func,
+
+    /**
+     * Callback triggered when the image fails to load. Invoked with
+     * {nativeEvent: {error}}
+     */
+    onError: React.PropTypes.func,
+
   },
 
   _onLoadStart: function(event: Event) {
@@ -108,6 +116,10 @@ var ViroImage = React.createClass({
 
   _onLoadEnd: function(event: Event) {
     this.props.onLoadEnd && this.props.onLoadEnd(event);
+  },
+
+  _onError: function(event: Event) {
+    this.props.onError && this.props.onError(event);
   },
 
   _onHover: function(event: Event) {
@@ -142,8 +154,8 @@ var ViroImage = React.createClass({
       this.props.onDrag
         && this.props.onDrag(event.nativeEvent.source, event.nativeEvent.dragToPos);
   },
-  render: function() {
 
+  render: function() {
     var defaultPlaceHolder = require('./Resources/viro_blank.png');
     var imgsrc = resolveAssetSource(this.props.source);
     var placeHoldersrc;
@@ -174,6 +186,7 @@ var ViroImage = React.createClass({
     nativeProps.transformBehaviors = transformBehaviors;
     nativeProps.onLoadStartViro = this._onLoadStart;
     nativeProps.onLoadEndViro = this._onLoadEnd;
+    nativeProps.onErrorViro = this._onError;
     nativeProps.style = [this.props.style];
     nativeProps.onHoverViro = this._onHover;
     nativeProps.onClickViro = this._onClickState;
@@ -199,6 +212,7 @@ var VRTImage = requireNativeComponent(
     nativeOnly: {
             onLoadStartViro: true,
             onLoadEndViro: true,
+            onErrorViro: true,
             canHover: true,
             canClick: true,
             canTouch: true,

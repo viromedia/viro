@@ -56,6 +56,13 @@ var Viro360Image = React.createClass({
      *
      */
     onLoadEnd: React.PropTypes.func,
+
+    /**
+     * Callback triggered when the image fails to load. Invoked with
+     * {nativeEvent: {error}}
+     */
+    onError: React.PropTypes.func,
+
   },
 
   _onLoadStart: function(event: Event) {
@@ -64,6 +71,10 @@ var Viro360Image = React.createClass({
 
   _onLoadEnd: function(event: Event) {
     this.props.onLoadEnd && this.props.onLoadEnd(event);
+  },
+
+  _onError: function(event: Event) {
+    this.props.onError && this.props.onError(event);
   },
 
   render: function() {
@@ -83,6 +94,7 @@ var Viro360Image = React.createClass({
     // Create native props object.
     let nativeProps = Object.assign({}, this.props);
     nativeProps.source = imgsrc;
+    nativeProps.onErrorViro = this._onError;
     nativeProps.onLoadStartViro = this._onLoadStart;
     nativeProps.onLoadEndViro = this._onLoadEnd;
 
@@ -94,7 +106,10 @@ var Viro360Image = React.createClass({
 
 var VRT360Image = requireNativeComponent(
   'VRT360Image', Viro360Image, {
-    nativeOnly: {onLoadStartViro: true, onLoadEndViro: true}
+    nativeOnly: {
+      onLoadStartViro: true,
+      onErrorViro: true,
+      onLoadEndViro: true}
   }
 );
 

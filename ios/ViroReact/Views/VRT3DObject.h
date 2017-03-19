@@ -18,5 +18,6 @@
 @property (readwrite, nonatomic) NSDictionary *source;
 @property (nonatomic, copy, nullable) RCTDirectEventBlock onLoadStartViro;
 @property (nonatomic, copy, nullable) RCTDirectEventBlock onLoadEndViro;
+@property (nonatomic, copy) RCTDirectEventBlock onErrorViro;
 
 @end

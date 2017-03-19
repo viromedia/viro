@@ -9,4 +9,5 @@ import android.graphics.Bitmap;
 
 public interface ImageDownloadListener {
     public void completed(Bitmap result);
+    public void failed(String error);
 }

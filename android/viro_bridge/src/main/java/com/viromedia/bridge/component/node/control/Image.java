@@ -8,8 +8,10 @@ import android.graphics.Bitmap;
 import android.os.Handler;
 import android.os.Looper;
 
+import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReadableMap;
+import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
 import com.viro.renderer.jni.ImageJni;
 import com.viro.renderer.jni.MaterialJni;
@@ -147,7 +149,14 @@ public class Image extends Control {
                             downloadSourceImage(downloader);
                         }
                     });
+                }
 
+                @Override
+                public void failed(String error) {
+                    if (isTornDown()) {
+                        return;
+                    }
+                    onError(error);
                 }
             });
         } else {
@@ -181,10 +190,16 @@ public class Image extends Control {
                             setMaterialOnSurface();
                             setImageOnSurface(result);
                             imageDownloadDidFinish();
-
                         }
                     });
+                }
 
+                @Override
+                public void failed(String error) {
+                    if (isTornDown()) {
+                        return;
+                    }
+                    onError(error);
                 }
             });
         }

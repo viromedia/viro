@@ -56,6 +56,15 @@ public class Video360 extends Component {
         }
 
         @Override
+        public void onVideoFailed(String error) {
+            Video360 video = mVideo.get();
+            if (video == null || video.isTornDown()) {
+                return;
+            }
+            video.onError(error);
+        }
+
+        @Override
         public void onVideoUpdatedTime(int currentTime, int totalVideoTime) {
             Video360 video = mVideo.get();
             if (video == null || video.isTornDown()) {

@@ -52,19 +52,19 @@
       
       if (!error) {
         UIImage *image = [[UIImage alloc] initWithData:data];
-        // Scale the Image, update texture to scene, trigger callbacks.
-          if(self.delegate) {
-            [self.delegate imageLoaderDidEnd:self success:YES image:image];
-          }
-          return;
+        BOOL success = (image != nil);
+        if(self.delegate) {
+          [self.delegate imageLoaderDidEnd:self success:success image:image];
+        }
       }
-
-      if(self.delegate) {
-        [self.delegate imageLoaderDidEnd:self success:NO image:nil];
+      else {
+        if(self.delegate) {
+          [self.delegate imageLoaderDidEnd:self success:NO image:nil];
+        }
       }
     });
-    return;
-  } else {
+  }
+  else {
     NSLog(@"ERROR: Attempted to load image with unknown scheme path!");
     if(self.delegate) {
       [self.delegate imageLoaderDidEnd:self success:NO image:nil];

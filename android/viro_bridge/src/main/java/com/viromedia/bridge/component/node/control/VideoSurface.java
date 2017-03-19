@@ -44,6 +44,15 @@ public class VideoSurface extends Control {
         }
 
         @Override
+        public void onVideoFailed(String error) {
+            VideoSurface surface = mSurface.get();
+            if (surface == null || surface.isTornDown()) {
+                return;
+            }
+            surface.onError(error);
+        }
+
+        @Override
         public void onVideoUpdatedTime(int currentTime, int totalVideoTime) {
             VideoSurface surface = mSurface.get();
             if (surface == null || surface.isTornDown()) {

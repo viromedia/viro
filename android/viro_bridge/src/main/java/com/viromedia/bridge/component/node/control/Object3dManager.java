@@ -69,6 +69,7 @@ public class Object3dManager extends NodeManager<Object3d> {
     public Map getExportedCustomDirectEventTypeConstants() {
         return MapBuilder.of(
                 ViroEvents.ON_LOAD_START, MapBuilder.of("registrationName", ViroEvents.ON_LOAD_START),
-                ViroEvents.ON_LOAD_END, MapBuilder.of("registrationName", ViroEvents.ON_LOAD_END));
+                ViroEvents.ON_LOAD_END, MapBuilder.of("registrationName", ViroEvents.ON_LOAD_END),
+                ViroEvents.ON_ERROR, MapBuilder.of("registrationName", ViroEvents.ON_ERROR));
     }
 }

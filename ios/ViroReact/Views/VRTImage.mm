@@ -134,6 +134,9 @@ static float const kDefaultHeight = 1;
     if(self.onLoadEndViro) {
       self.onLoadEndViro(@{@"success":@(success)});
     }
+    if ((!success || !image) && self.onErrorViro) {
+      self.onErrorViro(@{ @"error": @"Image failed to load" });
+    }
   });
 }
 

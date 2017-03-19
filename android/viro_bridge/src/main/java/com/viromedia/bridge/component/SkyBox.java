@@ -121,6 +121,11 @@ public class SkyBox extends Component {
                         }
                     }
                 }
+
+                @Override
+                public void failed(String error) {
+                    throw new RuntimeException(error);
+                }
             });
         }
     }
