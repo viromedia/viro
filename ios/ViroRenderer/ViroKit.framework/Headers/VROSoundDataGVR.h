@@ -32,19 +32,20 @@ public:
     void setDelegate(std::weak_ptr<VROSoundDataDelegate> delegate);
 
     void ready(std::string fileName);
-    void error();
+    void error(std::string err);
 
 private:
     std::string _path;
     std::string _localPath;
     bool _local = false;
     VROSoundDataStatus _status;
+    std::string _error;
 
     void setup();
     void notifyDelegateOfStatus();
     void loadSoundFromURL(std::string path,
                           std::function<void(std::string)> onFinish,
-                          std::function<void()> onError);
+                          std::function<void(std::string)> onError);
     void loadSoundFromResource(std::string path,
                                std::function<void(std::string)> onFinish);
 };
