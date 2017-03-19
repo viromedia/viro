@@ -34,6 +34,7 @@ public class MaterialManager extends ReactContextBaseJavaModule {
     private final ReactApplicationContext mContext;
     private Map<String, MaterialWrapper> mMaterialsMap;
     private Map<String, ImageJni> mImageMap;
+    private boolean mShouldReload = false;
 
     public MaterialManager(ReactApplicationContext reactContext) {
         super(reactContext);
@@ -48,10 +49,34 @@ public class MaterialManager extends ReactContextBaseJavaModule {
     }
 
     public MaterialJni getMaterial(String name) {
+        reloadMaterials();
+
         if (mMaterialsMap.containsKey(name)) {
             return mMaterialsMap.get(name).getNativeMaterial();
         }
+
         return null;
+    }
+
+    /**
+     * Call this method if we should reload/recreate all the materials the
+     * next time we create them.
+     */
+    public void shouldReload() {
+        mShouldReload = true;
+    }
+
+    /**
+     * This function goes through every material and reloads the material
+     */
+    public void reloadMaterials() {
+        if (mShouldReload) {
+            for (String key : mMaterialsMap.keySet()) {
+                MaterialWrapper material = mMaterialsMap.get(key);
+                material.recreate();
+            }
+            mShouldReload = false;
+        }
     }
 
     @ReactMethod
@@ -71,7 +96,7 @@ public class MaterialManager extends ReactContextBaseJavaModule {
 
     private MaterialWrapper createMaterial(ReadableMap materialMap) {
         final MaterialJni nativeMaterial = new MaterialJni();
-        MaterialWrapper materialWrapper = new MaterialWrapper(nativeMaterial);
+        MaterialWrapper materialWrapper = new MaterialWrapper(nativeMaterial, materialMap);
 
         ReadableMapKeySetIterator iter = materialMap.keySetIterator();
         while(iter.hasNextKey()) {
@@ -234,12 +259,15 @@ public class MaterialManager extends ReactContextBaseJavaModule {
      * MaterialWrapper Class
      */
     private class MaterialWrapper {
-        private final MaterialJni mNativeMaterial;
-        private final Map<String, String> mVideoTextures;
+        private MaterialJni mNativeMaterial;
+        // the source map that specified this material.
+        private final ReadableMap mMaterialSource;
+        private Map<String, String> mVideoTextures;
 
-        public MaterialWrapper(MaterialJni nativeMaterial) {
+        public MaterialWrapper(MaterialJni nativeMaterial, ReadableMap source) {
             mVideoTextures = new HashMap<String, String>();
             mNativeMaterial = nativeMaterial;
+            mMaterialSource = source;
         }
 
         public MaterialJni getNativeMaterial() {
@@ -248,6 +276,15 @@ public class MaterialManager extends ReactContextBaseJavaModule {
 
         public void addVideoTexturePath(String name, String videoTexturePath) {
             mVideoTextures.put(name, videoTexturePath);
+        }
+
+        public void recreate() {
+            if (mMaterialSource != null) {
+                MaterialWrapper other = createMaterial(mMaterialSource);
+                mNativeMaterial.destroy();
+                mNativeMaterial = other.mNativeMaterial;
+                mVideoTextures = other.mVideoTextures;
+            }
         }
     }
 }

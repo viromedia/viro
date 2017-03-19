@@ -17,6 +17,7 @@ import com.viro.renderer.jni.ViroOvrView;
 import com.viro.renderer.jni.VrView;
 import com.viromedia.bridge.ReactViroPackage;
 import com.viromedia.bridge.component.node.Scene;
+import com.viromedia.bridge.module.MaterialManager;
 import com.viromedia.bridge.utility.ViroLog;
 
 import java.lang.ref.WeakReference;
@@ -168,6 +169,13 @@ public class SceneNavigator extends FrameLayout {
 
         mLifecycleListener = new SceneNavigatorLifecycleListener(this);
         reactContext.addLifecycleEventListener(mLifecycleListener);
+
+        /**
+         * We may need to reload the materials if the renderer was destroyed, but the app was not
+         * and the user resumed.
+         */
+        MaterialManager materialManager = reactContext.getNativeModule(MaterialManager.class);
+        materialManager.reloadMaterials();
     }
 
     @Override
@@ -268,6 +276,15 @@ public class SceneNavigator extends FrameLayout {
         for (Scene scene : mSceneArray) {
             scene.forceCascadeTearDown();
         }
+
+        /**
+         * If we're exiting Viro and destroying the renderer, notify the MaterialManager so that if
+         * the application doesn't get killed, then the next time Viro starts, we know to reload the
+         * materials.
+         */
+        MaterialManager materialManager = mReactContext.getNativeModule(MaterialManager.class);
+        materialManager.shouldReload();
+
         mVrView.onActivityStopped(mReactContext.getCurrentActivity());
         mVrView.destroy();
     }
