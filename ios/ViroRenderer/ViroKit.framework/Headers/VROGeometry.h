@@ -70,7 +70,7 @@ public:
          ALLOCATION_TRACKER_ADD(Geometry, 1);
     }
     
-    ~VROGeometry();
+    virtual ~VROGeometry();
     
     /*
      Get the geometry ready for usage now, in advance of when it's visible. If not invoked,
