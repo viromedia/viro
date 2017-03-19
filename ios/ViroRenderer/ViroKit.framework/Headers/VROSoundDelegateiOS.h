@@ -23,6 +23,10 @@ public:
     void soundIsReady() {
         [_delegate soundIsReady];
     }
+    
+    void soundDidFail(std::string error) {
+        [_delegate soundDidFail:[NSString stringWithUTF8String:error.c_str()]];
+    }
 
     void soundDidFinish() {
         [_delegate soundDidFinish];

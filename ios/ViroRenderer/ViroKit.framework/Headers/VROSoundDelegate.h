@@ -12,6 +12,7 @@
 @protocol VROSoundDelegate <NSObject>
 
 - (void)soundIsReady;
+- (void)soundDidFail:(NSString *)error;
 - (void)soundDidFinish;
 
 @end
