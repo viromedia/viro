@@ -19,6 +19,7 @@ var ViroCamera = React.createClass({
   propTypes: {
     ...View.propTypes,
     position: PropTypes.arrayOf(PropTypes.number),
+    rotation: PropTypes.arrayOf(PropTypes.number),
     active: PropTypes.bool.isRequired,
   },
 
