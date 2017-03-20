@@ -29,3 +29,6 @@ export default class ViroSample extends Component {
 
 AppRegistry.registerComponent('APP_NAME_HERE', () => ViroSample);
 
+// The below line is necessary for use with the TestBed App
+AppRegistry.registerComponent('ViroSample', () => ViroSample);
+
