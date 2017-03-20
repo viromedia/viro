@@ -21,6 +21,7 @@
 @property (readwrite, nonatomic) VRTScene *currentScene;
 @property (nonatomic, assign) BOOL vrModeEnabled;
 @property (nonatomic, copy) NSString *apiKey;
+@property (nonatomic, copy, nullable) RCTDirectEventBlock onExitViro;
 
 - (instancetype)initWithBridge:(RCTBridge *)bridge;
 - (void)insertReactSubview:(UIView *)subview atIndex:(NSInteger)atIndex;

@@ -14,7 +14,7 @@
 var NativeModules = require('react-native').NativeModules;
 var PropTypes = require('react/lib/ReactPropTypes');
 var invariant = require('fbjs/lib/invariant');
-var ViroSceneNavigatorManager = NativeModules.SceneNavigatorManager;
+var ViroSceneNavigatorModule = require('react-native').NativeModules.VRTSceneNavigatorModule;
 import { requireNativeComponent, View, StyleSheet, findNodeHandle } from 'react-native';
 import React, { Component } from 'react';
 var SCENE_NAVIGATOR_REF = 'viroscenenavigator';
@@ -47,15 +47,23 @@ var ViroSceneNavigator = React.createClass({
         ...View.propTypes,
 
         apiKey: PropTypes.string.isRequired,
+
         /**
          * ViroSceneNavigator uses "scene" objects like the following to
          * describe a scene.
          */
         initialScene: PropTypes.shape({
-          /**
-           * The React Class to render for this scene.
-           */
+
+        /**
+          * The React Class to render for this scene.
+          */
         scene: PropTypes.func.isRequired,
+
+        /**
+         * Called when either the user physically decides to exit vr (hits
+         * the "X" buton), or if the ViroSceneNavigator.exitViro() is called.
+         */
+        onExitViro: React.PropTypes.func,
       }).isRequired,
   },
 
@@ -77,13 +85,29 @@ var ViroSceneNavigator = React.createClass({
       pop: this.pop,
       popN: this.popN,
       jump: this.jump,
+      exitViro: this.exitViro,
       // pass the viroAppProps to every scene, these aren't meant to ever change.
       viroAppProps: this.props.viroAppProps,
-      requestExit: this.requestExit,
     };
     // If the user simply passes us the props from the root React component, then we'll
     // have an extra 'rootTag' key which React includes.
     delete this.sceneNavigator.viroAppProps.rootTag;
+  },
+
+  /**
+   * Triggers onExitViro javascript callbacks assigned to the ViroSceneNavigator.
+   * Also triggers native OnExitViro callbacks for Native-Javascript React hybrid applications.
+   */
+  exitViro: function(){
+     ViroSceneNavigatorModule.requestExitVr(findNodeHandle(this));
+  },
+
+  /**
+   * Called from native when either the user physically decides to exit vr (hits
+   * the "X" buton), or if the ViroSceneNavigator.exitViro() is called.
+   */
+  _onExitViro: function(event: Event) {
+    this.props.onExitViro && this.props.onExitViro();
   },
 
   getInitialState: function(): State {
@@ -359,7 +383,8 @@ var ViroSceneNavigator = React.createClass({
         ref={SCENE_NAVIGATOR_REF}
         {...this.props}
         currentSceneIndex={this.state.currentSceneIndex}
-        style={this.props.style, styles.container}>
+        style={this.props.style, styles.container}
+        onExitViro={this._onExitViro}>
         {items}
       </VRTSceneNavigator>
     );
@@ -377,7 +402,7 @@ var styles = StyleSheet.create({
 
 var VRTSceneNavigator = requireNativeComponent(
     'VRTSceneNavigator', ViroSceneNavigator, {
-        nativeOnly: { currentSceneIndex:-1 }
+        nativeOnly: { currentSceneIndex:true, onExitViro:true }
     }
 );
 

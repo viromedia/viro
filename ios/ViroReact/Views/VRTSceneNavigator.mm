@@ -13,6 +13,8 @@
 #import "VRTSceneNavigator.h"
 #import "VRTScene.h"
 #import "VRTNotifications.h"
+#import <React/RCTRootView.h>
+#import <React/RCTUtils.h>
 
 static NSString *const kVRTInvalidAPIKeyMessage = @"The given API Key is either missing or invalid! If you have not signed up for accessing Viro Media platform, please do so at www.viromedia.com. Otherwise, contact info@viromedia.com if you have a valid key and are encountering this error.";
 
@@ -136,7 +138,13 @@ static NSString *const kVRTInvalidAPIKeyMessage = @"The given API Key is either 
 }
 
 - (void)userDidRequestExitVR {
-  [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:kVRTUserRequestedExit object:nil]];
+  // Notify javascript listeners (for ReactNativeJs to ViroReactJs cases)
+  if (self.onExitViro != nil) {
+    self.onExitViro(nil);
+  }
+
+  // Notify Native listeners (for NativeApp to ViroReactJs cases)
+  [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:kVRTOnExitViro object:nil]];
 }
 
 - (void)setApiKey:(NSString *)apiKey {
@@ -153,6 +161,28 @@ static NSString *const kVRTInvalidAPIKeyMessage = @"The given API Key is either 
 - (void)removeFromSuperview{
     [self viewWillDisappear];
     [super removeFromSuperview];
+
+    /*
+     * We need to always ensure that React's root view is showing when we
+     * are deallocating Viro and our renderer. This is because GVR does not
+     * perform the proper cleanup on its windows: VIRO-1067
+     */
+    if (RCTIsMainQueue()){
+        NSArray *windowArray = [UIApplication sharedApplication].windows;
+
+        if (windowArray == nil || [windowArray count] == 0){
+            return;
+        }
+
+        for (int i = 0; i < [windowArray count]; i ++){
+            UIWindow *window = [windowArray objectAtIndex:i];
+            if (window != nil && window.rootViewController != nil &&
+                [window.rootViewController.view isKindOfClass:[RCTRootView class]]){
+                [window makeKeyAndVisible];
+                return;
+            }
+        }
+    }
 }
 
 #pragma mark RCTInvalidating methods
@@ -163,5 +193,4 @@ static NSString *const kVRTInvalidAPIKeyMessage = @"The given API Key is either 
   _vroView = nil;
   _childViews = nil;
 }
-
 @end

@@ -36,6 +36,7 @@ import com.viromedia.bridge.component.node.control.VideoSurfaceManager;
 import com.viromedia.bridge.module.AnimationManager;
 import com.viromedia.bridge.module.CameraModule;
 import com.viromedia.bridge.module.MaterialManager;
+import com.viromedia.bridge.module.SceneNavigatorModule;
 import com.viromedia.bridge.module.SoundModule;
 
 import java.util.Arrays;
@@ -47,6 +48,7 @@ import static java.util.Collections.emptyList;
  * ReactViroPackage class containing an array of all ViroViewManagers to be created.
  */
 public class ReactViroPackage implements ReactPackage {
+    public static final String ON_EXIT_VIRO_BROADCAST ="com.viromedia.bridge.broadcast.OnExitViro";
 
     public enum ViroPlatform {
         GVR, OVR_MOBILE
@@ -64,7 +66,8 @@ public class ReactViroPackage implements ReactPackage {
                 new MaterialManager(reactContext),
                 new AnimationManager(reactContext),
                 new CameraModule(reactContext),
-                new SoundModule(reactContext)
+                new SoundModule(reactContext),
+                new SceneNavigatorModule(reactContext)
         );
     }
 

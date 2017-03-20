@@ -6,5 +6,5 @@
 //  Copyright © 2016 Viro Media. All rights reserved.
 //
 
-static NSString *const kVRTUserRequestedExit = @"ViroUserRequestedExit";
+static NSString *const kVRTOnExitViro = @"OnExitViro";
 static NSString *const kVRTApiKeyIsInvalid = @"ViroApiKeyIsInvalid";

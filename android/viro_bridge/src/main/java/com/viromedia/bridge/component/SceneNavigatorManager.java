@@ -63,4 +63,10 @@ public class SceneNavigatorManager extends ViroViewGroupManager<SceneNavigator> 
             ((SceneNavigator) view).onPropsSet();
         }
     }
+
+    @Override
+    public Map getExportedCustomDirectEventTypeConstants() {
+        return MapBuilder.of(
+                ViroEvents.ON_EXIT_VIRO, MapBuilder.of("registrationName", ViroEvents.ON_EXIT_VIRO));
+    }
 }

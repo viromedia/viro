@@ -3,13 +3,16 @@
  */
 package com.viromedia.bridge.component;
 
+import android.content.Intent;
 import android.os.Handler;
 import android.os.Looper;
+import android.support.v4.content.LocalBroadcastManager;
 import android.view.View;
 import android.widget.FrameLayout;
 
 import com.facebook.react.bridge.LifecycleEventListener;
 import com.facebook.react.bridge.ReactApplicationContext;
+import com.facebook.react.uimanager.events.RCTEventEmitter;
 import com.viro.renderer.jni.GlListener;
 import com.viro.renderer.jni.RenderContextJni;
 import com.viro.renderer.jni.ViroGvrLayout;
@@ -18,6 +21,7 @@ import com.viro.renderer.jni.VrView;
 import com.viromedia.bridge.ReactViroPackage;
 import com.viromedia.bridge.component.node.Scene;
 import com.viromedia.bridge.module.MaterialManager;
+import com.viromedia.bridge.utility.ViroEvents;
 import com.viromedia.bridge.utility.ViroLog;
 
 import java.lang.ref.WeakReference;
@@ -150,7 +154,7 @@ public class SceneNavigator extends FrameLayout {
                 // default case is to use GVR
             default:
                 ViroGvrLayout gvrLayout = new ViroGvrLayout(reactContext.getCurrentActivity(),
-                        new InnerGLListener(this));
+                        new InnerGLListener(this), new OnGVRExitListener(this));
                 mVrView = gvrLayout;
         }
 
@@ -317,5 +321,35 @@ public class SceneNavigator extends FrameLayout {
 
     private void onHostDestroy() {
         mReactContext.removeLifecycleEventListener(mLifecycleListener);
+    }
+
+    public void userDidRequestExitVR(){
+        // Notify javascript listeners (for ReactNativeJs to ViroReactJs cases)
+        mReactContext.getJSModule(RCTEventEmitter.class).receiveEvent(
+                getId(),
+                ViroEvents.ON_EXIT_VIRO,
+                null);
+
+        // Notify Native listeners (for NativeApp to ViroReactJs cases)
+        Intent intent = new Intent();
+        intent.setAction(ReactViroPackage.ON_EXIT_VIRO_BROADCAST);
+        LocalBroadcastManager.getInstance(mReactContext.getApplicationContext()).sendBroadcast(intent);
+    }
+
+    private static class OnGVRExitListener implements Runnable{
+        private WeakReference<SceneNavigator> mSceneNavWeak;
+        public OnGVRExitListener(SceneNavigator sceneNav) {
+            mSceneNavWeak = new WeakReference<SceneNavigator>(sceneNav);
+        }
+
+        @Override
+        public void run() {
+            SceneNavigator view = mSceneNavWeak.get();
+            if (view == null) {
+                return;
+            }
+
+            view.userDidRequestExitVR();
+        }
     }
 }
