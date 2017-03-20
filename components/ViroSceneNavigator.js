@@ -39,6 +39,11 @@ var ViroSceneNavigator = React.createClass({
          */
         vrModeEnabled: PropTypes.bool,
 
+        /**
+         * A flag to enable/disable some debug features
+         */
+        debug: PropTypes.bool,
+
         ...View.propTypes,
 
         apiKey: PropTypes.string.isRequired,

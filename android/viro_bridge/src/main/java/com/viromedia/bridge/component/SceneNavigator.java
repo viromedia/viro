@@ -244,6 +244,10 @@ public class SceneNavigator extends FrameLayout {
         mVrModeEnabled = vrModeEnabled;
     }
 
+    public void setDebug(boolean debug) {
+        mVrView.setDebug(debug);
+    }
+
     public void setApiKey(String apiKey) {
 
         if (apiKey == null || apiKey.trim().isEmpty()) {
