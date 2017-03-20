@@ -187,13 +187,13 @@ var BTN_TYPE_CLICKED = 'clicked';
     );
   },
 
-  _onButtonHover: function(source, isHovering) {
+  _onButtonHover: function(isHovering, source) {
     if (isHovering) {
         this.setState({
             buttonType: BTN_TYPE_HOVER
         });
         if (this.props.onHover) {
-          this.props.onHover(source, isHovering);
+          this.props.onHover(isHovering, source);
         }
     } else {
       this.setState({
