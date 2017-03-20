@@ -41,6 +41,8 @@ import {
 
 let polarToCartesian = ViroUtils.polarToCartesian;
 
+var ReleaseMenu = require("./ReleaseMenu.js");
+
 var ViroAnimatedComponentTest = React.createClass({
 
   getInitialState() {
@@ -67,7 +69,11 @@ var ViroAnimatedComponentTest = React.createClass({
 
     return (
      <ViroScene>
+     <ReleaseMenu sceneNavigator={this.props.sceneNavigator}/>
+
      <ViroOmniLight position={[0, 0, 0]} color="#ffffff" attenuationStartDistance={40} attenuationEndDistance={50}/>
+
+     <ViroImage source={require('./res/poi_dot.png')} position={[-1, 0, 0]} transformBehaviors={["billboard"]} onClick={this._showNext} />
 
       <ViroAnimatedComponent
       animation={currentAnim}
@@ -115,6 +121,10 @@ var ViroAnimatedComponentTest = React.createClass({
 
     );
   },
+
+  _showNext() {
+          this.props.sceneNavigator.push({scene:require('./ViroBoxTest')});
+      },
 
   _togglePlay(){
   this.setState({

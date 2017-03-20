@@ -41,6 +41,8 @@ import {
 
 let polarToCartesian = ViroUtils.polarToCartesian;
 var UriImage = {uri:"https://lh3.googleusercontent.com/dB3Dvgf3VIglusoGJAfpNUAANhTXW8K9mvIsiIPkhJUAbAKGKJcEMPTf0mkSexzLM5o=w300"};
+var ReleaseMenu = require("./ReleaseMenu.js");
+
 
 // **This test has not been done.  This is placeholder for scene and navigation arrows**
 
@@ -60,7 +62,11 @@ var ViroBoxTest = React.createClass({
   render: function() {
     return (
      <ViroScene>
+     <ReleaseMenu sceneNavigator={this.props.sceneNavigator}/>
      <ViroOmniLight position={[0, 0, 0]} color="#ffffff" attenuationStartDistance={40} attenuationEndDistance={50}/>
+
+     <ViroImage source={require('./res/poi_dot.png')} position={[-1, 0, 0]} transformBehaviors={["billboard"]} onClick={this._showNext} />
+
 
       <ViroAnimatedComponent
       animation="loopRotate"
@@ -132,6 +138,8 @@ var ViroBoxTest = React.createClass({
         />
       </ViroAnimatedComponent>
 
+      <ViroImage source={require('./res/poi_dot.png')} position={[-1, 0, 0]} transformBehaviors={["billboard"]} onClick={this._showNext} />
+
 
     <ViroText fontSize={this.state.fontSize} style={styles.centeredText} position={[0,-4, -3]} width={2} height ={2} fontFamily={'Arial'}
         text={"Toggle WHL: " + this.state.toggleWHL} textLineBreakMode='justify' onClick={this._toggleWHL}/>
@@ -144,6 +152,10 @@ var ViroBoxTest = React.createClass({
 
     );
   },
+  _showNext() {
+          this.props.sceneNavigator.push({scene:require('./ViroSphereTest')});
+      },
+
   _toggleMaterial(){
     var newMat = this.state.currentMaterial == "box1" ? "box2" : "box1";
       this.setState({
@@ -186,10 +198,6 @@ var ViroBoxTest = React.createClass({
     this.setState({
         runAnimation4:true,
       });
-  },
-
-  _showNext() {
-    this.props.sceneNavigator.push({scene:ViroButtonTest});
   },
 
 });

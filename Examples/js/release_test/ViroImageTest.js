@@ -67,6 +67,10 @@ var ViroImageTest = React.createClass({
       return (
             <ViroScene>
             <ReleaseMenu sceneNavigator={this.props.sceneNavigator}/>
+
+            <ViroImage source={require('./res/poi_dot.png')} position={[-1, 0, 0]} transformBehaviors={["billboard"]} onClick={this._showNext} />
+
+
              <ViroImage
                 width={this.state.widthAndHeight} height={this.state.widthAndHeight}
                 format={this.state.format}
@@ -101,6 +105,10 @@ var ViroImageTest = React.createClass({
       </ViroNode>
         );
    },
+
+   _showNext() {
+           this.props.sceneNavigator.push({scene:require('./ViroTextTest')});
+       },
 
    _toggleImageSource() {
         var newShowUrlImageFlag = !this.state.showUrlImage;

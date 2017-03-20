@@ -47,12 +47,15 @@
 
  // **This test has not been done.  This is placeholder for scene and navigation arrows**
 
+ var ReleaseMenu = require("./ReleaseMenu.js");
+
  var ViroSphereTest = React.createClass({
 
    getInitialState() {
      return {
         widthSegCount:5,
         heightSegCount:5,
+        fontSize:18,
         radius:1,
         facesOutward:true
      };
@@ -61,15 +64,17 @@
    render: function() {
      return (
       <ViroScene>
+      <ReleaseMenu sceneNavigator={this.props.sceneNavigator}/>
+
          <ViroNode position={[0,0,-4]}>
 
+         <ViroImage source={require('./res/poi_dot.png')} position={[0, -3, -2]} transformBehaviors={["billboard"]} onClick={this._showNext} />
 
            <ViroOmniLight
                              position={[0, 1, 2]}
                              color={"#ffffff"}
                              attenuationStartDistance={30}
                              attenuationEndDistance={40} />
-
 
 
                 <ViroSphere
@@ -90,10 +95,16 @@
             <ViroText style={styles.baseTextTwo} fontSize={this.state.fontSize}  position={[0, -1, 0]} width={4} height ={2}
                 text={"Toggle faces outward: " + this.state.facesOutward} onClick={this._toggleFacesOutwards}/>
        </ViroNode>
+
+
       </ViroScene>
 
      );
    },
+
+   _showNext() {
+           this.props.sceneNavigator.push({scene:require('./ViroButtonTest')});
+       },
 
    _toggleWidSegCount() {
      var newWidthSegCount = this.state.widthSegCount + 1;

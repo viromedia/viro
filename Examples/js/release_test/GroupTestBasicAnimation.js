@@ -43,6 +43,8 @@ var Local360Video = require("./res/360Asteroids.mp4");
 
 var LocalButtonImage = require("./res/icon_live.jpg");
 
+var ReleaseMenu = require("./ReleaseMenu.js");
+
 var TOGGLE_PLAY ="Toggle Play";
 var TOGGLE_PAUSE ="Toggle Pause";
 
@@ -61,6 +63,10 @@ var GroupTestBasicAnimation = React.createClass({
   render: function() {
     return (
             <ViroScene>
+            <ReleaseMenu sceneNavigator={this.props.sceneNavigator}/>
+
+            <ViroImage source={require('./res/poi_dot.png')} position={[-1, 0, 0]} transformBehaviors={["billboard"]} onClick={this._showNext} />
+
                 <ViroNode position={[0.8 , 0, -3.5]}>
                 <ViroAnimatedComponent
                     animation="testLoopRotate"
@@ -238,6 +244,10 @@ var GroupTestBasicAnimation = React.createClass({
 
     );
   },
+
+  _showNext() {
+          this.props.sceneNavigator.push({scene:require('./GroupTestBasicAnimation')});
+      },
 
   _elementClick(item){
     return () => {

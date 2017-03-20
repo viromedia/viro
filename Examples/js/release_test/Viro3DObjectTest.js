@@ -61,6 +61,8 @@ var Viro3DObjectTest = React.createClass({
       <ReleaseMenu sceneNavigator={this.props.sceneNavigator}/>
      <ViroOmniLight position={[0, 0, 0]} color="#ffffff" attenuationStartDistance={40} attenuationEndDistance={50}/>
 
+     <ViroImage source={require('./res/poi_dot.png')} position={[-1, 0, 0]} transformBehaviors={["billboard"]} onClick={this._showNext} />
+
      <ViroAnimatedComponent animation="loopRotate"
       run={this.state.runAnimation1} >
      <Viro3DObject source={require('./res/destroyer.obj')}
@@ -126,6 +128,9 @@ var Viro3DObjectTest = React.createClass({
     );
   },
 
+  _showNext() {
+          this.props.sceneNavigator.push({scene:require('./ViroCameraTest')});
+      },
 
   _showPrevious() {
     this.props.sceneNavigator.pop();
@@ -159,10 +164,6 @@ var Viro3DObjectTest = React.createClass({
     this.setState({
         runAnimation4:true,
       });
-  },
-
-  _showNext() {
-    this.props.sceneNavigator.push({scene:Viro360ImageTest});
   },
 
 });

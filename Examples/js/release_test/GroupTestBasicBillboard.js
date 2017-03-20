@@ -44,6 +44,8 @@ var Local360Video = require("./res/360Asteroids.mp4");
 
 var LocalButtonImage = require("./res/icon_live.jpg");
 
+var ReleaseMenu = require("./ReleaseMenu.js");
+
 var TOGGLE_PLAY ="Toggle Play";
 var TOGGLE_PAUSE ="Toggle Pause";
 
@@ -78,17 +80,22 @@ var GroupTestBasicBillboard = React.createClass({
 
     return (
                 <ViroScene>
+                <ReleaseMenu sceneNavigator={this.props.sceneNavigator}/>
+
+                <ViroImage source={require('./res/poi_dot.png')} position={[-1, 0, 0]} transformBehaviors={["billboard"]} onClick={this._showNext} />
+
+
                             <ViroAnimatedComponent
                                 animation="testLoopMove"
                                 run={true}
                                 loop={true} >
 
-                <ViroNode position={[0.8 , 0, -3.5]} >
+                <ViroNode position={[0.8, 0, -3.5]} >
 
 
-                    <Viro3DObject source={require('../res/heart.obj')}
-                             scale={[1.8 , 1.8  , 1.8]}
-                              position={[-2.5 , -4.3 , -1.15]}
+                    <Viro3DObject source={require('./res/xwing.obj')}
+                             scale={[.2 , .2  , .2]}
+                              position={[-2 , 1, 0]}
                               materials={["heart"]}
                               transformBehaviors={newTransformBehaviors}/>
 
@@ -165,14 +172,14 @@ var GroupTestBasicBillboard = React.createClass({
                       scale={[0.5 , 0.5, 0.1]}
                       style={styles.baseTextTwo}
                       text="This is a Viro Text"/>
-{ /* Re-enable once Video is fixed in ios
+
                   <ViroVideo
                   transformBehaviors={newTransformBehaviors}
                       position={[0 , -1,0]}
                       scale={[0.1, 0.1, 0.1]}
                       height={4} width={4}
-                      source={{"uri":"https://s3-us-west-2.amazonaws.com/viro/Climber1Top.mp4"}} />*/
-                                                                                                                       }
+                      source={{"uri":"https://s3-us-west-2.amazonaws.com/viro/Climber1Top.mp4"}} />
+
                 </ViroNode>
               </ViroAnimatedComponent>
 
@@ -189,6 +196,9 @@ var GroupTestBasicBillboard = React.createClass({
 
     );
   },
+  _showNext() {
+          this.props.sceneNavigator.push({scene:require('./GroupTestMaterials')});
+      },
 
   _toggleTransform(){
     var newtransformflag = this.state.transformFlag + 1;
@@ -242,6 +252,11 @@ ViroMaterials.createMaterials({
       lightingModel: "Phong",
       diffuseTexture: require('../res/heart_d.jpg'),
     },
+  grey: {
+    shininess : 2.0,
+    lightingModel: "Blinn",
+    diffuseTexture: require('./res/grey.jpg'),
+  },
  });
 
 

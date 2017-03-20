@@ -51,6 +51,8 @@ var button_uri = {uri:"https://s3-us-west-2.amazonaws.com/viro/Explorer/360_hors
 var buttonGaze_uri = {uri:"http://storage.googleapis.com/ix_choosemuse/uploads/2016/02/Muse%20Android.jpeg"};
 var buttonTap_uri = {uri:"https://s3-us-west-2.amazonaws.com/viro/Explorer/360_horseshoe.jpg"};
 
+var ReleaseMenu = require("./ReleaseMenu.js");
+
 var ViroButtonTest = React.createClass({
    getInitialState() {
      return {
@@ -66,6 +68,9 @@ var ViroButtonTest = React.createClass({
      var buttonTap = this.state.showUrlImage ? buttonTap_uri : buttonTap_local;
       return (
             <ViroScene>
+            <ReleaseMenu sceneNavigator={this.props.sceneNavigator}/>
+
+
                  <ViroButton
                     width={this.state.widthAndHeight} height={this.state.widthAndHeight}
                     position={[0,0.5,-4]}
@@ -98,9 +103,16 @@ var ViroButtonTest = React.createClass({
          <ViroText style={styles.baseTextTwo} position={[1,0, 0]} width={1} height={2}
                 text={"Toggle Format " + this.state.format}
                 onClick={this._toggleFormat}/>
+
+        <ViroImage source={require('./res/poi_dot.png')} position={[0, -3, -2]} transformBehaviors={["billboard"]} onClick={this._showNext} />
+
          </ViroNode>
         );
    },
+
+   _showNext() {
+           this.props.sceneNavigator.push({scene:require('./ViroSurfaceFlexViewTest')});
+       },
 
    _onHover(source, isHovering){
     console.log("onHover");

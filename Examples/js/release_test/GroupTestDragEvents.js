@@ -44,6 +44,8 @@ var Local360Video = require("./res/360Asteroids.mp4");
 
 var LocalButtonImage = require("./res/icon_live.jpg");
 
+var ReleaseMenu = require("./ReleaseMenu.js");
+
 var TOGGLE_PLAY ="Toggle Play";
 var TOGGLE_PAUSE ="Toggle Pause";
 
@@ -80,6 +82,10 @@ onDrag(objectTag){return (source, dragtoPos ,objectTag) => {
   render: function() {
     return (
                 <ViroScene>
+
+                <ViroImage source={require('./res/poi_dot.png')} position={[-1, 0, 0]} transformBehaviors={["billboard"]} onClick={this._showNext} />
+                <ReleaseMenu sceneNavigator={this.props.sceneNavigator}/>
+
 
                 <ViroNode position={[0.8 , 0, -3.5]} >
 
@@ -182,6 +188,10 @@ onDrag(objectTag){return (source, dragtoPos ,objectTag) => {
 
     );
   },
+
+  _showNext() {
+          this.props.sceneNavigator.push({scene:require('./ViroVideoTest')});
+      },
 
   _toggleTransform(){
     var newtransformflag = this.state.transformFlag + 1;

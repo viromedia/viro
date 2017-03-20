@@ -44,6 +44,7 @@
 
  let polarToCartesian = ViroUtils.polarToCartesian;
 
+var ReleaseMenu = require("./ReleaseMenu.js");
 
 var Uri360Image = {uri:"https://lh3.googleusercontent.com/dB3Dvgf3VIglusoGJAfpNUAANhTXW8K9mvIsiIPkhJUAbAKGKJcEMPTf0mkSexzLM5o=w300"};
 var Local360Image = require("../res/sun_2302.jpg");
@@ -63,18 +64,26 @@ var Local360Image = require("../res/sun_2302.jpg");
      if (this.state.showColorBackground){
       return (
             <ViroScene>
+            <ReleaseMenu sceneNavigator={this.props.sceneNavigator}/>
+
              <ViroSkyBox
                  color={this.state.color}
                  format={this.state.format}
                  onLoadStart={this._onLoadStart}
                  onLoadEnd={this._onLoadEnd}/>
                  {this._getTestControls()}
+
+            <ViroImage source={require('./res/poi_dot.png')} position={[-1, 0, 0]} transformBehaviors={["billboard"]} onClick={this._showNext} />
+
+
             </ViroScene>
 
            );
      } else {
       return (
             <ViroScene>
+            <ReleaseMenu sceneNavigator={this.props.sceneNavigator}/>
+
              <ViroSkyBox source={{nx:image,
               px:image,
               ny:image,
@@ -82,6 +91,9 @@ var Local360Image = require("../res/sun_2302.jpg");
               nz:image,
               pz:image}} format={this.state.format} onLoadStart={this._onLoadStart} onLoadEnd={this._onLoadEnd}/>
               {this._getTestControls()}
+
+              <ViroImage source={require('./res/poi_dot.png')} position={[-1, 0, 0]} transformBehaviors={["billboard"]} onClick={this._showNext} />
+
             </ViroScene>
 
            );
@@ -106,6 +118,11 @@ var Local360Image = require("../res/sun_2302.jpg");
 
         );
    },
+
+   _showNext() {
+           this.props.sceneNavigator.push({scene:require('./Viro360ImageTest')});
+       },
+
 
    _toggleImageSource() {
         var newShowUrlImageFlag = !this.state.showUrlImage;

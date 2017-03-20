@@ -63,6 +63,8 @@ var Viro360ImageTest = React.createClass({
      <ReleaseMenu sceneNavigator={this.props.sceneNavigator}/>
      <ViroOmniLight position={[0, 0, 0]} color="#ffffff" attenuationStartDistance={40} attenuationEndDistance={50}/>
 
+     <ViroImage source={require('./res/poi_dot.png')} position={[-1, 0, 0]} transformBehaviors={["billboard"]} onClick={this._showNext} />
+
      <Viro360Image
       rotation={[0,this.state.rotationY,0]}
       source={this.state.current360Image}
@@ -84,6 +86,10 @@ var Viro360ImageTest = React.createClass({
 
     );
   },
+
+  _showNext() {
+          this.props.sceneNavigator.push({scene:require('./Viro360VideoTest')});
+      },
 
   _onBackgroundPhotoLoadStart(){
       console.log("Viro360ImageTest: _onLoadStart");

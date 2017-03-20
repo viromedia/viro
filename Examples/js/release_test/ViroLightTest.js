@@ -47,6 +47,8 @@
 
  // **This test has not been done.  This is placeholder for scene and navigation arrows**
 
+ var ReleaseMenu = require("./ReleaseMenu.js");
+
  var ViroLightTest = React.createClass({
 
    getInitialState() {
@@ -176,6 +178,10 @@
    render: function() {
      return (
       <ViroScene>
+      <ViroImage source={require('./res/poi_dot.png')} position={[-1, 0, 0]} transformBehaviors={["billboard"]} onClick={this._showNext} />
+
+      <ReleaseMenu sceneNavigator={this.props.sceneNavigator}/>
+
           {this._renderAmbientLight()}
           {this._renderDirectionalLight()}
           {this._renderLightControls()}
@@ -194,81 +200,13 @@
             width={2}
             length={2}/>
 
+
             {
              /*
               The box to the immediate left. This box is meant to test the spotlight.
               It is also lit by the global ambient and directional lights.
               */
             }
-          <ViroNode position={[-5,-2,-7]}>
-              <ViroSpotLight
-                  innerAngle={this.state.lightInnerAngle}
-                  outerAngle={this.state.lightOuterAngle}
-                  direction={this.state.lightDirection}
-                  position={[0, this.state.lightPosHeight, 0]}
-                  color={this.state.lightColor1}
-                  attenuationStartDistance={this.state.lightAttenuationDistanceStart}
-                  attenuationEndDistance={this.state.lightAttenuationDistanceStart + 3}/>
-
-              <ViroBox
-                materials={["whiteColorBlinn"]}
-                position={[0, 0, 0]}
-                scale={[1, 1, 1]}
-                height={2}
-                width={3}
-                length={3}/>
-          </ViroNode>
-
-          {
-           /*
-            The large box in the middle, lit by an omni light and the ambient +
-            directional global lights.
-            */
-          }
-          <ViroNode position={[-1,-2,-7]}>
-              <ViroOmniLight
-                  position={[0, this.state.lightPosHeight, 0]}
-                  color={this.state.lightColor0}
-                  attenuationStartDistance={this.state.lightAttenuationDistanceStart}
-                  attenuationEndDistance={this.state.lightAttenuationDistanceStart + 3} />
-
-              <ViroBox
-                materials={["whiteColorLambert"]}
-                position={[0, 0, 0]}
-                scale={[1, 1, 1]}
-                height={2}
-                width={3}
-                length={3}/>
-          </ViroNode>
-
-          {
-           /*
-            These are the 3 boxes to the right of the viewer. They are lit by
-            the omni light below, and the global ambient/directional lights.
-            */
-          }
-          <ViroNode position={[4, -2, -7]}>
-              {
-               /*
-                The spotlight within this node currently has no effect, because
-                lights only impact their child nodes.
-                */
-              }
-              <ViroNode position={[0, 5, 0]}>
-                <ViroSpotLight
-                    position={[0, 0, 0]}
-                    innerAngle={this.state.lightInnerAngle}
-                    outerAngle={this.state.lightOuterAngle}
-                    direction={this.state.lightDirection}
-                    color={"#8888FF"}
-                    attenuationStartDistance={3.5}
-                    attenuationEndDistance={5}/>
-              </ViroNode>
-              <ViroOmniLight
-                    position={[0, 1, 2]}
-                    color={"#ffffff"}
-                    attenuationStartDistance={this.state.lightAttenuationDistanceStart}
-                    attenuationEndDistance={this.state.lightAttenuationDistanceStart + 3} />
 
               <ViroBox
                     materials={["whiteColorLambert"]}
@@ -295,6 +233,9 @@
       </ViroScene>
      );
    },
+   _showNext() {
+           this.props.sceneNavigator.push({scene:require('./GroupTestBasicProps')});
+       },
  });
 
 const styles = StyleSheet.create({

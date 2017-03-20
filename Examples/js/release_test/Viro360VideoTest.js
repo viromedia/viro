@@ -71,6 +71,9 @@ var Viro360VideoTest = React.createClass({
           loop={this.state.loopVideo} muted={this.state.muteVideo} volume={this.state.volume}
           onFinish={this._onVideoFinished} onUpdateTime={this._onUpdateTime}/>
 
+          <ViroImage source={require('./res/poi_dot.png')} position={[-1, 0, 0]} transformBehaviors={["billboard"]} onClick={this._showNext} />
+
+
 <ViroText position={polarToCartesian([2, -10, 0])} text={this._getLoopingText()}
           style={styles.baseTextTwo} onClick={this._toggleLooping} transformBehaviors={["billboard"]}/>
         <ViroText position={polarToCartesian([2, -10, -5])} text="Restart"
@@ -88,6 +91,11 @@ var Viro360VideoTest = React.createClass({
           </ViroScene>
     );
   },
+
+  _showNext() {
+          this.props.sceneNavigator.push({scene:require('./ViroVideoTest')});
+      },
+
 
     _toggleRotation() {
         var newRotation = this.state.rotationY + 10;

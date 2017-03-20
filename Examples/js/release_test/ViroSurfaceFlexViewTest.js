@@ -47,11 +47,14 @@
 
  // **This test has not been done.  This is placeholder for scene and navigation arrows**
 
+ var ReleaseMenu = require("./ReleaseMenu.js");
+
  var ViroSurfaceFlexViewTest = React.createClass({
 
    getInitialState() {
      return {
         spinnerType:'dark',
+        fontSize:10,
         newWidth:1,
         newHeight:1
      };
@@ -60,7 +63,11 @@
    render: function() {
      return (
       <ViroScene>
+      <ReleaseMenu sceneNavigator={this.props.sceneNavigator}/>
+
       <ViroOmniLight position={[0, 0, 0]} color="#ffffff" attenuationStartDistance={40} attenuationEndDistance={50}/>
+      <ViroImage source={require('./res/poi_dot.png')} position={[-1, 0, 0]} transformBehaviors={["billboard"]} onClick={this._showNext} />
+
         <ViroNode position={[0,0,-3]}>
                   <ViroFlexView
                       position={[1, 1, 0]}
@@ -91,6 +98,10 @@
 
      );
    },
+
+   _showNext() {
+           this.props.sceneNavigator.push({scene:require('./ViroImageTest')});
+       },
 
    _toggleSpinner(){
         var newSpinnerType = this.state.spinnerType == "dark" ? "light" : "dark";

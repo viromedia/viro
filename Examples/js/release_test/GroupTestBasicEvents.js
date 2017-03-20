@@ -45,6 +45,8 @@ var Local360Video = require("./res/360Asteroids.mp4");
 
 var LocalButtonImage = require("./res/icon_live.jpg");
 
+var ReleaseMenu = require("./ReleaseMenu.js");
+
 var TOGGLE_PLAY ="Toggle Play";
 var TOGGLE_PAUSE ="Toggle Pause";
 
@@ -95,6 +97,7 @@ onDrag(objectTag){return (dragtoPos, source) => {
                                                  onScroll={this.onScroll("ViroScene")}
                                                  onSwipe={this.onSwipe("ViroScene")}>
 
+
                 <ViroController
                      onClick={this.onClick("ViroController")}
                        onClickState={this.onClickState("ViroController")}
@@ -103,6 +106,9 @@ onDrag(objectTag){return (dragtoPos, source) => {
                        onSwipe={this.onSwipe("ViroController")}
 reticleVisibility={this.state.reticleVisibility}
                 />
+
+               <ViroImage source={require('./res/poi_dot.png')} position={[-1, 0, 0]} transformBehaviors={["billboard"]} onClick={this._showNext} />
+               <ReleaseMenu sceneNavigator={this.props.sceneNavigator}/>
 
                 <ViroNode position={[0.8 , 0, -3.5]} >
 
@@ -259,6 +265,10 @@ reticleVisibility={this.state.reticleVisibility}
 
     );
   },
+
+  _showNext() {
+          this.props.sceneNavigator.push({scene:require('./GroupTestDragEvents')});
+      },
 
   _toggleTransform(){
     var newtransformflag = this.state.transformFlag + 1;

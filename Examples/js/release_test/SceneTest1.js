@@ -28,11 +28,18 @@ import {
   Viro360Video
 } from 'react-viro';
 
+
+var ReleaseMenu = require("./ReleaseMenu.js");
+
 var SceneTest1 = React.createClass({
 
   render: function() {
     return (
         <ViroScene position={[0,0,0]} reticleEnabled={false} >
+
+        <ReleaseMenu sceneNavigator={this.props.sceneNavigator}/>
+
+        <ViroImage source={require('./res/poi_dot.png')} position={[-1, 0, 0]} transformBehaviors={["billboard"]} onClick={this._showNext} />
 
            <ViroText style={styles.centeredText}  position={[0, 0, -4]} width={2} height ={2}
                  text={"Current: "+ this.props.title} />
@@ -64,6 +71,9 @@ var SceneTest1 = React.createClass({
     this.props.sceneNavigator.pop();
     },
 
+    _showNext() {
+            this.props.sceneNavigator.push({scene:require('./ViroSoundTest')});
+        },
 
   goToScene(sceneKey, isJumping){
     return () => {

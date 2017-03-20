@@ -43,6 +43,8 @@ var LocalImage = require("./res/360_park.jpg");
 var Uri360Video = {uri:"https://s3-us-west-2.amazonaws.com/viro/360_surf.mp4"};
 var Local360Video = require("./res/360Asteroids.mp4");
 
+var ReleaseMenu = require("./ReleaseMenu.js");
+
 var LocalButtonImage = require("./res/icon_live.jpg");
 
 var TOGGLE_PLAY ="Toggle Play";
@@ -86,6 +88,9 @@ var GroupTestMaterials = React.createClass({
                 <ViroScene>
                  <ViroAmbientLight
                             color={"#ffffff"}/>
+                <ViroImage source={require('./res/poi_dot.png')} position={[-1, 0, 0]} transformBehaviors={["billboard"]} onClick={this._showNext} />
+                <ReleaseMenu sceneNavigator={this.props.sceneNavigator}/>
+
 
                 <ViroNode position={[0.8 , 0, -3.5]} >
 
@@ -173,6 +178,10 @@ var GroupTestMaterials = React.createClass({
 
     );
   },
+
+  _showNext() {
+          this.props.sceneNavigator.push({scene:require('./GroupTestMaterials')});
+      },
 
   _toggleTransform(){
     var newtransformflag = this.state.materialFlag + 1;

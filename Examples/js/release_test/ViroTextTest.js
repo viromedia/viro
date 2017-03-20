@@ -42,6 +42,9 @@ import {
 let polarToCartesian = ViroUtils.polarToCartesian;
 var longTextTag ="I'm testing this to see if it works, this is the best most tremendous text engine. You won't be disappointed, believe me!";
 var longTextTag2 = "Changed text should see lots of #: ########### ########### ############### ########## ###### ########## ########## ###### End of #."
+
+var ReleaseMenu = require("./ReleaseMenu.js");
+
 var ViroTextTest = React.createClass({
 
   getInitialState() {
@@ -90,7 +93,11 @@ var ViroTextTest = React.createClass({
       }
     return (
       <ViroScene reticleEnabled={true} onPlatformUpdate={this._platformUpdate} >
+      <ReleaseMenu sceneNavigator={this.props.sceneNavigator}/>
+
         <ViroSkyBox color="#ff69b4" />
+
+        <ViroImage source={require('./res/poi_dot.png')} position={[-1, 0, 0]} transformBehaviors={["billboard"]} onClick={this._showNext} />
 
         <ViroNode  position={[0,0,-6]}>
 
@@ -153,6 +160,11 @@ var ViroTextTest = React.createClass({
       </ViroScene>
     );
   },
+
+  _showNext() {
+          this.props.sceneNavigator.push({scene:require('./Viro3DObjectTest')});
+      },
+
 });
 
 

@@ -109,6 +109,9 @@ var ViroSoundTest = React.createClass({
       <ViroScene reticleEnabled={true} onClick={this._onClick} soundRoom={this.state.soundRoom == 1 ? soundRoom : soundRoom1} >
         <ReleaseMenu sceneNavigator={this.props.sceneNavigator}/>
         <ViroCamera position={[0, 0, this.state.cameraPos]} active={true}/>
+        <ViroImage source={require('./res/poi_dot.png')} position={[-1, 0, 0]} transformBehaviors={["billboard"]} onClick={this._showNext} />
+
+
         <ViroSkyBox color="#ff69b4" />
         {this._getSoundControls()}
 
@@ -163,6 +166,9 @@ var ViroSoundTest = React.createClass({
     );
 
   },
+  _showNext() {
+          this.props.sceneNavigator.push({scene:require('./ViroLightTest')});
+      },
 
   _getSpatialControls(){
      var room = this.state.soundRoom == 1 ? "Curtain Heavy" : "Transparent Room";

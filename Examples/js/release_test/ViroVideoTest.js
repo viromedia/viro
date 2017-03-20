@@ -18,6 +18,7 @@ import {
   ViroUtils,
   Viro360Photo,
   Viro360Video,
+  ViroImage,
 } from 'react-viro';
 
 var VIDEO_REF = "videoref";
@@ -44,6 +45,9 @@ var ViroVideoTest = React.createClass({
           attenuationStartDistance={40} attenuationEndDistance={50} />
  {this._getViroVideo()}
 
+ <ViroImage source={require('./res/poi_dot.png')} position={[-1, 0, 0]} transformBehaviors={["billboard"]} onClick={this._showNext} />
+
+
 <ViroText position={polarToCartesian([2, -10, 0])} text={this._getLoopingText()}
           style={styles.baseTextTwo} onClick={this._toggleLooping} transformBehaviors={["billboard"]}/>
         <ViroText position={polarToCartesian([2, -10, -5])} text="Restart"
@@ -59,6 +63,10 @@ var ViroVideoTest = React.createClass({
           </ViroScene>
     );
   },
+  _showNext() {
+          this.props.sceneNavigator.push({scene:require('./ViroAnimatedComponentTest')});
+      },
+
   _getViroVideo() {
     if (this.state.showVideo) {
       return (

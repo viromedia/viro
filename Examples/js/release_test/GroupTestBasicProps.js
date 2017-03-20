@@ -41,6 +41,8 @@ var Local360Video = require("./res/360Asteroids.mp4");
 
 var LocalButtonImage = require("./res/icon_live.jpg");
 
+var ReleaseMenu = require("./ReleaseMenu.js");
+
 var TEST_COMPONENT_NUM = 11;
 
 var GroupTestBasicProps = React.createClass({
@@ -68,6 +70,11 @@ var GroupTestBasicProps = React.createClass({
   render: function() {
     return (
             <ViroScene onClick={this.sceneClick}>
+            <ReleaseMenu sceneNavigator={this.props.sceneNavigator}/>
+
+            <ViroImage source={require('./res/poi_dot.png')} position={[-1, 0, 0]} transformBehaviors={["billboard"]} onClick={this._showNext} />
+
+
                 <ViroNode position={[0.8 , 0, -3.5]}>
                 <Viro3DObject source={require('../res/heart.obj')} opacity={this.state.offsetData[10].opacity}
                          scale={[1.8 * this.state.offsetData[10].scale, 1.8 * this.state.offsetData[10].scale , 1.8]}
@@ -211,6 +218,10 @@ Note: Re-enable opacity for text once VIRO-885 is fixed
 
     );
   },
+
+  _showNext() {
+          this.props.sceneNavigator.push({scene:require('./GroupTestBasicAnimation')});
+      },
 
   _toggleVisibility(){
      this.setState({

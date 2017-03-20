@@ -44,6 +44,8 @@ let polarToCartesian = ViroUtils.polarToCartesian;
 
 // **This test has not been done.  This is placeholder for scene and navigation arrows**
 
+var ReleaseMenu = require("./ReleaseMenu.js");
+
 var ViroCameraTest = React.createClass({
 
   getInitialState() {
@@ -57,7 +59,11 @@ var ViroCameraTest = React.createClass({
   render: function() {
     return (
      <ViroScene onClick={this._toggleCamera} >
+     <ReleaseMenu sceneNavigator={this.props.sceneNavigator}/>
+
      <ViroOmniLight position={[0, 0, 0]} color="#ffffff" attenuationStartDistance={40} attenuationEndDistance={50}/>
+
+     <ViroImage source={require('./res/poi_dot.png')} position={[-1, 0, 0]} transformBehaviors={["billboard"]} onClick={this._showNext} />
 
      <ViroAnimatedComponent
                     animation="testLoopMove"
@@ -94,6 +100,10 @@ var ViroCameraTest = React.createClass({
 
     );
   },
+
+  _showNext() {
+          this.props.sceneNavigator.push({scene:require('./SceneTest1')});
+      },
 
   _toggleCamera(){
   console.log("Daniel _toggleCamera");
