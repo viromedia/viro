@@ -97,7 +97,7 @@ static NSString *const kVRTInvalidAPIKeyMessage = @"The given API Key is either 
 
 #pragma mark - VRORenderDelegate methods
 
-- (void)setupRendererWithDriver:(VRODriver *)driver {
+- (void)setupRendererWithDriver:(std::shared_ptr<VRODriver>)driver {
   
 }
 

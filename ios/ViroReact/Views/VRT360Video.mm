@@ -101,7 +101,7 @@
   std::string url = std::string([[videoURL description] UTF8String]);
 
   _videoTexture = std::make_shared<VROVideoTextureiOS>();
-  _videoTexture->loadVideo(url, self.context->getFrameSynchronizer(), *self.driver);
+  _videoTexture->loadVideo(url, self.context->getFrameSynchronizer(), self.driver);
   _videoTexture->prewarm();
 
   self.scene->setBackgroundSphere(_videoTexture);

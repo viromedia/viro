@@ -113,6 +113,14 @@ public class AnimatedComponent extends Component {
     }
 
     @Override
+    public void removeViewAt(int index) {
+        ((Node) getParent()).removeNativeChild((Node) getChildAt(index));
+        mChildNode = null;
+
+        super.removeViewAt(index);
+    }
+
+    @Override
     protected void onPropsSet() {
         executeAnimation();
     }
@@ -191,10 +199,11 @@ public class AnimatedComponent extends Component {
      */
     private void startAnimation() {
         if (mState != AnimationState.SCHEDULED) {
-            ViroLog.info(TAG, "Aborted starting new animation, was no longer scheduled.");
+            ViroLog.info(TAG, "Aborted starting new animation, was no longer scheduled");
             return;
         }
         if (mChildNode.isTornDown()) {
+            ViroLog.info(TAG, "Aborted starting new animation, child is torn down");
             return;
         }
 
@@ -234,12 +243,14 @@ public class AnimatedComponent extends Component {
      * bridge. It also handles looping logic.
      */
     private void onFinishAnimation() {
+        if (isTornDown()) {
+            return;
+        }
         mReactContext.getJSModule(RCTEventEmitter.class).receiveEvent(
                 getId(),
                 ViroEvents.ON_FINISH,
                 null);
         mState = AnimationState.TERMINATED;
-
         if (mLoop && mRun) {
             playAnimation();
         }

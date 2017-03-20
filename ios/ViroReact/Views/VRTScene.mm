@@ -64,7 +64,7 @@ static NSArray<NSNumber *> *const kDefaultSize = @[@(0), @(0), @(0)];
   [self setCameraIfAvailable];
 }
 
--(void)setDriver:(VRODriver *)driver {
+-(void)setDriver:(std::shared_ptr<VRODriver>)driver {
     [super setDriver:driver];
     self.driver->setSoundRoom([[_size objectAtIndex:0] floatValue],
                               [[_size objectAtIndex:1] floatValue],
@@ -161,7 +161,7 @@ static NSArray<NSNumber *> *const kDefaultSize = @[@(0), @(0), @(0)];
 
 #pragma mark - VROSceneDelegateiOS methods.
 
-- (void)sceneWillAppear:(VRORenderContext *)context driver:(VRODriver *)driver {
+- (void)sceneWillAppear:(VRORenderContext *)context driver:(std::shared_ptr<VRODriver>)driver {
   self.context = context;
   self.driver = driver;
     
@@ -174,18 +174,18 @@ static NSArray<NSNumber *> *const kDefaultSize = @[@(0), @(0), @(0)];
   }
 }
 
-- (void)sceneDidAppear:(VRORenderContext *)context driver:(VRODriver *)driver {
+- (void)sceneDidAppear:(VRORenderContext *)context driver:(std::shared_ptr<VRODriver>)driver {
   
 }
 
-- (void)sceneWillDisappear:(VRORenderContext *)context driver:(VRODriver *)driver {
+- (void)sceneWillDisappear:(VRORenderContext *)context driver:(std::shared_ptr<VRODriver>)driver {
   self.driver = driver;
   for(VRTView *view in _childViews) {
     [view sceneWillDisappear];
   }
 }
 
-- (void)sceneDidDisappear:(VRORenderContext *)context driver:(VRODriver *)driver {
+- (void)sceneDidDisappear:(VRORenderContext *)context driver:(std::shared_ptr<VRODriver>)driver {
 
 }
 

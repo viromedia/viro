@@ -123,7 +123,7 @@
   }
 }
 
-- (void)setDriver:(VRODriver *)driver {
+- (void)setDriver:(std::shared_ptr<VRODriver>)driver {
   _driver = driver;
   for (id childView in _childViews) {
     VRTView *view = (VRTView *)childView;

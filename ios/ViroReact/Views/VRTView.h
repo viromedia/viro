@@ -30,7 +30,7 @@ typedef NS_ENUM(NSInteger, ViroConstraintType) {
  */
 @property (nonatomic, readwrite) VRORenderContext *context;
 @property (nonatomic, readwrite) std::shared_ptr<VROScene> scene;
-@property (nonatomic, readwrite) VRODriver *driver;
+@property (nonatomic, readwrite) std::shared_ptr<VRODriver> driver;
 
 - (instancetype)initWithBridge:(RCTBridge *)bridge;
 

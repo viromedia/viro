@@ -123,7 +123,7 @@ static NSString *const kWebPrefix = @"http";
     }
 }
 
-- (void)setDriver:(VRODriver *)driver {
+- (void)setDriver:(std::shared_ptr<VRODriver>)driver {
     [super setDriver:driver];
     [self resetSound];
 }
@@ -409,7 +409,7 @@ static NSString *const kWebPrefix = @"http";
     return self;
 }
 
-- (void)setDriver:(VRODriver *)driver {
+- (void)setDriver:(std::shared_ptr<VRODriver>)driver {
     [_innerSound setDriver:driver];
 }
 

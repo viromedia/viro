@@ -108,7 +108,7 @@ public class Video360 extends Component {
         }
 
         // Create Texture
-        mVideoTextureJni = new VideoTextureJni();
+        mVideoTextureJni = new VideoTextureJni(mRenderContext);
 
         mDelegate = new Video360Delegate(this);
         mVideoTextureJni.setVideoDelegate(mDelegate);

@@ -105,7 +105,7 @@
   
   _videoTexture = std::make_shared<VROVideoTextureiOS>();
   _surface = VROSurface::createSurface(_width, _height);
-  _videoTexture->loadVideo(url, self.context->getFrameSynchronizer(), *self.driver);
+  _videoTexture->loadVideo(url, self.context->getFrameSynchronizer(), self.driver);
   
   _surface->getMaterials().front()->getDiffuse().setTexture(_videoTexture);
   if (self.paused) {

@@ -68,13 +68,13 @@
 
 + (std::shared_ptr<VROVideoTexture>)createVideoTexture:(NSString *)path
                                          renderContext:(VRORenderContext *)context
-                                                driver:(VRODriver *)driver {
+                                                driver:(std::shared_ptr<VRODriver>)driver {
   
   NSURL *videoURL = [NSURL URLWithString:path];
   std::string url = std::string([[videoURL description] UTF8String]);
     
   std::shared_ptr<VROVideoTexture> videoTexture = std::make_shared<VROVideoTextureiOS>();
-  videoTexture->loadVideo(url, context->getFrameSynchronizer(), *driver);
+  videoTexture->loadVideo(url, context->getFrameSynchronizer(), driver);
   videoTexture->prewarm();
   
   return videoTexture;
