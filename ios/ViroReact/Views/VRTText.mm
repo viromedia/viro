@@ -35,6 +35,7 @@ NSString *const VRTLabelReactTagAttributeName = @"ReactTagAttributeName";
     _width = 1.0;
     _height = 1.0;
     _ratio = 1.0;
+    _fontSize = 18;
     _defaultFont = [VRTText defaultFont];
     _maxLines = 0;
     _textClipMode = VROTextClipMode::ClipToBounds;
