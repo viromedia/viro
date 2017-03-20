@@ -23,17 +23,17 @@ public class ControllerManager extends ViroViewGroupManager<Controller> {
     }
 
     @Override
-    protected Controller createViewInstance(ThemedReactContext reactContext) {
+    public Controller createViewInstance(ThemedReactContext reactContext) {
         return new Controller(getContext());
     }
 
     @ReactProp(name = "reticleVisibility", defaultBoolean = Controller.DEFAULT_RETICLE_VISIBILITY)
-    protected void setReticleVisibility(Controller view, boolean reticleVisibility) {
+    public void setReticleVisibility(Controller view, boolean reticleVisibility) {
         view.setReticleVisibility(reticleVisibility);
     }
 
     @ReactProp(name = "controllerVisibility", defaultBoolean = Controller.DEFAULT_CONTROLLER_VISIBILITY)
-    protected void setControllerVisibility(Controller view, boolean controllerVisibility) {
+    public void setControllerVisibility(Controller view, boolean controllerVisibility) {
         view.setControllerVisibility(controllerVisibility);
     }
 
