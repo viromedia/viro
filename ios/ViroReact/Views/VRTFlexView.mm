@@ -134,7 +134,6 @@
           [vrtView isKindOfClass:[VRTText class]] ||
           [vrtView isKindOfClass:[VRTFlexView class]] ||
           [vrtView isKindOfClass:[VRTVideoSurface class]] ||
-          [vrtView isKindOfClass:[VRTAnimatedComponent class]] ||
           [vrtView isKindOfClass:[VRTSurface class]]) {
     [super insertReactSubview:view atIndex:index];
   } else {
