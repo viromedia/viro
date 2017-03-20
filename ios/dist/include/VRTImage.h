@@ -11,6 +11,7 @@
 #import <React/RCTImageSource.h>
 #import <React/RCTConvert.h>
 #import "VRTControl.h"
+#import "VRTUIImageWrapper.h"
 #import "VRTImageAsyncLoaderEventDelegate.h"
 
 @interface VRTImage : VRTControl<VRTImageAsyncLoaderEventDelegate>
@@ -20,11 +21,12 @@
 @property (nonatomic, assign) float width;
 @property (nonatomic, assign) float height;
 @property (nonatomic, copy) RCTImageSource *source;
-@property (nonatomic, copy) UIImage *placeholderSource;
+@property (nonatomic, copy) VRTUIImageWrapper *placeholderSource;
 @property (nonatomic, assign) bool mipmap;
 @property (nonatomic, assign) VROTextureInternalFormat format;
 @property (nonatomic, copy) RCTDirectEventBlock onLoadStartViro;
 @property (nonatomic, copy) RCTDirectEventBlock onLoadEndViro;
+@property (nonatomic, copy) RCTDirectEventBlock onErrorViro;
 
 @end
 

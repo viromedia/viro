@@ -29,10 +29,10 @@ public:
     // Delegate for callbacks across the bridge
     class VROSceneControllerDelegate {
     public:
-        virtual void onSceneWillAppear(VRORenderContext * context, VRODriver *driver){};
-        virtual void onSceneDidAppear(VRORenderContext * context, VRODriver *driver){};
-        virtual void onSceneWillDisappear(VRORenderContext * context, VRODriver *driver){};
-        virtual void onSceneDidDisappear(VRORenderContext * context, VRODriver *driver){};
+        virtual void onSceneWillAppear(VRORenderContext * context, std::shared_ptr<VRODriver> driver) {};
+        virtual void onSceneDidAppear(VRORenderContext * context, std::shared_ptr<VRODriver> driver) {};
+        virtual void onSceneWillDisappear(VRORenderContext * context, std::shared_ptr<VRODriver> driver) {};
+        virtual void onSceneDidDisappear(VRORenderContext * context, std::shared_ptr<VRODriver> driver) {};
     };
 
     void setDelegate(std::shared_ptr<VROSceneControllerDelegate> delegate){
@@ -52,33 +52,33 @@ public:
     /*
      Scene appeared delegate methods, triggered by VRORenderer.
      */
-    void onSceneWillAppear(VRORenderContext *context, VRODriver &driver) {
+    void onSceneWillAppear(VRORenderContext *context, std::shared_ptr<VRODriver> driver) {
         if (_sceneDelegateWeak.expired()){
             return;
         }
 
-        _sceneDelegateWeak.lock()->onSceneWillAppear(context, &driver);
+        _sceneDelegateWeak.lock()->onSceneWillAppear(context, driver);
     }
-    void onSceneDidAppear(VRORenderContext *context, VRODriver &driver) {
+    void onSceneDidAppear(VRORenderContext *context, std::shared_ptr<VRODriver> driver) {
         if (_sceneDelegateWeak.expired()){
             return;
         }
 
-        _sceneDelegateWeak.lock()->onSceneDidAppear(context, &driver);
+        _sceneDelegateWeak.lock()->onSceneDidAppear(context, driver);
     }
-    void onSceneWillDisappear(VRORenderContext *context, VRODriver &driver) {
+    void onSceneWillDisappear(VRORenderContext *context, std::shared_ptr<VRODriver> driver) {
         if (_sceneDelegateWeak.expired()){
             return;
         }
 
-        _sceneDelegateWeak.lock()->onSceneWillDisappear(context, &driver);
+        _sceneDelegateWeak.lock()->onSceneWillDisappear(context, driver);
     }
-    void onSceneDidDisappear(VRORenderContext *context, VRODriver &driver) {
+    void onSceneDidDisappear(VRORenderContext *context, std::shared_ptr<VRODriver> driver) {
         if (_sceneDelegateWeak.expired()){
             return;
         }
         
-        _sceneDelegateWeak.lock()->onSceneDidDisappear(context, &driver);
+        _sceneDelegateWeak.lock()->onSceneDidDisappear(context, driver);
     }
 
     // For now, we use fading for all animated scene transitions. TODO: VIRO-771

@@ -24,6 +24,7 @@
 @property (nonatomic, assign) float minDistance;
 @property (nonatomic, assign) float maxDistance;
 @property (nonatomic, copy, nullable) RCTDirectEventBlock onFinishViro;
+@property (nonatomic, copy) RCTDirectEventBlock onErrorViro;
 
 - (instancetype)initWithSoundType:(VROSoundType)soundType bridge:(RCTBridge *)bridge;
 
@@ -66,6 +67,7 @@
 @property (nonatomic, assign) float minDistance;
 @property (nonatomic, assign) float maxDistance;
 @property (nonatomic, copy, nullable) RCTDirectEventBlock onFinishViro;
+@property (nonatomic, copy) RCTDirectEventBlock onErrorViro;
 
 - (instancetype)initWithBridge:(RCTBridge *)bridge;
 

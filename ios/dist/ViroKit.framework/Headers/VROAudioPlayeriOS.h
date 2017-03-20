@@ -20,7 +20,6 @@
 @interface VROAudioPlayerDelegate : NSObject <AVAudioPlayerDelegate>
 
 - (id)initWithSoundDelegate:(std::shared_ptr<VROSoundDelegateInternal>)soundDelegate;
-
 - (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag;
 
 @end
@@ -28,37 +27,52 @@
 class VROAudioPlayeriOS : public VROAudioPlayer, public VROSoundDataDelegate, public std::enable_shared_from_this<VROAudioPlayeriOS> {
     
 public:
+    
     VROAudioPlayeriOS(std::string url, bool isLocalUrl);
     VROAudioPlayeriOS(std::shared_ptr<VROData> data);
-    
-    // Use static create over the VROSoundData constructor (so that you don't need to call setup).
-    static std::shared_ptr<VROAudioPlayeriOS> create(std::shared_ptr<VROSoundData> data);
     VROAudioPlayeriOS(std::shared_ptr<VROSoundData> data);
-
     virtual ~VROAudioPlayeriOS();
+    
+    /*
+     Must be invoke after construction, after setting the delegate.
+     */
+    void setup();
+    void setDelegate(std::shared_ptr<VROSoundDelegateInternal> delegate);
     
     void setLoop(bool loop);
     void play();
     void pause();
     void setVolume(float volume);
-  void setDelegate(std::shared_ptr<VROSoundDelegateInternal> delegate);
     void setMuted(bool muted);
     void seekToTime(float seconds);
   
 #pragma mark VROSoundDataDelegate Implementation
     
     void dataIsReady();
-    void dataError();
+    void dataError(std::string error);
     
 private:
     
+    /*
+     Underlying iOS audio player. The delegate is only kept here so that
+     it's retained.
+     */
     AVAudioPlayer *_player;
     VROAudioPlayerDelegate *_audioDelegate;
+    
+    /*
+     Generic settings.
+     */
     float _playVolume;
     bool _muted;
     bool _paused;
     bool _loop;
     bool _isLocal;
+    
+    /*
+     Source audio.
+     */
+    std::string _url;
     std::shared_ptr<VROSoundData> _data;
 
     /*
@@ -67,7 +81,6 @@ private:
      */
     void updatePlayerProperties();
 
-    void setup();
     void doFadeThenPause();
     void doFadeThenStop();
     

@@ -13,7 +13,6 @@
 #import <AVFoundation/AVFoundation.h>
 #import <CoreVideo/CVMetalTextureCache.h>
 #import <memory>
-#import "VROVideoDelegate.h"
 
 @class VROVideoCaptureDelegate;
 @class VROAVPlayerDelegate;
@@ -39,7 +38,7 @@ public:
      */
     void loadVideo(std::string url,
                    std::shared_ptr<VROFrameSynchronizer> frameSynchronizer,
-                   VRODriver &driver);
+                   std::shared_ptr<VRODriver> driver);
     
     /*
      Perform video initialization (which causes a stutter) early.
@@ -87,7 +86,7 @@ private:
 @interface VROAVPlayerDelegate : NSObject <AVPlayerItemOutputPullDelegate>
 
 - (id)initWithVideoTexture:(VROVideoTextureiOS *)texture player:(AVPlayer *)player
-                    driver:(VRODriver &)driver;
+                    driver:(std::shared_ptr<VRODriver>)driver;
 - (void)renderFrame;
 
 @end

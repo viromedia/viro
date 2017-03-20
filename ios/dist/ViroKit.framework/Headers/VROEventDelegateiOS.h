@@ -40,7 +40,10 @@ public:
     virtual void onClick(int source, ClickState clickState) {
         [_delegate onClick:source clickState:clickState];
     }
+  
 private:
-    id<VROEventDelegateProtocol> _delegate;
+  
+    __weak id<VROEventDelegateProtocol> _delegate;
+  
 };
 #endif /* VROEventDelegateiOS_h */

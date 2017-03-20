@@ -30,6 +30,7 @@ enum class VROShaderMask {
 };
 
 class VROShaderModifier;
+class VRODriverOpenGL;
 
 /*
  Represents a GLSL shader program. Shader programs are constructed with vertex
@@ -50,7 +51,8 @@ public:
     VROShaderProgram(std::string vertexShader, std::string fragmentShader,
                      const std::vector<std::string> &samplers,
                      const std::vector<std::shared_ptr<VROShaderModifier>> &modifiers,
-                     const std::vector<VROGeometrySourceSemantic> attributes);
+                     const std::vector<VROGeometrySourceSemantic> attributes,
+                     std::shared_ptr<VRODriverOpenGL> driver);
     
     uint32_t getShaderId() const {
         return _shaderId;
@@ -166,6 +168,15 @@ private:
      List of the names of all samplers used by this shader.
      */
     std::vector<std::string> _samplers;
+
+    /*
+     Weak reference to the driver that created this program. The driver's lifecycle
+     is tied to the parent EGL context, so we only delete GL objects if the driver
+     is alive, to ensure we're deleting them under the correct context (e.g. to avoid
+     accidentally deleting objects in a new context that were created in an older
+     one).
+     */
+    std::weak_ptr<VRODriverOpenGL> _driver;
 
     /*
      Compile and link the shader. Returns true on success.

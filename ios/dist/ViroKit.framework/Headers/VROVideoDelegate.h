@@ -15,6 +15,7 @@
 
 - (void)videoDidFinish;
 - (void)videoDidUpdateTime:(int)currentTimeInSeconds totalTimeInSeconds:(int)seconds;
+- (void)videoDidFail:(NSString *)error;
 
 @end
 

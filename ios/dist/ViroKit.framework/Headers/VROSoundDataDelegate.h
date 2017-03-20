@@ -19,7 +19,7 @@ public:
     virtual ~VROSoundDataDelegate() {}
     
     virtual void dataIsReady() = 0;
-    virtual void dataError() = 0;
+    virtual void dataError(std::string error) = 0;
     
 };
 

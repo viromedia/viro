@@ -15,10 +15,10 @@
  * scene transition events.
  */
 @protocol VROSceneDelegateProtocol<NSObject>
-- (void)sceneWillAppear:(VRORenderContext *)context driver:(VRODriver *)driver;
-- (void)sceneDidAppear:(VRORenderContext *)context driver:(VRODriver *)driver;
-- (void)sceneWillDisappear:(VRORenderContext *)context driver:(VRODriver *)driver;
-- (void)sceneDidDisappear:(VRORenderContext *)context driver:(VRODriver *)driver;
+- (void)sceneWillAppear:(VRORenderContext *)context driver:(std::shared_ptr<VRODriver>)driver;
+- (void)sceneDidAppear:(VRORenderContext *)context driver:(std::shared_ptr<VRODriver>)driver;
+- (void)sceneWillDisappear:(VRORenderContext *)context driver:(std::shared_ptr<VRODriver>)driver;
+- (void)sceneDidDisappear:(VRORenderContext *)context driver:(std::shared_ptr<VRODriver>)driver;
 - (void)startIncomingTransition:(VRORenderContext *)context duration:(float)duration;
 - (void)startOutgoingTransition:(VRORenderContext *)context duration:(float)duration;
 - (void)endIncomingTransition:(VRORenderContext *)context;
@@ -40,16 +40,16 @@ public:
     /*
      Scene appeared delegate methods.
      */
-    virtual void onSceneWillAppear(VRORenderContext *context, VRODriver *driver) {
+    virtual void onSceneWillAppear(VRORenderContext *context, std::shared_ptr<VRODriver> driver) {
         [_delegate sceneWillAppear:context driver:driver];
     }
-    virtual void onSceneDidAppear(VRORenderContext *context, VRODriver *driver) {
+    virtual void onSceneDidAppear(VRORenderContext *context, std::shared_ptr<VRODriver> driver) {
         [_delegate sceneDidAppear:context driver:driver];
     }
-    virtual void onSceneWillDisappear(VRORenderContext *context, VRODriver *driver) {
+    virtual void onSceneWillDisappear(VRORenderContext *context, std::shared_ptr<VRODriver> driver) {
         [_delegate sceneWillDisappear:context driver:driver];
     }
-    virtual void onSceneDidDisappear(VRORenderContext *context, VRODriver *driver) {
+    virtual void onSceneDidDisappear(VRORenderContext *context, std::shared_ptr<VRODriver> driver) {
         [_delegate sceneDidDisappear:context driver:driver];
     }
 
@@ -60,7 +60,7 @@ public:
         [_delegate startIncomingTransition:context duration:duration];
     }
     virtual void startOutgoingTransition(VRORenderContext *context, float duration){
-       [_delegate startOutgoingTransition:context duration:duration];
+        [_delegate startOutgoingTransition:context duration:duration];
     }
     virtual void endIncomingTransition(VRORenderContext *context) {
         [_delegate endIncomingTransition:context];
@@ -76,6 +76,8 @@ public:
     }
 
 private:
-    id<VROSceneDelegateProtocol> _delegate;
+  
+    __weak id<VROSceneDelegateProtocol> _delegate;
+  
 };
 #endif /* VROSceneDelegateiOS_h */

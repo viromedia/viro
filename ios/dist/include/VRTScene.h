@@ -12,6 +12,7 @@
 #import "VRTCamera.h"
 
 @interface VRTScene : VRTNode<VROSceneDelegateProtocol>
+
 @property (nonatomic, assign) BOOL recticleEnabled;
 @property (nonatomic, copy, nullable) RCTDirectEventBlock onPlatformUpdateViro;
 

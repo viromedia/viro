@@ -24,14 +24,16 @@ public:
     void videoDidFinish() {
         [_delegate videoDidFinish];
     }
-    
     void onVideoUpdatedTime(int currentTimeInSeconds, int totalTimeInSeconds){
         [_delegate videoDidUpdateTime:currentTimeInSeconds totalTimeInSeconds:totalTimeInSeconds];
+    }
+    void videoDidFail(std::string error) {
+        [_delegate videoDidFail:[NSString stringWithUTF8String:error.c_str()]];
     }
 
 private:
     
-    id <VROVideoDelegate> _delegate;
+    __weak id <VROVideoDelegate> _delegate;
     
 };
 
