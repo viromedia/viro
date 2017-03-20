@@ -229,7 +229,6 @@
                     height={1}
                     width={1}
                     length={1}/>
-         </ViroNode>
       </ViroScene>
      );
    },
