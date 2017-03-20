@@ -34,7 +34,7 @@ public:
      */
     virtual void loadVideo(std::string url,
                            std::shared_ptr<VROFrameSynchronizer> frameSynchronizer,
-                           VRODriver &driver) = 0;
+                           std::shared_ptr<VRODriver> driver) = 0;
     
     /*
      Perform video initialization (which causes a stutter) early.

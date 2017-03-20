@@ -28,7 +28,7 @@ public:
                                                                std::string url,
                                                                std::shared_ptr<VROFrameSynchronizer> frameSynchronizer,
                                                                std::shared_ptr<VROVideoTexture> texture,
-                                                               VRODriver &driver);
+                                                               std::shared_ptr<VRODriver> driver);
     
     void pause();
     void play();

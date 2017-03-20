@@ -11,6 +11,7 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreGraphics/CoreGraphics.h>
+#import <memory>
 
 class VRORenderContext;
 class VRODriver;
@@ -19,7 +20,7 @@ enum class VROEyeType;
 
 @protocol VRORenderDelegate <NSObject>
 
-- (void)setupRendererWithDriver:(VRODriver *)driver;
+- (void)setupRendererWithDriver:(std::shared_ptr<VRODriver>)driver;
 - (void)shutdownRenderer;
 - (void)renderViewDidChangeSize:(CGSize)size context:(VRORenderContext *)context;
 
