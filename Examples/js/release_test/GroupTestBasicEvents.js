@@ -31,7 +31,8 @@ import {
   ViroSpinner,
   ViroOmniLight,
   ViroAnimations,
-  ViroDirectionalLight
+  ViroDirectionalLight,
+  ViroController
 } from 'react-viro';
 
 let polarToCartesian = ViroUtils.polarToCartesian;
@@ -51,31 +52,39 @@ var TOGGLE_PAUSE ="Toggle Pause";
 var GroupTestBasicEvents = React.createClass({
   getInitialState() {
     return {
+        reticleVisibility:true,
         transformFlag: 1,
         transformBehaviors:["billboard"]
     };
   },
-onHover(objectTag){return (source, isHovering)  => {
-                         console.log("GroupTest: " + objectTag+ " onHover: " + isHovering);
+onHover(objectTag){return (isHovering, source)  => {
+                         console.log("GroupTest: " + objectTag + " isHovering" + isHovering+ " onHover: " + source);
                        }},
 onClick(objectTag){return (source) => {
-                         console.log("GroupTest: " + objectTag+ " onClick");
+                        if (objectTag == "ViroSphere"){
+                        var visible = !this.state.reticleVisibility;
+                        console.log("Set reticle visibility: " + visible);
+                            this.setState({
+                                              reticleVisibility:visible,
+                                    });
+                        }
+                         console.log("GroupTest: " + objectTag + " onClick source:" + source);
                        }},
-onClickState(objectTag){return (source, state) => {
-                              console.log("GroupTest: " + objectTag+ " onClickState: " + state);
+onClickState(objectTag){return (state, source) => {
+                              console.log("GroupTest: " + objectTag + " source " + source+ " onClickState: " + state);
                             }},
-onTouch(objectTag){return (source, touchState, touchPos) => {
-                         console.log("GroupTest: " + objectTag+ " onTouch touchState " + touchState + ",  touchpos: " + touchPos[0] +"," + touchPos[1]);
+onTouch(objectTag){return (touchState, touchPos, source) => {
+                         console.log("GroupTest:" + objectTag + " onTouch touchState " + touchState + ",  touchpos: " + touchPos[0] +"," + touchPos[1] + " source: " + source);
                        }},
-onScroll(objectTag){return (source, scrollPos) => {
-                          console.log("GroupTest: " + objectTag+ " onScroll scrollPos " + scrollPos[0] + "," + scrollPos[1]);
+onScroll(objectTag){return (scrollPos, source) => {
+                          console.log("GroupTest:" + objectTag + " onScroll scrollPos " + scrollPos[0] + "," + scrollPos[1] + " source:" + source);
                         }},
-onSwipe(objectTag){return (source, swipeState) => {
-                         console.log("GroupTest: " + objectTag+ " onSwipe swipeState" + swipeState);
+onSwipe(objectTag){return (swipeState, source) => {
+                         console.log("GroupTest:" + objectTag + " onSwipe swipeState" + swipeState + " source: " + source);
                        }},
-onDrag(objectTag){return (source, dragtoPos) => {
-                        console.log("GroupTest: " + objectTag+ " onDrag dragtoPos" +
-                        dragtoPos[0] +","+ dragtoPos[1]+","+ dragtoPos[2]);
+onDrag(objectTag){return (dragtoPos, source) => {
+                        console.log("GroupTest:" + objectTag + " onDrag dragtoPos" +
+                        dragtoPos[0] +","+ dragtoPos[1]+","+ dragtoPos[2] + " source: " + source);
                       }},
   render: function() {
     return (
@@ -86,6 +95,15 @@ onDrag(objectTag){return (source, dragtoPos) => {
                                                  onScroll={this.onScroll("ViroScene")}
                                                  onSwipe={this.onSwipe("ViroScene")}>
 
+                <ViroController
+                     onClick={this.onClick("ViroController")}
+                       onClickState={this.onClickState("ViroController")}
+                     onTouch={this.onTouch("ViroController")}
+                        onScroll={this.onScroll("ViroController")}
+                       onSwipe={this.onSwipe("ViroController")}
+reticleVisibility={this.state.reticleVisibility}
+                />
+
                 <ViroNode position={[0.8 , 0, -3.5]} >
 
 
@@ -93,6 +111,7 @@ onDrag(objectTag){return (source, dragtoPos) => {
                              scale={[1.8 , 1.8  , 1.8]}
                               position={[-2.5 , -4.3 , -1.15]}
                               materials={["heart"]}
+
                               onHover={this.onHover("3dObject")}
                               onClick={this.onClick("3dObject")}
                               onClickState={this.onClickState("3dObject")}

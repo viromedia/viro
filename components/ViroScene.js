@@ -35,7 +35,7 @@ var ViroScene = React.createClass({
   },
 
   _onHover: function(event: Event) {
-    this.props.onHover && this.props.onHover(event.nativeEvent.source, event.nativeEvent.isHovering);
+    this.props.onHover && this.props.onHover(event.nativeEvent.isHovering, event.nativeEvent.source);
   },
 
   _onClick: function(event: Event) {
@@ -43,7 +43,7 @@ var ViroScene = React.createClass({
   },
 
   _onClickState: function(event: Event) {
-    this.props.onClickState && this.props.onClickState(event.nativeEvent.source, event.nativeEvent.clickState);
+    this.props.onClickState && this.props.onClickState(event.nativeEvent.clickState, event.nativeEvent.source);
     let CLICKED = 3; // Value representation of Clicked ClickState within EventDelegateJni.
     if (event.nativeEvent.clickState == CLICKED){
         this._onClick(event)
@@ -51,15 +51,15 @@ var ViroScene = React.createClass({
   },
 
   _onTouch: function(event: Event) {
-    this.props.onTouch && this.props.onTouch(event.nativeEvent.source, event.nativeEvent.touchState, event.nativeEvent.touchPos);
+    this.props.onTouch && this.props.onTouch(event.nativeEvent.touchState, event.nativeEvent.touchPos, event.nativeEvent.source);
   },
 
   _onScroll: function(event: Event) {
-    this.props.onScroll && this.props.onScroll(event.nativeEvent.source, event.nativeEvent.scrollPos);
+    this.props.onScroll && this.props.onScroll(event.nativeEvent.scrollPos, event.nativeEvent.source);
   },
 
   _onSwipe: function(event: Event) {
-    this.props.onSwipe && this.props.onSwipe(event.nativeEvent.source, event.nativeEvent.swipeState);
+    this.props.onSwipe && this.props.onSwipe(event.nativeEvent.swipeState, event.nativeEvent.source);
   },
 
   _onPlatformUpdate: function(event: Event) {
