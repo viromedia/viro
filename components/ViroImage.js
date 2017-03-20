@@ -63,7 +63,7 @@ var ViroImage = React.createClass({
     // Required to be local source static image by using require(''./image.jpg').
     // or by specifying local uri.
     // If not set, default is set to viro_blank.png in Resources which is a transparent image
-    placeHolderSource:PropTypes.oneOfType([
+    placeholderSource:PropTypes.oneOfType([
       // TODO: Tooling to support documenting these directly and having them display in the docs.
       PropTypes.shape({
         uri: PropTypes.string,
@@ -156,9 +156,9 @@ var ViroImage = React.createClass({
   },
 
   render: function() {
-    var defaultPlaceHolder = require('./Resources/viro_blank.png');
+    var defaultPlaceholder = require('./Resources/viro_blank.png');
     var imgsrc = resolveAssetSource(this.props.source);
-    var placeHoldersrc;
+    var placeholderSrc;
     if (this.props.src) {
       console.error('The <ViroImage> component takes a `source` property rather than `src`.');
     }
@@ -167,10 +167,10 @@ var ViroImage = React.createClass({
       console.error('The <ViroImage> component takes a `materials` property rather than `material`.');
     }
 
-    if (this.props.placeHolderSource) {
-      placeHoldersrc = resolveAssetSource(this.props.placeHolderSource);
+    if (this.props.placeholderSource) {
+      placeholderSrc = resolveAssetSource(this.props.placeholderSource);
     } else {
-      placeHoldersrc = resolveAssetSource(defaultPlaceHolder);
+      placeholderSrc = resolveAssetSource(defaultPlaceholder);
     }
 
     // Since materials and transformBehaviors can be either a string or an array, convert the string to a 1-element array.
@@ -182,7 +182,7 @@ var ViroImage = React.createClass({
     let nativeProps = Object.assign({}, this.props);
     nativeProps.materials = materials;
     nativeProps.source = imgsrc;
-    nativeProps.placeHolderSource = placeHoldersrc;
+    nativeProps.placeholderSource = placeholderSrc;
     nativeProps.transformBehaviors = transformBehaviors;
     nativeProps.onLoadStartViro = this._onLoadStart;
     nativeProps.onLoadEndViro = this._onLoadEnd;

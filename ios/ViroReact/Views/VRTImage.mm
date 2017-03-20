@@ -38,7 +38,7 @@ static float const kDefaultHeight = 1;
   return self;
 }
 
-- (void)setPlaceHolderSource:(VRTUIImageWrapper *)placeholderSource {
+- (void)setPlaceholderSource:(VRTUIImageWrapper *)placeholderSource {
   _placeholderSource = placeholderSource;
 }
 

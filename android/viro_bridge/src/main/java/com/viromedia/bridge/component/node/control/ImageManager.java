@@ -35,7 +35,7 @@ public class ImageManager extends NodeManager<Image> {
         view.setSource(map);
     }
 
-    @ReactProp(name = "placeHolderSource")
+    @ReactProp(name = "placeholderSource")
     public void setPlaceholderSource(Image view, ReadableMap map) {
         view.setPlaceholderSource(map);
     }
