@@ -40,7 +40,7 @@ public:
     static uint32_t hashLights(const std::vector<std::shared_ptr<VROLight>> &lights);
     
     VROLight(VROLightType type) :
-        _lightId(sLightId++),
+        _lightId(++sLightId),
         _type(type),
         _color({ 1.0, 1.0, 1.0 }),
         _updated(true),

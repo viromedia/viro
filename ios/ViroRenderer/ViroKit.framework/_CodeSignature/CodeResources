@@ -2441,7 +2441,7 @@
 		</data>
 		<key>Headers/VROAudioPlayeriOS.h</key>
 		<data>
-		UnZ3ToFZhudhJ5sSlaPP71ch5hc=
+		f427Uv+CEA7mqJ1gamzOcYbBIoI=
 		</data>
 		<key>Headers/VROBillboardConstraint.h</key>
 		<data>
@@ -2577,7 +2577,7 @@
 		</data>
 		<key>Headers/VROLight.h</key>
 		<data>
-		dus0US20ddFfGjhN4S8pyhudj6Q=
+		+QETJ0aXm0TBx5RvFSiez1++cBU=
 		</data>
 		<key>Headers/VROLoader.h</key>
 		<data>
@@ -2709,11 +2709,11 @@
 		</data>
 		<key>Headers/VROSoundDataDelegate.h</key>
 		<data>
-		oP2g9v+e8ofYbyiuBxvbdN99IRY=
+		xANow4f3BTAIYyRZKZzhBsbdeuA=
 		</data>
 		<key>Headers/VROSoundDataGVR.h</key>
 		<data>
-		1vVtUTFcI26lFaBTdIAjJKieZgo=
+		sHD6M988/fCoe31/IHJv8SJ+8a4=
 		</data>
 		<key>Headers/VROSoundDelegate.h</key>
 		<data>
@@ -2729,7 +2729,7 @@
 		</data>
 		<key>Headers/VROSoundGVR.h</key>
 		<data>
-		et2GKq906eOdYjMv7HCdtPOCQnI=
+		e8ca0BfMvCJkhpY601VR06OeeFs=
 		</data>
 		<key>Headers/VROSphere.h</key>
 		<data>
@@ -7294,11 +7294,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			UnZ3ToFZhudhJ5sSlaPP71ch5hc=
+			f427Uv+CEA7mqJ1gamzOcYbBIoI=
 			</data>
 			<key>hash2</key>
 			<data>
-			3SJPkzZvILlwHLNWjAe+EdMtFtESq/DA5DTjULvqt4g=
+			ZXehbkoI1lPhvWED/aDMBqWkXsjdFxUj4R7nnylUZA8=
 			</data>
 		</dict>
 		<key>Headers/VROBillboardConstraint.h</key>
@@ -7668,11 +7668,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			dus0US20ddFfGjhN4S8pyhudj6Q=
+			+QETJ0aXm0TBx5RvFSiez1++cBU=
 			</data>
 			<key>hash2</key>
 			<data>
-			/w5PNLLBzZGAzI9j17vFoRjPNNJKamLCnHO+ZhMJx7w=
+			MY6mUiCr8Ww92a4kM8IZG2xGD+zoeQzZf5xcooGjSkA=
 			</data>
 		</dict>
 		<key>Headers/VROLoader.h</key>
@@ -8031,22 +8031,22 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			oP2g9v+e8ofYbyiuBxvbdN99IRY=
+			xANow4f3BTAIYyRZKZzhBsbdeuA=
 			</data>
 			<key>hash2</key>
 			<data>
-			5sCfF0lCYBShaphSwzjru0+m8ElNiv+kouAxyuguFHk=
+			YVWwoHYYBd4OzZ3GfWPqCfgQ1+CFakkeklbN5NAVhkM=
 			</data>
 		</dict>
 		<key>Headers/VROSoundDataGVR.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			1vVtUTFcI26lFaBTdIAjJKieZgo=
+			sHD6M988/fCoe31/IHJv8SJ+8a4=
 			</data>
 			<key>hash2</key>
 			<data>
-			Q9DkzgiXbHwWupwyzgPdvwF6KebcacJoFF0erwKSkyk=
+			IUc/m8vN6cVl5lCGEk0ZXADoDc2UrQ1gRMzF+SLJvBs=
 			</data>
 		</dict>
 		<key>Headers/VROSoundDelegate.h</key>
@@ -8086,11 +8086,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			et2GKq906eOdYjMv7HCdtPOCQnI=
+			e8ca0BfMvCJkhpY601VR06OeeFs=
 			</data>
 			<key>hash2</key>
 			<data>
-			RClgrH0nqsdEtygAzp3qMqvgQFMPMrrqHZ8lbb9l2uw=
+			OskvN50mo1jYWC8YlkAZ1jhgBpEyb1qEiJsKC06DBnE=
 			</data>
 		</dict>
 		<key>Headers/VROSphere.h</key>
