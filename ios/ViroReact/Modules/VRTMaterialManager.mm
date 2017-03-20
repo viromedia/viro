@@ -9,6 +9,7 @@
 #import <React/RCTConvert.h>
 #import "VRTMaterialManager.h"
 #import "VRTImage.h"
+#import "VRTUIImageWrapper.h"
 #import <React/RCTUtils.h>
 #import <React/RCTImageSource.h>
 
@@ -172,7 +173,12 @@ RCT_EXPORT_METHOD(setJSMaterials:(NSDictionary *)materialsDict)
   if (!image) {
     image = [self downloadImageSync:json];
     if (!image) {
-      image = [RCTConvert UIImage:[json objectForKey:@"source"]];
+      VRTUIImageWrapper *uiWrapper = [RCTConvert VRTUIImageWrapper:[json objectForKey:@"source"]];
+      if(uiWrapper == nil) {
+        NSString *errorMsg = [NSString stringWithFormat:@"Error, unable to create material with source: %@", [json objectForKey:@"source"]];
+        RCTLogError(errorMsg);
+      }
+      image = uiWrapper.image;
     }
     [_imageDictionary setObject:image forKey:path];
   }
@@ -415,73 +421,11 @@ RCT_EXPORT_METHOD(setJSMaterials:(NSDictionary *)materialsDict)
 //             Tracked by VIRO-912
 - (UIImage *)downloadImageSync:(id)json
 {
-  if (!json) {
-    return nil;
+  VRTUIImageWrapper *uiImageWrapper = [RCTConvert VRTUIImageWrapper:json];
+  if(uiImageWrapper != nil){
+    return uiImageWrapper.image;
   }
-  
-  RCTImageSource *imageSource = [RCTConvert RCTImageSource:json];
-  if (!imageSource) {
-    return nil;
-  }
-  
-  __block UIImage *image;
-  if (!RCTIsMainQueue()) {
-    // It seems that none of the UIImage loading methods can be guaranteed
-    // thread safe, so we'll pick the lesser of two evils here and block rather
-    // than run the risk of crashing
-    RCTLogWarn(@"Calling [RCTConvert UIImage:] on a background thread is not recommended");
-    dispatch_sync(dispatch_get_main_queue(), ^{
-      image = [RCTConvert UIImage:json];
-    });
-    return image;
-  }
-  
-  NSURL *URL = imageSource.request.URL;
-  NSString *scheme = URL.scheme.lowercaseString;
-  if ([scheme isEqualToString:@"file"]) {
-    NSString *assetName = RCTBundlePathForURL(URL);
-    image = assetName ? [UIImage imageNamed:assetName] : nil;
-    if (!image) {
-      // Attempt to load from the file system
-      NSString *filePath = URL.path;
-      if (filePath.pathExtension.length == 0) {
-        filePath = [filePath stringByAppendingPathExtension:@"png"];
-      }
-      image = [UIImage imageWithContentsOfFile:filePath];
-      if (!image) {
-        RCTLogConvertError(json, @"an image. File not found.");
-      }
-    }
-  } else if ([scheme isEqualToString:@"data"]) {
-    image = [UIImage imageWithData:[NSData dataWithContentsOfURL:URL]];
-  } else if ([scheme hasPrefix:@"http"]) {
-    image = [UIImage imageWithData:[NSData dataWithContentsOfURL:URL]];
-  } else {
-    RCTLogConvertError(json, @"an image. Only local files or data URIs are supported.");
-    return nil;
-  }
-  
-  CGFloat scale = imageSource.scale;
-  if (!scale && imageSource.size.width) {
-    // If no scale provided, set scale to image width / source width
-    scale = CGImageGetWidth(image.CGImage) / imageSource.size.width;
-  }
-  
-  if (scale) {
-    image = [UIImage imageWithCGImage:image.CGImage
-                                scale:scale
-                          orientation:image.imageOrientation];
-  }
-  
-  if (!CGSizeEqualToSize(imageSource.size, CGSizeZero) &&
-      !CGSizeEqualToSize(imageSource.size, image.size)) {
-    RCTLogError(@"Image source %@ size %@ does not match loaded image size %@.",
-                URL.path.lastPathComponent,
-                NSStringFromCGSize(imageSource.size),
-                NSStringFromCGSize(image.size));
-  }
-  
-  return image;
+  return nil;
 }
 
 @end

@@ -12,6 +12,8 @@
 		8A130DAE1E43A8AB0050D83B /* VRTSoundModule.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8A130DAD1E43A8AB0050D83B /* VRTSoundModule.mm */; };
 		8A31CFA41E27047100550CFE /* VRTSurfaceManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8A31CFA31E27047100550CFE /* VRTSurfaceManager.mm */; };
 		8A31CFB41E2705EC00550CFE /* VRTSurface.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8A31CFB31E2705EC00550CFE /* VRTSurface.mm */; };
+		8BCF287C1E8090A900F0DD62 /* VRTUIImageWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BCF287A1E8090A900F0DD62 /* VRTUIImageWrapper.m */; };
+		8BCF287D1E8090AA00F0DD62 /* VRTUIImageWrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = 8BCF287B1E8090A900F0DD62 /* VRTUIImageWrapper.h */; };
 		8BDD9DD71E2EDC5200A42870 /* VRTCameraManager.h in Sources */ = {isa = PBXBuildFile; fileRef = 8BE0D4861DFA15880032AB99 /* VRTCameraManager.h */; };
 		8BDD9DD81E2EDC5200A42870 /* VRTCameraManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8BE0D4871DFA15880032AB99 /* VRTCameraManager.mm */; };
 		8BDD9E1B1E453F3500A42870 /* VRTBundleURLProvider.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8BDD9E1A1E453F3500A42870 /* VRTBundleURLProvider.mm */; };
@@ -479,6 +481,8 @@
 		8A31CFA31E27047100550CFE /* VRTSurfaceManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = VRTSurfaceManager.mm; path = ViroReact/VRTSurfaceManager.mm; sourceTree = "<group>"; };
 		8A31CFB21E2705EC00550CFE /* VRTSurface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VRTSurface.h; path = ViroReact/Views/VRTSurface.h; sourceTree = "<group>"; };
 		8A31CFB31E2705EC00550CFE /* VRTSurface.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = VRTSurface.mm; path = ViroReact/Views/VRTSurface.mm; sourceTree = "<group>"; };
+		8BCF287A1E8090A900F0DD62 /* VRTUIImageWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VRTUIImageWrapper.m; path = ViroReact/Utility/VRTUIImageWrapper.m; sourceTree = "<group>"; };
+		8BCF287B1E8090A900F0DD62 /* VRTUIImageWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VRTUIImageWrapper.h; path = ViroReact/Utility/VRTUIImageWrapper.h; sourceTree = "<group>"; };
 		8BDD9D9E1E09F39B00A42870 /* Pods.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Pods.xcodeproj; path = Pods/Pods.xcodeproj; sourceTree = "<group>"; };
 		8BDD9E191E453F3500A42870 /* VRTBundleURLProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VRTBundleURLProvider.h; path = ViroReact/VRTBundleURLProvider.h; sourceTree = "<group>"; };
 		8BDD9E1A1E453F3500A42870 /* VRTBundleURLProvider.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = VRTBundleURLProvider.mm; path = ViroReact/VRTBundleURLProvider.mm; sourceTree = "<group>"; };
@@ -839,6 +843,8 @@
 		8BE0D51C1DFA3DDA0032AB99 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				8BCF287A1E8090A900F0DD62 /* VRTUIImageWrapper.m */,
+				8BCF287B1E8090A900F0DD62 /* VRTUIImageWrapper.h */,
 				8BE0D51D1DFA3DEA0032AB99 /* VRTCubeMap.h */,
 				8BE0D51E1DFA3DEA0032AB99 /* VRTCubeMap.m */,
 				8BE0D51F1DFA3DEA0032AB99 /* VRTImageAsyncLoader.h */,
@@ -957,6 +963,7 @@
 				8BDDA10E1E5BD3FC00A42870 /* VRTFlexView.h in Headers */,
 				8BDDA10F1E5BD3FC00A42870 /* VRTHUD.h in Headers */,
 				8BDDA1101E5BD3FC00A42870 /* VRTHUDComponent.h in Headers */,
+				8BCF287D1E8090AA00F0DD62 /* VRTUIImageWrapper.h in Headers */,
 				8BDDA1111E5BD3FC00A42870 /* VRTImage.h in Headers */,
 				8BDDA1121E5BD3FC00A42870 /* VRTLabelShadowView.h in Headers */,
 				8BDDA1131E5BD3FC00A42870 /* VRTLight.h in Headers */,
@@ -1282,6 +1289,7 @@
 				8BE0D50C1DFA3D9B0032AB99 /* VRTShadowFlexView.mm in Sources */,
 				8BE0D4F91DFA3D9B0032AB99 /* VRTAnimatedComponentShadowView.mm in Sources */,
 				8BE0D5071DFA3D9B0032AB99 /* VRTNodeContainerShadowView.mm in Sources */,
+				8BCF287C1E8090A900F0DD62 /* VRTUIImageWrapper.m in Sources */,
 				8BE0D50B1DFA3D9B0032AB99 /* VRTSceneShadowView.mm in Sources */,
 				8BE0D50D1DFA3D9B0032AB99 /* VRTShadowView.mm in Sources */,
 				8BE0D4A71DFA15880032AB99 /* VRT3DObjectManager.mm in Sources */,

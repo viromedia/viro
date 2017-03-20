@@ -38,7 +38,7 @@ static float const kDefaultHeight = 1;
   return self;
 }
 
-- (void)setPlaceHolderSource:(UIImage *)placeholderSource {
+- (void)setPlaceHolderSource:(VRTUIImageWrapper *)placeholderSource {
   _placeholderSource = placeholderSource;
 }
 
@@ -88,10 +88,10 @@ static float const kDefaultHeight = 1;
 
   if (_imageNeedsDownload) {
     // Set the placeholder while the image loads
-    if (_placeholderSource && _source && !_texture && self.node && self.node->getGeometry()) {
+    if (_placeholderSource.image && _source && !_texture && self.node && self.node->getGeometry()) {
       std::shared_ptr<VROTexture> placeholderTexture = std::make_shared<VROTexture>(VROTextureInternalFormat::RGBA8,
                                                                                     VROMipmapMode::Runtime,
-                                                                                    std::make_shared<VROImageiOS>(_placeholderSource,
+                                                                                    std::make_shared<VROImageiOS>(_placeholderSource.image,
                                                                                                                   VROTextureInternalFormat::RGBA8));
         self.node->getGeometry()->getMaterials().front()->getDiffuse().setTexture(placeholderTexture);
     }
