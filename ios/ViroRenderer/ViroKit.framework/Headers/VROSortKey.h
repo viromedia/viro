@@ -26,17 +26,19 @@ public:
 
     bool operator< (const VROSortKey& r) const {
         /*
-         If both elements are part of the same hierarchy, then include graph depth in the sort.
-         Otherwise, ignore graph depth.
+         The std::tie operation perform the sort for us, in order of increasing important.
+         We generally sort by rendering order and distance to camera, then by batch switching
+         concerns (shader, textures, light, material), and finally by tie-breakers (node, 
+         element index).
+         
+         For hierarchies, note that the distance from camera for all objects in a hierarchy
+         is set to the distance from camera of the parent. This way distance from camera becomes
+         irrelevant within a hierarchy, so that within each hierarchy we can sort by hierarchy
+         depth only. Note we do not sort by hierarchy ID because it is ok to interleave objects
+         of different hierarchies within the render order.
          */
-        if (hierarchyId > 0 && hierarchyId == r.hierarchyId) {
-            return std::tie(renderingOrder, hierarchyDepth, distanceFromCamera, incoming, shader, textures, lights, material, node, elementIndex) <
-            std::tie(r.renderingOrder, r.hierarchyDepth, r.distanceFromCamera, r.incoming, r.shader, r.textures, r.lights, r.material, r.node, r.elementIndex);
-        }
-        else {
-            return std::tie(renderingOrder, distanceFromCamera, incoming, shader, textures, lights, material, node, elementIndex) <
-            std::tie(r.renderingOrder, r.distanceFromCamera, r.incoming, r.shader, r.textures, r.lights, r.material, r.node, r.elementIndex);
-        }
+        return std::tie(renderingOrder, distanceFromCamera, hierarchyDepth, incoming, shader, textures, lights, material, node, elementIndex) <
+               std::tie(r.renderingOrder, r.distanceFromCamera, r.hierarchyDepth, r.incoming, r.shader, r.textures, r.lights, r.material, r.node, r.elementIndex);
     }
             
     /*
