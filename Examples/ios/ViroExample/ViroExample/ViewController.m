@@ -28,7 +28,7 @@
     // register for the exit notification
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(exitVr)
-                                                 name:kVRTUserRequestedExit
+                                                 name:kVRTOnExitViro
                                                object:nil];
 }
 
@@ -53,6 +53,7 @@
 }
 
 - (void)exitVr {
+    NSLog(@"Exit VR Daniel");
     dispatch_async(dispatch_get_main_queue(), ^{
         [self dismissViewControllerAnimated:YES completion:nil];
     });
