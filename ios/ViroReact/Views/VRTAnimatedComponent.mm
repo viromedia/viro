@@ -119,6 +119,11 @@ enum class VRTAnimatedComponentState {
     _animationNeedsUpdate = YES;
 }
 
+- (void)setLoop:(BOOL)loop {
+    _loop = loop;
+    _animationNeedsUpdate = YES;
+}
+
 - (void)setAnimation:(NSString *)animation {
     if (self.executableAnimation) {
         self.executableAnimation->terminate();
