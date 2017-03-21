@@ -1,10 +1,11 @@
 {
   "name": "react-viro",
   "main": "index.js",
-  "version": "0.0.1",
+  "version": "0.0.47",
   "scripts": {
     "start": "node Examples/node_modules/react-native/local-cli/cli.js start",
-    "test": "jest"
+    "test": "jest",
+    "postinstall": "npm install -g ngrok@2.2.3"
   },
   "jest": {
     "preset": "jest-react-native"
