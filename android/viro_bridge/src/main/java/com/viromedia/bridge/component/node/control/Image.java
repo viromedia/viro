@@ -28,7 +28,7 @@ import java.util.List;
 
 public class Image extends Control {
     private static final String TAG = ViroLog.getTag(Image.class);
-    private final MaterialJni mDefaultMaterial;
+    private MaterialJni mDefaultMaterial;
     private SurfaceJni mNativeSurface;
     private ImageJni mLatestImage;
     private TextureJni mLatestImageTexture;
@@ -217,6 +217,9 @@ public class Image extends Control {
 
     @Override
     public void onTearDown() {
+        if (isTornDown()) {
+            return;
+        }
         super.onTearDown();
         if (mNativeSurface != null) {
             mNativeSurface.destroy();
@@ -224,6 +227,7 @@ public class Image extends Control {
         }
         if (mDefaultMaterial != null) {
             mDefaultMaterial.destroy();
+            mDefaultMaterial = null;
         }
         if (mLatestImage != null) {
             mLatestImage.destroy();
