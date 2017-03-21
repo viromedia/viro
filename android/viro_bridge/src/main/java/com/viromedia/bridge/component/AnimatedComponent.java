@@ -32,6 +32,7 @@ public class AnimatedComponent extends Component {
     private AnimationManager mManager = null;
     private AnimationState mState = AnimationState.TERMINATED;
     private Node mChildNode = null;
+    private boolean mAnimationNeedsUpdate = false;
 
     /**
      * This is a handler to the main thread where we queue up our delayed runner
@@ -53,25 +54,30 @@ public class AnimatedComponent extends Component {
         mManager = context.getNativeModule(AnimationManager.class);
     }
 
+    public void setLoop(boolean loop) {
+        mLoop = loop;
+        mAnimationNeedsUpdate = true;
+    }
+
+    public void setDelay(float delay) {
+        mDelayInMilliseconds = delay;
+        mAnimationNeedsUpdate = true;
+    }
+
+    public void setRun(boolean run) {
+        mRun = run;
+        mAnimationNeedsUpdate = true;
+    }
+
     public void setAnimation(String animationName) {
         // Terminate the old animation if there was one and reset the state
         if (mExecutableAnimation != null) {
             mExecutableAnimation.terminate();
         }
         mState = AnimationState.TERMINATED;
+
         mAnimation = animationName;
-    }
-
-    public void setLoop(boolean loop) {
-        mLoop = loop;
-    }
-
-    public void setDelay(float delay) {
-        mDelayInMilliseconds = delay;
-    }
-
-    public void setRun(boolean run) {
-        mRun = run;
+        mAnimationNeedsUpdate = true;
     }
 
     /**
@@ -114,7 +120,10 @@ public class AnimatedComponent extends Component {
 
     @Override
     protected void onPropsSet() {
-        executeAnimation();
+        if (mAnimationNeedsUpdate) {
+            updateAnimation();
+            mAnimationNeedsUpdate = false;
+        }
     }
 
     /**
@@ -123,8 +132,9 @@ public class AnimatedComponent extends Component {
      * to start/restart animations.
      */
     protected void onChildrenSet() {
+        mAnimationNeedsUpdate = true;
         terminateAnimation();
-        executeAnimation();
+        updateAnimation();
     }
 
     /**
@@ -145,7 +155,7 @@ public class AnimatedComponent extends Component {
     /**
      * This method executes the animation.
      */
-    private void executeAnimation() {
+    private void updateAnimation() {
         if (getChildCount() != 1) {
             return;
         }
@@ -162,13 +172,15 @@ public class AnimatedComponent extends Component {
      * a paused animation.
      */
     private void playAnimation() {
-        if (mState == AnimationState.TERMINATED) {
+        if(mState == AnimationState.PAUSED) {
+            mExecutableAnimation.resume();
+            mState = AnimationState.RUNNING;
+        }
+        else if (mState == AnimationState.TERMINATED) {
             mState = AnimationState.SCHEDULED;
             mMainLoopHandler.postDelayed(mDelayedRunner, (long) mDelayInMilliseconds);
-        } else if(mState == AnimationState.PAUSED) {
-            mExecutableAnimation.resume();
-            onStartAnimation();
-        } else {
+        }
+        else {
             ViroLog.warn(TAG, "Unable to play animation in state " + mState.name());
         }
     }
@@ -183,6 +195,11 @@ public class AnimatedComponent extends Component {
         } else if (mState == AnimationState.SCHEDULED) {
             mState = AnimationState.TERMINATED;
             mMainLoopHandler.removeCallbacks(mDelayedRunner);
+
+            if (mExecutableAnimation != null) {
+                mExecutableAnimation.destroy();
+                mExecutableAnimation = null;
+            }
         }
     }
 
@@ -210,10 +227,10 @@ public class AnimatedComponent extends Component {
         final WeakReference<AnimatedComponent> weakSelf = new WeakReference<>(this);
         mExecutableAnimation.execute(mChildNode.getNodeJni(), new BaseAnimation.AnimationDelegate() {
             @Override
-            public void onFinish() {
+            public void onFinish(BaseAnimation animation) {
                 AnimatedComponent self = weakSelf.get();
-                if (weakSelf != null) {
-                    self.onFinishAnimation();
+                if (self != null) {
+                    self.onFinishAnimation(animation);
                 }
             }
         });
@@ -223,7 +240,6 @@ public class AnimatedComponent extends Component {
      * This method should be called when an animation starts and notifies the JS bridge
      */
     private void onStartAnimation() {
-        mState = AnimationState.RUNNING;
         mReactContext.getJSModule(RCTEventEmitter.class).receiveEvent(
                 getId(),
                 ViroEvents.ON_START,
@@ -234,15 +250,22 @@ public class AnimatedComponent extends Component {
      * This method should be called by the JNI layer when the animation ends and notifies the JS
      * bridge. It also handles looping logic.
      */
-    private void onFinishAnimation() {
+    private void onFinishAnimation(BaseAnimation animation) {
         if (isTornDown()) {
             return;
         }
+
         mReactContext.getJSModule(RCTEventEmitter.class).receiveEvent(
                 getId(),
                 ViroEvents.ON_FINISH,
                 null);
+
         mState = AnimationState.TERMINATED;
+        if (mExecutableAnimation != null) {
+            mExecutableAnimation.destroy();
+            mExecutableAnimation = null;
+        }
+
         if (mLoop && mRun) {
             playAnimation();
         }
