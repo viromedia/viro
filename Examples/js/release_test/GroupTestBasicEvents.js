@@ -63,13 +63,6 @@ onHover(objectTag){return (isHovering, source)  => {
                          console.log("GroupTest: " + objectTag + " isHovering" + isHovering+ " onHover: " + source);
                        }},
 onClick(objectTag){return (source) => {
-                        if (objectTag == "ViroSphere"){
-                        var visible = !this.state.reticleVisibility;
-                        console.log("Set reticle visibility: " + visible);
-                            this.setState({
-                                              reticleVisibility:visible,
-                                    });
-                        }
                          console.log("GroupTest: " + objectTag + " onClick source:" + source);
                        }},
 onClickState(objectTag){return (state, source) => {
