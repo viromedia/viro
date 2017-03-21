@@ -111,6 +111,7 @@ var ViroButtonTest = React.createClass({
    },
 
    _showNext() {
+     this.props.sceneNavigator.pop();
            this.props.sceneNavigator.push({scene:require('./ViroSurfaceFlexViewTest')});
        },
 

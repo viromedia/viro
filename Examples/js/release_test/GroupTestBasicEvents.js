@@ -32,7 +32,7 @@ import {
   ViroOmniLight,
   ViroAnimations,
   ViroDirectionalLight,
-  ViroController
+  ViroController,
 } from 'react-viro';
 
 let polarToCartesian = ViroUtils.polarToCartesian;
@@ -267,6 +267,7 @@ reticleVisibility={this.state.reticleVisibility}
   },
 
   _showNext() {
+    this.props.sceneNavigator.pop();
           this.props.sceneNavigator.push({scene:require('./GroupTestDragEvents')});
       },
 

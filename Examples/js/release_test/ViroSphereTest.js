@@ -103,6 +103,7 @@
    },
 
    _showNext() {
+     this.props.sceneNavigator.pop();
            this.props.sceneNavigator.push({scene:require('./ViroButtonTest')});
        },
 

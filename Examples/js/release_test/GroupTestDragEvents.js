@@ -31,7 +31,8 @@ import {
   ViroSpinner,
   ViroOmniLight,
   ViroAnimations,
-  ViroDirectionalLight
+  ViroDirectionalLight,
+  ViroController,
 } from 'react-viro';
 
 let polarToCartesian = ViroUtils.polarToCartesian;
@@ -190,6 +191,7 @@ onDrag(objectTag){return (source, dragtoPos ,objectTag) => {
   },
 
   _showNext() {
+    this.props.sceneNavigator.pop();
           this.props.sceneNavigator.push({scene:require('./ViroVideoTest')});
       },
 

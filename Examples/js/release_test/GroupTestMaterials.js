@@ -180,7 +180,8 @@ var GroupTestMaterials = React.createClass({
   },
 
   _showNext() {
-          this.props.sceneNavigator.push({scene:require('./GroupTestMaterials')});
+    this.props.sceneNavigator.pop();
+          this.props.sceneNavigator.push({scene:require('./GroupTestDragEvents')});
       },
 
   _toggleTransform(){
