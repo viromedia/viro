@@ -113,14 +113,6 @@ public class AnimatedComponent extends Component {
     }
 
     @Override
-    public void removeViewAt(int index) {
-        ((Node) getParent()).removeNativeChild((Node) getChildAt(index));
-        mChildNode = null;
-
-        super.removeViewAt(index);
-    }
-
-    @Override
     protected void onPropsSet() {
         executeAnimation();
     }
