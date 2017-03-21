@@ -100,8 +100,7 @@ var BTN_TYPE_CLICKED = 'clicked';
     }
 
     // We default to showing the button if it's undefined
-    if (!this.props.visible) {
-
+    if (this.props.visible === undefined) {
       this.props.visible = true;
     }
 

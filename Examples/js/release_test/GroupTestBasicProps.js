@@ -183,7 +183,7 @@ Note: Re-enable opacity for text once VIRO-885 is fixed
                       position={[-1.5 , -2, 0]}
                       scale={[1, 1, 0.1]}
                       style={styles.baseTextTwo}
-                      text="Toogle position"
+                      text="Toogle Position"
                       onClick={this._togglePosition}/>
 
                  <ViroText
@@ -197,7 +197,7 @@ Note: Re-enable opacity for text once VIRO-885 is fixed
                        position={[1.5 , -2, 0]}
                        scale={[1, 1, 0.1]}
                        style={styles.baseTextTwo}
-                       text="Toggle rotation"
+                       text="Toggle Rotation"
                        onClick={this._toggleRotation}/>
 
                   <ViroText
