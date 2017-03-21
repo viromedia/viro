@@ -18,6 +18,8 @@ class VROVector3f;
 class VRODriver;
 class VRORenderContext;
 
+static float kTransitionPushDistance = 0.10;
+
 /*
  * TODO VIRO-708: Remove Scene Controller in favor of VROScene. With a
  * SceneDelegate that both ios (VROSceneDelegateiOS) and Java (VROSceneDelegateJNI)
@@ -81,29 +83,37 @@ public:
         _sceneDelegateWeak.lock()->onSceneDidDisappear(context, driver);
     }
 
-    // For now, we use fading for all animated scene transitions. TODO: VIRO-771
+    // For now, we use fade plus push for all animated scene transitions. TODO: VIRO-771
     // captures applying varying kinds of custom animations on scene transitions.
-    void startIncomingTransition(float duration, VROTimingFunctionType timingFunctionType){
+    void startIncomingTransition(float duration, VROTimingFunctionType timingFunctionType,
+                                 VRORenderContext *context) {
         
-        // Preserve the current opacity of root nodes. We start each node off at
+        VROVector3f forward = context->getCamera().getForward().scale(kTransitionPushDistance);
+        
+        // Preserve the current opacity and position of root nodes. We start each node off at
         // opacity 0 and will animate toward this preserved opacity
         std::map<std::shared_ptr<VRONode>, float> preservedOpacities;
         for (std::shared_ptr<VRONode> root : _scene->getRootNodes()) {
             preservedOpacities[root] = root->getOpacity();
             root->setOpacity(0.0f);
+            
+            // Start each root node back 1 unit. The nodes will animate toward
+            // the camera. This also eliminates z-fighting with the outgoing scene
+            root->setPosition(root->getPosition() + forward);
         }
 
         if (_scene->getBackground() != nullptr) {
             _scene->getBackground()->getMaterials().front()->setTransparency(0.0);
         }
 
-        // Construct and commit fade-in animation for the scene
+        // Construct and commit fade-in/pull-in animation for the scene
         VROTransaction::begin();
         VROTransaction::setAnimationDuration(duration);
         VROTransaction::setTimingFunction(timingFunctionType);
 
         for (std::shared_ptr<VRONode> root : _scene->getRootNodes()) {
             root->setOpacity(preservedOpacities[root]);
+            root->setPosition(root->getPosition() - forward);
         }
 
         if (_scene->getBackground() != nullptr) {
@@ -123,7 +133,11 @@ public:
         VROTransaction::commit();
     }
 
-    void startOutgoingTransition(float duration, VROTimingFunctionType timingFunctionType){
+    void startOutgoingTransition(float duration, VROTimingFunctionType timingFunctionType,
+                                 VRORenderContext *context) {
+        
+        VROVector3f forward = context->getCamera().getForward().scale(kTransitionPushDistance);
+
         // Preserve the current opacity of root nodes. When the scene disappears, we'll
         // restore that opacity (so that the next time the scene appears, it will be at said
         // previous opacity).
@@ -132,23 +146,24 @@ public:
             preservedOpacities[root] = root->getOpacity();
         }
 
-        // Construct and commit fade-out animation for the scene
+        // Construct and commit fade-out/push-back animation for the scene
         VROTransaction::begin();
         VROTransaction::setAnimationDuration(duration);
         VROTransaction::setTimingFunction(timingFunctionType);
 
         for (std::shared_ptr<VRONode> root : _scene->getRootNodes()) {
             root->setOpacity(0.0f);
+            root->setPosition(root->getPosition() + forward);
         }
 
         if (_scene->getBackground() != nullptr) {
             _scene->getBackground()->getMaterials().front()->setTransparency(0.0);
         }
         
-        // At the end of the animation, restore the opacity of the nodes (since
-        // they are no longer visible)
+        // At the end of the animation, restore the opacity and position of the
+        // nodes (since they are no longer visible)
         std::weak_ptr<VROSceneController> weakPtr = shared_from_this();
-        VROTransaction::setFinishCallback([weakPtr, preservedOpacities]() {
+        VROTransaction::setFinishCallback([weakPtr, preservedOpacities, forward]() {
             std::shared_ptr<VROSceneController> scene = weakPtr.lock();
             if (scene) {
                 for (std::shared_ptr<VRONode> root : scene->getScene()->getRootNodes()) {
@@ -156,6 +171,8 @@ public:
                     if (it != preservedOpacities.end()) {
                         root->setOpacity(it->second);
                     }
+                    
+                    root->setPosition(root->getPosition() - forward);
                 }
                 scene->setActiveTransitionAnimation(false);
             }
