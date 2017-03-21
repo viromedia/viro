@@ -103,7 +103,7 @@ ViroAnimations.registerAnimations({
   },
   _ViroSpinner_clockwiseZ: {
     properties: {
-      rotateZ: "+=270"
+      rotateZ: "-=90"
     },
     duration: 250, //.25 seconds
   },
