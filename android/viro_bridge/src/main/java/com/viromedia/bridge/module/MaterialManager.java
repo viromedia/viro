@@ -5,6 +5,7 @@
 package com.viromedia.bridge.module;
 
 
+import android.graphics.Bitmap;
 import android.net.Uri;
 
 import com.facebook.react.bridge.ReactApplicationContext;
@@ -125,8 +126,11 @@ public class MaterialManager extends ReactContextBaseJavaModule {
                             ImageDownloader downloader = new ImageDownloader(mContext);
                             downloader.setTextureFormat(format);
 
-                            ImageJni nativeImage = new ImageJni(downloader.getImageSync(uri), format);
-                            setImageOnMaterial(nativeImage, format, mipmap, nativeMaterial, materialPropertyName);
+                            Bitmap imageBitmap = downloader.getImageSync(uri);
+                            if (imageBitmap != null) {
+                                ImageJni nativeImage = new ImageJni(imageBitmap, format);
+                                setImageOnMaterial(nativeImage, format, mipmap, nativeMaterial, materialPropertyName);
+                            }
                         }
                     }
                 }

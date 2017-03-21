@@ -74,7 +74,12 @@ public class ImageDownloader {
         }
         Bitmap toReturn = mImageMap.get(latch);
         mImageMap.remove(latch);
-        return toReturn.copy(mConfig, false);
+        if (toReturn != null) {
+            return toReturn.copy(mConfig, false);
+        } else {
+            ViroLog.warn(TAG, "Could not download image at: " + uri.toString());
+            return null;
+        }
     }
 
     /**
