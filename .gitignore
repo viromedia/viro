@@ -32,6 +32,7 @@ ios/ngrokendpoint.txt
 
 # Node
 Examples/node_modules
+npm-debug.log
 
 *.DS_Store
 *local.properties

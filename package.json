@@ -3,7 +3,7 @@
   "main": "index.js",
   "version": "0.0.47",
   "scripts": {
-    "start": "node Examples/node_modules/react-native/local-cli/cli.js start",
+    "start": "echo 'I dont think you meant to run npm start here.'",
     "test": "jest",
     "postinstall": "npm install -g ngrok@2.2.3"
   },

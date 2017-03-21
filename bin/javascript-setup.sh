@@ -34,3 +34,16 @@ cp -r ./node_modules/react-viro/bin/files/javascript/* .
 # replace APP_NAME_HERE with actual app names
 vsed "s/APP_NAME_HERE/$VIRO_PROJECT_NAME/" index.*
 
+# update the package.json to run the ngrok script
+TARGET_FILEPATH=package.json
+SEARCH_PATTERN="scripts"
+LINE_TO_APPEND_AFTER=$(grep "$SEARCH_PATTERN" "$TARGET_FILEPATH")
+LINE_TO_APPEND_AFTER=$(echo $LINE_TO_APPEND_AFTER | sed -e 's/[]\/$*.^|[]/\\&/g')
+
+LINE_TO_ADD="  \"prestart\": \"./node_modules/react-viro/bin/run_ngrok.sh\","
+LINE_TO_ADD=$(echo $LINE_TO_ADD | sed -e 's/[]\/$*.^|[]/\\&/g')
+
+vsed "s/$LINE_TO_APPEND_AFTER/&"$'\\\n'"$LINE_TO_ADD/" $TARGET_FILEPATH
+
+chmod +x ./node_modules/react-viro/bin/run_ngrok.sh
+
