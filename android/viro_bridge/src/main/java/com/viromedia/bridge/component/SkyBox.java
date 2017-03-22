@@ -133,7 +133,7 @@ public class SkyBox extends Component {
     @Override
     public void onTearDown() {
         super.onTearDown();
-        if (!mImageJniMap.isEmpty()) {
+        if (!mImageJniMap.isEmpty() && mSourceMap != null) {
             ReadableMapKeySetIterator iterator = mSourceMap.keySetIterator();
             while (iterator.hasNextKey()) {
                 String key = iterator.nextKey();
