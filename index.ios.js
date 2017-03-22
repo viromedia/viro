@@ -37,7 +37,7 @@ var ViroCodeSamplesSceneNavigator = React.createClass({
           scene: scenes['360 Photo Tour'],
         }}
         viroAppProps={{...this.props}}
-        apiKey="YOUR_API_KEY_HERE"
+        apiKey="API_KEY_HERE"
       />
     );
   }
