@@ -9,6 +9,7 @@ import com.facebook.react.common.MapBuilder;
 import com.facebook.react.uimanager.ThemedReactContext;
 import com.facebook.react.uimanager.annotations.ReactProp;
 import com.viromedia.bridge.ReactViroPackage;
+import com.viromedia.bridge.component.node.Node;
 import com.viromedia.bridge.utility.ViroEvents;
 
 import java.util.Map;
@@ -62,6 +63,11 @@ public class SceneNavigatorManager extends ViroViewGroupManager<SceneNavigator> 
         if (view instanceof SceneNavigator) {
             ((SceneNavigator) view).onPropsSet();
         }
+    }
+
+    @ReactProp(name = "hasOnExitViroCallback", defaultBoolean = false)
+    public void setHasOnExitViroCallback(SceneNavigator navigator, boolean hasOnExitViroCallback) {
+        navigator.setHasOnExitViroCallback(hasOnExitViroCallback);
     }
 
     @Override

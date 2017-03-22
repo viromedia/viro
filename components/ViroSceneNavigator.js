@@ -384,6 +384,7 @@ var ViroSceneNavigator = React.createClass({
         {...this.props}
         currentSceneIndex={this.state.currentSceneIndex}
         style={this.props.style, styles.container}
+        hasOnExitViroCallback={this.props.onExitViro != undefined}
         onExitViro={this._onExitViro}>
         {items}
       </VRTSceneNavigator>
@@ -402,7 +403,7 @@ var styles = StyleSheet.create({
 
 var VRTSceneNavigator = requireNativeComponent(
     'VRTSceneNavigator', ViroSceneNavigator, {
-        nativeOnly: { currentSceneIndex:true, onExitViro:true }
+        nativeOnly: { currentSceneIndex:true, onExitViro:true, hasOnExitViroCallback:true }
     }
 );
 

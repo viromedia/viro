@@ -135,6 +135,7 @@ public class SceneNavigator extends FrameLayout {
 
     private boolean mVrModeEnabled = true;
     private boolean mHasSetVrMode = false;
+    private boolean mHasOnExitViroCallback = false;
 
     private String mApiKey;
 
@@ -248,6 +249,10 @@ public class SceneNavigator extends FrameLayout {
         mVrModeEnabled = vrModeEnabled;
     }
 
+    public void setHasOnExitViroCallback(boolean hasCallback) {
+        mHasOnExitViroCallback = hasCallback;
+    }
+
     public void setDebug(boolean debug) {
         mVrView.setDebug(debug);
     }
@@ -324,6 +329,11 @@ public class SceneNavigator extends FrameLayout {
     }
 
     public void userDidRequestExitVR(){
+        if (!mHasOnExitViroCallback){
+            mReactContext.getCurrentActivity().finish();
+            return;
+        }
+
         // Notify javascript listeners (for ReactNativeJs to ViroReactJs cases)
         mReactContext.getJSModule(RCTEventEmitter.class).receiveEvent(
                 getId(),
