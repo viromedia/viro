@@ -20,7 +20,12 @@ function box_out()
   tput sgr 0
 }
 
-ngrok http 8081 > /dev/null &
+ngrokPID=$(pgrep ngrok)
+if [ -z "$ngrokPID" ] ; then
+  ngrok http 8081 > /dev/null &
+else
+  echo "Ngrok is already running"
+fi
 
 #loop a few times until we get a ngrok response
 numtries=0

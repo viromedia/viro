@@ -1,7 +1,8 @@
 {
   "name": "react-viro",
   "main": "index.js",
-  "version": "0.0.47",
+  "version": "0.0.48",
+  "license": "Refer to LICENSE file",
   "scripts": {
     "start": "echo 'I dont think you meant to run npm start here.'",
     "test": "jest",
@@ -21,6 +22,7 @@
     "android/gvr_common",
     "ios/dist",
     "ios/ViroReact.podspec",
-    "bin"
+    "bin",
+    "LICENSE"
   ]
 }
