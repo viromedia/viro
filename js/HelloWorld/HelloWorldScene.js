@@ -1,12 +1,12 @@
 'use strict';
 
 import React, { Component } from 'react';
+import {StyleSheet} from 'react-native';
 
 import {
-  StyleSheet,
   ViroScene,
   ViroText,
-  Viro360Photo,
+  Viro360Image,
 } from 'react-viro';
 
 var HelloWorldScene = React.createClass({
@@ -18,7 +18,7 @@ var HelloWorldScene = React.createClass({
   render: function() {
     return (
      <ViroScene>
-      <Viro360Photo source={require('./res/guadalupe_360.jpg')} />
+      <Viro360Image source={require('./res/guadalupe_360.jpg')} />
       <ViroText text="Hello World!" position={[0, 0, -2]} style={styles.helloWorldTextStyle} />
      </ViroScene>
     );
@@ -28,7 +28,7 @@ var HelloWorldScene = React.createClass({
 var styles = StyleSheet.create({
   helloWorldTextStyle: {
     fontFamily: 'HelveticaNeue-Medium',
-    fontSize: 70,
+    fontSize: 40,
     color: '#ffffff',
   },
 });

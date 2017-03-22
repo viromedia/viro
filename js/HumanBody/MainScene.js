@@ -1,17 +1,19 @@
 'use strict';
 
 import React, { Component } from 'react';
+import {StyleSheet} from 'react-native';
 
 import {
-  StyleSheet,
   ViroSpotLight,
+  ViroDirectionalLight,
+  ViroAmbientLight,
   ViroOrbitCamera,
   ViroScene,
   Viro3DObject,
   ViroText,
-  ViroSkybox,
+  ViroSkyBox,
   ViroNode,
-  Materials,
+  ViroMaterials,
 } from 'react-viro';
 
 var MainScene = React.createClass({
@@ -24,33 +26,29 @@ var MainScene = React.createClass({
   render: function() {
     return (
      <ViroScene style={styles.container}>
-        <ViroSkybox source={{nx:require('./res/grid_bg.jpg'),
+        <ViroSkyBox source={{nx:require('./res/grid_bg.jpg'),
                              px:require('./res/grid_bg.jpg'),
                              ny:require('./res/grid_bg.jpg'),
                              py:require('./res/grid_bg.jpg'),
                              nz:require('./res/grid_bg.jpg'),
                              pz:require('./res/grid_bg.jpg')}} />
-        <ViroOrbitCamera position={[0, 0, -0]} focalPoint={[0, 0, -0.5]} />
-        <ViroSpotLight position={[0, 0, 0]}
-                       color="#DDDDDD"
-                       direction={[0, 0, -1]}
-                       attenuationStartDistance={5}
-                       attenuationEndDistance={10}
-                       innerAngle={5}
-                       outerAngle={20}/>
+        <ViroOrbitCamera position={[0, 0, -0]} active={true} focalPoint={[0, 0, -1]} />
+        <ViroDirectionalLight direction={[0, 0, -1]} color="#ffffff" />
 
-       <ViroNode position={[0, 0, -0.5]} >
-         <Viro3DObject source={require('./res/heart.obj')}
+        <ViroAmbientLight color="#aaaaaa" />
+
+         <ViroNode position={[0, 0, -1]} >
+            <Viro3DObject source={require('./res/heart.obj')}
                        materials={["heart"]} />
        </ViroNode>
-       <ViroText text="Heart" position={[0.0, 0.21, -0.3]} style={styles.textStyle}
+       <ViroText text="Heart" position={[0.0, 0.0, -1]} style={styles.textStyle}
                  transformBehaviors={["billboardY"]}/>
      </ViroScene>
     );
   },
 });
 
-var materials = Materials.createMaterials({
+var materials = ViroMaterials.createMaterials({
    heart: {
      lightingModel: "Blinn",
      diffuseTexture: require('./res/Heart_D3.jpg'),
@@ -62,8 +60,7 @@ var materials = Materials.createMaterials({
 
 var styles = StyleSheet.create({
   textStyle: {
-    fontFamily: 'HelveticaNeue-Medium',
-    fontSize: 15,
+    fontSize: 10,
     color: '#FFFFFF',
   },
 });

@@ -12,12 +12,12 @@
  * Pull in all imports required for this control.
  */
 import React, { Component } from 'react';
-import { polarToCartesian } from 'polarToCartesian';
+import {StyleSheet} from 'react-native';
+
 import {
-    StyleSheet,
     ViroScene,
     ViroLight,
-    Viro360Photo,
+    Viro360Image,
     ViroImageCard,
     Materials,
     ViroAnimations,
@@ -25,8 +25,10 @@ import {
     ViroNode,
     ViroSpinner,
     ViroText,
-    ViroSphere
+    ViroSphere,
+    ViroUtils,
 } from 'react-viro';
+let polarToCartesian = ViroUtils.polarToCartesian;
 
 /**
  * Required library when defining our own proptypes for this custom control.

@@ -55,20 +55,22 @@ var InfoElement = React.createClass({
         return {
             iconCardAnimation:"showIconAnim",
             contentCardAnimation:"hideAnim",
+            runInfoCardAnimation:false,
+            runIconCardAnimation:false,
         }
     },
 
     /**
      * Displays either an Icon Card or a Content Card. The Icon Card is displayed by default
-     * until the user does click it (_onCardTap). We then animate the Icon Card out, and the Content
+     * until the user does click it (_onCardClick). We then animate the Icon Card out, and the Content
      * Card in, and vice versa if the user clicks on it again.
      */
     render:function(){
             return (
-                <ViroNode onTap={this._onCardTap} {...this.props}>
+                <ViroNode onClick={this._onCardClick} {...this.props}>
                     {/* Info Card */}
-                    <ViroAnimatedComponent animation={this.state.iconCardAnimation} run={false} loop={true}
-                                           ref={ICON_CARD_REF} onFinish={this._animateIconCardFinished}>
+                    <ViroAnimatedComponent animation={this.state.iconCardAnimation} run={this.state.runIconCardAnimation} loop={false}
+                                          onFinish={this._animateIconCardFinished}>
                         <ViroImage
                             transformBehaviors={["billboard"]}
                             width={1}
@@ -81,8 +83,8 @@ var InfoElement = React.createClass({
                     {/* Content Card*/}
                     <ViroNode scale={[this.props.contentCardScale[0], this.props.contentCardScale[1], this.props.contentCardScale[2]]}
                               transformBehaviors={["billboard"]}>
-                        <ViroAnimatedComponent animation={this.state.contentCardAnimation} run={false} loop={false}
-                                               ref={CONTENT_CARD_REF} onFinish={this._animateContentCardFinished}>
+                        <ViroAnimatedComponent animation={this.state.contentCardAnimation} run={this.state.runInfoCardAnimation} loop={false}
+                                              onFinish={this._animateContentCardFinished}>
                             <ViroImage
                                 width={1}
                                 height={1}
@@ -96,10 +98,10 @@ var InfoElement = React.createClass({
     },
 
     /**
-     * Attached callback to the onTap event of this control. We then
+     * Attached callback to the onClick event of this control. We then
      * animate in / out either the Icon or Content card correspondingly.
      */
-    _onCardTap(){
+    _onCardClick(){
         var showContentCard = this.state.contentCardAnimation == "hideAnim";
         if (showContentCard == true){
             this._animateIconCard(!showContentCard);
@@ -114,16 +116,15 @@ var InfoElement = React.createClass({
     _animateIconCard(isVisible){
         this.setState({
             iconCardAnimation: isVisible? "showIconAnim": "hideAnim",
+            runIconCardAnimation:true,
         });
-
-        this.refs[ICON_CARD_REF].startAnimation();
     },
 
     _animateContentCard(isVisible){
         this.setState({
             contentCardAnimation: isVisible? "showContentCardAnim": "hideAnim",
+            runInfoCardAnimation:true,
         });
-        this.refs[CONTENT_CARD_REF].startAnimation();
     },
 
     /**

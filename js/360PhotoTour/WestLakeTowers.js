@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2015-present, Viro Media, Inc.
+ * Copyright (c) 2017-present, Viro Media, Inc.
  * All rights reserved.
  *
  * This source code is licensed under the BSD-style license found in the
@@ -13,16 +13,18 @@
  * Pull in all imports required for the controls within this scene.
  */
 import React, { Component } from 'react';
-import { polarToCartesian } from 'polarToCartesian';
+import {StyleSheet} from 'react-native';
+
 import {
-    StyleSheet,
     ViroScene,
-    Viro360Photo,
+    Viro360Image,
     ViroAnimations,
     ViroAnimatedComponent,
     ViroNode,
     ViroImage,
+    ViroUtils,
 } from 'react-viro';
+let polarToCartesian = ViroUtils.polarToCartesian;
 
 /**
  * Set all the images and assets required in this scene.
@@ -53,7 +55,7 @@ var OfficeTourSplashScene = React.createClass({
     render: function() {
         return (
             <ViroScene style={styles.container}>
-                <Viro360Photo source={backgroundImage} onLoadEnd={this._onBackgroundPhotoLoadEnd}/>
+                <Viro360Image source={backgroundImage} onLoadEnd={this._onBackgroundPhotoLoadEnd}/>
 
                 {
                     /*
@@ -84,7 +86,7 @@ var OfficeTourSplashScene = React.createClass({
                     position={[0, -3.5, 0]}
                     rotation={[-90, 0, 0]}
                     source={backImage}
-                    onTap={this._onBackTapped}/>
+                    onClick={this._onBackClick}/>
             </ViroNode>
         );
     },
@@ -104,7 +106,7 @@ var OfficeTourSplashScene = React.createClass({
      * Callback function for when the user taps on back button located at the
      * bottom of the scene. This pops the current scene to the previous one.
      */
-    _onBackTapped(){
+    _onBackClick(){
         this.props.sceneNavigator.pop();
     },
 });

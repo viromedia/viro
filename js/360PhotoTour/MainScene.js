@@ -13,10 +13,11 @@
  * Pull in all imports required for the controls within this scene.
  */
 import React, { Component } from 'react';
+import {StyleSheet} from 'react-native';
+
 import {
-    StyleSheet,
     ViroScene,
-    Viro360Photo,
+    Viro360Image,
     ViroImage,
     ViroAnimations,
     ViroAnimatedComponent,
@@ -46,11 +47,11 @@ var MainScene = React.createClass({
     render: function() {
         return (
             <ViroScene style={styles.container}>
-                <Viro360Photo source={backgroundImage} onLoadEnd={this._onBackgroundPhotoLoadEnd}/>
+                <Viro360Image source={backgroundImage} onLoadEnd={this._onBackgroundPhotoLoadEnd}/>
                 <ViroAnimatedComponent animation="showTitleAnimation"
                                        run={this.state.runShowTitleAnimation} loop={false}>
                     <ViroImage position={[0, 0, -5]} source={weworkImage} scale={[.1, .1, .1]}
-                               opacity={0.0} onTap={this._onTitleTapped}/>
+                               opacity={0.0} onClick={this._onTitleClicked}/>
                 </ViroAnimatedComponent>
             </ViroScene>
         );
@@ -71,7 +72,7 @@ var MainScene = React.createClass({
      * Callback function for when the user taps on the WeWork ViroImage
      * where we navigate into the second scene.
      */
-    _onTitleTapped(){
+    _onTitleClicked(){
         this.props.sceneNavigator.push({scene:westLakeTowersScene});
     },
 });
