@@ -41,7 +41,7 @@ var MainScene = React.createClass({
             <Viro3DObject source={require('./res/heart.obj')}
                        materials={["heart"]} />
        </ViroNode>
-       <ViroText text="Heart" position={[0.0, 0.0, -1]} style={styles.textStyle}
+       <ViroText text="Heart" position={[0.0, 0.0, -3]} style={styles.textStyle}
                  transformBehaviors={["billboardY"]}/>
      </ViroScene>
     );
@@ -60,7 +60,8 @@ var materials = ViroMaterials.createMaterials({
 
 var styles = StyleSheet.create({
   textStyle: {
-    fontSize: 10,
+    fontFamily: 'HelveticaNeue-Medium',
+    fontSize: 18,
     color: '#FFFFFF',
   },
 });
