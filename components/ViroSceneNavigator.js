@@ -61,7 +61,7 @@ var ViroSceneNavigator = React.createClass({
 
         /**
          * Called when either the user physically decides to exit vr (hits
-         * the "X" buton), or if the ViroSceneNavigator.exitViro() is called.
+         * the "X" buton).
          */
         onExitViro: React.PropTypes.func,
       }).isRequired,
@@ -95,16 +95,8 @@ var ViroSceneNavigator = React.createClass({
   },
 
   /**
-   * Triggers onExitViro javascript callbacks assigned to the ViroSceneNavigator.
-   * Also triggers native OnExitViro callbacks for Native-Javascript React hybrid applications.
-   */
-  exitViro: function(){
-     ViroSceneNavigatorModule.requestExitVr(findNodeHandle(this));
-  },
-
-  /**
    * Called from native when either the user physically decides to exit vr (hits
-   * the "X" buton), or if the ViroSceneNavigator.exitViro() is called.
+   * the "X" buton).
    */
   _onExitViro: function(event: Event) {
     this.props.onExitViro && this.props.onExitViro();
