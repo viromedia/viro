@@ -71,6 +71,14 @@ var ViroImage = React.createClass({
       PropTypes.number,
     ]),
 
+    // DEPRECATION WARNING: DO NOT USE THE FOLLOWING PROP!
+    placeHolderSource:PropTypes.oneOfType([
+      PropTypes.shape({
+        uri: PropTypes.string,
+      }),
+      PropTypes.number,
+    ]),
+
     mipmap: PropTypes.bool,
     format: PropTypes.oneOf(['RGBA8', 'RGBA4', 'RGB565']),
 
@@ -182,6 +190,7 @@ var ViroImage = React.createClass({
     let nativeProps = Object.assign({}, this.props);
     nativeProps.materials = materials;
     nativeProps.source = imgsrc;
+    nativeProps.placeHolderSource = placeholderSrc;
     nativeProps.placeholderSource = placeholderSrc;
     nativeProps.transformBehaviors = transformBehaviors;
     nativeProps.onLoadStartViro = this._onLoadStart;
