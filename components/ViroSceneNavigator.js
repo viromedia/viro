@@ -13,7 +13,6 @@
 
 var NativeModules = require('react-native').NativeModules;
 var PropTypes = require('react/lib/ReactPropTypes');
-var invariant = require('fbjs/lib/invariant');
 var ViroSceneNavigatorModule = require('react-native').NativeModules.VRTSceneNavigatorModule;
 import { requireNativeComponent, View, StyleSheet, findNodeHandle } from 'react-native';
 import React, { Component } from 'react';
@@ -212,11 +211,9 @@ var ViroSceneNavigator = React.createClass({
         return;
     }
 
-    // Sanity check to ensure we can pop n scenes.
-    var newTagStackIndex = 0;
-    if (this.state.sceneHistory.length > 0) {
-        newTagStackIndex = this.state.sceneHistory.length -1 - n;
-        invariant(newTagStackIndex >= 0, 'Cannot pop below 0');
+    if (this.state.sceneHistory.length - n <= 0){
+        console.log("WARN: Attempted to pop the root scene in ViroSceneNavigator!")
+        return;
     }
 
     this.decrementReferenceForLastNScenes(n);
