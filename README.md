@@ -1,6 +1,8 @@
-# Viro Code Samples
+# Viro Platform
 
 This project contains various sample Viro projects.
+
+To report bugs/issues with Viro platform, please file new issues on this repository.
 
 ## Instructions for running sample projects using Testbed app:
 
