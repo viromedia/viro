@@ -6,6 +6,7 @@ package com.viromedia.bridge.component.node.control;
 import android.graphics.Color;
 
 import com.facebook.react.bridge.ReactApplicationContext;
+import com.viro.renderer.jni.NodeJni;
 import com.viro.renderer.jni.RenderContextJni;
 import com.viro.renderer.jni.TextJni;
 
@@ -93,7 +94,7 @@ public class Text extends Control {
     }
 
     private void updateLabel() {
-        if (mRenderContext == null) {
+        if (mRenderContext == null || isTornDown()) {
             return;
         }
 
