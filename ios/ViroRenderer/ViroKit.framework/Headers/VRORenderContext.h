@@ -100,10 +100,18 @@ public:
         return _frameSynchronizer;
     }
     
+    void setFPS(double fps) {
+        _fps = fps;
+    }
+    double getFPS() const {
+        return _fps;
+    }
+    
 private:
     
     int _frame;
     VROEyeType _eye;
+    double _fps;
     
     /*
      The standard view and projection matrices. The view matrix is specific for

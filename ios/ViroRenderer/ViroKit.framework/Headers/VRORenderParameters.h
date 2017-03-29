@@ -30,6 +30,13 @@ public:
     std::stack<float> distancesFromCamera;
     int hierarchyId;
     
+    VRORenderParameters() {
+        opacities.push(1.0);
+        hierarchyDepths.push(-1);
+        hierarchyId = 0;
+        distancesFromCamera.push(0);
+    }
+    
 };
 
 #endif /* VRORenderParameters_h */

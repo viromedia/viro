@@ -85,6 +85,8 @@ FOUNDATION_EXPORT const unsigned char ViroKitVersionString[];
 #import <ViroKit/VROVideoTexture.h>
 #import <ViroKit/VROVideoTextureiOS.h>
 #import <ViroKit/VROVideoDelegateiOS.h>
+#import <ViroKit/VROCameraTexture.h>
+#import <ViroKit/VROCameraTextureiOS.h>
 
 // Audio
 #import <ViroKit/VROAudioPlayer.h>

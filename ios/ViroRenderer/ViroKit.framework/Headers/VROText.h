@@ -158,7 +158,7 @@ private:
      provided vertex array, and write the associated indices into the indices 
      array as well.
      */
-    static void buildChar(std::unique_ptr<VROGlyph> &glyph,
+    static void buildChar(std::shared_ptr<VROGlyph> &glyph,
                           float x, float y, 
                           std::vector<VROShapeVertexLayout> &var,
                           std::vector<int> &indices);
@@ -177,15 +177,15 @@ private:
     static std::vector<VROTextLine> wrapByWords(std::string &text, float maxWidth, float maxHeight, int maxLines,
                                                 std::shared_ptr<VROTypeface> &typeface,
                                                 VROTextClipMode clipMode,
-                                                std::map<FT_ULong, std::unique_ptr<VROGlyph>> &glyphMap);
+                                                std::map<FT_ULong, std::shared_ptr<VROGlyph>> &glyphMap);
     static std::vector<VROTextLine> wrapByChars(std::string &text, float maxWidth, float maxHeight, int maxLines,
                                                 std::shared_ptr<VROTypeface> &typeface,
                                                 VROTextClipMode clipMode,
-                                                std::map<FT_ULong, std::unique_ptr<VROGlyph>> &glyphMap);
+                                                std::map<FT_ULong, std::shared_ptr<VROGlyph>> &glyphMap);
     static std::vector<VROTextLine> wrapByNewlines(std::string &text, float maxWidth, float maxHeight, int maxLines,
                                                    std::shared_ptr<VROTypeface> &typeface,
                                                    VROTextClipMode clipMode,
-                                                   std::map<FT_ULong, std::unique_ptr<VROGlyph>> &glyphMap);
+                                                   std::map<FT_ULong, std::shared_ptr<VROGlyph>> &glyphMap);
     
     /*
      Justification routine. Considerably more complex than the greedy algorithms above. Note that
@@ -196,13 +196,13 @@ private:
     static std::vector<VROTextLine> justify(std::string &text, float maxWidth, float maxHeight, int maxLines,
                                             std::shared_ptr<VROTypeface> &typeface,
                                             VROTextClipMode clipMode,
-                                            std::map<FT_ULong, std::unique_ptr<VROGlyph>> &glyphMap);
+                                            std::map<FT_ULong, std::shared_ptr<VROGlyph>> &glyphMap);
     
     /*
      Helpers for wrapping/clipping.
      */
     static std::vector<std::string> divideIntoParagraphs(std::string &text);
-    static float getLengthOfWord(const std::string &word, std::map<FT_ULong, std::unique_ptr<VROGlyph>> &glyphMap);
+    static float getLengthOfWord(const std::string &word, std::map<FT_ULong, std::shared_ptr<VROGlyph>> &glyphMap);
 
     static bool isAnotherLineAvailable(size_t numLinesNow, float maxHeight, int maxLines,
                                        std::shared_ptr<VROTypeface> &typeface, VROTextClipMode clipMode);

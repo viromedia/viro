@@ -35,6 +35,7 @@ typedef void (^VROViewValidApiKeyBlock)(BOOL);
 
 - (void)setPointOfView:(std::shared_ptr<VRONode>)node;
 - (void)validateApiKey:(NSString *)apiKey withCompletionBlock:(VROViewValidApiKeyBlock)completionBlock;
+- (void)setDebugHUDEnabled:(BOOL)enabled;
 
 /*
  Calling setVrMode allows switching to and from VR mode.
