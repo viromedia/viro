@@ -87,6 +87,16 @@ public abstract class NodeManager <T extends Node> extends ViroViewGroupManager<
         view.setCanDrag(canDrag);
     }
 
+    @ReactProp(name = "canFuse", defaultBoolean = Node.DEFAULT_CAN_FUSE)
+    public void setCanFuse(Node view, boolean canFuse) {
+        view.setCanFuse(canFuse);
+    }
+
+    @ReactProp(name = "timeToFuse", defaultFloat = Node.DEFAULT_TIME_TO_FUSE_MILLIS)
+    public void setTimeToFuse(Node view, float durationMillis) {
+        view.setTimeToFuse(durationMillis);
+    }
+
     @ReactProp(name = "materials")
     public void setMaterials(Node view, ReadableArray materials) {
         // get material manager
@@ -172,6 +182,7 @@ public abstract class NodeManager <T extends Node> extends ViroViewGroupManager<
                 ViroEvents.ON_TOUCH, MapBuilder.of("registrationName", ViroEvents.ON_TOUCH),
                 ViroEvents.ON_SWIPE, MapBuilder.of("registrationName", ViroEvents.ON_SWIPE),
                 ViroEvents.ON_SCROLL, MapBuilder.of("registrationName", ViroEvents.ON_SCROLL),
+                ViroEvents.ON_FUSE, MapBuilder.of("registrationName", ViroEvents.ON_FUSE),
                 ViroEvents.ON_DRAG, MapBuilder.of("registrationName", ViroEvents.ON_DRAG));
     }
 }

@@ -19,6 +19,7 @@
 @required
 - (void)onHover:(int)source isHovering:(bool)isHovering;
 - (void)onClick:(int)source clickState:(VROEventDelegate::ClickState)clickState;
+- (void)onFuse:(int)source;
 @end
 
 /**
@@ -40,7 +41,18 @@ public:
     virtual void onClick(int source, ClickState clickState) {
         [_delegate onClick:source clickState:clickState];
     }
-  
+    virtual void onFuse(int source, float timeToFuseRatio) {
+        /**
+         * As onFuse is also used by internal components to update ui based
+         * on timeToFuse ratio, we only want to notify our bridge components
+         * if we have successfully fused (if timeToFuseRatio has counted down to 0).
+         */
+        if (timeToFuseRatio > 0.0f){
+            return;
+        }
+        [_delegate onFuse:source];
+    }
+
 private:
   
     __weak id<VROEventDelegateProtocol> _delegate;

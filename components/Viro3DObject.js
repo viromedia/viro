@@ -67,7 +67,13 @@ var Viro3DObject = React.createClass({
     onLoadEnd: React.PropTypes.func,
     onError: React.PropTypes.func,
     onDrag: React.PropTypes.func,
-
+    onFuse: PropTypes.oneOfType([
+          React.PropTypes.shape({
+            callback: React.PropTypes.func.isRequired,
+            timeToFuse: PropTypes.number
+          }),
+          React.PropTypes.func
+        ]),
     /**
      * Enables high accuracy gaze collision checks for this object.
      * This can be useful for complex 3D objects where the default
@@ -127,6 +133,17 @@ var Viro3DObject = React.createClass({
       this.props.onDrag
         && this.props.onDrag(event.nativeEvent.dragToPos, event.nativeEvent.source);
   },
+
+  _onFuse: function(event: Event){
+    if (this.props.onFuse){
+      if (typeof this.props.onFuse === 'function'){
+        this.props.onFuse(event.nativeEvent.source);
+      } else if (this.props.onFuse != undefined && this.props.onFuse.callback != undefined){
+        this.props.onFuse.callback(event.nativeEvent.source);
+      }
+    }
+  },
+
   render: function() {
     var modelsrc = resolveAssetSource(this.props.source);
     var resources = null;
@@ -147,6 +164,12 @@ var Viro3DObject = React.createClass({
     if (this.props.material) {
       console.error('The <Viro3DObject> component takes a `materials` property rather than `material`.');
     }
+
+    let timeToFuse = undefined;
+    if (this.props.onFuse != undefined && typeof this.props.onFuse === 'object'){
+        timeToFuse = this.props.onFuse.timeToFuse;
+    }
+
     return (
       <VRT3DObject
         {...this.props}
@@ -160,15 +183,18 @@ var Viro3DObject = React.createClass({
         canScroll={this.props.onScroll != undefined}
         canSwipe={this.props.onSwipe != undefined}
         canDrag={this.props.onDrag != undefined}
+        canFuse={this.props.onFuse != undefined}
         onHoverViro={this._onHover}
         onClickViro={this._onClickState}
         onTouchViro={this._onTouch}
         onScrollViro={this._onScroll}
         onSwipeViro={this._onSwipe}
         onDragViro={this._onDrag}
+        onFuseViro={this._onFuse}
         onLoadStartViro={this._onLoadStart}
         onLoadEndViro={this._onLoadEnd}
         onErrorViro={this._onError}
+        timeToFuse={timeToFuse}
       />
     );
   }
@@ -183,6 +209,7 @@ var VRT3DObject = requireNativeComponent(
             canScroll: true,
             canSwipe: true,
             canDrag: true,
+            canFuse: true,
             onHoverViro:true,
             onClickViro:true,
             onTouchViro:true,
@@ -192,6 +219,8 @@ var VRT3DObject = requireNativeComponent(
             onLoadStartViro:true,
             onLoadEndViro:true,
             onErrorViro:true,
+            onFuseViro:true,
+            timeToFuse:true,
           }
   }
 );

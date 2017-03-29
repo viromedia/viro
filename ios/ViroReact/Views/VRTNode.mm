@@ -134,6 +134,16 @@ const int k2DPointsPerSpatialUnit = 1000;
     self.eventDelegate->setEnabledEvent(VROEventDelegate::EventAction::OnClick, canClick);
 }
 
+-(void)setCanFuse:(BOOL)canFuse {
+    _canFuse = canFuse;
+    self.eventDelegate->setEnabledEvent(VROEventDelegate::EventAction::OnFuse, canFuse);
+}
+
+-(void)setTimeToFuse:(float)durationMillis {
+    _timeToFuse = durationMillis;
+    self.eventDelegate->setTimeToFuse(durationMillis);
+}
+
 - (void)setPosition:(NSArray<NSNumber *> *)position {
   _position = [position copy];
   float positionValues[3];
@@ -255,6 +265,12 @@ const int k2DPointsPerSpatialUnit = 1000;
     if (self.onClickViro != nil) {
         self.onClickViro(@{@"source": @(source),
                           @"clickState":@(clickState)});
+    }
+}
+
+-(void)onFuse:(int)source{
+    if (self.onFuseViro != nil) {
+        self.onFuseViro(@{@"source": @(source)});
     }
 }
 

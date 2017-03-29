@@ -15,6 +15,7 @@ public class Controller extends Component  {
     protected final static boolean DEFAULT_CAN_TOUCH = false;
     protected final static boolean DEFAULT_CAN_SCROLL = false;
     protected final static boolean DEFAULT_CAN_SWIPE = false;
+    protected final static boolean DEFAULT_CAN_FUSE = false;
     protected final static boolean DEFAULT_CAN_GET_CONTROLLER_STATUS = false;
     protected final static boolean DEFAULT_RETICLE_VISIBILITY = true;
     protected final static boolean DEFAULT_CONTROLLER_VISIBILITY = true;
@@ -69,6 +70,10 @@ public class Controller extends Component  {
 
     protected void setCanScroll(boolean canScroll){
         mEventDelegateJni.setEventEnabled(EventDelegateJni.EventAction.ON_SCROLL, canScroll);
+    }
+
+    protected void setCanFuse(boolean canFuse){
+        mEventDelegateJni.setEventEnabled(EventDelegateJni.EventAction.ON_FUSE, canFuse);
     }
 
     protected void setCanGetControllerStatus(boolean canGetControllerStatus){

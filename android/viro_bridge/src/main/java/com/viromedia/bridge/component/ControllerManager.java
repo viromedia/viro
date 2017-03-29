@@ -7,6 +7,7 @@ import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.common.MapBuilder;
 import com.facebook.react.uimanager.ThemedReactContext;
 import com.facebook.react.uimanager.annotations.ReactProp;
+import com.viromedia.bridge.component.node.Node;
 import com.viromedia.bridge.utility.ViroEvents;
 
 import java.util.Map;
@@ -57,6 +58,11 @@ public class ControllerManager extends ViroViewGroupManager<Controller> {
         view.setCanScroll(canScroll);
     }
 
+    @ReactProp(name = "canFuse", defaultBoolean = Controller.DEFAULT_CAN_FUSE)
+    public void setCanFuse(Controller view, boolean canFuse) {
+        view.setCanFuse(canFuse);
+    }
+
     @ReactProp(name = "canGetControllerStatus", defaultBoolean = Controller.DEFAULT_CAN_GET_CONTROLLER_STATUS)
     public void setCanGetControllerStatus(Controller view, boolean canGetControllerStatus) {
         view.setCanGetControllerStatus(canGetControllerStatus);
@@ -69,6 +75,7 @@ public class ControllerManager extends ViroViewGroupManager<Controller> {
                 ViroEvents.ON_TOUCH, MapBuilder.of("registrationName", ViroEvents.ON_TOUCH),
                 ViroEvents.ON_SWIPE, MapBuilder.of("registrationName", ViroEvents.ON_SWIPE),
                 ViroEvents.ON_SCROLL, MapBuilder.of("registrationName", ViroEvents.ON_SCROLL),
+                ViroEvents.ON_FUSE, MapBuilder.of("registrationName", ViroEvents.ON_FUSE),
                 ViroEvents.ON_CONTROLLER_STATUS, MapBuilder.of("registrationName", ViroEvents.ON_CONTROLLER_STATUS));
     }
 }

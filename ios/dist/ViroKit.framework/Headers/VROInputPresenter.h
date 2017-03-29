@@ -101,6 +101,21 @@ public:
         }
     }
 
+    virtual void onFuse(int source, float timeToFuseRatio) {
+        std::shared_ptr<VROEventDelegate> delegate = getDelegate();
+        if (delegate != nullptr && delegate->isEventEnabled(VROEventDelegate::EventAction::OnFuse)){
+            delegate->onFuse(source, timeToFuseRatio);
+        }
+
+        // TimeToFuseRatio is (time that has passed since fuse began) / (total time to fuse).
+        // When the timeToFuseRatio reaches 1, it is an indication that the node has been "onFused".
+        if (timeToFuseRatio == kOnFuseReset){
+            _reticle->stopFuseAnimation();
+        } else {
+            _reticle->animateFuse(1 - timeToFuseRatio);
+        }
+    }
+
     std::shared_ptr<VROReticle> getReticle() {
             return _reticle;
     }

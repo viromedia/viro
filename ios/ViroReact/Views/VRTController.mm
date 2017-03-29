@@ -60,10 +60,21 @@
     _eventDelegate->setEnabledEvent(VROEventDelegate::EventAction::OnClick, canClick);
 }
 
+-(void)setCanFuse:(BOOL)canFuse {
+    _canFuse = canFuse;
+    _eventDelegate->setEnabledEvent(VROEventDelegate::EventAction::OnFuse, canFuse);
+}
+
 -(void)onClick:(int)source clickState:(VROEventDelegate::ClickState)clickState{
     if (self.onClickViro != nil) {
         self.onClickViro(@{@"source": @(source),
                            @"clickState":@(clickState)});
+    }
+}
+
+-(void)onFuse:(int)source{
+    if (self.onFuseViro != nil) {
+        self.onFuseViro(@{@"source": @(source)});
     }
 }
 @end

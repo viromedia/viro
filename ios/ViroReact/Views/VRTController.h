@@ -13,7 +13,9 @@
 @interface VRTController : VRTView<VROEventDelegateProtocol>
 
 @property (nonatomic, copy, nullable) RCTDirectEventBlock onClickViro;
+@property (nonatomic, copy, nullable) RCTDirectEventBlock onFuseViro;
 @property (nonatomic, assign) BOOL canClick;
+@property (nonatomic, assign) BOOL canFuse;
 
 - (instancetype) initWithBridge:(RCTBridge *)bridge;
 - (void) onClick:(int)source clickState:(VROEventDelegate::ClickState)clickState;

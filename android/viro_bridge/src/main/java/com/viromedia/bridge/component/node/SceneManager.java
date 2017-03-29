@@ -45,6 +45,15 @@ public class SceneManager extends ViroViewGroupManager<Scene> {
         view.setCanHover(canHover);
     }
 
+    @ReactProp(name = "canFuse", defaultBoolean = Node.DEFAULT_CAN_FUSE)
+    public void setCanFuse(Node view, boolean canFuse) {
+        view.setCanFuse(canFuse);
+    }
+
+    @ReactProp(name = "timeToFuse", defaultFloat = Node.DEFAULT_TIME_TO_FUSE_MILLIS)
+    public void setTimeToFuse(Node view, float durationMillis) {
+        view.setTimeToFuse(durationMillis);
+    }
     @ReactProp(name = "soundRoom")
     public void setSoundRoom(Scene scene, ReadableMap soundRoom) {
         scene.setSoundRoom(soundRoom);
@@ -53,6 +62,9 @@ public class SceneManager extends ViroViewGroupManager<Scene> {
     @Override
     public Map getExportedCustomDirectEventTypeConstants() {
         return MapBuilder.of(
+                ViroEvents.ON_FUSE, MapBuilder.of("registrationName", ViroEvents.ON_FUSE),
+                ViroEvents.ON_HOVER, MapBuilder.of("registrationName", ViroEvents.ON_HOVER),
+                ViroEvents.ON_CLICK, MapBuilder.of("registrationName", ViroEvents.ON_CLICK),
                 ViroEvents.ON_PLATFORM_UPDATE, MapBuilder.of("registrationName", ViroEvents.ON_PLATFORM_UPDATE));
     }
 }

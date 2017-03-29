@@ -54,6 +54,13 @@ var ViroSpinner = React.createClass({
     onClickState: React.PropTypes.func,
     onTouch: React.PropTypes.func,
     onDrag: React.PropTypes.func,
+    onFuse: PropTypes.oneOfType([
+      React.PropTypes.shape({
+        callback: React.PropTypes.func.isRequired,
+        timeToFuse: PropTypes.number
+      }),
+      React.PropTypes.func
+    ]),
   },
 
   getDefaultProps() {
@@ -71,7 +78,7 @@ var ViroSpinner = React.createClass({
       <ViroNode position={this.props.position} rotation={this.props.rotation} scale={this.props.scale}
             opacity={this.props.opacity} transformBehaviors={transformBehaviors} visible={this.props.visible}
             onHover={this.props.onHover} onClick={this.props.onClick} onClickState={this.props.onClickState}
-            onTouch={this.props.onTouch} onDrag={this.props.onDrag}>
+            onTouch={this.props.onTouch} onDrag={this.props.onDrag} onFuse={this.props.onFuse}>
 
         <ViroAnimatedComponent animation="_ViroSpinner_clockwiseZ" run={true} loop={true} >
           <ViroImage source={this._getImage1()} materials={this.props.materials} />

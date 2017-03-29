@@ -61,6 +61,13 @@ var ViroFlexView = React.createClass({
     onScroll: React.PropTypes.func,
     onSwipe: React.PropTypes.func,
     onDrag: React.PropTypes.func,
+    onFuse: PropTypes.oneOfType([
+      React.PropTypes.shape({
+        callback: React.PropTypes.func.isRequired,
+        timeToFuse: PropTypes.number
+      }),
+      React.PropTypes.func
+    ]),
   },
 
   _onHover: function(event: Event) {
@@ -95,6 +102,17 @@ var ViroFlexView = React.createClass({
       this.props.onDrag
         && this.props.onDrag(event.nativeEvent.dragToPos, event.nativeEvent.source);
   },
+
+  _onFuse: function(event: Event){
+    if (this.props.onFuse){
+      if (typeof this.props.onFuse === 'function'){
+        this.props.onFuse(event.nativeEvent.source);
+      } else if (this.props.onFuse != undefined && this.props.onFuse.callback != undefined){
+        this.props.onFuse.callback(event.nativeEvent.source);
+      }
+    }
+  },
+
   render: function() {
     let onGaze = this.props.onGaze ? this._onGaze : undefined;
     // Since materials and transformBehaviors can be either a string or an array, convert the string to a 1-element array.
@@ -103,6 +121,11 @@ var ViroFlexView = React.createClass({
         new Array(this.props.transformBehaviors) : this.props.transformBehaviors;
     if (this.props.material) {
       console.error('The <ViroFlexView> component takes a `materials` property rather than `material`.');
+    }
+
+    let timeToFuse = undefined;
+    if (this.props.onFuse != undefined && typeof this.props.onFuse === 'object'){
+        timeToFuse = this.props.onFuse.timeToFuse;
     }
 
     let nativeProps = Object.assign({}, this.props);
@@ -120,6 +143,9 @@ var ViroFlexView = React.createClass({
     nativeProps.canScroll = this.props.onScroll != undefined;
     nativeProps.canSwipe = this.props.onSwipe != undefined;
     nativeProps.canDrag = this.props.onDrag != undefined;
+    nativeProps.canFuse = this.props.onFuse != undefined;
+    nativeProps.onFuseViro = this._onFuse;
+    nativeProps.timeToFuse = timeToFuse;
     return (
       <VROFlexView {...nativeProps} />
     );
@@ -141,7 +167,11 @@ var VROFlexView = requireNativeComponent(
             onTouchViro:true,
             onScrollViro:true,
             onSwipeViro:true,
-            onDragViro:true}
+            onDragViro:true,
+            canFuse: true,
+            onFuseViro:true,
+            timeToFuse:true
+          }
   }
 );
 

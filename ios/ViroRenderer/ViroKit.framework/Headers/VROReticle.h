@@ -13,6 +13,7 @@
 #include <vector>
 #include "VROSurface.h"
 #include "VROTexture.h"
+#include "VRONode.h"
 
 class VRONode;
 class VROPolyline;
@@ -33,12 +34,13 @@ public:
 
     void setPosition(VROVector3f position);
     void setRadius(float radius);
-    void setThickness(float thickness);
 
     void setEnabled(bool enabled);
     void setPointerMode(bool isPointerMode);
     bool getPointerMode();
-    
+
+    void animateFuse(float fuseRatio);
+    void stopFuseAnimation();
 private:
 
     /*
@@ -48,17 +50,55 @@ private:
      of the screen, usually used for fixed controllers like cardboard.
      */
     bool _isPointerFixed;
-    
+
     bool _enabled;
     float _size;
+    float _radius;
     float _thickness;
     float _endThickness;
 
-    std::shared_ptr<VRONode> _node;
-    std::shared_ptr<VROPolyline> _polyline;
-    std::shared_ptr<VROSurface> _reticleIcon;
-
+    /**
+     * Cached x y points describing a circle with kCircleSegments, used
+     * to draw the reticleLine and fuseLine.
+     */
+    std::vector<VROVector3f> _cachedCirclePoints;
     std::vector<VROVector3f> createArc(float radius, int numSegments);
-};
 
+    /**
+     * Helper function to render each node in the reticle.
+     */
+    void renderNode(std::shared_ptr<VRONode> node, VRORenderParameters renderParams,
+                    const VRORenderContext &renderContext, std::shared_ptr<VRODriver> &driver);
+
+    /**
+     * Nodes containing the UI components of the reticle. It can be
+     * a line or an icon (image) reticle.
+     */
+    std::shared_ptr<VRONode> _reticleBaseNode;
+    std::shared_ptr<VROSurface> _reticleIcon;
+    std::shared_ptr<VROPolyline> _reticleLine;
+
+    /**
+     * Nodes containing the UI components of the reticle when it is fused.
+     */
+    std::shared_ptr<VRONode> _fuseNode;
+    std::shared_ptr<VROPolyline>  _fuseLine;
+    std::shared_ptr<VRONode> _fuseBackgroundNode;
+    std::shared_ptr<VROPolyline> _fuseBackgroundLine;
+    std::shared_ptr<VRONode> _fuseTriggeredNode;
+    std::shared_ptr<VROPolyline> _fuseTriggeredLine;
+
+    /**
+     * True when we are currently animating the reticle with a fuse ratio under
+     * animateFuse(). False if we've stopped with stopFuseAnimation().
+     */
+    bool _isFusing;
+
+    /**
+     * True when we have already ran the fuseTriggered animation for the
+     * current fuse state.
+     */
+    bool _fuseTriggered;
+    void animateFuseTriggered();
+};
 #endif

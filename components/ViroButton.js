@@ -89,6 +89,13 @@ var BTN_TYPE_CLICKED = 'clicked';
     onScroll: React.PropTypes.func,
     onSwipe: React.PropTypes.func,
     onDrag: React.PropTypes.func,
+    onFuse: PropTypes.oneOfType([
+      React.PropTypes.shape({
+        callback: React.PropTypes.func.isRequired,
+        timeToFuse: PropTypes.number
+      }),
+      React.PropTypes.func
+    ]),
   },
   getInitialState: function() {
     return {buttonType: BTN_TYPE_NORMAL};
@@ -139,7 +146,8 @@ var BTN_TYPE_CLICKED = 'clicked';
             onSwipe={this.props.onSwipe}
             onHover={this._onButtonHover}
             onClick={this._onButtonClicked}
-            onDrag={this.props.onDrag}>
+            onDrag={this.props.onDrag}
+            onFuse={this.props.onFuse}>
 
             <ViroImage
                 source={this.props.source}

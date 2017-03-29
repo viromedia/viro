@@ -133,6 +133,21 @@ public class ComponentEventDelegate implements EventDelegateJni.EventDelegateCal
     }
 
     @Override
+    public void onFuse(int source) {
+        Component node = weakComponent.get();
+        if (node == null){
+            return;
+        }
+
+        WritableMap event = Arguments.createMap();
+        event.putInt("source", source);
+        node.getReactContext().getJSModule(RCTEventEmitter.class).receiveEvent(
+                node.getId(),
+                ViroEvents.ON_FUSE,
+                event);
+    }
+
+    @Override
     public void onControllerStatus(int source, EventDelegateJni.ControllerStatus controllerStatus) {
         Component node = weakComponent.get();
         if (node == null){

@@ -33,9 +33,12 @@ extern const int k2DPointsPerSpatialUnit;
 // Event properties
 @property (nonatomic, copy, nullable) RCTDirectEventBlock onHoverViro;
 @property (nonatomic, copy, nullable) RCTDirectEventBlock onClickViro;
+@property (nonatomic, copy, nullable) RCTDirectEventBlock onFuseViro;
 @property (nonatomic, assign) BOOL canHover;
 @property (nonatomic, assign) BOOL canClick;
+@property (nonatomic, assign) BOOL canFuse;
 @property (nonatomic, assign) BOOL highAccuracyGaze;
+@property (nonatomic, assign) float timeToFuse;
 
 // Used for Flexbox enabled components, no-op for non flexbox related components.
 @property(nonatomic) CGPoint position2DFlex;
@@ -53,4 +56,5 @@ extern const int k2DPointsPerSpatialUnit;
 - (void) onHover:(int)source isHovering:(bool)isHovering;
 - (void) onClick:(int)source clickState:(VROEventDelegate::ClickState)clickState;
 - (void) onTouch:(int)source touchState:(VROEventDelegate::TouchState)clickState xPos:(float)x yPos:(float)y;
+- (void) onFuse:(int)source;
 @end

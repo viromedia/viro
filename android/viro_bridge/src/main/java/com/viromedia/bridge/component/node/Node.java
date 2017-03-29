@@ -40,6 +40,9 @@ public class Node extends Component {
     protected final static boolean DEFAULT_CAN_SWIPE = false;
     public final static boolean DEFAULT_HIGH_ACCURACY_GAZE = false;
     protected final static boolean DEFAULT_CAN_DRAG = false;
+    protected final static boolean DEFAULT_CAN_FUSE = false;
+    protected final static float DEFAULT_TIME_TO_FUSE_MILLIS = 1000f;
+
 
     private NodeJni mNodeJni;
     protected float[] mPosition;
@@ -408,5 +411,13 @@ public class Node extends Component {
 
     protected void setCanDrag(boolean canDrag){
         mEventDelegateJni.setEventEnabled(EventDelegateJni.EventAction.ON_DRAG, canDrag);
+    }
+
+    protected void setCanFuse(boolean canFuse){
+        mEventDelegateJni.setEventEnabled(EventDelegateJni.EventAction.ON_FUSE, canFuse);
+    }
+
+    protected void setTimeToFuse(float durationInMillis){
+        mEventDelegateJni.setTimeToFuse(durationInMillis);
     }
 }

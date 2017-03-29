@@ -2493,11 +2493,11 @@
 		</data>
 		<key>Headers/VROEventDelegate.h</key>
 		<data>
-		2ZBoyQeLjq/uwRN2dnXsm+PXXSM=
+		JnklbOulo000oipPsNnTiUm5K+Q=
 		</data>
 		<key>Headers/VROEventDelegateiOS.h</key>
 		<data>
-		p7Ds7FGY+yPJjfCSKTqmGiQgIWE=
+		cJShwOheWnifF6u8G1CQ9hYvynk=
 		</data>
 		<key>Headers/VROExecutableAnimation.h</key>
 		<data>
@@ -2569,7 +2569,7 @@
 		</data>
 		<key>Headers/VROInputControllerBase.h</key>
 		<data>
-		Zy+SeUah8EHl8rBEJrioVMFJ8uQ=
+		yJpIYJZRuVORT8Xnn5sQAqwcU98=
 		</data>
 		<key>Headers/VROInputControllerCardboardiOS.h</key>
 		<data>
@@ -2577,7 +2577,7 @@
 		</data>
 		<key>Headers/VROInputPresenter.h</key>
 		<data>
-		2w5OHXjVuwTsGL8Lr7cZ/5sKBAs=
+		qHxpmJ9BjZ24MjVGqb8ySFtP/hI=
 		</data>
 		<key>Headers/VROInputPresenterCardboardiOS.h</key>
 		<data>
@@ -2677,7 +2677,7 @@
 		</data>
 		<key>Headers/VROReticle.h</key>
 		<data>
-		PslW5ZEpGqJ01tCOBW/N7qYvpOE=
+		Qqn87aGTgAJrKqOz565EQaE3lsw=
 		</data>
 		<key>Headers/VROScene.h</key>
 		<data>
@@ -2773,7 +2773,7 @@
 		</data>
 		<key>Headers/VROTimingFunction.h</key>
 		<data>
-		/BiRmZiiE1yx4VbIuYCvbZs9NJo=
+		RvEsmCWcGT6Xpj9xzyi/zTlepyk=
 		</data>
 		<key>Headers/VROTimingFunctionBounce.h</key>
 		<data>
@@ -2855,6 +2855,10 @@
 		<data>
 		mosa6TpT1pR3+PmBi4+rM3MR3vQ=
 		</data>
+		<key>Headers/VROVideoTextureCache.h</key>
+		<data>
+		+Beql+zOEXorkMC4vCr8GMewOwI=
+		</data>
 		<key>Headers/VROVideoTextureiOS.h</key>
 		<data>
 		7g6YUv6PGcAifnn5hTycm4D2GpM=
@@ -2885,7 +2889,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		Kj3sGXZN7OvrDAu3pYouJn18a+k=
+		CIKXxgeGF360xsZ2vCOB3YO4pLA=
 		</data>
 		<key>MaterialRobotoFontLoader.bundle/Roboto-Black.ttf</key>
 		<data>
@@ -7417,22 +7421,22 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			2ZBoyQeLjq/uwRN2dnXsm+PXXSM=
+			JnklbOulo000oipPsNnTiUm5K+Q=
 			</data>
 			<key>hash2</key>
 			<data>
-			piv6LVL4sLt01pA8YWUbvpWgt1BaQAkMKmzzCa9yHJ8=
+			gtBn/oAC4RYKy4urc1FdbrqX+RyfKRUOD3vzJbgvTKk=
 			</data>
 		</dict>
 		<key>Headers/VROEventDelegateiOS.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			p7Ds7FGY+yPJjfCSKTqmGiQgIWE=
+			cJShwOheWnifF6u8G1CQ9hYvynk=
 			</data>
 			<key>hash2</key>
 			<data>
-			QnD5084a6BVogzVpOVorKEMzPvHUnJR45Pm0UgSQqvs=
+			98c1huesT560yk0XI4DiY7v4GBFWC/THDn6VkRyJm7Y=
 			</data>
 		</dict>
 		<key>Headers/VROExecutableAnimation.h</key>
@@ -7626,11 +7630,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			Zy+SeUah8EHl8rBEJrioVMFJ8uQ=
+			yJpIYJZRuVORT8Xnn5sQAqwcU98=
 			</data>
 			<key>hash2</key>
 			<data>
-			jY2HmtIfimXG4kjjMNw6E1pA8nVpYJG/n9RpCbH9CFA=
+			2vwBAouIpmK2BRs88e9fif34pFp3daB7VMufBiMpKVs=
 			</data>
 		</dict>
 		<key>Headers/VROInputControllerCardboardiOS.h</key>
@@ -7648,11 +7652,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			2w5OHXjVuwTsGL8Lr7cZ/5sKBAs=
+			qHxpmJ9BjZ24MjVGqb8ySFtP/hI=
 			</data>
 			<key>hash2</key>
 			<data>
-			k6g0CqFRW4s4qU/JlGaPhuS85NFNiqTEPpGcxnMgaqQ=
+			pvI6Ar6IlMqUMJi49kvfRReaZpKRcVB/hCtSOAaPSoE=
 			</data>
 		</dict>
 		<key>Headers/VROInputPresenterCardboardiOS.h</key>
@@ -7923,11 +7927,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			PslW5ZEpGqJ01tCOBW/N7qYvpOE=
+			Qqn87aGTgAJrKqOz565EQaE3lsw=
 			</data>
 			<key>hash2</key>
 			<data>
-			PDTkSYw1MZ0MgoGgvOeHByykrTnXwH97ZKt1wTtsjTE=
+			ytg/Zwgb9JhBkJHXl6aZwr+uU9W24aYg+Tg1x5KdLM4=
 			</data>
 		</dict>
 		<key>Headers/VROScene.h</key>
@@ -8187,11 +8191,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			/BiRmZiiE1yx4VbIuYCvbZs9NJo=
+			RvEsmCWcGT6Xpj9xzyi/zTlepyk=
 			</data>
 			<key>hash2</key>
 			<data>
-			KhBeqRZ1rRXd0Quephxskh/8vdLx+kNAcp8MdCSoJZE=
+			MEG7EZBmNQZAQUUeBKx9x32X1C8f1EnlHaA3ZKpzis8=
 			</data>
 		</dict>
 		<key>Headers/VROTimingFunctionBounce.h</key>
@@ -8412,6 +8416,17 @@
 			<key>hash2</key>
 			<data>
 			WnuAp1VrISg47gf/LxuVMpkLgNY3K1qOxP8HDhCUeg4=
+			</data>
+		</dict>
+		<key>Headers/VROVideoTextureCache.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			+Beql+zOEXorkMC4vCr8GMewOwI=
+			</data>
+			<key>hash2</key>
+			<data>
+			H8yWzIyIKlJWn0doJvuGByB2k8ki+YK2mR8g47Y9Vyg=
 			</data>
 		</dict>
 		<key>Headers/VROVideoTextureiOS.h</key>

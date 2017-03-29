@@ -37,7 +37,13 @@ var ViroBox = React.createClass({
     onTouch: React.PropTypes.func,
     onScroll: React.PropTypes.func,
     onSwipe: React.PropTypes.func,
-
+    onFuse: PropTypes.oneOfType([
+      React.PropTypes.shape({
+        callback: React.PropTypes.func.isRequired,
+        timeToFuse: PropTypes.number
+      }),
+      React.PropTypes.func,
+    ]),
     /**
      * Enables high accuracy gaze collision checks for this object.
      * This can be useful for complex 3D objects where the default
@@ -86,6 +92,17 @@ var ViroBox = React.createClass({
       this.props.onDrag
         && this.props.onDrag(event.nativeEvent.dragToPos, event.nativeEvent.source);
   },
+
+  _onFuse: function(event: Event){
+    if (this.props.onFuse){
+      if (typeof this.props.onFuse === 'function'){
+        this.props.onFuse(event.nativeEvent.source);
+      } else if (this.props.onFuse != undefined && this.props.onFuse.callback != undefined){
+        this.props.onFuse.callback(event.nativeEvent.source);
+      }
+    }
+  },
+
   render: function() {
     // Since materials and transformBehaviors can be either a string or an array, convert the string to a 1-element array.
     let materials = typeof this.props.materials === 'string' ? new Array(this.props.materials) : this.props.materials;
@@ -101,6 +118,10 @@ var ViroBox = React.createClass({
       }
     }
 
+    let timeToFuse = undefined;
+    if (this.props.onFuse != undefined && typeof this.props.onFuse === 'object'){
+        timeToFuse = this.props.onFuse.timeToFuse;
+    }
 
     return (
         <VRTBox
@@ -112,12 +133,15 @@ var ViroBox = React.createClass({
             canScroll={this.props.onScroll != undefined}
             canSwipe={this.props.onSwipe != undefined}
             canDrag={this.props.onDrag != undefined}
+            canFuse={this.props.onFuse != undefined}
             onHoverViro={this._onHover}
             onClickViro={this._onClickState}
             onTouchViro={this._onTouch}
             onScrollViro={this._onScroll}
             onSwipeViro={this._onSwipe}
-            onDragViro={this._onDrag}/>
+            onDragViro={this._onDrag}
+            onFuseViro={this._onFuse}
+            timeToFuse={timeToFuse}/>
     );
   }
 });
@@ -131,12 +155,15 @@ var VRTBox = requireNativeComponent(
             canScroll: true,
             canSwipe: true,
             canDrag: true,
+            canFuse: true,
             onHoverViro:true,
             onClickViro:true,
             onTouchViro:true,
             onScrollViro:true,
             onSwipeViro:true,
-            onDragViro:true}
+            onDragViro:true,
+            onFuseViro:true,
+            timeToFuse:true}
     }
 );
 

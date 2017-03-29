@@ -28,8 +28,7 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.facebook.react:react-native:+'
     compile project(':gvr_common')
-    releaseCompile project(path: ':viro_renderer', configuration: 'release')
-    debugCompile project(path: ':viro_renderer', configuration: 'debug')
+    compile project(':viro_renderer')
     compile 'com.google.android.exoplayer:exoplayer:r2.2.0'
     compile 'com.google.protobuf.nano:protobuf-javanano:3.0.0-alpha-7'
     compile 'com.amazonaws:aws-android-sdk-core:2.2.+'

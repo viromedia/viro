@@ -24,6 +24,7 @@ var ViroController = React.createClass({
     onScroll: React.PropTypes.func,
     onSwipe: React.PropTypes.func,
     onControllerStatus: React.PropTypes.func,
+    onFuse: React.PropTypes.func,
     reticleVisibility: PropTypes.bool,
     controllerVisibility: PropTypes.bool,
   },
@@ -56,6 +57,10 @@ var ViroController = React.createClass({
     this.props.onControllerStatus && this.props.onControllerStatus(event.nativeEvent.controllerStatus, event.nativeEvent.source);
   },
 
+  _onFuse: function(event: Event){
+    this.props.onFuse && this.props.onFuse(event.nativeEvent.source);
+  },
+
   render: function() {
       return (
         <VRTController
@@ -65,10 +70,12 @@ var ViroController = React.createClass({
           canScroll={this.props.onScroll != undefined}
           canSwipe={this.props.onSwipe != undefined}
           canGetControllerStatus={this.props.onControllerStatus != undefined}
+          canFuse={this.props.onFuse != undefined}
           onClickViro={this._onClickState}
           onTouchViro={this._onTouch}
           onScrollViro={this._onScroll}
           onSwipeViro={this._onSwipe}
+          onFuseViro={this._onFuse}
           onControllerStatusViro={this._onControllerStatus}
         />
       );
@@ -82,12 +89,16 @@ var VRTController = requireNativeComponent(
               canTouch: true,
               canScroll: true,
               canSwipe: true,
+              canFuse: true,
               canGetControllerStatus: true,
               onClickViro:true,
               onTouchViro:true,
               onScrollViro:true,
               onSwipeViro:true,
-              onControllerStatusViro:true}
+              onControllerStatusViro:true,
+              onFuseViro:true,
+              timeToFuse:true,
+            }
       }
 );
 

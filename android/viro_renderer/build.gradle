@@ -1,8 +1,4 @@
 configurations.maybeCreate("default")
-artifacts.add("default", file('viro_renderer-debug.aar'))
+artifacts.add("default", file('viro_renderer-release.aar'))
 
-configurations.maybeCreate("debug")
-artifacts.add("debug", file('viro_renderer-debug.aar'))
 
-configurations.maybeCreate("release")
-artifacts.add("release", file('viro_renderer-release.aar'))

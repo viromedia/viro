@@ -35,7 +35,6 @@ static const float ON_DRAG_DISTANCE_THRESHOLD = 0.01;
  */
 class VROInputControllerBase{
 public:
-    
     VROInputControllerBase();
     virtual ~VROInputControllerBase(){}
     
@@ -211,6 +210,23 @@ private:
      * Last hit result that we are performing a drag event on.
      */
     std::shared_ptr<VRODraggedObject> _lastDraggedNode;
+
+    /*
+     * Current node that we are fusing on.
+     */
+    std::shared_ptr<VRONode> _currentFusedNode;
+
+    /**
+     * Time at which the onFuse event is triggered, in milliseconds.
+     */
+    double _fuseTriggerAtMillis = -1;
+
+    /**
+     * True if we have already notified delegates about the onFuse event.
+     */
+    bool _haveNotifiedOnFuseTriggered;
+    void processOnFuseEvent(int source, std::shared_ptr<VRONode> node);
+    void notifyOnFuseEvent(int source, float timeToFuseRatio);
 };
 
 #endif

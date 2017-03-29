@@ -92,7 +92,13 @@ var ViroImage = React.createClass({
     onScroll: React.PropTypes.func,
     onSwipe: React.PropTypes.func,
     onDrag: React.PropTypes.func,
-
+    onFuse: PropTypes.oneOfType([
+          React.PropTypes.shape({
+            callback: React.PropTypes.func.isRequired,
+            timeToFuse: PropTypes.number
+          }),
+          React.PropTypes.func
+        ]),
     /**
      * Callback triggered when we are processing the assets to be
      * displayed in this ViroImage (either downloading / reading from file).
@@ -166,6 +172,15 @@ var ViroImage = React.createClass({
         && this.props.onDrag(event.nativeEvent.dragToPos, event.nativeEvent.source);
   },
 
+  _onFuse: function(event: Event){
+    if (this.props.onFuse){
+      if (typeof this.props.onFuse === 'function'){
+        this.props.onFuse(event.nativeEvent.source);
+      } else if (this.props.onFuse != undefined && this.props.onFuse.callback != undefined){
+        this.props.onFuse.callback(event.nativeEvent.source);
+      }
+    }
+  },
   render: function() {
     var defaultPlaceholder = require('./Resources/viro_blank.png');
     var imgsrc = resolveAssetSource(this.props.source);
@@ -199,6 +214,11 @@ var ViroImage = React.createClass({
     let transformBehaviors = typeof this.props.transformBehaviors === 'string' ?
         new Array(this.props.transformBehaviors) : this.props.transformBehaviors;
 
+    let timeToFuse = undefined;
+    if (this.props.onFuse != undefined && typeof this.props.onFuse === 'object'){
+        timeToFuse = this.props.onFuse.timeToFuse;
+    }
+
     // Create native props object.
     let nativeProps = Object.assign({}, this.props);
     nativeProps.materials = materials;
@@ -222,6 +242,9 @@ var ViroImage = React.createClass({
     nativeProps.canScroll = this.props.onScroll != undefined;
     nativeProps.canSwipe = this.props.onSwipe != undefined;
     nativeProps.canDrag = this.props.onDrag != undefined;
+    nativeProps.canFuse = this.props.onFuse != undefined;
+    nativeProps.onFuseViro = this._onFuse;
+    nativeProps.timeToFuse = timeToFuse;
 
     return (
       <VRTImage {...nativeProps}/>
@@ -246,7 +269,11 @@ var VRTImage = requireNativeComponent(
             onTouchViro:true,
             onScrollViro:true,
             onSwipeViro:true,
-            onDragViro:true}
+            onDragViro:true,
+            canFuse: true,
+            onFuseViro:true,
+            timeToFuse:true
+          }
   }
 );
 

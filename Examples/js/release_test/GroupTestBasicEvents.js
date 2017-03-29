@@ -81,6 +81,12 @@ onDrag(objectTag){return (dragtoPos, source) => {
                         console.log("GroupTest:" + objectTag + " onDrag dragtoPos" +
                         dragtoPos[0] +","+ dragtoPos[1]+","+ dragtoPos[2] + " source: " + source);
                       }},
+onFuse(objectTag){
+  return (source) => {
+                          console.log("GroupTest:" + objectTag + " onFuse");
+                        }
+
+},
   render: function() {
     return (
                 <ViroScene onHover={this.onHover("ViroScene")}
@@ -88,6 +94,7 @@ onDrag(objectTag){return (dragtoPos, source) => {
                                                  onClickState={this.onClickState("ViroScene")}
                                                  onTouch={this.onTouch("ViroScene")}
                                                  onScroll={this.onScroll("ViroScene")}
+                                                 onFuse={this.onFuse("ViroScene")}
                                                  onSwipe={this.onSwipe("ViroScene")}>
 
 
@@ -96,6 +103,7 @@ onDrag(objectTag){return (dragtoPos, source) => {
                        onClickState={this.onClickState("ViroController")}
                      onTouch={this.onTouch("ViroController")}
                         onScroll={this.onScroll("ViroController")}
+                        onFuse={this.onFuse("ViroController")}
                        onSwipe={this.onSwipe("ViroController")}
 reticleVisibility={this.state.reticleVisibility}
                 />
@@ -113,6 +121,7 @@ reticleVisibility={this.state.reticleVisibility}
 
                               onHover={this.onHover("3dObject")}
                               onClick={this.onClick("3dObject")}
+                              onFuse={{callback:this.onFuse("3dObject"), timeToFuse:1000}}
                               onClickState={this.onClickState("3dObject")}
                               onTouch={this.onTouch("3dObject")}
                               onScroll={this.onScroll("3dObject")}
@@ -127,6 +136,7 @@ reticleVisibility={this.state.reticleVisibility}
                       length={1}
                       onHover={this.onHover("ViroBox")}
                       onClick={this.onClick("ViroBox")}
+                      onFuse={{callback:this.onFuse("ViroBox"), timeToFuse:1000}}
                       onClickState={this.onClickState("ViroBox")}
                       onTouch={this.onTouch("ViroBox")}
                       onScroll={this.onScroll("ViroBox")}
@@ -141,6 +151,7 @@ reticleVisibility={this.state.reticleVisibility}
                       tapSource={LocalButtonImage}
                       onHover={this.onHover("ViroButton")}
                       onClick={this.onClick("ViroButton")}
+                      onFuse={this.onFuse("ViroButton")}
                       onClickState={this.onClickState("ViroButton")}
                       onTouch={this.onTouch("ViroButton")}
                       onScroll={this.onScroll("ViroButton")}
@@ -155,6 +166,7 @@ reticleVisibility={this.state.reticleVisibility}
                       height={2}
                       onHover={this.onHover("ViroFlexView")}
                       onClick={this.onClick("ViroFlexView")}
+                      onFuse={this.onFuse("ViroFlexView")}
                       onClickState={this.onClickState("ViroFlexView")}
                       onTouch={this.onTouch("ViroFlexView")}
                       onScroll={this.onScroll("ViroFlexView")}
@@ -168,6 +180,7 @@ reticleVisibility={this.state.reticleVisibility}
                       onHover={this.onHover("ViroImage")}
                       onClick={this.onClick("ViroImage")}
                       onClickState={this.onClickState("ViroImage")}
+                      onFuse={{callback:this.onFuse("ViroImage"), timeToFuse:1000}}
                       onTouch={this.onTouch("ViroImage")}
                       onScroll={this.onScroll("ViroImage")}
                       onSwipe={this.onSwipe("ViroImage")}/>
@@ -177,6 +190,7 @@ reticleVisibility={this.state.reticleVisibility}
                     rotation={[0,0,0]}
                       onHover={this.onHover("ViroNode")}
                       onClick={this.onClick("ViroNode")}
+                      onFuse={{callback:this.onFuse("ViroImage"), timeToFuse:1000}}
                       onClickState={this.onClickState("ViroNode")}
                       onTouch={this.onTouch("ViroNode")}
                       onScroll={this.onScroll("ViroNode")}
@@ -194,6 +208,7 @@ reticleVisibility={this.state.reticleVisibility}
                       radius={1}
                       materials={["redColor"]}
                       onHover={this.onHover("ViroSphere")}
+                      onFuse={this.onFuse("ViroSphere")}
                       onClick={this.onClick("ViroSphere")}
                       onClickState={this.onClickState("ViroSphere")}
                       onTouch={this.onTouch("ViroSphere")}
@@ -208,6 +223,7 @@ reticleVisibility={this.state.reticleVisibility}
                       onClick={this.onClick("ViroSpinner")}
                       onClickState={this.onClickState("ViroSpinner")}
                       onTouch={this.onTouch("ViroSpinner")}
+                      onFuse={this.onFuse("ViroSpinner")}
                       onScroll={this.onScroll("ViroSpinner")}
                       onSwipe={this.onSwipe("ViroSpinner")}/>
 
@@ -219,6 +235,7 @@ reticleVisibility={this.state.reticleVisibility}
                       height={1}
                          onHover={this.onHover("ViroSurface")}
                          onClick={this.onClick("ViroSurface")}
+                         onFuse={{callback:this.onFuse("ViroSurface"), timeToFuse:1000}}
                          onClickState={this.onClickState("ViroSurface")}
                          onTouch={this.onTouch("ViroSurface")}
                          onScroll={this.onScroll("ViroSurface")}
@@ -230,6 +247,7 @@ reticleVisibility={this.state.reticleVisibility}
                       style={styles.baseTextTwo}
                       text="This is a Viro Text"
                          onHover={this.onHover("ViroText")}
+                         onFuse={this.onFuse("ViroText")}
                          onClick={this.onClick("ViroText")}
                          onClickState={this.onClickState("ViroText")}
                          onTouch={this.onTouch("ViroText")}
@@ -240,6 +258,7 @@ reticleVisibility={this.state.reticleVisibility}
                       scale={[0.1, 0.1, 0.1]}
                       height={4} width={4}
                       onHover={this.onHover("ViroVideo")}
+                      onFuse={this.onFuse("ViroVideo")}
                       onClick={this.onClick("ViroVideo")}
                       onClickState={this.onClickState("ViroVideo")}
                       onTouch={this.onTouch("ViroVideo")}

@@ -51,7 +51,14 @@ var ViroSurface = React.createClass({
     onTouch: React.PropTypes.func,
     onScroll: React.PropTypes.func,
     onSwipe: React.PropTypes.func,
-    onDrag: React.PropTypes.func
+    onDrag: React.PropTypes.func,
+    onFuse: PropTypes.oneOfType([
+      React.PropTypes.shape({
+        callback: React.PropTypes.func.isRequired,
+        timeToFuse: PropTypes.number
+      }),
+      React.PropTypes.func
+    ]),
   },
 
   _onHover: function(event: Event) {
@@ -86,6 +93,17 @@ var ViroSurface = React.createClass({
       this.props.onDrag
           && this.props.onDrag(event.nativeEvent.dragToPos, event.nativeEvent.source);
   },
+
+  _onFuse: function(event: Event){
+    if (this.props.onFuse){
+      if (typeof this.props.onFuse === 'function'){
+        this.props.onFuse(event.nativeEvent.source);
+      } else if (this.props.onFuse != undefined && this.props.onFuse.callback != undefined){
+        this.props.onFuse.callback(event.nativeEvent.source);
+      }
+    }
+  },
+
   render: function() {
 
     if (this.props.material) {
@@ -96,6 +114,12 @@ var ViroSurface = React.createClass({
     let materials = typeof this.props.materials === 'string' ? new Array(this.props.materials) : this.props.materials;
     let transformBehaviors = typeof this.props.transformBehaviors === 'string' ?
         new Array(this.props.transformBehaviors) : this.props.transformBehaviors;
+
+
+    let timeToFuse = undefined;
+    if (this.props.onFuse != undefined && typeof this.props.onFuse === 'object'){
+        timeToFuse = this.props.onFuse.timeToFuse;
+    }
 
     // Create native props object.
     let nativeProps = Object.assign({}, this.props);
@@ -114,6 +138,9 @@ var ViroSurface = React.createClass({
     nativeProps.canScroll = this.props.onScroll != undefined;
     nativeProps.canSwipe = this.props.onSwipe != undefined;
     nativeProps.canDrag = this.props.onDrag != undefined;
+    nativeProps.canFuse = this.props.onFuse != undefined;
+    nativeProps.onFuseViro = this._onFuse;
+    nativeProps.timeToFuse = timeToFuse;
 
     return (
       <VRTSurface {...nativeProps}/>
@@ -135,7 +162,11 @@ var VRTSurface = requireNativeComponent(
             onTouchViro:true,
             onScrollViro:true,
             onSwipeViro:true,
-            onDragViro:true}
+            onDragViro:true,
+            canFuse: true,
+            onFuseViro:true,
+            timeToFuse:true
+          }
   }
 );
 

@@ -16,6 +16,9 @@
 #include <map>
 #include "VROVector3f.h"
 #include "VROHitTestResult.h"
+#include <limits>
+
+static const float kOnFuseReset = std::numeric_limits<float>::max();
 
 /**
  * Class for both registering for and implementing event delegate callbacks.
@@ -39,7 +42,8 @@ public:
         OnControllerStatus = 5,
         OnSwipe = 6,
         OnScroll = 7,
-        OnDrag = 8
+        OnDrag = 8,
+        OnFuse = 9
     };
 
     /**
@@ -93,6 +97,7 @@ public:
         _enabledEventMap[VROEventDelegate::EventAction::OnSwipe] = false;
         _enabledEventMap[VROEventDelegate::EventAction::OnScroll] = false;
         _enabledEventMap[VROEventDelegate::EventAction::OnDrag] = false;
+        _enabledEventMap[VROEventDelegate::EventAction::OnFuse] = false;
     }
 
     /**
@@ -145,7 +150,27 @@ public:
     virtual void onDrag(int source, VROVector3f newPosition){
         //No-op
     }
+
+    virtual void onFuse(int source, float timeToFuseRatio){
+        //No-op
+    }
+
+    void setTimeToFuse(float durationInMillis){
+        _timeToFuseDuration = durationInMillis;
+    }
+
+    float getTimeToFuse(){
+        return _timeToFuseDuration;
+    }
+
+
 private:
     std::map<VROEventDelegate::EventAction , bool> _enabledEventMap;
+
+    /**
+     * Duration used to count down from for triggering onFuse events, in milliseconds.
+     * Defaults to 2000 milliseconds.
+     */
+    float _timeToFuseDuration = 2000;
 };
 #endif

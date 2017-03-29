@@ -24,4 +24,5 @@ public class ViroEvents {
     public static final String ON_PLATFORM_UPDATE = "onPlatformUpdateViro";
     public static final String ON_CONTROLLER_STATUS = "onControllerStatusViro";
     public static final String ON_EXIT_VIRO = "onExitViro";
+    public static final String ON_FUSE = "onFuseViro";
 }

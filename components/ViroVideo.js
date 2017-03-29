@@ -57,7 +57,13 @@ var ViroVideo = React.createClass({
     onScroll: React.PropTypes.func,
     onSwipe: React.PropTypes.func,
     onDrag: React.PropTypes.func,
-
+    onFuse: PropTypes.oneOfType([
+          React.PropTypes.shape({
+            callback: React.PropTypes.func.isRequired,
+            timeToFuse: PropTypes.number
+          }),
+          React.PropTypes.func
+        ]),
     /**
      * Callback that is called when the video is finished playing. This
      * function isn't called at the end of a video if looping is enabled.
@@ -124,6 +130,16 @@ var ViroVideo = React.createClass({
         && this.props.onDrag(event.nativeEvent.dragToPos, event.nativeEvent.source);
   },
 
+  _onFuse: function(event: Event){
+    if (this.props.onFuse){
+      if (typeof this.props.onFuse === 'function'){
+        this.props.onFuse(event.nativeEvent.source);
+      } else if (this.props.onFuse != undefined && this.props.onFuse.callback != undefined){
+        this.props.onFuse.callback(event.nativeEvent.source);
+      }
+    }
+  },
+
   render: function() {
     if (this.props.src) {
       console.error('The <ViroVideo> component takes a `source` property rather than `src`.');
@@ -138,6 +154,11 @@ var ViroVideo = React.createClass({
     let materials = typeof this.props.materials === 'string' ? new Array(this.props.materials) : this.props.materials;
     let transformBehaviors = typeof this.props.transformBehaviors === 'string' ?
         new Array(this.props.transformBehaviors) : this.props.transformBehaviors;
+
+    let timeToFuse = undefined;
+    if (this.props.onFuse != undefined && typeof this.props.onFuse === 'object'){
+        timeToFuse = this.props.onFuse.timeToFuse;
+    }
 
     let nativeProps = Object.assign({}, this.props);
     nativeProps.ref = RCT_VIDEO_REF;
@@ -160,6 +181,9 @@ var ViroVideo = React.createClass({
     nativeProps.canScroll = this.props.onScroll != undefined;
     nativeProps.canSwipe = this.props.onSwipe != undefined;
     nativeProps.canDrag = this.props.onDrag != undefined;
+    nativeProps.canFuse = this.props.onFuse != undefined;
+    nativeProps.onFuseViro = this._onFuse;
+    nativeProps.timeToFuse = timeToFuse;
     return (
       <VRTVideoSurface {...nativeProps}/>
     );
@@ -202,6 +226,9 @@ var VRTVideoSurface = requireNativeComponent(
             onSwipeViro:true,
             onDragViro:true,
             onErrorViro:true,
+            canFuse: true,
+            onFuseViro:true,
+            timeToFuse:true
             }
     }
 );

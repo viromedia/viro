@@ -25,7 +25,7 @@ class VROTimingFunction {
 public:
     
     static std::unique_ptr<VROTimingFunction> forType(VROTimingFunctionType type);
-    
+
     VROTimingFunction() {}
     virtual ~VROTimingFunction() {}
 

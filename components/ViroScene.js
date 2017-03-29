@@ -21,6 +21,13 @@ var ViroScene = React.createClass({
     onTouch: React.PropTypes.func,
     onScroll: React.PropTypes.func,
     onSwipe: React.PropTypes.func,
+    onFuse: PropTypes.oneOfType([
+      React.PropTypes.shape({
+        callback: React.PropTypes.func.isRequired,
+        timeToFuse: PropTypes.number
+      }),
+      React.PropTypes.func
+    ]),
     onPlatformUpdate: React.PropTypes.func,
     /**
      * Describes the acoustic properties of the room around the user
@@ -39,7 +46,7 @@ var ViroScene = React.createClass({
   },
 
   _onClick: function(event: Event) {
-    this.props.onClick && this.props.onClick(event.nativeEvent.source);  
+    this.props.onClick && this.props.onClick(event.nativeEvent.source);
   },
 
   _onClickState: function(event: Event) {
@@ -60,6 +67,16 @@ var ViroScene = React.createClass({
 
   _onSwipe: function(event: Event) {
     this.props.onSwipe && this.props.onSwipe(event.nativeEvent.swipeState, event.nativeEvent.source);
+  },
+
+  _onFuse: function(event: Event){
+    if (this.props.onFuse){
+      if (typeof this.props.onFuse === 'function'){
+        this.props.onFuse(event.nativeEvent.source);
+      } else if (this.props.onFuse != undefined && this.props.onFuse.callback != undefined){
+        this.props.onFuse.callback(event.nativeEvent.source);
+      }
+    }
   },
 
   _onPlatformUpdate: function(event: Event) {
@@ -94,6 +111,11 @@ var ViroScene = React.createClass({
   },
 
   render: function() {
+    let timeToFuse = undefined;
+    if (this.props.onFuse != undefined && typeof this.props.onFuse === 'object'){
+        timeToFuse = this.props.onFuse.timeToFuse;
+    }
+
     return (
       <VRTScene
         {...this.props}
@@ -102,12 +124,15 @@ var ViroScene = React.createClass({
         canTouch={this.props.onTouch != undefined}
         canScroll={this.props.onScroll != undefined}
         canSwipe={this.props.onSwipe != undefined}
+        canFuse={this.props.onFuse != undefined}
         onHoverViro={this._onHover}
         onClickViro={this._onClickState}
         onTouchViro={this._onTouch}
         onScrollViro={this._onScroll}
         onSwipeViro={this._onSwipe}
+        onFuseViro={this._onFuse}
         onPlatformUpdateViro={this._onPlatformUpdate}
+        timeToFuse={timeToFuse}
         />
     );
   },
@@ -128,13 +153,16 @@ var VRTScene = requireNativeComponent(
           canScroll: true,
           canSwipe: true,
           canDrag: true,
+          canFuse: true,
           onHoverViro: true,
           onClickViro: true,
           onTouchViro: true,
           onScrollViro: true,
           onSwipeViro: true,
           onDragViro:true,
-          onPlatformUpdateViro: true
+          onPlatformUpdateViro: true,
+          onFuseViro:true,
+          timeToFuse:true,
         }
     }
 );
