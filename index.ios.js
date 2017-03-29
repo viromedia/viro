@@ -24,7 +24,6 @@ var scenes = {
     '360 Photo Tour': require('./js/360PhotoTour/MainScene'),
     'Hello World': require('./js/HelloWorld/HelloWorldScene'),
     'Human Body': require('./js/HumanBody/MainScene'),
-    'A9 Demo': require('./js/A9Demo/A9Demo'),
 }
 
 var ViroCodeSamplesSceneNavigator = React.createClass({
@@ -35,7 +34,7 @@ var ViroCodeSamplesSceneNavigator = React.createClass({
     return (
       <ViroSceneNavigator
         initialScene={{
-          scene: scenes['A9 Demo'],
+          scene: scenes['360 Photo Tour'],
         }}
         viroAppProps={{...this.props}}
         apiKey="API_KEY_HERE"
