@@ -66,8 +66,8 @@ RCT_EXPORT_MODULE()
     __weak __typeof__(self) weakSelf = self;
     _devMenuItem =
     [RCTDevMenuItem toggleItemWithKey:@"ViroFPSToggle"
-                                title:@"Display FPS"
-                        selectedTitle:@"Hide FPS"
+                                title:@"[Viro] Display FPS"
+                        selectedTitle:@"[Viro] Hide FPS"
                               handler:
      ^(BOOL selected) {
        if (selected) {
