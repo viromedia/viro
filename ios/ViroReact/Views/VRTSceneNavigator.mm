@@ -15,6 +15,7 @@
 #import "VRTNotifications.h"
 #import <React/RCTRootView.h>
 #import <React/RCTUtils.h>
+#import "VRTPerfMonitor.h"
 
 static NSString *const kVRTInvalidAPIKeyMessage = @"The given API Key is either missing or invalid! If you have not signed up for accessing Viro Media platform, please do so at www.viromedia.com. Otherwise, contact info@viromedia.com if you have a valid key and are encountering this error.";
 
@@ -34,6 +35,7 @@ static NSString *const kVRTInvalidAPIKeyMessage = @"The given API Key is either 
                                                                   [[UIScreen mainScreen] bounds].size.width,
                                                                   [[UIScreen mainScreen] bounds].size.height)];
     _vroView.renderDelegate = self;
+    
     [self setFrame:CGRectMake(0, 0,
                               [[UIScreen mainScreen] bounds].size.width,
                               [[UIScreen mainScreen] bounds].size.height)];
@@ -41,6 +43,8 @@ static NSString *const kVRTInvalidAPIKeyMessage = @"The given API Key is either 
     
     self.currentViews = [[NSMutableArray alloc] init];
     _currentStackPosition = -1;
+    
+    [bridge.perfMonitor setView:_vroView];
   }
   return self;
 }

@@ -332,6 +332,8 @@
 		8BE0D5261DFA3DEA0032AB99 /* VRTTreeNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BE0D5231DFA3DEA0032AB99 /* VRTTreeNode.m */; };
 		8BE0D52E1DFA468F0032AB99 /* ViroKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BE0D52D1DFA468F0032AB99 /* ViroKit.framework */; };
 		8D7FF77A67F625D2046F82FD /* libPods-ViroReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D00D2E18A27112F2AE615B22 /* libPods-ViroReact.a */; };
+		8F705DE61E8B3755008BE8F8 /* VRTPerfMonitor.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F705DE41E8B3754008BE8F8 /* VRTPerfMonitor.h */; };
+		8F705DE71E8B3755008BE8F8 /* VRTPerfMonitor.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8F705DE51E8B3754008BE8F8 /* VRTPerfMonitor.mm */; };
 		8FD1D4B91E3A484000EE2859 /* VRTCameraModule.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8FD1D4B81E3A484000EE2859 /* VRTCameraModule.mm */; };
 		A5A937A91E81D1FB00FE0406 /* VRTSceneNavigatorModule.h in Headers */ = {isa = PBXBuildFile; fileRef = A5A937A71E81D1FB00FE0406 /* VRTSceneNavigatorModule.h */; };
 		A5A937AA1E81D1FB00FE0406 /* VRTSceneNavigatorModule.mm in Sources */ = {isa = PBXBuildFile; fileRef = A5A937A81E81D1FB00FE0406 /* VRTSceneNavigatorModule.mm */; };
@@ -607,6 +609,8 @@
 		8BE0D5221DFA3DEA0032AB99 /* VRTTreeNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VRTTreeNode.h; path = ViroReact/Utility/VRTTreeNode.h; sourceTree = "<group>"; };
 		8BE0D5231DFA3DEA0032AB99 /* VRTTreeNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VRTTreeNode.m; path = ViroReact/Utility/VRTTreeNode.m; sourceTree = "<group>"; };
 		8BE0D52D1DFA468F0032AB99 /* ViroKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ViroKit.framework; path = ViroRenderer/ViroKit.framework; sourceTree = "<group>"; };
+		8F705DE41E8B3754008BE8F8 /* VRTPerfMonitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VRTPerfMonitor.h; path = ViroReact/Modules/VRTPerfMonitor.h; sourceTree = "<group>"; };
+		8F705DE51E8B3754008BE8F8 /* VRTPerfMonitor.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = VRTPerfMonitor.mm; path = ViroReact/Modules/VRTPerfMonitor.mm; sourceTree = "<group>"; };
 		8FD1D4B81E3A484000EE2859 /* VRTCameraModule.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = VRTCameraModule.mm; path = ViroReact/Modules/VRTCameraModule.mm; sourceTree = "<group>"; };
 		8FD1D4BB1E3A486500EE2859 /* VRTCameraModule.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = VRTCameraModule.h; path = ViroReact/Modules/VRTCameraModule.h; sourceTree = "<group>"; };
 		A5A937A71E81D1FB00FE0406 /* VRTSceneNavigatorModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VRTSceneNavigatorModule.h; path = ViroReact/Modules/VRTSceneNavigatorModule.h; sourceTree = "<group>"; };
@@ -773,6 +777,8 @@
 				8BE0D5181DFA3DB20032AB99 /* VRTMaterialManager.mm */,
 				8A130DAC1E43A8AB0050D83B /* VRTSoundModule.h */,
 				8A130DAD1E43A8AB0050D83B /* VRTSoundModule.mm */,
+				8F705DE41E8B3754008BE8F8 /* VRTPerfMonitor.h */,
+				8F705DE51E8B3754008BE8F8 /* VRTPerfMonitor.mm */,
 			);
 			name = Modules;
 			sourceTree = "<group>";
@@ -972,6 +978,7 @@
 				8BDDA1101E5BD3FC00A42870 /* VRTHUDComponent.h in Headers */,
 				8BCF287D1E8090AA00F0DD62 /* VRTUIImageWrapper.h in Headers */,
 				8BDDA1111E5BD3FC00A42870 /* VRTImage.h in Headers */,
+				8F705DE61E8B3755008BE8F8 /* VRTPerfMonitor.h in Headers */,
 				8BDDA1121E5BD3FC00A42870 /* VRTLabelShadowView.h in Headers */,
 				8BDDA1131E5BD3FC00A42870 /* VRTLight.h in Headers */,
 				8BDDA1141E5BD3FC00A42870 /* VRTNode.h in Headers */,
@@ -1298,6 +1305,7 @@
 				8BE0D5071DFA3D9B0032AB99 /* VRTNodeContainerShadowView.mm in Sources */,
 				8BCF287C1E8090A900F0DD62 /* VRTUIImageWrapper.m in Sources */,
 				8BE0D50B1DFA3D9B0032AB99 /* VRTSceneShadowView.mm in Sources */,
+				8F705DE71E8B3755008BE8F8 /* VRTPerfMonitor.mm in Sources */,
 				8BE0D50D1DFA3D9B0032AB99 /* VRTShadowView.mm in Sources */,
 				8BE0D4A71DFA15880032AB99 /* VRT3DObjectManager.mm in Sources */,
 				8BE0D51B1DFA3DB20032AB99 /* VRTMaterialManager.mm in Sources */,

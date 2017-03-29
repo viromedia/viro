@@ -22,6 +22,7 @@ import com.viromedia.bridge.ReactViroPackage;
 import com.viromedia.bridge.component.node.Scene;
 import com.viromedia.bridge.module.MaterialManager;
 import com.viromedia.bridge.utility.ViroEvents;
+import com.viromedia.bridge.module.PerfMonitor;
 import com.viromedia.bridge.utility.ViroLog;
 
 import java.lang.ref.WeakReference;
@@ -163,6 +164,12 @@ public class SceneNavigator extends FrameLayout {
         addView(baseVrView);
 
         mRenderContext = mVrView.getRenderContextRef();
+
+        /*
+         * Set the view for the debug console.
+         */
+        PerfMonitor perfMonitor = reactContext.getNativeModule(PerfMonitor.class);
+        perfMonitor.setView(mVrView);
 
         /*
          * Trigger VrView's onActivityStarted and onActivityResumed of the vrView as

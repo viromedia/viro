@@ -37,6 +37,7 @@ import com.viromedia.bridge.module.AnimationManager;
 import com.viromedia.bridge.module.CameraModule;
 import com.viromedia.bridge.module.MaterialManager;
 import com.viromedia.bridge.module.SceneNavigatorModule;
+import com.viromedia.bridge.module.PerfMonitor;
 import com.viromedia.bridge.module.SoundModule;
 
 import java.util.Arrays;
@@ -67,7 +68,8 @@ public class ReactViroPackage implements ReactPackage {
                 new AnimationManager(reactContext),
                 new CameraModule(reactContext),
                 new SoundModule(reactContext),
-                new SceneNavigatorModule(reactContext)
+                new SceneNavigatorModule(reactContext),
+                new PerfMonitor(reactContext)
         );
     }
 

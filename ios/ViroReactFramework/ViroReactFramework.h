@@ -18,6 +18,7 @@ FOUNDATION_EXPORT const unsigned char ViroReactFrameworkVersionString[];
 
 #import <ViroReactFramework/VRTAnimationManager.h>
 #import <ViroReactFramework/VRTCameraModule.h>
+#import <ViroReactFramework/VRTPerfMonitor.h>
 #import <ViroReactFramework/VRTMaterialManager.h>
 #import <ViroReactFramework/VRTSoundModule.h>
 #import <ViroReactFramework/VRTCubeMap.h>
