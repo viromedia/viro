@@ -49,6 +49,9 @@ var ViroImage = React.createClass({
     opacity: PropTypes.number,
     width: PropTypes.number,
     height: PropTypes.number,
+    resizeMode: PropTypes.oneOf(['scaleToFill','scaleToFit','stretchToFill']),
+    imageClipMode: PropTypes.oneOf(['none', 'clipToBounds']),
+
     materials: PropTypes.oneOfType([
       PropTypes.arrayOf(PropTypes.string),
       PropTypes.string

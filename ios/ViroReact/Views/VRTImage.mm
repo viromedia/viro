@@ -20,6 +20,14 @@ static float const kDefaultHeight = 1;
   BOOL _widthOrHeightPropSet;
   BOOL _widthOrHeightChanged;
   BOOL _imageNeedsDownload;
+  BOOL _resizeModePropSet;
+  float _scaledHeight;
+  float _scaledWidth;
+  float _u0;
+  float _v0;
+  float _u1;
+  float _v1;
+  std::shared_ptr<VRONode> _imageNode;
 }
 
 -(instancetype)initWithBridge:(RCTBridge *)bridge {
@@ -28,11 +36,22 @@ static float const kDefaultHeight = 1;
     _loader = [[VRTImageAsyncLoader alloc] initWithDelegate:self];
     _width = kDefaultWidth;
     _height = kDefaultHeight;
+    _scaledWidth = kDefaultWidth;
+    _scaledHeight = kDefaultHeight;
     _widthOrHeightPropSet = NO;
     _widthOrHeightChanged = YES;
+    _resizeModePropSet = NO;
     _mipmap = YES;
     _imageNeedsDownload = NO;
     _format = VROTextureInternalFormat::RGBA8;
+    _resizeMode = VROImageResizeMode::StretchToFill;
+    _imageClipMode = VROImageClipMode::ClipToBounds; // Default to cropping if image overshoots with scaleToFill. Developers can override by passing None.
+    _u0 = 0;
+    _v0 = 0;
+    _u1 = 1;
+    _v1 = 1;
+    [self node]->setHierarchicalRendering(true);
+
   }
   
   return self;
@@ -64,10 +83,40 @@ static float const kDefaultHeight = 1;
   _widthOrHeightChanged = YES;
 }
 
+- (void)setResizeMode:(VROImageResizeMode)resizeMode {
+    _resizeMode = resizeMode;
+    _resizeModePropSet = YES;
+}
+
+- (void)setImageClipMode:(VROImageClipMode)imageClipMode {
+  _imageClipMode = imageClipMode;
+}
 - (void)updateSurface {
   std::shared_ptr<VROSurface> surface = VROSurface::createSurface(_width, _height);
-
+  float imageSurfaceWidth;
+  float imageSurfaceHeight;
+  if (_imageClipMode == VROImageClipMode::ClipToBounds && _resizeMode == VROImageResizeMode::ScaleToFill) {
+    imageSurfaceWidth = _width;
+    imageSurfaceHeight = _height;
+  } else {
+    imageSurfaceWidth = _scaledWidth;
+    imageSurfaceHeight = _scaledHeight;
+  }
+  std::shared_ptr<VROSurface> imageSurface = VROSurface::createSurface(imageSurfaceWidth, imageSurfaceHeight, _u0, _v0, _u1, _v1);
+  
+  if ( !_imageNode ) {
+    _imageNode = std::make_shared<VRONode>();
+    _imageNode->setPosition({0, 0, 0.01}); // +0.01 for z-fighting
+    _imageNode->setScale({1, 1, 1});
+    _imageNode->setHidden(false);
+    _imageNode->setOpacity(1);
+    _imageNode->setHierarchicalRendering(true);
+    self.node->addChildNode(_imageNode);
+  }
+  
   self.node->setGeometry(surface);
+  _imageNode->setGeometry(imageSurface);
+  
   [self applyMaterials];
 }
 
@@ -76,7 +125,7 @@ static float const kDefaultHeight = 1;
   [super applyMaterials];
   
   if (_texture && self.node->getGeometry()) {
-    self.node->getGeometry()->getMaterials().front()->getDiffuse().setTexture(_texture);
+    _imageNode->getGeometry()->getMaterials().front()->getDiffuse().setTexture(_texture);
   }
 }
 
@@ -94,6 +143,7 @@ static float const kDefaultHeight = 1;
                                                                                     std::make_shared<VROImageiOS>(_placeholderSource.image,
                                                                                                                   VROTextureInternalFormat::RGBA8));
         self.node->getGeometry()->getMaterials().front()->getDiffuse().setTexture(placeholderTexture);
+        _imageNode->getGeometry()->getMaterials().front()->getDiffuse().setTexture(placeholderTexture);
     }
     
     // Start loading the image
@@ -124,10 +174,12 @@ static float const kDefaultHeight = 1;
       if (!_widthOrHeightPropSet){
         float ratio = image.size.width / image.size.height;
         _height = _width / ratio;
-        [self updateSurface];
-        
         _widthOrHeightChanged = NO;
+      } else if (_resizeModePropSet) {
+        // If width and height were set as props, along with resizeMode, we'll calculate scaled width & height of the image
+        [self resizeImageDimensions:image];
       }
+      [self updateSurface];
       [self applyMaterials];
     }
 
@@ -138,6 +190,47 @@ static float const kDefaultHeight = 1;
       self.onErrorViro(@{ @"error": @"Image failed to load" });
     }
   });
+}
+
+- (void)resizeImageDimensions:(UIImage *)image {
+    if(!_widthOrHeightPropSet || !_resizeModePropSet) {
+        return;
+    }
+    float aspectRatio = image.size.width / image.size.height;
+    float targetAspectRatio = _width / _height;
+    
+    switch(_resizeMode) {
+      case VROImageResizeMode::ScaleToFit:
+        if (targetAspectRatio <= aspectRatio) { // target is taller than content
+          _scaledWidth = _width;
+          _scaledHeight = _scaledWidth / aspectRatio;
+        } else { // target is wider than content
+          _scaledHeight = _height;
+          _scaledWidth = _scaledHeight * aspectRatio;
+        };
+        break;
+      case VROImageResizeMode::ScaleToFill:
+        if (targetAspectRatio <= aspectRatio) { // target is taller than content
+          _scaledHeight = _height;
+          _scaledWidth = _scaledHeight * aspectRatio;
+        } else { // target is wider than content
+          _scaledWidth = _width;
+          _scaledHeight = _scaledWidth / aspectRatio;
+        };
+        // If clipMode is set to clipToBounds, we need to calculate u,v values so that the image clips/crops to the image view bounds
+        if (_imageClipMode == VROImageClipMode::ClipToBounds) {
+          float clipWidth = fabsf(_scaledWidth - _width) / _scaledWidth;
+          float clipHeight = fabsf(_scaledHeight - _height)/ _scaledHeight;
+          _u0 = clipWidth / 2;
+          _v0 = clipHeight / 2;
+          _u1 = 1 - clipWidth / 2;
+          _v1 = 1 - clipHeight / 2;
+        }
+        break;
+      case VROImageResizeMode::StretchToFill:
+          _scaledWidth = _width;
+          _scaledHeight = _height;
+    }
 }
 
 @end
@@ -161,5 +254,39 @@ static float const kDefaultHeight = 1;
     return VROTextureInternalFormat::RGBA8;;
 }
 
++ (VROImageResizeMode)VROImageResizeMode:(id)json {
+    if (![json isKindOfClass:[NSString class]]) {
+        RCTLogError(@"Error setting string. String required, received: %@", json);
+        return VROImageResizeMode::StretchToFill;
+    }
+    
+    NSString *value = (NSString *)json;
+    if ([value caseInsensitiveCompare:@"ScaleToFill"] == NSOrderedSame) {
+        return VROImageResizeMode::ScaleToFill;
+    } else if ([value caseInsensitiveCompare:@"ScaleToFit"] == NSOrderedSame) {
+        return VROImageResizeMode::ScaleToFit;
+    } else if ([value caseInsensitiveCompare:@"StretchToFill"] == NSOrderedSame) {
+        return VROImageResizeMode::StretchToFill;
+    }
+    
+    return VROImageResizeMode::StretchToFill;
+}
+
++(VROImageClipMode)VROImageClipMode:(id)json {
+  if (![json isKindOfClass:[NSString class]]) {
+    RCTLogError(@"Error setting string. String required, received: %@", json);
+    return VROImageClipMode::None;
+  }
+  
+  NSString *value = (NSString *)json;
+  
+  if ([value caseInsensitiveCompare:@"none"] == NSOrderedSame) {
+    return VROImageClipMode::None;
+  }
+  else if ([value caseInsensitiveCompare:@"Cliptobounds"] == NSOrderedSame) {
+    return VROImageClipMode::ClipToBounds;
+  }
+  return VROImageClipMode::None;
+}
 @end
 

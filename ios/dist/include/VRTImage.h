@@ -14,6 +14,17 @@
 #import "VRTUIImageWrapper.h"
 #import "VRTImageAsyncLoaderEventDelegate.h"
 
+enum class VROImageResizeMode {
+  ScaleToFill,
+  ScaleToFit,
+  StretchToFill
+};
+
+enum class VROImageClipMode {
+  ClipToBounds,
+  None
+};
+
 @interface VRTImage : VRTControl<VRTImageAsyncLoaderEventDelegate>
 
 -(instancetype)initWithBridge:(RCTBridge *)bridge;
@@ -21,6 +32,8 @@
 @property (nonatomic, assign) float width;
 @property (nonatomic, assign) float height;
 @property (nonatomic, copy) RCTImageSource *source;
+@property (nonatomic, assign) VROImageResizeMode resizeMode;
+@property (nonatomic, assign) VROImageClipMode imageClipMode;
 @property (nonatomic, copy) VRTUIImageWrapper *placeholderSource;
 @property (nonatomic, assign) bool mipmap;
 @property (nonatomic, assign) VROTextureInternalFormat format;
@@ -33,5 +46,7 @@
 @interface RCTConvert (VRTImage)
 
 + (VROTextureInternalFormat)VROTextureInternalFormat:(id)json;
++ (VROImageResizeMode)VROImageResizeMode:(id)json;
++ (VROImageClipMode)VROImageClipMode:(id)json;
 
 @end

@@ -2549,7 +2549,7 @@
 		</data>
 		<key>Headers/VROImage.h</key>
 		<data>
-		G3y2SK+UwpOfzYCLKthDnn5cDUE=
+		NtJEUzNCbln9adGKiPvUcfXxYh8=
 		</data>
 		<key>Headers/VROImageUtil.h</key>
 		<data>
@@ -2745,7 +2745,7 @@
 		</data>
 		<key>Headers/VROSurface.h</key>
 		<data>
-		VKFskMkvblodrBMZ3GAK8KbYvqg=
+		A8lFvtvxETY4fBgAenNp5KiQaso=
 		</data>
 		<key>Headers/VROText.h</key>
 		<data>
@@ -2877,7 +2877,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		WPyL2s+lvbmGdS41Oab4uFja0yI=
+		Kj3sGXZN7OvrDAu3pYouJn18a+k=
 		</data>
 		<key>MaterialRobotoFontLoader.bundle/Roboto-Black.ttf</key>
 		<data>
@@ -7603,11 +7603,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			G3y2SK+UwpOfzYCLKthDnn5cDUE=
+			NtJEUzNCbln9adGKiPvUcfXxYh8=
 			</data>
 			<key>hash2</key>
 			<data>
-			CrXsG1quRxE3Mx++0+GieLi6kVsT34kdOecu6sWIVWw=
+			YTIdhTW5n+x1Jb2AdIWoPHbuNxA5tqxb90dosjFPbfQ=
 			</data>
 		</dict>
 		<key>Headers/VROImageUtil.h</key>
@@ -8142,11 +8142,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			VKFskMkvblodrBMZ3GAK8KbYvqg=
+			A8lFvtvxETY4fBgAenNp5KiQaso=
 			</data>
 			<key>hash2</key>
 			<data>
-			rOdageu59TytNIbkWVAKK1/Dsk6BJ8iFnMutgctblrU=
+			QcpNCuKfSyYdU4AC6fbirAts9dLHFHDkOc58TWHqVr8=
 			</data>
 		</dict>
 		<key>Headers/VROText.h</key>

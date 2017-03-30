@@ -11,6 +11,8 @@ uniform sampler2D diffuse_texture;
 uniform sampler2D specular_texture;
 uniform samplerCube reflect_texture;
 
+#pragma surface_modifier_uniforms
+
 in lowp vec3 v_normal;
 in highp vec2 v_texcoord;
 in highp vec3 v_surface_position;
@@ -18,20 +20,19 @@ in highp vec3 v_surface_position;
 out lowp vec4 frag_color;
 
 void main() {
-    VROPhongLighting phong;
-    phong.normal = v_normal;
-    phong.texcoord = v_texcoord;
-    phong.surface_position = v_surface_position;
-    phong.camera_position = camera_position;
+    _surface.diffuse_color = material_diffuse_surface_color;
+    _surface.diffuse_texcoord = v_texcoord;
+    _surface.diffuse_intensity = material_diffuse_intensity;
+    _surface.shininess = material_shininess;
+    _surface.specular_texcoord = v_texcoord;
+    _surface.alpha = material_alpha;
+    _surface.normal = v_normal;
+    _surface.position = v_surface_position;
     
-    phong.ambient_color = ambient_light_color;
-    phong.material_color = material_diffuse_surface_color;
-    phong.material_shininess = material_shininess;
-    phong.diffuse_intensity = material_diffuse_intensity;
-    phong.material_alpha = material_alpha;
+#pragma surface_modifier_body
     
-    lowp vec4 reflective_color = compute_reflection(v_surface_position, camera_position, v_normal, reflect_texture);
-    lowp vec4 lighting_color = phong_lighting_diffuse_texture(phong, diffuse_texture, specular_texture);
+    lowp vec4 reflective_color = compute_reflection(_surface.position, camera_position, _surface.normal, reflect_texture);
+    lowp vec4 lighting_color = phong_lighting_diffuse_texture(_surface, camera_position, diffuse_texture, specular_texture);
     
     frag_color = vec4(lighting_color.xyz + reflective_color.xyz, lighting_color.a);
 }

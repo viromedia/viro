@@ -65,7 +65,7 @@ protected:
     std::weak_ptr<VROVideoDelegateInternal> _delegate;
 
     /*
-     * Notifies delegates about the video player's current time, per second.
+     Notifies delegates about the video player's current time, per second.
      */
     void updateVideoTime(){
         std::shared_ptr<VROVideoDelegateInternal> delegate = _delegate.lock();
@@ -74,10 +74,10 @@ protected:
         }
 
         /*
-         * Reduce the amount of JNI Calls to getCurrentTimeInSeconds() to
-         * a per-second basis - the lowest unit of time currently used by
-         * video players. Thus, _lastVideoTimeGetAttempt is used to filter
-         * the amount of calls made.
+         Reduce the amount of JNI Calls to getCurrentTimeInSeconds() to
+         a per-second basis - the lowest unit of time currently used by
+         video players. Thus, _lastVideoTimeGetAttempt is used to filter
+         the amount of calls made.
          */
         double currentRenderTime = floor(VROTimeCurrentSeconds());
         if (_lastVideoTimeGetAttempt == currentRenderTime) {
@@ -86,8 +86,8 @@ protected:
         _lastVideoTimeGetAttempt = currentRenderTime;
 
         /*
-         * Only notify delegates if the last known CurrentVideoTime returned
-         * from the AVPlayer has changed.
+         Only notify delegates if the last known CurrentVideoTime returned
+         from the AVPlayer has changed.
          */
         int currentVideoTimeInSeconds = getCurrentTimeInSeconds();
         if (_lastCurrentVideoTimeInSeconds != currentVideoTimeInSeconds) {
@@ -98,16 +98,18 @@ protected:
     }
 
 private:
+    
     /*
-     * Last time stamp at which we attempted a JNI call getCurrentTimeInSeconds() from the
-     * video player.
+     Last time stamp at which we attempted a JNI call getCurrentTimeInSeconds() from the
+     video player.
      */
     double _lastVideoTimeGetAttempt  = -1;
 
     /*
-     * Last known current video time that was retrieved from the player.
+     Last known current video time that was retrieved from the player.
      */
     int _lastCurrentVideoTimeInSeconds = -1;
+    
 };
 
 #endif /* VROVideoTexture_h */

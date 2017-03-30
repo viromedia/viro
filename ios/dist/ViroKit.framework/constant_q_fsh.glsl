@@ -7,6 +7,8 @@ uniform lowp float material_alpha;
 
 uniform samplerCube diffuse_texture;
 
+#pragma surface_modifier_uniforms
+
 in lowp vec3 v_normal;
 in highp vec2 v_texcoord;
 in highp vec3 v_surface_position;
@@ -14,6 +16,16 @@ in highp vec3 v_surface_position;
 out lowp vec4 frag_color;
 
 void main() {
-    highp vec3 texcoord = vec3(v_surface_position.x, v_surface_position.y, -v_surface_position.z);
-    frag_color = material_diffuse_surface_color * texture(diffuse_texture, texcoord) * material_diffuse_intensity * vec4(1.0, 1.0, 1.0, material_alpha);
+    _surface.diffuse_color = material_diffuse_surface_color;
+    _surface.diffuse_texcoord = v_texcoord;
+    _surface.diffuse_intensity = material_diffuse_intensity;
+    _surface.alpha = material_alpha;
+    _surface.normal = v_normal;
+    _surface.position = v_surface_position;
+    
+#pragma surface_modifier_body
+    
+    highp vec3 texcoord = vec3(_surface.position.x, _surface.position.y, -_surface.position.z);
+    frag_color = _surface.diffuse_color * texture(diffuse_texture, texcoord) *
+                 _surface.diffuse_intensity * vec4(1.0, 1.0, 1.0, _surface.alpha);
 }
