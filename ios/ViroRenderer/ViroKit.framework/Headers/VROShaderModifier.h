@@ -21,9 +21,38 @@ class VROUniform;
 
 typedef std::function<void(VROUniform *uniform, GLuint location)> VROUniformBindingBlock;
 
+/*
+ The entry point, which signals where in the shader program this modifier will
+ act.
+ 
+ When modifying the Geometry entry point, the code may declare uniforms and
+ read/write to the following structure:
+ 
+ struct VROShaderGeometry {
+   vec3 position;
+   vec3 normal;
+   vec2 texcoord;
+ } _geometry;
+ 
+ When modifying the Surface entry point, the code may declare uniforms and
+ read/write to the following structure:
+ 
+ struct VROSurface {
+   lowp  vec4 diffuse_color;
+   highp vec2 diffuse_texcoord;
+   lowp float diffuse_intensity;
+ 
+   lowp float shininess;
+   highp vec2 specular_texcoord;
+ 
+   lowp float alpha;
+   lowp  vec3 normal;
+   highp vec3 position;
+ } _surface;
+ */
 enum class VROShaderEntryPoint {
     Geometry, // Modify vertex shader
-    Surface   // Modify fragment shader
+    Surface,  // Modify fragment shader surface properties before lighting computation
 };
 
 enum class VROShaderSection {
@@ -43,6 +72,11 @@ public:
     
     static uint32_t hashShaderModifiers(const std::vector<std::shared_ptr<VROShaderModifier>> &modifiers);
     
+    /*
+     Create a new shader modifier that operates at the given entry point. The input
+     should be valid GLSL code, with each line as a separate string. Uniform declarations
+     are automatically separated out from the body of the input code.
+     */
     VROShaderModifier(VROShaderEntryPoint entryPoint, std::vector<std::string> input);
     virtual ~VROShaderModifier();
     

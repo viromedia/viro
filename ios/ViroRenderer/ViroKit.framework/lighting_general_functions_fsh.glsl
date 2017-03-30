@@ -1,3 +1,5 @@
+#include surface_functions_fsh
+
 // Grouped in 4N slots (int and float take 1N, vec3 takes 3N, vec4 takes 4N)
 struct VROLightUniforms {
     int type;

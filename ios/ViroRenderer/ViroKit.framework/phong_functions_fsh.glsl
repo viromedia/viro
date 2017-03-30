@@ -1,20 +1,5 @@
 #include lighting_general_functions_fsh
 
-struct VROPhongLighting {
-    highp vec4 position;
-    lowp vec3 normal;
-    highp vec2 texcoord;
-    
-    highp vec3 surface_position;
-    highp vec3 camera_position;
-    
-    lowp vec3 ambient_color;
-    lowp vec4 material_color;
-    lowp float  material_shininess;
-    lowp float  diffuse_intensity;
-    lowp float  material_alpha;
-};
-
 lowp vec3 apply_light_phong(const VROLightUniforms light,
                             highp vec3 surface_pos,
                             lowp vec3 surface_normal,
@@ -42,51 +27,53 @@ lowp vec3 apply_light_phong(const VROLightUniforms light,
     return attenuation * (diffuse + specular);
 }
 
-lowp vec4 phong_lighting_diffuse_fixed(VROPhongLighting phong,
+lowp vec4 phong_lighting_diffuse_fixed(VROSurface surface,
+                                       highp vec3 camera_position,
                                        sampler2D specular_texture) {
     
-    lowp vec3 light_ambient_color = phong.ambient_color * phong.material_color.xyz;
+    lowp vec3 light_ambient_color = ambient_light_color * surface.diffuse_color.xyz;
 
-    lowp vec4 material_diffuse_color = phong.material_color * phong.diffuse_intensity;
-    lowp vec4 material_specular_color = texture(specular_texture, phong.texcoord);
-    highp vec3 surface_to_camera = normalize(phong.camera_position - phong.surface_position);
+    lowp vec4 material_diffuse_color = surface.diffuse_color * surface.diffuse_intensity;
+    lowp vec4 material_specular_color = texture(specular_texture, surface.specular_texcoord);
+    highp vec3 surface_to_camera = normalize(camera_position - surface.position);
     
     lowp vec3 light_diffuse_color = vec3(0, 0, 0);
     for (int i = 0; i < num_lights; i++) {
         light_diffuse_color += apply_light_phong(lights[i],
-                                                 phong.surface_position,
-                                                 phong.normal,
+                                                 surface.position,
+                                                 surface.normal,
                                                  surface_to_camera,
                                                  material_diffuse_color,
                                                  material_specular_color,
-                                                 phong.material_shininess);
+                                                 surface.shininess);
     }
     
     return vec4(light_ambient_color + light_diffuse_color,
-                phong.material_alpha * phong.material_color.a);
+                surface.alpha * material_diffuse_color.a);
 }
 
-lowp vec4 phong_lighting_diffuse_texture(VROPhongLighting phong,
+lowp vec4 phong_lighting_diffuse_texture(VROSurface surface,
+                                         highp vec3 camera_position,
                                          sampler2D diffuse_texture,
                                          sampler2D specular_texture) {
     
-    lowp vec4 material_diffuse_color = texture(diffuse_texture, phong.texcoord) * phong.material_color * phong.diffuse_intensity;
-    lowp vec3 light_ambient_color = phong.ambient_color * material_diffuse_color.xyz;
+    lowp vec4 material_diffuse_color = texture(diffuse_texture, surface.diffuse_texcoord) * surface.diffuse_color * surface.diffuse_intensity;
+    lowp vec3 light_ambient_color = ambient_light_color * material_diffuse_color.xyz;
 
-    lowp vec4 material_specular_color = texture(specular_texture, phong.texcoord);
-    highp vec3 surface_to_camera = normalize(phong.camera_position - phong.surface_position);
+    lowp vec4 material_specular_color = texture(specular_texture, surface.specular_texcoord);
+    highp vec3 surface_to_camera = normalize(camera_position - surface.position);
     
     lowp vec3 light_diffuse_color = vec3(0, 0, 0);
     for (int i = 0; i < num_lights; i++) {
         light_diffuse_color += apply_light_phong(lights[i],
-                                                    phong.surface_position,
-                                                    phong.normal,
+                                                    surface.position,
+                                                    surface.normal,
                                                     surface_to_camera,
                                                     material_diffuse_color,
                                                     material_specular_color,
-                                                    phong.material_shininess);
+                                                    surface.shininess);
     }
     
     return vec4(light_ambient_color + light_diffuse_color,
-                phong.material_alpha * material_diffuse_color.a);
+                surface.alpha * material_diffuse_color.a);
 }

@@ -8,6 +8,8 @@ uniform lowp float material_alpha;
 
 uniform sampler2D diffuse_texture;
 
+#pragma surface_modifier_uniforms
+
 in lowp vec3 v_normal;
 in highp vec2 v_texcoord;
 in highp vec3 v_surface_position;
@@ -15,16 +17,14 @@ in highp vec3 v_surface_position;
 out lowp vec4 frag_color;
 
 void main() {
-    VROLambertLighting lambert;
-    lambert.normal = v_normal;
-    lambert.texcoord = v_texcoord;
-    lambert.surface_position = v_surface_position;
-    lambert.camera_position = camera_position;
+    _surface.diffuse_color = material_diffuse_surface_color;
+    _surface.diffuse_texcoord = v_texcoord;
+    _surface.diffuse_intensity = material_diffuse_intensity;
+    _surface.alpha = material_alpha;
+    _surface.normal = v_normal;
+    _surface.position = v_surface_position;
+    
+#pragma surface_modifier_body
 
-    lambert.ambient_color = ambient_light_color;
-    lambert.material_color = material_diffuse_surface_color;
-    lambert.diffuse_intensity = material_diffuse_intensity;
-    lambert.material_alpha = material_alpha;
-
-    frag_color = lambert_lighting_diffuse_texture(lambert, diffuse_texture);
+    frag_color = lambert_lighting_diffuse_texture(_surface, camera_position, diffuse_texture);
 }

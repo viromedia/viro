@@ -2689,7 +2689,7 @@
 		</data>
 		<key>Headers/VROShaderModifier.h</key>
 		<data>
-		+jEwrUm5AnCQo/hTkVTxj11sP8M=
+		rJ6mA446n2dEyD5eUwFRa/lI/XM=
 		</data>
 		<key>Headers/VROShaderProgram.h</key>
 		<data>
@@ -2745,7 +2745,7 @@
 		</data>
 		<key>Headers/VROSurface.h</key>
 		<data>
-		gSnONyQqZDykyEKsNuhbFeiQ0FI=
+		VKFskMkvblodrBMZ3GAK8KbYvqg=
 		</data>
 		<key>Headers/VROText.h</key>
 		<data>
@@ -2937,23 +2937,23 @@
 		</data>
 		<key>blinn_c_fsh.glsl</key>
 		<data>
-		xrxYNP2DqrERg9Q1rIudkJYRpvA=
+		PS+4qCkNpdatlXyhbSZDJPOjbZk=
 		</data>
 		<key>blinn_c_reflect_fsh.glsl</key>
 		<data>
-		ysN/MrzpqxeZZUyi2BWhNkah7qg=
+		YvSRyJzv8nrIxkkp7qjc7RZgUsA=
 		</data>
 		<key>blinn_functions_fsh.glsl</key>
 		<data>
-		Cq6D1t7ZfXcSFP08ch1Zp8M0yJI=
+		WZ5ytZ75feOdZPLOJGV2qc0vHZE=
 		</data>
 		<key>blinn_t_fsh.glsl</key>
 		<data>
-		5R6sPMu8VSN1pj0H6Ggvpqu6Wk8=
+		+8Y9AMVgI8aBzQnsa94be0s6vKI=
 		</data>
 		<key>blinn_t_reflect_fsh.glsl</key>
 		<data>
-		UUSPUrTdy68AxCcMlyBha0l4JLI=
+		MDKc6N3ZhJL2Mck54b2M3Q8zp94=
 		</data>
 		<key>blit_fsh.glsl</key>
 		<data>
@@ -2965,19 +2965,19 @@
 		</data>
 		<key>constant_c_fsh.glsl</key>
 		<data>
-		i4XG2PUhgVFAqNngDPKyq9EKcTY=
+		ctkdxh7YcIEIxGhGnYgxl2j1x8E=
 		</data>
 		<key>constant_functions_fsh.glsl</key>
 		<data>
-		/SYisMjowLqGLqK0mRpiYUE3fzM=
+		uyo/s+xZ5T5LN+wNQLTzAL9HuHs=
 		</data>
 		<key>constant_q_fsh.glsl</key>
 		<data>
-		66EDDa8p0ZxO05CRgD35nOScf/Y=
+		J6st2OqWveDJMOnWjujxtpgeFtY=
 		</data>
 		<key>constant_t_fsh.glsl</key>
 		<data>
-		j/PMnHhgMFeFUEY5e4zyJqqeuog=
+		1mw1/HdIgp2pYXQlJF6u+6YdzVU=
 		</data>
 		<key>default.metallib</key>
 		<data>
@@ -2985,51 +2985,55 @@
 		</data>
 		<key>lambert_c_fsh.glsl</key>
 		<data>
-		jBJ2XD9H8BdYU1fCDkzKEyLEaTg=
+		AjKgQNUbJKQUtBLhZwOnyaP6/w4=
 		</data>
 		<key>lambert_c_reflect_fsh.glsl</key>
 		<data>
-		vidGbG786xJATs/hjX2XBucZm8o=
+		V3i3YiYG0Fs47BzCCL0eIaDuE74=
 		</data>
 		<key>lambert_functions_fsh.glsl</key>
 		<data>
-		ph9h3bUQId1bokjRkgfco2GzAQo=
+		7HUlXy+XtTn9/OUpdkl9jimHyn8=
 		</data>
 		<key>lambert_t_fsh.glsl</key>
 		<data>
-		Pqx0TJAnIwFRuDaYDzAOTL597uo=
+		cU0ICnpQHMtwqe+sIA3uUdzVqBY=
 		</data>
 		<key>lambert_t_reflect_fsh.glsl</key>
 		<data>
-		V0c9mut0KuyOfIvCsPjWk8n0AJ0=
+		KllV3mDWvJVLuC47JxP6TkKYS4Q=
 		</data>
 		<key>lighting_general_functions_fsh.glsl</key>
 		<data>
-		JT2PBeUqruiJce2n1f50CjXIb4U=
+		+dra1y+pgA/jhYm4+arDmDa8gdM=
 		</data>
 		<key>phong_c_fsh.glsl</key>
 		<data>
-		hEFSDYyGeAz/aqT579czlPnbjLQ=
+		IX6qnONFzNAaHuvZBGo5mQMLczo=
 		</data>
 		<key>phong_c_reflect_fsh.glsl</key>
 		<data>
-		XXalASvR0kL9+PlTzD+z6k8CM0o=
+		LVtUlkJBSqao0h3Fx0riKuqoChI=
 		</data>
 		<key>phong_functions_fsh.glsl</key>
 		<data>
-		NfdnGSAlO2zfO+6Vsgl4x1lrLts=
+		6Y+BISg/T4x7z0i+cKNAMfgoVCM=
 		</data>
 		<key>phong_t_fsh.glsl</key>
 		<data>
-		VPO+c1wgqba1mQTxIRNTCT5BJ38=
+		Q7H2Z9GZQQFhwsVEv2DbyMwtlfc=
 		</data>
 		<key>phong_t_reflect_fsh.glsl</key>
 		<data>
-		E3hB89SpFe3TZVD8xcxyYbniJtI=
+		Nnik+GUP0k1Pdnf3kMIOCfeEtF0=
 		</data>
 		<key>standard_vsh.glsl</key>
 		<data>
 		4v4jCthWFLvfuYVe1Ou2BcGWshA=
+		</data>
+		<key>surface_functions_fsh.glsl</key>
+		<data>
+		30nC8woMI2FYg2CqKMUosMEkRS8=
 		</data>
 	</dict>
 	<key>files2</key>
@@ -7984,11 +7988,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			+jEwrUm5AnCQo/hTkVTxj11sP8M=
+			rJ6mA446n2dEyD5eUwFRa/lI/XM=
 			</data>
 			<key>hash2</key>
 			<data>
-			spKnavSt+q13nCZlEX0jm4534XUxFHrM+P+kSVESnhQ=
+			FstxQeExgX688HxBq1mJ/dF9jtwRL6APQITJmqbIius=
 			</data>
 		</dict>
 		<key>Headers/VROShaderProgram.h</key>
@@ -8138,11 +8142,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			gSnONyQqZDykyEKsNuhbFeiQ0FI=
+			VKFskMkvblodrBMZ3GAK8KbYvqg=
 			</data>
 			<key>hash2</key>
 			<data>
-			vSIDiBEQqXBwW0Tz0mOIkon1d78yZlQR/pEGDrfrJys=
+			rOdageu59TytNIbkWVAKK1/Dsk6BJ8iFnMutgctblrU=
 			</data>
 		</dict>
 		<key>Headers/VROText.h</key>
@@ -8655,55 +8659,55 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			xrxYNP2DqrERg9Q1rIudkJYRpvA=
+			PS+4qCkNpdatlXyhbSZDJPOjbZk=
 			</data>
 			<key>hash2</key>
 			<data>
-			LQ7efuZEcm3G/ShyXt6GzcHcSo1wwLGyp4m39mYgnOQ=
+			acHfG29vcAg2DKxuJ5u+m7hHMPAPQ7w5FbQ0EBKYnvI=
 			</data>
 		</dict>
 		<key>blinn_c_reflect_fsh.glsl</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			ysN/MrzpqxeZZUyi2BWhNkah7qg=
+			YvSRyJzv8nrIxkkp7qjc7RZgUsA=
 			</data>
 			<key>hash2</key>
 			<data>
-			m2cIv8oiBP1vw/kkpdiwMqnkfaUl05p3DPc+wM0143Y=
+			cPd6PJYTo8N3XLMWRgOXjg05SuNa8YVbGK2bLuwEqU8=
 			</data>
 		</dict>
 		<key>blinn_functions_fsh.glsl</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			Cq6D1t7ZfXcSFP08ch1Zp8M0yJI=
+			WZ5ytZ75feOdZPLOJGV2qc0vHZE=
 			</data>
 			<key>hash2</key>
 			<data>
-			qmEr4UDJzxjEbcibHQsc7Q9iXbGiEja/JRMEuWEp/7U=
+			+s3wZgnb7LfaySZkedhInCkh4kbASW9s8eiiAl63At8=
 			</data>
 		</dict>
 		<key>blinn_t_fsh.glsl</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			5R6sPMu8VSN1pj0H6Ggvpqu6Wk8=
+			+8Y9AMVgI8aBzQnsa94be0s6vKI=
 			</data>
 			<key>hash2</key>
 			<data>
-			YH+FmeerG6PSERLFbyonTlj+qvNJV/DYzkLFuAPD+34=
+			RQOGe1A1g/SOXyQenqo4zYWpJt8lxOS2Hj9c/W2y0qc=
 			</data>
 		</dict>
 		<key>blinn_t_reflect_fsh.glsl</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			UUSPUrTdy68AxCcMlyBha0l4JLI=
+			MDKc6N3ZhJL2Mck54b2M3Q8zp94=
 			</data>
 			<key>hash2</key>
 			<data>
-			L2+8Oca32WdriGurU3OypSpXo6NXI2sM/qHbGIyuowI=
+			cef5sSWkWEyj4HVjVcL5wVar3EmtMpa541f5fqZM/Cg=
 			</data>
 		</dict>
 		<key>blit_fsh.glsl</key>
@@ -8732,44 +8736,44 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			i4XG2PUhgVFAqNngDPKyq9EKcTY=
+			ctkdxh7YcIEIxGhGnYgxl2j1x8E=
 			</data>
 			<key>hash2</key>
 			<data>
-			7EgpEnTHuLvtrxQtp/kkPTH+Rk/jNzI57iPYRA0DJPg=
+			3x0u6qIWw4O7K30iPWETpBRbMR6Q2U7OMxEFAQNO/wo=
 			</data>
 		</dict>
 		<key>constant_functions_fsh.glsl</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			/SYisMjowLqGLqK0mRpiYUE3fzM=
+			uyo/s+xZ5T5LN+wNQLTzAL9HuHs=
 			</data>
 			<key>hash2</key>
 			<data>
-			8PEgaSjYzVKGKbrwJsSRM3MTBqRs5xOqHcSOYh2uRhs=
+			WldJGS6nLy/fuM//hpOXOaBMMcq43Pp9eBXJoEv+Yh4=
 			</data>
 		</dict>
 		<key>constant_q_fsh.glsl</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			66EDDa8p0ZxO05CRgD35nOScf/Y=
+			J6st2OqWveDJMOnWjujxtpgeFtY=
 			</data>
 			<key>hash2</key>
 			<data>
-			evk616Y3ydGNiIo6kUZ5m+RFKIYaVE1zEU/AcjVc3aM=
+			YdiLaERXQrLKJPRk4HqB1erztatYuB9IO01A7dTZL40=
 			</data>
 		</dict>
 		<key>constant_t_fsh.glsl</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			j/PMnHhgMFeFUEY5e4zyJqqeuog=
+			1mw1/HdIgp2pYXQlJF6u+6YdzVU=
 			</data>
 			<key>hash2</key>
 			<data>
-			8cjyr6x9vHyEWpzV1+1e78NhJCifAasK9ufeAUI/LzA=
+			OfFVMk1VrJFUP/H2e7CUCJqpbCGIeOtZE+4GnBzWGlA=
 			</data>
 		</dict>
 		<key>default.metallib</key>
@@ -8787,121 +8791,121 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			jBJ2XD9H8BdYU1fCDkzKEyLEaTg=
+			AjKgQNUbJKQUtBLhZwOnyaP6/w4=
 			</data>
 			<key>hash2</key>
 			<data>
-			b/3gI47t28edfax8kvAi4cL/0vUtoB8LO1lj6dtCsT8=
+			20c0bYPs63hoS5/PSInAx3XR2fpLJSq4xk6Hotn1L20=
 			</data>
 		</dict>
 		<key>lambert_c_reflect_fsh.glsl</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			vidGbG786xJATs/hjX2XBucZm8o=
+			V3i3YiYG0Fs47BzCCL0eIaDuE74=
 			</data>
 			<key>hash2</key>
 			<data>
-			DFsjdK5qzl36UbZ47dYadBisnoQbUC8eb9qkOxeLa2Q=
+			ygGZc1pxs38ddNbT2dJocCXGFQoXkP+TtgMLaKAg2Aw=
 			</data>
 		</dict>
 		<key>lambert_functions_fsh.glsl</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			ph9h3bUQId1bokjRkgfco2GzAQo=
+			7HUlXy+XtTn9/OUpdkl9jimHyn8=
 			</data>
 			<key>hash2</key>
 			<data>
-			0KGWyFOx6Uq0VGZH7D5ztNAWUoHDKVcU/oTCxC7tYTg=
+			Tf65HziFBbgoKeR1lSxxDOdB9D865RH84JFsGueeQEM=
 			</data>
 		</dict>
 		<key>lambert_t_fsh.glsl</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			Pqx0TJAnIwFRuDaYDzAOTL597uo=
+			cU0ICnpQHMtwqe+sIA3uUdzVqBY=
 			</data>
 			<key>hash2</key>
 			<data>
-			l1wC2ECosLwRn5bL3X4Lrdiv3ApiwUUJWjgz1+kSRXk=
+			9cF9h/xkrx4KeaZ7IiX04xsZkhk+G4YA5gB9/9WOwKI=
 			</data>
 		</dict>
 		<key>lambert_t_reflect_fsh.glsl</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			V0c9mut0KuyOfIvCsPjWk8n0AJ0=
+			KllV3mDWvJVLuC47JxP6TkKYS4Q=
 			</data>
 			<key>hash2</key>
 			<data>
-			+4PxIMP7rAeBqLdgkSGG/5Vo1tIsl2dpikJ7zBmAp8g=
+			gKsWCm1GdXhAgMKZrdIbf+tE+GiQFzFIZiS0/OToNAU=
 			</data>
 		</dict>
 		<key>lighting_general_functions_fsh.glsl</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			JT2PBeUqruiJce2n1f50CjXIb4U=
+			+dra1y+pgA/jhYm4+arDmDa8gdM=
 			</data>
 			<key>hash2</key>
 			<data>
-			qQVGJzUh6mF10JOhXFTYwbpCtcZMN9N1HyI5KvclgK8=
+			aZkfSLAbWKMqaHDdjm92FrxDriAdlpkuXHHJhuTINp0=
 			</data>
 		</dict>
 		<key>phong_c_fsh.glsl</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			hEFSDYyGeAz/aqT579czlPnbjLQ=
+			IX6qnONFzNAaHuvZBGo5mQMLczo=
 			</data>
 			<key>hash2</key>
 			<data>
-			i9P6c1aP7JmbXIiUUQM+IXKyYaJmiAu8ZxpIb0u6Hhw=
+			mOAcgWTqlqoXu2PteJZ8Iooo+UNQJBtojdwZGZGag00=
 			</data>
 		</dict>
 		<key>phong_c_reflect_fsh.glsl</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			XXalASvR0kL9+PlTzD+z6k8CM0o=
+			LVtUlkJBSqao0h3Fx0riKuqoChI=
 			</data>
 			<key>hash2</key>
 			<data>
-			xoT8ruhvQtFWPC6NZcABmGvuxcCs1cgHr1yNt7mspSc=
+			kHs2cAYOeDY+kw+O4ky6V+A8zq+/A7w7RZlknvg7TMU=
 			</data>
 		</dict>
 		<key>phong_functions_fsh.glsl</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			NfdnGSAlO2zfO+6Vsgl4x1lrLts=
+			6Y+BISg/T4x7z0i+cKNAMfgoVCM=
 			</data>
 			<key>hash2</key>
 			<data>
-			HHD/+2F7sT0KXtDj4NfZuedh1T493Kxj5fddjc5j5MA=
+			2jtANZxZhlvNkegrJjEF1LXlh5/EZPVYT/lgzjKDHIY=
 			</data>
 		</dict>
 		<key>phong_t_fsh.glsl</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			VPO+c1wgqba1mQTxIRNTCT5BJ38=
+			Q7H2Z9GZQQFhwsVEv2DbyMwtlfc=
 			</data>
 			<key>hash2</key>
 			<data>
-			yE+bd5mdpsjY81UAIziMeuLhy7mTJL/n/4JrS2eTwSU=
+			5py9IbgPY3iDO6v9uO3rrPWuL5lx1wOo4+DzjccLGyw=
 			</data>
 		</dict>
 		<key>phong_t_reflect_fsh.glsl</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			E3hB89SpFe3TZVD8xcxyYbniJtI=
+			Nnik+GUP0k1Pdnf3kMIOCfeEtF0=
 			</data>
 			<key>hash2</key>
 			<data>
-			7N+eWmoeBNlIZi+lo7AnNURM+MTtduV1Y2VZUHZ40mw=
+			kprGRVzFTyDQukoxOs/itUNwbsWSAogC6NLJ0d6BOCg=
 			</data>
 		</dict>
 		<key>standard_vsh.glsl</key>
@@ -8913,6 +8917,17 @@
 			<key>hash2</key>
 			<data>
 			tSOxkh4qVsW8CmL0s69BykK+hlAle8Ixlg8dhCEopZM=
+			</data>
+		</dict>
+		<key>surface_functions_fsh.glsl</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			30nC8woMI2FYg2CqKMUosMEkRS8=
+			</data>
+			<key>hash2</key>
+			<data>
+			6bKN0v4lAXnrOsaCx1QvjhL7T17N8An0FGtWyW2SVV4=
 			</data>
 		</dict>
 	</dict>
