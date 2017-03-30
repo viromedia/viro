@@ -124,7 +124,7 @@ public class FlexView extends Node {
             mNativeSurface.destroy();
         }
 
-        mNativeSurface = new SurfaceJni(mWidth, mHeight);
+        mNativeSurface = new SurfaceJni(mWidth, mHeight, 0, 0, 1, 1);
         setBackgroundOnSurface();
         setGeometry(mNativeSurface);
     }

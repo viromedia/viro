@@ -107,7 +107,7 @@ public class VideoSurface extends Control {
         }
 
         // Create Texture
-        mSurfaceJni = new SurfaceJni(mWidth, mHeight);
+        mSurfaceJni = new SurfaceJni(mWidth, mHeight, 0, 0, 1, 1);
         getNodeJni().setGeometry(mSurfaceJni);
         mVideoTextureJni = new VideoTextureJni(mRenderContext);
 

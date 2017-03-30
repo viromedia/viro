@@ -111,11 +111,11 @@ public class Image extends Control {
     private void updateSurface() {
         boolean createdNewSurface = false;
         if (mNativeSurface == null) {
-            mNativeSurface = new SurfaceJni(mWidth, mHeight);
+            mNativeSurface = new SurfaceJni(mWidth, mHeight, 0, 0, 1, 1);
             createdNewSurface = true;
         }
         else if (mGeometryNeedsUpdate) {
-            SurfaceJni newSurface = new SurfaceJni(mWidth, mHeight, mNativeSurface);
+            SurfaceJni newSurface = new SurfaceJni(mWidth, mHeight, 0, 0, 1, 1, mNativeSurface);
             mNativeSurface.destroy();
             mNativeSurface = newSurface;
             createdNewSurface = true;

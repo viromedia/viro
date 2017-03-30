@@ -35,11 +35,11 @@ public class Surface extends Control {
 
     public void updateSurface() {
         if (mNativeSurface == null) {
-            mNativeSurface = new SurfaceJni(mWidth, mHeight);
+            mNativeSurface = new SurfaceJni(mWidth, mHeight, 0, 0, 1, 1);
         } else if (mGeometryNeedsUpdate) {
             // make sure we release the old surface before we let it go.
             mNativeSurface.destroy();
-            mNativeSurface = new SurfaceJni(mWidth, mHeight);
+            mNativeSurface = new SurfaceJni(mWidth, mHeight, 0, 0, 1, 1);
         }
         setGeometry(mNativeSurface);
     }
