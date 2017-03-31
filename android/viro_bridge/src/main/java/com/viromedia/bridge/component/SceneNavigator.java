@@ -241,8 +241,23 @@ public class SceneNavigator extends FrameLayout {
     @Override
     public void removeViewAt(int index) {
         View view = getChildAt(index);
+
+        /*
+         When removing a scene, force an immediate tear-down of all the
+         views of the scene. This deletes their persistent-refs, but also
+         prevents the scene's node rendering tree from being deconstructed by
+         further removeViewAt calls (the various removeViewAt calls check
+         if a component is torn down before modifying the rendering tree).
+
+         We want to prevent the deconstruction of the rendering tree so that
+         the scene can appropriately animate out. The scene will still be
+         cleaned up (memory-wise), since it still gets cut off from the react
+         view-tree from the removeViewAt calls, isolating the rendering tree
+         from the bridge, and cutting the VROScene from the scene controller.
+         */
         if (view instanceof Scene) {
             mSceneArray.remove(view);
+            ((Scene) view).forceCascadeTearDown();
         }
         super.removeViewAt(index);
 
