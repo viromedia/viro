@@ -10,6 +10,7 @@
 #define VROHitTestResult_h
 
 #include "VROVector3f.h"
+#include "VROCamera.h"
 #include <memory>
 
 class VRONode;
@@ -18,11 +19,13 @@ class VROHitTestResult {
     
 public:
     
-    VROHitTestResult(std::shared_ptr<VRONode> node, VROVector3f location, float distance, bool background) :
+    VROHitTestResult(std::shared_ptr<VRONode> node, VROVector3f location, float distance, bool background,
+                     const VROCamera &camera) :
         _node(node),
         _location(location),
         _distance(distance),
-        _background(background)
+        _background(background),
+        _camera(camera)
     {}
     
     ~VROHitTestResult() {}
@@ -42,6 +45,10 @@ public:
     bool isBackgroundHit() const {
         return _background;
     }
+    
+    const VROCamera &getCamera() const {
+        return _camera;
+    }
 
 private:
     
@@ -49,6 +56,7 @@ private:
     VROVector3f _location;
     float _distance;
     bool _background;
+    VROCamera _camera;
 
 };
 

@@ -25,9 +25,9 @@ static const bool kDebugSceneBackgroundDistance = false;
  */
 class VROInputPresenter : public VROEventDelegate {
 public:
-    VROInputPresenter(std::shared_ptr<VRORenderContext> context) {
+    
+    VROInputPresenter() {
         _reticle = nullptr;
-        _context = context;
         _rootNode = std::make_shared<VRONode>();
     }
 
@@ -39,16 +39,6 @@ public:
 
     void setEventDelegate(std::shared_ptr<VROEventDelegate> delegate){
         _eventDelegateWeak = delegate;
-    }
-
-    /**
-     * Event delegate for triggering calls back to Controller_JNI.
-     */
-    std::shared_ptr<VROEventDelegate> getDelegate(){
-        if (_eventDelegateWeak.expired()){
-            return nullptr;
-        }
-        return _eventDelegateWeak.lock();
     }
 
     virtual void onHover(int source, bool isHovering) {
@@ -122,9 +112,8 @@ public:
 
 protected:
     std::shared_ptr<VRONode> _rootNode;
-    std::weak_ptr<VROEventDelegate> _eventDelegateWeak;
 
-    void onReticleGazeHit(const VROHitTestResult &hit){
+    void onReticleGazeHit(const VROHitTestResult &hit) {
         if (_reticle == nullptr){
             return;
         }
@@ -134,7 +123,7 @@ protected:
         if (_reticle->getPointerMode()) {
             _reticle->setPosition(hit.getLocation());
             
-            float worldPerScreen = _context->getCamera().getWorldPerScreen(depth);
+            float worldPerScreen = hit.getCamera().getWorldPerScreen(depth);
             float radius = fabs(worldPerScreen) * kReticleSizeMultiple;
             _reticle->setRadius(radius);
         }
@@ -153,7 +142,7 @@ protected:
                 _reticle->setPosition(VROVector3f(0, 0, depth));
                 _reticleInitialPositionSet = true;
                 
-                float worldPerScreen = _context->getCamera().getWorldPerScreen(depth);
+                float worldPerScreen = hit.getCamera().getWorldPerScreen(depth);
                 float radius = fabs(worldPerScreen) * kReticleSizeMultiple;
                 _reticle->setRadius(radius);
             }
@@ -161,8 +150,21 @@ protected:
     }
 
 private:
+
+    std::weak_ptr<VROEventDelegate> _eventDelegateWeak;
+
     std::shared_ptr<VROReticle> _reticle;
-    std::shared_ptr<VRORenderContext> _context;
     bool _reticleInitialPositionSet;
+
+    /*
+     Event delegate for triggering calls back to Controller_JNI.
+     */
+    std::shared_ptr<VROEventDelegate> getDelegate(){
+        if (_eventDelegateWeak.expired()){
+            return nullptr;
+        }
+        return _eventDelegateWeak.lock();
+    }
+    
 };
 #endif

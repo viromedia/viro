@@ -35,21 +35,9 @@ static const float ON_DRAG_DISTANCE_THRESHOLD = 0.01;
  */
 class VROInputControllerBase{
 public:
-    VROInputControllerBase(){
-        _lastKnownPosition = VROVector3f(0,0,0);
-        _lastDraggedNodePosition = VROVector3f(0,0,0);
-        _lastClickedNode = nullptr;
-        _lastHoveredNode = nullptr;
-        _lastDraggedNode = nullptr;
-        _scene = nullptr;
-        _currentControllerStatus = VROEventDelegate::ControllerStatus::Unknown;
-    }
+    
+    VROInputControllerBase();
     virtual ~VROInputControllerBase(){}
-
-    /**
-     * The context is attached within the construction of VRORenderer.
-     */
-    void setContext(std::shared_ptr<VRORenderContext> context);
     
     /*
      For testing background reticle distance.
@@ -78,12 +66,20 @@ public:
         // No-op
     }
 
-    void attachScene(std::shared_ptr<VROScene> scene){
+    void attachScene(std::shared_ptr<VROScene> scene) {
         _scene = scene;
-        _scene->setControllerPresenter(_controllerPresenter);
+        _scene->setControllerPresenter(getPresenter());
     }
 
-    std::shared_ptr<VROInputPresenter> getPresenter(){
+    /*
+     Get the presenter, creating it if it does not yet exist. Must be invoked on the
+     rendering thread.
+     */
+    std::shared_ptr<VROInputPresenter> getPresenter() {
+        if (!_controllerPresenter) {
+            _controllerPresenter = createPresenter();
+            registerEventDelegate(_controllerPresenter);
+        }
         return _controllerPresenter;
     }
 
@@ -113,39 +109,43 @@ public:
     void onMove(int source, VROVector3f position, VROQuaternion rotation);
     void onSwipe(int source, VROEventDelegate::SwipeState swipeState);
     void onScroll(int source, float x, float y);
+    
 protected:
-    virtual std::shared_ptr<VROInputPresenter> createPresenter(std::shared_ptr<VRORenderContext> context){
+    
+    virtual std::shared_ptr<VROInputPresenter> createPresenter(){
         perror("Error: Derived class should create a presenter for BaseInputController to consume!");
         return nullptr;
     }
-
-    /**
-     * UI presenter for this input controller.
-     */
-    std::shared_ptr<VROInputPresenter> _controllerPresenter;
-
-    /**
-     * The context is attached within the construction of VRORenderer.
-     */
-    std::shared_ptr<VRORenderContext> _context;
 
     /**
      * Status of the current controller, for example if it's Connected / Disconnected.
      */
     VROEventDelegate::ControllerStatus _currentControllerStatus;
 
-    void updateHitNode(VROVector3f fromPosition, VROVector3f withDirection);
+    /*
+     Update the hit node, performing an intersection from the camera's position
+     toward the given direction.
+     */
+    void updateHitNode(const VROCamera &camera, VROVector3f origin, VROVector3f ray);
 
 private:
+    
+    /*
+     UI presenter for this input controller.
+     */
+    std::shared_ptr<VROInputPresenter> _controllerPresenter;
+    
     /*
      * The pointer's normalized forward vector indicating where the controller
      * is pointing.
      */
     VROVector3f _lastKnownForward;
+    
     /**
      * Last known position that a TouchEvent occured on.
      */
     VROVector3f _lastTouchedPosition;
+    
     /*
      * The controller's quaternion that represents the rotation from (0, 0, -1) required to
      * achieve the controller's current orientation.
@@ -183,9 +183,9 @@ private:
     std::set<std::shared_ptr<VROEventDelegate>> _delegates;
 
     /**
-     * Returns the closest node that was hit.
+     * Returns the hit test result for the closest node that was hit.
      */
-    VROHitTestResult hitTest(VROVector3f ray, VROVector3f hitFromPosition, bool boundsOnly);
+    VROHitTestResult hitTest(const VROCamera &camera, VROVector3f origin, VROVector3f ray, bool boundsOnly);
 
     /**
      * Returns the first node that is able to handle the event action by bubbling it up.

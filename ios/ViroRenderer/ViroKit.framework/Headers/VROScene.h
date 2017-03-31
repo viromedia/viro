@@ -16,6 +16,7 @@
 #include "VROAllocationTracker.h"
 #include "VROSortKey.h"
 #include "VROQuaternion.h"
+#include "VROThreadRestricted.h"
 
 class VRONode;
 class VRORenderContext;
@@ -27,7 +28,7 @@ class VROVector3f;
 class VROVector4f;
 class VROAudioPlayer;
 
-class VROScene : public std::enable_shared_from_this<VROScene> {
+class VROScene : public std::enable_shared_from_this<VROScene>, public VROThreadRestricted {
     
 public:
     
