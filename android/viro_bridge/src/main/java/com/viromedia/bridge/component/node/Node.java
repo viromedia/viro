@@ -71,7 +71,7 @@ public class Node extends Component {
     public Node(Context context, AttributeSet attrs, int defStyleAttr,
                      int defStyleRes, ReactApplicationContext reactContext) {
         super(context, attrs, defStyleAttr, defStyleRes, reactContext);
-        mNodeJni = new NodeJni(context);
+        mNodeJni = new NodeJni();
 
         // Create and attach callbacks.
         mEventDelegateJni = new EventDelegateJni();
