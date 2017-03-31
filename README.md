@@ -7,7 +7,7 @@ To report bugs/issues with Viro platform, please file new issues on this reposit
 ## Instructions for running sample projects using Testbed app:
 
 1. Follow directions on our [Quick start guide](http://docs.viromedia.com/v1.0.0/docs/quick-start) to setup dependencies for trying these sample projects with the Viro Media App.
-2. Clone the repo into your workspace with git: `git clone https://github.com/viromedia/viro-code-samples.git`.
+2. Clone the repo into your workspace with git: `git clone https://github.com/viromedia/viro.git`.
 3. Edit index.ios.js or index.android.js, depending on your test device, and replace "API_KEY_HERE" with the key emailed to you with signup.
 4. Run `npm install` from the root of this project.
 5. Run `npm start` from the root of this project.
