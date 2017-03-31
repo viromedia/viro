@@ -75,7 +75,7 @@ public class ImageDownloader {
         Bitmap toReturn = mImageMap.get(latch);
         mImageMap.remove(latch);
         if (toReturn != null) {
-            return toReturn.copy(mConfig, false);
+            return toReturn;
         } else {
             ViroLog.warn(TAG, "Could not download image at: " + uri.toString());
             return null;
@@ -113,16 +113,26 @@ public class ImageDownloader {
                         if (!dataSource.isFinished()) {
                             return;
                         }
-                        CloseableImage image = dataSource.getResult().get();
+                        // If the listener isn't still valid, then return before we fetch the result
+                        // and the memory-intensive bitmap.
+                        if (listener != null && !listener.isValid()) {
+                            return;
+                        }
+                        // If we need to keep track and close any CloseableReferences, but NOT the
+                        // data contained within.
+                        CloseableReference<CloseableImage> result = dataSource.getResult();
+                        CloseableImage image = result.get();
                         if (image instanceof CloseableBitmap) {
                             Bitmap bitmap = ((CloseableBitmap) image).getUnderlyingBitmap();
+
                             if (listener != null) {
                                 listener.completed(bitmap.copy(mConfig, true));
                             } else {
-                                mImageMap.put(latch, bitmap);
+                                mImageMap.put(latch, bitmap.copy(mConfig, true));
                             }
                         }
 
+                        result.close();
                         dataSource.close();
                         if (latch != null) {
                             latch.countDown();

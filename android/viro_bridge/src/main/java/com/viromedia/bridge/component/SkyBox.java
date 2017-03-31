@@ -4,10 +4,6 @@
 package com.viromedia.bridge.component;
 
 import android.graphics.Bitmap;
-import android.os.Handler;
-import android.os.Looper;
-
-import com.facebook.react.bridge.JSApplicationIllegalArgumentException;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.ReadableMapKeySetIterator;
@@ -22,6 +18,7 @@ import com.viromedia.bridge.utility.ImageDownloader;
 import com.viromedia.bridge.utility.ViroLog;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.concurrent.CountDownLatch;
 
@@ -38,6 +35,7 @@ public class SkyBox extends Component {
     private TextureFormat mFormat = TextureFormat.RGBA8;
     private boolean mSkyboxNeedsUpdate = false;
     private boolean mUseTextureForSkybox = true;
+    private HashSet<SkyboxImageDownloadListener> mDownloadListeners = new HashSet<>();
 
     public SkyBox(ReactApplicationContext context) {
         super(context);
@@ -88,51 +86,21 @@ public class SkyBox extends Component {
 
 
     private void getImageForCubeFace(final String cubeFaceName, ReadableMap map, final CountDownLatch latch) {
-
         if (map != null) {
-            mImageDownloader.getImageAsync(map, new ImageDownloadListener() {
-                @Override
-                public void completed(Bitmap result) {
-                    if (isTornDown()) {
-                        // Prevent memory leak if tear down already happened on this component
-                        return;
-                    }
-
-                    ImageJni cubeFaceImage = mImageJniMap.get(cubeFaceName);
-                    if (cubeFaceImage != null) {
-                        cubeFaceImage.destroy();
-                    }
-
-                    cubeFaceImage = new ImageJni(result, mFormat);
-                    mImageJniMap.put(cubeFaceName, cubeFaceImage);
-                    latch.countDown();
-
-                    if (latch.getCount() == 0) {
-                        // All 6 skybox images finished downloading.
-                        imageDownloadDidFinish();
-
-                        if(result != null) {
-                            final int width = result.getWidth();
-                            final int height = result.getHeight();
-
-                            if(width != height) {
-                              ViroLog.error(TAG, "Width and height for skybox textures must be square, current image dimensions are (" + width + "," + height + ")");
-                            }
-                        }
-                    }
-                }
-
-                @Override
-                public void failed(String error) {
-                    throw new RuntimeException(error);
-                }
-            });
+            SkyboxImageDownloadListener listener = new SkyboxImageDownloadListener(cubeFaceName, latch);
+            mDownloadListeners.add(listener);
+            mImageDownloader.getImageAsync(map, listener);
         }
     }
 
     @Override
     public void onTearDown() {
         super.onTearDown();
+
+        for (SkyboxImageDownloadListener listener : mDownloadListeners) {
+            listener.invalidate();
+        }
+
         if (!mImageJniMap.isEmpty() && mSourceMap != null) {
             ReadableMapKeySetIterator iterator = mSourceMap.keySetIterator();
             while (iterator.hasNextKey()) {
@@ -190,5 +158,63 @@ public class SkyBox extends Component {
                 SkyBoxManager.SKYBOX_LOAD_END,
                 null
         );
+    }
+
+    private class SkyboxImageDownloadListener implements ImageDownloadListener {
+        private boolean mIsValid = true;
+        private CountDownLatch mLatch;
+        private final String mCubeFaceName;
+
+        public SkyboxImageDownloadListener(String cubeFaceName, CountDownLatch latch) {
+            mCubeFaceName = cubeFaceName;
+            mLatch = latch;
+        }
+
+        public void invalidate() {
+            mIsValid = false;
+            mLatch = null;
+        }
+
+        @Override
+        public boolean isValid() {
+            return mIsValid;
+        }
+
+        @Override
+        public void completed(Bitmap result) {
+            if (!mIsValid) {
+                return;
+            }
+
+            ImageJni cubeFaceImage = mImageJniMap.get(mCubeFaceName);
+            if (cubeFaceImage != null) {
+                cubeFaceImage.destroy();
+            }
+
+            cubeFaceImage = new ImageJni(result, mFormat);
+            mImageJniMap.put(mCubeFaceName, cubeFaceImage);
+            mLatch.countDown();
+
+            if (mLatch.getCount() == 0) {
+                // All 6 skybox images finished downloading.
+                imageDownloadDidFinish();
+
+                if(result != null) {
+                    final int width = result.getWidth();
+                    final int height = result.getHeight();
+
+                    if(width != height) {
+                        ViroLog.error(TAG, "Width and height for skybox textures must be square, current image dimensions are (" + width + "," + height + ")");
+                    }
+                }
+            }
+
+            mDownloadListeners.remove(this);
+        }
+
+        @Override
+        public void failed(String error) {
+            throw new RuntimeException(error);
+        }
     }
 }

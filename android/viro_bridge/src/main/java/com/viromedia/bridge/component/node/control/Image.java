@@ -8,10 +8,8 @@ import android.graphics.Bitmap;
 import android.os.Handler;
 import android.os.Looper;
 
-import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReadableMap;
-import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
 import com.viro.renderer.jni.ImageJni;
 import com.viro.renderer.jni.MaterialJni;
@@ -45,6 +43,9 @@ public class Image extends Control {
     private boolean mIsImageSet = false;
     private boolean mWidthOrHeightPropSet = false;
     private boolean mImageNeedsDownload = false;
+
+    private PlaceholderImageDownloadListener mPlaceholderListener;
+    private MainImageDownloadListener mMainListener;
 
     private Handler mMainHandler;
 
@@ -137,28 +138,8 @@ public class Image extends Control {
         // If an image isn't already set, then first fetch the placeholder (which should be on disk)
         // before downloading/fetching the source image. Otherwise, just immediately get the source.
         if (!mIsImageSet && mPlaceholderSourceMap != null && mSourceMap != null) {
-            downloader.getImageAsync(mPlaceholderSourceMap, new ImageDownloadListener() {
-                @Override
-                public void completed(final Bitmap result) {
-                    if (isTornDown()) {
-                        return;
-                    }
-                    mMainHandler.post(new Runnable() {
-                        public void run() {
-                            setImageOnSurface(result);
-                            downloadSourceImage(downloader);
-                        }
-                    });
-                }
-
-                @Override
-                public void failed(String error) {
-                    if (isTornDown()) {
-                        return;
-                    }
-                    onError(error);
-                }
-            });
+            mPlaceholderListener = new PlaceholderImageDownloadListener(downloader);
+            downloader.getImageAsync(mPlaceholderSourceMap, mPlaceholderListener);
         } else {
             downloadSourceImage(downloader);
         }
@@ -167,41 +148,8 @@ public class Image extends Control {
     private void downloadSourceImage(ImageDownloader downloader) {
         if (mSourceMap != null) {
             imageDownloadDidStart();
-            downloader.getImageAsync(mSourceMap, new ImageDownloadListener() {
-                @Override
-                public void completed(final Bitmap result) {
-                    mMainHandler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            if (isTornDown()) {
-                                return;
-                            }
-                            mIsImageSet = true;
-
-                            // If no width or height property was set, then base these on the
-                            // image's aspect ratio and update the surface
-                            if (!mWidthOrHeightPropSet) {
-                                float ratio = (float) result.getWidth() / (float) result.getHeight();
-                                mHeight = mWidth / ratio;
-                                mGeometryNeedsUpdate = true;
-                                updateSurface();
-                            }
- 
-                            setMaterialOnSurface();
-                            setImageOnSurface(result);
-                            imageDownloadDidFinish();
-                        }
-                    });
-                }
-
-                @Override
-                public void failed(String error) {
-                    if (isTornDown()) {
-                        return;
-                    }
-                    onError(error);
-                }
-            });
+            mMainListener = new MainImageDownloadListener();
+            downloader.getImageAsync(mSourceMap, mMainListener);
         }
 
         // If no source was provided, just set the material
@@ -221,6 +169,14 @@ public class Image extends Control {
             return;
         }
         super.onTearDown();
+        if (mPlaceholderListener != null) {
+            mPlaceholderListener.invalidate();
+        }
+
+        if (mMainListener != null) {
+            mMainListener.invalidate();
+        }
+
         if (mNativeSurface != null) {
             mNativeSurface.destroy();
             mNativeSurface = null;
@@ -283,5 +239,100 @@ public class Image extends Control {
                 ViroEvents.ON_LOAD_END,
                 null
         );
+    }
+
+    /**
+     * This is the ImageDownloadListener for the placeholder image
+     */
+    private class PlaceholderImageDownloadListener implements ImageDownloadListener {
+        private boolean mIsValid = true;
+        private ImageDownloader mDownloader;
+
+        public PlaceholderImageDownloadListener(ImageDownloader downloader) {
+            mDownloader = downloader;
+        }
+
+        public void invalidate() {
+            mIsValid = false;
+            mDownloader = null;
+        }
+
+        @Override
+        public boolean isValid() {
+            return mIsValid;
+        }
+
+        @Override
+        public void completed(final Bitmap result) {
+            if (!isValid()) {
+                return;
+            }
+            mMainHandler.post(new Runnable() {
+                public void run() {
+                    setImageOnSurface(result);
+                    downloadSourceImage(mDownloader);
+                    mPlaceholderListener = null;
+                }
+            });
+        }
+
+        @Override
+        public void failed(String error) {
+            if (!isValid()) {
+                return;
+            }
+            onError(error);
+        }
+    }
+
+    /**
+     * This is the ImageDownloadListener for the main source image
+     */
+    private class MainImageDownloadListener implements ImageDownloadListener {
+        private boolean mIsValid = true;
+
+        public void invalidate() {
+            mIsValid = false;
+        }
+
+        @Override
+        public boolean isValid() {
+            return mIsValid;
+        }
+
+        @Override
+        public void completed(final Bitmap result) {
+            mMainHandler.post(new Runnable() {
+                @Override
+                public void run() {
+                    if (!isValid()) {
+                        return;
+                    }
+                    mIsImageSet = true;
+
+                    // If no width or height property was set, then base these on the
+                    // image's aspect ratio and update the surface
+                    if (!mWidthOrHeightPropSet) {
+                        float ratio = (float) result.getWidth() / (float) result.getHeight();
+                        mHeight = mWidth / ratio;
+                        mGeometryNeedsUpdate = true;
+                        updateSurface();
+                    }
+
+                    setMaterialOnSurface();
+                    setImageOnSurface(result);
+                    imageDownloadDidFinish();
+                    mMainListener = null;
+                }
+            });
+        }
+
+        @Override
+        public void failed(String error) {
+            if (!isValid()) {
+                return;
+            }
+            onError(error);
+        }
     }
 }

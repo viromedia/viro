@@ -30,6 +30,7 @@ public class Image360 extends Component {
     private TextureFormat mFormat = TextureFormat.RGBA8;
     private Handler mMainHandler;
     private boolean mImageNeedsDownload;
+    private Image360DownloadListener mDownloadListener;
 
     public Image360(ReactApplicationContext context) {
         super(context);
@@ -67,42 +68,8 @@ public class Image360 extends Component {
 
         imageDownloadDidStart();
 
-        downloader.getImageAsync(mSourceMap, new ImageDownloadListener() {
-            @Override
-            public void completed(final Bitmap result) {
-                mMainHandler.post(new Runnable() {
-                    public void run() {
-                        if (isTornDown()) {
-                            return;
-                        }
-                        if (mLatestImage != null) {
-                            mLatestImage.destroy();
-                        }
-
-                        if (mLatestTexture != null) {
-                            mLatestTexture.destroy();
-                        }
-
-                        mLatestImage = new ImageJni(result, mFormat);
-                        mLatestTexture = new TextureJni(mLatestImage, mFormat, false);
-
-                        if (mScene != null) {
-                            mScene.setBackgroundImageTexture(mLatestTexture);
-                            mScene.setBackgroundRotation(mRotation);
-                        }
-                        imageDownloadDidFinish();
-                    }
-                });
-            }
-
-            @Override
-            public void failed(String error) {
-                if (isTornDown()) {
-                    return;
-                }
-                onError(error);
-            }
-        });
+        mDownloadListener = new Image360DownloadListener();
+        downloader.getImageAsync(mSourceMap, mDownloadListener);
 
         mImageNeedsDownload = false;
     }
@@ -110,6 +77,10 @@ public class Image360 extends Component {
     @Override
     public void onTearDown() {
         super.onTearDown();
+        if (mDownloadListener != null) {
+            mDownloadListener.invalidate();
+        }
+
         if (mLatestImage != null) {
             mLatestImage.destroy();
             mLatestImage = null;
@@ -149,5 +120,54 @@ public class Image360 extends Component {
                 ViroEvents.ON_LOAD_END,
                 null
         );
+    }
+
+    private class Image360DownloadListener implements ImageDownloadListener {
+        private boolean mIsValid = true;
+
+        public void invalidate() {
+            mIsValid = false;
+        }
+
+        @Override
+        public boolean isValid() {
+            return mIsValid;
+        }
+
+        @Override
+        public void completed(final Bitmap result) {
+            mMainHandler.post(new Runnable() {
+                public void run() {
+                    if (!isValid()) {
+                        return;
+                    }
+                    if (mLatestImage != null) {
+                        mLatestImage.destroy();
+                    }
+
+                    if (mLatestTexture != null) {
+                        mLatestTexture.destroy();
+                    }
+
+                    mLatestImage = new ImageJni(result, mFormat);
+                    mLatestTexture = new TextureJni(mLatestImage, mFormat, false);
+
+                    if (mScene != null) {
+                        mScene.setBackgroundImageTexture(mLatestTexture);
+                        mScene.setBackgroundRotation(mRotation);
+                    }
+                    imageDownloadDidFinish();
+                    mDownloadListener = null;
+                }
+            });
+        }
+
+        @Override
+        public void failed(String error) {
+            if (!isValid()) {
+                return;
+            }
+            onError(error);
+        }
     }
 }
