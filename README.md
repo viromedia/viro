@@ -18,7 +18,7 @@ To report bugs/issues with Viro platform, please file new issues on this reposit
 ## Changing Between Samples
 
 1. Open the index.ios.js or index.android in a text editor
-2. Modify line 37: `scene: scenes['360 Photo Tour'],` to a scene defined in the `scenes` dictionary on line 23.
+2. Modify line 38: `scene: scenes['360 Photo Tour'],` to a scene defined in the `scenes` dictionary on line 23.
 3. Reload/restart the application.
 
 ## More information
@@ -26,4 +26,3 @@ To report bugs/issues with Viro platform, please file new issues on this reposit
 Check out our [website](http://www.viromedia.com/).
 
 Look at our [documentation](http://docs.viromedia.com/).
-
