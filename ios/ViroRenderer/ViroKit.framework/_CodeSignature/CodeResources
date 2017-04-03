@@ -2533,7 +2533,7 @@
 		</data>
 		<key>Headers/VROGeometrySource.h</key>
 		<data>
-		lwUq26mvsFGhABhcC4SmMxP9VG4=
+		fYp1wofDbi1Eg0qQ3DkRwaZk63c=
 		</data>
 		<key>Headers/VROGeometryUtil.h</key>
 		<data>
@@ -2569,7 +2569,7 @@
 		</data>
 		<key>Headers/VROInputPresenter.h</key>
 		<data>
-		3HngmSu//RA2M1rcqedfzhznsU4=
+		2w5OHXjVuwTsGL8Lr7cZ/5sKBAs=
 		</data>
 		<key>Headers/VROInputPresenterCardboardiOS.h</key>
 		<data>
@@ -2689,15 +2689,15 @@
 		</data>
 		<key>Headers/VROShaderModifier.h</key>
 		<data>
-		rJ6mA446n2dEyD5eUwFRa/lI/XM=
+		Hbwi435xDDX/YEJm8B5CFlsBLpI=
 		</data>
 		<key>Headers/VROShaderProgram.h</key>
 		<data>
-		rcJyAUVqC1dQ0hsfbHcTR4/IPWc=
+		Lyd03/t7eB4iKnklsYxeVgtMZBM=
 		</data>
 		<key>Headers/VROShapeUtils.h</key>
 		<data>
-		NIgvdfH+a1jPzmsFQaoPvNp4v7w=
+		2/QDYNzGfkgUi+xH8KSRVAe3xos=
 		</data>
 		<key>Headers/VROSkybox.h</key>
 		<data>
@@ -2857,7 +2857,7 @@
 		</data>
 		<key>Headers/VROView.h</key>
 		<data>
-		H4K7RRxGH4xQf4kUDVIHZM3F1js=
+		PILLZG04pI4XzZwGlmX0Iojzjys=
 		</data>
 		<key>Headers/VROViewCardboard.h</key>
 		<data>
@@ -2881,7 +2881,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		WPyL2s+lvbmGdS41Oab4uFja0yI=
+		aSoa6wvgFgMtXGuQEvsX4grI+Ds=
 		</data>
 		<key>MaterialRobotoFontLoader.bundle/Roboto-Black.ttf</key>
 		<data>
@@ -2939,25 +2939,13 @@
 		<data>
 		j0NTlQaK+ko8JoW/EPP3Oi2CU8g=
 		</data>
-		<key>blinn_c_fsh.glsl</key>
+		<key>blinn_fsh.glsl</key>
 		<data>
-		PS+4qCkNpdatlXyhbSZDJPOjbZk=
-		</data>
-		<key>blinn_c_reflect_fsh.glsl</key>
-		<data>
-		YvSRyJzv8nrIxkkp7qjc7RZgUsA=
+		9eifU7scik7bSUCxJewAfCceaKI=
 		</data>
 		<key>blinn_functions_fsh.glsl</key>
 		<data>
-		WZ5ytZ75feOdZPLOJGV2qc0vHZE=
-		</data>
-		<key>blinn_t_fsh.glsl</key>
-		<data>
-		+8Y9AMVgI8aBzQnsa94be0s6vKI=
-		</data>
-		<key>blinn_t_reflect_fsh.glsl</key>
-		<data>
-		MDKc6N3ZhJL2Mck54b2M3Q8zp94=
+		w61sVMuvBJRK83X09vt/tlKuwOY=
 		</data>
 		<key>blit_fsh.glsl</key>
 		<data>
@@ -2967,73 +2955,45 @@
 		<data>
 		OJW8Dy2JQ5WgaGDg9RgIuOtRnQ8=
 		</data>
-		<key>constant_c_fsh.glsl</key>
+		<key>constant_fsh.glsl</key>
 		<data>
-		ctkdxh7YcIEIxGhGnYgxl2j1x8E=
+		dXfOS8qli/ZB+WHkwwIHjDEbt7c=
 		</data>
 		<key>constant_functions_fsh.glsl</key>
 		<data>
-		uyo/s+xZ5T5LN+wNQLTzAL9HuHs=
+		p3ZUBxi6JtbuoS5DB3s+KJZdoOs=
 		</data>
 		<key>constant_q_fsh.glsl</key>
 		<data>
-		J6st2OqWveDJMOnWjujxtpgeFtY=
-		</data>
-		<key>constant_t_fsh.glsl</key>
-		<data>
-		1mw1/HdIgp2pYXQlJF6u+6YdzVU=
+		ElRncJ5M6WOvPFWzpsvevWVOx24=
 		</data>
 		<key>default.metallib</key>
 		<data>
 		6jWau4sp/s9f3tiQEhshCVnFq+I=
 		</data>
-		<key>lambert_c_fsh.glsl</key>
+		<key>lambert_fsh.glsl</key>
 		<data>
-		AjKgQNUbJKQUtBLhZwOnyaP6/w4=
-		</data>
-		<key>lambert_c_reflect_fsh.glsl</key>
-		<data>
-		V3i3YiYG0Fs47BzCCL0eIaDuE74=
+		pGBt86tPjIejm61ub53IS3JDbJk=
 		</data>
 		<key>lambert_functions_fsh.glsl</key>
 		<data>
-		7HUlXy+XtTn9/OUpdkl9jimHyn8=
-		</data>
-		<key>lambert_t_fsh.glsl</key>
-		<data>
-		cU0ICnpQHMtwqe+sIA3uUdzVqBY=
-		</data>
-		<key>lambert_t_reflect_fsh.glsl</key>
-		<data>
-		KllV3mDWvJVLuC47JxP6TkKYS4Q=
+		rBEMZWcOrggQ0UtJ6Jbuq9eJEp0=
 		</data>
 		<key>lighting_general_functions_fsh.glsl</key>
 		<data>
-		+dra1y+pgA/jhYm4+arDmDa8gdM=
+		/MOb7EuNNKLa397U2wzoqGbyf44=
 		</data>
-		<key>phong_c_fsh.glsl</key>
+		<key>phong_fsh.glsl</key>
 		<data>
-		IX6qnONFzNAaHuvZBGo5mQMLczo=
-		</data>
-		<key>phong_c_reflect_fsh.glsl</key>
-		<data>
-		LVtUlkJBSqao0h3Fx0riKuqoChI=
+		wS0S/fxILuoeQB0kBZSL7WrsN58=
 		</data>
 		<key>phong_functions_fsh.glsl</key>
 		<data>
-		6Y+BISg/T4x7z0i+cKNAMfgoVCM=
-		</data>
-		<key>phong_t_fsh.glsl</key>
-		<data>
-		Q7H2Z9GZQQFhwsVEv2DbyMwtlfc=
-		</data>
-		<key>phong_t_reflect_fsh.glsl</key>
-		<data>
-		Nnik+GUP0k1Pdnf3kMIOCfeEtF0=
+		PyDPOJt6xwXl7hZrUlYyTg6F92U=
 		</data>
 		<key>standard_vsh.glsl</key>
 		<data>
-		4v4jCthWFLvfuYVe1Ou2BcGWshA=
+		j33oEXaEfQvdlwdr5oJTVvdw+Tc=
 		</data>
 		<key>surface_functions_fsh.glsl</key>
 		<data>
@@ -7563,11 +7523,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			lwUq26mvsFGhABhcC4SmMxP9VG4=
+			fYp1wofDbi1Eg0qQ3DkRwaZk63c=
 			</data>
 			<key>hash2</key>
 			<data>
-			ENZWTcXUO4xnH9WsQdNJJILfcoaxaU9bK86+1Y/g3Fo=
+			bex4Aw+HcPAgPs6g1FOXmBhnlu8gULKVw+0dCwgU0sA=
 			</data>
 		</dict>
 		<key>Headers/VROGeometryUtil.h</key>
@@ -7662,11 +7622,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			3HngmSu//RA2M1rcqedfzhznsU4=
+			2w5OHXjVuwTsGL8Lr7cZ/5sKBAs=
 			</data>
 			<key>hash2</key>
 			<data>
-			MiC3LvcygX0rWgfBbAO/+kbQVc60TddQoH01J/zLMC8=
+			k6g0CqFRW4s4qU/JlGaPhuS85NFNiqTEPpGcxnMgaqQ=
 			</data>
 		</dict>
 		<key>Headers/VROInputPresenterCardboardiOS.h</key>
@@ -7992,33 +7952,33 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			rJ6mA446n2dEyD5eUwFRa/lI/XM=
+			Hbwi435xDDX/YEJm8B5CFlsBLpI=
 			</data>
 			<key>hash2</key>
 			<data>
-			FstxQeExgX688HxBq1mJ/dF9jtwRL6APQITJmqbIius=
+			DLJTnVXt8Z04S2FxIR+TI52T4z+YhCyNt4ReX/yeMD4=
 			</data>
 		</dict>
 		<key>Headers/VROShaderProgram.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			rcJyAUVqC1dQ0hsfbHcTR4/IPWc=
+			Lyd03/t7eB4iKnklsYxeVgtMZBM=
 			</data>
 			<key>hash2</key>
 			<data>
-			ROMdEzczeO6FipBZyIMIM5l0u+ltF+TIGXKvydu6poI=
+			4HX/nnzZX6uxDK2baYowkagZVauMPzlo1e5gsRVpj1c=
 			</data>
 		</dict>
 		<key>Headers/VROShapeUtils.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			NIgvdfH+a1jPzmsFQaoPvNp4v7w=
+			2/QDYNzGfkgUi+xH8KSRVAe3xos=
 			</data>
 			<key>hash2</key>
 			<data>
-			UyhCJUqdN2bJjEahItoKd13Dc/65rF04x4fQncz6fLs=
+			iw2RUeHlrzXfZ9Fx0t4zvwaXBZAvNLdiU6Ciwr8u6Cc=
 			</data>
 		</dict>
 		<key>Headers/VROSkybox.h</key>
@@ -8454,11 +8414,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			H4K7RRxGH4xQf4kUDVIHZM3F1js=
+			PILLZG04pI4XzZwGlmX0Iojzjys=
 			</data>
 			<key>hash2</key>
 			<data>
-			fD7BZGY7Pf0D+//2nYlQvbRKo2Kd1MxTdS5x/QgJ3aI=
+			wbEySrzsRjMamraTzWRWUwzGNbC99ligWRx9dAGhEPg=
 			</data>
 		</dict>
 		<key>Headers/VROViewCardboard.h</key>
@@ -8670,59 +8630,26 @@
 			3I7zYL6ogZfdIzE2+hYH9qu8YeL9s9tZQiiGqUGZiKI=
 			</data>
 		</dict>
-		<key>blinn_c_fsh.glsl</key>
+		<key>blinn_fsh.glsl</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			PS+4qCkNpdatlXyhbSZDJPOjbZk=
+			9eifU7scik7bSUCxJewAfCceaKI=
 			</data>
 			<key>hash2</key>
 			<data>
-			acHfG29vcAg2DKxuJ5u+m7hHMPAPQ7w5FbQ0EBKYnvI=
-			</data>
-		</dict>
-		<key>blinn_c_reflect_fsh.glsl</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			YvSRyJzv8nrIxkkp7qjc7RZgUsA=
-			</data>
-			<key>hash2</key>
-			<data>
-			cPd6PJYTo8N3XLMWRgOXjg05SuNa8YVbGK2bLuwEqU8=
+			LXhLzTMl6wAAQg9/Y+zOGg2FYHt+E0D4cPfUXTpXAgM=
 			</data>
 		</dict>
 		<key>blinn_functions_fsh.glsl</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			WZ5ytZ75feOdZPLOJGV2qc0vHZE=
+			w61sVMuvBJRK83X09vt/tlKuwOY=
 			</data>
 			<key>hash2</key>
 			<data>
-			+s3wZgnb7LfaySZkedhInCkh4kbASW9s8eiiAl63At8=
-			</data>
-		</dict>
-		<key>blinn_t_fsh.glsl</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			+8Y9AMVgI8aBzQnsa94be0s6vKI=
-			</data>
-			<key>hash2</key>
-			<data>
-			RQOGe1A1g/SOXyQenqo4zYWpJt8lxOS2Hj9c/W2y0qc=
-			</data>
-		</dict>
-		<key>blinn_t_reflect_fsh.glsl</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			MDKc6N3ZhJL2Mck54b2M3Q8zp94=
-			</data>
-			<key>hash2</key>
-			<data>
-			cef5sSWkWEyj4HVjVcL5wVar3EmtMpa541f5fqZM/Cg=
+			/anUm75/rMYkAoFiPrIBuo39I+Rq3oLKv7L7j7M9PMc=
 			</data>
 		</dict>
 		<key>blit_fsh.glsl</key>
@@ -8747,48 +8674,37 @@
 			HgQNOPD908WheyNBmiHKAaHvLexX1imJ3o0lBmWsovM=
 			</data>
 		</dict>
-		<key>constant_c_fsh.glsl</key>
+		<key>constant_fsh.glsl</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			ctkdxh7YcIEIxGhGnYgxl2j1x8E=
+			dXfOS8qli/ZB+WHkwwIHjDEbt7c=
 			</data>
 			<key>hash2</key>
 			<data>
-			3x0u6qIWw4O7K30iPWETpBRbMR6Q2U7OMxEFAQNO/wo=
+			O12ZH3t2DjrauMLziSVt55M4/Fwx9NBSk5Yj1USVcSQ=
 			</data>
 		</dict>
 		<key>constant_functions_fsh.glsl</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			uyo/s+xZ5T5LN+wNQLTzAL9HuHs=
+			p3ZUBxi6JtbuoS5DB3s+KJZdoOs=
 			</data>
 			<key>hash2</key>
 			<data>
-			WldJGS6nLy/fuM//hpOXOaBMMcq43Pp9eBXJoEv+Yh4=
+			Ubn+80TlkZyPKHitbV3iq0o8KKxSo36a5DsVlhNUVGg=
 			</data>
 		</dict>
 		<key>constant_q_fsh.glsl</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			J6st2OqWveDJMOnWjujxtpgeFtY=
+			ElRncJ5M6WOvPFWzpsvevWVOx24=
 			</data>
 			<key>hash2</key>
 			<data>
-			YdiLaERXQrLKJPRk4HqB1erztatYuB9IO01A7dTZL40=
-			</data>
-		</dict>
-		<key>constant_t_fsh.glsl</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			1mw1/HdIgp2pYXQlJF6u+6YdzVU=
-			</data>
-			<key>hash2</key>
-			<data>
-			OfFVMk1VrJFUP/H2e7CUCJqpbCGIeOtZE+4GnBzWGlA=
+			Cf8Ws9OwsDRSg2oOEQDdzEZ9CO9spVuSuoUS8WUedCM=
 			</data>
 		</dict>
 		<key>default.metallib</key>
@@ -8802,136 +8718,70 @@
 			nPzelr3u67Eu+kyj5JDZON0FMgUBoGafuEIBTD9Rs84=
 			</data>
 		</dict>
-		<key>lambert_c_fsh.glsl</key>
+		<key>lambert_fsh.glsl</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			AjKgQNUbJKQUtBLhZwOnyaP6/w4=
+			pGBt86tPjIejm61ub53IS3JDbJk=
 			</data>
 			<key>hash2</key>
 			<data>
-			20c0bYPs63hoS5/PSInAx3XR2fpLJSq4xk6Hotn1L20=
-			</data>
-		</dict>
-		<key>lambert_c_reflect_fsh.glsl</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			V3i3YiYG0Fs47BzCCL0eIaDuE74=
-			</data>
-			<key>hash2</key>
-			<data>
-			ygGZc1pxs38ddNbT2dJocCXGFQoXkP+TtgMLaKAg2Aw=
+			WsDtmHBZ6Pfi5ggnFHcrByyiC+2s7u0BUn9PfnKbB6o=
 			</data>
 		</dict>
 		<key>lambert_functions_fsh.glsl</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			7HUlXy+XtTn9/OUpdkl9jimHyn8=
+			rBEMZWcOrggQ0UtJ6Jbuq9eJEp0=
 			</data>
 			<key>hash2</key>
 			<data>
-			Tf65HziFBbgoKeR1lSxxDOdB9D865RH84JFsGueeQEM=
-			</data>
-		</dict>
-		<key>lambert_t_fsh.glsl</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			cU0ICnpQHMtwqe+sIA3uUdzVqBY=
-			</data>
-			<key>hash2</key>
-			<data>
-			9cF9h/xkrx4KeaZ7IiX04xsZkhk+G4YA5gB9/9WOwKI=
-			</data>
-		</dict>
-		<key>lambert_t_reflect_fsh.glsl</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			KllV3mDWvJVLuC47JxP6TkKYS4Q=
-			</data>
-			<key>hash2</key>
-			<data>
-			gKsWCm1GdXhAgMKZrdIbf+tE+GiQFzFIZiS0/OToNAU=
+			D9vjU5TomIlQyJgvTvmBAsPn8VkUt6t1bJkVw6e3Jws=
 			</data>
 		</dict>
 		<key>lighting_general_functions_fsh.glsl</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			+dra1y+pgA/jhYm4+arDmDa8gdM=
+			/MOb7EuNNKLa397U2wzoqGbyf44=
 			</data>
 			<key>hash2</key>
 			<data>
-			aZkfSLAbWKMqaHDdjm92FrxDriAdlpkuXHHJhuTINp0=
+			TYd2OyUtAEcc4lBsvQhdGgAMHV+hLdfJ8GIyoomfMp0=
 			</data>
 		</dict>
-		<key>phong_c_fsh.glsl</key>
+		<key>phong_fsh.glsl</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			IX6qnONFzNAaHuvZBGo5mQMLczo=
+			wS0S/fxILuoeQB0kBZSL7WrsN58=
 			</data>
 			<key>hash2</key>
 			<data>
-			mOAcgWTqlqoXu2PteJZ8Iooo+UNQJBtojdwZGZGag00=
-			</data>
-		</dict>
-		<key>phong_c_reflect_fsh.glsl</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			LVtUlkJBSqao0h3Fx0riKuqoChI=
-			</data>
-			<key>hash2</key>
-			<data>
-			kHs2cAYOeDY+kw+O4ky6V+A8zq+/A7w7RZlknvg7TMU=
+			QaRP11/H5fVQb1kXEoC/e7qVuvpdEZeWkqduvQdIXHE=
 			</data>
 		</dict>
 		<key>phong_functions_fsh.glsl</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			6Y+BISg/T4x7z0i+cKNAMfgoVCM=
+			PyDPOJt6xwXl7hZrUlYyTg6F92U=
 			</data>
 			<key>hash2</key>
 			<data>
-			2jtANZxZhlvNkegrJjEF1LXlh5/EZPVYT/lgzjKDHIY=
-			</data>
-		</dict>
-		<key>phong_t_fsh.glsl</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			Q7H2Z9GZQQFhwsVEv2DbyMwtlfc=
-			</data>
-			<key>hash2</key>
-			<data>
-			5py9IbgPY3iDO6v9uO3rrPWuL5lx1wOo4+DzjccLGyw=
-			</data>
-		</dict>
-		<key>phong_t_reflect_fsh.glsl</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			Nnik+GUP0k1Pdnf3kMIOCfeEtF0=
-			</data>
-			<key>hash2</key>
-			<data>
-			kprGRVzFTyDQukoxOs/itUNwbsWSAogC6NLJ0d6BOCg=
+			j/WG5xGUXkKVLMEAN7EP64ixGo45n33Nv//0P7iVskc=
 			</data>
 		</dict>
 		<key>standard_vsh.glsl</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			4v4jCthWFLvfuYVe1Ou2BcGWshA=
+			j33oEXaEfQvdlwdr5oJTVvdw+Tc=
 			</data>
 			<key>hash2</key>
 			<data>
-			tSOxkh4qVsW8CmL0s69BykK+hlAle8Ixlg8dhCEopZM=
+			9kq2gkupWhO98mzqOaryDDrXPs16dzaIk7NZAnjn69Y=
 			</data>
 		</dict>
 		<key>surface_functions_fsh.glsl</key>
@@ -8963,6 +8813,11 @@
 			<true/>
 			<key>weight</key>
 			<real>1100</real>
+		</dict>
+		<key>^Base\.lproj/</key>
+		<dict>
+			<key>weight</key>
+			<real>1010</real>
 		</dict>
 		<key>^version.plist$</key>
 		<true/>
@@ -9008,6 +8863,11 @@
 			<true/>
 			<key>weight</key>
 			<real>1100</real>
+		</dict>
+		<key>^Base\.lproj/</key>
+		<dict>
+			<key>weight</key>
+			<real>1010</real>
 		</dict>
 		<key>^Info\.plist$</key>
 		<dict>

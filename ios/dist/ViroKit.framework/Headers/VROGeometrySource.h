@@ -22,6 +22,7 @@ enum class VROGeometrySourceSemantic {
     Normal,
     Color,
     Texcoord,
+    Tangent,
     VertexCrease,
     EdgeCrease,
     BoneWeights,

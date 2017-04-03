@@ -25,6 +25,7 @@
 #include "VROLog.h"
 #include "VROEventDelegate.h"
 #include "VROSound.h"
+#include "VROThreadRestricted.h"
 
 class VROGeometry;
 class VROLight;
@@ -35,14 +36,14 @@ class VROConstraint;
 
 extern bool kDebugSortOrder;
 
-class VRONode : public VROAnimatable {
+class VRONode : public VROAnimatable, public VROThreadRestricted {
     
 public:
     
     static void resetDebugSortIndex();
     
     /*
-     Designated initializer for nodes in the model tree.
+     Default constructor.
      */
     VRONode();
     
@@ -79,6 +80,7 @@ public:
     }
     
     void setGeometry(std::shared_ptr<VROGeometry> geometry) {
+        passert_thread();
         _geometry = geometry;
     }
     std::shared_ptr<VROGeometry> getGeometry() const {
@@ -89,6 +91,7 @@ public:
      Camera.
      */
     void setCamera(std::shared_ptr<VRONodeCamera> camera) {
+        passert_thread();
         _camera = camera;
     }
     const std::shared_ptr<VRONodeCamera> &getCamera() const {
@@ -192,9 +195,11 @@ public:
      Lights.
      */
     void addLight(std::shared_ptr<VROLight> light) {
+        passert_thread();
         _lights.push_back(light);
     }
     void removeLight(std::shared_ptr<VROLight> light) {
+        passert_thread();
         _lights.erase(
                       std::remove_if(_lights.begin(), _lights.end(),
                                      [light](std::shared_ptr<VROLight> candidate) {
@@ -202,6 +207,7 @@ public:
                                      }), _lights.end());
     }
     void removeAllLights() {
+        passert_thread();
         _lights.clear();
     }
     std::vector<std::shared_ptr<VROLight>> &getLights() {
@@ -212,11 +218,13 @@ public:
      Sounds.
      */
     void addSound(std::shared_ptr<VROSound> sound) {
+        passert_thread();
         if (sound->getType() == VROSoundType::Spatial) {
             _sounds.push_back(sound);
         }
     }
     void removeSound(std::shared_ptr<VROSound> sound) {
+        passert_thread();
         _sounds.erase(
                 std::remove_if(_sounds.begin(), _sounds.end(),
                                [sound](std::shared_ptr<VROSound> candidate) {
@@ -228,12 +236,15 @@ public:
      Child management.
      */
     void addChildNode(std::shared_ptr<VRONode> node) {
+        passert_thread();
         passert (node);
         
         _subnodes.push_back(node);
         node->_supernode = std::static_pointer_cast<VRONode>(shared_from_this());
     }
     void removeFromParentNode() {
+        passert_thread();
+        
         std::shared_ptr<VRONode> supernode = _supernode.lock();
         if (supernode) {
             std::vector<std::shared_ptr<VRONode>> &parentSubnodes = supernode->_subnodes;
@@ -271,15 +282,17 @@ public:
      Hit testing.
      */
     VROBoundingBox getBoundingBox(const VRORenderContext &context);
-    std::vector<VROHitTestResult> hitTest(VROVector3f ray, VROVector3f origin,
+    std::vector<VROHitTestResult> hitTest(const VROCamera &camera, VROVector3f origin, VROVector3f ray,
                                           bool boundsOnly = false);
     
     void setSelectable(bool selectable) {
         _selectable = selectable;
     }
 
-    void setEventDelegate(std::shared_ptr<VROEventDelegate> delgate){
-        auto autoWeakDelegate = delgate;
+    void setEventDelegate(std::shared_ptr<VROEventDelegate> delegate) {
+        passert_thread();
+        
+        auto autoWeakDelegate = delegate;
         _eventDelegateWeak = autoWeakDelegate;
     }
 
@@ -402,9 +415,9 @@ private:
     /*
      Hit test helper functions.
      */
-    void hitTest(VROVector3f ray,  VROMatrix4f parentTransform,  bool boundsOnly,
-                 VROVector3f origin, std::vector<VROHitTestResult> &results);
-    bool hitTestGeometry(VROVector3f ray, VROVector3f origin, VROMatrix4f transform);
+    void hitTest(const VROCamera &camera, VROVector3f origin, VROVector3f ray, VROMatrix4f parentTransform,
+                 bool boundsOnly, std::vector<VROHitTestResult> &results);
+    bool hitTestGeometry(VROVector3f origin, VROVector3f ray, VROMatrix4f transform);
 
 };
 

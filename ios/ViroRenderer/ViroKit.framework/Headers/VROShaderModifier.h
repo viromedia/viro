@@ -25,17 +25,25 @@ typedef std::function<void(VROUniform *uniform, GLuint location)> VROUniformBind
  The entry point, which signals where in the shader program this modifier will
  act.
  
- When modifying the Geometry entry point, the code may declare uniforms and
- read/write to the following structure:
+ ----------------
+ 
+ Geometry entry point. The code may declare uniforms and read/write
+ to the following structure:
  
  struct VROShaderGeometry {
    vec3 position;
    vec3 normal;
    vec2 texcoord;
+   vec4 tangent;
  } _geometry;
  
- When modifying the Surface entry point, the code may declare uniforms and
- read/write to the following structure:
+ The Geometry entry point enables modifiers to change vertex parameters in 
+ the vertex shader.
+ 
+ ----------------
+ 
+ Surface entry point. The code may declare uniforms and read/write
+ to the following structure:
  
  struct VROSurface {
    lowp  vec4 diffuse_color;
@@ -49,10 +57,26 @@ typedef std::function<void(VROUniform *uniform, GLuint location)> VROUniformBind
    lowp  vec3 normal;
    highp vec3 position;
  } _surface;
+ 
+ The Surface entry point enables modifiers to change surface parameters, in
+ the fragment shader, prior to the lighting computation.
+ 
+ ----------------
+ 
+ Fragment entry point. The code may declare uniforms and read/write
+ to the variable:
+ 
+ lowp vec4 _output_color;
+ 
+ The Fragment entry point enables modifiers to alter the final color of each
+ fragment, after the lighting computation.
+ 
+ ----------------
  */
 enum class VROShaderEntryPoint {
-    Geometry, // Modify vertex shader
-    Surface,  // Modify fragment shader surface properties before lighting computation
+    Geometry,
+    Surface,
+    Fragment,
 };
 
 enum class VROShaderSection {

@@ -29,7 +29,7 @@ typedef void (^VROViewValidApiKeyBlock)(BOOL);
 @property (nonatomic, weak) IBOutlet id <VRORenderDelegate> renderDelegate;
 @property (readwrite, nonatomic) std::shared_ptr<VROSceneController> sceneController;
 
-- (void)setSceneController:(std::shared_ptr<VROSceneController>)sceneController animated:(BOOL)animated;
+- (void)setSceneController:(std::shared_ptr<VROSceneController>)sceneController;
 - (void)setSceneController:(std::shared_ptr<VROSceneController>)sceneController duration:(float)seconds
             timingFunction:(VROTimingFunctionType)timingFunctionType;
 

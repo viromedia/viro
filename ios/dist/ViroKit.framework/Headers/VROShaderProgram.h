@@ -27,6 +27,7 @@ enum class VROShaderMask {
     Tex = 1,
     Color = 2,
     Norm = 4,
+    Tangent = 8,
 };
 
 class VROShaderModifier;
@@ -133,9 +134,9 @@ private:
     GLuint _lightingBlockIndex;
 
     /*
-     The capabilities of this shader, as defined by the VROShader enum above.
+     The attributes supported by this shader, as defined by the VROShader enum above.
      */
-    int _capabilities;
+    int _attributes;
 
     /*
      True if the uniforms used by this shader have changed and require a rebind.

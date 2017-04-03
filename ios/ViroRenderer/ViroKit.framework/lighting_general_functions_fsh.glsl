@@ -1,3 +1,6 @@
+#extension GL_OES_EGL_image_external : enable
+#extension GL_OES_EGL_image_external_essl3 : enable
+
 #include surface_functions_fsh
 
 // Grouped in 4N slots (int and float take 1N, vec3 takes 3N, vec4 takes 4N)
@@ -7,8 +10,8 @@ struct VROLightUniforms {
     highp float attenuation_end_distance;
     highp float attenuation_falloff_exp;
     
-    highp vec3 position;
-    highp vec3 direction;
+    highp vec4 position;
+    highp vec4 direction;
     
     lowp vec3 color;
     highp float spot_inner_angle;
@@ -23,7 +26,7 @@ layout (std140) uniform lighting {
     int num_lights;
     lowp float padding0, padding1, padding2;
     
-    lowp vec3 ambient_light_color;
+    lowp vec4 ambient_light_color;
     VROLightUniforms lights[8];
 };
 
@@ -35,7 +38,7 @@ highp float compute_attenuation(const VROLightUniforms light,
     
     // Directional light
     if (light.type == 1) {
-        surface_to_light = normalize(light.direction);
+        surface_to_light = normalize(light.direction.xyz);
         attenuation = 1.0;
     }
     
@@ -51,7 +54,7 @@ highp float compute_attenuation(const VROLightUniforms light,
         
         // Spot light
         if (light.type == 3) {
-            highp float light_surface_angle = acos(dot(surface_to_light, normalize(light.direction)));
+            highp float light_surface_angle = acos(dot(surface_to_light, normalize(light.direction.xyz)));
             if (light_surface_angle > light.spot_inner_angle) {
                 highp float t = clamp((light_surface_angle - light.spot_inner_angle) / light.spot_outer_angle, 0.0, 1.0);
                 attenuation = mix(attenuation, 0.0, t);

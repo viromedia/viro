@@ -17,8 +17,10 @@
 #include "VROHitTestResult.h"
 
 class VROInputPresenterCardboardiOS : public VROInputPresenter {
+    
 public:
-    VROInputPresenterCardboardiOS(std::shared_ptr<VRORenderContext> context):VROInputPresenter(context) {
+    
+    VROInputPresenterCardboardiOS() {
         setReticle(std::make_shared<VROReticle>(nullptr));
         getReticle()->setPointerMode(false);
     }
@@ -30,8 +32,10 @@ public:
             getReticle()->trigger();
         }
     }
+    
     void onGazeHit(int source, const VROHitTestResult &hit) {
         VROInputPresenter::onReticleGazeHit(hit);
-     }
+    }
 };
+
 #endif

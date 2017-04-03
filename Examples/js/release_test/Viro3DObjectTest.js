@@ -59,69 +59,73 @@ var Viro3DObjectTest = React.createClass({
     return (
      <ViroScene>
       <ReleaseMenu sceneNavigator={this.props.sceneNavigator}/>
-     <ViroOmniLight position={[0, 0, 0]} color="#ffffff" attenuationStartDistance={40} attenuationEndDistance={50}/>
+      <ViroOmniLight position={[0, 0, 0]} color="#ffffff" attenuationStartDistance={40} attenuationEndDistance={50}/>
 
-     <ViroImage source={require('./res/poi_dot.png')} position={[-1, 0, 0]} transformBehaviors={["billboard"]} onClick={this._showNext} />
+      <ViroImage source={require('./res/poi_dot.png')} position={[-1, 0, 0]} transformBehaviors={["billboard"]}
+                 onClick={this._showNext} />
 
-     <ViroAnimatedComponent animation="loopRotate"
-      run={this.state.runAnimation1} >
-     <Viro3DObject source={require('./res/destroyer.obj')}
-       position={[1, 1, -5]}
-       materials={["grey"]}
-       rotation={[0,45,0]}
-       scale={[.1,.1,.1]}
-       onHover={this._startAnimation1}
-       onLoadEnd={this._startAnimation4}
+       <ViroAnimatedComponent animation="loopRotate" run={this.state.runAnimation1} >
+         <Viro3DObject source={require('./res/destroyer.obj')}
+                       position={[1, 1, -5]}
+                       materials={["grey"]}
+                       rotation={[0,45,0]}
+                       scale={[.1,.1,.1]}
+                       onHover={this._startAnimation1}
+                       onLoadEnd={this._startAnimation4}
+          />
+       </ViroAnimatedComponent>
+
+       <Viro3DObject source={{uri:"https://s3-us-west-2.amazonaws.com/viro/heart.obj"}}
+                     position={[-1.7 , -4.3 , -4.65]}
+                     materials={["heart"]}
+                     rotation={[0,0,0]}
+                     scale={[1.8 , 1.8  , 1.8]}
        />
-     </ViroAnimatedComponent>
 
-     <Viro3DObject source={{uri:"https://s3-us-west-2.amazonaws.com/viro/heart.obj"}}
-                    position={[-1.7 , -4.3 , -4.65]}
+       <ViroAnimatedComponent animation="loopRotate" run={this.state.runAnimation2} >
+         <Viro3DObject source={require('./res/xwing.obj')}
+                       position={[2, -2, -5]}
+                       materials={["grey"]}
+                       rotation={[0,0,0]}
+                       scale={[.3,.3,.3]}
+                       onClick={this._startAnimation2}
+                       onLoadStart={this._startAnimation3}
+         />
+       </ViroAnimatedComponent>
 
-            materials={["heart"]}
-            rotation={[0,0,0]}
-            scale={[1.8 , 1.8  , 1.8]}
-            />
+       <ViroAnimatedComponent animation="loopRotate" run={this.state.runAnimation4} >
+         <Viro3DObject source={require('./res/tantiveIV.obj')}
+                       position={[-2, -2, -5]}
+                       materials={["grey"]}
+                       rotation={[0,0,0]}
+                       scale={[.2,.2,.2]}
+         />
+       </ViroAnimatedComponent>
 
-     <ViroAnimatedComponent animation="loopRotate"
-      run={this.state.runAnimation2} >
-     <Viro3DObject source={require('./res/xwing.obj')}
-       position={[2, -2, -5]}
-       materials={["grey"]}
-       rotation={[0,0,0]}
-       scale={[.3,.3,.3]}
-       onClick={this._startAnimation2}
-       onLoadStart={this._startAnimation3}
-       />
-     </ViroAnimatedComponent>
+       <Viro3DObject source={require('./res/male02_obj.obj')}
+                     resources={[require('./res/male02.mtl'),
+                                 require('./res/01_-_Default1noCulling.JPG'),
+                                 require('./res/male-02-1noCulling.JPG'),
+                                 require('./res/orig_02_-_Defaul1noCulling.JPG')]}
+                     position={[-0.0, -100, -10]}
+                     scale={[0.1, 0.1, 0.1]}
+                     onLoadStart={this._onLoadObjStart}
+                     onLoadEnd={this._onLoadObjEnd}
+        />
 
+        <ViroAnimatedComponent animation="loopRotate" run={true} loop={true}>
+          <Viro3DObject source={require('./res/earth.obj')}
+                        resources={[require('./res/earth.jpg'),
+                                    require('./res/earth_normal.jpg')]}
+                        position={[10.0, 0.0, 5.0]}
+                        scale={[0.01, 0.01, 0.01]}
+                        materials={["earth"]}
+           />
+         </ViroAnimatedComponent>
 
-
-     <ViroAnimatedComponent animation="loopRotate"
-      run={this.state.runAnimation4} >
-     <Viro3DObject source={require('./res/tantiveIV.obj')}
-       position={[-2, -2, -5]}
-       materials={["grey"]}
-       rotation={[0,0,0]}
-       scale={[.2,.2,.2]}
-       />
-     </ViroAnimatedComponent>
-
-
-     <Viro3DObject source={require('./res/male02_obj.obj')}
-                               resources={[require('./res/male02.mtl'),
-                                           require('./res/01_-_Default1noCulling.JPG'),
-                                           require('./res/male-02-1noCulling.JPG'),
-                                           require('./res/orig_02_-_Defaul1noCulling.JPG')]}
-                               position={[-0.0, -100, -10]}
-                               scale={[0.1, 0.1, 0.1]}
-                               onLoadStart={this._onLoadObjStart}
-                               onLoadEnd={this._onLoadObjEnd}
-                                />
-
-     <ViroImage source={require('./res/icon_left_w.png')} position={[-2, -4, -3]} scale={[1, 1, 1]} transformBehaviors={["billboard"]} onClick={this._showPrevious} />
-     <ViroText text="Viro3DObject" position={[0, -5, -3]} transformBehaviors={["billboard"]} />
-     <ViroImage source={require('./res/icon_right_w.png')} position={[2, -4, -3]} scale={[1, 1, 1]} transformBehaviors={["billboard"]} onClick={this._showNext} />
+       <ViroImage source={require('./res/icon_left_w.png')} position={[-2, -4, -3]} scale={[1, 1, 1]} transformBehaviors={["billboard"]} onClick={this._showPrevious} />
+       <ViroText text="Viro3DObject" position={[0, -5, -3]} transformBehaviors={["billboard"]} />
+       <ViroImage source={require('./res/icon_right_w.png')} position={[2, -4, -3]} scale={[1, 1, 1]} transformBehaviors={["billboard"]} onClick={this._showNext} />
 
      </ViroScene>
 
@@ -170,7 +174,7 @@ var Viro3DObjectTest = React.createClass({
 });
 
 ViroAnimations.registerAnimations({
-  loopRotate:{properties:{rotateY:"+10"}, duration:250},
+  loopRotate:{properties:{rotateY:"+=2"}, duration:250},
   scaleSphere:{properties:{scaleX:1.1, scaleY:1.1, scaleZ:1.1}, duration:300},
   spinSphere:[
       ["loopRotate"],
@@ -193,17 +197,20 @@ var styles = StyleSheet.create({
 });
 
 ViroMaterials.createMaterials({
-
   heart: {
-      lightingModel: "Constant",
-      diffuseTexture: require('../res/heart_d.jpg'),
-    },
-   grey: {
-     shininess : 2.0,
-     lightingModel: "Blinn",
-     diffuseTexture: require('./res/grey.jpg'),
-   },
-
+    lightingModel: "Constant",
+    diffuseTexture: require('../res/heart_d.jpg'),
+  },
+  grey: {
+    shininess : 2.0,
+    lightingModel: "Blinn",
+    diffuseTexture: require('./res/grey.jpg'),
+  },
+  earth: {
+    lightingModel: "Blinn",
+    diffuseTexture: require('./res/earth.jpg'),
+    normalTexture: require('./res/earth_normal.jpg'),
+  }
 });
 
 module.exports = Viro3DObjectTest;

@@ -24,8 +24,8 @@ public:
     std::string getController();
 
 protected:
-    std::shared_ptr<VROInputPresenter> createPresenter(std::shared_ptr<VRORenderContext> context){
-        return std::make_shared<VROInputPresenterCardboardiOS>(context);
+    std::shared_ptr<VROInputPresenter> createPresenter() {
+        return std::make_shared<VROInputPresenterCardboardiOS>();
     }
 
 private:
