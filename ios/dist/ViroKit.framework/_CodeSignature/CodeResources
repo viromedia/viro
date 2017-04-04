@@ -2587,10 +2587,6 @@
 		<data>
 		+QETJ0aXm0TBx5RvFSiez1++cBU=
 		</data>
-		<key>Headers/VROLoader.h</key>
-		<data>
-		FsoKXaUHVYO29zjbvM+8ILCBsb8=
-		</data>
 		<key>Headers/VROLog.h</key>
 		<data>
 		6LGoibO01gtYdqYVGFgsTuhVbp4=
@@ -2873,11 +2869,11 @@
 		</data>
 		<key>Headers/ViroKit.h</key>
 		<data>
-		pnrjLRPKwAHg1pA2omg0kevw+FY=
+		CbyJMicY2UNsJun1SDHBFxEobQY=
 		</data>
 		<key>Headers/tiny_obj_loader.h</key>
 		<data>
-		3XIxfaDBi0+NX3WRnVnNY14/Khs=
+		ukt4Dzm2793XKulUAHDmJZINhMg=
 		</data>
 		<key>Info.plist</key>
 		<data>
@@ -7673,17 +7669,6 @@
 			MY6mUiCr8Ww92a4kM8IZG2xGD+zoeQzZf5xcooGjSkA=
 			</data>
 		</dict>
-		<key>Headers/VROLoader.h</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			FsoKXaUHVYO29zjbvM+8ILCBsb8=
-			</data>
-			<key>hash2</key>
-			<data>
-			V8xWcTxP7YWEq+pFGkflCBv3VSstKov8zBEPqmQovZ0=
-			</data>
-		</dict>
 		<key>Headers/VROLog.h</key>
 		<dict>
 			<key>hash</key>
@@ -8458,22 +8443,22 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			pnrjLRPKwAHg1pA2omg0kevw+FY=
+			CbyJMicY2UNsJun1SDHBFxEobQY=
 			</data>
 			<key>hash2</key>
 			<data>
-			p3mi64n8bLsBl7mAL91ws0r067arWELeleAxrLCeyq0=
+			2OPReLjf2LRnxMm5zQrK/69naqN8hGgudFFrSpg9LcY=
 			</data>
 		</dict>
 		<key>Headers/tiny_obj_loader.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			3XIxfaDBi0+NX3WRnVnNY14/Khs=
+			ukt4Dzm2793XKulUAHDmJZINhMg=
 			</data>
 			<key>hash2</key>
 			<data>
-			XqSwjRe5Y/n+ZDOTML2poFD/zQwqn/0/96/ENS/rX6s=
+			W7bU2FdyzHxOug5gKhiA9yf1WfKx2nG550DaUvbT3Q0=
 			</data>
 		</dict>
 		<key>MaterialRobotoFontLoader.bundle/Roboto-Black.ttf</key>

@@ -183,6 +183,7 @@ typedef struct {
   std::map<std::string, std::string> unknown_parameter;
   
   bool has_diffuse_color;
+  bool has_illum;
 } material_t;
 
 typedef struct {
@@ -881,6 +882,7 @@ static void InitMaterial(material_t *material) {
   material->normal_texname = "";
 
   material->has_diffuse_color = false;
+  material->has_illum = false;
   material->unknown_parameter.clear();
 }
 
@@ -1098,6 +1100,7 @@ void LoadMtl(std::map<std::string, int> *material_map,
     if (0 == strncmp(token, "illum", 5) && IS_SPACE(token[5])) {
       token += 6;
       material.illum = parseInt(&token);
+      material.has_illum = true;
       continue;
     }
 
