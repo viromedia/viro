@@ -19,15 +19,17 @@ static float const kDefaultHeight = 1;
   std::shared_ptr<VROTexture> _texture;
   BOOL _widthOrHeightPropSet;
   BOOL _widthOrHeightChanged;
+  BOOL _geometryNeedsUpdate;
   BOOL _imageNeedsDownload;
   BOOL _resizeModePropSet;
   float _scaledHeight;
   float _scaledWidth;
+  float _downloadedImageWidth;
+  float _downloadedImageHeight;
   float _u0;
   float _v0;
   float _u1;
   float _v1;
-  std::shared_ptr<VRONode> _imageNode;
 }
 
 -(instancetype)initWithBridge:(RCTBridge *)bridge {
@@ -50,8 +52,6 @@ static float const kDefaultHeight = 1;
     _v0 = 0;
     _u1 = 1;
     _v1 = 1;
-    [self node]->setHierarchicalRendering(true);
-
   }
   
   return self;
@@ -84,15 +84,16 @@ static float const kDefaultHeight = 1;
 }
 
 - (void)setResizeMode:(VROImageResizeMode)resizeMode {
-    _resizeMode = resizeMode;
-    _resizeModePropSet = YES;
+  _resizeMode = resizeMode;
+  _resizeModePropSet = YES;
+  _geometryNeedsUpdate = YES;
 }
 
 - (void)setImageClipMode:(VROImageClipMode)imageClipMode {
   _imageClipMode = imageClipMode;
+  _geometryNeedsUpdate = YES;
 }
 - (void)updateSurface {
-  std::shared_ptr<VROSurface> surface = VROSurface::createSurface(_width, _height);
   float imageSurfaceWidth;
   float imageSurfaceHeight;
   if (_imageClipMode == VROImageClipMode::ClipToBounds && _resizeMode == VROImageResizeMode::ScaleToFill) {
@@ -104,18 +105,7 @@ static float const kDefaultHeight = 1;
   }
   std::shared_ptr<VROSurface> imageSurface = VROSurface::createSurface(imageSurfaceWidth, imageSurfaceHeight, _u0, _v0, _u1, _v1);
   
-  if ( !_imageNode ) {
-    _imageNode = std::make_shared<VRONode>();
-    _imageNode->setPosition({0, 0, 0.01}); // +0.01 for z-fighting
-    _imageNode->setScale({1, 1, 1});
-    _imageNode->setHidden(false);
-    _imageNode->setOpacity(1);
-    _imageNode->setHierarchicalRendering(true);
-    self.node->addChildNode(_imageNode);
-  }
-  
-  self.node->setGeometry(surface);
-  _imageNode->setGeometry(imageSurface);
+  self.node->setGeometry(imageSurface);
   
   [self applyMaterials];
 }
@@ -125,17 +115,16 @@ static float const kDefaultHeight = 1;
   [super applyMaterials];
   
   if (_texture && self.node->getGeometry()) {
-    _imageNode->getGeometry()->getMaterials().front()->getDiffuse().setTexture(_texture);
-    
-    self.node->getGeometry()->getMaterials().front()->setTransparency(1.0);
-    _imageNode->getGeometry()->getMaterials().front()->setTransparency(1.0);
+    self.node->getGeometry()->getMaterials().front()->getDiffuse().setTexture(_texture);
   }
 }
 
 - (void)didSetProps:(NSArray<NSString *> *)changedProps {
-  if (_widthOrHeightChanged) {
+  if (_widthOrHeightChanged || _geometryNeedsUpdate) {
+    [self resizeImageDimensions];
     [self updateSurface];
     _widthOrHeightChanged = NO;
+    _geometryNeedsUpdate = NO;
   }
 
   if (_imageNeedsDownload) {
@@ -148,22 +137,14 @@ static float const kDefaultHeight = 1;
                                                                                       std::make_shared<VROImageiOS>(_placeholderSource,
                                                                                                                     VROTextureInternalFormat::RGBA8));
         self.node->getGeometry()->getMaterials().front()->getDiffuse().setTexture(placeholderTexture);
-        _imageNode->getGeometry()->getMaterials().front()->getDiffuse().setTexture(placeholderTexture);
-        
-        self.node->getGeometry()->getMaterials().front()->setTransparency(1.0);
-        _imageNode->getGeometry()->getMaterials().front()->setTransparency(1.0);
       }
-      else {
-        self.node->getGeometry()->getMaterials().front()->setTransparency(0);
-        _imageNode->getGeometry()->getMaterials().front()->setTransparency(0);
-      }
-    }
     
-    // Start loading the image
-    if (_source) {
-      [_loader loadImage:_source];
+      // Start loading the image
+      if (_source) {
+        [_loader loadImage:_source];
+      }
+      _imageNeedsDownload = NO;
     }
-    _imageNeedsDownload = NO;
   }
 }
 
@@ -178,6 +159,8 @@ static float const kDefaultHeight = 1;
 - (void)imageLoaderDidEnd:(VRTImageAsyncLoader *)loader success:(BOOL)success image:(UIImage *)image {
   dispatch_async(dispatch_get_main_queue(), ^{
     if (success && image) {
+      _downloadedImageWidth = image.size.width;
+      _downloadedImageHeight = image.size.height;
       _texture = std::make_shared<VROTexture>(self.format,
                                               self.mipmap ? VROMipmapMode::Runtime : VROMipmapMode::None,
                                               std::make_shared<VROImageiOS>(image, self.format));
@@ -188,11 +171,13 @@ static float const kDefaultHeight = 1;
         float ratio = image.size.width / image.size.height;
         _height = _width / ratio;
         _widthOrHeightChanged = NO;
+        [self updateSurface];
       } else if (_resizeModePropSet) {
         // If width and height were set as props, along with resizeMode, we'll calculate scaled width & height of the image
-        [self resizeImageDimensions:image];
+        [self resizeImageDimensions];
+        [self updateSurface];
       }
-      [self updateSurface];
+
       [self applyMaterials];
     }
 
@@ -205,11 +190,11 @@ static float const kDefaultHeight = 1;
   });
 }
 
-- (void)resizeImageDimensions:(UIImage *)image {
+- (void)resizeImageDimensions {
     if(!_widthOrHeightPropSet || !_resizeModePropSet) {
         return;
     }
-    float aspectRatio = image.size.width / image.size.height;
+    float aspectRatio = _downloadedImageWidth / _downloadedImageHeight;
     float targetAspectRatio = _width / _height;
     
     switch(_resizeMode) {
@@ -243,6 +228,10 @@ static float const kDefaultHeight = 1;
       case VROImageResizeMode::StretchToFill:
           _scaledWidth = _width;
           _scaledHeight = _height;
+          _u0 = 0;
+          _v0 = 0;
+          _u1 = 1;
+          _v1 = 1;
     }
 }
 
@@ -301,5 +290,6 @@ static float const kDefaultHeight = 1;
   }
   return VROImageClipMode::None;
 }
+  
 @end
 

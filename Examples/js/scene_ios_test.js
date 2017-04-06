@@ -38,8 +38,8 @@ var scene_ios_test = React.createClass({
             position={[0, .1, -8.1]} 
             rotation={[0, 0, 0]} 
             source={{uri: "http://wiki.magicc.org/images/c/ce/MAGICC_logo_small.jpg"}}
-            resizeMode='scaleToFill'
-            imageClipMode='none'/>
+            resizeMode='scaleToFit'
+            imageClipMode='clipToBounds'/>
           <ViroText style={{fontFamily: 'Helvetica-Bold', fontSize:10, textAlign:'center', textAlignVertical:'bottom', textClipMode:'clipToBounds', color:'#ff0000'}} text="Canada is the NYTimes place to visit this year. With it's beautiful cities and epic landscapes, our neighbor up north is full of splendor and adventure. Plus their president is cool :)."  width={5.0} height={10.0} position={[6, .1, -8]} rotation={[0, 0, 0]} />
           <ViroText style={{fontFamily: 'Helvetica-Bold', fontSize:12, textAlign:'left'}} text="Rotated Bold underlined Helvetica up in here!" width={5.0} position={[-3, .1, -8]} rotation={[0, -25, 0]} />
           <ViroText style={styles.baseText} position={[0,-1, -8]} text="Longer text that is within 1 thingy" />
