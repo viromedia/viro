@@ -108,7 +108,7 @@ public:
      then the substrate will be loaded asynchronously via the scheduler; otherwise, the 
      substrate will be loaded immediately in a blocking fashion.
      */
-    VROTextureSubstrate *const getSubstrate(std::shared_ptr<VRODriver> &driver, VROFrameScheduler *scheduler);
+    VROTextureSubstrate *getSubstrate(std::shared_ptr<VRODriver> &driver, VROFrameScheduler *scheduler);
     
     /*
      Textures may have their substrate set externally if they are created and

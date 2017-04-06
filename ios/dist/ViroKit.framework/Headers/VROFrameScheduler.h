@@ -51,6 +51,12 @@ public:
 private:
     
     /*
+     The number of frames that have passed, during which we had at
+     lease one task to process but no time to process any.
+     */
+    int _starvationFrameCount;
+    
+    /*
      Guards the _taskQueue and _queuedTasks set.
      */
     std::recursive_mutex _taskQueueMutex;
