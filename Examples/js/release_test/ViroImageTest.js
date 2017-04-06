@@ -58,7 +58,9 @@ var ViroImageTest = React.createClass({
         color:"#098765",
         format:"RGBA8",
         showColorBackground:false,
-        showUrlImage:false
+        showUrlImage:false,
+        resizeMode:"scaleToFill",
+        clipMode:"clipToBounds",
      };
    },
 
@@ -79,6 +81,8 @@ var ViroImageTest = React.createClass({
                 scale={[0.5, 0.5, 0.1]}
                 placeholderSource={placeholderImage}
                 source={image}
+                resizeMode={this.state.resizeMode}
+                imageClipMode={this.state.clipMode}
                 onLoadStart={this._onLoadStart} onLoadEnd={this._onLoadEnd}
                 />
                 {this._getTestControls()}
@@ -102,6 +106,13 @@ var ViroImageTest = React.createClass({
          <ViroText style={styles.baseTextTwo}  position={[2,0, 0]} width={2} height ={2}
                 text={"Toggle Format " + this.state.format}
                 onClick={this._toggleFormat}/>
+         <ViroText style={styles.baseTextTwo}  position={[-2,-1, 0]} width={2} height ={2}
+                text={"Toggle resizeMode " + this.state.resizeMode}
+                onClick={this._toggleResizeMode}/>
+        <ViroText style={styles.baseTextTwo}  position={[0,-1, 0]} width={2} height ={2}
+                text={"Toggle clipMode " + this.state.clipMode}
+                onClick={this._toggleImageClipMode}/>
+
       </ViroNode>
         );
    },
@@ -142,6 +153,30 @@ var ViroImageTest = React.createClass({
         this.setState({
                     format:newState
                 });
+   },
+   _toggleResizeMode() {
+        var newMode;
+        if (this.state.resizeMode == "scaleToFit") {
+          newMode="scaleToFill";
+        } else if (this.state.resizeMode == "scaleToFill") {
+          newMode="stretchToFill";
+        } else if (this.state.resizeMode == "stretchToFill") {
+          newMode="scaleToFit";
+        }
+        this.setState({
+          resizeMode:newMode
+        });
+   },
+   _toggleImageClipMode() {
+        var mode;
+        if (this.state.clipMode == "clipToBounds") {
+          mode = "none";
+        } else if (this.state.clipMode == "none") {
+          mode = "clipToBounds";
+        }
+        this.setState({
+          clipMode:mode
+        });
    },
    _onLoadStart() {
         console.log("ViroImageTest: _onLoadStart");

@@ -26,16 +26,27 @@ import java.util.List;
 
 public class Image extends Control {
     private static final String TAG = ViroLog.getTag(Image.class);
+    static final String DEFAULT_RESIZE_MODE = "stretchToFill";
+    static final String DEFAULT_CLIP_MODE = "clipToBounds";
+    static final float DEFAULT_WIDTH = 1;
+    static final float DEFAULT_HEIGHT = 1;
     private MaterialJni mDefaultMaterial;
     private SurfaceJni mNativeSurface;
     private ImageJni mLatestImage;
     private TextureJni mLatestImageTexture;
-
     private ReadableMap mSourceMap;
     private ReadableMap mPlaceholderSourceMap;
-    private float mWidth = 1;
-    private float mHeight = 1;
-
+    private float mWidth = DEFAULT_WIDTH;
+    private float mHeight = DEFAULT_HEIGHT;
+    private float mScaledWidth = DEFAULT_WIDTH;
+    private float mScaledHeight = DEFAULT_HEIGHT;
+    private Bitmap mImageBitmap;
+    private float mU0 = 0;
+    private float mV0 = 0;
+    private float mU1 = 1;
+    private float mV1 = 1;
+    private String mResizeMode = DEFAULT_RESIZE_MODE;
+    private String mImageClipMode = DEFAULT_CLIP_MODE;
     private boolean mMipmap = true;
     private TextureFormat mFormat = TextureFormat.RGBA8;
 
@@ -43,6 +54,7 @@ public class Image extends Control {
     private boolean mIsImageSet = false;
     private boolean mWidthOrHeightPropSet = false;
     private boolean mImageNeedsDownload = false;
+    private boolean mResizeModeSet = false;
 
     private PlaceholderImageDownloadListener mPlaceholderListener;
     private MainImageDownloadListener mMainListener;
@@ -70,14 +82,27 @@ public class Image extends Control {
 
     public void setWidth(float width) {
         mWidth = width;
+        mScaledWidth = width;
         mGeometryNeedsUpdate = true;
         mWidthOrHeightPropSet = true;
     }
 
     public void setHeight(float height) {
         mHeight = height;
+        mScaledHeight = height;
         mGeometryNeedsUpdate = true;
         mWidthOrHeightPropSet = true;
+    }
+
+    public void setResizeMode(String resizeMode) {
+        mResizeMode = resizeMode;
+        mGeometryNeedsUpdate = true;
+        mResizeModeSet = true;
+    }
+
+    public void setImageClipMode(String imageClipMode) {
+        mImageClipMode = imageClipMode;
+        mGeometryNeedsUpdate = true;
     }
 
     public void setMipmap(boolean mipmap) {
@@ -102,6 +127,7 @@ public class Image extends Control {
     @Override
     public void onPropsSet() {
         super.onPropsSet();
+        resizeImage();
         updateSurface();
         if (mImageNeedsDownload) {
             updateImage();
@@ -111,12 +137,21 @@ public class Image extends Control {
 
     private void updateSurface() {
         boolean createdNewSurface = false;
+        float imageSurfaceWidth;
+        float imageSurfaceHeight;
+        if (mImageClipMode.equalsIgnoreCase("clipToBounds") && mResizeMode.equalsIgnoreCase("scaleToFill")) {
+            imageSurfaceWidth = mWidth;
+            imageSurfaceHeight = mHeight;
+        } else {
+            imageSurfaceWidth = mScaledWidth;
+            imageSurfaceHeight = mScaledHeight;
+        }
         if (mNativeSurface == null) {
-            mNativeSurface = new SurfaceJni(mWidth, mHeight, 0, 0, 1, 1);
+            mNativeSurface = new SurfaceJni(imageSurfaceWidth, imageSurfaceHeight, mU0, mV0, mU1, mV1);
             createdNewSurface = true;
         }
         else if (mGeometryNeedsUpdate) {
-            SurfaceJni newSurface = new SurfaceJni(mWidth, mHeight, 0, 0, 1, 1, mNativeSurface);
+            SurfaceJni newSurface = new SurfaceJni(imageSurfaceWidth, imageSurfaceHeight, mU0, mV0, mU1, mV1, mNativeSurface);
             mNativeSurface.destroy();
             mNativeSurface = newSurface;
             createdNewSurface = true;
@@ -181,18 +216,23 @@ public class Image extends Control {
             mNativeSurface.destroy();
             mNativeSurface = null;
         }
+
         if (mDefaultMaterial != null) {
             mDefaultMaterial.destroy();
             mDefaultMaterial = null;
         }
+
         if (mLatestImage != null) {
             mLatestImage.destroy();
             mLatestImage = null;
         }
+
         if (mLatestImageTexture != null) {
             mLatestImageTexture.destroy();
             mLatestImageTexture = null;
         }
+
+
     }
 
     private void setMaterialOnSurface() {
@@ -239,6 +279,52 @@ public class Image extends Control {
                 ViroEvents.ON_LOAD_END,
                 null
         );
+    }
+
+    private void resizeImage() {
+        if (!mWidthOrHeightPropSet || !mResizeModeSet || !mIsImageSet) {
+            return;
+        }
+        float aspectRatio = mImageBitmap.getWidth() / mImageBitmap.getHeight();
+        float targetAspectRatio = mWidth / mHeight;
+
+        switch (mResizeMode) {
+            case "scaleToFit":
+                if (targetAspectRatio <= aspectRatio) { // target is taller than content
+                    mScaledWidth = mWidth;
+                    mScaledHeight = mScaledWidth / aspectRatio;
+                } else { // target is wider than content
+                    mScaledHeight = mHeight;
+                    mScaledWidth = mScaledHeight * aspectRatio;
+                }
+                break;
+            case "scaleToFill":
+                if (targetAspectRatio <= aspectRatio) { // target is taller than content
+                    mScaledHeight = mHeight;
+                    mScaledWidth = mScaledHeight * aspectRatio;
+                } else { // target is wider than content
+                    mScaledWidth = mWidth;
+                    mScaledHeight = mScaledWidth / aspectRatio;
+                }
+                // If clipMode is set to clipToBounds, we need to calculate u,v values so that the
+                // image clips/crops to the image view bounds
+                if (mImageClipMode.equalsIgnoreCase("clipToBounds")) {
+                    float clipWidth = Math.abs(mScaledWidth - mWidth) / mScaledWidth;
+                    float clipHeight = Math.abs(mScaledHeight - mHeight)/ mScaledHeight;
+                    mU0 = clipWidth / 2;
+                    mV0 = clipHeight / 2;
+                    mU1 = 1 - clipWidth / 2;
+                    mV1 = 1 - clipHeight / 2;
+                }
+                break;
+            default: // And stretchToFill
+                mScaledWidth = mWidth;
+                mScaledHeight = mHeight;
+                mU0 = 0;
+                mV0 = 0;
+                mU1 = 1;
+                mV1 = 1;
+        }
     }
 
     /**
@@ -308,13 +394,20 @@ public class Image extends Control {
                     if (!isValid()) {
                         return;
                     }
+                    mImageBitmap = result;
                     mIsImageSet = true;
 
                     // If no width or height property was set, then base these on the
                     // image's aspect ratio and update the surface
                     if (!mWidthOrHeightPropSet) {
-                        float ratio = (float) result.getWidth() / (float) result.getHeight();
+                        float ratio = (float) mImageBitmap.getWidth() / (float) mImageBitmap.getHeight();
                         mHeight = mWidth / ratio;
+                        mGeometryNeedsUpdate = true;
+                        updateSurface();
+                    } else if (mResizeModeSet) {
+                        // If width and height props were set, along with resizeMode,
+                        // we'll calculate scaled width & height of the image
+                        resizeImage();
                         mGeometryNeedsUpdate = true;
                         updateSurface();
                     }

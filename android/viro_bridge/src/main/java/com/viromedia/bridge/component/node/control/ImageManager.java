@@ -50,6 +50,16 @@ public class ImageManager extends NodeManager<Image> {
         view.setHeight(height);
     }
 
+    @ReactProp(name = "resizeMode")
+    public void setResizeMode(Image view, String resizeMode) {
+        view.setResizeMode(resizeMode);
+    }
+
+    @ReactProp(name = "imageClipMode")
+    public void setImageClipMode(Image view, String imageClipMode) {
+        view.setImageClipMode(imageClipMode);
+    }
+
     @ReactProp(name = "mipmap")
     public void setMipmap(Image view, boolean mipmap) { view.setMipmap(mipmap); }
 
