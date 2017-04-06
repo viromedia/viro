@@ -23,13 +23,6 @@ class VROTextureUtil {
 public:
     
     /*
-     Load a texture with an ASTC header. Read the width and height from the texture then
-     strip the header out and return the raw texture data.
-     */
-    static std::shared_ptr<VROTexture> loadASTCTexture(const uint8_t *data, int length, VROTextureType type,
-                                                       VRODriver *driver = nullptr);
-    
-    /*
      Read a texture file with an ASTC header. Read the width and height from the header then
      strip it out and return the raw texture data.
      */

@@ -21,7 +21,7 @@ enum class VROCameraPosition {
     Back
 };
 
-class VROCameraTexture : public VROTexture, public std::enable_shared_from_this<VROCameraTexture> {
+class VROCameraTexture : public VROTexture {
     
 public:
     

@@ -17,6 +17,7 @@
 #include "VROVector3f.h"
 #include "VROQuaternion.h"
 #include "VROCamera.h"
+#include "VROFrameScheduler.h"
 
 class VROFrameSynchronizer;
 enum class VROEyeType;
@@ -29,9 +30,11 @@ class VRORenderContext {
     
 public:
     
-    VRORenderContext(std::shared_ptr<VROFrameSynchronizer> synchronizer) :
+    VRORenderContext(std::shared_ptr<VROFrameSynchronizer> synchronizer,
+                     std::shared_ptr<VROFrameScheduler> scheduler) :
         _frame(0),
-        _frameSynchronizer(synchronizer) {
+        _frameSynchronizer(synchronizer),
+        _frameScheduler(scheduler) {
         
     }
     
@@ -100,6 +103,10 @@ public:
         return _frameSynchronizer;
     }
     
+    std::shared_ptr<VROFrameScheduler> getFrameScheduler() const {
+        return _frameScheduler;
+    }
+    
     void setFPS(double fps) {
         _fps = fps;
     }
@@ -146,6 +153,11 @@ private:
      Synchronizer used to add or remove frame listeners.
      */
     std::shared_ptr<VROFrameSynchronizer> _frameSynchronizer;
+    
+    /*
+     Scheduler used for queueing and executing rendering thread tasks.
+     */
+    std::shared_ptr<VROFrameScheduler> _frameScheduler;
     
 };
 

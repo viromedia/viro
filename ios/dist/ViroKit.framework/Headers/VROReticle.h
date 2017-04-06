@@ -29,7 +29,7 @@ public:
     virtual ~VROReticle();
 
     void trigger();
-    void renderEye(VROEyeType eye, const VRORenderContext &renderContext, VRODriver &driver);
+    void renderEye(VROEyeType eye, const VRORenderContext &renderContext, std::shared_ptr<VRODriver> &driver);
 
     void setPosition(VROVector3f position);
     void setRadius(float radius);

@@ -40,21 +40,15 @@ class VROGeometry {
 public:
     
     /*
-     Construct a new geometry with the given sources and elements. If a context
-     is supplied, the geometry will be prewarmed.
+     Construct a new geometry with the given sources and elements.
      */
     VROGeometry(std::vector<std::shared_ptr<VROGeometrySource>> sources,
-                std::vector<std::shared_ptr<VROGeometryElement>> elements,
-                VRODriver *driver = nullptr) :
+                std::vector<std::shared_ptr<VROGeometryElement>> elements) :
         _geometrySources(sources),
         _geometryElements(elements),
         _cameraEnclosure(false),
         _bounds(nullptr),
         _substrate(nullptr) {
-            
-        if (driver) {
-            prewarm(*driver);
-        }
             
          ALLOCATION_TRACKER_ADD(Geometry, 1);
     }
@@ -76,7 +70,7 @@ public:
      Get the geometry ready for usage now, in advance of when it's visible. If not invoked,
      the geometry will be initialized when it is made visible.
      */
-    void prewarm(VRODriver &driver);
+    void prewarm(std::shared_ptr<VRODriver> driver);
 
     void render(int elementIndex,
                 std::shared_ptr<VROMaterial> &material,
@@ -84,11 +78,11 @@ public:
                 VROMatrix4f normalMatrix,
                 float opacity,
                 const VRORenderContext &context,
-                VRODriver &driver);
+                std::shared_ptr<VRODriver> &driver);
     
     void updateSortKeys(VRONode *node, uint32_t hierarchyId, uint32_t hierarchyDepth,
                         uint32_t lightsHash, float opacity, float distanceFromCamera, float zFar,
-                        VRODriver &driver);
+                        std::shared_ptr<VRODriver> &driver);
     void getSortKeys(std::vector<VROSortKey> *outKeys);
     
     std::shared_ptr<VROMaterial> &getMaterialForElement(int elementIndex) {

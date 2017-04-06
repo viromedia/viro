@@ -36,12 +36,12 @@ public:
     virtual ~VROScene();
     
     void renderBackground(const VRORenderContext &context,
-                          VRODriver &driver);
+                          std::shared_ptr<VRODriver> &driver);
     void render(const VRORenderContext &context,
-                VRODriver &driver);
+                std::shared_ptr<VRODriver> &driver);
     
     void updateSortKeys(const VRORenderContext &context,
-                        VRODriver &driver);
+                        std::shared_ptr<VRODriver> &driver);
 
     /*
      Add a new root node to the scene.

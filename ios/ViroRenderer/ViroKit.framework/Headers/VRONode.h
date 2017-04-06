@@ -67,12 +67,12 @@ public:
     void render(int elementIndex,
                 std::shared_ptr<VROMaterial> &material,
                 const VRORenderContext &context,
-                VRODriver &driver);
+                std::shared_ptr<VRODriver> &driver);
     
     void updateSortKeys(uint32_t depth,
                         VRORenderParameters &params,
                         const VRORenderContext &context,
-                        VRODriver &driver);
+                        std::shared_ptr<VRODriver> &driver);
     void getSortKeys(std::vector<VROSortKey> *outKeys);
     
     std::vector<std::shared_ptr<VROLight>> &getComputedLights() {

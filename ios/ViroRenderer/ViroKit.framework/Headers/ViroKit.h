@@ -27,6 +27,8 @@ FOUNDATION_EXPORT const unsigned char ViroKitVersionString[];
 #import <ViroKit/VRODriver.h>
 #import <ViroKit/VRORenderParameters.h>
 #import <ViroKit/VROFrameListener.h>
+#import <ViroKit/VROFrameTimer.h>
+#import <ViroKit/VROFrameScheduler.h>
 
 // Model Loader
 #import <ViroKit/VROOBJLoader.h>

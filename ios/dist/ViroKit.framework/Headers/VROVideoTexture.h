@@ -20,7 +20,7 @@ class VRORenderContext;
 class VROFrameSynchronizer;
 class VRODriver;
 
-class VROVideoTexture : public VROTexture, public VROFrameListener, public std::enable_shared_from_this<VROVideoTexture> {
+class VROVideoTexture : public VROTexture, public VROFrameListener {
     
 public:
     
