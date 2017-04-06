@@ -11,7 +11,7 @@
  */
 'use strict';
 
-import { requireNativeComponent, View } from 'react-native';
+import { requireNativeComponent, View, Platform } from 'react-native';
 import resolveAssetSource from "react-native/Libraries/Image/resolveAssetSource";
 import React from 'react';
 
@@ -65,7 +65,7 @@ var ViroImage = React.createClass({
 
     // Required to be local source static image by using require(''./image.jpg').
     // or by specifying local uri.
-    // If not set, default is set to viro_blank.png in Resources which is a transparent image
+    // If not set, the image will be transparent until the source is downloaded
     placeholderSource:PropTypes.oneOfType([
       // TODO: Tooling to support documenting these directly and having them display in the docs.
       PropTypes.shape({
@@ -181,7 +181,17 @@ var ViroImage = React.createClass({
     if (this.props.placeholderSource) {
       placeholderSrc = resolveAssetSource(this.props.placeholderSource);
     } else {
-      placeholderSrc = resolveAssetSource(defaultPlaceholder);
+      switch (Platform.OS) {
+        case 'ios':
+         /*
+          On iOS in dev mode, it takes time to download the default placeholder,
+          so we use the renderer to set transparency instead.
+          */
+          break;
+        case 'android':
+          placeholderSrc = resolveAssetSource(defaultPlaceholder);
+          break;
+      }
     }
 
     // Since materials and transformBehaviors can be either a string or an array, convert the string to a 1-element array.
