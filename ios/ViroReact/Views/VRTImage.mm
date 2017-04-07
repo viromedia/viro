@@ -57,7 +57,7 @@ static float const kDefaultHeight = 1;
   return self;
 }
 
-- (void)setPlaceholderSource:(VRTUIImageWrapper *)placeholderSource {
+- (void)setPlaceholderSource:(UIImage *)placeholderSource {
   _placeholderSource = placeholderSource;
 }
 
@@ -126,6 +126,9 @@ static float const kDefaultHeight = 1;
   
   if (_texture && self.node->getGeometry()) {
     _imageNode->getGeometry()->getMaterials().front()->getDiffuse().setTexture(_texture);
+    
+    self.node->getGeometry()->getMaterials().front()->setTransparency(1.0);
+    _imageNode->getGeometry()->getMaterials().front()->setTransparency(1.0);
   }
 }
 
@@ -136,14 +139,24 @@ static float const kDefaultHeight = 1;
   }
 
   if (_imageNeedsDownload) {
-    // Set the placeholder while the image loads
-    if (_placeholderSource.image && _source && !_texture && self.node && self.node->getGeometry()) {
-      std::shared_ptr<VROTexture> placeholderTexture = std::make_shared<VROTexture>(VROTextureInternalFormat::RGBA8,
-                                                                                    VROMipmapMode::Runtime,
-                                                                                    std::make_shared<VROImageiOS>(_placeholderSource.image,
-                                                                                                                  VROTextureInternalFormat::RGBA8));
+    // Set the placeholder while the image loads. If there is no placeholder, set the
+    // diffuse color to transparent
+    if (_source && !_texture && self.node && self.node->getGeometry()) {
+      if (_placeholderSource) {
+        std::shared_ptr<VROTexture> placeholderTexture = std::make_shared<VROTexture>(VROTextureInternalFormat::RGBA8,
+                                                                                      VROMipmapMode::Runtime,
+                                                                                      std::make_shared<VROImageiOS>(_placeholderSource,
+                                                                                                                    VROTextureInternalFormat::RGBA8));
         self.node->getGeometry()->getMaterials().front()->getDiffuse().setTexture(placeholderTexture);
         _imageNode->getGeometry()->getMaterials().front()->getDiffuse().setTexture(placeholderTexture);
+        
+        self.node->getGeometry()->getMaterials().front()->setTransparency(1.0);
+        _imageNode->getGeometry()->getMaterials().front()->setTransparency(1.0);
+      }
+      else {
+        self.node->getGeometry()->getMaterials().front()->setTransparency(0);
+        _imageNode->getGeometry()->getMaterials().front()->setTransparency(0);
+      }
     }
     
     // Start loading the image
