@@ -16,6 +16,7 @@
   std::shared_ptr<VROVideoTexture> _videoTexture;
   std::shared_ptr<VROVideoDelegateiOS> _videoDelegate;
   BOOL _sphereTextureAddedToScene;
+  NSString *_stereoMode;
 }
 
 @synthesize rotation = _rotation;
@@ -80,6 +81,10 @@
   [self updateSceneWithSphereTexture];
 }
 
+- (void)setStereoMode:(NSString *)mode;{
+    _stereoMode = mode;
+}
+
 - (void)setRotation:(NSArray<NSNumber *> *)rotation {
   _rotation = [rotation copy];
   if (_sphereTextureAddedToScene) {
@@ -100,7 +105,12 @@
   NSURL *videoURL = imageSource.request.URL;
   std::string url = std::string([[videoURL description] UTF8String]);
 
-  _videoTexture = std::make_shared<VROVideoTextureiOS>();
+  VROStereoMode mode = VROStereoMode::None;
+  if (self.stereoMode){
+    mode = VROTextureUtil::getStereoModeForString(std::string([self.stereoMode UTF8String]));
+  }
+    
+  _videoTexture = std::make_shared<VROVideoTextureiOS>(mode);
   _videoTexture->loadVideo(url, self.context->getFrameSynchronizer(), self.driver);
   _videoTexture->prewarm();
 

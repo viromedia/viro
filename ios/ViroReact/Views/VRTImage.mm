@@ -161,9 +161,16 @@ static float const kDefaultHeight = 1;
     if (success && image) {
       _downloadedImageWidth = image.size.width;
       _downloadedImageHeight = image.size.height;
+        
+      VROStereoMode mode = VROStereoMode::None;
+      if (self.stereoMode){
+          mode = VROTextureUtil::getStereoModeForString(std::string([self.stereoMode UTF8String]));
+      }
+        
       _texture = std::make_shared<VROTexture>(self.format,
                                               self.mipmap ? VROMipmapMode::Runtime : VROMipmapMode::None,
-                                              std::make_shared<VROImageiOS>(image, self.format));
+                                              std::make_shared<VROImageiOS>(image, self.format),
+                                              mode);
         
       // Check if width and height were set as props. If not, recreate the surface using
       // the aspect ratio of image.

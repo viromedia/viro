@@ -29,7 +29,7 @@ class VROVideoTextureiOS : public VROVideoTexture {
     
 public:
     
-    VROVideoTextureiOS();
+    VROVideoTextureiOS(VROStereoMode stereoMode = VROStereoMode::None);
     virtual ~VROVideoTextureiOS();
     
     /*

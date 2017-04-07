@@ -16,6 +16,7 @@
   std::shared_ptr<VROVideoTexture> _videoTexture;
   BOOL _videoSurfaceNeedsUpdate;
   std::shared_ptr<VROVideoDelegateiOS> _videoDelegate;
+  NSString *_stereoMode;
 }
 
 - (instancetype)initWithBridge:(RCTBridge *)bridge {
@@ -88,6 +89,10 @@
   _videoSurfaceNeedsUpdate = YES;
 }
 
+- (void)setStereoMode:(NSString *)mode;{
+    _stereoMode = mode;
+}
+
 - (void)updateSurface {
   if (!_videoSurfaceNeedsUpdate || !self.context || !self.driver) {
     return;
@@ -103,7 +108,11 @@
   NSURL *videoURL = imageSource.request.URL;
   std::string url = std::string([[videoURL description] UTF8String]);
   
-  _videoTexture = std::make_shared<VROVideoTextureiOS>();
+  VROStereoMode mode = VROStereoMode::None;
+  if (self.stereoMode){
+      mode = VROTextureUtil::getStereoModeForString(std::string([self.stereoMode UTF8String]));
+  }
+  _videoTexture = std::make_shared<VROVideoTextureiOS>(mode);
   _surface = VROSurface::createSurface(_width, _height);
   _videoTexture->loadVideo(url, self.context->getFrameSynchronizer(), self.driver);
   

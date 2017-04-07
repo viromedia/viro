@@ -36,7 +36,7 @@ var Viro360Image = React.createClass({
     ]).isRequired,
     rotation: PropTypes.arrayOf(PropTypes.number),
     format: PropTypes.oneOf(['RGBA8', 'RGBA4', 'RGB565']),
-
+    stereoMode:PropTypes.oneOf(['leftRight', 'rightLeft', 'topBottom', 'bottomTop', 'none']),
     /**
      * Callback triggered when we are processing the assets to be
      * displayed in this 360 Photo (either downloading / reading from file).

@@ -68,6 +68,9 @@ public class VideoSurfaceManager extends NodeManager<VideoSurface> {
         view.setVolume(volume);
     }
 
+    @ReactProp(name = "stereoMode")
+    public void setStereoMode(VideoSurface view, String mode) { view.setStereoMode(mode); }
+
     @ReactProp(name = "source")
     public void setSource(VideoSurface view, @Nullable ReadableMap map) {
         // TODO: verify/make sure this work with local files (ie. release builds)

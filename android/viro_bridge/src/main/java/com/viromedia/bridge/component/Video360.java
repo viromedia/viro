@@ -83,6 +83,7 @@ public class Video360 extends Component {
 
     private VideoTextureJni mVideoTextureJni = null;
     private VideoTextureJni.VideoDelegate mDelegate = null;
+    private String mStereoMode;
 
     public Video360(ReactApplicationContext reactContext) {
         super(reactContext);
@@ -108,7 +109,7 @@ public class Video360 extends Component {
         }
 
         // Create Texture
-        mVideoTextureJni = new VideoTextureJni(mRenderContext);
+        mVideoTextureJni = new VideoTextureJni(mRenderContext, mStereoMode);
 
         mDelegate = new Video360Delegate(this);
         mVideoTextureJni.setVideoDelegate(mDelegate);
@@ -136,6 +137,10 @@ public class Video360 extends Component {
         if (mScene != null && mVideoTextureJni != null && mVideoTextureJni.isReady()) {
             mScene.setBackgroundVideoTexture(mVideoTextureJni);
         }
+    }
+
+    public void setStereoMode(String mode){
+        mStereoMode = mode;
     }
 
     public void setSource(String source) {

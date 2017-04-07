@@ -66,6 +66,9 @@ public class ImageManager extends NodeManager<Image> {
     @ReactProp(name = "format")
     public void setFormat(Image view, String format) { view.setFormat(format); }
 
+    @ReactProp(name = "stereoMode")
+    public void setStereoMode(Image view, String mode) { view.setStereoMode(mode); }
+
     @Override
     public Map getExportedCustomDirectEventTypeConstants() {
         return MapBuilder.of(

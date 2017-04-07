@@ -72,12 +72,23 @@ var ViroImageTest = React.createClass({
 
             <ViroImage source={require('./res/poi_dot.png')} position={[-1, 0, 0]} transformBehaviors={["billboard"]} onClick={this._showNext} />
 
+            <ViroImage
+               width={this.state.widthAndHeight} height={this.state.widthAndHeight}
+               format={this.state.format}
+               mipmap={true}
+               position={[-3, 4, -15]}
+               scale={[6.5, 5.0, 0.1]}
+               placeholderSource={placeholderImage}
+               source={require("./res/stereotest.jpg")}
+               stereoMode="leftRight"
+               onLoadStart={this._onLoadStart} onLoadEnd={this._onLoadEnd}
+               />
 
              <ViroImage
                 width={this.state.widthAndHeight} height={this.state.widthAndHeight}
                 format={this.state.format}
                 mipmap={true}
-                position={[0, 1, -3]}
+                position={[1, 1, -3]}
                 scale={[0.5, 0.5, 0.1]}
                 placeholderSource={placeholderImage}
                 source={image}

@@ -43,6 +43,9 @@ public class Image360Manager extends ViroViewGroupManager<Image360> {
     @ReactProp(name = "format")
     public void setFormat(Image360 view, String format) { view.setFormat(format); }
 
+    @ReactProp(name = "stereoMode")
+    public void setStereoMode(Image360 view, String mode) { view.setStereoMode(mode); }
+
     @Override
     public Map getExportedCustomDirectEventTypeConstants() {
         return MapBuilder.of(

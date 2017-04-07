@@ -44,6 +44,7 @@ var VIDEO_REF = "videoref";
 var Uri360Video = {uri:"https://s3-us-west-2.amazonaws.com/viro/360_surf.mp4"};
 var Local360Video = require("./res/360Asteroids.mp4");
 var ReleaseMenu = require("./ReleaseMenu.js");
+var Local360StereoVideo = require("./res/stereoVid360.mp4")
 
 var Viro360VideoTest = React.createClass({
 
@@ -69,6 +70,7 @@ var Viro360VideoTest = React.createClass({
            rotation={[0, this.state.rotationY,0]}  width={1.7} height={0.95} position={[0, 1, -2.9]} scale={[1, 1, 1]} paused={this.state.videoPaused}
           source={this.state.get360Video} transformBehavior={["billboard"]}
           loop={this.state.loopVideo} muted={this.state.muteVideo} volume={this.state.volume}
+          stereoMode={this.state.get360Video == Local360StereoVideo ? "topBottom":"none"}
           onFinish={this._onVideoFinished} onUpdateTime={this._onUpdateTime}/>
 
           <ViroImage source={require('./res/poi_dot.png')} position={[-1, 0, 0]} transformBehaviors={["billboard"]} onClick={this._showNext} />
@@ -115,7 +117,15 @@ var Viro360VideoTest = React.createClass({
     console.log("Viro On time update-> Current: " + current+ ", total: " + total);
   },
   _changeVideoSource() {
-    var newVideo = this.state.get360Video == Uri360Video ? Local360Video :Uri360Video;
+    var newVideo;
+    if (this.state.get360Video == Uri360Video){
+      newVideo = Local360Image;
+    } else if (this.state.get360Video == Local360Video){
+      newVideo = Local360StereoVideo;
+    } else {
+      newVideo = Uri360Video;
+    }
+
     this.setState({
       get360Video: newVideo,
     })

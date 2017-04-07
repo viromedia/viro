@@ -34,6 +34,7 @@ public class Image extends Control {
     private SurfaceJni mNativeSurface;
     private ImageJni mLatestImage;
     private TextureJni mLatestImageTexture;
+    private String mStereoMode;
     private ReadableMap mSourceMap;
     private ReadableMap mPlaceholderSourceMap;
     private float mWidth = DEFAULT_WIDTH;
@@ -66,6 +67,10 @@ public class Image extends Control {
         mDefaultMaterial = new MaterialJni();
         mMainHandler = new Handler(Looper.getMainLooper());
         mImageNeedsDownload = false;
+    }
+
+    public void setStereoMode(String mode){
+        mStereoMode = mode;
     }
 
     public void setSource(ReadableMap source) {
@@ -194,11 +199,6 @@ public class Image extends Control {
     }
 
     @Override
-    public void setRenderContext(RenderContextJni context) {
-        super.setRenderContext(context);
-    }
-
-    @Override
     public void onTearDown() {
         if (isTornDown()) {
             return;
@@ -261,7 +261,7 @@ public class Image extends Control {
         }
 
         mLatestImage = new ImageJni(image, mFormat);
-        mLatestImageTexture = new TextureJni(mLatestImage, mFormat, mMipmap);
+        mLatestImageTexture = new TextureJni(mLatestImage, mFormat, mMipmap, mStereoMode);
         mNativeSurface.setImageTexture(mLatestImageTexture);
     }
 

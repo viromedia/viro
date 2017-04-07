@@ -11,8 +11,9 @@
 
 #include <memory>
 #include <vector>
+#include "VROStringUtil.h"
+#include "VROTexture.h"
 
-class VROTexture;
 class VRODriver;
 class VROData;
 enum class VROTextureFormat;
@@ -38,6 +39,12 @@ public:
      */
     static std::shared_ptr<VROData> readKTXHeader(const uint8_t *data, uint32_t length, VROTextureFormat *outFormat,
                                                   int *outWidth, int *outHeight, std::vector<uint32_t> *outMipSizes);
+
+    /**
+     Returns the stereo mode that corresponds to the given string.
+     If none is found VROStereoMode::None will be returned.
+     */
+    static VROStereoMode getStereoModeForString(std::string tag);
     
 };
 

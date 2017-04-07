@@ -53,6 +53,14 @@ enum class VROMipmapMode {
     Runtime,       // Build mipmaps at texture loading time
 };
 
+enum class VROStereoMode{
+    None = 1,       // No stereo is applied, image is fully represented in the texture.
+    LeftRight = 2,  // Side by side stereoscopic image, with the left image shown to the left eye.
+    RightLeft = 3,  // Side by side stereoscopic image, with the right image shown to the left eye.
+    TopBottom = 4,  // Over/Under stereoscopic image, with the top image shown to the left eye.
+    BottomTop = 5   // Over/Under stereoscopic image, with the bottom image shown to the left eye.
+};
+
 class VROTexture : public std::enable_shared_from_this<VROTexture> {
     
 public:
@@ -61,21 +69,27 @@ public:
      Create a new VROTexture with no underlying image data.
      The image data must be injected via setImage*() or setSubstrate().
      */
-    VROTexture(VROTextureType type);
+    VROTexture(VROTextureType type,
+               VROStereoMode stereoState = VROStereoMode::None);
     
     /*
      Create a new VROTexture with the given underlying substrate.
      */
-    VROTexture(VROTextureType type, std::unique_ptr<VROTextureSubstrate> substrate);
+    VROTexture(VROTextureType type,
+               std::unique_ptr<VROTextureSubstrate> substrate,
+               VROStereoMode stereoState = VROStereoMode::None);
     
     /*
      Create a new VROTexture from a VROImage.
      */
     VROTexture(VROTextureInternalFormat internalFormat,
                VROMipmapMode mipmapMode,
-               std::shared_ptr<VROImage> image);
+               std::shared_ptr<VROImage> image,
+               VROStereoMode stereoState = VROStereoMode::None);
+
     VROTexture(VROTextureInternalFormat internalFormat,
-               std::vector<std::shared_ptr<VROImage>> &images);
+               std::vector<std::shared_ptr<VROImage>> &images,
+               VROStereoMode stereoState = VROStereoMode::None);
     
     /*
      Create a new VROTexture from the given raw data in the given format.
@@ -86,7 +100,8 @@ public:
                VROMipmapMode mipmapMode,
                std::vector<std::shared_ptr<VROData>> &data,
                int width, int height,
-               std::vector<uint32_t> mipSizes);
+               std::vector<uint32_t> mipSizes,
+               VROStereoMode stereoState = VROStereoMode::None);
     
     virtual ~VROTexture();
     
@@ -115,6 +130,10 @@ public:
      managed elsewhere.
      */
     void setSubstrate(std::unique_ptr<VROTextureSubstrate> substrate);
+
+    VROStereoMode getStereoMode() {
+        return _stereoMode;
+    }
     
 private:
     
@@ -163,12 +182,16 @@ private:
      Representation of the texture in the underlying hardware.
      */
     std::unique_ptr<VROTextureSubstrate> _substrate;
-    
+
+    /*
+    Represents the stereo property of the image, if any.
+    */
+    VROStereoMode _stereoMode;
+
     /*
      Converts the image(s) into a substrate. May be asynchronously executed.
      */
     void hydrate(std::shared_ptr<VRODriver> &driver);
-    
 };
 
 #endif /* VROTexture_h */

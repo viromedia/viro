@@ -27,6 +27,7 @@ public class Image360 extends Component {
     private float[] mRotation = sDefaultRotation;
     private ImageJni mLatestImage;
     private TextureJni mLatestTexture;
+    private String mStereoMode;
     private TextureFormat mFormat = TextureFormat.RGBA8;
     private Handler mMainHandler;
     private boolean mImageNeedsDownload;
@@ -36,6 +37,10 @@ public class Image360 extends Component {
         super(context);
         mMainHandler = new Handler(Looper.getMainLooper());
         mImageNeedsDownload = false;
+    }
+
+    public void setStereoMode(String mode){
+        mStereoMode = mode;
     }
 
     public void setSource(ReadableMap source) {
@@ -150,7 +155,7 @@ public class Image360 extends Component {
                     }
 
                     mLatestImage = new ImageJni(result, mFormat);
-                    mLatestTexture = new TextureJni(mLatestImage, mFormat, false);
+                    mLatestTexture = new TextureJni(mLatestImage, mFormat, false, mStereoMode);
 
                     if (mScene != null) {
                         mScene.setBackgroundImageTexture(mLatestTexture);

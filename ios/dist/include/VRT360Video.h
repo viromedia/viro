@@ -19,6 +19,7 @@
 @property (nonatomic, copy, nullable) RCTDirectEventBlock onFinishViro;
 @property (nonatomic, copy, nullable) RCTDirectEventBlock onUpdateTimeViro;
 @property (nonatomic, copy) RCTDirectEventBlock onErrorViro;
+@property (nonatomic, copy, nullable) NSString *stereoMode;
 
 - (instancetype)initWithBridge:(RCTBridge *)bridge;
 - (void)seekToTime:(NSInteger)time;

@@ -23,6 +23,7 @@
   BOOL _sphereTextureAddedToScene;
   BOOL _imageNeedsDownload;
   VRTImageAsyncLoader *_imageAsyncLoader;
+  NSString *_stereoMode;
 }
 
 @synthesize onLoadStartViro = _onLoadStartViro;
@@ -60,6 +61,10 @@
 - (void)setFormat:(VROTextureInternalFormat)format {
   _format = format;
   _imageNeedsDownload = YES;
+}
+
+- (void)setStereoMode:(NSString *)mode;{
+    _stereoMode = mode;
 }
 
 - (void)setRotation:(NSArray<NSNumber *> *)rotation {
@@ -107,9 +112,15 @@
 - (void)imageLoaderDidEnd:(VRTImageAsyncLoader *)loader success:(BOOL)success image:(UIImage *)image {
   dispatch_async(dispatch_get_main_queue(), ^{
     if(success && image) {
+      VROStereoMode mode = VROStereoMode::None;
+      if (self.stereoMode){
+        mode = VROTextureUtil::getStereoModeForString(std::string([self.stereoMode UTF8String]));
+      }
+        
       _sphereTexture = std::make_shared<VROTexture>(self.format,
                                                   VROMipmapMode::None, // Don't mipmap 360 images, wastes memory
-                                                  std::make_shared<VROImageiOS>(image, self.format));
+                                                  std::make_shared<VROImageiOS>(image, self.format),
+                                                  mode);
       [self updateSceneWithSphereTexture];
     }
 

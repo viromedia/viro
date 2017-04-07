@@ -61,6 +61,9 @@ public class Video360Manager extends ViroViewGroupManager<Video360> {
         view.setSource(map.getString("uri"));
     }
 
+    @ReactProp(name = "stereoMode")
+    public void setStereoMode(Video360 view, String mode) { view.setStereoMode(mode); }
+
     @ReactProp(name = "rotation")
     public void setRotation(Video360 view, ReadableArray rotation) {
         view.setRotation(rotation);

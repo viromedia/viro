@@ -36,6 +36,7 @@ var ViroVideo = React.createClass({
       PropTypes.arrayOf(PropTypes.string),
       PropTypes.string
     ]),
+    stereoMode:PropTypes.oneOf(['leftRight', 'rightLeft', 'topBottom', 'bottomTop', 'none']),
     width: PropTypes.number,
     height: PropTypes.number,
     paused: PropTypes.bool,

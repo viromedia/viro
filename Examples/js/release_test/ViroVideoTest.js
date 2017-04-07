@@ -25,6 +25,7 @@ var VIDEO_REF = "videoref";
 let polarToCartesian = ViroUtils.polarToCartesian;
 
 var localVideo = require("./res/Titan_Touchdown.mp4");
+var localVideoStereo = require("./res/stereoVid.mp4");
 var ReleaseMenu = require("./ReleaseMenu.js");
 
 var ViroVideoTest = React.createClass({
@@ -35,6 +36,7 @@ var ViroVideoTest = React.createClass({
       muteVideo: true,
       volume: 1,
       showVideo: true,
+      uriVideo:localVideo,
     }
   },
   render: function() {
@@ -69,21 +71,13 @@ var ViroVideoTest = React.createClass({
       },
 
   _getViroVideo() {
-    if (this.state.showVideo) {
       return (
         <ViroVideo ref={VIDEO_REF}  width={1.7} height={0.95} position={[0, 1, -2.9]} scale={[1, 1, 1]} paused={this.state.videoPaused}
-          source={localVideo} transformBehavior={["billboard"]}
+          source={this.state.uriVideo} transformBehavior={["billboard"]}
+          stereoMode={this.state.uriVideo == localVideoStereo ? "leftRight":"none"}
           loop={this.state.loopVideo} muted={this.state.muteVideo} volume={this.state.volume}
           onFinish={this._onVideoFinished} onUpdateTime={this._onUpdateTime}/>
       );
-    } else {
-      return (
-        <ViroVideo ref={VIDEO_REF} width={1.7} height={0.95} position={[0, 1, -2.9]} scale={[1, 1, 1]} paused={this.state.videoPaused}
-          source={{uri:'https://s3.amazonaws.com/viro.video/Climber1Bottom.mp4'}} transformBehavior={["billboard"]}
-          loop={this.state.loopVideo} muted={this.state.muteVideo} volume={this.state.volume}
-          onFinish={this._onVideoFinished} onUpdateTime={this._onUpdateTime}/>
-      );
-    }
   },
   _onVideoFinished(){
     console.log("Viro on video Finished");
@@ -92,8 +86,19 @@ var ViroVideoTest = React.createClass({
     console.log("Viro On time update-> Current: " + current+ ", total: " + total);
   },
   _changeVideoSource() {
+    var uriSource = {uri:'https://s3.amazonaws.com/viro.video/Climber1Bottom.mp4'};
+
+    var newVideoSource;
+    if (this.state.uriVideo == uriSource){
+      newVideoSource = localVideo;
+    } else if (this.state.uriVideo == localVideo){
+      newVideoSource = localVideoStereo;
+    } else {
+      newVideoSource = uriSource;
+    }
+
     this.setState({
-      showVideo: !this.state.showVideo,
+      uriVideo: newVideoSource,
     })
   },
   _getMuteText() {

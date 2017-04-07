@@ -43,13 +43,14 @@ let polarToCartesian = ViroUtils.polarToCartesian;
 
 var Uri360Image = {uri:"https://s3-us-west-2.amazonaws.com/viro/Explorer/360_horseshoe.jpg"};
 var Local360Image = require("./res/360_park.jpg");
+var Stereo360Image = require("./res/stereo3601.jpg");
 var ReleaseMenu = require("./ReleaseMenu.js");
 
 var Viro360ImageTest = React.createClass({
 
   getInitialState() {
     return {
-      current360Image:Local360Image,
+      current360Image:Stereo360Image,
       format:"RGBA8",
       rotationY: 0,
       showLeftArrow:false,
@@ -71,6 +72,7 @@ var Viro360ImageTest = React.createClass({
       onLoadStart={this._onBackgroundPhotoLoadStart}
       onLoadEnd={this._onBackgroundPhotoLoadEnd}
       format={this.state.format}
+      stereoMode={this.state.current360Image == Stereo360Image ? "topBottom":"none"}
       />
 
 
@@ -80,7 +82,7 @@ var Viro360ImageTest = React.createClass({
      <ViroText style={styles.elementText}  position={[1,-3, -5]} width={2} height ={2}
                          text={"Toggle Rotation: " + this.state.rotationY}
                          onClick={this._toggleRotation}/>
-     <ViroImage source={require('./res/poi_dot.png')} position={[0, -4, -3]} transformBehaviors={["billboard"]} onClick={this._showOther} />
+     <ViroImage source={require('./res/poi_dot.png')}  position={[0, -4, -3]} transformBehaviors={["billboard"]} onClick={this._showOther} />
      <ViroText text="Viro360Image" position={[0, -5, -3]} transformBehaviors={["billboard"]} />
      </ViroScene>
 
@@ -101,7 +103,14 @@ var Viro360ImageTest = React.createClass({
   },
 
   _showOther() {
-    var newImage = this.state.current360Image == Uri360Image ? Local360Image : Uri360Image;
+    var newImage;
+    if (this.state.current360Image == Uri360Image){
+      newImage = Local360Image;
+    } else if (this.state.current360Image == Local360Image){
+      newImage = Stereo360Image;
+    } else {
+      newImage = Uri360Image;
+    }
     this.setState({
         current360Image:newImage,
       });

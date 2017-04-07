@@ -51,7 +51,7 @@ var ViroImage = React.createClass({
     height: PropTypes.number,
     resizeMode: PropTypes.oneOf(['scaleToFill','scaleToFit','stretchToFill']),
     imageClipMode: PropTypes.oneOf(['none', 'clipToBounds']),
-
+    stereoMode:PropTypes.oneOf(['leftRight', 'rightLeft', 'topBottom', 'bottomTop', 'none']),
     materials: PropTypes.oneOfType([
       PropTypes.arrayOf(PropTypes.string),
       PropTypes.string

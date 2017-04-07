@@ -39,6 +39,7 @@ enum class VROImageClipMode {
 @property (nonatomic, copy) RCTDirectEventBlock onLoadStartViro;
 @property (nonatomic, copy) RCTDirectEventBlock onLoadEndViro;
 @property (nonatomic, copy) RCTDirectEventBlock onErrorViro;
+@property (nonatomic, copy, nullable) NSString *stereoMode;
 
 @end
 

@@ -9,6 +9,7 @@ import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
 import com.viro.renderer.jni.RenderContextJni;
 import com.viro.renderer.jni.SurfaceJni;
+import com.viro.renderer.jni.TextureJni;
 import com.viro.renderer.jni.VideoTextureJni;
 import com.viromedia.bridge.utility.Helper;
 import com.viromedia.bridge.utility.ViroEvents;
@@ -72,6 +73,7 @@ public class VideoSurface extends Control {
     private SurfaceJni mSurfaceJni = null;
     private VideoTextureJni mVideoTextureJni = null;
     private VideoTextureJni.VideoDelegate mDelegate = null;
+    private String mStereoMode;
     private boolean mGeometryNeedsUpdate = false;
 
     public VideoSurface(ReactApplicationContext reactContext) {
@@ -109,7 +111,7 @@ public class VideoSurface extends Control {
         // Create Texture
         mSurfaceJni = new SurfaceJni(mWidth, mHeight, 0, 0, 1, 1);
         getNodeJni().setGeometry(mSurfaceJni);
-        mVideoTextureJni = new VideoTextureJni(mRenderContext);
+        mVideoTextureJni = new VideoTextureJni(mRenderContext, mStereoMode);
 
         mDelegate = new VideoSurfaceDelegate(this);
         mVideoTextureJni.setVideoDelegate(mDelegate);
@@ -139,6 +141,10 @@ public class VideoSurface extends Control {
     public void setHeight(float height) {
         mHeight = height;
         mGeometryNeedsUpdate = true;
+    }
+
+    public void setStereoMode(String mode){
+        mStereoMode = mode;
     }
 
     public void setSource(String source) {

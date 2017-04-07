@@ -18,6 +18,7 @@
 @property (nonatomic, copy) RCTDirectEventBlock onLoadEndViro;
 @property (nonatomic, copy) RCTDirectEventBlock onErrorViro;
 @property (nonatomic, assign) VROTextureInternalFormat format;
+@property (nonatomic, copy, nullable) NSString *stereoMode;
 
 - (instancetype)initWithBridge:(RCTBridge *)bridge;
 

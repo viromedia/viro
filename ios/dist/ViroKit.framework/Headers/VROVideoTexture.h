@@ -24,10 +24,10 @@ class VROVideoTexture : public VROTexture, public VROFrameListener {
     
 public:
     
-    VROVideoTexture(VROTextureType type) :
-        VROTexture(type) {}
+    VROVideoTexture(VROTextureType type, VROStereoMode state = VROStereoMode::None) :
+        VROTexture(type, state) {}
     virtual ~VROVideoTexture() {}
-    
+
     /*
      Use this video texture to display the contents of the given URL. The video
      will not run until play() is invoked.

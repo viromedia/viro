@@ -36,6 +36,7 @@ RCT_EXPORT_VIEW_PROPERTY(height, float)
 RCT_EXPORT_VIEW_PROPERTY(onFinishViro, RCTDirectEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onErrorViro, RCTDirectEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onUpdateTimeViro, RCTDirectEventBlock)
+RCT_EXPORT_VIEW_PROPERTY(stereoMode, NSString)
 
 - (VRTVideoSurface *)view
 {
