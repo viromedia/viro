@@ -20,6 +20,8 @@
 @property (nonatomic, assign) float volume;
 @property (nonatomic, assign) float width;
 @property (nonatomic, assign) float height;
+@property (nonatomic, copy, nullable) RCTDirectEventBlock onBufferStartViro;
+@property (nonatomic, copy, nullable) RCTDirectEventBlock onBufferEndViro;
 @property (nonatomic, copy, nullable) RCTDirectEventBlock onFinishViro;
 @property (nonatomic, copy, nullable) RCTDirectEventBlock onUpdateTimeViro;
 @property (nonatomic, copy) RCTDirectEventBlock onErrorViro;

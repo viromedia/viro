@@ -66,8 +66,8 @@ var Viro360VideoTest = React.createClass({
      <ReleaseMenu sceneNavigator={this.props.sceneNavigator}/>
      <ViroOmniLight position={[0, 0, 0]} color="#ffffff" attenuationStartDistance={40} attenuationEndDistance={50}/>
      <Viro360Video
-          ref={VIDEO_REF}
-           rotation={[0, this.state.rotationY,0]}  width={1.7} height={0.95} position={[0, 1, -2.9]} scale={[1, 1, 1]} paused={this.state.videoPaused}
+          ref={VIDEO_REF} onBufferStart={this._onBufferStart} onBufferEnd={this._onBufferEnd}
+          rotation={[0, this.state.rotationY,0]}  width={1.7} height={0.95} position={[0, 1, -2.9]} scale={[1, 1, 1]} paused={this.state.videoPaused}
           source={this.state.get360Video} transformBehavior={["billboard"]}
           loop={this.state.loopVideo} muted={this.state.muteVideo} volume={this.state.volume}
           stereoMode={this.state.get360Video == Local360StereoVideo ? "topBottom":"none"}
@@ -92,6 +92,12 @@ var Viro360VideoTest = React.createClass({
                   style={styles.baseTextTwo} onClick={this._toggleRotation} transformBehaviors={["billboard"]}/>
           </ViroScene>
     );
+  },
+  _onBufferStart() {
+    console.log("Viro360VideoTest onBufferStart");
+  },
+  _onBufferEnd() {
+    console.log("Viro360VideoTest onBufferEnd");
   },
 
   _showNext() {

@@ -49,6 +49,17 @@ var Viro360Video = React.createClass({
     volume: PropTypes.number,
 
     /**
+     * Callback invoked when the underlying video component begins buffering. Called at
+     * least once at the beginning of playback/video creation.
+     */
+    onBufferStart: React.PropTypes.func,
+
+    /**
+     * Callback invoked when the underlying video component has finished buffering.
+     */
+    onBufferEnd: React.PropTypes.func,
+
+    /**
      * Callback that is called when the video is finished playing. This
      * function isn't called at the end of a video if looping is enabled.
      */
@@ -73,6 +84,14 @@ var Viro360Video = React.createClass({
     return findNodeHandle(this.refs[RCT_360_VIDEO_REF]);
   },
 
+  _onBufferStart: function(event: Event) {
+    this.props.onBufferStart && this.props.onBufferStart(event);
+  },
+
+  _onBufferEnd: function(event: Event) {
+    this.props.onBufferEnd && this.props.onBufferEnd(event);
+  },
+
   _onFinish() {
     this.props.onFinish && this.props.onFinish();
   },
@@ -95,6 +114,8 @@ var Viro360Video = React.createClass({
     let nativeProps = Object.assign({}, this.props);
     nativeProps.ref = RCT_360_VIDEO_REF;
     nativeProps.source = vidsrc;
+    nativeProps.onBufferStartViro = this._onBufferStart;
+    nativeProps.onBufferEndViro = this._onBufferEnd;
     nativeProps.onErrorViro = this._onError;
     nativeProps.onFinishViro = this._onFinish;
     nativeProps.onUpdateTimeViro = this._onUpdateTime;
@@ -121,6 +142,8 @@ var Viro360Video = React.createClass({
 var VRO360Video = requireNativeComponent(
   'VRT360Video', Viro360Video, {
     nativeOnly: {
+      onBufferStartViro: true,
+      onBufferEndViro: true,
       onUpdateTimeViro: true,
       onErrorViro:true,
       onFinishViro: true}

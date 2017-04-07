@@ -1,5 +1,5 @@
 //
-//  VROVideoDelegateiOS.hpp
+//  VROVideoDelegateiOS.h
 //  ViroRenderer
 //
 //  Created by Raj Advani on 11/10/16.
@@ -20,6 +20,14 @@ public:
         _delegate(delegate)
     {}
     virtual ~VROVideoDelegateiOS() {}
+
+    void videoWillBuffer() {
+        [_delegate videoWillBuffer];
+    }
+
+    void videoDidBuffer() {
+        [_delegate videoDidBuffer];
+    }
     
     void videoDidFinish() {
         [_delegate videoDidFinish];

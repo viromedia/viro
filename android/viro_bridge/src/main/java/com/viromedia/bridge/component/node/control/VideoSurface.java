@@ -27,6 +27,24 @@ public class VideoSurface extends Control {
         }
 
         @Override
+        public void onVideoBufferStart() {
+            VideoSurface surface = mSurface.get();
+            if (surface == null || surface.isTornDown()) {
+                return;
+            }
+            surface.playerBufferStart();
+        }
+
+        @Override
+        public void onVideoBufferEnd() {
+            VideoSurface surface = mSurface.get();
+            if (surface == null || surface.isTornDown()) {
+                return;
+            }
+            surface.playerBufferEnd();
+        }
+
+        @Override
         public void onVideoFinish() {
             VideoSurface surface = mSurface.get();
             if (surface == null || surface.isTornDown()) {
@@ -35,6 +53,10 @@ public class VideoSurface extends Control {
             surface.playerDidFinishPlaying();
         }
 
+        /**
+         * This method is called when the texture is ready to have its properties loaded. Not sure
+         * this is actually needed
+         */
         @Override
         public void onReady() {
             VideoSurface surface = mSurface.get();
@@ -197,6 +219,20 @@ public class VideoSurface extends Control {
                 mVideoTextureJni.play();
             }
         }
+    }
+
+    private void playerBufferStart() {
+        mReactContext.getJSModule(RCTEventEmitter.class).receiveEvent(
+                getId(),
+                ViroEvents.ON_BUFFER_START,
+                null);
+    }
+
+    private void playerBufferEnd() {
+        mReactContext.getJSModule(RCTEventEmitter.class).receiveEvent(
+                getId(),
+                ViroEvents.ON_BUFFER_END,
+                null);
     }
 
     private void playerDidFinishPlaying() {

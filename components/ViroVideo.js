@@ -66,6 +66,17 @@ var ViroVideo = React.createClass({
           React.PropTypes.func
         ]),
     /**
+     * Callback invoked when the underlying video component begins buffering. Called at
+     * least once at the beginning of playback/video creation.
+     */
+    onBufferStart: React.PropTypes.func,
+
+    /**
+     * Callback invoked when the underlying video component has finished buffering.
+     */
+    onBufferEnd: React.PropTypes.func,
+
+    /**
      * Callback that is called when the video is finished playing. This
      * function isn't called at the end of a video if looping is enabled.
      */
@@ -84,6 +95,14 @@ var ViroVideo = React.createClass({
      */
     onError: React.PropTypes.func,
 
+  },
+
+  _onBufferStart: function(event: Event) {
+    this.props.onBufferStart && this.props.onBufferStart(event);
+  },
+
+  _onBufferEnd: function(event: Event) {
+    this.props.onBufferEnd && this.props.onBufferEnd(event);
   },
 
   _onFinish: function() {
@@ -167,6 +186,8 @@ var ViroVideo = React.createClass({
     nativeProps.source = source;
     nativeProps.materials = materials;
     nativeProps.transformBehaviors = transformBehaviors;
+    nativeProps.onBufferStartViro = this._onBufferStart;
+    nativeProps.onBufferEndViro = this._onBufferEnd;
     nativeProps.onFinishViro = this._onFinish;
     nativeProps.onErrorViro = this._onError;
     nativeProps.onUpdateTimeViro = this._onUpdateTime;
@@ -212,25 +233,27 @@ var ViroVideo = React.createClass({
 var VRTVideoSurface = requireNativeComponent(
     'VRTVideoSurface', ViroVideo, {
       nativeOnly: {
-            onUpdateTimeViro: true,
-            onFinishViro: true,
-            canHover: true,
-            canClick: true,
-            canTouch: true,
-            canScroll: true,
-            canSwipe: true,
-            canDrag: true,
-            onHoverViro:true,
-            onClickViro:true,
-            onTouchViro:true,
-            onScrollViro:true,
-            onSwipeViro:true,
-            onDragViro:true,
-            onErrorViro:true,
-            canFuse: true,
-            onFuseViro:true,
-            timeToFuse:true
-            }
+          onBufferStartViro: true,
+          onBufferEndViro: true,
+          onUpdateTimeViro: true,
+          onFinishViro: true,
+          canHover: true,
+          canClick: true,
+          canTouch: true,
+          canScroll: true,
+          canSwipe: true,
+          canDrag: true,
+          onHoverViro:true,
+          onClickViro:true,
+          onTouchViro:true,
+          onScrollViro:true,
+          onSwipeViro:true,
+          onDragViro:true,
+          onErrorViro:true,
+          canFuse: true,
+          onFuseViro:true,
+          timeToFuse:true
+      }
     }
 );
 

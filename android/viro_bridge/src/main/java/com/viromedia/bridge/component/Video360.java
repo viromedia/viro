@@ -30,6 +30,25 @@ public class Video360 extends Component {
             mVideo = new WeakReference<Video360>(video);
         }
 
+        public void onVideoBufferStart() {
+            Video360 video = mVideo.get();
+            if (video == null || video.isTornDown()) {
+                return;
+            }
+
+            video.reactVideoBufferStartCallback();
+        }
+
+        @Override
+        public void onVideoBufferEnd() {
+            Video360 video = mVideo.get();
+            if (video == null || video.isTornDown()) {
+                return;
+            }
+
+            video.reactVideoBufferEndCallback();
+        }
+
         @Override
         public void onVideoFinish() {
             Video360 video = mVideo.get();
@@ -207,6 +226,20 @@ public class Video360 extends Component {
         if (mScene != null) {
             mScene.setBackgroundRotation(mRotation);
         }
+    }
+
+    private void reactVideoBufferStartCallback() {
+        mReactContext.getJSModule(RCTEventEmitter.class).receiveEvent(
+                getId(),
+                ViroEvents.ON_BUFFER_START,
+                null);
+    }
+
+    private void reactVideoBufferEndCallback() {
+        mReactContext.getJSModule(RCTEventEmitter.class).receiveEvent(
+                getId(),
+                ViroEvents.ON_BUFFER_END,
+                null);
     }
 
     private void reactVideoFinishedCallback() {

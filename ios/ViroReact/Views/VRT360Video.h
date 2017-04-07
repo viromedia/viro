@@ -16,6 +16,8 @@
 @property (nonatomic, assign) BOOL loop;
 @property (nonatomic, assign) BOOL muted;
 @property (nonatomic, assign) float volume;
+@property (nonatomic, copy, nullable) RCTDirectEventBlock onBufferStartViro;
+@property (nonatomic, copy, nullable) RCTDirectEventBlock onBufferEndViro;
 @property (nonatomic, copy, nullable) RCTDirectEventBlock onFinishViro;
 @property (nonatomic, copy, nullable) RCTDirectEventBlock onUpdateTimeViro;
 @property (nonatomic, copy) RCTDirectEventBlock onErrorViro;

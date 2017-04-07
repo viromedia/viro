@@ -25,4 +25,6 @@ public class ViroEvents {
     public static final String ON_CONTROLLER_STATUS = "onControllerStatusViro";
     public static final String ON_EXIT_VIRO = "onExitViro";
     public static final String ON_FUSE = "onFuseViro";
+    public static final String ON_BUFFER_START = "onBufferStartViro";
+    public static final String ON_BUFFER_END = "onBufferEndViro";
 }

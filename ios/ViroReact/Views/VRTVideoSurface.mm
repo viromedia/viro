@@ -159,6 +159,18 @@
 
 #pragma mark VROVideoDelegate implementation
 
+- (void)videoWillBuffer {
+    if (self.onBufferStartViro) {
+        self.onBufferStartViro(nil);
+    }
+}
+
+- (void)videoDidBuffer {
+    if (self.onBufferEndViro) {
+        self.onBufferEndViro(nil);
+    }
+}
+
 - (void)videoDidFinish {
   if (self.onFinishViro) {
     self.onFinishViro(@{@"finished": @(true),});
