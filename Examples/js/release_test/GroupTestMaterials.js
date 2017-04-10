@@ -36,20 +36,11 @@ import {
 } from 'react-viro';
 
 let polarToCartesian = ViroUtils.polarToCartesian;
-
-var UriImage = {uri:"https://s3-us-west-2.amazonaws.com/viro/Explorer/360_horseshoe.jpg"};
-var LocalImage = require("./res/360_park.jpg");
-
-var Uri360Video = {uri:"https://s3-us-west-2.amazonaws.com/viro/360_surf.mp4"};
-var Local360Video = require("./res/360Asteroids.mp4");
-
 var ReleaseMenu = require("./ReleaseMenu.js");
-
 var LocalButtonImage = require("./res/icon_live.jpg");
 
 var TOGGLE_PLAY ="Toggle Play";
 var TOGGLE_PAUSE ="Toggle Pause";
-
 
 var GroupTestMaterials = React.createClass({
   getInitialState() {
@@ -75,126 +66,115 @@ var GroupTestMaterials = React.createClass({
         transformText = "blueBlinn";
         heartMat="heartBlueBlinn";
     } else if (this.state.materialFlag == 4){
-        newMaterial="blueCullModeFront";
-        transformText = "blueCullModeFront";
+        newMaterial="whiteCullModeBack";
+        transformText = "whiteCullModeBack";
+        heartMat="heartCullModeBack";
+    } else if (this.state.materialFlag == 5){
+        newMaterial="whiteCullModeFront";
+        transformText = "whiteCullModeFront";
         heartMat="heartCullModeFront";
-    }else {
+    } else {
         newMaterial="sun_texture";
         transformText = "sun_texture";
         heartMat="heartSun";
     }
 
     return (
-                <ViroScene>
-                 <ViroAmbientLight
-                            color={"#ffffff"}/>
-                <ViroImage source={require('./res/poi_dot.png')} position={[-1, 0, 0]} transformBehaviors={["billboard"]} onClick={this._showNext} />
-                <ReleaseMenu sceneNavigator={this.props.sceneNavigator}/>
+        <ViroScene>
+            <ViroAmbientLight color={"#666666"} />
+            <ViroDirectionalLight direction={[0, 0, -1]} color={"#888888"} />
+            <ViroDirectionalLight direction={[0, 0,  1]} color={"#FF0000"} />
 
+            <ViroImage source={require('./res/poi_dot.png')} position={[-1, 0, 0]} transformBehaviors={["billboard"]} onClick={this._showNext} />
+            <ReleaseMenu sceneNavigator={this.props.sceneNavigator}/>
 
-                <ViroNode position={[0.8 , 0, -3.5]} >
-
-                    <Viro3DObject source={require('../res/heart.obj')}
-                             scale={[1.8 , 1.8  , 1.8]}
+            <ViroNode position={[0.8 , 0, -3.5]} >
+                <Viro3DObject source={require('../res/heart.obj')}
+                              scale={[1.8 , 1.8  , 1.8]}
                               position={[-2.5 , -4.3 , -1.15]}
                               materials={[heartMat]}/>
-                  <ViroBox
-                      position={[-1 , 1, 0]}
-                      scale={[0.4 , 0.4 , 0.4]}
-                      rotation={[0,45,0]}
-                      materials={[newMaterial,"blueBlinn",newMaterial,"blueBlinn",newMaterial,"blueBlinn"]}
-                      height={1}
-                      width={1}
-                      length={1}/>
 
-                  <ViroButton
-                      position={[0, 1, 0]}
-                      materials={[newMaterial]}
-                      scale={[0.08, 0.08, 0.1]}
-                      source={LocalButtonImage}
-                      gazeSource={LocalButtonImage}
-                      tapSource={LocalButtonImage}
-                      />
+                <ViroBox position={[-1 , 1, 0]}
+                         scale={[0.4 , 0.4 , 0.4]}
+                         rotation={[0,45,0]}
+                         materials={[newMaterial,"blueBlinn",newMaterial,"blueBlinn",newMaterial,"blueBlinn"]}
+                         height={1}
+                         width={1}
+                         length={1}/>
 
-                  <ViroFlexView
-                      position={[1, 1, 0]}
-                      scale={[0.2, 0.2, 0.1]}
-                      materials={[newMaterial]}
-                      width={3}
-                      height={2} />
-                  <ViroImage
-                      width={1} height={1}
-                      format="RGBA8" mipmap={true}
-                      position={[-2, 0, 0]}
-                       materials={[newMaterial]}
-                      scale={[0.5, 0.5, 0.1]}
-                      source={{uri: "https://upload.wikimedia.org/wikipedia/commons/7/74/Earth_poster_large.jpg"}}
-                      />
-                  <ViroNode
-                    position={[-1, 0, 0]}
-                    scale={[0.5, 0.5, 0.1]}
-                    rotation={[0,0,0]}>
-                    <ViroText
+                <ViroButton
+                    position={[0, 1, 0]}
                     materials={[newMaterial]}
-                        style={styles.baseTextTwo}
-                        text="This is a text in a ViroNode" />
-                  </ViroNode>
+                    scale={[0.08, 0.08, 0.1]}
+                    source={LocalButtonImage}
+                    gazeSource={LocalButtonImage}
+                    tapSource={LocalButtonImage}/>
 
-                  <ViroSphere
+                <ViroFlexView
+                    position={[1, 1, 0]}
+                    scale={[0.2, 0.2, 0.1]}
+                    materials={[newMaterial]}
+                    width={3}
+                    height={2} />
 
-                      position={[0, 0, 0]}
-                      scale={[0.3, 0.3, 0.3]}
-                      widthSegmentCount={5}
-                      heightSegmentCount={5}
-                      radius={1}
-            materials={[newMaterial]}
-                      />
+                <ViroImage
+                    width={1} height={1}
+                    format="RGBA8" mipmap={true}
+                    position={[-2, 0, 0]}
+                     materials={[newMaterial]}
+                    scale={[0.5, 0.5, 0.1]}
+                    source={{uri: "https://upload.wikimedia.org/wikipedia/commons/7/74/Earth_poster_large.jpg"}}/>
 
-                  <ViroSpinner
-                  materials={[newMaterial]}
-                      position={[1, 0, 0]}
-                      scale={[0.3, 0.3, 0.1]}/>
-
-                  <ViroSurface
-                      position={[-2, -1, 0]}
-                      scale={[0.5, 0.5, 0.1]}
-                       materials={[newMaterial]}
-                      width={1}
-                      height={1}/>
-
-                  <ViroText
-                   materials={[newMaterial]}
-                      position={[-1, -1, 0]}
-                      scale={[0.5 , 0.5, 0.1]}
-                      style={styles.baseTextTwo}
-                      text="This is a Viro Text"/>
-
+                <ViroNode position={[-1, 0, 0]} scale={[0.5, 0.5, 0.1]} rotation={[0,0,0]}>
+                  <ViroText materials={[newMaterial]}
+                            style={styles.baseTextTwo}
+                            text="This is a text in a ViroNode" />
                 </ViroNode>
 
-                <ViroText style={styles.baseTextTwo} position={[0.8 , -2, -3.5]} width={2} height ={2} fontFamily={'Arial'}
-                      text={"Toggle material: " + transformText} textLineBreakMode='justify' onClick={this._toggleTransform}/>
+                <ViroSphere position={[0, 0, 0]}
+                            scale={[0.3, 0.3, 0.3]}
+                            widthSegmentCount={5}
+                            heightSegmentCount={5}
+                            radius={1}
+                            materials={[newMaterial]}/>
 
-            </ViroScene>
+                <ViroSpinner materials={[newMaterial]}
+                             position={[1, 0, 0]}
+                            scale={[0.3, 0.3, 0.1]}/>
 
+                <ViroSurface position={[-2, -1, 0]} scale={[0.5, 0.5, 0.1]}
+                             materials={[newMaterial]}
+                             width={1}
+                             height={1}/>
+
+                <ViroText materials={[newMaterial]}
+                          position={[-1, -1, 0]}
+                          scale={[0.5 , 0.5, 0.1]}
+                          style={styles.baseTextTwo}
+                          text="This is a Viro Text"/>
+            </ViroNode>
+
+            <ViroText style={styles.baseTextTwo} position={[0.8 , -2, -3.5]} width={2} height ={2} fontFamily={'Arial'}
+                  text={"Toggle material: " + transformText} textLineBreakMode='justify' onClick={this._toggleTransform}/>
+
+        </ViroScene>
     );
   },
 
   _showNext() {
     this.props.sceneNavigator.pop();
-          this.props.sceneNavigator.push({scene:require('./GroupTestDragEvents')});
-      },
+    this.props.sceneNavigator.push({scene:require('./GroupTestDragEvents')});
+  },
 
   _toggleTransform(){
     var newtransformflag = this.state.materialFlag + 1;
-    if (newtransformflag > 5){
-        newtransformflag = 0;
+    if (newtransformflag > 6){
+      newtransformflag = 0;
     }
-     this.setState({
-            materialFlag:newtransformflag
-           });
+    this.setState({
+      materialFlag:newtransformflag
+    });
   }
-
-
 });
 
 var styles = StyleSheet.create({
@@ -219,12 +199,10 @@ var styles = StyleSheet.create({
   },
 });
 
-
-
 ViroMaterials.createMaterials({
   redColor: {
-  fresnelExponent: .5,
-   shininess: 2.0,
+    fresnelExponent: .5,
+    shininess: 2.0,
     diffuseColor: "#ff0000"
   },
 
@@ -240,48 +218,66 @@ ViroMaterials.createMaterials({
     diffuseColor: "#0000ff"
   },
 
-  blueCullModeFront: {
+  whiteCullModeBack: {
     shininess: 2.0,
     lightingModel: "Blinn",
-    diffuseColor: "#0000ff",
+    diffuseColor: "#FFFFFF",
+    cullMode:'Back'
+  },
+
+  whiteCullModeFront: {
+    shininess: 2.0,
+    lightingModel: "Blinn",
+    diffuseColor: "#FFFFFF",
     cullMode:'Front'
   },
 
   heartRed: {
-  fresnelExponent: .5,
-   shininess: 2.0,
+    fresnelExponent: .5,
+    shininess: 2.0,
     diffuseColor: "#ff0000",
-      diffuseTexture: require('../res/heart_d.jpg'),
-    },
-heartBlueLambert: {
-  shininess: 2.0,
-  lightingModel: "Lambert",
-  diffuseColor: "#0000ff",
     diffuseTexture: require('../res/heart_d.jpg'),
   },
+
+  heartBlueLambert: {
+    shininess: 2.0,
+    lightingModel: "Lambert",
+    diffuseColor: "#0000ff",
+    diffuseTexture: require('../res/heart_d.jpg'),
+  },
+
   heartBlueBlinn: {
-  diffuseColor: "#0000ff",
-shininess: 2.0,
-lightingModel: "Blinn",
-      diffuseTexture: require('../res/heart_d.jpg'),
-    },
-    heartCullModeFront: {
-        shininess: 2.0,
-        lightingModel: "Blinn",
-        diffuseColor: "#0000ff",
-        cullMode:'Front',
-        diffuseTexture: require('../res/heart_d.jpg'),
-      },
+    diffuseColor: "#0000ff",
+    shininess: 2.0,
+    lightingModel: "Blinn",
+    diffuseTexture: require('../res/heart_d.jpg'),
+  },
+
+  heartCullModeBack: {
+    shininess: 2.0,
+    lightingModel: "Blinn",
+    diffuseColor: "#FFFFFF",
+    cullMode:'Back',
+    diffuseTexture: require('../res/heart_d.jpg'),
+  },
+
+  heartCullModeFront: {
+    shininess: 2.0,
+    lightingModel: "Blinn",
+    diffuseColor: "#FFFFFF",
+    cullMode:'Front',
+    diffuseTexture: require('../res/heart_d.jpg'),
+  },
+
   heartSun: {
-              shininess: 2.0,
-              lightingModel: "Blinn",
-              cullMode:'Front',
-              diffuseTexture: require('../res/sun_2302.jpg'),
-            },
+    shininess: 2.0,
+    lightingModel: "Blinn",
+    diffuseTexture: require('../res/sun_2302.jpg'),
+  },
+
   sun_texture: {
     diffuseTexture: require("../res/sun_2302.jpg"),
   }
- });
-
+});
 
 module.exports = GroupTestMaterials;
