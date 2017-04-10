@@ -17,7 +17,9 @@ public:
     
     VROVideoDelegateInternal() {}
     virtual ~VROVideoDelegateInternal() {}
-    
+
+    virtual void videoWillBuffer() = 0;
+    virtual void videoDidBuffer() = 0;
     virtual void videoDidFinish() = 0;
     virtual void onVideoUpdatedTime(int currentTimeInSeconds, int totalTimeInSeconds) = 0;
     virtual void videoDidFail(std::string error) = 0;

@@ -44,7 +44,10 @@ public:
      Perform video initialization (which causes a stutter) early.
      */
     void prewarm();
-    
+
+    void playerWillBuffer();
+    void playerDidBuffer();
+
     void onFrameWillRender(const VRORenderContext &context);
     void onFrameDidRender(const VRORenderContext &context);
     
