@@ -70,6 +70,9 @@ var VRTCamera = requireNativeComponent(
                 onSwipeViro:true,
                 onDragViro:true,
                 transformBehaviors:true,
+                canFuse: true,
+                onFuseViro:true,
+                timeToFuse:true
       }
 });
 
