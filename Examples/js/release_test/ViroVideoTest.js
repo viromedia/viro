@@ -26,6 +26,7 @@ let polarToCartesian = ViroUtils.polarToCartesian;
 
 var localVideo = require("./res/Titan_Touchdown.mp4");
 var localVideoStereo = require("./res/stereoVid.mp4");
+var uriSource = {uri:'https://s3.amazonaws.com/viro.video/Climber1Bottom.mp4'};
 var ReleaseMenu = require("./ReleaseMenu.js");
 
 var ViroVideoTest = React.createClass({
@@ -92,10 +93,8 @@ var ViroVideoTest = React.createClass({
     console.log("Viro On time update-> Current: " + current+ ", total: " + total);
   },
   _changeVideoSource() {
-    var uriSource = {uri:'https://s3.amazonaws.com/viro.video/Climber1Bottom.mp4'};
-
     var newVideoSource;
-    if (this.state.uriVideo == uriSource){
+    if (this.state.uriVideo == uriSource) {
       newVideoSource = localVideo;
     } else if (this.state.uriVideo == localVideo){
       newVideoSource = localVideoStereo;

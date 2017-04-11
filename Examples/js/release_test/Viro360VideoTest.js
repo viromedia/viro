@@ -125,7 +125,7 @@ var Viro360VideoTest = React.createClass({
   _changeVideoSource() {
     var newVideo;
     if (this.state.get360Video == Uri360Video){
-      newVideo = Local360Image;
+      newVideo = Local360Video;
     } else if (this.state.get360Video == Local360Video){
       newVideo = Local360StereoVideo;
     } else {
