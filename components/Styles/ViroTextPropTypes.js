@@ -26,7 +26,7 @@ var ViroTextStylePropTypes =  Object.assign(Object.create(ViroStylePropTypes), {
    * Specifies text alignment.
    */
   textAlign: PropTypes.oneOf(
-    [ 'left'/*default*/, 'right', 'center', 'justify']
+    [ 'left'/*default*/, 'right', 'center']
   ),
 
   textAlignVertical: PropTypes.oneOf(
