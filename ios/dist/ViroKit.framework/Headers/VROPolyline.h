@@ -14,6 +14,7 @@
 class VROVector3f;
 class VROByteBuffer;
 class VROLineSegment;
+class VROShaderModifier;
 
 class VROPolyline : public VROGeometry, public VROAnimatable {
     
@@ -48,6 +49,7 @@ private:
     static size_t encodeCircularEndcap(VROVector3f center, bool beginDegenerate, bool endDegenerate, VROByteBuffer &buffer);
 
     static void writeCorner(VROVector3f position, VROVector3f normal, VROByteBuffer &buffer);
+    static std::shared_ptr<VROShaderModifier> createPolylineShaderModifier();
     
     float _width;
     

@@ -2649,7 +2649,7 @@
 		</data>
 		<key>Headers/VROPolyline.h</key>
 		<data>
-		hwKxfg8/trJ1+UZOcibjxX137F0=
+		ANeSEtZPtEFMOOVawb14P6Q98jI=
 		</data>
 		<key>Headers/VROProjector.h</key>
 		<data>
@@ -2693,7 +2693,7 @@
 		</data>
 		<key>Headers/VROShaderModifier.h</key>
 		<data>
-		FBZz+BORwO+IaYegMT5OVW8QJ5E=
+		lf6XSV5YYYV6Ffm8OS7UigIez54=
 		</data>
 		<key>Headers/VROShaderProgram.h</key>
 		<data>
@@ -2829,7 +2829,7 @@
 		</data>
 		<key>Headers/VROUniform.h</key>
 		<data>
-		A7nX8VXjN9RvDiARWNVousMv0Ds=
+		0WW5Y39ysmPv5Hb0x+q5TImSZ/w=
 		</data>
 		<key>Headers/VROVector3f.h</key>
 		<data>
@@ -7854,11 +7854,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			hwKxfg8/trJ1+UZOcibjxX137F0=
+			ANeSEtZPtEFMOOVawb14P6Q98jI=
 			</data>
 			<key>hash2</key>
 			<data>
-			thnH+h/vTo3C1PQrLDdG8OSLEVBc/5T6lvQsUdJS+oM=
+			kyMoTZFBjcs7JScOQk06kd30GTApLljRd5fMPQX5sVA=
 			</data>
 		</dict>
 		<key>Headers/VROProjector.h</key>
@@ -7975,11 +7975,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			FBZz+BORwO+IaYegMT5OVW8QJ5E=
+			lf6XSV5YYYV6Ffm8OS7UigIez54=
 			</data>
 			<key>hash2</key>
 			<data>
-			pCLkgzZTYrAKQCWhMC00yPpf+IiLtWj7hENst+s+g5w=
+			2aTnwxMRSFHX47Kp464WmYGXm9VmTnyvp4WGL4Ld4tQ=
 			</data>
 		</dict>
 		<key>Headers/VROShaderProgram.h</key>
@@ -8349,11 +8349,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			A7nX8VXjN9RvDiARWNVousMv0Ds=
+			0WW5Y39ysmPv5Hb0x+q5TImSZ/w=
 			</data>
 			<key>hash2</key>
 			<data>
-			6jFyNhQGNRKRSvcuxpSkSHR+lnEHFkwdYho91X9Ru1Q=
+			oUfzUvcj9Jdu+M6CG+uVeboXORlB30aMe1ySYdCrlwU=
 			</data>
 		</dict>
 		<key>Headers/VROVector3f.h</key>

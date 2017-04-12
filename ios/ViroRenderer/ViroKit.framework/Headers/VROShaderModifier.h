@@ -18,8 +18,9 @@
 #include "VROOpenGL.h"
 
 class VROUniform;
+class VROGeometry;
 
-typedef std::function<void(VROUniform *uniform, GLuint location)> VROUniformBindingBlock;
+typedef std::function<void(VROUniform *uniform, GLuint location, const VROGeometry &geometry)> VROUniformBindingBlock;
 
 /*
  The entry point, which signals where in the shader program this modifier will
@@ -129,7 +130,7 @@ public:
     /*
      Invoke the uniform binder for the given uniform.
      */
-    void bindUniform(VROUniform *uniform, GLuint location);
+    void bindUniform(VROUniform *uniform, GLuint location, const VROGeometry &geometry);
     
     /*
      Get the pragma directive that corresponds to this modifier's entry point and

@@ -11,7 +11,7 @@
 
 #include <iostream>
 
-#define TRACK_MEMORY_ALLOCATIONS 0
+#define TRACK_MEMORY_ALLOCATIONS 1
 
 #if TRACK_MEMORY_ALLOCATIONS
     #define ALLOCATION_TRACKER_SET(x, bytes) VROAllocationTracker::set(VROAllocationBucket::x, bytes)
@@ -44,6 +44,8 @@ enum class VROAllocationBucket {
     MaterialSubstrates,
     Textures,
     TextureSubstrates,
+    Shaders,
+    ShaderModifiers,
     VideoTextures,
     NUM_BUCKETS
 };
