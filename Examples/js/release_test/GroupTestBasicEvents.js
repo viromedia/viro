@@ -36,20 +36,8 @@ import {
 } from 'react-viro';
 
 let polarToCartesian = ViroUtils.polarToCartesian;
-
-var UriImage = {uri:"https://s3-us-west-2.amazonaws.com/viro/Explorer/360_horseshoe.jpg"};
-var LocalImage = require("./res/360_park.jpg");
-
-var Uri360Video = {uri:"https://s3-us-west-2.amazonaws.com/viro/360_surf.mp4"};
-var Local360Video = require("./res/360Asteroids.mp4");
-
 var LocalButtonImage = require("./res/icon_live.jpg");
-
 var ReleaseMenu = require("./ReleaseMenu.js");
-
-var TOGGLE_PLAY ="Toggle Play";
-var TOGGLE_PAUSE ="Toggle Pause";
-
 
 var GroupTestBasicEvents = React.createClass({
   getInitialState() {
@@ -59,73 +47,81 @@ var GroupTestBasicEvents = React.createClass({
         transformBehaviors:["billboard"]
     };
   },
-onHover(objectTag){return (isHovering, source)  => {
-                         console.log("GroupTest: " + objectTag + " isHovering" + isHovering+ " onHover: " + source);
-                       }},
-onClick(objectTag){return (source) => {
-                         console.log("GroupTest: " + objectTag + " onClick source:" + source);
-                       }},
-onClickState(objectTag){return (state, source) => {
-                              console.log("GroupTest: " + objectTag + " source " + source+ " onClickState: " + state);
-                            }},
-onTouch(objectTag){return (touchState, touchPos, source) => {
-                         console.log("GroupTest:" + objectTag + " onTouch touchState " + touchState + ",  touchpos: " + touchPos[0] +"," + touchPos[1] + " source: " + source);
-                       }},
-onScroll(objectTag){return (scrollPos, source) => {
-                          console.log("GroupTest:" + objectTag + " onScroll scrollPos " + scrollPos[0] + "," + scrollPos[1] + " source:" + source);
-                        }},
-onSwipe(objectTag){return (swipeState, source) => {
-                         console.log("GroupTest:" + objectTag + " onSwipe swipeState" + swipeState + " source: " + source);
-                       }},
-onDrag(objectTag){return (dragtoPos, source) => {
-                        console.log("GroupTest:" + objectTag + " onDrag dragtoPos" +
-                        dragtoPos[0] +","+ dragtoPos[1]+","+ dragtoPos[2] + " source: " + source);
-                      }},
-onFuse(objectTag){
-  return (source) => {
-                          console.log("GroupTest:" + objectTag + " onFuse");
-                        }
-
-},
+  onHover(objectTag) {
+    return (isHovering, source)  => {
+      console.log("GroupTest: " + objectTag + " isHovering" + isHovering+ " onHover: " + source);
+    }
+  },
+  onClick(objectTag) {
+    return (source) => {
+      console.log("GroupTest: " + objectTag + " onClick source:" + source);
+    }
+  },
+  onClickState(objectTag) {
+    return (state, source) => {
+      console.log("GroupTest: " + objectTag + " source " + source+ " onClickState: " + state);
+    }
+  },
+  onTouch(objectTag){
+    return (touchState, touchPos, source) => {
+      console.log("GroupTest:" + objectTag + " onTouch touchState " + touchState + ",  touchpos: " + touchPos[0] +"," + touchPos[1] + " source: " + source);
+    }
+  },
+  onScroll(objectTag){
+    return (scrollPos, source) => {
+        console.log("GroupTest:" + objectTag + " onScroll scrollPos " + scrollPos[0] + "," + scrollPos[1] + " source:" + source);
+    }
+  },
+  onSwipe(objectTag){
+    return (swipeState, source) => {
+        console.log("GroupTest:" + objectTag + " onSwipe swipeState" + swipeState + " source: " + source);
+    }
+  },
+  onDrag(objectTag){
+    return (dragtoPos, source) => {
+      console.log("GroupTest:" + objectTag + " onDrag dragtoPos" +
+      dragtoPos[0] +","+ dragtoPos[1]+","+ dragtoPos[2] + " source: " + source);
+    }
+  },
+  onFuse(objectTag){
+    return (source) => {
+       console.log("GroupTest:" + objectTag + " onFuse");
+    }
+  },
   render: function() {
     return (
-                <ViroScene onHover={this.onHover("ViroScene")}
-                                                 onClick={this.onClick("ViroScene")}
-                                                 onClickState={this.onClickState("ViroScene")}
-                                                 onTouch={this.onTouch("ViroScene")}
-                                                 onScroll={this.onScroll("ViroScene")}
-                                                 onFuse={this.onFuse("ViroScene")}
-                                                 onSwipe={this.onSwipe("ViroScene")}>
-
+            <ViroScene onHover={this.onHover("ViroScene")}
+                       onClick={this.onClick("ViroScene")}
+                       onClickState={this.onClickState("ViroScene")}
+                       onTouch={this.onTouch("ViroScene")}
+                       onScroll={this.onScroll("ViroScene")}
+                       onFuse={this.onFuse("ViroScene")}
+                       onSwipe={this.onSwipe("ViroScene")}>
 
                 <ViroController
-                     onClick={this.onClick("ViroController")}
-                       onClickState={this.onClickState("ViroController")}
-                     onTouch={this.onTouch("ViroController")}
-                        onScroll={this.onScroll("ViroController")}
-                        onFuse={this.onFuse("ViroController")}
-                       onSwipe={this.onSwipe("ViroController")}
-reticleVisibility={this.state.reticleVisibility}
-                />
+                      onClick={this.onClick("ViroController")}
+                      onClickState={this.onClickState("ViroController")}
+                      onTouch={this.onTouch("ViroController")}
+                      onScroll={this.onScroll("ViroController")}
+                      onFuse={this.onFuse("ViroController")}
+                      onSwipe={this.onSwipe("ViroController")}
+                      reticleVisibility={this.state.reticleVisibility} />
 
                <ViroImage source={require('./res/poi_dot.png')} position={[-1, 0, 0]} transformBehaviors={["billboard"]} onClick={this._showNext} />
                <ReleaseMenu sceneNavigator={this.props.sceneNavigator}/>
 
-                <ViroNode position={[0.8 , 0, -3.5]} >
-
-
-                    <Viro3DObject source={require('../res/heart.obj')}
-                             scale={[1.8 , 1.8  , 1.8]}
-                              position={[-2.5 , -4.3 , -1.15]}
-                              materials={["heart"]}
-
-                              onHover={this.onHover("3dObject")}
-                              onClick={this.onClick("3dObject")}
-                              onFuse={{callback:this.onFuse("3dObject"), timeToFuse:1000}}
-                              onClickState={this.onClickState("3dObject")}
-                              onTouch={this.onTouch("3dObject")}
-                              onScroll={this.onScroll("3dObject")}
-                              onSwipe={this.onSwipe("3dObject")}/>
+                <ViroNode position={[0.8 , 0, -3.5]}>
+                <Viro3DObject source={require('../res/heart.obj')}
+                          scale={[1.8 , 1.8  , 1.8]}
+                          position={[-2.5 , -4.3 , -1.15]}
+                          materials={["heart"]}
+                          onHover={this.onHover("3dObject")}
+                          onClick={this.onClick("3dObject")}
+                          onFuse={{callback:this.onFuse("3dObject"), timeToFuse:1000}}
+                          onClickState={this.onClickState("3dObject")}
+                          onTouch={this.onTouch("3dObject")}
+                          onScroll={this.onScroll("3dObject")}
+                          onSwipe={this.onSwipe("3dObject")}/>
 
                   <ViroBox
                       position={[-1 , 1, 0]}
@@ -171,6 +167,7 @@ reticleVisibility={this.state.reticleVisibility}
                       onTouch={this.onTouch("ViroFlexView")}
                       onScroll={this.onScroll("ViroFlexView")}
                       onSwipe={this.onSwipe("ViroFlexView")}/>
+
                   <ViroImage
                       width={1} height={1}
                       format="RGBA8" mipmap={true}
@@ -184,10 +181,11 @@ reticleVisibility={this.state.reticleVisibility}
                       onTouch={this.onTouch("ViroImage")}
                       onScroll={this.onScroll("ViroImage")}
                       onSwipe={this.onSwipe("ViroImage")}/>
+
                   <ViroNode
-                    position={[-1, 0, 0]}
-                    scale={[0.5, 0.5, 0.1]}
-                    rotation={[0,0,0]}
+                      position={[-1, 0, 0]}
+                      scale={[0.5, 0.5, 0.1]}
+                      rotation={[0,0,0]}
                       onHover={this.onHover("ViroNode")}
                       onClick={this.onClick("ViroNode")}
                       onFuse={{callback:this.onFuse("ViroImage"), timeToFuse:1000}}
@@ -195,7 +193,8 @@ reticleVisibility={this.state.reticleVisibility}
                       onTouch={this.onTouch("ViroNode")}
                       onScroll={this.onScroll("ViroNode")}
                       onSwipe={this.onSwipe("ViroNode")}>
-                    <ViroText
+
+                      <ViroText
                         style={styles.baseTextTwo}
                         text="This is a text in a ViroNode" />
                   </ViroNode>
@@ -246,13 +245,14 @@ reticleVisibility={this.state.reticleVisibility}
                       scale={[0.5 , 0.5, 0.1]}
                       style={styles.baseTextTwo}
                       text="This is a Viro Text"
-                         onHover={this.onHover("ViroText")}
-                         onFuse={this.onFuse("ViroText")}
-                         onClick={this.onClick("ViroText")}
-                         onClickState={this.onClickState("ViroText")}
-                         onTouch={this.onTouch("ViroText")}
-                         onScroll={this.onScroll("ViroText")}
-                         onSwipe={this.onSwipe("ViroText")}/>
+                      onHover={this.onHover("ViroText")}
+                      onFuse={this.onFuse("ViroText")}
+                      onClick={this.onClick("ViroText")}
+                      onClickState={this.onClickState("ViroText")}
+                      onTouch={this.onTouch("ViroText")}
+                      onScroll={this.onScroll("ViroText")}
+                      onSwipe={this.onSwipe("ViroText")}/>
+
                   <ViroVideo
                       position={[0 , -1,0]}
                       scale={[0.1, 0.1, 0.1]}
@@ -267,12 +267,10 @@ reticleVisibility={this.state.reticleVisibility}
                       source={{"uri":"https://s3-us-west-2.amazonaws.com/viro/Climber1Top.mp4"}} />
                 </ViroNode>
 
-                   <ViroOmniLight
-                                     position={[0, 0, 0]}
-                                     color={"#ffffff"}
-                                     attenuationStartDistance={30}
-                                     attenuationEndDistance={40}/>
-
+                 <ViroOmniLight position={[0, 0, 0]}
+                                color={"#ffffff"}
+                                attenuationStartDistance={30}
+                                attenuationEndDistance={40}/>
             </ViroScene>
 
     );
@@ -281,19 +279,17 @@ reticleVisibility={this.state.reticleVisibility}
   _showNext() {
     this.props.sceneNavigator.pop();
           this.props.sceneNavigator.push({scene:require('./GroupTestDragEvents')});
-      },
+  },
 
-  _toggleTransform(){
+  _toggleTransform() {
     var newtransformflag = this.state.transformFlag + 1;
-    if (newtransformflag > 5){
+    if (newtransformflag > 5) {
         newtransformflag = 0;
     }
-     this.setState({
+    this.setState({
             transformFlag:newtransformflag
-           });
+    });
   }
-
-
 });
 
 var styles = StyleSheet.create({
@@ -318,19 +314,17 @@ var styles = StyleSheet.create({
   },
 });
 
-
-
 ViroMaterials.createMaterials({
   redColor: {
-  fresnelExponent: .5,
-   shininess: 2.0,
-    diffuseColor: "#ff0000"
+      fresnelExponent: .5,
+      shininess: 2.0,
+      diffuseColor: "#ff0000"
   },
   blue: {
       shininess: 2.0,
       lightingModel: "Lambert",
       diffuseColor: "#0000ff"
-    },
+  },
   heart: {
       lightingModel: "Phong",
       diffuseTexture: require('../res/heart_d.jpg'),
