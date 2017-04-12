@@ -88,15 +88,15 @@ var GroupTestMaterials = React.createClass({
             <ViroImage source={require('./res/poi_dot.png')} position={[-1, 0, 0]} transformBehaviors={["billboard"]} onClick={this._showNext} />
             <ReleaseMenu sceneNavigator={this.props.sceneNavigator}/>
 
-            <ViroNode position={[0.8 , 0, -3.5]} >
+            <ViroNode position={[0.8, 0, -3.5]} >
                 <Viro3DObject source={require('../res/heart.obj')}
-                              scale={[1.8 , 1.8  , 1.8]}
-                              position={[-2.5 , -4.3 , -1.15]}
+                              scale={[1.8, 1.8, 1.8]}
+                              position={[-3.2, -7.5, -4.5]}
                               materials={[heartMat]}/>
 
-                <ViroBox position={[-1 , 1, 0]}
-                         scale={[0.4 , 0.4 , 0.4]}
-                         rotation={[0,45,0]}
+                <ViroBox position={[-1, 1, 0]}
+                         scale={[0.4, 0.4, 0.4]}
+                         rotation={[0, 45, 0]}
                          materials={[newMaterial,"blueBlinn",newMaterial,"blueBlinn",newMaterial,"blueBlinn"]}
                          height={1}
                          width={1}

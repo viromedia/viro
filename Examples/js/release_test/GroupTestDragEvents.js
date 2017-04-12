@@ -92,14 +92,14 @@ onDrag(objectTag){return (source, dragtoPos ,objectTag) => {
 
 
                     <Viro3DObject source={require('../res/heart.obj')}
-                             scale={[1.8 , 1.8  , 1.8]}
-                              position={[-2.5 , -4.3 , -1.15]}
+                             scale={[1.8, 1.8, 1.8]}
+                              position={[-3.2, -7.5, -4.5]}
                               materials={["heart"]}
                               onDrag={this.onDrag("3dObject")}/>
 
                   <ViroBox
-                      position={[-1 , 1, 0]}
-                      scale={[0.4 , 0.4 , 0.4]}
+                      position={[-1, 1, 0]}
+                      scale={[0.4, 0.4, 0.4]}
                       materials={["redColor","blue","redColor","blue","redColor","blue"]}
                       height={1}
                       width={1}

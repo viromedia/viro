@@ -98,33 +98,38 @@ var GroupTestBasicEvents = React.createClass({
                        onFuse={this.onFuse("ViroScene")}
                        onSwipe={this.onSwipe("ViroScene")}>
 
-                <ViroController
-                      onClick={this.onClick("ViroController")}
-                      onClickState={this.onClickState("ViroController")}
-                      onTouch={this.onTouch("ViroController")}
-                      onScroll={this.onScroll("ViroController")}
-                      onFuse={this.onFuse("ViroController")}
-                      onSwipe={this.onSwipe("ViroController")}
-                      reticleVisibility={this.state.reticleVisibility} />
+              <ViroController
+                    onClick={this.onClick("ViroController")}
+                    onClickState={this.onClickState("ViroController")}
+                    onTouch={this.onTouch("ViroController")}
+                    onScroll={this.onScroll("ViroController")}
+                    onFuse={this.onFuse("ViroController")}
+                    onSwipe={this.onSwipe("ViroController")}
+                    reticleVisibility={this.state.reticleVisibility} />
 
-               <ViroImage source={require('./res/poi_dot.png')} position={[-1, 0, 0]} transformBehaviors={["billboard"]} onClick={this._showNext} />
-               <ReleaseMenu sceneNavigator={this.props.sceneNavigator}/>
+              <ViroImage source={require('./res/poi_dot.png')} position={[-1, 0, 0]} transformBehaviors={["billboard"]} onClick={this._showNext} />
+              <ReleaseMenu sceneNavigator={this.props.sceneNavigator}/>
 
-                <ViroNode position={[0.8 , 0, -3.5]}>
-                <Viro3DObject source={require('../res/heart.obj')}
-                          scale={[1.8 , 1.8  , 1.8]}
-                          position={[-2.5 , -4.3 , -1.15]}
-                          materials={["heart"]}
-                          onHover={this.onHover("3dObject")}
-                          onClick={this.onClick("3dObject")}
-                          onFuse={{callback:this.onFuse("3dObject"), timeToFuse:1000}}
-                          onClickState={this.onClickState("3dObject")}
-                          onTouch={this.onTouch("3dObject")}
-                          onScroll={this.onScroll("3dObject")}
-                          onSwipe={this.onSwipe("3dObject")}/>
+              <ViroOmniLight position={[0, 0, 0]}
+                             color={"#FFFFFF"}
+                             attenuationStartDistance={30}
+                             attenuationEndDistance={40}/>
+
+              <ViroNode position={[0.8, 0, -3.5]}>
+                  <Viro3DObject source={require('../res/heart.obj')}
+                                scale={[1.8, 1.8, 1.8]}
+                                position={[-3.2, -7.5, -4.5]}
+                                materials={["heart"]}
+                                onHover={this.onHover("3dObject")}
+                                onClick={this.onClick("3dObject")}
+                                onFuse={{callback:this.onFuse("3dObject"), timeToFuse:1000}}
+                                onClickState={this.onClickState("3dObject")}
+                                onTouch={this.onTouch("3dObject")}
+                                onScroll={this.onScroll("3dObject")}
+                                onSwipe={this.onSwipe("3dObject")}/>
 
                   <ViroBox
-                      position={[-1 , 1, 0]}
+                      position={[-1, 1, 0]}
                       scale={[0.4 , 0.4 , 0.4]}
                       materials={["redColor","blue","redColor","blue","redColor","blue"]}
                       height={1}
@@ -136,8 +141,7 @@ var GroupTestBasicEvents = React.createClass({
                       onClickState={this.onClickState("ViroBox")}
                       onTouch={this.onTouch("ViroBox")}
                       onScroll={this.onScroll("ViroBox")}
-                      onSwipe={this.onSwipe("ViroBox")}
-                      />
+                      onSwipe={this.onSwipe("ViroBox")}/>
 
                   <ViroButton
                       position={[0, 1, 0]}
@@ -151,8 +155,7 @@ var GroupTestBasicEvents = React.createClass({
                       onClickState={this.onClickState("ViroButton")}
                       onTouch={this.onTouch("ViroButton")}
                       onScroll={this.onScroll("ViroButton")}
-                      onSwipe={this.onSwipe("ViroButton")}
-                      />
+                      onSwipe={this.onSwipe("ViroButton")}/>
 
                   <ViroFlexView
                       position={[1, 1, 0]}
@@ -196,7 +199,7 @@ var GroupTestBasicEvents = React.createClass({
 
                       <ViroText
                         style={styles.baseTextTwo}
-                        text="This is a text in a ViroNode" />
+                        text="This is a text in a ViroNode"/>
                   </ViroNode>
 
                   <ViroSphere
@@ -265,12 +268,7 @@ var GroupTestBasicEvents = React.createClass({
                       onScroll={this.onScroll("ViroVideo")}
                       onSwipe={this.onSwipe("ViroVideo")}
                       source={{"uri":"https://s3-us-west-2.amazonaws.com/viro/Climber1Top.mp4"}} />
-                </ViroNode>
-
-                 <ViroOmniLight position={[0, 0, 0]}
-                                color={"#ffffff"}
-                                attenuationStartDistance={30}
-                                attenuationEndDistance={40}/>
+              </ViroNode>
             </ViroScene>
 
     );
@@ -326,7 +324,7 @@ ViroMaterials.createMaterials({
       diffuseColor: "#0000ff"
   },
   heart: {
-      lightingModel: "Phong",
+      lightingModel: "Constant",
       diffuseTexture: require('../res/heart_d.jpg'),
     },
  });

@@ -54,11 +54,11 @@ var LeakTest1 = React.createClass({
     return (
       <ViroScene>
           <ViroAmbientLight color={"#ffffff"} />
-          <ViroNode position={[0.8 , 0, -3.5]}>
+          <ViroNode position={[0.8, 0, -3.5]}>
               <Viro3DObject
                 source={require('../res/heart.obj')}
-                scale={[1.8 , 1.8  , 1.8]}
-                position={[-2.5 , -4.3 , -1.15]}
+                scale={[1.8, 1.8, 1.8]}
+                position={[-3.2, -7.5, -4.5]}
                 materials={[heartMat]}
               />
 

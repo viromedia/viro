@@ -74,8 +74,8 @@ var GroupTestBasicAnimation = React.createClass({
                     loop={this.state.willLoop} >
 
                     <Viro3DObject source={require('../res/heart.obj')}
-                             scale={[1.8 , 1.8  , 1.8]}
-                              position={[-2.5 , -4.3 , -1.15]}
+                              scale={[1.8, 1.8, 1.8]}
+                              position={[-3.2, -7.5, -4.5]}
                               materials={["heart"]}
                               onClick={this._elementClick(10)} />
 
@@ -86,9 +86,9 @@ var GroupTestBasicAnimation = React.createClass({
                                     loop={this.state.willLoop} >
 
                   <ViroBox
-                      position={[-1 , 1, 0]}
-                      scale={[0.4 , 0.4 , 0.4]}
-                      rotation={[40,45,0]}
+                      position={[-1, 1, 0]}
+                      scale={[0.4, 0.4, 0.4]}
+                      rotation={[40, 45, 0]}
                       materials={["redColor", "blueColor","redColor", "blueColor","redColor", "blueColor"]}
                       height={1}
                       width={1}

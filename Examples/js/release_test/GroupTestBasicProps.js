@@ -78,7 +78,8 @@ var GroupTestBasicProps = React.createClass({
                 <ViroNode position={[0.8 , 0, -3.5]}>
                 <Viro3DObject source={require('../res/heart.obj')} opacity={this.state.offsetData[10].opacity}
                          scale={[1.8 * this.state.offsetData[10].scale, 1.8 * this.state.offsetData[10].scale , 1.8]}
-                          position={[-2.5 + this.state.offsetData[10].translate, -4.3 , -1.15]} rotation={[0,this.state.offsetData[10].rotate,0]}
+                         position={[-3.2 + this.state.offsetData[10].translate, -7.5, -4.5]}
+                          rotation={[0,this.state.offsetData[10].rotate,0]}
                           materials={["heart"]} onClick={this._elementClick(10)} visible={this.state.offsetData[10].isVisible}/>
 
                   <ViroBox

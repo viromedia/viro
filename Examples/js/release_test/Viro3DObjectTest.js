@@ -68,18 +68,18 @@ var Viro3DObjectTest = React.createClass({
          <Viro3DObject source={require('./res/destroyer.obj')}
                        position={[1, 1, -5]}
                        materials={["grey"]}
-                       rotation={[0,45,0]}
-                       scale={[.1,.1,.1]}
+                       rotation={[0, 45, 0]}
+                       scale={[.1, .1, .1]}
                        onHover={this._startAnimation1}
                        onLoadEnd={this._startAnimation4}
           />
        </ViroAnimatedComponent>
 
        <Viro3DObject source={{uri:"https://s3-us-west-2.amazonaws.com/viro/heart.obj"}}
-                     position={[-1.7 , -4.3 , -4.65]}
+                     position={[-3.2, -7.5, -4.5]}
                      materials={["heart"]}
                      rotation={[0,0,0]}
-                     scale={[1.8 , 1.8  , 1.8]}
+                     scale={[1.8, 1.8, 1.8]}
        />
 
        <ViroAnimatedComponent animation="loopRotate" run={this.state.runAnimation2} >
@@ -107,7 +107,7 @@ var Viro3DObjectTest = React.createClass({
                                  require('./res/01_-_Default1noCulling.JPG'),
                                  require('./res/male-02-1noCulling.JPG'),
                                  require('./res/orig_02_-_Defaul1noCulling.JPG')]}
-                     position={[-0.0, -100, -10]}
+                     position={[-0.0, -20, -10]}
                      scale={[0.1, 0.1, 0.1]}
                      onLoadStart={this._onLoadObjStart}
                      onLoadEnd={this._onLoadObjEnd}
@@ -117,7 +117,7 @@ var Viro3DObjectTest = React.createClass({
           <Viro3DObject source={require('./res/earth.obj')}
                         resources={[require('./res/earth.jpg'),
                                     require('./res/earth_normal.jpg')]}
-                        position={[10.0, 0.0, 5.0]}
+                        position={[2.0, 0.0, 5.0]}
                         scale={[0.01, 0.01, 0.01]}
                         materials={["earth"]}
            />
