@@ -110,9 +110,6 @@ public:
     VROVector3f getScale() const {
         return _scale;
     }
-    VROVector3f getPivot() const {
-        return _pivot;
-    }
     VROQuaternion getRotation() const {
         return _rotation;
     }
@@ -179,17 +176,6 @@ public:
     void setHierarchicalRendering(bool hierarchicalRendering) {
         _hierarchicalRendering = hierarchicalRendering;
     }
-    
-    /*
-     The pivot point is the point about which we apply rotation, translation,
-     and scale. This is specified as a vector ranging from [0, 1], where 0 
-     corresponds to the leftmost point (bottom-most, nearest) point in the 
-     node's local coordinate system, and 1.0 corresponds to the rightmost 
-     (top-most, furthest) point in the local coordinate system.
-     
-     Default is {0.5, 0,5. 0,5} which corresponds the center of the node.
-     */
-    void setPivot(VROVector3f pivot);
     
     /*
      Lights.
@@ -331,7 +317,6 @@ private:
     
     VROVector3f _scale;
     VROVector3f _position;
-    VROVector3f _pivot;
     
     /*
      Rotation is stored as a quaternion, but we also maintain euler angles

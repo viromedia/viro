@@ -41,6 +41,7 @@ public:
 
     void animateFuse(float fuseRatio);
     void stopFuseAnimation();
+    
 private:
 
     /*

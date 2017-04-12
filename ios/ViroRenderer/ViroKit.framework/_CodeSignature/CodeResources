@@ -2405,7 +2405,7 @@
 		</data>
 		<key>Headers/VROAllocationTracker.h</key>
 		<data>
-		vgFsU1A9WG9+rbmMYnmSUc/0YUQ=
+		o0DX5zEcq0A9hMXG77N4r9H4DI0=
 		</data>
 		<key>Headers/VROAnimatable.h</key>
 		<data>
@@ -2625,7 +2625,7 @@
 		</data>
 		<key>Headers/VRONode.h</key>
 		<data>
-		nNLXCMUDqGU2Yc6a35B1tAIReYE=
+		cvOGRxuYflroujH47/H2HU/gf0A=
 		</data>
 		<key>Headers/VRONodeCamera.h</key>
 		<data>
@@ -2677,7 +2677,7 @@
 		</data>
 		<key>Headers/VROReticle.h</key>
 		<data>
-		Qqn87aGTgAJrKqOz565EQaE3lsw=
+		fV1fqV1FbvpMQ2K9ORcdhjSJHP0=
 		</data>
 		<key>Headers/VROScene.h</key>
 		<data>
@@ -7183,11 +7183,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			vgFsU1A9WG9+rbmMYnmSUc/0YUQ=
+			o0DX5zEcq0A9hMXG77N4r9H4DI0=
 			</data>
 			<key>hash2</key>
 			<data>
-			VreWUcFXLCTIbfHE4H67gECmoX8eA1LuIoHLk7affvY=
+			YrMaXJTkNCPaFwUI+1HOMa2DHLpQPtkl+blfdCgjO+4=
 			</data>
 		</dict>
 		<key>Headers/VROAnimatable.h</key>
@@ -7788,11 +7788,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			nNLXCMUDqGU2Yc6a35B1tAIReYE=
+			cvOGRxuYflroujH47/H2HU/gf0A=
 			</data>
 			<key>hash2</key>
 			<data>
-			N/lsnCVibI3vMbYfkNvLgTAB0dp/SESxOQ4xmoafdx4=
+			+/3O1uliyxEolljsdJYbNlfY/ZoDFBR3NqCscMY3tpk=
 			</data>
 		</dict>
 		<key>Headers/VRONodeCamera.h</key>
@@ -7931,11 +7931,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			Qqn87aGTgAJrKqOz565EQaE3lsw=
+			fV1fqV1FbvpMQ2K9ORcdhjSJHP0=
 			</data>
 			<key>hash2</key>
 			<data>
-			ytg/Zwgb9JhBkJHXl6aZwr+uU9W24aYg+Tg1x5KdLM4=
+			URo4uJLD9HuYabMqvWW8yO60aLUcmio9dHHEuvrd6Q8=
 			</data>
 		</dict>
 		<key>Headers/VROScene.h</key>
