@@ -80,6 +80,10 @@ public class Controller extends Component  {
         mEventDelegateJni.setEventEnabled(EventDelegateJni.EventAction.ON_CONTROLLER_STATUS, canGetControllerStatus);
     }
 
+    public void getForwardVectorAsync(ControllerJni.ControllerJniCallback callback){
+        mNativeController.getControllerForwardVectorAsync(callback);
+    }
+
     @Override
     public void onPropsSet() {
         super.onPropsSet();

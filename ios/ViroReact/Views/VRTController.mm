@@ -42,6 +42,15 @@
     _controllerEnabled = visible;
 }
 
+- (NSArray<NSNumber *> *)getControllerForwardVector {
+    if (self.context) {
+        VROVector3f vec = _presenter->getLastKnownForward();
+        return @[@(vec.x), @(vec.y), @(vec.z)];
+    } else {
+        return @[@0, @0, @0];
+    }
+}
+
 -(void) updateVisibility {
     if (!_presenter){
         return;

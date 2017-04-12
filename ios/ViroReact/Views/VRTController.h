@@ -19,5 +19,6 @@
 
 - (instancetype) initWithBridge:(RCTBridge *)bridge;
 - (void) onClick:(int)source clickState:(VROEventDelegate::ClickState)clickState;
+- (NSArray<NSNumber *> *) getControllerForwardVector;
 
 @end

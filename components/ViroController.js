@@ -8,10 +8,11 @@
  */
 'use strict';
 
-import { requireNativeComponent, View, StyleSheet, Platform } from 'react-native';
+import { requireNativeComponent, findNodeHandle, View, StyleSheet, Platform } from 'react-native';
 import React, { Component } from 'react';
 var NativeModules = require('react-native').NativeModules;
 var PropTypes = require('react/lib/ReactPropTypes');
+var ViroControllerModule = require('react-native').NativeModules.VRTControllerModule;
 
 var ViroController = React.createClass({
 
@@ -59,6 +60,10 @@ var ViroController = React.createClass({
 
   _onFuse: function(event: Event){
     this.props.onFuse && this.props.onFuse(event.nativeEvent.source);
+  },
+
+  async getControllerForwardAsync() {
+    return await ViroControllerModule.getForwardVectorAsync(findNodeHandle(this));
   },
 
   render: function() {
