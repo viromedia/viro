@@ -75,7 +75,7 @@ var GroupTestBasicAnimation = React.createClass({
 
                     <Viro3DObject source={require('../res/heart.obj')}
                               scale={[1.8, 1.8, 1.8]}
-                              position={[-3.2, -7.5, -4.5]}
+                              position={[-3.2, 2.5, -4.5]}
                               materials={["heart"]}
                               onClick={this._elementClick(10)} />
 
