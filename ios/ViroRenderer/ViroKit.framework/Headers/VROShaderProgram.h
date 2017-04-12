@@ -14,6 +14,7 @@
 #include <memory>
 #include <string>
 #include <vector>
+#include <algorithm>
 #include "VROLog.h"
 #include "VROUniform.h"
 #include "VROOpenGL.h"
@@ -117,6 +118,13 @@ public:
     GLuint getLightingBlockIndex() const {
         return _lightingBlockIndex;
     }
+    
+    const std::vector<std::shared_ptr<VROShaderModifier>> &getModifiers() const {
+        return _modifiers;
+    }
+    bool hasModifier(std::shared_ptr<VROShaderModifier> modifier) {
+        return std::find(_modifiers.begin(), _modifiers.end(), modifier) != _modifiers.end();
+    }
 
 private:
     
@@ -169,6 +177,11 @@ private:
      List of the names of all samplers used by this shader.
      */
     std::vector<std::string> _samplers;
+    
+    /*
+     The modifiers used on this shader.
+     */
+    std::vector<std::shared_ptr<VROShaderModifier>> _modifiers;
 
     /*
      Weak reference to the driver that created this program. The driver's lifecycle
@@ -190,6 +203,12 @@ private:
     bool compileShader(GLuint *shader, GLenum type, const char *source);
     bool linkProgram(GLuint prog);
     bool validateProgram(GLuint prog);
+    
+    /*
+     Loads the standard uniforms to this shader, and the uniforms used by the
+     modifiers.
+     */
+    void addStandardUniforms();
 
     /*
      Set the location of each uniform in the uniformMap and each sampler in the samplers

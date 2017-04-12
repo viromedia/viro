@@ -44,6 +44,8 @@ enum class VROAllocationBucket {
     MaterialSubstrates,
     Textures,
     TextureSubstrates,
+    Shaders,
+    ShaderModifiers,
     VideoTextures,
     NUM_BUCKETS
 };

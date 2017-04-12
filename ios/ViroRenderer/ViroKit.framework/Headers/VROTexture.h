@@ -70,14 +70,14 @@ public:
      The image data must be injected via setImage*() or setSubstrate().
      */
     VROTexture(VROTextureType type,
-               VROStereoMode stereoState = VROStereoMode::None);
+               VROStereoMode stereoMode = VROStereoMode::None);
     
     /*
      Create a new VROTexture with the given underlying substrate.
      */
     VROTexture(VROTextureType type,
                std::unique_ptr<VROTextureSubstrate> substrate,
-               VROStereoMode stereoState = VROStereoMode::None);
+               VROStereoMode stereoMode = VROStereoMode::None);
     
     /*
      Create a new VROTexture from a VROImage.
@@ -85,11 +85,11 @@ public:
     VROTexture(VROTextureInternalFormat internalFormat,
                VROMipmapMode mipmapMode,
                std::shared_ptr<VROImage> image,
-               VROStereoMode stereoState = VROStereoMode::None);
+               VROStereoMode stereoMode = VROStereoMode::None);
 
     VROTexture(VROTextureInternalFormat internalFormat,
                std::vector<std::shared_ptr<VROImage>> &images,
-               VROStereoMode stereoState = VROStereoMode::None);
+               VROStereoMode stereoMode = VROStereoMode::None);
     
     /*
      Create a new VROTexture from the given raw data in the given format.
@@ -101,7 +101,7 @@ public:
                std::vector<std::shared_ptr<VROData>> &data,
                int width, int height,
                std::vector<uint32_t> mipSizes,
-               VROStereoMode stereoState = VROStereoMode::None);
+               VROStereoMode stereoMode = VROStereoMode::None);
     
     virtual ~VROTexture();
     

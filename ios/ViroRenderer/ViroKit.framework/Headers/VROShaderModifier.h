@@ -94,7 +94,7 @@ class VROShaderModifier {
     
 public:
     
-    static uint32_t hashShaderModifiers(const std::vector<std::shared_ptr<VROShaderModifier>> &modifiers);
+    static std::string getShaderModifierKey(const std::vector<std::shared_ptr<VROShaderModifier>> &modifiers);
     
     /*
      Create a new shader modifier that operates at the given entry point. The input

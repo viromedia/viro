@@ -15,6 +15,7 @@
 #include "VRONode.h"
 #include "VROMath.h"
 #include "VROInputType.h"
+#include "VROThreadRestricted.h"
 
 static const float kReticleSizeMultiple = 3;
 static const bool kDebugSceneBackgroundDistance = false;
@@ -23,7 +24,7 @@ static const bool kDebugSceneBackgroundDistance = false;
  * VROInputPresenter contains all UI view implementations to be displayed for a given
  * VROInputController.
  */
-class VROInputPresenter : public VROEventDelegate {
+class VROInputPresenter : public VROEventDelegate, public VROThreadRestricted {
 public:
     
     VROInputPresenter() {
@@ -42,6 +43,8 @@ public:
     }
 
     virtual void onHover(int source, bool isHovering) {
+        passert_thread();
+        
         std::shared_ptr<VROEventDelegate> delegate = getDelegate();
         if (delegate != nullptr && delegate->isEventEnabled(VROEventDelegate::EventAction::OnHover)){
             delegate->onHover(source, isHovering);
@@ -49,6 +52,8 @@ public:
     }
 
     virtual void onClick(int source, ClickState clickState) {
+        passert_thread();
+        
         std::shared_ptr<VROEventDelegate> delegate = getDelegate();
         if (delegate != nullptr && delegate->isEventEnabled(VROEventDelegate::EventAction::OnClick)){
             delegate->onClick(source, clickState);
@@ -56,6 +61,8 @@ public:
     }
 
     virtual void onTouch(int source, TouchState state, float x, float y){
+        passert_thread();
+        
         std::shared_ptr<VROEventDelegate> delegate = getDelegate();
         if (delegate != nullptr && delegate->isEventEnabled(VROEventDelegate::EventAction::OnTouch)){
             delegate->onTouch(source, state, x, y);
@@ -63,6 +70,8 @@ public:
     }
 
     virtual void onMove(int source, VROVector3f rotation, VROVector3f position) {
+        passert_thread();
+        
         std::shared_ptr<VROEventDelegate> delegate = getDelegate();
         if (delegate != nullptr && delegate->isEventEnabled(VROEventDelegate::EventAction::OnMove)){
             delegate->onMove(source, rotation, position);
@@ -70,6 +79,8 @@ public:
     }
 
     virtual void onControllerStatus(int source, ControllerStatus status) {
+        passert_thread();
+        
         std::shared_ptr<VROEventDelegate> delegate = getDelegate();
         if (delegate != nullptr && delegate->isEventEnabled(VROEventDelegate::EventAction::OnControllerStatus)){
             delegate->onControllerStatus(source, status);
@@ -77,6 +88,8 @@ public:
     }
 
     virtual void onSwipe(int source, SwipeState swipeState) {
+        passert_thread();
+        
         std::shared_ptr<VROEventDelegate> delegate = getDelegate();
         if (delegate != nullptr && delegate->isEventEnabled(VROEventDelegate::EventAction::OnSwipe)){
             delegate->onSwipe(source, swipeState);
@@ -84,6 +97,8 @@ public:
     }
 
     virtual void onScroll(int source, float x, float y) {
+        passert_thread();
+        
         std::shared_ptr<VROEventDelegate> delegate = getDelegate();
         if (delegate != nullptr && delegate->isEventEnabled(VROEventDelegate::EventAction::OnScroll)){
             delegate->onScroll(source, x, y);
@@ -95,6 +110,8 @@ public:
     }
 
     virtual void onDrag(int source, VROVector3f newPosition) {
+        passert_thread();
+        
         std::shared_ptr<VROEventDelegate> delegate = getDelegate();
         if (delegate != nullptr && delegate->isEventEnabled(VROEventDelegate::EventAction::OnDrag)){
             delegate->onDrag(source, newPosition);
@@ -102,6 +119,8 @@ public:
     }
 
     virtual void onFuse(int source, float timeToFuseRatio) {
+        passert_thread();
+        
         std::shared_ptr<VROEventDelegate> delegate = getDelegate();
         if (delegate != nullptr && delegate->isEventEnabled(VROEventDelegate::EventAction::OnFuse)){
             delegate->onFuse(source, timeToFuseRatio);
@@ -117,7 +136,7 @@ public:
     }
 
     std::shared_ptr<VROReticle> getReticle() {
-            return _reticle;
+        return _reticle;
     }
 
     void setReticle(std::shared_ptr<VROReticle> reticle){
@@ -126,9 +145,11 @@ public:
     }
 
 protected:
+    
     std::shared_ptr<VRONode> _rootNode;
 
     void onReticleGazeHit(const VROHitTestResult &hit) {
+        passert_thread();
         if (_reticle == nullptr){
             return;
         }
