@@ -44,9 +44,9 @@ var BTN_TYPE_CLICKED = 'clicked';
     ]).isRequired,
 
     /**
-     * The image file, to be displayed when the user is gazing over it
+     * The image file, to be displayed when the user is hovering over it
      */
-    gazeSource: PropTypes.oneOfType([
+    hoverSource: PropTypes.oneOfType([
       PropTypes.shape({
         uri: PropTypes.string,
       }),
@@ -55,9 +55,33 @@ var BTN_TYPE_CLICKED = 'clicked';
     ]),
 
     /**
+     * The image file, to be displayed when the user clicks the button
+     */
+    clickSource: PropTypes.oneOfType([
+      PropTypes.shape({
+        uri: PropTypes.string,
+      }),
+      // Opaque type returned by require('./image.jpg')
+      PropTypes.number,
+    ]),
+
+    /**
+     * ##### DEPRECATION WARNING - this prop may be removed in future releases #####
      * The image file, to be displayed when the user taps the button
      */
     tapSource: PropTypes.oneOfType([
+      PropTypes.shape({
+        uri: PropTypes.string,
+      }),
+      // Opaque type returned by require('./image.jpg')
+      PropTypes.number,
+    ]),
+
+    /**
+     * ##### DEPRECATION WARNING - this prop may be removed in future releases #####
+     * The image file, to be displayed when the user is gazing over it
+     */
+    gazeSource: PropTypes.oneOfType([
       PropTypes.shape({
         uri: PropTypes.string,
       }),
@@ -105,6 +129,12 @@ var BTN_TYPE_CLICKED = 'clicked';
     if (this.props.material) {
       console.error('The <ViroButton> component takes a `materials` property rather than `material`.');
     }
+    if (this.props.gazeSource) {
+      console.warn("[Viro] ViroButton.gazeSource has been DEPRECATED. Please use hoverSource instead.");
+    }
+    if (this.props.tapSource) {
+      console.warn("[Viro] ViroButton.tapSource has been DEPRECATED. Please use clickSource instead.");
+    }
 
     // We default to showing the button if it's undefined
     if (this.props.visible === undefined) {
@@ -112,29 +142,31 @@ var BTN_TYPE_CLICKED = 'clicked';
     }
 
     var normalSrcVisible;
-    var gazeSrcVisible;
-    var tapSrcVisible;
+    var hoverSrcVisible;
+    var clickSrcVisible;
+    var hoverSource = this.props.hoverSource || this.props.gazeSource;
+    var clickSource = this.props.clickSource || this.props.tapSource;
 
-    let buttonScale = this.props.scale;
+    let buttonScale = this.props.scale || [1,1,1];
     switch(this.state.buttonType) {
       case BTN_TYPE_HOVER:
-        gazeSrcVisible = this.props.visible && true;
-        tapSrcVisible = false;
+        hoverSrcVisible = this.props.visible && true;
+        clickSrcVisible = false;
         normalSrcVisible = false;
         break;
       case BTN_TYPE_CLICKED:
         // start scale for button animation
-        buttonScale = [0.9 * this.props.scale[0],
-                       0.9 * this.props.scale[1],
-                       0.9 * this.props.scale[2]];
-        gazeSrcVisible = false;
-        tapSrcVisible = this.props.visible && true;
+        buttonScale = [0.9 * buttonScale[0],
+                       0.9 * buttonScale[1],
+                       0.9 * buttonScale[2]];
+        hoverSrcVisible = false;
+        clickSrcVisible = this.props.visible && true;
         normalSrcVisible = false;
         break;
       default:
-          normalSrcVisible = this.props.visible && true;
-          gazeSrcVisible = false;
-          tapSrcVisible = false;
+        normalSrcVisible = this.props.visible && true;
+        hoverSrcVisible = false;
+        clickSrcVisible = false;
     }
 
     return (
@@ -161,29 +193,29 @@ var BTN_TYPE_CLICKED = 'clicked';
                 materials={this.props.materials} />
 
             <ViroImage
-                source={this.props.gazeSource ? this.props.gazeSource : this.props.source}
+                source={hoverSource ? hoverSource : this.props.source}
                 rotation={this.props.rotation}
                 scale={buttonScale}
                 opacity={this.props.opacity}
                 transformBehaviors={this.props.transformBehaviors}
-                visible={gazeSrcVisible}
+                visible={hoverSrcVisible}
                 height={this.props.height}
                 width={this.props.width}
                 materials={this.props.materials} />
 
             <ViroAnimatedComponent
-                animation="tapAnimation"
-                run={tapSrcVisible}
+                animation="clickAnimation"
+                run={clickSrcVisible}
                 onFinish={this._onAnimationFinished}>
 
                     <ViroImage
-                        source={this.props.tapSource ? this.props.tapSource :
-                                (this.props.gazeSource ? this.props.gazeSource : this.props.source)}
+                        source={clickSource ? clickSource :
+                                (hoverSource ? hoverSource : this.props.source)}
                         rotation={this.props.rotation}
                         scale={buttonScale}
                         opacity={this.props.opacity}
                         transformBehaviors={this.props.transformBehaviors}
-                        visible={tapSrcVisible}
+                        visible={clickSrcVisible}
                         height={this.props.height}
                         width={this.props.width}
                         materials={this.props.materials} />
@@ -226,7 +258,7 @@ var BTN_TYPE_CLICKED = 'clicked';
  });
 
 ViroAnimations.registerAnimations({
-  tapAnimation: {
+  clickAnimation: {
     properties: {
       scaleX:"/=0.9",
       scaleY:"/=0.9",

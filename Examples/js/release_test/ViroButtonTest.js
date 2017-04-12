@@ -44,12 +44,12 @@
  } from 'react-viro';
 
 var button_local = require("../res/card_main.png");
-var buttonGaze_local = require("../res/card_petite_ansu.png");
-var buttonTap_local = require("../res/card_main.png");
+var buttonHover_local = require("../res/card_petite_ansu.png");
+var buttonClick_local = require("../res/card_main.png");
 
 var button_uri = {uri:"https://s3-us-west-2.amazonaws.com/viro/Explorer/360_horseshoe.jpg"};
-var buttonGaze_uri = {uri:"http://storage.googleapis.com/ix_choosemuse/uploads/2016/02/Muse%20Android.jpeg"};
-var buttonTap_uri = {uri:"https://s3-us-west-2.amazonaws.com/viro/Explorer/360_horseshoe.jpg"};
+var buttonHover_uri = {uri:"http://storage.googleapis.com/ix_choosemuse/uploads/2016/02/Muse%20Android.jpeg"};
+var buttonClick_uri = {uri:"https://s3-us-west-2.amazonaws.com/viro/Explorer/360_horseshoe.jpg"};
 
 var ReleaseMenu = require("./ReleaseMenu.js");
 
@@ -64,8 +64,8 @@ var ViroButtonTest = React.createClass({
 
    render: function() {
      var buttonSource = this.state.showUrlImage ? button_uri : button_local;
-     var buttonGaze = this.state.showUrlImage ? buttonGaze_uri : buttonGaze_local;
-     var buttonTap = this.state.showUrlImage ? buttonTap_uri : buttonTap_local;
+     var buttonHover = this.state.showUrlImage ? buttonHover_uri : buttonHover_local;
+     var buttonClick = this.state.showUrlImage ? buttonClick_uri : buttonClick_local;
       return (
             <ViroScene>
             <ReleaseMenu sceneNavigator={this.props.sceneNavigator}/>
@@ -76,8 +76,8 @@ var ViroButtonTest = React.createClass({
                     position={[0,0.5,-4]}
                     scale={[0.5, 0.5, 0.5]}
                     source={buttonSource}
-                    gazeSource={buttonGaze}
-                    tapSource={buttonTap}
+                    hoverSource={buttonHover}
+                    clickSource={buttonClick}
                     onClick={this._onHover}
                     onHover={this._onHover}/>
 

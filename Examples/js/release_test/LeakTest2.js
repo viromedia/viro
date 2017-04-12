@@ -75,8 +75,8 @@ var LeakTest2 = React.createClass({
                 position={[0, 1, 0]}
                 materials={[newMaterial]}
                 source={LocalButtonImage}
-                gazeSource={LocalButtonImage}
-                tapSource={LocalButtonImage}
+                hoverSource={LocalButtonImage}
+                clickSource={LocalButtonImage}
               />
 
               <ViroFlexView

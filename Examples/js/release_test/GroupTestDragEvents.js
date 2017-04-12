@@ -111,8 +111,8 @@ onDrag(objectTag){return (source, dragtoPos ,objectTag) => {
                       position={[0, 1, 0]}
                       scale={[0.08, 0.08, 0.1]}
                       source={LocalButtonImage}
-                      gazeSource={LocalButtonImage}
-                      tapSource={LocalButtonImage}
+                      hoverSource={LocalButtonImage}
+                      clickSource={LocalButtonImage}
                       onDrag={this.onDrag("ViroButton")}
                       />
 

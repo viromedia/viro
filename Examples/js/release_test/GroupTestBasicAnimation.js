@@ -105,8 +105,8 @@ var GroupTestBasicAnimation = React.createClass({
                       position={[0, 1, 0]}
                       scale={[0.08, 0.08, 0.1]}
                       source={LocalButtonImage}
-                      gazeSource={LocalButtonImage}
-                      tapSource={LocalButtonImage}
+                      hoverSource={LocalButtonImage}
+                      clickSource={LocalButtonImage}
                       onClick={this._elementClick(1)}
                       />
 

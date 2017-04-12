@@ -97,8 +97,8 @@ var GroupTestBasicProps = React.createClass({
                       scale={[0.4 * this.state.offsetData[1].scale, 0.4 * this.state.offsetData[1].scale, 0.4]}
                       rotation={[0,this.state.offsetData[1].rotate,0]}
                       source={LocalButtonImage}
-                      gazeSource={LocalButtonImage}
-                      tapSource={LocalButtonImage}
+                      hoverSource={LocalButtonImage}
+                      clickSource={LocalButtonImage}
                        onClick={this._elementClick(1)} visible={this.state.offsetData[1].isVisible}/>
 
                   <ViroFlexView

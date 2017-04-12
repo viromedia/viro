@@ -107,8 +107,8 @@ var GroupTestMaterials = React.createClass({
                     materials={[newMaterial]}
                     scale={[0.08, 0.08, 0.1]}
                     source={LocalButtonImage}
-                    gazeSource={LocalButtonImage}
-                    tapSource={LocalButtonImage}/>
+                    hoverSource={LocalButtonImage}
+                    clickSource={LocalButtonImage}/>
 
                 <ViroFlexView
                     position={[1, 1, 0]}
