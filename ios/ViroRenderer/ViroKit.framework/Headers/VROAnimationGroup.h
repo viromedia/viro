@@ -24,7 +24,7 @@ class VROLazyMaterial;
  An animation group is a set of property and material animations that
  execute simultaneously.
  */
-class VROAnimationGroup : public VROExecutableAnimation {
+class VROAnimationGroup : public VROExecutableAnimation, public std::enable_shared_from_this<VROAnimationGroup> {
     
 public:
     
