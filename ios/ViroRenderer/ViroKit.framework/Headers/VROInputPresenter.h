@@ -69,12 +69,12 @@ public:
         }
     }
 
-    virtual void onMove(int source, VROVector3f rotation, VROVector3f position) {
+    virtual void onMove(int source, VROVector3f rotation, VROVector3f position, VROVector3f forwardVec) {
         passert_thread();
-        
+        _lastKnownForward = forwardVec;
         std::shared_ptr<VROEventDelegate> delegate = getDelegate();
         if (delegate != nullptr && delegate->isEventEnabled(VROEventDelegate::EventAction::OnMove)){
-            delegate->onMove(source, rotation, position);
+            delegate->onMove(source, rotation, position, forwardVec);
         }
     }
 
@@ -144,6 +144,10 @@ public:
         _reticleInitialPositionSet = false;
     }
 
+    VROVector3f getLastKnownForward(){
+        return _lastKnownForward;
+    }
+
 protected:
     
     std::shared_ptr<VRONode> _rootNode;
@@ -191,6 +195,7 @@ private:
 
     std::shared_ptr<VROReticle> _reticle;
     bool _reticleInitialPositionSet;
+    VROVector3f _lastKnownForward;
 
     /*
      Event delegate for triggering calls back to Controller_JNI.

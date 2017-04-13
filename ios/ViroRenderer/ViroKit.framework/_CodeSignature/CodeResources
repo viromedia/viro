@@ -2425,7 +2425,7 @@
 		</data>
 		<key>Headers/VROAnimationGroup.h</key>
 		<data>
-		O+YcLpbvbvZayPvih0A9RaA1zVs=
+		CcmX2DtH4Y6Fr2WS+759QRvnNBc=
 		</data>
 		<key>Headers/VROAnimationQuaternion.h</key>
 		<data>
@@ -2493,7 +2493,7 @@
 		</data>
 		<key>Headers/VROEventDelegate.h</key>
 		<data>
-		JnklbOulo000oipPsNnTiUm5K+Q=
+		PSbEsvLoCiq3HMUe69B2oDkjsNE=
 		</data>
 		<key>Headers/VROEventDelegateiOS.h</key>
 		<data>
@@ -2577,7 +2577,7 @@
 		</data>
 		<key>Headers/VROInputPresenter.h</key>
 		<data>
-		81gILqkwfliLAp2To/da3uG9enA=
+		Xsed9bps5M/jtqM/eLo0ODDp79w=
 		</data>
 		<key>Headers/VROInputPresenterCardboardiOS.h</key>
 		<data>
@@ -2893,7 +2893,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		aSoa6wvgFgMtXGuQEvsX4grI+Ds=
+		CIKXxgeGF360xsZ2vCOB3YO4pLA=
 		</data>
 		<key>MaterialRobotoFontLoader.bundle/Roboto-Black.ttf</key>
 		<data>
@@ -7238,11 +7238,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			O+YcLpbvbvZayPvih0A9RaA1zVs=
+			CcmX2DtH4Y6Fr2WS+759QRvnNBc=
 			</data>
 			<key>hash2</key>
 			<data>
-			r8oM9gXUb6ZH2TRjUSxnA9+kmqIL0zDL7B9x2hdHRCI=
+			stzIWcOSmPk0x2e/r5mOp5KECYb7TioS9eq+wkGWud0=
 			</data>
 		</dict>
 		<key>Headers/VROAnimationQuaternion.h</key>
@@ -7425,11 +7425,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			JnklbOulo000oipPsNnTiUm5K+Q=
+			PSbEsvLoCiq3HMUe69B2oDkjsNE=
 			</data>
 			<key>hash2</key>
 			<data>
-			gtBn/oAC4RYKy4urc1FdbrqX+RyfKRUOD3vzJbgvTKk=
+			J4oM/UPD3PvtTyqQDqWg9HEQ9hJ+ICwlXRiasAAmU0M=
 			</data>
 		</dict>
 		<key>Headers/VROEventDelegateiOS.h</key>
@@ -7656,11 +7656,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			81gILqkwfliLAp2To/da3uG9enA=
+			Xsed9bps5M/jtqM/eLo0ODDp79w=
 			</data>
 			<key>hash2</key>
 			<data>
-			voS32WgWLAXpmbPIbDEVZqnEpt0W8n04KL7cLli1Zj4=
+			VuIDgzstvxKP8ZpCiI5ETEcJMAN4/7i6Fvixaqhzup0=
 			</data>
 		</dict>
 		<key>Headers/VROInputPresenterCardboardiOS.h</key>
@@ -8859,11 +8859,6 @@
 			<key>weight</key>
 			<real>1100</real>
 		</dict>
-		<key>^Base\.lproj/</key>
-		<dict>
-			<key>weight</key>
-			<real>1010</real>
-		</dict>
 		<key>^version.plist$</key>
 		<true/>
 	</dict>
@@ -8908,11 +8903,6 @@
 			<true/>
 			<key>weight</key>
 			<real>1100</real>
-		</dict>
-		<key>^Base\.lproj/</key>
-		<dict>
-			<key>weight</key>
-			<real>1010</real>
 		</dict>
 		<key>^Info\.plist$</key>
 		<dict>

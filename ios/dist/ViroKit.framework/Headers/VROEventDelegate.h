@@ -127,7 +127,7 @@ public:
         //No-op
     }
 
-    virtual void onMove(int source, VROVector3f rotation, VROVector3f position) {
+    virtual void onMove(int source, VROVector3f rotation, VROVector3f position, VROVector3f forwardVec) {
         //No-op
     }
 
