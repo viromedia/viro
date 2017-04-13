@@ -100,31 +100,33 @@ public class Node extends Component {
     // TODO: handle children separate from android viewgroup childViews
     @Override
     public void addView(View child, int index) {
-        if (child instanceof Light) {
-            ((Light) child).addToNode(mNodeJni);
-        } else if (child instanceof Node) {
-            final Node childNode = (Node) child;
-            mNodeJni.addChildNode(childNode.mNodeJni);
-        } else if (child instanceof AnimatedComponent) {
-            // We want the AnimatedComponent to be "invisible" to the scene graph so we need to add
-            // the children of the AnimatedComponent to the parent of the AnimatedComponent natively.
-            // Otherwise the parent of an AnimatedComponent has no idea that it has extra children
-            // natively.
-            // Note: AnimatedComponents can only have 1 child right now, so the loop is just
-            // futureproofing
-            AnimatedComponent animatedComponent = (AnimatedComponent) child;
-            for (int i = 0; i < animatedComponent.getChildCount(); i++) {
-                if (!(animatedComponent.getChildAt(i) instanceof Node)) {
-                    continue;
-                }
+        if (!isTornDown()) {
+            if (child instanceof Light) {
+                ((Light) child).addToNode(mNodeJni);
+            } else if (child instanceof Node) {
+                final Node childNode = (Node) child;
+                mNodeJni.addChildNode(childNode.mNodeJni);
+            } else if (child instanceof AnimatedComponent) {
+                // We want the AnimatedComponent to be "invisible" to the scene graph so we need to add
+                // the children of the AnimatedComponent to the parent of the AnimatedComponent natively.
+                // Otherwise the parent of an AnimatedComponent has no idea that it has extra children
+                // natively.
+                // Note: AnimatedComponents can only have 1 child right now, so the loop is just
+                // futureproofing
+                AnimatedComponent animatedComponent = (AnimatedComponent) child;
+                for (int i = 0; i < animatedComponent.getChildCount(); i++) {
+                    if (!(animatedComponent.getChildAt(i) instanceof Node)) {
+                        continue;
+                    }
 
-                Node animatedTarget = (Node) animatedComponent.getChildAt(i);
-                if (!containsChild(animatedTarget)) {
-                    addNativeChild(animatedTarget);
+                    Node animatedTarget = (Node) animatedComponent.getChildAt(i);
+                    if (!containsChild(animatedTarget)) {
+                        addNativeChild(animatedTarget);
+                    }
                 }
+            } else {
+                // TODO: Throw Error? Red Screen?
             }
-        } else {
-            // TODO: Throw Error? Red Screen?
         }
 
         super.addView(child, index);
@@ -173,10 +175,16 @@ public class Node extends Component {
     }
 
     public void addNativeChild(Node child) {
+        if (isTornDown()) {
+            return;
+        }
         mNodeJni.addChildNode(child.getNodeJni());
     }
 
     public void removeNativeChild(Node child) {
+        if (isTornDown()) {
+            return;
+        }
         mNodeJni.removeChildNode(child.getNodeJni());
     }
 
@@ -307,6 +315,9 @@ public class Node extends Component {
     }
 
     protected void setPosition(float[] position) {
+        if (isTornDown()) {
+            return;
+        }
         if (position.length != 3){
             throw new IllegalArgumentException("Missing a position value: All three " +
                     "[x,y,z] axis value are needed.");
@@ -317,6 +328,9 @@ public class Node extends Component {
     }
 
     protected void setRotation(float[] rotation) {
+        if (isTornDown()) {
+            return;
+        }
         if (rotation.length != 3){
             throw new IllegalArgumentException("Missing a rotation value: All three " +
                     "[x,y,z] axis values are needed.");
@@ -326,6 +340,9 @@ public class Node extends Component {
     }
 
     protected void setScale(float[] scale) {
+        if (isTornDown()) {
+            return;
+        }
         if (scale.length != 3){
             throw new IllegalArgumentException("Missing a scale value: All three " +
                     "[x,y,z] axis values are needed.");
@@ -335,21 +352,33 @@ public class Node extends Component {
     }
 
     protected void setOpacity(float opacity) {
+        if (isTornDown()) {
+            return;
+        }
         mOpacity = opacity;
         mNodeJni.setOpacity(opacity);
     }
 
     protected void setVisible(boolean visible) {
+        if (isTornDown()) {
+            return;
+        }
         mVisible = visible;
         mNodeJni.setVisible(visible);
     }
 
     public void setHighAccuracyGaze(boolean highAccuracyGazeEnabled){
+        if (isTornDown()) {
+            return;
+        }
         mHighAccuracyGazeEnabled = highAccuracyGazeEnabled;
         mNodeJni.setHighAccuracyGaze(highAccuracyGazeEnabled);
     }
 
     protected void setGeometry(BaseGeometry geometry) {
+        if (isTornDown()) {
+            return;
+        }
         mNodeJni.setGeometry(geometry);
         if (mMaterials != null) {
             mNodeJni.setMaterials(mMaterials);
@@ -357,11 +386,17 @@ public class Node extends Component {
     }
 
     protected void setMaterials(List<MaterialJni> materials) {
+        if (isTornDown()) {
+            return;
+        }
         mMaterials = materials;
         mNodeJni.setMaterials(materials);
     }
 
     protected void setTransformBehaviors(String[] transformBehaviors) {
+        if (isTornDown()) {
+            return;
+        }
         mNodeJni.setTransformBehaviors(transformBehaviors);
     }
 
