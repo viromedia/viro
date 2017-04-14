@@ -73,12 +73,14 @@ static float const kDefaultHeight = 1;
 
 - (void)setWidth:(float)width {
   _width = width;
+  _scaledWidth = width;
   _widthOrHeightPropSet = YES;
   _widthOrHeightChanged = YES;
 }
 
 - (void)setHeight:(float)height {
   _height = height;
+  _scaledHeight = height;
   _widthOrHeightPropSet = YES;
   _widthOrHeightChanged = YES;
 }
