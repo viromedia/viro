@@ -34,6 +34,8 @@ static NSString *const kVRTInvalidAPIKeyMessage = @"The given API Key is either 
     _vroView = [[VROViewCardboard alloc] initWithFrame:CGRectMake(0, 0,
                                                                   [[UIScreen mainScreen] bounds].size.width,
                                                                   [[UIScreen mainScreen] bounds].size.height)];
+    VROViewCardboard *viewCardboard = (VROViewCardboard *) _vroView;
+    [viewCardboard setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
     _vroView.renderDelegate = self;
     
     [self setFrame:CGRectMake(0, 0,
