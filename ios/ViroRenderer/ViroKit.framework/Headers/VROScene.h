@@ -27,6 +27,7 @@ class VROHitTestResult;
 class VROVector3f;
 class VROVector4f;
 class VROAudioPlayer;
+class VROInputControllerBase;
 
 class VROScene : public std::enable_shared_from_this<VROScene>, public VROThreadRestricted {
     
@@ -63,7 +64,8 @@ public:
     std::shared_ptr<VROGeometry> getBackground() const {
         return _background;
     }
-    void setControllerPresenter(std::shared_ptr<VROInputPresenter> presenter);
+    void attachInputController(std::shared_ptr<VROInputControllerBase> controller);
+    void detachInputController(std::shared_ptr<VROInputControllerBase> controller);
     std::shared_ptr<VROInputPresenter> getControllerPresenter();
 
 private:
