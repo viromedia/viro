@@ -12,7 +12,6 @@
 'use strict';
 
 var AnimationPropTypes = require('./ViroAnimationPropTypes');
-var ReactPropTypeLocations = require('react/lib/ReactPropTypeLocations');
 var ReactPropTypesSecret = require('react/lib/ReactPropTypesSecret');
 var invariant = require('fbjs/lib/invariant');
 
@@ -32,7 +31,7 @@ class ViroAnimationValidation {
       animation,
       prop,
       caller,
-      ReactPropTypeLocations.prop,
+      'prop',
       null,
       ReactPropTypesSecret
     );

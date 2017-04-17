@@ -12,8 +12,8 @@
     "preset": "jest-react-native"
   },
   "peerDependencies": {
-    "react": "15.4.2",
-    "react-native": "0.41.2" 
+    "react": "16.0.0-alpha.6",
+    "react-native": "0.43.3" 
   },
   "files": [
     "components",

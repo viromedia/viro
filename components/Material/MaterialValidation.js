@@ -12,7 +12,6 @@
 'use strict';
 
 var MaterialPropTypes = require('./MaterialPropTypes');
-var ReactPropTypeLocations = require('react/lib/ReactPropTypeLocations');
 var ReactPropTypesSecret = require('react/lib/ReactPropTypesSecret');
 var invariant = require('fbjs/lib/invariant');
 
@@ -31,7 +30,7 @@ class MaterialValidation {
       material,
       prop,
       caller,
-      ReactPropTypeLocations.prop,
+      'prop',
       null,
       ReactPropTypesSecret
     );

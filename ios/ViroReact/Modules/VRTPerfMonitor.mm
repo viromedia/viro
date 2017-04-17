@@ -24,7 +24,7 @@ RCT_EXPORT_MODULE()
 - (instancetype)init
 {
   _isShowing = NO;
-  
+
   // Override to ensure the module gets created at startup
   // Remove once module setup is more declarative (Facebook t11106126).
   return [super init];
@@ -34,6 +34,10 @@ RCT_EXPORT_MODULE()
 {
   _bridge = bridge;
   [bridge.devMenu addItem:self.devMenuItem];
+}
+
+- (BOOL)isShowing {
+  return _isShowing;
 }
 
 - (void)show {
@@ -65,17 +69,15 @@ RCT_EXPORT_MODULE()
   if (!_devMenuItem) {
     __weak __typeof__(self) weakSelf = self;
     _devMenuItem =
-    [RCTDevMenuItem toggleItemWithKey:@"ViroFPSToggle"
-                                title:@"[Viro] Display FPS"
-                        selectedTitle:@"[Viro] Hide FPS"
-                              handler:
-     ^(BOOL selected) {
-       if (selected) {
-         [weakSelf show];
-       } else {
-         [weakSelf hide];
-       }
-     }];
+      [RCTDevMenuItem buttonItemWithTitleBlock:^NSString *{
+        return [weakSelf isShowing] ? @"[Viro] Hide FPS" : @"[Viro] Display FPS";
+      } handler:^{
+        if ([weakSelf isShowing]) {
+          [weakSelf hide];
+        } else {
+          [weakSelf show];
+        }
+      }];
   }
   
   return _devMenuItem;

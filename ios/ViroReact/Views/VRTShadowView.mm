@@ -60,63 +60,99 @@ extern const int k2DPointsPerSpatialUnit;
 
 //Override padding, margin and dimension methods that convert 3d units into 2d ones for the flexbox algorithm.
 // Padding
-- (void)setPadding:(float)padding {
-  [super setPadding:padding * k2DPointsPerSpatialUnit];
+- (void)setPadding:(YGValue)padding {
+  if (padding.unit == YGUnitPoint) {
+    padding.value *= k2DPointsPerSpatialUnit;
+  }
+  [super setPadding:padding];
 }
 
 // Margin
-- (void)setMargin:(float)margin {
-  [super setMargin:margin * k2DPointsPerSpatialUnit];
+- (void)setMargin:(YGValue)margin {
+  if (margin.unit == YGUnitPoint) {
+    margin.value *= k2DPointsPerSpatialUnit;
+  }
+  [super setMargin:margin];
 }
 
-- (void)setMarginTop:(float)marginTop {
-  [super setMarginTop:marginTop * k2DPointsPerSpatialUnit];
+- (void)setMarginTop:(YGValue)marginTop {
+  if (marginTop.unit == YGUnitPoint) {
+    marginTop.value *= k2DPointsPerSpatialUnit;
+  }
+  [super setMarginTop:marginTop];
 }
 
-- (void)setMarginBottom:(float)marginBottom {
-  [super setMarginBottom:marginBottom * k2DPointsPerSpatialUnit];
+- (void)setMarginBottom:(YGValue)marginBottom {
+  if (marginBottom.unit == YGUnitPoint) {
+    marginBottom.value *= k2DPointsPerSpatialUnit;
+  }
+  [super setMarginBottom:marginBottom];
 }
 
-- (void)setMarginLeft:(float)marginLeft {
-  [super setMarginLeft:marginLeft * k2DPointsPerSpatialUnit];
+- (void)setMarginLeft:(YGValue)marginLeft {
+  if (marginLeft.unit == YGUnitPoint) {
+    marginLeft.value *= k2DPointsPerSpatialUnit;
+  }
+  [super setMarginLeft:marginLeft];
 }
 
-- (void)setMarginRight:(float)marginRight {
-  [super setMarginRight:marginRight * k2DPointsPerSpatialUnit];
+- (void)setMarginRight:(YGValue)marginRight {
+  if (marginRight.unit == YGUnitPoint) {
+    marginRight.value *= k2DPointsPerSpatialUnit;
+  }
+  [super setMarginRight:marginRight];
 }
 
-- (void)setMarginVertical:(float)marginVertical {
-  [super setMarginVertical:marginVertical * k2DPointsPerSpatialUnit];
+- (void)setMarginVertical:(YGValue)marginVertical {
+  if (marginVertical.unit == YGUnitPoint) {
+    marginVertical.value *= k2DPointsPerSpatialUnit;
+  }
+  [super setMarginVertical:marginVertical];
 }
 
-- (void)setMarginHorizontal:(float)marginHorizontal {
-  [super setMarginHorizontal:marginHorizontal * k2DPointsPerSpatialUnit];
+- (void)setMarginHorizontal:(YGValue)marginHorizontal {
+  if (marginHorizontal.unit == YGUnitPoint) {
+    marginHorizontal.value *= k2DPointsPerSpatialUnit;
+  }
+  [super setMarginHorizontal:marginHorizontal];
 }
 
-
-- (void)setPaddingVertical:(float)paddingAmount{
-  [super setPaddingVertical:paddingAmount * k2DPointsPerSpatialUnit];
+- (void)setPaddingVertical:(YGValue)paddingAmount{
+  if (paddingAmount.unit == YGUnitPoint) {
+    paddingAmount.value *= k2DPointsPerSpatialUnit;
+  }
+  [super setPaddingVertical:paddingAmount];
 }
 
-- (void)setPaddingHorizontal:(float)paddingAmount {
-  [super setPaddingHorizontal:paddingAmount * k2DPointsPerSpatialUnit];
-}
+- (void)setPaddingHorizontal:(YGValue)paddingAmount {
+  if (paddingAmount.unit == YGUnitPoint) {
+    paddingAmount.value *= k2DPointsPerSpatialUnit;
+  }
+  [super setPaddingHorizontal:paddingAmount];}
 
-- (void)setPaddingTop:(float)paddingAmount {
-  [super setPaddingTop:paddingAmount * k2DPointsPerSpatialUnit];
-}
+- (void)setPaddingTop:(YGValue)paddingAmount {
+  if (paddingAmount.unit == YGUnitPoint) {
+    paddingAmount.value *= k2DPointsPerSpatialUnit;
+  }
+  [super setPaddingTop:paddingAmount];}
 
-- (void)setPaddingLeft:(float)paddingAmount {
-  [super setPaddingLeft:paddingAmount * k2DPointsPerSpatialUnit];
-}
+- (void)setPaddingLeft:(YGValue)paddingAmount {
+  if (paddingAmount.unit == YGUnitPoint) {
+    paddingAmount.value *= k2DPointsPerSpatialUnit;
+  }
+  [super setPaddingLeft:paddingAmount];}
 
-- (void)setPaddingRight:(float)paddingAmount {
-  [super setPaddingRight:paddingAmount * k2DPointsPerSpatialUnit];
-}
+- (void)setPaddingRight:(YGValue)paddingAmount {
+  if (paddingAmount.unit == YGUnitPoint) {
+    paddingAmount.value *= k2DPointsPerSpatialUnit;
+  }
+  [super setPaddingRight:paddingAmount];}
 
-- (void)setPaddingBottom:(float)paddingAmount {
-  [super setPaddingBottom:paddingAmount * k2DPointsPerSpatialUnit];
-}
+- (void)setPaddingBottom:(YGValue)paddingAmount {
+  if (paddingAmount.unit == YGUnitPoint) {
+    paddingAmount.value *= k2DPointsPerSpatialUnit;
+  }
+  [super setPaddingBottom:paddingAmount];}
 
 
 
@@ -144,47 +180,77 @@ extern const int k2DPointsPerSpatialUnit;
 
 // Dimensions
 
-- (void)setWidth:(float)width {
-  [super setWidth:width * k2DPointsPerSpatialUnit];
+- (void)setWidth:(YGValue)width {
+  if (width.unit == YGUnitPoint) {
+    width.value *= k2DPointsPerSpatialUnit;
+  }
+  [super setWidth:width];
 }
 
-- (void)setHeight:(float)heightAmount {
-  [super setHeight:heightAmount * k2DPointsPerSpatialUnit];
+- (void)setHeight:(YGValue)heightAmount {
+  if (heightAmount.unit == YGUnitPoint) {
+    heightAmount.value *= k2DPointsPerSpatialUnit;
+  }
+  [super setHeight:heightAmount];
 }
 
-- (void)setMinWidth:(float)minWidthAmount {
-  [super setMinWidth:minWidthAmount * k2DPointsPerSpatialUnit];
+- (void)setMinWidth:(YGValue)minWidthAmount {
+  if (minWidthAmount.unit == YGUnitPoint) {
+    minWidthAmount.value *= k2DPointsPerSpatialUnit;
+  }
+  [super setMinWidth:minWidthAmount];
 }
 
-- (void)setMinHeight:(float)minHeightAmount {
-  [super setMinHeight:minHeightAmount * k2DPointsPerSpatialUnit];
+- (void)setMinHeight:(YGValue)minHeightAmount {
+  if (minHeightAmount.unit == YGUnitPoint) {
+    minHeightAmount.value *= k2DPointsPerSpatialUnit;
+  }
+  [super setMinHeight:minHeightAmount];
 }
 
-- (void)setMaxWidth:(float)maxWidthAmount {
-  [super setMaxWidth:maxWidthAmount * k2DPointsPerSpatialUnit];
+- (void)setMaxWidth:(YGValue)maxWidthAmount {
+  if (maxWidthAmount.unit == YGUnitPoint) {
+    maxWidthAmount.value *= k2DPointsPerSpatialUnit;
+  }
+  [super setMaxWidth:maxWidthAmount];
 }
 
-- (void)setMaxHeight:(float)maxHeightAmount {
-  [super setMaxHeight:maxHeightAmount * k2DPointsPerSpatialUnit];
+- (void)setMaxHeight:(YGValue)maxHeightAmount {
+  if (maxHeightAmount.unit == YGUnitPoint) {
+    maxHeightAmount.value *= k2DPointsPerSpatialUnit;
+  }
+  [super setMaxHeight:maxHeightAmount];
 }
 
 
 // Position
 
-- (void)setTop:(float)topAmount {
-  [super setTop:topAmount * k2DPointsPerSpatialUnit];
+- (void)setTop:(YGValue)topAmount {
+  if (topAmount.unit == YGUnitPoint) {
+    topAmount.value *= k2DPointsPerSpatialUnit;
+  }
+  [super setTop:topAmount];
 }
 
-- (void)setBottom:(float)bottomAmount {
-  [super setBottom:bottomAmount * k2DPointsPerSpatialUnit];
+- (void)setBottom:(YGValue)bottomAmount {
+  if (bottomAmount.unit == YGUnitPoint) {
+    bottomAmount.value *= k2DPointsPerSpatialUnit;
+  }
+  [super setBottom:bottomAmount];
 }
 
-- (void)setRight:(float)rightAmount {
-  [super setRight:rightAmount * k2DPointsPerSpatialUnit];
+- (void)setRight:(YGValue)rightAmount {
+  if (rightAmount.unit == YGUnitPoint) {
+    rightAmount.value *= k2DPointsPerSpatialUnit;
+  }
+  [super setRight:rightAmount];
 }
 
-- (void)setLeft:(float)leftAmount {
-  [super setLeft:leftAmount * k2DPointsPerSpatialUnit];
+- (void)setLeft:(YGValue)leftAmount {
+  if (leftAmount.unit == YGUnitPoint) {
+    leftAmount.value *= k2DPointsPerSpatialUnit;
+  }
+  [super setLeft:leftAmount];
 }
 
 

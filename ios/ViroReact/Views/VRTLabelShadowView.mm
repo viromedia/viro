@@ -17,7 +17,10 @@
   if (self) {
     //Set flex to 1 as default for text view
     [super setFlex:1];
-    [super setFlexBasis:1];
+    YGValue flexBasis;
+    flexBasis.unit = YGUnitPoint;
+    flexBasis.value = 1;
+    [super setFlexBasis:flexBasis];
   }
   return self;
 }

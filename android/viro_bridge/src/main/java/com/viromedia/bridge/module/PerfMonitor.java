@@ -6,11 +6,10 @@ package com.viromedia.bridge.module;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
-import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
-import com.facebook.react.devsupport.DevOptionHandler;
-import com.facebook.react.devsupport.DevSupportManager;
+import com.facebook.react.devsupport.interfaces.DevOptionHandler;
+import com.facebook.react.devsupport.interfaces.DevSupportManager;
 import com.viro.renderer.jni.VrView;
 
 import java.lang.ref.WeakReference;

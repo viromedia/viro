@@ -3,8 +3,12 @@
  */
 package com.viromedia.bridge.component.node;
 
+import com.facebook.react.bridge.Dynamic;
+import com.facebook.react.bridge.DynamicFromMap;
+import com.facebook.react.bridge.JavaOnlyMap;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReadableArray;
+import com.facebook.react.bridge.ReadableType;
 import com.facebook.react.uimanager.LayoutShadowNode;
 import com.facebook.react.uimanager.ViewProps;
 import com.facebook.react.common.MapBuilder;
@@ -16,6 +20,7 @@ import com.viromedia.bridge.component.ViroViewGroupManager;
 import com.viromedia.bridge.module.MaterialManager;
 import com.viromedia.bridge.utility.Helper;
 import com.viromedia.bridge.utility.ViroEvents;
+import com.viromedia.bridge.utility.ViroLog;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -27,6 +32,9 @@ import java.util.Map;
 public abstract class NodeManager <T extends Node> extends ViroViewGroupManager<T> {
 
     public static final float s2DUnitPer3DUnit = 1000;
+    private static final String WIDTH_NAME = "width";
+    private static final String HEIGHT_NAME = "height";
+    private static final String PADDING_NAME = "padding";
 
     public NodeManager(ReactApplicationContext context) {
         super(context);
@@ -138,15 +146,32 @@ public abstract class NodeManager <T extends Node> extends ViroViewGroupManager<
      * have FlexEnabledShadowNodes, and the components can choose whether or not
      */
     protected class FlexEnabledShadowNode extends ViroLayoutShadowNode {
+        private final String TAG = ViroLog.getTag(NodeManager.class);
 
         @ReactProp(name = "width", defaultFloat = 1)
-        public void setWidth(float width) {
-            super.setWidth(width * s2DUnitPer3DUnit);
+        public void setWidth(Dynamic width) {
+            if (width.getType() == ReadableType.String) {
+                super.setWidth(width);
+            } else if (width.getType() == ReadableType.Number){
+                JavaOnlyMap map = JavaOnlyMap.of(WIDTH_NAME, width.asDouble() * s2DUnitPer3DUnit);
+                Dynamic newWidth = DynamicFromMap.create(map, WIDTH_NAME);
+                super.setWidth(newWidth);
+            } else {
+                ViroLog.warn(TAG, "Width is not of type Number or String. Doing nothing.");
+            }
         }
 
         @ReactProp(name = "height", defaultFloat = 1)
-        public void setHeight(float height) {
-            super.setHeight(height * s2DUnitPer3DUnit);
+        public void setHeight(Dynamic height) {
+            if (height.getType() == ReadableType.String) {
+                super.setHeight(height);
+            } else if (height.getType() == ReadableType.Number) {
+                JavaOnlyMap map = JavaOnlyMap.of(HEIGHT_NAME, height.asDouble() * s2DUnitPer3DUnit);
+                Dynamic newHeight = DynamicFromMap.create(map, HEIGHT_NAME);
+                super.setHeight(newHeight);
+            } else {
+                ViroLog.warn(TAG, "Height is not of type Number or String. Doing nothing.");
+            }
         }
 
         @ReactPropGroup(names = {
@@ -158,8 +183,16 @@ public abstract class NodeManager <T extends Node> extends ViroViewGroupManager<
                 ViewProps.PADDING_TOP,
                 ViewProps.PADDING_BOTTOM,
         }, defaultFloat = YogaConstants.UNDEFINED)
-        public void setPaddings(int index, float padding) {
-            super.setPaddings(index, padding * s2DUnitPer3DUnit);
+        public void setPaddings(int index, Dynamic padding) {
+            if (padding.getType() == ReadableType.String) {
+                super.setPaddings(index, padding);
+            } else if (padding.getType() == ReadableType.Number) {
+                JavaOnlyMap map = JavaOnlyMap.of(PADDING_NAME, padding.asDouble() * s2DUnitPer3DUnit);
+                Dynamic newPadding = DynamicFromMap.create(map, PADDING_NAME);
+                super.setPaddings(index, newPadding);
+            } else {
+                ViroLog.warn(TAG, "Padding is not of type Number of String. Doing nothing.");
+            }
         }
 
         @ReactPropGroup(names = {
