@@ -114,8 +114,8 @@ var Viro3DObjectTest = React.createClass({
         />
 
         <ViroAnimatedComponent animation="loopRotate" run={true} loop={true}>
-          <Viro3DObject source={require('./res/earth.obj')}
-                        resources={[require('./res/earth.jpg'),
+          <Viro3DObject source={require('./res/earth_obj.obj')}
+                        resources={[require('./res/earth_jpg.jpg'),
                                     require('./res/earth_normal.jpg')]}
                         position={[2.0, 0.0, 5.0]}
                         scale={[0.01, 0.01, 0.01]}
@@ -208,7 +208,7 @@ ViroMaterials.createMaterials({
   },
   earth: {
     lightingModel: "Blinn",
-    diffuseTexture: require('./res/earth.jpg'),
+    diffuseTexture: require('./res/earth_jpg.jpg'),
     normalTexture: require('./res/earth_normal.jpg'),
   }
 });
