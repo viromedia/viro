@@ -52,6 +52,16 @@ public:
     bool containsPointXY(const VROVector3f &point) const;
     bool containsPointXZ(const VROVector3f &point) const;
     bool containsPointYZ(const VROVector3f &point) const;
+    
+    /*
+     Distance from the point to the bounding box.
+     */
+    float getDistanceToPoint(VROVector3f p) const;
+    
+    /*
+     Distance from the point to the furthest point on the bounding box.
+     */
+    float getFurthestDistanceToPoint(VROVector3f p) const;
 
     /*
      Bounding-box to bounding-box containment and intersections.
@@ -127,45 +137,8 @@ public:
         _planes[VROBoxPlaneMaxZ] = maxZ;
     }
     
-    /*
-     Frustum intersection accessors.
-     */
     const float *getPlanes() const {
         return _planes;
-    }
-    float *getPositiveDistanceFromPlanes() {
-        return _positiveDistanceFromPlanes;
-    }
-    float *getNegativeDistanceFromPlanes() {
-        return _negativeDistanceFromPlanes;
-    }
-    
-    const VROFrustum *getSourceFrustumForDistances() const {
-        return _sourceFrustumForDistances;
-    }
-    void setSourceFrustumForDistances(const VROFrustum *frustum) {
-        _sourceFrustumForDistances = frustum;
-    }
-    
-    uint32_t getDistanceFrame() const {
-        return _distanceFrame;
-    }
-    void setDistanceFrame(uint32_t frame) {
-        _distanceFrame = frame;
-    }
-    
-    uint8_t getPlaneLastOutside() const {
-        return _planeLastOutside;
-    }
-    void setPlaneLastOutside(uint8_t plane) {
-        _planeLastOutside = plane;
-    }
-    
-    void setFrustumDistanceValid(bool valid) {
-        _distancesValid = valid;
-    }
-    bool isFrustumDistanceValid() const {
-        return _distancesValid;
     }
 
     /*
@@ -196,48 +169,16 @@ public:
      contained, and any points the supplied box contains.
      */
     void unionDestructive(const VROBoundingBox &box);
-
-    void resetFrustumDistances();
     void center(float *center) const;
 
     std::string toString() const;
 
 private:
-
-    VROBoundingBox &operator=(const VROBoundingBox &) = delete;
     
     /*
      The [xmin, xmax, ymin, ymax, zmin, zmax] extremities of this bounding-box.
      */
     float _planes[6];
-    
-    /*
-     The frame and frustum for which the positive and negative distances were last recorded.
-     */
-    const VROFrustum *_sourceFrustumForDistances;
-    uint32_t _distanceFrame;
-    
-    /*
-     Distance of the positive far points of this box from each of the planes of the
-     view-frustum during the last render-cycle.
-     */
-    float _positiveDistanceFromPlanes[6];
-    
-    /*
-     Distance of the negative far points of this box from each of the planes of the
-     view-frustum during the last render-cycle.
-     */
-    float _negativeDistanceFromPlanes[6];
-    
-    /*
-     The plane of the frustum this bounding-box was last outside.
-     */
-    uint8_t _planeLastOutside;
-    
-    /*
-     True if the positive and negative distances have been recorded.
-     */
-    bool _distancesValid;
 
 };
 
