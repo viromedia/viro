@@ -1,5 +1,6 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
+#
 # Copyright (c) 2017-present, Viro Media, Inc.
 # All rights reserved.
 

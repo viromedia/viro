@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 #
 # Copyright © 2017 Viro Media. All rights reserved.
 #
