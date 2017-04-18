@@ -267,7 +267,7 @@ public:
     /*
      Hit testing.
      */
-    VROBoundingBox getBoundingBox(const VRORenderContext &context);
+    VROBoundingBox getBoundingBox();
     std::vector<VROHitTestResult> hitTest(const VROCamera &camera, VROVector3f origin, VROVector3f ray,
                                           bool boundsOnly = false);
     
@@ -340,6 +340,7 @@ private:
     float _computedOpacity;
     std::vector<std::shared_ptr<VROLight>> _computedLights;
     VROVector3f _computedPosition;
+    VROBoundingBox _computedBoundingBox;
     
     /*
      True if this node is hidden. Hidden nodes are not rendered, and do not 
@@ -400,7 +401,7 @@ private:
     /*
      Hit test helper functions.
      */
-    void hitTest(const VROCamera &camera, VROVector3f origin, VROVector3f ray, VROMatrix4f parentTransform,
+    void hitTest(const VROCamera &camera, VROVector3f origin, VROVector3f ray,
                  bool boundsOnly, std::vector<VROHitTestResult> &results);
     bool hitTestGeometry(VROVector3f origin, VROVector3f ray, VROMatrix4f transform);
 

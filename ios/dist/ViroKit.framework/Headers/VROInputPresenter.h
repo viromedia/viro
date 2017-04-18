@@ -27,7 +27,7 @@ static const bool kDebugSceneBackgroundDistance = false;
 class VROInputPresenter : public VROEventDelegate, public VROThreadRestricted {
 public:
     
-    VROInputPresenter() {
+    VROInputPresenter() : VROThreadRestricted(VROThreadName::Renderer) {
         _reticle = nullptr;
         _rootNode = std::make_shared<VRONode>();
     }

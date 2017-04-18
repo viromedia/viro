@@ -11,6 +11,7 @@
 
 #include "VROFrustumPlane.h"
 #include "VROVector3f.h"
+#include "VROFrustumBoxIntersectionMetadata.h"
 
 /*
  Plane identifiers.
@@ -56,27 +57,27 @@ public:
     /*
      Intersection testing (automatically chooses best method).
      */
-    VROFrustumResult intersect(VROBoundingBox *box) const;
+    VROFrustumResult intersect(VROBoundingBox *box, VROFrustumBoxIntersectionMetadata *metadata) const;
 
     /*
      Intersect this frustum with a bounding box, utilizing the far points optimization and
      temporal coherency optimizations.
      */
-    VROFrustumResult intersectGeneric(VROBoundingBox *box) const;
+    VROFrustumResult intersectGeneric(VROBoundingBox *box, VROFrustumBoxIntersectionMetadata *metadata) const;
 
     /*
      Intersect this frustum with a bounding box, utilization the far points optimization in
      conjuction with temporal and translation coherency optimizations.
      */
-    VROFrustumResult intersectTDF(VROBoundingBox *box) const;
-    VROFrustumResult intersectTDFUnoptimized(VROBoundingBox *box) const;
+    VROFrustumResult intersectTDF(VROBoundingBox *box, VROFrustumBoxIntersectionMetadata *metadata) const;
+    VROFrustumResult intersectTDFUnoptimized(VROBoundingBox *box, VROFrustumBoxIntersectionMetadata *metadata) const;
 
     /*
      Frustum intersection using the "far point" optimization. The far point optimization enables us
      to determine if there's an intersection between a frustum and an AABB using only two plane->point
      distance calculations per frustum plane.
      */
-    VROFrustumResult intersectWithFarPointsOpt(VROBoundingBox *box) const;
+    VROFrustumResult intersectWithFarPointsOpt(VROBoundingBox *box, VROFrustumBoxIntersectionMetadata *metadata) const;
 
     /*
      Robust frustum intersection, using no optimizations. Faster than intersectSlow, but barely.

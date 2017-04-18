@@ -29,11 +29,13 @@ public:
     std::stack<int> hierarchyDepths;
     std::stack<float> distancesFromCamera;
     int hierarchyId;
+    float furthestDistanceFromCamera;
     
     VRORenderParameters() {
         opacities.push(1.0);
         hierarchyDepths.push(-1);
         hierarchyId = 0;
+        furthestDistanceFromCamera = 0;
         distancesFromCamera.push(0);
     }
     

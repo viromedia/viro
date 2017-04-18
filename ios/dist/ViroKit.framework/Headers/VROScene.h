@@ -27,6 +27,7 @@ class VROHitTestResult;
 class VROVector3f;
 class VROVector4f;
 class VROAudioPlayer;
+class VROInputControllerBase;
 
 class VROScene : public std::enable_shared_from_this<VROScene>, public VROThreadRestricted {
     
@@ -63,8 +64,13 @@ public:
     std::shared_ptr<VROGeometry> getBackground() const {
         return _background;
     }
-    void setControllerPresenter(std::shared_ptr<VROInputPresenter> presenter);
+    void attachInputController(std::shared_ptr<VROInputControllerBase> controller);
+    void detachInputController(std::shared_ptr<VROInputControllerBase> controller);
     std::shared_ptr<VROInputPresenter> getControllerPresenter();
+    
+    float getDistanceOfFurthestObjectFromCamera() const {
+        return _distanceOfFurthestObjectFromCamera;
+    }
 
 private:
     
@@ -92,6 +98,13 @@ private:
      The nodes ordered for rendering by their sort keys.
      */
     std::vector<VROSortKey> _keys;
+    
+    /*
+     The distance from the camera of the furthest away object, since the last
+     call to updateSortKeys. Distance is from the camera to the bounding
+     box of the object.
+     */
+    float _distanceOfFurthestObjectFromCamera;
 };
 
 #endif /* VROScene_h */
