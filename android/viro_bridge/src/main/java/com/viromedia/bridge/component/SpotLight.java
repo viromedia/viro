@@ -85,7 +85,7 @@ public class SpotLight extends Light {
     }
 
     public void setInnerAngle(float innerAngle) {
-        this.mInnerAngle = mInnerAngle;
+        this.mInnerAngle = innerAngle;
     }
 
     public float getOuterAngle() {
