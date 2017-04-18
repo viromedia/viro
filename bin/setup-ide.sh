@@ -54,10 +54,10 @@ if [ ! -d ./node_modules/react-viro ]; then
 fi
 
 if $SETUP_ANDROID_STUDIO; then
-  ./node_modules/react-viro/bin/android-setup.sh PROJECT_NAME true
+  ./node_modules/react-viro/bin/android-setup.sh $PROJECT_NAME true
 fi
 
 if $SETUP_XCODE; then
-  ./node_modules/react-viro/bin/ios-setup.sh PROJECT_NAME true
+  ./node_modules/react-viro/bin/ios-setup.sh $PROJECT_NAME true
 fi
 
