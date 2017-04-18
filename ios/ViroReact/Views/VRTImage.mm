@@ -118,6 +118,7 @@ static float const kDefaultHeight = 1;
   
   if (_texture && self.node->getGeometry()) {
     self.node->getGeometry()->getMaterials().front()->getDiffuse().setTexture(_texture);
+    self.node->getGeometry()->getMaterials().front()->setTransparency(1.0);
   }
 }
 
@@ -139,14 +140,18 @@ static float const kDefaultHeight = 1;
                                                                                       std::make_shared<VROImageiOS>(_placeholderSource,
                                                                                                                     VROTextureInternalFormat::RGBA8));
         self.node->getGeometry()->getMaterials().front()->getDiffuse().setTexture(placeholderTexture);
+        self.node->getGeometry()->getMaterials().front()->setTransparency(1.0);
       }
-    
-      // Start loading the image
-      if (_source) {
-        [_loader loadImage:_source];
+      else {
+        self.node->getGeometry()->getMaterials().front()->setTransparency(0.0);
       }
-      _imageNeedsDownload = NO;
     }
+    
+    // Start loading the image
+    if (_source) {
+      [_loader loadImage:_source];
+    }
+    _imageNeedsDownload = NO;
   }
 }
 
