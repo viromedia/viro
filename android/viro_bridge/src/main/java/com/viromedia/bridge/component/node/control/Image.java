@@ -41,7 +41,8 @@ public class Image extends Control {
     private float mHeight = DEFAULT_HEIGHT;
     private float mScaledWidth = DEFAULT_WIDTH;
     private float mScaledHeight = DEFAULT_HEIGHT;
-    private Bitmap mImageBitmap;
+    private int mBitmapWidth;
+    private int mBitmapHeight;
     private float mU0 = 0;
     private float mV0 = 0;
     private float mU1 = 1;
@@ -285,7 +286,7 @@ public class Image extends Control {
         if (!mWidthOrHeightPropSet || !mResizeModeSet || !mIsImageSet) {
             return;
         }
-        float aspectRatio = mImageBitmap.getWidth() / mImageBitmap.getHeight();
+        float aspectRatio = (float) mBitmapWidth / (float) mBitmapHeight;
         float targetAspectRatio = mWidth / mHeight;
 
         switch (mResizeMode) {
@@ -394,13 +395,14 @@ public class Image extends Control {
                     if (!isValid()) {
                         return;
                     }
-                    mImageBitmap = result;
+                    mBitmapWidth = result.getWidth();
+                    mBitmapHeight = result.getHeight();
                     mIsImageSet = true;
 
                     // If no width or height property was set, then base these on the
                     // image's aspect ratio and update the surface
                     if (!mWidthOrHeightPropSet) {
-                        float ratio = (float) mImageBitmap.getWidth() / (float) mImageBitmap.getHeight();
+                        float ratio = (float) mBitmapWidth / (float) mBitmapHeight;
                         mHeight = mWidth / ratio;
                         mGeometryNeedsUpdate = true;
                         updateSurface();
