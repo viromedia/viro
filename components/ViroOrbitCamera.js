@@ -70,6 +70,7 @@ var VRTOrbitCamera = requireNativeComponent(
                 onSwipeViro:true,
                 onDragViro:true,
                 transformBehaviors:true,
+                timeToFuse: true,
       }
 });
 
