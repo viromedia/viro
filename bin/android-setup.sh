@@ -151,18 +151,14 @@ done
 
 echo "Updating AndroidManifest.xml"
 
-# Inserting 2 lines
 TARGET_FILEPATH=android/app/src/main/AndroidManifest.xml
 SEARCH_PATTERN="category.LAUNCHER"
-LINE_TO_ADD1='            <category android:name="com.google.intent.category.CARDBOARD" \/>'
-LINE_TO_ADD2='            <category android:name="com.google.intent.category.DAYDREAM" \/>'
+LINE_TO_ADD='            <category android:name="com.google.intent.category.CARDBOARD" \/>'
 LINE_TO_APPEND_TO=$(grep "$SEARCH_PATTERN" "$TARGET_FILEPATH")
 # escape the append to line
 LINE_TO_APPEND_TO=$(echo $LINE_TO_APPEND_TO | sed -e 's/[]\/$*.^|[]/\\&/g')
 
-# since we're appending to the line, add the 2nd line before the 1st (although in this case it doesnt really matter)
-vsed "s/$LINE_TO_APPEND_TO/&"$'\\\n'"$LINE_TO_ADD2/" $TARGET_FILEPATH
-vsed "s/$LINE_TO_APPEND_TO/&"$'\\\n'"$LINE_TO_ADD1/" $TARGET_FILEPATH
+vsed "s/$LINE_TO_APPEND_TO/&"$'\\\n'"$LINE_TO_ADD/" $TARGET_FILEPATH
 
 
 

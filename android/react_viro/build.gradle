@@ -1,9 +1,2 @@
 configurations.maybeCreate("default")
-artifacts.add("default", file('react_viro-debug.aar'))
-
-configurations.maybeCreate("debug")
-artifacts.add("debug", file('react_viro-debug.aar'))
-
-configurations.maybeCreate("release")
-artifacts.add("release", file('react_viro-release.aar'))
-
+artifacts.add("default", file('react_viro-release.aar'))

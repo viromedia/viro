@@ -16,17 +16,17 @@ printHelp() {
 }
 
 case $1 in
-  --all)
+  all|--all)
     SETUP_XCODE=true
     SETUP_ANDROID_STUDIO=true
   ;;
-  --android)
+  android|--android)
     SETUP_ANDROID_STUDIO=true
   ;;
-  --ios)
+  ios|--ios)
     SETUP_XCODE=true
   ;;
-  -h|--help)
+  help|-h|--help)
     printHelp
     exit 0
   ;;

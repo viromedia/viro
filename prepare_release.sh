@@ -28,8 +28,6 @@ fi
 
 echo '== Copying build artifacts to the lib directory =='
 rm android/react_viro/*.aar
-# copy release to debug for now, remove in the future
-cp android/viro_bridge/build/outputs/aar/viro_bridge-release.aar android/react_viro/react_viro-debug.aar
 cp android/viro_bridge/build/outputs/aar/viro_bridge-release.aar android/react_viro/react_viro-release.aar
 
 npm pack
