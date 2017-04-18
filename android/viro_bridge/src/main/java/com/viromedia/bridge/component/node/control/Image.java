@@ -232,8 +232,6 @@ public class Image extends Control {
             mLatestImageTexture.destroy();
             mLatestImageTexture = null;
         }
-
-
     }
 
     private void setMaterialOnSurface() {
@@ -356,6 +354,9 @@ public class Image extends Control {
             }
             mMainHandler.post(new Runnable() {
                 public void run() {
+                    if (!isValid()) {
+                        return;
+                    }
                     setImageOnSurface(result);
                     downloadSourceImage(mDownloader);
                     mPlaceholderListener = null;
