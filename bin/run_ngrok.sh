@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 # Copyright (c) 2017-present, Viro Media, Inc.
 # All rights reserved.
