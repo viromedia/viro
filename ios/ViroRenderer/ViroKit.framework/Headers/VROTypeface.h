@@ -16,6 +16,7 @@
 #include <ft2build.h>
 #include FT_FREETYPE_H
 #include "VROLog.h"
+#include "VROAllocationTracker.h"
 
 class VROGlyph;
 
@@ -30,11 +31,15 @@ public:
         if (FT_Init_FreeType(&_ft)) {
             pabort("Could not initialize freetype library");
         }
+            
+        ALLOCATION_TRACKER_ADD(Typefaces, 1);
     }
     
     virtual ~VROTypeface() {
         FT_Done_Face(_face);
         FT_Done_FreeType(_ft);
+        
+        ALLOCATION_TRACKER_SUB(Typefaces, 1);
     }
     
     std::string getName() const {

@@ -47,6 +47,8 @@ enum class VROAllocationBucket {
     Shaders,
     ShaderModifiers,
     VideoTextures,
+    Typefaces,
+    Glyphs,
     NUM_BUCKETS
 };
 

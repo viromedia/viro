@@ -35,6 +35,7 @@ public:
      Associate the given VROThread with the given pthread.
      */
     static void setThread(VROThreadName name, pthread_t thread);
+    static void unsetThread(VROThreadName name);
 
     /*
      Get the pthread with the given name. Returns ret_not_found if there is
