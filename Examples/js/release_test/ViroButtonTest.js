@@ -111,12 +111,11 @@ var ViroButtonTest = React.createClass({
    },
 
    _showNext() {
-     this.props.sceneNavigator.pop();
-           this.props.sceneNavigator.push({scene:require('./ViroSurfaceFlexViewTest')});
-       },
+      this.props.sceneNavigator.replace({scene:require('./ViroSurfaceFlexViewTest')});
+   },
 
    _onHover(source, isHovering){
-    console.log("onHover");
+      console.log("onHover");
    },
 
    _toggleImageSource() {

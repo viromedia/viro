@@ -167,9 +167,8 @@ var ViroSoundTest = React.createClass({
 
   },
   _showNext() {
-    this.props.sceneNavigator.pop();
-          this.props.sceneNavigator.push({scene:require('./ViroLightTest')});
-      },
+    this.props.sceneNavigator.replace({scene:require('./ViroLightTest')});
+  },
 
   _getSpatialControls(){
      var room = this.state.soundRoom == 1 ? "Curtain Heavy" : "Transparent Room";

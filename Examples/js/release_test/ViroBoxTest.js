@@ -153,9 +153,8 @@ var ViroBoxTest = React.createClass({
     );
   },
   _showNext() {
-    this.props.sceneNavigator.pop();
-          this.props.sceneNavigator.push({scene:require('./ViroSphereTest')});
-      },
+    this.props.sceneNavigator.replace({scene:require('./ViroSphereTest')});
+  },
 
   _toggleMaterial(){
     var newMat = this.state.currentMaterial == "box1" ? "box2" : "box1";

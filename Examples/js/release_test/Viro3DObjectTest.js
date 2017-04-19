@@ -133,9 +133,8 @@ var Viro3DObjectTest = React.createClass({
   },
 
   _showNext() {
-    this.props.sceneNavigator.pop();
-          this.props.sceneNavigator.push({scene:require('./ViroCameraTest')});
-      },
+    this.props.sceneNavigator.replace({scene:require('./ViroCameraTest')});
+  },
 
   _showPrevious() {
     this.props.sceneNavigator.pop();

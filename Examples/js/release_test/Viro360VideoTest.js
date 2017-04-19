@@ -101,20 +101,19 @@ var Viro360VideoTest = React.createClass({
   },
 
   _showNext() {
-          this.props.sceneNavigator.pop();
-          this.props.sceneNavigator.push({scene:require('./ViroVideoTest')});
-      },
+    this.props.sceneNavigator.replace({scene:require('./ViroVideoTest')});
+  },
 
+  _toggleRotation() {
+      var newRotation = this.state.rotationY + 10;
+      if (newRotation == 360){
+          newRotation = 0;
+      }
+      this.setState({
+        rotationY:newRotation
+      });
+  },
 
-    _toggleRotation() {
-        var newRotation = this.state.rotationY + 10;
-        if (newRotation == 360){
-            newRotation = 0;
-        }
-        this.setState({
-                          rotationY:newRotation
-                });
-    },
   _onVideoFinished(){
     var videoTag = this.state.get360Video == Uri360Video ? "Uri Video" : " Local Video";
     console.log("Viro on video Finished for: " + videoTag );

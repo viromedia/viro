@@ -246,9 +246,8 @@ var GroupTestBasicAnimation = React.createClass({
   },
 
   _showNext() {
-    this.props.sceneNavigator.pop();
-          this.props.sceneNavigator.push({scene:require('./GroupTestBasicBillboard')});
-      },
+    this.props.sceneNavigator.replace({scene:require('./GroupTestBasicBillboard')});
+  },
 
   _elementClick(item){
     return () => {

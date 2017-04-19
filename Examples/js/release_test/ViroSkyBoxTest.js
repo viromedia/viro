@@ -101,7 +101,7 @@ var Local360Image = require("../res/sun_2302.jpg");
    },
 
    _getTestControls(){
-    return(
+     return(
          <ViroNode position={[0,-0.5,-3]}>
              <ViroText style={styles.baseTextTwo}  position={[-2,0, 0]} width={2} height ={2}
                     text={"ToggleImageSource isUrlIamge: " + this.state.showUrlImage}
@@ -115,32 +115,31 @@ var Local360Image = require("../res/sun_2302.jpg");
                     text={"Toggle Format " + this.state.format}
                     onClick={this._toggleFormat}/>
           </ViroNode>
-
         );
    },
 
    _showNext() {
-           this.props.sceneNavigator.push({scene:require('./Viro360ImageTest')});
-       },
-
+      this.props.sceneNavigator.replace({scene:require('./Viro360ImageTest')});
+   },
 
    _toggleImageSource() {
-        var newShowUrlImageFlag = !this.state.showUrlImage;
-        this.setState({
-                  showUrlImage:newShowUrlImageFlag,
-                  showColorBackground:false
-        });
+      var newShowUrlImageFlag = !this.state.showUrlImage;
+      this.setState({
+          showUrlImage:newShowUrlImageFlag,
+          showColorBackground:false
+      });
    },
-   _toggleImageColor() {
-        var newColor = "#098765";
-        if (this.state.color == newColor){
-            newColor = 0xffff;
-        }
 
-        this.setState({
-            color:newColor,
-            showColorBackground:true
-        });
+   _toggleImageColor() {
+      var newColor = "#098765";
+      if (this.state.color == newColor){
+        newColor = 0xffff;
+      }
+
+      this.setState({
+        color:newColor,
+        showColorBackground:true
+      });
    },
 
    _toggleFormat() {
@@ -156,13 +155,14 @@ var Local360Image = require("../res/sun_2302.jpg");
                             format:newState
                         });
    },
+
    _onLoadStart() {
         console.log("ViroSkyBoxtest: _onLoadStart");
    },
-   _onLoadEnd() {
-        console.log("ViroSkyBoxtest: _onLoadEnd");
-   },
 
+   _onLoadEnd() {
+      console.log("ViroSkyBoxtest: _onLoadEnd");
+   },
  });
 
 var styles = StyleSheet.create({

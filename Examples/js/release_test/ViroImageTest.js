@@ -129,9 +129,8 @@ var ViroImageTest = React.createClass({
    },
 
    _showNext() {
-     this.props.sceneNavigator.pop();
-           this.props.sceneNavigator.push({scene:require('./ViroTextTest')});
-       },
+      this.props.sceneNavigator.replace({scene:require('./ViroTextTest')});
+   },
 
    _toggleImageSource() {
         var newShowUrlImageFlag = !this.state.showUrlImage;

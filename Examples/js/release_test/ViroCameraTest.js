@@ -102,9 +102,8 @@ var ViroCameraTest = React.createClass({
   },
 
   _showNext() {
-    this.props.sceneNavigator.pop();
-          this.props.sceneNavigator.push({scene:require('./SceneTest1')});
-      },
+    this.props.sceneNavigator.replace({scene:require('./SceneTest1')});
+  },
 
   _toggleCamera(){
   console.log("Daniel _toggleCamera");

@@ -66,10 +66,10 @@ var ViroVideoTest = React.createClass({
           </ViroScene>
     );
   },
+
   _showNext() {
-          this.props.sceneNavigator.pop();
-          this.props.sceneNavigator.push({scene:require('./ViroAnimatedComponentTest')});
-      },
+    this.props.sceneNavigator.replace({scene:require('./ViroAnimatedComponentTest')});
+  },
 
   _getViroVideo() {
       return (

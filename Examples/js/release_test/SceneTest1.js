@@ -67,14 +67,14 @@ var SceneTest1 = React.createClass({
         </ViroScene>
     );
   },
-    popScene(){
-    this.props.sceneNavigator.pop();
-    },
 
-    _showNext() {
-      this.props.sceneNavigator.pop();
-            this.props.sceneNavigator.push({scene:require('./ViroSoundTest')});
-        },
+  popScene(){
+    this.props.sceneNavigator.pop();
+  },
+
+  _showNext() {
+    this.props.sceneNavigator.replace({scene:require('./ViroSoundTest')});
+  },
 
   goToScene(sceneKey, isJumping){
     return () => {
@@ -87,13 +87,11 @@ var SceneTest1 = React.createClass({
             scene = require("./SceneTest3");
       }
 
-        if (isJumping){
+      if (isJumping){
         this.props.sceneNavigator.jump(sceneKey, {scene:scene, passProps:{title:sceneKey}});
-        } else {
+      } else {
         this.props.sceneNavigator.push(sceneKey, {scene:scene, passProps:{title:sceneKey}});
-        }
-
-
+      }
     }
   }
 });

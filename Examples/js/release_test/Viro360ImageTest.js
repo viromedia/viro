@@ -90,9 +90,8 @@ var Viro360ImageTest = React.createClass({
   },
 
   _showNext() {
-          this.props.sceneNavigator.pop();
-          this.props.sceneNavigator.push({scene:require('./Viro360VideoTest')});
-      },
+    this.props.sceneNavigator.replace({scene:require('./Viro360VideoTest')});
+  },
 
   _onBackgroundPhotoLoadStart(){
       console.log("Viro360ImageTest: _onLoadStart");

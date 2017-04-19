@@ -191,21 +191,18 @@ onDrag(objectTag){return (source, dragtoPos ,objectTag) => {
   },
 
   _showNext() {
-    this.props.sceneNavigator.pop();
-          this.props.sceneNavigator.push({scene:require('./ViroVideoTest')});
-      },
+    this.props.sceneNavigator.replace({scene:require('./ViroVideoTest')});
+  },
 
   _toggleTransform(){
     var newtransformflag = this.state.transformFlag + 1;
     if (newtransformflag > 5){
-        newtransformflag = 0;
+      newtransformflag = 0;
     }
-     this.setState({
-            transformFlag:newtransformflag
-           });
+    this.setState({
+      transformFlag:newtransformflag
+    });
   }
-
-
 });
 
 var styles = StyleSheet.create({

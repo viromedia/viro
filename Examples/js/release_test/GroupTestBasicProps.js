@@ -221,9 +221,8 @@ Note: Re-enable opacity for text once VIRO-885 is fixed
   },
 
   _showNext() {
-    this.props.sceneNavigator.pop();
-          this.props.sceneNavigator.push({scene:require('./GroupTestBasicAnimation')});
-      },
+    this.props.sceneNavigator.replace({scene:require('./GroupTestBasicAnimation')});
+  },
 
   _toggleVisibility(){
      this.setState({

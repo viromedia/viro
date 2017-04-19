@@ -103,9 +103,8 @@
    },
 
    _showNext() {
-     this.props.sceneNavigator.pop();
-           this.props.sceneNavigator.push({scene:require('./ViroButtonTest')});
-       },
+     this.props.sceneNavigator.replace({scene:require('./ViroButtonTest')});
+   },
 
    _toggleWidSegCount() {
      var newWidthSegCount = this.state.widthSegCount + 1;

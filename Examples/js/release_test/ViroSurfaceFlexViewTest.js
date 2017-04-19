@@ -100,9 +100,8 @@
    },
 
    _showNext() {
-     this.props.sceneNavigator.pop();
-           this.props.sceneNavigator.push({scene:require('./ViroImageTest')});
-       },
+     this.props.sceneNavigator.replace({scene:require('./ViroImageTest')});
+   },
 
    _toggleSpinner(){
         var newSpinnerType = this.state.spinnerType == "dark" ? "light" : "dark";

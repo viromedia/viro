@@ -123,9 +123,8 @@ var ViroAnimatedComponentTest = React.createClass({
   },
 
   _showNext() {
-    this.props.sceneNavigator.pop();
-          this.props.sceneNavigator.push({scene:require('./ViroBoxTest')});
-      },
+     this.props.sceneNavigator.replace({scene:require('./ViroBoxTest')});
+  },
 
   _togglePlay(){
   this.setState({

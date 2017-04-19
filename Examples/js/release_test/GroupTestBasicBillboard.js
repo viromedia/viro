@@ -197,9 +197,8 @@ var GroupTestBasicBillboard = React.createClass({
     );
   },
   _showNext() {
-    this.props.sceneNavigator.pop();
-          this.props.sceneNavigator.push({scene:require('./GroupTestMaterials')});
-      },
+    this.props.sceneNavigator.replace({scene:require('./GroupTestMaterials')});
+  },
 
   _toggleTransform(){
     var newtransformflag = this.state.transformFlag + 1;

@@ -162,10 +162,8 @@ var ViroTextTest = React.createClass({
   },
 
   _showNext() {
-    this.props.sceneNavigator.pop();
-          this.props.sceneNavigator.push({scene:require('./Viro3DObjectTest')});
-      },
-
+     this.props.sceneNavigator.replace({scene:require('./Viro3DObjectTest')});
+  },
 });
 
 

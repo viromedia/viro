@@ -303,8 +303,8 @@
      );
    },
    _showNext() {
-           this.props.sceneNavigator.push({scene:require('./GroupTestBasicProps')});
-       },
+       this.props.sceneNavigator.replace({scene:require('./GroupTestBasicProps')});
+    },
  });
 
 const styles = StyleSheet.create({
