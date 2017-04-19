@@ -84,6 +84,7 @@ var ViroSceneNavigator = React.createClass({
       pop: this.pop,
       popN: this.popN,
       jump: this.jump,
+      replace: this.replace,
       exitViro: this.exitViro,
       // pass the viroAppProps to every scene, these aren't meant to ever change.
       viroAppProps: this.props.viroAppProps,
@@ -155,7 +156,7 @@ var ViroSceneNavigator = React.createClass({
           && !(sceneKey in this.state.sceneDictionary)){
         console.log("ERROR: Cannot push with a new sceneKey with no associated scene.");
         return;
-      }
+    }
 
     if (sceneKey == undefined || (typeof sceneKey == 'string' && sceneKey.trim().length <=0)){
         sceneKey = this.getRandomTag();
@@ -164,6 +165,46 @@ var ViroSceneNavigator = React.createClass({
     this.incrementSceneReference(scene, sceneKey, false);
     this.addToHistory(sceneKey);
   },
+
+  /**
+   * Replace the top scene in the stack with the given scene. The remainder of the back
+   * history is kept in the same order as before.
+   *
+   * Can take in either 1 or two parameters in the form:
+   * replace ("sceneKey");
+   * replace ("sceneKey", scene);
+   * replace (scene);
+   */
+   replace: function(param1, param2){
+     var sceneKey = undefined;
+     var scene = undefined;
+     if (typeof param1 == 'string'){
+         sceneKey = param1;
+         scene = param2;
+     } else {
+         scene = param1;
+     }
+
+     if (scene == undefined && sceneKey == undefined){
+         console.log("ERROR: replacing requires either the scene tag, or both the tag and scene.");
+         return;
+     } else if (scene == undefined && sceneKey != undefined
+           && !(sceneKey in this.state.sceneDictionary)){
+         console.log("ERROR: Cannot replace with a new sceneKey with no associated scene.");
+         return;
+     }
+
+     if (sceneKey == undefined || (typeof sceneKey == 'string' && sceneKey.trim().length <=0)){
+         sceneKey = this.getRandomTag();
+     }
+
+     // Pop 1 off the scene history (do not use popN because in this case we allow
+     // popping the root), then push this scene
+     this.decrementReferenceForLastNScenes(1);
+     this.popHistoryByN(1);
+     this.incrementSceneReference(scene, sceneKey, false);
+     this.addToHistory(sceneKey);
+   },
 
   /**
    * Jumps to a given scene that had been previously pushed. If the scene was not pushed, we
@@ -300,7 +341,7 @@ var ViroSceneNavigator = React.createClass({
 
   /**
    * Instead of preserving history, we find the last pushed sceneKey within the history stack
-   * matching the given sceneKey and re-order it to the front. We then updates the
+   * matching the given sceneKey and re-order it to the front. We then update the
    * currentSceneIndex to point to the scene on the top of the history stack
    * (the most recent scene).
    */
