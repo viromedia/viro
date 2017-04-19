@@ -216,12 +216,13 @@ public class AnimatedComponent extends Component {
             return;
         }
 
-        mExecutableAnimation = mManager.getAnimation(mAnimation).copy();
-        if (mExecutableAnimation == null) {
+        BaseAnimation baseAnimation = mManager.getAnimation(mAnimation);
+        if (baseAnimation == null) {
             throw new IllegalArgumentException("Animation [" + mAnimation + "] does not exist." +
                     " Have you registered it with ViroAnimations.registerAnimations()?");
         }
 
+        mExecutableAnimation = baseAnimation.copy();
         onStartAnimation();
 
         final WeakReference<AnimatedComponent> weakSelf = new WeakReference<>(this);
