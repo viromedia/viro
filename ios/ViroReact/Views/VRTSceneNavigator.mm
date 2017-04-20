@@ -125,10 +125,6 @@ static NSString *const kVRTInvalidAPIKeyMessage = @"The given API Key is either 
   
 }
 
-- (void)reticleTapped:(VROVector3f)ray context:(const VRORenderContext *)context {
-  
-}
-
 - (void)setSceneView:(VRTScene *)sceneView {
   if (_currentScene == sceneView) {
     return;
