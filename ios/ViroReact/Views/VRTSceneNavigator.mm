@@ -109,10 +109,6 @@ static NSString *const kVRTInvalidAPIKeyMessage = @"The given API Key is either 
   
 }
 
-- (void)shutdownRenderer {
-  
-}
-
 - (void)renderViewDidChangeSize:(CGSize)size context:(VRORenderContext *)context {
   
 }
@@ -123,6 +119,16 @@ static NSString *const kVRTInvalidAPIKeyMessage = @"The given API Key is either 
 
 - (void)didRenderEye:(VROEyeType)eye context:(const VRORenderContext *)context {
   
+}
+
+- (void)userDidRequestExitVR {
+    // Notify javascript listeners (for ReactNativeJs to ViroReactJs cases)
+    if (self.onExitViro != nil) {
+        self.onExitViro(nil);
+    }
+    
+    // Notify Native listeners (for NativeApp to ViroReactJs cases)
+    [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:kVRTOnExitViro object:nil]];
 }
 
 - (void)setSceneView:(VRTScene *)sceneView {
@@ -137,16 +143,6 @@ static NSString *const kVRTInvalidAPIKeyMessage = @"The given API Key is either 
   }
 
   _currentScene = sceneView;
-}
-
-- (void)userDidRequestExitVR {
-  // Notify javascript listeners (for ReactNativeJs to ViroReactJs cases)
-  if (self.onExitViro != nil) {
-    self.onExitViro(nil);
-  }
-
-  // Notify Native listeners (for NativeApp to ViroReactJs cases)
-  [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:kVRTOnExitViro object:nil]];
 }
 
 - (void)setApiKey:(NSString *)apiKey {
