@@ -110,11 +110,11 @@ var Viro3DObject = React.createClass({
   },
 
   _onScroll: function(event: Event) {
-      this.props.onScroll && this.props.onScroll(event.nativeEvent.swipeState, event.nativeEvent.source);
+      this.props.onScroll && this.props.onScroll(event.nativeEvent.scrollPos, event.nativeEvent.source);
   },
 
   _onSwipe: function(event: Event) {
-      this.props.onSwipe && this.props.onSwipe(event.nativeEvent.scrollPos, event.nativeEvent.source);
+      this.props.onSwipe && this.props.onSwipe(event.nativeEvent.swipeState, event.nativeEvent.source);
   },
 
   _onLoadStart: function(event: Event) {
