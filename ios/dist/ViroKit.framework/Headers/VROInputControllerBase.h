@@ -207,6 +207,7 @@ private:
         std::shared_ptr<VRONode> _draggedNode;
         VROVector3f _originalHitLocation;
         VROVector3f _originalDraggedNodePosition;
+        VROVector3f _forwardOffset;
         float _draggedDistanceFromController;
     };
 
