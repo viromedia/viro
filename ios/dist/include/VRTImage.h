@@ -11,6 +11,7 @@
 #import <React/RCTImageSource.h>
 #import <React/RCTConvert.h>
 #import "VRTControl.h"
+#import "VRTUIImageWrapper.h"
 #import "VRTImageAsyncLoaderEventDelegate.h"
 
 enum class VROImageResizeMode {
@@ -33,7 +34,7 @@ enum class VROImageClipMode {
 @property (nonatomic, copy) RCTImageSource *source;
 @property (nonatomic, assign) VROImageResizeMode resizeMode;
 @property (nonatomic, assign) VROImageClipMode imageClipMode;
-@property (nonatomic, strong) UIImage *placeholderSource;
+@property (nonatomic, copy) VRTUIImageWrapper *placeholderSource;
 @property (nonatomic, assign) bool mipmap;
 @property (nonatomic, assign) VROTextureInternalFormat format;
 @property (nonatomic, copy) RCTDirectEventBlock onLoadStartViro;
