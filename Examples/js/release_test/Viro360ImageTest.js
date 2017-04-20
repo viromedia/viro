@@ -43,7 +43,7 @@ let polarToCartesian = ViroUtils.polarToCartesian;
 
 var Uri360Image = {uri:"https://s3-us-west-2.amazonaws.com/viro/Explorer/360_horseshoe.jpg"};
 var Local360Image = require("./res/360_park.jpg");
-var Stereo360Image = require("./res/stereo3601.jpg");
+var Stereo360Image = require("./res/exploding_scene.jpg");
 var ReleaseMenu = require("./ReleaseMenu.js");
 
 var Viro360ImageTest = React.createClass({

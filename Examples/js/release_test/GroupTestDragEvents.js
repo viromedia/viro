@@ -76,7 +76,7 @@ onScroll(objectTag){return (source, scrollPos, objectTag) => {
 onSwipe(objectTag){return (source, swipeState, objectTag) => {
                          console.log("GroupTest: " + objectTag+ " onSwipe swipeState" + swipeState);
                        }},
-onDrag(objectTag){return (source, dragtoPos ,objectTag) => {
+onDrag(objectTag){return (dragtoPos, source) => {
                         console.log("GroupTest: " + objectTag+ " onDrag dragtoPos" +
                         dragtoPos[0] +","+ dragtoPos[1]+","+ dragtoPos[2]);
                       }},
