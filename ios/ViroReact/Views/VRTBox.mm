@@ -13,14 +13,12 @@
 
 @implementation VRTBox {
   std::shared_ptr<VROBox> _box;
-  bool _boxNeedsUpdate;
 }
 
 - (instancetype)initWithBridge:(RCTBridge *)bridge {
   self = [super initWithBridge:bridge];
   if (self) {
     _box = VROBox::createBox(1, 1, 1);
-    _boxNeedsUpdate = NO;
     [self node]->setGeometry(_box);
   }
   
@@ -31,38 +29,21 @@
   if (width < 0) {
     RCTLogError(@"Box width must be >= 0");
   }
-  _width = width;
-  _boxNeedsUpdate = YES;
+  _box->setWidth(width);
 }
 
 - (void)setHeight:(float)height {
   if (height < 0) {
     RCTLogError(@"Box height must be >= 0");
   }
-  _height = height;
-  _boxNeedsUpdate = YES;
+  _box->setHeight(height);
 }
 
 - (void)setLength:(float)length {
   if (length < 0) {
     RCTLogError(@"Box length must be >= 0");
   }
-  _length = length;
-  _boxNeedsUpdate = YES;
-}
-
-- (void)updateGeometry {
-  if (_boxNeedsUpdate) {
-    _box = VROBox::createBox(_width, _height, _length);
-    [self node]->setGeometry(_box);
-    
-    _boxNeedsUpdate = NO;
-  }
-  [self applyMaterials];
-}
-
-- (void)didSetProps:(NSArray<NSString *> *)changedProps {
-  [self updateGeometry];
+  _box->setLength(length);
 }
 
 @end

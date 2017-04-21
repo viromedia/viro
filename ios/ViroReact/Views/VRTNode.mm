@@ -219,7 +219,7 @@ const int k2DPointsPerSpatialUnit = 1000;
     // propagate to the reference material held by the material manager
     tempMaterials.push_back(std::make_shared<VROMaterial>(material));
   }
-  geometry->getMaterials() = tempMaterials;
+  geometry->setMaterials(tempMaterials);
 }
 
 - (void)setVisible:(BOOL)visible {
