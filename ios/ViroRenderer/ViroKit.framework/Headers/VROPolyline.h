@@ -16,7 +16,7 @@ class VROByteBuffer;
 class VROLineSegment;
 class VROShaderModifier;
 
-class VROPolyline : public VROGeometry, public VROAnimatable {
+class VROPolyline : public VROGeometry {
     
 public:
     

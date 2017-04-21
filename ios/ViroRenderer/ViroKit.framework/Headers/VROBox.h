@@ -20,16 +20,21 @@ public:
     static std::shared_ptr<VROBox> createBox(float width, float height, float length);
     virtual ~VROBox();
     
+    void setWidth(float width);
+    void setHeight(float height);
+    void setLength(float length);
+    
+    virtual void setMaterials(std::vector<std::shared_ptr<VROMaterial>> materials);
+    
 private:
     
-    VROBox(std::vector<std::shared_ptr<VROGeometrySource>> sources,
-           std::vector<std::shared_ptr<VROGeometryElement>> elements) :
-        VROGeometry(sources, elements)
-    {}
+    float _width, _height, _length;
     
-    static void buildBox(VROShapeVertexLayout *vertexLayout, float width, float height,
-                         float length);
-
+    VROBox(float width, float height, float length);
+    
+    void updateBox();
+    void buildBoxVAR(VROShapeVertexLayout *vertexLayout);
+    
 };
 
 #endif /* VROBox_h */

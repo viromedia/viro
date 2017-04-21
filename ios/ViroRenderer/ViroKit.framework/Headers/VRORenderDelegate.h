@@ -21,12 +21,9 @@ enum class VROEyeType;
 @protocol VRORenderDelegate <NSObject>
 
 - (void)setupRendererWithDriver:(std::shared_ptr<VRODriver>)driver;
-- (void)shutdownRenderer;
 - (void)renderViewDidChangeSize:(CGSize)size context:(VRORenderContext *)context;
-
 - (void)willRenderEye:(VROEyeType)eye context:(const VRORenderContext *)context;
 - (void)didRenderEye:(VROEyeType)eye context:(const VRORenderContext *)context;
-- (void)reticleTapped:(VROVector3f)ray context:(const VRORenderContext *)context;
 - (void)userDidRequestExitVR;
 
 @end
