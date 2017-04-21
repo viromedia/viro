@@ -27,17 +27,17 @@ Check out our [website](http://www.viromedia.com/).
 
 Look at our [documentation](http://docs.viromedia.com/).
 
-## Example Overview
+## Sample Code Overview
 
-### [HelloWorld](https://github.com/viromedia/viro/tree/master/js/HelloWorld)
-The app in our tutorial. A scene with a 360 photo that displays "Hello World".
+### [Hello World](https://github.com/viromedia/viro/tree/master/js/HelloWorld)
+A scene with a 360 photo that displays "Hello World".
 ### [360 Photo Tour](https://github.com/viromedia/viro/tree/master/js/360PhotoTour)
-A 360 photo tour example that shows you how to display a 360 photo with clickable hot spots.
-### [HumanBody](https://github.com/viromedia/viro/tree/master/js/HumanBody)
+360 photo tour example that shows you how to display a 360 photo with clickable hot spots.
+### [Human Body](https://github.com/viromedia/viro/tree/master/js/HumanBody)
 This example showcases 3d objects. Orbit around a 3d Heart to see it from different angles!
-### [ViroMediaPlayer](https://github.com/viromedia/viro/tree/master/js/ViroMediaPlayer)
+### [VR MediaPlayer](https://github.com/viromedia/viro/tree/master/js/ViroMediaPlayer)
 Learn how to display and play 2d and 360 video with interactive play controls that can play, pause and stop.
-### [TVShopping](https://github.com/viromedia/viro/tree/master/js/TVShopping)
+### [Product Showcase](https://github.com/viromedia/viro/tree/master/js/TVShopping)
 A demonstration on how to do an interactive shopping app for TV's. Uses flexbox for UI and 3d objects with animations.
 
 
