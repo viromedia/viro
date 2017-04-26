@@ -57,6 +57,7 @@ public class SceneNavigatorManager extends ViroViewGroupManager<SceneNavigator> 
     public void setApiKey(SceneNavigator view, String apiKey) {
         view.setApiKey(apiKey);
     }
+
     @Override
     protected void onAfterUpdateTransaction(SceneNavigator view) {
         super.onAfterUpdateTransaction(view);

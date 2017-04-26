@@ -134,11 +134,7 @@ public class SceneNavigator extends FrameLayout {
     private boolean mViewAdded = false;
     private boolean mGLInitialized = false;
 
-    private boolean mVrModeEnabled = true;
-    private boolean mHasSetVrMode = false;
     private boolean mHasOnExitViroCallback = false;
-
-    private String mApiKey;
 
     public SceneNavigator(ReactApplicationContext reactContext,
                           ReactViroPackage.ViroPlatform platform) {
@@ -268,7 +264,7 @@ public class SceneNavigator extends FrameLayout {
     }
 
     public void setVrModeEnabled(boolean vrModeEnabled) {
-        mVrModeEnabled = vrModeEnabled;
+        mVrView.setVrModeEnabled(vrModeEnabled);
     }
 
     public void setHasOnExitViroCallback(boolean hasCallback) {
@@ -298,10 +294,7 @@ public class SceneNavigator extends FrameLayout {
     }
 
     public void onPropsSet() {
-        if (!mHasSetVrMode) {
-            mHasSetVrMode = true;
-            mVrView.setVrModeEnabled(mVrModeEnabled);
-        }
+        // no-op
     }
 
     @Override
