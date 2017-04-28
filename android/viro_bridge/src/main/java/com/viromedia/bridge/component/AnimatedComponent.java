@@ -76,7 +76,17 @@ public class AnimatedComponent extends Component {
         }
         mState = AnimationState.TERMINATED;
 
-        mAnimation = animationName;
+        // getting/checking for the animation here because if we throw an exception here, we still
+        // get a red screen. VIRO-1236 will cover red screening w/o a generic error.
+        BaseAnimation baseAnimation = mManager.getAnimation(animationName);
+        if (baseAnimation == null) {
+            mExecutableAnimation = null;
+            throw new IllegalArgumentException("Animation [" + animationName + "] does not exist." +
+                    " Have you registered it with ViroAnimations.registerAnimations()?");
+        } else {
+            mExecutableAnimation = baseAnimation.copy();
+        }
+
         mAnimationNeedsUpdate = true;
     }
 
@@ -172,6 +182,9 @@ public class AnimatedComponent extends Component {
      * a paused animation.
      */
     private void playAnimation() {
+        if (mExecutableAnimation == null) {
+            return;
+        }
         if(mState == AnimationState.PAUSED) {
             mExecutableAnimation.resume();
             mState = AnimationState.RUNNING;
@@ -189,6 +202,9 @@ public class AnimatedComponent extends Component {
      * This method pauses a running animation or terminates a scheduled one.
      */
     private void pauseAnimation() {
+        if (mExecutableAnimation == null) {
+            return;
+        }
         if (mState == AnimationState.RUNNING) {
             mExecutableAnimation.pause();
             mState = AnimationState.PAUSED;
@@ -215,14 +231,11 @@ public class AnimatedComponent extends Component {
             ViroLog.info(TAG, "Aborted starting new animation, child is torn down");
             return;
         }
-
-        BaseAnimation baseAnimation = mManager.getAnimation(mAnimation);
-        if (baseAnimation == null) {
-            throw new IllegalArgumentException("Animation [" + mAnimation + "] does not exist." +
-                    " Have you registered it with ViroAnimations.registerAnimations()?");
+        if (mExecutableAnimation == null) {
+            ViroLog.warn(TAG, "Aborted starting new animation, executableAnimation wasn't set!");
+            return;
         }
 
-        mExecutableAnimation = baseAnimation.copy();
         onStartAnimation();
 
         final WeakReference<AnimatedComponent> weakSelf = new WeakReference<>(this);

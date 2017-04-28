@@ -7,6 +7,7 @@
 //
 
 #include <React/RCTComponent.h>
+#import <React/RCTUIManager.h>
 #import "VRTAnimatedComponent.h"
 #import "VRTAnimationManager.h"
 #import "VRTNode.h"
@@ -189,6 +190,10 @@ enum class VRTAnimatedComponentState {
 - (void)startAnimation {
     if (self.state != VRTAnimatedComponentState::Scheduled) {
         NSLog(@"Aborted starting new animation, was no longer scheduled");
+        return;
+    }
+    if ([_animationManager animationForName:self.animation] == nullptr) {
+        RCTLogError(@"Unable to find Animation with name %@", self.animation);
         return;
     }
 
