@@ -95,6 +95,11 @@ public class Object3d extends Control {
             }
         };
 
+        boolean isFBX = true;
+        if (mSource.getPath().toLowerCase().endsWith("obj")) {
+            isFBX = false;
+        }
+
         // if the source is from resources, then pass in the resources it depends on (if any)
         if (mSource.getScheme().equals("res")) {
             Map<String, String> resourceMap = null;
@@ -105,9 +110,10 @@ public class Object3d extends Control {
                     resourceMap.put(resource, uri.toString());
                 }
             }
-            mNative3dObject = new ObjectJni(mSource, listener, resourceMap);
+
+            mNative3dObject = new ObjectJni(mSource, isFBX, listener, resourceMap);
         } else {
-            mNative3dObject = new ObjectJni(mSource, listener);
+            mNative3dObject = new ObjectJni(mSource, isFBX, listener);
         }
         setGeometry(mNative3dObject);
 

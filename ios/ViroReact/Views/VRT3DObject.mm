@@ -41,7 +41,7 @@
     return;
   }
   
-  // Only reload the OBJ if its source changed
+  // Only reload the model if its source changed
   if (!_sourceChanged) {
       return;
   }
@@ -58,8 +58,15 @@
   if (self.onLoadStartViro) {
     self.onLoadStartViro(nil);
   }
-    
-  VROOBJLoader::loadOBJFromURL(url, base, true,
+  
+  BOOL isOBJ = NO;
+  std::string urlPath = std::string([[_url path] UTF8String]);
+  VROStringUtil::toLowerCase(urlPath);
+  if (VROStringUtil::endsWith(urlPath, "obj")) {
+    isOBJ = YES;
+  }
+  
+  std::function<void(std::shared_ptr<VRONode> node, bool success)> onFinish =
   [self](std::shared_ptr<VRONode> node, bool success) {
     if (success) {
       self.node->setGeometry(node->getGeometry());
@@ -69,14 +76,21 @@
     }
     
     if (self.onLoadEndViro) {
-        self.onLoadEndViro(nil);
+      self.onLoadEndViro(nil);
     }
     if (!success) {
       if (self.onErrorViro) {
-        self.onErrorViro(@{ @"error": @"OBJ failed to load" });
+        self.onErrorViro(@{ @"error": @"model failed to load" });
       }
     }
-  });
+  };
+  
+  if (isOBJ) {
+    VROOBJLoader::loadOBJFromURL(url, base, true, onFinish);
+  }
+  else {
+    VROFBXLoader::loadFBXFromURL(url, base, true, onFinish);
+  }
   _sourceChanged = NO;
 }
 
