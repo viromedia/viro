@@ -74,6 +74,14 @@ public:
      */
     void passert_thread();
     
+    /*
+     Temporarily enable or disable thread checking. When false, 
+     passert_thread() is a no-op.
+     */
+    void setThreadRestrictionEnabled(bool enabled) {
+        _enabled = enabled;
+    }
+    
 private:
 
     /*
@@ -82,6 +90,12 @@ private:
      */
     VROThreadName _restricted_thread_name;
     pthread_t _restricted_thread;
+    
+    /*
+     True if thread restriction checking is enabled for this object.
+     When false, passert_thread is a no-op.
+     */
+    bool _enabled;
     
 };
 

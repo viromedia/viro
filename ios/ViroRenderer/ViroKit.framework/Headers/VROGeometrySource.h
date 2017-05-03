@@ -15,8 +15,6 @@
 #include "VROData.h"
 #include "VROBoundingBox.h"
 
-class VROGeometrySourceSubstrate;
-
 enum class VROGeometrySourceSemantic {
     Vertex,
     Normal,
@@ -154,12 +152,6 @@ private:
      The number of bytes from one vertex in the data to the next.
      */
     int _dataStride;
-    
-    /*
-     The representation of this geometry source in the underlying graphics
-     engine.
-     */
-    VROGeometrySourceSubstrate *_substrate;
     
 };
 

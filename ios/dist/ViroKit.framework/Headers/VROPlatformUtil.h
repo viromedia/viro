@@ -58,6 +58,7 @@ void VROPlatformDeleteFile(std::string filename);
 
 #pragma mark - Image Loading
 
+// Returns empty shared_ptr on failure
 std::shared_ptr<VROImage> VROPlatformLoadImageFromFile(std::string filename, VROTextureInternalFormat format);
 
 #if VRO_PLATFORM_ANDROID

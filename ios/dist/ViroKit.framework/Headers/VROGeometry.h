@@ -17,6 +17,7 @@
 #include "VRODriver.h"
 #include "VROSortKey.h"
 #include "VROBoundingBox.h"
+#include "VROAnimatable.h"
 #include "VROAllocationTracker.h"
 
 class VRONode;
@@ -35,7 +36,7 @@ enum class VROGeometrySourceSemantic;
  the visible elements of a scene, and VROMaterial objects attached to a geometry determine its 
  appearance.
  */
-class VROGeometry {
+class VROGeometry : public VROAnimatable {
     
 public:
     
@@ -51,6 +52,18 @@ public:
         _substrate(nullptr) {
             
          ALLOCATION_TRACKER_ADD(Geometry, 1);
+    }
+    
+    /*
+     Construct a new geometry with no sources or elements. These are expected
+     to be set by the subclass.
+     */
+    VROGeometry() :
+        _cameraEnclosure(false),
+        _bounds(nullptr),
+        _substrate(nullptr) {
+        
+        ALLOCATION_TRACKER_ADD(Geometry, 1);
     }
     
     /*
@@ -73,7 +86,7 @@ public:
     void prewarm(std::shared_ptr<VRODriver> driver);
 
     void render(int elementIndex,
-                std::shared_ptr<VROMaterial> &material,
+                const std::shared_ptr<VROMaterial> &material,
                 VROMatrix4f transform,
                 VROMatrix4f normalMatrix,
                 float opacity,
@@ -89,13 +102,13 @@ public:
         return _materials[elementIndex % _materials.size()];
     }
     
-    std::vector<std::shared_ptr<VROMaterial>> &getMaterials() {
+    virtual void setMaterials(std::vector<std::shared_ptr<VROMaterial>> materials) {
+        _materials = materials;
+    }
+    const std::vector<std::shared_ptr<VROMaterial>> &getMaterials() {
         return _materials;
     }
-    const std::vector<std::shared_ptr<VROMaterial>> &getMaterials_const() const {
-        return _materials;
-    }
-    
+       
     const std::vector<std::shared_ptr<VROGeometrySource>> &getGeometrySources() const {
         return _geometrySources;
     }
@@ -122,6 +135,17 @@ public:
     
     std::vector<std::shared_ptr<VROGeometrySource>> getGeometrySourcesForSemantic(VROGeometrySourceSemantic semantic) const;
     
+protected:
+    
+    void setSources(std::vector<std::shared_ptr<VROGeometrySource>> sources) {
+        _geometrySources = sources;
+        updateSubstrate();
+    }
+    void setElements(std::vector<std::shared_ptr<VROGeometryElement>> elements) {
+        _geometryElements = elements;
+        updateSubstrate();
+    }
+    
 private:
     
     /*
@@ -140,8 +164,8 @@ private:
      the element at index 5 is rendered using the material at index 5 % 3 = 2.
      */
     std::vector<std::shared_ptr<VROMaterial>> _materials;
-    const std::vector<std::shared_ptr<VROGeometrySource>> _geometrySources;
-    const std::vector<std::shared_ptr<VROGeometryElement>> _geometryElements;
+    std::vector<std::shared_ptr<VROGeometrySource>> _geometrySources;
+    std::vector<std::shared_ptr<VROGeometryElement>> _geometryElements;
     
     /*
      Used for sorting the elements prior to rendering.
@@ -163,6 +187,12 @@ private:
      Representation of this geometry in the underlying graphics library.
      */
     VROGeometrySubstrate *_substrate;
+    
+    /*
+     Invoke when the substrate needs to be refreshed (typically when underlying
+     geometry sources or elements change).
+     */
+    void updateSubstrate();
     
 };
 

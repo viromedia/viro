@@ -57,10 +57,6 @@ private:
                                                    std::string base,
                                                    bool isBaseURL,
                                                    std::map<std::string, std::string> *resourceMap = nullptr);
-    static std::shared_ptr<VROTexture> loadTexture(std::string &name, std::string &base, bool isBaseURL,
-                                                   std::map<std::string, std::string> *resourceMap,
-                                                   std::map<std::string, std::shared_ptr<VROTexture>> &cache);
-    
 };
 
 #endif /* VROOBJLoader_h */
