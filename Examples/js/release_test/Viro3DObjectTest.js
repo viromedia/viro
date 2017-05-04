@@ -75,9 +75,10 @@ var Viro3DObjectTest = React.createClass({
           />
        </ViroAnimatedComponent>
 
-       <Viro3DObject source={require('./res/heart.proto')}
-                     position={[0, 0, -1.0]}
+       <Viro3DObject source={require('./res/minion.proto')}
+                     position={[0, 0, -12.0]}
                      rotation={[0, 0, 0]}
+                     scale={[0.1, 0.1, 0.1]}
        />
 
        <ViroAnimatedComponent animation="loopRotate" run={this.state.runAnimation2} >

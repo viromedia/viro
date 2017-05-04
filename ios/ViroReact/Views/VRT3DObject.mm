@@ -69,7 +69,14 @@
   std::function<void(std::shared_ptr<VRONode> node, bool success)> onFinish =
   [self](std::shared_ptr<VRONode> node, bool success) {
     if (success) {
+      // The geometry is set for OBJ models
       self.node->setGeometry(node->getGeometry());
+      
+      // The children are set for FBX models (in FBX, the root node is a dummy node)
+      for (std::shared_ptr<VRONode> child : node->getSubnodes()) {
+        self.node->addChildNode(child);
+      }
+      
       if (self.materials) {
         [self applyMaterials];
       }
