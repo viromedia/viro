@@ -22,6 +22,11 @@ class VRONode;
 class VROTexture;
 class VROGeometry;
 
+namespace viro {
+    class Node;
+    class Node_Geometry;
+}
+
 class VROFBXLoader {
     
 public:
@@ -46,8 +51,23 @@ private:
     
     static void injectFBX(std::shared_ptr<VRONode> fbxNode, std::shared_ptr<VRONode> node,
                           std::function<void(std::shared_ptr<VRONode> node, bool success)> onFinish);
+    
+    /*
+     Load the FBX subgraph for the given file. The top-level node returned here is a dummy; all the
+     data is stored in its children.
+     */
     static std::shared_ptr<VRONode> loadFBX(std::string file, std::string base, bool isBaseURL,
                                             const std::map<std::string, std::string> *resourceMap);
+    
+    static std::shared_ptr<VRONode> loadFBXNode(const viro::Node &node_pb,
+                                                std::string base, bool isBaseURL,
+                                                const std::map<std::string, std::string> *resourceMap,
+                                                std::map<std::string, std::shared_ptr<VROTexture>> &textureCache);
+    
+    static std::shared_ptr<VROGeometry> loadFBXGeometry(const viro::Node_Geometry &geo_pb,
+                                                        std::string base, bool isBaseURL,
+                                                        const std::map<std::string, std::string> *resourceMap,
+                                                        std::map<std::string, std::shared_ptr<VROTexture>> &textureCache);
     
 };
 

@@ -36,11 +36,34 @@ public:
     VROScene();
     virtual ~VROScene();
     
+    /*
+     Render the background of the scene.
+     */
     void renderBackground(const VRORenderContext &context,
                           std::shared_ptr<VRODriver> &driver);
+    
+    /*
+     Render the visible nodes in this scene's graph, using their
+     latest computed transforms and in an order determined by their
+     latest computed sort keys.
+     */
     void render(const VRORenderContext &context,
                 std::shared_ptr<VRODriver> &driver);
     
+    /*
+     Compute the transforms, recursively, for all nodes in this scene.
+     */
+    void computeTransforms(const VRORenderContext &context);
+    
+    /*
+     Apply transformation constraints (e.g. billboarding) to all nodes in
+     the scene.
+     */
+    void applyConstraints(const VRORenderContext &context);
+    
+    /*
+     Update the sort keys for all nodes in this scene.
+     */
     void updateSortKeys(const VRORenderContext &context,
                         std::shared_ptr<VRODriver> &driver);
 

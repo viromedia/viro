@@ -58,29 +58,29 @@ private:
     float _thickness;
     float _endThickness;
 
-    /**
-     * Cached x y points describing a circle with kCircleSegments, used
-     * to draw the reticleLine and fuseLine.
+    /*
+     Cached x y points describing a circle with kCircleSegments, used
+     to draw the reticleLine and fuseLine.
      */
     std::vector<VROVector3f> _cachedCirclePoints;
     std::vector<VROVector3f> createArc(float radius, int numSegments);
 
-    /**
-     * Helper function to render each node in the reticle.
+    /*
+     Helper function to render each node in the reticle.
      */
-    void renderNode(std::shared_ptr<VRONode> node, VRORenderParameters renderParams,
+    void renderNode(std::shared_ptr<VRONode> node, VROMatrix4f parentTransform,
                     const VRORenderContext &renderContext, std::shared_ptr<VRODriver> &driver);
 
-    /**
-     * Nodes containing the UI components of the reticle. It can be
-     * a line or an icon (image) reticle.
+    /*
+     Nodes containing the UI components of the reticle. It can be
+     a line or an icon (image) reticle.
      */
     std::shared_ptr<VRONode> _reticleBaseNode;
     std::shared_ptr<VROSurface> _reticleIcon;
     std::shared_ptr<VROPolyline> _reticleLine;
 
-    /**
-     * Nodes containing the UI components of the reticle when it is fused.
+    /*
+     Nodes containing the UI components of the reticle when it is fused.
      */
     std::shared_ptr<VRONode> _fuseNode;
     std::shared_ptr<VROPolyline>  _fuseLine;
@@ -89,15 +89,15 @@ private:
     std::shared_ptr<VRONode> _fuseTriggeredNode;
     std::shared_ptr<VROPolyline> _fuseTriggeredLine;
 
-    /**
-     * True when we are currently animating the reticle with a fuse ratio under
-     * animateFuse(). False if we've stopped with stopFuseAnimation().
+    /*
+     True when we are currently animating the reticle with a fuse ratio under
+     animateFuse(). False if we've stopped with stopFuseAnimation().
      */
     bool _isFusing;
 
-    /**
-     * True when we have already ran the fuseTriggered animation for the
-     * current fuse state.
+    /*
+     True when we have already ran the fuseTriggered animation for the
+     current fuse state.
      */
     bool _fuseTriggered;
     void animateFuseTriggered();
