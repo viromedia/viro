@@ -20,6 +20,7 @@ import com.viromedia.bridge.component.SoundManager;
 import com.viromedia.bridge.component.SpatialSoundManager;
 import com.viromedia.bridge.component.SpotLightManager;
 import com.viromedia.bridge.component.node.control.Object3dManager;
+import com.viromedia.bridge.component.node.control.PolylineManager;
 import com.viromedia.bridge.component.node.control.TextManager;
 import com.viromedia.bridge.component.Video360Manager;
 import com.viromedia.bridge.component.node.control.CameraManager;
@@ -109,7 +110,8 @@ public class ReactViroPackage implements ReactPackage {
                 new OmniLightManager(reactContext),
                 new TextManager(reactContext),
                 new Object3dManager(reactContext),
-                new ControllerManager(reactContext)
+                new ControllerManager(reactContext),
+                new PolylineManager(reactContext)
         );
     }
 }
