@@ -53,7 +53,11 @@ var GroupTestMaterials = React.createClass({
     var newMaterial;
     var transformText;
     var heartMat;
-    if (this.state.materialFlag == 1 || this.state.materialFlag == 0){
+    if (this.state.materialFlag == 0) {
+        newMaterial = "none";
+        transformText = "none";
+        heartMat="none";
+    } else if (this.state.materialFlag == 1){
         newMaterial="redColor";
         transformText = "redColor";
         heartMat="heartRed";
