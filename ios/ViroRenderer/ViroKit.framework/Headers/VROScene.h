@@ -56,6 +56,11 @@ public:
     void computeTransforms(const VRORenderContext &context);
     
     /*
+     Update the visibility status of all nodes in the scene graph.
+     */
+    void updateVisibility(const VRORenderContext &context);
+    
+    /*
      Apply transformation constraints (e.g. billboarding) to all nodes in
      the scene.
      */

@@ -25,6 +25,7 @@
 #include "VROLog.h"
 #include "VROEventDelegate.h"
 #include "VROSound.h"
+#include "VROFrustumBoxIntersectionMetadata.h"
 #include "VROThreadRestricted.h"
 
 class VROGeometry;
@@ -76,6 +77,12 @@ public:
                            VROMatrix4f parentRotation);
     
     /*
+     Update the visibility status of this node, using the camera in the current render
+     context. This will update the _visible flag. Recurses to children.
+     */
+    void updateVisibility(const VRORenderContext &context);
+    
+    /*
      Recursively applies transformation constraints (e.g. billboarding) to this node
      and its children.
      */
@@ -83,15 +90,18 @@ public:
                           bool parentUpdated);
     
     /*
-     Recursively updates the sort keys of this node, preparing it and its children
+     Recursively updates the sort keys of this node, preparing this node and its children
      for rendering. This method also computes non-transform-related parameters for each
      node (opacity, lights, etc.) that are required prior to render.
+     
+     Note: this method and getSortKeys() *only* apply to visible nodes. Invisible nodes
+     are skipped.
      */
     void updateSortKeys(uint32_t depth,
                         VRORenderParameters &params,
                         const VRORenderContext &context,
                         std::shared_ptr<VRODriver> &driver);
-    void getSortKeys(std::vector<VROSortKey> *outKeys);
+    void getSortKeysForVisibleNodes(std::vector<VROSortKey> *outKeys);
     
     /*
      Render the given element of this node's geometry, using its latest computed transforms.
@@ -201,6 +211,23 @@ public:
     void setHierarchicalRendering(bool hierarchicalRendering) {
         _hierarchicalRendering = hierarchicalRendering;
     }
+    
+    /*
+     Returns true if this node was found visible during the last call to
+     computeVisibility(). If a node is not visible, that means none of its
+     children are visible either (we use the umbrella bounding box for
+     visibility tests).
+     */
+    bool isVisibile() const {
+        return _visible;
+    }
+    
+    /*
+     Debug function to count the number of visible nodes (including this
+     node if visible, then recursively descending from this node's children)
+     since the last call to computeVisibility().
+     */
+    int countVisibleNodes() const;
     
     /*
      Lights.
@@ -371,7 +398,15 @@ private:
     float _computedOpacity;
     std::vector<std::shared_ptr<VROLight>> _computedLights;
     VROVector3f _computedPosition;
+    
+    /*
+     The transformed bounding box containing this node's geometry. The 
+     _umbrellaBoundingBox encompasses not only this geometry, but the geometries
+     of all this node's children.
+     */
     VROBoundingBox _computedBoundingBox;
+    VROBoundingBox _umbrellaBoundingBox;
+    VROFrustumBoxIntersectionMetadata _umbrellaBoxMetadata;
     
     /*
      True if this node is hidden. Hidden nodes are not rendered, and do not 
@@ -402,7 +437,7 @@ private:
 
     /*
      True if we want to perform more accurate hit testing against this node's geometry
-     rather than it's bounding box.
+     rather than its bounding box.
      */
     bool _highAccuracyGaze;
 
@@ -422,6 +457,22 @@ private:
      2D layouts like flexbox views. Defaults to false.
      */
     bool _hierarchicalRendering;
+    
+    /*
+     True if this node was found visible during the last call to computeVisibility().
+     */
+    bool _visible;
+    
+    /*
+     Recursively set the visibility of this node and all of its children to the 
+     given value.
+     */
+    void setVisibilityRecursive(bool visible);
+    
+    /*
+     Recursively expand the given bounding box by this node's _computedBoundingBox.
+     */
+    void computeUmbrellaBounds(VROBoundingBox *bounds) const;
     
     /*
      Compute the transform for this node, taking into the account the parent's transform.
