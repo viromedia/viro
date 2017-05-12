@@ -60,9 +60,6 @@ public class Text extends Control {
     }
 
     public void setText(String text) {
-        if (text == null || text.isEmpty()) {
-            return;
-        }
         mText = text;
     }
 
@@ -94,7 +91,7 @@ public class Text extends Control {
     }
 
     private void updateLabel() {
-        if (mRenderContext == null || isTornDown()) {
+        if (mRenderContext == null || isTornDown() || mText == null) {
             return;
         }
 

@@ -29,7 +29,7 @@ var ViroText = React.createClass({
     ...View.propTypes,
     position: PropTypes.arrayOf(PropTypes.number),
     rotation: PropTypes.arrayOf(PropTypes.number),
-    text: PropTypes.string,
+    text: PropTypes.string.isRequired,
     color: ColorPropType,
     width: PropTypes.number,
     height: PropTypes.number,

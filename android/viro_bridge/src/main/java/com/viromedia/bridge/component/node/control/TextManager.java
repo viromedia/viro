@@ -40,7 +40,7 @@ public class TextManager extends NodeManager<Text> {
     }
 
     @ReactProp(name = "text")
-    public void setHeight(Text text, String textString) {
+    public void setText(Text text, String textString) {
         text.setText(textString);
     }
 
