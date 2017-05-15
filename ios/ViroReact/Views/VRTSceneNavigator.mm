@@ -56,7 +56,12 @@ static NSString *const kVRTInvalidAPIKeyMessage = @"The given API Key is either 
   [_vroView setVrMode:_vrModeEnabled];
 }
 
--(UIView *)rootVROView {
+- (void)recenterTracking {
+  VROViewCardboard *cardboardView = _vroView;
+  [cardboardView recenterTracking];
+}
+
+- (UIView *)rootVROView {
   return (UIView *)_vroView;
 }
 

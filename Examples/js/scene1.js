@@ -30,7 +30,7 @@ import {
 var scene1 = React.createClass({
   render: function() {
     return (
-        <ViroScene position={[0,0,0]} reticleEnabled={false} >
+        <ViroScene position={[0,0,0]} reticleEnabled={false} onClick={this._recenterTracking} >
           <ViroSkyBox source={{nx:require("./res/sun_2302.jpg"),
                                px:require("./res/sun_2302.jpg"),
                                ny:require("./res/sun_2302.jpg"),
@@ -50,6 +50,9 @@ var scene1 = React.createClass({
             onLoadStart={this._onLoadStart("Image")} onLoadEnd={this._onLoadEnd("Image")} />
         </ViroScene>
     );
+  },
+  _recenterTracking() {
+    this.props.sceneNavigator.recenterTracking();
   },
   _onLoadStart(component) {
     return () => {

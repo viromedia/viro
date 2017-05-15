@@ -88,6 +88,7 @@ var ViroSceneNavigator = React.createClass({
       exitViro: this.exitViro,
       // pass the viroAppProps to every scene, these aren't meant to ever change.
       viroAppProps: this.props.viroAppProps,
+      recenterTracking: this._recenterTracking,
     };
     // If the user simply passes us the props from the root React component, then we'll
     // have an extra 'rootTag' key which React includes.
@@ -391,6 +392,10 @@ var ViroSceneNavigator = React.createClass({
 
   _getNodeHandle: function(): any {
     return findNodeHandle(this.refs[SCENE_NAVIGATOR_REF]);
+  },
+
+  _recenterTracking() {
+    ViroSceneNavigatorModule.recenterTracking(this._getNodeHandle());
   },
 
   _renderSceneStackItems: function() {

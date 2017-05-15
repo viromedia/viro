@@ -34,6 +34,8 @@ import java.util.ArrayList;
 public class SceneNavigator extends FrameLayout {
     private static final String TAG = ViroLog.getTag(SceneNavigator.class);
 
+    private static final String DAYDREAM = "daydream";
+
     private static class InnerGLListener implements GlListener {
 
         private WeakReference<SceneNavigator> mNavigator;
@@ -359,6 +361,13 @@ public class SceneNavigator extends FrameLayout {
         Intent intent = new Intent();
         intent.setAction(ReactViroPackage.ON_EXIT_VIRO_BROADCAST);
         LocalBroadcastManager.getInstance(mReactContext.getApplicationContext()).sendBroadcast(intent);
+    }
+
+    public void recenterTracking() {
+        if (mVrView.getHeadset().equalsIgnoreCase(DAYDREAM)) {
+            throw new IllegalStateException("recenterTracking should not be invoked on Daydream devices.");
+        }
+        mVrView.recenterTracking();
     }
 
     private static class OnGVRExitListener implements Runnable{

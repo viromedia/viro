@@ -37,4 +37,19 @@ public class SceneNavigatorModule extends ReactContextBaseJavaModule {
             }
         });
     }
+
+    @ReactMethod
+    public void recenterTracking(final int sceneNavTag) {
+        UIManagerModule uiManager = getReactApplicationContext().getNativeModule(UIManagerModule.class);
+        uiManager.addUIBlock(new UIBlock() {
+            @Override
+            public void execute(NativeViewHierarchyManager nativeViewHierarchyManager) {
+                View view = nativeViewHierarchyManager.resolveView(sceneNavTag);
+                if (view instanceof SceneNavigator) {
+                    SceneNavigator sceneNavigator = (SceneNavigator) view;
+                    sceneNavigator.recenterTracking();
+                }
+            }
+        });
+    }
 }
