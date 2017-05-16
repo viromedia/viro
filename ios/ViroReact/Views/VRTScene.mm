@@ -193,6 +193,21 @@ static NSArray<NSNumber *> *const kDefaultSize = @[@(0), @(0), @(0)];
   self.context = (VRORenderContext *)context;
 }
 
+- (void)setPhysicsWorld:(NSDictionary *)dictionary{
+    std::shared_ptr<VROPhysicsWorld> physicsWorld = [self scene]->getPhysicsWorld();
+    NSArray *gravity = [dictionary objectForKey:@"gravity"];
+    if (gravity != nil){
+        if ([gravity count] !=3){
+            RCTLogError(@"Insufficient paramters provided for gravity, expected: [x, y, z]!");
+        } else {
+            VROVector3f gravity3f = VROVector3f([[gravity objectAtIndex:1] floatValue],
+                                                [[gravity objectAtIndex:2] floatValue],
+                                                [[gravity objectAtIndex:3] floatValue]);
+            physicsWorld->setGravity(gravity3f);
+        }
+    }
+}
+
 /**
  * Log out debug information specific to this scene, such as Camera forward vector
  * in cartesian and polar formats.

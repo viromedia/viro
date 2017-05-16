@@ -33,42 +33,42 @@ const int k2DPointsPerSpatialUnit = 1000;
     _visible = YES; // default to visible.
     _opacity = 1.0; //default opacity to 1.0
     _highAccuracyGaze = NO;
-      
+
     // Create and attach event delegate
     _eventDelegate = std::make_shared<VROEventDelegateiOS>(self);
     _node->setEventDelegate(_eventDelegate);
   }
-  
+
   return self;
 }
 
 - (void)insertReactSubview:(UIView *)view atIndex:(NSInteger)atIndex {
   VRTView *vroView = (VRTView *)view;
-  
+
   if ([vroView isKindOfClass:[VRTLight class]]) {
     VRTLight *light = (VRTLight *)vroView;
     self.node->addLight([light light]);
   }
-  
+
   else if ([vroView isKindOfClass:[VRTNode class]]) {
     VRTNode *nodeView = (VRTNode *)vroView;
     self.node->addChildNode(nodeView.node);
   }
-  
+
   else if ([vroView isKindOfClass:[VRTAnimatedComponent class]]) {
     /*
      Add all children (the targets of the animation) to the node.
      */
     NSArray *subsubViews = [vroView reactSubviews];
     BOOL childFound = false;
-    
+
     for(VRTView *subsubview in subsubViews){
       if (![subsubview isKindOfClass:[VRTNode class]]) {
         continue;
       }
-      
+
       VRTNode *subsubNodeView = (VRTNode *)subsubview;
-      
+
       std::vector<std::shared_ptr<VRONode>> subnodeArray = self.node->getSubnodes();
       for(std::shared_ptr<VRONode> node: subnodeArray){
         if(node.get() == subsubNodeView.node.get()){
@@ -76,29 +76,31 @@ const int k2DPointsPerSpatialUnit = 1000;
           break;
         }
       }
-      
+
       if(!childFound){
         self.node->addChildNode(subsubNodeView.node);
       }
     }
   }
-  
+
   [super insertReactSubview:view atIndex:atIndex];
 }
 
 - (void)removeReactSubview:(UIView *)subview {
+  [self clearPhysicsBody];
+
   VRTView *vroView = (VRTView *)subview;
-  
+
   if ([vroView isKindOfClass:[VRTLight class]]) {
     VRTLight *light = (VRTLight *)vroView;
     self.node->removeLight([light light]);
   }
-  
+
   else if ([vroView isKindOfClass:[VRTNode class]]) {
     VRTNode *nodeView = (VRTNode *)vroView;
     nodeView.node->removeFromParentNode();
   }
-  
+
   else if ([vroView isKindOfClass:[VRTAnimatedComponent class]]) {
     /*
      Remove the child (the target of the animation) from the node.
@@ -107,41 +109,13 @@ const int k2DPointsPerSpatialUnit = 1000;
       if (![subsubview isKindOfClass:[VRTNode class]]) {
         continue;
       }
-      
+
       VRTNode *subsubNodeView = (VRTNode *)subsubview;
       subsubNodeView.node->removeFromParentNode();
     }
   }
-  
+
   [super removeReactSubview:subview];
-}
-
--(void)onHoverViro:(RCTDirectEventBlock)block {
-    _onHoverViro = block;
-}
-
--(void)onClickViro:(RCTDirectEventBlock)block {
-    _onClickViro = block;
-}
-
--(void)setCanHover:(BOOL)canHover {
-    _canHover = canHover;
-    self.eventDelegate->setEnabledEvent(VROEventDelegate::EventAction::OnHover, canHover);
-}
-
--(void)setCanClick:(BOOL)canClick {
-    _canClick = canClick;
-    self.eventDelegate->setEnabledEvent(VROEventDelegate::EventAction::OnClick, canClick);
-}
-
--(void)setCanFuse:(BOOL)canFuse {
-    _canFuse = canFuse;
-    self.eventDelegate->setEnabledEvent(VROEventDelegate::EventAction::OnFuse, canFuse);
-}
-
--(void)setTimeToFuse:(float)durationMillis {
-    _timeToFuse = durationMillis;
-    self.eventDelegate->setTimeToFuse(durationMillis);
 }
 
 - (void)setPosition:(NSArray<NSNumber *> *)position {
@@ -216,24 +190,24 @@ const int k2DPointsPerSpatialUnit = 1000;
   if (!self.node || !self.materials) {
     return;
   }
-  
+
   std::shared_ptr<VROGeometry> geometry = self.node->getGeometry();
   if (!geometry) {
     return;
   }
-  
+
   VRTMaterialManager *materialManager = [self.bridge moduleForClass:[VRTMaterialManager class]];
 
   std::vector<std::shared_ptr<VROMaterial>> tempMaterials;
   for (int i = 0; i < self.materials.count; i++) {
     NSString *materialName = [self.materials objectAtIndex:i];
-    
+
     std::shared_ptr<VROMaterial> material = [materialManager getMaterialByName:materialName];
     if (material == NULL) {
       RCTLogError(@"Unknown Material Name: \"%@\"", materialName);
       return;
     }
-    
+
     // Always copy materials from the material manager, as they may be
     // modified by animations, etc. and we don't want these changes to
     // propagate to the reference material held by the material manager
@@ -258,7 +232,7 @@ const int k2DPointsPerSpatialUnit = 1000;
   // Convert the frame so it works with anchorPoint = center.
   CGPoint position = {CGRectGetMidX(frame), CGRectGetMidY(frame)};
   CGRect bounds = {CGPointZero, frame.size};
-  
+
   self.position2DFlex = position;
   self.centerPoint2DFlex = CGPointMake(bounds.size.width/2, bounds.size.height/2);
   self.bounds2DFlex = bounds;
@@ -272,7 +246,34 @@ const int k2DPointsPerSpatialUnit = 1000;
   return NO;
 }
 
-#pragma mark default implementations for VRTEventDelegateProtocol
+#pragma mark VRTEventDelegateProtocol Delegates
+-(void)onHoverViro:(RCTDirectEventBlock)block {
+    _onHoverViro = block;
+}
+
+-(void)onClickViro:(RCTDirectEventBlock)block {
+    _onClickViro = block;
+}
+
+-(void)setCanHover:(BOOL)canHover {
+    _canHover = canHover;
+    self.eventDelegate->setEnabledEvent(VROEventDelegate::EventAction::OnHover, canHover);
+}
+
+-(void)setCanClick:(BOOL)canClick {
+    _canClick = canClick;
+    self.eventDelegate->setEnabledEvent(VROEventDelegate::EventAction::OnClick, canClick);
+}
+
+-(void)setCanFuse:(BOOL)canFuse {
+    _canFuse = canFuse;
+    self.eventDelegate->setEnabledEvent(VROEventDelegate::EventAction::OnFuse, canFuse);
+}
+
+-(void)setTimeToFuse:(float)durationMillis {
+    _timeToFuse = durationMillis;
+    self.eventDelegate->setTimeToFuse(durationMillis);
+}
 
 -(void)onHover:(int)source isHovering:(bool)isHovering {
     if (self.onHoverViro != nil) {
@@ -294,4 +295,196 @@ const int k2DPointsPerSpatialUnit = 1000;
     }
 }
 
+#pragma mark Physics Implementations
+- (void)setScene:(std::shared_ptr<VROScene>)scene {
+    [super setScene:scene];
+
+    std::shared_ptr<VROPhysicsBody> body = [self node]->getPhysicsBody();
+    if (body){
+        scene->getPhysicsWorld()->addPhysicsBody(body);
+    }
+}
+
+- (void)clearPhysicsBody{
+    std::shared_ptr<VROPhysicsBody> body = [self node]->getPhysicsBody();
+    if (self.scene && body){
+        self.scene->getPhysicsWorld()->removePhysicsBody(body);
+    }
+
+    [self node]->clearPhysicsBody();
+}
+
+- (std::shared_ptr<VROPhysicsBody>)createPhysicsBody:(VROPhysicsBody::VROPhysicsBodyType) bodyType
+                                            withMass:(float)mass
+                                           withShape:(std::shared_ptr<VROPhysicsShape>) phsyicsShape{
+    std::shared_ptr<VROPhysicsBody> body = [self node]->initPhysicsBody(bodyType,
+                                                                        mass,
+                                                                        phsyicsShape);
+    if (self.scene){
+        self.scene->getPhysicsWorld()->addPhysicsBody(body);
+    }
+
+    return body;
+}
+
+- (void)setPhysicsBody:(NSDictionary *)dictionary{
+    // If un-setting the physicsBody, clear it from the node.
+    if (!dictionary){
+        [self clearPhysicsBody];
+        self.physicsDictionary = dictionary;
+        return;
+    }
+
+    // Else update the current physicsBody with the new properties, recreating
+    // the body if needed. Log and return if an error has occured.
+    if (![self recreatePhysicsBodyIfNeeded:dictionary]
+        || ![self updatePhysicsBodyProperties:dictionary]){
+        return;
+    }
+
+    // Finally save a copy of the last known set physics properties.
+    self.physicsDictionary = dictionary;
+}
+
+- (bool)recreatePhysicsBodyIfNeeded:(NSDictionary *)dictionary{
+    // Determine if the physics body type has changed
+    NSString *nsStringBodyTypeProp = [dictionary objectForKey:@"type"];
+    NSString *nsStringBodyTypeCurrent = nullptr;
+    if (self.physicsDictionary){
+        nsStringBodyTypeCurrent = [self.physicsDictionary objectForKey:@"type"];
+    }
+
+    bool hasBodyTypeChanged = nsStringBodyTypeProp != nsStringBodyTypeCurrent;
+    if (nsStringBodyTypeProp){
+        hasBodyTypeChanged = ![nsStringBodyTypeProp isEqualToString:nsStringBodyTypeCurrent];
+    }
+    std::string stringBodyType = std::string([nsStringBodyTypeProp UTF8String]);
+
+    // Check if the provided phsyics body type with the given mass is valid.
+    std::string errorMsg;
+    float mass = [[dictionary objectForKey:@"mass"] floatValue];
+    bool isValid = VROPhysicsBody::isValidType(stringBodyType, mass, errorMsg);
+    if (!isValid){
+        RCTLogError(@"%@", [NSString stringWithUTF8String:errorMsg.c_str()]);
+        return false;
+    }
+
+    // Determine if the physics shape has changed
+    NSDictionary *nsShapeDictionaryProp = [dictionary objectForKey:@"shape"];
+    NSDictionary *nsShapeDictionaryCurrent = nullptr;
+    if (self.physicsDictionary){
+        nsShapeDictionaryCurrent = [self.physicsDictionary objectForKey:@"shape"];
+    }
+
+    bool hasBodyShapeChanged = nsShapeDictionaryProp != nsShapeDictionaryCurrent;
+    if (nsShapeDictionaryProp){
+        hasBodyTypeChanged = ![nsShapeDictionaryProp isEqualToDictionary:nsShapeDictionaryCurrent];
+    }
+
+    // Create or update the VROPhysicsBody only if needed
+    std::shared_ptr<VROPhysicsBody> body = [self node]->getPhysicsBody();
+    if (!body || hasBodyTypeChanged || hasBodyShapeChanged){
+        std::shared_ptr<VROPhysicsShape> propPhysicsShape = nullptr;
+
+        // Recreate a physics shape with the latest properties by grabbing
+        // the current shapeType (required in JS if providing a physics shape)
+        if (nsShapeDictionaryProp){
+            NSString *stringShapeName = [nsShapeDictionaryProp objectForKey:@"type"];
+            std::string strShapeName = std::string([stringShapeName UTF8String]);
+
+            // Grab the current shapeParams
+            NSArray *shapeParams = [nsShapeDictionaryProp objectForKey:@"params"];
+            std::vector<float> params = {};
+            if (shapeParams){
+                for (int i = 0; i < [shapeParams count]; i ++){
+                    float value = [[shapeParams objectAtIndex:i] floatValue];
+                    params.push_back(value);
+                }
+            }
+
+            // Check if an invalid shape and param was provided.
+            std::string errorMsg;
+            bool isValid = VROPhysicsShape::isValidShape(strShapeName, params, errorMsg);
+            if (!isValid){
+                RCTLogError(@"%@", [NSString stringWithUTF8String:errorMsg.c_str()]);
+                return false;
+            }
+
+            // Create a VROPhysicsShape
+            VROPhysicsShape::VROShapeType propShapeType
+                                    = VROPhysicsShape::getTypeForString(strShapeName);
+            propPhysicsShape = std::make_shared<VROPhysicsShape>(propShapeType, params);
+        }
+
+        // Re-create the physics body if the type has changed or if one doesn't exists.
+        if (!body || hasBodyTypeChanged){
+            // Clean up the existing physicsBody if it exists.
+            [self clearPhysicsBody];
+
+            // Create and attach the Physics body to the scene
+            VROPhysicsBody::VROPhysicsBodyType propBodyType
+                                    = VROPhysicsBody::getBodyTypeForString(stringBodyType);
+            body = [self createPhysicsBody:propBodyType withMass:mass withShape:propPhysicsShape];
+        } else if (hasBodyShapeChanged){
+            body->setPhysicsShape(propPhysicsShape);
+        }
+    }
+    return true;
+}
+
+- (bool)updatePhysicsBodyProperties:(NSDictionary *)dictionary {
+    std::shared_ptr<VROPhysicsBody> body = [self node]->getPhysicsBody();
+    float mass = [[dictionary objectForKey:@"mass"] floatValue];
+    std::string stringBodyType = std::string([[dictionary objectForKey:@"type"] UTF8String]);
+
+    NSArray *inertia = [dictionary objectForKey:@"inertia"];
+    if (inertia != nil){
+        if ([inertia count] != 3){
+            RCTLogError(@"Incorrect paramters provided for inertia, expected: [x, y, z]!");
+            return false;
+        }
+
+        VROVector3f inertia3f = VROVector3f([[inertia objectAtIndex:1] floatValue],
+                                            [[inertia objectAtIndex:2] floatValue],
+                                            [[inertia objectAtIndex:3] floatValue]);
+        body->setInertia(inertia3f);
+    }
+
+    if ([dictionary objectForKey:@"mass"]){
+        std::string errorMsg;
+        bool isValid = VROPhysicsBody::isValidType(stringBodyType, mass, errorMsg);
+        if (!isValid){
+            RCTLogError(@"%@", [NSString stringWithUTF8String:errorMsg.c_str()]);
+            return false;
+        }
+        body->setMass(mass);
+    }
+
+    if ([dictionary objectForKey:@"friction"]){
+        float friction = [[dictionary objectForKey:@"friction"] floatValue];
+        body->setFriction(friction);
+    }
+
+    if ([dictionary objectForKey:@"restitution"]){
+        float restitution = [[dictionary objectForKey:@"restitution"] floatValue];
+        body->setRestitution(restitution);
+    }
+
+    if ([dictionary objectForKey:@"enabled"]){
+        bool enabled = [[dictionary objectForKey:@"enabled"] boolValue];
+        body->setIsSimulated(enabled);
+    }
+
+    if ([dictionary objectForKey:@"useGravity"]){
+        bool useGravity = [[dictionary objectForKey:@"useGravity"] boolValue];
+        VROPhysicsBody::VROPhysicsBodyType propBodyType
+                                    = VROPhysicsBody::getBodyTypeForString(stringBodyType);
+        if (propBodyType != VROPhysicsBody::VROPhysicsBodyType::Dynamic && useGravity){
+            RCTLogWarn(@"Attempted to set useGravity for non-dynamic phsyics bodies.");
+        } else {
+            body->setUseGravity(useGravity);
+        }
+    }
+    return true;
+}
 @end

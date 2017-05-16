@@ -35,6 +35,7 @@ RCT_EXPORT_VIEW_PROPERTY(canFuse, BOOL)
 RCT_EXPORT_VIEW_PROPERTY(transformBehaviors, NSArray<NSString *>)
 RCT_EXPORT_VIEW_PROPERTY(visible, BOOL)
 RCT_REMAP_VIEW_PROPERTY(backgroundColor, flexBackgroundColor, UIColor) //backgroundColor is reserved
+RCT_EXPORT_VIEW_PROPERTY(physicsBody, NSDictionary)
 
 - (VRTFlexView *)view
 {

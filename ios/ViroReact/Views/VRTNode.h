@@ -11,7 +11,6 @@
 #import <React/RCTBridge.h>
 #import "VRTView.h"
 
-
 extern const int k2DPointsPerSpatialUnit;
 
 @interface VRTNode : VRTView<VROEventDelegateProtocol>
@@ -41,6 +40,9 @@ extern const int k2DPointsPerSpatialUnit;
 @property (nonatomic, assign) BOOL canFuse;
 @property (nonatomic, assign) BOOL highAccuracyGaze;
 @property (nonatomic, assign) float timeToFuse;
+
+// Physics properties
+@property (nonatomic, copy) NSDictionary *physicsDictionary;
 
 // Used for Flexbox enabled components, no-op for non flexbox related components.
 @property(nonatomic) CGPoint position2DFlex;

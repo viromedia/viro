@@ -28,6 +28,7 @@ RCT_EXPORT_VIEW_PROPERTY(materials, NSArray<NSString *>)
 RCT_EXPORT_VIEW_PROPERTY(visible, BOOL)
 RCT_EXPORT_VIEW_PROPERTY(opacity, float)
 RCT_EXPORT_VIEW_PROPERTY(transformBehaviors, NSArray<NSString *>)
+RCT_EXPORT_VIEW_PROPERTY(physicsBody, NSDictionary)
 
 - (VRTView *)view {
   return [[VRTPolyline alloc] initWithBridge:self.bridge];

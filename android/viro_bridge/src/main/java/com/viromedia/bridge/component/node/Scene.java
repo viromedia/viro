@@ -6,9 +6,12 @@ package com.viromedia.bridge.component.node;
 import android.view.View;
 
 import com.facebook.react.bridge.Arguments;
+import com.facebook.react.bridge.JSApplicationCausedNativeException;
 import com.facebook.react.bridge.ReactApplicationContext;
+import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.WritableMap;
+import com.facebook.react.uimanager.annotations.ReactProp;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
 import com.viro.renderer.jni.CameraCallback;
 import com.viro.renderer.jni.SceneJni;
@@ -168,6 +171,34 @@ public class Scene extends Node implements SceneJni.SceneDelegate {
                 getId(),
                 ViroEvents.ON_PLATFORM_UPDATE,
                 eventContainer);
+    }
+
+    public void setPhysicsWorld(ReadableMap map){
+        if (map.hasKey("gravity")){
+            ReadableArray readableParams = map.getArray("gravity");
+            if (readableParams.size() != 3){
+                throw new JSApplicationCausedNativeException("Incorrect parameters provided " +
+                        "for gravity, expected: [x, y, z]!");
+            } else {
+                float params[] = new float[readableParams.size()];
+                for (int i = 0; i < readableParams.size(); i ++){
+                    params[i] = (float) readableParams.getDouble(i);
+                }
+                mNativeScene.setPhysicsWorldGravity(params);
+            }
+        }
+    }
+
+    public void addPhysicsBodyToScene(Node node){
+        if (!isTornDown()) {
+            mNativeScene.attachBodyToPhysicsWorld(node.getNodeJni());
+        }
+    }
+
+    public void removePhysicsBodyFromScene(Node node){
+        if (!isTornDown()) {
+            mNativeScene.detachBodyFromPhysicsWorld(node.getNodeJni());
+        }
     }
 
     /**

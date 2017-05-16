@@ -8,6 +8,7 @@ import com.facebook.react.bridge.DynamicFromMap;
 import com.facebook.react.bridge.JavaOnlyMap;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReadableArray;
+import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.ReadableType;
 import com.facebook.react.uimanager.LayoutShadowNode;
 import com.facebook.react.uimanager.ViewProps;
@@ -228,4 +229,10 @@ public abstract class NodeManager <T extends Node> extends ViroViewGroupManager<
                 ViroEvents.ON_FUSE, MapBuilder.of("registrationName", ViroEvents.ON_FUSE),
                 ViroEvents.ON_DRAG, MapBuilder.of("registrationName", ViroEvents.ON_DRAG));
     }
+
+    @ReactProp(name = "physicsBody")
+    public void setPhysicsBody(Node view, ReadableMap map) {
+        view.setPhysicsBody(map);
+    }
+
 }

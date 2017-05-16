@@ -33,6 +33,7 @@ RCT_EXPORT_VIEW_PROPERTY(canClick, BOOL)
 RCT_EXPORT_VIEW_PROPERTY(canFuse, BOOL)
 RCT_EXPORT_VIEW_PROPERTY(opacity, float)
 RCT_EXPORT_VIEW_PROPERTY(transformBehaviors, NSArray<NSString *>)
+RCT_EXPORT_VIEW_PROPERTY(physicsBody, NSDictionary)
 
 - (VRTView *)view
 {

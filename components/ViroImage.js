@@ -126,7 +126,18 @@ var ViroImage = React.createClass({
      * {nativeEvent: {error}}
      */
     onError: React.PropTypes.func,
-
+    physicsBody: React.PropTypes.shape({
+      type: React.PropTypes.oneOf(['dynamic','kinematic','static']).isRequired,
+      mass: PropTypes.number,
+      restitution: PropTypes.number,
+      shape: React.PropTypes.shape({
+        type: PropTypes.string.isRequired,
+        params: PropTypes.arrayOf(PropTypes.number)
+      }),
+      friction: PropTypes.number,
+      useGravity: PropTypes.bool,
+      enabled: PropTypes.bool,
+    }),
   },
 
   _onLoadStart: function(event: Event) {

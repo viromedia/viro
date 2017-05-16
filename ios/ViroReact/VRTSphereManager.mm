@@ -33,6 +33,7 @@ RCT_EXPORT_VIEW_PROPERTY(heightSegmentCount, NSUInteger)
 RCT_EXPORT_VIEW_PROPERTY(radius, float)
 RCT_EXPORT_VIEW_PROPERTY(transformBehaviors, NSArray<NSString *>)
 //RCT_EXPORT_VIEW_PROPERTY(highAccuracyGaze, BOOL)
+RCT_EXPORT_VIEW_PROPERTY(physicsBody, NSDictionary)
 
 - (VRTView *)view
 {

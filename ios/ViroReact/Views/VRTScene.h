@@ -15,6 +15,7 @@
 
 @property (nonatomic, assign) BOOL recticleEnabled;
 @property (nonatomic, copy, nullable) RCTDirectEventBlock onPlatformUpdateViro;
+@property (nonatomic, copy) NSDictionary *physicsWorld;
 
 - (instancetype)initWithBridge:(RCTBridge *)bridge;
 - (std::shared_ptr<VROScene>)scene;

@@ -34,6 +34,7 @@ RCT_EXPORT_VIEW_PROPERTY(highAccuracyGaze, BOOL)
 RCT_EXPORT_VIEW_PROPERTY(onLoadStartViro, RCTDirectEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onLoadEndViro, RCTDirectEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onErrorViro, RCTDirectEventBlock)
+RCT_EXPORT_VIEW_PROPERTY(physicsBody, NSDictionary)
 
 - (VRT3DObject *)view
 {

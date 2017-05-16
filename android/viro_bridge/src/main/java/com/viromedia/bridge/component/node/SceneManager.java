@@ -67,4 +67,9 @@ public class SceneManager extends ViroViewGroupManager<Scene> {
                 ViroEvents.ON_CLICK, MapBuilder.of("registrationName", ViroEvents.ON_CLICK),
                 ViroEvents.ON_PLATFORM_UPDATE, MapBuilder.of("registrationName", ViroEvents.ON_PLATFORM_UPDATE));
     }
+
+    @ReactProp(name = "physicsWorld")
+    public void setPhysicsWorld(Scene view, ReadableMap map) {
+        view.setPhysicsWorld(map);
+    }
 }

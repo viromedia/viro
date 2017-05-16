@@ -30,7 +30,7 @@ RCT_EXPORT_VIEW_PROPERTY(canHover, BOOL)
 RCT_EXPORT_VIEW_PROPERTY(canClick, BOOL)
 RCT_EXPORT_VIEW_PROPERTY(canFuse, BOOL)
 RCT_EXPORT_VIEW_PROPERTY(opacity, float)
-
+RCT_EXPORT_VIEW_PROPERTY(physicsBody, NSDictionary)
 
 - (VRTNodeContainerShadowView *)shadowView
 {

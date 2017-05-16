@@ -6,7 +6,12 @@ package com.viromedia.bridge.component.node;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
+
+import com.facebook.react.bridge.JSApplicationCausedNativeException;
 import com.facebook.react.bridge.ReactApplicationContext;
+import com.facebook.react.bridge.ReadableArray;
+import com.facebook.react.bridge.ReadableMap;
+import com.facebook.react.uimanager.IllegalViewOperationException;
 import com.facebook.react.uimanager.PixelUtil;
 
 import com.viro.renderer.jni.BaseGeometry;
@@ -21,6 +26,7 @@ import com.viromedia.bridge.component.node.control.Surface;
 import com.viromedia.bridge.component.node.control.Text;
 import com.viromedia.bridge.component.node.control.VideoSurface;
 import com.viromedia.bridge.utility.ComponentEventDelegate;
+import com.viromedia.bridge.utility.ViroLog;
 
 import java.util.List;
 
@@ -30,6 +36,8 @@ import static com.viromedia.bridge.component.node.NodeManager.s2DUnitPer3DUnit;
  * Node is inherited by any component which is represented by a VRONode in native
  */
 public class Node extends Component {
+    private static final String TAG = ViroLog.getTag(Node.class);
+
     // Always place the children of views .01 in front of the parent. This helps with z-fighting
     // and ensures that the child is always in front of the parent for hit detection
     private static final float sZIncrementToAvoidZFighting = (float) 0.01;
@@ -69,6 +77,12 @@ public class Node extends Component {
      */
     protected boolean mIsTopMostChangedElement = false;
 
+    // True if this node initialized and contains a physics body.
+    private boolean hasPhysicsBody = false;
+
+    // Last known set physics properties for this node.
+    private ReadableMap mPhysicsMap = null;
+
     public Node(ReactApplicationContext reactContext) {
         this(reactContext.getBaseContext(), null, -1, -1, reactContext);
     }
@@ -92,6 +106,7 @@ public class Node extends Component {
     public void onTearDown() {
         super.onTearDown();
         if (mNodeJni != null){
+            clearPhysicsBody();
             mEventDelegateJni.setEventDelegateCallback(null);
             mEventDelegateJni.destroy();
             mNodeJni.destroy();
@@ -480,5 +495,158 @@ public class Node extends Component {
 
     protected void setTimeToFuse(float durationInMillis){
         mEventDelegateJni.setTimeToFuse(durationInMillis);
+    }
+
+    public void setPhysicsBody(ReadableMap map){
+        // If un-setting the physicsBody, clear it from the node.
+        if (map == null){
+            clearPhysicsBody();
+            mPhysicsMap = map;
+            return;
+        }
+
+        // Else update the current physicsBody with the new properties, recreating
+        // the body if needed.
+        recreatePhysicsBodyIfNeeded(map);
+        updatePhysicsBodyProperties(map);
+
+        // Finally save a copy of the last known set physics properties.
+        mPhysicsMap = map;
+    }
+
+    private void recreatePhysicsBodyIfNeeded(ReadableMap map){
+        float mass = 0;
+        if (map.hasKey("mass")){
+            mass = (float) map.getDouble("mass");
+        }
+
+        // Determine if the physics body type has changed
+        String bodyTypeProp = map.getString("type");
+        String bodyTypeCurrent = (mPhysicsMap != null && mPhysicsMap.hasKey("type")) ?
+                mPhysicsMap.getString("type") : null;
+        boolean hasBodyTypeChanged = bodyTypeProp != bodyTypeCurrent;
+        if (bodyTypeProp != null){
+            hasBodyTypeChanged = !bodyTypeProp.equals(bodyTypeCurrent);
+        }
+
+        String bodyTypeError = mNodeJni.checkIsValidBodyType(bodyTypeProp, mass);
+        if (bodyTypeError != null){
+            throw new JSApplicationCausedNativeException(bodyTypeError);
+        }
+
+        // Determine if the physics shape has changed
+        ReadableMap shapeTypeProp = map.hasKey("shape") ? map.getMap("shape") : null;
+        ReadableMap shapeTypeCurrent = (mPhysicsMap != null && mPhysicsMap.hasKey("shape")) ?
+                mPhysicsMap.getMap("shape") : null;
+        boolean hasShapeChanged = shapeTypeProp != shapeTypeCurrent;
+        if (shapeTypeProp != null){
+            hasShapeChanged = !shapeTypeProp.equals(shapeTypeCurrent);
+        }
+
+        // Create or update the VROPhysicsBody only if needed
+        if (!hasPhysicsBody || hasBodyTypeChanged || hasShapeChanged){
+            String propShapeType = null;
+            float params[] = {};
+
+            // Recreate a physics shape with the latest properties by grabbing
+            // the current shapeType (required in JS if providing a physics shape)
+            if (shapeTypeProp != null){
+                propShapeType = shapeTypeProp.getString("type");
+                if (shapeTypeProp.hasKey("params")) {
+                    ReadableArray readableParams = shapeTypeProp.getArray("params");
+                    params = new float[readableParams.size()];
+                    for (int i = 0; i < readableParams.size(); i++) {
+                        params[i] = (float) readableParams.getDouble(i);
+                    }
+                }
+
+                String error = mNodeJni.checkIsValidShapeType(propShapeType, params);
+                if (error != null){
+                    throw new JSApplicationCausedNativeException(error);
+                }
+            }
+
+            if (!hasPhysicsBody || hasBodyTypeChanged){
+                clearPhysicsBody();
+                createPhysicsBody(bodyTypeProp, mass, propShapeType, params);
+            } else {
+                mNodeJni.setPhysicsShape(propShapeType, params);
+            }
+        }
+    }
+
+    private void updatePhysicsBodyProperties(ReadableMap map){
+        if (map.hasKey("mass")) {
+            float mass = (float)map.getDouble("mass");
+            String bodyType = map.getString("type");
+            String bodyTypeError = mNodeJni.checkIsValidBodyType(bodyType, mass);
+            if (bodyTypeError != null){
+                throw new JSApplicationCausedNativeException(bodyTypeError);
+            }
+            mNodeJni.setPhysicsMass(mass);
+        }
+
+        if (map.hasKey("inertia")){
+            ReadableArray paramsArray = map.getArray("inertia");
+            float inertiaArray[] = new float[paramsArray.size()];
+            for (int i = 0; i < paramsArray.size(); i ++){
+                inertiaArray[i] = (float) paramsArray.getDouble(i);
+            }
+
+            if (inertiaArray.length != 3){
+                throw new JSApplicationCausedNativeException("Incorrect parameters " +
+                        "provided for inertia, expected: [x, y, z]!");
+            }
+
+            mNodeJni.setPhysicsInertia(inertiaArray);
+        }
+
+        if (map.hasKey("friction")) {
+            mNodeJni.setPhysicsFriction((float)map.getDouble("friction"));
+        }
+
+        if (map.hasKey("restitution")) {
+            mNodeJni.setPhysicsRestitution((float)map.getDouble("restitution"));
+        }
+
+        if (map.hasKey("enabled")) {
+            mNodeJni.setPhysicsEnabled(map.getBoolean("enabled"));
+        }
+
+        if (map.hasKey("useGravity")) {
+            String bodyType = map.getString("type");
+            if (!bodyType.equalsIgnoreCase("dynamic")){
+                ViroLog.warn(TAG,"Attempted to set useGravity for non-dynamic phsyics bodies.");
+            } else {
+                mNodeJni.setPhsyicsUseGravity(map.getBoolean("useGravity"));
+            }
+        }
+    }
+
+    private void createPhysicsBody(String bodyType, float mass, String shapeType,
+                                   float shapeParams[]){
+        mNodeJni.initPhysicsBody(bodyType, mass, shapeType, shapeParams);
+        if (mScene != null){
+            mScene.addPhysicsBodyToScene(this);
+        }
+
+        hasPhysicsBody = true;
+    }
+
+    private void clearPhysicsBody(){
+        if (mScene != null){
+            mScene.removePhysicsBodyFromScene(this);
+        }
+
+        mNodeJni.clearPhysicsBody();
+        hasPhysicsBody = false;
+    }
+
+    @Override
+    public void setScene(Scene scene) {
+        if (hasPhysicsBody) {
+            scene.addPhysicsBodyToScene(this);
+        }
+        super.setScene(scene);
     }
 }

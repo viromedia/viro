@@ -122,6 +122,18 @@ var BTN_TYPE_CLICKED = 'clicked';
       }),
       React.PropTypes.func
     ]),
+    physicsBody: React.PropTypes.shape({
+      type: React.PropTypes.oneOf(['dynamic','kinematic','static']).isRequired,
+      mass: PropTypes.number,
+      restitution: PropTypes.number,
+      shape: React.PropTypes.shape({
+        type: PropTypes.string.isRequired,
+        params: PropTypes.arrayOf(PropTypes.number)
+      }).isRequired,
+      friction: PropTypes.number,
+      useGravity: PropTypes.bool,
+      enabled: PropTypes.bool,
+    }),
   },
   getInitialState: function() {
     return {buttonType: BTN_TYPE_NORMAL};
@@ -173,6 +185,7 @@ var BTN_TYPE_CLICKED = 'clicked';
 
     return (
         <ViroNode
+            physicsBody={this.props.physicsBody}
             position={this.props.position}
             onClickState={this.props.onClickState}
             onTouch={this.props.onTouch}

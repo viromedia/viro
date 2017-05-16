@@ -39,6 +39,9 @@ var ViroScene = React.createClass({
       ceilingMaterial: PropTypes.string,
       floorMaterial: PropTypes.string,
     }),
+    physicsWorld: PropTypes.shape({
+      gravity: PropTypes.arrayOf(PropTypes.number).isRequired,
+    }),
   },
 
   _onHover: function(event: Event) {
@@ -163,6 +166,7 @@ var VRTScene = requireNativeComponent(
           onPlatformUpdateViro: true,
           onFuseViro:true,
           timeToFuse:true,
+          physicsBody:true,
         }
     }
 );

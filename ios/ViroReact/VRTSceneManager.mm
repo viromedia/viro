@@ -33,6 +33,7 @@ RCT_EXPORT_VIEW_PROPERTY(canClick, BOOL)
 RCT_EXPORT_VIEW_PROPERTY(canFuse, BOOL)
 RCT_EXPORT_VIEW_PROPERTY(soundRoom, NSDictionary)
 RCT_EXPORT_VIEW_PROPERTY(onPlatformUpdateViro, RCTDirectEventBlock)
+RCT_EXPORT_VIEW_PROPERTY(physicsWorld, NSDictionary)
 
 - (VRTView *)view
 {

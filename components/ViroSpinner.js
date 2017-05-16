@@ -63,6 +63,18 @@ var ViroSpinner = React.createClass({
       }),
       React.PropTypes.func
     ]),
+    physicsBody: React.PropTypes.shape({
+      type: React.PropTypes.oneOf(['dynamic','kinematic','static']).isRequired,
+      mass: PropTypes.number,
+      restitution: PropTypes.number,
+      shape: React.PropTypes.shape({
+        type: PropTypes.string.isRequired,
+        params: PropTypes.arrayOf(PropTypes.number)
+      }).isRequired,
+      friction: PropTypes.number,
+      useGravity: PropTypes.bool,
+      enabled: PropTypes.bool,
+    }),
   },
 
   getDefaultProps() {
@@ -78,7 +90,7 @@ var ViroSpinner = React.createClass({
 
     return (
       <ViroNode position={this.props.position} rotation={this.props.rotation} scale={this.props.scale}
-            rotationPivot={this.props.rotationPivot} scalePivot={this.props.scalePivot}
+            rotationPivot={this.props.rotationPivot} scalePivot={this.props.scalePivot} physicsBody={this.props.physicsBody}
             opacity={this.props.opacity} transformBehaviors={transformBehaviors} visible={this.props.visible}
             onHover={this.props.onHover} onClick={this.props.onClick} onClickState={this.props.onClickState}
             onTouch={this.props.onTouch} onDrag={this.props.onDrag} onFuse={this.props.onFuse}>

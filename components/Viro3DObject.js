@@ -89,6 +89,19 @@ var Viro3DObject = React.createClass({
      * Flag is set to false by default.
      */
     highAccuracyGaze:PropTypes.bool,
+
+    physicsBody: React.PropTypes.shape({
+      type: React.PropTypes.oneOf(['dynamic','kinematic','static']).isRequired,
+      mass: PropTypes.number,
+      restitution: PropTypes.number,
+      shape: React.PropTypes.shape({
+        type: PropTypes.string.isRequired,
+        params: PropTypes.arrayOf(PropTypes.number)
+      }),
+      friction: PropTypes.number,
+      useGravity: PropTypes.bool,
+      enabled: PropTypes.bool,
+    }),
   },
 
   _onHover: function(event: Event) {
