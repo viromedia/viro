@@ -42,14 +42,14 @@ function getInStockText(inStock) {
 function getProductSourceText(online, giftWrappable) {
   var toReturn = "";
   if (online) {
-    toReturn += "Ships from and sold online."
+    toReturn += "Ships from and sold online.";
     if (giftWrappable) {
-      toReturn += " Gift-wrap available."
+      toReturn += " Gift-wrap available.";
     }
   } else {
-    toReturn += "Pick-up in store only."
+    toReturn += "Pick-up in store only.";
   }
-  return toReturn
+  return toReturn;
 }
 
 /*
@@ -140,8 +140,6 @@ var Shopping = React.createClass({
         runGlobalAnimation : false,
         onFinishGlobal : this._switchProduct
     };
-  },
-  componentDidMount: function() {
   },
   render: function() {
     var product = products[this.state.productToShow];
@@ -254,13 +252,15 @@ var Shopping = React.createClass({
    */
   _getNavButtons() {
     var toReturn = [];
-    if (this.state.productToShow > 0) {
-      toReturn.push(this._getSingleNavButton(false, this.state.productToShow - 1, !(this.state.productToShow + 1 < products.length)))
+    var hasPreviousItem = this.state.productToShow > 0;
+    var hasNextItem = this.state.productToShow + 1 < products.length;
+    if (hasPreviousItem) {
+      toReturn.push(this._getSingleNavButton(false, this.state.productToShow - 1, !hasNextItem));
     }
     if (this.state.productToShow + 1 < products.length) {
-      toReturn.push(this._getSingleNavButton(true, this.state.productToShow + 1, !(this.state.productToShow > 0)))
+      toReturn.push(this._getSingleNavButton(true, this.state.productToShow + 1, !hasPreviousItem));
     }
-    return toReturn
+    return toReturn;
   },
   /*
    * This function returns a single "next" or "previous" product button depending on the given parameters
@@ -270,7 +270,7 @@ var Shopping = React.createClass({
    * centered - true/false if the button should be centered.
    */
   _getSingleNavButton(forward, index, centered) {
-    var position = [(centered ? 0 : (forward ? 2 : -2)), -3, -7]
+    var position = [(centered ? 0 : (forward ? 2 : -2)), -3, -7];
     return (
       <ViroAnimatedComponent key={forward ? "forwardBtn" : "backBtn"} animation={this.state.mainAnimation} run={this.state.runAnimation} loop={false} >
         <ViroNode position={position} onClick={this._prepareSwitchProduct(index)} transformBehaviors="billboard" >
@@ -290,7 +290,6 @@ var Shopping = React.createClass({
    * productIndex - the product to switch to after the fade out animation.
    */
   _prepareSwitchProduct(productIndex) {
-    console.log("Switching product 1")
     return () => {
       this.setState({
         globalAnimation : "fadeOut",
@@ -308,15 +307,14 @@ var Shopping = React.createClass({
    * productIndex - the product to switch to
    */
   _switchProduct(productIndex) {
-    console.log("Switching product 2")
     return () => {
       this.setState({
         productToShow: productIndex,
         globalAnimation : "fadeIn",
         runGlobalAnimation : true,
         onFinishGlobal : null,
-      })
-    }
+      });
+    };
   },
   /*
    * This function is the onClick listener for the product model.
