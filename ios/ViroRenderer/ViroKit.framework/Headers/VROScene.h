@@ -17,6 +17,7 @@
 #include "VROSortKey.h"
 #include "VROQuaternion.h"
 #include "VROThreadRestricted.h"
+#include "VROPhysicsWorld.h"
 
 class VRONode;
 class VRORenderContext;
@@ -54,7 +55,7 @@ public:
      Compute the transforms, recursively, for all nodes in this scene.
      */
     void computeTransforms(const VRORenderContext &context);
-    
+
     /*
      Update the visibility status of all nodes in the scene graph.
      */
@@ -80,6 +81,26 @@ public:
         return _nodes;
     }
     
+    /*
+     Returns the associated physics world with this scene. If there's none
+     one is created and returned.
+     */
+    std::shared_ptr<VROPhysicsWorld> getPhysicsWorld(){
+        if (_physicsWorld == nullptr){
+            _physicsWorld = std::make_shared<VROPhysicsWorld>();
+        }
+        return _physicsWorld;
+    }
+
+    /*
+     Grabs and computes a physics world if one exists.
+     */
+    void computePhysics(){
+        if (_physicsWorld != nullptr){
+            _physicsWorld->computePhysics();
+        }
+    }
+
     /*
      Set the background of the scene to a cube-map defined by
      the given cube texture or color, or a sphere defined by the given
@@ -133,6 +154,8 @@ private:
      box of the object.
      */
     float _distanceOfFurthestObjectFromCamera;
+
+    std::shared_ptr<VROPhysicsWorld> _physicsWorld = nullptr;
 };
 
 #endif /* VROScene_h */

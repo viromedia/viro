@@ -27,6 +27,7 @@
 #include "VROSound.h"
 #include "VROFrustumBoxIntersectionMetadata.h"
 #include "VROThreadRestricted.h"
+#include "VROPhysicsBody.h"
 
 class VROGeometry;
 class VROLight;
@@ -73,9 +74,15 @@ public:
      _computedPosition,
      _computedBoundingBox
      */
-    void computeTransforms(const VRORenderContext &context, VROMatrix4f parentTransform,
-                           VROMatrix4f parentRotation);
-    
+    void computeTransforms(VROMatrix4f parentTransform, VROMatrix4f parentRotation);
+
+    /*
+     Sets both the local position and rotation of this node in terms of world coordinates.
+     A computeTransform pass is then performed to update the node's bounding boxes
+     and as well as its child's node transforms recursively.
+     */
+    void setWorldTransform(VROVector3f worldPosition, VROQuaternion worldRotation);
+
     /*
      Update the visibility status of this node, using the camera in the current render
      context. This will update the _visible flag. Recurses to children.
@@ -137,8 +144,10 @@ public:
     /*
      Transform getters.
      */
-    VROVector3f getTransformedPosition() const;
-    
+    VROVector3f getComputedPosition() const;
+    VROMatrix4f getComputedRotation() const;
+    VROMatrix4f getComputedTransform() const;
+
     VROVector3f getPosition() const {
         return _position;
     }
@@ -352,6 +361,14 @@ public:
     void removeConstraint(std::shared_ptr<VROConstraint> constraint);
     void removeAllConstraints();
 
+    /*
+     Physics
+     */
+    std::shared_ptr<VROPhysicsBody> initPhysicsBody(VROPhysicsBody::VROPhysicsBodyType type,
+                                                    float mass,
+                                                    std::shared_ptr<VROPhysicsShape> shape);
+    std::shared_ptr<VROPhysicsBody> getPhysicsBody() const;
+    void clearPhysicsBody();
 protected:
     
     /*
@@ -497,6 +514,10 @@ private:
                  bool boundsOnly, std::vector<VROHitTestResult> &results);
     bool hitTestGeometry(VROVector3f origin, VROVector3f ray, VROMatrix4f transform);
 
+    /*
+     Physics rigid body that if defined, drives and sets the transformations of this node.
+     */
+    std::shared_ptr<VROPhysicsBody> _physicsBody;
 };
 
 #endif /* VRONode_h */
