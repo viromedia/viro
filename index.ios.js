@@ -24,7 +24,7 @@ var scenes = {
     '360 Photo Tour': require('./js/360PhotoTour/MainScene'),
     'Hello World': require('./js/HelloWorld/HelloWorldScene'),
     'Human Body': require('./js/HumanBody/MainScene'),
-    'TV Shopping': require('./js/TVShopping/TVShopping'),
+    'ProductShowcase': require('./js/ProductShowcase/ProductShowcase'),
     'Viro Media Player': require('./js/ViroMediaPlayer/ViroTheatre'),
 }
 
@@ -36,7 +36,7 @@ var ViroCodeSamplesSceneNavigator = React.createClass({
     return (
       <ViroSceneNavigator
         initialScene={{
-          scene: scenes['Viro Media Player'],
+          scene: scenes['360 Photo Tour'],
         }}
         viroAppProps={{...this.props}}
         apiKey="YOUR_API_KEY_HERE"
