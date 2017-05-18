@@ -16,6 +16,7 @@ import com.viromedia.bridge.utility.ViroEvents;
 import com.viromedia.bridge.utility.ViroLog;
 
 import java.lang.ref.WeakReference;
+import java.util.HashMap;
 
 public class AnimatedComponent extends Component {
     private static final String TAG = ViroLog.getTag(AnimatedComponent.class);
@@ -74,19 +75,9 @@ public class AnimatedComponent extends Component {
         if (mExecutableAnimation != null) {
             mExecutableAnimation.terminate();
         }
+
         mState = AnimationState.TERMINATED;
-
-        // getting/checking for the animation here because if we throw an exception here, we still
-        // get a red screen. VIRO-1236 will cover red screening w/o a generic error.
-        BaseAnimation baseAnimation = mManager.getAnimation(animationName);
-        if (baseAnimation == null) {
-            mExecutableAnimation = null;
-            throw new IllegalArgumentException("Animation [" + animationName + "] does not exist." +
-                    " Have you registered it with ViroAnimations.registerAnimations()?");
-        } else {
-            mExecutableAnimation = baseAnimation.copy();
-        }
-
+        mAnimation = animationName;
         mAnimationNeedsUpdate = true;
     }
 
@@ -182,16 +173,19 @@ public class AnimatedComponent extends Component {
      * a paused animation.
      */
     private void playAnimation() {
-        if (mExecutableAnimation == null) {
-            return;
-        }
+
         if(mState == AnimationState.PAUSED) {
             mExecutableAnimation.resume();
             mState = AnimationState.RUNNING;
         }
         else if (mState == AnimationState.TERMINATED) {
             mState = AnimationState.SCHEDULED;
-            mMainLoopHandler.postDelayed(mDelayedRunner, (long) mDelayInMilliseconds);
+            // invoke startAnimation() right away if there is no delay provided.
+            if(mDelayInMilliseconds <= 0) {
+                startAnimation();
+            }else {
+                mMainLoopHandler.postDelayed(mDelayedRunner, (long) mDelayInMilliseconds);
+            }
         }
         else {
             ViroLog.warn(TAG, "Unable to play animation in state " + mState.name());
@@ -231,9 +225,15 @@ public class AnimatedComponent extends Component {
             ViroLog.info(TAG, "Aborted starting new animation, child is torn down");
             return;
         }
-        if (mExecutableAnimation == null) {
-            ViroLog.warn(TAG, "Aborted starting new animation, executableAnimation wasn't set!");
-            return;
+
+
+        BaseAnimation baseAnimation = mManager.getAnimation(mAnimation);
+        if (baseAnimation == null) {
+            mExecutableAnimation = null;
+            throw new IllegalArgumentException("Animation [" + mAnimation + "] does not exist." +
+                            " Have you registered it with ViroAnimations.registerAnimations()?");
+        } else {
+            mExecutableAnimation = baseAnimation.copy();
         }
 
         onStartAnimation();
@@ -248,6 +248,7 @@ public class AnimatedComponent extends Component {
                 }
             }
         });
+        mState = AnimationState.RUNNING;
     }
 
     /**
@@ -274,13 +275,19 @@ public class AnimatedComponent extends Component {
                 ViroEvents.ON_FINISH,
                 null);
 
-        mState = AnimationState.TERMINATED;
-        if (mExecutableAnimation != null) {
-            mExecutableAnimation.destroy();
-            mExecutableAnimation = null;
+        if (animation != null) {
+            animation.destroy();
+            // only null out  mExecutableAnimation if it equal to the animation object passed in so
+            // we don't prematurely terminate a 'newer' animation.
+            if(mExecutableAnimation == animation) {
+                mExecutableAnimation = null;
+                mState = AnimationState.TERMINATED;
+            }
         }
 
         if (mLoop && mRun) {
+            BaseAnimation baseAnimation = mManager.getAnimation(mAnimation);
+            mExecutableAnimation = baseAnimation.copy();
             playAnimation();
         }
     }

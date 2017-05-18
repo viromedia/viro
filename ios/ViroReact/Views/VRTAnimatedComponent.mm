@@ -32,7 +32,6 @@ enum class VRTAnimatedComponentState {
 @implementation VRTAnimatedComponent {
 
     VRTAnimationManager *_animationManager;
-    
 }
 
 - (instancetype)initWithBridge:(RCTBridge *)bridge  {
@@ -129,8 +128,9 @@ enum class VRTAnimatedComponentState {
     if (self.executableAnimation) {
         self.executableAnimation->terminate();
     }
+
     self.state = VRTAnimatedComponentState::Terminated;
-    
+    // currently set animation.
     _animation = animation;
     _animationNeedsUpdate = YES;
 }
@@ -166,12 +166,14 @@ enum class VRTAnimatedComponentState {
         self.executableAnimation->resume();
         self.state = VRTAnimatedComponentState::Running;
     }
-    else if (self.state == VRTAnimatedComponentState::Terminated) {
+    else if(self.state == VRTAnimatedComponentState::Terminated) {
         self.state = VRTAnimatedComponentState::Scheduled;
-        [self performSelector:@selector(startAnimation) withObject:self afterDelay:self.delay / 1000.0];
-    }
-    else {
-        NSLog(@"Unable to play animation in state %d", self.state);
+        if(self.delay <= 0) {
+          // start animation right away if there is no delay. 
+          [self startAnimation];
+        }else {
+          [self performSelector:@selector(startAnimation) withObject:self afterDelay:self.delay / 1000.0];
+        }
     }
 }
 
@@ -189,9 +191,10 @@ enum class VRTAnimatedComponentState {
 
 - (void)startAnimation {
     if (self.state != VRTAnimatedComponentState::Scheduled) {
-        NSLog(@"Aborted starting new animation, was no longer scheduled");
-        return;
+      NSLog(@"Aborted starting new animation, was no longer scheduled");
+      return;
     }
+  
     if ([_animationManager animationForName:self.animation] == nullptr) {
         RCTLogError(@"Unable to find Animation with name %@", self.animation);
         return;
