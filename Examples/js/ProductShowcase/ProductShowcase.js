@@ -126,7 +126,7 @@ var products = [
   }
 ]
 
-var Shopping = React.createClass({
+var ProductShowcase = React.createClass({
   getInitialState() {
     return {
         hideInfoCards: false,
@@ -257,7 +257,7 @@ var Shopping = React.createClass({
     if (hasPreviousItem) {
       toReturn.push(this._getSingleNavButton(false, this.state.productToShow - 1, !hasNextItem));
     }
-    if (this.state.productToShow + 1 < products.length) {
+    if (hasNextItem) {
       toReturn.push(this._getSingleNavButton(true, this.state.productToShow + 1, !hasPreviousItem));
     }
     return toReturn;
@@ -400,4 +400,4 @@ var styles = StyleSheet.create({
   },
 });
 
-module.exports = Shopping;
+module.exports = ProductShowcase;
