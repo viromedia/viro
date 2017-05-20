@@ -43,6 +43,7 @@ FOUNDATION_EXPORT const unsigned char ViroReactFrameworkVersionString[];
 #import <ViroReactFramework/VRTNode.h>
 #import <ViroReactFramework/VRTNodeContainer.h>
 #import <ViroReactFramework/VRTNodeContainerShadowView.h>
+#import <ViroReactFramework/VRTNodeModule.h>
 #import <ViroReactFramework/VRTOrbitCamera.h>
 #import <ViroReactFramework/VRTScene.h>
 #import <ViroReactFramework/VRTSceneNavigator.h>

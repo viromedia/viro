@@ -338,7 +338,8 @@ const int k2DPointsPerSpatialUnit = 1000;
     // Else update the current physicsBody with the new properties, recreating
     // the body if needed. Log and return if an error has occured.
     if (![self recreatePhysicsBodyIfNeeded:dictionary]
-        || ![self updatePhysicsBodyProperties:dictionary]){
+        || ![self updatePhysicsBodyProperties:dictionary]
+        || ![self applyForcesOnBody:dictionary]){
         return;
     }
 
@@ -439,8 +440,8 @@ const int k2DPointsPerSpatialUnit = 1000;
 
     NSArray *inertia = [dictionary objectForKey:@"inertia"];
     if (inertia != nil){
-        if ([inertia count] != 3){
-            RCTLogError(@"Incorrect paramters provided for inertia, expected: [x, y, z]!");
+        if ([inertia count] != 3) {
+            RCTLogError(@"Incorrect parameters provided for inertia, expected: [x, y, z]!");
             return false;
         }
 
@@ -450,7 +451,7 @@ const int k2DPointsPerSpatialUnit = 1000;
         body->setInertia(inertia3f);
     }
 
-    if ([dictionary objectForKey:@"mass"]){
+    if ([dictionary objectForKey:@"mass"]) {
         std::string errorMsg;
         bool isValid = VROPhysicsBody::isValidType(stringBodyType, mass, errorMsg);
         if (!isValid){
@@ -460,22 +461,22 @@ const int k2DPointsPerSpatialUnit = 1000;
         body->setMass(mass);
     }
 
-    if ([dictionary objectForKey:@"friction"]){
+    if ([dictionary objectForKey:@"friction"]) {
         float friction = [[dictionary objectForKey:@"friction"] floatValue];
         body->setFriction(friction);
     }
 
-    if ([dictionary objectForKey:@"restitution"]){
+    if ([dictionary objectForKey:@"restitution"]) {
         float restitution = [[dictionary objectForKey:@"restitution"] floatValue];
         body->setRestitution(restitution);
     }
 
-    if ([dictionary objectForKey:@"enabled"]){
+    if ([dictionary objectForKey:@"enabled"]) {
         bool enabled = [[dictionary objectForKey:@"enabled"] boolValue];
         body->setIsSimulated(enabled);
     }
 
-    if ([dictionary objectForKey:@"useGravity"]){
+    if ([dictionary objectForKey:@"useGravity"]) {
         bool useGravity = [[dictionary objectForKey:@"useGravity"] boolValue];
         VROPhysicsBody::VROPhysicsBodyType propBodyType
                                     = VROPhysicsBody::getBodyTypeForString(stringBodyType);
@@ -486,5 +487,126 @@ const int k2DPointsPerSpatialUnit = 1000;
         }
     }
     return true;
+}
+
+- (bool)applyForcesOnBody:(NSDictionary *)dictionary{
+    NSArray *torqueArray = [dictionary objectForKey:@"torque"];
+    NSObject *forceObject = [dictionary objectForKey:@"force"];
+    // Check and parse force objects into a dictionary array to iterate over.
+    NSArray* forceArray;
+    if ([forceObject isKindOfClass:[NSDictionary class]]) {
+        forceArray = [[NSArray alloc] initWithObjects:forceObject, nil];
+    } else if ([forceObject isKindOfClass:[NSArray class]]) {
+        forceArray = (NSArray*)forceObject;
+    } else if (forceArray) {
+        RCTLogError(@"Invalid force format!");
+        return false;
+    }
+    
+    // Deteremine if the applied torque has changed
+    NSArray *torqueArrayCurrent = self.physicsDictionary? [self.physicsDictionary objectForKey:@"torque"]: nil;
+    bool hasTorqueChanged = torqueArray == torqueArrayCurrent;
+    if (torqueArray) {
+        hasTorqueChanged = [torqueArray isEqualToArray:torqueArrayCurrent];
+    }
+    
+    // Deteremine if the applied force has changed
+    NSObject *forceObjectCurrent = self.physicsDictionary? [self.physicsDictionary objectForKey:@"force"]: nil;
+    NSArray* forceArrayCurrent = nil;
+    if ([forceObjectCurrent isKindOfClass:[NSDictionary class]]) {
+        forceArrayCurrent = [[NSArray alloc] initWithObjects:forceObject, nil];
+    } else if ([forceObjectCurrent isKindOfClass:[NSArray class]]) {
+        forceArrayCurrent = (NSArray*)forceObject;
+    }
+    bool hasForceChanged = forceArray == forceArrayCurrent;
+    if (forceArray) {
+        hasForceChanged = [forceArrayCurrent isEqualToArray:forceArrayCurrent];
+    }
+    
+    // If nothing has changed, return
+    if (!hasForceChanged && !hasTorqueChanged) {
+        return true;
+    }
+    
+    // Reset forces before applying new ones
+    std::shared_ptr<VROPhysicsBody> body = [self node]->getPhysicsBody();
+    body->clearForces();
+    
+    // Apply Toque
+    NSArray *torque = [dictionary objectForKey:@"torque"];
+    if (torque != nil) {
+        if ([torque count] != 3) {
+            RCTLogError(@"Incorrect paramters provided for torque, expected: [x, y, z]!");
+            return false;
+        }
+        
+        VROVector3f torque3f = VROVector3f([[torque objectAtIndex:0] floatValue],
+                                           [[torque objectAtIndex:1] floatValue],
+                                           [[torque objectAtIndex:2] floatValue]);        
+        body->applyTorque(torque3f);
+    }
+    
+    // Iterate over force array and apply forces to the phsyics body.
+    for (int i=0; i < [forceArray count]; i++) {
+        if (![forceArray[i] isKindOfClass:[NSDictionary class]]) {
+            RCTLogError(@"Invalid format, expected a force format of type dictionary!");
+            return false;
+        }
+        
+        // Grab the required power of the force.
+        VROVector3f force3f;
+        NSArray *power = [forceArray[i] objectForKey:@"power"];
+        if (power) {
+            if ([power count] != 3) {
+                RCTLogError(@"Incorrect parameters provided for force's power, expected: [x, y, z]!");
+                return false;
+            }
+            
+            force3f = VROVector3f([[power objectAtIndex:0] floatValue],
+                                  [[power objectAtIndex:1] floatValue],
+                                  [[power objectAtIndex:2] floatValue]);
+        } else {
+            RCTLogError(@"Incorrect parameters: missing power of format [x, y, z] for force!");
+            return false;
+        }
+        
+        // Grab the optional position of the applied force.
+        VROVector3f position3f;
+        NSArray *position = [forceArray[i] objectForKey:@"position"];
+        if (position) {
+            if ([position count] != 3) {
+                RCTLogError(@"Incorrect parameters provided for force's position, expected: [x, y, z]!");
+                return false;
+            }
+            
+            position3f = VROVector3f([[position objectAtIndex:0] floatValue],
+                                     [[position objectAtIndex:1] floatValue],
+                                     [[position objectAtIndex:2] floatValue]);
+        } else {
+            position3f = VROVector3f(0,0,0);
+        }
+        body->applyForce(force3f, position3f);
+    }
+    
+    return true;
+}
+
+-(void)applyImpulse:(VROVector3f)impulse withOffset:(VROVector3f)offset {
+    std::shared_ptr<VROPhysicsBody> body = [self node]->getPhysicsBody();
+    if (!body){
+        RCTLogError(@"Attempted to set an impulse force on a non-physics node");
+        return;
+    }
+    body->applyImpulse(impulse, offset);
+}
+
+
+-(void)applyTorqueImpulse:(VROVector3f)torque {
+    std::shared_ptr<VROPhysicsBody> body = [self node]->getPhysicsBody();
+    if (!body){
+        RCTLogError(@"Attempted to set an impulse force on a non-physics node");
+        return;
+    }
+    body->applyTorqueImpulse(torque);
 }
 @end

@@ -26,6 +26,8 @@ var ViroAnimations = require('./Animation/ViroAnimations');
 var BTN_TYPE_HOVER = 'hovering';
 var BTN_TYPE_NORMAL = 'normal';
 var BTN_TYPE_CLICKED = 'clicked';
+var RCT_BUTTON_REF = 'virobuttoncomponent';
+
 /**
  * Composite controle for 2D button
  */
@@ -133,8 +135,28 @@ var BTN_TYPE_CLICKED = 'clicked';
       friction: PropTypes.number,
       useGravity: PropTypes.bool,
       enabled: PropTypes.bool,
+      force: PropTypes.oneOfType([
+        PropTypes.arrayOf(React.PropTypes.shape({
+          power: PropTypes.arrayOf(PropTypes.number),
+          position: PropTypes.arrayOf(PropTypes.number)
+        })),
+        React.PropTypes.shape({
+          power: PropTypes.arrayOf(PropTypes.number),
+          position: PropTypes.arrayOf(PropTypes.number)
+        }),
+      ]),
+      torque: PropTypes.arrayOf(PropTypes.number)
     }),
   },
+
+  applyImpulse: function(force, atPosition) {
+    this.refs[RCT_BUTTON_REF].applyImpulse(force, atPosition);
+  },
+
+  applyTorqueImpulse: function(torque) {
+    this.refs[RCT_BUTTON_REF].applyTorqueImpulse(torque);
+  },
+
   getInitialState: function() {
     return {buttonType: BTN_TYPE_NORMAL};
   },
@@ -185,6 +207,7 @@ var BTN_TYPE_CLICKED = 'clicked';
 
     return (
         <ViroNode
+            ref={RCT_BUTTON_REF}
             physicsBody={this.props.physicsBody}
             position={this.props.position}
             onClickState={this.props.onClickState}

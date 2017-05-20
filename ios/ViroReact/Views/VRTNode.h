@@ -43,6 +43,8 @@ extern const int k2DPointsPerSpatialUnit;
 
 // Physics properties
 @property (nonatomic, copy) NSDictionary *physicsDictionary;
+- (void)applyImpulse:(VROVector3f)impulse withOffset:(VROVector3f)offset;
+- (void)applyTorqueImpulse:(VROVector3f)torque;
 
 // Used for Flexbox enabled components, no-op for non flexbox related components.
 @property(nonatomic) CGPoint position2DFlex;
@@ -61,4 +63,5 @@ extern const int k2DPointsPerSpatialUnit;
 - (void) onClick:(int)source clickState:(VROEventDelegate::ClickState)clickState;
 - (void) onTouch:(int)source touchState:(VROEventDelegate::TouchState)clickState xPos:(float)x yPos:(float)y;
 - (void) onFuse:(int)source;
+
 @end

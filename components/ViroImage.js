@@ -11,10 +11,9 @@
  */
 'use strict';
 
-import { requireNativeComponent, View, Platform } from 'react-native';
+import { requireNativeComponent, View, Platform, findNodeHandle } from 'react-native';
 import resolveAssetSource from "react-native/Libraries/Image/resolveAssetSource";
 import React from 'react';
-
 var NativeModules = require('react-native').NativeModules;
 var PropTypes = require('react/lib/ReactPropTypes');
 var StyleSheet = require('react-native/Libraries/StyleSheet/StyleSheet');
@@ -137,6 +136,17 @@ var ViroImage = React.createClass({
       friction: PropTypes.number,
       useGravity: PropTypes.bool,
       enabled: PropTypes.bool,
+      force: PropTypes.oneOfType([
+        PropTypes.arrayOf(React.PropTypes.shape({
+          power: PropTypes.arrayOf(PropTypes.number),
+          position: PropTypes.arrayOf(PropTypes.number)
+        })),
+        React.PropTypes.shape({
+          power: PropTypes.arrayOf(PropTypes.number),
+          position: PropTypes.arrayOf(PropTypes.number)
+        }),
+      ]),
+      torque: PropTypes.arrayOf(PropTypes.number)
     }),
   },
 
@@ -194,6 +204,15 @@ var ViroImage = React.createClass({
       }
     }
   },
+
+  applyImpulse: function(force, position) {
+    NativeModules.VRTNodeModule.applyImpulse(findNodeHandle(this), force, position);
+  },
+
+  applyTorqueImpulse: function(torque) {
+    NativeModules.VRTNodeModule.applyTorqueImpulse(findNodeHandle(this), torque);
+  },
+
   render: function() {
     var defaultPlaceholder = require('./Resources/viro_blank.png');
     var imgsrc = resolveAssetSource(this.props.source);

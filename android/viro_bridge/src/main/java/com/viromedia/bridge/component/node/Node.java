@@ -11,6 +11,7 @@ import com.facebook.react.bridge.JSApplicationCausedNativeException;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReadableMap;
+import com.facebook.react.bridge.ReadableType;
 import com.facebook.react.uimanager.IllegalViewOperationException;
 import com.facebook.react.uimanager.PixelUtil;
 
@@ -28,6 +29,7 @@ import com.viromedia.bridge.component.node.control.VideoSurface;
 import com.viromedia.bridge.utility.ComponentEventDelegate;
 import com.viromedia.bridge.utility.ViroLog;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.viromedia.bridge.component.node.NodeManager.s2DUnitPer3DUnit;
@@ -50,7 +52,6 @@ public class Node extends Component {
     protected final static boolean DEFAULT_CAN_DRAG = false;
     protected final static boolean DEFAULT_CAN_FUSE = false;
     protected final static float DEFAULT_TIME_TO_FUSE_MILLIS = 1000f;
-
 
     private NodeJni mNodeJni;
     protected float[] mPosition;
@@ -509,6 +510,7 @@ public class Node extends Component {
         // the body if needed.
         recreatePhysicsBodyIfNeeded(map);
         updatePhysicsBodyProperties(map);
+        applyForcesOnBody(map);
 
         // Finally save a copy of the last known set physics properties.
         mPhysicsMap = map;
@@ -623,6 +625,103 @@ public class Node extends Component {
         }
     }
 
+    private void applyForcesOnBody(ReadableMap map){
+        // Determine if the applied torque has changed
+        ReadableArray torqueProp = map.hasKey("torque") ? map.getArray("torque") : null;
+        boolean currentMapHasTorque = mPhysicsMap != null && mPhysicsMap.hasKey("torque");
+        ReadableArray currentTorque = currentMapHasTorque ? mPhysicsMap.getArray("torque") : null;
+        boolean hasTorqueChanged = torqueProp != currentTorque;
+        if (torqueProp != null){
+            hasTorqueChanged = !torqueProp.equals(currentTorque);
+        }
+
+        // Determine if the applied force has changed
+        ArrayList<ReadableMap> forcesListProp = getForcesFromReactMap(map);
+        ArrayList<ReadableMap> forcesListCurrent = getForcesFromReactMap(mPhysicsMap);
+        boolean hasForceChanged = !forcesListProp.equals(forcesListCurrent);
+
+        // If nothing has changed, return
+        if (!hasForceChanged && !hasTorqueChanged){
+            return;
+        }
+
+        mNodeJni.clearPhysicsForce();
+
+        // Apply Torque
+        if (map.hasKey("torque")){
+            ReadableArray paramsArray = map.getArray("torque");
+            float torqueArray[] = new float[paramsArray.size()];
+            for (int i = 0; i < paramsArray.size(); i ++){
+                torqueArray[i] = (float) paramsArray.getDouble(i);
+            }
+
+            if (torqueArray.length != 3){
+                throw new JSApplicationCausedNativeException("Incorrect parameters " +
+                        "provided for torque, expected: [x, y, z]!");
+            }
+
+            mNodeJni.applyPhysicsTorque(torqueArray);
+        }
+
+        // Apply force
+        for (ReadableMap forceMap : forcesListProp){
+            float forceArray[];
+            if (forceMap.hasKey("power")){
+                ReadableArray paramsArray = forceMap.getArray("power");
+                forceArray = new float[paramsArray.size()];
+                for (int i = 0; i < paramsArray.size(); i ++){
+                    forceArray[i] = (float) paramsArray.getDouble(i);
+                }
+
+                if (forceArray.length != 3){
+                    throw new JSApplicationCausedNativeException("Incorrect parameters " +
+                            "provided for force's power, expected: [x, y, z]!");
+                }
+            } else {
+                throw new JSApplicationCausedNativeException("Incorrect parameters: missing" +
+                        " power of format [x, y, z] for force!");
+            }
+
+            float positionArray[];
+            if (forceMap.hasKey("position")){
+                ReadableArray paramsArray = forceMap.getArray("position");
+                positionArray = new float[paramsArray.size()];
+                for (int i = 0; i < paramsArray.size(); i ++){
+                    positionArray[i] = (float) paramsArray.getDouble(i);
+                }
+
+                if (positionArray.length != 3){
+                    throw new JSApplicationCausedNativeException("Incorrect parameters " +
+                            "provided for force's position, expected: [x, y, z]!");
+                }
+            } else {
+                // Fallback to a central force if no position is provided
+                positionArray = new float[]{0,0,0};
+            }
+
+            mNodeJni.applyPhysicsForce(forceArray, positionArray);
+        }
+    }
+
+    // Parse, check and return a list of valid force props from a given Readable map.
+    private ArrayList<ReadableMap> getForcesFromReactMap(ReadableMap map){
+        ArrayList<ReadableMap> maps = new ArrayList<ReadableMap>();
+        if (map != null && map.hasKey("force")){
+            ReadableType type = map.getType("force");
+            if (type.equals(ReadableType.Array)){
+                ReadableArray reactForceArray = map.getArray("force");
+                for (int i =0; i < reactForceArray.size(); i ++){
+                    maps.add(reactForceArray.getMap(i));
+                }
+            } else if (type.equals(ReadableType.Map)){
+                maps.add(map.getMap("force"));
+            } else if (!type.equals(ReadableType.Null)) {
+                throw new IllegalViewOperationException("Invalid force format!");
+            }
+        }
+        return maps;
+    }
+
     private void createPhysicsBody(String bodyType, float mass, String shapeType,
                                    float shapeParams[]){
         mNodeJni.initPhysicsBody(bodyType, mass, shapeType, shapeParams);
@@ -648,5 +747,21 @@ public class Node extends Component {
             scene.addPhysicsBodyToScene(this);
         }
         super.setScene(scene);
+    }
+
+    public void applyImpulse(float[] force, float[] position){
+        if (!hasPhysicsBody){
+            ViroLog.error(TAG, "Attempted to set an impulse force on a non-physics node");
+            return;
+        }
+        mNodeJni.applyPhysicsImpulse(force, position);
+    }
+
+    public void applyTorqueImpulse(float[] torque){
+        if (!hasPhysicsBody){
+            ViroLog.error(TAG, "Attempted to set an impulse force on a non-physics node");
+            return;
+        }
+        mNodeJni.applyPhysicsTorqueImpulse(torque);
     }
 }

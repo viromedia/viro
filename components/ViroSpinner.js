@@ -23,7 +23,7 @@ var ViroSpinner_1 = require('./Resources/viro_spinner_1.png');
 var ViroSpinner_1a = require('./Resources/viro_spinner_1a.png');
 var ViroSpinner_1_w = require('./Resources/viro_spinner_1_w.png');
 var ViroSpinner_1a_w = require('./Resources/viro_spinner_1a_w.png');
-
+var RCT_SPINNER_REF = 'virospinnercomponent';
 /**
  * Composite control for a 2D Spinner
  */
@@ -74,6 +74,17 @@ var ViroSpinner = React.createClass({
       friction: PropTypes.number,
       useGravity: PropTypes.bool,
       enabled: PropTypes.bool,
+      force: PropTypes.oneOfType([
+        PropTypes.arrayOf(React.PropTypes.shape({
+          power: PropTypes.arrayOf(PropTypes.number),
+          position: PropTypes.arrayOf(PropTypes.number)
+        })),
+        React.PropTypes.shape({
+          power: PropTypes.arrayOf(PropTypes.number),
+          position: PropTypes.arrayOf(PropTypes.number)
+        }),
+      ]),
+      torque: PropTypes.arrayOf(PropTypes.number)
     }),
   },
 
@@ -81,6 +92,14 @@ var ViroSpinner = React.createClass({
     return {
       type: 'dark'
     };
+  },
+
+  applyImpulse: function(force, position) {
+    this.refs[RCT_SPINNER_REF].applyImpulse(force, position);
+  },
+
+  applyTorqueImpulse: function(torque) {
+    this.refs[RCT_SPINNER_REF].applyTorqueImpulse(torque);
   },
 
   render: function() {
@@ -93,7 +112,7 @@ var ViroSpinner = React.createClass({
             rotationPivot={this.props.rotationPivot} scalePivot={this.props.scalePivot} physicsBody={this.props.physicsBody}
             opacity={this.props.opacity} transformBehaviors={transformBehaviors} visible={this.props.visible}
             onHover={this.props.onHover} onClick={this.props.onClick} onClickState={this.props.onClickState}
-            onTouch={this.props.onTouch} onDrag={this.props.onDrag} onFuse={this.props.onFuse}>
+            onTouch={this.props.onTouch} onDrag={this.props.onDrag} onFuse={this.props.onFuse} ref={RCT_SPINNER_REF}>
 
         <ViroAnimatedComponent animation="_ViroSpinner_clockwiseZ" run={true} loop={true} >
           <ViroImage source={this._getImage1()} materials={this.props.materials} />

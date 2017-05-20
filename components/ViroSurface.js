@@ -11,9 +11,8 @@
  */
 'use strict';
 
-import { requireNativeComponent, View } from 'react-native';
+import { requireNativeComponent, View, findNodeHandle } from 'react-native';
 import React from 'react';
-
 var NativeModules = require('react-native').NativeModules;
 var PropTypes = require('react/lib/ReactPropTypes');
 var StyleSheet = require('react-native/Libraries/StyleSheet/StyleSheet');
@@ -72,6 +71,17 @@ var ViroSurface = React.createClass({
       friction: PropTypes.number,
       useGravity: PropTypes.bool,
       enabled: PropTypes.bool,
+      force: PropTypes.oneOfType([
+        PropTypes.arrayOf(React.PropTypes.shape({
+          power: PropTypes.arrayOf(PropTypes.number),
+          position: PropTypes.arrayOf(PropTypes.number)
+        })),
+        React.PropTypes.shape({
+          power: PropTypes.arrayOf(PropTypes.number),
+          position: PropTypes.arrayOf(PropTypes.number)
+        }),
+      ]),
+      torque: PropTypes.arrayOf(PropTypes.number)
     }),
   },
 
@@ -116,6 +126,14 @@ var ViroSurface = React.createClass({
         this.props.onFuse.callback(event.nativeEvent.source);
       }
     }
+  },
+
+  applyImpulse: function(force, position) {
+    NativeModules.VRTNodeModule.applyImpulse(findNodeHandle(this), force, position);
+  },
+
+  applyTorqueImpulse: function(torque) {
+    NativeModules.VRTNodeModule.applyTorqueImpulse(findNodeHandle(this), torque);
   },
 
   render: function() {

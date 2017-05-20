@@ -15,7 +15,6 @@ import {
 } from 'react-native';
 import resolveAssetSource from "react-native/Libraries/Image/resolveAssetSource";
 import React, { Component } from 'react';
-
 var NativeModules = require('react-native').NativeModules;
 var PropTypes = require('react/lib/ReactPropTypes');
 var RCT_VIDEO_REF = 'virovideocomponent';
@@ -107,6 +106,17 @@ var ViroVideo = React.createClass({
       friction: PropTypes.number,
       useGravity: PropTypes.bool,
       enabled: PropTypes.bool,
+      force: PropTypes.oneOfType([
+        PropTypes.arrayOf(React.PropTypes.shape({
+          power: PropTypes.arrayOf(PropTypes.number),
+          position: PropTypes.arrayOf(PropTypes.number)
+        })),
+        React.PropTypes.shape({
+          power: PropTypes.arrayOf(PropTypes.number),
+          position: PropTypes.arrayOf(PropTypes.number)
+        }),
+      ]),
+      torque: PropTypes.arrayOf(PropTypes.number)
     }),
   },
 
@@ -171,6 +181,14 @@ var ViroVideo = React.createClass({
         this.props.onFuse.callback(event.nativeEvent.source);
       }
     }
+  },
+
+  applyImpulse: function(force, position) {
+    NativeModules.VRTNodeModule.applyImpulse(findNodeHandle(this), force, position);
+  },
+
+  applyTorqueImpulse: function(torque) {
+    NativeModules.VRTNodeModule.applyTorqueImpulse(findNodeHandle(this), torque);
   },
 
   render: function() {

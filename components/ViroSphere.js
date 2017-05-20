@@ -12,9 +12,9 @@
 'use strict';
 
 import React, { Component } from 'react';
-import { requireNativeComponent, View, StyleSheet } from 'react-native';
+import { requireNativeComponent, View, StyleSheet, findNodeHandle } from 'react-native';
 var PropTypes = require('react/lib/ReactPropTypes');
-
+var NativeModules = require('react-native').NativeModules;
 
 /**
  * Used to render a ViroSphere
@@ -81,6 +81,17 @@ var ViroSphere = React.createClass({
       friction: PropTypes.number,
       useGravity: PropTypes.bool,
       enabled: PropTypes.bool,
+      force: PropTypes.oneOfType([
+        PropTypes.arrayOf(React.PropTypes.shape({
+          power: PropTypes.arrayOf(PropTypes.number),
+          position: PropTypes.arrayOf(PropTypes.number)
+        })),
+        React.PropTypes.shape({
+          power: PropTypes.arrayOf(PropTypes.number),
+          position: PropTypes.arrayOf(PropTypes.number)
+        }),
+      ]),
+      torque: PropTypes.arrayOf(PropTypes.number)
     }),
   },
 
@@ -125,6 +136,14 @@ var ViroSphere = React.createClass({
         this.props.onFuse.callback(event.nativeEvent.source);
       }
     }
+  },
+
+  applyImpulse: function(force, atPosition) {
+    NativeModules.VRTNodeModule.applyImpulse(findNodeHandle(this), force, atPosition);
+  },
+
+  applyTorqueImpulse: function(torque) {
+    NativeModules.VRTNodeModule.applyTorqueImpulse(findNodeHandle(this), torque);
   },
 
   render: function() {

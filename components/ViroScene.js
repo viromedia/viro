@@ -85,7 +85,7 @@ var ViroScene = React.createClass({
   _onPlatformUpdate: function(event: Event) {
     this.props.onPlatformUpdate && this.props.onPlatformUpdate(event.nativeEvent.platformInfoViro);
   },
-
+  
   async getCameraPositionAsync() {
     return await ViroCameraModule.getCameraPosition(findNodeHandle(this));
   },
