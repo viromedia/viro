@@ -37,7 +37,7 @@ A scene with a 360 photo that displays "Hello World".
 This example showcases 3d objects. Orbit around a 3d Heart to see it from different angles!
 ### [VR MediaPlayer](https://github.com/viromedia/viro/tree/master/js/ViroMediaPlayer)
 Learn how to display and play 2d and 360 video with interactive play controls that can play, pause and stop.
-### [Product Showcase](https://github.com/viromedia/viro/tree/master/js/TVShopping)
+### [Product Showcase](https://github.com/viromedia/viro/tree/master/js/ProductShowcase)
 A demonstration on how to do an interactive shopping app for TV's. Uses flexbox for UI and 3d objects with animations.
 
 
