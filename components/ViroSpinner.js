@@ -86,6 +86,9 @@ var ViroSpinner = React.createClass({
       ]),
       torque: PropTypes.arrayOf(PropTypes.number)
     }),
+
+    viroTag: PropTypes.string,
+    onCollided: React.PropTypes.func,
   },
 
   getDefaultProps() {

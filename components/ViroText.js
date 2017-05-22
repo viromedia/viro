@@ -82,6 +82,9 @@ var ViroText = React.createClass({
       ]),
       torque: PropTypes.arrayOf(PropTypes.number)
     }),
+
+    viroTag: PropTypes.string,
+    onCollided: React.PropTypes.func,
   },
 
   _onHover: function(event: Event) {
@@ -135,6 +138,13 @@ var ViroText = React.createClass({
     NativeModules.VRTNodeModule.applyTorqueImpulse(findNodeHandle(this), torque);
   },
 
+  _onCollided: function(event: Event){
+    if (this.props.onCollided){
+      this.props.onCollided(event.nativeEvent.viroTag, event.nativeEvent.collidedPoint,
+                                                           event.nativeEvent.collidedNormal);
+    }
+  },
+
   render: function() {
     let onGaze = this.props.onGaze ? this._onGaze : undefined;
     // Since materials and transformBehaviors can be either a string or an array, convert the string to a 1-element array.
@@ -165,6 +175,8 @@ var ViroText = React.createClass({
         onDragViro={this._onDrag}
         onFuseViro={this._onFuse}
         transformBehaviors={transformBehaviors}
+        canCollide={this.props.onCollided != undefined}
+        onCollidedViro={this._onCollided}
         timeToFuse={timeToFuse}
       />
     );
@@ -193,6 +205,8 @@ var VRTText = requireNativeComponent(
                 onDragViro:true,
                 onFuseViro:true,
                 timeToFuse:true,
+                canCollide:true,
+                onCollidedViro:true,
       }
 });
 

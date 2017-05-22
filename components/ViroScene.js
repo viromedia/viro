@@ -9,7 +9,7 @@
 import { requireNativeComponent, findNodeHandle, View } from 'react-native';
 import React, { Component } from 'react';
 var PropTypes = require('react/lib/ReactPropTypes');
-var ViroCameraModule = require('react-native').NativeModules.VRTCameraModule;
+var NativeModules = require('react-native').NativeModules;
 
 var ViroScene = React.createClass({
   propTypes: {
@@ -85,29 +85,37 @@ var ViroScene = React.createClass({
   _onPlatformUpdate: function(event: Event) {
     this.props.onPlatformUpdate && this.props.onPlatformUpdate(event.nativeEvent.platformInfoViro);
   },
-  
+
+  async findCollisionsWithRayAsync(from, to, closest, viroTag) {
+    return await NativeModules.VRTSceneModule.findCollisionsWithRayAsync(findNodeHandle(this), from, to, closest, viroTag);
+  },
+
+  async findCollisionsWithShapeAsync(from, to, shapeString, shapeParam, viroTag) {
+    return await NativeModules.VRTSceneModule.findCollisionsWithShapeAsync(findNodeHandle(this), from, to, shapeString, shapeParam, viroTag);
+  },
+
   async getCameraPositionAsync() {
-    return await ViroCameraModule.getCameraPosition(findNodeHandle(this));
+    return await NativeModules.VRTCameraModule.getCameraPosition(findNodeHandle(this));
   },
 
   getChildContext: function() {
     return {
       cameraDidMount: function(camera) {
         if (camera.props.active) {
-          ViroCameraModule.setSceneCamera(findNodeHandle(this), findNodeHandle(camera));
+          NativeModules.VRTCameraModule.setSceneCamera(findNodeHandle(this), findNodeHandle(camera));
         }
       }.bind(this),
       cameraWillUnmount: function(camera) {
         if (camera.props.active) {
-          ViroCameraModule.removeSceneCamera(findNodeHandle(this), findNodeHandle(camera));
+          NativeModules.VRTCameraModule.removeSceneCamera(findNodeHandle(this), findNodeHandle(camera));
         }
       }.bind(this),
       cameraWillReceiveProps: function(camera, nextProps) {
         if (nextProps.active) {
-          ViroCameraModule.setSceneCamera(findNodeHandle(this), findNodeHandle(camera));
+          NativeModules.VRTCameraModule.setSceneCamera(findNodeHandle(this), findNodeHandle(camera));
         }
         else {
-          ViroCameraModule.removeSceneCamera(findNodeHandle(this), findNodeHandle(camera));
+          NativeModules.VRTCameraModule.removeSceneCamera(findNodeHandle(this), findNodeHandle(camera));
         }
       }.bind(this),
     };
@@ -157,6 +165,7 @@ var VRTScene = requireNativeComponent(
           canSwipe: true,
           canDrag: true,
           canFuse: true,
+          canCollide: true,
           onHoverViro: true,
           onClickViro: true,
           onTouchViro: true,
@@ -167,6 +176,7 @@ var VRTScene = requireNativeComponent(
           onFuseViro:true,
           timeToFuse:true,
           physicsBody:true,
+          onCollidedViro:true,
         }
     }
 );

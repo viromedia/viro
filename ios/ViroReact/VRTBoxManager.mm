@@ -34,6 +34,9 @@ RCT_EXPORT_VIEW_PROPERTY(canFuse, BOOL)
 RCT_EXPORT_VIEW_PROPERTY(opacity, float)
 RCT_EXPORT_VIEW_PROPERTY(transformBehaviors, NSArray<NSString *>)
 RCT_EXPORT_VIEW_PROPERTY(physicsBody, NSDictionary)
+RCT_EXPORT_VIEW_PROPERTY(onCollidedViro, RCTDirectEventBlock)
+RCT_EXPORT_VIEW_PROPERTY(canCollide, BOOL)
+RCT_EXPORT_VIEW_PROPERTY(viroTag, NSString)
 
 - (VRTView *)view
 {

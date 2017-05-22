@@ -114,6 +114,9 @@ var Viro3DObject = React.createClass({
       ]),
       torque: PropTypes.arrayOf(PropTypes.number)
     }),
+
+    viroTag: PropTypes.string,
+    onCollided: React.PropTypes.func,
   },
 
   _onHover: function(event: Event) {
@@ -179,6 +182,13 @@ var Viro3DObject = React.createClass({
     NativeModules.VRTNodeModule.applyTorqueImpulse(findNodeHandle(this), torque);
   },
 
+  _onCollided: function(event: Event){
+    if (this.props.onCollided){
+      this.props.onCollided(event.nativeEvent.viroTag, event.nativeEvent.collidedPoint,
+                                                           event.nativeEvent.collidedNormal);
+    }
+  },
+
   render: function() {
     var modelsrc = resolveAssetSource(this.props.source);
     var resources = null;
@@ -230,6 +240,8 @@ var Viro3DObject = React.createClass({
         onLoadEndViro={this._onLoadEnd}
         onErrorViro={this._onError}
         timeToFuse={timeToFuse}
+        canCollide={this.props.onCollided != undefined}
+        onCollidedViro={this._onCollided}
       />
     );
   }
@@ -256,6 +268,8 @@ var VRT3DObject = requireNativeComponent(
             onErrorViro:true,
             onFuseViro:true,
             timeToFuse:true,
+            canCollide:true,
+            onCollidedViro:true,
           }
   }
 );

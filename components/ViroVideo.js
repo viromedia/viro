@@ -118,6 +118,9 @@ var ViroVideo = React.createClass({
       ]),
       torque: PropTypes.arrayOf(PropTypes.number)
     }),
+
+    viroTag: PropTypes.string,
+    onCollided: React.PropTypes.func,
   },
 
   _onBufferStart: function(event: Event) {
@@ -191,6 +194,13 @@ var ViroVideo = React.createClass({
     NativeModules.VRTNodeModule.applyTorqueImpulse(findNodeHandle(this), torque);
   },
 
+  _onCollided: function(event: Event){
+    if (this.props.onCollided){
+      this.props.onCollided(event.nativeEvent.viroTag, event.nativeEvent.collidedPoint,
+                                                           event.nativeEvent.collidedNormal);
+    }
+  },
+
   render: function() {
     if (this.props.src) {
       console.error('The <ViroVideo> component takes a `source` property rather than `src`.');
@@ -237,6 +247,8 @@ var ViroVideo = React.createClass({
     nativeProps.canFuse = this.props.onFuse != undefined;
     nativeProps.onFuseViro = this._onFuse;
     nativeProps.timeToFuse = timeToFuse;
+    nativeProps.canCollide = this.props.onCollided != undefined;
+    nativeProps.onCollidedViro = this._onCollided;
     return (
       <VRTVideoSurface {...nativeProps}/>
     );
@@ -283,7 +295,9 @@ var VRTVideoSurface = requireNativeComponent(
           onErrorViro:true,
           canFuse: true,
           onFuseViro:true,
-          timeToFuse:true
+          timeToFuse:true,
+          canCollide:true,
+          onCollidedViro:true,
       }
     }
 );

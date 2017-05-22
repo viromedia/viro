@@ -42,6 +42,9 @@ RCT_EXPORT_VIEW_PROPERTY(onErrorViro, RCTDirectEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onUpdateTimeViro, RCTDirectEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(stereoMode, NSString)
 RCT_EXPORT_VIEW_PROPERTY(physicsBody, NSDictionary)
+RCT_EXPORT_VIEW_PROPERTY(onCollidedViro, RCTDirectEventBlock)
+RCT_EXPORT_VIEW_PROPERTY(canCollide, BOOL)
+RCT_EXPORT_VIEW_PROPERTY(viroTag, NSString)
 
 - (VRTVideoSurface *)view
 {

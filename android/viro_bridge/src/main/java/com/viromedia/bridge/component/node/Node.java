@@ -7,14 +7,18 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
 
+import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.JSApplicationCausedNativeException;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.ReadableType;
+import com.facebook.react.bridge.WritableArray;
+import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.uimanager.IllegalViewOperationException;
 import com.facebook.react.uimanager.PixelUtil;
 
+import com.facebook.react.uimanager.events.RCTEventEmitter;
 import com.viro.renderer.jni.BaseGeometry;
 import com.viro.renderer.jni.EventDelegateJni;
 import com.viro.renderer.jni.MaterialJni;
@@ -27,8 +31,10 @@ import com.viromedia.bridge.component.node.control.Surface;
 import com.viromedia.bridge.component.node.control.Text;
 import com.viromedia.bridge.component.node.control.VideoSurface;
 import com.viromedia.bridge.utility.ComponentEventDelegate;
+import com.viromedia.bridge.utility.ViroEvents;
 import com.viromedia.bridge.utility.ViroLog;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -83,6 +89,7 @@ public class Node extends Component {
 
     // Last known set physics properties for this node.
     private ReadableMap mPhysicsMap = null;
+    private PhysicsBodyDelegate mPhysicsDelegate;
 
     public Node(ReactApplicationContext reactContext) {
         this(reactContext.getBaseContext(), null, -1, -1, reactContext);
@@ -516,6 +523,28 @@ public class Node extends Component {
         mPhysicsMap = map;
     }
 
+    public void setCanCollide(boolean canCollide) {
+        if (canCollide && mPhysicsDelegate == null) {
+            mPhysicsDelegate = new PhysicsBodyDelegate(this);
+        } else if (!canCollide) {
+            mPhysicsDelegate = null;
+        }
+
+        if (!hasPhysicsBody){
+            return;
+        }
+
+        if (mPhysicsDelegate != null){
+            mNodeJni.setPhysicsDelegate(mPhysicsDelegate);
+        } else {
+            mNodeJni.setPhysicsDelegate(null);
+        }
+    }
+
+    public void setViroTag(String tag){
+        mNodeJni.setTag(tag);
+    }
+
     private void recreatePhysicsBodyIfNeeded(ReadableMap map){
         float mass = 0;
         if (map.hasKey("mass")){
@@ -729,6 +758,12 @@ public class Node extends Component {
             mScene.addPhysicsBodyToScene(this);
         }
 
+        if (mPhysicsDelegate != null){
+            mNodeJni.setPhysicsDelegate(mPhysicsDelegate);
+        } else {
+            mNodeJni.setPhysicsDelegate(null);
+        }
+
         hasPhysicsBody = true;
     }
 
@@ -763,5 +798,40 @@ public class Node extends Component {
             return;
         }
         mNodeJni.applyPhysicsTorqueImpulse(torque);
+    }
+
+    protected class PhysicsBodyDelegate implements NodeJni.PhysicsDelegate{
+        private WeakReference<Component> weakComponent;
+        public PhysicsBodyDelegate(Component component){
+            weakComponent = new WeakReference<Component>(component);
+        }
+
+        @Override
+        public void onCollided(String collidedTag, float[] collidedPoint, float[] collidedNormal) {
+            Component node = weakComponent.get();
+            if (node == null){
+                return;
+            }
+
+            WritableArray points = Arguments.createArray();
+            points.pushDouble(collidedPoint[0]);
+            points.pushDouble(collidedPoint[1]);
+            points.pushDouble(collidedPoint[2]);
+
+            WritableArray normals = Arguments.createArray();
+            normals.pushDouble(collidedNormal[0]);
+            normals.pushDouble(collidedNormal[1]);
+            normals.pushDouble(collidedNormal[2]);
+
+            WritableMap event = Arguments.createMap();
+            event.putString("viroTag", collidedTag);
+            event.putArray("collidedPoint", points);
+            event.putArray("collidedNormal", normals);
+
+            node.getReactContext().getJSModule(RCTEventEmitter.class).receiveEvent(
+                    node.getId(),
+                    ViroEvents.ON_COLLIDED,
+                    event);
+        }
     }
 }

@@ -147,6 +147,9 @@ var RCT_BUTTON_REF = 'virobuttoncomponent';
       ]),
       torque: PropTypes.arrayOf(PropTypes.number)
     }),
+
+    viroTag: PropTypes.string,
+    onCollided: React.PropTypes.func,
   },
 
   applyImpulse: function(force, atPosition) {
@@ -217,6 +220,8 @@ var RCT_BUTTON_REF = 'virobuttoncomponent';
             onHover={this._onButtonHover}
             onClick={this._onButtonClicked}
             onDrag={this.props.onDrag}
+            onCollided={this.props.onCollided}
+            viroTag={this.props.viroTag}
             onFuse={this.props.onFuse}>
 
             <ViroImage

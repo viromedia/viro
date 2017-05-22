@@ -93,6 +93,9 @@ var ViroSphere = React.createClass({
       ]),
       torque: PropTypes.arrayOf(PropTypes.number)
     }),
+
+    viroTag: PropTypes.string,
+    onCollided: React.PropTypes.func,
   },
 
   _onHover: function(event: Event) {
@@ -146,6 +149,13 @@ var ViroSphere = React.createClass({
     NativeModules.VRTNodeModule.applyTorqueImpulse(findNodeHandle(this), torque);
   },
 
+  _onCollided: function(event: Event){
+    if (this.props.onCollided){
+      this.props.onCollided(event.nativeEvent.viroTag, event.nativeEvent.collidedPoint,
+                                                           event.nativeEvent.collidedNormal);
+    }
+  },
+
   render: function() {
     if (this.props.material) {
       console.error('The <ViroSphere> component takes a `materials` property rather than `material`.');
@@ -179,6 +189,8 @@ var ViroSphere = React.createClass({
         onSwipeViro={this._onSwipe}
         onDragViro={this._onDrag}
         onFuseViro={this._onFuse}
+        canCollide={this.props.onCollided != undefined}
+        onCollidedViro={this._onCollided}
         timeToFuse={timeToFuse}
         />
     );
@@ -204,6 +216,8 @@ var VRTSphere = requireNativeComponent(
             onDragViro:true,
             onFuseViro:true,
             timeToFuse:true,
+            canCollide:true,
+            onCollidedViro:true,
           }
   }
 );

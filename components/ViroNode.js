@@ -71,6 +71,9 @@ var ViroNode = React.createClass({
       ]),
       torque: PropTypes.arrayOf(PropTypes.number)
     }),
+
+    viroTag: PropTypes.string,
+    onCollided: React.PropTypes.func,
   },
 
   _onHover: function(event: Event) {
@@ -124,6 +127,13 @@ var ViroNode = React.createClass({
     NativeModules.VRTNodeModule.applyTorqueImpulse(findNodeHandle(this), torque);
   },
 
+  _onCollided: function(event: Event){
+    if (this.props.onCollided){
+      this.props.onCollided(event.nativeEvent.viroTag, event.nativeEvent.collidedPoint,
+                                                           event.nativeEvent.collidedNormal);
+    }
+  },
+
   render: function() {
     // Since transformBehaviors can be either a string or an array, convert the string to a 1-element array.
     let transformBehaviors = typeof this.props.transformBehaviors === 'string' ?
@@ -153,6 +163,8 @@ var ViroNode = React.createClass({
         onDragViro={this._onDrag}
         onFuseViro={this._onFuse}
         timeToFuse={timeToFuse}
+        canCollide={this.props.onCollided != undefined}
+        onCollidedViro={this._onCollided}
         />
     );
   }
@@ -178,6 +190,8 @@ var VRTViewContainer = requireNativeComponent(
             onDragViro:true,
             onFuseViro:true,
             timeToFuse:true,
+            canCollide:true,
+            onCollidedViro:true,
           }
   }
 );

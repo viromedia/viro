@@ -13,12 +13,13 @@
 
 extern const int k2DPointsPerSpatialUnit;
 
-@interface VRTNode : VRTView<VROEventDelegateProtocol>
+@interface VRTNode : VRTView<VROEventDelegateProtocol, VROPhysicsBodyDelegateProtocol>
 
 - (instancetype)initWithBridge:(RCTBridge *)bridge;
 
 @property (readwrite, nonatomic) std::shared_ptr<VRONode> node;
 @property (readwrite, nonatomic) std::shared_ptr<VROEventDelegateiOS> eventDelegate;
+@property (readwrite, nonatomic) std::shared_ptr<VROPhysicsBodyDelegateiOS> physicsDelegate;
 
 // Rendering properties
 @property (nonatomic, copy, nullable) NSArray<NSString *> *materials;
@@ -42,9 +43,13 @@ extern const int k2DPointsPerSpatialUnit;
 @property (nonatomic, assign) float timeToFuse;
 
 // Physics properties
+@property (nonatomic, copy, nullable) RCTDirectEventBlock onCollidedViro;
 @property (nonatomic, copy) NSDictionary *physicsDictionary;
 - (void)applyImpulse:(VROVector3f)impulse withOffset:(VROVector3f)offset;
 - (void)applyTorqueImpulse:(VROVector3f)torque;
+- (void)onCollided:(std::string) bodyKey collision:(VROPhysicsBody::VROCollision) collision;
++ (std::shared_ptr<VROPhysicsShape>)getPhysicsShape:(NSString *)stringShapeName params:(NSArray *)shapeParams;
+@property (nonatomic, assign) BOOL canCollide;
 
 // Used for Flexbox enabled components, no-op for non flexbox related components.
 @property(nonatomic) CGPoint position2DFlex;

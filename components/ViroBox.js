@@ -84,6 +84,9 @@ var ViroBox = React.createClass({
       ]),
       torque: PropTypes.arrayOf(PropTypes.number)
     }),
+
+    viroTag: PropTypes.string,
+    onCollided: React.PropTypes.func,
   },
 
   _onHover: function(event: Event) {
@@ -137,6 +140,13 @@ var ViroBox = React.createClass({
     NativeModules.VRTNodeModule.applyTorqueImpulse(findNodeHandle(this), torque);
   },
 
+  _onCollided: function(event: Event){
+    if (this.props.onCollided){
+      this.props.onCollided(event.nativeEvent.viroTag, event.nativeEvent.collidedPoint,
+                                                           event.nativeEvent.collidedNormal);
+    }
+  },
+
   render: function() {
     // Since materials and transformBehaviors can be either a string or an array, convert the string to a 1-element array.
     let materials = typeof this.props.materials === 'string' ? new Array(this.props.materials) : this.props.materials;
@@ -175,6 +185,8 @@ var ViroBox = React.createClass({
             onSwipeViro={this._onSwipe}
             onDragViro={this._onDrag}
             onFuseViro={this._onFuse}
+            canCollide={this.props.onCollided != undefined}
+            onCollidedViro={this._onCollided}
             timeToFuse={timeToFuse}/>
     );
   }
@@ -197,7 +209,10 @@ var VRTBox = requireNativeComponent(
             onSwipeViro:true,
             onDragViro:true,
             onFuseViro:true,
-            timeToFuse:true}
+            timeToFuse:true,
+            canCollide:true,
+            onCollidedViro:true,
+          }
     }
 );
 

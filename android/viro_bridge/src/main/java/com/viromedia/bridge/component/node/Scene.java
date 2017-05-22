@@ -201,6 +201,18 @@ public class Scene extends Node implements SceneJni.SceneDelegate {
         }
     }
 
+    public void findCollisionsWithRayAsync(float[] fromPos, float toPos[], boolean closest,
+                                           String tag,
+                                           SceneJni.PhysicsWorldHitTestCallback callback){
+        mNativeScene.findCollisionsWithRayAsync(fromPos, toPos, closest, tag, callback);
+    }
+
+    public void findCollisionsWithShapeAsync(float[] from, float[] to, String shapeType,
+                                             float[] params, String tag,
+                                             SceneJni.PhysicsWorldHitTestCallback callback) {
+        mNativeScene.findCollisionsWithShapeAsync(from, to, shapeType, params, tag, callback);
+    }
+
     /**
      * Attach Renderer Delegate callbacks to the Scene to be propagated
      * across all of it's child views.

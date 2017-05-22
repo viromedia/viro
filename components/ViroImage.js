@@ -148,6 +148,9 @@ var ViroImage = React.createClass({
       ]),
       torque: PropTypes.arrayOf(PropTypes.number)
     }),
+
+    viroTag: PropTypes.string,
+    onCollided: React.PropTypes.func,
   },
 
   _onLoadStart: function(event: Event) {
@@ -211,6 +214,13 @@ var ViroImage = React.createClass({
 
   applyTorqueImpulse: function(torque) {
     NativeModules.VRTNodeModule.applyTorqueImpulse(findNodeHandle(this), torque);
+  },
+
+  _onCollided: function(event: Event){
+    if (this.props.onCollided){
+      this.props.onCollided(event.nativeEvent.viroTag, event.nativeEvent.collidedPoint,
+                                                           event.nativeEvent.collidedNormal);
+    }
   },
 
   render: function() {
@@ -277,7 +287,8 @@ var ViroImage = React.createClass({
     nativeProps.canFuse = this.props.onFuse != undefined;
     nativeProps.onFuseViro = this._onFuse;
     nativeProps.timeToFuse = timeToFuse;
-
+    nativeProps.canCollide = this.props.onCollided != undefined;
+    nativeProps.onCollidedViro = this._onCollided;
     return (
       <VRTImage {...nativeProps}/>
     );
@@ -304,7 +315,9 @@ var VRTImage = requireNativeComponent(
             onDragViro:true,
             canFuse: true,
             onFuseViro:true,
-            timeToFuse:true
+            timeToFuse:true,
+            canCollide:true,
+            onCollidedViro:true,
           }
   }
 );

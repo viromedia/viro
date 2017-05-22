@@ -221,6 +221,14 @@ const int k2DPointsPerSpatialUnit = 1000;
   [self node]->setHidden(!_visible);
 }
 
+- (void)setViroTag:(NSString *)tag {
+    std::string nodeTag;
+    if (tag) {
+        nodeTag = std::string([tag UTF8String]);
+    }
+    [self node]->setTag(nodeTag);
+}
+
 - (void)setHighAccuracyGaze:(BOOL)enabled{
   _highAccuracyGaze = enabled;
   [self node]->setHighAccuracyGaze(enabled);
@@ -253,6 +261,28 @@ const int k2DPointsPerSpatialUnit = 1000;
 
 -(void)onClickViro:(RCTDirectEventBlock)block {
     _onClickViro = block;
+}
+
+-(void)setCanCollide:(BOOL)canCollide {
+    _canCollide = canCollide;
+
+    if (canCollide && !_physicsDelegate) {
+        _physicsDelegate = std::make_shared<VROPhysicsBodyDelegateiOS>(self);
+    } else if (!canCollide) {
+        _physicsDelegate = nil;
+    }
+
+    // Update the physic body's delegate if possible
+    std::shared_ptr<VROPhysicsBody> body = [self node]->getPhysicsBody();
+    if (!body) {
+        return;
+    }
+
+    if (canCollide) {
+        body->setPhysicsDelegate(_physicsDelegate);
+    } else {
+        body->setPhysicsDelegate(nullptr);
+    }
 }
 
 -(void)setCanHover:(BOOL)canHover {
@@ -324,6 +354,11 @@ const int k2DPointsPerSpatialUnit = 1000;
         self.scene->getPhysicsWorld()->addPhysicsBody(body);
     }
 
+    if (_physicsDelegate) {
+        body->setPhysicsDelegate(_physicsDelegate);
+    } else {
+        body->setPhysicsDelegate(nullptr);
+    }
     return body;
 }
 
@@ -391,30 +426,11 @@ const int k2DPointsPerSpatialUnit = 1000;
         // the current shapeType (required in JS if providing a physics shape)
         if (nsShapeDictionaryProp){
             NSString *stringShapeName = [nsShapeDictionaryProp objectForKey:@"type"];
-            std::string strShapeName = std::string([stringShapeName UTF8String]);
-
-            // Grab the current shapeParams
             NSArray *shapeParams = [nsShapeDictionaryProp objectForKey:@"params"];
-            std::vector<float> params = {};
-            if (shapeParams){
-                for (int i = 0; i < [shapeParams count]; i ++){
-                    float value = [[shapeParams objectAtIndex:i] floatValue];
-                    params.push_back(value);
-                }
-            }
-
-            // Check if an invalid shape and param was provided.
-            std::string errorMsg;
-            bool isValid = VROPhysicsShape::isValidShape(strShapeName, params, errorMsg);
-            if (!isValid){
-                RCTLogError(@"%@", [NSString stringWithUTF8String:errorMsg.c_str()]);
+            propPhysicsShape = [VRTNode getPhysicsShape:stringShapeName params:shapeParams];
+            if (propPhysicsShape == nullptr){
                 return false;
             }
-
-            // Create a VROPhysicsShape
-            VROPhysicsShape::VROShapeType propShapeType
-                                    = VROPhysicsShape::getTypeForString(strShapeName);
-            propPhysicsShape = std::make_shared<VROPhysicsShape>(propShapeType, params);
         }
 
         // Re-create the physics body if the type has changed or if one doesn't exists.
@@ -591,9 +607,38 @@ const int k2DPointsPerSpatialUnit = 1000;
     return true;
 }
 
++(std::shared_ptr<VROPhysicsShape>)getPhysicsShape:(NSString *)stringShapeName params:(NSArray *)shapeParams {
+    if (!stringShapeName) {
+        RCTLogError(@"Provided an invalid physics shape name to the physics body!");
+        return nullptr;
+    }
+    
+    // Grab the current shapeParams
+    std::vector<float> params = {};
+    if (shapeParams) {
+        for (int i = 0; i < [shapeParams count]; i ++) {
+            float value = [[shapeParams objectAtIndex:i] floatValue];
+            params.push_back(value);
+        }
+    }
+    
+    // Check if an invalid shape and param was provided.
+    std::string errorMsg;
+    std::string strShapeName = std::string([stringShapeName UTF8String]);
+    bool isValid = VROPhysicsShape::isValidShape(strShapeName, params, errorMsg);
+    if (!isValid) {
+        RCTLogError(@"%@", [NSString stringWithUTF8String:errorMsg.c_str()]);
+        return nullptr;
+    }
+    
+    // Create a VROPhysicsShape
+    VROPhysicsShape::VROShapeType propShapeType = VROPhysicsShape::getTypeForString(strShapeName);
+    return std::make_shared<VROPhysicsShape>(propShapeType, params);
+}
+
 -(void)applyImpulse:(VROVector3f)impulse withOffset:(VROVector3f)offset {
     std::shared_ptr<VROPhysicsBody> body = [self node]->getPhysicsBody();
-    if (!body){
+    if (!body) {
         RCTLogError(@"Attempted to set an impulse force on a non-physics node");
         return;
     }
@@ -603,10 +648,26 @@ const int k2DPointsPerSpatialUnit = 1000;
 
 -(void)applyTorqueImpulse:(VROVector3f)torque {
     std::shared_ptr<VROPhysicsBody> body = [self node]->getPhysicsBody();
-    if (!body){
+    if (!body) {
         RCTLogError(@"Attempted to set an impulse force on a non-physics node");
         return;
     }
     body->applyTorqueImpulse(torque);
+}
+
+- (void)onCollided:(std::string) bodyKey
+         collision:(VROPhysicsBody::VROCollision)collision {
+
+    NSMutableArray *coordinate = [NSMutableArray array];
+    [coordinate insertObject:[NSNumber numberWithFloat:collision.collidedPoint.x] atIndex:0];
+    [coordinate insertObject:[NSNumber numberWithFloat:collision.collidedPoint.y] atIndex:1];
+    [coordinate insertObject:[NSNumber numberWithFloat:collision.collidedPoint.z] atIndex:2];
+
+    NSMutableArray *normal = [NSMutableArray array];
+    [normal insertObject:[NSNumber numberWithFloat:collision.collidedNormal.x] atIndex:0];
+    [normal insertObject:[NSNumber numberWithFloat:collision.collidedNormal.y] atIndex:1];
+    [normal insertObject:[NSNumber numberWithFloat:collision.collidedNormal.z] atIndex:2];
+
+    self.onCollidedViro(@{@"viroTag": @(collision.collidedBodyTag.c_str()), @"collidedPoint":coordinate, @"collidedNormal":normal});
 }
 @end

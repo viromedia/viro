@@ -31,6 +31,9 @@ RCT_EXPORT_VIEW_PROPERTY(canClick, BOOL)
 RCT_EXPORT_VIEW_PROPERTY(canFuse, BOOL)
 RCT_EXPORT_VIEW_PROPERTY(opacity, float)
 RCT_EXPORT_VIEW_PROPERTY(physicsBody, NSDictionary)
+RCT_EXPORT_VIEW_PROPERTY(onCollidedViro, RCTDirectEventBlock)
+RCT_EXPORT_VIEW_PROPERTY(canCollide, BOOL)
+RCT_EXPORT_VIEW_PROPERTY(viroTag, NSString)
 
 - (VRTNodeContainerShadowView *)shadowView
 {

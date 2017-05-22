@@ -43,6 +43,9 @@ RCT_EXPORT_VIEW_PROPERTY(placeholderSource, VRTUIImageWrapper)
 RCT_EXPORT_VIEW_PROPERTY(mipmap, BOOL)
 RCT_EXPORT_VIEW_PROPERTY(format, VROTextureInternalFormat)
 RCT_EXPORT_VIEW_PROPERTY(physicsBody, NSDictionary)
+RCT_EXPORT_VIEW_PROPERTY(onCollidedViro, RCTDirectEventBlock)
+RCT_EXPORT_VIEW_PROPERTY(canCollide, BOOL)
+RCT_EXPORT_VIEW_PROPERTY(viroTag, NSString)
 
 - (VRTImage *)view
 {

@@ -215,6 +215,10 @@
 		A53359701E9E0169005B3EC5 /* VRTControllerModule.mm in Sources */ = {isa = PBXBuildFile; fileRef = A533596E1E9E0169005B3EC5 /* VRTControllerModule.mm */; };
 		A5A937A91E81D1FB00FE0406 /* VRTSceneNavigatorModule.h in Headers */ = {isa = PBXBuildFile; fileRef = A5A937A71E81D1FB00FE0406 /* VRTSceneNavigatorModule.h */; };
 		A5A937AA1E81D1FB00FE0406 /* VRTSceneNavigatorModule.mm in Sources */ = {isa = PBXBuildFile; fileRef = A5A937A81E81D1FB00FE0406 /* VRTSceneNavigatorModule.mm */; };
+		A5E8F0A91ED6B64E00729916 /* VRTNodeModule.h in Headers */ = {isa = PBXBuildFile; fileRef = A5E8F0A51ED6B64D00729916 /* VRTNodeModule.h */; };
+		A5E8F0AA1ED6B64E00729916 /* VRTNodeModule.mm in Sources */ = {isa = PBXBuildFile; fileRef = A5E8F0A61ED6B64D00729916 /* VRTNodeModule.mm */; };
+		A5E8F0AB1ED6B64E00729916 /* VRTSceneModule.h in Headers */ = {isa = PBXBuildFile; fileRef = A5E8F0A71ED6B64D00729916 /* VRTSceneModule.h */; };
+		A5E8F0AC1ED6B64E00729916 /* VRTSceneModule.mm in Sources */ = {isa = PBXBuildFile; fileRef = A5E8F0A81ED6B64D00729916 /* VRTSceneModule.mm */; };
 		A5F6D4011E4B0DFF00655F60 /* VRTController.mm in Sources */ = {isa = PBXBuildFile; fileRef = A5F6D4001E4B0DFF00655F60 /* VRTController.mm */; };
 		A5F6D4051E4B179700655F60 /* VRTControllerManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = A5F6D4041E4B179700655F60 /* VRTControllerManager.mm */; };
 /* End PBXBuildFile section */
@@ -346,7 +350,7 @@
 		8A31CFB21E2705EC00550CFE /* VRTSurface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VRTSurface.h; path = ViroReact/Views/VRTSurface.h; sourceTree = "<group>"; };
 		8A31CFB31E2705EC00550CFE /* VRTSurface.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = VRTSurface.mm; path = ViroReact/Views/VRTSurface.mm; sourceTree = "<group>"; };
 		8A56302D1EBBFF5F009E71A7 /* VRTPolylineManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VRTPolylineManager.h; path = ViroReact/VRTPolylineManager.h; sourceTree = "<group>"; };
-		8A56302E1EBBFF5F009E71A7 /* VRTPolylineManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = VRTPolylineManager.mm; path = ViroReact/VRTPolylineManager.mm; sourceTree = "<group>"; };
+		8A56302E1EBBFF5F009E71A7 /* VRTPolylineManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; name = VRTPolylineManager.mm; path = ViroReact/VRTPolylineManager.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		8AFC1C351EC1001C0000F7EB /* VRTPolyline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VRTPolyline.h; path = ViroReact/Views/VRTPolyline.h; sourceTree = "<group>"; };
 		8AFC1C361EC1001C0000F7EB /* VRTPolyline.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = VRTPolyline.mm; path = ViroReact/Views/VRTPolyline.mm; sourceTree = "<group>"; };
 		8BCF287A1E8090A900F0DD62 /* VRTUIImageWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VRTUIImageWrapper.m; path = ViroReact/Utility/VRTUIImageWrapper.m; sourceTree = "<group>"; };
@@ -369,7 +373,7 @@
 		8BE0D46D1DFA15880032AB99 /* VRTAnimatedComponentManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VRTAnimatedComponentManager.h; path = ViroReact/VRTAnimatedComponentManager.h; sourceTree = "<group>"; };
 		8BE0D46E1DFA15880032AB99 /* VRTAnimatedComponentManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = VRTAnimatedComponentManager.mm; path = ViroReact/VRTAnimatedComponentManager.mm; sourceTree = "<group>"; };
 		8BE0D46F1DFA15880032AB99 /* VRTBoxManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VRTBoxManager.h; path = ViroReact/VRTBoxManager.h; sourceTree = "<group>"; };
-		8BE0D4701DFA15880032AB99 /* VRTBoxManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = VRTBoxManager.mm; path = ViroReact/VRTBoxManager.mm; sourceTree = "<group>"; };
+		8BE0D4701DFA15880032AB99 /* VRTBoxManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; name = VRTBoxManager.mm; path = ViroReact/VRTBoxManager.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		8BE0D4761DFA15880032AB99 /* VROHUDManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VROHUDManager.h; path = ViroReact/VROHUDManager.h; sourceTree = "<group>"; };
 		8BE0D4771DFA15880032AB99 /* VROHUDManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = VROHUDManager.mm; path = ViroReact/VROHUDManager.mm; sourceTree = "<group>"; };
 		8BE0D4781DFA15880032AB99 /* VRTLightManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VRTLightManager.h; path = ViroReact/VRTLightManager.h; sourceTree = "<group>"; };
@@ -379,19 +383,19 @@
 		8BE0D47C1DFA15880032AB99 /* VRTSceneNavigatorManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VRTSceneNavigatorManager.h; path = ViroReact/VRTSceneNavigatorManager.h; sourceTree = "<group>"; };
 		8BE0D47D1DFA15880032AB99 /* VRTSceneNavigatorManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = VRTSceneNavigatorManager.mm; path = ViroReact/VRTSceneNavigatorManager.mm; sourceTree = "<group>"; };
 		8BE0D47E1DFA15880032AB99 /* VRTTextManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VRTTextManager.h; path = ViroReact/VRTTextManager.h; sourceTree = "<group>"; };
-		8BE0D47F1DFA15880032AB99 /* VRTTextManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = VRTTextManager.mm; path = ViroReact/VRTTextManager.mm; sourceTree = "<group>"; };
+		8BE0D47F1DFA15880032AB99 /* VRTTextManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; name = VRTTextManager.mm; path = ViroReact/VRTTextManager.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		8BE0D4801DFA15880032AB99 /* VRTUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VRTUtils.h; path = ViroReact/VRTUtils.h; sourceTree = "<group>"; };
 		8BE0D4811DFA15880032AB99 /* VRTUtils.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = VRTUtils.mm; path = ViroReact/VRTUtils.mm; sourceTree = "<group>"; };
 		8BE0D4821DFA15880032AB99 /* VRTVideoSurfaceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VRTVideoSurfaceManager.h; path = ViroReact/VRTVideoSurfaceManager.h; sourceTree = "<group>"; };
-		8BE0D4831DFA15880032AB99 /* VRTVideoSurfaceManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = VRTVideoSurfaceManager.mm; path = ViroReact/VRTVideoSurfaceManager.mm; sourceTree = "<group>"; };
+		8BE0D4831DFA15880032AB99 /* VRTVideoSurfaceManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; name = VRTVideoSurfaceManager.mm; path = ViroReact/VRTVideoSurfaceManager.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		8BE0D4841DFA15880032AB99 /* VRT3DObjectManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VRT3DObjectManager.h; path = ViroReact/VRT3DObjectManager.h; sourceTree = "<group>"; };
-		8BE0D4851DFA15880032AB99 /* VRT3DObjectManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = VRT3DObjectManager.mm; path = ViroReact/VRT3DObjectManager.mm; sourceTree = "<group>"; };
+		8BE0D4851DFA15880032AB99 /* VRT3DObjectManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; name = VRT3DObjectManager.mm; path = ViroReact/VRT3DObjectManager.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		8BE0D4861DFA15880032AB99 /* VRTCameraManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VRTCameraManager.h; path = ViroReact/VRTCameraManager.h; sourceTree = "<group>"; };
 		8BE0D4871DFA15880032AB99 /* VRTCameraManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = VRTCameraManager.mm; path = ViroReact/VRTCameraManager.mm; sourceTree = "<group>"; };
 		8BE0D4891DFA15880032AB99 /* VRTFlexViewManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VRTFlexViewManager.h; path = ViroReact/VRTFlexViewManager.h; sourceTree = "<group>"; };
-		8BE0D48A1DFA15880032AB99 /* VRTFlexViewManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = VRTFlexViewManager.mm; path = ViroReact/VRTFlexViewManager.mm; sourceTree = "<group>"; };
+		8BE0D48A1DFA15880032AB99 /* VRTFlexViewManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; name = VRTFlexViewManager.mm; path = ViroReact/VRTFlexViewManager.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		8BE0D48B1DFA15880032AB99 /* VRTImageManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VRTImageManager.h; path = ViroReact/VRTImageManager.h; sourceTree = "<group>"; };
-		8BE0D48C1DFA15880032AB99 /* VRTImageManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = VRTImageManager.mm; path = ViroReact/VRTImageManager.mm; sourceTree = "<group>"; };
+		8BE0D48C1DFA15880032AB99 /* VRTImageManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; name = VRTImageManager.mm; path = ViroReact/VRTImageManager.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		8BE0D48D1DFA15880032AB99 /* VRTLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VRTLog.h; path = ViroReact/VRTLog.h; sourceTree = "<group>"; };
 		8BE0D48E1DFA15880032AB99 /* VRTLog.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = VRTLog.mm; path = ViroReact/VRTLog.mm; sourceTree = "<group>"; };
 		8BE0D48F1DFA15880032AB99 /* VRTNotifications.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VRTNotifications.h; path = ViroReact/VRTNotifications.h; sourceTree = "<group>"; };
@@ -400,7 +404,7 @@
 		8BE0D4931DFA15880032AB99 /* VRTSkyboxManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VRTSkyboxManager.h; path = ViroReact/VRTSkyboxManager.h; sourceTree = "<group>"; };
 		8BE0D4941DFA15880032AB99 /* VRTSkyboxManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = VRTSkyboxManager.mm; path = ViroReact/VRTSkyboxManager.mm; sourceTree = "<group>"; };
 		8BE0D4951DFA15880032AB99 /* VRTSphereManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VRTSphereManager.h; path = ViroReact/VRTSphereManager.h; sourceTree = "<group>"; };
-		8BE0D4961DFA15880032AB99 /* VRTSphereManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = VRTSphereManager.mm; path = ViroReact/VRTSphereManager.mm; sourceTree = "<group>"; };
+		8BE0D4961DFA15880032AB99 /* VRTSphereManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; name = VRTSphereManager.mm; path = ViroReact/VRTSphereManager.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		8BE0D4B91DFA3D9B0032AB99 /* VRT3DObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VRT3DObject.h; path = ViroReact/Views/VRT3DObject.h; sourceTree = "<group>"; };
 		8BE0D4BA1DFA3D9B0032AB99 /* VRT3DObject.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = VRT3DObject.mm; path = ViroReact/Views/VRT3DObject.mm; sourceTree = "<group>"; };
 		8BE0D4BB1DFA3D9B0032AB99 /* VRT360Image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VRT360Image.h; path = ViroReact/Views/VRT360Image.h; sourceTree = "<group>"; };
@@ -432,7 +436,7 @@
 		8BE0D4D71DFA3D9B0032AB99 /* VRTLight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VRTLight.h; path = ViroReact/Views/VRTLight.h; sourceTree = "<group>"; };
 		8BE0D4D81DFA3D9B0032AB99 /* VRTLight.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = VRTLight.mm; path = ViroReact/Views/VRTLight.mm; sourceTree = "<group>"; };
 		8BE0D4D91DFA3D9B0032AB99 /* VRTNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VRTNode.h; path = ViroReact/Views/VRTNode.h; sourceTree = "<group>"; };
-		8BE0D4DA1DFA3D9B0032AB99 /* VRTNode.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = VRTNode.mm; path = ViroReact/Views/VRTNode.mm; sourceTree = "<group>"; };
+		8BE0D4DA1DFA3D9B0032AB99 /* VRTNode.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; name = VRTNode.mm; path = ViroReact/Views/VRTNode.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		8BE0D4DB1DFA3D9B0032AB99 /* VRTNodeContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VRTNodeContainer.h; path = ViroReact/Views/VRTNodeContainer.h; sourceTree = "<group>"; };
 		8BE0D4DC1DFA3D9B0032AB99 /* VRTNodeContainer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = VRTNodeContainer.mm; path = ViroReact/Views/VRTNodeContainer.mm; sourceTree = "<group>"; };
 		8BE0D4DD1DFA3D9B0032AB99 /* VRTNodeContainerShadowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VRTNodeContainerShadowView.h; path = ViroReact/Views/VRTNodeContainerShadowView.h; sourceTree = "<group>"; };
@@ -458,7 +462,7 @@
 		8BE0D4F11DFA3D9B0032AB99 /* VRTView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VRTView.h; path = ViroReact/Views/VRTView.h; sourceTree = "<group>"; };
 		8BE0D4F21DFA3D9B0032AB99 /* VRTView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = VRTView.mm; path = ViroReact/Views/VRTView.mm; sourceTree = "<group>"; };
 		8BE0D4F31DFA3D9B0032AB99 /* VRTViewContainerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VRTViewContainerManager.h; path = ViroReact/Views/VRTViewContainerManager.h; sourceTree = "<group>"; };
-		8BE0D4F41DFA3D9B0032AB99 /* VRTViewContainerManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = VRTViewContainerManager.mm; path = ViroReact/Views/VRTViewContainerManager.mm; sourceTree = "<group>"; };
+		8BE0D4F41DFA3D9B0032AB99 /* VRTViewContainerManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; name = VRTViewContainerManager.mm; path = ViroReact/Views/VRTViewContainerManager.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		8BE0D5131DFA3DB20032AB99 /* VRTAnimationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VRTAnimationManager.h; path = ViroReact/Modules/VRTAnimationManager.h; sourceTree = "<group>"; };
 		8BE0D5141DFA3DB20032AB99 /* VRTAnimationManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = VRTAnimationManager.mm; path = ViroReact/Modules/VRTAnimationManager.mm; sourceTree = "<group>"; };
 		8BE0D5171DFA3DB20032AB99 /* VRTMaterialManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VRTMaterialManager.h; path = ViroReact/Modules/VRTMaterialManager.h; sourceTree = "<group>"; };
@@ -481,6 +485,10 @@
 		A533596E1E9E0169005B3EC5 /* VRTControllerModule.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = VRTControllerModule.mm; path = ViroReact/Modules/VRTControllerModule.mm; sourceTree = "<group>"; };
 		A5A937A71E81D1FB00FE0406 /* VRTSceneNavigatorModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VRTSceneNavigatorModule.h; path = ViroReact/Modules/VRTSceneNavigatorModule.h; sourceTree = "<group>"; };
 		A5A937A81E81D1FB00FE0406 /* VRTSceneNavigatorModule.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = VRTSceneNavigatorModule.mm; path = ViroReact/Modules/VRTSceneNavigatorModule.mm; sourceTree = "<group>"; };
+		A5E8F0A51ED6B64D00729916 /* VRTNodeModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VRTNodeModule.h; path = ViroReact/Modules/VRTNodeModule.h; sourceTree = "<group>"; };
+		A5E8F0A61ED6B64D00729916 /* VRTNodeModule.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = VRTNodeModule.mm; path = ViroReact/Modules/VRTNodeModule.mm; sourceTree = "<group>"; };
+		A5E8F0A71ED6B64D00729916 /* VRTSceneModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VRTSceneModule.h; path = ViroReact/Modules/VRTSceneModule.h; sourceTree = "<group>"; };
+		A5E8F0A81ED6B64D00729916 /* VRTSceneModule.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = VRTSceneModule.mm; path = ViroReact/Modules/VRTSceneModule.mm; sourceTree = "<group>"; };
 		A5F6D3FF1E4B0DFF00655F60 /* VRTController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VRTController.h; path = ViroReact/Views/VRTController.h; sourceTree = "<group>"; };
 		A5F6D4001E4B0DFF00655F60 /* VRTController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = VRTController.mm; path = ViroReact/Views/VRTController.mm; sourceTree = "<group>"; };
 		A5F6D4031E4B179700655F60 /* VRTControllerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VRTControllerManager.h; path = ViroReact/VRTControllerManager.h; sourceTree = "<group>"; };
@@ -619,6 +627,8 @@
 			children = (
 				A50A310C1ECE1E8800DEBE9B /* VRTNodeModule.h */,
 				A50A310D1ECE1E8800DEBE9B /* VRTNodeModule.mm */,
+				A5E8F0A71ED6B64D00729916 /* VRTSceneModule.h */,
+				A5E8F0A81ED6B64D00729916 /* VRTSceneModule.mm */,
 				A533596D1E9E0169005B3EC5 /* VRTControllerModule.h */,
 				A533596E1E9E0169005B3EC5 /* VRTControllerModule.mm */,
 				A5A937A71E81D1FB00FE0406 /* VRTSceneNavigatorModule.h */,
@@ -795,6 +805,7 @@
 				8BDDA12C1E5BD3FC00A42870 /* VRTBoxManager.h in Headers */,
 				8BDDA12D1E5BD3FC00A42870 /* VRTCameraManager.h in Headers */,
 				8BDDA12E1E5BD3FC00A42870 /* VRTFlexViewManager.h in Headers */,
+				A5E8F0AB1ED6B64E00729916 /* VRTSceneModule.h in Headers */,
 				8BDDA12F1E5BD3FC00A42870 /* VRTImageManager.h in Headers */,
 				8BDDA1301E5BD3FC00A42870 /* VRTLightManager.h in Headers */,
 				8BDDA1311E5BD3FC00A42870 /* VRTLog.h in Headers */,
@@ -941,6 +952,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8BDD9DD71E2EDC5200A42870 /* VRTCameraManager.h in Sources */,
+				A5E8F0AC1ED6B64E00729916 /* VRTSceneModule.mm in Sources */,
 				8BDD9DD81E2EDC5200A42870 /* VRTCameraManager.mm in Sources */,
 				8BE0D4A11DFA15880032AB99 /* VRTLightManager.mm in Sources */,
 				8BE0D50A1DFA3D9B0032AB99 /* VRTSceneNavigator.mm in Sources */,
