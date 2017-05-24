@@ -20,6 +20,8 @@ RCT_EXPORT_VIEW_PROPERTY(width, float)
 RCT_EXPORT_VIEW_PROPERTY(position, NSNumberArray)
 RCT_EXPORT_VIEW_PROPERTY(rotation, NSNumberArray)
 RCT_EXPORT_VIEW_PROPERTY(scale, NSNumberArray)
+RCT_EXPORT_VIEW_PROPERTY(rotationPivot, NSNumberArray)
+RCT_EXPORT_VIEW_PROPERTY(scalePivot, NSNumberArray)
 RCT_EXPORT_VIEW_PROPERTY(opacity, float)
 
 RCT_EXPORT_VIEW_PROPERTY(materials, NSArray<NSString *>)

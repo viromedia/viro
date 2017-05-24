@@ -170,6 +170,26 @@ const int k2DPointsPerSpatialUnit = 1000;
   [self node]->setScale({scaleValues[0], scaleValues[1], scaleValues[2]});
 }
 
+- (void)setRotationPivot:(NSArray<NSNumber *> *)pivot {
+  _rotationPivot = [pivot copy];
+  float pivotValues[3];
+  populateFloatArrayFromNSArray(pivot, pivotValues, 3);
+    
+  VROMatrix4f pivotMatrix;
+  pivotMatrix.translate(pivotValues[0], pivotValues[1], pivotValues[2]);
+  [self node]->setRotationPivot(pivotMatrix);
+}
+
+- (void)setScalePivot:(NSArray<NSNumber *> *)pivot {
+  _scalePivot = [pivot copy];
+  float pivotValues[3];
+  populateFloatArrayFromNSArray(pivot, pivotValues, 3);
+    
+  VROMatrix4f pivotMatrix;
+  pivotMatrix.translate(pivotValues[0], pivotValues[1], pivotValues[2]);
+  [self node]->setScalePivot(pivotMatrix);
+}
+
 - (void)setTransformBehaviors:(NSArray<NSString *> *)behaviors {
   [self node]->removeAllConstraints();
   for (NSString *behavior in behaviors) {

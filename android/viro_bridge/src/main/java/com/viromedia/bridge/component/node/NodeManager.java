@@ -55,6 +55,16 @@ public abstract class NodeManager <T extends Node> extends ViroViewGroupManager<
         view.setScale(Helper.toFloatArray(scale));
     }
 
+    @ReactProp(name = "rotationPivot")
+    public void setRotationPivot(Node view, ReadableArray scale) {
+        view.setRotationPivot(Helper.toFloatArray(scale));
+    }
+
+    @ReactProp(name = "scalePivot")
+    public void setScalePivot(Node view, ReadableArray scale) {
+        view.setScalePivot(Helper.toFloatArray(scale));
+    }
+
     @ReactProp(name = "opacity", defaultFloat = 1f)
     public void setOpacity(Node view, float opacity) {
         view.setOpacity(opacity);

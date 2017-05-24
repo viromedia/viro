@@ -92,6 +92,8 @@ var BTN_TYPE_CLICKED = 'clicked';
     position: PropTypes.arrayOf(PropTypes.number),
     scale: PropTypes.arrayOf(PropTypes.number),
     rotation: PropTypes.arrayOf(PropTypes.number),
+    scalePivot: PropTypes.arrayOf(PropTypes.number),
+    rotationPivot: PropTypes.arrayOf(PropTypes.number),
     materials: PropTypes.oneOfType([
       PropTypes.arrayOf(PropTypes.string),
   	  PropTypes.string
@@ -184,7 +186,9 @@ var BTN_TYPE_CLICKED = 'clicked';
             <ViroImage
                 source={this.props.source}
                 rotation={this.props.rotation}
+                rotationPivot={this.props.rotationPivot}
                 scale={buttonScale}
+                scalePivot={this.props.scalePivot}
                 opacity={this.props.opacity}
                 transformBehaviors={this.props.transformBehaviors}
                 visible={normalSrcVisible}
@@ -195,7 +199,9 @@ var BTN_TYPE_CLICKED = 'clicked';
             <ViroImage
                 source={hoverSource ? hoverSource : this.props.source}
                 rotation={this.props.rotation}
+                rotationPivot={this.props.rotationPivot}
                 scale={buttonScale}
+                scalePivot={this.props.scalePivot}
                 opacity={this.props.opacity}
                 transformBehaviors={this.props.transformBehaviors}
                 visible={hoverSrcVisible}

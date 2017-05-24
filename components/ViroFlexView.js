@@ -40,6 +40,8 @@ var ViroFlexView = React.createClass({
     position: PropTypes.arrayOf(PropTypes.number),
     rotation: PropTypes.arrayOf(PropTypes.number),
     scale: PropTypes.arrayOf(PropTypes.number),
+    scalePivot: PropTypes.arrayOf(PropTypes.number),
+    rotationPivot: PropTypes.arrayOf(PropTypes.number),
     opacity: PropTypes.number,
     width: PropTypes.number,
     height: PropTypes.number,

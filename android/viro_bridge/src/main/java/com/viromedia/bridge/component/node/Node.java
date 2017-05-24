@@ -48,6 +48,8 @@ public class Node extends Component {
     protected float[] mPosition;
     protected float[] mRotation;
     protected float[] mScale;
+    protected float[] mRotationPivot;
+    protected float[] mScalePivot;
     protected float mOpacity;
     protected boolean mVisible;
     protected boolean mHighAccuracyGazeEnabled;
@@ -349,6 +351,30 @@ public class Node extends Component {
         }
         mScale = scale;
         mNodeJni.setScale(scale);
+    }
+
+    protected void setRotationPivot(float[] pivot) {
+        if (isTornDown()) {
+            return;
+        }
+        if (pivot.length != 3){
+            throw new IllegalArgumentException("Missing a pivot value: All three " +
+                    "[x,y,z] axis values are needed.");
+        }
+        mRotationPivot = pivot;
+        mNodeJni.setRotationPivot(pivot);
+    }
+
+    protected void setScalePivot(float[] pivot) {
+        if (isTornDown()) {
+            return;
+        }
+        if (pivot.length != 3){
+            throw new IllegalArgumentException("Missing a pivot value: All three " +
+                    "[x,y,z] axis values are needed.");
+        }
+        mScalePivot = pivot;
+        mNodeJni.setScalePivot(pivot);
     }
 
     protected void setOpacity(float opacity) {

@@ -30,6 +30,7 @@ var ViroText = React.createClass({
     position: PropTypes.arrayOf(PropTypes.number),
     rotation: PropTypes.arrayOf(PropTypes.number),
     text: PropTypes.string.isRequired,
+    rotationPivot: PropTypes.arrayOf(PropTypes.number),
     color: ColorPropType,
     width: PropTypes.number,
     height: PropTypes.number,
@@ -143,6 +144,7 @@ var VRTText = requireNativeComponent(
   ViroText, {
     nativeOnly: {
                 scale:[1,1,1],
+                scalePivot:[0,0,0],
                 materials:[],
                 canHover: true,
                 canClick: true,

@@ -31,6 +31,8 @@ var ViroSpinner = React.createClass({
   propTypes: {
     position: PropTypes.arrayOf(PropTypes.number),
     rotation: PropTypes.arrayOf(PropTypes.number),
+    scalePivot: PropTypes.arrayOf(PropTypes.number),
+    rotationPivot: PropTypes.arrayOf(PropTypes.number),
     scale: PropTypes.arrayOf(PropTypes.number),
     opacity: PropTypes.number,
     materials: PropTypes.oneOfType([
@@ -76,6 +78,7 @@ var ViroSpinner = React.createClass({
 
     return (
       <ViroNode position={this.props.position} rotation={this.props.rotation} scale={this.props.scale}
+            rotationPivot={this.props.rotationPivot} scalePivot={this.props.scalePivot}
             opacity={this.props.opacity} transformBehaviors={transformBehaviors} visible={this.props.visible}
             onHover={this.props.onHover} onClick={this.props.onClick} onClickState={this.props.onClickState}
             onTouch={this.props.onTouch} onDrag={this.props.onDrag} onFuse={this.props.onFuse}>
