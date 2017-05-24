@@ -9,11 +9,11 @@
 #ifndef VROAnimationQuaternion_h
 #define VROAnimationQuaternion_h
 
-
 #include <stdio.h>
 #include "VROQuaternion.h"
 #include "VROAnimation.h"
 #include "VROAnimatable.h"
+#include "VROMath.h"
 
 class VROAnimationQuaternion : public VROAnimation {
     
@@ -23,8 +23,8 @@ public:
                            VROQuaternion start,
                            VROQuaternion end) :
         VROAnimation(),
-        _start(start),
-        _end(end),
+        _keyTimes({ 0, 1 }),
+        _keyValues({ start, end }),
         _method(method)
     {}
     
@@ -32,14 +32,33 @@ public:
                            VROQuaternion start,
                            VROQuaternion end,
                            std::function<void(VROAnimatable *const)> finishCallback) :
-    VROAnimation(finishCallback),
-    _start(start),
-    _end(end),
-    _method(method)
+        VROAnimation(finishCallback),
+        _keyTimes({ 0, 1 }),
+        _keyValues({ start, end }),
+        _method(method)
+    {}
+    
+    VROAnimationQuaternion(std::function<void(VROAnimatable *const, VROQuaternion)> method,
+                           std::vector<float> keyTimes,
+                           std::vector<VROQuaternion> keyValues) :
+        VROAnimation(),
+        _keyTimes(keyTimes),
+        _keyValues(keyValues),
+        _method(method)
+    {}
+    
+    VROAnimationQuaternion(std::function<void(VROAnimatable *const, VROQuaternion)> method,
+                           std::vector<float> keyTimes,
+                           std::vector<VROQuaternion> keyValues,
+                           std::function<void(VROAnimatable *const)> finishCallback) :
+        VROAnimation(finishCallback),
+        _keyTimes(keyTimes),
+        _keyValues(keyValues),
+        _method(method)
     {}
     
     void processAnimationFrame(float t) {
-        VROQuaternion value = VROQuaternion::slerp(_start, _end, t);
+        VROQuaternion value = VROMathInterpolateKeyFrameQuaternion(t, _keyTimes, _keyValues);
         
         std::shared_ptr<VROAnimatable> animatable = _animatable.lock();
         if (animatable) {
@@ -50,13 +69,14 @@ public:
     void finish() {
         std::shared_ptr<VROAnimatable> animatable = _animatable.lock();
         if (animatable) {
-            _method(animatable.get(), _end);
+            _method(animatable.get(), _keyValues.back());
         }
     }
     
 private:
     
-    VROQuaternion _start, _end;
+    std::vector<float> _keyTimes;
+    std::vector<VROQuaternion> _keyValues;
     std::function<void(VROAnimatable *const, VROQuaternion)> _method;
     
 };

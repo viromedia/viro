@@ -14,6 +14,7 @@
 #include <vector>
 #include <string>
 #include <algorithm>
+#include "optional.hpp"
 #include "VROMatrix4f.h"
 #include "VROQuaternion.h"
 #include "VRORenderContext.h"
@@ -35,6 +36,7 @@ class VROAction;
 class VRONodeCamera;
 class VROHitTestResult;
 class VROConstraint;
+class VROExecutableAnimation;
 
 extern bool kDebugSortOrder;
 
@@ -43,6 +45,8 @@ class VRONode : public VROAnimatable, public VROThreadRestricted {
 public:
     
     static void resetDebugSortIndex();
+    
+#pragma mark - Initialization
     
     /*
      Default constructor.
@@ -65,6 +69,8 @@ public:
      are shared by reference with the copied node.
      */
     std::shared_ptr<VRONode> clone();
+    
+#pragma mark - Render Cycle
 
     /*
      Recursive function that recomputes the transforms of this node. This includes:
@@ -118,9 +124,7 @@ public:
                 const VRORenderContext &context,
                 std::shared_ptr<VRODriver> &driver);
     
-    std::vector<std::shared_ptr<VROLight>> &getComputedLights() {
-        return _computedLights;
-    }
+#pragma mark - Geometry
     
     void setGeometry(std::shared_ptr<VROGeometry> geometry) {
         passert_thread();
@@ -130,9 +134,8 @@ public:
         return _geometry;
     }
     
-    /*
-     Camera.
-     */
+#pragma mark - Camera
+    
     void setCamera(std::shared_ptr<VRONodeCamera> camera) {
         passert_thread();
         _camera = camera;
@@ -141,9 +144,8 @@ public:
         return _camera;
     }
     
-    /*
-     Transform getters.
-     */
+#pragma mark - Transforms
+    
     VROVector3f getComputedPosition() const;
     VROMatrix4f getComputedRotation() const;
     VROMatrix4f getComputedTransform() const;
@@ -191,16 +193,22 @@ public:
     void setRotationEulerY(float radians);
     void setRotationEulerZ(float radians);
     
+    /*
+     Pivot points define the center for rotation and scale. For example, 
+     by translating the rotation pivot, you can use rotation to rotate an
+     object about a faraway point. By translating the scale pivot, you can 
+     scale an object relative to its corner, instead of its center. Not
+     animatable.
+     */
+    void setRotationPivot(VROMatrix4f pivot);
+    void setScalePivot(VROMatrix4f pivot);
+    
+#pragma mark - Render Settings
+    
     float getOpacity() const {
         return _opacity;
     }
     void setOpacity(float opacity);
-
-    void setHighAccuracyGaze(bool enabled);
-
-    bool getHighAccuracyGaze() const {
-        return _highAccuracyGaze;
-    }
 
     bool isHidden() const {
         return _hidden;
@@ -238,9 +246,8 @@ public:
      */
     int countVisibleNodes() const;
     
-    /*
-     Lights.
-     */
+#pragma mark - Lights
+    
     void addLight(std::shared_ptr<VROLight> light) {
         passert_thread();
         _lights.push_back(light);
@@ -260,10 +267,12 @@ public:
     std::vector<std::shared_ptr<VROLight>> &getLights() {
         return _lights;
     }
+    std::vector<std::shared_ptr<VROLight>> &getComputedLights() {
+        return _computedLights;
+    }
 
-    /*
-     Sounds.
-     */
+#pragma mark - Sounds
+    
     void addSound(std::shared_ptr<VROSound> sound) {
         passert_thread();
         if (sound->getType() == VROSoundType::Spatial) {
@@ -279,9 +288,8 @@ public:
                                }), _sounds.end());
     }
 
-    /*
-     Child management.
-     */
+#pragma mark - Scene Graph
+    
     void addChildNode(std::shared_ptr<VRONode> node) {
         passert_thread();
         passert (node);
@@ -318,16 +326,36 @@ public:
         return _supernode.lock();
     }
     
+#pragma mark - Actions and Animations
+    
     /*
-     Action management.
+     Actions enable open-ended and fully customizable manipulation of nodes over successive
+     frames.
      */
     void runAction(std::shared_ptr<VROAction> action);
     void removeAction(std::shared_ptr<VROAction> action);
     void removeAllActions();
     
     /*
-     Hit testing.
+     Animations enable structured manipulation of nodes over successive frames. They can
+     be as simple interpolating batches of properties over time, or as complex as full
+     skeletal animation.
+     
+     These methods all take a name parameter. If addAnimation is invoked with a name that
+     already exists, the old animation is replaced with the new one. For the remaining methods,
+     if an animation with the given name is not present, the method will have no effect.
+     
+     If recursive is set to true, then all nodes in the sub-hierarchy will run/pause their
+     own respective animation with the same name, if present.
      */
+    void addAnimation(std::string name, std::shared_ptr<VROExecutableAnimation> animation);
+    void removeAnimation(std::string name);
+    void runAnimation(std::string name, bool recursive = false);
+    void pauseAnimation(std::string name, bool recursive = false);
+    void removeAllAnimations();
+    
+#pragma mark - Events 
+    
     VROBoundingBox getBoundingBox();
     std::vector<VROHitTestResult> hitTest(const VROCamera &camera, VROVector3f origin, VROVector3f ray,
                                           bool boundsOnly = false);
@@ -354,21 +382,26 @@ public:
         return _selectable;
     }
     
-    /*
-     Constraints.
-     */
+    void setHighAccuracyGaze(bool enabled);
+    
+    bool getHighAccuracyGaze() const {
+        return _highAccuracyGaze;
+    }
+    
+#pragma mark - Constraints
+    
     void addConstraint(std::shared_ptr<VROConstraint> constraint);
     void removeConstraint(std::shared_ptr<VROConstraint> constraint);
     void removeAllConstraints();
 
-    /*
-     Physics
-     */
+#pragma mark - Physics
+    
     std::shared_ptr<VROPhysicsBody> initPhysicsBody(VROPhysicsBody::VROPhysicsBodyType type,
                                                     float mass,
                                                     std::shared_ptr<VROPhysicsShape> shape);
     std::shared_ptr<VROPhysicsBody> getPhysicsBody() const;
     void clearPhysicsBody();
+    
 protected:
     
     /*
@@ -394,6 +427,16 @@ private:
      */
     VROQuaternion _rotation;
     VROVector3f _euler;
+    
+    /*
+     Pivots define the center of the rotation and scale operations. 
+     Declared optional becuase they are not always used, and we can optimize 
+     them away when not used.
+     */
+    std::experimental::optional<VROMatrix4f> _rotationPivot;
+    std::experimental::optional<VROMatrix4f> _rotationPivotInverse;
+    std::experimental::optional<VROMatrix4f> _scalePivot;
+    std::experimental::optional<VROMatrix4f> _scalePivotInverse;
     
     /*
      User-defined rendering order for this node.
@@ -464,6 +507,11 @@ private:
     std::vector<std::shared_ptr<VROAction>> _actions;
     
     /*
+     Animations stored with this node.
+     */
+    std::map<std::string, std::shared_ptr<VROExecutableAnimation>> _animations;
+    
+    /*
      Constraints on the node, which can modify the node's transformation matrix.
      */
     std::vector<std::shared_ptr<VROConstraint>> _constraints;
@@ -479,6 +527,8 @@ private:
      True if this node was found visible during the last call to computeVisibility().
      */
     bool _visible;
+    
+#pragma mark - Private
     
     /*
      Recursively set the visibility of this node and all of its children to the 

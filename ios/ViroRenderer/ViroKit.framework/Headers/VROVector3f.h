@@ -110,7 +110,7 @@ public:
     float  dot(const VROVector3f &vB) const;
     VROVector3f cross(const VROVector3f &vB) const;
     VROVector3f normalize() const;
-    VROVector3f interpolate(VROVector3f other, float t);
+    VROVector3f interpolate(VROVector3f other, float t) const;
 
     /*
      Clearing.

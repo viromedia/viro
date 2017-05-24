@@ -18,6 +18,7 @@
 #include "VROSortKey.h"
 #include "VROBoundingBox.h"
 #include "VROAnimatable.h"
+#include "VROSkinner.h"
 #include "VROAllocationTracker.h"
 
 class VRONode;
@@ -133,6 +134,13 @@ public:
         _name = name;
     }
     
+    const std::unique_ptr<VROSkinner> &getSkinner() const {
+        return _skinner;
+    }
+    void setSkinner(std::unique_ptr<VROSkinner> skinner) {
+        _skinner = std::move(skinner);
+    }
+    
     std::vector<std::shared_ptr<VROGeometrySource>> getGeometrySourcesForSemantic(VROGeometrySourceSemantic semantic) const;
     
 protected:
@@ -187,6 +195,11 @@ private:
      Representation of this geometry in the underlying graphics library.
      */
     VROGeometrySubstrate *_substrate;
+    
+    /*
+     The skinner ties this geometry to a skeleton, enabling skeletal animation.
+     */
+    std::unique_ptr<VROSkinner> _skinner;
     
     /*
      Invoke when the substrate needs to be refreshed (typically when underlying

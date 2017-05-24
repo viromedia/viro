@@ -136,4 +136,8 @@ FOUNDATION_EXPORT const unsigned char ViroKitVersionString[];
 #import <ViroKit/VROGeometryUtil.h>
 #import <ViroKit/VROTextureUtil.h>
 
+// Physics
+#import <ViroKit/VROPhysicsShape.h>
+#import <ViroKit/VROPhysicsBody.h>
+#import <ViroKit/VROPhysicsWorld.h>
 
