@@ -75,7 +75,7 @@ var Viro3DObjectTest = React.createClass({
           />
        </ViroAnimatedComponent>
 
-       <Viro3DObject source={require('./res/minion.proto')}
+       <Viro3DObject source={require('./res/minion.vrx')}
                      position={[0, 0, -12.0]}
                      rotation={[0, 0, 0]}
                      scale={[0.1, 0.1, 0.1]}
