@@ -13,6 +13,7 @@
 #include <stack>
 #include <vector>
 #include <string>
+#include <set>
 #include <algorithm>
 #include "optional.hpp"
 #include "VROMatrix4f.h"
@@ -350,6 +351,7 @@ public:
      */
     void addAnimation(std::string name, std::shared_ptr<VROExecutableAnimation> animation);
     void removeAnimation(std::string name);
+    std::set<std::string> getAnimations(bool recursive = false);
     void runAnimation(std::string name, bool recursive = false);
     void pauseAnimation(std::string name, bool recursive = false);
     void removeAllAnimations();
@@ -556,6 +558,11 @@ private:
      expired.
      */
     void processActions();
+    
+    /*
+     Get the names of all animations in this node, and add them to the given set.
+     */
+    void getAnimations(std::set<std::string> &animations, bool recursive);
     
     /*
      Hit test helper functions.

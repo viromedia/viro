@@ -29,6 +29,8 @@ enum class VROShaderMask {
     Color = 2,
     Norm = 4,
     Tangent = 8,
+    BoneIndex = 16,
+    BoneWeight = 32
 };
 
 class VROShaderModifier;
@@ -119,6 +121,13 @@ public:
         return _lightingBlockIndex;
     }
     
+    bool hasBonesBlock() const {
+        return _bonesBlockIndex != GL_INVALID_INDEX;
+    }
+    GLuint getBonesBlockIndex() const {
+        return _bonesBlockIndex;
+    }
+    
     const std::vector<std::shared_ptr<VROShaderModifier>> &getModifiers() const {
         return _modifiers;
     }
@@ -137,9 +146,11 @@ private:
     std::vector<VROUniform *> _uniforms;
     
     /*
-     The uniform block index used by this shader to refer to the lighting block.
+     The uniform block indices used by this shader to refer to the lighting block and the 
+     bones block, if supported.
      */
     GLuint _lightingBlockIndex;
+    GLuint _bonesBlockIndex;
 
     /*
      The attributes supported by this shader, as defined by the VROShader enum above.

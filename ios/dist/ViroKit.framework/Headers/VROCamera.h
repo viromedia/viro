@@ -13,6 +13,7 @@
 #include "VROQuaternion.h"
 #include "VROMatrix4f.h"
 #include "VROViewport.h"
+#include "VROFrustum.h"
 #include "VROFieldOfView.h"
 
 enum class VROCameraRotationType {
@@ -55,7 +56,11 @@ public:
     VROMatrix4f getLookAtMatrix() const {
         return _lookAtMatrix;
     }
+    const VROFrustum &getFrustum() const {
+        return _frustum;
+    }
     void computeLookAtMatrix();
+    void computeFrustum(float ncp, float fcp);
     
     float getWorldPerScreen(float distance) const;
     
@@ -99,6 +104,17 @@ private:
      the VROCamera, this is eye-independent (the eyeFromHeadMatrix is not considered).
      */
     VROMatrix4f _lookAtMatrix;
+    
+    /*
+     The projection matrix associated with this camera.
+     */
+    VROMatrix4f _projectionMatrix;
+    
+    /*
+     The frustum associated with this camera. Derived from the lookAtMatrix and the
+     projection matrix.
+     */
+    VROFrustum _frustum;
     
     /*
      The current viewport and FOV.

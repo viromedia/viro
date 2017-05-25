@@ -36,6 +36,8 @@ typedef std::function<void(VROUniform *uniform, GLuint location, const VROGeomet
    vec3 normal;
    vec2 texcoord;
    vec4 tangent;
+   vec4 bone_weights;
+   ivec4 bone_indices;
  } _geometry;
  
  The Geometry entry point enables modifiers to change vertex parameters in 

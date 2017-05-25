@@ -30,5 +30,6 @@
 - (UIView *)reactSuperview;
 - (UIView *)rootVROView;
 - (void)invalidate;
+- (void)recenterTracking;
 
 @end

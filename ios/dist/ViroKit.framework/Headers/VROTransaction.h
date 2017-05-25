@@ -19,6 +19,8 @@
 class VROTransaction {
 
 public:
+    
+#pragma mark - Static Animation API
 
     /*
      Retrieve the active (most deeply nested) uncommitted VROTransaction. Returns
@@ -99,6 +101,8 @@ public:
      */
     static void setTimingFunction(VROTimingFunctionType timingFunctionType);
     static void setTimingFunction(std::unique_ptr<VROTimingFunction> timingFunction);
+    
+#pragma mark - VROTransaction
 
     VROTransaction();
     ~VROTransaction() {}

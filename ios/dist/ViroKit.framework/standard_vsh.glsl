@@ -5,12 +5,16 @@ struct VROShaderGeometry {
     vec3 normal;
     vec2 texcoord;
     vec4 tangent;
+    vec4 bone_weights;
+    ivec4 bone_indices;
 } _geometry;
 
 in vec3 position;
 in vec3 normal;
 in vec2 texcoord;
 in vec4 tangent;
+in vec4 bone_weights;
+in ivec4 bone_indices;
 
 uniform mat4 normal_matrix;
 uniform mat4 model_matrix;
@@ -22,11 +26,15 @@ out mat3 v_tbn;
 out vec2 v_texcoord;
 out vec3 v_surface_position;
 
+#include skinning_vsh
+
 void main() {
     _geometry.position = position;
     _geometry.normal = normal;
     _geometry.texcoord = texcoord;
     _geometry.tangent = tangent;
+    _geometry.bone_weights = bone_weights;
+    _geometry.bone_indices = bone_indices;
     
 #pragma geometry_modifier_body
     

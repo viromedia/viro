@@ -11,7 +11,8 @@
 
 #include "VROVector3f.h"
 #include "VROMatrix4f.h"
-#include "VROMath.h"
+
+static float kRoundingErrorQuatFloat = 0.00001;
 
 //! Quaternion class for representing rotations.
 /** It provides cheap combinations and avoids gimbal locks.
@@ -48,6 +49,9 @@ class VROQuaternion {
 
 		//! Add operator
 		VROQuaternion operator+(const VROQuaternion &other) const;
+    
+        //! Subtract operator
+        VROQuaternion operator-(const VROQuaternion &other) const;
 
 		//! Multiplication operator
 		//! Be careful, unfortunately the operator order here is opposite of that in CVROMatrix4f::operator*
@@ -72,23 +76,26 @@ class VROQuaternion {
         float getAngle() const;
 
 		//! Sets new quaternion
-		inline VROQuaternion &set(float x, float y, float z, float w);
+		VROQuaternion &set(float x, float y, float z, float w);
 
 		//! Sets new quaternion based on euler angles (radians)
-		inline VROQuaternion &set(float x, float y, float z);
+		VROQuaternion &set(float x, float y, float z);
 
 		//! Sets new quaternion based on euler angles (radians)
-		inline VROQuaternion &set(const VROVector3f& vec);
+		VROQuaternion &set(const VROVector3f& vec);
 
 		//! Sets new quaternion from other quaternion
-		inline VROQuaternion &set(const VROQuaternion &quat);
+		VROQuaternion &set(const VROQuaternion &quat);
 
 		//! returns if this quaternion equals the other one, taking floating point rounding errors into account
-		inline bool equals(const VROQuaternion &other,
-                           const float tolerance = kRoundingErrorFloat ) const;
+		bool equals(const VROQuaternion &other,
+                    const float tolerance = kRoundingErrorQuatFloat ) const;
 
 		//! Normalizes the quaternion
-		inline VROQuaternion &normalize();
+		VROQuaternion &normalize();
+    
+        // Get the norm of the quaternion
+        float getNorm();
 
 		//! Creates a matrix from this quaternion
 		VROMatrix4f getMatrix() const;
@@ -116,7 +123,7 @@ class VROQuaternion {
 		void getMatrixCenter( VROMatrix4f &dest, const VROVector3f &center, const VROVector3f &translation ) const;
 
 		//! Creates a matrix from this quaternion
-		inline void getMatrix_transposed( VROMatrix4f &dest ) const;
+		void getMatrix_transposed( VROMatrix4f &dest ) const;
 
 		//! Inverts this quaternion
 		VROQuaternion &makeInverse();

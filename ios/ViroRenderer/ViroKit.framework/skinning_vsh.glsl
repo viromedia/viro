@@ -1,12 +1,25 @@
 layout (std140) uniform bones {
     int num_bones;
     lowp float bones_padding0, bones_padding1, bones_padding2;
-    vec4 bone_transforms[192 * 2];
+    vec4 bone_transforms[192 * 3];
 };
 
+vec4 get_blended_scale(ivec4 bone_indices, vec4 bone_weights) {
+    vec4 s0 = bone_transforms[bone_indices.x * 3 + 2];
+    vec4 s1 = bone_transforms[bone_indices.y * 3 + 2];
+    vec4 s2 = bone_transforms[bone_indices.z * 3 + 2];
+    vec4 s3 = bone_transforms[bone_indices.w * 3 + 2];
+    
+    vec4 blended_s = s0 * bone_weights.x +
+                     s1 * bone_weights.y +
+                     s2 * bone_weights.z +
+                     s3 * bone_weights.w;
+    return blended_s;
+}
+
 mat2x4 get_bone_dual_quaternion(int bone_index) {
-    return mat2x4(bone_transforms[bone_index * 2 + 0],
-                  bone_transforms[bone_index * 2 + 1]);
+    return mat2x4(bone_transforms[bone_index * 3 + 0],
+                  bone_transforms[bone_index * 3 + 1]);
 }
 
 mat2x4 get_blended_dual_quaternion(ivec4 bone_indices, vec4 bone_weights) {

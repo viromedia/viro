@@ -26,6 +26,8 @@ extern const int k2DPointsPerSpatialUnit;
 @property (nonatomic, copy, nullable) NSArray<NSNumber *> *position;
 @property (nonatomic, copy, nullable) NSArray<NSNumber *> *rotation;
 @property (nonatomic, copy, nullable) NSArray<NSNumber *> *scale;
+@property (nonatomic, copy, nullable) NSArray<NSNumber *> *rotationPivot;
+@property (nonatomic, copy, nullable) NSArray<NSNumber *> *scalePivot;
 @property (nonatomic, assign) float opacity;
 @property (nonatomic, copy, nullable) NSArray<NSString *> *transformBehaviors;
 @property (nonatomic, assign) BOOL visible;

@@ -27,29 +27,6 @@ public:
     VROFrustumBoxIntersectionMetadata();
     ~VROFrustumBoxIntersectionMetadata();
     
-    void reset();
-    
-    float *getPositiveDistanceFromPlanes() {
-        return _positiveDistanceFromPlanes;
-    }
-    float *getNegativeDistanceFromPlanes() {
-        return _negativeDistanceFromPlanes;
-    }
-    
-    const VROFrustum *getSourceFrustumForDistances() const {
-        return _sourceFrustumForDistances;
-    }
-    void setSourceFrustumForDistances(const VROFrustum *frustum) {
-        _sourceFrustumForDistances = frustum;
-    }
-    
-    uint32_t getDistanceFrame() const {
-        return _distanceFrame;
-    }
-    void setDistanceFrame(uint32_t frame) {
-        _distanceFrame = frame;
-    }
-    
     uint8_t getPlaneLastOutside() const {
         return _planeLastOutside;
     }
@@ -57,42 +34,12 @@ public:
         _planeLastOutside = plane;
     }
     
-    void setFrustumDistanceValid(bool valid) {
-        _distancesValid = valid;
-    }
-    bool isFrustumDistanceValid() const {
-        return _distancesValid;
-    }
-    
 private:
     
     /*
-     The frame and frustum for which the positive and negative distances were last recorded.
-     */
-    const VROFrustum *_sourceFrustumForDistances;
-    uint32_t _distanceFrame;
-    
-    /*
-     Distance of the positive far points of this box from each of the planes of the
-     view-frustum during the last render-cycle.
-     */
-    float _positiveDistanceFromPlanes[6];
-    
-    /*
-     Distance of the negative far points of this box from each of the planes of the
-     view-frustum during the last render-cycle.
-     */
-    float _negativeDistanceFromPlanes[6];
-    
-    /*
-     The plane of the frustum this bounding-box was last outside.
+     The plane of the frustum the bounding-box was last outside.
      */
     uint8_t _planeLastOutside;
-    
-    /*
-     True if the positive and negative distances have been recorded.
-     */
-    bool _distancesValid;
     
 };
 

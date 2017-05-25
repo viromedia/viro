@@ -21,10 +21,16 @@
 class VRONode;
 class VROTexture;
 class VROGeometry;
+class VROSkinner;
+class VROSkeleton;
+class VROSkeletalAnimation;
 
 namespace viro {
     class Node;
     class Node_Geometry;
+    class Node_Skeleton;
+    class Node_Geometry_Skin;
+    class Node_SkeletalAnimation;
 }
 
 class VROFBXLoader {
@@ -60,6 +66,7 @@ private:
                                             const std::map<std::string, std::string> *resourceMap);
     
     static std::shared_ptr<VRONode> loadFBXNode(const viro::Node &node_pb,
+                                                std::shared_ptr<VROSkeleton> skeleton,
                                                 std::string base, bool isBaseURL,
                                                 const std::map<std::string, std::string> *resourceMap,
                                                 std::map<std::string, std::shared_ptr<VROTexture>> &textureCache);
@@ -68,6 +75,12 @@ private:
                                                         std::string base, bool isBaseURL,
                                                         const std::map<std::string, std::string> *resourceMap,
                                                         std::map<std::string, std::shared_ptr<VROTexture>> &textureCache);
+    
+    static std::shared_ptr<VROSkeleton> loadFBXSkeleton(const viro::Node_Skeleton &skeleton_pb);
+    static std::unique_ptr<VROSkinner> loadFBXSkinner(const viro::Node_Geometry_Skin &skin_pb,
+                                                      std::shared_ptr<VROSkeleton> skeleton);
+    static std::shared_ptr<VROSkeletalAnimation> loadFBXSkeletalAnimation(const viro::Node_SkeletalAnimation &animation_pb,
+                                                                          std::shared_ptr<VROSkeleton> skeleton);
     
 };
 

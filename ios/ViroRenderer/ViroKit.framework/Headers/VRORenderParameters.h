@@ -23,7 +23,7 @@ class VRORenderParameters {
     
 public:
     
-    float parentOpacity;
+    std::stack<float> opacities;
     std::vector<std::shared_ptr<VROLight>> lights;
     std::stack<int> hierarchyDepths;
     std::stack<float> distancesFromCamera;
@@ -31,7 +31,7 @@ public:
     float furthestDistanceFromCamera;
     
     VRORenderParameters() {
-        parentOpacity = 1.0;
+        opacities.push(1.0);
         hierarchyDepths.push(-1);
         hierarchyId = 0;
         furthestDistanceFromCamera = 0;

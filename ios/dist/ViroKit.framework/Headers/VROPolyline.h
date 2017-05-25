@@ -20,17 +20,19 @@ class VROPolyline : public VROGeometry {
     
 public:
     
-    static std::shared_ptr<VROPolyline> createPolyline(std::vector<VROVector3f> &path, float width);
+    static std::shared_ptr<VROPolyline> createPolyline(std::vector<VROVector3f> &path, float thickness);
     virtual ~VROPolyline() {}
     
     /*
-     Set the width. Animatable.
+     Set the thickness. Animatable.
      */
-    void setWidth(float width);
-    float getWidth() const {
-        return _width;
+    void setThickness(float thickness);
+    float getThickness() const {
+        return _thickness;
     }
-    
+
+    virtual void setMaterials(std::vector<std::shared_ptr<VROMaterial>> materials);
+
 private:
     
     static void buildGeometry(std::vector<VROVector3f> &path,
@@ -39,9 +41,9 @@ private:
     
     VROPolyline(std::vector<std::shared_ptr<VROGeometrySource>> sources,
                 std::vector<std::shared_ptr<VROGeometryElement>> elements,
-                float width) :
+                float thickness) :
         VROGeometry(sources, elements),
-        _width(width)
+        _thickness(thickness)
     {}
     
     static size_t encodeLine(const std::vector<VROVector3f> path, VROByteBuffer &outBuffer);
@@ -51,6 +53,6 @@ private:
     static void writeCorner(VROVector3f position, VROVector3f normal, VROByteBuffer &buffer);
     static std::shared_ptr<VROShaderModifier> createPolylineShaderModifier();
     
-    float _width;
+    float _thickness;
     
 };
