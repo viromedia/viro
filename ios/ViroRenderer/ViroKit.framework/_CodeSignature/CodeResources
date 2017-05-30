@@ -2643,6 +2643,10 @@
 		<data>
 		LkrP5BQuN0OOiB0+q5urkPG8GvE=
 		</data>
+		<key>Headers/VROOpenCV.h</key>
+		<data>
+		MB7JKahg5rhxqx5yo1ABvdBKA3A=
+		</data>
 		<key>Headers/VROOpenGL.h</key>
 		<data>
 		i0qCmuEk5Wq1JgSVZ/fKJCyh+bw=
@@ -2913,7 +2917,7 @@
 		</data>
 		<key>Headers/ViroKit.h</key>
 		<data>
-		vkju4hjKb9PXj+csCaTkqMztHgs=
+		5VPXZlPbcVyXEHHuZuMHcFWw3VM=
 		</data>
 		<key>Headers/optional.hpp</key>
 		<data>
@@ -2925,7 +2929,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		TSKGt6/vT3F9LfHsSQbByR8gGSI=
+		Kfg5c6hGjPEU0GSKzEZCq5oIt08=
 		</data>
 		<key>MaterialRobotoFontLoader.bundle/Roboto-Black.ttf</key>
 		<data>
@@ -7875,6 +7879,17 @@
 			3jnQtZoQJuqokdiFw3jdVPs+rhl9RyB/q0ONaKywA0o=
 			</data>
 		</dict>
+		<key>Headers/VROOpenCV.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			MB7JKahg5rhxqx5yo1ABvdBKA3A=
+			</data>
+			<key>hash2</key>
+			<data>
+			kuFmhsAdFrUi8db75OiNSU1l7OOoRl2tYU3qB5tICXI=
+			</data>
+		</dict>
 		<key>Headers/VROOpenGL.h</key>
 		<dict>
 			<key>hash</key>
@@ -8616,11 +8631,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			vkju4hjKb9PXj+csCaTkqMztHgs=
+			5VPXZlPbcVyXEHHuZuMHcFWw3VM=
 			</data>
 			<key>hash2</key>
 			<data>
-			98DRC0W8SorwFmp2umvP5LqmO2H2090bN6IO7tKUK3A=
+			N1/674O9c8FXUFGGYG8nWbkYGEIaT0sZTGFQlV7G8hA=
 			</data>
 		</dict>
 		<key>Headers/optional.hpp</key>

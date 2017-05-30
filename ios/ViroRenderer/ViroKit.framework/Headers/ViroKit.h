@@ -141,3 +141,6 @@ FOUNDATION_EXPORT const unsigned char ViroKitVersionString[];
 #import <ViroKit/VROPhysicsBody.h>
 #import <ViroKit/VROPhysicsWorld.h>
 
+// OpenCV
+#import <ViroKit/VROOpenCV.h>
+
