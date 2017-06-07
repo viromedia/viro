@@ -78,6 +78,9 @@ public:
     void setHUDViewMatrix(VROMatrix4f hudViewMatrix) {
         _hudViewMatrix = hudViewMatrix;
     }
+    void setOrthographicMatrix(VROMatrix4f orthographicMatrix) {
+        _orthographicMatrix = orthographicMatrix;
+    }
     void setCamera(VROCamera camera) {
         _camera = camera;
     }
@@ -93,6 +96,9 @@ public:
     }
     VROMatrix4f getHUDViewMatrix() const {
         return _hudViewMatrix;
+    }
+    VROMatrix4f getOrthographicMatrix() const {
+        return _orthographicMatrix;
     }
     
     const VROCamera &getCamera() const {
@@ -138,6 +144,11 @@ private:
      distance translation.
      */
     VROMatrix4f _hudViewMatrix;
+    
+    /*
+     The projection matrix used for orthographically rendered geometries.
+     */
+    VROMatrix4f _orthographicMatrix;
     
     /*
      The camera used for this frame.

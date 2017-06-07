@@ -16,7 +16,6 @@ class btBroadphaseInterface;
 class btDefaultCollisionConfiguration;
 class btCollisionDispatcher;
 class btSequentialImpulseConstraintSolver;
-
 /*
  VROPhysicsWorld is a simulated physics environment that contains and processes
  all acting forces and collisions on VROPhysicsBodies. It also contains both
@@ -42,14 +41,41 @@ public:
     void computePhysics();
 
     /*
+     Iterate through the dynamic world, identify collided object pairs and notify their corresponding
+     physicsBodyDelegates regarding the collision event.
+     */
+    void computeCollisions();
+
+    /*
      Sets the x,y,z gravity on this physics world.
      */
     void setGravity(VROVector3f gravity);
+
+    /*
+     Projects a ray into the scene from the given start to end location and returns
+     true if it has collided with any VROPhysics shape. If a collision occurred,
+     the collided body's physics delegate will be notified as well.
+     */
+    bool findCollisionsWithRay(VROVector3f from, VROVector3f to, bool returnClosest,
+                               std::string rayTag);
+
+    /*
+     Projects a shape into the scene from the given start to end location and returns
+     true if it has collided with any VROPhysics shape. If a collision occurred,
+     the collided body's physics delegate will be notified as well.
+
+     Note: If checking along a path, only the first collided object is notified. Else,
+     if checking at a point (where start and end VROVector3fs are the same), all collided
+     objects intersecting the shape are notified. This is currently a Bullet limitation.
+     */
+    bool findCollisionsWithShape(VROVector3f fromPos, VROVector3f toPos,
+                                 std::shared_ptr<VROPhysicsShape> shape,
+                                 std::string rayTag);
 private:
     /*
      Represents the physicsBodies that have been added to and processed by this physics world.
      */
-    std::set<std::shared_ptr<VROPhysicsBody>> _activePhysicsBodies;
+    std::map<std::string, std::shared_ptr<VROPhysicsBody>> _activePhysicsBodies;
 
     /*
      Bullet's representation of the physics world.
@@ -78,5 +104,20 @@ private:
      */
     btSequentialImpulseConstraintSolver* _constraintSolver;
 
+    /*
+     Performs a collision shape test at the given location, returns true if it has collided
+     with any VROPhysics shape, and notifies delegates along the way.
+     */
+    bool collisionTestAtPoint(VROVector3f pos, std::shared_ptr<VROPhysicsShape> shape,
+                              std::string rayTag);
+
+    /*
+     Projects a shape into the scene from the given start to end location, returns
+     true if it has collided with any VROPhysics shape. Only the closest VROPhysicsShape's
+     delegate is notified.
+     */
+    bool collisionTestAlongPath(VROVector3f fromPos, VROVector3f toPos,
+                                std::shared_ptr<VROPhysicsShape> shape,
+                                std::string rayTag);
 };
 #endif

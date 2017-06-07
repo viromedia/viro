@@ -7,9 +7,15 @@
 
 #ifndef VROPhysicsShape_h
 #define VROPhysicsShape_h
-#include "VROGeometry.h"
-#include "VROLog.h"
 
+#include "VROLog.h"
+#include <memory>
+#include <stack>
+#include <vector>
+#include <string>
+#include <algorithm>
+
+class VRONode;
 class btCollisionShape;
 
 /*
@@ -56,7 +62,7 @@ public:
     }
 
     VROPhysicsShape(VROShapeType type, std::vector<float> params);
-    VROPhysicsShape(std::shared_ptr<VROGeometry> geometry);
+    VROPhysicsShape(std::shared_ptr<VRONode> node);
     virtual ~VROPhysicsShape();
 
     /*
@@ -64,6 +70,11 @@ public:
      */
     btCollisionShape* getBulletShape();
 
+    /*
+     Returns true if this VROShape was generated from the geometry of the
+     node it is attached to.
+     */
+    bool getIsGeneratedFromGeometry();
 private:
     /*
      Parameters that describe the dimensions of a shape.
@@ -72,5 +83,6 @@ private:
     std::vector<float> _params;
     VROShapeType _type;
     btCollisionShape* _bulletShape;
+    bool _isGeneratedFromGeometry;
 };
 #endif

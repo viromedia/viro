@@ -10,6 +10,7 @@
 #define VROViewport_hpp
 
 #include "VRODefines.h"
+#include "VROMatrix4f.h"
 
 #if VRO_METAL
 #include <MetalKit/MetalKit.h>
@@ -31,6 +32,23 @@ public:
     int getY() const { return _y; }
     int getWidth() const { return _width; }
     int getHeight() const { return _height; }
+    
+    VROMatrix4f getOrthographicProjection(float near, float far) {
+        float left   = _x;
+        float right  = _x + _width;
+        float bottom = _y;
+        float top    = _y + _height;
+        
+        VROMatrix4f projection;
+        projection[0]  =  2.0 / (right - left);
+        projection[5]  =  2.0 / (top - bottom);
+        projection[10] =  -2.0 / (far - near);
+        projection[12] = -(right + left) / (right - left);
+        projection[13] = -(top + bottom) / (top - bottom);
+        projection[14] = -(far + near) / (far - near);
+        
+        return projection;
+    }
     
     void setViewport(int x, int y, int width, int height) {
         _x = x;

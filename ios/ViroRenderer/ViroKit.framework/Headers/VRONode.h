@@ -40,6 +40,7 @@ class VROConstraint;
 class VROExecutableAnimation;
 
 extern bool kDebugSortOrder;
+extern const std::string kDefaultNodeTag;
 
 class VRONode : public VROAnimatable, public VROThreadRestricted {
     
@@ -342,18 +343,32 @@ public:
      be as simple interpolating batches of properties over time, or as complex as full
      skeletal animation.
      
-     These methods all take a name parameter. If addAnimation is invoked with a name that
-     already exists, the old animation is replaced with the new one. For the remaining methods,
-     if an animation with the given name is not present, the method will have no effect.
-     
-     If recursive is set to true, then all nodes in the sub-hierarchy will run/pause their
-     own respective animation with the same name, if present.
+     These methods take a key parameter, which should uniquely identify the animation. 
+     If addAnimation is invoked with a key that already exists, the old animation is
+     replaced with the new one.
      */
-    void addAnimation(std::string name, std::shared_ptr<VROExecutableAnimation> animation);
-    void removeAnimation(std::string name);
-    std::set<std::string> getAnimations(bool recursive = false);
-    void runAnimation(std::string name, bool recursive = false);
-    void pauseAnimation(std::string name, bool recursive = false);
+    void addAnimation(std::string key, std::shared_ptr<VROExecutableAnimation> animation);
+    void removeAnimation(std::string key);
+    
+    /*
+     Get the keys for all animations in this node. If recursive is true, will search 
+     down the hierarchy as well.
+     */
+    std::set<std::string> getAnimationKeys(bool recursive);
+    
+    /*
+     Retrieve the animation with the given key. If recursive is true, then this will return
+     a new parallel VROAnimationChain that contains *every* animation in this node and every
+     animation in any subnode that shares the same key.
+     
+     For example, if the animation 'Take 001' contains a torso animation and an arm animation,
+     both will be returned in a single animation group.
+     */
+    std::shared_ptr<VROExecutableAnimation> getAnimation(std::string key, bool recursive);
+    
+    /*
+     Remove all animations from this node.
+     */
     void removeAllAnimations();
     
 #pragma mark - Events 
@@ -382,6 +397,14 @@ public:
 
     bool isSelectable() const {
         return _selectable;
+    }
+
+    void setTag(std::string tag) {
+        _tag = tag;
+    }
+
+    std::string getTag() const {
+        return _tag;
     }
     
     void setHighAccuracyGaze(bool enabled);
@@ -560,9 +583,16 @@ private:
     void processActions();
     
     /*
-     Get the names of all animations in this node, and add them to the given set.
+     Get the animations in this node under the given key, and add them to the
+     given vector.
      */
-    void getAnimations(std::set<std::string> &animations, bool recursive);
+    void getAnimations(std::vector<std::shared_ptr<VROExecutableAnimation>> &animations,
+                       std::string key, bool recursive);
+    
+    /*
+     Get the keys of all animations in this node, and add them to the given set.
+     */
+    void getAnimationKeys(std::set<std::string> &animations, bool recursive);
     
     /*
      Hit test helper functions.
@@ -575,6 +605,11 @@ private:
      Physics rigid body that if defined, drives and sets the transformations of this node.
      */
     std::shared_ptr<VROPhysicsBody> _physicsBody;
+
+    /*
+     Non-unique tag identifier representing this node. Defaults to kDefaultNodeTag.
+     */
+    std::string _tag = kDefaultNodeTag;
 };
 
 #endif /* VRONode_h */

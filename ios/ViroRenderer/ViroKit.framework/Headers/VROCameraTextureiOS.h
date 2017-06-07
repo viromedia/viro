@@ -10,24 +10,32 @@
 #define VROCameraTextureiOS_h
 
 #include "VROCameraTexture.h"
+#import <UIKit/UIKit.h>
 #import <AVFoundation/AVFoundation.h>
 
 @class VROCameraCaptureDelegate;
+@class VROCameraOrientationListener;
 class VROVideoTextureCache;
 
 class VROCameraTextureiOS : public VROCameraTexture {
         
 public:
+    
+    static VROCameraOrientation toCameraOrientation(UIInterfaceOrientation orientation);
         
     VROCameraTextureiOS(VROTextureType type);
     virtual ~VROCameraTextureiOS();
     
-    bool initCamera(VROCameraPosition position, std::shared_ptr<VRODriver> driver);
+    bool initCamera(VROCameraPosition position, VROCameraOrientation orientation, std::shared_ptr<VRODriver> driver);
     void pause();
     void play();
     bool isPaused();
     
+    float getHorizontalFOV() const;
+    VROVector3f getImageSize() const;
+    
     void displayPixelBuffer(std::unique_ptr<VROTextureSubstrate> substrate);
+    void updateOrientation(VROCameraOrientation orientation);
     
 private:
     
@@ -36,6 +44,7 @@ private:
      */
     AVCaptureSession *_captureSession;
     VROCameraCaptureDelegate *_delegate;
+    VROCameraOrientationListener *_orientationListener;
     
     /*
      True if paused.
@@ -56,6 +65,16 @@ private:
 
 - (id)initWithCameraTexture:(std::shared_ptr<VROCameraTextureiOS>)texture
                       cache:(std::shared_ptr<VROVideoTextureCache>)cache;
+
+@end
+
+/*
+ Delegate for listening to orientation changes.
+ */
+@interface VROCameraOrientationListener : NSObject
+
+- (id)initWithCameraTexture:(std::shared_ptr<VROCameraTextureiOS>)texture;
+- (void)orientationDidChange:(NSNotification *)notification;
 
 @end
 

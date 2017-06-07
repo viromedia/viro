@@ -49,6 +49,7 @@ public:
         _geometrySources(sources),
         _geometryElements(elements),
         _cameraEnclosure(false),
+        _screenSpace(false),
         _bounds(nullptr),
         _substrate(nullptr) {
             
@@ -61,6 +62,7 @@ public:
      */
     VROGeometry() :
         _cameraEnclosure(false),
+        _screenSpace(false),
         _bounds(nullptr),
         _substrate(nullptr) {
         
@@ -127,6 +129,13 @@ public:
         _cameraEnclosure = enabled;
     }
     
+    bool isScreenSpace() const {
+        return _screenSpace;
+    }
+    void setScreenSpace(bool screenSpace) {
+        _screenSpace = screenSpace;
+    }
+    
     std::string getName() const {
         return _name;
     }
@@ -185,6 +194,14 @@ private:
      the camera and ignore interlens distance (since they generally simulate far away objects).
      */
     bool _cameraEnclosure;
+    
+    /*
+     True if this geometry's coordinates are specified in screen space; e.g., the coordinates of
+     the viewport. If true, then the geometry will be rendered orthographically (ignoring perspective)
+     and with an identity view matrix (ignoring the camera). The geometry may still have 
+     node transforms.
+     */
+    bool _screenSpace;
     
     /*
      The bounding box of this geometry. Created on demand, then cached.

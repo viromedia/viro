@@ -103,13 +103,27 @@ public:
 
     /*
      Set the background of the scene to a cube-map defined by
-     the given cube texture or color, or a sphere defined by the given
-     spherical image.
+     the given cube texture or color.
      */
     void setBackgroundCube(std::shared_ptr<VROTexture> textureCube);
     void setBackgroundCube(VROVector4f color);
+    
+    /*
+     Set the background of the scene to textured sphere. Its rotation
+     about the Y axis can be set as well.
+     */
     void setBackgroundSphere(std::shared_ptr<VROTexture> textureSphere);
     void setBackgroundRotation(VROQuaternion rotation);
+    
+    /*
+     Set the background of the scene to an arbitrary geometry. All this
+     guarantees is that the given object will be rendered first. No
+     properties will be set on this geometry, but typically background
+     geometries are screen-space, and do not read or write to teh depth
+     buffer.
+     */
+    void setBackground(std::shared_ptr<VROGeometry> geometry);
+    
     std::shared_ptr<VROGeometry> getBackground() const {
         return _background;
     }
@@ -139,7 +153,7 @@ private:
     std::shared_ptr<VROInputPresenter> _controllerPresenter;
     
     /*
-     The rotation to apply to the background geometry
+     The rotation to apply to the background geometry.
      */
     VROQuaternion _backgroundRotation;
     
