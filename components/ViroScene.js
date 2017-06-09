@@ -41,6 +41,7 @@ var ViroScene = React.createClass({
     }),
     physicsWorld: PropTypes.shape({
       gravity: PropTypes.arrayOf(PropTypes.number).isRequired,
+      drawBounds: PropTypes.bool,
     }),
   },
 

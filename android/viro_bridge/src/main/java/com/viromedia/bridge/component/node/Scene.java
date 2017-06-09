@@ -187,6 +187,12 @@ public class Scene extends Node implements SceneJni.SceneDelegate {
                 mNativeScene.setPhysicsWorldGravity(params);
             }
         }
+
+        if (map.hasKey("drawBounds")) {
+            mNativeScene.setPhysicsDebugDraw(map.getBoolean("drawBounds"));
+        } else {
+            mNativeScene.setPhysicsDebugDraw(false);
+        }
     }
 
     public void addPhysicsBodyToScene(Node node){

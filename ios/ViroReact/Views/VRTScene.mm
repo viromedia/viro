@@ -206,6 +206,9 @@ static NSArray<NSNumber *> *const kDefaultSize = @[@(0), @(0), @(0)];
             physicsWorld->setGravity(gravity3f);
         }
     }
+    
+    bool enabled = [[dictionary objectForKey:@"drawBounds"] boolValue];
+    physicsWorld->setDebugDrawVisible(enabled);
 }
 
 /**
