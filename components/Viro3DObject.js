@@ -215,9 +215,24 @@ var Viro3DObject = React.createClass({
         timeToFuse = this.props.onFuse.timeToFuse;
     }
 
+    // Always autogenerate a compound shape for 3DObjects if no shape is defined.
+    let newPhysicsBody = undefined;
+    if (this.props.physicsBody){
+      let newPhysicsShape = undefined;
+      if (this.props.physicsBody.shape == undefined){
+        newPhysicsShape = {type:'AutoCompound'}
+      } else {
+        newPhysicsShape = this.props.physicsBody.shape;
+      }
+
+      newPhysicsBody = this.props.physicsBody;
+      newPhysicsBody.shape = newPhysicsShape;
+    }
+
     return (
       <VRT3DObject
         {...this.props}
+        physicsBody={newPhysicsBody}
         source={modelsrc}
         resources={resources}
         materials={materials}
