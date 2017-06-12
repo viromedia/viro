@@ -13,9 +13,11 @@
 #include <vector>
 #include <cstdlib>
 #include "VROVector3f.h"
+#include "VROVector4f.h"
 #include "VROMatrix4f.h"
 #include "VROQuaternion.h"
 #include "VROBoundingBox.h"
+#include "VRODefines.h"
 
 static float kRoundingErrorFloat = 0.00001;
 static float kEpsilon = 0.00000001;

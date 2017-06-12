@@ -21,6 +21,7 @@ Examples/android/local.properties
 
 #iOS
 ios/Pods/Pods.xcodeproj/xcuserdata/
+ios/Pods/
 ios/ViroReact.xcodeproj/xcuserdata/
 ios/ViroReact.xcworkspace/xcuserdata/
 Examples/ios/ViroExample.xcworkspace/xcuserdata/

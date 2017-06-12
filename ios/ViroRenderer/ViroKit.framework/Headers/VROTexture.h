@@ -35,7 +35,7 @@ enum class VROTextureFormat {
     ETC2_RGBA8_EAC,
     ASTC_4x4_LDR,
     RGBA8,
-    RGB565
+    RGB565,
 };
 
 // Texture formats for storage on the GPU
@@ -45,6 +45,7 @@ enum class VROTextureInternalFormat {
     RGBA8,
     RGBA4,
     RGB565,
+    YCBCR
 };
 
 enum class VROMipmapMode {
@@ -70,6 +71,7 @@ public:
      The image data must be injected via setImage*() or setSubstrate().
      */
     VROTexture(VROTextureType type,
+               VROTextureInternalFormat internalFormat,
                VROStereoMode stereoMode = VROStereoMode::None);
     
     /*
@@ -119,19 +121,23 @@ public:
     void prewarm(std::shared_ptr<VRODriver> driver);
     
     /*
-     Get the substrate for this texture, loading it if necessary. If a scheduler is provided,
-     then the substrate will be loaded asynchronously via the scheduler; otherwise, the 
-     substrate will be loaded immediately in a blocking fashion.
+     Get the substrates for this texture, loading them if necessary. If a scheduler is provided,
+     then the substrates will be loaded asynchronously via the scheduler; otherwise, the
+     substrates will be loaded immediately in a blocking fashion.
      */
-    VROTextureSubstrate *getSubstrate(std::shared_ptr<VRODriver> &driver, VROFrameScheduler *scheduler);
+    int getNumSubstrates() const;
+    VROTextureSubstrate *getSubstrate(int index, std::shared_ptr<VRODriver> &driver, VROFrameScheduler *scheduler);
     
     /*
-     Textures may have their substrate set externally if they are created and
+     Textures may have their substrates set externally if they are created and
      managed elsewhere.
      */
-    void setSubstrate(std::unique_ptr<VROTextureSubstrate> substrate);
+    void setSubstrate(int index, std::unique_ptr<VROTextureSubstrate> substrate);
 
-    VROStereoMode getStereoMode() {
+    VROTextureInternalFormat getInternalFormat() const {
+        return _internalFormat;
+    }
+    VROStereoMode getStereoMode() const {
         return _stereoMode;
     }
     
@@ -179,9 +185,11 @@ private:
     std::vector<uint32_t> _mipSizes;
     
     /*
-     Representation of the texture in the underlying hardware.
+     Representation of the texture in the underlying hardware. Textures typically
+     have one substrate, but some textures (e.g. YCbCr) may have multiple planes,
+     each represented by a separate substrate.
      */
-    std::unique_ptr<VROTextureSubstrate> _substrate;
+    std::vector<std::unique_ptr<VROTextureSubstrate>> _substrates;
 
     /*
     Represents the stereo property of the image, if any.
@@ -192,6 +200,16 @@ private:
      Converts the image(s) into a substrate. May be asynchronously executed.
      */
     void hydrate(std::shared_ptr<VRODriver> &driver);
+    
+    /*
+     Set the number of substrates to be used by this texture.
+     */
+    void setNumSubstrates(int numSubstrates);
+    
+    /*
+     Get the number of substrates used by the given texture format.
+     */
+    int getNumSubstratesForFormat(VROTextureInternalFormat format) const;
 };
 
 #endif /* VROTexture_h */

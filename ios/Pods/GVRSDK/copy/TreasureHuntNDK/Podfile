@@ -1,3 +1,0 @@
-target 'TreasureHuntNDK' do
-  pod 'GVRSDK'
-end

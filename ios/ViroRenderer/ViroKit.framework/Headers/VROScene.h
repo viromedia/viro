@@ -109,11 +109,9 @@ public:
     void setBackgroundCube(VROVector4f color);
     
     /*
-     Set the background of the scene to textured sphere. Its rotation
-     about the Y axis can be set as well.
+     Set the background of the scene to textured sphere.
      */
     void setBackgroundSphere(std::shared_ptr<VROTexture> textureSphere);
-    void setBackgroundRotation(VROQuaternion rotation);
     
     /*
      Set the background of the scene to an arbitrary geometry. All this
@@ -123,6 +121,13 @@ public:
      buffer.
      */
     void setBackground(std::shared_ptr<VROGeometry> geometry);
+    
+    /*
+     Set an arbitrary transform to apply to the background. The transform
+     may also be set as a quaternion (rotation).
+     */
+    void setBackgroundTransform(VROMatrix4f transform);
+    void setBackgroundRotation(VROQuaternion rotation);
     
     std::shared_ptr<VROGeometry> getBackground() const {
         return _background;
@@ -153,9 +158,9 @@ private:
     std::shared_ptr<VROInputPresenter> _controllerPresenter;
     
     /*
-     The rotation to apply to the background geometry.
+     Transform to apply to the background geometry.
      */
-    VROQuaternion _backgroundRotation;
+    VROMatrix4f _backgroundTransform;
     
     /*
      The nodes ordered for rendering by their sort keys.

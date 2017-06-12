@@ -23,10 +23,32 @@ public:
                                                      float u0, float v0, float u1, float v1);
     virtual ~VROSurface();
     
+    /*
+     Set physical dimensions of the surface.
+     */
     void setX(float x);
     void setY(float y);
     void setWidth(float width);
     void setHeight(float height);
+    
+    /*
+     Set texture coordinates of the surface, and an optional transform.
+     */
+    void setU0(float u0);
+    void setU1(float u1);
+    void setV0(float v0);
+    void setV1(float v1);
+    void setTexcoordTransform(VROMatrix4f transform);
+    
+    float getU0() const { return _u0; }
+    float getU1() const { return _u1; }
+    float getV0() const { return _v0; }
+    float getV1() const { return _v1; }
+    
+    float getX() const { return _x; }
+    float getY() const { return _y; }
+    float getWidth() const { return _width; }
+    float getHeight() const { return _height; }
     
 protected:
     
@@ -47,6 +69,11 @@ private:
     
     float _x, _y, _width, _height;
     float _u0, _v0, _u1, _v1;
+    
+    /*
+     Transform by which to multiply all texture coordinates.
+     */
+    VROMatrix4f _texcoordTransform;
     
 };
 

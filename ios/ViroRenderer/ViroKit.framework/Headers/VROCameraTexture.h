@@ -34,7 +34,7 @@ class VROCameraTexture : public VROTexture {
 public:
     
     VROCameraTexture(VROTextureType type) :
-        VROTexture(type) {}
+        VROTexture(type, VROTextureInternalFormat::RGBA8) {}
     virtual ~VROCameraTexture() {}
     
     /*
