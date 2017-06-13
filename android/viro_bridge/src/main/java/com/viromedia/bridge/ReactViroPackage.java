@@ -19,6 +19,7 @@ import com.viromedia.bridge.component.SoundFieldManager;
 import com.viromedia.bridge.component.SoundManager;
 import com.viromedia.bridge.component.SpatialSoundManager;
 import com.viromedia.bridge.component.SpotLightManager;
+import com.viromedia.bridge.component.ar.ARNavigatorManager;
 import com.viromedia.bridge.component.node.control.Object3dManager;
 import com.viromedia.bridge.component.node.control.PolylineManager;
 import com.viromedia.bridge.component.node.control.TextManager;
@@ -115,7 +116,9 @@ public class ReactViroPackage implements ReactPackage {
                 new TextManager(reactContext),
                 new Object3dManager(reactContext),
                 new ControllerManager(reactContext),
-                new PolylineManager(reactContext)
+                new PolylineManager(reactContext),
+                // AR Components
+                new ARNavigatorManager(reactContext)
         );
     }
 }

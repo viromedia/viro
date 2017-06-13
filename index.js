@@ -38,6 +38,8 @@ const ReactViro = {
   get ViroController() { return require('./components/ViroController'); },
   get ViroSpinner() { return require('./components/ViroSpinner'); },
   get ViroPolyline() { return require('./components/ViroPolyline'); },
+  // AR Components
+  get ViroARNavigator() { return require('./components/AR/ViroARNavigator'); },
 }
 
 module.exports = ReactViro;

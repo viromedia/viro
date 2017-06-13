@@ -9,7 +9,6 @@ import com.facebook.react.common.MapBuilder;
 import com.facebook.react.uimanager.ThemedReactContext;
 import com.facebook.react.uimanager.annotations.ReactProp;
 import com.viromedia.bridge.ReactViroPackage;
-import com.viromedia.bridge.component.node.Node;
 import com.viromedia.bridge.utility.ViroEvents;
 
 import java.util.Map;

@@ -12,7 +12,7 @@
 
 @interface VRTPerfMonitor : NSObject <RCTBridgeModule>
 
-@property (readwrite, nonatomic, weak) VROViewCardboard *view;
+@property (readwrite, nonatomic, weak) id<VROView> view;
 
 @end
 
