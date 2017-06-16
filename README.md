@@ -1,6 +1,14 @@
 # Viro Platform
+Viro is a platform for web and mobile developers to easily build native cross-platform VR experiences. The platform is composed of two main components:
+
+1) A highly performant 3D rendering engine, and
+2) A custom extension of React Native for VR.
+
+Whether you are looking to build a new VR application, or add VR features to your existing applications, the Viro platform enables you to create highly performant mobile VR experiences. More info [here](http://docs.viromedia.com/).
 
 This project contains various sample Viro projects.
+
+Sign up for an API key [here](https://viromedia.com/signup). The platform is free to use with no limits on distribution.
 
 To report bugs/issues with Viro platform, please file new issues on this repository.
 
