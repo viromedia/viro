@@ -652,6 +652,23 @@ public class Node extends Component {
                 mNodeJni.setPhsyicsUseGravity(map.getBoolean("useGravity"));
             }
         }
+
+        if (map.hasKey("velocity")) {
+            ReadableArray paramsArray = map.getArray("velocity");
+            float velocityArray[] = new float[paramsArray.size()];
+            for (int i = 0; i < paramsArray.size(); i ++){
+                velocityArray[i] = (float) paramsArray.getDouble(i);
+            }
+
+            if (velocityArray.length != 3){
+                throw new JSApplicationCausedNativeException("Incorrect parameters " +
+                        "provided for velocity, expected: [x, y, z]!");
+            }
+
+            mNodeJni.setPhysicsVelocity(velocityArray, true);
+        } else {
+            mNodeJni.setPhysicsVelocity(new float[]{0,0,0}, true);
+        }
     }
 
     private void applyForcesOnBody(ReadableMap map){
@@ -798,6 +815,15 @@ public class Node extends Component {
             return;
         }
         mNodeJni.applyPhysicsTorqueImpulse(torque);
+    }
+
+    public void setVelocity(float[] velocity, boolean isConstant){
+        if (!hasPhysicsBody){
+            ViroLog.error(TAG, "Attempted to set a velocity on a non-physics node");
+            return;
+        }
+
+        mNodeJni.setPhysicsVelocity(velocity, isConstant);
     }
 
     protected class PhysicsBodyDelegate implements NodeJni.PhysicsDelegate{

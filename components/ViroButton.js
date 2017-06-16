@@ -135,6 +135,7 @@ var RCT_BUTTON_REF = 'virobuttoncomponent';
       friction: PropTypes.number,
       useGravity: PropTypes.bool,
       enabled: PropTypes.bool,
+      velocity: PropTypes.arrayOf(PropTypes.number),
       force: PropTypes.oneOfType([
         PropTypes.arrayOf(React.PropTypes.shape({
           power: PropTypes.arrayOf(PropTypes.number),
@@ -158,6 +159,10 @@ var RCT_BUTTON_REF = 'virobuttoncomponent';
 
   applyTorqueImpulse: function(torque) {
     this.refs[RCT_BUTTON_REF].applyTorqueImpulse(torque);
+  },
+
+  setInstantaneousVelocity: function(velocity) {
+    this.refs[RCT_BUTTON_REF].setInstantaneousVelocity(velocity);
   },
 
   getInitialState: function() {

@@ -85,4 +85,27 @@ RCT_EXPORT_METHOD(applyTorqueImpulse:(nonnull NSNumber *)viewTag
         [node applyTorqueImpulse:torqueImpulse3f];
     }];
 }
+
+
+RCT_EXPORT_METHOD(setInstantaneousVelocity:(nonnull NSNumber *)viewTag
+                  withTorque:(NSArray<NSNumber *> *)velocity) {
+    [self.bridge.uiManager addUIBlock:^(__unused RCTUIManager *uiManager, NSDictionary<NSNumber *, UIView *> *viewRegistry) {
+        UIView *nodeView = viewRegistry[viewTag];
+        
+        if (![nodeView isKindOfClass:[VRTNode class]]) {
+            RCTLogError(@"Invalid view returned when applying velocity: expected a node-type control, got [%@]", nodeView);
+            return;
+        }
+        
+        // Veify that the right velocity is given
+        if (velocity == nil || [velocity count] != 3) {
+            RCTLogError(@"Invalid velocity parameters provided!");
+            return;
+        }
+        
+        // If paramters are valid, parse and apply torque impulse.
+        VRTNode *node = (VRTNode *)nodeView;
+        [node setVelocity:velocity isConstant:NO];
+    }];
+}
 @end

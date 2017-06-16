@@ -74,6 +74,7 @@ var ViroSpinner = React.createClass({
       friction: PropTypes.number,
       useGravity: PropTypes.bool,
       enabled: PropTypes.bool,
+      velocity: PropTypes.arrayOf(PropTypes.number),
       force: PropTypes.oneOfType([
         PropTypes.arrayOf(React.PropTypes.shape({
           power: PropTypes.arrayOf(PropTypes.number),
@@ -103,6 +104,10 @@ var ViroSpinner = React.createClass({
 
   applyTorqueImpulse: function(torque) {
     this.refs[RCT_SPINNER_REF].applyTorqueImpulse(torque);
+  },
+
+  setInstantaneousVelocity: function(velocity) {
+    this.refs[RCT_SPINNER_REF].setInstantaneousVelocity(findNodeHandle(this), velocity);
   },
 
   render: function() {

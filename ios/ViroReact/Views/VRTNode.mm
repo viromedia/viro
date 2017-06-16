@@ -502,6 +502,23 @@ const int k2DPointsPerSpatialUnit = 1000;
             body->setUseGravity(useGravity);
         }
     }
+    
+    NSArray *velocity = [dictionary objectForKey:@"velocity"];
+    if (velocity != nil){
+        if ([velocity count] != 3) {
+            RCTLogError(@"Incorrect parameters provided for velocity, expected: [x, y, z]!");
+            return false;
+        }
+        
+        [self setVelocity:velocity isConstant:YES];
+    } else {
+        velocity = [NSArray arrayWithObjects:
+                    [NSNumber numberWithFloat:0],
+                    [NSNumber numberWithFloat:0],
+                    [NSNumber numberWithFloat:0],nil];
+        
+        [self setVelocity:velocity isConstant:YES];
+    }
     return true;
 }
 
@@ -605,6 +622,17 @@ const int k2DPointsPerSpatialUnit = 1000;
     }
     
     return true;
+}
+
+-(void)setVelocity:(NSArray*)velocity isConstant:(bool)constant{
+    std::shared_ptr<VROPhysicsBody> body = [self node]->getPhysicsBody();
+    if (!body) {
+        RCTLogError(@"Attempted to set a velocity on a non-physics node");
+    }
+    VROVector3f velocity3f = VROVector3f([[velocity objectAtIndex:0] floatValue],
+                                             [[velocity objectAtIndex:1] floatValue],
+                                             [[velocity objectAtIndex:2] floatValue]);
+    body->setVelocity(velocity3f, constant);
 }
 
 +(std::shared_ptr<VROPhysicsShape>)getPhysicsShape:(NSString *)stringShapeName params:(NSArray *)shapeParams {

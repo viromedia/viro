@@ -80,4 +80,26 @@ public class NodeModule extends ReactContextBaseJavaModule {
             }
         });
     }
+
+    @ReactMethod
+    public void setInstantaneousVelocity(final int viewTag, final ReadableArray velocity) {
+        UIManagerModule uiManager = getReactApplicationContext().getNativeModule(UIManagerModule.class);
+        uiManager.addUIBlock(new UIBlock() {
+            @Override
+            public void execute(NativeViewHierarchyManager nativeViewHierarchyManager) {
+                View viroView = nativeViewHierarchyManager.resolveView(viewTag);
+                if (!(viroView instanceof Node)){
+                    throw new IllegalViewOperationException("Invalid view returned when applying velocity: expected a node-type control!");
+                }
+
+                if (velocity == null || velocity.size() != 3){
+                    throw new IllegalViewOperationException("Invalid velocity params provided!");
+                }
+
+                float[] velocityArray = { (float)velocity.getDouble(0), (float)velocity.getDouble(1), (float)velocity.getDouble(2)};
+                Node nodeControl = (Node) viroView;
+                nodeControl.setVelocity(velocityArray, false);
+            }
+        });
+    }
 }

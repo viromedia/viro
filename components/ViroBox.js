@@ -72,6 +72,7 @@ var ViroBox = React.createClass({
       friction: PropTypes.number,
       useGravity: PropTypes.bool,
       enabled: PropTypes.bool,
+      velocity: PropTypes.arrayOf(PropTypes.number),
       force:  PropTypes.oneOfType([
         PropTypes.arrayOf(React.PropTypes.shape({
           power: PropTypes.arrayOf(PropTypes.number),
@@ -138,6 +139,10 @@ var ViroBox = React.createClass({
 
   applyTorqueImpulse: function(torque) {
     NativeModules.VRTNodeModule.applyTorqueImpulse(findNodeHandle(this), torque);
+  },
+
+  setInstantaneousVelocity: function(velocity) {
+    NativeModules.VRTNodeModule.setInstantaneousVelocity(findNodeHandle(this), velocity);
   },
 
   _onCollided: function(event: Event){
