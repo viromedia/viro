@@ -1,9 +1,9 @@
 # Viro Platform
-Viro Media is a platform for developers to rapidly build virtual reality (VR) experiences. Developers write in React Native, and Viro runs their code natively across all mobile VR (including Google Daydream, Samsung Gear VR, and Google Cardboard for iOS and Android). More info [here](http://docs.viromedia.com/).
+Viro Media is a platform for developers to rapidly build virtual reality (VR) experiences. Developers write in React Native, and Viro runs their code natively across all mobile VR (including Google Daydream, Samsung Gear VR, and Google Cardboard for iOS and Android). [More info here].(http://docs.viromedia.com/).
 
 This project contains various sample Viro projects.
 
-Sign up for an API key [here](https://viromedia.com/signup). The platform is free to use with no limits on distribution.
+[Sign up](https://viromedia.com/signup) for an API key. The platform is free to use with no limits on distribution.
 
 To report bugs/issues with Viro platform, please file new issues on this repository.
 
