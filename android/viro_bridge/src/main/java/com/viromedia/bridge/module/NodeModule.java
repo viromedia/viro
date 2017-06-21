@@ -26,7 +26,7 @@ public class NodeModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void applyForceImpulse(final int viewTag, final ReadableArray force, final ReadableArray position) {
+    public void applyImpulse(final int viewTag, final ReadableArray force, final ReadableArray position) {
         UIManagerModule uiManager = getReactApplicationContext().getNativeModule(UIManagerModule.class);
         uiManager.addUIBlock(new UIBlock() {
             @Override

@@ -76,11 +76,11 @@ var ViroBox = React.createClass({
       force:  PropTypes.oneOfType([
         PropTypes.arrayOf(React.PropTypes.shape({
           power: PropTypes.arrayOf(PropTypes.number),
-          position: PropTypes.number
+          position: PropTypes.arrayOf(PropTypes.number)
         })),
         React.PropTypes.shape({
           power: PropTypes.arrayOf(PropTypes.number),
-          position: PropTypes.number
+          position: PropTypes.arrayOf(PropTypes.number)
         }),
       ]),
       torque: PropTypes.arrayOf(PropTypes.number)

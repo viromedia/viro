@@ -31,13 +31,15 @@ import {
 
 var ReleaseMenu = React.createClass({
   propTypes: {
+    position:  PropTypes.arrayOf(PropTypes.number),
     showMenu: PropTypes.bool,
   },
 
   render: function() {
+    var releaseMenuPosition = this.props.position != undefined ? this.props.position : [-3, -1, -3];
     if (!this.props.showMenu){
         return (
-                <ViroText style={styles.centeredText}  position={[-3, -1, -3]} width={2} height ={2}
+                <ViroText style={styles.centeredText}  position={releaseMenuPosition} width={2} height ={2}
                           text={"Show Release Menu"} transformBehaviors={["billboard"]} onClick={this._showMenu}/>
         );
     }
