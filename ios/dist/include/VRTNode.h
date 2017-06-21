@@ -45,8 +45,9 @@ extern const int k2DPointsPerSpatialUnit;
 // Physics properties
 @property (nonatomic, copy, nullable) RCTDirectEventBlock onCollidedViro;
 @property (nonatomic, copy) NSDictionary *physicsDictionary;
-- (void)applyForceImpulse:(VROVector3f)impulse withOffset:(VROVector3f)offset;
+- (void)applyImpulse:(VROVector3f)impulse withOffset:(VROVector3f)offset;
 - (void)applyTorqueImpulse:(VROVector3f)torque;
+- (void)setVelocity:(NSArray*)velocity isConstant:(bool)constant;
 - (void)onCollided:(std::string) bodyKey collision:(VROPhysicsBody::VROCollision) collision;
 + (std::shared_ptr<VROPhysicsShape>)getPhysicsShape:(NSString *)stringShapeName params:(NSArray *)shapeParams;
 @property (nonatomic, assign) BOOL canCollide;

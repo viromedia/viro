@@ -43,8 +43,7 @@ public:
     
 private:
     
-    VROVideoSurface(std::vector<std::shared_ptr<VROGeometrySource>> &sources,
-                    std::vector<std::shared_ptr<VROGeometryElement>> &elements,
+    VROVideoSurface(float width, float height,
                     std::shared_ptr<VROVideoTexture> texture);
     
     std::shared_ptr<VROVideoTexture> _texture;

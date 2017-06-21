@@ -46,7 +46,7 @@ var ReleaseMenu = React.createClass({
 
     return(
             <ViroScene>
-                <ViroNode position={[0,0,-2]}>
+                <ViroNode position={[0,3,-2]}>
                    <ViroText style={styles.centeredText}  position={[0, 0, -4]} width={2} height ={2}
                          text={"Release Test Menu"} />
 
@@ -137,7 +137,18 @@ var ReleaseMenu = React.createClass({
                    <ViroText style={styles.centeredText} position={[3,-8, -4]} width={1.5} height ={2}
                          text={"GroupTestDragEvents"}
                          onClick={() => {this.props.sceneNavigator.replace("GroupTestDragEvents", {scene:require("./GroupTestDragEvents"), passProps:{showMenu:true}})}} />
-
+                  <ViroText style={styles.centeredText}  position={[-3, -8, -4]} width={1.5} height ={2}
+                        text={"PhysicsGroupTest"}
+                        onClick={() => {this.props.sceneNavigator.replace("PhysicsGroupTest", {scene:require("./PhysicsGroupTest"), passProps:{showMenu:true}})}} />
+                  <ViroText style={styles.centeredText}  position={[0, -8, -4]} width={1.5} height ={2}
+                        text={"PhysicsForcesTest"}
+                        onClick={() => {this.props.sceneNavigator.replace("PhysicsForcesTest", {scene:require("./PhysicsForcesTest"), passProps:{showMenu:true}})}} />
+                  <ViroText style={styles.centeredText} position={[3,-9, -4]} width={1.5} height ={2}
+                        text={"PhysicsCollisionTest"}
+                        onClick={() => {this.props.sceneNavigator.replace("PhysicsCollisionTest", {scene:require("./PhysicsCollisionTest"), passProps:{showMenu:true}})}} />
+                 <ViroText style={styles.centeredText}  position={[-3, -9, -4]} width={1.5} height ={2}
+                        text={"PhysicsPropertiesTest"}
+                        onClick={() => {this.props.sceneNavigator.replace("PhysicsPropertiesTest", {scene:require("./PhysicsPropertiesTest"), passProps:{showMenu:true}})}} />
                 </ViroNode>
             </ViroScene>
     );

@@ -18,6 +18,7 @@
 #include "VROQuaternion.h"
 #include "VROCamera.h"
 #include "VROFrameScheduler.h"
+#include "VROPencil.h"
 
 class VROFrameSynchronizer;
 enum class VROEyeType;
@@ -78,6 +79,9 @@ public:
     void setHUDViewMatrix(VROMatrix4f hudViewMatrix) {
         _hudViewMatrix = hudViewMatrix;
     }
+    void setOrthographicMatrix(VROMatrix4f orthographicMatrix) {
+        _orthographicMatrix = orthographicMatrix;
+    }
     void setCamera(VROCamera camera) {
         _camera = camera;
     }
@@ -93,6 +97,9 @@ public:
     }
     VROMatrix4f getHUDViewMatrix() const {
         return _hudViewMatrix;
+    }
+    VROMatrix4f getOrthographicMatrix() const {
+        return _orthographicMatrix;
     }
     
     const VROCamera &getCamera() const {
@@ -113,7 +120,15 @@ public:
     double getFPS() const {
         return _fps;
     }
-    
+
+    void setPencil(std::shared_ptr<VROPencil> pencil){
+        _pencil = pencil;
+    }
+
+    std::shared_ptr<VROPencil> getPencil() const{
+        return _pencil;
+    }
+
 private:
     
     int _frame;
@@ -140,6 +155,11 @@ private:
     VROMatrix4f _hudViewMatrix;
     
     /*
+     The projection matrix used for orthographically rendered geometries.
+     */
+    VROMatrix4f _orthographicMatrix;
+    
+    /*
      The camera used for this frame.
      */
     VROCamera _camera;
@@ -158,7 +178,12 @@ private:
      Scheduler used for queueing and executing rendering thread tasks.
      */
     std::shared_ptr<VROFrameScheduler> _frameScheduler;
-    
+
+    /*
+     VROPencil is used for drawing a list of VROPolylines in a separate render pass,
+     after having rendered the scene, mainly for representing debug information.
+     */
+    std::shared_ptr<VROPencil> _pencil;
 };
 
 #endif /* VRORenderContext_h */

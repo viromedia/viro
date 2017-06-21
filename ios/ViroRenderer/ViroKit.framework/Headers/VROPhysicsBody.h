@@ -110,6 +110,13 @@ public:
     void setUseGravity(bool useGravity);
     bool getUseGravity();
     void setFriction(float friction);
+    void setType(VROPhysicsBodyType type, float mass);
+
+    /*
+     Sets this physics body in a kinematic drag mode, where we momentarily treat the body as
+     a draggable kinematic object.
+     */
+    void setKinematicDrag(bool isDragging);
 
     /*
      Sets the given VROPhysicsShape that will be used to process collisions.
@@ -134,6 +141,12 @@ public:
     void applyTorque(VROVector3f torque);
     void applyTorqueImpulse(VROVector3f impulse);
     void clearForces();
+
+    /*
+     Sets a velocity on this VROPhysicsBody to be applied when VROPhysicsWorld calls
+     applyPresetVelocity on this physics body.
+     */
+    void setVelocity(VROVector3f velocity, bool isConstant);
 
     /*
      Returns the underlying bullet rigid body that represents this VROPhysicsBody.
@@ -170,6 +183,12 @@ public:
     void updateBulletForces();
 
     /*
+     Applies the set velocity on this VROPhysicsBody at every physics step if isConstant was true,
+     simulating constant velocity. Else, an instantaneous velocity is applied only once.
+     */
+    void applyPresetVelocity();
+
+    /*
      Delegates attached to this VROPhysicsBody to be notified of collision events.
      */
     void setPhysicsDelegate(std::shared_ptr<VROPhysicsBodyDelegate> delegate);
@@ -193,7 +212,7 @@ public:
          */
         float penetrationDistance;
     };
-    
+
 private:
     std::string _key;
     std::weak_ptr<VRONode> _w_node;
@@ -208,6 +227,14 @@ private:
     VROVector3f _inertia;
     bool _useGravity;
     std::weak_ptr<VROPhysicsBodyDelegate> _w_physicsDelegate;
+    VROVector3f _constantVelocity;
+    VROVector3f _instantVelocity;
+
+    /*
+     * Preserved physics properties when in kinematic drag mode.
+     */
+    float _preservedDraggedMass;
+    VROPhysicsBodyType _preservedType;
 
     /*
      Simple force struct containing a force vector
@@ -220,5 +247,11 @@ private:
 
     std::vector<BulletForce> _forces;
     std::vector<VROVector3f> _torques;
+
+    /*
+     Creates / destroys the underlying bullet object representing this VROPhysicsBody.
+     */
+    void createBulletBody();
+    void releaseBulletBody();
 };
 #endif

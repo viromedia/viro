@@ -44,7 +44,8 @@ var GroupTestBasicPhysics = React.createClass({
       physicsEnabled:false,
       gravityEnabled:false,
       drawBounds:false,
-      toggleDraggable:false
+      toggleDraggable:false,
+      reset:false
     };
   },
 
@@ -79,7 +80,26 @@ var GroupTestBasicPhysics = React.createClass({
     }
   },
 
+
+  onReset(){
+    let that = this;
+    this.setState({
+      reset:true
+    });
+
+    setTimeout(function(){
+      that.setState({
+        reset:false
+      });
+
+    }, 500);
+  },
+
   render: function() {
+    if (this.state.reset){
+      return (<ViroScene />);
+    }
+
     return (
                 <ViroScene physicsWorld={{gravity:[0,-9.81,0],drawBounds:this.state.drawBounds}}>
                 <ReleaseMenu sceneNavigator={this.props.sceneNavigator}/>
@@ -103,6 +123,10 @@ var GroupTestBasicPhysics = React.createClass({
                       position={[0,-1, 0]} width={4} height ={2} maxLines={3}
                       color={this.state.toggleDraggable ? '#0000ff' : '#ffffff'}
                       text={"Toggle Interactivity"} onClick={this.togglePhysicsBody(4)}/>
+
+                  <ViroText fontSize={35}  style={styles.centeredText}
+                      position={[0,-2, 0]} width={4} height ={2} maxLines={3}
+                      text={"Hard Reset."} onClick={this.onReset}/>
                 </ViroNode>
 
                 <ViroBox

@@ -7,10 +7,17 @@
 
 #ifndef VROPhysicsShape_h
 #define VROPhysicsShape_h
-#include "VROGeometry.h"
-#include "VROLog.h"
 
+#include "VROLog.h"
+#include <memory>
+#include <stack>
+#include <vector>
+#include <string>
+#include <algorithm>
+
+class VRONode;
 class btCollisionShape;
+class btCompoundShape;
 
 /*
  VROPhysicsShape describes the type and dimensions of a physics shape that represents a VROPhysicsBody.
@@ -23,11 +30,14 @@ public:
      Required parameters for each shape type are as shown below:
      */
     enum VROShapeType {
-        Sphere = 1, // _params[0] represents the radius of the sphere
-        Box = 2     // _params[0],[1],[2] represents the X,Y,Z half span of the Box
+        Auto = 0,           // Automatically infer a shape from attached geometry.
+        AutoCompound = 1,   // Automatically infer a compound shape from attached geometry.
+        Sphere = 2,         // _params[0] represents the radius of the sphere
+        Box = 3             // _params[0],[1],[2] represents the X,Y,Z half span of the Box
     };
     static const std::string kSphereTag;
     static const std::string kBoxTag;
+    static const std::string kAutoCompoundTag;
 
     /*
      Returns true of the given string and mass represents a valid representation of
@@ -35,7 +45,7 @@ public:
      with the reason for failure.
      */
     static bool isValidShape(std::string strType, std::vector<float> params, std::string &errorMsg) {
-        if (strType != kSphereTag && strType != kBoxTag) {
+        if (strType != kSphereTag && strType != kBoxTag && strType != kAutoCompoundTag) {
             errorMsg = "Provided invalid shape of type: " + strType;
             return false;
         } else if (strType == kSphereTag && params.size() != 1) {
@@ -51,12 +61,14 @@ public:
     static VROPhysicsShape::VROShapeType getTypeForString(std::string strType) {
         if (strType == kSphereTag) {
             return VROPhysicsShape::VROShapeType::Sphere;
+        } else if (strType == kAutoCompoundTag) {
+            return VROPhysicsShape::VROPhysicsShape::AutoCompound;
         }
         return VROPhysicsShape::VROShapeType::Box;
     }
 
-    VROPhysicsShape(VROShapeType type, std::vector<float> params);
-    VROPhysicsShape(std::shared_ptr<VROGeometry> geometry);
+    VROPhysicsShape(VROShapeType type, std::vector<float> params = std::vector<float>());
+    VROPhysicsShape(std::shared_ptr<VRONode> node, bool hasCompoundShapes = false);
     virtual ~VROPhysicsShape();
 
     /*
@@ -64,13 +76,46 @@ public:
      */
     btCollisionShape* getBulletShape();
 
+    /*
+     Returns true if this VROShape was generated from the geometry of the
+     node it is attached to.
+     */
+    bool getIsGeneratedFromGeometry();
+
+    /*
+     Returns true if this VROShape was generated from a combination of several
+     geometric shapes (compound shape).
+     */
+    bool getIsCompoundShape();
+
 private:
     /*
      Parameters that describe the dimensions of a shape.
      See VROShapeType for what parameters should be defined for which shape type.
      */
-    std::vector<float> _params;
     VROShapeType _type;
     btCollisionShape* _bulletShape;
+
+    /*
+     Creates an underlying bullet collision shape representing this VROPhysicsShape,
+     given the target shape type and associated params.
+     */
+    btCollisionShape *generateBasicBulletShape(VROShapeType type, std::vector<float> params);
+
+    /*
+     Infers from the geometry associated with the given node to create an underlying
+     bullet collision shape representing this VROPhysicsShape.
+     */
+    btCollisionShape *generateBasicBulletShape(std::shared_ptr<VRONode> node);
+
+    /*
+     Recursively examines each node within the given root node's subtree and automatically infer
+     the corresponding bullet collision shape of each node. These shapes are then combined and
+     returned as a compound bullet shape.
+     */
+    void generateCompoundBulletShape(btCompoundShape &compoundShape,
+                                     const std::shared_ptr<VRONode> &rootNode,
+                                     const std::shared_ptr<VRONode> &childNode);
+
 };
 #endif

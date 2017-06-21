@@ -106,10 +106,28 @@ var PhysicsRayTest = React.createClass({
      friction:friction
     });
   },
+  onReset(){
+    let that = this;
+    this.setState({
+      reset:true
+    });
+
+    setTimeout(function(){
+      that.setState({
+        reset:false
+      });
+
+    }, 500);
+  },
+
   render: function() {
+    if (this.state.reset){
+      return (<ViroScene />);
+    }
+
     return (
               <ViroScene ref="scene1">
-                <ReleaseMenu position={[-8,1,0]} sceneNavigator={this.props.sceneNavigator}/>
+                <ReleaseMenu position={[-2,3,-5]} sceneNavigator={this.props.sceneNavigator}/>
                 <ViroBox
                     physicsBody={{
                       type:'static', restitution:1.0
@@ -145,7 +163,9 @@ var PhysicsRayTest = React.createClass({
                       position={[0,0, 0]} width={4} height ={2} maxLines={3}
                       text={"Friction: " + this.state.friction} onClick={this.toggleFriction}
                       />
-
+                      <ViroText fontSize={35}  style={styles.centeredText}
+                          position={[0,-1, 0]} width={4} height ={2} maxLines={3}
+                          text={"Hard Reset."} onClick={this.onReset}/>
                 </ViroNode>
 
                 <ViroNode position={[-3 ,-2, -7]}>

@@ -76,26 +76,6 @@ public:
         return matrix_for_frustum(left, right, bottom, top, near, far);
     }
     
-    VROMatrix4f toCameraIntrinsicProjection(float cameraImageWidth, float cameraImageHeight, VROViewport viewport,
-                                            float near, float far) {
-        float fx = fabs((float)cameraImageWidth  / (2 * tan(toRadians(_left + _right) / 2.0)));
-        float fy = fabs((float)cameraImageHeight / (2 * tan(toRadians(_bottom + _top) / 2.0)));
-        
-        float s = 0;
-        float x0 = viewport.getWidth() / 2.0;
-        float y0 = viewport.getHeight() / 2.0;
-        float X = near + far;
-        float Y = near * far;
-        
-        float intrinsic[16] = {fx,   0,   0,  0,
-                                s,  fy,   0,  0,
-                              -x0, -y0,   X, -1,
-                                0,   0,   Y,  0 };
-        VROMatrix4f intrinsicMatrix(intrinsic);
-        
-        return viewport.getOrthographicProjection(near, far) * intrinsicMatrix;
-    }
-    
     bool equals(const VROFieldOfView *other) const {
         if (other == nullptr) {
             return false;

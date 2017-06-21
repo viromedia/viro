@@ -67,7 +67,7 @@ public:
         return _top;
     }
     
-    VROMatrix4f toPerspectiveMatrix(float near, float far) {
+    VROMatrix4f toPerspectiveProjection(float near, float far) {
         float left   = -tanf(degrees_to_radians(_left))   * near;
         float right  =  tanf(degrees_to_radians(_right))  * near;
         float bottom = -tanf(degrees_to_radians(_bottom)) * near;

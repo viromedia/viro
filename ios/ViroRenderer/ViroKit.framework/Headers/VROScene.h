@@ -85,8 +85,8 @@ public:
      Returns the associated physics world with this scene. If there's none
      one is created and returned.
      */
-    std::shared_ptr<VROPhysicsWorld> getPhysicsWorld(){
-        if (_physicsWorld == nullptr){
+    std::shared_ptr<VROPhysicsWorld> getPhysicsWorld() {
+        if (_physicsWorld == nullptr) {
             _physicsWorld = std::make_shared<VROPhysicsWorld>();
         }
         return _physicsWorld;
@@ -95,9 +95,9 @@ public:
     /*
      Grabs and computes a physics world if one exists.
      */
-    void computePhysics(){
-        if (_physicsWorld != nullptr){
-            _physicsWorld->computePhysics();
+    void computePhysics(const VRORenderContext &context) {
+        if (_physicsWorld != nullptr) {
+            _physicsWorld->computePhysics(context);
         }
     }
 
@@ -156,7 +156,7 @@ private:
      UI representation of the underlying controller
      */
     std::shared_ptr<VROInputPresenter> _controllerPresenter;
-    
+
     /*
      Transform to apply to the background geometry.
      */

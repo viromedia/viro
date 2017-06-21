@@ -16,6 +16,9 @@ class btBroadphaseInterface;
 class btDefaultCollisionConfiguration;
 class btCollisionDispatcher;
 class btSequentialImpulseConstraintSolver;
+class VROPhysicsDebugDraw;
+class VRODriver;
+class VRORenderContext;
 /*
  VROPhysicsWorld is a simulated physics environment that contains and processes
  all acting forces and collisions on VROPhysicsBodies. It also contains both
@@ -38,7 +41,7 @@ public:
     /*
      When called, performs a timeStep of simulation / calculations for this physics world.
      */
-    void computePhysics();
+    void computePhysics(const VRORenderContext &context);
 
     /*
      Iterate through the dynamic world, identify collided object pairs and notify their corresponding
@@ -71,6 +74,12 @@ public:
     bool findCollisionsWithShape(VROVector3f fromPos, VROVector3f toPos,
                                  std::shared_ptr<VROPhysicsShape> shape,
                                  std::string rayTag);
+
+    /*
+     If true, renders a set of lines representing the collision mesh of all physicsBodies
+     within this world.
+     */
+    void setDebugDrawVisible(bool isVisible);
 private:
     /*
      Represents the physicsBodies that have been added to and processed by this physics world.
@@ -119,5 +128,11 @@ private:
     bool collisionTestAlongPath(VROVector3f fromPos, VROVector3f toPos,
                                 std::shared_ptr<VROPhysicsShape> shape,
                                 std::string rayTag);
+
+    /*
+     Used by Bullet to render all debug elements within the physics world.
+     */
+    VROPhysicsDebugDraw* _debugDraw;
+    bool _debugDrawVisible;
 };
 #endif

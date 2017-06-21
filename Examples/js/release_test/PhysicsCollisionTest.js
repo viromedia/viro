@@ -28,15 +28,15 @@ import {
 var dynamicStatePosDefault = [-2, 0, 0];
 var dynamicDynamicPosDefault = [0,0,0];
 var dynamicDynamicPosDefault2 = [0,-2,0];
-var kinematicDynamicPos1Default = [2,1,0];
+var kinematicDynamicPos1Default = [2,0.5,0];
 var kinematicDynamicPos2Default = [2,-2,0];
 
 var ReleaseMenu = require("./ReleaseMenu.js");
 var PhysicsRayTest = React.createClass({
   getInitialState() {
     return {
-      bodyTypeRayTest:"static",
-      bodyMassRayTest:0,
+      bodyTypeRayTest:"dynamic",
+      bodyMassRayTest:1,
       collisionOutputArray:[],
       collisionOutput:"",
       dynamicStaticToggle:false,
@@ -143,10 +143,10 @@ addToConsole(stringToAdd){
     return () => {
       this.addToConsole("\n");
       if (num == 1){
-         this.refs["scene1"].findCollisionsWithRayAsync([-3,-2,0], [-3,-2,-30], true, "testRayBlaster1").then((position) => {
-           this.addToConsole("Viro Finished find closests With Ray Async call\n"); }); // Should collide
+         this.refs["scene1"].findCollisionsWithRayAsync([-3,-4,0], [-3,-4,-30], true, "testRayBlaster1").then((collide) => {
+           this.addToConsole("Viro Finished find closests With Ray Async call " + collide+ " \n"); }); // Should collide
       } else if (num ==2){
-         this.refs["scene1"].findCollisionsWithRayAsync([-3,-2,0], [-3,-2,-30], false, "testRayBlaster2").then((position) => {
+         this.refs["scene1"].findCollisionsWithRayAsync([-3,-4,0], [-3,-4,-30], false, "testRayBlaster2").then((collide) => {
          this.addToConsole("Viro Finished find all With Ray Async call\n"); }); // Should collide
       } else if (num ==3){
          this.refs["scene1"].findCollisionsWithShapeAsync([-3,-2,0], [-3,-2,-30], "sphere", [20], "testSphereRay").then((collide) => {
@@ -177,7 +177,7 @@ addToConsole(stringToAdd){
   render: function() {
     return (
               <ViroScene ref="scene1">
-                <ReleaseMenu position={[-8,1,0]} sceneNavigator={this.props.sceneNavigator}/>
+                <ReleaseMenu position={[0 , -3, -4]} sceneNavigator={this.props.sceneNavigator}/>
 
                 <ViroBox
                     physicsBody={{
@@ -204,7 +204,7 @@ addToConsole(stringToAdd){
                  <ViroNode position={[-4 , -1, -3]} transformBehaviors={["billboard"]}>
                   <ViroText fontSize={35}  style={styles.centeredText}
                     position={[0,2, 0]} width={4} height ={2} maxLines={3}
-                    text={"ToggleType"} onClick={this.togglePhysicsBody}
+                    text={"ToggleType " + this.state.bodyTypeRayTest} onClick={this.togglePhysicsBody}
                     />
 
                   <ViroText fontSize={35}  style={styles.centeredText}

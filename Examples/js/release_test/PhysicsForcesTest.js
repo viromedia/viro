@@ -44,18 +44,22 @@ var PhysicsRayTest = React.createClass({
         if (tag == 0){
 
           this.setState({
-            position:[0,0,-9999]
+            bodyType:"kinematic",
+            mass:0,
+            position:[0,0,-9999],
+            rotation:[0,0,-9999]
           });
 
           let that = this;
           setTimeout(function(){
             that.setState({
-              bodyType:"kinematic",
+              bodyType:"dynamic",
               applyConstantVelocity:undefined,
               applyConstantForce:undefined,
               applyConstantTorque:undefined,
-              mass:0,
-              position:[0,0,-6]
+              mass:1,
+              position:[0,0,-6],
+              rotation:[0,0,0]
             });
 
           }, 200);
@@ -66,18 +70,18 @@ var PhysicsRayTest = React.createClass({
             applyConstantForce: finalConst
           });
         } else if (tag ==2){
-          this.refs["box"].applyImpulse([30,0,0], [0,0,0]);
+          this.refs["box"].applyImpulse([0,0,-2], [0,0,0]);
         } else if (tag ==3){
-          var finalConst = this.state.applyConstantTorque == undefined ? [0,0,-5] : undefined;
+          var finalConst = this.state.applyConstantTorque == undefined ? [0,30,0] : undefined;
           this.setState({
             applyConstantTorque: finalConst
           });
         } else if (tag ==4){
-          this.refs["box"].applyTorqueImpulse([0,0,-10]);
+          //this.refs["box"].applyTorqueImpulse([0,0,-3]);
         } else if (tag ==5){
-          this.refs["box"].applyImpulse([0,0,-10], [0,3,0]);
-        } else if (tag ==6){
-          this.refs["box"].applyTorqueImpulse([0,3,0], [2,0,0]);
+          this.refs["box"].applyImpulse([0,0,-2], [1,0,0]);
+        } else if (tag == 6){
+          this.refs["box"].applyTorqueImpulse([0,3,0]);
         } else if (tag == 7){
           var finalType = "dynamic";
           var finalMass = 1;
@@ -98,7 +102,7 @@ var PhysicsRayTest = React.createClass({
             applyConstantVelocity: finalConst
           });
         } else if (tag == 9){
-          this.refs["box"].setInstantaneousVelocity([1,0,0]);
+          this.refs["box"].setInstantaneousVelocity([3,0,0]);
         }
     }
   },
@@ -107,8 +111,7 @@ var PhysicsRayTest = React.createClass({
     return (
               <ViroScene ref={"scene1"}>
                 <ReleaseMenu sceneNavigator={this.props.sceneNavigator}/>
-
-                 <ViroNode position={[2 , -1, -7]} transformBehaviors={["billboard"]}>
+                 <ViroNode position={[0 , -3, -7]} transformBehaviors={["billboard"]}>
                   <ViroText fontSize={35}  style={styles.centeredText}
                     position={[0,2, 0]} width={4} height ={2} maxLines={3}
                     color={this.state.applyConstantForce === undefined ? '#ffffff' : '#0000ff'}
@@ -124,10 +127,6 @@ var PhysicsRayTest = React.createClass({
                       text={"Apply Constant Torque"} onClick={this.togglePhysicsBody(3)}/>
 
                   <ViroText fontSize={35}  style={styles.centeredText}
-                      position={[0,-1, 0]} width={4} height ={2} maxLines={3}
-                      text={"Apply Impulse Torque"} onClick={this.togglePhysicsBody(4)}/>
-
-                  <ViroText fontSize={35}  style={styles.centeredText}
                           position={[0,-2, 0]} width={4} height ={2} maxLines={3}
                           text={"Reset"} onClick={this.togglePhysicsBody(0)}/>
 
@@ -137,8 +136,7 @@ var PhysicsRayTest = React.createClass({
 
                   <ViroText fontSize={35}  style={styles.centeredText}
                       position={[4,1, 0]} width={4} height ={2} maxLines={3}
-                      text={"Apply Impulse Torque At Point"} onClick={this.togglePhysicsBody(6)}/>
-
+                      text={"Apply Impulse Torque"} onClick={this.togglePhysicsBody(6)}/>
                   <ViroText fontSize={35}  style={styles.centeredText}
                       position={[4,0, 0]} width={4} height ={2} maxLines={3}
                       text={"Toggle BodyType: " + this.state.bodyType} onClick={this.togglePhysicsBody(7)}/>
@@ -152,19 +150,31 @@ var PhysicsRayTest = React.createClass({
                             position={[4,-2, 0]} width={4} height ={2} maxLines={3}
                             text={"Apply Instantaneous Velocity"} onClick={this.togglePhysicsBody(9)}/>
                 </ViroNode>
-
                 <ViroNode position={[0 , -9, -8.5]}>
-
+                <ViroBox
+                    physicsBody={{
+                      type:'static', restitution:0.8, friction:0.5
+                    }}
+                    position={[0, -4, -10.5]}
+                    scale={[1,1,1]}
+                    materials={["ground"]}
+                    rotation={[0,0,0]}
+                    height={1}
+                    width={50}
+                    length={50}
+                    viroTag="Ground"
+                />
                   <ViroBox
                       ref="box"
                       position={this.state.position}
-                      scale={[2, 6, 2]}
+                      rotation={this.state.rotation}
+                      scale={[6, 2, 2]}
                       materials={["redColor","blue","redColor","blue","redColor","blue"]}
                       height={1} width={1} length={1}
                       physicsBody={{
                         type:this.state.bodyType,
                         mass:this.state.mass,
-                        useGravity:false,
+                        friction:0.5,
                         force:{
                           power:this.state.applyConstantForce === undefined ? [0,0,0] : this.state.applyConstantForce
                         },
@@ -228,6 +238,11 @@ ViroMaterials.createMaterials({
       diffuseColor: "#8640ff22"
 
     },
+    ground:{
+      cullMode: "None",
+      shininess: 2.0,
+      diffuseColor: "#ff9999"
+    }
  });
 
 module.exports = PhysicsRayTest;

@@ -8,6 +8,7 @@
 #ifndef VROPhysicsBody_h
 #define VROPhysicsBody_h
 
+#include <atomic>
 #include "VROVector3f.h"
 #include "VROPhysicsShape.h"
 #include "VROLog.h"
@@ -17,6 +18,10 @@ class btTransform;
 class btMotionState;
 class btRigidBody;
 class btVector3;
+class VROPhysicsBodyDelegate;
+
+//Atomic counter used to grab a unique Id to represent a VROPhysicsBody.
+static std::atomic_int sPhysicsBodyIdCounter;
 
 /*
  VROPhysicsBody contains all the physics properties and forces that are associated with and/or
@@ -85,6 +90,16 @@ public:
     virtual ~VROPhysicsBody();
 
     /*
+     Unique key identifier that the VROPhysicsWorld uses to track this VROPhysicsBody.
+     */
+    std::string getKey();
+
+    /*
+     Returns a non-unique tag identifier stored in VRONode for referring to this VROPhysicsbody.
+     */
+    std::string getTag();
+    
+    /*
      Setters and getters for physics properties associated with this VROPhysicsBody.
      */
     void setMass(float mass);
@@ -95,6 +110,13 @@ public:
     void setUseGravity(bool useGravity);
     bool getUseGravity();
     void setFriction(float friction);
+    void setType(VROPhysicsBodyType type, float mass);
+
+    /*
+     Sets this physics body in a kinematic drag mode, where we momentarily treat the body as
+     a draggable kinematic object.
+     */
+    void setKinematicDrag(bool isDragging);
 
     /*
      Sets the given VROPhysicsShape that will be used to process collisions.
@@ -102,16 +124,29 @@ public:
     void setPhysicsShape(std::shared_ptr<VROPhysicsShape> shape);
 
     /*
+     Schedules an update that re-invalidates the properties of this
+     physics body on the next compute physics step.
+     */
+    void refreshBody();
+
+    /*
      Functions for applying forces on this VROPhysicsBody.
      */
-    void applyCenteralForce(VROVector3f force);
-    void applyCenteralImpulse(VROVector3f impulse);
+    void applyForce(VROVector3f power, VROVector3f position);
+    void applyImpulse(VROVector3f impulse, VROVector3f position);
 
     /*
      Functions for applying torque on this VROPhysicsBody.
      */
     void applyTorque(VROVector3f torque);
     void applyTorqueImpulse(VROVector3f impulse);
+    void clearForces();
+
+    /*
+     Sets a velocity on this VROPhysicsBody to be applied when VROPhysicsWorld calls
+     applyPresetVelocity on this physics body.
+     */
+    void setVelocity(VROVector3f velocity, bool isConstant);
 
     /*
      Returns the underlying bullet rigid body that represents this VROPhysicsBody.
@@ -141,7 +176,45 @@ public:
      */
     bool needsBulletUpdate();
 
+    /*
+     Updates the forces applied on the underlying bullet physics body. This is called and re-applied
+     in each simulated physics step, as required by bullet.
+     */
+    void updateBulletForces();
+
+    /*
+     Applies the set velocity on this VROPhysicsBody at every physics step if isConstant was true,
+     simulating constant velocity. Else, an instantaneous velocity is applied only once.
+     */
+    void applyPresetVelocity();
+
+    /*
+     Delegates attached to this VROPhysicsBody to be notified of collision events.
+     */
+    void setPhysicsDelegate(std::shared_ptr<VROPhysicsBodyDelegate> delegate);
+    std::shared_ptr<VROPhysicsBodyDelegate> getPhysicsDelegate();
+
+    /*
+     Collision struct encapsulating all collision properties representing
+     a collided event.
+    */
+    struct VROCollision {
+        VROCollision(): penetrationDistance(1) { }
+        VROVector3f collidedPoint;
+        VROVector3f collidedNormal;
+        std::string collidedBodyTag;
+
+        /*
+         Penetration depth given by bullet will be some negative number
+         if they are colliding. VROCollision defaults penetrationDistance
+         to a positive number (1) to ensure that it is set / re-evaulated
+         in a computeCollision pass.
+         */
+        float penetrationDistance;
+    };
+
 private:
+    std::string _key;
     std::weak_ptr<VRONode> _w_node;
     bool _needsBulletUpdate;
     btRigidBody* _rigidBody;
@@ -153,5 +226,32 @@ private:
     float _mass;
     VROVector3f _inertia;
     bool _useGravity;
+    std::weak_ptr<VROPhysicsBodyDelegate> _w_physicsDelegate;
+    VROVector3f _constantVelocity;
+    VROVector3f _instantVelocity;
+
+    /*
+     * Preserved physics properties when in kinematic drag mode.
+     */
+    float _preservedDraggedMass;
+    VROPhysicsBodyType _preservedType;
+
+    /*
+     Simple force struct containing a force vector
+     and the location that it is applied at.
+     */
+    struct BulletForce {
+        VROVector3f force;
+        VROVector3f location;
+    };
+
+    std::vector<BulletForce> _forces;
+    std::vector<VROVector3f> _torques;
+
+    /*
+     Creates / destroys the underlying bullet object representing this VROPhysicsBody.
+     */
+    void createBulletBody();
+    void releaseBulletBody();
 };
 #endif

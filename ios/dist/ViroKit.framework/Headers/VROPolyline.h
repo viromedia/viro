@@ -19,7 +19,7 @@ class VROShaderModifier;
 class VROPolyline : public VROGeometry {
     
 public:
-    
+    static std::shared_ptr<VROPolyline> createPolyline(std::vector<std::vector<VROVector3f>> &path, float thickness);
     static std::shared_ptr<VROPolyline> createPolyline(std::vector<VROVector3f> &path, float thickness);
     virtual ~VROPolyline() {}
     
@@ -34,8 +34,7 @@ public:
     virtual void setMaterials(std::vector<std::shared_ptr<VROMaterial>> materials);
 
 private:
-    
-    static void buildGeometry(std::vector<VROVector3f> &path,
+    static void buildGeometry(std::vector<std::vector<VROVector3f>> &paths,
                               std::vector<std::shared_ptr<VROGeometrySource>> &sources,
                               std::vector<std::shared_ptr<VROGeometryElement>> &elements);
     

@@ -25,7 +25,7 @@ class VROVideoTexture : public VROTexture, public VROFrameListener {
 public:
     
     VROVideoTexture(VROTextureType type, VROStereoMode state = VROStereoMode::None) :
-        VROTexture(type, state) {}
+        VROTexture(type, VROTextureInternalFormat::RGBA8, state) {}
     virtual ~VROVideoTexture() {}
 
     /*

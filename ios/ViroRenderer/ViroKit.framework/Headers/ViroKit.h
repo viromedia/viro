@@ -150,6 +150,7 @@ FOUNDATION_EXPORT const unsigned char ViroKitVersionString[];
 #import <ViroKit/VROARCamera.h>
 #import <ViroKit/VROARAnchor.h>
 #import <ViroKit/VROARPlaneAnchor.h>
+#import <ViroKit/VROARHitTestResult.h>
 
 // OpenCV
 #import <ViroKit/VROOpenCV.h>

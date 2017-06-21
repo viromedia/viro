@@ -200,9 +200,9 @@ static NSArray<NSNumber *> *const kDefaultSize = @[@(0), @(0), @(0)];
         if ([gravity count] !=3){
             RCTLogError(@"Insufficient paramters provided for gravity, expected: [x, y, z]!");
         } else {
-            VROVector3f gravity3f = VROVector3f([[gravity objectAtIndex:1] floatValue],
-                                                [[gravity objectAtIndex:2] floatValue],
-                                                [[gravity objectAtIndex:3] floatValue]);
+            VROVector3f gravity3f = VROVector3f([[gravity objectAtIndex:0] floatValue],
+                                                [[gravity objectAtIndex:1] floatValue],
+                                                [[gravity objectAtIndex:2] floatValue]);
             physicsWorld->setGravity(gravity3f);
         }
     }

@@ -40,6 +40,7 @@ public:
     void setBaseRotation(VROMatrix4f baseRotation);
     void setViewport(VROViewport viewport);
     void setFOV(VROFieldOfView fov);
+    void setProjection(VROMatrix4f projection);
     
     VROVector3f getPosition() const {
         return _position;
@@ -60,7 +61,7 @@ public:
         return _frustum;
     }
     void computeLookAtMatrix();
-    void computeFrustum(float ncp, float fcp);
+    void computeFrustum();
     
     float getWorldPerScreen(float distance) const;
     
@@ -108,7 +109,7 @@ private:
     /*
      The projection matrix associated with this camera.
      */
-    VROMatrix4f _projectionMatrix;
+    VROMatrix4f _projection;
     
     /*
      The frustum associated with this camera. Derived from the lookAtMatrix and the

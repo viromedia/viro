@@ -412,7 +412,15 @@ public:
     bool getHighAccuracyGaze() const {
         return _highAccuracyGaze;
     }
-    
+
+    void setIsBeingDragged(bool isDragging) {
+        _selectable = !isDragging;
+        std::shared_ptr<VROPhysicsBody> physicsBody = getPhysicsBody();
+        if (physicsBody != nullptr) {
+            physicsBody->setKinematicDrag(isDragging);
+        }
+    }
+
 #pragma mark - Constraints
     
     void addConstraint(std::shared_ptr<VROConstraint> constraint);

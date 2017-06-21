@@ -174,6 +174,10 @@ public class Scene extends Node implements SceneJni.SceneDelegate {
     }
 
     public void setPhysicsWorld(ReadableMap map){
+        if (map == null){
+            return;
+        }
+
         if (map.hasKey("gravity")){
             ReadableArray readableParams = map.getArray("gravity");
             if (readableParams.size() != 3){

@@ -15,10 +15,18 @@
 class VRORenderContext;
 class VROFrameSynchronizer;
 class VRODriver;
+class VROVector3f;
 
 enum class VROCameraPosition {
     Front,
     Back
+};
+
+enum class VROCameraOrientation {
+    Portrait,
+    PortraitUpsideDown,
+    LandscapeLeft,
+    LandscapeRight,
 };
 
 class VROCameraTexture : public VROTexture {
@@ -26,7 +34,7 @@ class VROCameraTexture : public VROTexture {
 public:
     
     VROCameraTexture(VROTextureType type) :
-        VROTexture(type) {}
+        VROTexture(type, VROTextureInternalFormat::RGBA8) {}
     virtual ~VROCameraTexture() {}
     
     /*
@@ -34,7 +42,8 @@ public:
      The texture will not display until play() is invoked. Returns
      true if successful, false on failure.
      */
-    virtual bool initCamera(VROCameraPosition position, std::shared_ptr<VRODriver> driver) = 0;
+    virtual bool initCamera(VROCameraPosition position, VROCameraOrientation orientation,
+                            std::shared_ptr<VRODriver> driver) = 0;
     
     /*
      Play and pause.
@@ -42,6 +51,18 @@ public:
     virtual void pause() = 0;
     virtual void play() = 0;
     virtual bool isPaused() = 0;
+    
+    /*
+     Get the horizontal FOV used by the camera. This should return the
+     FOV from edge to edge, in degrees.
+     */
+    virtual float getHorizontalFOV() const = 0;
+    
+    /*
+     Get the image size (width, height) for the camera. Stored in the
+     vector's x and y components.
+     */
+    virtual VROVector3f getImageSize() const = 0;
     
 };
 

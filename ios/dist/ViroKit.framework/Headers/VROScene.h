@@ -85,8 +85,8 @@ public:
      Returns the associated physics world with this scene. If there's none
      one is created and returned.
      */
-    std::shared_ptr<VROPhysicsWorld> getPhysicsWorld(){
-        if (_physicsWorld == nullptr){
+    std::shared_ptr<VROPhysicsWorld> getPhysicsWorld() {
+        if (_physicsWorld == nullptr) {
             _physicsWorld = std::make_shared<VROPhysicsWorld>();
         }
         return _physicsWorld;
@@ -95,21 +95,40 @@ public:
     /*
      Grabs and computes a physics world if one exists.
      */
-    void computePhysics(){
-        if (_physicsWorld != nullptr){
-            _physicsWorld->computePhysics();
+    void computePhysics(const VRORenderContext &context) {
+        if (_physicsWorld != nullptr) {
+            _physicsWorld->computePhysics(context);
         }
     }
 
     /*
      Set the background of the scene to a cube-map defined by
-     the given cube texture or color, or a sphere defined by the given
-     spherical image.
+     the given cube texture or color.
      */
     void setBackgroundCube(std::shared_ptr<VROTexture> textureCube);
     void setBackgroundCube(VROVector4f color);
+    
+    /*
+     Set the background of the scene to textured sphere.
+     */
     void setBackgroundSphere(std::shared_ptr<VROTexture> textureSphere);
+    
+    /*
+     Set the background of the scene to an arbitrary geometry. All this
+     guarantees is that the given object will be rendered first. No
+     properties will be set on this geometry, but typically background
+     geometries are screen-space, and do not read or write to teh depth
+     buffer.
+     */
+    void setBackground(std::shared_ptr<VROGeometry> geometry);
+    
+    /*
+     Set an arbitrary transform to apply to the background. The transform
+     may also be set as a quaternion (rotation).
+     */
+    void setBackgroundTransform(VROMatrix4f transform);
     void setBackgroundRotation(VROQuaternion rotation);
+    
     std::shared_ptr<VROGeometry> getBackground() const {
         return _background;
     }
@@ -137,11 +156,11 @@ private:
      UI representation of the underlying controller
      */
     std::shared_ptr<VROInputPresenter> _controllerPresenter;
-    
+
     /*
-     The rotation to apply to the background geometry
+     Transform to apply to the background geometry.
      */
-    VROQuaternion _backgroundRotation;
+    VROMatrix4f _backgroundTransform;
     
     /*
      The nodes ordered for rendering by their sort keys.

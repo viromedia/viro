@@ -10,6 +10,7 @@
 #define VROViewport_hpp
 
 #include "VRODefines.h"
+#include "VROMatrix4f.h"
 
 #if VRO_METAL
 #include <MetalKit/MetalKit.h>
@@ -20,11 +21,11 @@ class VROViewport {
 public:
     
     VROViewport() :
-        _x(0), _y(0), _width(0), _height(0)
+        _x(0), _y(0), _width(0), _height(0), _contentScaleFactor(2)
     {}
 
     VROViewport(int x, int y, int width, int height) :
-        _x(x), _y(y), _width(width), _height(height)
+        _x(x), _y(y), _width(width), _height(height), _contentScaleFactor(2)
     {}
  
     int getX() const { return _x; }
@@ -32,11 +33,39 @@ public:
     int getWidth() const { return _width; }
     int getHeight() const { return _height; }
     
+    /*
+     On some platforms, there is a difference between screen pixels and
+     screen points (e.g. on iOS Retina displays). Viewports are always
+     specified in pixels: to get points, divide by the contentScaleFactor.
+     */
+    float getContentScaleFactor() const { return _contentScaleFactor; };
+    
+    VROMatrix4f getOrthographicProjection(float near, float far) {
+        float left   = _x;
+        float right  = _x + _width;
+        float bottom = _y;
+        float top    = _y + _height;
+        
+        VROMatrix4f projection;
+        projection[0]  =  2.0 / (right - left);
+        projection[5]  =  2.0 / (top - bottom);
+        projection[10] =  -2.0 / (far - near);
+        projection[12] = -(right + left) / (right - left);
+        projection[13] = -(top + bottom) / (top - bottom);
+        projection[14] = -(far + near) / (far - near);
+        
+        return projection;
+    }
+    
     void setViewport(int x, int y, int width, int height) {
         _x = x;
         _y = y;
         _width = width;
         _height = height;
+    }
+    
+    void setContentScaleFactor(float factor) {
+        _contentScaleFactor = factor;
     }
     
 #if VRO_METAL
@@ -73,6 +102,7 @@ public:
 private:
     
     int _x, _y, _width, _height;
+    float _contentScaleFactor;
     
 };
 

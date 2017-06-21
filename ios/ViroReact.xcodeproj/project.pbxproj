@@ -219,8 +219,6 @@
 		A53359701E9E0169005B3EC5 /* VRTControllerModule.mm in Sources */ = {isa = PBXBuildFile; fileRef = A533596E1E9E0169005B3EC5 /* VRTControllerModule.mm */; };
 		A5A937A91E81D1FB00FE0406 /* VRTSceneNavigatorModule.h in Headers */ = {isa = PBXBuildFile; fileRef = A5A937A71E81D1FB00FE0406 /* VRTSceneNavigatorModule.h */; };
 		A5A937AA1E81D1FB00FE0406 /* VRTSceneNavigatorModule.mm in Sources */ = {isa = PBXBuildFile; fileRef = A5A937A81E81D1FB00FE0406 /* VRTSceneNavigatorModule.mm */; };
-		A5E8F0A91ED6B64E00729916 /* VRTNodeModule.h in Headers */ = {isa = PBXBuildFile; fileRef = A5E8F0A51ED6B64D00729916 /* VRTNodeModule.h */; };
-		A5E8F0AA1ED6B64E00729916 /* VRTNodeModule.mm in Sources */ = {isa = PBXBuildFile; fileRef = A5E8F0A61ED6B64D00729916 /* VRTNodeModule.mm */; };
 		A5E8F0AB1ED6B64E00729916 /* VRTSceneModule.h in Headers */ = {isa = PBXBuildFile; fileRef = A5E8F0A71ED6B64D00729916 /* VRTSceneModule.h */; };
 		A5E8F0AC1ED6B64E00729916 /* VRTSceneModule.mm in Sources */ = {isa = PBXBuildFile; fileRef = A5E8F0A81ED6B64D00729916 /* VRTSceneModule.mm */; };
 		A5F6D4011E4B0DFF00655F60 /* VRTController.mm in Sources */ = {isa = PBXBuildFile; fileRef = A5F6D4001E4B0DFF00655F60 /* VRTController.mm */; };
@@ -361,7 +359,6 @@
 		8A31CFB21E2705EC00550CFE /* VRTSurface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VRTSurface.h; path = ViroReact/Views/VRTSurface.h; sourceTree = "<group>"; };
 		8A31CFB31E2705EC00550CFE /* VRTSurface.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = VRTSurface.mm; path = ViroReact/Views/VRTSurface.mm; sourceTree = "<group>"; };
 		8A56302D1EBBFF5F009E71A7 /* VRTPolylineManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VRTPolylineManager.h; path = ViroReact/VRTPolylineManager.h; sourceTree = "<group>"; };
-		8A56302E1EBBFF5F009E71A7 /* VRTPolylineManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; name = VRTPolylineManager.mm; path = ViroReact/VRTPolylineManager.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		8A56302E1EBBFF5F009E71A7 /* VRTPolylineManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = VRTPolylineManager.mm; path = ViroReact/VRTPolylineManager.mm; sourceTree = "<group>"; };
 		8A744F591EEF655F00ECDBC4 /* VRTARNavigatorManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = VRTARNavigatorManager.mm; path = ViroReact/AR/Managers/VRTARNavigatorManager.mm; sourceTree = "<group>"; };
 		8A744F5C1EEF655F00ECDBC4 /* VRTARNavigatorManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VRTARNavigatorManager.h; path = ViroReact/AR/Managers/VRTARNavigatorManager.h; sourceTree = "<group>"; };
@@ -501,8 +498,6 @@
 		A533596E1E9E0169005B3EC5 /* VRTControllerModule.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = VRTControllerModule.mm; path = ViroReact/Modules/VRTControllerModule.mm; sourceTree = "<group>"; };
 		A5A937A71E81D1FB00FE0406 /* VRTSceneNavigatorModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VRTSceneNavigatorModule.h; path = ViroReact/Modules/VRTSceneNavigatorModule.h; sourceTree = "<group>"; };
 		A5A937A81E81D1FB00FE0406 /* VRTSceneNavigatorModule.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = VRTSceneNavigatorModule.mm; path = ViroReact/Modules/VRTSceneNavigatorModule.mm; sourceTree = "<group>"; };
-		A5E8F0A51ED6B64D00729916 /* VRTNodeModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VRTNodeModule.h; path = ViroReact/Modules/VRTNodeModule.h; sourceTree = "<group>"; };
-		A5E8F0A61ED6B64D00729916 /* VRTNodeModule.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = VRTNodeModule.mm; path = ViroReact/Modules/VRTNodeModule.mm; sourceTree = "<group>"; };
 		A5E8F0A71ED6B64D00729916 /* VRTSceneModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VRTSceneModule.h; path = ViroReact/Modules/VRTSceneModule.h; sourceTree = "<group>"; };
 		A5E8F0A81ED6B64D00729916 /* VRTSceneModule.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = VRTSceneModule.mm; path = ViroReact/Modules/VRTSceneModule.mm; sourceTree = "<group>"; };
 		A5F6D3FF1E4B0DFF00655F60 /* VRTController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VRTController.h; path = ViroReact/Views/VRTController.h; sourceTree = "<group>"; };
@@ -982,7 +977,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		8BDD9E1D1E453F9000A42870 /* ShellScript */ = {
@@ -996,7 +991,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = $SRCROOT/ngrok_launch.sh;
+			shellScript = "$SRCROOT/ngrok_launch.sh";
 		};
 /* End PBXShellScriptBuildPhase section */
 
