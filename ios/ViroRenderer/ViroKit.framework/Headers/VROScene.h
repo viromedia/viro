@@ -76,7 +76,7 @@ public:
     /*
      Add a new root node to the scene.
      */
-    void addNode(std::shared_ptr<VRONode> node);
+    virtual void addNode(std::shared_ptr<VRONode> node);
     std::vector<std::shared_ptr<VRONode>> &getRootNodes() {
         return _nodes;
     }
@@ -140,7 +140,7 @@ public:
         return _distanceOfFurthestObjectFromCamera;
     }
 
-private:
+protected:
     
     /*
      The root nodes of the scene.

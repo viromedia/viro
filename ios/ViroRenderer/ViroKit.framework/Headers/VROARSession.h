@@ -18,6 +18,7 @@ class VROARFrame;
 class VROTexture;
 class VROViewport;
 class VROScene;
+class VROARNode;
 class VRONode;
 class VROARSessionDelegate;
 enum class VROCameraOrientation; //defined in VROCameraTexture.h
@@ -141,6 +142,9 @@ public:
      */
     virtual void setOrientation(VROCameraOrientation orientation) = 0;
     
+    // TODO: remove this when we refactor VROARAnchor
+    virtual void addAnchorNode(std::shared_ptr<VRONode> node) = 0;
+    
 private:
     
     VROTrackingType _trackingType;
@@ -155,15 +159,15 @@ public:
     /*
      Invoked whenever an anchor is detected by the AR session, or when an 
      anchor is manually added to the session via addAnchor(). The application
-     can choose to add a VRONode to associate virtual content with this
-     anchor. If a VRONode is returned, that node's properties (position, 
+     can choose to add a VROARNode to associate virtual content with this
+     anchor. If a VROARNode is returned, that node's properties (position,
      orientation, etc.) will be continually updated to track the real-world 
      anchor.
      
      Return nullptr to not associate any node with this anchor. In this case,
      no further delegate messages will be received for the anchor.
      */
-    virtual std::shared_ptr<VRONode> anchorWasDetected(std::shared_ptr<VROARAnchor> anchor) = 0;
+    virtual std::shared_ptr<VROARNode> anchorWasDetected(std::shared_ptr<VROARAnchor> anchor) = 0;
     
     /*
      Invoked just before and after the anchor's node's properties are updated

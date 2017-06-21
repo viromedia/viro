@@ -10,8 +10,9 @@
 #define VROARAnchor_h
 
 #include "VROMatrix4f.h"
-
-class VRONode;
+#include "VROVector3f.h"
+#include "VROQuaternion.h"
+#include "VROARNode.h"
 
 /*
  Anchors are real world objects detected by the AR engine. Each time an
@@ -55,11 +56,27 @@ public:
     /*
      The node associated with the anchor. Updated alongside the anchor.
      */
-    const std::shared_ptr<VRONode> getNode() const {
+    const std::shared_ptr<VROARNode> getARNode() const {
         return _node;
     }
-    void setNode(std::shared_ptr<VRONode> node) {
+    void setARNode(std::shared_ptr<VROARNode> node) {
         _node = node;
+        updateNodeTransform();
+    }
+    
+    /*
+     Update the anchor's node's transforms given the data in the anchor.
+     */
+    void updateNodeTransform() {
+        if (_node) {
+            VROVector3f scale = getTransform().extractScale();
+            VROQuaternion rotation = getTransform().extractRotation(scale);
+            VROVector3f position = getTransform().extractTranslation();
+            
+            _node->setScale(scale);
+            _node->setRotation(rotation);
+            _node->setPosition(position);
+        }
     }
     
 private:
@@ -69,7 +86,7 @@ private:
     /*
      The node associated with this anchor.
      */
-    std::shared_ptr<VRONode> _node;
+    std::shared_ptr<VROARNode> _node;
     
 };
 

@@ -1,0 +1,20 @@
+//
+//  VRTARScene.h
+//  ViroReact
+//
+//  Created by Andy Chu on 6/13/17.
+//  Copyright © 2017 Viro Media. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+#import "VRTScene.h"
+
+@interface VRTARScene : VRTScene
+
+- (instancetype)initWithBridge:(RCTBridge *)bridge;
+
+- (void)initSceneController;
+
+- (void)insertReactSubview:(UIView *)view atIndex:(NSInteger)atIndex;
+
+@end

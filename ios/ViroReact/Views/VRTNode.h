@@ -70,4 +70,6 @@ extern const int k2DPointsPerSpatialUnit;
 - (void) onTouch:(int)source touchState:(VROEventDelegate::TouchState)clickState xPos:(float)x yPos:(float)y;
 - (void) onFuse:(int)source;
 
+// Override for ARNodes
+- (std::shared_ptr<VRONode>)createVroNode;
 @end

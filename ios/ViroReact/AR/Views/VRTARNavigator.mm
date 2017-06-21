@@ -10,7 +10,7 @@
 #import "VRTARNavigator.h"
 #import <React/RCTAssert.h>
 #import <React/RCTLog.h>
-#import "VRTScene.h"
+#import "VRTARScene.h"
 #import "VRTNotifications.h"
 #import <React/RCTRootView.h>
 #import <React/RCTUtils.h>
@@ -54,8 +54,8 @@ static NSString *const kVRTInvalidAPIKeyMessage = @"The given API Key is either 
 
 //VROComponent overrides...
 - (void)insertReactSubview:(UIView *)subview atIndex:(NSInteger)atIndex {
-    RCTAssert([subview isKindOfClass:[VRTScene class]], @"VRTSceneNavigator only accepts VRTScene subviews");
-    VRTScene *sceneView = (VRTScene *)subview;
+    RCTAssert([subview isKindOfClass:[VRTARScene class]], @"VRTARNavigator only accepts VRTARScene subviews");
+    VRTARScene *sceneView = (VRTARScene *)subview;
     
     [sceneView setView:_vroView];
     [self.currentViews insertObject:sceneView atIndex:atIndex];
@@ -90,7 +90,7 @@ static NSString *const kVRTInvalidAPIKeyMessage = @"The given API Key is either 
     return self.currentViews;
 }
 
-- (UIView *)reactSuperview{
+- (UIView *)reactSuperview {
     return nil;
 }
 

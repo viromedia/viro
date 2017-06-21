@@ -19,6 +19,7 @@
 #import "VRTCamera.h"
 #import "VRTAnimatedComponent.h"
 #import "VRTMaterialManager.h"
+#import "VRTARNode.h"
 
 const int k2DPointsPerSpatialUnit = 1000;
 
@@ -27,7 +28,7 @@ const int k2DPointsPerSpatialUnit = 1000;
 - (instancetype)initWithBridge:(RCTBridge *)bridge  {
   self = [super initWithBridge:bridge];
   if(self) {
-    _node = std::make_shared<VRONode>();
+    _node = [self createVroNode];
     _node->setPosition({0, 0, 0});
     _node->setScale({1, 1, 1});
     _visible = YES; // default to visible.
@@ -42,24 +43,26 @@ const int k2DPointsPerSpatialUnit = 1000;
   return self;
 }
 
+- (std::shared_ptr<VRONode>)createVroNode {
+  return std::make_shared<VRONode>();
+}
+   
 - (void)insertReactSubview:(UIView *)view atIndex:(NSInteger)atIndex {
-  VRTView *vroView = (VRTView *)view;
-
-  if ([vroView isKindOfClass:[VRTLight class]]) {
-    VRTLight *light = (VRTLight *)vroView;
+  VRTView *child = (VRTView *)view;
+    
+  if ([child isKindOfClass:[VRTARNode class]]) {
+    // do nothing if it's an AR node, it'll get added later.
+  } else if ([child isKindOfClass:[VRTLight class]]) {
+    VRTLight *light = (VRTLight *)child;
     self.node->addLight([light light]);
-  }
-
-  else if ([vroView isKindOfClass:[VRTNode class]]) {
-    VRTNode *nodeView = (VRTNode *)vroView;
+  } else if ([child isKindOfClass:[VRTNode class]]) {
+    VRTNode *nodeView = (VRTNode *)child;
     self.node->addChildNode(nodeView.node);
-  }
-
-  else if ([vroView isKindOfClass:[VRTAnimatedComponent class]]) {
+  } else if ([child isKindOfClass:[VRTAnimatedComponent class]]) {
     /*
      Add all children (the targets of the animation) to the node.
      */
-    NSArray *subsubViews = [vroView reactSubviews];
+    NSArray *subsubViews = [child reactSubviews];
     BOOL childFound = false;
 
     for(VRTView *subsubview in subsubViews){

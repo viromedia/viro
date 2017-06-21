@@ -28,9 +28,7 @@ static NSArray<NSNumber *> *const kDefaultSize = @[@(0), @(0), @(0)];
 @implementation VRTScene {
   id <VROView> _vroView;
   VRTCamera *_camera;
-  
-  std::shared_ptr<VROSceneControllerDelegateiOS> _delegate;
-  std::shared_ptr<VROSceneController> _sceneController;
+
   NSArray<NSNumber *> *_size;
   NSString *_wallMaterial;
   NSString *_ceilingMaterial;
@@ -39,24 +37,27 @@ static NSArray<NSNumber *> *const kDefaultSize = @[@(0), @(0), @(0)];
 
 - (instancetype)initWithBridge:(RCTBridge *)bridge  {
   self = [super initWithBridge:bridge];
-  // Create VROSceneController.
-  _sceneController = std::make_shared<VROSceneController>();
-
-  // Create and attach delegate
-  _delegate = std::make_shared<VROSceneControllerDelegateiOS>(self);
-  _sceneController->setDelegate(_delegate);
-
-  //Set root node for this scene
-  _sceneController->getScene()->addNode(self.node);
   if (self) {
     _recticleEnabled = true;
+    [self initSceneController];
   }
-    
   _size = kDefaultSize;
   _wallMaterial = kDefaultMaterial;
   _ceilingMaterial = kDefaultMaterial;
   _floorMaterial = kDefaultMaterial;
   return self;
+}
+
+- (void)initSceneController {
+  // Create VROSceneController.
+  _sceneController = std::make_shared<VROSceneController>();
+    
+  // Create and attach delegate
+  _delegate = std::make_shared<VROSceneControllerDelegateiOS>(self);
+  _sceneController->setDelegate(_delegate);
+    
+  //Set root node for this scene
+  _sceneController->getScene()->addNode(self.node);
 }
 
 - (void)setView:(id <VROView>)view {
