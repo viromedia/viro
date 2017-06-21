@@ -2401,12 +2401,17 @@
 		</dict>
 		<key>Headers/VROARAnchor.h</key>
 		<data>
+<<<<<<< HEAD
 		dDLTJA2Uwlv/Eye1URSv2oLroiE=
+=======
+		bFUltrih6Qg18Idk5NGuOh4kt4I=
+>>>>>>> VIRO-1330: Physics Tests Suite
 		</data>
 		<key>Headers/VROARCamera.h</key>
 		<data>
 		C7XFQi805eA3yGiDtES+1l/EtfA=
 		</data>
+<<<<<<< HEAD
 		<key>Headers/VROARComponentManager.h</key>
 		<data>
 		lm2AFhh2Zb0DZS0FNOuwFM6hg48=
@@ -2414,11 +2419,17 @@
 		<key>Headers/VROARFrame.h</key>
 		<data>
 		j/DINtZWP4QxFTA+nShzbdJ9Rys=
+=======
+		<key>Headers/VROARFrame.h</key>
+		<data>
+		d2sGfLTDRjaGeUJnye0FX4lN6FQ=
+>>>>>>> VIRO-1330: Physics Tests Suite
 		</data>
 		<key>Headers/VROARHitTestResult.h</key>
 		<data>
 		HrqyN6mNVS6dRAkAnXKFERqpLUA=
 		</data>
+<<<<<<< HEAD
 		<key>Headers/VROARNode.h</key>
 		<data>
 		o0dU542bFQo206pPByMjggZ+7JE=
@@ -2435,10 +2446,13 @@
 		<data>
 		XnMNuuN0HiEMk6DcYE1wyKK0BGU=
 		</data>
+=======
+>>>>>>> VIRO-1330: Physics Tests Suite
 		<key>Headers/VROARPlaneAnchor.h</key>
 		<data>
 		0sc+4QrC3tLcYR0wXC17iVDeCTQ=
 		</data>
+<<<<<<< HEAD
 		<key>Headers/VROARScene.h</key>
 		<data>
 		Ha3sBiJB0rBRLRrFlIDLej7KuaY=
@@ -2454,6 +2468,11 @@
 		<key>Headers/VROARSession.h</key>
 		<data>
 		d7UG4iNcXYxXzJkXXPVmT1cwUSg=
+=======
+		<key>Headers/VROARSession.h</key>
+		<data>
+		pEiI3x4/bP9xjoyVdKMlu2uvSlw=
+>>>>>>> VIRO-1330: Physics Tests Suite
 		</data>
 		<key>Headers/VROAction.h</key>
 		<data>
@@ -2461,7 +2480,11 @@
 		</data>
 		<key>Headers/VROAllocationTracker.h</key>
 		<data>
+<<<<<<< HEAD
 		xOTQ+kAuAt3jUMxPMCZaLWAeIPE=
+=======
+		VuIiWC9aK3KYz9LVNEfpdzHbArU=
+>>>>>>> VIRO-1330: Physics Tests Suite
 		</data>
 		<key>Headers/VROAnimatable.h</key>
 		<data>
@@ -2545,7 +2568,11 @@
 		</data>
 		<key>Headers/VRODriver.h</key>
 		<data>
+<<<<<<< HEAD
 		hrAMQ07OTHavjPXPLIgkKlizLnE=
+=======
+		Ym5Z8xV7/C3OsfugzoXt1knQFZ8=
+>>>>>>> VIRO-1330: Physics Tests Suite
 		</data>
 		<key>Headers/VROEventDelegate.h</key>
 		<data>
@@ -2553,7 +2580,11 @@
 		</data>
 		<key>Headers/VROEventDelegateiOS.h</key>
 		<data>
+<<<<<<< HEAD
 		DUs6ao5xnvILadQK70hF646kru4=
+=======
+		cJShwOheWnifF6u8G1CQ9hYvynk=
+>>>>>>> VIRO-1330: Physics Tests Suite
 		</data>
 		<key>Headers/VROExecutableAnimation.h</key>
 		<data>
@@ -2641,11 +2672,19 @@
 		</data>
 		<key>Headers/VROInputControllerBase.h</key>
 		<data>
+<<<<<<< HEAD
 		uXaUYa90iYMbs3l0g/8nz/EX3m0=
 		</data>
 		<key>Headers/VROInputControllerCardboardiOS.h</key>
 		<data>
 		OGJELpYChKJ0s46ujh4ny79Z0kM=
+=======
+		Wpp+8Brxtk+R5fn4wy87YBBHDQQ=
+		</data>
+		<key>Headers/VROInputControllerCardboardiOS.h</key>
+		<data>
+		wAXiwzmFtHsIWcPb9ko31kR35wo=
+>>>>>>> VIRO-1330: Physics Tests Suite
 		</data>
 		<key>Headers/VROInputPresenter.h</key>
 		<data>
@@ -2665,7 +2704,11 @@
 		</data>
 		<key>Headers/VROLight.h</key>
 		<data>
+<<<<<<< HEAD
 		WBfXc5eLwzXuPJEkHqbEbnX2ZiU=
+=======
+		+QETJ0aXm0TBx5RvFSiez1++cBU=
+>>>>>>> VIRO-1330: Physics Tests Suite
 		</data>
 		<key>Headers/VROLog.h</key>
 		<data>
@@ -2685,7 +2728,11 @@
 		</data>
 		<key>Headers/VROMaterialVisual.h</key>
 		<data>
+<<<<<<< HEAD
 		ShtjDX5hZQicqvLkKnj9urq+kGw=
+=======
+		GM9pOpJlNfHskueICj1k12FoiVs=
+>>>>>>> VIRO-1330: Physics Tests Suite
 		</data>
 		<key>Headers/VROMath.h</key>
 		<data>
@@ -2697,7 +2744,11 @@
 		</data>
 		<key>Headers/VRONode.h</key>
 		<data>
+<<<<<<< HEAD
 		J7y4bCqdNY5s9jHChpM2kpsh1eI=
+=======
+		WoUFy4jsKYqczlFLfF+0QiVO8pk=
+>>>>>>> VIRO-1330: Physics Tests Suite
 		</data>
 		<key>Headers/VRONodeCamera.h</key>
 		<data>
@@ -2715,10 +2766,13 @@
 		<data>
 		i0qCmuEk5Wq1JgSVZ/fKJCyh+bw=
 		</data>
+<<<<<<< HEAD
 		<key>Headers/VROPencil.h</key>
 		<data>
 		1SFBBuQ5yVuxTwUz7NFWH8YHYt0=
 		</data>
+=======
+>>>>>>> VIRO-1330: Physics Tests Suite
 		<key>Headers/VROPhysicsBody.h</key>
 		<data>
 		WX3l/Zjldbc/G+ZLhcPJoSaFMjo=
@@ -2789,11 +2843,19 @@
 		</data>
 		<key>Headers/VROScene.h</key>
 		<data>
+<<<<<<< HEAD
 		enT+qTQQ5vWVUGGSzqTc6Bsc2rc=
 		</data>
 		<key>Headers/VROSceneController.h</key>
 		<data>
 		mr46HRuYSSYIqBDZWtZLoiVcSqI=
+=======
+		BM7bEIVivjkQrGeNsVKAc+AmTfI=
+		</data>
+		<key>Headers/VROSceneController.h</key>
+		<data>
+		LWXO87+zYqGs30VAYR+JN9J+7c0=
+>>>>>>> VIRO-1330: Physics Tests Suite
 		</data>
 		<key>Headers/VROSceneDelegateiOS.h</key>
 		<data>
@@ -2873,7 +2935,11 @@
 		</data>
 		<key>Headers/VROTexture.h</key>
 		<data>
+<<<<<<< HEAD
 		OXuxbUR68GEb+MUht6bSz+DOrMQ=
+=======
+		ZaZNPZre3i1BsMZjaTVD3jKyH5g=
+>>>>>>> VIRO-1330: Physics Tests Suite
 		</data>
 		<key>Headers/VROTextureUtil.h</key>
 		<data>
@@ -3005,7 +3071,11 @@
 		</data>
 		<key>Headers/ViroKit.h</key>
 		<data>
+<<<<<<< HEAD
 		iyIXli5LO9rfdEVYkIXBlgqq+Fo=
+=======
+		qe2N421ZJfkdb5ix53EdBedLcQ8=
+>>>>>>> VIRO-1330: Physics Tests Suite
 		</data>
 		<key>Headers/optional.hpp</key>
 		<data>
@@ -3017,7 +3087,11 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
+<<<<<<< HEAD
 		eNrXMu9t1mALZJ/WfO7O3GEI0z8=
+=======
+		DclDnpDtFMGfFUUkK8O+6ElQP+I=
+>>>>>>> VIRO-1330: Physics Tests Suite
 		</data>
 		<key>MaterialRobotoFontLoader.bundle/Roboto-Black.ttf</key>
 		<data>
@@ -3093,7 +3167,11 @@
 		</data>
 		<key>constant_fsh.glsl</key>
 		<data>
+<<<<<<< HEAD
 		ZdirsXyan9uNgRKzzUlYtPErN/Y=
+=======
+		dXfOS8qli/ZB+WHkwwIHjDEbt7c=
+>>>>>>> VIRO-1330: Physics Tests Suite
 		</data>
 		<key>constant_functions_fsh.glsl</key>
 		<data>
@@ -7300,11 +7378,19 @@
 		<dict>
 			<key>hash</key>
 			<data>
+<<<<<<< HEAD
 			dDLTJA2Uwlv/Eye1URSv2oLroiE=
 			</data>
 			<key>hash2</key>
 			<data>
 			Wlr/1bXODZGfwVJyL6iobQLXnBE6r1joRG7v5bFimHU=
+=======
+			bFUltrih6Qg18Idk5NGuOh4kt4I=
+			</data>
+			<key>hash2</key>
+			<data>
+			jm6fWg83bLrUksXhH+Gx5zaQ3tgRxugFZ6nveWrryCo=
+>>>>>>> VIRO-1330: Physics Tests Suite
 			</data>
 		</dict>
 		<key>Headers/VROARCamera.h</key>
@@ -7318,6 +7404,7 @@
 			zdkdncThLEHUXjHheL7JAx8K8PKnNRNowt7O8FB87Q8=
 			</data>
 		</dict>
+<<<<<<< HEAD
 		<key>Headers/VROARComponentManager.h</key>
 		<dict>
 			<key>hash</key>
@@ -7329,15 +7416,25 @@
 			QgavU38fZwpi1VnzvQai7zOWyyTdVVRRBWdc5Wl2Elg=
 			</data>
 		</dict>
+=======
+>>>>>>> VIRO-1330: Physics Tests Suite
 		<key>Headers/VROARFrame.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
+<<<<<<< HEAD
 			j/DINtZWP4QxFTA+nShzbdJ9Rys=
 			</data>
 			<key>hash2</key>
 			<data>
 			dxqR0Spi74PUxUH4lzbEpsWRmiheSwblCTO29yFHRV4=
+=======
+			d2sGfLTDRjaGeUJnye0FX4lN6FQ=
+			</data>
+			<key>hash2</key>
+			<data>
+			TE69senpwC8QcMYCVP5pGFcKbeupQ6I4khAwDgEnlCA=
+>>>>>>> VIRO-1330: Physics Tests Suite
 			</data>
 		</dict>
 		<key>Headers/VROARHitTestResult.h</key>
@@ -7351,6 +7448,7 @@
 			C0XfYrxU6todDTJNrvnKCpi9+u7vZ2gdZgr7roqy8xY=
 			</data>
 		</dict>
+<<<<<<< HEAD
 		<key>Headers/VROARNode.h</key>
 		<dict>
 			<key>hash</key>
@@ -7395,6 +7493,8 @@
 			kBCEuCJoGlVqvBJFYGqHfB1QPgMfuUqEh9QfQWSJ/UM=
 			</data>
 		</dict>
+=======
+>>>>>>> VIRO-1330: Physics Tests Suite
 		<key>Headers/VROARPlaneAnchor.h</key>
 		<dict>
 			<key>hash</key>
@@ -7406,6 +7506,7 @@
 			pZ7AksKEqMgiva5s/57Nu5AvEnNAHULks0OqHhEujBM=
 			</data>
 		</dict>
+<<<<<<< HEAD
 		<key>Headers/VROARScene.h</key>
 		<dict>
 			<key>hash</key>
@@ -7439,15 +7540,25 @@
 			XTBLUlp3XLWFJuOgC0tArDUxjydjTpSLsMOnPzWha/w=
 			</data>
 		</dict>
+=======
+>>>>>>> VIRO-1330: Physics Tests Suite
 		<key>Headers/VROARSession.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
+<<<<<<< HEAD
 			d7UG4iNcXYxXzJkXXPVmT1cwUSg=
 			</data>
 			<key>hash2</key>
 			<data>
 			T+tZJN+lC81+JUXAhFkg7i9teb+4r+j+ac/xXlKRB3k=
+=======
+			pEiI3x4/bP9xjoyVdKMlu2uvSlw=
+			</data>
+			<key>hash2</key>
+			<data>
+			f9k5yaqOeIINJPig0X5tp7Bzf4AV+3MY9YIDPx8faLI=
+>>>>>>> VIRO-1330: Physics Tests Suite
 			</data>
 		</dict>
 		<key>Headers/VROAction.h</key>
@@ -7465,11 +7576,19 @@
 		<dict>
 			<key>hash</key>
 			<data>
+<<<<<<< HEAD
 			xOTQ+kAuAt3jUMxPMCZaLWAeIPE=
 			</data>
 			<key>hash2</key>
 			<data>
 			c2X5b3oGMZdstwGYZV9CIWYg/Kt8d2/WOp+XqMoCP2o=
+=======
+			VuIiWC9aK3KYz9LVNEfpdzHbArU=
+			</data>
+			<key>hash2</key>
+			<data>
+			MsoR6jxUxpyIfI5ReuO1ukGmPlEIF5UhY5Fea6BHvs4=
+>>>>>>> VIRO-1330: Physics Tests Suite
 			</data>
 		</dict>
 		<key>Headers/VROAnimatable.h</key>
@@ -7696,11 +7815,19 @@
 		<dict>
 			<key>hash</key>
 			<data>
+<<<<<<< HEAD
 			hrAMQ07OTHavjPXPLIgkKlizLnE=
 			</data>
 			<key>hash2</key>
 			<data>
 			rpv4sN7ADDavcAP4guxshA7DgmHBt+4qLqd+2s/2Qd8=
+=======
+			Ym5Z8xV7/C3OsfugzoXt1knQFZ8=
+			</data>
+			<key>hash2</key>
+			<data>
+			+ALGdsU/JSg/s7O1sU7BevAlhf8AM+mBQW4E/gqIzgw=
+>>>>>>> VIRO-1330: Physics Tests Suite
 			</data>
 		</dict>
 		<key>Headers/VROEventDelegate.h</key>
@@ -7718,11 +7845,19 @@
 		<dict>
 			<key>hash</key>
 			<data>
+<<<<<<< HEAD
 			DUs6ao5xnvILadQK70hF646kru4=
 			</data>
 			<key>hash2</key>
 			<data>
 			ncE1H409zHsCs4AHrx5fJPYDBcSfbZCdkR4UmjiE80Q=
+=======
+			cJShwOheWnifF6u8G1CQ9hYvynk=
+			</data>
+			<key>hash2</key>
+			<data>
+			98c1huesT560yk0XI4DiY7v4GBFWC/THDn6VkRyJm7Y=
+>>>>>>> VIRO-1330: Physics Tests Suite
 			</data>
 		</dict>
 		<key>Headers/VROExecutableAnimation.h</key>
@@ -7960,22 +8095,38 @@
 		<dict>
 			<key>hash</key>
 			<data>
+<<<<<<< HEAD
 			uXaUYa90iYMbs3l0g/8nz/EX3m0=
 			</data>
 			<key>hash2</key>
 			<data>
 			fLEI800usflZMq6vnMyOJ54jNcgCWC7X75sIjNGT3IQ=
+=======
+			Wpp+8Brxtk+R5fn4wy87YBBHDQQ=
+			</data>
+			<key>hash2</key>
+			<data>
+			4m/QylzbD8ymztxFLE9d/uKLJVcSzVjnBpnBF0MJeuE=
+>>>>>>> VIRO-1330: Physics Tests Suite
 			</data>
 		</dict>
 		<key>Headers/VROInputControllerCardboardiOS.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
+<<<<<<< HEAD
 			OGJELpYChKJ0s46ujh4ny79Z0kM=
 			</data>
 			<key>hash2</key>
 			<data>
 			3Q7DhHiW8sGW3ddL1iQ7uyvR7IVljXQ9WHltp0lgIac=
+=======
+			wAXiwzmFtHsIWcPb9ko31kR35wo=
+			</data>
+			<key>hash2</key>
+			<data>
+			ivXKB7tKp6aJgRNB3IdhLixlEbWMXjPscXxzXP4ehWI=
+>>>>>>> VIRO-1330: Physics Tests Suite
 			</data>
 		</dict>
 		<key>Headers/VROInputPresenter.h</key>
@@ -8026,11 +8177,19 @@
 		<dict>
 			<key>hash</key>
 			<data>
+<<<<<<< HEAD
 			WBfXc5eLwzXuPJEkHqbEbnX2ZiU=
 			</data>
 			<key>hash2</key>
 			<data>
 			qYnG3+B0SXTUqIxPeklbPpE2oe4FXokJEMdbohVJ5LQ=
+=======
+			+QETJ0aXm0TBx5RvFSiez1++cBU=
+			</data>
+			<key>hash2</key>
+			<data>
+			MY6mUiCr8Ww92a4kM8IZG2xGD+zoeQzZf5xcooGjSkA=
+>>>>>>> VIRO-1330: Physics Tests Suite
 			</data>
 		</dict>
 		<key>Headers/VROLog.h</key>
@@ -8081,11 +8240,19 @@
 		<dict>
 			<key>hash</key>
 			<data>
+<<<<<<< HEAD
 			ShtjDX5hZQicqvLkKnj9urq+kGw=
 			</data>
 			<key>hash2</key>
 			<data>
 			redf2Nm1P19NRXFFXRIn/EVZy2BE/lYWOYia3Y61wf4=
+=======
+			GM9pOpJlNfHskueICj1k12FoiVs=
+			</data>
+			<key>hash2</key>
+			<data>
+			sp0buiPF1dkijHhwji9CAbFoANBkUYuCCk6XKgL6W9o=
+>>>>>>> VIRO-1330: Physics Tests Suite
 			</data>
 		</dict>
 		<key>Headers/VROMath.h</key>
@@ -8114,11 +8281,19 @@
 		<dict>
 			<key>hash</key>
 			<data>
+<<<<<<< HEAD
 			J7y4bCqdNY5s9jHChpM2kpsh1eI=
 			</data>
 			<key>hash2</key>
 			<data>
 			j8Wdf6h4j06IqYe+KKF7xyGo4wlPUum9WKB/NBMgQzI=
+=======
+			WoUFy4jsKYqczlFLfF+0QiVO8pk=
+			</data>
+			<key>hash2</key>
+			<data>
+			5gBxZy7DVz0haef/BKxAIqedt9Rhzt5xmtNu4QfTFxQ=
+>>>>>>> VIRO-1330: Physics Tests Suite
 			</data>
 		</dict>
 		<key>Headers/VRONodeCamera.h</key>
@@ -8165,6 +8340,7 @@
 			0JPd9TpZoWNeVEWDsW0pHMyqHDTZulCRWF04NaIEq0I=
 			</data>
 		</dict>
+<<<<<<< HEAD
 		<key>Headers/VROPencil.h</key>
 		<dict>
 			<key>hash</key>
@@ -8176,6 +8352,8 @@
 			qMiSgFj1Z+reTcK28Upa4cbGJmm9TraIl6PkbFZweL4=
 			</data>
 		</dict>
+=======
+>>>>>>> VIRO-1330: Physics Tests Suite
 		<key>Headers/VROPhysicsBody.h</key>
 		<dict>
 			<key>hash</key>
@@ -8367,22 +8545,38 @@
 		<dict>
 			<key>hash</key>
 			<data>
+<<<<<<< HEAD
 			enT+qTQQ5vWVUGGSzqTc6Bsc2rc=
 			</data>
 			<key>hash2</key>
 			<data>
 			xORB9Ti2tp2Tud4g03n56AZwbwKG9oMKqeaTH8+iXDM=
+=======
+			BM7bEIVivjkQrGeNsVKAc+AmTfI=
+			</data>
+			<key>hash2</key>
+			<data>
+			JV12V10SQY428NpkH2bxAbB1Bh+v9Mh3FZuXgY9kLZw=
+>>>>>>> VIRO-1330: Physics Tests Suite
 			</data>
 		</dict>
 		<key>Headers/VROSceneController.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
+<<<<<<< HEAD
 			mr46HRuYSSYIqBDZWtZLoiVcSqI=
 			</data>
 			<key>hash2</key>
 			<data>
 			vczxaL3bqMhIgw931EQbnpHiC8/3gU9fw1zGU85wTtg=
+=======
+			LWXO87+zYqGs30VAYR+JN9J+7c0=
+			</data>
+			<key>hash2</key>
+			<data>
+			F/DDyCVPibeAoHOoga5rVJOXXmySJpWYvCNOYcvk2NE=
+>>>>>>> VIRO-1330: Physics Tests Suite
 			</data>
 		</dict>
 		<key>Headers/VROSceneDelegateiOS.h</key>
@@ -8598,11 +8792,19 @@
 		<dict>
 			<key>hash</key>
 			<data>
+<<<<<<< HEAD
 			OXuxbUR68GEb+MUht6bSz+DOrMQ=
 			</data>
 			<key>hash2</key>
 			<data>
 			EQgX36TO0ck73WSt01dXWeJ0iapjME78iINEhHjW85Y=
+=======
+			ZaZNPZre3i1BsMZjaTVD3jKyH5g=
+			</data>
+			<key>hash2</key>
+			<data>
+			dWPjYYiWoGbHGthJqrdpWq9T/XCyZ/qHros8Jmq94xA=
+>>>>>>> VIRO-1330: Physics Tests Suite
 			</data>
 		</dict>
 		<key>Headers/VROTextureUtil.h</key>
@@ -8961,11 +9163,19 @@
 		<dict>
 			<key>hash</key>
 			<data>
+<<<<<<< HEAD
 			iyIXli5LO9rfdEVYkIXBlgqq+Fo=
 			</data>
 			<key>hash2</key>
 			<data>
 			pjhvKq1xJ5doiGIopU06cl2fzDR/B1yfy+pWSWuHSMQ=
+=======
+			qe2N421ZJfkdb5ix53EdBedLcQ8=
+			</data>
+			<key>hash2</key>
+			<data>
+			UhP3wUdQCvfFq2qBcwd2uhg59IFgf6wdUSde5d9ZEtc=
+>>>>>>> VIRO-1330: Physics Tests Suite
 			</data>
 		</dict>
 		<key>Headers/optional.hpp</key>
@@ -9192,11 +9402,19 @@
 		<dict>
 			<key>hash</key>
 			<data>
+<<<<<<< HEAD
 			ZdirsXyan9uNgRKzzUlYtPErN/Y=
 			</data>
 			<key>hash2</key>
 			<data>
 			/nDSYNqBIORuKW3wPLTyTbYWrtPnOiH4IoK+df2aUPU=
+=======
+			dXfOS8qli/ZB+WHkwwIHjDEbt7c=
+			</data>
+			<key>hash2</key>
+			<data>
+			O12ZH3t2DjrauMLziSVt55M4/Fwx9NBSk5Yj1USVcSQ=
+>>>>>>> VIRO-1330: Physics Tests Suite
 			</data>
 		</dict>
 		<key>constant_functions_fsh.glsl</key>
