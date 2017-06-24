@@ -2716,10 +2716,14 @@
 		<key>Headers/VRONode.h</key>
 		<data>
 <<<<<<< HEAD
+<<<<<<< HEAD
 		J7y4bCqdNY5s9jHChpM2kpsh1eI=
 =======
 		WoUFy4jsKYqczlFLfF+0QiVO8pk=
 >>>>>>> VIRO-1330: Physics Tests Suite
+=======
+		fK9DlbeMK1JpMXCxzvgxSrrELeQ=
+>>>>>>> VIRO-678: Node Positional Update API (Bridge)
 		</data>
 		<key>Headers/VRONodeCamera.h</key>
 		<data>
@@ -2961,6 +2965,14 @@
 		<data>
 		RsOaGmKxOPVGfjiKG25XxPfdN5Y=
 		</data>
+		<key>Headers/VROTransformDelegate.h</key>
+		<data>
+		vMWRsxlrrsih6Xs1x2+c+cs5THE=
+		</data>
+		<key>Headers/VROTransformDelegateiOS.h</key>
+		<data>
+		7FHgo0h/8VlGseOZyHLdr/UgI/o=
+		</data>
 		<key>Headers/VROTriangle.h</key>
 		<data>
 		4zYXSVfl+DmpuhhRNRa9v1oIyd0=
@@ -3032,10 +3044,14 @@
 		<key>Headers/ViroKit.h</key>
 		<data>
 <<<<<<< HEAD
+<<<<<<< HEAD
 		iyIXli5LO9rfdEVYkIXBlgqq+Fo=
 =======
 		qe2N421ZJfkdb5ix53EdBedLcQ8=
 >>>>>>> VIRO-1330: Physics Tests Suite
+=======
+		CbM5uA9raRS5hoqRpzz59WJcZY8=
+>>>>>>> VIRO-678: Node Positional Update API (Bridge)
 		</data>
 		<key>Headers/optional.hpp</key>
 		<data>
@@ -3048,10 +3064,14 @@
 		<key>Info.plist</key>
 		<data>
 <<<<<<< HEAD
+<<<<<<< HEAD
 		Lps0v1L9ztLOwe4gf1UouiDrIEg=
 =======
 		DclDnpDtFMGfFUUkK8O+6ElQP+I=
 >>>>>>> VIRO-1330: Physics Tests Suite
+=======
+		FJcud6PiVOy99FT71s3rO81I5iA=
+>>>>>>> VIRO-678: Node Positional Update API (Bridge)
 		</data>
 		<key>MaterialRobotoFontLoader.bundle/Roboto-Black.ttf</key>
 		<data>
@@ -8187,6 +8207,7 @@
 			<key>hash</key>
 			<data>
 <<<<<<< HEAD
+<<<<<<< HEAD
 			J7y4bCqdNY5s9jHChpM2kpsh1eI=
 			</data>
 			<key>hash2</key>
@@ -8199,6 +8220,13 @@
 			<data>
 			5gBxZy7DVz0haef/BKxAIqedt9Rhzt5xmtNu4QfTFxQ=
 >>>>>>> VIRO-1330: Physics Tests Suite
+=======
+			fK9DlbeMK1JpMXCxzvgxSrrELeQ=
+			</data>
+			<key>hash2</key>
+			<data>
+			RA8Cby1tqeVBhVLPlApRrYaOSsiN8m+PO6Jlo+4QDVk=
+>>>>>>> VIRO-678: Node Positional Update API (Bridge)
 			</data>
 		</dict>
 		<key>Headers/VRONodeCamera.h</key>
@@ -8858,6 +8886,28 @@
 			YtL1pKok8vIyWpAJkX12vlXUXOHzO1fnFLoC8se/HyU=
 			</data>
 		</dict>
+		<key>Headers/VROTransformDelegate.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			vMWRsxlrrsih6Xs1x2+c+cs5THE=
+			</data>
+			<key>hash2</key>
+			<data>
+			pVmspkbLOVMiF9AUdBuzNJnOTAQAPfNCaGgTgNbqWQs=
+			</data>
+		</dict>
+		<key>Headers/VROTransformDelegateiOS.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			7FHgo0h/8VlGseOZyHLdr/UgI/o=
+			</data>
+			<key>hash2</key>
+			<data>
+			vuSM/HqJB549WOJxenjZ8QGNgLrK8yNhMwC0Y9ubcMY=
+			</data>
+		</dict>
 		<key>Headers/VROTriangle.h</key>
 		<dict>
 			<key>hash</key>
@@ -9050,6 +9100,7 @@
 			<key>hash</key>
 			<data>
 <<<<<<< HEAD
+<<<<<<< HEAD
 			iyIXli5LO9rfdEVYkIXBlgqq+Fo=
 			</data>
 			<key>hash2</key>
@@ -9062,6 +9113,13 @@
 			<data>
 			UhP3wUdQCvfFq2qBcwd2uhg59IFgf6wdUSde5d9ZEtc=
 >>>>>>> VIRO-1330: Physics Tests Suite
+=======
+			CbM5uA9raRS5hoqRpzz59WJcZY8=
+			</data>
+			<key>hash2</key>
+			<data>
+			dkfkHPWeYfnY+wkjlc8FiIcS6RiJG7E8btYYxY4qFW8=
+>>>>>>> VIRO-678: Node Positional Update API (Bridge)
 			</data>
 		</dict>
 		<key>Headers/optional.hpp</key>

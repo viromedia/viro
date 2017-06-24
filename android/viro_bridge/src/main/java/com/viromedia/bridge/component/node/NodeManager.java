@@ -228,6 +228,7 @@ public abstract class NodeManager <T extends Node> extends ViroViewGroupManager<
         map.put(ViroEvents.ON_FUSE, MapBuilder.of("registrationName", ViroEvents.ON_FUSE));
         map.put(ViroEvents.ON_DRAG, MapBuilder.of("registrationName", ViroEvents.ON_DRAG));
         map.put(ViroEvents.ON_COLLIDED, MapBuilder.of("registrationName", ViroEvents.ON_COLLIDED));
+        map.put(ViroEvents.ON_TRANSFORM_DELEGATE, MapBuilder.of("registrationName", ViroEvents.ON_TRANSFORM_DELEGATE));
         return map;
     }
 
@@ -245,4 +246,10 @@ public abstract class NodeManager <T extends Node> extends ViroViewGroupManager<
     public void setViroTag(Node view, String tag) {
         view.setViroTag(tag);
     }
+
+    @ReactProp(name = "hasTransformDelegate", defaultBoolean = false)
+    public void setViroTag(Node view, boolean hasDelegate) {
+        view.setOnNativeTransformDelegate(hasDelegate);
+    }
+
 }

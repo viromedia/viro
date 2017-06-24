@@ -36,6 +36,8 @@ RCT_EXPORT_VIEW_PROPERTY(transformBehaviors, NSArray<NSString *>)
 RCT_EXPORT_VIEW_PROPERTY(physicsBody, NSDictionary)
 RCT_EXPORT_VIEW_PROPERTY(onCollidedViro, RCTDirectEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(canCollide, BOOL)
+RCT_EXPORT_VIEW_PROPERTY(onNativeTransformDelegateViro, RCTDirectEventBlock)
+RCT_EXPORT_VIEW_PROPERTY(hasTransformDelegate, BOOL)
 
 - (VRTView *)view
 {

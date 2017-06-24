@@ -44,6 +44,7 @@ var ViroText = React.createClass({
       PropTypes.arrayOf(PropTypes.string),
       PropTypes.string
     ]),
+    onTransformUpdate: React.PropTypes.func,
 
     onHover: React.PropTypes.func,
     onClick: React.PropTypes.func,
@@ -86,6 +87,13 @@ var ViroText = React.createClass({
 
     viroTag: PropTypes.string,
     onCollided: React.PropTypes.func,
+  },
+
+  getInitialState: function() {
+    return {
+      propsPositionState:this.props.position,
+      nativePositionState:undefined
+    }
   },
 
   _onHover: function(event: Event) {
@@ -150,6 +158,41 @@ var ViroText = React.createClass({
     }
   },
 
+  // Called from native on the event a positional change has occured
+  // for the underlying control within the renderer.
+  _onNativeTransformUpdate: function(event: Event){
+    var position =  event.nativeEvent.position;
+    this.setState({
+      nativePositionState:position
+    }, () => {
+      if (this.props.onTransformUpdate){
+        this.props.onTransformUpdate(position);
+      }
+    });
+  },
+
+  // Set the propsPositionState on the native control if the
+  // nextProps.position state differs from the nativePositionState that
+  // reflects this control's current vroNode position.
+  componentWillReceiveProps(nextProps){
+    if(nextProps.position != this.state.nativePositionState){
+      var newPosition = [nextProps.position[0], nextProps.position[1], nextProps.position[2], Math.random()];
+      this.setState({
+        propsPositionState:newPosition
+      });
+    }
+  },
+
+  // Ignore all changes in native position state as it is only required to
+  // keep track of the latest position prop set on this control.
+  shouldComponentUpdate: function(nextProps, nextState) {
+    if (nextState.nativePositionState != this.state.nativePositionState){
+      return false;
+    }
+
+    return true;
+  },
+
   render: function() {
     let onGaze = this.props.onGaze ? this._onGaze : undefined;
     // Since materials and transformBehaviors can be either a string or an array, convert the string to a 1-element array.
@@ -161,9 +204,14 @@ var ViroText = React.createClass({
         timeToFuse = this.props.onFuse.timeToFuse;
     }
 
+    let transformDelegate = this.props.onTransformUpdate != undefined ? this._onNativeTransformUpdate : undefined;
+
     return (
       <VRTText
         {...this.props}
+        position={this.state.propsPositionState}
+        onNativeTransformDelegateViro={transformDelegate}
+        hasTransformDelegate={this.props.onTransformUpdate != undefined}
         style={[this.props.style]}
         canHover={this.props.onHover != undefined}
         canClick={this.props.onClick != undefined || this.props.onClickState != undefined}
@@ -212,6 +260,8 @@ var VRTText = requireNativeComponent(
                 timeToFuse:true,
                 canCollide:true,
                 onCollidedViro:true,
+                onNativeTransformDelegateViro:true,
+                hasTransformDelegate:true
       }
 });
 

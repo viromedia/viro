@@ -38,6 +38,7 @@ class VRONodeCamera;
 class VROHitTestResult;
 class VROConstraint;
 class VROExecutableAnimation;
+class VROTransformDelegate;
 
 extern bool kDebugSortOrder;
 extern const std::string kDefaultNodeTag;
@@ -177,7 +178,10 @@ public:
     void setRotation(VROQuaternion rotation);
     void setPosition(VROVector3f position);
     void setScale(VROVector3f scale);
-    
+    void setTransformDelegate(std::shared_ptr<VROTransformDelegate> delegate);
+    std::shared_ptr<VROTransformDelegate> _transformDelegate;
+    std::shared_ptr<VROTransformDelegate> getTransformDelegate();
+
     /*
      Set the rotation as a vector of Euler angles. Using this method
      will update the Euler angles stored internally in a predictable

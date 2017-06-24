@@ -43,6 +43,7 @@ var ViroSurface = React.createClass({
       PropTypes.arrayOf(PropTypes.string),
       PropTypes.string
     ]),
+    onTransformUpdate: React.PropTypes.func,
     visible: PropTypes.bool,
     style: stylePropType,
 
@@ -87,6 +88,13 @@ var ViroSurface = React.createClass({
 
     viroTag: PropTypes.string,
     onCollided: React.PropTypes.func,
+  },
+
+  getInitialState: function() {
+    return {
+      propsPositionState:this.props.position,
+      nativePositionState:undefined
+    }
   },
 
   _onHover: function(event: Event) {
@@ -151,6 +159,41 @@ var ViroSurface = React.createClass({
     }
   },
 
+  // Called from native on the event a positional change has occured
+  // for the underlying control within the renderer.
+  _onNativeTransformUpdate: function(event: Event){
+    var position =  event.nativeEvent.position;
+    this.setState({
+      nativePositionState:position
+    }, () => {
+      if (this.props.onTransformUpdate){
+        this.props.onTransformUpdate(position);
+      }
+    });
+  },
+
+  // Set the propsPositionState on the native control if the
+  // nextProps.position state differs from the nativePositionState that
+  // reflects this control's current vroNode position.
+  componentWillReceiveProps(nextProps){
+    if(nextProps.position != this.state.nativePositionState){
+      var newPosition = [nextProps.position[0], nextProps.position[1], nextProps.position[2], Math.random()];
+      this.setState({
+        propsPositionState:newPosition
+      });
+    }
+  },
+
+  // Ignore all changes in native position state as it is only required to
+  // keep track of the latest position prop set on this control.
+  shouldComponentUpdate: function(nextProps, nextState) {
+    if (nextState.nativePositionState != this.state.nativePositionState){
+      return false;
+    }
+
+    return true;
+  },
+
   render: function() {
 
     if (this.props.material) {
@@ -168,8 +211,13 @@ var ViroSurface = React.createClass({
         timeToFuse = this.props.onFuse.timeToFuse;
     }
 
+    let transformDelegate = this.props.onTransformUpdate != undefined ? this._onNativeTransformUpdate : undefined;
+
     // Create native props object.
     let nativeProps = Object.assign({}, this.props);
+    nativeProps.position = this.state.propsPositionState;
+    nativeProps.onNativeTransformDelegateViro = transformDelegate;
+    nativeProps.hasTransformDelegate = this.props.onTransformUpdate != undefined;
     nativeProps.materials = materials;
     nativeProps.transformBehaviors = transformBehaviors;
     nativeProps.style = [this.props.style];
@@ -216,6 +264,8 @@ var VRTSurface = requireNativeComponent(
             timeToFuse:true,
             canCollide:true,
             onCollidedViro:true,
+            onNativeTransformDelegateViro:true,
+            hasTransformDelegate:true
           }
   }
 );

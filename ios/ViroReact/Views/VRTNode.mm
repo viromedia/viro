@@ -21,7 +21,7 @@
 #import "VRTMaterialManager.h"
 
 const int k2DPointsPerSpatialUnit = 1000;
-
+const double kTransformDelegateDistanceFilter = 0.01;
 @implementation VRTNode
 
 - (instancetype)initWithBridge:(RCTBridge *)bridge  {
@@ -147,6 +147,27 @@ const int k2DPointsPerSpatialUnit = 1000;
   float positionValues[3];
   populateFloatArrayFromNSArray(position, positionValues, 3);
   [self node]->setPosition({positionValues[0], positionValues[1], positionValues[2]});
+}
+
+-(void)setHasTransformDelegate:(BOOL)hasDelegate {
+    if (hasDelegate){
+        _transformDelegate = std::make_shared<VROTransformDelegateiOS>(self, kTransformDelegateDistanceFilter);
+        [self node]->setTransformDelegate(_transformDelegate);
+    } else {
+        _transformDelegate = nullptr;
+    }
+}
+
+- (void)onPositionUpdate:(VROVector3f)position{
+    NSArray *array = [[NSArray alloc] initWithObjects:
+                      [NSNumber numberWithFloat:position.x],
+                      [NSNumber numberWithFloat:position.y],
+                      [NSNumber numberWithFloat:position.z],
+                      nil];
+    
+    if (self.onNativeTransformDelegateViro){
+        self.onNativeTransformDelegateViro(@{@"position":array});
+    }
 }
 
 - (void)setOpacity:(float)opacity {

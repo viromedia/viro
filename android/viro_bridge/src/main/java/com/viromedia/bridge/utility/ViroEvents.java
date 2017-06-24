@@ -28,4 +28,5 @@ public class ViroEvents {
     public static final String ON_BUFFER_START = "onBufferStartViro";
     public static final String ON_BUFFER_END = "onBufferEndViro";
     public static final String ON_COLLIDED = "onCollidedViro";
+    public static final String ON_TRANSFORM_DELEGATE = "onNativeTransformDelegateViro";
 }

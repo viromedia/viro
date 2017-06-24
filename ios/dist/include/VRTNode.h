@@ -13,13 +13,14 @@
 
 extern const int k2DPointsPerSpatialUnit;
 
-@interface VRTNode : VRTView<VROEventDelegateProtocol, VROPhysicsBodyDelegateProtocol>
+@interface VRTNode : VRTView<VROEventDelegateProtocol, VROPhysicsBodyDelegateProtocol, VROTransformDelegateProtocol>
 
 - (instancetype)initWithBridge:(RCTBridge *)bridge;
 
 @property (readwrite, nonatomic) std::shared_ptr<VRONode> node;
 @property (readwrite, nonatomic) std::shared_ptr<VROEventDelegateiOS> eventDelegate;
 @property (readwrite, nonatomic) std::shared_ptr<VROPhysicsBodyDelegateiOS> physicsDelegate;
+@property (readwrite, nonatomic) std::shared_ptr<VROTransformDelegateiOS> transformDelegate;
 
 // Rendering properties
 @property (nonatomic, copy, nullable) NSArray<NSString *> *materials;
@@ -43,6 +44,10 @@ extern const int k2DPointsPerSpatialUnit;
 @property (nonatomic, assign) BOOL canDrag;
 @property (nonatomic, assign) BOOL highAccuracyGaze;
 @property (nonatomic, assign) float timeToFuse;
+
+// Transform Update properties:
+@property (nonatomic, copy, nullable) RCTDirectEventBlock onNativeTransformDelegateViro;
+@property (nonatomic, assign) BOOL hasTransformDelegate;
 
 // Physics properties
 @property (nonatomic, copy, nullable) RCTDirectEventBlock onCollidedViro;

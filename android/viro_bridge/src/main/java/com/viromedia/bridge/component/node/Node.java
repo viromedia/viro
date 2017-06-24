@@ -58,6 +58,7 @@ public class Node extends Component {
     protected final static boolean DEFAULT_CAN_DRAG = false;
     protected final static boolean DEFAULT_CAN_FUSE = false;
     protected final static float DEFAULT_TIME_TO_FUSE_MILLIS = 1000f;
+    protected final static double TRANSFORM_DELEGATE_DISTANCE_FILTER = 0.01;
 
     private NodeJni mNodeJni;
     protected float[] mPosition;
@@ -70,6 +71,7 @@ public class Node extends Component {
     protected boolean mHighAccuracyGazeEnabled;
     protected List<MaterialJni> mMaterials;
     private EventDelegateJni mEventDelegateJni;
+    private NodeTransformDelegate mTransformDelegate;
 
     // these are used to preserve the old 2D layout values which we'll store before and restore after
     // calling attemptRecalcLayout
@@ -114,6 +116,7 @@ public class Node extends Component {
     public void onTearDown() {
         super.onTearDown();
         if (mNodeJni != null){
+            mTransformDelegate = null;
             clearPhysicsBody();
             mEventDelegateJni.setEventDelegateCallback(null);
             mEventDelegateJni.destroy();
@@ -343,7 +346,7 @@ public class Node extends Component {
         if (isTornDown()) {
             return;
         }
-        if (position.length != 3){
+        if (position.length < 3){
             throw new IllegalArgumentException("Missing a position value: All three " +
                     "[x,y,z] axis value are needed.");
         }
@@ -857,6 +860,44 @@ public class Node extends Component {
             node.getReactContext().getJSModule(RCTEventEmitter.class).receiveEvent(
                     node.getId(),
                     ViroEvents.ON_COLLIDED,
+                    event);
+        }
+    }
+
+    public void setOnNativeTransformDelegate(boolean hasDelegate){
+        if (hasDelegate){
+            mTransformDelegate = new NodeTransformDelegate(this);
+            mNodeJni.setTransformDelegate(mTransformDelegate, TRANSFORM_DELEGATE_DISTANCE_FILTER);
+        } else {
+            mTransformDelegate = null;
+            mNodeJni.removeTransformDelegate();
+        }
+    }
+
+    protected class NodeTransformDelegate implements NodeJni.TransformDelegate{
+        private WeakReference<Component> weakComponent;
+        public NodeTransformDelegate(Component component){
+            weakComponent = new WeakReference<Component>(component);
+        }
+
+        @Override
+        public void onPositionUpdate(float[] pos) {
+            Component node = weakComponent.get();
+            if (node == null){
+                return;
+            }
+
+            WritableArray position = Arguments.createArray();
+            position.pushDouble(pos[0]);
+            position.pushDouble(pos[1]);
+            position.pushDouble(pos[2]);
+
+            WritableMap event = Arguments.createMap();
+            event.putArray("position", position);
+
+            node.getReactContext().getJSModule(RCTEventEmitter.class).receiveEvent(
+                    node.getId(),
+                    ViroEvents.ON_TRANSFORM_DELEGATE,
                     event);
         }
     }

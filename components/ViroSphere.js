@@ -41,6 +41,7 @@ var ViroSphere = React.createClass({
       PropTypes.arrayOf(PropTypes.string),
       PropTypes.string
     ]),
+    onTransformUpdate: React.PropTypes.func,
 
     onHover: React.PropTypes.func,
     onClick: React.PropTypes.func,
@@ -99,6 +100,13 @@ var ViroSphere = React.createClass({
     onCollided: React.PropTypes.func,
   },
 
+getInitialState: function() {
+  return {
+    propsPositionState:this.props.position,
+    nativePositionState:undefined
+  }
+},
+
   _onHover: function(event: Event) {
     this.props.onHover && this.props.onHover(event.nativeEvent.isHovering, event.nativeEvent.source);
   },
@@ -149,7 +157,7 @@ var ViroSphere = React.createClass({
   applyTorqueImpulse: function(torque) {
     NativeModules.VRTNodeModule.applyTorqueImpulse(findNodeHandle(this), torque);
   },
-  
+
   setInstantaneousVelocity: function(velocity) {
     NativeModules.VRTNodeModule.setInstantaneousVelocity(findNodeHandle(this), velocity);
   },
@@ -159,6 +167,42 @@ var ViroSphere = React.createClass({
       this.props.onCollided(event.nativeEvent.viroTag, event.nativeEvent.collidedPoint,
                                                            event.nativeEvent.collidedNormal);
     }
+  },
+
+  // Called from native on the event a positional change has occured
+  // for the underlying control within the renderer.
+  _onNativeTransformUpdate: function(event: Event){
+    var position =  event.nativeEvent.position;
+    this.setState({
+      nativePositionState:position
+    }, () => {
+      if (this.props.onTransformUpdate){
+        this.props.onTransformUpdate(position);
+      }
+    });
+  },
+
+  // Set the propsPositionState on the native control if the
+  // nextProps.position state differs from the nativePositionState that
+  // reflects this control's current vroNode position.
+  componentWillReceiveProps(nextProps){
+    if(nextProps.position != this.state.nativePositionState){
+      var newPosition = [nextProps.position[0], nextProps.position[1], nextProps.position[2], Math.random()];
+      this.setState({
+        propsPositionState:newPosition
+      });
+    }
+  },
+
+
+  // Ignore all changes in native position state as it is only required to
+  // keep track of the latest position prop set on this control.
+  shouldComponentUpdate: function(nextProps, nextState) {
+    if (nextState.nativePositionState != this.state.nativePositionState){
+      return false;
+    }
+
+    return true;
   },
 
   render: function() {
@@ -175,9 +219,12 @@ var ViroSphere = React.createClass({
         timeToFuse = this.props.onFuse.timeToFuse;
     }
 
+    let transformDelegate = this.props.onTransformUpdate != undefined ? this._onNativeTransformUpdate : undefined;
+
     return (
       <VRTSphere
         {...this.props}
+        position={this.state.propsPositionState}
         materials={materials}
         transformBehaviors={transformBehaviors}
         canHover={this.props.onHover != undefined}
@@ -196,6 +243,8 @@ var ViroSphere = React.createClass({
         onFuseViro={this._onFuse}
         canCollide={this.props.onCollided != undefined}
         onCollidedViro={this._onCollided}
+        onNativeTransformDelegateViro={transformDelegate}
+        hasTransformDelegate={this.props.onTransformUpdate != undefined}
         timeToFuse={timeToFuse}
         />
     );
@@ -223,6 +272,8 @@ var VRTSphere = requireNativeComponent(
             timeToFuse:true,
             canCollide:true,
             onCollidedViro:true,
+            onNativeTransformDelegateViro:true,
+            hasTransformDelegate:true,
           }
   }
 );

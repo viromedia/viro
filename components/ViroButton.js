@@ -104,6 +104,7 @@ var RCT_BUTTON_REF = 'virobuttoncomponent';
       PropTypes.arrayOf(PropTypes.string),
   	  PropTypes.string
   	]),
+    onTransformUpdate: React.PropTypes.func,
   	visible: PropTypes.bool,
   	opacity: PropTypes.number,
   	height: PropTypes.number,
@@ -218,6 +219,7 @@ var RCT_BUTTON_REF = 'virobuttoncomponent';
             ref={RCT_BUTTON_REF}
             physicsBody={this.props.physicsBody}
             position={this.props.position}
+            onTransformUpdate={this.props.onTransformUpdate}
             onClickState={this.props.onClickState}
             onTouch={this.props.onTouch}
             onScroll={this.props.onScroll}
