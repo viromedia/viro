@@ -26,7 +26,8 @@ import {
   ViroVideo,
   ViroSkyBox,
   Viro360Video,
-  ViroText
+  ViroText,
+  ViroSurface
 } from 'react-viro';
 
 import TimerMixin from 'react-timer-mixin';
@@ -35,64 +36,53 @@ var testARScene = React.createClass({
   mixins: [TimerMixin],
   getInitialState: function() {
     return {
-      text : "not tapped"
+      text : "not tapped",
+      count: 1,
     }
   },
   render: function() {
     return (
-        <ViroARScene position={[0,0,0]} reticleEnabled={false} >
+        <ViroARScene ref="arscene" reticleEnabled={false}>
+
             <ViroVideo
               height={.2} width={.2} position={[0,.15,-.5]}
-              onClick={()=>{this._onTap()}}
+              onClick={()=>{this._onTap(); this._addOneBox()}}
               source={{"uri":"https://s3-us-west-2.amazonaws.com/viro/Climber1Top.mp4"}}
               transformConstraints={"billboard"}
             />
-
-            <ViroVideo
-              height={.2} width={.2} position={[.5,.15,-.5]}
-              onClick={()=>{this._onTap()}}
-              source={{"uri":"https://s3-us-west-2.amazonaws.com/viro/Climber1Top.mp4"}}
-              transformConstraints={"billboard"}
-            />
-
-            <ViroVideo
-              height={.2} width={.2} position={[-.5,.15,-.5]}
-              onClick={()=>{this._onTap()}}
-              source={{"uri":"https://s3-us-west-2.amazonaws.com/viro/Climber1Top.mp4"}}
-            />
-
-            <ViroVideo
-              height={.2} width={.2} position={[-.5,-.5,-.5]}
-              onClick={()=>{this._onTap()}}
-              source={{"uri":"https://s3-us-west-2.amazonaws.com/viro/Climber1Top.mp4"}}
-              onDrag={()=>{console.log("kirby dragging!!!!")}}
-              transformConstraints={"billboard"}
-            />
-
-            <ViroText style={styles.welcome} position={[0,-.5, -1]} text={this.state.text} />
-            <ViroText style={styles.welcome} position={[-.5,-.5, -1]} text={this.state.text} />
-            <ViroText style={styles.welcome} position={[.5,-.5, -1]} text={this.state.text} />
+            <ViroText style={styles.welcome} position={[0, .5, -1]} text={this.state.text} />
 
 
+          <ViroBox width={2} height={.1} length={2} position={[0,-1,-1]} rotation={[0,0,0]}
+            physicsBody={{
+                      type:'static', restitution:0.8
+                    }}
+            onClick={this._addOneBox}
+            materials={"blue"}/>
+          {this._getBoxes()}
         </ViroARScene>
     );
   },
-  /*
-          <ViroARPlane minHeight={0} maxHeight={0} >
-            <ViroVideo
-              height={.3} width={.3} position={[0,.15,0]} onFinish={this._onFinish("Video")}
-              onClick={()=>{console.log("kirby tapped video!!!!")}}
-              onDrag={()=>{console.log("kirby dragging!!!!")}}
-              source={{"uri":"https://s3-us-west-2.amazonaws.com/viro/Climber1Top.mp4"}}
-            />
-          </ViroARPlane>
-
-
-
-          <ViroARPlane minHeight={.5} minWidth={1} >
-            <ViroBox materials="wework_title" scale={[.3, .3, .3]} position={[0, .15, 0]} />
-          </ViroARPlane>
-  */
+  _getBoxes() {
+    let prefix = "box"
+    let boxes = [];
+    for (var i = 0; i < this.state.count; i++) {
+      console.log("kirby adding box " + i)
+      boxes.push((<ViroBox key={prefix + i} position={[0,2,-1]} width={.3} height={.3} length={.3}
+              onDrag={()=>{}}
+              physicsBody={{
+                type:'dynamic',
+                mass:1
+              }} />));
+    }
+    return boxes;
+  },
+  _addOneBox() {
+    console.log("kirby tap box count: " + this.state.count);
+    this.setState({
+      count : this.state.count + 1
+    })
+  },
   _onTap() {
     console.log("kirby tapped video!!!!")
     this.setState({
@@ -144,7 +134,7 @@ const styles = StyleSheet.create({
 ViroMaterials.createMaterials({
   blue: {
     shininess: 2.0,
-    lightingModel: "Lambert",
+    lightingModel: "Constant",
     diffuseColor: "#0000ff"
   },
   black: {

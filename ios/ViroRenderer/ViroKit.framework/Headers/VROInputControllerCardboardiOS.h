@@ -18,6 +18,7 @@ class VROInputControllerCardboardiOS : public VROInputControllerBase {
 public:
     VROInputControllerCardboardiOS(){}
     virtual ~VROInputControllerCardboardiOS(){}
+    virtual VROVector3f getDragForwardOffset();
     void onProcess(const VROCamera &camera);
     void onScreenClicked();
     std::string getHeadset();

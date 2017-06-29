@@ -36,9 +36,11 @@ extern const int k2DPointsPerSpatialUnit;
 @property (nonatomic, copy, nullable) RCTDirectEventBlock onHoverViro;
 @property (nonatomic, copy, nullable) RCTDirectEventBlock onClickViro;
 @property (nonatomic, copy, nullable) RCTDirectEventBlock onFuseViro;
+@property (nonatomic, copy, nullable) RCTDirectEventBlock onDragViro;
 @property (nonatomic, assign) BOOL canHover;
 @property (nonatomic, assign) BOOL canClick;
 @property (nonatomic, assign) BOOL canFuse;
+@property (nonatomic, assign) BOOL canDrag;
 @property (nonatomic, assign) BOOL highAccuracyGaze;
 @property (nonatomic, assign) float timeToFuse;
 
@@ -65,10 +67,11 @@ extern const int k2DPointsPerSpatialUnit;
 - (void)applyMaterials;
 
 // VROEventDelegateProtocol
-- (void) onHover:(int)source isHovering:(bool)isHovering;
-- (void) onClick:(int)source clickState:(VROEventDelegate::ClickState)clickState;
-- (void) onTouch:(int)source touchState:(VROEventDelegate::TouchState)clickState xPos:(float)x yPos:(float)y;
-- (void) onFuse:(int)source;
+- (void)onHover:(int)source isHovering:(bool)isHovering;
+- (void)onClick:(int)source clickState:(VROEventDelegate::ClickState)clickState;
+- (void)onTouch:(int)source touchState:(VROEventDelegate::TouchState)clickState xPos:(float)x yPos:(float)y;
+- (void)onFuse:(int)source;
+- (void)onDrag:(int)source posX:(float)x posY:(float)y posZ:(float)z;
 
 // Override for ARNodes
 - (std::shared_ptr<VRONode>)createVroNode;

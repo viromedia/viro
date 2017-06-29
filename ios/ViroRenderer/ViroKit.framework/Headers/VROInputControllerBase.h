@@ -119,7 +119,12 @@ protected:
         perror("Error: Derived class should create a presenter for BaseInputController to consume!");
         return nullptr;
     }
-
+    
+    /*
+     This function returns the forward offset used in drag
+     */
+    virtual VROVector3f getDragForwardOffset() = 0;
+    
     /**
      * Status of the current controller, for example if it's Connected / Disconnected.
      */
@@ -130,6 +135,23 @@ protected:
      toward the given direction.
      */
     void updateHitNode(const VROCamera &camera, VROVector3f origin, VROVector3f ray);
+    
+    /*
+     * Last result that was returned from the hit test.
+     */
+    std::shared_ptr<VROHitTestResult> _hitResult;
+    
+    /*
+     * Last known posiiton of the controller.
+     */
+    VROVector3f _lastKnownPosition;
+    
+    /*
+     * The pointer's normalized forward vector indicating where the controller
+     * is pointing.
+     */
+    VROVector3f _lastKnownForward;
+    
 
 private:
     
@@ -137,12 +159,6 @@ private:
      UI presenter for this input controller.
      */
     std::shared_ptr<VROInputPresenter> _controllerPresenter;
-    
-    /*
-     * The pointer's normalized forward vector indicating where the controller
-     * is pointing.
-     */
-    VROVector3f _lastKnownForward;
     
     /**
      * Last known position that a TouchEvent occured on.
@@ -154,20 +170,13 @@ private:
      * achieve the controller's current orientation.
      */
     VROQuaternion _lastKnownRotation;
-
-    VROVector3f _lastKnownPosition;
-
+    
     /*
      * Last known position of the node that was dragged previously by this controller.
      */
     VROVector3f _lastDraggedNodePosition;
 
     std::shared_ptr<VROScene> _scene;
-
-    /*
-     * Last result that was returned from the hit test.
-     */
-    std::shared_ptr<VROHitTestResult> _hitResult;
 
     /*
      * Last node that we have clicked down on.

@@ -258,15 +258,15 @@ const int k2DPointsPerSpatialUnit = 1000;
 }
 
 #pragma mark VRTEventDelegateProtocol Delegates
--(void)onHoverViro:(RCTDirectEventBlock)block {
+- (void)onHoverViro:(RCTDirectEventBlock)block {
     _onHoverViro = block;
 }
 
--(void)onClickViro:(RCTDirectEventBlock)block {
+- (void)onClickViro:(RCTDirectEventBlock)block {
     _onClickViro = block;
 }
 
--(void)setCanCollide:(BOOL)canCollide {
+- (void)setCanCollide:(BOOL)canCollide {
     _canCollide = canCollide;
 
     if (canCollide && !_physicsDelegate) {
@@ -288,43 +288,55 @@ const int k2DPointsPerSpatialUnit = 1000;
     }
 }
 
--(void)setCanHover:(BOOL)canHover {
+- (void)setCanHover:(BOOL)canHover {
     _canHover = canHover;
     self.eventDelegate->setEnabledEvent(VROEventDelegate::EventAction::OnHover, canHover);
 }
 
--(void)setCanClick:(BOOL)canClick {
+- (void)setCanClick:(BOOL)canClick {
     _canClick = canClick;
     self.eventDelegate->setEnabledEvent(VROEventDelegate::EventAction::OnClick, canClick);
 }
 
--(void)setCanFuse:(BOOL)canFuse {
+- (void)setCanFuse:(BOOL)canFuse {
     _canFuse = canFuse;
     self.eventDelegate->setEnabledEvent(VROEventDelegate::EventAction::OnFuse, canFuse);
 }
 
--(void)setTimeToFuse:(float)durationMillis {
+- (void)setCanDrag:(BOOL)canDrag {
+    _canDrag = canDrag;
+    self.eventDelegate->setEnabledEvent(VROEventDelegate::EventAction::OnDrag, canDrag);
+}
+
+- (void)setTimeToFuse:(float)durationMillis {
     _timeToFuse = durationMillis;
     self.eventDelegate->setTimeToFuse(durationMillis);
 }
 
--(void)onHover:(int)source isHovering:(bool)isHovering {
+- (void)onHover:(int)source isHovering:(bool)isHovering {
     if (self.onHoverViro != nil) {
         self.onHoverViro(@{@"source": @(source),
                          @"isHovering":@(isHovering)});
     }
 }
 
--(void)onClick:(int)source clickState:(VROEventDelegate::ClickState)clickState{
+- (void)onClick:(int)source clickState:(VROEventDelegate::ClickState)clickState {
     if (self.onClickViro != nil) {
         self.onClickViro(@{@"source": @(source),
                           @"clickState":@(clickState)});
     }
 }
 
--(void)onFuse:(int)source{
+- (void)onFuse:(int)source {
     if (self.onFuseViro != nil) {
         self.onFuseViro(@{@"source": @(source)});
+    }
+}
+
+- (void)onDrag:(int)source posX:(float)x posY:(float)y posZ:(float)z {
+    if (self.onDragViro != nil) {
+        self.onDragViro(@{@"source": @(source),
+                          @"dragToPos" : @[@(x), @(y), @(z)]});
     }
 }
 
