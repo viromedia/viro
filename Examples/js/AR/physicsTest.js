@@ -67,7 +67,6 @@ var testARScene = React.createClass({
     let prefix = "box"
     let boxes = [];
     for (var i = 0; i < this.state.count; i++) {
-      console.log("kirby adding box " + i)
       boxes.push((<ViroBox key={prefix + i} position={[0,2,-1]} width={.3} height={.3} length={.3}
               onDrag={()=>{}}
               physicsBody={{
@@ -78,13 +77,11 @@ var testARScene = React.createClass({
     return boxes;
   },
   _addOneBox() {
-    console.log("kirby tap box count: " + this.state.count);
     this.setState({
       count : this.state.count + 1
     })
   },
   _onTap() {
-    console.log("kirby tapped video!!!!")
     this.setState({
       text : "tapped!"
     })

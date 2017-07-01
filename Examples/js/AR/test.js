@@ -65,7 +65,7 @@ var testARScene = React.createClass({
               height={.2} width={.2} position={[-.5,-.5,-.5]}
               onClick={()=>{this._onTap()}}
               source={{"uri":"https://s3-us-west-2.amazonaws.com/viro/Climber1Top.mp4"}}
-              onDrag={()=>{console.log("kirby dragging!!!!")}}
+              onDrag={()=>{console.log("dragging!!!!")}}
               transformConstraints={"billboard"}
             />
 
@@ -81,8 +81,8 @@ var testARScene = React.createClass({
           <ViroARPlane minHeight={0} maxHeight={0} >
             <ViroVideo
               height={.3} width={.3} position={[0,.15,0]} onFinish={this._onFinish("Video")}
-              onClick={()=>{console.log("kirby tapped video!!!!")}}
-              onDrag={()=>{console.log("kirby dragging!!!!")}}
+              onClick={()=>{console.log("tapped video!!!!")}}
+              onDrag={()=>{console.log("dragging!!!!")}}
               source={{"uri":"https://s3-us-west-2.amazonaws.com/viro/Climber1Top.mp4"}}
             />
           </ViroARPlane>
@@ -94,7 +94,7 @@ var testARScene = React.createClass({
           </ViroARPlane>
   */
   _onTap() {
-    console.log("kirby tapped video!!!!")
+    console.log("tapped video!!!!")
     this.setState({
       text : "tapped!"
     })

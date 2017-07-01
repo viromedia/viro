@@ -39,13 +39,19 @@ var testARScene = React.createClass({
       text : "not tapped",
       boxes: [],
       count : 0,
+      width : .5,
     }
   },
   render: function() {
     return (
-        <ViroARScene ref="arscene" reticleEnabled={false}>
-
-          <ViroVideo
+        <ViroARScene ref="arscene" reticleEnabled={false} physicsWorld={{gravity:[0, -10,0], drawBounds : true}}>
+          {this._getARPlanes()}
+          {this._getBoxes()}
+        </ViroARScene>
+    );
+  },
+  /*
+            <ViroVideo
             height={.2} width={.2} position={[0,.15,-.5]}
             onClick={()=>{this._onTap(); this._addOneBox()}}
             source={{"uri":"https://s3-us-west-2.amazonaws.com/viro/Climber1Top.mp4"}}
@@ -54,12 +60,7 @@ var testARScene = React.createClass({
         
           <ViroText style={styles.welcome} position={[0, .5, -1]} text={this.state.text} />
 
-
-          {this._getARPlanes()}
-          {this._getBoxes()}
-        </ViroARScene>
-    );
-  },
+   */
   _getARPlanes() {
     let prefix = "plane"
     let planes = []
@@ -73,18 +74,19 @@ var testARScene = React.createClass({
         color = "green"
       }
       planes.push((
-        <ViroARPlane key={prefix + i} >
-          <ViroBox width={.5} height={.1} length={.5} position={[0,0,0]} rotation={[0,0,0]}
+        <ViroARPlane key={prefix + i} onClick={this._addOneBox} >
+          <ViroBox scale={[this.state.width, .1, .5]} position={[0,0,0]} rotation={[0,0,0]}
             physicsBody={{
                       type:'static', restitution:0.8
                     }}
-            onClick={this._addOneBox}
-            materials={color}/>
+            materials={color}
+            onClick={()=>{this.setState({width : this.state.width + .001});  this._addOneBox();}}/>
         </ViroARPlane>
       ));
     }
     return planes;
   },
+  //
   _getBoxes() {
     let prefix = "box"
     let boxes = [];
@@ -99,18 +101,15 @@ var testARScene = React.createClass({
     return boxes;
   },
   _addOneBox() {
-    console.log("kirby add one box");
     let position = this.refs["arscene"].getCameraPositionAsync().then((position) => {
-        console.log("kirby tap box count: " + this.state.count + ", " + position[0] + ", " + position.x);
-        this.state.boxes.push([position[0], 3, position[2] - 1])
+        this.state.boxes.push([position[0], 3, position[2] - .5])
         this.setState({
-          //count : this.state.count++,
           boxes : this.state.boxes
         })
     });
   },
   _onTap() {
-    console.log("kirby tapped video!!!!")
+    console.log("tapped video!!!!")
     this.setState({
       text : "tapped!"
     })
@@ -161,17 +160,17 @@ ViroMaterials.createMaterials({
   blue: {
     shininess: 2.0,
     lightingModel: "Constant",
-    diffuseColor: "#0000ff"
+    diffuseColor: "#0000ff88"
   },
   green: {
     shininess: 2.0,
     lightingModel: "Constant",
-    diffuseColor: "#00ff00"
+    diffuseColor: "#00ff0088"
   },
   red: {
     shininess: 2.0,
     lightingModel: "Constant",
-    diffuseColor: "#ff0000"
+    diffuseColor: "#ff000088"
   },
   wework_title: {
     shininess: 1.0,
