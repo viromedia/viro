@@ -44,10 +44,11 @@ public:
 
     VROSceneController() {
         _scene = std::make_shared<VROScene>();
+        
     }
     virtual ~VROSceneController() {}
 
-    std::shared_ptr<VROScene> getScene() {
+    virtual std::shared_ptr<VROScene> getScene() {
         return _scene;
     }
 
@@ -195,7 +196,7 @@ public:
      */
     void sceneWillRender(const VRORenderContext *context) {}
     
-private:
+protected:
     
     std::shared_ptr<VROScene> _scene;
     std::weak_ptr<VROSceneControllerDelegate> _sceneDelegateWeak;

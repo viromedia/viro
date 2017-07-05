@@ -20,6 +20,7 @@
 - (void)onHover:(int)source isHovering:(bool)isHovering;
 - (void)onClick:(int)source clickState:(VROEventDelegate::ClickState)clickState;
 - (void)onFuse:(int)source;
+- (void)onDrag:(int)source posX:(float)x posY:(float)y posZ:(float)y;
 @end
 
 /**
@@ -51,6 +52,10 @@ public:
             return;
         }
         [_delegate onFuse:source];
+    }
+    
+    virtual void onDrag(int source, float x, float y, float z) {
+        [_delegate onDrag:source posX:x posY:y posZ:z];
     }
 
 private:

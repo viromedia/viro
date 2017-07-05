@@ -16,19 +16,6 @@
 #include "VROAnimatable.h"
 #include <vector>
 
-enum class VROWrapMode {
-    Clamp,
-    Repeat,
-    ClampToBorder,
-    Mirror
-};
-
-enum class VROFilterMode {
-    None,
-    Nearest,
-    Linear
-};
-
 class VROMaterial;
 
 class VROMaterialVisual {
@@ -39,12 +26,7 @@ public:
         _material(material),
         _permissibleContentsMask(permissibleContentsMask),
         _contentsColor({ 1.0, 1.0, 1.0, 1.0 }),
-        _intensity(1.0),
-        _wrapS(VROWrapMode::Clamp),
-        _wrapT(VROWrapMode::Clamp),
-        _minificationFilter(VROFilterMode::Linear),
-        _magnificationFilter(VROFilterMode::Linear),
-        _mipFilter(VROFilterMode::None)
+        _intensity(1.0)
     {}
     
     /*
@@ -122,12 +104,6 @@ private:
      the material is attached to.
      */
     VROMatrix4f _contentsTransform;
-    
-    /*
-     Standard texture mapping properties.
-     */
-    VROWrapMode _wrapS, _wrapT;
-    VROFilterMode _minificationFilter, _magnificationFilter, _mipFilter;
     
 };
 

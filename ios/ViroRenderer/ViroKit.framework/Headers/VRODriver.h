@@ -31,6 +31,8 @@ enum class VROSoundType;
 enum class VROTextureType;
 enum class VROTextureFormat;
 enum class VROTextureInternalFormat;
+enum class VROWrapMode;
+enum class VROFilterMode;
 enum class VROMipmapMode;
 
 /*
@@ -58,7 +60,9 @@ public:
                                                      VROTextureInternalFormat internalFormat,
                                                      VROMipmapMode mipmapMode,
                                                      std::vector<std::shared_ptr<VROData>> &data,
-                                                     int width, int height, std::vector<uint32_t> mipSizes) = 0;
+                                                     int width, int height, std::vector<uint32_t> mipSizes,
+                                                     VROWrapMode wrapS, VROWrapMode wrapT,
+                                                     VROFilterMode minFilter, VROFilterMode magFilter, VROFilterMode mipFilter) = 0;
     virtual VROVideoTextureCache *newVideoTextureCache() = 0;
     virtual std::shared_ptr<VROSound> newSound(std::shared_ptr<VROSoundData> data, VROSoundType type) = 0;
     virtual std::shared_ptr<VROSound> newSound(std::string path, VROSoundType type, bool local) = 0;

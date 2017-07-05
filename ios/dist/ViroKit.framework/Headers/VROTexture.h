@@ -62,6 +62,19 @@ enum class VROStereoMode{
     BottomTop = 5   // Over/Under stereoscopic image, with the bottom image shown to the left eye.
 };
 
+enum class VROWrapMode {
+    Clamp,
+    Repeat,
+    ClampToBorder,
+    Mirror
+};
+
+enum class VROFilterMode {
+    None,
+    Nearest,
+    Linear
+};
+
 class VROTexture : public std::enable_shared_from_this<VROTexture> {
     
 public:
@@ -141,6 +154,44 @@ public:
         return _stereoMode;
     }
     
+    /*
+     Access and set wrap properties.
+     */
+    VROWrapMode getWrapS() const {
+        return _wrapS;
+    }
+    void setWrapS(VROWrapMode wrapMode) {
+        _wrapS = wrapMode;
+    }
+    VROWrapMode getWrapT() const {
+        return _wrapT;
+    }
+    void setWrapT(VROWrapMode wrapMode) {
+        _wrapT = wrapMode;
+    }
+    
+    /*
+     Access and set filtering properties.
+     */
+    VROFilterMode getMinificationFilter() const {
+        return _minificationFilter;
+    }
+    void setMinificationFilter(VROFilterMode filter) {
+        _minificationFilter = filter;
+    }
+    VROFilterMode getMagnificationFilter() const {
+        return _magnificationFilter;
+    }
+    void setMagnificationFilter(VROFilterMode filter) {
+        _magnificationFilter = filter;
+    }
+    VROFilterMode getMipFilter() const {
+        return _mipFilter;
+    }
+    void setMipFilter(VROFilterMode filter) {
+        _mipFilter = filter;
+    }
+    
 private:
     
     uint32_t _textureId;
@@ -192,9 +243,15 @@ private:
     std::vector<std::unique_ptr<VROTextureSubstrate>> _substrates;
 
     /*
-    Represents the stereo property of the image, if any.
-    */
+     Represents the stereo property of the image, if any.
+     */
     VROStereoMode _stereoMode;
+    
+    /*
+     Wrap and filtering properties.
+     */
+    VROWrapMode _wrapS, _wrapT;
+    VROFilterMode _minificationFilter, _magnificationFilter, _mipFilter;
 
     /*
      Converts the image(s) into a substrate. May be asynchronously executed.

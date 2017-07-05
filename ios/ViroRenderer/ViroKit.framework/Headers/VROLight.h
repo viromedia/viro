@@ -43,6 +43,7 @@ public:
         _lightId(++sLightId),
         _type(type),
         _color({ 1.0, 1.0, 1.0 }),
+        _intensity(1000.0),
         _updated(true),
         _attenuationStartDistance(2.0),
         _attenuationEndDistance(10.0),
@@ -66,6 +67,11 @@ public:
     void setColor(VROVector3f color);
     VROVector3f getColor() const {
         return _color;
+    }
+    
+    void setIntensity(float intensity);
+    float getIntensity() const {
+        return _intensity;
     }
     
     void setName(std::string name) {
@@ -131,7 +137,17 @@ private:
     
     uint32_t _lightId;
     VROLightType _type;
+    
+    /*
+     RGB color of the light.
+     */
     VROVector3f _color;
+    
+    /*
+     Luminous flux of the light, ranging from 0 to 1000. Modulates the color of the
+     light.
+     */
+    float _intensity;
     
     std::string _name;
     bool _updated;

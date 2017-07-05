@@ -16,6 +16,7 @@
 class VROARCamera;
 class VROARAnchor;
 class VROMatrix4f;
+class VROVector3f;
 class VROViewport;
 class VROTextureSubstrate;
 class VROARHitTestResult;
@@ -49,7 +50,7 @@ public:
      VROViewport is defined).
      */
     virtual std::vector<VROARHitTestResult> hitTest(int x, int y, std::set<VROARHitTestResultType> types) = 0;
-    
+
     /*
      Returns the affine transform to move from viewport space to camera
      image space. Camera image space is the texture coordinate space of

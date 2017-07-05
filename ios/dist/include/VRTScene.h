@@ -16,8 +16,12 @@
 @property (nonatomic, assign) BOOL recticleEnabled;
 @property (nonatomic, copy, nullable) RCTDirectEventBlock onPlatformUpdateViro;
 @property (nonatomic, copy) NSDictionary *physicsWorld;
+@property (nonatomic, readwrite) std::shared_ptr<VROSceneControllerDelegateiOS> delegate;
+@property (nonatomic, readwrite) std::shared_ptr<VROSceneController> sceneController;
 
 - (instancetype)initWithBridge:(RCTBridge *)bridge;
+- (void) initSceneController;
+
 - (std::shared_ptr<VROScene>)scene;
 - (std::shared_ptr<VROSceneController>)sceneController;
 - (NSArray<NSNumber *> *)cameraPosition;
