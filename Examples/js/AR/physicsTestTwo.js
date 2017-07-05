@@ -32,6 +32,11 @@ import {
 
 import TimerMixin from 'react-timer-mixin';
 
+var position = [0,0,0];
+var rotation = [0,0,0];
+var width = 0;
+var height = 0;
+
 var testARScene = React.createClass({
   mixins: [TimerMixin],
   getInitialState: function() {
@@ -74,7 +79,7 @@ var testARScene = React.createClass({
         color = "green"
       }
       planes.push((
-        <ViroARPlane key={prefix + i} onClick={this._addOneBox} >
+        <ViroARPlane key={prefix + i} onClick={this._addOneBox} onComponentUpdated={this._onComponentUpdated}>
           <ViroBox scale={[this.state.width, .1, .5]} position={[0,0,0]} rotation={[0,0,0]}
             physicsBody={{
                       type:'static', restitution:0.8
@@ -87,6 +92,22 @@ var testARScene = React.createClass({
     return planes;
   },
   //
+  _onComponentUpdated(map) {
+    console.log("------")
+    console.log(map.position);
+    console.log(map.rotation);
+    console.log(map.width);
+    console.log(map.width);
+    console.log("Diffs: ");
+    console.log([(map.position[0] - position[0]), (map.position[1] - position[1]), (map.position[2] - position[2])] )
+    console.log([(map.rotation[0] - rotation[0]), (map.rotation[1] - rotation[1]), (map.rotation[2] - rotation[2])] )
+    console.log(map.width - width);
+    console.log(map.height - height);
+    position = map.position;
+    rotation = map.rotation;
+    width = map.width;
+    height = map.height;
+  },
   _getBoxes() {
     let prefix = "box"
     let boxes = [];

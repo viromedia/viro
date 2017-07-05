@@ -14,6 +14,11 @@
 // default min height/width is 0, we match any surface
 @property (nonatomic, assign) float minWidth;
 @property (nonatomic, assign) float minHeight;
+@property (nonatomic, copy, nullable) RCTDirectEventBlock onComponentFoundViro;
+@property (nonatomic, copy, nullable) RCTDirectEventBlock onComponentUpdatedViro;
+@property (nonatomic, copy, nullable) RCTDirectEventBlock onComponentRemovedViro;
+
+@property (readwrite, nonatomic) std::shared_ptr<VROARNodeDelegateiOS> arNodeDelegate;
 
 - (instancetype)initWithBridge:(RCTBridge *)bridge;
 

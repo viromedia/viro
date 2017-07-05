@@ -43,6 +43,9 @@ var ViroARPlane = React.createClass({
     ]),
     onCollided: React.PropTypes.func,
     viroTag: PropTypes.string,
+    onComponentFound: React.PropTypes.func,
+    onComponentUpdated: React.PropTypes.func,
+    onComponentRemoved: React.PropTypes.func,
   },
 
   _onHover: function(event: Event) {
@@ -95,6 +98,24 @@ var ViroARPlane = React.createClass({
     }
   },
 
+  _onComponentFound: function(event: Event) {
+    if (this.props.onComponentFound) {
+      this.props.onComponentFound(event.nativeEvent.componentFoundMap);
+    }
+  },
+
+  _onComponentUpdated: function(event: Event) {
+    if (this.props.onComponentUpdated) {
+      this.props.onComponentUpdated(event.nativeEvent.componentUpdatedMap);
+    }
+  },
+
+  _onComponentRemoved: function(event: Event) {
+    if (this.props.onComponentRemoved) {
+      this.props.onComponentRemoved();
+    }
+  },
+
   render: function() {
 
     let timeToFuse = undefined;
@@ -122,6 +143,9 @@ var ViroARPlane = React.createClass({
         timeToFuse={timeToFuse}
         canCollide={this.props.onCollided != undefined}
         onCollidedViro={this._onCollided}
+        onComponentFoundViro={this._onComponentFound}
+        onComponentUpdatedViro={this._onComponentUpdated}
+        onComponentRemovedViro={this._onComponentRemoved}
         />
     );
   }
@@ -131,25 +155,28 @@ var ViroARPlane = React.createClass({
 var VRTARPlane = requireNativeComponent(
   'VRTARPlane', ViroARPlane, {
     nativeOnly: {
-            materials: [],
-            canHover: true,
-            canClick: true,
-            canTouch: true,
-            canScroll: true,
-            canSwipe: true,
-            canDrag: true,
-            canFuse: true,
-            onHoverViro:true,
-            onClickViro:true,
-            onTouchViro:true,
-            onScrollViro:true,
-            onSwipeViro:true,
-            onDragViro:true,
-            onFuseViro:true,
-            timeToFuse:true,
-            canCollide:true,
-            onCollidedViro:true,
-          }
+      materials: [],
+      canHover: true,
+      canClick: true,
+      canTouch: true,
+      canScroll: true,
+      canSwipe: true,
+      canDrag: true,
+      canFuse: true,
+      onHoverViro:true,
+      onClickViro:true,
+      onTouchViro:true,
+      onScrollViro:true,
+      onSwipeViro:true,
+      onDragViro:true,
+      onFuseViro:true,
+      timeToFuse:true,
+      canCollide:true,
+      onCollidedViro:true,
+      onComponentFoundViro:true,
+      onComponentUpdatedViro:true,
+      onComponentRemovedViro:true,
+    }
   }
 );
 

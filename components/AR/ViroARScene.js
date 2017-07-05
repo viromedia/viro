@@ -149,8 +149,8 @@ ViroARScene.childContextTypes = {
 };
 
 var VRTARScene = requireNativeComponent(
-    'VRTARScene', ViroARScene, {
-        nativeOnly: {
+  'VRTARScene', ViroARScene, {
+      nativeOnly: {
           canHover: true,
           canClick: true,
           canTouch: true,
@@ -167,8 +167,8 @@ var VRTARScene = requireNativeComponent(
           onPlatformUpdateViro: true,
           onFuseViro:true,
           timeToFuse:true,
-        }
-    }
+      }
+  }
 );
 
 module.exports = ViroARScene;

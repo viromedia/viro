@@ -12,6 +12,6 @@
 /**
  * Base class for all Nodes that will be attached to an anchor
  */
-@interface VRTARNode : VRTNode
+@interface VRTARNode : VRTNode<VROARNodeDelegateProtocol>
 
 @end

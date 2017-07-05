@@ -18,6 +18,10 @@ static float const kARPlaneDefaultMinWidth = 0;
     if (self) {
         _minWidth = kARPlaneDefaultMinWidth;
         _minHeight = kARPlaneDefaultMinHeight;
+        _arNodeDelegate = std::make_shared<VROARNodeDelegateiOS>(self);
+        
+        std::shared_ptr<VROARPlane> plane = std::dynamic_pointer_cast<VROARPlane>([self node]);
+        plane->setARNodeDelegate(_arNodeDelegate);
     }
     return self;
 }
@@ -44,6 +48,40 @@ static float const kARPlaneDefaultMinWidth = 0;
 
 - (std::shared_ptr<VRONode>)createVroNode {
     return std::make_shared<VROARPlane>(kARPlaneDefaultMinWidth, kARPlaneDefaultMinHeight);
+}
+
+#pragma mark - VROARNodeDelegateProtocol Implementation
+- (void)onARAnchorAttached:(std::shared_ptr<VROARAnchor>) anchor {
+    if (_onComponentFoundViro) {
+        _onComponentFoundViro(@{ @"componentFoundMap" : [self createDictionaryFromAnchor:anchor]});
+    }
+}
+
+- (void)onARAnchorUpdated:(std::shared_ptr<VROARAnchor>) anchor {
+    if (_onComponentUpdatedViro) {
+        _onComponentUpdatedViro(@{ @"componentUpdatedMap" : [self createDictionaryFromAnchor:anchor]});
+    }
+}
+
+- (void)onARAnchorRemoved {
+    if (_onComponentRemovedViro) {
+        // we don't need to return any args for anchor removed
+        _onComponentRemovedViro(@{});
+    }
+}
+
+- (NSDictionary *)createDictionaryFromAnchor:(std::shared_ptr<VROARAnchor>) anchor {
+    std::shared_ptr<VROARPlaneAnchor> planeAnchor = std::dynamic_pointer_cast<VROARPlaneAnchor>(anchor);
+    VROVector3f center = planeAnchor->getCenter();
+    VROMatrix4f transform = planeAnchor->getTransform();
+    VROQuaternion rotation = transform.extractRotation(transform.extractScale());
+    VROVector3f extent = planeAnchor->getExtent();
+    return @{
+             @"position" : @[@(center.x), @(center.y), @(center.z)],
+             @"rotation" : @[@(rotation.X), @(rotation.Y), @(rotation.Z)],
+             @"width" : @(extent.x),
+             @"height" : @(extent.z)
+             };
 }
 
 @end
