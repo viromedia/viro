@@ -166,6 +166,34 @@ RCT_EXPORT_METHOD(setJSMaterials:(NSDictionary *)materialsDict)
   return std::make_shared<VROTexture>(format, cubeImages);
 }
 
+- (void)loadProperties:(NSDictionary *)properties forTexture:(std::shared_ptr<VROTexture>)texture {
+  NSString *wrapS = [properties objectForKey:@"wrapS"];
+  if (wrapS != nil) {
+    texture->setWrapS([self convertWrapMode:wrapS]);
+  }
+  
+  NSString *wrapT = [properties objectForKey:@"wrapT"];
+  if (wrapT != nil) {
+    texture->setWrapT([self convertWrapMode:wrapT]);
+  }
+  
+  NSString *minFilter = [properties objectForKey:@"minificationFilter"];
+  if (minFilter != nil) {
+    texture->setMinificationFilter([self convertFilterMode:minFilter]);
+  }
+  
+  NSString *magFilter = [properties objectForKey:@"magnificationFilter"];
+  if (magFilter != nil) {
+    texture->setMagnificationFilter([self convertFilterMode:magFilter]);
+  }
+  
+  NSString *mipFilter = [properties objectForKey:@"mipFilter"];
+  if (mipFilter != nil) {
+    texture->setMipFilter([self convertFilterMode:mipFilter]);
+  }
+  
+}
+
 -(UIImage *)retrieveImage:(id)json {
   NSString *path = [self parseImagePath:json];
   
@@ -196,6 +224,7 @@ RCT_EXPORT_METHOD(setJSMaterials:(NSDictionary *)materialsDict)
     if([materialPropertyName hasSuffix:@"texture"] || [materialPropertyName hasSuffix:@"Texture"]) {
       if([materialPropertyName caseInsensitiveCompare:@"reflectiveTexture"] == NSOrderedSame) {
         std::shared_ptr<VROTexture> texture = [self createTextureCubeMap:material[key]];
+        [self loadProperties:material forTexture:texture];
         [self setTextureForMaterial:vroMaterial texture:texture name:materialPropertyName];
         
         continue;
@@ -207,6 +236,7 @@ RCT_EXPORT_METHOD(setJSMaterials:(NSDictionary *)materialsDict)
           [materialWrapper setMaterialPropertyName:materialPropertyName forVideoTexturePath:path];
         }else {
           std::shared_ptr<VROTexture> texture = [self createTexture2D:material[key]];
+          [self loadProperties:material forTexture:texture];
           [self setTextureForMaterial:vroMaterial texture:texture name:materialPropertyName];
         }
       }
@@ -301,7 +331,7 @@ RCT_EXPORT_METHOD(setJSMaterials:(NSDictionary *)materialsDict)
 }
   
 //Convert string to propert VROLightingModel enum,
-- (VROLightingModel) convertLightingModel:(NSString *)name {
+- (VROLightingModel)convertLightingModel:(NSString *)name {
   
   if([@"Phong" caseInsensitiveCompare:name] == NSOrderedSame){
     return VROLightingModel::Phong;
@@ -314,6 +344,33 @@ RCT_EXPORT_METHOD(setJSMaterials:(NSDictionary *)materialsDict)
   }
   //return default if nothing else matches
   return VROLightingModel::Blinn;
+}
+
+- (VROFilterMode)convertFilterMode:(NSString *)name {
+  if ([@"Nearest" caseInsensitiveCompare:name] == NSOrderedSame) {
+    return VROFilterMode::Nearest;
+  }
+  else if([@"Linear" caseInsensitiveCompare:name] == NSOrderedSame) {
+    return VROFilterMode::Linear;
+  }
+  else {
+    return VROFilterMode::Linear; // Default
+  }
+}
+
+- (VROWrapMode)convertWrapMode:(NSString *)name {
+  if ([@"Clamp" caseInsensitiveCompare:name] == NSOrderedSame) {
+    return VROWrapMode::Clamp;
+  }
+  else if([@"Repeat" caseInsensitiveCompare:name] == NSOrderedSame) {
+    return VROWrapMode::Repeat;
+  }
+  else if([@"Mirror" caseInsensitiveCompare:name] == NSOrderedSame) {
+    return VROWrapMode::Mirror;
+  }
+  else {
+    return VROWrapMode::Clamp; // Default
+  }
 }
 
 - (BOOL)isVideoTexture:(NSString *)path {

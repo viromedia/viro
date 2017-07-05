@@ -27,6 +27,11 @@ var MaterialPropTypes = {
   normalTexture: ReactPropTypes.any,
   reflectiveTexture: CubeMapPropType,
   diffuseColor: ColorPropType,
+  wrapS: ReactPropTypes.oneOf(['Clamp', 'Repeat', 'Mirror']),
+  wrapT: ReactPropTypes.oneOf(['Clamp', 'Repeat', 'Mirror']),
+  minificationFilter: ReactPropTypes.oneOf(['Nearest', 'Linear']),
+  magnificationFilter: ReactPropTypes.oneOf(['Nearest', 'Linear']),
+  mipFilter: ReactPropTypes.oneOf(['Nearest', 'Linear']),
 };
 
 module.exports = MaterialPropTypes;

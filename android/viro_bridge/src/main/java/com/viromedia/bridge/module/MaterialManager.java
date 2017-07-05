@@ -106,7 +106,7 @@ public class MaterialManager extends ReactContextBaseJavaModule {
             if (materialPropertyName.endsWith("texture") || materialPropertyName.endsWith("Texture")) {
                 if (materialPropertyName.equalsIgnoreCase("reflectiveTexture")) {
                     TextureJni nativeTexture = createTextureCubeMap(materialMap.getMap(materialPropertyName), TextureFormat.RGBA8);
-                    setTextureOnMaterial(nativeMaterial, nativeTexture, materialPropertyName);
+                    setTextureOnMaterial(nativeMaterial, nativeTexture, materialPropertyName, materialMap);
                     continue;
                 }
 
@@ -121,7 +121,7 @@ public class MaterialManager extends ReactContextBaseJavaModule {
                     } else {
                         if (mImageMap.get(materialPropertyName) != null) {
                             setImageOnMaterial(mImageMap.get(materialPropertyName), format, mipmap, nativeMaterial,
-                                    materialPropertyName);
+                                    materialPropertyName, materialMap);
                         } else {
                             ImageDownloader downloader = new ImageDownloader(mContext);
                             downloader.setTextureFormat(format);
@@ -129,7 +129,7 @@ public class MaterialManager extends ReactContextBaseJavaModule {
                             Bitmap imageBitmap = downloader.getImageSync(uri);
                             if (imageBitmap != null) {
                                 ImageJni nativeImage = new ImageJni(imageBitmap, format);
-                                setImageOnMaterial(nativeImage, format, mipmap, nativeMaterial, materialPropertyName);
+                                setImageOnMaterial(nativeImage, format, mipmap, nativeMaterial, materialPropertyName, materialMap);
                             }
                         }
                     }
@@ -159,13 +159,29 @@ public class MaterialManager extends ReactContextBaseJavaModule {
     }
 
     private void setImageOnMaterial(ImageJni image, TextureFormat format, boolean mipmap,
-                                    MaterialJni material, String name) {
+                                    MaterialJni material, String name, ReadableMap materialMap) {
         TextureJni nativeTexture = new TextureJni(image, format, mipmap);
-        setTextureOnMaterial(material, nativeTexture, name);
+        setTextureOnMaterial(material, nativeTexture, name, materialMap);
     }
 
     private void setTextureOnMaterial(MaterialJni nativeMaterial, TextureJni nativeTexture,
-                                      String materialPropertyName) {
+                                      String materialPropertyName, ReadableMap materialMap) {
+        if (materialMap.hasKey("wrapS")) {
+            nativeTexture.setWrapS(materialMap.getString("wrapS"));
+        }
+        if (materialMap.hasKey("wrapT")) {
+            nativeTexture.setWrapT(materialMap.getString("wrapT"));
+        }
+        if (materialMap.hasKey("minificationFilter")) {
+            nativeTexture.setMinificationFilter(materialMap.getString("minificationFilter"));
+        }
+        if (materialMap.hasKey("magnificationFilter")) {
+            nativeTexture.setMagnificationFilter(materialMap.getString("magnificationFilter"));
+        }
+        if (materialMap.hasKey("mipFilter")) {
+            nativeTexture.setMipFilter(materialMap.getString("mipFilter"));
+        }
+
         nativeMaterial.setTexture(nativeTexture, materialPropertyName);
         // Since we're actually done with texture at this point, destroy the JNI object.
         nativeTexture.destroy();
