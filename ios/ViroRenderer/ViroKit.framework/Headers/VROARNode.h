@@ -10,6 +10,7 @@
 #define VROARNode_h
 
 #include "VRONode.h"
+#include "VROARNodeDelegate.h"
 
 class VROARAnchor;
 
@@ -30,8 +31,38 @@ public:
         return _anchor.lock();
     }
     
+    void setARNodeDelegate(std::shared_ptr<VROARNodeDelegate> delegate) {
+        _arNodeDelegate = delegate;
+    }
+    
+    std::shared_ptr<VROARNodeDelegate> getARNodeDelegate() {
+        return _arNodeDelegate.lock();
+    }
+    
+    void onARAnchorAttached() {
+        std::shared_ptr<VROARNodeDelegate> delegate = getARNodeDelegate();
+        if (delegate) {
+            delegate->onARAnchorAttached(getAnchor());
+        }
+    }
+    
+    void onARAnchorUpdated() {
+        std::shared_ptr<VROARNodeDelegate> delegate = getARNodeDelegate();
+        if (delegate) {
+            delegate->onARAnchorUpdated(getAnchor());
+        }
+    }
+    
+    void onARAnchorRemoved() {
+        std::shared_ptr<VROARNodeDelegate> delegate = getARNodeDelegate();
+        if (delegate) {
+            delegate->onARAnchorRemoved();
+        }
+    }
+    
 protected:
     std::weak_ptr<VROARAnchor> _anchor;
+    std::weak_ptr<VROARNodeDelegate> _arNodeDelegate;
 
 };
 #endif /* VROARNode_h */

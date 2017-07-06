@@ -384,8 +384,7 @@ public:
     void setEventDelegate(std::shared_ptr<VROEventDelegate> delegate) {
         passert_thread();
         
-        auto autoWeakDelegate = delegate;
-        _eventDelegateWeak = autoWeakDelegate;
+        _eventDelegateWeak = delegate;
     }
 
     std::shared_ptr<VROEventDelegate> getEventDelegate(){
