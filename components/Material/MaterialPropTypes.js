@@ -23,6 +23,7 @@ var MaterialPropTypes = {
   readsFromDepthBuffer: ReactPropTypes.bool,
   cullMode: ReactPropTypes.oneOf(['None', 'Back', 'Front']),
   diffuseTexture: ReactPropTypes.any,
+  diffuseIntensity: ReactPropTypes.number,
   specularTexture: ReactPropTypes.any,
   normalTexture: ReactPropTypes.any,
   reflectiveTexture: CubeMapPropType,

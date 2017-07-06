@@ -247,24 +247,28 @@ RCT_EXPORT_METHOD(setJSMaterials:(NSDictionary *)materialsDict)
       NSUInteger argb = [number unsignedIntegerValue];
       [self setColorForMaterial:vroMaterial color:argb name:(NSString *)materialPropertyName];
     }else {
-      if( [@"shininess" caseInsensitiveCompare:materialPropertyName] == NSOrderedSame ) {
+      if([@"shininess" caseInsensitiveCompare:materialPropertyName] == NSOrderedSame) {
         NSNumber *number = material[key];
         vroMaterial->setShininess([number floatValue]);
-      }else if([@"fresnelExponent" caseInsensitiveCompare:materialPropertyName] == NSOrderedSame ){
+      }else if([@"fresnelExponent" caseInsensitiveCompare:materialPropertyName] == NSOrderedSame) {
         NSNumber *number =  material[key];
         vroMaterial->setFresnelExponent([number floatValue]);
-      }else if([@"lightingModel" caseInsensitiveCompare:materialPropertyName] == NSOrderedSame ){
+      }else if([@"lightingModel" caseInsensitiveCompare:materialPropertyName] == NSOrderedSame) {
         VROLightingModel lightingModel = [self convertLightingModel:material[key]];
         vroMaterial->setLightingModel(lightingModel);
-      }else if([@"transparencyMode" caseInsensitiveCompare:materialPropertyName] == NSOrderedSame ){
+      }else if([@"transparencyMode" caseInsensitiveCompare:materialPropertyName] == NSOrderedSame) {
         VROTransparencyMode transparencyMode = [self convertTransparencyMode:material[key]];
         vroMaterial->setTransparencyMode(transparencyMode);
-      }else if([@"writesToDepthBuffer" caseInsensitiveCompare:materialPropertyName] == NSOrderedSame ){
+      }else if([@"writesToDepthBuffer" caseInsensitiveCompare:materialPropertyName] == NSOrderedSame) {
         NSNumber *booleanVal = material[key];
         vroMaterial->setWritesToDepthBuffer([booleanVal boolValue]);
       }else if([@"readsFromDepthBuffer" caseInsensitiveCompare:materialPropertyName] == NSOrderedSame) {
         NSNumber *booleanVal = material[key];
         vroMaterial->setReadsFromDepthBuffer([booleanVal boolValue]);
+      }
+      else if ([@"diffuseIntensity" caseInsensitiveCompare:materialPropertyName] == NSOrderedSame) {
+        NSNumber *floatVal = material[key];
+        vroMaterial->getDiffuse().setIntensity([floatVal floatValue]);
       }
       else if ([@"cullMode" caseInsensitiveCompare:materialPropertyName] == NSOrderedSame) {
         VROCullMode cullMode = [self convertCullMode:material[key]];
