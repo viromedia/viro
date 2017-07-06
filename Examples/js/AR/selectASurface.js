@@ -27,7 +27,8 @@ import {
   ViroSkyBox,
   Viro360Video,
   ViroText,
-  ViroSurface
+  ViroSurface,
+  Viro3DObject
 } from 'react-viro';
 
 import TimerMixin from 'react-timer-mixin';
@@ -45,13 +46,15 @@ for (var i = 0; i < 15; i++) {
 var testARScene = React.createClass({
   mixins: [TimerMixin],
   getInitialState: function() {
-    var foo = {
+    var initialState = {
       text : "not tapped",
       boxes: [],
       count : 0,
       width : .5,
+      selectedSurface : -1,
     }
-    return Object.assign(foo, boxStates);
+    // amend the initial states with the boxStates
+    return Object.assign(initialState, boxStates);
   },
   render: function() {
     return (
@@ -85,17 +88,33 @@ var testARScene = React.createClass({
         color = "green"
       }
       planes.push((
-        <ViroARPlane key={prefix + i} onClick={this._addOneBox} onComponentFound={this._updateBoxState(i)}onComponentUpdated={this._updateBoxState(i)}>
+        <ViroARPlane key={prefix + i} onClick={this._addOneBox}
+         onComponentFound={this._updateBoxState(i)} onComponentUpdated={this._updateBoxState(i)}
+         visible={this.state.selectedSurface == -1 || this.state.selectedSurface == i}>
           <ViroBox scale={[this.state["box" + i][0], .01, this.state["box" + i][1]]} position={[0,0,0]} rotation={[0,0,0]}
             physicsBody={{
                       type:'static', restitution:0
                     }}
             materials={color}
-            onClick={()=>{this.setState({width : this.state.width + .001});  this._addOneBox();}}/>
+            onClick={this._clickSurface(i)}/>
+          {this._getObject(i)}
         </ViroARPlane>
       ));
     }
     return planes;
+  },
+  _clickSurface(planeNum) {
+    return () => {
+      this.setState({
+        selectedSurface : planeNum == this.state.selectedSurface ? -1 : planeNum
+      })
+    }
+  },
+  _getObject(planeNum) {
+    if (planeNum == this.state.selectedSurface) {
+      return (<Viro3DObject source={require('./res/aliengirl.obj')} scale={[.005,.005,.005]}
+                materials={["aliengirl"]} onClick={()=>{this.setState({showObj : false})}}/>)
+    }
   },
   _updateBoxState(boxNum) {
     var boxKey = "box" + boxNum;
@@ -215,7 +234,13 @@ ViroMaterials.createMaterials({
   },
   box_texture: {
     diffuseTexture: require("../res/sun_2302.jpg"),
-  }
+  },
+  aliengirl: {
+    lightingModel: "Constant",
+    diffuseTexture: require('./res/aliengirl_diffuse.png'),
+    normalTexture: require('./res/aliengirl_normal.png'),
+    specularTexture: require('./res/aliengirl_specular.png')
+  },
 });
 
 module.exports = testARScene;
