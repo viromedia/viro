@@ -14,4 +14,10 @@
  */
 @interface VRTARNode : VRTNode<VROARNodeDelegateProtocol>
 
+@property (nonatomic, copy, nullable) RCTDirectEventBlock onComponentFoundViro;
+@property (nonatomic, copy, nullable) RCTDirectEventBlock onComponentUpdatedViro;
+@property (nonatomic, copy, nullable) RCTDirectEventBlock onComponentRemovedViro;
+
+- (NSDictionary *)createDictionaryFromAnchor:(std::shared_ptr<VROARAnchor>) anchor;
+
 @end

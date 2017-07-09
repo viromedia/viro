@@ -50,9 +50,7 @@ const int k2DPointsPerSpatialUnit = 1000;
 - (void)insertReactSubview:(UIView *)view atIndex:(NSInteger)atIndex {
   VRTView *child = (VRTView *)view;
     
-  if ([child isKindOfClass:[VRTARNode class]]) {
-    // do nothing if it's an AR node, it'll get added later.
-  } else if ([child isKindOfClass:[VRTLight class]]) {
+  if ([child isKindOfClass:[VRTLight class]]) {
     VRTLight *light = (VRTLight *)child;
     self.node->addLight([light light]);
   } else if ([child isKindOfClass:[VRTNode class]]) {

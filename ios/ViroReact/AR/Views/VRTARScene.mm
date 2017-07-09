@@ -43,4 +43,13 @@
     [super insertReactSubview:view atIndex:atIndex];
 }
 
+- (void)removeReactSubview:(UIView *)subview {
+    [super removeReactSubview:subview];
+    VRTView *child = (VRTView *)subview;
+    if ([child isKindOfClass:[VRTARPlane class]]) {
+        VRTARPlane *arPlane = (VRTARPlane *)child;
+        _vroArScene->removeARPlane(std::dynamic_pointer_cast<VROARPlane>(arPlane.node));
+    }
+}
+
 @end

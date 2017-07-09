@@ -30,6 +30,7 @@ Examples/ios/ViroExample/ViroExample.xcodeproj/xcuserdata/
 Examples/ios/ViroExample/ViroExample.xcworkspace/xcuserdata/
 Examples/ios/ViroExample/ViroExample.xcworkspace/xcshareddata/
 ios/ngrokendpoint.txt
+ios/ViroRenderer/ViroKit.framework/_CodeSignature/
 
 # Node
 Examples/node_modules

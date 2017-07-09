@@ -167,7 +167,6 @@ static NSString *const kWebPrefix = @"http";
 }
 
 - (void)createSoundWithPath:(NSString *)path local:(BOOL)local {
-    // TODO: VIRO-756 implement loading from local resources
     if (_sound) {
         _sound->pause();
     }
@@ -177,7 +176,6 @@ static NSString *const kWebPrefix = @"http";
 }
 
 - (void)createSoundWithData:(std::shared_ptr<VROSoundData>)data local:(BOOL)local {
-    // TODO: VIRO-756 implement loading from local resources
     if (_sound) {
         _sound->pause();
     }

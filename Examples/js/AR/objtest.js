@@ -48,7 +48,8 @@ var testARScene = React.createClass({
           <ViroDirectionalLight color="#ffffff" direction={[0,0,-1]} />
           {this._showObj()}
           <ViroARPlane minHeight={0} maxHeight={0} >
-            <ViroSurface rotation={[-90,0,0]} materials={"red"} opacity={.5} />
+            <ViroSurface rotation={[-90,0,0]} materials={"red"} opacity={.5}
+              onClick={this._pushNextScene} />
           </ViroARPlane>
         </ViroARScene>
     );
@@ -69,14 +70,18 @@ var testARScene = React.createClass({
             <ViroBox materials="wework_title" scale={[.3, .3, .3]} position={[0, .15, 0]} />
           </ViroARPlane>
   */
+  _pushNextScene() {
+    this.props.sceneNavigator.push({'scene' : require("./selectASurface.js")});
+  },
   _showObj() {
 
     if (this.state.showObj) {
       return (
-        <ViroARPlane minHeight={0} maxHeight={0} >
+        <ViroARPlane minHeight={0} maxHeight={0} onComponentFound={()=>{console.log("ARPlane component found!")}} >
           <ViroSurface rotation={[-90,0,0]} materials={"blue"} opacity={.5} />
           <Viro3DObject source={require('./res/aliengirl.obj')} scale={[.005,.005,.005]}
-                  materials={["aliengirl"]} onClick={()=>{this.setState({showObj : false})}}/>
+                  materials={["aliengirl"]}
+                  onClick={()=>{this.setState({showObj : false})}} />
         </ViroARPlane>)
     }
   },

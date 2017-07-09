@@ -11,7 +11,9 @@
 static float const kARPlaneDefaultMinHeight = 0;
 static float const kARPlaneDefaultMinWidth = 0;
 
-@implementation VRTARPlane
+@implementation VRTARPlane {
+    bool _dimensionsUpdated;
+}
 
 - (instancetype)initWithBridge:(RCTBridge *)bridge {
     self = [super initWithBridge:bridge];
@@ -28,6 +30,7 @@ static float const kARPlaneDefaultMinWidth = 0;
 
 - (void)setMinHeight:(float)minHeight {
     _minHeight = minHeight;
+    _dimensionsUpdated = true;
     std::shared_ptr<VROARPlane> plane = std::dynamic_pointer_cast<VROARPlane>([self node]);
     if (plane) {
         plane->setMinHeight(_minHeight);
@@ -36,6 +39,7 @@ static float const kARPlaneDefaultMinWidth = 0;
 
 - (void)setMinWidth:(float)minWidth {
     _minWidth = minWidth;
+    _dimensionsUpdated = true;
     std::shared_ptr<VROARPlane> plane = std::dynamic_pointer_cast<VROARPlane>([self node]);
     if (plane) {
         plane->setMinWidth(_minWidth);
@@ -43,31 +47,17 @@ static float const kARPlaneDefaultMinWidth = 0;
 }
 
 - (void)didSetProps:(NSArray<NSString *> *)changedProps {
-    // TODO: notify ARScene or ARComponentManager if the width/height changed (VIRO-1260 required for interaction)
+    if (_dimensionsUpdated) {
+        std::shared_ptr<VROARScene> arScene = std::dynamic_pointer_cast<VROARScene>(self.scene);
+        if (arScene) {
+            arScene->updateARPlane(std::dynamic_pointer_cast<VROARPlane>(self.node));
+            _dimensionsUpdated = false;
+        }
+    }
 }
 
 - (std::shared_ptr<VRONode>)createVroNode {
     return std::make_shared<VROARPlane>(kARPlaneDefaultMinWidth, kARPlaneDefaultMinHeight);
-}
-
-#pragma mark - VROARNodeDelegateProtocol Implementation
-- (void)onARAnchorAttached:(std::shared_ptr<VROARAnchor>) anchor {
-    if (_onComponentFoundViro) {
-        _onComponentFoundViro(@{ @"componentFoundMap" : [self createDictionaryFromAnchor:anchor]});
-    }
-}
-
-- (void)onARAnchorUpdated:(std::shared_ptr<VROARAnchor>) anchor {
-    if (_onComponentUpdatedViro) {
-        _onComponentUpdatedViro(@{ @"componentUpdatedMap" : [self createDictionaryFromAnchor:anchor]});
-    }
-}
-
-- (void)onARAnchorRemoved {
-    if (_onComponentRemovedViro) {
-        // we don't need to return any args for anchor removed
-        _onComponentRemovedViro(@{});
-    }
 }
 
 - (NSDictionary *)createDictionaryFromAnchor:(std::shared_ptr<VROARAnchor>) anchor {
