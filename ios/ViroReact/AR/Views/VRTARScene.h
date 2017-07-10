@@ -9,7 +9,9 @@
 #import <Foundation/Foundation.h>
 #import "VRTScene.h"
 
-@interface VRTARScene : VRTScene
+@interface VRTARScene : VRTScene <VROARSceneDelegateProtocol>
+
+@property (nonatomic, copy, nullable) RCTDirectEventBlock onTrackingInitializedViro;
 
 - (instancetype)initWithBridge:(RCTBridge *)bridge;
 

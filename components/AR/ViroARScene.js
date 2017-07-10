@@ -28,6 +28,7 @@ var ViroARScene = React.createClass({
       }),
       React.PropTypes.func
     ]),
+    onTrackingInitialized: React.PropTypes.func,
     onPlatformUpdate: React.PropTypes.func,
     /**
      * Describes the acoustic properties of the room around the user
@@ -87,6 +88,10 @@ var ViroARScene = React.createClass({
     this.props.onPlatformUpdate && this.props.onPlatformUpdate(event.nativeEvent.platformInfoViro);
   },
 
+  _onTrackingInitialized: function(event: Event) {
+    this.props.onTrackingInitialized && this.props.onTrackingInitialized();
+  },
+
   async getCameraPositionAsync() {
     return await ViroCameraModule.getCameraPosition(findNodeHandle(this));
   },
@@ -136,6 +141,7 @@ var ViroARScene = React.createClass({
         onSwipeViro={this._onSwipe}
         onFuseViro={this._onFuse}
         onPlatformUpdateViro={this._onPlatformUpdate}
+        onTrackingInitializedViro={this._onTrackingInitialized}
         timeToFuse={timeToFuse}
         />
     );
@@ -166,6 +172,7 @@ var VRTARScene = requireNativeComponent(
           onDragViro:true,
           onPlatformUpdateViro: true,
           onFuseViro:true,
+          onTrackingInitializedViro: true,
           timeToFuse:true,
       }
   }

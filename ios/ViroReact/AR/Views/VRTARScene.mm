@@ -13,10 +13,15 @@
 
 @implementation VRTARScene {
     std::shared_ptr<VROARScene> _vroArScene;
+    std::shared_ptr<VROARSceneDelegateiOS> _sceneDelegate;
 }
 
 - (instancetype)initWithBridge:(RCTBridge *)bridge {
     self = [super initWithBridge:bridge];
+    if (self) {
+        _sceneDelegate = std::make_shared<VROARSceneDelegateiOS>(self);
+        _vroArScene->setDelegate(_sceneDelegate);
+    }
     return self;
 }
 
@@ -49,6 +54,14 @@
     if ([child isKindOfClass:[VRTARPlane class]]) {
         VRTARPlane *arPlane = (VRTARPlane *)child;
         _vroArScene->removeARPlane(std::dynamic_pointer_cast<VROARPlane>(arPlane.node));
+    }
+}
+
+#pragma mark VROARSceneDelegateProtocol Implementation
+
+- (void)onTrackingInitialized {
+    if (self.onTrackingInitializedViro) {
+        self.onTrackingInitializedViro(@{});
     }
 }
 
