@@ -103,6 +103,12 @@ public:
      */
     void applyConstraints(const VRORenderContext &context, VROMatrix4f parentTransform,
                           bool parentUpdated);
+  
+    /*
+     Update the position of each light in this node, and add to the outLights vector.
+     Recurses down the tree.
+     */
+    void collectLights(std::vector<std::shared_ptr<VROLight>> *outLights);
     
     /*
      Recursively updates the sort keys of this node, preparing this node and its children
@@ -212,10 +218,10 @@ public:
     }
     void setOpacity(float opacity);
 
-    bool isHidden() const {
+    virtual bool isHidden() const {
         return _hidden;
     }
-    void setHidden(bool hidden);
+    virtual void setHidden(bool hidden);
     
     int getRenderingOrder() const {
         return _renderingOrder;
@@ -483,6 +489,9 @@ private:
      matrix for the node. 
      
      computedRotation only takes into account rotations (not scale or translation).
+     computedLights are the lights that influence this node, based on distance from
+     the light and light attenuation, unrelated to the scene graph (e.g. the lights
+     in _computedLights may belong to any node in the scene).
      */
     VROMatrix4f _computedTransform;
     VROMatrix4f _computedInverseTransposeTransform;

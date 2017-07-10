@@ -103,12 +103,16 @@ public:
     }
 
     /*
-     * Viro-specific input events to be trigged by derived Input Controller classes; these
-     * are the Viro-sepcific events that platform-specific events are mapped to.
+     * Below are Viro-specific input events to be trigged by derived Input Controller
+     * classes; these are the Viro-sepcific events that platform-specific events
+     * are mapped to.
      */
     void onControllerStatus(int source, VROEventDelegate::ControllerStatus status);
     void onButtonEvent(int source, VROEventDelegate::ClickState clickAction);
     void onTouchpadEvent(int source, VROEventDelegate::TouchState touchAction, float lastKnownX, float lastKnownY);
+    /*
+     * The following position, rotation and forward are all in world coordinates.
+     */
     void onMove(int source, VROVector3f position, VROQuaternion rotation, VROVector3f forward);
     void onSwipe(int source, VROEventDelegate::SwipeState swipeState);
     void onScroll(int source, float x, float y);

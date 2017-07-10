@@ -55,7 +55,7 @@ public:
     /*
      Scene appeared delegate methods, triggered by VRORenderer.
      */
-    void onSceneWillAppear(VRORenderContext *context, std::shared_ptr<VRODriver> driver) {
+    virtual void onSceneWillAppear(VRORenderContext *context, std::shared_ptr<VRODriver> driver) {
         if (_sceneDelegateWeak.expired()){
             return;
         }
@@ -69,7 +69,7 @@ public:
 
         _sceneDelegateWeak.lock()->onSceneDidAppear(context, driver);
     }
-    void onSceneWillDisappear(VRORenderContext *context, std::shared_ptr<VRODriver> driver) {
+    virtual void onSceneWillDisappear(VRORenderContext *context, std::shared_ptr<VRODriver> driver) {
         if (_sceneDelegateWeak.expired()){
             return;
         }

@@ -26,20 +26,18 @@ public:
     void removeARPlane(std::shared_ptr<VROARPlane> plane);
     void updateARPlane(std::shared_ptr<VROARPlane> plane);
     
-    void setSession(std::shared_ptr<VROARSession> session) {
-        _session = session;
-    }
+    /*
+     This function should be called when all the planes are being removed
+     */
+    void clearAllPlanes(std::vector<std::shared_ptr<VROARPlane>> planes);
     
     // VROARSessionDelegate functions
-    // TODO: possibly update anchorWasDetected to *not* return a node
-    virtual std::shared_ptr<VROARNode> anchorWasDetected(std::shared_ptr<VROARAnchor> anchor);
+    virtual void anchorWasDetected(std::shared_ptr<VROARAnchor> anchor);
     virtual void anchorWillUpdate(std::shared_ptr<VROARAnchor> anchor);
     virtual void anchorDidUpdate(std::shared_ptr<VROARAnchor> anchor);
     virtual void anchorWasRemoved(std::shared_ptr<VROARAnchor> anchor);
     
 private:
-    std::weak_ptr<VROARSession> _session;
-    
     // Anchors without an associated Node
     std::vector<std::shared_ptr<VROARAnchor>> _detachedAnchors;
     // Planes without an associated Anchor
@@ -66,11 +64,7 @@ private:
      _detachedAnchor
      */
     void handleDetachedAnchor(std::shared_ptr<VROARAnchor> anchor);
-    
-    /*
-     If the ARSession is still available, add the anchor's node to it
-     */
-    void addAnchorToSession(std::shared_ptr<VROARAnchor> anchor);
+
 };
 
 #endif /* VROARComponentManager_h */

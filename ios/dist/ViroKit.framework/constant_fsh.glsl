@@ -24,7 +24,7 @@ void main() {
 
 #pragma surface_modifier_body
 
-    lowp vec4 _output_color = vec4(_surface.diffuse_color.xyz, _surface.alpha * _surface.diffuse_color.a);
+    lowp vec4 _output_color = vec4(_surface.diffuse_color.xyz * _surface.diffuse_intensity, _surface.alpha * _surface.diffuse_color.a);
     
 #pragma fragment_modifier_body
     

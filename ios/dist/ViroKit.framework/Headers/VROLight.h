@@ -13,6 +13,7 @@
 #include <vector>
 #include <atomic>
 #include <memory>
+#include <limits>
 #include "VROVector3f.h"
 #include "VROVector4f.h"
 #include "VROAnimatable.h"
@@ -46,7 +47,7 @@ public:
         _intensity(1000.0),
         _updated(true),
         _attenuationStartDistance(2.0),
-        _attenuationEndDistance(10.0),
+        _attenuationEndDistance(std::numeric_limits<float>::max()),
         _attenuationFalloffExponent(2.0),
         _direction( { 0, 0, -1.0} ),
         _spotInnerAngle(0),

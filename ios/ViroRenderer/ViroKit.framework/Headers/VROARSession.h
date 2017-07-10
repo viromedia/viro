@@ -61,7 +61,6 @@ public:
         return _scene;
     }
     virtual void setScene(std::shared_ptr<VROScene> scene) {
-        passert_msg (_scene == nullptr, "Scene cannot be changed in VROARSession");
         _scene = scene;
     }
     
@@ -142,9 +141,6 @@ public:
      */
     virtual void setOrientation(VROCameraOrientation orientation) = 0;
     
-    // TODO: remove this when we refactor VROARAnchor
-    virtual void addAnchorNode(std::shared_ptr<VRONode> node) = 0;
-    
 private:
     
     VROTrackingType _trackingType;
@@ -160,14 +156,9 @@ public:
      Invoked whenever an anchor is detected by the AR session, or when an 
      anchor is manually added to the session via addAnchor(). The application
      can choose to add a VROARNode to associate virtual content with this
-     anchor. If a VROARNode is returned, that node's properties (position,
-     orientation, etc.) will be continually updated to track the real-world 
-     anchor.
-     
-     Return nullptr to not associate any node with this anchor. In this case,
-     no further delegate messages will be received for the anchor.
+     anchor by setting a VROARNode on the anchor..
      */
-    virtual std::shared_ptr<VROARNode> anchorWasDetected(std::shared_ptr<VROARAnchor> anchor) = 0;
+    virtual void anchorWasDetected(std::shared_ptr<VROARAnchor> anchor) = 0;
     
     /*
      Invoked just before and after the anchor's node's properties are updated
