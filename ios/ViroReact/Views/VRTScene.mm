@@ -147,16 +147,17 @@ static NSArray<NSNumber *> *const kDefaultSize = @[@(0), @(0), @(0)];
 
 #pragma mark - Property setter overrides
 
-/**
- * Override the cameraPosition getter to return the renderer's actual camera position vs
- * the property value which is the position the developer set.
+/*
+ * Grab the orientation of the current active camera within this scene.
  */
-- (NSArray<NSNumber *> *)cameraPosition {
+- (NSArray<NSNumber *> *)cameraOrientation {
   if (self.context) {
-    VROVector3f actualCameraPosition = self.context->getCamera().getPosition();
-    return @[@(actualCameraPosition.x), @(actualCameraPosition.y), @(actualCameraPosition.z)];
+    VROVector3f cameraPosition = self.context->getCamera().getPosition();
+    VROVector3f cameraRotation = self.context->getCamera().getRotation().toEuler();
+    return @[@(cameraPosition.x), @(cameraPosition.y), @(cameraPosition.z),
+             @(toDegrees(cameraRotation.x)), @(toDegrees(cameraRotation.y)), @(toDegrees(cameraRotation.z))];
   } else {
-    return @[@0, @0, @0];
+    return @[@0, @0, @0, @0, @0, @0];
   }
 }
 

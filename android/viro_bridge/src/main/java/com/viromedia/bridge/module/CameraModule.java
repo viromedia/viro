@@ -30,7 +30,7 @@ public class CameraModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void getCameraPosition(final int sceneTag, final Promise promise) {
+    public void getCameraOrientation(final int sceneTag, final Promise promise) {
         UIManagerModule uiManager = getReactApplicationContext().getNativeModule(UIManagerModule.class);
         uiManager.addUIBlock(new UIBlock() {
             @Override
@@ -41,15 +41,21 @@ public class CameraModule extends ReactContextBaseJavaModule {
 
                     scene.getCameraPositionAsync(new CameraCallback() {
                         @Override
-                        public void onGetCameraPosition(float x, float y, float z) {
+                        public void onGetCameraOrientation(float posX, float poxY, float posZ,
+                                                           float rotEulerX, float rotEulerY, float rotEulerZ) {
                             WritableArray array = Arguments.createArray();
-                            array.pushDouble(x);
-                            array.pushDouble(y);
-                            array.pushDouble(z);
+                            array.pushDouble(posX);
+                            array.pushDouble(poxY);
+                            array.pushDouble(posZ);
+                            array.pushDouble(rotEulerX);
+                            array.pushDouble(rotEulerY);
+                            array.pushDouble(rotEulerZ);
                             promise.resolve(array);
                         }
                     });
                 }
+
+
             }
         });
     }

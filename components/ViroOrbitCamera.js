@@ -73,6 +73,14 @@ var VRTOrbitCamera = requireNativeComponent(
                 canFuse: true,
                 onFuseViro:true,
                 timeToFuse: true,
+                viroTag: true,
+                scalePivot: true,
+                rotationPivot: true,
+                canCollide:true,
+                onCollidedViro:true,
+                onNativeTransformDelegateViro:true,
+                hasTransformDelegate:true,
+                physicsBody:true
       }
 });
 

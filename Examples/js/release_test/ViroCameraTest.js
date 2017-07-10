@@ -52,13 +52,14 @@ var ViroCameraTest = React.createClass({
     return {
         mainCameraPositionX: 0,
         mainCameraRotation:0,
-        activeCamera:1
+        activeCamera:1,
+        cameraOrienationString:""
     };
   },
 
   render: function() {
     return (
-     <ViroScene onClick={this._toggleCamera} >
+     <ViroScene onClick={this._toggleCamera} ref="cameraScene">
      <ReleaseMenu sceneNavigator={this.props.sceneNavigator}/>
 
      <ViroOmniLight position={[0, 0, 0]} color="#ffffff" attenuationStartDistance={40} attenuationEndDistance={50}/>
@@ -96,9 +97,21 @@ var ViroCameraTest = React.createClass({
         <ViroText style={styles.centeredText} position={[2, -1, -4]} text={"Toggle Camera Type 1 rotationY: " + this.state.mainCameraRotation}
                 width={1.5} height ={2}  onClick={this._toggleCameraRotation} />
 
+        <ViroText style={styles.centeredText} position={[0, -2.5, -4]} text={"Get Camera Orientation Async: " + this.state.cameraOrienationString}
+                width={4} height ={4}  onClick={this._getCameraOrientationAsync} />
      </ViroScene>
 
     );
+  },
+
+  _getCameraOrientationAsync(){
+    this.refs["cameraScene"].getCameraOrientationAsync().then((orientation) => {
+      var cameraOrienationStr = "Position: " + orientation.position[0] + "," + orientation.position[1] + "," + orientation.position[2] + "\n";
+      cameraOrienationStr = cameraOrienationStr + "Rotation: " + orientation.rotation[0] + "," + orientation.rotation[1] + "," + orientation.rotation[2];
+      this.setState({
+        cameraOrienationString:cameraOrienationStr
+      });
+    });
   },
 
   _showNext() {

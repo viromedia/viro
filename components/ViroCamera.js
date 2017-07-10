@@ -72,7 +72,15 @@ var VRTCamera = requireNativeComponent(
                 transformBehaviors:true,
                 canFuse: true,
                 onFuseViro:true,
-                timeToFuse:true
+                timeToFuse:true,
+                viroTag: true,
+                scalePivot: true,
+                rotationPivot: true,
+                canCollide:true,
+                onCollidedViro:true,
+                onNativeTransformDelegateViro:true,
+                hasTransformDelegate:true,
+                physicsBody:true
       }
 });
 

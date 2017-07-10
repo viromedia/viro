@@ -23,7 +23,7 @@
 - (void) initSceneController;
 
 - (std::shared_ptr<VROSceneController>)sceneController;
-- (NSArray<NSNumber *> *)cameraPosition;
+- (NSArray<NSNumber *> *)cameraOrientation;
 
 - (void)setView:(id <VROView>)view;
 

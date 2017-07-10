@@ -126,10 +126,10 @@ public class Scene extends Node implements SceneJni.SceneDelegate {
 
     public void getCameraPositionAsync(CameraCallback callback) {
         if (mRenderContext == null || isTornDown()) {
-            callback.onGetCameraPosition(0,0,0);
+            callback.onGetCameraOrientation(0,0,0,0,0,0);
         }
         else {
-            mRenderContext.getCameraPosition(callback);
+            mRenderContext.getCameraOrientation(callback);
         }
     }
 

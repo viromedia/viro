@@ -20,7 +20,7 @@ RCT_EXPORT_MODULE()
     return RCTGetUIManagerQueue();
 }
 
-RCT_EXPORT_METHOD(getCameraPosition:(nonnull NSNumber *)reactTag
+RCT_EXPORT_METHOD(getCameraOrientation:(nonnull NSNumber *)reactTag
                   resolve:(RCTPromiseResolveBlock)resolve
                   reject:(RCTPromiseRejectBlock)reject) {
     
@@ -29,7 +29,7 @@ RCT_EXPORT_METHOD(getCameraPosition:(nonnull NSNumber *)reactTag
         if (![view isKindOfClass:[VRTScene class]]) {
             RCTLogError(@"Invalid view returned from registry, expecting VRTScene, got: %@", view);
         } else {
-            resolve(((VRTScene *)view).cameraPosition);
+            resolve(((VRTScene *)view).cameraOrientation);
         }
     }];
 }
