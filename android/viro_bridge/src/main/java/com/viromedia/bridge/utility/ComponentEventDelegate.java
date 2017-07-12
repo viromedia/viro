@@ -3,6 +3,8 @@
  */
 package com.viromedia.bridge.utility;
 
+import android.util.Log;
+
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.WritableArray;
 import com.facebook.react.bridge.WritableMap;
@@ -22,15 +24,24 @@ public class ComponentEventDelegate implements EventDelegateJni.EventDelegateCal
     }
 
     @Override
-    public void onHover(int source, boolean isHovering) {
+    public void onHover(int source, boolean isHovering, float position[]) {
         Component component = weakComponent.get();
         if (component == null){
             return;
         }
 
+        WritableArray positionArray = Arguments.createArray();
+        if (position != null && position.length == 3) {
+            positionArray.pushDouble(position[0]);
+            positionArray.pushDouble(position[1]);
+            positionArray.pushDouble(position[2]);
+        }
+
         WritableMap event = Arguments.createMap();
         event.putInt("source", source);
         event.putBoolean("isHovering", isHovering);
+        event.putArray("position", positionArray);
+
         component.getReactContext().getJSModule(RCTEventEmitter.class).receiveEvent(
                 component.getId(),
                 ViroEvents.ON_HOVER,
@@ -38,15 +49,24 @@ public class ComponentEventDelegate implements EventDelegateJni.EventDelegateCal
     }
 
     @Override
-    public void onClick(int source, EventDelegateJni.ClickState clickState) {
+    public void onClick(int source, EventDelegateJni.ClickState clickState, float position[]) {
         Component component = weakComponent.get();
         if (component == null){
             return;
         }
 
+        WritableArray positionArray = Arguments.createArray();
+        if (position != null && position.length == 3) {
+            positionArray.pushDouble(position[0]);
+            positionArray.pushDouble(position[1]);
+            positionArray.pushDouble(position[2]);
+        }
+
         WritableMap event = Arguments.createMap();
         event.putInt("source", source);
         event.putInt("clickState", clickState.mTypeId);
+        event.putArray("position", positionArray);
+
         component.getReactContext().getJSModule(RCTEventEmitter.class).receiveEvent(
                 component.getId(),
                 ViroEvents.ON_CLICK,

@@ -153,21 +153,21 @@ var ViroVideo = React.createClass({
   },
 
   _onHover: function(event: Event) {
-    this.props.onHover && this.props.onHover(event.nativeEvent.isHovering, event.nativeEvent.source);
+    this.props.onHover && this.props.onHover(event.nativeEvent.isHovering, event.nativeEvent.position, event.nativeEvent.source);
   },
 
   _onClick: function(event: Event) {
-    this.props.onClick && this.props.onClick(event.nativeEvent.source);
+    this.props.onClick && this.props.onClick(event.nativeEvent.position, event.nativeEvent.source);
   },
 
   _onClickState: function(event: Event) {
-    this.props.onClickState && this.props.onClickState(event.nativeEvent.clickState, event.nativeEvent.source);
+    this.props.onClickState && this.props.onClickState(event.nativeEvent.clickState, event.nativeEvent.position, event.nativeEvent.source);
     let CLICKED = 3; // Value representation of Clicked ClickState within EventDelegateJni.
     if (event.nativeEvent.clickState == CLICKED){
         this._onClick(event)
     }
   },
-
+  
   _onTouch: function(event: Event) {
     this.props.onTouch && this.props.onTouch(event.nativeEvent.touchState, event.nativeEvent.touchPos, event.nativeEvent.source);
   },

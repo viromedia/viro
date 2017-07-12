@@ -356,17 +356,37 @@ const double kTransformDelegateDistanceFilter = 0.01;
     self.eventDelegate->setTimeToFuse(durationMillis);
 }
 
-- (void)onHover:(int)source isHovering:(bool)isHovering {
+-(void)onHover:(int)source
+    isHovering:(bool)isHovering
+ hoverLocation:(std::vector<float>)location {
     if (self.onHoverViro != nil) {
+        NSArray *locationArray;
+        if (location.size() == 3) {
+            locationArray = @[@(location.at(0)), @(location.at(1)), @(location.at(2))];
+        } else {
+            locationArray = @[];
+        }
+        
         self.onHoverViro(@{@"source": @(source),
-                         @"isHovering":@(isHovering)});
+                         @"isHovering":@(isHovering),
+                           @"position": locationArray});
     }
 }
 
-- (void)onClick:(int)source clickState:(VROEventDelegate::ClickState)clickState {
+-(void)onClick:(int)source
+    clickState:(VROEventDelegate::ClickState)clickState
+ clickLocation:(std::vector<float>)location{
     if (self.onClickViro != nil) {
+        NSArray *locationArray;
+        if (location.size() == 3) {
+            locationArray = @[@(location.at(0)), @(location.at(1)), @(location.at(2))];
+        } else {
+            locationArray = @[];
+        }
+        
         self.onClickViro(@{@"source": @(source),
-                          @"clickState":@(clickState)});
+                           @"clickState":@(clickState),
+                           @"position": locationArray});
     }
 }
 
