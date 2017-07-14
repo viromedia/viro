@@ -35,16 +35,20 @@ var testARScene = React.createClass({
   mixins: [TimerMixin],
   getInitialState: function() {
     return {
-      text : "not tapped"
+      text : "not tapped",
+      visible: true,
+      everythingVisible: false
     }
   },
   render: function() {
     return (
-        <ViroARScene position={[0,0,0]} reticleEnabled={false} >
+        <ViroARScene position={[0,0,0]} reticleEnabled={false} onTrackingInitialized={()=>{this.setState({"everythingVisible": true})}}>
+            <ViroNode visible={this.state.everythingVisible} >
             <ViroVideo
               height={.2} width={.2} position={[0,.15,-.5]}
+              visible={this.state.visible}
               onClick={()=>{this._onTap()}}
-              source={{"uri":"https://s3-us-west-2.amazonaws.com/viro/Climber1Top.mp4"}}
+              source={{"uri":"https://s3-us-west-2.amazonaws.com/viro/Climber2Bottom.mp4"}}
               transformConstraints={"billboard"}
             />
 
@@ -73,6 +77,7 @@ var testARScene = React.createClass({
             <ViroText style={styles.welcome} position={[-.5,-.5, -1]} text={this.state.text} />
             <ViroText style={styles.welcome} position={[.5,-.5, -1]} text={this.state.text} />
 
+          </ViroNode>
 
         </ViroARScene>
     );
@@ -96,7 +101,8 @@ var testARScene = React.createClass({
   _onTap() {
     console.log("tapped video!!!!")
     this.setState({
-      text : "tapped!"
+      text : "tapped!",
+      visible: !this.state.visible
     })
     this.setTimeout( () => {
       this.setState({

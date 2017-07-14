@@ -239,6 +239,19 @@ static NSString *const kWebPrefix = @"http";
     }
 }
 
+- (void)handleAppearanceChange {
+    if ([self shouldAppear]) {
+        if (_sound) {
+          _paused ? _sound->pause() : _sound->play();
+        }
+    } else {
+        if (_sound) {
+          _sound->pause();
+        }
+    }
+    [super handleAppearanceChange];
+}
+
 @end
 
 #pragma mark - Sound
@@ -328,7 +341,7 @@ static NSString *const kWebPrefix = @"http";
     }
 }
 
-- (void)sceneWillAppear {
+- (void)viewWillAppear {
     [self setPaused:self.paused];
 }
 

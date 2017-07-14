@@ -14,8 +14,19 @@
     return std::make_shared<VROARNode>();
 }
 
+- (void)setIsAttached:(BOOL)isAttached {
+    _isAttached = isAttached;
+    [self handleAppearanceChange];
+}
+
+- (BOOL)shouldAppear {
+    return [super shouldAppear] && self.isAttached;
+}
+
 #pragma mark - VROARNodeDelegateProtocol Implementation
 - (void)onARAnchorAttached:(std::shared_ptr<VROARAnchor>) anchor {
+    self.isAttached = true;
+    [self handleAppearanceChange];
     if (_onComponentFoundViro) {
         _onComponentFoundViro(@{ @"componentFoundMap" : [self createDictionaryFromAnchor:anchor]});
     }
@@ -28,6 +39,8 @@
 }
 
 - (void)onARAnchorRemoved {
+    self.isAttached = false;
+    [self handleAppearanceChange];
     if (_onComponentRemovedViro) {
         // we don't need to return any args for anchor removed
         _onComponentRemovedViro(@{});

@@ -21,6 +21,7 @@
   if (self) {
     _bridge = bridge;
     _childViews = [[NSMutableArray alloc] init];
+    _canAppear = NO;
   }
   
   return self;
@@ -54,9 +55,14 @@
     view.scene = self.scene;
     [view sceneWillAppear];
   }
-  
-  // viewWillAppear is always invoked when a view is added to the React tree
-  [view viewWillAppear];
+    
+  /*
+   If adding a child to a view that shouldAppear, then call viewWillAppear
+   on the child to let it know that it "canAppear"
+   */
+  if ([self shouldAppear]) {
+      [view viewWillAppear];
+  }
 }
 
 - (void)removeReactSubview:(UIView *)subview {
@@ -87,6 +93,24 @@
   return false;
 }
 
+- (BOOL)shouldAppear {
+  return self.canAppear;
+}
+
+- (void)handleAppearanceChange {
+  if ([self shouldAppear]) {
+    for (id childView in _childViews) {
+      VRTView *view = (VRTView *)childView;
+      [view viewWillAppear];
+    }
+  } else {
+    for (id childView in _childViews) {
+      VRTView *view = (VRTView *)childView;
+      [view viewWillDisappear];
+    }
+  }
+}
+
 - (void)sceneWillAppear {
     for (id childView in _childViews) {
       VRTView *view = (VRTView *)childView;
@@ -102,17 +126,13 @@
 }
 
 - (void)viewWillAppear {
-  for (id childView in _childViews) {
-    VRTView *view = (VRTView *)childView;
-    [view viewWillAppear];
-  }
+  self.canAppear = true;
+  [self handleAppearanceChange];
 }
 
 - (void)viewWillDisappear {
-  for (id childView in _childViews) {
-    VRTView *view = (VRTView *)childView;
-    [view viewWillDisappear];
-  }
+  self.canAppear = false;
+  [self handleAppearanceChange];
 }
 
 - (void)setContext:(VRORenderContext *)context {

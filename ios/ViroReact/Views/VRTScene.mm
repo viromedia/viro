@@ -163,16 +163,13 @@ static NSArray<NSNumber *> *const kDefaultSize = @[@(0), @(0), @(0)];
 #pragma mark - VROSceneDelegateiOS methods.
 
 - (void)sceneWillAppear:(VRORenderContext *)context driver:(std::shared_ptr<VRODriver>)driver {
+  // the following lines call the setters which recursively set the context,
+  // driver and scene down the entire scene tree.
   self.context = context;
   self.driver = driver;
-    
-  for(VRTView *view in _childViews) {
-    view.context = context;
-    view.driver = driver;
-    view.scene = [self scene];
-    
-    [view sceneWillAppear];
-  }
+  self.scene = self.scene;
+  [self sceneWillAppear];
+  [self viewWillAppear];
 }
 
 - (void)sceneDidAppear:(VRORenderContext *)context driver:(std::shared_ptr<VRODriver>)driver {

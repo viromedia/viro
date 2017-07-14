@@ -138,23 +138,24 @@
   [self updateSurface];
 }
 
-- (void)sceneWillAppear {
-  [self updateSurface];
-  if (_videoTexture) {
-    [self setPaused:self.paused];
-  }
-}
-
 - (void)sceneWillDisappear {
   if (_videoTexture) {
     _videoTexture->pause();
   }
 }
 
-- (void)viewWillDisappear {
-  if (_videoTexture) {
-    _videoTexture->pause();
-  }
+- (void)handleAppearanceChange {
+    if ([self shouldAppear]) {
+        [self updateSurface];
+        if (_videoTexture) {
+            [self setPaused:self.paused];
+        }
+    } else {
+        if (_videoTexture) {
+            _videoTexture->pause();
+        }
+    }
+    [super handleAppearanceChange];
 }
 
 #pragma mark VROVideoDelegate implementation

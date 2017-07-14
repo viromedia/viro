@@ -18,6 +18,11 @@
 @property (nonatomic, copy, nullable) RCTDirectEventBlock onComponentUpdatedViro;
 @property (nonatomic, copy, nullable) RCTDirectEventBlock onComponentRemovedViro;
 
+/*
+ True/false if the AR node is attached to some anchor in the real world.
+ */
+@property (nonatomic, assign) BOOL isAttached;
+
 - (NSDictionary *)createDictionaryFromAnchor:(std::shared_ptr<VROARAnchor>) anchor;
 
 @end

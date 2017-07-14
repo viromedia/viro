@@ -27,7 +27,8 @@ import {
   ViroSkyBox,
   Viro360Video,
   ViroText,
-  ViroSurface
+  ViroSurface,
+  ViroSphere
 } from 'react-viro';
 
 import TimerMixin from 'react-timer-mixin';
@@ -49,7 +50,6 @@ var testARScene = React.createClass({
       text : "not tapped",
       boxes: [],
       count : 0,
-      width : .5,
     }
     return Object.assign(foo, boxStates);
   },
@@ -78,20 +78,21 @@ var testARScene = React.createClass({
     for (var i = 0; i < 15; i++) {
       var color;
       if (i%3 == 0) {
-        color = "blue"
-      } else if (i%3 == 1) {
         color = "red"
+      } else if (i%3 == 1) {
+        color = "blue"
       } else {
         color = "green"
       }
+      color = "light" // override color
       planes.push((
-        <ViroARPlane key={prefix + i} onClick={this._addOneBox} onComponentFound={this._updateBoxState(i)}onComponentUpdated={this._updateBoxState(i)}>
-          <ViroBox scale={[this.state["box" + i][0], .01, this.state["box" + i][1]]} position={[0,0,0]} rotation={[0,0,0]}
+        <ViroARPlane key={prefix + i} onClick={this._addOneBox} onComponentFound={this._updateBoxState(i)} onComponentUpdated={this._updateBoxState(i)}>
+          <ViroBox scale={[this.state["box" + i][0], .1, this.state["box" + i][1]]} position={[0,0,0]} rotation={[0,0,0]}
             physicsBody={{
                       type:'static', restitution:0
                     }}
             materials={color}
-            onClick={()=>{this.setState({width : this.state.width + .001});  this._addOneBox();}}/>
+            onClick={()=>{this._addOneBox();}}/>
         </ViroARPlane>
       ));
     }
@@ -110,7 +111,7 @@ var testARScene = React.createClass({
     console.log(map.position);
     console.log(map.rotation);
     console.log(map.width);
-    console.log(map.width);
+    console.log(map.height);
     console.log("Diffs: ");
     console.log([(map.position[0] - position[0]), (map.position[1] - position[1]), (map.position[2] - position[2])] )
     console.log([(map.rotation[0] - rotation[0]), (map.rotation[1] - rotation[1]), (map.rotation[2] - rotation[2])] )
@@ -124,12 +125,13 @@ var testARScene = React.createClass({
   _getBoxes() {
     let prefix = "box"
     let boxes = [];
-    for (var i = 0; i < this.state.boxes.length; i++) {
-      boxes.push((<ViroBox key={prefix + i} position={this.state.boxes[i]} width={.1} height={.1} length={.1}
+    for (var i = 0;i < this.state.boxes.length; i++) {
+      boxes.push((<ViroBox key={prefix + i} position={this.state.boxes[i]} radius={.05} width={.1} height={.1} length={.1}
               onDrag={()=>{}}
+              materials={"pink"}
               physicsBody={{
                 type:'dynamic',
-                mass:1
+                mass:.1
               }} />));
     }
     return boxes;
@@ -205,6 +207,14 @@ ViroMaterials.createMaterials({
     shininess: 2.0,
     lightingModel: "Constant",
     diffuseColor: "#ff000088"
+  },
+  pink: {
+    lightingModel: "Constant",
+    diffuseColor: "#FF69B4DD"
+  },
+  light: {
+    lightingModel: "Constant",
+    diffuseColor: "#88888888"
   },
   wework_title: {
     shininess: 1.0,

@@ -19,7 +19,6 @@
 #import "VRTCamera.h"
 #import "VRTAnimatedComponent.h"
 #import "VRTMaterialManager.h"
-#import "VRTARNode.h"
 
 const int k2DPointsPerSpatialUnit = 1000;
 
@@ -117,6 +116,30 @@ const int k2DPointsPerSpatialUnit = 1000;
   }
 
   [super removeReactSubview:subview];
+}
+
+// Override parent shouldAppear function.
+- (BOOL)shouldAppear {
+    return self.canAppear && self.visible;
+}
+
+/*
+ Careful to *NEVER* call viewWillAppear or viewWillDisappear within this
+ function because only the parent view should ever call it.
+ */
+- (void)handleAppearanceChange {
+    if ([self shouldAppear]) {
+        std::shared_ptr<VROPhysicsBody> body = self.node->getPhysicsBody();
+        if (body) {
+            body->setIsSimulated(true);
+        }
+    } else {
+        std::shared_ptr<VROPhysicsBody> body = self.node->getPhysicsBody();
+        if (body) {
+            body->setIsSimulated(false);
+        }
+    }
+    [super handleAppearanceChange];    
 }
 
 - (void)setPosition:(NSArray<NSNumber *> *)position {
@@ -219,6 +242,7 @@ const int k2DPointsPerSpatialUnit = 1000;
 
 - (void)setVisible:(BOOL)visible {
   _visible = visible;
+  [self handleAppearanceChange];
   [self node]->setHidden(!_visible);
 }
 
@@ -459,6 +483,7 @@ const int k2DPointsPerSpatialUnit = 1000;
             body->setPhysicsShape(propPhysicsShape);
         }
     }
+    body->setIsSimulated([self shouldAppear]);
     return true;
 }
 
