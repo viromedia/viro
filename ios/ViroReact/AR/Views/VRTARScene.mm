@@ -39,24 +39,6 @@
     _vroArScene = std::dynamic_pointer_cast<VROARScene>(self.sceneController->getScene());
 }
 
-- (void)insertReactSubview:(UIView *)view atIndex:(NSInteger)atIndex {
-    VRTView *child = (VRTView *)view;
-    if ([child isKindOfClass:[VRTARPlane class]]) {
-        VRTARPlane *arPlane = (VRTARPlane *)child;
-        _vroArScene->addARPlane(std::dynamic_pointer_cast<VROARPlane>(arPlane.node));
-    }
-    [super insertReactSubview:view atIndex:atIndex];
-}
-
-- (void)removeReactSubview:(UIView *)subview {
-    [super removeReactSubview:subview];
-    VRTView *child = (VRTView *)subview;
-    if ([child isKindOfClass:[VRTARPlane class]]) {
-        VRTARPlane *arPlane = (VRTARPlane *)child;
-        _vroArScene->removeARPlane(std::dynamic_pointer_cast<VROARPlane>(arPlane.node));
-    }
-}
-
 #pragma mark VROARSceneDelegateProtocol Implementation
 
 - (void)onTrackingInitialized {
