@@ -43,6 +43,8 @@ let polarToCartesian = ViroUtils.polarToCartesian;
 var VIDEO_REF = "videoref";
 var Uri360Video = {uri:"https://s3-us-west-2.amazonaws.com/viro/360_surf.mp4"};
 var Local360Video = require("./res/360Asteroids.mp4");
+var Local360Surfing1080Video = require("./res/360_surf_1080.mp4");
+var Local360Surfing4kVideo = require("./res/360_surf_4k.mp4");
 var ReleaseMenu = require("./ReleaseMenu.js");
 var Local360StereoVideo = require("./res/stereoVid360.mp4")
 
@@ -51,6 +53,7 @@ var Viro360VideoTest = React.createClass({
   getInitialState() {
     return {
           get360Video:Local360Video,
+          text360Video:"Local Asteroids",
           videoPaused: false,
           loopVideo: true,
           muteVideo: false,
@@ -86,6 +89,8 @@ var Viro360VideoTest = React.createClass({
           style={styles.baseTextTwo} onClick={this._muteVideo} transformBehaviors={["billboard"]}/>
         <ViroText position={polarToCartesian([2, -10, -20])} text="Change Source"
           style={styles.baseTextTwo} onClick={this._changeVideoSource} transformBehaviors={["billboard"]}/>
+        <ViroText position={polarToCartesian([2, -10, -35])} text={"Current Video " + this.state.text360Video}
+          style={styles.baseTextTwo} transformBehaviors={["billboard"]}/>
         <ViroText position={polarToCartesian([2, 15, 0])} text={"Change Volume from: " + this.state.volume}
           style={styles.baseTextTwo} onClick={this._changeVolume} transformBehaviors={["billboard"]}/>
         <ViroText position={polarToCartesian([2, 15, -10])} text={"Toogle Rotate: " + this.state.rotationY}
@@ -123,16 +128,27 @@ var Viro360VideoTest = React.createClass({
   },
   _changeVideoSource() {
     var newVideo;
-    if (this.state.get360Video == Uri360Video){
+    var newVideoText;
+    if (this.state.get360Video == Uri360Video) {
       newVideo = Local360Video;
-    } else if (this.state.get360Video == Local360Video){
+      newVideoText = "Local Asteroids";
+    } else if (this.state.get360Video == Local360Video) {
       newVideo = Local360StereoVideo;
+      newVideoText = "Local Stereo";
+    } else if (this.state.get360Video == Local360StereoVideo) {
+      newVideo = Local360Surfing1080Video;
+      newVideoText = "Local Surfing 1080";
+    } else if (this.state.get360Video == Local360Surfing1080Video) {
+      newVideo = Local360Surfing4kVideo;
+      newVideoText = "Local Surfing 4k";
     } else {
       newVideo = Uri360Video;
+      newVideoText = "URI Surfing";
     }
 
     this.setState({
       get360Video: newVideo,
+      text360Video: newVideoText,
     })
   },
   _getMuteText() {
