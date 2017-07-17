@@ -38,7 +38,7 @@ RCT_EXPORT_VIEW_PROPERTY(onNativeTransformDelegateViro, RCTDirectEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(hasTransformDelegate, BOOL)
 
 - (VRTView *)view {
-  return [[VRTPolyline alloc] initWithBridge:self.bridge];
+    return [[VRTPolyline alloc] initWithBridge:self.bridge];
 }
 
 @end

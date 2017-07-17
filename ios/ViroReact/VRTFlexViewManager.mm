@@ -46,16 +46,16 @@ RCT_EXPORT_VIEW_PROPERTY(hasTransformDelegate, BOOL)
 
 - (VRTFlexView *)view
 {
-  return [[VRTFlexView alloc] initWithBridge:self.bridge];
+    return [[VRTFlexView alloc] initWithBridge:self.bridge];
 }
 
 - (VRTShadowFlexView *)shadowView
 {
-  return [VRTShadowFlexView new];
+    return [VRTShadowFlexView new];
 }
 
 -(BOOL)isRootFlexBoxPanel {
-  return YES;
+    return YES;
 }
 
 @end

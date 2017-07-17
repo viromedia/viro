@@ -23,11 +23,11 @@ RCT_EXPORT_VIEW_PROPERTY(onFinishViro, RCTDirectEventBlock);
 
 - (VRTView *)view
 {
-  return [[VRTAnimatedComponent alloc] initWithBridge:self.bridge];
+    return [[VRTAnimatedComponent alloc] initWithBridge:self.bridge];
 }
 
 - (VRTShadowView *)shadowView {
-  return [VRTAnimatedComponentShadowView new];
+    return [VRTAnimatedComponentShadowView new];
 }
 
 @end

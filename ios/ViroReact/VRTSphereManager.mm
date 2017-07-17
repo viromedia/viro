@@ -34,7 +34,7 @@ RCT_EXPORT_VIEW_PROPERTY(widthSegmentCount, NSUInteger)
 RCT_EXPORT_VIEW_PROPERTY(heightSegmentCount, NSUInteger)
 RCT_EXPORT_VIEW_PROPERTY(radius, float)
 RCT_EXPORT_VIEW_PROPERTY(transformBehaviors, NSArray<NSString *>)
-//RCT_EXPORT_VIEW_PROPERTY(highAccuracyGaze, BOOL)
+RCT_EXPORT_VIEW_PROPERTY(highAccuracyGaze, BOOL)
 RCT_EXPORT_VIEW_PROPERTY(physicsBody, NSDictionary)
 RCT_EXPORT_VIEW_PROPERTY(onCollidedViro, RCTDirectEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(canCollide, BOOL)
@@ -44,7 +44,7 @@ RCT_EXPORT_VIEW_PROPERTY(hasTransformDelegate, BOOL)
 
 - (VRTView *)view
 {
-  return [[VRTSphere alloc] initWithBridge:self.bridge];
+    return [[VRTSphere alloc] initWithBridge:self.bridge];
 }
 
 

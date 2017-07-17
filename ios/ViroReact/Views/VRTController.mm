@@ -16,14 +16,14 @@
 }
 
 -(instancetype)initWithBridge:(RCTBridge *)bridge {
-  self = [super initWithBridge:bridge];
-  if (self){
-      _presenter = nil;
-      _reticleEnabled = true;
-      _controllerEnabled = true;
-      _eventDelegate = std::make_shared<VROEventDelegateiOS>(self);
-  }
-  return self;
+    self = [super initWithBridge:bridge];
+    if (self) {
+        _presenter = nil;
+        _reticleEnabled = true;
+        _controllerEnabled = true;
+        _eventDelegate = std::make_shared<VROEventDelegateiOS>(self);
+    }
+    return self;
 }
 
 - (void)sceneWillAppear{

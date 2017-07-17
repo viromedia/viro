@@ -21,7 +21,7 @@ RCT_EXPORT_VIEW_PROPERTY(controllerVisibility, BOOL)
 
 - (VRTView *)view
 {
-  return [[VRTController alloc] initWithBridge:self.bridge];
+    return [[VRTController alloc] initWithBridge:self.bridge];
 }
 
 @end

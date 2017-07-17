@@ -16,7 +16,7 @@ RCT_EXPORT_VIEW_PROPERTY(position, NSNumberArray)
 RCT_EXPORT_VIEW_PROPERTY(rotation, NSNumberArray)
 
 - (VRTView *)view {
-  return [[VRTCamera alloc] initWithBridge:self.bridge];
+    return [[VRTCamera alloc] initWithBridge:self.bridge];
 }
 
 @end

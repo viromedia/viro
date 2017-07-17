@@ -80,8 +80,8 @@ static NSString *const kWebPrefix = @"http";
     _position = position;
     if (_sound) {
         _sound->setPosition({[position[0] floatValue],
-                             [position[1] floatValue],
-                             [position[2] floatValue]});
+            [position[1] floatValue],
+            [position[2] floatValue]});
     }
 }
 
@@ -89,8 +89,8 @@ static NSString *const kWebPrefix = @"http";
     _rotation = rotation;
     if (_sound) {
         _sound->setRotation({[rotation[0] floatValue],
-                             [rotation[1] floatValue],
-                             [rotation[2] floatValue]});
+            [rotation[1] floatValue],
+            [rotation[2] floatValue]});
     }
 }
 
@@ -140,7 +140,7 @@ static NSString *const kWebPrefix = @"http";
     }
     
     _shouldReset = NO;
-
+    
     NSString *name = [_source objectForKey:kNameKey];
     if (name) {
         std::shared_ptr<VROSoundData> data = [self getDataForName:name];
@@ -162,7 +162,7 @@ static NSString *const kWebPrefix = @"http";
     } else {
         RCTLogError(@"Unknown sound source type. %@", _source);
     }
-
+    
     [self setNativeProps];
 }
 
@@ -170,7 +170,7 @@ static NSString *const kWebPrefix = @"http";
     if (_sound) {
         _sound->pause();
     }
-
+    
     _sound = self.driver->newSound(std::string([path UTF8String]), self.soundType, local);
     _sound->setDelegate(std::make_shared<VROSoundDelegateiOS>(self));
 }
@@ -179,7 +179,7 @@ static NSString *const kWebPrefix = @"http";
     if (_sound) {
         _sound->pause();
     }
-
+    
     _sound = self.driver->newSound(data, self.soundType);
     _sound->setDelegate(std::make_shared<VROSoundDelegateiOS>(self));
 }
@@ -198,11 +198,11 @@ static NSString *const kWebPrefix = @"http";
         _sound->setMuted(_muted);
         _sound->setLoop(_loop);
         _sound->setPosition({[_position[0] floatValue],
-                             [_position[1] floatValue],
-                             [_position[2] floatValue]});
+            [_position[1] floatValue],
+            [_position[2] floatValue]});
         _sound->setRotation({[_rotation[0] floatValue],
-                             [_rotation[1] floatValue],
-                             [_rotation[2] floatValue]});
+            [_rotation[1] floatValue],
+            [_rotation[2] floatValue]});
         _sound->setDistanceRolloffModel(_rolloffModel, _minDistance, _maxDistance);
     }
 }
@@ -242,11 +242,11 @@ static NSString *const kWebPrefix = @"http";
 - (void)handleAppearanceChange {
     if ([self shouldAppear]) {
         if (_sound) {
-          _paused ? _sound->pause() : _sound->play();
+            _paused ? _sound->pause() : _sound->play();
         }
     } else {
         if (_sound) {
-          _sound->pause();
+            _sound->pause();
         }
     }
     [super handleAppearanceChange];
@@ -302,22 +302,22 @@ static NSString *const kWebPrefix = @"http";
 
 // Override
 - (void)createSoundWithPath:(NSString *)path local:(BOOL)local {
-  if (_player) {
-    _player->pause();
-  }
-  
-  _player = self.driver->newAudioPlayer(std::string([path UTF8String]), local);
-  _player->setDelegate(std::make_shared<VROSoundDelegateiOS>(self));
-  _player->setup();
+    if (_player) {
+        _player->pause();
+    }
+    
+    _player = self.driver->newAudioPlayer(std::string([path UTF8String]), local);
+    _player->setDelegate(std::make_shared<VROSoundDelegateiOS>(self));
+    _player->setup();
 }
 
 - (void)createSoundWithData:(std::shared_ptr<VROSoundData>)data local:(BOOL)local {
-  if (_player) {
-    _player->pause();
-  }
-  _player = self.driver->newAudioPlayer(data);
-  _player->setDelegate(std::make_shared<VROSoundDelegateiOS>(self));
-  _player->setup();
+    if (_player) {
+        _player->pause();
+    }
+    _player = self.driver->newAudioPlayer(data);
+    _player->setDelegate(std::make_shared<VROSoundDelegateiOS>(self));
+    _player->setup();
 }
 
 - (void)setNativeProps {
@@ -389,13 +389,13 @@ static NSString *const kWebPrefix = @"http";
 - (void)resetSound {
     std::shared_ptr<VROSound> oldNativeSound = self.sound;
     BOOL shouldReset = self.shouldReset;
-
+    
     [super resetSound];
-
+    
     if (shouldReset && oldNativeSound) {
         _parentNode->removeSound(oldNativeSound);
     }
-
+    
     if (shouldReset && self.sound) {
         _parentNode->addSound(self.sound);
     }

@@ -52,20 +52,20 @@ RCT_EXPORT_VIEW_PROPERTY(hasTransformDelegate, BOOL)
 
 - (VRTVideoSurface *)view
 {
-  return [[VRTVideoSurface alloc] initWithBridge:self.bridge];
+    return [[VRTVideoSurface alloc] initWithBridge:self.bridge];
 }
 
 RCT_EXPORT_METHOD(seekToTime:(nonnull NSNumber *)reactTag time:(NSInteger)time)
 {
-  [self.bridge.uiManager addUIBlock:^(__unused RCTUIManager *uiManager, NSDictionary<NSNumber *, UIView *> *viewRegistry) {
-    VRTView *view = (VRTView *)viewRegistry[reactTag];
-    if (![view isKindOfClass:[VRTVideoSurface class]]) {
-      RCTLogError(@"Invalid view returned from registry, expecting VRTVideoSurface, got: %@", view);
-    } else {
-      VRTVideoSurface *component = (VRTVideoSurface *)view;
-      [component seekToTime:time];
-    }
-  }];
+    [self.bridge.uiManager addUIBlock:^(__unused RCTUIManager *uiManager, NSDictionary<NSNumber *, UIView *> *viewRegistry) {
+        VRTView *view = (VRTView *)viewRegistry[reactTag];
+        if (![view isKindOfClass:[VRTVideoSurface class]]) {
+            RCTLogError(@"Invalid view returned from registry, expecting VRTVideoSurface, got: %@", view);
+        } else {
+            VRTVideoSurface *component = (VRTVideoSurface *)view;
+            [component seekToTime:time];
+        }
+    }];
 }
 
 @end

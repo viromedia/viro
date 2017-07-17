@@ -37,12 +37,12 @@ RCT_EXPORT_VIEW_PROPERTY(physicsWorld, NSDictionary)
 
 - (VRTView *)view
 {
-  return [[VRTScene alloc] initWithBridge:self.bridge];
+    return [[VRTScene alloc] initWithBridge:self.bridge];
 }
 
 - (VRTSceneShadowView *)shadowView
 {
-  return [VRTSceneShadowView new];
+    return [VRTSceneShadowView new];
 }
 
 @end

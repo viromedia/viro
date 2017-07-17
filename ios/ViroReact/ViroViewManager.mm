@@ -27,24 +27,24 @@
 @implementation RCTConvert(UIAccessibilityTraits)
 
 RCT_MULTI_ENUM_CONVERTER(UIAccessibilityTraits, (@{
-  @"none": @(UIAccessibilityTraitNone),
-  @"button": @(UIAccessibilityTraitButton),
-  @"link": @(UIAccessibilityTraitLink),
-  @"header": @(UIAccessibilityTraitHeader),
-  @"search": @(UIAccessibilityTraitSearchField),
-  @"image": @(UIAccessibilityTraitImage),
-  @"selected": @(UIAccessibilityTraitSelected),
-  @"plays": @(UIAccessibilityTraitPlaysSound),
-  @"key": @(UIAccessibilityTraitKeyboardKey),
-  @"text": @(UIAccessibilityTraitStaticText),
-  @"summary": @(UIAccessibilityTraitSummaryElement),
-  @"disabled": @(UIAccessibilityTraitNotEnabled),
-  @"frequentUpdates": @(UIAccessibilityTraitUpdatesFrequently),
-  @"startsMedia": @(UIAccessibilityTraitStartsMediaSession),
-  @"adjustable": @(UIAccessibilityTraitAdjustable),
-  @"allowsDirectInteraction": @(UIAccessibilityTraitAllowsDirectInteraction),
-  @"pageTurn": @(UIAccessibilityTraitCausesPageTurn),
-}), UIAccessibilityTraitNone, unsignedLongLongValue)
+                                                   @"none": @(UIAccessibilityTraitNone),
+                                                   @"button": @(UIAccessibilityTraitButton),
+                                                   @"link": @(UIAccessibilityTraitLink),
+                                                   @"header": @(UIAccessibilityTraitHeader),
+                                                   @"search": @(UIAccessibilityTraitSearchField),
+                                                   @"image": @(UIAccessibilityTraitImage),
+                                                   @"selected": @(UIAccessibilityTraitSelected),
+                                                   @"plays": @(UIAccessibilityTraitPlaysSound),
+                                                   @"key": @(UIAccessibilityTraitKeyboardKey),
+                                                   @"text": @(UIAccessibilityTraitStaticText),
+                                                   @"summary": @(UIAccessibilityTraitSummaryElement),
+                                                   @"disabled": @(UIAccessibilityTraitNotEnabled),
+                                                   @"frequentUpdates": @(UIAccessibilityTraitUpdatesFrequently),
+                                                   @"startsMedia": @(UIAccessibilityTraitStartsMediaSession),
+                                                   @"adjustable": @(UIAccessibilityTraitAdjustable),
+                                                   @"allowsDirectInteraction": @(UIAccessibilityTraitAllowsDirectInteraction),
+                                                   @"pageTurn": @(UIAccessibilityTraitCausesPageTurn),
+                                                   }), UIAccessibilityTraitNone, unsignedLongLongValue)
 
 @end
 
@@ -55,62 +55,62 @@ RCT_EXPORT_MODULE()
 
 - (dispatch_queue_t)methodQueue
 {
-  
-  return RCTGetUIManagerQueue();
+    
+    return RCTGetUIManagerQueue();
 }
 
 - (VRTView *)viewWithProps:(NSDictionary *)props
 {
-  return [self view];
+    return [self view];
 }
 
 - (VRTView *)view
 {
-  return [VRTView new];
+    return [VRTView new];
 }
 
 - (VRTShadowView *)shadowView
 {
-  return [VRTShadowView new];
+    return [VRTShadowView new];
 }
 
 - (NSArray *)customBubblingEventTypes
 {
-  return @[
-
-    // Generic events
-    @"press",
-    @"change",
-    @"change",
-    @"focus",
-    @"blur",
-    @"submitEditing",
-    @"endEditing",
-
-    // Touch events
-    @"touchStart",
-    @"touchMove",
-    @"touchCancel",
-    @"touchEnd",
-  ];
+    return @[
+             
+             // Generic events
+             @"press",
+             @"change",
+             @"change",
+             @"focus",
+             @"blur",
+             @"submitEditing",
+             @"endEditing",
+             
+             // Touch events
+             @"touchStart",
+             @"touchMove",
+             @"touchCancel",
+             @"touchEnd",
+             ];
 }
 
 - (NSArray *)customDirectEventTypes
 {
-  return @[
-    @"layout",
-    @"accessibilityTap",
-    @"magicTap",
-  ];
+    return @[
+             @"layout",
+             @"accessibilityTap",
+             @"magicTap",
+             ];
 }
 
 - (NSDictionary *)constantsToExport
 {
-  return nil;
+    return nil;
 }
 
 -(BOOL)isRootFlexBoxPanel {
-  return NO;
+    return NO;
 }
 
 #pragma mark - ViroView properties

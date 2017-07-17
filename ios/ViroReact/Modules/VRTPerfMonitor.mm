@@ -11,10 +11,10 @@
 #import <React/RCTUIManager.h>
 
 @implementation VRTPerfMonitor {
-  
-  BOOL _isShowing;
-  RCTDevMenuItem *_devMenuItem;
-  
+    
+    BOOL _isShowing;
+    RCTDevMenuItem *_devMenuItem;
+    
 }
 
 @synthesize bridge = _bridge;
@@ -23,64 +23,64 @@ RCT_EXPORT_MODULE()
 
 - (instancetype)init
 {
-  _isShowing = NO;
-
-  // Override to ensure the module gets created at startup
-  // Remove once module setup is more declarative (Facebook t11106126).
-  return [super init];
+    _isShowing = NO;
+    
+    // Override to ensure the module gets created at startup
+    // Remove once module setup is more declarative (Facebook t11106126).
+    return [super init];
 }
 
 - (void)setBridge:(RCTBridge *)bridge
 {
-  _bridge = bridge;
-  [bridge.devMenu addItem:self.devMenuItem];
+    _bridge = bridge;
+    [bridge.devMenu addItem:self.devMenuItem];
 }
 
 - (BOOL)isShowing {
-  return _isShowing;
+    return _isShowing;
 }
 
 - (void)show {
-  _isShowing = YES;
-  [_view setDebugHUDEnabled:YES];
+    _isShowing = YES;
+    [_view setDebugHUDEnabled:YES];
 }
 
 - (void)hide {
-  _isShowing = NO;
-  [_view setDebugHUDEnabled:NO];
+    _isShowing = NO;
+    [_view setDebugHUDEnabled:NO];
 }
 
 - (void)setView:(VROViewCardboard *)view {
-  _view = view;
-  if (_isShowing) {
-    [self show];
-  }
-  else {
-    [self hide];
-  }
+    _view = view;
+    if (_isShowing) {
+        [self show];
+    }
+    else {
+        [self hide];
+    }
 }
 
 - (dispatch_queue_t)methodQueue {
-  return RCTGetUIManagerQueue();
+    return RCTGetUIManagerQueue();
 }
 
 - (RCTDevMenuItem *)devMenuItem
 {
-  if (!_devMenuItem) {
-    __weak __typeof__(self) weakSelf = self;
-    _devMenuItem =
-      [RCTDevMenuItem buttonItemWithTitleBlock:^NSString *{
-        return [weakSelf isShowing] ? @"[Viro] Hide FPS" : @"[Viro] Display FPS";
-      } handler:^{
-        if ([weakSelf isShowing]) {
-          [weakSelf hide];
-        } else {
-          [weakSelf show];
-        }
-      }];
-  }
-  
-  return _devMenuItem;
+    if (!_devMenuItem) {
+        __weak __typeof__(self) weakSelf = self;
+        _devMenuItem =
+        [RCTDevMenuItem buttonItemWithTitleBlock:^NSString *{
+            return [weakSelf isShowing] ? @"[Viro] Hide FPS" : @"[Viro] Display FPS";
+        } handler:^{
+            if ([weakSelf isShowing]) {
+                [weakSelf hide];
+            } else {
+                [weakSelf show];
+            }
+        }];
+    }
+    
+    return _devMenuItem;
 }
 
 @end
@@ -89,7 +89,7 @@ RCT_EXPORT_MODULE()
 
 - (VRTPerfMonitor *)perfMonitor
 {
-  return [self moduleForClass:[VRTPerfMonitor class]];
+    return [self moduleForClass:[VRTPerfMonitor class]];
 }
 
 @end

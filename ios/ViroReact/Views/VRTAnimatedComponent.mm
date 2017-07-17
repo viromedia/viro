@@ -30,7 +30,7 @@ enum class VRTAnimatedComponentState {
 @end
 
 @implementation VRTAnimatedComponent {
-
+    
     VRTAnimationManager *_animationManager;
 }
 
@@ -41,7 +41,7 @@ enum class VRTAnimatedComponentState {
         self.loop = false;
         self.run = true;
         self.animationNeedsUpdate = false;
-      
+        
         self.viewAdded = false;
         self.state = VRTAnimatedComponentState::Terminated;
         
@@ -74,12 +74,12 @@ enum class VRTAnimatedComponentState {
 
 - (void)insertReactSubview:(UIView *)subview atIndex:(NSInteger)atIndex {
     self.vroSubview = (VRTNode *)subview;
-
+    
     BOOL childFound = false;
     if (self.superview != nil) {
         // The supernode of a VRTAnimatedComponent is always a VRTNode
         VRTNode *supernodeView = (VRTNode *) self.superview;
-
+        
         std::vector<std::shared_ptr<VRONode>> subnodeArray = supernodeView.node->getSubnodes();
         for (std::shared_ptr<VRONode> node: subnodeArray){
             if (node.get() == self.vroSubview.node.get()) {
@@ -91,19 +91,19 @@ enum class VRTAnimatedComponentState {
             supernodeView.node->addChildNode(self.vroSubview.node);
         }
     }
-
+    
     // If the parent view is added before the child, sceneWillAppear:
     // will have already been invoked, so run the animation here
     if (_viewAdded){
         [self updateAnimation];
     }
-
+    
     [super insertReactSubview:subview atIndex:atIndex];
 }
 
 - (void)removeReactSubview:(UIView *)subview {
     _viewAdded = false;
-
+    
     self.vroSubview.node->removeFromParentNode();
     [super removeReactSubview:subview];
 }
@@ -128,7 +128,7 @@ enum class VRTAnimatedComponentState {
     if (self.executableAnimation) {
         self.executableAnimation->terminate();
     }
-
+    
     self.state = VRTAnimatedComponentState::Terminated;
     // currently set animation.
     _animation = animation;
@@ -157,8 +157,8 @@ enum class VRTAnimatedComponentState {
 
 /*
  Plays the animation. If the animation is paused, resumes the animation.
- Otherwise starts a new animation if is not running. If there is a delay 
- associated with this VRTAnimatedComponent, we start a new animation with the 
+ Otherwise starts a new animation if is not running. If there is a delay
+ associated with this VRTAnimatedComponent, we start a new animation with the
  given delay.
  */
 - (void)playAnimation {
@@ -169,10 +169,10 @@ enum class VRTAnimatedComponentState {
     else if(self.state == VRTAnimatedComponentState::Terminated) {
         self.state = VRTAnimatedComponentState::Scheduled;
         if(self.delay <= 0) {
-          // start animation right away if there is no delay. 
-          [self startAnimation];
+            // start animation right away if there is no delay.
+            [self startAnimation];
         }else {
-          [self performSelector:@selector(startAnimation) withObject:self afterDelay:self.delay / 1000.0];
+            [self performSelector:@selector(startAnimation) withObject:self afterDelay:self.delay / 1000.0];
         }
     }
 }
@@ -191,17 +191,17 @@ enum class VRTAnimatedComponentState {
 
 - (void)startAnimation {
     if (self.state != VRTAnimatedComponentState::Scheduled) {
-      NSLog(@"Aborted starting new animation, was no longer scheduled");
-      return;
+        NSLog(@"Aborted starting new animation, was no longer scheduled");
+        return;
     }
-  
+    
     if ([_animationManager animationForName:self.animation] == nullptr) {
         RCTLogError(@"Unable to find Animation with name %@", self.animation);
         return;
     }
-
+    
     _executableAnimation = [_animationManager animationForName:self.animation]->copy();
-
+    
     if (_executableAnimation) {
         __weak VRTAnimatedComponent *weakSelf = self;
         _executableAnimation->execute(self.vroSubview.node,

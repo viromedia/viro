@@ -20,8 +20,8 @@ RCT_EXPORT_MODULE()
 }
 
 RCT_EXPORT_METHOD(applyImpulse:(nonnull NSNumber *)viewTag
-                          withForce:(NSArray<NSNumber *> *)forceImpulse
-                           atPosition:(NSArray<NSNumber *> *)position) {
+                  withForce:(NSArray<NSNumber *> *)forceImpulse
+                  atPosition:(NSArray<NSNumber *> *)position) {
     [self.bridge.uiManager addUIBlock:^(__unused RCTUIManager *uiManager, NSDictionary<NSNumber *, UIView *> *viewRegistry) {
         UIView *nodeView = viewRegistry[viewTag];
         if (![nodeView isKindOfClass:[VRTNode class]]) {
@@ -34,7 +34,7 @@ RCT_EXPORT_METHOD(applyImpulse:(nonnull NSNumber *)viewTag
             RCTLogError(@"Invalid force impulse paramters provided!");
             return;
         }
-
+        
         // If no offset is given, default to a central impulse.
         VROVector3f position3f;
         if (position == nil) {
@@ -46,15 +46,15 @@ RCT_EXPORT_METHOD(applyImpulse:(nonnull NSNumber *)viewTag
             return;
         } else {
             position3f = VROVector3f([[position objectAtIndex:0] floatValue],
-                                   [[position objectAtIndex:1] floatValue],
-                                   [[position objectAtIndex:2] floatValue]);
-   
+                                     [[position objectAtIndex:1] floatValue],
+                                     [[position objectAtIndex:2] floatValue]);
+            
         }
         
         // If paramters are valid, parse and apply force impulse.
         VROVector3f forceImpulse3f = VROVector3f([[forceImpulse objectAtIndex:0] floatValue],
-                                           [[forceImpulse objectAtIndex:1] floatValue],
-                                           [[forceImpulse objectAtIndex:2] floatValue]);
+                                                 [[forceImpulse objectAtIndex:1] floatValue],
+                                                 [[forceImpulse objectAtIndex:2] floatValue]);
         VRTNode *node = (VRTNode *)nodeView;
         [node applyImpulse:forceImpulse3f withOffset:position3f];
     }];
@@ -77,8 +77,8 @@ RCT_EXPORT_METHOD(applyTorqueImpulse:(nonnull NSNumber *)viewTag
         }
         
         VROVector3f torqueImpulse3f = VROVector3f([[torqueImpulse objectAtIndex:0] floatValue],
-                                                 [[torqueImpulse objectAtIndex:1] floatValue],
-                                                 [[torqueImpulse objectAtIndex:2] floatValue]);
+                                                  [[torqueImpulse objectAtIndex:1] floatValue],
+                                                  [[torqueImpulse objectAtIndex:2] floatValue]);
         
         // If paramters are valid, parse and apply torque impulse.
         VRTNode *node = (VRTNode *)nodeView;

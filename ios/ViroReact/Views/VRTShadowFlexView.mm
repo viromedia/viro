@@ -17,32 +17,32 @@
  */
 - (instancetype)init
 {
-  self = [super init];
-  if (self) {
-    if ([[RCTI18nUtil sharedInstance] isRTL]) {
-      YGNodeStyleSetDirection(self.cssNode, YGDirectionRTL);
+    self = [super init];
+    if (self) {
+        if ([[RCTI18nUtil sharedInstance] isRTL]) {
+            YGNodeStyleSetDirection(self.cssNode, YGDirectionRTL);
+        }
     }
-  }
-  return self;
+    return self;
 }
 
 
 - (void)applySizeConstraints
 {
-  switch (_sizeFlexibility) {
-    case RCTRootViewSizeFlexibilityNone:
-      break;
-    case RCTRootViewSizeFlexibilityWidth:
-      YGNodeStyleSetWidth(self.cssNode, YGUndefined);
-      break;
-    case RCTRootViewSizeFlexibilityHeight:
-      YGNodeStyleSetHeight(self.cssNode, YGUndefined);
-      break;
-    case RCTRootViewSizeFlexibilityWidthAndHeight:
-      YGNodeStyleSetWidth(self.cssNode, YGUndefined);
-      YGNodeStyleSetHeight(self.cssNode, YGUndefined);
-      break;
-  }
+    switch (_sizeFlexibility) {
+        case RCTRootViewSizeFlexibilityNone:
+            break;
+        case RCTRootViewSizeFlexibilityWidth:
+            YGNodeStyleSetWidth(self.cssNode, YGUndefined);
+            break;
+        case RCTRootViewSizeFlexibilityHeight:
+            YGNodeStyleSetHeight(self.cssNode, YGUndefined);
+            break;
+        case RCTRootViewSizeFlexibilityWidthAndHeight:
+            YGNodeStyleSetWidth(self.cssNode, YGUndefined);
+            YGNodeStyleSetHeight(self.cssNode, YGUndefined);
+            break;
+    }
 }
 
 

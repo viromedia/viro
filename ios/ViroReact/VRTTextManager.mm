@@ -51,12 +51,12 @@ RCT_EXPORT_VIEW_PROPERTY(hasTransformDelegate, BOOL)
 
 - (VRTView *)view
 {
-  return [[VRTText alloc] initWithBridge:self.bridge];
+    return [[VRTText alloc] initWithBridge:self.bridge];
 }
 
 - (VRTLabelShadowView *)shadowView
 {
-  return [VRTLabelShadowView new];
+    return [VRTLabelShadowView new];
 }
 
 

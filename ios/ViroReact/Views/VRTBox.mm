@@ -12,38 +12,38 @@
 
 
 @implementation VRTBox {
-  std::shared_ptr<VROBox> _box;
+    std::shared_ptr<VROBox> _box;
 }
 
 - (instancetype)initWithBridge:(RCTBridge *)bridge {
-  self = [super initWithBridge:bridge];
-  if (self) {
-    _box = VROBox::createBox(1, 1, 1);
-    [self node]->setGeometry(_box);
-  }
-  
-  return self;
+    self = [super initWithBridge:bridge];
+    if (self) {
+        _box = VROBox::createBox(1, 1, 1);
+        [self node]->setGeometry(_box);
+    }
+    
+    return self;
 }
 
 - (void)setWidth:(float)width {
-  if (width < 0) {
-    RCTLogError(@"Box width must be >= 0");
-  }
-  _box->setWidth(width);
+    if (width < 0) {
+        RCTLogError(@"Box width must be >= 0");
+    }
+    _box->setWidth(width);
 }
 
 - (void)setHeight:(float)height {
-  if (height < 0) {
-    RCTLogError(@"Box height must be >= 0");
-  }
-  _box->setHeight(height);
+    if (height < 0) {
+        RCTLogError(@"Box height must be >= 0");
+    }
+    _box->setHeight(height);
 }
 
 - (void)setLength:(float)length {
-  if (length < 0) {
-    RCTLogError(@"Box length must be >= 0");
-  }
-  _box->setLength(length);
+    if (length < 0) {
+        RCTLogError(@"Box length must be >= 0");
+    }
+    _box->setLength(length);
 }
 
 @end

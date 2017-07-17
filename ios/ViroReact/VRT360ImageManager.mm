@@ -24,7 +24,7 @@ RCT_EXPORT_VIEW_PROPERTY(stereoMode, NSString)
 
 - (VRT360Image *)view
 {
-  return [[VRT360Image alloc] initWithBridge:self.bridge];
+    return [[VRT360Image alloc] initWithBridge:self.bridge];
 }
 
 @end

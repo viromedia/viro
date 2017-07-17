@@ -45,7 +45,7 @@ RCT_EXPORT_VIEW_PROPERTY(hasTransformDelegate, BOOL)
 
 - (VRT3DObject *)view
 {
-  return [[VRT3DObject alloc] initWithBridge:self.bridge];
+    return [[VRT3DObject alloc] initWithBridge:self.bridge];
 }
 
 @end

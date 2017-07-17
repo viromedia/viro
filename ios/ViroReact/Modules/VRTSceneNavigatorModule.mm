@@ -21,9 +21,9 @@ RCT_EXPORT_MODULE()
 RCT_EXPORT_METHOD(requestExitVr:(nonnull NSNumber *)sceneNavTag) {
     [self.bridge.uiManager addUIBlock:^(__unused RCTUIManager *uiManager, NSDictionary<NSNumber *, UIView *> *viewRegistry) {
         NSLog(@"User Exit VR VRTSceneNav Module RCT_EXPORT_METHOD");
-
+        
         UIView *sceneNavigator = viewRegistry[sceneNavTag];
-
+        
         if (![sceneNavigator isKindOfClass:[VRTSceneNavigator class]]) {
             RCTLogError(@"Invalid view returned when requestingExitVR: expected VRTSceneNavigator, got [%@]", sceneNavigator);
         }
@@ -36,18 +36,18 @@ RCT_EXPORT_METHOD(requestExitVr:(nonnull NSNumber *)sceneNavTag) {
 }
 
 RCT_EXPORT_METHOD(recenterTracking:(nonnull NSNumber *)sceneNavTag) {
-  [self.bridge.uiManager addUIBlock:^(__unused RCTUIManager *uiManager, NSDictionary<NSNumber *, UIView *> *viewRegistry) {
-    UIView *sceneNavigator = viewRegistry[sceneNavTag];
-    
-    if (![sceneNavigator isKindOfClass:[VRTSceneNavigator class]]) {
-      RCTLogError(@"Invalid view returned when recenterTracking: expected VRTSceneNavigator, got [%@]", sceneNavigator);
-    }
-    else {
-      NSLog(@"Viro - recentering tracking.");
-      VRTSceneNavigator *nav = (VRTSceneNavigator *)sceneNavigator;
-      [nav recenterTracking];
-    }
-  }];
+    [self.bridge.uiManager addUIBlock:^(__unused RCTUIManager *uiManager, NSDictionary<NSNumber *, UIView *> *viewRegistry) {
+        UIView *sceneNavigator = viewRegistry[sceneNavTag];
+        
+        if (![sceneNavigator isKindOfClass:[VRTSceneNavigator class]]) {
+            RCTLogError(@"Invalid view returned when recenterTracking: expected VRTSceneNavigator, got [%@]", sceneNavigator);
+        }
+        else {
+            NSLog(@"Viro - recentering tracking.");
+            VRTSceneNavigator *nav = (VRTSceneNavigator *)sceneNavigator;
+            [nav recenterTracking];
+        }
+    }];
 }
 
 @end

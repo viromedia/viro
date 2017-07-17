@@ -17,10 +17,8 @@ RCT_EXPORT_MODULE()
 RCT_EXPORT_VIEW_PROPERTY(reticle, BOOL)
 
 - (VRTView *)view {
-  return [[VRTHUD alloc] init];
+    return [[VRTHUD alloc] init];
 }
-
-
 
 @end
 
@@ -32,13 +30,9 @@ RCT_EXPORT_VIEW_PROPERTY(color, UIColor)
 RCT_EXPORT_VIEW_PROPERTY(position, NSNumberArray);
 //RCT_EXPORT_VIEW_PROPERTY(backgroundColor, UIColor);
 
-
-
 - (VRTView *)view {
-  return [[VRTHUDLabel alloc] initWithBridge:self.bridge];
+    return [[VRTHUDLabel alloc] initWithBridge:self.bridge];
 }
-
-
 
 @end
 

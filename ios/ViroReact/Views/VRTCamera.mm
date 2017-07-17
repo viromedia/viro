@@ -18,14 +18,14 @@ static NSArray *const kDefaultCameraPosition  = @[@0, @0, @0];
 @synthesize position = _position;
 
 - (instancetype)initWithBridge:(RCTBridge *)bridge {
-  self = [super initWithBridge:bridge];
-  if (self) {
-    _nodeCamera = std::make_shared<VRONodeCamera>();
-    self.position = kDefaultCameraPosition;
-    self.node->setCamera(_nodeCamera);
-  }
-  
-  return self;
+    self = [super initWithBridge:bridge];
+    if (self) {
+        _nodeCamera = std::make_shared<VRONodeCamera>();
+        self.position = kDefaultCameraPosition;
+        self.node->setCamera(_nodeCamera);
+    }
+    
+    return self;
 }
 
 - (void)setPosition:(NSArray<NSNumber *> *)position {
@@ -37,7 +37,7 @@ static NSArray *const kDefaultCameraPosition  = @[@0, @0, @0];
 }
 
 - (VROCameraRotationType)rotationType {
-  return VROCameraRotationType::Standard;
+    return VROCameraRotationType::Standard;
 }
 
 @end

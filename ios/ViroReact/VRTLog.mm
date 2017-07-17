@@ -12,16 +12,16 @@
 static BOOL sDefaultDebugEnabled = NO;
 
 +(void)setdebugEnabled:(BOOL)debugEnabled {
-  sDefaultDebugEnabled = debugEnabled;
+    sDefaultDebugEnabled = debugEnabled;
 }
 
 +(BOOL)debugEnabled{
-  return sDefaultDebugEnabled;
+    return sDefaultDebugEnabled;
 }
 
 +(void)debug:(NSString *)log{
-  if (sDefaultDebugEnabled){
-    NSLog(@"%@", log);
-  }
+    if (sDefaultDebugEnabled){
+        NSLog(@"%@", log);
+    }
 }
 @end

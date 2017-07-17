@@ -26,43 +26,43 @@ static NSString *const kDefaultMaterial = @"transparent";
 static NSArray<NSNumber *> *const kDefaultSize = @[@(0), @(0), @(0)];
 
 @implementation VRTScene {
-  id <VROView> _vroView;
-  VRTCamera *_camera;
-
-  NSArray<NSNumber *> *_size;
-  NSString *_wallMaterial;
-  NSString *_ceilingMaterial;
-  NSString *_floorMaterial;
+    id <VROView> _vroView;
+    VRTCamera *_camera;
+    
+    NSArray<NSNumber *> *_size;
+    NSString *_wallMaterial;
+    NSString *_ceilingMaterial;
+    NSString *_floorMaterial;
 }
 
 - (instancetype)initWithBridge:(RCTBridge *)bridge  {
-  self = [super initWithBridge:bridge];
-  if (self) {
-    _recticleEnabled = true;
-    [self initSceneController];
-  }
-  _size = kDefaultSize;
-  _wallMaterial = kDefaultMaterial;
-  _ceilingMaterial = kDefaultMaterial;
-  _floorMaterial = kDefaultMaterial;
-  return self;
+    self = [super initWithBridge:bridge];
+    if (self) {
+        _recticleEnabled = true;
+        [self initSceneController];
+    }
+    _size = kDefaultSize;
+    _wallMaterial = kDefaultMaterial;
+    _ceilingMaterial = kDefaultMaterial;
+    _floorMaterial = kDefaultMaterial;
+    return self;
 }
 
 - (void)initSceneController {
-  // Create VROSceneController.
-  _sceneController = std::make_shared<VROSceneController>();
+    // Create VROSceneController.
+    _sceneController = std::make_shared<VROSceneController>();
     
-  // Create and attach delegate
-  _delegate = std::make_shared<VROSceneControllerDelegateiOS>(self);
-  _sceneController->setDelegate(_delegate);
+    // Create and attach delegate
+    _delegate = std::make_shared<VROSceneControllerDelegateiOS>(self);
+    _sceneController->setDelegate(_delegate);
     
-  //Set root node for this scene
-  _sceneController->getScene()->addNode(self.node);
+    //Set root node for this scene
+    _sceneController->getScene()->addNode(self.node);
 }
 
 - (void)setView:(id <VROView>)view {
-  _vroView = view;
-  [self setCameraIfAvailable];
+    _vroView = view;
+    [self setCameraIfAvailable];
 }
 
 -(void)setDriver:(std::shared_ptr<VRODriver>)driver {
@@ -93,7 +93,7 @@ static NSArray<NSNumber *> *const kDefaultSize = @[@(0), @(0), @(0)];
         _ceilingMaterial = kDefaultMaterial;
         _floorMaterial = kDefaultMaterial;
     }
-
+    
     if (self.driver) {
         self.driver->setSoundRoom([[_size objectAtIndex:0] floatValue], [[_size objectAtIndex:1] floatValue], [[_size objectAtIndex:2] floatValue], [_wallMaterial UTF8String], [_ceilingMaterial UTF8String], [_floorMaterial UTF8String]);
     }
@@ -121,28 +121,28 @@ static NSArray<NSNumber *> *const kDefaultSize = @[@(0), @(0), @(0)];
 }
 
 - (void)setCamera:(VRTCamera *)camera {
-  _camera = camera;
-  [self setCameraIfAvailable];
+    _camera = camera;
+    [self setCameraIfAvailable];
 }
 
 - (void)removeCamera:(VRTCamera *)camera {
-  if (_camera != camera) {
-      return;
-  }
-  if (_vroView) {
-    [_vroView setPointOfView:nullptr];
-  }
-  _camera = nil;
+    if (_camera != camera) {
+        return;
+    }
+    if (_vroView) {
+        [_vroView setPointOfView:nullptr];
+    }
+    _camera = nil;
 }
 
 #pragma mark - Scene-specific subviews
 
 - (void)insertReactSubview:(UIView *)view atIndex:(NSInteger)atIndex {
-  [super insertReactSubview:view atIndex:atIndex];
+    [super insertReactSubview:view atIndex:atIndex];
 }
 
 - (void)removeReactSubview:(UIView *)subview {
-  [super removeReactSubview:subview];
+    [super removeReactSubview:subview];
 }
 
 #pragma mark - Property setter overrides
@@ -151,45 +151,45 @@ static NSArray<NSNumber *> *const kDefaultSize = @[@(0), @(0), @(0)];
  * Grab the orientation of the current active camera within this scene.
  */
 - (NSArray<NSNumber *> *)cameraOrientation {
-  if (self.context) {
-    VROVector3f cameraPosition = self.context->getCamera().getPosition();
-    VROVector3f cameraRotation = self.context->getCamera().getRotation().toEuler();
-    return @[@(cameraPosition.x), @(cameraPosition.y), @(cameraPosition.z),
-             @(toDegrees(cameraRotation.x)), @(toDegrees(cameraRotation.y)), @(toDegrees(cameraRotation.z))];
-  } else {
-    return @[@0, @0, @0, @0, @0, @0];
-  }
+    if (self.context) {
+        VROVector3f cameraPosition = self.context->getCamera().getPosition();
+        VROVector3f cameraRotation = self.context->getCamera().getRotation().toEuler();
+        return @[@(cameraPosition.x), @(cameraPosition.y), @(cameraPosition.z),
+                 @(toDegrees(cameraRotation.x)), @(toDegrees(cameraRotation.y)), @(toDegrees(cameraRotation.z))];
+    } else {
+        return @[@0, @0, @0, @0, @0, @0];
+    }
 }
 
 #pragma mark - VROSceneDelegateiOS methods.
 
 - (void)sceneWillAppear:(VRORenderContext *)context driver:(std::shared_ptr<VRODriver>)driver {
-  // the following lines call the setters which recursively set the context,
-  // driver and scene down the entire scene tree.
-  self.context = context;
-  self.driver = driver;
-  self.scene = self.scene;
-  [self sceneWillAppear];
-  [self viewWillAppear];
+    // the following lines call the setters which recursively set the context,
+    // driver and scene down the entire scene tree.
+    self.context = context;
+    self.driver = driver;
+    self.scene = self.scene;
+    [self sceneWillAppear];
+    [self viewWillAppear];
 }
 
 - (void)sceneDidAppear:(VRORenderContext *)context driver:(std::shared_ptr<VRODriver>)driver {
-  
+    
 }
 
 - (void)sceneWillDisappear:(VRORenderContext *)context driver:(std::shared_ptr<VRODriver>)driver {
-  self.driver = driver;
-  for(VRTView *view in _childViews) {
-    [view sceneWillDisappear];
-  }
+    self.driver = driver;
+    for(VRTView *view in _childViews) {
+        [view sceneWillDisappear];
+    }
 }
 
 - (void)sceneDidDisappear:(VRORenderContext *)context driver:(std::shared_ptr<VRODriver>)driver {
-
+    
 }
 
 - (void)sceneWillRender:(const VRORenderContext *)context {
-  self.context = (VRORenderContext *)context;
+    self.context = (VRORenderContext *)context;
 }
 
 - (void)setPhysicsWorld:(NSDictionary *)dictionary{
@@ -215,32 +215,32 @@ static NSArray<NSNumber *> *const kDefaultSize = @[@(0), @(0), @(0)];
  * in cartesian and polar formats.
  **/
 - (void)logSceneDebugInfo:(const VRORenderContext *)context{
-  VROVector3f forwardVector = context->getCamera().getForward().normalize();
-  float r = sqrtf((pow(forwardVector.x, 2)) + (pow(forwardVector.y, 2))+ (pow(forwardVector.z, 2)));
-  float theta = toDegrees(atan(forwardVector.z / forwardVector.x));
-  float phi = toDegrees(acos(forwardVector.y / r));
-
-  /* Required offsets because of the Right Hand Rule used for our coordinate system for Theta.
-   * Currently, in the XZ plane, the observed vector and theta angles in in the following format:
-   *          (-z)
-   *        90 | -90
-   * 0         |        0
-   * (-x) - - - - - - (+x)
-   * 0         |        0
-   *        -90| 90
-   *          (+z)
-   * As such, we'll need to apply the following offsets:
-   */
-  if (forwardVector.x < 0){
-    theta = theta + 180;
-  } else if (forwardVector.z < 0){
-    theta = theta + 360;
-  }
-  
-  NSString *log = [NSString stringWithFormat:
-          @"\nCamera Polar Coordinates: Theta %f, Phi %f. \nCamera Forward Vector %f, %f, %f",
-          theta, phi, forwardVector.x, forwardVector.y, forwardVector.z];
-  [VRTLog debug:log];
+    VROVector3f forwardVector = context->getCamera().getForward().normalize();
+    float r = sqrtf((pow(forwardVector.x, 2)) + (pow(forwardVector.y, 2))+ (pow(forwardVector.z, 2)));
+    float theta = toDegrees(atan(forwardVector.z / forwardVector.x));
+    float phi = toDegrees(acos(forwardVector.y / r));
+    
+    /* Required offsets because of the Right Hand Rule used for our coordinate system for Theta.
+     * Currently, in the XZ plane, the observed vector and theta angles in in the following format:
+     *          (-z)
+     *        90 | -90
+     * 0         |        0
+     * (-x) - - - - - - (+x)
+     * 0         |        0
+     *        -90| 90
+     *          (+z)
+     * As such, we'll need to apply the following offsets:
+     */
+    if (forwardVector.x < 0){
+        theta = theta + 180;
+    } else if (forwardVector.z < 0){
+        theta = theta + 360;
+    }
+    
+    NSString *log = [NSString stringWithFormat:
+                     @"\nCamera Polar Coordinates: Theta %f, Phi %f. \nCamera Forward Vector %f, %f, %f",
+                     theta, phi, forwardVector.x, forwardVector.y, forwardVector.z];
+    [VRTLog debug:log];
 }
 
 @end

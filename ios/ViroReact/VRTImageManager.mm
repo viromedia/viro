@@ -53,7 +53,7 @@ RCT_EXPORT_VIEW_PROPERTY(hasTransformDelegate, BOOL)
 
 - (VRTImage *)view
 {
-  return [[VRTImage alloc] initWithBridge:self.bridge];
+    return [[VRTImage alloc] initWithBridge:self.bridge];
 }
 
 @end

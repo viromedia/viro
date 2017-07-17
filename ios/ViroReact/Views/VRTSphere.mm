@@ -17,55 +17,55 @@ static float const kDefaultRadius = 1;
 static BOOL const kDefaultFacesOutward = YES;
 
 @implementation VRTSphere {
-  std::shared_ptr<VROSphere> _sphere;
+    std::shared_ptr<VROSphere> _sphere;
 }
 
 -(instancetype)initWithBridge:(RCTBridge *)bridge {
-  self = [super initWithBridge:bridge];
-  if (self) {
-    _widthSegmentCount = kDefaultWidthSegment;
-    _heightSegmentCount = kDefaultHeightSegment;
-    _facesOutward = kDefaultFacesOutward;
-    _radius = kDefaultRadius;
-    [self updateGeometry];
-  }
-
-  return self;
+    self = [super initWithBridge:bridge];
+    if (self) {
+        _widthSegmentCount = kDefaultWidthSegment;
+        _heightSegmentCount = kDefaultHeightSegment;
+        _facesOutward = kDefaultFacesOutward;
+        _radius = kDefaultRadius;
+        [self updateGeometry];
+    }
+    
+    return self;
 }
 
 -(void)setRadius:(float)radius {
-  if(radius <= 0) {
-    RCTLogError(@"Radius must be greater than 0");
-  }
-  _radius = radius;
-  [self updateGeometry];
+    if(radius <= 0) {
+        RCTLogError(@"Radius must be greater than 0");
+    }
+    _radius = radius;
+    [self updateGeometry];
 }
 
 -(void)setWidthSegmentCount:(NSUInteger)widthSegmentCount {
-  if (widthSegmentCount <= 1) {
-    RCTLogError(@"heightSegment must be greater than 1");
-  }
-  _widthSegmentCount = widthSegmentCount;
-  [self updateGeometry];
+    if (widthSegmentCount <= 1) {
+        RCTLogError(@"heightSegment must be greater than 1");
+    }
+    _widthSegmentCount = widthSegmentCount;
+    [self updateGeometry];
 }
 
 -(void)setHeightSegmentCount:(NSUInteger)heightSegmentCount {
-  if (heightSegmentCount <= 1) {
-    RCTLogError(@"heightSegment must be greater than 1");
-  }
-  _heightSegmentCount = heightSegmentCount;
-  [self updateGeometry];
+    if (heightSegmentCount <= 1) {
+        RCTLogError(@"heightSegment must be greater than 1");
+    }
+    _heightSegmentCount = heightSegmentCount;
+    [self updateGeometry];
 }
 
 -(void)setFacesOutward:(BOOL)facesOutward {
-  _facesOutward = facesOutward;
-  [self updateGeometry];
+    _facesOutward = facesOutward;
+    [self updateGeometry];
 }
 
 -(void)updateGeometry {
-  _sphere = VROSphere::createSphere(_radius, _widthSegmentCount, _heightSegmentCount, _facesOutward);
-  [self node]->setGeometry(_sphere);
-  [self applyMaterials];
+    _sphere = VROSphere::createSphere(_radius, _widthSegmentCount, _heightSegmentCount, _facesOutward);
+    [self node]->setGeometry(_sphere);
+    [self applyMaterials];
 }
 
 @end

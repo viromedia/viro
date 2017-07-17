@@ -23,7 +23,7 @@ RCT_EXPORT_VIEW_PROPERTY(format, VROTextureInternalFormat)
 
 - (VRTSkybox *)view
 {
-  return [[VRTSkybox alloc] initWithBridge:self.bridge];
+    return [[VRTSkybox alloc] initWithBridge:self.bridge];
 }
 
 @end

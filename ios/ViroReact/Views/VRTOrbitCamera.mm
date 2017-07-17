@@ -16,13 +16,13 @@ static NSArray *const kDefaultOrbitFocalPoint = @[@0, @0, @0];
 @synthesize focalPoint = _focalPoint;
 
 - (instancetype)initWithBridge:(RCTBridge *)bridge {
-  self = [super initWithBridge:bridge];
-  if (self) {
-    self.focalPoint = kDefaultOrbitFocalPoint;
-    self.nodeCamera->setRotationType(VROCameraRotationType::Orbit);
-  }
-  
-  return self;
+    self = [super initWithBridge:bridge];
+    if (self) {
+        self.focalPoint = kDefaultOrbitFocalPoint;
+        self.nodeCamera->setRotationType(VROCameraRotationType::Orbit);
+    }
+    
+    return self;
 }
 
 - (void)setFocalPoint:(NSArray<NSNumber *> *)focal {
@@ -34,7 +34,7 @@ static NSArray *const kDefaultOrbitFocalPoint = @[@0, @0, @0];
 }
 
 - (VROCameraRotationType)rotationType {
-  return VROCameraRotationType::Orbit;
+    return VROCameraRotationType::Orbit;
 }
 
 @end

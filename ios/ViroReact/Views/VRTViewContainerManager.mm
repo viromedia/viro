@@ -41,12 +41,12 @@ RCT_EXPORT_VIEW_PROPERTY(hasTransformDelegate, BOOL)
 
 - (VRTNodeContainerShadowView *)shadowView
 {
-  return [VRTNodeContainerShadowView new];
+    return [VRTNodeContainerShadowView new];
 }
 
 -(VRTNodeContainer *)view
 {
-  return [[VRTNodeContainer alloc] initWithBridge:self.bridge];
+    return [[VRTNodeContainer alloc] initWithBridge:self.bridge];
 }
 
 @end

@@ -65,7 +65,7 @@ RCT_EXPORT_METHOD(findCollisionsWithShapeAsync:(nonnull NSNumber *)viewTag
             if (tag != nil){
                 strTag = std::string([tag UTF8String]);
             }
-
+            
             VRTScene *scene = (VRTScene *)sceneView;
             VROVector3f from = [self NSArrayToVector3fHelper:fromArray];
             VROVector3f to = [self NSArrayToVector3fHelper:toArray];

@@ -26,7 +26,7 @@ RCT_EXPORT_VIEW_PROPERTY(direction, NSNumberArray)
 
 - (VRTView *)view
 {
-  return [[VRTDirectionalLight alloc] initWithBridge:self.bridge];
+    return [[VRTDirectionalLight alloc] initWithBridge:self.bridge];
 }
 
 @end
@@ -46,7 +46,7 @@ RCT_EXPORT_VIEW_PROPERTY(direction, NSNumberArray)
 
 - (VRTView *)view
 {
-  return [[VRTSpotLight alloc] initWithBridge:self.bridge];
+    return [[VRTSpotLight alloc] initWithBridge:self.bridge];
 }
 
 @end
@@ -60,7 +60,7 @@ RCT_EXPORT_VIEW_PROPERTY(color, UIColor)
 
 - (VRTView *)view
 {
-  return [[VRTAmbientLight alloc] initWithBridge:self.bridge];
+    return [[VRTAmbientLight alloc] initWithBridge:self.bridge];
 }
 
 @end
@@ -77,7 +77,7 @@ RCT_EXPORT_VIEW_PROPERTY(color, UIColor)
 
 - (VRTView *)view
 {
-  return [[VRTOmniLight alloc] initWithBridge:self.bridge];
+    return [[VRTOmniLight alloc] initWithBridge:self.bridge];
 }
 
 @end
