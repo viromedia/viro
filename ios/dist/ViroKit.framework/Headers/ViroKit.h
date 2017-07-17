@@ -153,14 +153,11 @@ FOUNDATION_EXPORT const unsigned char ViroKitVersionString[];
 #import <ViroKit/VROARAnchor.h>
 #import <ViroKit/VROARPlaneAnchor.h>
 #import <ViroKit/VROARHitTestResult.h>
-<<<<<<< HEAD
 #import <ViroKit/VROARScene.h>
 #import <ViroKit/VROARSceneController.h>
 #import <ViroKit/VROARPlane.h>
 #import <ViroKit/VROARNodeDelegateiOS.h>
 #import <ViroKit/VROARSceneDelegateiOS.h>
-=======
->>>>>>> VIRO-1330: Physics Tests Suite
 
 // OpenCV
 #import <ViroKit/VROOpenCV.h>

@@ -17,8 +17,8 @@
  */
 @protocol VROEventDelegateProtocol<NSObject>
 @required
-- (void)onHover:(int)source isHovering:(bool)isHovering;
-- (void)onClick:(int)source clickState:(VROEventDelegate::ClickState)clickState;
+- (void)onHover:(int)source isHovering:(bool)isHovering hoverLocation:(std::vector<float>)location;
+- (void)onClick:(int)source clickState:(VROEventDelegate::ClickState)clickState clickLocation:(std::vector<float>)location;
 - (void)onFuse:(int)source;
 - (void)onDrag:(int)source posX:(float)x posY:(float)y posZ:(float)y;
 @end
@@ -36,11 +36,11 @@ public:
     /*
      * Delegate events triggered by the EventManager.
      */
-    virtual void onHover(int source, bool isHovering) {
-        [_delegate onHover:source isHovering:isHovering];
+    virtual void onHover(int source, bool isHovering, std::vector<float> location) {
+        [_delegate onHover:source isHovering:isHovering hoverLocation:location];
     }
-    virtual void onClick(int source, ClickState clickState) {
-        [_delegate onClick:source clickState:clickState];
+    virtual void onClick(int source, ClickState clickState, std::vector<float> location) {
+        [_delegate onClick:source clickState:clickState clickLocation:location];
     }
     virtual void onFuse(int source, float timeToFuseRatio) {
         /**

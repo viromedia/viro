@@ -18,10 +18,7 @@ class VROARFrame;
 class VROTexture;
 class VROViewport;
 class VROScene;
-<<<<<<< HEAD
 class VROARNode;
-=======
->>>>>>> VIRO-1330: Physics Tests Suite
 class VRONode;
 class VROARSessionDelegate;
 enum class VROCameraOrientation; //defined in VROCameraTexture.h
@@ -64,10 +61,6 @@ public:
         return _scene;
     }
     virtual void setScene(std::shared_ptr<VROScene> scene) {
-<<<<<<< HEAD
-=======
-        passert_msg (_scene == nullptr, "Scene cannot be changed in VROARSession");
->>>>>>> VIRO-1330: Physics Tests Suite
         _scene = scene;
     }
     
@@ -162,22 +155,10 @@ public:
     /*
      Invoked whenever an anchor is detected by the AR session, or when an 
      anchor is manually added to the session via addAnchor(). The application
-<<<<<<< HEAD
      can choose to add a VROARNode to associate virtual content with this
      anchor by setting a VROARNode on the anchor..
      */
     virtual void anchorWasDetected(std::shared_ptr<VROARAnchor> anchor) = 0;
-=======
-     can choose to add a VRONode to associate virtual content with this
-     anchor. If a VRONode is returned, that node's properties (position, 
-     orientation, etc.) will be continually updated to track the real-world 
-     anchor.
-     
-     Return nullptr to not associate any node with this anchor. In this case,
-     no further delegate messages will be received for the anchor.
-     */
-    virtual std::shared_ptr<VRONode> anchorWasDetected(std::shared_ptr<VROARAnchor> anchor) = 0;
->>>>>>> VIRO-1330: Physics Tests Suite
     
     /*
      Invoked just before and after the anchor's node's properties are updated

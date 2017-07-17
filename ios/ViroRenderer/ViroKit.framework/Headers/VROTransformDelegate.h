@@ -11,6 +11,7 @@
 #include <memory>
 #include <vector>
 #include "VROVector3f.h"
+#include "VROTime.h"
 
 /*
   Delegate that is attached to a node for notifying the bridge regarding transformation updates.
@@ -29,14 +30,22 @@ public:
      calls across the renderer-to-javascript bridge.
      */
     void processPositionUpdate(VROVector3f position, bool force) {
-        if (_lastPositionUpdate.distance(position) < _distanceFilter){
+        double currentRenderTime = VROTimeCurrentMillis();
+        if (_lastSampleTimeMs + 16 >= currentRenderTime && !force) {
             return;
         }
 
+        if (_lastPositionUpdate.distance(position) < _distanceFilter && !force){
+            return;
+        }
+
+        _lastSampleTimeMs = currentRenderTime;
+        _lastPositionUpdate = position;
         onPositionUpdate(position);
     }
 
 private:
+    double _lastSampleTimeMs = 0;
     double _distanceFilter;
     VROVector3f _lastPositionUpdate;
 };

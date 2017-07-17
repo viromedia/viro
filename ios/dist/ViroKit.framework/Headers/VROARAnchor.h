@@ -10,14 +10,9 @@
 #define VROARAnchor_h
 
 #include "VROMatrix4f.h"
-<<<<<<< HEAD
 #include "VROVector3f.h"
 #include "VROQuaternion.h"
 #include "VROARNode.h"
-=======
-
-class VRONode;
->>>>>>> VIRO-1330: Physics Tests Suite
 
 /*
  Anchors are real world objects detected by the AR engine. Each time an
@@ -61,7 +56,6 @@ public:
     /*
      The node associated with the anchor. Updated alongside the anchor.
      */
-<<<<<<< HEAD
     const std::shared_ptr<VROARNode> getARNode() const {
         return _node;
     }
@@ -83,13 +77,6 @@ public:
             _node->setRotation(rotation);
             _node->setPosition(position);
         }
-=======
-    const std::shared_ptr<VRONode> getNode() const {
-        return _node;
-    }
-    void setNode(std::shared_ptr<VRONode> node) {
-        _node = node;
->>>>>>> VIRO-1330: Physics Tests Suite
     }
     
 private:
@@ -99,11 +86,7 @@ private:
     /*
      The node associated with this anchor.
      */
-<<<<<<< HEAD
     std::shared_ptr<VROARNode> _node;
-=======
-    std::shared_ptr<VRONode> _node;
->>>>>>> VIRO-1330: Physics Tests Suite
     
 };
 

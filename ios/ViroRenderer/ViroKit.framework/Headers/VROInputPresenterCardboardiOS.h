@@ -26,8 +26,8 @@ public:
     }
     virtual ~VROInputPresenterCardboardiOS() {}
 
-    void onClick(int source, ClickState clickState) {
-        VROInputPresenter::onClick(source, clickState);
+    void onClick(int source, ClickState clickState, std::vector<float> clickedPosition) {
+        VROInputPresenter::onClick(source, clickState, clickedPosition);
         if (clickState==ClickState::ClickUp){
             getReticle()->trigger();
         }

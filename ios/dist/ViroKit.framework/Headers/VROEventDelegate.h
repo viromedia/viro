@@ -115,11 +115,11 @@ public:
     /*
      * Delegate events triggered by the VROInputControllerBase.
      */
-    virtual void onHover(int source, bool isHovering) {
+    virtual void onHover(int source, bool isHovering, std::vector<float> position) {
         //No-op
     }
 
-    virtual void onClick(int source, ClickState clickState) {
+    virtual void onClick(int source, ClickState clickState, std::vector<float> position) {
         //No-op
     }
 

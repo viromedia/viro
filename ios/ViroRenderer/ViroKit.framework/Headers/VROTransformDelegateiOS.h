@@ -17,7 +17,7 @@
 @end
 
 /*
- Delegate used to notify the bridge regarding transformation udpates to the controls.
+ Notifies the bridge regarding transformation udpates of this delegate's attached control
  */
 class VROTransformDelegateiOS: public VROTransformDelegate {
 public:

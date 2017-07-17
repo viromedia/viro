@@ -72,10 +72,10 @@ extern const int k2DPointsPerSpatialUnit;
 - (void)applyMaterials;
 
 // VROEventDelegateProtocol
-- (void)onHover:(int)source isHovering:(bool)isHovering;
-- (void)onClick:(int)source clickState:(VROEventDelegate::ClickState)clickState;
-- (void)onTouch:(int)source touchState:(VROEventDelegate::TouchState)clickState xPos:(float)x yPos:(float)y;
-- (void)onFuse:(int)source;
+- (void) onHover:(int)source isHovering:(bool)isHovering hoverLocation:(std::vector<float>)location;
+- (void) onClick:(int)source clickState:(VROEventDelegate::ClickState)clickState clickLocation:(std::vector<float>)location;
+- (void) onTouch:(int)source touchState:(VROEventDelegate::TouchState)clickState xPos:(float)x yPos:(float)y;
+- (void) onFuse:(int)source;
 - (void)onDrag:(int)source posX:(float)x posY:(float)y posZ:(float)z;
 
 // Override for ARNodes

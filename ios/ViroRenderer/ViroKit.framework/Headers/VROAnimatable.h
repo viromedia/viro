@@ -24,7 +24,10 @@ class VROAnimatable : public std::enable_shared_from_this<VROAnimatable> {
 public:
     
     void animate(std::shared_ptr<VROAnimation> animation);
-    
+
+    virtual void onAnimationFinished(){
+        //No-op
+    }
 };
 
 #endif /* VROAnimatable_hpp */

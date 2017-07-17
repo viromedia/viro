@@ -42,21 +42,21 @@ public:
         _eventDelegateWeak = delegate;
     }
 
-    virtual void onHover(int source, bool isHovering) {
+    virtual void onHover(int source, bool isHovering, std::vector<float> position) {
         passert_thread();
         
         std::shared_ptr<VROEventDelegate> delegate = getDelegate();
         if (delegate != nullptr && delegate->isEventEnabled(VROEventDelegate::EventAction::OnHover)){
-            delegate->onHover(source, isHovering);
+            delegate->onHover(source, isHovering, position);
         }
     }
 
-    virtual void onClick(int source, ClickState clickState) {
+    virtual void onClick(int source, ClickState clickState, std::vector<float> position) {
         passert_thread();
         
         std::shared_ptr<VROEventDelegate> delegate = getDelegate();
         if (delegate != nullptr && delegate->isEventEnabled(VROEventDelegate::EventAction::OnClick)){
-            delegate->onClick(source, clickState);
+            delegate->onClick(source, clickState, position);
         }
     }
 

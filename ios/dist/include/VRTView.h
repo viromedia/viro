@@ -31,6 +31,10 @@ typedef NS_ENUM(NSInteger, ViroConstraintType) {
 @property (nonatomic, readwrite) VRORenderContext *context;
 @property (nonatomic, readwrite) std::shared_ptr<VROScene> scene;
 @property (nonatomic, readwrite) std::shared_ptr<VRODriver> driver;
+/*
+ true/false if it's attached to a parent and its parent is visible.
+ */
+@property (nonatomic, assign) BOOL canAppear;
 
 - (instancetype)initWithBridge:(RCTBridge *)bridge;
 
@@ -43,10 +47,18 @@ typedef NS_ENUM(NSInteger, ViroConstraintType) {
 // View/ShadowView is a root view
 - (BOOL)isReactRootView;
 
-// Methods invoked before views are added and removed from the React
-// tree
+// Whether or not the view should appear
+- (BOOL)shouldAppear;
+
+// Methods invoked by parent views to let child views whether or not they
+// will appear based on the parent's properties (ie. if parent is visible
+// and within the scene graph, but the child may not show up if itself is
+// not visible).
 - (void)viewWillAppear;
 - (void)viewWillDisappear;
+
+// This function handles any logic we need to do due to changes in [self shouldAppear].
+- (void)handleAppearanceChange;
 
 // Methods invoked when the scene to which the views belong appears
 // and disappears

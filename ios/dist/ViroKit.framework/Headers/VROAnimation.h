@@ -12,8 +12,7 @@
 #include <stdio.h>
 #include <memory>
 #include <functional>
-
-class VROAnimatable;
+#include "VROAnimatable.h"
 
 /*
  Represents the animation of a property. Subclasses identify the type
@@ -65,11 +64,14 @@ public:
     void onTermination() {
         finish();
         
+        std::shared_ptr<VROAnimatable> animatable = _animatable.lock();
+        if (animatable == nullptr){
+            return;
+        }
+
+        animatable->onAnimationFinished();
         if (_finishCallback) {
-            std::shared_ptr<VROAnimatable> animatable = _animatable.lock();
-            if (animatable) {
-                _finishCallback(animatable.get());
-            }
+            _finishCallback(animatable.get());
         }
     }
     

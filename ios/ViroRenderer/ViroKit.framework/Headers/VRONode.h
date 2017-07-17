@@ -38,6 +38,7 @@ class VRONodeCamera;
 class VROHitTestResult;
 class VROConstraint;
 class VROExecutableAnimation;
+class VROTransformDelegate;
 
 extern bool kDebugSortOrder;
 extern const std::string kDefaultNodeTag;
@@ -177,6 +178,12 @@ public:
     void setRotation(VROQuaternion rotation);
     void setPosition(VROVector3f position);
     void setScale(VROVector3f scale);
+    void setTransformDelegate(std::shared_ptr<VROTransformDelegate> delegate);
+
+    /*
+     Notifies attached transform delegate, if any, that a position change had occurred.
+     */
+    void notifyTransformUpdate(bool forced);
     
     /*
      Set the rotation as a vector of Euler angles. Using this method
@@ -376,7 +383,11 @@ public:
      Remove all animations from this node.
      */
     void removeAllAnimations();
-    
+
+    /*
+     Triggered when the animation running this animatable node completes.
+     */
+    void onAnimationFinished();
 #pragma mark - Events 
     
     VROBoundingBox getBoundingBox();
@@ -439,7 +450,7 @@ public:
                                                     std::shared_ptr<VROPhysicsShape> shape);
     std::shared_ptr<VROPhysicsBody> getPhysicsBody() const;
     void clearPhysicsBody();
-    
+
 protected:
     
     /*
@@ -447,7 +458,7 @@ protected:
      */
     std::vector<std::shared_ptr<VRONode>> _subnodes;
     std::weak_ptr<VRONode> _supernode;
-    
+
 private:
     
     std::shared_ptr<VROGeometry> _geometry;
@@ -499,7 +510,8 @@ private:
     float _computedOpacity;
     std::vector<std::shared_ptr<VROLight>> _computedLights;
     VROVector3f _computedPosition;
-    
+    std::weak_ptr<VROTransformDelegate> _transformDelegate;
+
     /*
      The transformed bounding box containing this node's geometry. The 
      _umbrellaBoundingBox encompasses not only this geometry, but the geometries
