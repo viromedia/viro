@@ -74,12 +74,7 @@ var ViroARNavigator = React.createClass({
       jump: this.jump,
       replace: this.replace,
       exitViro: this.exitViro,
-      // pass the viroAppProps to every scene, these aren't meant to ever change.
-      viroAppProps: this.props.viroAppProps,
     };
-    // If the user simply passes us the props from the root React component, then we'll
-    // have an extra 'rootTag' key which React includes.
-    delete this.arNavigator.viroAppProps.rootTag;
   },
 
   /**
@@ -400,6 +395,14 @@ var ViroARNavigator = React.createClass({
 
   render: function() {
     var items = this._renderSceneStackItems();
+
+    // update the arNavigator with the latest given props on every render
+    this.arNavigator.viroAppProps = this.props.viroAppProps;
+    // If the user simply passes us the props from the root React component,
+    // then we'll have an extra 'rootTag' key which React automatically includes
+    // so remove it.
+    delete this.arNavigator.viroAppProps.rootTag;
+
     // TODO: remove this check when AR on Android is supported
     if (Platform.OS == 'android') {
       return (<Text>AR is not available on Android. </Text>);

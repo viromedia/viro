@@ -86,13 +86,8 @@ var ViroSceneNavigator = React.createClass({
       jump: this.jump,
       replace: this.replace,
       exitViro: this.exitViro,
-      // pass the viroAppProps to every scene, these aren't meant to ever change.
-      viroAppProps: this.props.viroAppProps,
       recenterTracking: this._recenterTracking,
     };
-    // If the user simply passes us the props from the root React component, then we'll
-    // have an extra 'rootTag' key which React includes.
-    delete this.sceneNavigator.viroAppProps.rootTag;
   },
 
   /**
@@ -413,6 +408,14 @@ var ViroSceneNavigator = React.createClass({
 
   render: function() {
     var items = this._renderSceneStackItems();
+
+    // update the sceneNavigator with the latest given props on every render
+    this.sceneNavigator.viroAppProps = this.props.viroAppProps;
+    // If the user simply passes us the props from the root React component,
+    // then we'll have an extra 'rootTag' key which React automatically includes
+    // so remove it.
+    delete this.sceneNavigator.viroAppProps.rootTag;
+
     return (
       <VRTSceneNavigator
         ref={SCENE_NAVIGATOR_REF}
