@@ -112,20 +112,6 @@
 			remoteGlobalIDString = 8BE0D4541DFA0D050032AB99;
 			remoteInfo = ViroReact;
 		};
-		8BDDA0051E53DA2100A42870 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 8BDD9D981E09F38900A42870 /* ViroReact.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 8BDD9F581E53A70000A42870;
-			remoteInfo = ViroReactFramework;
-		};
-		8BDDA0071E53DA2100A42870 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 8BDD9D981E09F38900A42870 /* ViroReact.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 8BDD9F611E53A70000A42870;
-			remoteInfo = ViroReactFrameworkTests;
-		};
 		8BDDA0EB1E57F28B00A42870 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 8BDD9D871E09EBFF00A42870 /* React.xcodeproj */;
@@ -355,8 +341,6 @@
 			isa = PBXGroup;
 			children = (
 				8BDD9D9D1E09F38900A42870 /* libViroReact.a */,
-				8BDDA0061E53DA2100A42870 /* ViroReactFramework.framework */,
-				8BDDA0081E53DA2100A42870 /* ViroReactFrameworkTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -660,20 +644,6 @@
 			fileType = archive.ar;
 			path = libViroReact.a;
 			remoteRef = 8BDD9D9C1E09F38900A42870 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		8BDDA0061E53DA2100A42870 /* ViroReactFramework.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = ViroReactFramework.framework;
-			remoteRef = 8BDDA0051E53DA2100A42870 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		8BDDA0081E53DA2100A42870 /* ViroReactFrameworkTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = ViroReactFrameworkTests.xctest;
-			remoteRef = 8BDDA0071E53DA2100A42870 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		8BDDA0EC1E57F28B00A42870 /* libyoga.a */ = {
@@ -983,6 +953,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = viro.ViroExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -1002,6 +973,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = viro.ViroExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
