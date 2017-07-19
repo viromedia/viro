@@ -87,8 +87,6 @@ const double kTransformDelegateDistanceFilter = 0.01;
 }
 
 - (void)removeReactSubview:(UIView *)subview {
-  [self clearPhysicsBody];
-
   VRTView *vroView = (VRTView *)subview;
 
   if ([vroView isKindOfClass:[VRTLight class]]) {
@@ -98,6 +96,7 @@ const double kTransformDelegateDistanceFilter = 0.01;
 
   else if ([vroView isKindOfClass:[VRTNode class]]) {
     VRTNode *nodeView = (VRTNode *)vroView;
+    [nodeView clearPhysicsBody];
     nodeView.node->removeFromParentNode();
   }
 
@@ -412,7 +411,9 @@ const double kTransformDelegateDistanceFilter = 0.01;
         self.scene->getPhysicsWorld()->removePhysicsBody(body);
     }
 
-    [self node]->clearPhysicsBody();
+    if (body){
+        [self node]->clearPhysicsBody();
+    }
 }
 
 - (std::shared_ptr<VROPhysicsBody>)createPhysicsBody:(VROPhysicsBody::VROPhysicsBodyType) bodyType
@@ -517,6 +518,7 @@ const double kTransformDelegateDistanceFilter = 0.01;
             body->setPhysicsShape(propPhysicsShape);
         }
     }
+
     body->setIsSimulated([self shouldAppear]);
     return true;
 }

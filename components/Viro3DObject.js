@@ -272,8 +272,18 @@ var Viro3DObject = React.createClass({
         newPhysicsShape = this.props.physicsBody.shape;
       }
 
-      newPhysicsBody = this.props.physicsBody;
-      newPhysicsBody.shape = newPhysicsShape;
+    newPhysicsBody = {
+        type: this.props.physicsBody.type,
+        mass: this.props.physicsBody.mass,
+        restitution: this.props.physicsBody.restitution,
+        friction: this.props.physicsBody.friction,
+        useGravity: this.props.physicsBody.useGravity,
+        enabled: this.props.physicsBody.enabled,
+        velocity: this.props.physicsBody.velocity,
+        force: this.props.physicsBody.force,
+        torque: this.props.physicsBody.torque,
+        shape: newPhysicsShape
+      };
     }
 
     let transformDelegate = this.props.onTransformUpdate != undefined ? this._onNativeTransformUpdate : undefined;
