@@ -21,7 +21,7 @@
     if (self) {
         _bridge = bridge;
         _childViews = [[NSMutableArray alloc] init];
-        _canAppear = NO;
+        _parentHasAppeared = NO;
     }
     
     return self;
@@ -57,11 +57,10 @@
     }
     
     /*
-     If adding a child to a view that shouldAppear, then call viewWillAppear
-     on the child to let it know that it "canAppear"
+     If this view shouldAppear, then let the given child know that its parentDidAppear.
      */
     if ([self shouldAppear]) {
-        [view viewWillAppear];
+        [view parentDidAppear];
     }
 }
 
@@ -70,7 +69,7 @@
     // nodes from the renderer)
     
     VRTView *view = (VRTView *)subview;
-    [view viewWillDisappear];
+    [view parentDidDisappear];
     
     [_childViews removeObject:subview];
     view.superview = NULL;
@@ -94,19 +93,19 @@
 }
 
 - (BOOL)shouldAppear {
-    return self.canAppear;
+    return self.parentHasAppeared;
 }
 
 - (void)handleAppearanceChange {
     if ([self shouldAppear]) {
         for (id childView in _childViews) {
             VRTView *view = (VRTView *)childView;
-            [view viewWillAppear];
+            [view parentDidAppear];
         }
     } else {
         for (id childView in _childViews) {
             VRTView *view = (VRTView *)childView;
-            [view viewWillDisappear];
+            [view parentDidDisappear];
         }
     }
 }
@@ -125,13 +124,13 @@
     }
 }
 
-- (void)viewWillAppear {
-    self.canAppear = true;
+- (void)parentDidAppear {
+    self.parentHasAppeared = true;
     [self handleAppearanceChange];
 }
 
-- (void)viewWillDisappear {
-    self.canAppear = false;
+- (void)parentDidDisappear {
+    self.parentHasAppeared = false;
     [self handleAppearanceChange];
 }
 

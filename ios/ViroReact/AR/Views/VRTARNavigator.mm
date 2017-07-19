@@ -31,6 +31,7 @@ static NSString *const kVRTInvalidAPIKeyMessage = @"The given API Key is either 
         _vroView = [[VROViewAR alloc] initWithFrame:CGRectMake(0, 0,
                                                                [[UIScreen mainScreen] bounds].size.width,
                                                                [[UIScreen mainScreen] bounds].size.height) context:context];
+        
         VROViewAR *viewAR = (VROViewAR *) _vroView;
         [viewAR setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
         _vroView.renderDelegate = self;
@@ -149,7 +150,7 @@ static NSString *const kVRTInvalidAPIKeyMessage = @"The given API Key is either 
 }
 
 - (void)removeFromSuperview{
-    [self viewWillDisappear];
+    [self parentDidDisappear];
     [super removeFromSuperview];
     
     /*

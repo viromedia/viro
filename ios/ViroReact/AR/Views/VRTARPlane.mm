@@ -28,12 +28,12 @@ static float const kARPlaneDefaultMinWidth = 0;
     return self;
 }
 
-- (void)viewWillDisappear {
+- (void)parentDidDisappear {
     if ([self scene]) {
         std::shared_ptr<VROARScene> arScene = std::dynamic_pointer_cast<VROARScene>([self scene]);
         arScene->removeARPlane(std::dynamic_pointer_cast<VROARPlane>(self.node));
     }
-    [super viewWillDisappear];
+    [super parentDidDisappear];
 }
 
 - (void)setScene:(std::shared_ptr<VROScene>)scene {

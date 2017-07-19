@@ -233,7 +233,7 @@ static NSString *const kWebPrefix = @"http";
     }
 }
 
-- (void)viewWillDisappear {
+- (void)parentDidDisappear {
     if (_sound) {
         _sound->pause();
     }
@@ -341,7 +341,7 @@ static NSString *const kWebPrefix = @"http";
     }
 }
 
-- (void)viewWillAppear {
+- (void)parentDidAppear {
     [self setPaused:self.paused];
 }
 
@@ -351,10 +351,21 @@ static NSString *const kWebPrefix = @"http";
     }
 }
 
-- (void)viewWillDisappear {
+- (void)parentDidDisappear {
     if (_player) {
         _player->pause();
     }
+}
+
+- (void)handleAppearanceChange {
+    if (_player) {
+        if ([self shouldAppear] && !self.paused) {
+            _player->play();
+        } else {
+            _player->pause();
+        }
+    }
+    [super handleAppearanceChange];
 }
 
 @end

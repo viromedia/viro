@@ -120,24 +120,17 @@ const double kTransformDelegateDistanceFilter = 0.01;
 
 // Override parent shouldAppear function.
 - (BOOL)shouldAppear {
-    return self.canAppear && self.visible;
+    return self.parentHasAppeared && self.visible;
 }
 
 /*
- Careful to *NEVER* call viewWillAppear or viewWillDisappear within this
+ Careful to *NEVER* call parentDidAppear or parentDidDisappear within this
  function because only the parent view should ever call it.
  */
 - (void)handleAppearanceChange {
-    if ([self shouldAppear]) {
-        std::shared_ptr<VROPhysicsBody> body = self.node->getPhysicsBody();
-        if (body) {
-            body->setIsSimulated(true);
-        }
-    } else {
-        std::shared_ptr<VROPhysicsBody> body = self.node->getPhysicsBody();
-        if (body) {
-            body->setIsSimulated(false);
-        }
+    std::shared_ptr<VROPhysicsBody> body = self.node->getPhysicsBody();
+    if (body) {
+        body->setIsSimulated([self shouldAppear]);
     }
     [super handleAppearanceChange];    
 }

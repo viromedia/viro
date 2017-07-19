@@ -170,7 +170,7 @@ static NSArray<NSNumber *> *const kDefaultSize = @[@(0), @(0), @(0)];
     self.driver = driver;
     self.scene = self.scene;
     [self sceneWillAppear];
-    [self viewWillAppear];
+    [self parentDidAppear];
 }
 
 - (void)sceneDidAppear:(VRORenderContext *)context driver:(std::shared_ptr<VRODriver>)driver {

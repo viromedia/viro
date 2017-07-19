@@ -162,7 +162,7 @@ static NSString *const kVRTInvalidAPIKeyMessage = @"The given API Key is either 
 }
 
 - (void)removeFromSuperview{
-    [self viewWillDisappear];
+    [self parentDidDisappear];
     [super removeFromSuperview];
     
     /*

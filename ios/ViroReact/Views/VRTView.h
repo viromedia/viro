@@ -32,9 +32,9 @@ typedef NS_ENUM(NSInteger, ViroConstraintType) {
 @property (nonatomic, readwrite) std::shared_ptr<VROScene> scene;
 @property (nonatomic, readwrite) std::shared_ptr<VRODriver> driver;
 /*
- true/false if it's attached to a parent and its parent is visible.
+ true/false if it's attached to a parent and its parent has appeared.
  */
-@property (nonatomic, assign) BOOL canAppear;
+@property (nonatomic, assign) BOOL parentHasAppeared;
 
 - (instancetype)initWithBridge:(RCTBridge *)bridge;
 
@@ -54,8 +54,8 @@ typedef NS_ENUM(NSInteger, ViroConstraintType) {
 // will appear based on the parent's properties (ie. if parent is visible
 // and within the scene graph, but the child may not show up if itself is
 // not visible).
-- (void)viewWillAppear;
-- (void)viewWillDisappear;
+- (void)parentDidAppear;
+- (void)parentDidDisappear;
 
 // This function handles any logic we need to do due to changes in [self shouldAppear].
 - (void)handleAppearanceChange;

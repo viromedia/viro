@@ -146,7 +146,7 @@
     }
 }
 
-- (void)viewWillDisappear {
+- (void)parentDidDisappear {
     if (_sphereTextureAddedToScene) {
         _videoTexture->pause();
     }

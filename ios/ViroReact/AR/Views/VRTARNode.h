@@ -21,7 +21,7 @@
 /*
  True/false if the AR node is attached to some anchor in the real world.
  */
-@property (nonatomic, assign) BOOL isAttached;
+@property (nonatomic, assign) BOOL isAnchored;
 
 - (NSDictionary *)createDictionaryFromAnchor:(std::shared_ptr<VROARAnchor>) anchor;
 
