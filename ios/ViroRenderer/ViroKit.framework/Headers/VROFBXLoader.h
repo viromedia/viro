@@ -24,6 +24,7 @@ class VROGeometry;
 class VROSkinner;
 class VROSkeleton;
 class VROSkeletalAnimation;
+class VROKeyframeAnimation;
 
 namespace viro {
     class Node;
@@ -31,6 +32,7 @@ namespace viro {
     class Node_Skeleton;
     class Node_Geometry_Skin;
     class Node_SkeletalAnimation;
+    class Node_KeyframeAnimation;
 }
 
 class VROFBXLoader {
@@ -81,6 +83,7 @@ private:
                                                       std::shared_ptr<VROSkeleton> skeleton);
     static std::shared_ptr<VROSkeletalAnimation> loadFBXSkeletalAnimation(const viro::Node_SkeletalAnimation &animation_pb,
                                                                           std::shared_ptr<VROSkeleton> skeleton);
+    static std::shared_ptr<VROKeyframeAnimation> loadFBXKeyframeAnimation(const viro::Node_KeyframeAnimation &animation_pb);
     
 };
 

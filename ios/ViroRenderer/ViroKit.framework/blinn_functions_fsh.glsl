@@ -4,8 +4,8 @@ lowp vec3 apply_light_blinn(const VROLightUniforms light,
                             highp vec3 surface_pos,
                             lowp vec3 surface_normal,
                             highp vec3 surface_to_camera,
-                            lowp vec4 material_diffuse_color,
-                            lowp vec4 material_specular_color,
+                            lowp vec3 material_diffuse_color,
+                            lowp vec3 material_specular_color,
                             lowp float  material_shininess) {
     
     highp vec3 surface_to_light;
@@ -13,7 +13,7 @@ lowp vec3 apply_light_blinn(const VROLightUniforms light,
     
     // Diffuse
     highp float diffuse_coeff = max(0.0, dot(-surface_normal, surface_to_light));
-    lowp vec3 diffuse = diffuse_coeff * material_diffuse_color.rgb * light.color;
+    lowp vec3 diffuse = diffuse_coeff * material_diffuse_color * light.color;
     
     // Specular
     lowp float specular_coeff = 0.0;
@@ -23,7 +23,7 @@ lowp vec3 apply_light_blinn(const VROLightUniforms light,
                              material_shininess);
     }
     
-    lowp vec3 specular = specular_coeff * material_specular_color.rgb * light.color;
+    lowp vec3 specular = specular_coeff * material_specular_color * light.color;
     return attenuation * (diffuse + specular);
 }
 
@@ -33,8 +33,8 @@ lowp vec4 blinn_lighting(VROSurface surface,
 
     lowp vec3 light_ambient_color = ambient_light_color.xyz * surface.diffuse_color.xyz;
     
-    lowp vec4 material_diffuse_color  = surface.diffuse_color * surface.diffuse_intensity;
-    lowp vec4 material_specular_color = texture(specular_texture, surface.specular_texcoord);
+    lowp vec3 material_diffuse_color  = surface.diffuse_color.xyz * surface.diffuse_intensity;
+    lowp vec3 material_specular_color = texture(specular_texture, surface.specular_texcoord).xyz;
     highp vec3 surface_to_camera = normalize(camera_position - surface.position);
     
     lowp vec3 light_diffuse_color = vec3(0, 0, 0);
@@ -49,5 +49,5 @@ lowp vec4 blinn_lighting(VROSurface surface,
     }
     
     return vec4(light_ambient_color + light_diffuse_color,
-                surface.alpha * material_diffuse_color.a);
+                surface.alpha * surface.diffuse_color.a);
 }

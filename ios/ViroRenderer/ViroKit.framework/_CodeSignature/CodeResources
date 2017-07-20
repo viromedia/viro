@@ -2561,7 +2561,7 @@
 		</data>
 		<key>Headers/VROFBXLoader.h</key>
 		<data>
-		9KfdE+zY/CNjbgrbQ0NOeWFHkQc=
+		QGVgudp1u8JMi3bQuZf1xzm1rD0=
 		</data>
 		<key>Headers/VROFieldOfView.h</key>
 		<data>
@@ -2697,7 +2697,7 @@
 		</data>
 		<key>Headers/VRONode.h</key>
 		<data>
-		s4LSlqel/nOSbJkmjSPlkKvzZ9I=
+		8HpQGeLd6XXKjFXnT2GGZB0u0dI=
 		</data>
 		<key>Headers/VRONodeCamera.h</key>
 		<data>
@@ -3025,7 +3025,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		DclDnpDtFMGfFUUkK8O+6ElQP+I=
+		eNrXMu9t1mALZJ/WfO7O3GEI0z8=
 		</data>
 		<key>MaterialRobotoFontLoader.bundle/Roboto-Black.ttf</key>
 		<data>
@@ -3089,7 +3089,7 @@
 		</data>
 		<key>blinn_functions_fsh.glsl</key>
 		<data>
-		w61sVMuvBJRK83X09vt/tlKuwOY=
+		kP7ni/+HtaGeqXP3GlSUNWP9EvU=
 		</data>
 		<key>blit_fsh.glsl</key>
 		<data>
@@ -3121,7 +3121,7 @@
 		</data>
 		<key>lambert_functions_fsh.glsl</key>
 		<data>
-		rBEMZWcOrggQ0UtJ6Jbuq9eJEp0=
+		lxJTSOEumUxmf49owD3wQ7W8B+U=
 		</data>
 		<key>lighting_general_functions_fsh.glsl</key>
 		<data>
@@ -3133,7 +3133,7 @@
 		</data>
 		<key>phong_functions_fsh.glsl</key>
 		<data>
-		PyDPOJt6xwXl7hZrUlYyTg6F92U=
+		hjtY04gT1yDq3Qf7gTQ9dCs4F6I=
 		</data>
 		<key>skinning_vsh.glsl</key>
 		<data>
@@ -7748,11 +7748,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			9KfdE+zY/CNjbgrbQ0NOeWFHkQc=
+			QGVgudp1u8JMi3bQuZf1xzm1rD0=
 			</data>
 			<key>hash2</key>
 			<data>
-			d0RzKnDvh5D/fmJeVjVbj+qUZYeMzR2D2y+mKy+ar9I=
+			/jSjTyPfhZr6cNc6w3LTIes2BelkeO34jjpG9VRVF+8=
 			</data>
 		</dict>
 		<key>Headers/VROFieldOfView.h</key>
@@ -8122,11 +8122,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			s4LSlqel/nOSbJkmjSPlkKvzZ9I=
+			8HpQGeLd6XXKjFXnT2GGZB0u0dI=
 			</data>
 			<key>hash2</key>
 			<data>
-			A/D3Vlye3i3OUm7P1515l/7SspC+0DGSwKMcUKqkQJc=
+			B1CxCpy1oxCR26xHZrQ+smPysKANZr5apx8jTGOEKc0=
 			</data>
 		</dict>
 		<key>Headers/VRONodeCamera.h</key>
@@ -9189,11 +9189,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			w61sVMuvBJRK83X09vt/tlKuwOY=
+			kP7ni/+HtaGeqXP3GlSUNWP9EvU=
 			</data>
 			<key>hash2</key>
 			<data>
-			/anUm75/rMYkAoFiPrIBuo39I+Rq3oLKv7L7j7M9PMc=
+			ojFhIET8YThKkQwMZRHuExNIbGQtUkLPVSyRmDp/wkc=
 			</data>
 		</dict>
 		<key>blit_fsh.glsl</key>
@@ -9277,11 +9277,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			rBEMZWcOrggQ0UtJ6Jbuq9eJEp0=
+			lxJTSOEumUxmf49owD3wQ7W8B+U=
 			</data>
 			<key>hash2</key>
 			<data>
-			D9vjU5TomIlQyJgvTvmBAsPn8VkUt6t1bJkVw6e3Jws=
+			3Ar2yzwPEgYl0TDglMrRmURPr+DLDGj7X8Vl5XglFJw=
 			</data>
 		</dict>
 		<key>lighting_general_functions_fsh.glsl</key>
@@ -9310,11 +9310,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			PyDPOJt6xwXl7hZrUlYyTg6F92U=
+			hjtY04gT1yDq3Qf7gTQ9dCs4F6I=
 			</data>
 			<key>hash2</key>
 			<data>
-			j/WG5xGUXkKVLMEAN7EP64ixGo45n33Nv//0P7iVskc=
+			N3xtwTAu5Q0W6c3SK1T5p+gfFZzJ6CDwYNu47g9MKUQ=
 			</data>
 		</dict>
 		<key>skinning_vsh.glsl</key>
