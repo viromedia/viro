@@ -120,6 +120,7 @@ public:
     }
     
     const VROBoundingBox &getBoundingBox();
+    void updateBoundingBox();
     VROVector3f getCenter();
     
     bool isCameraEnclosure() const {
@@ -151,7 +152,7 @@ public:
     }
     
     std::vector<std::shared_ptr<VROGeometrySource>> getGeometrySourcesForSemantic(VROGeometrySourceSemantic semantic) const;
-    
+
 protected:
     
     void setSources(std::vector<std::shared_ptr<VROGeometrySource>> sources) {

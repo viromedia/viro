@@ -356,9 +356,9 @@ public:
      be as simple interpolating batches of properties over time, or as complex as full
      skeletal animation.
      
-     These methods take a key parameter, which should uniquely identify the animation. 
-     If addAnimation is invoked with a key that already exists, the old animation is
-     replaced with the new one.
+     These methods take a key parameter. Keys identify animations that run together in 
+     a single transaction; e.g., there can be multiple animations with a single key.
+     removeAnimation will remove *all* animations with the given key.
      */
     void addAnimation(std::string key, std::shared_ptr<VROExecutableAnimation> animation);
     void removeAnimation(std::string key);
@@ -370,9 +370,10 @@ public:
     std::set<std::string> getAnimationKeys(bool recursive);
     
     /*
-     Retrieve the animation with the given key. If recursive is true, then this will return
-     a new parallel VROAnimationChain that contains *every* animation in this node and every
-     animation in any subnode that shares the same key.
+     Retrieve all animations with the given key, as a single, composite executable animation. 
+     If recursive is true, then this will return a new parallel VROAnimationChain that 
+     contains every animation in this node and every animation in any subnode that shares
+     the same key.
      
      For example, if the animation 'Take 001' contains a torso animation and an arm animation,
      both will be returned in a single animation group.
@@ -388,6 +389,7 @@ public:
      Triggered when the animation running this animatable node completes.
      */
     void onAnimationFinished();
+    
 #pragma mark - Events 
     
     VROBoundingBox getBoundingBox();
@@ -562,7 +564,7 @@ private:
     /*
      Animations stored with this node.
      */
-    std::map<std::string, std::shared_ptr<VROExecutableAnimation>> _animations;
+    std::map<std::string, std::vector<std::shared_ptr<VROExecutableAnimation>>> _animations;
     
     /*
      Constraints on the node, which can modify the node's transformation matrix.
