@@ -12,8 +12,8 @@ import com.facebook.react.bridge.ReadableMapKeySetIterator;
 import com.facebook.react.bridge.ReadableType;
 import com.viro.renderer.jni.AnimationChainJni;
 import com.viro.renderer.jni.AnimationGroupJni;
-import com.viro.renderer.jni.BaseAnimation;
-import com.viro.renderer.jni.BaseAnimation.ExecutionType;
+import com.viro.renderer.jni.ExecutableAnimationJni;
+import com.viro.renderer.jni.ExecutableAnimationJni.ExecutionType;
 import com.viro.renderer.jni.LazyMaterialJni;
 import com.viro.renderer.jni.MaterialJni;
 import com.viromedia.bridge.utility.ViroLog;
@@ -49,7 +49,7 @@ public class AnimationManager extends ReactContextBaseJavaModule {
         }
     }
 
-    private final HashMap<String, BaseAnimation> mParsedAnimations;
+    private final HashMap<String, ExecutableAnimationJni> mParsedAnimations;
     private ReadableMap mRawAnimations;
 
     public AnimationManager(ReactApplicationContext context) {
@@ -68,7 +68,7 @@ public class AnimationManager extends ReactContextBaseJavaModule {
         parseAnimations();
     }
 
-    public BaseAnimation getAnimation(String name) {
+    public ExecutableAnimationJni getAnimation(String name) {
         return mParsedAnimations.get(name);
     }
 
@@ -76,7 +76,7 @@ public class AnimationManager extends ReactContextBaseJavaModule {
         ReadableMapKeySetIterator iter = mRawAnimations.keySetIterator();
         while(iter.hasNextKey()) {
             String animationName = iter.nextKey();
-            BaseAnimation animation = parseAnimationObjectHelper(animationName, ExecutionType.PARALLEL);
+            ExecutableAnimationJni animation = parseAnimationObjectHelper(animationName, ExecutionType.PARALLEL);
             mParsedAnimations.put(animationName, animation);
             ViroLog.debug(TAG, "Parsed animation: [" + animationName + "]");
         }
@@ -89,7 +89,7 @@ public class AnimationManager extends ReactContextBaseJavaModule {
      * @param executionType - execution type
      * @return the parsed animation object
      */
-    private BaseAnimation parseAnimationObjectHelper(String animationName, ExecutionType executionType) {
+    private ExecutableAnimationJni parseAnimationObjectHelper(String animationName, ExecutionType executionType) {
         switch(mRawAnimations.getType(animationName)) {
             case Array:
                 return parseAnimationObject(mRawAnimations.getArray(animationName), executionType);
@@ -112,7 +112,7 @@ public class AnimationManager extends ReactContextBaseJavaModule {
      * @param executionType - the execution type
      * @return the parsed animation
      */
-    private BaseAnimation parseAnimationObjectHelper(ReadableArray array, int index,
+    private ExecutableAnimationJni parseAnimationObjectHelper(ReadableArray array, int index,
                                                      ExecutionType executionType) {
         switch(array.getType(index)) {
             case Array:
@@ -128,31 +128,31 @@ public class AnimationManager extends ReactContextBaseJavaModule {
         }
     }
 
-    private BaseAnimation parseAnimationObject(String animationName, ExecutionType executionType) {
+    private ExecutableAnimationJni parseAnimationObject(String animationName, ExecutionType executionType) {
         return parseAnimationObjectHelper(animationName, ExecutionType.SERIAL);
     }
 
-    private BaseAnimation parseAnimationObject(ReadableMap animationMap, ExecutionType executionType) {
+    private ExecutableAnimationJni parseAnimationObject(ReadableMap animationMap, ExecutionType executionType) {
         return parseAnimationMap(animationMap);
     }
 
-    private BaseAnimation parseAnimationObject(ReadableArray animationArray, ExecutionType executionType) {
+    private ExecutableAnimationJni parseAnimationObject(ReadableArray animationArray, ExecutionType executionType) {
         AnimationChainJni animationChain = new AnimationChainJni(executionType);
         for (int i = 0; i < animationArray.size(); i++) {
-            BaseAnimation childAnimation = parseAnimationObjectHelper(animationArray, i, ExecutionType.SERIAL);
+            ExecutableAnimationJni childAnimation = parseAnimationObjectHelper(animationArray, i, ExecutionType.SERIAL);
 
             if (childAnimation instanceof AnimationGroupJni) {
                 animationChain.addAnimation((AnimationGroupJni) childAnimation);
             } else if (childAnimation instanceof AnimationChainJni) {
                 animationChain.addAnimation((AnimationChainJni) childAnimation);
             } else {
-                ViroLog.warn(TAG, "Unknown BaseAnimation type [" + childAnimation.getClass().getSimpleName() + "]!");
+                ViroLog.warn(TAG, "Unknown ExecutableAnimation type [" + childAnimation.getClass().getSimpleName() + "]!");
             }
         }
         return animationChain;
     }
 
-    private BaseAnimation parseAnimationMap(ReadableMap animationMap) {
+    private ExecutableAnimationJni parseAnimationMap(ReadableMap animationMap) {
         ReadableMap propertyMap = animationMap.getMap("properties");
         String positionX = getFloatPropertyAsString(propertyMap, "positionX");
         String positionY = getFloatPropertyAsString(propertyMap, "positionY");
