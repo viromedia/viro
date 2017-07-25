@@ -66,7 +66,7 @@ var Viro3DObjectTest = React.createClass({
 
        <ViroAnimatedComponent animation="loopRotate" run={this.state.runAnimation1} >
          <Viro3DObject source={require('./res/destroyer.obj')}
-                       position={[1, 1, -5]}
+                       position={[0, 5, 0]}
                        materials={["grey"]}
                        rotation={[0, 45, 0]}
                        scale={[.1, .1, .1]}
@@ -75,10 +75,12 @@ var Viro3DObjectTest = React.createClass({
           />
        </ViroAnimatedComponent>
 
-       <Viro3DObject source={require('./res/minion.vrx')}
+       <Viro3DObject source={require('./res/bball.vrx')}
                      position={[0, 0, -12.0]}
                      rotation={[0, 0, 0]}
                      scale={[0.1, 0.1, 0.1]}
+                     animation={{name:"Take 001", delay:0, loop:true, run:true,
+                                 onStart:this._onAnimStart, onFinish:this._onAnimEnd}}
        />
 
        <ViroAnimatedComponent animation="loopRotate" run={this.state.runAnimation2} >
@@ -137,6 +139,14 @@ var Viro3DObjectTest = React.createClass({
 
   _showPrevious() {
     this.props.sceneNavigator.pop();
+  },
+
+  _onAnimStart() {
+    console.log("Viro3DObjectTest: _onAnimStart");
+  },
+
+  _onAnimEnd() {
+    console.log("Viro3DObjectTest: _onAnimEnd");
   },
 
   _startAnimation1() {

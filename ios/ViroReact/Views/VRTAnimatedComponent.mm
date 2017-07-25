@@ -10,52 +10,33 @@
 #import <React/RCTUIManager.h>
 #import "VRTAnimatedComponent.h"
 #import "VRTAnimationManager.h"
+#import "VRTManagedAnimation.h"
 #import "VRTNode.h"
-
-enum class VRTAnimatedComponentState {
-    Scheduled,
-    Running,
-    Paused,
-    Terminated
-};
 
 @interface VRTAnimatedComponent ()
 
 @property (readwrite, nonatomic) BOOL viewAdded;
-@property (readwrite, nonatomic) VRTAnimatedComponentState state;
 @property (readwrite, nonatomic) VRTAnimationManager *animationManager;
-@property (readwrite, nonatomic) std::shared_ptr<VROExecutableAnimation> executableAnimation;
-@property (readwrite, nonatomic) BOOL animationNeedsUpdate;
+@property (readwrite, nonatomic) VRTManagedAnimation *managedAnimation;
 
 @end
 
 @implementation VRTAnimatedComponent {
-    
     VRTAnimationManager *_animationManager;
 }
 
 - (instancetype)initWithBridge:(RCTBridge *)bridge  {
     self = [super initWithBridge:bridge];
     if (self) {
-        self.delay = -1.0f;
-        self.loop = false;
-        self.run = true;
-        self.animationNeedsUpdate = false;
-        
+        self.managedAnimation = [[VRTManagedAnimation alloc] init];
+        self.animationManager = [self.bridge animationManager];
         self.viewAdded = false;
-        self.state = VRTAnimatedComponentState::Terminated;
-        
-        _animationManager = [self.bridge animationManager];
     }
     return self;
 }
 
 - (void)dealloc {
-    // Cleanup any transactions that were paused
-    if (self.executableAnimation) {
-        self.executableAnimation->terminate();
-        self.executableAnimation.reset();
-    }
+    
 }
 
 #pragma mark - VRTView overrides
@@ -74,6 +55,7 @@ enum class VRTAnimatedComponentState {
 
 - (void)insertReactSubview:(UIView *)subview atIndex:(NSInteger)atIndex {
     self.vroSubview = (VRTNode *)subview;
+    self.managedAnimation.node = self.vroSubview.node;
     
     BOOL childFound = false;
     if (self.superview != nil) {
@@ -95,7 +77,7 @@ enum class VRTAnimatedComponentState {
     // If the parent view is added before the child, sceneWillAppear:
     // will have already been invoked, so run the animation here
     if (_viewAdded){
-        [self updateAnimation];
+        [self.managedAnimation updateAnimation];
     }
     
     [super insertReactSubview:subview atIndex:atIndex];
@@ -111,127 +93,49 @@ enum class VRTAnimatedComponentState {
 - (void)sceneWillAppear {
     [super sceneWillAppear];
     _viewAdded = true;
-    [self updateAnimation];
+    [self.managedAnimation updateAnimation];
 }
 
+#pragma mark - Animation Properties
+
 - (void)setRun:(BOOL)run {
-    _run = run;
-    _animationNeedsUpdate = YES;
+    self.managedAnimation.run = run;
 }
 
 - (void)setLoop:(BOOL)loop {
-    _loop = loop;
-    _animationNeedsUpdate = YES;
+    self.managedAnimation.loop = loop;
+}
+
+- (void)setDelay:(float)delay {
+    self.managedAnimation.delay = delay;
+}
+
+- (void)setOnStartViro:(RCTDirectEventBlock)onStartViro {
+    self.managedAnimation.onStart = onStartViro;
+}
+
+- (void)setOnFinishViro:(RCTDirectEventBlock)onFinishViro {
+    self.managedAnimation.onFinish = onFinishViro;
 }
 
 - (void)setAnimation:(NSString *)animation {
-    if (self.executableAnimation) {
-        self.executableAnimation->terminate();
-    }
-    
-    self.state = VRTAnimatedComponentState::Terminated;
-    // currently set animation.
-    _animation = animation;
-    _animationNeedsUpdate = YES;
-}
-
-- (void)updateAnimation {
-    if (!self.vroSubview) {
-        return;
-    }
-    
-    if (self.run) {
-        [self playAnimation];
-    }
-    else {
-        [self pauseAnimation];
-    }
-}
-
-- (void)didSetProps:(NSArray<NSString *> *)changedProps {
-    if (_animationNeedsUpdate) {
-        [self updateAnimation];
-        _animationNeedsUpdate = NO;
-    }
-}
-
-/*
- Plays the animation. If the animation is paused, resumes the animation.
- Otherwise starts a new animation if is not running. If there is a delay
- associated with this VRTAnimatedComponent, we start a new animation with the
- given delay.
- */
-- (void)playAnimation {
-    if (self.state == VRTAnimatedComponentState::Paused) {
-        self.executableAnimation->resume();
-        self.state = VRTAnimatedComponentState::Running;
-    }
-    else if(self.state == VRTAnimatedComponentState::Terminated) {
-        self.state = VRTAnimatedComponentState::Scheduled;
-        if(self.delay <= 0) {
-            // start animation right away if there is no delay.
-            [self startAnimation];
-        }else {
-            [self performSelector:@selector(startAnimation) withObject:self afterDelay:self.delay / 1000.0];
-        }
-    }
-}
-
-- (void)pauseAnimation {
-    if (self.state == VRTAnimatedComponentState::Running) {
-        self.executableAnimation->pause();
-        self.state = VRTAnimatedComponentState::Paused;
-    }
-    else if (self.state == VRTAnimatedComponentState::Scheduled) {
-        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(startAnimation) object:self];
-        self.state = VRTAnimatedComponentState::Terminated;
-        self.executableAnimation.reset();
-    }
-}
-
-- (void)startAnimation {
-    if (self.state != VRTAnimatedComponentState::Scheduled) {
-        NSLog(@"Aborted starting new animation, was no longer scheduled");
-        return;
-    }
-    
-    if ([_animationManager animationForName:self.animation] == nullptr) {
+    if ([_animationManager animationForName:animation] == nullptr) {
         RCTLogError(@"Unable to find Animation with name %@", self.animation);
         return;
     }
     
-    _executableAnimation = [_animationManager animationForName:self.animation]->copy();
-    
-    if (_executableAnimation) {
-        __weak VRTAnimatedComponent *weakSelf = self;
-        _executableAnimation->execute(self.vroSubview.node,
-                                      [weakSelf] {
-                                          if (weakSelf) {
-                                              [weakSelf onAnimationFinish];
-                                          }
-                                      });
-        if (self.onStartViro) {
-            self.onStartViro(nil);
-        }
-        self.state = VRTAnimatedComponentState::Running;
-    }
-    else {
-        NSLog(@"Error: attempted to start processing unknown animation!");
-        self.state = VRTAnimatedComponentState::Terminated;
-    }
+    _animation = animation;
 }
 
--(void)onAnimationFinish {
-    if (self.onFinishViro) {
-        self.onFinishViro(nil);
+- (void)didSetProps:(NSArray<NSString *> *)changedProps {
+    if (!self.vroSubview) {
+        return;
     }
     
-    self.state = VRTAnimatedComponentState::Terminated;
-    self.executableAnimation.reset();
-    
-    if (self.loop && self.run) {
-        [self playAnimation];
-    }
+    // Re-retrieve the animation from the animation manager each time, in case
+    // it changed. This is a cheap dictionary lookup.
+    self.managedAnimation.animation = [_animationManager animationForName:self.animation]->copy();
+    [self.managedAnimation updateAnimation];
 }
 
 @end

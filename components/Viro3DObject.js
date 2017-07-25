@@ -58,6 +58,14 @@ var Viro3DObject = React.createClass({
         PropTypes.number,
       ])
     ),
+    animation: React.PropTypes.shape({
+      name: PropTypes.string,
+      delay: PropTypes.number,
+      loop: PropTypes.bool,
+      onStart: React.PropTypes.func,
+      onFinish: React.PropTypes.func,
+      run: PropTypes.bool,
+    }),
     visible: PropTypes.bool,
 
     onHover: React.PropTypes.func,
@@ -180,6 +188,14 @@ var Viro3DObject = React.createClass({
         this.props.onFuse.callback(event.nativeEvent.source);
       }
     }
+  },
+
+  _onAnimationStart: function(event: Event) {
+    this.props.animation && this.props.animation.onStart && this.props.animation.onStart();
+  },
+
+  _onAnimationFinish: function(event: Event) {
+    this.props.animation && this.props.animation.onFinish && this.props.animation.onFinish();
   },
 
   applyImpulse: function(force, position) {
@@ -316,6 +332,8 @@ var Viro3DObject = React.createClass({
         onLoadStartViro={this._onLoadStart}
         onLoadEndViro={this._onLoadEnd}
         onErrorViro={this._onError}
+        onAnimationStartViro={this._onAnimationStart}
+        onAnimationFinishViro={this._onAnimationFinish}
         timeToFuse={timeToFuse}
         canCollide={this.props.onCollided != undefined}
         onCollidedViro={this._onCollided}
@@ -348,7 +366,9 @@ var VRT3DObject = requireNativeComponent(
             canCollide:true,
             onCollidedViro:true,
             onNativeTransformDelegateViro:true,
-            hasTransformDelegate:true
+            hasTransformDelegate:true,
+            onAnimationStartViro:true,
+            onAnimationFinishViro:true,
           }
   }
 );
