@@ -36,7 +36,6 @@ RCT_EXPORT_METHOD(requestExit:(nonnull NSNumber *)reactTag)
             [component userDidRequestExitVR];
         }
     }];
-    
 }
 
 @end

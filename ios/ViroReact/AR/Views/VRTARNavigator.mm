@@ -124,6 +124,25 @@ static NSString *const kVRTInvalidAPIKeyMessage = @"The given API Key is either 
     [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:kVRTOnExitViro object:nil]];
 }
 
+- (void)startVideoRecording:(NSString *)fileName
+           saveToCameraRoll:(BOOL)saveToCameraRoll {
+    VROViewAR *viewAR = (VROViewAR *) _vroView;
+    [viewAR startVideoRecording:fileName saveToCameraRoll:saveToCameraRoll];
+}
+
+- (void)stopVideoRecordingWithHandler:(VROViewWriteMediaFinishBlock)completionHandler {
+    VROViewAR *viewAR = (VROViewAR *) _vroView;
+    [viewAR stopVideoRecordingWithHandler:completionHandler];
+}
+
+- (void)takeScreenshot:(NSString *)fileName
+      saveToCameraRoll:(BOOL)saveToCameraRoll
+     completionHandler:(VROViewWriteMediaFinishBlock)completionHandler {
+    VROViewAR *viewAR = (VROViewAR *) _vroView;
+    [viewAR takeScreenshot:fileName saveToCameraRoll:saveToCameraRoll withCompletionHandler:completionHandler];
+    
+}
+
 - (void)setSceneView:(VRTScene *)sceneView {
     if (_currentScene == sceneView) {
         return;

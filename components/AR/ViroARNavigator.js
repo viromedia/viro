@@ -74,6 +74,9 @@ var ViroARNavigator = React.createClass({
       jump: this.jump,
       replace: this.replace,
       exitViro: this.exitViro,
+      startVideoRecording: this._startVideoRecording,
+      stopVideoRecording: this._stopVideoRecording,
+      takeScreenshot: this._takeScreenshot,
     };
   },
 
@@ -378,6 +381,18 @@ var ViroARNavigator = React.createClass({
 
   _recenterTracking() {
     ViroARNavigatorModule.recenterTracking(this._getNodeHandle());
+  },
+
+  _startVideoRecording(fileName, saveToCameraRoll) {
+    return ViroARNavigatorModule.startVideoRecording(findNodeHandle(this), fileName, saveToCameraRoll);
+  },
+
+  async _stopVideoRecording() {
+    return await ViroARNavigatorModule.stopVideoRecording(findNodeHandle(this));
+  },
+
+  async _takeScreenshot(fileName, saveToCameraRoll) {
+    return await ViroARNavigatorModule.takeScreenshot(findNodeHandle(this), fileName, saveToCameraRoll);
   },
 
   _renderSceneStackItems: function() {

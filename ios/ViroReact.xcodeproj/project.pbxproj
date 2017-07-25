@@ -22,6 +22,8 @@
 		8A744F5E1EEF655F00ECDBC4 /* VRTARNavigatorManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 8A744F5C1EEF655F00ECDBC4 /* VRTARNavigatorManager.h */; };
 		8A7743821EEF62F90004C17A /* VRTARNavigator.h in Headers */ = {isa = PBXBuildFile; fileRef = 8A7743801EEF62F90004C17A /* VRTARNavigator.h */; };
 		8A7743831EEF62F90004C17A /* VRTARNavigator.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8A7743811EEF62F90004C17A /* VRTARNavigator.mm */; };
+		8A82C1311F27D35C00736972 /* VRTARNavigatorModule.h in Headers */ = {isa = PBXBuildFile; fileRef = 8A82C12F1F27D35C00736972 /* VRTARNavigatorModule.h */; };
+		8A82C1321F27D35C00736972 /* VRTARNavigatorModule.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8A82C1301F27D35C00736972 /* VRTARNavigatorModule.mm */; };
 		8AEFA2241EF3175C006851B7 /* VRTARPlaneManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 8AEFA2221EF3175C006851B7 /* VRTARPlaneManager.h */; };
 		8AEFA2251EF3175C006851B7 /* VRTARPlaneManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8AEFA2231EF3175C006851B7 /* VRTARPlaneManager.mm */; };
 		8AEFA22A1EF3197E006851B7 /* VRTARPlane.h in Headers */ = {isa = PBXBuildFile; fileRef = 8AEFA2281EF3197E006851B7 /* VRTARPlane.h */; };
@@ -378,6 +380,8 @@
 		8A744F5C1EEF655F00ECDBC4 /* VRTARNavigatorManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VRTARNavigatorManager.h; path = ViroReact/AR/Managers/VRTARNavigatorManager.h; sourceTree = "<group>"; };
 		8A7743801EEF62F90004C17A /* VRTARNavigator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = VRTARNavigator.h; path = ViroReact/AR/Views/VRTARNavigator.h; sourceTree = "<group>"; };
 		8A7743811EEF62F90004C17A /* VRTARNavigator.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = VRTARNavigator.mm; path = ViroReact/AR/Views/VRTARNavigator.mm; sourceTree = "<group>"; };
+		8A82C12F1F27D35C00736972 /* VRTARNavigatorModule.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = VRTARNavigatorModule.h; path = ViroReact/AR/Modules/VRTARNavigatorModule.h; sourceTree = "<group>"; };
+		8A82C1301F27D35C00736972 /* VRTARNavigatorModule.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = VRTARNavigatorModule.mm; path = ViroReact/AR/Modules/VRTARNavigatorModule.mm; sourceTree = "<group>"; };
 		8AEFA2221EF3175C006851B7 /* VRTARPlaneManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = VRTARPlaneManager.h; path = ViroReact/AR/Managers/VRTARPlaneManager.h; sourceTree = "<group>"; };
 		8AEFA2231EF3175C006851B7 /* VRTARPlaneManager.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = VRTARPlaneManager.mm; path = ViroReact/AR/Managers/VRTARPlaneManager.mm; sourceTree = "<group>"; };
 		8AEFA2281EF3197E006851B7 /* VRTARPlane.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = VRTARPlane.h; path = ViroReact/AR/Views/VRTARPlane.h; sourceTree = "<group>"; };
@@ -556,6 +560,7 @@
 			children = (
 				8A77437F1EEF5EDD0004C17A /* Views */,
 				8A77437D1EEF5EC90004C17A /* Manager */,
+				8A82C12C1F27D2D000736972 /* Modules */,
 			);
 			name = AR;
 			sourceTree = "<group>";
@@ -586,6 +591,15 @@
 				8A0524311EF0A49C00A02361 /* VRTARScene.mm */,
 			);
 			name = Views;
+			sourceTree = "<group>";
+		};
+		8A82C12C1F27D2D000736972 /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				8A82C12F1F27D35C00736972 /* VRTARNavigatorModule.h */,
+				8A82C1301F27D35C00736972 /* VRTARNavigatorModule.mm */,
+			);
+			name = Modules;
 			sourceTree = "<group>";
 		};
 		8BDD9D9F1E09F39B00A42870 /* Products */ = {
@@ -833,6 +847,7 @@
 				8BDDA1061E5BD3FB00A42870 /* VRT3DObject.h in Headers */,
 				8BDDA1071E5BD3FB00A42870 /* VRT360Image.h in Headers */,
 				8BDDA1081E5BD3FC00A42870 /* VRT360Video.h in Headers */,
+				8A82C1311F27D35C00736972 /* VRTARNavigatorModule.h in Headers */,
 				8BDDA1091E5BD3FC00A42870 /* VRTAnimatedComponent.h in Headers */,
 				8BDDA10A1E5BD3FC00A42870 /* VRTAnimatedComponentShadowView.h in Headers */,
 				8BDDA10B1E5BD3FC00A42870 /* VRTBox.h in Headers */,
@@ -1026,7 +1041,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "$SRCROOT/ngrok_launch.sh";
+			shellScript = $SRCROOT/ngrok_launch.sh;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1052,6 +1067,7 @@
 				8A130D811E3AAEA10050D83B /* VRTSound.mm in Sources */,
 				8BE0D50C1DFA3D9B0032AB99 /* VRTShadowFlexView.mm in Sources */,
 				8BE0D4F91DFA3D9B0032AB99 /* VRTAnimatedComponentShadowView.mm in Sources */,
+				8A82C1321F27D35C00736972 /* VRTARNavigatorModule.mm in Sources */,
 				8BE0D5071DFA3D9B0032AB99 /* VRTNodeContainerShadowView.mm in Sources */,
 				8AFC1C381EC1001C0000F7EB /* VRTPolyline.mm in Sources */,
 				8BCF287C1E8090A900F0DD62 /* VRTUIImageWrapper.m in Sources */,

@@ -29,4 +29,14 @@
 - (UIView *)rootVROView;
 - (void)invalidate;
 
+- (void)startVideoRecording:(NSString *)fileName
+           saveToCameraRoll:(BOOL)saveToCameraRoll;
+
+- (void)stopVideoRecordingWithHandler:(VROViewWriteMediaFinishBlock)completionHandler;
+
+- (void)takeScreenshot:(NSString *)fileName
+      saveToCameraRoll:(BOOL)saveToCameraRoll
+     completionHandler:(VROViewWriteMediaFinishBlock)completionHandler;
+    
+
 @end

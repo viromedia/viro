@@ -7,6 +7,7 @@
 //
 
 #import <React/RCTUIManager.h>
+#import <ViroKit/ViroKit.h>
 #import "VRTARNavigatorManager.h"
 #import "VRTARNavigator.h"
 
@@ -28,13 +29,12 @@ RCT_EXPORT_METHOD(requestExit:(nonnull NSNumber *)reactTag)
     [self.bridge.uiManager addUIBlock:^(__unused RCTUIManager *uiManager, NSDictionary<NSNumber *, UIView *> *viewRegistry) {
         VRTView *view = (VRTView *)viewRegistry[reactTag];
         if (![view isKindOfClass:[VRTARNavigator class]]) {
-            RCTLogError(@"Invalid view returned from registry, expecting VRTSceneNavigator, got: %@", view);
+            RCTLogError(@"Invalid view returned from registry, expecting VRTARNavigator, got: %@", view);
         } else {
             VRTARNavigator *component = (VRTARNavigator *)view;
             [component userDidRequestExitVR];
         }
     }];
-    
 }
 
 @end
