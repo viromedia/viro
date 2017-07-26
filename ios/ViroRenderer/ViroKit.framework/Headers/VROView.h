@@ -22,6 +22,13 @@ enum class VROTimingFunctionType;
 
 typedef void (^VROViewValidApiKeyBlock)(BOOL);
 
+/*
+ This block is used when video recording and taking screenshot completes.
+ */
+typedef void (^VROViewWriteMediaFinishBlock)(NSURL *);
+
+static NSString *const kVROViewTempMediaDirectory = @"viro_media";
+
 @protocol VROView <NSObject>
 
 @required
@@ -37,6 +44,12 @@ typedef void (^VROViewValidApiKeyBlock)(BOOL);
 - (void)validateApiKey:(NSString *)apiKey withCompletionBlock:(VROViewValidApiKeyBlock)completionBlock;
 - (void)setDebugHUDEnabled:(BOOL)enabled;
 - (void)recenterTracking;
+
+- (void)startVideoRecording:(NSString *)fileName saveToCameraRoll:(BOOL)saveToCamera;
+- (void)stopVideoRecordingWithHandler:(VROViewWriteMediaFinishBlock)completionHandler;
+- (void)takeScreenshot:(NSString *)fileName
+      saveToCameraRoll:(BOOL)saveToCamera
+ withCompletionHandler:(VROViewWriteMediaFinishBlock)completionHandler;
 
 /*
  Calling setVrMode allows switching to and from VR mode.
