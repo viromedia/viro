@@ -1,9 +1,13 @@
+/*
+ * Copyright © 2017 Viro Media. All rights reserved.
+ */
 package com.viromedia.bridge.component;
 
 import android.os.Handler;
 import android.os.Looper;
 
 import com.facebook.react.bridge.ReactApplicationContext;
+import com.facebook.react.bridge.ReadableMap;
 import com.viromedia.bridge.component.node.Node;
 import com.viromedia.bridge.utility.ViroEvents;
 import com.viromedia.bridge.utility.ViroLog;
@@ -13,10 +17,11 @@ import com.viro.renderer.jni.NodeJni;
 
 import java.lang.ref.WeakReference;
 
-/*
- * Copyright © 2017 Viro Media. All rights reserved.
+/**
+ * Manages the state (play, pause, loop, etc.) of an animation. Abstracts
+ * away the loading of the ExecutableAnimationJni to subclasses.
  */
-public class ManagedAnimation {
+public abstract class ManagedAnimation {
     private static final String TAG = ViroLog.getTag(ManagedAnimation.class);
 
     private enum AnimationState {
@@ -60,6 +65,60 @@ public class ManagedAnimation {
         mParentComponent = parent;
     }
 
+    public void onTearDown() {
+        if (mExecutableAnimation != null) {
+            mExecutableAnimation.terminate();
+            mExecutableAnimation.destroy();
+        }
+    }
+
+    /**
+     * Load the animation. This is invoked each time the animation runs,
+     * in case the animation properties changed and need to be refreshed.
+     * The ManagedAnimation will own this animation, and will destroy it
+     * on tear down.
+     *
+     * Return null to not run an animation.
+     */
+    public abstract ExecutableAnimationJni loadAnimation();
+
+    /**
+     * Load the animation fresh from its sources. This is only invoked
+     * when an animation is scheduled (just before starting). If null is
+     * returned by loadAnimation, then we keep the existing animation.
+     */
+    private void handleLoadAnimation() {
+        ExecutableAnimationJni animation = loadAnimation();
+        if (mExecutableAnimation != null) {
+            mExecutableAnimation.destroy();
+        }
+
+        mExecutableAnimation = animation;
+    }
+
+    public void parseFromMap(ReadableMap map) {
+        if (map.hasKey("delay")) {
+            setDelay((float) map.getDouble("delay"));
+        }
+        else {
+            setDelay(-1);
+        }
+
+        if (map.hasKey("loop")) {
+            setLoop(map.getBoolean("loop"));
+        }
+        else {
+            setLoop(false);
+        }
+
+        if (map.hasKey("run")) {
+            setRun(map.getBoolean("run"));
+        }
+        else {
+            setRun(false);
+        }
+    }
+
     public void setLoop(boolean loop) {
         mLoop = loop;
     }
@@ -77,16 +136,6 @@ public class ManagedAnimation {
      */
     public void setNode(Node node) {
         mNode = node;
-    }
-
-    public void setAnimation(ExecutableAnimationJni animation) {
-        // Terminate the old animation if there was one and reset the state
-        if (mExecutableAnimation != null) {
-            mExecutableAnimation.terminate();
-        }
-
-        mState = AnimationState.TERMINATED;
-        mExecutableAnimation = animation;
     }
 
     public void updateAnimation() {
@@ -160,17 +209,26 @@ public class ManagedAnimation {
     private void startAnimation() {
         if (mState != AnimationState.SCHEDULED) {
             ViroLog.info(TAG, "Aborted starting new animation, was no longer scheduled");
+            mState = AnimationState.TERMINATED;
             return;
         }
         if (mNode == null) {
-            ViroLog.info(TAG, "Aborted starting new animation, node is not set");
+            ViroLog.info(TAG, "Aborted starting new animation, no target node specified");
+            mState = AnimationState.TERMINATED;
             return;
         }
         if (mNode.isTornDown()) {
             ViroLog.info(TAG, "Aborted starting new animation, node is torn down");
+            mState = AnimationState.TERMINATED;
             return;
         }
 
+        handleLoadAnimation();
+        if (mExecutableAnimation == null) {
+            ViroLog.info(TAG, "Aborted starting new animation, no animation is loaded");
+            mState = AnimationState.TERMINATED;
+            return;
+        }
         onStartAnimation();
 
         final WeakReference<ManagedAnimation> weakSelf = new WeakReference<>(this);
@@ -192,7 +250,7 @@ public class ManagedAnimation {
     private void onStartAnimation() {
         mReactContext.getJSModule(RCTEventEmitter.class).receiveEvent(
                 mParentComponent.getId(),
-                ViroEvents.ON_START,
+                ViroEvents.ON_ANIMATION_START,
                 null);
     }
 
@@ -203,7 +261,7 @@ public class ManagedAnimation {
     private void onFinishAnimation(ExecutableAnimationJni animation) {
         mReactContext.getJSModule(RCTEventEmitter.class).receiveEvent(
                 mParentComponent.getId(),
-                ViroEvents.ON_FINISH,
+                ViroEvents.ON_ANIMATION_FINISH,
                 null);
 
         // If the animation changed, we won't terminate or loop

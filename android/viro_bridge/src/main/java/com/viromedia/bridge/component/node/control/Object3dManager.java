@@ -65,11 +65,18 @@ public class Object3dManager extends NodeManager<Object3d> {
         object3d.setResources(resourceList);
     }
 
+    @ReactProp(name = "animation")
+    public void setAnimation(Object3d object3d, @Nullable ReadableMap map) {
+        object3d.setAnimation(map);
+    }
+
     @Override
     public Map getExportedCustomDirectEventTypeConstants() {
         return MapBuilder.of(
                 ViroEvents.ON_LOAD_START, MapBuilder.of("registrationName", ViroEvents.ON_LOAD_START),
                 ViroEvents.ON_LOAD_END, MapBuilder.of("registrationName", ViroEvents.ON_LOAD_END),
-                ViroEvents.ON_ERROR, MapBuilder.of("registrationName", ViroEvents.ON_ERROR));
+                ViroEvents.ON_ERROR, MapBuilder.of("registrationName", ViroEvents.ON_ERROR),
+                ViroEvents.ON_ANIMATION_START, MapBuilder.of("registrationName", ViroEvents.ON_ANIMATION_START),
+                ViroEvents.ON_ANIMATION_FINISH, MapBuilder.of("registrationName", ViroEvents.ON_ANIMATION_FINISH));
     }
 }

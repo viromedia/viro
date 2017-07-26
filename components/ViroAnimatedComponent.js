@@ -39,8 +39,8 @@ var ViroAnimatedComponent = React.createClass({
 
   render: function() {
     let nativeProps = Object.assign({}, this.props);
-    nativeProps.onFinishViro = this._onFinish;
-    nativeProps.onStartViro = this._onStart;
+    nativeProps.onAnimationFinishViro = this._onFinish;
+    nativeProps.onAnimationStartViro = this._onStart;
 
     return (
       <VRTAnimatedComponent {...nativeProps} />
@@ -51,7 +51,7 @@ var ViroAnimatedComponent = React.createClass({
 
 var VRTAnimatedComponent = requireNativeComponent(
   'VRTAnimatedComponent', ViroAnimatedComponent, {
-    nativeOnly: { onStartViro:true, onFinishViro:true }
+    nativeOnly: { onAnimationStartViro:true, onAnimationFinishViro:true }
   }
 );
 

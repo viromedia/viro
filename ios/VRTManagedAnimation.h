@@ -19,9 +19,15 @@ class VROExecutableAnimation;
 @property (nonatomic, assign) BOOL loop;
 @property (nonatomic, assign) BOOL run;
 @property (nonatomic, readwrite) std::weak_ptr<VRONode> node;
-@property (nonatomic, readwrite) std::shared_ptr<VROExecutableAnimation> animation;
 @property (nonatomic, copy) RCTDirectEventBlock onStart;
 @property (nonatomic, copy) RCTDirectEventBlock onFinish;
+
+/*
+ Implemented by subclasses: load the animation to be run. This is 
+ invoked just before each time we start the animation, so that the
+ animation may be updated between loops.
+ */
+- (std::shared_ptr<VROExecutableAnimation>)loadAnimation;
 
 /*
  Invoke after updating any animation properties. Changes the running

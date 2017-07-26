@@ -15,6 +15,8 @@ public class ViroEvents {
     public static final String ON_UPDATE_TIME = "onUpdateTimeViro";
     public static final String ON_START = "onStartViro";
     public static final String ON_FINISH = "onFinishViro";
+    public static final String ON_ANIMATION_START = "onAnimationStartViro";
+    public static final String ON_ANIMATION_FINISH = "onAnimationFinishViro";
     public static final String ON_HOVER = "onHoverViro";
     public static final String ON_CLICK = "onClickViro";
     public static final String ON_TOUCH = "onTouchViro";

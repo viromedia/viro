@@ -50,7 +50,7 @@ public class AnimatedComponentManager extends ViroViewGroupManager<AnimatedCompo
     @Override
     public Map getExportedCustomDirectEventTypeConstants() {
         return MapBuilder.of(
-                ViroEvents.ON_START, MapBuilder.of("registrationName", ViroEvents.ON_START),
-                ViroEvents.ON_FINISH, MapBuilder.of("registrationName", ViroEvents.ON_FINISH));
+                ViroEvents.ON_ANIMATION_START, MapBuilder.of("registrationName", ViroEvents.ON_ANIMATION_START),
+                ViroEvents.ON_ANIMATION_FINISH, MapBuilder.of("registrationName", ViroEvents.ON_ANIMATION_FINISH));
     }
 }

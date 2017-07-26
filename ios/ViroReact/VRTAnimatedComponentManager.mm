@@ -18,8 +18,8 @@ RCT_EXPORT_VIEW_PROPERTY(animation, NSString);
 RCT_EXPORT_VIEW_PROPERTY(loop, BOOL);
 RCT_EXPORT_VIEW_PROPERTY(delay, float);
 RCT_EXPORT_VIEW_PROPERTY(run, BOOL);
-RCT_EXPORT_VIEW_PROPERTY(onStartViro, RCTDirectEventBlock);
-RCT_EXPORT_VIEW_PROPERTY(onFinishViro, RCTDirectEventBlock);
+RCT_EXPORT_VIEW_PROPERTY(onAnimationStartViro, RCTDirectEventBlock);
+RCT_EXPORT_VIEW_PROPERTY(onAnimationFinishViro, RCTDirectEventBlock);
 
 - (VRTView *)view
 {

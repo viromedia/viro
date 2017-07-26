@@ -12,10 +12,41 @@
 #import "VRTUtils.h"
 #import "VRTManagedAnimation.h"
 
+@interface VRT3DObjectAnimation : VRTManagedAnimation
+
+@property (readwrite, nonatomic) std::string animationKey;
+
+- (std::shared_ptr<VROExecutableAnimation>)loadAnimation;
+
+@end
+
+@implementation VRT3DObjectAnimation
+
+- (std::shared_ptr<VROExecutableAnimation>)loadAnimation {
+    std::shared_ptr<VRONode> node = self.node.lock();
+    if (!node) {
+        return nullptr;
+    }
+    
+    if (!self.animationKey.empty()) {
+        return node->getAnimation(self.animationKey, true);
+    }
+    else {
+        return nullptr;
+    }
+}
+
+- (void)setAnimationKey:(std::string)key {
+    _animationKey = key;
+    [super updateAnimation];
+}
+
+@end
+
 @interface VRT3DObject ()
 
 @property (readwrite, nonatomic) NSString *animationName;
-@property (readwrite, nonatomic) VRTManagedAnimation *managedAnimation;
+@property (readwrite, nonatomic) VRT3DObjectAnimation *managedAnimation;
 
 @end
 
@@ -30,7 +61,7 @@
 - (instancetype)initWithBridge:(RCTBridge *)bridge  {
     self = [super initWithBridge:bridge];
     _sourceChanged = NO;
-    self.managedAnimation = [[VRTManagedAnimation alloc] init];
+    self.managedAnimation = [[VRT3DObjectAnimation alloc] init];
     self.managedAnimation.node = self.node;
     
     return self;
@@ -67,12 +98,7 @@
             RCTLogWarn(@"Animation %@ cannot be run: was not found on object!", self.animationName);
         }
     }
-    
-    if (!key.empty()) {
-        std::shared_ptr<VROExecutableAnimation> executableAnimation = self.node->getAnimation(key, true);
-        self.managedAnimation.animation = executableAnimation;
-        [self.managedAnimation updateAnimation];
-    }
+    self.managedAnimation.animationKey = key;
 }
 
 - (void)setAnimation:(NSDictionary *)animation {

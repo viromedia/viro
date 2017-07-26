@@ -17,15 +17,46 @@ import com.viromedia.bridge.utility.ViroLog;
 public class AnimatedComponent extends Component {
     private static final String TAG = ViroLog.getTag(AnimatedComponent.class);
 
-    private String mAnimation = null;
-    private ManagedAnimation mManagedAnimation = null;
+    private static class AnimatedComponentAnimation extends ManagedAnimation {
+
+        private String mAnimationName;
+        private AnimationManager mAnimationManager;
+
+        public AnimatedComponentAnimation(ReactApplicationContext context, Component parent) {
+            super(context, parent);
+            mAnimationManager = context.getNativeModule(AnimationManager.class);
+        }
+
+        public void setAnimationName(String name) {
+            mAnimationName = name;
+            super.updateAnimation();
+        }
+
+        @Override
+        public ExecutableAnimationJni loadAnimation() {
+            if (mAnimationName != null) {
+                return mAnimationManager.getAnimation(mAnimationName).copy();
+            }
+            else {
+                return null;
+            }
+        }
+    }
+
+    private AnimatedComponentAnimation mManagedAnimation = null;
     private AnimationManager mAnimationManager = null;
     private Node mChildNode = null;
 
     public AnimatedComponent(ReactApplicationContext context) {
         super(context);
-        mManagedAnimation = new ManagedAnimation(context, this);
+        mManagedAnimation = new AnimatedComponentAnimation(context, this);
         mAnimationManager = context.getNativeModule(AnimationManager.class);
+    }
+
+    @Override
+    public void onTearDown() {
+        super.onTearDown();
+        mManagedAnimation.onTearDown();
     }
 
     public void setRun(boolean run) {
@@ -45,7 +76,7 @@ public class AnimatedComponent extends Component {
             throw new IllegalArgumentException("Unable to find animation with name [" + animationName + "]");
         }
 
-        mAnimation = animationName;
+        mManagedAnimation.setAnimationName(animationName);
     }
 
     /**
@@ -89,10 +120,7 @@ public class AnimatedComponent extends Component {
 
     @Override
     protected void onPropsSet() {
-        if (mAnimation != null) {
-            mManagedAnimation.setAnimation(mAnimationManager.getAnimation(mAnimation));
-            mManagedAnimation.updateAnimation();
-        }
+        mManagedAnimation.updateAnimation();
     }
 
     /**

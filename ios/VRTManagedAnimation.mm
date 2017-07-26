@@ -43,14 +43,12 @@ enum class VRTAnimationState {
     }
 }
 
-- (void)setAnimation:(std::shared_ptr<VROExecutableAnimation>)animation {
-    if (self.executableAnimation) {
-        self.executableAnimation->terminate();
-    }
-    
-    self.state = VRTAnimationState::Terminated;
-    // currently set animation.
-    _executableAnimation = animation;
+- (std::shared_ptr<VROExecutableAnimation>)loadAnimation {
+    return nullptr;
+}
+
+- (void)handleLoadAnimation {
+    self.executableAnimation = [self loadAnimation];
 }
 
 - (void)parseFromDictionary:(NSDictionary *)dictionary {
@@ -105,18 +103,12 @@ enum class VRTAnimationState {
     else if (self.state == VRTAnimationState::Scheduled) {
         [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(startAnimation) object:self];
         self.state = VRTAnimationState::Terminated;
-        self.executableAnimation.reset();
     }
 }
 
 - (void)startAnimation {
     if (self.state != VRTAnimationState::Scheduled) {
         NSLog(@"Aborted starting new animation, was no longer scheduled");
-        return;
-    }
-    
-    if (!self.executableAnimation) {
-        NSLog(@"Cannot start animation: no animation loaded!");
         self.state = VRTAnimationState::Terminated;
         return;
     }
@@ -124,32 +116,39 @@ enum class VRTAnimationState {
     std::shared_ptr<VRONode> node = self.node.lock();
     if (!node) {
         NSLog(@"Aborted starting new animation, no target node specified");
+        self.state = VRTAnimationState::Terminated;
         return;
     }
     
-    __weak VRTManagedAnimation *weakSelf = self;
-    _executableAnimation->execute(node,
-                                  [weakSelf] {
-                                      if (weakSelf) {
-                                          [weakSelf onAnimationFinish];
-                                      }
-                                  });
+    [self handleLoadAnimation];
+    if (!self.executableAnimation) {
+        NSLog(@"Cannot start animation: no animation loaded!");
+        self.state = VRTAnimationState::Terminated;
+        return;
+    }
     if (self.onStart) {
         self.onStart(nil);
     }
+    
+    __weak VRTManagedAnimation *weakSelf = self;
+    std::shared_ptr<VROExecutableAnimation> animation = _executableAnimation;
+    animation->execute(node, [weakSelf, animation] {
+                             if (weakSelf) {
+                                 [weakSelf onAnimationFinish:animation];
+                             }});
     self.state = VRTAnimationState::Running;
 }
 
--(void)onAnimationFinish {
+- (void)onAnimationFinish:(std::shared_ptr<VROExecutableAnimation>)animation {
     if (self.onFinish) {
         self.onFinish(nil);
     }
     
-    self.state = VRTAnimationState::Terminated;
-    self.executableAnimation.reset();
-    
-    if (self.loop && self.run) {
-        [self playAnimation];
+    if (self.executableAnimation == animation) {
+        self.state = VRTAnimationState::Terminated;
+        if (self.loop && self.run) {
+            [self playAnimation];
+        }
     }
 }
 

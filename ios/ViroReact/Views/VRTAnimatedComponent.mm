@@ -13,11 +13,38 @@
 #import "VRTManagedAnimation.h"
 #import "VRTNode.h"
 
+@interface VRTAnimatedComponentAnimation : VRTManagedAnimation
+
+@property (readwrite, nonatomic) NSString *animationName;
+@property (readwrite, nonatomic) VRTAnimationManager *animationManager;
+
+- (std::shared_ptr<VROExecutableAnimation>)loadAnimation;
+
+@end
+
+@implementation VRTAnimatedComponentAnimation
+
+- (std::shared_ptr<VROExecutableAnimation>)loadAnimation {
+    if (self.animationName != nil) {
+        return [self.animationManager animationForName:self.animationName]->copy();
+    }
+    else {
+        return nullptr;
+    }
+}
+
+- (void)setAnimationName:(NSString *)animationName {
+    _animationName = [animationName copy];
+    [super updateAnimation];
+}
+
+@end
+
 @interface VRTAnimatedComponent ()
 
 @property (readwrite, nonatomic) BOOL viewAdded;
 @property (readwrite, nonatomic) VRTAnimationManager *animationManager;
-@property (readwrite, nonatomic) VRTManagedAnimation *managedAnimation;
+@property (readwrite, nonatomic) VRTAnimatedComponentAnimation *managedAnimation;
 
 @end
 
@@ -28,7 +55,8 @@
 - (instancetype)initWithBridge:(RCTBridge *)bridge  {
     self = [super initWithBridge:bridge];
     if (self) {
-        self.managedAnimation = [[VRTManagedAnimation alloc] init];
+        self.managedAnimation = [[VRTAnimatedComponentAnimation alloc] init];
+        self.managedAnimation.animationManager = [self.bridge animationManager];
         self.animationManager = [self.bridge animationManager];
         self.viewAdded = false;
     }
@@ -110,11 +138,11 @@
     self.managedAnimation.delay = delay;
 }
 
-- (void)setOnStartViro:(RCTDirectEventBlock)onStartViro {
+- (void)setOnAnimationStartViro:(RCTDirectEventBlock)onStartViro {
     self.managedAnimation.onStart = onStartViro;
 }
 
-- (void)setOnFinishViro:(RCTDirectEventBlock)onFinishViro {
+- (void)setOnAnimationFinishViro:(RCTDirectEventBlock)onFinishViro {
     self.managedAnimation.onFinish = onFinishViro;
 }
 
@@ -131,11 +159,7 @@
     if (!self.vroSubview) {
         return;
     }
-    
-    // Re-retrieve the animation from the animation manager each time, in case
-    // it changed. This is a cheap dictionary lookup.
-    self.managedAnimation.animation = [_animationManager animationForName:self.animation]->copy();
-    [self.managedAnimation updateAnimation];
+    self.managedAnimation.animationName = self.animation;
 }
 
 @end
