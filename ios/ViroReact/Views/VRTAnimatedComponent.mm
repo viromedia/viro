@@ -90,7 +90,7 @@
         // The supernode of a VRTAnimatedComponent is always a VRTNode
         VRTNode *supernodeView = (VRTNode *) self.superview;
         
-        std::vector<std::shared_ptr<VRONode>> subnodeArray = supernodeView.node->getSubnodes();
+        std::vector<std::shared_ptr<VRONode>> subnodeArray = supernodeView.node->getChildNodes();
         for (std::shared_ptr<VRONode> node: subnodeArray){
             if (node.get() == self.vroSubview.node.get()) {
                 childFound = true;

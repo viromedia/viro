@@ -57,7 +57,7 @@ static NSArray<NSNumber *> *const kDefaultSize = @[@(0), @(0), @(0)];
     _sceneController->setDelegate(_delegate);
     
     //Set root node for this scene
-    _sceneController->getScene()->addNode(self.node);
+    _sceneController->getScene()->getRootNode()->addChildNode(self.node);
 }
 
 - (void)setView:(id <VROView>)view {

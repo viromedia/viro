@@ -69,7 +69,7 @@ const double kTransformDelegateDistanceFilter = 0.01;
 
       VRTNode *subsubNodeView = (VRTNode *)subsubview;
 
-      std::vector<std::shared_ptr<VRONode>> subnodeArray = self.node->getSubnodes();
+      std::vector<std::shared_ptr<VRONode>> subnodeArray = self.node->getChildNodes();
       for(std::shared_ptr<VRONode> node: subnodeArray){
         if(node.get() == subsubNodeView.node.get()){
           childFound = true;

@@ -157,7 +157,7 @@
             self.node->setGeometry(node->getGeometry());
             
             // The children are set for FBX models (in FBX, the root node is a dummy node)
-            for (std::shared_ptr<VRONode> child : node->getSubnodes()) {
+            for (std::shared_ptr<VRONode> child : node->getChildNodes()) {
                 self.node->addChildNode(child);
             }
             

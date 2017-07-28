@@ -90,7 +90,9 @@
     if (_sphereTextureAddedToScene) {
         float rotationValues[3] = {0.0f, 0.0f, 0.0f};
         populateFloatArrayFromNSArray(_rotation, rotationValues, 3);
-        self.scene->setBackgroundRotation({toRadians(rotationValues[0]), toRadians(rotationValues[1]), toRadians(rotationValues[2])});
+        self.scene->getRootNode()->setBackgroundRotation({toRadians(rotationValues[0]),
+                                                          toRadians(rotationValues[1]),
+                                                          toRadians(rotationValues[2])});
     }
 }
 
@@ -114,10 +116,10 @@
     _videoTexture->loadVideo(url, self.context->getFrameSynchronizer(), self.driver);
     _videoTexture->prewarm();
     
-    self.scene->setBackgroundSphere(_videoTexture);
+    self.scene->getRootNode()->setBackgroundSphere(_videoTexture);
     float rotationValues[3] = {0.0f, 0.0f, 0.0f};
     populateFloatArrayFromNSArray(_rotation, rotationValues, 3);
-    self.scene->setBackgroundRotation({toRadians(rotationValues[0]), toRadians(rotationValues[1]), toRadians(rotationValues[2])});
+    self.scene->getRootNode()->setBackgroundRotation({toRadians(rotationValues[0]), toRadians(rotationValues[1]), toRadians(rotationValues[2])});
     _sphereTextureAddedToScene = true;
     
     if (self.paused) {

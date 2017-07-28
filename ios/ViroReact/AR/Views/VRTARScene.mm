@@ -34,7 +34,7 @@
     self.sceneController->setDelegate(self.delegate);
     
     //Set root node for this scene
-    self.sceneController->getScene()->addNode(self.node);
+    self.sceneController->getScene()->getRootNode()->addChildNode(self.node);
     
     _vroArScene = std::dynamic_pointer_cast<VROARScene>(self.sceneController->getScene());
 }

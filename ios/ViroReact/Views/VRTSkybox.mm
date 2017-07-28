@@ -84,14 +84,14 @@
 -(void)updateSceneWithSkybox {
     if(self.scene) {
         if (_useImageForScene && _cubeTexture) {
-            self.scene->setBackgroundCube(_cubeTexture);
+            self.scene->getRootNode()->setBackgroundCube(_cubeTexture);
         }
         else if (_color) {
             CGFloat r, g, b, a;
             [_color getRed:&r green:&g blue:&b alpha:&a];
             
             VROVector4f v(r, g, b, a);
-            self.scene->setBackgroundCube(v);
+            self.scene->getRootNode()->setBackgroundCube(v);
         }
     }
 }

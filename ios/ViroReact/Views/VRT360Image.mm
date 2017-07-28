@@ -72,7 +72,7 @@
     if (_sphereTextureAddedToScene) {
         float rotationValues[3] = {0.0f, 0.0f, 0.0f};
         populateFloatArrayFromNSArray(_rotation, rotationValues, 3);
-        self.scene->setBackgroundRotation({toRadians(rotationValues[0]), toRadians(rotationValues[1]), toRadians(rotationValues[2])});
+        self.scene->getRootNode()->setBackgroundRotation({toRadians(rotationValues[0]), toRadians(rotationValues[1]), toRadians(rotationValues[2])});
     }
 }
 
@@ -87,10 +87,10 @@
 
 - (void)updateSceneWithSphereTexture {
     if(!_sphereTextureAddedToScene && _sphereTexture && self.scene) {
-        self.scene->setBackgroundSphere(_sphereTexture);
+        self.scene->getRootNode()->setBackgroundSphere(_sphereTexture);
         float rotationValues[3] = {0.0f, 0.0f, 0.0f};
         populateFloatArrayFromNSArray(_rotation, rotationValues, 3);
-        self.scene->setBackgroundRotation({toRadians(rotationValues[0]), toRadians(rotationValues[1]), toRadians(rotationValues[2])});
+        self.scene->getRootNode()->setBackgroundRotation({toRadians(rotationValues[0]), toRadians(rotationValues[1]), toRadians(rotationValues[2])});
         
         _sphereTextureAddedToScene = YES;
     }
