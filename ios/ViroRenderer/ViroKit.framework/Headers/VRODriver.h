@@ -35,6 +35,11 @@ enum class VROWrapMode;
 enum class VROFilterMode;
 enum class VROMipmapMode;
 
+enum class VRORenderPass {
+    Normal,
+    Stencil
+};
+
 /*
  The driver is used to interface with the rendering subsystem (OpenGL,
  Metal, etc.).
@@ -52,6 +57,19 @@ public:
     // as not to overrun frame time.
     virtual void willRenderFrame(const VRORenderContext &context) = 0;
     virtual void didRenderFrame(const VROFrameTimer &timer, const VRORenderContext &context) = 0;
+    
+    // Set flags for the render pass (e.g. what buffers to read/write to)
+    virtual void initRenderPass(VRORenderPass pass) = 0;
+    
+    // Clear the stencil buffer, setting it to the given default bits
+    virtual void clearStencil(int bits) = 0;
+    
+    // Set the portal bits to write to the stencil buffer during the stencil pass
+    virtual void setPortalStencilWriteBits(int bits) = 0;
+    
+    // Set the portal bits for the node being rendered; the node will only be
+    // rendered if these bits match the content of the stencil buffer
+    virtual void setPortalStencilRefBits(int bits) = 0;
     
     virtual VROGeometrySubstrate *newGeometrySubstrate(const VROGeometry &geometry) = 0;
     virtual VROMaterialSubstrate *newMaterialSubstrate(VROMaterial &material) = 0;

@@ -34,6 +34,7 @@
 class VROGeometry;
 class VROLight;
 class VROAction;
+class VROTexture;
 class VRONodeCamera;
 class VROHitTestResult;
 class VROConstraint;
@@ -124,6 +125,20 @@ public:
                         const VRORenderContext &context,
                         std::shared_ptr<VRODriver> &driver);
     void getSortKeysForVisibleNodes(std::vector<VROSortKey> *outKeys);
+    
+    /*
+     Render this node's geometry to the stencil buffer, if it has any portal stencil bits.
+     Recurses from this node *outward*: both up the tree and down. Note we use graph traversal
+     because stencil rendering begins at the 'active' node, not necesarily at the root
+     node.
+     */
+    void renderStencil(const VRORenderContext &context, std::shared_ptr<VRODriver> &driver);
+    
+    /*
+     Render this node's background. Recurses down the tree.
+     */
+    void renderBackground(const VRORenderContext &renderContext,
+                          std::shared_ptr<VRODriver> &driver);
     
     /*
      Render the given element of this node's geometry, using its latest computed transforms.
@@ -330,7 +345,7 @@ public:
     /*
      Return a copy of the subnode list.
      */
-    std::vector<std::shared_ptr<VRONode>> getSubnodes() const {
+    std::vector<std::shared_ptr<VRONode>> getChildNodes() const {
         return _subnodes;
     }
     
@@ -452,6 +467,63 @@ public:
                                                     std::shared_ptr<VROPhysicsShape> shape);
     std::shared_ptr<VROPhysicsBody> getPhysicsBody() const;
     void clearPhysicsBody();
+    
+#pragma mark - Portals
+    
+    /*
+     The portal stencil bits enable the drawing of portals on the screen. This 
+     field determines:
+     
+     1. What bit is written to the stencil buffer when rendering this node's 
+     geometry during the stencil pass, and
+     
+     2. What bit this node and its *children* must match in the stencil buffer
+     in order to render their geometry to screen during the render pass.
+     
+     If the bits are zero, then this node will skip the stencil pass, and use its
+     nearest parent's bits during the render pass.
+     */
+    void setPortalStencilBits(int bits) {
+        _portalStencilBits = bits;
+    }
+    
+#pragma mark - Backgrounds
+    
+    /*
+     Note: the scene renders all backgrounds in its tree before rendering
+     any content.
+     */
+    
+    /*
+     Set the background to a cube-map defined by the given cube texture or
+     color.
+     */
+    void setBackgroundCube(std::shared_ptr<VROTexture> textureCube);
+    void setBackgroundCube(VROVector4f color);
+    
+    /*
+     Set the background to a textured sphere.
+     */
+    void setBackgroundSphere(std::shared_ptr<VROTexture> textureSphere);
+    
+    /*
+     Set the background to an arbitrary geometry. All this guarantees is that
+     the given object will be rendered first. No properties will be set on
+     this geometry, but typically background geometries are screen-space, and
+     do not read or write to the depth buffer.
+     */
+    void setBackground(std::shared_ptr<VROGeometry> geometry);
+    
+    /*
+     Set an arbitrary transform to apply to the background. The transform
+     may also be set as a quaternion (rotation).
+     */
+    void setBackgroundTransform(VROMatrix4f transform);
+    void setBackgroundRotation(VROQuaternion rotation);
+    
+    std::shared_ptr<VROGeometry> getBackground() const {
+        return _background;
+    }
 
 protected:
     
@@ -582,6 +654,27 @@ private:
      True if this node was found visible during the last call to computeVisibility().
      */
     bool _visible;
+    
+    /*
+     The background visual to display. All backgrounds in the scene are rendered before 
+     node content.
+     */
+    std::shared_ptr<VROGeometry> _background;
+    
+    /*
+     Transform to apply to the background geometry.
+     */
+    VROMatrix4f _backgroundTransform;
+    
+    /*
+     See setPortalStencilBits() for description.
+     */
+    int _portalStencilBits;
+    
+    /*
+     Last frame that the stencil was written for this node. Used for graph traversal.
+     */
+    int _lastStencilRenderingFrame;
     
 #pragma mark - Private
     

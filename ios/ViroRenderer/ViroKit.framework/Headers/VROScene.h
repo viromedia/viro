@@ -38,7 +38,8 @@ public:
     virtual ~VROScene();
     
     /*
-     Render the background of the scene.
+     Render the backgrounds of the scene. This renders the background
+     for each node in the scene that has one.
      */
     void renderBackground(const VRORenderContext &context,
                           std::shared_ptr<VRODriver> &driver);
@@ -72,13 +73,20 @@ public:
      */
     void updateSortKeys(const VRORenderContext &context,
                         std::shared_ptr<VRODriver> &driver);
-
+    
     /*
-     Add a new root node to the scene.
+     Render all portals in the tree (nodes with a portal bits that have 
+     geometries) to the stencil buffer.
      */
-    virtual void addNode(std::shared_ptr<VRONode> node);
-    std::vector<std::shared_ptr<VRONode>> &getRootNodes() {
-        return _nodes;
+    void renderStencil(const VRORenderContext &context,
+                       std::shared_ptr<VRODriver> &driver);
+
+    
+    /*
+     Retrieve the root node of the scene.
+     */
+    std::shared_ptr<VRONode> &getRootNode() {
+        return _rootNode;
     }
     
     /*
@@ -100,38 +108,10 @@ public:
             _physicsWorld->computePhysics(context);
         }
     }
-
-    /*
-     Set the background of the scene to a cube-map defined by
-     the given cube texture or color.
-     */
-    void setBackgroundCube(std::shared_ptr<VROTexture> textureCube);
-    void setBackgroundCube(VROVector4f color);
     
     /*
-     Set the background of the scene to textured sphere.
+     Attach or detach input controllers.
      */
-    void setBackgroundSphere(std::shared_ptr<VROTexture> textureSphere);
-    
-    /*
-     Set the background of the scene to an arbitrary geometry. All this
-     guarantees is that the given object will be rendered first. No
-     properties will be set on this geometry, but typically background
-     geometries are screen-space, and do not read or write to teh depth
-     buffer.
-     */
-    void setBackground(std::shared_ptr<VROGeometry> geometry);
-    
-    /*
-     Set an arbitrary transform to apply to the background. The transform
-     may also be set as a quaternion (rotation).
-     */
-    void setBackgroundTransform(VROMatrix4f transform);
-    void setBackgroundRotation(VROQuaternion rotation);
-    
-    std::shared_ptr<VROGeometry> getBackground() const {
-        return _background;
-    }
     void attachInputController(std::shared_ptr<VROInputControllerBase> controller);
     void detachInputController(std::shared_ptr<VROInputControllerBase> controller);
     std::shared_ptr<VROInputPresenter> getControllerPresenter();
@@ -139,28 +119,23 @@ public:
     float getDistanceOfFurthestObjectFromCamera() const {
         return _distanceOfFurthestObjectFromCamera;
     }
+    
+    /*
+     Get all backgrounds in the scene.
+     */
+    std::vector<std::shared_ptr<VROGeometry>> getBackgrounds();
 
 protected:
     
     /*
-     The root nodes of the scene.
+     The root node of the scene.
      */
-    std::vector<std::shared_ptr<VRONode>> _nodes;
-    
-    /*
-     The background visual to display. Rendered before any nodes.
-     */
-    std::shared_ptr<VROGeometry> _background;
+    std::shared_ptr<VRONode> _rootNode;
 
     /*
      UI representation of the underlying controller
      */
     std::shared_ptr<VROInputPresenter> _controllerPresenter;
-
-    /*
-     Transform to apply to the background geometry.
-     */
-    VROMatrix4f _backgroundTransform;
     
     /*
      The nodes ordered for rendering by their sort keys.
@@ -175,6 +150,8 @@ protected:
     float _distanceOfFurthestObjectFromCamera;
 
     std::shared_ptr<VROPhysicsWorld> _physicsWorld = nullptr;
+    
+    void getBackgrounds(std::shared_ptr<VRONode> node, std::vector<std::shared_ptr<VROGeometry>> &backgrounds);
 };
 
 #endif /* VROScene_h */
