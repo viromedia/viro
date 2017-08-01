@@ -38,6 +38,7 @@ const ReactViro = {
   get ViroController() { return require('./components/ViroController'); },
   get ViroSpinner() { return require('./components/ViroSpinner'); },
   get ViroPolyline() { return require('./components/ViroPolyline'); },
+  get ViroConstants() { return require('./components/ViroConstants'); },
   // AR Components
   get ViroARNavigator() { return require('./components/AR/ViroARNavigator'); },
   get ViroARScene() { return require('./components/AR/ViroARScene'); },

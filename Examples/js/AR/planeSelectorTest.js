@@ -21,6 +21,8 @@ import {
   ViroImage,
   ViroARPlaneSelector,
   ViroSurface,
+  ViroConstants,
+  ViroVideo,
 } from 'react-viro';
 
 import TimerMixin from 'react-timer-mixin';
@@ -31,14 +33,16 @@ var testARScene = React.createClass({
     return {
       text : "not tapped",
       visible: true,
-      everythingVisible: false
+      everythingVisible: false,
+      success: false,
+      video : "",
     }
   },
   render: function() {
     return (
         <ViroARScene position={[0,0,0]} reticleEnabled={false} >
-          <ViroSurface scale={[.5,.5,.5]} materials={"green"} position={[0, .5, -1]} onClick={this._startRecording}/>
-          <ViroSurface scale={[.5,.5,.5]} materials={"red"} position={[.5, .5, -1]} onClick={this._stopRecording}/>
+          <ViroSurface scale={[.5,.5,.5]} visible={!this.state.success} materials={"green"} position={[0, .5, -1]} onClick={this._startRecording}/>
+          <ViroSurface scale={[.5,.5,.5]} visible={!this.state.success} materials={"red"} position={[.5, .5, -1]} onClick={this._stopRecording}/>
           <ViroARPlaneSelector ref={"ref"}
             maxPlanes={2}
             onPlaneSelected={()=>{console.log("plane was selected")}} >
@@ -49,21 +53,40 @@ var testARScene = React.createClass({
               onClick={this._onClick}
               />
           </ViroARPlaneSelector>
+          {this._getVideo()}
         </ViroARScene>
     );
   },
   _startRecording() {
-    console.log("kirby begin recording!");
-    this.props.sceneNavigator.startVideoRecording("testVid11.mp4", true);
+    console.log("kirby ViroConstants " + ViroConstants.RECORD_ERROR_NONE)
+    console.log("[JS] begin recording!");
+    this.props.sceneNavigator.startVideoRecording("testVid11", true,
+       (errorCode)=>{console.log("[JS] onError callback errorCode: " + errorCode)});
   },
   _stopRecording() {
-    this.props.sceneNavigator.stopVideoRecording().then((url)=>{
-      console.log("kirby the url was: " + url);
+    this.props.sceneNavigator.stopVideoRecording().then((retDict)=>{
+      console.log("[JS] success? " + retDict.success);
+      console.log("[JS] the url was: " + retDict.url);
+      if (!retDict.success) {
+        if (retDict.errorCode == ViroConstants.RECORD_ERROR_NO_PERMISSION) {
+          console.log("[JS] had no permissions!");
+        }
+      }
+      this.setState({
+        success : retDict.success,
+        video : retDict.url,
+      });
     });
   },
   _onClick() {
     this.refs["ref"].reset();
   },
+  _getVideo() {
+    if (this.state.success) {
+      return (<ViroVideo position={[0,0,-.9]} onClick={()=>{this.setState({success : false})}}
+        source={{"uri" : "file://" + this.state.video}}/>)
+    }
+  }
 });
 
 const styles = StyleSheet.create({

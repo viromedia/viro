@@ -383,14 +383,33 @@ var ViroARNavigator = React.createClass({
     ViroARNavigatorModule.recenterTracking(this._getNodeHandle());
   },
 
-  _startVideoRecording(fileName, saveToCameraRoll) {
-    return ViroARNavigatorModule.startVideoRecording(findNodeHandle(this), fileName, saveToCameraRoll);
+  /*
+   Starts recording video of the Viro renderer and external audio
+
+   fileName - name of the file (without extension)
+   saveToCameraRoll - whether or not the file should also be saved to the camera roll
+   */
+  _startVideoRecording(fileName, saveToCameraRoll, onError) {
+    ViroARNavigatorModule.startVideoRecording(findNodeHandle(this), fileName, saveToCameraRoll, onError);
   },
 
+  /*
+   Stops recording video of the Viro renderer
+
+   returns Object w/ success, url and errorCode keys.
+   */
   async _stopVideoRecording() {
     return await ViroARNavigatorModule.stopVideoRecording(findNodeHandle(this));
   },
 
+  /*
+   Takes a screenshot of the Viro renderer
+
+   fileName - name of the file (without extension)
+   saveToCameraRoll - whether or not the file should also be saved to the camera roll
+
+   returns Object w/ success, url and errorCode keys.
+   */
   async _takeScreenshot(fileName, saveToCameraRoll) {
     return await ViroARNavigatorModule.takeScreenshot(findNodeHandle(this), fileName, saveToCameraRoll);
   },

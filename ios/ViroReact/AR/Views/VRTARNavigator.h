@@ -30,7 +30,8 @@
 - (void)invalidate;
 
 - (void)startVideoRecording:(NSString *)fileName
-           saveToCameraRoll:(BOOL)saveToCameraRoll;
+           saveToCameraRoll:(BOOL)saveToCameraRoll
+                    onError:(RCTResponseSenderBlock)onError;
 
 - (void)stopVideoRecordingWithHandler:(VROViewWriteMediaFinishBlock)completionHandler;
 

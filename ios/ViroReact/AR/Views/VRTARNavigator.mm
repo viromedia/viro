@@ -125,9 +125,12 @@ static NSString *const kVRTInvalidAPIKeyMessage = @"The given API Key is either 
 }
 
 - (void)startVideoRecording:(NSString *)fileName
-           saveToCameraRoll:(BOOL)saveToCameraRoll {
+           saveToCameraRoll:(BOOL)saveToCameraRoll
+                    onError:(RCTResponseSenderBlock)onError {
     VROViewAR *viewAR = (VROViewAR *) _vroView;
-    [viewAR startVideoRecording:fileName saveToCameraRoll:saveToCameraRoll];
+    [viewAR startVideoRecording:fileName saveToCameraRoll:saveToCameraRoll errorBlock:^(NSInteger errorCode) {
+        onError(@[@(errorCode)]);
+    }];
 }
 
 - (void)stopVideoRecordingWithHandler:(VROViewWriteMediaFinishBlock)completionHandler {
