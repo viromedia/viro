@@ -91,7 +91,7 @@ public:
      A computeTransform pass is then performed to update the node's bounding boxes
      and as well as its child's node transforms recursively.
      */
-    void setWorldTransform(VROVector3f worldPosition, VROQuaternion worldRotation);
+    void setWorldTransform(VROVector3f finalPosition, VROQuaternion finalRotation);
 
     /*
      Update the visibility status of this node, using the camera in the current render

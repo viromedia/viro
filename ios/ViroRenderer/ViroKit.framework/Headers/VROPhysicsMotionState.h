@@ -17,13 +17,14 @@
 class VROPhysicsMotionState : public btMotionState {
 public:
     std::weak_ptr<VROPhysicsBody> _w_physicsBody;
-
-    VROPhysicsMotionState(std::shared_ptr<VROPhysicsBody> body) {
+    VROPhysicsMotionState(std::shared_ptr<VROPhysicsBody> body, btTransform transformOffset) {
         _w_physicsBody = body;
+        _physicsTransformOffset = transformOffset;
     }
+
     virtual ~VROPhysicsMotionState(){}
 
-    void getWorldTransform(btTransform& centerOfMassWorldTrans ) const {
+    void getWorldTransform(btTransform& centerOfMassWorldTrans) const {
         std::shared_ptr<VROPhysicsBody> body = _w_physicsBody.lock();
         if (!body) {
             return;
@@ -40,5 +41,15 @@ public:
 
         body->setWorldTransform(centerOfMassWorldTrans);
     }
+
+    btTransform getPhysicsTransformOffset(){
+        return _physicsTransformOffset;
+    }
+
+private:
+    /*
+     The offset from Viro's geometric transform to Bullet's physicsBody transform (center of mass).
+     */
+    btTransform _physicsTransformOffset;
 };
 #endif

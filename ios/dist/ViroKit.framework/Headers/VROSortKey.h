@@ -37,8 +37,8 @@ public:
          depth only. Note we do not sort by hierarchy ID because it is ok to interleave objects
          of different hierarchies within the render order.
          */
-        return std::tie(renderingOrder, distanceFromCamera, hierarchyDepth, incoming, shader, textures, lights, material, node, elementIndex) <
-               std::tie(r.renderingOrder, r.distanceFromCamera, r.hierarchyDepth, r.incoming, r.shader, r.textures, r.lights, r.material, r.node, r.elementIndex);
+        return std::tie(renderingOrder, distanceFromCamera, hierarchyDepth, incoming, shader, textures, lights, material, portalStencilBits, node, elementIndex) <
+               std::tie(r.renderingOrder, r.distanceFromCamera, r.hierarchyDepth, r.incoming, r.shader, r.textures, r.lights, r.material, r.portalStencilBits, r.node, r.elementIndex);
     }
             
     /*
@@ -90,6 +90,7 @@ public:
     uint32_t textures;
     uint32_t lights;
     uint32_t material;
+    uint8_t  portalStencilBits;
     
     //// 24 bytes to this point. Keep uintptr_t at an 8 byte boundary to avoid waste ////
     

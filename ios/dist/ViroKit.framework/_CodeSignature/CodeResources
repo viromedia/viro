@@ -2545,7 +2545,7 @@
 		</data>
 		<key>Headers/VRODriver.h</key>
 		<data>
-		hrAMQ07OTHavjPXPLIgkKlizLnE=
+		MRkoEX7LZxVnWJgFSsoGBsYQfvM=
 		</data>
 		<key>Headers/VROEventDelegate.h</key>
 		<data>
@@ -2597,7 +2597,7 @@
 		</data>
 		<key>Headers/VROGeometry.h</key>
 		<data>
-		R86nwFy/7CjOGMVcH0+ypxcjnb4=
+		kLN+FQA9KnblPHSIeF8g9YAAUAg=
 		</data>
 		<key>Headers/VROGeometryElement.h</key>
 		<data>
@@ -2697,7 +2697,7 @@
 		</data>
 		<key>Headers/VRONode.h</key>
 		<data>
-		8HpQGeLd6XXKjFXnT2GGZB0u0dI=
+		SsV0PGOKNstnE97ITclHD60EQsQ=
 		</data>
 		<key>Headers/VRONodeCamera.h</key>
 		<data>
@@ -2737,7 +2737,7 @@
 		</data>
 		<key>Headers/VROPhysicsMotionState.h</key>
 		<data>
-		Qr/7/t7pTq3jvMSYAAVxPrUydQY=
+		ZQZaX69Mr18ENzEJFqKEMVkGmDo=
 		</data>
 		<key>Headers/VROPhysicsShape.h</key>
 		<data>
@@ -2781,7 +2781,7 @@
 		</data>
 		<key>Headers/VRORenderParameters.h</key>
 		<data>
-		0DhtI5GGG8jmr/TSwFB+xn41c10=
+		B5qxJWPpTJSB89xye2lSddeQb68=
 		</data>
 		<key>Headers/VROReticle.h</key>
 		<data>
@@ -2789,11 +2789,11 @@
 		</data>
 		<key>Headers/VROScene.h</key>
 		<data>
-		enT+qTQQ5vWVUGGSzqTc6Bsc2rc=
+		l71YU9rZL7itm6G1JN+X1J+6oEw=
 		</data>
 		<key>Headers/VROSceneController.h</key>
 		<data>
-		mr46HRuYSSYIqBDZWtZLoiVcSqI=
+		VX3ONCO3VIU8z7QvvKBHL55N68k=
 		</data>
 		<key>Headers/VROSceneDelegateiOS.h</key>
 		<data>
@@ -2821,7 +2821,7 @@
 		</data>
 		<key>Headers/VROSortKey.h</key>
 		<data>
-		2/NmdezOsQdfNun4cJ9TIFZxg5M=
+		Dg1C5VwKxa9ujrEc4BZXCcA6s+o=
 		</data>
 		<key>Headers/VROSound.h</key>
 		<data>
@@ -2993,7 +2993,7 @@
 		</data>
 		<key>Headers/VROView.h</key>
 		<data>
-		8j2njFj9etovO4+lANZjNkpPk7c=
+		UbDD9IgG3dlw8H26Rf2Cwsi/yXc=
 		</data>
 		<key>Headers/VROViewAR.h</key>
 		<data>
@@ -3025,7 +3025,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		DclDnpDtFMGfFUUkK8O+6ElQP+I=
+		2HtehY/L7c6D44TDzlNTJmN9g9k=
 		</data>
 		<key>MaterialRobotoFontLoader.bundle/Roboto-Black.ttf</key>
 		<data>
@@ -7704,11 +7704,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			hrAMQ07OTHavjPXPLIgkKlizLnE=
+			MRkoEX7LZxVnWJgFSsoGBsYQfvM=
 			</data>
 			<key>hash2</key>
 			<data>
-			rpv4sN7ADDavcAP4guxshA7DgmHBt+4qLqd+2s/2Qd8=
+			8LI3H/q8Dy62eRQm1BYAoB4i0DjjXYFaeOQRTK3K/1I=
 			</data>
 		</dict>
 		<key>Headers/VROEventDelegate.h</key>
@@ -7847,11 +7847,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			R86nwFy/7CjOGMVcH0+ypxcjnb4=
+			kLN+FQA9KnblPHSIeF8g9YAAUAg=
 			</data>
 			<key>hash2</key>
 			<data>
-			4hpYAychyQa5zjdfRqG9Fs4VR7gnv3HlIXpUh+2KSQA=
+			7v/nN/wZ8A9GYqUqWtu+q9Q8JtarHb5wSP2NcJNd6Qk=
 			</data>
 		</dict>
 		<key>Headers/VROGeometryElement.h</key>
@@ -8122,11 +8122,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			8HpQGeLd6XXKjFXnT2GGZB0u0dI=
+			SsV0PGOKNstnE97ITclHD60EQsQ=
 			</data>
 			<key>hash2</key>
 			<data>
-			B1CxCpy1oxCR26xHZrQ+smPysKANZr5apx8jTGOEKc0=
+			PYX3E+UDKu7hcHQq+caShLa+aC6TV9qhStwNJBj75wg=
 			</data>
 		</dict>
 		<key>Headers/VRONodeCamera.h</key>
@@ -8232,11 +8232,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			Qr/7/t7pTq3jvMSYAAVxPrUydQY=
+			ZQZaX69Mr18ENzEJFqKEMVkGmDo=
 			</data>
 			<key>hash2</key>
 			<data>
-			jI6Lv4dL6pJbZfems9+iEe9GyUgsDkzUBsOXikgHZsw=
+			0dlGUPP1x9D9b2j4L438rBEP/iPH1uVB0UyjuYl2Zs8=
 			</data>
 		</dict>
 		<key>Headers/VROPhysicsShape.h</key>
@@ -8353,11 +8353,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			0DhtI5GGG8jmr/TSwFB+xn41c10=
+			B5qxJWPpTJSB89xye2lSddeQb68=
 			</data>
 			<key>hash2</key>
 			<data>
-			tPaKLN15zlcU7OxbDK9gZFocjwmUng0j/e5kEm3zDPY=
+			aZLCobqJWafFX4D6UWVJxy+MvROVjTcyZU/F0A3H1Ng=
 			</data>
 		</dict>
 		<key>Headers/VROReticle.h</key>
@@ -8375,22 +8375,22 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			enT+qTQQ5vWVUGGSzqTc6Bsc2rc=
+			l71YU9rZL7itm6G1JN+X1J+6oEw=
 			</data>
 			<key>hash2</key>
 			<data>
-			xORB9Ti2tp2Tud4g03n56AZwbwKG9oMKqeaTH8+iXDM=
+			Ww9UZ7j8SlHjgErPmWH56pJhwVsTUZMJeO6WNkAvvho=
 			</data>
 		</dict>
 		<key>Headers/VROSceneController.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			mr46HRuYSSYIqBDZWtZLoiVcSqI=
+			VX3ONCO3VIU8z7QvvKBHL55N68k=
 			</data>
 			<key>hash2</key>
 			<data>
-			vczxaL3bqMhIgw931EQbnpHiC8/3gU9fw1zGU85wTtg=
+			aREyZjsjFGrFrYHC9EzW0kUxFRey/262PezihaPm2so=
 			</data>
 		</dict>
 		<key>Headers/VROSceneDelegateiOS.h</key>
@@ -8463,11 +8463,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			2/NmdezOsQdfNun4cJ9TIFZxg5M=
+			Dg1C5VwKxa9ujrEc4BZXCcA6s+o=
 			</data>
 			<key>hash2</key>
 			<data>
-			bYKQpVzXaojWSC0bK1Zoa2vtMLO4XOY2heZYKQy3y9w=
+			g3Lt0HI6zJbO+rvgAmLgndNFCFD/igU1rpyq8yH/JCk=
 			</data>
 		</dict>
 		<key>Headers/VROSound.h</key>
@@ -8936,11 +8936,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			8j2njFj9etovO4+lANZjNkpPk7c=
+			UbDD9IgG3dlw8H26Rf2Cwsi/yXc=
 			</data>
 			<key>hash2</key>
 			<data>
-			QfpVW0q7AFDeQAvTrclC50ApWut2aInA9M5dab3DCVg=
+			4hlWnDn+OEeXGM+9QO4K5Zt1tii35ZB9k/pZoduVYLo=
 			</data>
 		</dict>
 		<key>Headers/VROViewAR.h</key>

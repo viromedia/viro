@@ -98,7 +98,7 @@ public:
     
     void updateSortKeys(VRONode *node, uint32_t hierarchyId, uint32_t hierarchyDepth,
                         uint32_t lightsHash, float opacity, float distanceFromCamera, float zFar,
-                        std::shared_ptr<VRODriver> &driver);
+                        int portalStencilBits, std::shared_ptr<VRODriver> &driver);
     void getSortKeys(std::vector<VROSortKey> *outKeys);
     
     std::shared_ptr<VROMaterial> &getMaterialForElement(int elementIndex) {
