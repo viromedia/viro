@@ -78,6 +78,7 @@ var Viro3DObject = React.createClass({
     onLoadEnd: React.PropTypes.func,
     onError: React.PropTypes.func,
     onDrag: React.PropTypes.func,
+    onPinch: React.PropTypes.func,
     onFuse: PropTypes.oneOfType([
           React.PropTypes.shape({
             callback: React.PropTypes.func.isRequired,
@@ -175,6 +176,9 @@ var Viro3DObject = React.createClass({
     this.props.onError && this.props.onError(event);
   },
 
+  _onPinch: function(event: Event) {
+    this.props.onPinch && this.props.onPinch(event.nativeEvent.pinchState, event.nativeEvent.scaleFactor, event.nativeEvent.source);
+  },
   _onDrag: function(event: Event) {
       this.props.onDrag
         && this.props.onDrag(event.nativeEvent.dragToPos, event.nativeEvent.source);
@@ -196,6 +200,11 @@ var Viro3DObject = React.createClass({
 
   _onAnimationFinish: function(event: Event) {
     this.props.animation && this.props.animation.onFinish && this.props.animation.onFinish();
+  },
+
+  setNativeProps: function(nativeProps) {
+     this._viro3dobj.setNativeProps(nativeProps);
+
   },
 
   applyImpulse: function(force, position) {
@@ -307,6 +316,7 @@ var Viro3DObject = React.createClass({
     return (
       <VRT3DObject
         {...this.props}
+        ref={ component => { this._viro3dobj = component; }}
         position={this.state.propsPositionState}
         onNativeTransformDelegateViro={transformDelegate}
         hasTransformDelegate={this.props.onTransformUpdate != undefined}
@@ -322,6 +332,7 @@ var Viro3DObject = React.createClass({
         canSwipe={this.props.onSwipe != undefined}
         canDrag={this.props.onDrag != undefined}
         canFuse={this.props.onFuse != undefined}
+        canPinch={this.props.onPinch != undefined}
         onHoverViro={this._onHover}
         onClickViro={this._onClickState}
         onTouchViro={this._onTouch}
@@ -329,6 +340,7 @@ var Viro3DObject = React.createClass({
         onSwipeViro={this._onSwipe}
         onDragViro={this._onDrag}
         onFuseViro={this._onFuse}
+        onPinchViro={this._onPinch}
         onLoadStartViro={this._onLoadStart}
         onLoadEndViro={this._onLoadEnd}
         onErrorViro={this._onError}
@@ -352,10 +364,12 @@ var VRT3DObject = requireNativeComponent(
             canSwipe: true,
             canDrag: true,
             canFuse: true,
+            canPinch: true,
             onHoverViro:true,
             onClickViro:true,
             onTouchViro:true,
             onScrollViro:true,
+            onPinchViro:true,
             onSwipeViro:true,
             onDragViro:true,
             onLoadStartViro:true,

@@ -323,6 +323,11 @@ const double kTransformDelegateDistanceFilter = 0.01;
     }
 }
 
+- (void)setCanPinch:(BOOL)canPinch {
+    _canPinch = canPinch;
+    self.eventDelegate->setEnabledEvent(VROEventDelegate::EventAction::OnPinch, canPinch);
+}
+
 - (void)setCanHover:(BOOL)canHover {
     _canHover = canHover;
     self.eventDelegate->setEnabledEvent(VROEventDelegate::EventAction::OnHover, canHover);
@@ -379,6 +384,13 @@ const double kTransformDelegateDistanceFilter = 0.01;
         self.onClickViro(@{@"source": @(source),
                            @"clickState":@(clickState),
                            @"position": locationArray});
+    }
+}
+
+- (void)onPinch:(int)source scaleFactor:(float)scale
+    pinchState:(VROEventDelegate::PinchState)pinchState {
+    if(self.onPinchViro != nil) {
+        self.onPinchViro(@{@"source": @(source), @"pinchState":@(pinchState), @"scaleFactor":@(scale)});
     }
 }
 
