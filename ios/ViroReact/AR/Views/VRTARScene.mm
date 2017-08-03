@@ -8,7 +8,7 @@
 
 #import <ViroKit/ViroKit.h>
 #import "VRTARScene.h"
-#import "VRTARNode.h"
+#import "VRTARAnchorNode.h"
 #import "VRTARPlane.h"
 
 @implementation VRTARScene {

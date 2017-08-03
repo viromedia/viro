@@ -81,6 +81,6 @@ extern const int k2DPointsPerSpatialUnit;
 - (void) onDrag:(int)source posX:(float)x posY:(float)y posZ:(float)z;
 - (void) onPinch:(int)source scaleFactor:(float)scale pinchState:(VROEventDelegate::PinchState)pinchState;
 
-// Override for ARNodes
+// Override for AR nodes
 - (std::shared_ptr<VRONode>)createVroNode;
 @end

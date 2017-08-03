@@ -12,7 +12,7 @@
 /**
  * Base class for all Nodes that will be attached to an anchor
  */
-@interface VRTARNode : VRTNode<VROARNodeDelegateProtocol>
+@interface VRTARAnchorNode : VRTNode<VROARNodeDelegateProtocol>
 
 @property (nonatomic, copy, nullable) RCTDirectEventBlock onComponentFoundViro;
 @property (nonatomic, copy, nullable) RCTDirectEventBlock onComponentUpdatedViro;

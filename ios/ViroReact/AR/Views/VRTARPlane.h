@@ -7,9 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "VRTARNode.h"
+#import "VRTARAnchorNode.h"
 
-@interface VRTARPlane : VRTARNode
+@interface VRTARPlane : VRTARAnchorNode
 
 // default min height/width is 0, we match any surface
 @property (nonatomic, assign) float minWidth;

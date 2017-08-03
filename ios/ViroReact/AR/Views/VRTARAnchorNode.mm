@@ -6,9 +6,9 @@
 //  Copyright © 2017 Viro Media. All rights reserved.
 //
 
-#import "VRTARNode.h"
+#import "VRTARAnchorNode.h"
 
-@implementation VRTARNode
+@implementation VRTARAnchorNode
 
 - (std::shared_ptr<VRONode>)createVroNode {
     return std::make_shared<VROARNode>();
