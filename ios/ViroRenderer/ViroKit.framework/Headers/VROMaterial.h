@@ -86,6 +86,7 @@ public:
     }
     
     void bindShader(std::shared_ptr<VRODriver> &driver);
+    void bindProperties(std::shared_ptr<VRODriver> &driver);
     void bindLights(int lightsHash,
                     const std::vector<std::shared_ptr<VROLight>> &lights,
                     const VRORenderContext &context,

@@ -85,6 +85,9 @@ public:
     void setCamera(VROCamera camera) {
         _camera = camera;
     }
+    void setPreviousCamera(VROCamera camera) {
+        _previousCamera = camera;
+    }
     
     VROMatrix4f getProjectionMatrix() const {
         return _projectionMatrix;
@@ -104,6 +107,9 @@ public:
     
     const VROCamera &getCamera() const {
         return _camera;
+    }
+    const VROCamera &getPreviousCamera() const {
+        return _previousCamera;
     }
     
     std::shared_ptr<VROFrameSynchronizer> getFrameSynchronizer() const {
@@ -163,6 +169,12 @@ private:
      The camera used for this frame.
      */
     VROCamera _camera;
+    
+    /*
+     The camera used during the previous frame. Useful for computing deltas, if
+     required.
+     */
+    VROCamera _previousCamera;
     
     /*
      The near and far clipping planes.

@@ -21,6 +21,7 @@
 - (void)onClick:(int)source clickState:(VROEventDelegate::ClickState)clickState clickLocation:(std::vector<float>)location;
 - (void)onFuse:(int)source;
 - (void)onDrag:(int)source posX:(float)x posY:(float)y posZ:(float)y;
+- (void)onPinch:(int)source scaleFactor:(float)scale pinchState:(VROEventDelegate::PinchState)pinchState;
 @end
 
 /**
@@ -56,6 +57,10 @@ public:
     
     virtual void onDrag(int source, float x, float y, float z) {
         [_delegate onDrag:source posX:x posY:y posZ:z];
+    }
+    
+    virtual void onPinch(int source, float scale, PinchState pinchState) {
+        [_delegate onPinch:source scaleFactor:scale pinchState:pinchState];
     }
 
 private:

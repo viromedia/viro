@@ -45,6 +45,19 @@ typedef std::function<void(VROUniform *uniform, GLuint location, const VROGeomet
  
  ----------------
  
+ Vertex entry point. The code may declare uniforms and read/write
+ to the following structure:
+ 
+ struct VROShaderVertex {
+   vec3 position;
+ } _vertex;
+ 
+ The Vertex entry point enables modifiers to change the position of
+ vertices *after* their transformation into normalized device coordinates.
+ The input and output (_vertex.position) is in normalized device coordinates.
+ 
+ ----------------
+ 
  Surface entry point. The code may declare uniforms and read/write
  to the following structure:
  
@@ -78,6 +91,7 @@ typedef std::function<void(VROUniform *uniform, GLuint location, const VROGeomet
  */
 enum class VROShaderEntryPoint {
     Geometry,
+    Vertex,
     Surface,
     Fragment,
 };

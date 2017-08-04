@@ -35,11 +35,6 @@ enum class VROWrapMode;
 enum class VROFilterMode;
 enum class VROMipmapMode;
 
-enum class VRORenderPass {
-    Normal,
-    Stencil
-};
-
 /*
  The driver is used to interface with the rendering subsystem (OpenGL,
  Metal, etc.).
@@ -58,18 +53,36 @@ public:
     virtual void willRenderFrame(const VRORenderContext &context) = 0;
     virtual void didRenderFrame(const VROFrameTimer &timer, const VRORenderContext &context) = 0;
     
-    // Set flags for the render pass (e.g. what buffers to read/write to)
-    virtual void initRenderPass(VRORenderPass pass) = 0;
-    
-    // Clear the stencil buffer, setting it to the given default bits
+    // Clear the stencil buffer with the given clear value
     virtual void clearStencil(int bits) = 0;
     
-    // Set the portal bits to write to the stencil buffer during the stencil pass
-    virtual void setPortalStencilWriteBits(int bits) = 0;
+    // Clear the depth buffer
+    virtual void clearDepth() = 0;
     
-    // Set the portal bits for the node being rendered; the node will only be
-    // rendered if these bits match the content of the stencil buffer
-    virtual void setPortalStencilRefBits(int bits) = 0;
+    // Clear the color buffer
+    virtual void clearColor() = 0;
+    
+    // Clear both depth and color at the same time
+    virtual void clearDepthAndColor() = 0;
+    
+    // Enable the color buffer for writing
+    virtual void enableColorBuffer() = 0;
+    
+    // Disable the color buffer from writing
+    virtual void disableColorBuffer() = 0;
+    
+    // Enable portal stencil functions. When writing, we INCR the stencil
+    // buffer. When removing, we DECR the buffer. Finally when reading, we
+    // make the stencil buffer read-only.
+    virtual void enablePortalStencilWriting() = 0;
+    virtual void enablePortalStencilRemoval() = 0;
+    virtual void enablePortalStencilReading() = 0;
+    
+    // Set the reference bits for the stencil test. If passIfLess is
+    // false, we pass the stencil test if ref equals the value in the
+    // stencil buffer. If passIsLess is true, we pass the stencil test
+    // if ref <= value in stencil buffer.
+    virtual void setStencilPassBits(int bits, bool passIfLess) = 0;
     
     virtual VROGeometrySubstrate *newGeometrySubstrate(const VROGeometry &geometry) = 0;
     virtual VROMaterialSubstrate *newMaterialSubstrate(VROMaterial &material) = 0;
