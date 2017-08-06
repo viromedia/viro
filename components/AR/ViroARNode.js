@@ -45,8 +45,8 @@ var ViroARNode = React.createClass({
     onFuse: PropTypes.oneOfType([
       React.PropTypes.shape({
         callback: React.PropTypes.func.isRequired,
-      }),
         timeToFuse: PropTypes.number
+      }),
       React.PropTypes.func
     ]),
     physicsBody: React.PropTypes.shape({
