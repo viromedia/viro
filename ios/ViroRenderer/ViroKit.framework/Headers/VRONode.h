@@ -45,6 +45,11 @@ class VROTransformDelegate;
 extern bool kDebugSortOrder;
 extern const std::string kDefaultNodeTag;
 
+enum class VRONodeType {
+    Normal,
+    Portal,
+};
+
 class VRONode : public VROAnimatable, public VROThreadRestricted {
     
 public:
@@ -227,6 +232,13 @@ public:
     
 #pragma mark - Render Settings
     
+    std::string getName() const {
+        return _name;
+    }
+    void setName(std::string name) {
+        _name = name;
+    }
+    
     float getOpacity() const {
         return _opacity;
     }
@@ -352,11 +364,10 @@ public:
     }
     
     /*
-     Returns true if this node is a portal, of type VROPortal. Faster than
-     dynamic_cast.
+     Returns the type of this node. Faster then dynamic_cast.
      */
-    bool isPortal() const {
-        return _isPortal;
+    VRONodeType getType() const {
+        return _type;
     }
     
     /*
@@ -485,7 +496,7 @@ public:
 
 protected:
     
-    bool _isPortal;
+    VRONodeType _type;
     
     /*
      The node's parent and children.
@@ -510,10 +521,21 @@ protected:
 
 private:
     
+    /*
+     Name for debugging.
+     */
+    std::string _name;
+    
+    /*
+     Lights, sound, and camera.
+     */
     std::vector<std::shared_ptr<VROLight>> _lights;
     std::vector<std::shared_ptr<VROSound>> _sounds;
     std::shared_ptr<VRONodeCamera> _camera;
     
+    /*
+     Scale and position.
+     */
     VROVector3f _scale;
     VROVector3f _position;
     

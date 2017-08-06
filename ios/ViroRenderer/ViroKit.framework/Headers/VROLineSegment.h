@@ -58,15 +58,21 @@ public:
     /*
      Test if this segment intersects the given 2D segment or 2D box.
      */
-    bool intersectsSegment(VROLineSegment other) const;
-    bool intersectsSegment(VROLineSegment other, VROVector3f *result) const;
-    bool intersectsBox(float left, float right, float bottom, float top) const;
+    bool intersectsSegment2D(VROLineSegment other) const;
+    bool intersectsSegment2D(VROLineSegment other, VROVector3f *result) const;
+    bool intersectsBox2D(float left, float right, float bottom, float top) const;
 
     /*
      Test if the line represented by this segment intersects the line represented by the
      given segment. This function treats both segments as infinitely extending lines.
      */
     bool intersectsLine(VROLineSegment other, VROVector3f *result) const;
+    
+    /*
+     Test if this line segment intersects plane defined by the given point and normal.
+     Return true if so, storing the intersection point in the given out vector.
+     */
+    bool intersectsPlane(VROVector3f point, VROVector3f normal, VROVector3f *outIntersectionPoint) const;
 
     /*
      Get the angle this segment makes with the given other line-segment,
@@ -96,6 +102,11 @@ public:
      segment makes with the given ray.
      */
     float directedAngleWithRay(VROVector3f ray) const;
+    
+    /*
+     Translate the segment by the given amount.
+     */
+    VROLineSegment translate(VROVector3f translation) const;
 
     /*
      Rotate this line segment counter-clockwise about its center by the given
@@ -136,6 +147,12 @@ public:
     VROLineSegment extend(float amount) const;
     VROLineSegment extendBackwards(float amount) const;
     VROLineSegment extendForwardAndBackward(float amount) const;
+    
+    /*
+     Shift the line segment by the given amount. This pushes out the A
+     and B endpoints in the direction of the segment.
+     */
+    VROLineSegment shift(float amount) const;
 
     /*
      Traverse the line-segment by the given distance from the start-point and

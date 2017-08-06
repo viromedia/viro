@@ -13,6 +13,8 @@
 #include "VROTree.h"
 #include "VROLineSegment.h"
 
+class VROPortalFrame;
+
 /*
  Portals are nodes that partition subgraphs of the overall scene
  graph. They are used to simulate "teleportation" between two
@@ -20,7 +22,6 @@
  determination.
  */
 class VROPortal : public VRONode {
-    
 public:
     
     VROPortal();
@@ -60,11 +61,11 @@ public:
      both up and down the graph and is expected to only be invoked once
      per frame as part of the render-cycle.
      
-     The portalToRender flag is used to determine what portal geometry a portal
-     should render. See the discussion under _portalToRender for more detail.
+     The activeFrame node is used to assign an entrance frame geometry to this
+     portal. See the discussion under _activePortalFrame for more detail.
      */
     void traversePortals(int frame, int recursionLevel,
-                         std::shared_ptr<VROPortal> portalToRender,
+                         std::shared_ptr<VROPortalFrame> activeFrame,
                          tree<std::shared_ptr<VROPortal>> *outPortals);
     
     /*
@@ -82,6 +83,43 @@ public:
      */
     int getRecursionLevel() const {
         return _recursionLevel;
+    }
+    
+    /*
+     Set the node (with geometry) to render for the entrance to this portal. This
+     geometry will double as the 'exit' back to this portal from children.
+     */
+    void setPortalEntrance(std::shared_ptr<VROPortalFrame> entrance);
+    const std::shared_ptr<VROPortalFrame> getPortalEntrance() {
+        return _portalEntrance;
+    }
+    
+    /*
+     Return the portal frame being rendered for this portal; either an exit or an
+     entrance.
+     */
+    const std::shared_ptr<VROPortalFrame> getActivePortalFrame() const {
+        return _activePortalFrame;
+    }
+    
+    /*
+     Return true if the portal frame rendered by this portal is an exit into
+     a parent portal, as opposed to this portal's own 'entrance' portal.
+     */
+    bool isRenderingExitFrame() const {
+        return _activePortalFrame != _portalEntrance;
+    }
+    
+    /*
+     If a portal is passable then it reprsents an entry-point into another navigable world,
+     meaning it can be set as the active portal. Non-passable portals can be AR elements overlaid
+     on the real world like picture frames, that are meant to be viewed from outside only.
+     */
+    void setPassable(bool passable) {
+        _passable = passable;
+    }
+    bool isPassable() const {
+        return _passable;
     }
     
     /*
@@ -127,8 +165,6 @@ public:
         return _background;
     }
     
-    void installBackgroundModifier();
-    
 private:
     
     /*
@@ -143,18 +179,44 @@ private:
     std::vector<VROSortKey> _keys;
     
     /*
-     The VROPortal that contains the actual *geometry* we should render for
-     this portal's window. This is typically this portal's own geometry,
-     except when rendering a portal that leads to a destination 'up' the tree.
-     In those cases, we want the parent portal (the destination) to use the
-     child portal's geometry for the window.
-     
-     That is, a portal's own geometry is only ever used as an entrance to
-     that portal's content. However, when we step through a portal (when we've
-     'entered' the portal), we need to render an exit back out to the parent.
-     The parent renders the exit as the child portal's geometry.
+     True if this portal can be entered; e.g, if it can be made into an
+     active portal.
      */
-    std::shared_ptr<VROPortal> _portalToRender;
+    bool _passable;
+    
+    /*
+     Portals have an entrance node that strictly defines the *geometry*
+     (the frame, or window) that delineates the entrance into, or exit from,
+     the portal.
+     */
+    std::shared_ptr<VROPortalFrame> _portalEntrance;
+    
+    /*
+     The _activePortalFrame is the frame this portal should render as its
+     entrance.
+     
+     When moving down the portal tree, this is set to the portal's own
+     entrance: _portalEntrance. However, when moving up the tree, this is
+     set to the active child portal's entrance.
+     
+     For example, if we have the following portal tree:
+     
+         A
+       B   E
+     C   D
+     
+     If A is the active portal, then B would render its own entrance (as an
+     entrance from A into B), C would render its own entrance (as an entrance
+     from B into C) and so on for every portal in the tree.
+     
+     However, if D is the active portal, then B will render D's entrance (as
+     an exit from D into B), B will render A's entrance (as an exit from B into
+     A), and the remaining portals (C and E) would simply render their own
+     entrances.
+     
+     These portals frames are assigned during traversePortals.
+     */
+    std::shared_ptr<VROPortalFrame> _activePortalFrame;
     
     /*
      The background visual to display. All backgrounds in the scene are rendered before
@@ -166,6 +228,11 @@ private:
      Transform to apply to the background geometry.
      */
     VROMatrix4f _backgroundTransform;
+    
+    /*
+     Installs required shader modifiers on the background.
+     */
+    void installBackgroundModifier();
     
 };
 

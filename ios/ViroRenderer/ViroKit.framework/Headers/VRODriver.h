@@ -35,6 +35,12 @@ enum class VROWrapMode;
 enum class VROFilterMode;
 enum class VROMipmapMode;
 
+enum class VROFace {
+    Front,
+    Back,
+    FrontAndBack
+};
+
 /*
  The driver is used to interface with the rendering subsystem (OpenGL,
  Metal, etc.).
@@ -74,15 +80,15 @@ public:
     // Enable portal stencil functions. When writing, we INCR the stencil
     // buffer. When removing, we DECR the buffer. Finally when reading, we
     // make the stencil buffer read-only.
-    virtual void enablePortalStencilWriting() = 0;
-    virtual void enablePortalStencilRemoval() = 0;
-    virtual void enablePortalStencilReading() = 0;
+    virtual void enablePortalStencilWriting(VROFace face) = 0;
+    virtual void enablePortalStencilRemoval(VROFace face) = 0;
+    virtual void disablePortalStencilWriting(VROFace face) = 0;
     
     // Set the reference bits for the stencil test. If passIfLess is
     // false, we pass the stencil test if ref equals the value in the
     // stencil buffer. If passIsLess is true, we pass the stencil test
     // if ref <= value in stencil buffer.
-    virtual void setStencilPassBits(int bits, bool passIfLess) = 0;
+    virtual void setStencilPassBits(VROFace face, int bits, bool passIfLess) = 0;
     
     virtual VROGeometrySubstrate *newGeometrySubstrate(const VROGeometry &geometry) = 0;
     virtual VROMaterialSubstrate *newMaterialSubstrate(VROMaterial &material) = 0;
