@@ -164,6 +164,7 @@ public:
     std::shared_ptr<VROGeometry> getBackground() const {
         return _background;
     }
+    void removeBackground();
     
 private:
     
@@ -232,7 +233,7 @@ private:
     /*
      Installs required shader modifiers on the background.
      */
-    void installBackgroundModifier();
+    void installBackgroundShaderModifier();
     
 };
 

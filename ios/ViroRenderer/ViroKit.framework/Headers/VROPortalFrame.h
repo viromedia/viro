@@ -11,6 +11,8 @@
 
 #include "VRONode.h"
 
+class VROLineSegment;
+
 /*
  Portal frames are nodes that contain the geometry representing the
  entrance (or exit) from the portal. We need these for two reasons:
@@ -61,6 +63,11 @@ public:
     void setTwoSided(bool twoSided) {
         _twoSided = twoSided;
     }
+    
+    /*
+     Returns true if this frame intersects the given line segment.
+     */
+    bool intersectsLineSegment(VROLineSegment segment) const;
     
 private:
     

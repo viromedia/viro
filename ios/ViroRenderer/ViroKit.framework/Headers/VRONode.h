@@ -48,6 +48,7 @@ extern const std::string kDefaultNodeTag;
 enum class VRONodeType {
     Normal,
     Portal,
+    PortalFrame,
 };
 
 class VRONode : public VROAnimatable, public VROThreadRestricted {
@@ -144,6 +145,23 @@ public:
                 std::shared_ptr<VROMaterial> &material,
                 const VRORenderContext &context,
                 std::shared_ptr<VRODriver> &driver);
+    
+    /*
+     Recursively render this node and all of its children, with full texture
+     and lighting.
+     
+     Note: this method does not intelligently batch or sort. It is is less efficient
+     than directly calling render(..) above after proper sorting.
+     */
+    void render(const VRORenderContext &context, std::shared_ptr<VRODriver> &driver);
+    
+    /*
+     Recursively render this the silhouette of this node and all of its children.
+     Texture and lighting are ignored, and the given material is used. This
+     method is typically used to render to the stencil or depth buffers only.
+     */
+    void renderSilhouette(std::shared_ptr<VROMaterial> &material,
+                          const VRORenderContext &context, std::shared_ptr<VRODriver> &driver);
     
 #pragma mark - Geometry
     
@@ -433,7 +451,8 @@ public:
     
 #pragma mark - Events 
     
-    VROBoundingBox getBoundingBox();
+    VROBoundingBox getBoundingBox() const;
+    VROBoundingBox getUmbrellaBoundingBox() const;
     std::vector<VROHitTestResult> hitTest(const VROCamera &camera, VROVector3f origin, VROVector3f ray,
                                           bool boundsOnly = false);
     
