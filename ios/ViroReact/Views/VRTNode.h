@@ -58,6 +58,7 @@ extern const int k2DPointsPerSpatialUnit;
 - (void)applyTorqueImpulse:(VROVector3f)torque;
 - (void)setVelocity:(NSArray*)velocity isConstant:(bool)constant;
 - (void)onCollided:(std::string) bodyKey collision:(VROPhysicsBody::VROCollision) collision;
+- (void)clearPhysicsBody;
 + (std::shared_ptr<VROPhysicsShape>)getPhysicsShape:(NSString *)stringShapeName params:(NSArray *)shapeParams;
 @property (nonatomic, assign) BOOL canCollide;
 
