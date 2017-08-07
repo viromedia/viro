@@ -82,22 +82,23 @@
 }
 
 -(void)updateSceneWithSkybox {
-    if(self.scene) {
+    if(self.parentHasAppeared) {
         if (_useImageForScene && _cubeTexture) {
-            self.scene->getRootNode()->setBackgroundCube(_cubeTexture);
+            self.node->getParentPortal()->setBackgroundCube(_cubeTexture);
         }
         else if (_color) {
             CGFloat r, g, b, a;
             [_color getRed:&r green:&g blue:&b alpha:&a];
             
             VROVector4f v(r, g, b, a);
-            self.scene->getRootNode()->setBackgroundCube(v);
+            self.node->getParentPortal()->setBackgroundCube(v);
         }
     }
 }
 
-- (void)sceneWillAppear {
-    //if the image loading is before the scene is set, then set the image.
+- (void)parentDidAppear {
+    [super parentDidAppear];
+    //if the image loading is before we were added to the tree, then set the image.
     [self updateSceneWithSkybox];
 }
 

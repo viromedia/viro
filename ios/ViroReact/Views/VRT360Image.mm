@@ -72,7 +72,7 @@
     if (_sphereTextureAddedToScene) {
         float rotationValues[3] = {0.0f, 0.0f, 0.0f};
         populateFloatArrayFromNSArray(_rotation, rotationValues, 3);
-        self.scene->getRootNode()->setBackgroundRotation({toRadians(rotationValues[0]), toRadians(rotationValues[1]), toRadians(rotationValues[2])});
+        self.node->getParentPortal()->setBackgroundRotation({toRadians(rotationValues[0]), toRadians(rotationValues[1]), toRadians(rotationValues[2])});
     }
 }
 
@@ -86,18 +86,19 @@
 }
 
 - (void)updateSceneWithSphereTexture {
-    if(!_sphereTextureAddedToScene && _sphereTexture && self.scene) {
-        self.scene->getRootNode()->setBackgroundSphere(_sphereTexture);
+    if(!_sphereTextureAddedToScene && _sphereTexture && self.parentHasAppeared) {
+        self.node->getParentPortal()->setBackgroundSphere(_sphereTexture);
         float rotationValues[3] = {0.0f, 0.0f, 0.0f};
         populateFloatArrayFromNSArray(_rotation, rotationValues, 3);
-        self.scene->getRootNode()->setBackgroundRotation({toRadians(rotationValues[0]), toRadians(rotationValues[1]), toRadians(rotationValues[2])});
+        self.node->getParentPortal()->setBackgroundRotation({toRadians(rotationValues[0]), toRadians(rotationValues[1]), toRadians(rotationValues[2])});
         
         _sphereTextureAddedToScene = YES;
     }
 }
 
-- (void)sceneWillAppear {
-    //if the image loading is before the scene is set, then set the image.
+- (void)parentDidAppear {
+    [super parentDidAppear];
+    //if the image loading is before the parent is added to the tree, then set the image.
     [self updateSceneWithSphereTexture];
 }
 

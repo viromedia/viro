@@ -104,8 +104,11 @@
     
     // If the parent view is added before the child, sceneWillAppear:
     // will have already been invoked, so run the animation here
-    if (_viewAdded){
-        [self.managedAnimation updateAnimation];
+    // (Note setting the animation name will trigger updateAnimation.
+    if (_viewAdded) {
+        if (self.animation) {
+            self.managedAnimation.animationName = self.animation;
+        }
     }
     
     [super insertReactSubview:subview atIndex:atIndex];
@@ -121,7 +124,10 @@
 - (void)sceneWillAppear {
     [super sceneWillAppear];
     _viewAdded = true;
-    [self.managedAnimation updateAnimation];
+    
+    if (self.animation) {
+        self.managedAnimation.animationName = self.animation;
+    }
 }
 
 #pragma mark - Animation Properties

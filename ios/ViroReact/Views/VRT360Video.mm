@@ -90,7 +90,7 @@
     if (_sphereTextureAddedToScene) {
         float rotationValues[3] = {0.0f, 0.0f, 0.0f};
         populateFloatArrayFromNSArray(_rotation, rotationValues, 3);
-        self.scene->getRootNode()->setBackgroundRotation({toRadians(rotationValues[0]),
+        self.node->getParentPortal()->setBackgroundRotation({toRadians(rotationValues[0]),
                                                           toRadians(rotationValues[1]),
                                                           toRadians(rotationValues[2])});
     }
@@ -99,7 +99,7 @@
 - (void)updateSceneWithSphereTexture {
     if (!self.source) {
         RCTLogError(@"Source should not be nil.");
-    } else if (!self.context || !self.driver || _sphereTextureAddedToScene) {
+    } else if (!self.context || !self.driver || _sphereTextureAddedToScene || !self.parentHasAppeared) {
         return;
     }
     
@@ -116,10 +116,10 @@
     _videoTexture->loadVideo(url, self.context->getFrameSynchronizer(), self.driver);
     _videoTexture->prewarm();
     
-    self.scene->getRootNode()->setBackgroundSphere(_videoTexture);
+    self.node->getParentPortal()->setBackgroundSphere(_videoTexture);
     float rotationValues[3] = {0.0f, 0.0f, 0.0f};
     populateFloatArrayFromNSArray(_rotation, rotationValues, 3);
-    self.scene->getRootNode()->setBackgroundRotation({toRadians(rotationValues[0]), toRadians(rotationValues[1]), toRadians(rotationValues[2])});
+    self.node->getParentPortal()->setBackgroundRotation({toRadians(rotationValues[0]), toRadians(rotationValues[1]), toRadians(rotationValues[2])});
     _sphereTextureAddedToScene = true;
     
     if (self.paused) {
@@ -135,9 +135,7 @@
 }
 
 - (void)sceneWillAppear {
-    if (!_sphereTextureAddedToScene) {
-        [self updateSceneWithSphereTexture];
-    } else {
+    if (_sphereTextureAddedToScene) {
         [self setPaused:self.paused];
     }
 }
@@ -145,6 +143,15 @@
 - (void)sceneWillDisappear {
     if (_sphereTextureAddedToScene) {
         _videoTexture->pause();
+    }
+}
+
+- (void)parentDidAppear {
+    [super parentDidAppear];
+    if (!_sphereTextureAddedToScene) {
+        [self updateSceneWithSphereTexture];
+    } else {
+        [self setPaused:self.paused];
     }
 }
 
