@@ -51,6 +51,11 @@ enum class VRONodeType {
     PortalFrame,
 };
 
+enum class VROSilhouetteMode {
+    Flat,         // Render silhouettes with constant lighting, no textures
+    Textured,     // Render silhouettes with constant lighting and textures
+};
+
 class VRONode : public VROAnimatable, public VROThreadRestricted {
     
 public:
@@ -157,10 +162,11 @@ public:
     
     /*
      Recursively render this the silhouette of this node and all of its children.
-     Texture and lighting are ignored, and the given material is used. This
-     method is typically used to render to the stencil or depth buffers only.
+     Lighting is fixed at constant, and the given material is used for all elements.
+     If mode is set to Textured, then textures will be bound. This method is typically
+     used to render to the stencil or depth buffers only.
      */
-    void renderSilhouette(std::shared_ptr<VROMaterial> &material,
+    void renderSilhouette(std::shared_ptr<VROMaterial> &material, VROSilhouetteMode mode,
                           const VRORenderContext &context, std::shared_ptr<VRODriver> &driver);
     
 #pragma mark - Geometry

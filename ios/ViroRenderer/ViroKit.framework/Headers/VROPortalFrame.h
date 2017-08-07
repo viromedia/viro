@@ -11,6 +11,7 @@
 
 #include "VRONode.h"
 
+class VROShaderModifier;
 class VROLineSegment;
 
 /*
@@ -27,6 +28,14 @@ class VROLineSegment;
  */
 class VROPortalFrame : public VRONode {
 public:
+    
+    /*
+     Return the shader modifier that is used to render a portal frame to the
+     stencil buffer. This modifier discards the non-transparent sections of the
+     portal frame, so that only the 'window' gets rendered to the stencil
+     buffer.
+     */
+    static std::shared_ptr<VROShaderModifier> getAlphaDiscardModifier();
     
     VROPortalFrame();
     virtual ~VROPortalFrame();

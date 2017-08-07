@@ -44,6 +44,12 @@ public:
     void setColor(VROVector4f contents);
     void setTexture(std::shared_ptr<VROTexture> texture);
     
+    /*
+     Used to replace a texture quickly without regenerating the
+     entire substrate.
+     */
+    void swapTexture(std::shared_ptr<VROTexture> texture);
+    
     VROTextureType getTextureType() const {
         if (_contentsTexture) {
             return _contentsTexture->getType();

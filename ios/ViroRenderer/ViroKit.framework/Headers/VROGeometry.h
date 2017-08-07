@@ -25,6 +25,7 @@ class VRONode;
 class VROLight;
 class VROSortKey;
 class VROMaterial;
+class VROTexture;
 class VROGeometryElement;
 class VROGeometrySource;
 class VROGeometrySubstrate;
@@ -111,6 +112,17 @@ public:
                           std::shared_ptr<VROMaterial> &material,
                           const VRORenderContext &context,
                           std::shared_ptr<VRODriver> &driver);
+    
+    /*
+     Render the silhouette of the given element of the given geometry.
+     Renders using the provided material, which is assumed to already be
+     bound, and binds its associated texture.
+     */
+    void renderSilhouetteTextured(int element,
+                                  VROMatrix4f transform,
+                                  std::shared_ptr<VROMaterial> &material,
+                                  const VRORenderContext &context,
+                                  std::shared_ptr<VRODriver> &driver);
     
     void updateSortKeys(VRONode *node, uint32_t hierarchyId, uint32_t hierarchyDepth,
                         uint32_t lightsHash, float opacity, float distanceFromCamera, float zFar,
