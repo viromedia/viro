@@ -32,7 +32,7 @@ public abstract class ManagedAnimation {
     private ExecutableAnimationJni mExecutableAnimation = null;
     private float mDelayInMilliseconds = 0; // milliseconds
     private boolean mLoop = false;
-    private boolean mRun = true;
+    private boolean mRun = false;
     private AnimationState mState = AnimationState.TERMINATED;
 
     /**

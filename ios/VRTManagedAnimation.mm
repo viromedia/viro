@@ -29,7 +29,7 @@ enum class VRTAnimationState {
     if (self) {
         self.delay = -1.0f;
         self.loop = false;
-        self.run = true;
+        self.run = false;
         self.state = VRTAnimationState::Terminated;
     }
     return self;
@@ -52,16 +52,23 @@ enum class VRTAnimationState {
 }
 
 - (void)parseFromDictionary:(NSDictionary *)dictionary {
-    id delayValue = [dictionary objectForKey:@"delay"];
-    if (delayValue != nil) {
-        self.delay = [delayValue floatValue];
-    }
-    else {
+    if (!dictionary || [dictionary count] == 0) {
+        self.loop = NO;
+        self.run = NO;
         self.delay = -1;
     }
-    
-    self.loop = [[dictionary objectForKey:@"loop"] boolValue];
-    self.run = [[dictionary objectForKey:@"run"] boolValue];
+    else {
+        id delayValue = [dictionary objectForKey:@"delay"];
+        if (delayValue != nil) {
+            self.delay = [delayValue floatValue];
+        }
+        else {
+            self.delay = -1;
+        }
+        
+        self.loop = [[dictionary objectForKey:@"loop"] boolValue];
+        self.run = [[dictionary objectForKey:@"run"] boolValue];
+    }
 }
 
 - (void)updateAnimation {
