@@ -6,7 +6,7 @@
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  *
- * @providesModule ViroARNavigator
+ * @providesModule ViroARSceneNavigator
  * @flow
  */
 
@@ -15,10 +15,10 @@
 
 var NativeModules = require('react-native').NativeModules;
 var PropTypes = require('react/lib/ReactPropTypes');
-var ViroARNavigatorModule = require('react-native').NativeModules.VRTARNavigatorModule;
+var ViroARSceneNavigatorModule = require('react-native').NativeModules.VRTARSceneNavigatorModule;
 import { requireNativeComponent, View, StyleSheet, findNodeHandle, Platform, Text } from 'react-native';
 import React, { Component } from 'react';
-var AR_NAVIGATOR_REF = 'viroarnavigator';
+var AR_SCENE_NAVIGATOR_REF = 'viroarscenenavigator';
 
 type Scene = {
   scene: Function;
@@ -28,9 +28,9 @@ type Scene = {
 var mathRandomOffset = 0;
 
 /**
- * ViroARNavigator is used to transition between multiple AR Scenes.
+ * ViroARSceneNavigator is used to transition between multiple AR Scenes.
  */
-var ViroARNavigator = React.createClass({
+var ViroARSceneNavigator = React.createClass({
   propTypes: {
 
       ...View.propTypes,
@@ -38,7 +38,7 @@ var ViroARNavigator = React.createClass({
       apiKey: PropTypes.string.isRequired,
 
       /**
-       * ViroARNavigator uses "scene" objects like the following to
+       * ViroARSceneNavigator uses "scene" objects like the following to
        * describe a scene.
        */
       initialScene: PropTypes.shape({
@@ -55,7 +55,7 @@ var ViroARNavigator = React.createClass({
       }).isRequired,
   },
 
-  arNavigator: (undefined: ?Object),
+  arSceneNavigator: (undefined: ?Object),
 
   getDefaultProps: function() {
     return {
@@ -67,7 +67,7 @@ var ViroARNavigator = React.createClass({
   componentWillMount: function() {
     // Precompute a pack of callbacks that's frequently generated and passed to
     // instances.
-    this.arNavigator = {
+    this.arSceneNavigator = {
       push: this.push,
       pop: this.pop,
       popN: this.popN,
@@ -239,7 +239,7 @@ var ViroARNavigator = React.createClass({
     }
 
     if (this.state.sceneHistory.length - n <= 0){
-        console.log("WARN: Attempted to pop the root scene in ViroSceneNavigator!")
+        console.log("WARN: Attempted to pop the root scene in ViroARSceneNavigator!")
         return;
     }
 
@@ -376,11 +376,11 @@ var ViroARNavigator = React.createClass({
   },
 
   _getNodeHandle: function(): any {
-    return findNodeHandle(this.refs[AR_NAVIGATOR_REF]);
+    return findNodeHandle(this.refs[AR_SCENE_NAVIGATOR_REF]);
   },
 
   _recenterTracking() {
-    ViroARNavigatorModule.recenterTracking(this._getNodeHandle());
+    ViroARSceneNavigatorModule.recenterTracking(this._getNodeHandle());
   },
 
   /*
@@ -390,7 +390,7 @@ var ViroARNavigator = React.createClass({
    saveToCameraRoll - whether or not the file should also be saved to the camera roll
    */
   _startVideoRecording(fileName, saveToCameraRoll, onError) {
-    ViroARNavigatorModule.startVideoRecording(findNodeHandle(this), fileName, saveToCameraRoll, onError);
+    ViroARSceneNavigatorModule.startVideoRecording(findNodeHandle(this), fileName, saveToCameraRoll, onError);
   },
 
   /*
@@ -399,7 +399,7 @@ var ViroARNavigator = React.createClass({
    returns Object w/ success, url and errorCode keys.
    */
   async _stopVideoRecording() {
-    return await ViroARNavigatorModule.stopVideoRecording(findNodeHandle(this));
+    return await ViroARSceneNavigatorModule.stopVideoRecording(findNodeHandle(this));
   },
 
   /*
@@ -411,7 +411,7 @@ var ViroARNavigator = React.createClass({
    returns Object w/ success, url and errorCode keys.
    */
   async _takeScreenshot(fileName, saveToCameraRoll) {
-    return await ViroARNavigatorModule.takeScreenshot(findNodeHandle(this), fileName, saveToCameraRoll);
+    return await ViroARSceneNavigatorModule.takeScreenshot(findNodeHandle(this), fileName, saveToCameraRoll);
   },
 
   _renderSceneStackItems: function() {
@@ -421,7 +421,7 @@ var ViroARNavigator = React.createClass({
       for (var scene in sceneDictionary){
           var Component = sceneDictionary[scene].sceneClass.scene;
           var props = sceneDictionary[scene].sceneClass.passProps;
-          views.push((<Component key={'scene' + i} sceneNavigator={this.arNavigator} {...props}/>));
+          views.push((<Component key={'scene' + i} arSceneNavigator={this.arSceneNavigator} {...props}/>));
           i++;
       }
       return views;
@@ -430,27 +430,27 @@ var ViroARNavigator = React.createClass({
   render: function() {
     var items = this._renderSceneStackItems();
 
-    // update the arNavigator with the latest given props on every render
-    this.arNavigator.viroAppProps = this.props.viroAppProps;
+    // update the arSceneNavigator with the latest given props on every render
+    this.arSceneNavigator.viroAppProps = this.props.viroAppProps;
     // If the user simply passes us the props from the root React component,
     // then we'll have an extra 'rootTag' key which React automatically includes
     // so remove it.
-    delete this.arNavigator.viroAppProps.rootTag;
+    delete this.arSceneNavigator.viroAppProps.rootTag;
 
     // TODO: remove this check when AR on Android is supported
     if (Platform.OS == 'android') {
       return (<Text>AR is not available on Android. </Text>);
     }
     return (
-      <VRTARNavigator
-        ref={AR_NAVIGATOR_REF}
+      <VRTARSceneNavigator
+        ref={AR_SCENE_NAVIGATOR_REF}
         {...this.props}
         currentSceneIndex={this.state.currentSceneIndex}
         style={this.props.style, styles.container}
         hasOnExitViroCallback={this.props.onExitViro != undefined}
         onExitViro={this._onExitViro}>
         {items}
-      </VRTARNavigator>
+      </VRTARSceneNavigator>
     );
   },
 });
@@ -464,10 +464,10 @@ var styles = StyleSheet.create({
   },
 });
 
-var VRTARNavigator = requireNativeComponent(
-    'VRTARNavigator', ViroARNavigator, {
+var VRTARSceneNavigator = requireNativeComponent(
+    'VRTARSceneNavigator', ViroARSceneNavigator, {
         nativeOnly: { currentSceneIndex:true, onExitViro:true, hasOnExitViroCallback:true }
     }
 );
 
-module.exports = ViroARNavigator;
+module.exports = ViroARSceneNavigator;

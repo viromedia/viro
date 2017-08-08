@@ -42,7 +42,7 @@ const ReactViro = {
   get ViroPolyline() { return require('./components/ViroPolyline'); },
   get ViroConstants() { return require('./components/ViroConstants'); },
   // AR Components
-  get ViroARNavigator() { return require('./components/AR/ViroARNavigator'); },
+  get ViroARSceneNavigator() { return require('./components/AR/ViroARSceneNavigator'); },
   get ViroARScene() { return require('./components/AR/ViroARScene'); },
   get ViroARPlane() { return require('./components/AR/ViroARPlane'); },
   get ViroARPlaneSelector() { return require('./components/AR/ViroARPlaneSelector'); },

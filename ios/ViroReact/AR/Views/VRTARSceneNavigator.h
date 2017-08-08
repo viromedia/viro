@@ -1,5 +1,5 @@
 //
-//  VRTARNavigator.h
+//  VRTARSceneNavigator.h
 //  ViroReact
 //
 //  Created by Andy Chu on 6/12/17.
@@ -13,7 +13,7 @@
 
 @class VRTScene;
 
-@interface VRTARNavigator : VRTView<VRORenderDelegate, RCTInvalidating>
+@interface VRTARSceneNavigator : VRTView<VRORenderDelegate, RCTInvalidating>
 
 @property (nonatomic, assign) NSInteger currentSceneIndex;
 @property (nonatomic, readwrite, strong) NSMutableArray<VRTScene *> *currentViews;

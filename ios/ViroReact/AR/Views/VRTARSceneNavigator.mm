@@ -1,5 +1,5 @@
 //
-//  VRTARNavigator.mm
+//  VRTARSceneNavigator.mm
 //  ViroReact
 //
 //  Created by Andy Chu on 6/12/17.
@@ -7,7 +7,7 @@
 //
 
 #import <ViroKit/ViroKit.h>
-#import "VRTARNavigator.h"
+#import "VRTARSceneNavigator.h"
 #import <React/RCTAssert.h>
 #import <React/RCTLog.h>
 #import "VRTARScene.h"
@@ -18,7 +18,7 @@
 
 static NSString *const kVRTInvalidAPIKeyMessage = @"The given API Key is either missing or invalid! If you have not signed up for accessing Viro Media platform, please do so at www.viromedia.com. Otherwise, contact info@viromedia.com if you have a valid key and are encountering this error.";
 
-@implementation VRTARNavigator {
+@implementation VRTARSceneNavigator {
     id <VROView> _vroView;
     NSInteger _currentStackPosition;
 }

@@ -1,5 +1,5 @@
 //
-//  VRTARNavigatorModule.h
+//  VRTARSceneNavigatorModule.h
 //  ViroReact
 //
 //  Created by Andy Chu on 7/25/17.
@@ -9,6 +9,6 @@
 #import <React/RCTBridgeModule.h>
 #import <React/RCTBridge.h>
 
-@interface VRTARNavigatorModule : NSObject <RCTBridgeModule>
+@interface VRTARSceneNavigatorModule : NSObject <RCTBridgeModule>
 
 @end

@@ -60,11 +60,11 @@ var testARScene = React.createClass({
   _startRecording() {
     console.log("kirby ViroConstants " + ViroConstants.RECORD_ERROR_NONE)
     console.log("[JS] begin recording!");
-    this.props.sceneNavigator.startVideoRecording("testVid11", true,
+    this.props.arSceneNavigator.startVideoRecording("testVid11", true,
        (errorCode)=>{console.log("[JS] onError callback errorCode: " + errorCode)});
   },
   _stopRecording() {
-    this.props.sceneNavigator.stopVideoRecording().then((retDict)=>{
+    this.props.arSceneNavigator.stopVideoRecording().then((retDict)=>{
       console.log("[JS] success? " + retDict.success);
       console.log("[JS] the url was: " + retDict.url);
       if (!retDict.success) {

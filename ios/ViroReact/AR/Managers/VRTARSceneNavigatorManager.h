@@ -1,5 +1,5 @@
 //
-//  VRTARNavigatorManager.h
+//  VRTARSceneNavigatorManager.h
 //  ViroReact
 //
 //  Created by Andy Chu on 6/12/17.
@@ -9,6 +9,6 @@
 #import <Foundation/Foundation.h>
 #import "ViroViewManager.h"
 
-@interface VRTARNavigatorManager : ViroViewManager
+@interface VRTARSceneNavigatorManager : ViroViewManager
 
 @end

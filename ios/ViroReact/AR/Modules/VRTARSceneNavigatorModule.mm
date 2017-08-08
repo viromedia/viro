@@ -1,5 +1,5 @@
 //
-//  VRTARNavigatorModule.m
+//  VRTARSceneNavigatorModule.m
 //  ViroReact
 //
 //  Created by Andy Chu on 7/25/17.
@@ -7,10 +7,10 @@
 //
 
 #import <React/RCTUIManager.h>
-#import "VRTARNavigatorModule.h"
-#import "VRTARNavigator.h"
+#import "VRTARSceneNavigatorModule.h"
+#import "VRTARSceneNavigator.h"
 
-@implementation VRTARNavigatorModule
+@implementation VRTARSceneNavigatorModule
 @synthesize bridge = _bridge;
 
 static NSString *const kVRTRecordingKeySuccess = @"success";
@@ -29,10 +29,10 @@ RCT_EXPORT_METHOD(startVideoRecording:(nonnull NSNumber *)reactTag
                               callback:(RCTResponseSenderBlock)callback) {
     [self.bridge.uiManager addUIBlock:^(__unused RCTUIManager *uiManager, NSDictionary<NSNumber *, UIView *> *viewRegistry) {
         VRTView *view = (VRTView *)viewRegistry[reactTag];
-        if (![view isKindOfClass:[VRTARNavigator class]]) {
-            RCTLogError(@"Invalid view returned from registry, expecting VRTARNavigator, got: %@", view);
+        if (![view isKindOfClass:[VRTARSceneNavigator class]]) {
+            RCTLogError(@"Invalid view returned from registry, expecting VRTARSceneNavigator, got: %@", view);
         } else {
-            VRTARNavigator *component = (VRTARNavigator *)view;
+            VRTARSceneNavigator *component = (VRTARSceneNavigator *)view;
             [component startVideoRecording:fileName saveToCameraRoll:saveToCameraRoll onError:callback];
         }
     }];
@@ -43,10 +43,10 @@ RCT_EXPORT_METHOD(stopVideoRecording:(nonnull NSNumber *)reactTag
                               reject:(RCTPromiseRejectBlock)reject) {
     [self.bridge.uiManager addUIBlock:^(__unused RCTUIManager *uiManager, NSDictionary<NSNumber *, UIView *> *viewRegistry) {
         VRTView *view = (VRTView *)viewRegistry[reactTag];
-        if (![view isKindOfClass:[VRTARNavigator class]]) {
-            RCTLogError(@"Invalid view returned from registry, expecting VRTARNavigator, got: %@", view);
+        if (![view isKindOfClass:[VRTARSceneNavigator class]]) {
+            RCTLogError(@"Invalid view returned from registry, expecting VRTARSceneNavigator, got: %@", view);
         } else {
-            VRTARNavigator *component = (VRTARNavigator *)view;
+            VRTARSceneNavigator *component = (VRTARSceneNavigator *)view;
             [component stopVideoRecordingWithHandler:^(BOOL success, NSURL *url, NSInteger errorCode) {
                 NSMutableDictionary *toReturn = [NSMutableDictionary new];
                 [toReturn setObject:@(success) forKey:kVRTRecordingKeySuccess];
@@ -65,10 +65,10 @@ RCT_EXPORT_METHOD(takeScreenshot:(nonnull NSNumber *)reactTag
                           reject:(RCTPromiseRejectBlock)reject) {
     [self.bridge.uiManager addUIBlock:^(__unused RCTUIManager *uiManager, NSDictionary<NSNumber *, UIView *> *viewRegistry) {
         VRTView *view = (VRTView *)viewRegistry[reactTag];
-        if (![view isKindOfClass:[VRTARNavigator class]]) {
-            RCTLogError(@"Invalid view returned from registry, expecting VRTARNavigator, got: %@", view);
+        if (![view isKindOfClass:[VRTARSceneNavigator class]]) {
+            RCTLogError(@"Invalid view returned from registry, expecting VRTARSceneNavigator, got: %@", view);
         } else {
-            VRTARNavigator *component = (VRTARNavigator *)view;
+            VRTARSceneNavigator *component = (VRTARSceneNavigator *)view;
             [component takeScreenshot:fileName
                      saveToCameraRoll:saveToCameraRoll
                     completionHandler:^(BOOL success, NSURL *url, NSInteger errorCode) {
