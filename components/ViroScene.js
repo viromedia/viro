@@ -113,8 +113,10 @@ var ViroScene = React.createClass({
   async getCameraOrientationAsync(){
     var orientation = await NativeModules.VRTCameraModule.getCameraOrientation(findNodeHandle(this));
     return {
-      position:[orientation[0], orientation[1], orientation[2]],
-      rotation:[orientation[3], orientation[4], orientation[5]]
+      position: [orientation[0], orientation[1], orientation[2]],
+      rotation: [orientation[3], orientation[4], orientation[5]],
+      forward: [orientation[6], orientation[7], orientation[8]],
+      up: [orientation[9], orientation[10], orientation[11]],
     }
   },
 

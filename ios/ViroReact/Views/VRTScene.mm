@@ -161,10 +161,14 @@ static NSArray<NSNumber *> *const kDefaultSize = @[@(0), @(0), @(0)];
     if (self.context) {
         VROVector3f cameraPosition = self.context->getCamera().getPosition();
         VROVector3f cameraRotation = self.context->getCamera().getRotation().toEuler();
+        VROVector3f cameraForward = self.context->getCamera().getForward();
+        VROVector3f cameraUp = self.context->getCamera().getUp();
         return @[@(cameraPosition.x), @(cameraPosition.y), @(cameraPosition.z),
-                 @(toDegrees(cameraRotation.x)), @(toDegrees(cameraRotation.y)), @(toDegrees(cameraRotation.z))];
+                 @(toDegrees(cameraRotation.x)), @(toDegrees(cameraRotation.y)), @(toDegrees(cameraRotation.z)),
+                 @(cameraForward.x), @(cameraForward.y), @(cameraForward.z),
+                 @(cameraUp.x), @(cameraUp.y), @(cameraUp.z)];
     } else {
-        return @[@0, @0, @0, @0, @0, @0];
+        return @[@0, @0, @0, @0, @0, @0, @0, @0, @0, @0, @0, @0];
     }
 }
 

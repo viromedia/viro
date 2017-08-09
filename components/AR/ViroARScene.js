@@ -9,7 +9,7 @@
 import { requireNativeComponent, findNodeHandle, View } from 'react-native';
 import React, { Component } from 'react';
 var PropTypes = require('react/lib/ReactPropTypes');
-var ViroCameraModule = require('react-native').NativeModules.VRTCameraModule;
+var NativeModules = require('react-native').NativeModules;
 
 var ViroARScene = React.createClass({
   propTypes: {
@@ -90,6 +90,28 @@ var ViroARScene = React.createClass({
 
   _onTrackingInitialized: function(event: Event) {
     this.props.onTrackingInitialized && this.props.onTrackingInitialized();
+  },
+
+  async findCollisionsWithRayAsync(from, to, closest, viroTag) {
+    return await NativeModules.VRTSceneModule.findCollisionsWithRayAsync(findNodeHandle(this), from, to, closest, viroTag);
+  },
+
+  async findCollisionsWithShapeAsync(from, to, shapeString, shapeParam, viroTag) {
+    return await NativeModules.VRTSceneModule.findCollisionsWithShapeAsync(findNodeHandle(this), from, to, shapeString, shapeParam, viroTag);
+  },
+
+  async getCameraPositionAsync() {
+    return await ViroCameraModule.getCameraPosition(findNodeHandle(this));
+  },
+
+  async getCameraOrientationAsync(){
+    var orientation = await NativeModules.VRTCameraModule.getCameraOrientation(findNodeHandle(this));
+    return {
+      position: [orientation[0], orientation[1], orientation[2]],
+      rotation: [orientation[3], orientation[4], orientation[5]],
+      forward: [orientation[6], orientation[7], orientation[8]],
+      up: [orientation[9], orientation[10], orientation[11]],
+    }
   },
 
   async getCameraPositionAsync() {

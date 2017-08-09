@@ -42,7 +42,9 @@ public class CameraModule extends ReactContextBaseJavaModule {
                     scene.getCameraPositionAsync(new CameraCallback() {
                         @Override
                         public void onGetCameraOrientation(float posX, float poxY, float posZ,
-                                                           float rotEulerX, float rotEulerY, float rotEulerZ) {
+                                                           float rotEulerX, float rotEulerY, float rotEulerZ,
+                                                           float forwardX, float forwardY, float forwardZ,
+                                                           float upX, float upY, float upZ) {
                             WritableArray array = Arguments.createArray();
                             array.pushDouble(posX);
                             array.pushDouble(poxY);
@@ -50,6 +52,12 @@ public class CameraModule extends ReactContextBaseJavaModule {
                             array.pushDouble(rotEulerX);
                             array.pushDouble(rotEulerY);
                             array.pushDouble(rotEulerZ);
+                            array.pushDouble(forwardX);
+                            array.pushDouble(forwardY);
+                            array.pushDouble(forwardZ);
+                            array.pushDouble(upX);
+                            array.pushDouble(upY);
+                            array.pushDouble(upZ);
                             promise.resolve(array);
                         }
                     });
