@@ -70,6 +70,7 @@ static NSArray<NSNumber *> *const kDefaultSize = @[@(0), @(0), @(0)];
 - (void)setView:(id <VROView>)view {
     _vroView = view;
     [self setCameraIfAvailable];
+    [self notifyOnPlatformUpdate];
 }
 
 -(void)setDriver:(std::shared_ptr<VRODriver>)driver {
@@ -106,10 +107,13 @@ static NSArray<NSNumber *> *const kDefaultSize = @[@(0), @(0), @(0)];
     }
 }
 
--(void)setOnPlatformUpdateViro:(RCTDirectEventBlock)onPlatformUpdateViro {
+- (void)setOnPlatformUpdateViro:(RCTDirectEventBlock)onPlatformUpdateViro {
     _onPlatformUpdateViro = onPlatformUpdateViro;
-    // since we're on iOS, the platform information is all known, so simply call the function as soon as it is set.
-    if (_onPlatformUpdateViro) {
+    [self notifyOnPlatformUpdate];
+}
+
+- (void)notifyOnPlatformUpdate {
+    if (_onPlatformUpdateViro && _vroView) {
         _onPlatformUpdateViro(@{kPlatformInfoKey: @{kPlatformKey : [_vroView getPlatform],
                                                     kHeadsetKey : [_vroView getHeadset],
                                                     kControllerKey : [_vroView getController]}});
