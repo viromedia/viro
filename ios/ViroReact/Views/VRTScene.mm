@@ -18,6 +18,13 @@
 #import "VRTTreeNode.h"
 #import <map>
 
+static NSString *const kPlatformInfoKey = @"platformInfoViro";
+static NSString *const kVrPlatformKey = @"vrPlatform";
+static NSString *const kPlatformKey = @"platform";
+static NSString *const kHeadsetKey = @"headset";
+static NSString *const kControllerKey = @"controller";
+
+
 static NSString *const kSizeKey = @"size";
 static NSString *const kWallMaterialKey = @"wallMaterial";
 static NSString *const kCeilingMaterialKey = @"ceilingMaterial";
@@ -103,9 +110,9 @@ static NSArray<NSNumber *> *const kDefaultSize = @[@(0), @(0), @(0)];
     _onPlatformUpdateViro = onPlatformUpdateViro;
     // since we're on iOS, the platform information is all known, so simply call the function as soon as it is set.
     if (_onPlatformUpdateViro) {
-        _onPlatformUpdateViro(@{@"platformInfoViro": @{@"vrPlatform" : @"gvr",
-                                                       @"headset" : @"cardboard",
-                                                       @"controller" : @"cardboard"}});
+        _onPlatformUpdateViro(@{kPlatformInfoKey: @{kPlatformKey : [_vroView getPlatform],
+                                                    kHeadsetKey : [_vroView getHeadset],
+                                                    kControllerKey : [_vroView getController]}});
     }
 }
 

@@ -84,6 +84,11 @@ var ViroScene = React.createClass({
   },
 
   _onPlatformUpdate: function(event: Event) {
+    /**
+     * ##### DEPRECATION WARNING - 'vrPlatform' is deprecated in favor of 'platform'! Support
+     * for 'vrPlatform' may be removed in the future.
+     */
+    event.nativeEvent.platformInfoViro.vrPlatform = event.nativeEvent.platformInfoViro.platform
     this.props.onPlatformUpdate && this.props.onPlatformUpdate(event.nativeEvent.platformInfoViro);
   },
 

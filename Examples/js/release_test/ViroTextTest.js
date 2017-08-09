@@ -56,7 +56,7 @@ var ViroTextTest = React.createClass({
   },
 
   _platformUpdate: function(updates) {
-    console.log("Platform updated! platform: " + updates.vrPlatform + ", headset: " + updates.headset + ", controller: " + updates.controller);
+    console.log("Platform updated! platform: " + updates.platform + ", headset: " + updates.headset + ", controller: " + updates.controller);
   },
   _toggleFontSize(){
     var newSize;

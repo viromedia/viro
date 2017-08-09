@@ -202,7 +202,7 @@ public class SceneNavigator extends FrameLayout {
 
         Scene childScene = (Scene)child;
         mSceneArray.add(index, childScene);
-        childScene.setPlatformInformation(mVrView.getVRPlatform(), mVrView.getHeadset(),
+        childScene.setPlatformInformation(mVrView.getPlatform(), mVrView.getHeadset(),
                 mVrView.getController());
 
         // Adding the scene view can occur after the prop type is set on the bridge.
@@ -290,7 +290,7 @@ public class SceneNavigator extends FrameLayout {
 
     private void notifyScenePlatformInformation() {
         for (Scene scene: mSceneArray) {
-            scene.setPlatformInformation(mVrView.getVRPlatform(), mVrView.getHeadset(),
+            scene.setPlatformInformation(mVrView.getPlatform(), mVrView.getHeadset(),
                     mVrView.getController());
         }
     }

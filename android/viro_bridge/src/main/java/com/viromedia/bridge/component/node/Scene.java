@@ -40,7 +40,7 @@ public class Scene extends Node implements SceneJni.SceneDelegate {
     private String mFloorMaterial;
 
     // Platform Information (set by SceneNavigator.java)
-    private String mVrPlatform;
+    private String mPlatform;
     private String mHeadset;
     private String mController;
 
@@ -141,7 +141,7 @@ public class Scene extends Node implements SceneJni.SceneDelegate {
     public void setId(int id) {
         super.setId(id);
         // make sure platform info was set before we go notifying js of nothing.
-        if (mVrPlatform != null) {
+        if (mPlatform != null) {
             notifyPlatformInformation();
         }
     }
@@ -150,8 +150,8 @@ public class Scene extends Node implements SceneJni.SceneDelegate {
      * This method is called to set the platform information on the Scene so that it can call
      * the listener in javascript to let developers listen for the platform.
      */
-    public void setPlatformInformation(String vrPlatform, String headset, String controller) {
-        mVrPlatform = vrPlatform;
+    public void setPlatformInformation(String platform, String headset, String controller) {
+        mPlatform = platform;
         mHeadset = headset;
         mController = controller;
 
@@ -162,7 +162,7 @@ public class Scene extends Node implements SceneJni.SceneDelegate {
 
     private void notifyPlatformInformation() {
         WritableMap event = Arguments.createMap();
-        event.putString("vrPlatform", mVrPlatform);
+        event.putString("platform", mPlatform);
         event.putString("headset", mHeadset);
         event.putString("controller", mController);
         WritableMap eventContainer = Arguments.createMap();
