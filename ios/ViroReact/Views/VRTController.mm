@@ -74,10 +74,11 @@
     _eventDelegate->setEnabledEvent(VROEventDelegate::EventAction::OnFuse, canFuse);
 }
 
--(void)onClick:(int)source clickState:(VROEventDelegate::ClickState)clickState{
+-(void)onClick:(int)source clickState:(VROEventDelegate::ClickState)clickState clickLocation:(std::vector<float>)location {
     if (self.onClickViro != nil) {
         self.onClickViro(@{@"source": @(source),
-                           @"clickState":@(clickState)});
+                           @"clickState":@(clickState),
+                           @"position":@[@(location[0]), @(location[1]), @(location[2])]});
     }
 }
 
