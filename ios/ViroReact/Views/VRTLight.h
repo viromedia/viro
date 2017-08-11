@@ -17,6 +17,7 @@
 - (instancetype)initWithLightType:(VROLightType)lightType bridge:(RCTBridge *)bridge;
 - (std::shared_ptr<VROLight>)light;
 - (void)setColor:(NSArray<NSNumber *> *)color;
+- (void)setIntensity:(float)intensity;
 
 @end
 

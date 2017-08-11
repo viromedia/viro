@@ -37,4 +37,9 @@ public class AmbientLightManager extends ViroViewGroupManager<AmbientLight> {
         }
     }
 
+    @ReactProp(name = "intensity", defaultFloat = 1000.0f)
+    public void setIntensity(AmbientLight ambientLight, float intensity) {
+        ambientLight.setIntensity(intensity);
+    }
+
 }

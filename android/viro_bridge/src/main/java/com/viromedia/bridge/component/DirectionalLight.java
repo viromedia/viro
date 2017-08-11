@@ -56,9 +56,10 @@ public class DirectionalLight extends Light {
 
         if (mNativeLight == null) {
 
-            mNativeLight = new DirectionalLightJni(mColor, mDirection);
+            mNativeLight = new DirectionalLightJni(mColor, mIntensity, mDirection);
         } else {
             mNativeLight.setColor(mColor);
+            mNativeLight.setIntensity(mIntensity);
             mNativeLight.setDirection(mDirection);
         }
     }

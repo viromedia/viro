@@ -13,6 +13,7 @@
 
 RCT_EXPORT_MODULE()
 RCT_EXPORT_VIEW_PROPERTY(color, UIColor)
+RCT_EXPORT_VIEW_PROPERTY(intensity, float)
 
 @end
 
@@ -42,6 +43,7 @@ RCT_EXPORT_VIEW_PROPERTY(attenuationStartDistance, float)
 RCT_EXPORT_VIEW_PROPERTY(attenuationEndDistance, float)
 RCT_EXPORT_VIEW_PROPERTY(position, NSNumberArray)
 RCT_EXPORT_VIEW_PROPERTY(color, UIColor)
+RCT_EXPORT_VIEW_PROPERTY(intensity, float)
 RCT_EXPORT_VIEW_PROPERTY(direction, NSNumberArray)
 
 - (VRTView *)view
@@ -57,6 +59,7 @@ RCT_EXPORT_VIEW_PROPERTY(direction, NSNumberArray)
 RCT_EXPORT_MODULE()
 
 RCT_EXPORT_VIEW_PROPERTY(color, UIColor)
+RCT_EXPORT_VIEW_PROPERTY(intensity, float)
 
 - (VRTView *)view
 {
@@ -74,6 +77,7 @@ RCT_EXPORT_VIEW_PROPERTY(attenuationStartDistance, float)
 RCT_EXPORT_VIEW_PROPERTY(attenuationEndDistance, float)
 RCT_EXPORT_VIEW_PROPERTY(position, NSNumberArray)
 RCT_EXPORT_VIEW_PROPERTY(color, UIColor)
+RCT_EXPORT_VIEW_PROPERTY(intensity, float)
 
 - (VRTView *)view
 {

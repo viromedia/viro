@@ -72,10 +72,11 @@ public class OmniLight extends Light {
         super.onPropsSet();
 
         if (mNativeLight == null) {
-            mNativeLight = new OmniLightJni(mColor, mAttenuationStartDistance, mAttenuationEndDistance,
-                    mPosition);
+            mNativeLight = new OmniLightJni(mColor, mIntensity, mAttenuationStartDistance,
+                    mAttenuationEndDistance, mPosition);
         } else {
             mNativeLight.setColor(mColor);
+            mNativeLight.setIntensity(mIntensity);
             mNativeLight.setAttenuationStartDistance(mAttenuationStartDistance);
             mNativeLight.setAttenuationEndDistance(mAttenuationEndDistance);
             mNativeLight.setPosition(mPosition);

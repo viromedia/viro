@@ -101,10 +101,11 @@ public class SpotLight extends Light {
         super.onPropsSet();
 
         if (mNativeLight == null) {
-            mNativeLight = new SpotLightJni(mColor, mAttenuationStartDistance, mAttenuationEndDistance,
+            mNativeLight = new SpotLightJni(mColor, mIntensity, mAttenuationStartDistance, mAttenuationEndDistance,
                     mPosition, mDirection, mInnerAngle, mOuterAngle);
         } else {
             mNativeLight.setColor(mColor);
+            mNativeLight.setIntensity(mIntensity);
             mNativeLight.setAttenuationStartDistance(mAttenuationStartDistance);
             mNativeLight.setAttenuationEndDistance(mAttenuationEndDistance);
             mNativeLight.setPosition(mPosition);

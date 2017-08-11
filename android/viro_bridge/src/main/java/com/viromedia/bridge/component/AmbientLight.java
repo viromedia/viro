@@ -43,9 +43,10 @@ public class AmbientLight extends Light {
 
         if (mNativeLight == null) {
 
-            mNativeLight = new AmbientLightJni(mColor);
+            mNativeLight = new AmbientLightJni(mColor, mIntensity);
         } else {
             mNativeLight.setColor(mColor);
+            mNativeLight.setIntensity(mIntensity);
         }
     }
 }

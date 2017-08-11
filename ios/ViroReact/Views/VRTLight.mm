@@ -41,6 +41,10 @@
     _light->setColor({static_cast<float>(floatColor[0]), static_cast<float>(floatColor[1]), static_cast<float>(floatColor[2])});
 }
 
+- (void)setIntensity:(float)intensity {
+    _light->setIntensity(intensity);
+}
+
 @end
 
 @implementation VRTAmbientLight
