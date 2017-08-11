@@ -11,6 +11,10 @@
 #import "VRTARAnchorNode.h"
 #import "VRTARPlane.h"
 
+static NSString *const kVRTAmbientLightInfoKey = @"ambientLightInfo";
+static NSString *const kVRTIntensityKey = @"intensity";
+static NSString *const kVRTColorTemperatureKey = @"colorTemperature";
+
 @implementation VRTARScene {
     std::shared_ptr<VROARScene> _vroArScene;
     std::shared_ptr<VROARSceneDelegateiOS> _sceneDelegate;
@@ -44,6 +48,14 @@
 - (void)onTrackingInitialized {
     if (self.onTrackingInitializedViro) {
         self.onTrackingInitializedViro(@{});
+    }
+}
+
+- (void)onAmbientLightUpdate:(float)intensity colorTemperature:(float)colorTemperature {
+    if (self.onAmbientLightUpdateViro) {
+        self.onAmbientLightUpdateViro(@{kVRTAmbientLightInfoKey: @{ kVRTIntensityKey : @(intensity),
+                                                                    kVRTColorTemperatureKey : @(colorTemperature)
+                                                                    }});
     }
 }
 

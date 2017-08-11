@@ -30,6 +30,7 @@ var ViroARScene = React.createClass({
     ]),
     onTrackingInitialized: React.PropTypes.func,
     onPlatformUpdate: React.PropTypes.func,
+    onAmbientLightUpdate: React.PropTypes.func,
     /**
      * Describes the acoustic properties of the room around the user
      */
@@ -90,6 +91,10 @@ var ViroARScene = React.createClass({
 
   _onTrackingInitialized: function(event: Event) {
     this.props.onTrackingInitialized && this.props.onTrackingInitialized();
+  },
+
+  _onAmbientLightUpdate: function(event: Event) {
+    this.props.onAmbientLightUpdate && this.props.onAmbientLightUpdate(event.nativeEvent.ambientLightInfo)
   },
 
   async findCollisionsWithRayAsync(from, to, closest, viroTag) {
@@ -172,6 +177,7 @@ var ViroARScene = React.createClass({
         onFuseViro={this._onFuse}
         onPlatformUpdateViro={this._onPlatformUpdate}
         onTrackingInitializedViro={this._onTrackingInitialized}
+        onAmbientLightUpdateViro={this._onAmbientLightUpdate}
         timeToFuse={timeToFuse}
         />
     );
@@ -200,9 +206,10 @@ var VRTARScene = requireNativeComponent(
           onScrollViro: true,
           onSwipeViro: true,
           onDragViro:true,
-          onPlatformUpdateViro: true,
           onFuseViro:true,
+          onPlatformUpdateViro: true,
           onTrackingInitializedViro: true,
+          onAmbientLightUpdateViro: true,
           timeToFuse:true,
       }
   }

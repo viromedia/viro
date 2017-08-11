@@ -12,6 +12,8 @@
 @interface VRTARScene : VRTScene <VROARSceneDelegateProtocol>
 
 @property (nonatomic, copy, nullable) RCTDirectEventBlock onTrackingInitializedViro;
+@property (nonatomic, copy, nullable) RCTDirectEventBlock onAmbientLightUpdateViro;
+
 
 - (instancetype)initWithBridge:(RCTBridge *)bridge;
 
