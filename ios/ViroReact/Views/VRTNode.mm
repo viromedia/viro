@@ -333,6 +333,11 @@ const double kTransformDelegateDistanceFilter = 0.01;
     self.eventDelegate->setEnabledEvent(VROEventDelegate::EventAction::OnPinch, canPinch);
 }
 
+- (void)setCanRotate:(BOOL)canRotate {
+    _canRotate = canRotate;
+    self.eventDelegate->setEnabledEvent(VROEventDelegate::EventAction::OnRotate, canRotate);
+}
+
 - (void)setCanHover:(BOOL)canHover {
     _canHover = canHover;
     self.eventDelegate->setEnabledEvent(VROEventDelegate::EventAction::OnHover, canHover);
@@ -396,6 +401,16 @@ const double kTransformDelegateDistanceFilter = 0.01;
     pinchState:(VROEventDelegate::PinchState)pinchState {
     if(self.onPinchViro != nil) {
         self.onPinchViro(@{@"source": @(source), @"pinchState":@(pinchState), @"scaleFactor":@(scale)});
+    }
+}
+
+- (void)onRotate:(int)source rotationFactor:(float)rotation
+     rotateState:(VROEventDelegate::RotateState)rotateState {
+    if(self.onRotateViro != nil) {
+        //convert to degrees from radians
+        
+        float degreesRotation = rotation *  180.0/ M_PI;
+        self.onRotateViro(@{@"source": @(source), @"rotateState":@(rotateState), @"rotationFactor":@(degreesRotation)});
     }
 }
 
