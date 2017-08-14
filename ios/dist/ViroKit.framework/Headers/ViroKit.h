@@ -29,6 +29,7 @@ FOUNDATION_EXPORT const unsigned char ViroKitVersionString[];
 #import <ViroKit/VROFrameListener.h>
 #import <ViroKit/VROFrameTimer.h>
 #import <ViroKit/VROFrameScheduler.h>
+#import <ViroKit/VROFrameSynchronizer.h>
 
 // Model Loader
 #import <ViroKit/VROOBJLoader.h>
@@ -41,6 +42,8 @@ FOUNDATION_EXPORT const unsigned char ViroKitVersionString[];
 #import <ViroKit/VRONodeCamera.h>
 #import <ViroKit/VROEventDelegateiOS.h>
 #import <ViroKit/VRONode.h>
+#import <ViroKit/VROPortal.h>
+#import <ViroKit/VROPortalFrame.h>
 #import <ViroKit/VROGeometry.h>
 #import <ViroKit/VROGeometryElement.h>
 #import <ViroKit/VROGeometrySource.h>
@@ -59,6 +62,7 @@ FOUNDATION_EXPORT const unsigned char ViroKitVersionString[];
 #import <ViroKit/VROTransformConstraint.h>
 #import <ViroKit/VROTransformDelegate.h>
 #import <ViroKit/VROTransformDelegateiOS.h>
+#import <ViroKit/VROTree.h>
 
 // Animation
 #import <ViroKit/VROAnimation.h>
@@ -137,6 +141,7 @@ FOUNDATION_EXPORT const unsigned char ViroKitVersionString[];
 #import <ViroKit/VROData.h>
 #import <ViroKit/VROGeometryUtil.h>
 #import <ViroKit/VROTextureUtil.h>
+#import <ViroKit/VROPortalTraversalListener.h>
 
 // Physics
 #import <ViroKit/VROPhysicsShape.h>
@@ -158,6 +163,7 @@ FOUNDATION_EXPORT const unsigned char ViroKitVersionString[];
 #import <ViroKit/VROARPlane.h>
 #import <ViroKit/VROARNodeDelegateiOS.h>
 #import <ViroKit/VROARSceneDelegateiOS.h>
+#import <ViroKit/VROARDraggableNode.h>
 
 // OpenCV
 #import <ViroKit/VROOpenCV.h>

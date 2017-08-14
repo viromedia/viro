@@ -59,7 +59,7 @@ public:
         return _name;
     }
     
-    virtual void set(const void *value, const VROGeometry &geometry) = 0;
+    virtual void set(const void *value, const VROGeometry *geometry) = 0;
     
     inline void setLocation(int location) {
         this->_location = location;
@@ -119,7 +119,7 @@ public:
     VROUniform(name), _arraySize(arraySize), _curValue(0) {
     }
     
-    void set(const void *value, const VROGeometry &geometry) {
+    void set(const void *value, const VROGeometry *geometry) {
         if (_location == -1) {
             return;
         }
@@ -147,7 +147,7 @@ public:
     VROUniform(name), _arraySize(arraySize) {
     }
     
-    void set(const void *value, const VROGeometry &geometry) {
+    void set(const void *value, const VROGeometry *geometry) {
         //passert (_location != -1);
         glUniform2iv(_location, _arraySize, (GLint *) value);
     }
@@ -163,7 +163,7 @@ public:
     VROUniform(name), _arraySize(arraySize) {
     }
     
-    void set(const void *value, const VROGeometry &geometry) {
+    void set(const void *value, const VROGeometry *geometry) {
         passert (_location != -1);
         glUniform3iv(_location, _arraySize, (GLint *) value);
     }
@@ -179,7 +179,7 @@ public:
     VROUniform(name), _arraySize(arraySize) {
     }
     
-    void set(const void *value, const VROGeometry &geometry) {
+    void set(const void *value, const VROGeometry *geometry) {
         //passert (_location != -1);
         glUniform4iv(_location, _arraySize, (GLint *) value);
     }
@@ -196,7 +196,7 @@ public:
     VROUniform(name), _arraySize(arraySize), _curValue(9999) {
     }
     
-    void set(const void *value, const VROGeometry &geometry) {
+    void set(const void *value, const VROGeometry *geometry) {
         if (_location == -1) {
             return;
         }
@@ -224,7 +224,7 @@ public:
     VROUniform(name), _arraySize(arraySize) {
     }
     
-    void set(const void *value, const VROGeometry &geometry) {
+    void set(const void *value, const VROGeometry *geometry) {
         //passert (_location != -1);
         glUniform2fv(_location, _arraySize, (GLfloat *) value);
     }
@@ -243,7 +243,7 @@ public:
         _curValue[2] = 0;
     }
     
-    void set(const void *value, const VROGeometry &geometry) {
+    void set(const void *value, const VROGeometry *geometry) {
         if (_location == -1) {
             return;
         }
@@ -277,7 +277,7 @@ public:
     VROUniform(name), _arraySize(arraySize) {
     }
     
-    void set(const void *value, const VROGeometry &geometry) {
+    void set(const void *value, const VROGeometry *geometry) {
         //passert (_location != -1);
         glUniform4fv(_location, _arraySize, (GLfloat *) value);
     }
@@ -293,7 +293,7 @@ public:
     VROUniform(name) {
     }
     
-    void set(const void *value, const VROGeometry &geometry) {
+    void set(const void *value, const VROGeometry *geometry) {
         //passert (_location != -1);
         glUniformMatrix2fv(_location, 1, GL_FALSE, (GLfloat *) value);
     }
@@ -306,7 +306,7 @@ public:
     VROUniform(name) {
     }
     
-    void set(const void *value, const VROGeometry &geometry) {
+    void set(const void *value, const VROGeometry *geometry) {
         //passert (_location != -1);
         glUniformMatrix3fv(_location, 1, GL_FALSE, (GLfloat *) value);
     }
@@ -319,7 +319,7 @@ public:
     VROUniform(name) {
     }
     
-    void set(const void *value, const VROGeometry &geometry) {
+    void set(const void *value, const VROGeometry *geometry) {
         //passert (_location != -1);
         glUniformMatrix4fv(_location, 1, GL_FALSE, (GLfloat *) value);
     }
@@ -333,7 +333,7 @@ public:
         _modifier(modifier) {
     }
     
-    void set(const void *value, const VROGeometry &geometry);
+    void set(const void *value, const VROGeometry *geometry);
     
 private:
     std::shared_ptr<VROShaderModifier> _modifier;

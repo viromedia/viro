@@ -17,6 +17,7 @@
 class VROARSceneDelegate {
 public:
     virtual void onTrackingInitialized() = 0;
+    virtual void onAmbientLightUpdate(float ambientLightIntensity, float colorTemperature) = 0;
 };
 
 class VROARScene : public VROScene {
@@ -31,6 +32,7 @@ public:
     
     void setDelegate(std::shared_ptr<VROARSceneDelegate> delegate);
     void trackingHasInitialized();
+    void updateAmbientLight(float intensity, float colorTemperature);
     
     void willAppear();
     void willDisappear();

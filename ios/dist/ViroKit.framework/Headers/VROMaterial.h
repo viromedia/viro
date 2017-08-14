@@ -13,6 +13,12 @@
 #include "VROMaterialVisual.h"
 #include "VROAnimatable.h"
 
+enum class VROFace {
+    Front,
+    Back,
+    FrontAndBack
+};
+
 enum class VROCullMode {
     Back,
     Front,
@@ -86,6 +92,7 @@ public:
     }
     
     void bindShader(std::shared_ptr<VRODriver> &driver);
+    void bindProperties(std::shared_ptr<VRODriver> &driver);
     void bindLights(int lightsHash,
                     const std::vector<std::shared_ptr<VROLight>> &lights,
                     const VRORenderContext &context,
@@ -179,6 +186,7 @@ public:
     }
 
     void addShaderModifier(std::shared_ptr<VROShaderModifier> modifier);
+    void removeShaderModifier(std::shared_ptr<VROShaderModifier> modifier);
     const std::vector<std::shared_ptr<VROShaderModifier>> &getShaderModifiers() const {
         return _shaderModifiers;
     }

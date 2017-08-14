@@ -13,6 +13,12 @@
 #include "VROMaterialVisual.h"
 #include "VROAnimatable.h"
 
+enum class VROFace {
+    Front,
+    Back,
+    FrontAndBack
+};
+
 enum class VROCullMode {
     Back,
     Front,

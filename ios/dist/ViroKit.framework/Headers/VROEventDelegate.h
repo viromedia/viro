@@ -43,7 +43,8 @@ public:
         OnSwipe = 6,
         OnScroll = 7,
         OnDrag = 8,
-        OnFuse = 9
+        OnFuse = 9,
+        OnPinch = 10,
     };
 
     /**
@@ -58,13 +59,19 @@ public:
     /**
      * TouchState enum describing the OnTouch Event action.
      */
-    enum TouchState{
+    enum TouchState {
         TouchDown = 1,
         TouchDownMove = 2,
         TouchUp = 3,
     };
+    
+    enum PinchState {
+      PinchStart = 1,
+      PinchMove = 2,
+      PinchEnd = 3,
+    };
 
-    enum SwipeState{
+    enum SwipeState {
         SwipeUp = 1,
         SwipeDown = 2,
         SwipeLeft = 3,
@@ -98,6 +105,7 @@ public:
         _enabledEventMap[VROEventDelegate::EventAction::OnScroll] = false;
         _enabledEventMap[VROEventDelegate::EventAction::OnDrag] = false;
         _enabledEventMap[VROEventDelegate::EventAction::OnFuse] = false;
+        _enabledEventMap[VROEventDelegate::EventAction::OnPinch] = false;
     }
 
     /**
@@ -152,6 +160,10 @@ public:
     }
 
     virtual void onFuse(int source, float timeToFuseRatio){
+        //No-op
+    }
+    
+    virtual void onPinch(int source, float scale, PinchState pinchState) {
         //No-op
     }
 

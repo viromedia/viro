@@ -20,7 +20,7 @@
 class VROUniform;
 class VROGeometry;
 
-typedef std::function<void(VROUniform *uniform, GLuint location, const VROGeometry &geometry)> VROUniformBindingBlock;
+typedef std::function<void(VROUniform *uniform, GLuint location, const VROGeometry *geometry)> VROUniformBindingBlock;
 
 /*
  The entry point, which signals where in the shader program this modifier will
@@ -88,12 +88,25 @@ typedef std::function<void(VROUniform *uniform, GLuint location, const VROGeomet
  fragment, after the lighting computation.
  
  ----------------
+ 
+ Image entry point. The image entry point is *only* available for 2D post-processing
+ shaders. The code may declare uniforms for the fragment shader (the vertex
+ shader is a fixed quad in normalized device coordinates), and must simply
+ set the frag_color.
+
+ frag_color = ... (vec4) ...
+ 
+ The Image entry point enables modifiers to quickly create new post-processing
+ functions for VROImageShaderPrograms.
+ 
+ ----------------
  */
 enum class VROShaderEntryPoint {
     Geometry,
     Vertex,
     Surface,
     Fragment,
+    Image,
 };
 
 enum class VROShaderSection {
@@ -146,7 +159,7 @@ public:
     /*
      Invoke the uniform binder for the given uniform.
      */
-    void bindUniform(VROUniform *uniform, GLuint location, const VROGeometry &geometry);
+    void bindUniform(VROUniform *uniform, GLuint location, const VROGeometry *geometry);
     
     /*
      Get the pragma directive that corresponds to this modifier's entry point and

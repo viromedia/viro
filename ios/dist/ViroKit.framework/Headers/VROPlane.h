@@ -12,7 +12,11 @@
 #include "VROVector3f.h"
 #include "VROQuaternion.h"
 
-enum { ON_PLANE, NEGATIVE_HALF_SPACE, POSITIVE_HALF_SPACE };
+enum class VROPlaneHalfSpace {
+    OnPlane,
+    Negative,
+    Positive
+};
 
 class VROPlane {
 public:
@@ -28,41 +32,26 @@ public:
     float d;
 
     VROPlane();
-    VROPlane(const VROVector3f &normal, float d);
+    VROPlane(VROVector3f normal, float d);
+    VROPlane(VROVector3f normal, VROVector3f point);
     virtual ~VROPlane();
 
-    void projectNormalizedVector(const VROVector3f &vector, VROVector3f *result);
+    VROVector3f projectNormalizedVector(VROVector3f vector);
 
-    float distanceToPoint(const VROVector3f &point) const;
-    float distanceToPointXY(const VROVector3f &point) const;
+    float distanceToPoint(VROVector3f point) const;
+    float distanceToPointXY(VROVector3f point) const;
 
-    int getHalfSpaceOfPoint(const VROVector3f &point) const;
+    VROPlaneHalfSpace getHalfSpaceOfPoint(VROVector3f point) const;
 
-    float getA() const {
-        return normal.x;
-    }
-    float getB() const {
-        return normal.y;
-    }
-    float getC() const {
-        return normal.z;
-    }
-    float getD() const {
-        return d;
-    }
+    float getA() const { return normal.x; }
+    float getB() const { return normal.y; }
+    float getC() const { return normal.z; }
+    float getD() const { return d; }
 
-    void setA(float a) {
-        normal.x = a;
-    }
-    void setB(float b) {
-        normal.y = b;
-    }
-    void setC(float c) {
-        normal.z = c;
-    }
-    void setD(float d) {
-        this->d = d;
-    }
+    void setA(float a) { normal.x = a; }
+    void setB(float b) { normal.y = b; }
+    void setC(float c) { normal.z = c; }
+    void setD(float d) { this->d = d; }
 
     void normalize();
 };

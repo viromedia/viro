@@ -27,7 +27,6 @@ public:
     std::vector<std::shared_ptr<VROLight>> lights;
     std::stack<int> hierarchyDepths;
     std::stack<float> distancesFromCamera;
-    std::stack<int> portalStencilBits;
     int hierarchyId;
     float furthestDistanceFromCamera;
     
@@ -37,7 +36,6 @@ public:
         hierarchyId = 0;
         furthestDistanceFromCamera = 0;
         distancesFromCamera.push(0);
-        portalStencilBits.push(0);
     }
     
 };

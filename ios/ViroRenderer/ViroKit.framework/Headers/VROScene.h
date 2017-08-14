@@ -26,7 +26,6 @@ class VRORenderContext;
 class VRODriver;
 class VROTexture;
 class VROGeometry;
-class VROMaterial;
 class VROHitTestResult;
 class VROVector3f;
 class VROVector4f;
@@ -39,14 +38,6 @@ public:
     
     VROScene();
     virtual ~VROScene();
-    
-    /*
-     Render the visible nodes in this scene's graph, using their
-     latest computed transforms and in an order determined by their
-     latest computed sort keys.
-     */
-    void render(const VRORenderContext &context,
-                std::shared_ptr<VRODriver> &driver);
     
     /*
      Compute the transforms, recursively, for all nodes in this scene.
@@ -159,11 +150,6 @@ protected:
     std::shared_ptr<VROPortal> _activePortal;
     
     /*
-     Material used to render silhouettes of objects to the scene.
-     */
-    std::shared_ptr<VROMaterial> _silhouetteMaterial;
-    
-    /*
      Create a tree of portals in the scene graph, with the active portal at the
      root of the tree. Note we use graph traversal because portal stencil rendering
      begins at the 'active' node, not necesarily at the root node.
@@ -174,14 +160,6 @@ protected:
      Helper function, sorts portals at each recursion level by distance from camera.
      */
     void sortSiblingPortals(tree<std::shared_ptr<VROPortal>> &tree, const VRORenderContext &context);
-
-    /*
-     Helper function for rendering. Performs depth-first rendering of portals, rendering
-     the portal silhouettes to the stencil buffer on the way down, and the portal geometry
-     and content on the way up.
-     */
-    void render(std::vector<tree<std::shared_ptr<VROPortal>>> &treeNodes, const VRORenderContext &context,
-                std::shared_ptr<VRODriver> &driver);
     
     /*
      Returns true if the given node is present in this scene.
@@ -195,6 +173,7 @@ protected:
     void getBackgrounds(std::shared_ptr<VRONode> node, std::vector<std::shared_ptr<VROGeometry>> &backgrounds) const;
 
 private:
+    
     /*
      A helper method that draws a line from the max to min points of the given node's bounding box. Call
      from the render function if you want to see the lines

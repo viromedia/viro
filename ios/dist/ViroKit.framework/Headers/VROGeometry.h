@@ -25,6 +25,7 @@ class VRONode;
 class VROLight;
 class VROSortKey;
 class VROMaterial;
+class VROTexture;
 class VROGeometryElement;
 class VROGeometrySource;
 class VROGeometrySubstrate;
@@ -88,6 +89,11 @@ public:
      */
     void prewarm(std::shared_ptr<VRODriver> driver);
 
+    /*
+     Render the given element of the geometry with full texturing and
+     lighting. Assumes the material's shader and geometry-independent
+     properties have already been bound.
+     */
     void render(int elementIndex,
                 const std::shared_ptr<VROMaterial> &material,
                 VROMatrix4f transform,
@@ -96,9 +102,31 @@ public:
                 const VRORenderContext &context,
                 std::shared_ptr<VRODriver> &driver);
     
+    /*
+     Render the silhouette of the entire geometry (all elements). Renders
+     using the given material, which is assumed to already be bound, ignoring
+     texturing and lighting. Typically this is used for rendering to a stencil
+     buffer or shadow map.
+     */
+    void renderSilhouette(VROMatrix4f transform,
+                          std::shared_ptr<VROMaterial> &material,
+                          const VRORenderContext &context,
+                          std::shared_ptr<VRODriver> &driver);
+    
+    /*
+     Render the silhouette of the given element of the given geometry.
+     Renders using the provided material, which is assumed to already be
+     bound, and binds its associated texture.
+     */
+    void renderSilhouetteTextured(int element,
+                                  VROMatrix4f transform,
+                                  std::shared_ptr<VROMaterial> &material,
+                                  const VRORenderContext &context,
+                                  std::shared_ptr<VRODriver> &driver);
+    
     void updateSortKeys(VRONode *node, uint32_t hierarchyId, uint32_t hierarchyDepth,
                         uint32_t lightsHash, float opacity, float distanceFromCamera, float zFar,
-                        int portalStencilBits, std::shared_ptr<VRODriver> &driver);
+                        std::shared_ptr<VRODriver> &driver);
     void getSortKeys(std::vector<VROSortKey> *outKeys);
     
     std::shared_ptr<VROMaterial> &getMaterialForElement(int elementIndex) {

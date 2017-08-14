@@ -21,6 +21,7 @@
 #include "VROPencil.h"
 
 class VROFrameSynchronizer;
+class VRORenderTarget;
 enum class VROEyeType;
 
 /*
@@ -112,6 +113,13 @@ public:
         return _previousCamera;
     }
     
+    void setRenderTarget(std::shared_ptr<VRORenderTarget> target) {
+        _renderTarget = target;
+    }
+    const std::shared_ptr<VRORenderTarget> getRenderTarget() const {
+        return _renderTarget;
+    }
+    
     std::shared_ptr<VROFrameSynchronizer> getFrameSynchronizer() const {
         return _frameSynchronizer;
     }
@@ -130,7 +138,6 @@ public:
     void setPencil(std::shared_ptr<VROPencil> pencil){
         _pencil = pencil;
     }
-
     std::shared_ptr<VROPencil> getPencil() const{
         return _pencil;
     }
@@ -140,6 +147,11 @@ private:
     int _frame;
     VROEyeType _eye;
     double _fps;
+    
+    /*
+     The target to which we are currently rendering.
+     */
+    std::shared_ptr<VRORenderTarget> _renderTarget;
     
     /*
      The standard view and projection matrices. The view matrix is specific for

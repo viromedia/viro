@@ -25,7 +25,10 @@ class VROSound;
 class VROAudioPlayer;
 class VROTypeface;
 class VROFrameTimer;
+class VRORenderTarget;
 class VRORenderContext;
+class VROShaderProgram;
+class VROImagePostProcess;
 
 enum class VROSoundType;
 enum class VROTextureType;
@@ -34,11 +37,9 @@ enum class VROTextureInternalFormat;
 enum class VROWrapMode;
 enum class VROFilterMode;
 enum class VROMipmapMode;
-
-enum class VRORenderPass {
-    Normal,
-    Stencil
-};
+enum class VRORenderTargetType;
+enum class VROFace;
+enum class VROCullMode;
 
 /*
  The driver is used to interface with the rendering subsystem (OpenGL,
@@ -50,26 +51,32 @@ public:
     
     virtual ~VRODriver() {}
     
-    // Provides the driver an opportunity to update any sub-components
-    // with per-frame state. The willRenderFrame method is invoked just
-    // prior to rendering, and didRenderFrame is invoked afterward. The
-    // VROFrameTimer can be used by the driver to timebox its tasks so
-    // as not to overrun frame time.
+    /*
+     Provides the driver an opportunity to update any sub-components
+     with per-frame state. The willRenderFrame method is invoked just
+     prior to rendering, and didRenderFrame is invoked afterward. The
+     VROFrameTimer can be used by the driver to timebox its tasks so
+     as not to overrun frame time.
+     */
     virtual void willRenderFrame(const VRORenderContext &context) = 0;
     virtual void didRenderFrame(const VROFrameTimer &timer, const VRORenderContext &context) = 0;
     
-    // Set flags for the render pass (e.g. what buffers to read/write to)
-    virtual void initRenderPass(VRORenderPass pass) = 0;
+    /*
+     Read the ID of the display's framebuffer. May not be required on all
+     platforms. This way we're able to re-bind to the display during a multi-pass
+     alogrithm.
+     */
+    virtual void readDisplayFramebuffer() = 0;
     
-    // Clear the stencil buffer, setting it to the given default bits
-    virtual void clearStencil(int bits) = 0;
-    
-    // Set the portal bits to write to the stencil buffer during the stencil pass
-    virtual void setPortalStencilWriteBits(int bits) = 0;
-    
-    // Set the portal bits for the node being rendered; the node will only be
-    // rendered if these bits match the content of the stencil buffer
-    virtual void setPortalStencilRefBits(int bits) = 0;
+    /*
+     The driver controls context-wide state change. The implementation
+     should store a CPU copy of current state to avoid sending unnecessary
+     instructions to the GPU.
+     */
+    virtual void setDepthWritingEnabled(bool enabled) = 0;
+    virtual void setDepthReadingEnabled(bool enabled) = 0;
+    virtual void setCullMode(VROCullMode cullMode) = 0;
+    virtual void setColorWritingEnabled(bool enabled) = 0;
     
     virtual VROGeometrySubstrate *newGeometrySubstrate(const VROGeometry &geometry) = 0;
     virtual VROMaterialSubstrate *newMaterialSubstrate(VROMaterial &material) = 0;
@@ -81,6 +88,9 @@ public:
                                                      int width, int height, std::vector<uint32_t> mipSizes,
                                                      VROWrapMode wrapS, VROWrapMode wrapT,
                                                      VROFilterMode minFilter, VROFilterMode magFilter, VROFilterMode mipFilter) = 0;
+    virtual std::shared_ptr<VRORenderTarget> newRenderTarget(VRORenderTargetType type) = 0;
+    virtual std::shared_ptr<VRORenderTarget> getDisplay() = 0;
+    virtual std::shared_ptr<VROImagePostProcess> newImagePostProcess(std::shared_ptr<VROShaderProgram> shader) = 0;
     virtual std::shared_ptr<VROVideoTextureCache> newVideoTextureCache() = 0;
     virtual std::shared_ptr<VROSound> newSound(std::shared_ptr<VROSoundData> data, VROSoundType type) = 0;
     virtual std::shared_ptr<VROSound> newSound(std::string path, VROSoundType type, bool local) = 0;

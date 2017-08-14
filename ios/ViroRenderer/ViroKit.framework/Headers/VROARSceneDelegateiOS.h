@@ -15,6 +15,7 @@
 @protocol VROARSceneDelegateProtocol <NSObject>
 @required
 - (void)onTrackingInitialized;
+- (void)onAmbientLightUpdate:(float)intensity colorTemperature:(float)colorTemperature;
 @end
 
 /**
@@ -29,6 +30,10 @@ public:
 
     virtual void onTrackingInitialized() {
         [_delegate onTrackingInitialized];
+    }
+
+    virtual void onAmbientLightUpdate(float intensity, float colorTemperature) {
+        [_delegate onAmbientLightUpdate:intensity colorTemperature:colorTemperature];
     }
 private:
     __weak id<VROARSceneDelegateProtocol> _delegate;

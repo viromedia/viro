@@ -50,6 +50,7 @@ enum class VROAllocationBucket {
     VideoTextureCaches,
     Typefaces,
     Glyphs,
+    RenderTargets,
     NUM_BUCKETS
 };
 

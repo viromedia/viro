@@ -62,6 +62,17 @@ public:
     static void resume(std::shared_ptr<VROTransaction> transaction);
 
     /*
+     Cancels a VROTransaction at the current T value. Cancelled transactions
+     can no longer be paused or resumed.
+     
+     Note: this is currently only used internally and currently isn't hooked
+     up to animations at all (it won't cancel animations, call callbacks, etc).
+     
+     TODO: VIRO-1464 Add ability to cancel (vs terminate) animations
+     */
+    static void cancel(std::shared_ptr<VROTransaction> transaction);
+
+    /*
      Terminates a VROTransactions. Terminated transactions can no longer
      be paused or resumed.
      */

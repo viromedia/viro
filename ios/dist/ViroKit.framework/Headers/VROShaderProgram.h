@@ -134,6 +134,19 @@ public:
     bool hasModifier(std::shared_ptr<VROShaderModifier> modifier) {
         return std::find(_modifiers.begin(), _modifiers.end(), modifier) != _modifiers.end();
     }
+    
+protected:
+    
+    /*
+     Bind attributes, standard uniforms, and uniform blocks. Attributes are bound prior
+     to linking, and uniform blocks are bound after compilation. These can be overriden
+     by subclasses. The default implementation (here) adds the attributes, uniform blocks,
+     and uniforms for the standard 3D shader used by lighting models Constant, Lambert,
+     Blinn, and Phong.
+     */
+    virtual void bindAttributes();
+    virtual void bindUniformBlocks();
+    virtual void addStandardUniforms();
 
 private:
     
@@ -216,10 +229,9 @@ private:
     bool validateProgram(GLuint prog);
     
     /*
-     Loads the standard uniforms to this shader, and the uniforms used by the
-     modifiers.
+     Loads the the uniforms used by the modifiers.
      */
-    void addStandardUniforms();
+    void addModifierUniforms();
 
     /*
      Set the location of each uniform in the uniformMap and each sampler in the samplers

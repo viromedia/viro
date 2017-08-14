@@ -23,6 +23,11 @@ class VROARSessionDelegate;
 
 - (void)setARSessionDelegate:(std::shared_ptr<VROARSessionDelegate>)delegate;
 
+/*
+ Performs an AR hit test with the given ray assuming origin is the camera
+ */
+- (std::vector<VROARHitTestResult>)performARHitTest:(VROVector3f)ray;
+
 // TODO VIRO-1355 Remove after event delegate integration
 @property (readwrite, nonatomic) VROViewARTapHandler tapHandler;
 

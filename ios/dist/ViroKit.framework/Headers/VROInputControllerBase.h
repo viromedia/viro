@@ -23,6 +23,7 @@
 #include "VROGeometry.h"
 
 static const float ON_DRAG_DISTANCE_THRESHOLD = 0.01;
+static const float ON_PINCH_SCALE_THRESHOLD = 0.02;
 static float kSceneBackgroundDistance = 8;
 
 /**
@@ -48,21 +49,21 @@ public:
      * onProcess is to be implemented by derived classes to drive the processing
      * of platform-specific input events and map them to viro-specific input events.
      */
-    virtual void onProcess(const VROCamera &camera){
+    virtual void onProcess(const VROCamera &camera) {
         //No-op
     }
 
     /**
      * Called when the renderer is about to be backgrounded within Android's lifecycle.
      */
-    virtual void onPause(){
+    virtual void onPause() {
         // No-op
     }
 
     /**
      * Called when the renderer is about to be foregrounded within Android's lifecycle.
      */
-    virtual void onResume(){
+    virtual void onResume() {
         // No-op
     }
 
@@ -117,6 +118,13 @@ public:
     void onSwipe(int source, VROEventDelegate::SwipeState swipeState);
     void onScroll(int source, float x, float y);
     
+    /*
+     * Pinch event that passes scale factor indicting the change in the pinch ratio
+     * since the pinch started. Scale factor begins at 1 when pinch starts with
+     * PinchState::PinchStart.
+     */
+    void onPinch(int source, float scaleFactor, VROEventDelegate::PinchState pinchState);
+
 protected:
     
     virtual std::shared_ptr<VROInputPresenter> createPresenter(){
@@ -139,6 +147,29 @@ protected:
      toward the given direction.
      */
     void updateHitNode(const VROCamera &camera, VROVector3f origin, VROVector3f ray);
+
+    /**
+     * VRODraggedObject encapsulates all the information that needs to be tracked
+     * and processed for onDrag events for a given dragged node.
+     */
+    struct VRODraggedObject{
+        std::shared_ptr<VRONode> _draggedNode;
+        VROVector3f _originalHitLocation;
+        VROVector3f _originalDraggedNodePosition;
+        VROVector3f _forwardOffset;
+        float _draggedDistanceFromController;
+    };
+    
+    /*
+     * Last hit result that we are performing a drag event on.
+     */
+    std::shared_ptr<VRODraggedObject> _lastDraggedNode;
+
+    /*
+     * This function is meant to be called to run the dragging logic after onMove
+     * deals with other events, etc. This allows for the dragging logic to be overridden.
+     */
+    virtual void processDragging(int source);
     
     /*
      * Last result that was returned from the hit test.
@@ -151,12 +182,27 @@ protected:
     VROVector3f _lastKnownPosition;
     
     /*
+     * Last known position of the node that was dragged previously by this controller.
+     */
+    VROVector3f _lastDraggedNodePosition;
+    
+    /*
      * The pointer's normalized forward vector indicating where the controller
      * is pointing.
      */
     VROVector3f _lastKnownForward;
-    
 
+    /*
+     * Last known pinch scale value.
+     */
+    float _lastPinchScale;
+
+    /**
+     * Delegates registered within the manager to be notified of events
+     * to an element that is outside the scene tree.
+     */
+    std::set<std::shared_ptr<VROEventDelegate>> _delegates;
+    
 private:
     
     /*
@@ -174,11 +220,6 @@ private:
      * achieve the controller's current orientation.
      */
     VROQuaternion _lastKnownRotation;
-    
-    /*
-     * Last known position of the node that was dragged previously by this controller.
-     */
-    VROVector3f _lastDraggedNodePosition;
 
     std::shared_ptr<VROScene> _scene;
 
@@ -191,12 +232,6 @@ private:
      * Last known that was successfully hovered upon.
      */
     std::shared_ptr<VRONode> _lastHoveredNode;
-
-    /**
-     * Delegates registered within the manager to be notified of events
-     * to an element that is outside the scene tree.
-     */
-    std::set<std::shared_ptr<VROEventDelegate>> _delegates;
 
     /**
      * Returns the hit test result for the closest node that was hit.
@@ -212,27 +247,15 @@ private:
 
     void processGazeEvent(int source, std::shared_ptr<VRONode> node);
 
-    /**
-     * VRODraggedObject encapsulates all the information that needs to be tracked
-     * and processed for onDrag events for a given dragged node.
-     */
-    struct VRODraggedObject{
-        std::shared_ptr<VRONode> _draggedNode;
-        VROVector3f _originalHitLocation;
-        VROVector3f _originalDraggedNodePosition;
-        VROVector3f _forwardOffset;
-        float _draggedDistanceFromController;
-    };
-
-    /*
-     * Last hit result that we are performing a drag event on.
-     */
-    std::shared_ptr<VRODraggedObject> _lastDraggedNode;
-
     /*
      * Current node that we are fusing on.
      */
     std::shared_ptr<VRONode> _currentFusedNode;
+    
+    /*
+     * Current node that we are pinching on.
+     */
+    std::shared_ptr<VRONode> _currentPinchedNode;
 
     /**
      * Time at which the onFuse event is triggered, in milliseconds.

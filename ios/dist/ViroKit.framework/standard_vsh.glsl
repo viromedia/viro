@@ -9,6 +9,10 @@ struct VROShaderGeometry {
     ivec4 bone_indices;
 } _geometry;
 
+struct VROShaderVertex {
+    vec4 position;
+} _vertex;
+
 in vec3 position;
 in vec3 normal;
 in vec2 texcoord;
@@ -21,6 +25,7 @@ uniform mat4 model_matrix;
 uniform mat4 modelview_projection_matrix;
 
 #pragma geometry_modifier_uniforms
+#pragma vertex_modifier_uniforms
 
 out mat3 v_tbn;
 out vec2 v_texcoord;
@@ -46,5 +51,9 @@ void main() {
     vec3 b = normalize((normal_matrix * vec4((cross(_geometry.normal, _geometry.tangent.xyz) * _geometry.tangent.w), 0.0)).xyz);
     v_tbn = mat3(t, b, n);
     
-    gl_Position = modelview_projection_matrix * vec4(_geometry.position, 1.0);
+    _vertex.position = modelview_projection_matrix * vec4(_geometry.position, 1.0);
+    
+#pragma vertex_modifier_body
+    
+    gl_Position = _vertex.position;
 }

@@ -35,6 +35,7 @@ class VROGeometry;
 class VROLight;
 class VROAction;
 class VROTexture;
+class VROPortal;
 class VRONodeCamera;
 class VROHitTestResult;
 class VROConstraint;
@@ -43,6 +44,17 @@ class VROTransformDelegate;
 
 extern bool kDebugSortOrder;
 extern const std::string kDefaultNodeTag;
+
+enum class VRONodeType {
+    Normal,
+    Portal,
+    PortalFrame,
+};
+
+enum class VROSilhouetteMode {
+    Flat,         // Render silhouettes with constant lighting, no textures
+    Textured,     // Render silhouettes with constant lighting and textures
+};
 
 class VRONode : public VROAnimatable, public VROThreadRestricted {
     
@@ -124,21 +136,12 @@ public:
                         VRORenderParameters &params,
                         const VRORenderContext &context,
                         std::shared_ptr<VRODriver> &driver);
+    
+    /*
+     Get the sort keys for all visible nodes in this portal. Stops the search
+     when we reach the hit of the scene graph or hit another portal.
+     */
     void getSortKeysForVisibleNodes(std::vector<VROSortKey> *outKeys);
-    
-    /*
-     Render this node's geometry to the stencil buffer, if it has any portal stencil bits.
-     Recurses from this node *outward*: both up the tree and down. Note we use graph traversal
-     because stencil rendering begins at the 'active' node, not necesarily at the root
-     node.
-     */
-    void renderStencil(const VRORenderContext &context, std::shared_ptr<VRODriver> &driver);
-    
-    /*
-     Render this node's background. Recurses down the tree.
-     */
-    void renderBackground(const VRORenderContext &renderContext,
-                          std::shared_ptr<VRODriver> &driver);
     
     /*
      Render the given element of this node's geometry, using its latest computed transforms.
@@ -147,6 +150,24 @@ public:
                 std::shared_ptr<VROMaterial> &material,
                 const VRORenderContext &context,
                 std::shared_ptr<VRODriver> &driver);
+    
+    /*
+     Recursively render this node and all of its children, with full texture
+     and lighting.
+     
+     Note: this method does not intelligently batch or sort. It is is less efficient
+     than directly calling render(..) above after proper sorting.
+     */
+    void render(const VRORenderContext &context, std::shared_ptr<VRODriver> &driver);
+    
+    /*
+     Recursively render this the silhouette of this node and all of its children.
+     Lighting is fixed at constant, and the given material is used for all elements.
+     If mode is set to Textured, then textures will be bound. This method is typically
+     used to render to the stencil or depth buffers only.
+     */
+    void renderSilhouette(std::shared_ptr<VROMaterial> &material, VROSilhouetteMode mode,
+                          const VRORenderContext &context, std::shared_ptr<VRODriver> &driver);
     
 #pragma mark - Geometry
     
@@ -235,6 +256,13 @@ public:
     
 #pragma mark - Render Settings
     
+    std::string getName() const {
+        return _name;
+    }
+    void setName(std::string name) {
+        _name = name;
+    }
+    
     float getOpacity() const {
         return _opacity;
     }
@@ -297,8 +325,11 @@ public:
     std::vector<std::shared_ptr<VROLight>> &getLights() {
         return _lights;
     }
-    std::vector<std::shared_ptr<VROLight>> &getComputedLights() {
+    const std::vector<std::shared_ptr<VROLight>> &getComputedLights() const {
         return _computedLights;
+    }
+    uint32_t getComputedLightsHash() const {
+        return _computedLightsHash;
     }
 
 #pragma mark - Sounds
@@ -356,6 +387,25 @@ public:
         return _supernode.lock();
     }
     
+    /*
+     Returns the type of this node. Faster then dynamic_cast.
+     */
+    VRONodeType getType() const {
+        return _type;
+    }
+    
+    /*
+     Get the nearest portal that's an ancestor of this node. Returns null if this is
+     the root node.
+     */
+    const std::shared_ptr<VROPortal> getParentPortal() const;
+    
+    /*
+     Get the nearest child portals of this node. This recurses down the graph in all
+     directions, stopping whenever we hit a portal or the end of the graph.
+     */
+    void getChildPortals(std::vector<std::shared_ptr<VROPortal>> *outPortals) const;
+    
 #pragma mark - Actions and Animations
     
     /*
@@ -407,7 +457,8 @@ public:
     
 #pragma mark - Events 
     
-    VROBoundingBox getBoundingBox();
+    VROBoundingBox getBoundingBox() const;
+    VROBoundingBox getUmbrellaBoundingBox() const;
     std::vector<VROHitTestResult> hitTest(const VROCamera &camera, VROVector3f origin, VROVector3f ray,
                                           bool boundsOnly = false);
     
@@ -467,79 +518,49 @@ public:
                                                     std::shared_ptr<VROPhysicsShape> shape);
     std::shared_ptr<VROPhysicsBody> getPhysicsBody() const;
     void clearPhysicsBody();
-    
-#pragma mark - Portals
-    
-    /*
-     The portal stencil bits enable the drawing of portals on the screen. This 
-     field determines:
-     
-     1. What bit is written to the stencil buffer when rendering this node's 
-     geometry during the stencil pass, and
-     
-     2. What bit this node and its *children* must match in the stencil buffer
-     in order to render their geometry to screen during the render pass.
-     
-     If the bits are zero, then this node will skip the stencil pass, and use its
-     nearest parent's bits during the render pass.
-     */
-    void setPortalStencilBits(int bits) {
-        _portalStencilBits = bits;
-    }
-    
-#pragma mark - Backgrounds
-    
-    /*
-     Note: the scene renders all backgrounds in its tree before rendering
-     any content.
-     */
-    
-    /*
-     Set the background to a cube-map defined by the given cube texture or
-     color.
-     */
-    void setBackgroundCube(std::shared_ptr<VROTexture> textureCube);
-    void setBackgroundCube(VROVector4f color);
-    
-    /*
-     Set the background to a textured sphere.
-     */
-    void setBackgroundSphere(std::shared_ptr<VROTexture> textureSphere);
-    
-    /*
-     Set the background to an arbitrary geometry. All this guarantees is that
-     the given object will be rendered first. No properties will be set on
-     this geometry, but typically background geometries are screen-space, and
-     do not read or write to the depth buffer.
-     */
-    void setBackground(std::shared_ptr<VROGeometry> geometry);
-    
-    /*
-     Set an arbitrary transform to apply to the background. The transform
-     may also be set as a quaternion (rotation).
-     */
-    void setBackgroundTransform(VROMatrix4f transform);
-    void setBackgroundRotation(VROQuaternion rotation);
-    
-    std::shared_ptr<VROGeometry> getBackground() const {
-        return _background;
-    }
 
 protected:
+    
+    VRONodeType _type;
     
     /*
      The node's parent and children.
      */
     std::vector<std::shared_ptr<VRONode>> _subnodes;
     std::weak_ptr<VRONode> _supernode;
+    
+    /*
+     The geometry in the node. Null means the node has no geometry.
+     */
+    std::shared_ptr<VROGeometry> _geometry;
+    
+    /*
+     True if this node was found visible during the last call to computeVisibility().
+     */
+    bool _visible;
+    
+    /*
+     Last frame that this node was visited during sorting. Used for graph traversal.
+     */
+    int _lastVisitedRenderingFrame;
 
 private:
     
-    std::shared_ptr<VROGeometry> _geometry;
+    /*
+     Name for debugging.
+     */
+    std::string _name;
+    
+    /*
+     Lights, sound, and camera.
+     */
     std::vector<std::shared_ptr<VROLight>> _lights;
     std::vector<std::shared_ptr<VROSound>> _sounds;
     std::shared_ptr<VRONodeCamera> _camera;
     
+    /*
+     Scale and position.
+     */
     VROVector3f _scale;
     VROVector3f _position;
     
@@ -583,6 +604,7 @@ private:
     VROMatrix4f _computedRotation;
     float _computedOpacity;
     std::vector<std::shared_ptr<VROLight>> _computedLights;
+    uint32_t _computedLightsHash;
     VROVector3f _computedPosition;
     std::weak_ptr<VROTransformDelegate> _transformDelegate;
 
@@ -650,32 +672,6 @@ private:
      */
     bool _hierarchicalRendering;
     
-    /*
-     True if this node was found visible during the last call to computeVisibility().
-     */
-    bool _visible;
-    
-    /*
-     The background visual to display. All backgrounds in the scene are rendered before 
-     node content.
-     */
-    std::shared_ptr<VROGeometry> _background;
-    
-    /*
-     Transform to apply to the background geometry.
-     */
-    VROMatrix4f _backgroundTransform;
-    
-    /*
-     See setPortalStencilBits() for description.
-     */
-    int _portalStencilBits;
-    
-    /*
-     Last frame that the stencil was written for this node. Used for graph traversal.
-     */
-    int _lastStencilRenderingFrame;
-    
 #pragma mark - Private
     
     /*
@@ -723,6 +719,12 @@ private:
     void hitTest(const VROCamera &camera, VROVector3f origin, VROVector3f ray,
                  bool boundsOnly, std::vector<VROHitTestResult> &results);
     bool hitTestGeometry(VROVector3f origin, VROVector3f ray, VROMatrix4f transform);
+    
+    /*
+     If the portal is inside-out, meaning during the last renderStencil() we wrote its parent's
+     stencil bits, then this is true.
+     */
+    bool _portalInsideOut;
 
     /*
      Physics rigid body that if defined, drives and sets the transformations of this node.

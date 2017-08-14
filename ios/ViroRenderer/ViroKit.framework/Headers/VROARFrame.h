@@ -70,7 +70,12 @@ public:
      Return the estimated intensity of ambient light in the physical scene.
      */
     virtual float getAmbientLightIntensity() const = 0;
-    
+
+    /*
+     Return the estimate color temperature of ambient light in the physical scene.
+     */
+    virtual float getAmbientLightColorTemperature() const = 0;
+
     /*
      Get all the anchors representing tracked positions and objects in the
      scene.

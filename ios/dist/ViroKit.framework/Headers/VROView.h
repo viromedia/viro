@@ -67,6 +67,10 @@ static NSString *const kVROViewVideoSuffix = @".mp4";
       saveToCameraRoll:(BOOL)saveToCamera
  withCompletionHandler:(VROViewWriteMediaFinishBlock)completionHandler;
 
+- (NSString *)getPlatform;
+- (NSString *)getHeadset;
+- (NSString *)getController;
+
 /*
  Calling setVrMode allows switching to and from VR mode.
  When set to NO, it transitions back to pre-VR (mono) mode.

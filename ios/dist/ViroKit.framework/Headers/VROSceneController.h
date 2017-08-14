@@ -12,6 +12,7 @@
 #include "VROLog.h"
 #include "VROTransaction.h"
 #include "VROMaterial.h"
+#include "VROPortal.h"
 
 class VROScene;
 class VROVector3f;
@@ -93,7 +94,7 @@ public:
         
         // Preserve the current opacity and position of the root node. We start each node off at
         // opacity 0 and will animate toward this preserved opacity
-        std::shared_ptr<VRONode> &root = _scene->getRootNode();
+        std::shared_ptr<VRONode> root = _scene->getRootNode();
         float preservedOpacity = root->getOpacity();
         root->setOpacity(0.0f);
         
@@ -139,7 +140,7 @@ public:
         // Preserve the current opacity of root nodes. When the scene disappears, we'll
         // restore that opacity (so that the next time the scene appears, it will be at said
         // previous opacity).
-        std::shared_ptr<VRONode> &root = _scene->getRootNode();
+        std::shared_ptr<VRONode> root = _scene->getRootNode();
         float preservedOpacity = root->getOpacity();
 
         // Construct and commit fade-out/push-back animation for the scene
@@ -161,7 +162,7 @@ public:
         VROTransaction::setFinishCallback([weakPtr, preservedOpacity, forward]() {
             std::shared_ptr<VROSceneController> scene = weakPtr.lock();
             if (scene) {
-                std::shared_ptr<VRONode> &root = scene->getScene()->getRootNode();
+                std::shared_ptr<VRONode> root = scene->getScene()->getRootNode();
                 root->setOpacity(preservedOpacity);
                 root->setPosition(root->getPosition() - forward);
                 

@@ -38,10 +38,12 @@ extern const int k2DPointsPerSpatialUnit;
 @property (nonatomic, copy, nullable) RCTDirectEventBlock onClickViro;
 @property (nonatomic, copy, nullable) RCTDirectEventBlock onFuseViro;
 @property (nonatomic, copy, nullable) RCTDirectEventBlock onDragViro;
+@property (nonatomic, copy, nullable) RCTDirectEventBlock onPinchViro;
 @property (nonatomic, assign) BOOL canHover;
 @property (nonatomic, assign) BOOL canClick;
 @property (nonatomic, assign) BOOL canFuse;
 @property (nonatomic, assign) BOOL canDrag;
+@property (nonatomic, assign) BOOL canPinch;
 @property (nonatomic, assign) BOOL highAccuracyGaze;
 @property (nonatomic, assign) float timeToFuse;
 
@@ -56,6 +58,7 @@ extern const int k2DPointsPerSpatialUnit;
 - (void)applyTorqueImpulse:(VROVector3f)torque;
 - (void)setVelocity:(NSArray*)velocity isConstant:(bool)constant;
 - (void)onCollided:(std::string) bodyKey collision:(VROPhysicsBody::VROCollision) collision;
+- (void)clearPhysicsBody;
 + (std::shared_ptr<VROPhysicsShape>)getPhysicsShape:(NSString *)stringShapeName params:(NSArray *)shapeParams;
 @property (nonatomic, assign) BOOL canCollide;
 
@@ -76,8 +79,9 @@ extern const int k2DPointsPerSpatialUnit;
 - (void) onClick:(int)source clickState:(VROEventDelegate::ClickState)clickState clickLocation:(std::vector<float>)location;
 - (void) onTouch:(int)source touchState:(VROEventDelegate::TouchState)clickState xPos:(float)x yPos:(float)y;
 - (void) onFuse:(int)source;
-- (void)onDrag:(int)source posX:(float)x posY:(float)y posZ:(float)z;
+- (void) onDrag:(int)source posX:(float)x posY:(float)y posZ:(float)z;
+- (void) onPinch:(int)source scaleFactor:(float)scale pinchState:(VROEventDelegate::PinchState)pinchState;
 
-// Override for ARNodes
+// Override for AR nodes
 - (std::shared_ptr<VRONode>)createVroNode;
 @end
