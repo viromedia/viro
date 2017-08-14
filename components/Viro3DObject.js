@@ -79,6 +79,7 @@ var Viro3DObject = React.createClass({
     onError: React.PropTypes.func,
     onDrag: React.PropTypes.func,
     onPinch: React.PropTypes.func,
+    onRotate: React.PropTypes.func,
     onFuse: PropTypes.oneOfType([
           React.PropTypes.shape({
             callback: React.PropTypes.func.isRequired,
@@ -179,6 +180,11 @@ var Viro3DObject = React.createClass({
   _onPinch: function(event: Event) {
     this.props.onPinch && this.props.onPinch(event.nativeEvent.pinchState, event.nativeEvent.scaleFactor, event.nativeEvent.source);
   },
+
+  _onRotate: function(event: Event) {
+    this.props.onRotate && this.props.onRotate(event.nativeEvent.rotateState, event.nativeEvent.rotationFactor, event.nativeEvent.source);
+  },
+
   _onDrag: function(event: Event) {
       this.props.onDrag
         && this.props.onDrag(event.nativeEvent.dragToPos, event.nativeEvent.source);
@@ -333,6 +339,7 @@ var Viro3DObject = React.createClass({
         canDrag={this.props.onDrag != undefined}
         canFuse={this.props.onFuse != undefined}
         canPinch={this.props.onPinch != undefined}
+        canRotate={this.props.onRotate != undefined}
         onHoverViro={this._onHover}
         onClickViro={this._onClickState}
         onTouchViro={this._onTouch}
@@ -341,6 +348,7 @@ var Viro3DObject = React.createClass({
         onDragViro={this._onDrag}
         onFuseViro={this._onFuse}
         onPinchViro={this._onPinch}
+        onRotateViro={this._onRotate}
         onLoadStartViro={this._onLoadStart}
         onLoadEndViro={this._onLoadEnd}
         onErrorViro={this._onError}
@@ -365,11 +373,13 @@ var VRT3DObject = requireNativeComponent(
             canDrag: true,
             canFuse: true,
             canPinch: true,
+            canRotate: true,
             onHoverViro:true,
             onClickViro:true,
             onTouchViro:true,
             onScrollViro:true,
             onPinchViro:true,
+            onRotateViro:true,
             onSwipeViro:true,
             onDragViro:true,
             onLoadStartViro:true,

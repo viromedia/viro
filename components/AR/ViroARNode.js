@@ -49,6 +49,7 @@ var ViroARNode = React.createClass({
       }),
       React.PropTypes.func
     ]),
+
     physicsBody: React.PropTypes.shape({
       type: React.PropTypes.oneOf(['dynamic','kinematic','static']).isRequired,
       mass: PropTypes.number,
@@ -165,7 +166,7 @@ var ViroARNode = React.createClass({
   // reflects this control's current vroNode position.
   componentWillReceiveProps(nextProps){
     if(nextProps.position != this.state.nativePositionState){
-      var newPosition = [nextProps.position[0], nextProps.position[1], nextProps.position[2], Math.random()];
+      var newPosition = [nextProps.position[0], nextProps.position[1], nextProps.position[2], 0];
       this.setState({
         propsPositionState:newPosition
       });
