@@ -19,11 +19,11 @@ import {
 
 import {
   ViroSceneNavigator,
-  ViroARNavigator
+  ViroARSceneNavigator
 } from 'react-viro';
 
 var InitialVRScene = require('./js/release_test/Viro3DObjectTest');
-var InitialARScene = require('./js/AR/planeSelectorTest');
+var InitialARScene = require('./js/AR/arHitTest');
 
 var UNSET = "UNSET";
 var VR_NAVIGATOR_TYPE = "VR";
@@ -83,7 +83,7 @@ export default class ViroSample extends Component {
   }
   _getARNavigator() {
     return (
-      <ViroARNavigator {...this.state.sharedProps}
+      <ViroARSceneNavigator {...this.state.sharedProps}
         initialScene={{scene: InitialARScene}} />
     );
   }
