@@ -3,11 +3,12 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 48;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		0D852EDC5DA6EB38F3F224D6 /* libPods-ViroExample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AF733335AAE164164F7211AD /* libPods-ViroExample.a */; };
+		8B3C3ADF1F3CDEAB001C03C9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8BE0D4241DF9DCFE0032AB99 /* Assets.xcassets */; };
 		8BDB54AF1DFFEE7300179AEF /* libRCTImage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BDB54AE1DFFEE7300179AEF /* libRCTImage.a */; };
 		8BDB54B11DFFEE7E00179AEF /* libRCTNetwork.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BDB54B01DFFEE7E00179AEF /* libRCTNetwork.a */; };
 		8BDB54B31DFFEE8900179AEF /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BDB54B21DFFEE8900179AEF /* libRCTText.a */; };
@@ -20,7 +21,6 @@
 		8BE0D41D1DF9DCFE0032AB99 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BE0D41C1DF9DCFE0032AB99 /* AppDelegate.m */; };
 		8BE0D4201DF9DCFE0032AB99 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BE0D41F1DF9DCFE0032AB99 /* ViewController.m */; };
 		8BE0D4231DF9DCFE0032AB99 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8BE0D4211DF9DCFE0032AB99 /* Main.storyboard */; };
-		8BE0D4251DF9DCFE0032AB99 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8BE0D4241DF9DCFE0032AB99 /* Assets.xcassets */; };
 		8BE0D4281DF9DCFE0032AB99 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8BE0D4261DF9DCFE0032AB99 /* LaunchScreen.storyboard */; };
 		8BE0D4331DF9DCFE0032AB99 /* ViroExampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BE0D4321DF9DCFE0032AB99 /* ViroExampleTests.m */; };
 		8BE0D43E1DF9DCFE0032AB99 /* ViroExampleUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BE0D43D1DF9DCFE0032AB99 /* ViroExampleUITests.m */; };
@@ -499,7 +499,6 @@
 				TargetAttributes = {
 					8BE0D4141DF9DCFE0032AB99 = {
 						CreatedOnToolsVersion = 7.3;
-						DevelopmentTeam = ***REMOVED***;
 					};
 					8BE0D42D1DF9DCFE0032AB99 = {
 						CreatedOnToolsVersion = 7.3;
@@ -512,7 +511,7 @@
 				};
 			};
 			buildConfigurationList = 8BE0D4101DF9DCFE0032AB99 /* Build configuration list for PBXProject "ViroExample" */;
-			compatibilityVersion = "Xcode 3.2";
+			compatibilityVersion = "Xcode 8.0";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -695,8 +694,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8B3C3ADF1F3CDEAB001C03C9 /* Assets.xcassets in Resources */,
 				8BE0D4281DF9DCFE0032AB99 /* LaunchScreen.storyboard in Resources */,
-				8BE0D4251DF9DCFE0032AB99 /* Assets.xcassets in Resources */,
 				8BE0D4231DF9DCFE0032AB99 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -951,8 +950,9 @@
 				);
 				INFOPLIST_FILE = ViroExample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = viro.ViroExample;
+				PRODUCT_BUNDLE_IDENTIFIER = viro.figment;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -971,8 +971,10 @@
 				);
 				INFOPLIST_FILE = ViroExample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = viro.ViroExample;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = viro.figment;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

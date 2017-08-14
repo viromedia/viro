@@ -10,7 +10,9 @@
   "dependencies": {
     "react": "16.0.0-alpha.6",
     "react-native": "0.43.3",
-    "react-viro": "../"
+    "react-redux": "^5.0.5",
+    "react-viro": "../",
+    "redux": "^3.7.2"
   },
   "jest": {
     "preset": "react-native"
