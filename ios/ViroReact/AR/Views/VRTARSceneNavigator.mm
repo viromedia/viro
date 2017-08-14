@@ -201,6 +201,11 @@ static NSString *const kVRTInvalidAPIKeyMessage = @"The given API Key is either 
 #pragma mark RCTInvalidating methods
 
 - (void)invalidate {
+    if (_vroView) {
+        // pause the view before removing it.
+        VROViewAR *viewAR = (VROViewAR *)_vroView;
+        [viewAR setPaused:YES];
+    }
     _currentViews = nil;
     _currentScene = nil;
     _vroView = nil;
