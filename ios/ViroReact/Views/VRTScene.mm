@@ -69,8 +69,13 @@ static NSArray<NSNumber *> *const kDefaultSize = @[@(0), @(0), @(0)];
 
 - (void)setView:(id <VROView>)view {
     _vroView = view;
+    
     [self setCameraIfAvailable];
     [self notifyOnPlatformUpdate];
+}
+
+- (id<VROView>)getVROView {
+    return _vroView;
 }
 
 -(void)setDriver:(std::shared_ptr<VRODriver>)driver {

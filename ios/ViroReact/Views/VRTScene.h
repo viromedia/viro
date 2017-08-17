@@ -26,7 +26,7 @@
 - (NSArray<NSNumber *> *)cameraOrientation;
 
 - (void)setView:(id <VROView>)view;
-
+- (id<VROView>)getVROView;
 - (void)setCamera:(VRTCamera *)camera;
 - (void)removeCamera:(VRTCamera *)camera;
 

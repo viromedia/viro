@@ -41,6 +41,23 @@ static NSString *const kVRTColorTemperatureKey = @"colorTemperature";
     self.sceneController->getScene()->getRootNode()->addChildNode(self.node);
     
     _vroArScene = std::dynamic_pointer_cast<VROARScene>(self.sceneController->getScene());
+    self.portalTraversalListener = std::make_shared<VROPortalTraversalListener>(_vroArScene);
+}
+
+// Add portal traversal listener for this AR scene.
+
+-(void)addTraversalListenerToARView {
+    self.portalTraversalListener = std::make_shared<VROPortalTraversalListener>(_vroArScene);
+    VROViewAR *viewAR = (VROViewAR *)[self getVROView];
+    viewAR.frameSynchronizer->addFrameListener(self.portalTraversalListener);
+}
+
+// Remove portal traversal listener for this AR scene.
+-(void)removeTraversalListenerFromARView {
+    if(self.portalTraversalListener) {
+        VROViewAR *viewAR = (VROViewAR *)[self getVROView];
+        viewAR.frameSynchronizer->removeFrameListener(self.portalTraversalListener);
+    }
 }
 
 #pragma mark VROARSceneDelegateProtocol Implementation

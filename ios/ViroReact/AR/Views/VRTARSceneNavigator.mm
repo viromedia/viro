@@ -40,7 +40,6 @@ static NSString *const kVRTInvalidAPIKeyMessage = @"The given API Key is either 
                                   [[UIScreen mainScreen] bounds].size.width,
                                   [[UIScreen mainScreen] bounds].size.height)];
         [self addSubview:(UIView *)_vroView];
-        
         self.currentViews = [[NSMutableArray alloc] init];
         _currentStackPosition = -1;
         
@@ -64,6 +63,8 @@ static NSString *const kVRTInvalidAPIKeyMessage = @"The given API Key is either 
     if (self.currentSceneIndex == atIndex){
         [self setSceneView:sceneView];
     }
+    
+    [sceneView addTraversalListenerToARView];
     [super insertReactSubview:subview atIndex:atIndex];
 }
 
@@ -76,13 +77,14 @@ static NSString *const kVRTInvalidAPIKeyMessage = @"The given API Key is either 
         // In this case, just return.
         return;
     }
-    
+
     VRTScene *sceneView = [_currentViews objectAtIndex:index];
     [self setSceneView:sceneView];
 }
 
 - (void)removeReactSubview:(UIView *)subview {
-    VRTScene *sceneView = (VRTScene *)subview;
+    VRTARScene *sceneView = (VRTARScene *)subview;
+    [sceneView removeTraversalListenerFromARView];
     [self.currentViews removeObject:sceneView];
     [super removeReactSubview:subview];
 }
@@ -174,7 +176,6 @@ static NSString *const kVRTInvalidAPIKeyMessage = @"The given API Key is either 
 - (void)removeFromSuperview{
     [self parentDidDisappear];
     [super removeFromSuperview];
-    
     /*
      * We need to always ensure that React's root view is showing when we
      * are deallocating Viro and our renderer. This is because GVR does not
