@@ -950,7 +950,7 @@
 				);
 				INFOPLIST_FILE = ViroExample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = viro.figment;
+				PRODUCT_BUNDLE_IDENTIFIER = com.viro.ViroExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -972,7 +972,7 @@
 				INFOPLIST_FILE = ViroExample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = viro.figment;
+				PRODUCT_BUNDLE_IDENTIFIER = com.viro.ViroExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";

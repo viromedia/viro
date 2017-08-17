@@ -32,8 +32,29 @@ Examples/ios/ViroExample/ViroExample.xcworkspace/xcshareddata/
 ios/ngrokendpoint.txt
 ios/ViroRenderer/ViroKit.framework/_CodeSignature/
 
+# Figment Android
+Figment/android/.idea
+Figment/android/.gradle
+Figment/android/local.properties
+Figment/android/app/build/
+Figment/android/app/gradle/
+Figment/android/app/gradlew
+Figment/android/app/gradlew.bat
+Figment/android/app/.idea
+
+# Figment iOS
+Figment/ios/ViroExample.xcworkspace/xcuserdata/
+Figment/ios/ViroExample/Pods/Pods.xcodeproj/xcuserdata/
+Figment/ios/ViroExample/ViroExample.xcodeproj/xcuserdata/
+Figment/ios/ViroExample/ViroExample.xcworkspace/xcuserdata/
+Figment/ios/ViroExample/ViroExample.xcworkspace/xcshareddata/
+Figment/ios/Pods/
+Figment/ios/Podfile.lock
+
+
 # Node
 Examples/node_modules
+Figment/node_modules
 npm-debug.log
 
 *.DS_Store
