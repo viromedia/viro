@@ -10,6 +10,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as LoadingConstants from './redux/LoadingStateConstants';
 import ModelItemRender from './component/ModelItemRender';
+import PortalItemRender from './component/PortalItemRender';
 
 import {
   AppRegistry,
@@ -52,7 +53,6 @@ var figment = React.createClass({
       currentObj: 0,
       isLoading: false,
       scaleSurface: [1,1,1],
-      objScaleFactor:1,
     }
   },
 
@@ -62,6 +62,7 @@ var figment = React.createClass({
         <ViroARScene ref="arscene" reticleEnabled={false} physicsWorld={{gravity:[0, -9.81, 0]}} >
             <ViroAmbientLight color="#ffffff" />
             {this.renderModels(this.props.modelItems)}
+            {this.renderPortals(this.props.portalItems)}
         </ViroARScene>
     );
   },
@@ -84,6 +85,24 @@ var figment = React.createClass({
     return renderedObjects;
   },
 
+  renderPortals(portalItems) {
+    var renderedObjects = [];
+    if(portalItems) {
+      for(var i =0; i<portalItems.length; i++) {
+        if(portalItems[i].selected) {
+          console.log("Figment: Pushing VIRO PORTAL index:" + i);
+          var j = i;
+          renderedObjects.push(
+              <ViroARNode key={j} position={[0,0,-3]} onDrag={()=>{}}>
+                <PortalItemRender portalItem={portalItems[j]} index={j} onLoadCallback={this._onLoadCallback} />
+              </ViroARNode>
+          );
+        }
+      }
+    }
+    return renderedObjects;
+  },
+
   _onLoadCallback(index, loadState) {
     console.log("_onLoadCallback" + index + ", loadCallback:" + loadState);
     this.props.arSceneNavigator.viroAppProps.loadingObjectCallback(index, loadState);
@@ -93,6 +112,7 @@ var figment = React.createClass({
 function selectProps(store) {
   return {
     modelItems: store.arobjects.modelItems,
+    portalItems: store.arobjects.portalItems,
   };
 }
 

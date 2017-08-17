@@ -12,6 +12,7 @@
 
  const initialState = {
   currentScreen: UIConstants.SHOW_MAIN_SCREEN,
+  listMode: UIConstants.LIST_MODE_MODEL,
  }
 
 function ui(state = initialState, action) {
@@ -20,6 +21,11 @@ function ui(state = initialState, action) {
       return {
         ...state,
         currentScreen: action.ui,
+      };
+    case 'SWITCH_LIST_MODE':
+      return {
+        ...state,
+        listMode: action.listMode,
       };
     default:
       return state;

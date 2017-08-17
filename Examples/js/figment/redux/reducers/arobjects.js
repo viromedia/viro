@@ -8,17 +8,19 @@
  *
  */
 import * as ModelData from  '../../model/ModelItems';
+import * as PortalData from  '../../model/PortalItems';
 
  const initialState = {
    modelItems: ModelData.getInitModelArray(),
-   portalItems: undefined,
+   portalItems: PortalData.getInitPortalArray(),
    effectItems: undefined,
  }
 
 
- function toggleModelSelected(state = {}, action) {
+ function toggleItemSelected(state = {}, action) {
    switch (action.type) {
      case 'TOGGLE_MODEL_SELECTED':
+     case 'TOGGLE_PORTAL_SELECTED':
        return {
          ...state,
          selected: !state.selected,
@@ -30,7 +32,8 @@ import * as ModelData from  '../../model/ModelItems';
 
  function changeLoadState(state = {}, action) {
    switch (action.type) {
-     case 'CHANGE_LOAD_STATE':
+     case 'CHANGE_MODEL_LOAD_STATE':
+     case 'CHANGE_PORTAL_LOAD_STATE':
       console.log("Changing load state to:" + action.loadState);
        return {
          ...state,
@@ -41,16 +44,18 @@ import * as ModelData from  '../../model/ModelItems';
    }
  }
 
-function modifyModelItem(state = [], action) {
+function modifyItem(state = [], action) {
     switch (action.type) {
       case 'TOGGLE_MODEL_SELECTED':
+      case 'TOGGLE_PORTAL_SELECTED':
       return [
         ...state.slice(0, action.index),
-        toggleModelSelected(state[action.index], action),
+        toggleItemSelected(state[action.index], action),
         ...state.slice(parseInt(action.index) +1),
       ]
 
-      case 'CHANGE_LOAD_STATE':
+      case 'CHANGE_MODEL_LOAD_STATE':
+      case 'CHANGE_PORTAL_LOAD_STATE':
         return [
           ...state.slice(0, action.index),
           changeLoadState(state[action.index], action),
@@ -65,23 +70,23 @@ function modifyModelItem(state = [], action) {
 function arobjects(state = initialState, action) {
   switch (action.type) {
     case 'TOGGLE_MODEL_SELECTED':
+    case 'CHANGE_MODEL_LOAD_STATE':
       console.log("EXECUTING REDUCER ADDAROBJECT: " + action.index);
-      var updatedModelInfo = modifyModelItem(state.modelItems.slice(0), action);
+      var updatedModelInfo = modifyItem(state.modelItems.slice(0), action);
       console.log("REDUCER NEW STATE:");
       console.log(updatedModelInfo);
       return {
         ...state,
         modelItems: updatedModelInfo.slice(0),
       };
-    case 'CHANGE_LOAD_STATE':
-      var updatedModelInfo = modifyModelItem(state.modelItems.slice(0), action);
-      return {
-        ...state,
-        modelItems: updatedModelInfo.slice(0),
+    case 'CHANGE_PORTAL_LOAD_STATE':
+    case 'TOGGLE_PORTAL_SELECTED':
+        var updatedPortalInfo = modifyItem(state.portalItems.slice(0), action);
+        return {
+          ...state,
+          portalItems: updatedPortalInfo.slice(0),
       }
     default:
-      console.log("RETURNING DEFAULT STATE!");
-      console.log(state);
       return state;
   }
 }

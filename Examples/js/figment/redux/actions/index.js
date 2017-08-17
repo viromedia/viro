@@ -24,10 +24,34 @@ export function toggleModelSelection(index) {
   };
 }
 
-export function changeLoadState(index, loadState) {
+export function togglePortalSelection(index) {
+  console.log("EXECUTING TOGGLE PORTAL SELECTED index:" + index);
+  return {
+    type: 'TOGGLE_PORTAL_SELECTED',
+    index: index,
+  };
+}
+
+export function switchListMode(listMode) {
+  return {
+    type: 'SWITCH_LIST_MODE',
+    listMode: listMode,
+  };
+}
+
+export function changeModelLoadState(index, loadState) {
   console.log("EXECUTING TOGGLE_MODEL_ITEM index:" + index);
   return {
-    type: 'CHANGE_LOAD_STATE',
+    type: 'CHANGE_MODEL_LOAD_STATE',
+    index: index,
+    loadState: loadState,
+  };
+}
+
+export function changePortalLoadState(index, loadState) {
+  console.log("EXECUTING CHANGE PORTAL LOAD STATE index:" + index);
+  return {
+    type: 'CHANGE_PORTAL_LOAD_STATE',
     index: index,
     loadState: loadState,
   };

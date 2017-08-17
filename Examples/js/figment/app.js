@@ -11,7 +11,7 @@ import React, { Component } from 'react';
 
 
 import { connect } from 'react-redux';
-import {toggleModelSelection, changeLoadState, removeARObject, displayUIScreen } from './redux/actions';
+import {toggleModelSelection, togglePortalSelection, changePortalLoadState, changeModelLoadState, switchListMode, removeARObject, displayUIScreen } from './redux/actions';
 import * as LoadingConstants from './redux/LoadingStateConstants';
 import * as UIConstants from './redux/UIConstants';
 import renderIf from './helpers/renderIf';
@@ -57,6 +57,7 @@ export class App extends Component {
     this._setARNavigatorRef = this._setARNavigatorRef.bind(this);
     this._onListItemLoaded = this._onListItemLoaded.bind(this);
     this._onListPressed = this._onListPressed.bind(this),
+    this._getListItems = this._getListItems.bind(this),
 
     this.state = {
       currentModeSelected:kObjSelectMode,
@@ -74,7 +75,7 @@ export class App extends Component {
             />
             {renderIf(this.props.currentScreen != UIConstants.SHOW_SHARE_SCREEN,
             <View style={{height: 100}}>
-              <FigmentListView items={this.props.modelItems} onPress={this._onListPressed} />
+              <FigmentListView items={this._getListItems()} onPress={this._onListPressed} />
             </View>)}
 
           {this._renderButtonLeftMenu()}
@@ -117,22 +118,28 @@ export class App extends Component {
     var buttons = [];
     // render the object mode button.
     if(this.props.currentScreen != UIConstants.SHOW_SHARE_SCREEN) {
-      buttons.push(<View key="modebuttonobj" style={{position:'absolute', flex: 1, left:10, bottom:110, width:100, height:100}}>
-          <TouchableHighlight onPress={()=>{}}>
-            <Image source={require("./res/btn_mode_objects_on.png")} style={localStyles.photo} />
-          </TouchableHighlight>
+      buttons.push(<View key="modebuttonobj" style={{position:'absolute',  left:10, bottom:110, width:100, height:100}}>
+        <ButtonComponent
+          onPress={()=>{this.props.dispatchSwitchListMode(UIConstants.LIST_MODE_MODEL)}}
+          buttonState={(this.props.listMode==UIConstants.LIST_MODE_MODEL) ? 'on':'off'}
+          stateImageArray={[require("./res/btn_mode_objects_on.png"), require("./res/btn_mode_objects.png")]}
+          style={localStyles.photo} />
           </View>);
 
       buttons.push(<View key="modebuttoneffects" style={{position:'absolute', flex: 1, left:10, bottom:210, width:100, height:100}}>
-          <TouchableHighlight onPress={()=>{}}>
-              <Image source={require("./res/btn_mode_effects.png")} style={localStyles.photo} />
-          </TouchableHighlight>
+        <ButtonComponent
+          onPress={()=>{this.props.dispatchSwitchListMode(UIConstants.LIST_MODE_EFFECTS)}}
+          buttonState={(this.props.listMode==UIConstants.LIST_MODE_EFFECT) ? 'on':'off'}
+          stateImageArray={[require("./res/btn_mode_effects_on.png"), require("./res/btn_mode_effects.png")]}
+          style={localStyles.photo} />
           </View>);
 
       buttons.push(<View key="modebuttonportals" style={{position:'absolute', flex: 1, left:10, bottom:310, width:100, height:100}}>
-            <TouchableHighlight onPress={()=>{}}>
-                <Image source={require("./res/btn_mode_portals.png")} style={localStyles.photo} />
-            </TouchableHighlight>
+        <ButtonComponent
+          onPress={()=>{this.props.dispatchSwitchListMode(UIConstants.LIST_MODE_PORTAL)}}
+          buttonState={(this.props.listMode==UIConstants.LIST_MODE_PORTAL) ? 'on':'off'}
+          stateImageArray={[require("./res/btn_mode_portals_on.png"), require("./res/btn_mode_portals.png")]}
+          style={localStyles.photo} />
             </View>);
     }
     return buttons;
@@ -201,15 +208,40 @@ export class App extends Component {
   }
 
   _onListPressed(index) {
-    if(this.props.modelItems[index].selected == true) {
-          this.props.dispatchChangeLoadState(index, LoadingConstants.NONE);
+    if(this.props.listMode == UIConstants.LIST_MODE_MODEL) {
+      if(this.props.modelItems[index].selected == true) {
+            this.props.dispatchChangeModelLoadState(index, LoadingConstants.NONE);
+      }
+      this.props.dispatchToggleModelSelection(index);
     }
-    this.props.dispatchToggleModelSelection(index);
+
+    if(this.props.listMode == UIConstants.LIST_MODE_PORTAL) {
+      if(this.props.portalItems[index].selected == true) {
+            this.props.dispatchChangePortalLoadState(index, LoadingConstants.NONE);
+      }
+      this.props.dispatchTogglePortalSelection(index);
+    }
   }
 
   _onListItemLoaded(index, loadState) {
     console.log("Dispatching change load state:" + index + ", loadState:" + loadState);
-    this.props.dispatchChangeLoadState(index, loadState);
+    if(this.props.listMode == UIConstants.LIST_MODE_MODEL) {
+      this.props.dispatchChangeModelLoadState(index, loadState);
+    }
+
+    if(this.props.listMode == UIConstants.LIST_MODE_PORTAL) {
+      this.props.dispatchChangePortalLoadState(index, loadState);
+    }
+  }
+
+  _getListItems() {
+    if(this.props.listMode == UIConstants.LIST_MODE_MODEL) {
+      return this.props.modelItems;
+    }else if(this.props.listMode == UIConstants.LIST_MODE_PORTAL) {
+      return this.props.portalItems;
+    } else if(this.props.listMode == UIConstants.LIST_MODE_EFFECT) {
+      return this.props.portalItems;
+    }
   }
 
   _openShareActionSheet() {
@@ -286,7 +318,9 @@ function selectProps(store) {
   console.log(store);
   return {
     modelItems: store.arobjects.modelItems,
+    portalItems: store.arobjects.portalItems,
     currentScreen: store.ui.currentScreen,
+    listMode: store.ui.listMode,
   };
 }
 
@@ -300,9 +334,11 @@ function selectProps(store) {
 const mapDispatchToProps = (dispatch) => {
   return {
     dispatchToggleModelSelection: (index) => dispatch(toggleModelSelection(index)),
-    dispatchChangeLoadState:(index, loadState) =>dispatch(changeLoadState(index, loadState)),
-    dispatchremoveARObject: (index) => dispatch(removeARObject(index)),
+    dispatchTogglePortalSelection: (index) => dispatch(togglePortalSelection(index)),
+    dispatchChangeModelLoadState:(index, loadState) =>dispatch(changeModelLoadState(index, loadState)),
+    dispatchChangePortalLoadState:(index, loadState) =>dispatch(changePortalLoadState(index, loadState)),
     dispatchDisplayUIScreen: (uiScreenState) => dispatch(displayUIScreen(uiScreenState)),
+    dispatchSwitchListMode: (listMode) =>dispatch(switchListMode(listMode)),
   }
 }
 

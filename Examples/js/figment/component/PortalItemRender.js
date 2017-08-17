@@ -1,3 +1,4 @@
+
 /**
  * Copyright (c) 2017-present, Viro Media, Inc.
  * All rights reserved.
@@ -15,20 +16,20 @@ import {
   ViroScene,
   ViroARScene,
   ViroARNode,
-  ViroARPlaneSelector,
-  ViroARPlane,
-  ViroBox,
-  ViroMaterials,
   ViroNode,
   Viro3DObject,
+  Viro360Image,
+  ViroPortal,
+  ViroPortalFrame,
+  ViroMaterials,
 } from 'react-viro';
 
 
 var PropTypes = require('react/lib/ReactPropTypes');
 
-var ModelItemRender = React.createClass({
+var PortalItemRender = React.createClass({
     propTypes: {
-        modelItem: PropTypes.any,
+        portalItem: PropTypes.any,
         onLoadCallback: PropTypes.func,
         index: PropTypes.number,
     },
@@ -37,19 +38,22 @@ var ModelItemRender = React.createClass({
       this._ref_object = null;
     },
 
-
-
     render: function() {
         var j = this.props.index;
         return (
-        <Viro3DObject ref={this._setComponentRef()}
-            scale={this.props.modelItem.scale}
-            source={this.props.modelItem.obj}
-            materials={this.props.modelItem.materials}
-            resources={this.props.modelItem.resources}
-            animation={this.props.modelItem.animation}
-            onError={this._onError(j)}  onRotate={this._onRotateGesture(j)} onLoadStart={this._onObjectLoadStart(j)} onLoadEnd={this._onObjectLoadEnd(j)}
-            position={[0,0,0]} onPinch={this._onPinchIndex(j)} />
+          <ViroPortal position={[0, 0, 0]} scale={this.props.portalItem.scale}>
+             <ViroPortalFrame>
+               <Viro3DObject source={this.props.portalItem.obj}
+                             position={[0, 0, 0]}
+                             rotation={[0, 0, 0]}
+                             materials={this.props.portalItem.materials}
+                             scale={this.props.portalItem.scale}
+                             onPinch={this._onRotateGesture(j)}
+                             onRotate={this._onPinchIndex(j)}
+                             resource={this.props.portalItem.resources} onLoadStart={this._onObjectLoadStart(j)} onLoadEnd={this._onObjectLoadEnd(j)}/>
+             </ViroPortalFrame>
+            <Viro360Image source={require('../res/360_diving.jpg')} />
+          </ViroPortal>
         );
     },
 
@@ -96,9 +100,9 @@ var ModelItemRender = React.createClass({
         console.log("END PINCH WITH Scale factor: " + scaleFactor);
       }
 
-      var scaleX = this.props.modelItem.scale[0] * scaleFactor;
-      var scaleY = this.props.modelItem.scale[1] * scaleFactor;
-      var scaleZ = this.props.modelItem.scale[2] * scaleFactor;
+      var scaleX = this.props.portalItem.scale[0] * scaleFactor;
+      var scaleY = this.props.portalItem.scale[1] * scaleFactor;
+      var scaleZ = this.props.portalItem.scale[2] * scaleFactor;
       console.log("ONPINCH INDEX:" + index);
 
       this._ref_object.setNativeProps({scale:[scaleX, scaleY, scaleZ]});
@@ -108,9 +112,7 @@ var ModelItemRender = React.createClass({
         return () => {
           console.log("MODEL has error HAS ERROR" + index);
           this.props.loadCallback(index, LoadConstants.ERROR);
-          //this.props.arSceneNavigator.viroAppProps.loadingObjectCallback(index, LoadingConstants.LOAD_ERROR);
-        };
-
+          };
       },
 
     _onObjectLoadStart(index) {
@@ -122,34 +124,15 @@ var ModelItemRender = React.createClass({
     _onObjectLoadEnd(index) {
         return () => {
           this.props.onLoadCallback(index, LoadConstants.LOADED);
-          //this.props.arSceneNavigator.viroAppProps.loadingObjectCallback(index, LoadingConstants.LOADED);
         };
     },
 });
 
 ViroMaterials.createMaterials({
-  transparentFloor: {
-    diffuseColor: "#ff000000",
+  portal_ship: {
+    diffuseTexture: require("../res/portal_ship/portal_ship_diffuse.png"),
+    normalTexture: require("../res/portal_ship/portal_ship_normal.png"),
   },
-  porsche: {
-    diffuseTexture: require("../res/car_porsche/Porsche911turboS_diff.jpg"),
-  },
-  bball: {
-    diffuseTexture: require("../res/bball/bball.jpg"),
-  },
-  ring: {
-    diffuseTexture: require("../res/portal_ring/portal_ring.png"),
-  },
-  tesla: {
-    shininess: 1.0,
-    lightingModel:"Blinn",
-  },
-  transparentFloor: {
-    diffuseColor: "#ff000000",
-    writesToDepthBuffer: false,
-    readsFromDepthBuffer: false,
-  },
-
 });
 
-module.exports = ModelItemRender;
+module.exports = PortalItemRender;
