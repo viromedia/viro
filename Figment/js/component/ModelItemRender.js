@@ -37,13 +37,19 @@ var ModelItemRender = React.createClass({
       this._ref_object = null;
     },
 
-
+    getInitialState() {
+      return {
+        scale : this.props.modelItem.scale,
+        rotation : [0, 0, 0],
+      }
+    },
 
     render: function() {
         var j = this.props.index;
         return (
         <Viro3DObject ref={this._setComponentRef()}
-            scale={this.props.modelItem.scale}
+            scale={this.state.scale}
+            rotation={this.state.rotation}
             source={this.props.modelItem.obj}
             materials={this.props.modelItem.materials}
             resources={this.props.modelItem.resources}
@@ -73,35 +79,53 @@ var ModelItemRender = React.createClass({
       });
     },
 
+    /*
+     Rotation should be relative to its current rotation *not* set to the absolute
+     value of the given rotationFactor.
+     */
     _onRotate(rotateState, rotationFactor, source, index) {
       if(rotateState == 1) {
-        console.log("STARTING ROTATE WITH Scale factor: " + rotationFactor);
+        console.log("STARTING ROTATE WITH Rotation factor: " + rotationFactor);
+        return;
       } else if(rotateState ==2){
-        console.log("MID ROTATE WITH Scale factor: " + rotationFactor);
+        console.log("MID ROTATE WITH Rotation factor: " + rotationFactor);
       } else if(rotateState == 3) {
-        console.log("END ROTATE WITH Scale factor: " + rotationFactor);
+        console.log("END ROTATE WITH Rotation factor: " + rotationFactor);
+        this.setState({
+          rotation : [0, this.state.rotation[1] - rotationFactor, 0]
+        })
+        return;
       }
 
       console.log("ONROTATE INDEX:" + index);
 
-      this._ref_object.setNativeProps({rotation:[0, -rotationFactor, 0]});
+      this._ref_object.setNativeProps({rotation:[0, this.state.rotation[1] - rotationFactor, 0]});
     },
 
+    /*
+     Pinch scaling should be relative to its last value *not* the absolute value of the
+     scale factor. So while the pinching is ongoing set scale through setNativeProps
+     and multiply the state by that factor. At the end of a pinch event, set the state
+     to the final value and store it in state.
+     */
     _onPinch(pinchState, scaleFactor, source, index) {
       if(pinchState == 1) {
         console.log("STARTING PINCH WITH Scale factor: " + scaleFactor);
-      } else if(pinchState ==2){
+        return;
+      } else if(pinchState == 2){
         console.log("MID PINCH WITH Scale factor: " + scaleFactor);
       } else if(pinchState == 3) {
         console.log("END PINCH WITH Scale factor: " + scaleFactor);
+        this.setState({
+          scale : this.state.scale.map((x)=>{return x * scaleFactor})
+        });
+        return;
       }
 
-      var scaleX = this.props.modelItem.scale[0] * scaleFactor;
-      var scaleY = this.props.modelItem.scale[1] * scaleFactor;
-      var scaleZ = this.props.modelItem.scale[2] * scaleFactor;
       console.log("ONPINCH INDEX:" + index);
 
-      this._ref_object.setNativeProps({scale:[scaleX, scaleY, scaleZ]});
+      var newScale = this.state.scale.map((x)=>{return x * scaleFactor})
+      this._ref_object.setNativeProps({scale:newScale});
     },
 
     _onError(index) {
