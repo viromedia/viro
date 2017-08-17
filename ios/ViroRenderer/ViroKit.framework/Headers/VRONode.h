@@ -166,8 +166,8 @@ public:
      If mode is set to Textured, then textures will be bound. This method is typically
      used to render to the stencil or depth buffers only.
      */
-    void renderSilhouette(std::shared_ptr<VROMaterial> &material, VROSilhouetteMode mode,
-                          const VRORenderContext &context, std::shared_ptr<VRODriver> &driver);
+    void renderSilhouettes(std::shared_ptr<VROMaterial> &material, VROSilhouetteMode mode,
+                           const VRORenderContext &context, std::shared_ptr<VRODriver> &driver);
     
 #pragma mark - Geometry
     

@@ -1,5 +1,6 @@
 #version 300 es
 #include constant_functions_fsh
+#include particles_fsh
 
 uniform lowp vec4 material_diffuse_surface_color;
 uniform lowp float material_diffuse_intensity;
@@ -8,6 +9,7 @@ uniform lowp float material_alpha;
 #pragma surface_modifier_uniforms
 #pragma fragment_modifier_uniforms
 
+flat in int v_instance_id;
 in lowp mat3 v_tbn;
 in highp vec2 v_texcoord;
 in highp vec3 v_surface_position;

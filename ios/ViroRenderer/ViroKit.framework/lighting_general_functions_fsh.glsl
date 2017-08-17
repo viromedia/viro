@@ -30,6 +30,19 @@ layout (std140) uniform lighting {
     VROLightUniforms lights[8];
 };
 
+struct VROLightingContribution {
+    lowp vec3 ambient;
+    lowp vec3 diffuse;
+    lowp vec3 specular;
+    highp float visibility; // Fades light, e.g. due to shadows
+} _lightingContribution;
+
+struct VROShaderLight {
+    lowp  vec3  color;
+    highp vec3  surface_to_light;
+    highp float attenuation;
+} _light;
+
 highp float compute_attenuation(const VROLightUniforms light,
                                 highp vec3 surface_pos,
                                 out highp vec3 surface_to_light) {

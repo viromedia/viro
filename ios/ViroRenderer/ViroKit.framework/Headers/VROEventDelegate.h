@@ -45,6 +45,7 @@ public:
         OnDrag = 8,
         OnFuse = 9,
         OnPinch = 10,
+        OnRotate = 11,
     };
 
     /**
@@ -69,6 +70,12 @@ public:
       PinchStart = 1,
       PinchMove = 2,
       PinchEnd = 3,
+    };
+    
+    enum RotateState {
+        RotateStart = 1,
+        RotateMove = 2,
+        RotateEnd = 3,
     };
 
     enum SwipeState {
@@ -106,6 +113,7 @@ public:
         _enabledEventMap[VROEventDelegate::EventAction::OnDrag] = false;
         _enabledEventMap[VROEventDelegate::EventAction::OnFuse] = false;
         _enabledEventMap[VROEventDelegate::EventAction::OnPinch] = false;
+        _enabledEventMap[VROEventDelegate::EventAction::OnRotate] = false;
     }
 
     /**
@@ -164,6 +172,10 @@ public:
     }
     
     virtual void onPinch(int source, float scale, PinchState pinchState) {
+        //No-op
+    }
+    
+    virtual void onRotate(int source, float rotation, RotateState rotateState) {
         //No-op
     }
 

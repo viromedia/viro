@@ -29,7 +29,7 @@ typedef std::function<void(VROUniform *uniform, GLuint location, const VROGeomet
  ----------------
  
  Geometry entry point. The code may declare uniforms and read/write
- to the following structure:
+ to the following structures:
  
  struct VROShaderGeometry {
    vec3 position;
@@ -40,8 +40,16 @@ typedef std::function<void(VROUniform *uniform, GLuint location, const VROGeomet
    ivec4 bone_indices;
  } _geometry;
  
- The Geometry entry point enables modifiers to change vertex parameters in 
- the vertex shader.
+ struct VROTransforms {
+   mat4 model_matrix;
+   mat4 view_matrix;
+   mat4 projection_matrix;
+ } _transforms;
+ 
+ The Geometry entry point enables modifiers to change vertex parameters
+ in the vertex shader. This includes geometry parameters like position,
+ normals, and texcoords, and transform parameters like the model, view,
+ and projection matrices.
  
  ----------------
  
@@ -55,9 +63,8 @@ typedef std::function<void(VROUniform *uniform, GLuint location, const VROGeomet
  The Vertex entry point enables modifiers to change the position of
  vertices *after* their transformation into normalized device coordinates.
  The input and output (_vertex.position) is in normalized device coordinates.
- 
+
  ----------------
- 
  Surface entry point. The code may declare uniforms and read/write
  to the following structure:
  
@@ -76,6 +83,36 @@ typedef std::function<void(VROUniform *uniform, GLuint location, const VROGeomet
  
  The Surface entry point enables modifiers to change surface parameters, in
  the fragment shader, prior to the lighting computation.
+ 
+ ----------------
+ 
+ Lighting Model entry point. The code runs once per light. It reads from the
+ _surface structure and the _light structure below, and accumulates (+=) the
+ results to the _lightingContribution structure:
+ 
+ struct VROLightingContribution {
+     lowp vec3 ambient;
+     lowp vec3 diffuse;
+     lowp vec3 specular;
+     highp float visibility;
+ } _lightingContribution;
+ 
+ struct VROShaderLight {
+     lowp  vec3  color;
+     highp vec3  surface_to_light;
+     highp float attenuation;
+ } _light;
+
+ The Lighting Model entry point enables modifiers to define the impact of each
+ light on a given material. After being invoked on each light, the accumulated
+ lighting computations are combined with material surface properties to generate
+ the final color. The visibility value (which defaults to 1.0) is multiplied by
+ the diffuse and specular components; it can be used to simulate the impact of
+ shadow.
+ 
+ Note, as an optimization, VROLightingContribution is initialized to the sum
+ of all ambient lights. Therefore, in general lighting models will not need to
+ add anything to _lightingContribution.ambient.
  
  ----------------
  
@@ -105,6 +142,7 @@ enum class VROShaderEntryPoint {
     Geometry,
     Vertex,
     Surface,
+    LightingModel,
     Fragment,
     Image,
 };
@@ -220,25 +258,11 @@ private:
     std::map<std::string, VROUniformBindingBlock> _uniformBinders;
     
     /*
-     Extract the uniforms from the given source string and return them in a new
-     string. Mutate the given string, removing the uniforms from the input source.
-     For example, if the input is:
-     
-     uniform float testA;
-     uniform float testB;
-     _geometry.position.x = _geometry.position.x + testA;
-     
-     then this function will return:
-     
-     uniform float testA;
-     uniform float testB;
-     
-     and the input string will be mutated to:
-     
-     _geometry.position.x = _geometry.position.x + testA;
+     Return true if the given line is a variable declaration, and false
+     if not. Variable declarations are lines that declare a uniform, in,
+     our out variable.
      */
-    std::string extractUniforms(std::string *source) const;
-    void extractNextUniform(std::string *uniforms, std::string *body) const;
+    bool isVariableDeclaration(std::string &line);
     
 };
 

@@ -24,6 +24,11 @@ class VROARSessionDelegate;
 - (void)setARSessionDelegate:(std::shared_ptr<VROARSessionDelegate>)delegate;
 
 /*
+ Sets the paused state of the underlying CADisplayLink
+ */
+- (void)setPaused:(BOOL)paused;
+
+/*
  Performs an AR hit test with the given ray assuming origin is the camera
  */
 - (std::vector<VROARHitTestResult>)performARHitTest:(VROVector3f)ray;

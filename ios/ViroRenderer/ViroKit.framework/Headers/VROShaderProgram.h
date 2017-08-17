@@ -127,7 +127,23 @@ public:
     GLuint getBonesBlockIndex() const {
         return _bonesBlockIndex;
     }
-    
+
+    bool hasParticlesVertexBlock() const {
+        return _particlesVertexBlockIndex != GL_INVALID_INDEX;
+    }
+
+    GLuint getParticlesVertexBlockIndex() const {
+        return _particlesVertexBlockIndex;
+    }
+
+    bool hasParticlesFragmentBlock() const {
+        return _particlesFragmentBlockIndex != GL_INVALID_INDEX;
+    }
+
+    GLuint getParticlesFragmentBlockIndex() const {
+        return _particlesFragmentBlockIndex;
+    }
+
     const std::vector<std::shared_ptr<VROShaderModifier>> &getModifiers() const {
         return _modifiers;
     }
@@ -164,6 +180,13 @@ private:
      */
     GLuint _lightingBlockIndex;
     GLuint _bonesBlockIndex;
+
+    /*
+     The uniform block for particles to be used by this shader - one for the fragment and
+     one for the vertex shader.
+     */
+    GLuint _particlesVertexBlockIndex;
+    GLuint _particlesFragmentBlockIndex;
 
     /*
      The attributes supported by this shader, as defined by the VROShader enum above.

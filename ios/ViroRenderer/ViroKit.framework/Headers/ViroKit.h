@@ -63,6 +63,7 @@ FOUNDATION_EXPORT const unsigned char ViroKitVersionString[];
 #import <ViroKit/VROTransformDelegate.h>
 #import <ViroKit/VROTransformDelegateiOS.h>
 #import <ViroKit/VROTree.h>
+#import <ViroKit/VROParticleEmitter.h>
 
 // Animation
 #import <ViroKit/VROAnimation.h>

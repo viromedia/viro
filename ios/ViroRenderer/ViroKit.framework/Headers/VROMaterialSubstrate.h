@@ -61,9 +61,10 @@ public:
      Bind the properties of the view and projection to the active rendering
      context.
      */
-    virtual void bindView(VROMatrix4f transform, VROMatrix4f modelview,
+    virtual void bindView(VROMatrix4f modelMatrix, VROMatrix4f viewMatrix,
                           VROMatrix4f projectionMatrix, VROMatrix4f normalMatrix,
-                          VROVector3f cameraPosition, VROEyeType eyeType) = 0;
+                          VROVector3f cameraPosition, VROEyeType eyeType,
+                          VROMatrix4f shadowViewMatrix, VROMatrix4f shadowProjectionMatrix) = 0;
     
 };
 

@@ -19,6 +19,7 @@
 #include "VROThreadRestricted.h"
 #include "VROPhysicsWorld.h"
 #include "VROTree.h"
+#include "VROParticleEmitter.h"
 
 class VRONode;
 class VROPortal;
@@ -85,7 +86,24 @@ public:
             _physicsWorld->computePhysics(context);
         }
     }
-    
+
+    /*
+     Particle Emitters are stored and computed per scene.
+     */
+    void computeParticles(const VRORenderContext &context) {
+        for (std::shared_ptr<VROParticleEmitter> emitter: _activeParticles) {
+            emitter->update(context);
+        }
+    }
+
+    void addParticleEmitter(std::shared_ptr<VROParticleEmitter> emitter) {
+        _activeParticles.push_back(emitter);
+    }
+
+    void removeParticleEmitter(std::shared_ptr<VROParticleEmitter> emitter) {
+        _activeParticles.erase(std::remove(_activeParticles.begin(), _activeParticles.end(), emitter), _activeParticles.end());
+    }
+
     /*
      Attach or detach input controllers.
      */
@@ -142,6 +160,11 @@ protected:
      Manages the physics in the scene.
      */
     std::shared_ptr<VROPhysicsWorld> _physicsWorld = nullptr;
+
+    /*
+     Represents a list of all actively emitting particles in this scene.
+     */
+    std::vector<std::shared_ptr<VROParticleEmitter>> _activeParticles;
     
     /*
      The active portal; the scene is rendered as though the camera is in this
