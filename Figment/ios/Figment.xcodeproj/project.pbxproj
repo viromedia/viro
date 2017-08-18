@@ -28,7 +28,6 @@
 		8AEEA3491F461DE20033BD59 /* libViroReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AEEA3061F46175D0033BD59 /* libViroReact.a */; };
 		8AEEA3641F461FAD0033BD59 /* ViroKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AEEA3621F461E860033BD59 /* ViroKit.framework */; };
 		8AEEA3651F461FAD0033BD59 /* ViroKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8AEEA3621F461E860033BD59 /* ViroKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		8AF796241F46684D008D1AB8 /* libRCTCameraRoll.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AF7960C1F46682F008D1AB8 /* libRCTCameraRoll.a */; };
 		A132BF226C8C3DF2DB19B8B2 /* libPods-Figment.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 580DC7923B5A47B9B174CB45 /* libPods-Figment.a */; };
 /* End PBXBuildFile section */
 
@@ -236,13 +235,6 @@
 			remoteGlobalIDString = 8BE0D4541DFA0D050032AB99;
 			remoteInfo = ViroReact;
 		};
-		8AF7960B1F46682F008D1AB8 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 8AF796041F46682F008D1AB8 /* RCTCameraRoll.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 58B5115D1A9E6B3D00147676;
-			remoteInfo = RCTCameraRoll;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -289,7 +281,7 @@
 		8AEEA2E71F46175D0033BD59 /* ViroReact.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ViroReact.xcodeproj; path = ../../ios/ViroReact.xcodeproj; sourceTree = "<group>"; };
 		8AEEA32D1F461DB90033BD59 /* libPods-ViroReact.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-ViroReact.a"; path = "../../../../Library/Developer/Xcode/DerivedData/Figment-delkaflngzscrygeyitvubgotjud/Build/Products/Debug-iphoneos/libPods-ViroReact.a"; sourceTree = "<group>"; };
 		8AEEA3621F461E860033BD59 /* ViroKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ViroKit.framework; path = ../../ios/ViroRenderer/ViroKit.framework; sourceTree = "<group>"; };
-		8AF796041F46682F008D1AB8 /* RCTCameraRoll.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTCameraRoll.xcodeproj; path = "/Users/andychu/another-workspace/react-viro/Figment/node_modules/react-native/Libraries/ActionSheetIOS/../CameraRoll/RCTCameraRoll.xcodeproj"; sourceTree = "<absolute>"; };
+		8AF796041F46682F008D1AB8 /* RCTCameraRoll.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTCameraRoll.xcodeproj; path = "../node_modules/react-native/Libraries/CameraRoll/RCTCameraRoll.xcodeproj"; sourceTree = "<group>"; };
 		CCB37C1A22F8D9B3B5846555 /* Pods-Figment.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Figment.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Figment/Pods-Figment.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -311,7 +303,6 @@
 				8AEEA3641F461FAD0033BD59 /* ViroKit.framework in Frameworks */,
 				5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */,
 				00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */,
-				8AF796241F46684D008D1AB8 /* libRCTCameraRoll.a in Frameworks */,
 				00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */,
 				00C302E81ABCBA2D00DB3ED1 /* libRCTImage.a in Frameworks */,
 				133E29F31AD74F7200F7D852 /* libRCTLinking.a in Frameworks */,
@@ -532,14 +523,6 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		8AF796051F46682F008D1AB8 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				8AF7960C1F46682F008D1AB8 /* libRCTCameraRoll.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		8B7B34A7B84CC98C901A7606 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -640,10 +623,6 @@
 				{
 					ProductGroup = 5E91572E1DD0AC6500FF2AA8 /* Products */;
 					ProjectRef = 5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */;
-				},
-				{
-					ProductGroup = 8AF796051F46682F008D1AB8 /* Products */;
-					ProjectRef = 8AF796041F46682F008D1AB8 /* RCTCameraRoll.xcodeproj */;
 				},
 				{
 					ProductGroup = 00C302B61ABCB90400DB3ED1 /* Products */;
@@ -893,13 +872,6 @@
 			fileType = archive.ar;
 			path = libViroReact.a;
 			remoteRef = 8AEEA3051F46175D0033BD59 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		8AF7960C1F46682F008D1AB8 /* libRCTCameraRoll.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libRCTCameraRoll.a;
-			remoteRef = 8AF7960B1F46682F008D1AB8 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
