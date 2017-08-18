@@ -31,6 +31,7 @@ import {
   ListView,
   Image,
   TouchableHighlight,
+  TouchableOpacity,
   ActivityIndicator,
   ActionSheetIOS,
   CameraRoll,
@@ -98,11 +99,22 @@ export class App extends Component {
   _renderShareScreen() {
     if(this.props.currentScreen == UIConstants.SHOW_SHARE_SCREEN) {
       return (
-        <View style={localStyles.backgroundView} >
+        <View style={localStyles.shareScreenContainer} >
 
-          <Video source={{uri : this.state.videoUrl}} paused={!this.state.playPreview}
+          {/* So with react-native-video, if you turn repeat to true and then onEnd pause
+              the video, you'll end up with black screen. So we should simply not repeat
+              and seek to 0 when we want to play the video again (seeking will auto start
+              the video player too, but we set the state to true to dismiss the play btn)*/}
+          <Video ref={(ref) => {this.player = ref}}
+            source={{uri : this.state.videoUrl}} paused={!this.state.playPreview}
             repeat={false} style={localStyles.backgroundVideo}
             onEnd={()=>{this.setState({playPreview : false})}} />
+
+          {renderIf(!this.state.playPreview,
+          <TouchableOpacity onPress={()=>{this.player.seek(0); this.setState({ playPreview : true })}}>
+            <Image source={require("./res/play_btn.png")} style={localStyles.previewPlayButton} />
+          </TouchableOpacity>
+          )}
 
           <View style={{position:'absolute', left:10, bottom:10, width:100, height:100}}>
             <TouchableHighlight onPress={()=>{this._saveToCameraRoll()}}>
@@ -330,13 +342,20 @@ var localStyles = StyleSheet.create({
     marginTop:20,
     borderWidth: 1,
   },
-  backgroundView: {
+  previewPlayButton : {
+    height : 100,
+    width : 100,
+  },
+  shareScreenContainer: {
     position : 'absolute',
     top: 0,
     left: 0,
     bottom: 0,
     right: 0,
     backgroundColor : '#000000',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   backgroundVideo: {
     position: 'absolute',
