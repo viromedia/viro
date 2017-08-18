@@ -24,9 +24,11 @@
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
+		8AD2381F1F478D2F009B2057 /* libRCTVideo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AD2381C1F4785A4009B2057 /* libRCTVideo.a */; };
 		8AEEA3491F461DE20033BD59 /* libViroReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AEEA3061F46175D0033BD59 /* libViroReact.a */; };
 		8AEEA3641F461FAD0033BD59 /* ViroKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AEEA3621F461E860033BD59 /* ViroKit.framework */; };
 		8AEEA3651F461FAD0033BD59 /* ViroKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8AEEA3621F461E860033BD59 /* ViroKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		8AF796241F46684D008D1AB8 /* libRCTCameraRoll.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AF7960C1F46682F008D1AB8 /* libRCTCameraRoll.a */; };
 		A132BF226C8C3DF2DB19B8B2 /* libPods-Figment.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 580DC7923B5A47B9B174CB45 /* libPods-Figment.a */; };
 /* End PBXBuildFile section */
 
@@ -213,12 +215,33 @@
 			remoteGlobalIDString = 58B5119B1A9E6C1200147676;
 			remoteInfo = RCTText;
 		};
+		8AD2381B1F4785A4009B2057 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0F7A211553D24F47917F14E9 /* RCTVideo.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 134814201AA4EA6300B7C361;
+			remoteInfo = RCTVideo;
+		};
+		8AD2381D1F4785A4009B2057 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0F7A211553D24F47917F14E9 /* RCTVideo.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 641E28441F0EEC8500443AF6;
+			remoteInfo = "RCTVideo-tvOS";
+		};
 		8AEEA3051F46175D0033BD59 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 8AEEA2E71F46175D0033BD59 /* ViroReact.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 8BE0D4541DFA0D050032AB99;
 			remoteInfo = ViroReact;
+		};
+		8AF7960B1F46682F008D1AB8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8AF796041F46682F008D1AB8 /* RCTCameraRoll.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 58B5115D1A9E6B3D00147676;
+			remoteInfo = RCTCameraRoll;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -246,7 +269,9 @@
 		00E356EE1AD99517003FC87E /* FigmentTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FigmentTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* FigmentTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FigmentTests.m; sourceTree = "<group>"; };
+		05BBEAEF16CA45DE92A5E7F6 /* libRCTVideo.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTVideo.a; sourceTree = "<group>"; };
 		06DFC92D70C4C6681DCC3DA2 /* Pods-Figment.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Figment.release.xcconfig"; path = "Pods/Target Support Files/Pods-Figment/Pods-Figment.release.xcconfig"; sourceTree = "<group>"; };
+		0F7A211553D24F47917F14E9 /* RCTVideo.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RCTVideo.xcodeproj; path = "../node_modules/react-native-video/ios/RCTVideo.xcodeproj"; sourceTree = "<group>"; };
 		139105B61AF99BAD00B5F7CC /* RCTSettings.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTSettings.xcodeproj; path = "../node_modules/react-native/Libraries/Settings/RCTSettings.xcodeproj"; sourceTree = "<group>"; };
 		139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTWebSocket.xcodeproj; path = "../node_modules/react-native/Libraries/WebSocket/RCTWebSocket.xcodeproj"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* Figment.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Figment.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -264,6 +289,7 @@
 		8AEEA2E71F46175D0033BD59 /* ViroReact.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ViroReact.xcodeproj; path = ../../ios/ViroReact.xcodeproj; sourceTree = "<group>"; };
 		8AEEA32D1F461DB90033BD59 /* libPods-ViroReact.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-ViroReact.a"; path = "../../../../Library/Developer/Xcode/DerivedData/Figment-delkaflngzscrygeyitvubgotjud/Build/Products/Debug-iphoneos/libPods-ViroReact.a"; sourceTree = "<group>"; };
 		8AEEA3621F461E860033BD59 /* ViroKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ViroKit.framework; path = ../../ios/ViroRenderer/ViroKit.framework; sourceTree = "<group>"; };
+		8AF796041F46682F008D1AB8 /* RCTCameraRoll.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTCameraRoll.xcodeproj; path = "/Users/andychu/another-workspace/react-viro/Figment/node_modules/react-native/Libraries/ActionSheetIOS/../CameraRoll/RCTCameraRoll.xcodeproj"; sourceTree = "<absolute>"; };
 		CCB37C1A22F8D9B3B5846555 /* Pods-Figment.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Figment.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Figment/Pods-Figment.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -282,9 +308,10 @@
 			files = (
 				8AEEA3491F461DE20033BD59 /* libViroReact.a in Frameworks */,
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
-				5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */,
 				8AEEA3641F461FAD0033BD59 /* ViroKit.framework in Frameworks */,
+				5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */,
 				00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */,
+				8AF796241F46684D008D1AB8 /* libRCTCameraRoll.a in Frameworks */,
 				00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */,
 				00C302E81ABCBA2D00DB3ED1 /* libRCTImage.a in Frameworks */,
 				133E29F31AD74F7200F7D852 /* libRCTLinking.a in Frameworks */,
@@ -292,6 +319,7 @@
 				139105C61AF99C1200B5F7CC /* libRCTSettings.a in Frameworks */,
 				832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */,
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
+				8AD2381F1F478D2F009B2057 /* libRCTVideo.a in Frameworks */,
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
 				A132BF226C8C3DF2DB19B8B2 /* libPods-Figment.a in Frameworks */,
 			);
@@ -431,6 +459,7 @@
 				5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */,
 				146833FF1AC3E56700842450 /* React.xcodeproj */,
 				00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */,
+				8AF796041F46682F008D1AB8 /* RCTCameraRoll.xcodeproj */,
 				00C302B51ABCB90400DB3ED1 /* RCTGeolocation.xcodeproj */,
 				00C302BB1ABCB91800DB3ED1 /* RCTImage.xcodeproj */,
 				78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */,
@@ -439,6 +468,7 @@
 				832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */,
 				00C302DF1ABCB9EE00DB3ED1 /* RCTVibration.xcodeproj */,
 				139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */,
+				0F7A211553D24F47917F14E9 /* RCTVideo.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -462,6 +492,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				E465A15F20776BE071DE2F39 /* Pods */,
 				8B7B34A7B84CC98C901A7606 /* Frameworks */,
+				8AD237FB1F4785A3009B2057 /* Recovered References */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -476,10 +507,35 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		8AD237FB1F4785A3009B2057 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				05BBEAEF16CA45DE92A5E7F6 /* libRCTVideo.a */,
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
+		8AD238171F4785A4009B2057 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8AD2381C1F4785A4009B2057 /* libRCTVideo.a */,
+				8AD2381E1F4785A4009B2057 /* libRCTVideo.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		8AEEA2E81F46175D0033BD59 /* Products */ = {
 			isa = PBXGroup;
 			children = (
 				8AEEA3061F46175D0033BD59 /* libViroReact.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		8AF796051F46682F008D1AB8 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8AF7960C1F46682F008D1AB8 /* libRCTCameraRoll.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -553,7 +609,7 @@
 		83CBB9F71A601CBA00E9B192 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0610;
+				LastUpgradeCheck = 610;
 				ORGANIZATIONNAME = Facebook;
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
@@ -586,6 +642,10 @@
 					ProjectRef = 5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */;
 				},
 				{
+					ProductGroup = 8AF796051F46682F008D1AB8 /* Products */;
+					ProjectRef = 8AF796041F46682F008D1AB8 /* RCTCameraRoll.xcodeproj */;
+				},
+				{
 					ProductGroup = 00C302B61ABCB90400DB3ED1 /* Products */;
 					ProjectRef = 00C302B51ABCB90400DB3ED1 /* RCTGeolocation.xcodeproj */;
 				},
@@ -612,6 +672,10 @@
 				{
 					ProductGroup = 00C302E01ABCB9EE00DB3ED1 /* Products */;
 					ProjectRef = 00C302DF1ABCB9EE00DB3ED1 /* RCTVibration.xcodeproj */;
+				},
+				{
+					ProductGroup = 8AD238171F4785A4009B2057 /* Products */;
+					ProjectRef = 0F7A211553D24F47917F14E9 /* RCTVideo.xcodeproj */;
 				},
 				{
 					ProductGroup = 139FDEE71B06529A00C62182 /* Products */;
@@ -810,11 +874,32 @@
 			remoteRef = 832341B41AAA6A8300B99B32 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		8AD2381C1F4785A4009B2057 /* libRCTVideo.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRCTVideo.a;
+			remoteRef = 8AD2381B1F4785A4009B2057 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		8AD2381E1F4785A4009B2057 /* libRCTVideo.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRCTVideo.a;
+			remoteRef = 8AD2381D1F4785A4009B2057 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		8AEEA3061F46175D0033BD59 /* libViroReact.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = libViroReact.a;
 			remoteRef = 8AEEA3051F46175D0033BD59 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		8AF7960C1F46682F008D1AB8 /* libRCTCameraRoll.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRCTCameraRoll.a;
+			remoteRef = 8AF7960B1F46682F008D1AB8 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -978,9 +1063,17 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../node_modules/react-native-video/ios",
+				);
 				INFOPLIST_FILE = FigmentTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
@@ -996,9 +1089,17 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_BITCODE = NO;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../node_modules/react-native-video/ios",
+				);
 				INFOPLIST_FILE = FigmentTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
@@ -1024,6 +1125,7 @@
 					"\"${PODS_ROOT}/Headers/Public/GVRSDK\"",
 					"../node_modules/react-native/React/**",
 					"../../ios/**",
+					"$(SRCROOT)/../node_modules/react-native-video/ios",
 				);
 				INFOPLIST_FILE = Figment/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1054,6 +1156,7 @@
 					"\"${PODS_ROOT}/Headers/Public/GVRSDK\"",
 					"../node_modules/react-native/React/**",
 					"../../ios/**",
+					"$(SRCROOT)/../node_modules/react-native-video/ios",
 				);
 				INFOPLIST_FILE = Figment/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

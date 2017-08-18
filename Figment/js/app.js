@@ -33,11 +33,15 @@ import {
   TouchableHighlight,
   ActivityIndicator,
   ActionSheetIOS,
+  CameraRoll,
+  Alert,
 } from 'react-native';
 
 import {
   ViroARSceneNavigator,
 } from 'react-viro';
+
+import Video from 'react-native-video';
 
 var InitialScene = require('./figment');
 
@@ -45,23 +49,23 @@ export class App extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-      text : "Submit",
-      objSelection: -1,
-    }
 
+    this._renderShareScreen = this._renderShareScreen.bind(this);
     this._renderButtonLeftMenu = this._renderButtonLeftMenu.bind(this);
     this._renderRecord = this._renderRecord.bind(this);
     this._startRecording = this._startRecording.bind(this);
     this._stopRecording = this._stopRecording.bind(this);
     this._setARNavigatorRef = this._setARNavigatorRef.bind(this);
     this._onListItemLoaded = this._onListItemLoaded.bind(this);
-    this._onListPressed = this._onListPressed.bind(this),
-    this._getListItems = this._getListItems.bind(this),
+    this._onListPressed = this._onListPressed.bind(this);
+    this._getListItems = this._getListItems.bind(this);
+    this._saveToCameraRoll = this._saveToCameraRoll.bind(this);
 
     this.state = {
       currentModeSelected:kObjSelectMode,
       videoUrl: null,
+      haveSavedMedia: false,
+      playPreview : false,
       viroAppProps: {loadingObjectCallback: this._onListItemLoaded}
     };
   }
@@ -70,17 +74,18 @@ export class App extends Component {
       console.log("RERENDER App OCCURRED");
       return (
         <View style={localStyles.flex}>
-          <ViroARSceneNavigator style={localStyles.aRContainer} apiKey="7EEDCB99-2C3B-4681-AE17-17BC165BF792"
+          <ViroARSceneNavigator style={localStyles.arView} apiKey="7EEDCB99-2C3B-4681-AE17-17BC165BF792"
             initialScene={{scene: InitialScene}}  ref={this._setARNavigatorRef} viroAppProps={this.state.viroAppProps}
             />
-            {renderIf(this.props.currentScreen != UIConstants.SHOW_SHARE_SCREEN,
-            <View style={{height: 100}}>
+
+          {renderIf(this.props.currentScreen != UIConstants.SHOW_SHARE_SCREEN,
+            <View style={localStyles.listView}>
               <FigmentListView items={this._getListItems()} onPress={this._onListPressed} />
             </View>)}
 
           {this._renderButtonLeftMenu()}
           {this._renderRecord()}
-          {this._renderShareScreenButtons()}
+          {this._renderShareScreen()}
         </View>
       );
     }
@@ -90,58 +95,66 @@ export class App extends Component {
     this._arNavigator = ARNavigator;
   }
 
-  _renderShareScreenButtons() {
-    var shareScreenButtons = [];
+  _renderShareScreen() {
     if(this.props.currentScreen == UIConstants.SHOW_SHARE_SCREEN) {
-        shareScreenButtons.push(<View key="btn_save" style={{position:'absolute', left:10, bottom:10, width:100, height:100}}>
-            <TouchableHighlight onPress={()=>{}}>
-              <Image source={require("./res/btn_save.png")} style={localStyles.photo} />
+      return (
+        <View style={localStyles.backgroundView} >
+
+          <Video source={{uri : this.state.videoUrl}} paused={!this.state.playPreview}
+            repeat={false} style={localStyles.backgroundVideo}
+            onEnd={()=>{this.setState({playPreview : false})}} />
+
+          <View style={{position:'absolute', left:10, bottom:10, width:100, height:100}}>
+            <TouchableHighlight onPress={()=>{this._saveToCameraRoll()}}>
+              <Image source={require("./res/btn_save.png")} style={localStyles.previewScreenButtons} />
             </TouchableHighlight>
-            </View>);
+          </View>
 
-        shareScreenButtons.push(<View key="btn_share" style={{position:'absolute', left:120, bottom:10, width:100, height:100}}>
-                <TouchableHighlight onPress={()=>{this._openShareActionSheet()}}>
-                  <Image source={require("./res/btn_share.png")} style={localStyles.photo} />
-                </TouchableHighlight>
-                </View>);
+          <View style={{position:'absolute', left:120, bottom:10, width:100, height:100}}>
+            <TouchableHighlight onPress={()=>{this._openShareActionSheet()}}>
+              <Image source={require("./res/btn_share.png")} style={localStyles.previewScreenButtons} />
+            </TouchableHighlight>
+          </View>
 
-        shareScreenButtons.push(<View key="btn_close" style={{position:'absolute', left:10, top:10, width:100, height:100}}>
-                        <TouchableHighlight onPress={()=>{this.props.dispatchDisplayUIScreen(UIConstants.SHOW_MAIN_SCREEN)}}>
-                          <Image source={require("./res/btn_close.png")} style={localStyles.photo} />
-                        </TouchableHighlight>
-                        </View>);
+          <View style={{position:'absolute', left:10, top:10, width:100, height:100}}>
+            <TouchableHighlight onPress={()=>{this.props.dispatchDisplayUIScreen(UIConstants.SHOW_MAIN_SCREEN)}}>
+              <Image source={require("./res/btn_close.png")} style={localStyles.previewScreenButtons} />
+            </TouchableHighlight>
+          </View>
+        </View>
+      )
     }
-    return shareScreenButtons;
   }
 
   _renderButtonLeftMenu() {
     var buttons = [];
     // render the object mode button.
-    if(this.props.currentScreen != UIConstants.SHOW_SHARE_SCREEN) {
-      buttons.push(<View key="modebuttonobj" style={{position:'absolute',  left:10, bottom:110, width:100, height:100}}>
+    buttons.push(
+      <View key="modebuttonobj" style={{position:'absolute',  left:10, bottom:110, width:100, height:100}}>
         <ButtonComponent
           onPress={()=>{this.props.dispatchSwitchListMode(UIConstants.LIST_MODE_MODEL)}}
           buttonState={(this.props.listMode==UIConstants.LIST_MODE_MODEL) ? 'on':'off'}
           stateImageArray={[require("./res/btn_mode_objects_on.png"), require("./res/btn_mode_objects.png")]}
           style={localStyles.photo} />
-          </View>);
+      </View>);
 
-      buttons.push(<View key="modebuttoneffects" style={{position:'absolute', flex: 1, left:10, bottom:210, width:100, height:100}}>
+    buttons.push(
+      <View key="modebuttoneffects" style={{position:'absolute', flex: 1, left:10, bottom:210, width:100, height:100}}>
         <ButtonComponent
           onPress={()=>{this.props.dispatchSwitchListMode(UIConstants.LIST_MODE_EFFECTS)}}
           buttonState={(this.props.listMode==UIConstants.LIST_MODE_EFFECT) ? 'on':'off'}
           stateImageArray={[require("./res/btn_mode_effects_on.png"), require("./res/btn_mode_effects.png")]}
           style={localStyles.photo} />
-          </View>);
+      </View>);
 
-      buttons.push(<View key="modebuttonportals" style={{position:'absolute', flex: 1, left:10, bottom:310, width:100, height:100}}>
+    buttons.push(
+      <View key="modebuttonportals" style={{position:'absolute', flex: 1, left:10, bottom:310, width:100, height:100}}>
         <ButtonComponent
           onPress={()=>{this.props.dispatchSwitchListMode(UIConstants.LIST_MODE_PORTAL)}}
           buttonState={(this.props.listMode==UIConstants.LIST_MODE_PORTAL) ? 'on':'off'}
           stateImageArray={[require("./res/btn_mode_portals_on.png"), require("./res/btn_mode_portals.png")]}
           style={localStyles.photo} />
-            </View>);
-    }
+      </View>);
     return buttons;
   }
 
@@ -150,29 +163,26 @@ export class App extends Component {
 
     if(this.props.currentScreen == UIConstants.SHOW_RECORDING_SCREEN) {
       recordViews.push(
-          <View  key="record_timeline" style={{position: 'absolute', backgroundColor: '#22222244', left: 0, right: 0, top: 0, height:100,  alignSelf: 'stretch', }}>
-            <Text style={localStyles.recordingTimeText}>00:01:00</Text>
-          </View>
+        <View  key="record_timeline" style={{position: 'absolute', backgroundColor: '#22222244', left: 0, right: 0, top: 0, height:100,  alignSelf: 'stretch', }}>
+          <Text style={localStyles.recordingTimeText}>00:01:00</Text>
+        </View>
       );
     }
 
-    if(this.props.currentScreen != UIConstants.SHOW_SHARE_SCREEN) {
-      console.log("Current screen:" + this.props.currentScreen);
-      recordViews.push(
-        <View key="record_button_container" style={{position: 'absolute',  left: 0, right: 0, bottom: 110,  alignItems: 'center'}}>
-          <ButtonComponent
-              key="record_button" onPress={()=>{(this.props.currentScreen==UIConstants.SHOW_MAIN_SCREEN) ? this._startRecording(): this._stopRecording()}}
-            buttonState={(this.props.currentScreen==UIConstants.SHOW_MAIN_SCREEN) ? 'off':'on'}
-            stateImageArray={[require("./res/btn_stop.png"), require("./res/btn_record.png")]}
-            style={localStyles.photo} />
-        </View>);
-    }
+    recordViews.push(
+      <View key="record_button_container" style={{position: 'absolute',  left: 0, right: 0, bottom: 110,  alignItems: 'center'}}>
+        <ButtonComponent
+          key="record_button" onPress={()=>{(this.props.currentScreen==UIConstants.SHOW_MAIN_SCREEN) ? this._startRecording(): this._stopRecording()}}
+          buttonState={(this.props.currentScreen==UIConstants.SHOW_MAIN_SCREEN) ? 'off':'on'}
+          stateImageArray={[require("./res/btn_stop.png"), require("./res/btn_record.png")]}
+          style={localStyles.photo} />
+      </View>);
     return recordViews;
   }
 
   _startRecording() {
     console.log("[JS] begin recording!");
-    this._arNavigator._startVideoRecording("testVid11", true,
+    this._arNavigator._startVideoRecording("testVid11", false,
        (errorCode)=>{
         this._displayVideoRecordAlert("Recording Error", "[JS] onError callback errorCode: " + errorCode);
         this.props.dispatchDisplayUIScreen(UIConstants.SHOW_MAIN_SCREEN);
@@ -191,9 +201,22 @@ export class App extends Component {
       }
       this.setState({
         videoUrl: "file://" + retDict.url,
+        haveSavedMedia : false,
+        playPreview : true,
       });
       this.props.dispatchDisplayUIScreen(UIConstants.SHOW_SHARE_SCREEN);
     });
+  }
+
+  _saveToCameraRoll() {
+    if (this.state.videoUrl != undefined && !this.state.haveSavedMedia) {
+      this.setState({
+        haveSavedMedia : true
+      })
+      CameraRoll.saveToCameraRoll(this.state.videoUrl)
+        .then(Alert.alert('Success!', 'Added to Camera Roll.', [{text: 'OK'}]))
+        .catch((err) => {console.log('Error saving to Camera Roll:', err)})
+    }
   }
 
   _displayVideoRecordAlert(title, message) {
@@ -263,21 +286,22 @@ App.propTypes =  {
 }
 
 App.defaultProps =  {
-      objIndex: -1,
+  objIndex: -1,
 }
 
 var localStyles = StyleSheet.create({
   flex : {
     flex : 1,
   },
-  aRContainer: {
-    flex:8,
+  arView: {
+    flex:1,
   },
-  listViewContainer: {
-    height:100,
-    padding: 12,
+  listView: {
+    height : 100,
+    position : 'absolute',
+    bottom : 0,
   },
-  photo: {
+  previewScreenButtons: {
     height: 80,
     width: 80,
     borderRadius: 20,
@@ -285,11 +309,6 @@ var localStyles = StyleSheet.create({
     alignItems: 'center',
     paddingLeft:10,
     paddingRight:10,
-  },
-  submitText: {
-    color:'#fff',
-    textAlign:'center',
-    fontSize : 20
   },
   overlayView : {
     position: 'absolute',
@@ -311,11 +330,24 @@ var localStyles = StyleSheet.create({
     marginTop:20,
     borderWidth: 1,
   },
+  backgroundView: {
+    position : 'absolute',
+    top: 0,
+    left: 0,
+    bottom: 0,
+    right: 0,
+    backgroundColor : '#000000',
+  },
+  backgroundVideo: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    bottom: 0,
+    right: 0,
+  },
 });
 
 function selectProps(store) {
-  console.log("SELECT PROPS INVOKED!!");
-  console.log(store);
   return {
     modelItems: store.arobjects.modelItems,
     portalItems: store.arobjects.portalItems,
