@@ -43,11 +43,9 @@ Figment/android/app/gradlew.bat
 Figment/android/app/.idea
 
 # Figment iOS
-Figment/ios/ViroExample.xcworkspace/xcuserdata/
-Figment/ios/ViroExample/Pods/Pods.xcodeproj/xcuserdata/
-Figment/ios/ViroExample/ViroExample.xcodeproj/xcuserdata/
-Figment/ios/ViroExample/ViroExample.xcworkspace/xcuserdata/
-Figment/ios/ViroExample/ViroExample.xcworkspace/xcshareddata/
+Figment/ios/Figment.xcworkspace/xcuserdata/
+Figment/ios/Figment.xcodeproj/xcuserdata/
+Figment/ios/Figment.xcworkspace/xcshareddata/
 Figment/ios/Pods/
 Figment/ios/Podfile.lock
 
