@@ -25,6 +25,7 @@
 		5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		8AD2381F1F478D2F009B2057 /* libRCTVideo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AD2381C1F4785A4009B2057 /* libRCTVideo.a */; };
+		8AD238291F47BD20009B2057 /* libRCTCameraRoll.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AD238271F47BD08009B2057 /* libRCTCameraRoll.a */; };
 		8AEEA3491F461DE20033BD59 /* libViroReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AEEA3061F46175D0033BD59 /* libViroReact.a */; };
 		8AEEA3641F461FAD0033BD59 /* ViroKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AEEA3621F461E860033BD59 /* ViroKit.framework */; };
 		8AEEA3651F461FAD0033BD59 /* ViroKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8AEEA3621F461E860033BD59 /* ViroKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -278,6 +279,7 @@
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
+		8AD238271F47BD08009B2057 /* libRCTCameraRoll.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libRCTCameraRoll.a; path = "../../../../Library/Developer/Xcode/DerivedData/Figment-fhxipglfcvuknqavlzoklrvwcbwl/Build/Products/Debug-iphoneos/libRCTCameraRoll.a"; sourceTree = "<group>"; };
 		8AEEA2E71F46175D0033BD59 /* ViroReact.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ViroReact.xcodeproj; path = ../../ios/ViroReact.xcodeproj; sourceTree = "<group>"; };
 		8AEEA32D1F461DB90033BD59 /* libPods-ViroReact.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-ViroReact.a"; path = "../../../../Library/Developer/Xcode/DerivedData/Figment-delkaflngzscrygeyitvubgotjud/Build/Products/Debug-iphoneos/libPods-ViroReact.a"; sourceTree = "<group>"; };
 		8AEEA3621F461E860033BD59 /* ViroKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ViroKit.framework; path = ../../ios/ViroRenderer/ViroKit.framework; sourceTree = "<group>"; };
@@ -303,6 +305,7 @@
 				8AEEA3641F461FAD0033BD59 /* ViroKit.framework in Frameworks */,
 				5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */,
 				00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */,
+				8AD238291F47BD20009B2057 /* libRCTCameraRoll.a in Frameworks */,
 				00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */,
 				00C302E81ABCBA2D00DB3ED1 /* libRCTImage.a in Frameworks */,
 				133E29F31AD74F7200F7D852 /* libRCTLinking.a in Frameworks */,
@@ -526,6 +529,7 @@
 		8B7B34A7B84CC98C901A7606 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8AD238271F47BD08009B2057 /* libRCTCameraRoll.a */,
 				8AEEA32D1F461DB90033BD59 /* libPods-ViroReact.a */,
 				580DC7923B5A47B9B174CB45 /* libPods-Figment.a */,
 			);
