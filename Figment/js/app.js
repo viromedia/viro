@@ -17,6 +17,7 @@ import * as UIConstants from './redux/UIConstants';
 import renderIf from './helpers/renderIf';
 import ButtonComponent from './component/ButtonComponent';
 import FigmentListView from './component/FigmentListView';
+import PhotosSelector from './component/PhotosSelector';
 
 const kObjSelectMode = 1;
 const kPortalSelectMode = 2;
@@ -61,13 +62,15 @@ export class App extends Component {
     this._onListPressed = this._onListPressed.bind(this);
     this._getListItems = this._getListItems.bind(this);
     this._saveToCameraRoll = this._saveToCameraRoll.bind(this);
+    this._renderPhotosSelector = this._renderPhotosSelector.bind(this);
 
     this.state = {
       currentModeSelected:kObjSelectMode,
       videoUrl: null,
       haveSavedMedia: false,
       playPreview : false,
-      viroAppProps: {loadingObjectCallback: this._onListItemLoaded}
+      viroAppProps: {loadingObjectCallback: this._onListItemLoaded},
+      showPhotosSelector : false,
     };
   }
 
@@ -87,9 +90,18 @@ export class App extends Component {
           {this._renderButtonLeftMenu()}
           {this._renderRecord()}
           {this._renderShareScreen()}
+          {this._renderPhotosSelector()}
         </View>
       );
     }
+
+  _renderPhotosSelector() {
+    // TODO: remove this
+    return;
+    if (this.props.listMode == UIConstants.LIST_MODE_PORTAL) {
+      return (<PhotosSelector style={localStyles.photosSelectorStyle} rows={2.3} columns={4}/>)
+    }
+  }
 
   _setARNavigatorRef(ARNavigator){
     console.log("SETTING ARNAVIGATOR REF!!");
@@ -364,6 +376,12 @@ var localStyles = StyleSheet.create({
     bottom: 0,
     right: 0,
   },
+  photosSelectorStyle : {
+    position: 'absolute',
+    width: '100%',
+    height : '40%',
+    bottom : 0
+  }
 });
 
 function selectProps(store) {

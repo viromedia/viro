@@ -215,6 +215,13 @@
 			remoteGlobalIDString = 58B5119B1A9E6C1200147676;
 			remoteInfo = RCTText;
 		};
+		8AAAFBCA1F4B868800B8CE83 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8AF796041F46682F008D1AB8 /* RCTCameraRoll.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 58B5115D1A9E6B3D00147676;
+			remoteInfo = RCTCameraRoll;
+		};
 		8AD2381B1F4785A4009B2057 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 0F7A211553D24F47917F14E9 /* RCTVideo.xcodeproj */;
@@ -501,6 +508,14 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		8AAAFBC41F4B868800B8CE83 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8AAAFBCB1F4B868800B8CE83 /* libRCTCameraRoll.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		8AD237FB1F4785A3009B2057 /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
@@ -627,6 +642,10 @@
 				{
 					ProductGroup = 5E91572E1DD0AC6500FF2AA8 /* Products */;
 					ProjectRef = 5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */;
+				},
+				{
+					ProductGroup = 8AAAFBC41F4B868800B8CE83 /* Products */;
+					ProjectRef = 8AF796041F46682F008D1AB8 /* RCTCameraRoll.xcodeproj */;
 				},
 				{
 					ProductGroup = 00C302B61ABCB90400DB3ED1 /* Products */;
@@ -855,6 +874,13 @@
 			fileType = archive.ar;
 			path = libRCTText.a;
 			remoteRef = 832341B41AAA6A8300B99B32 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		8AAAFBCB1F4B868800B8CE83 /* libRCTCameraRoll.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRCTCameraRoll.a;
+			remoteRef = 8AAAFBCA1F4B868800B8CE83 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		8AD2381C1F4785A4009B2057 /* libRCTVideo.a */ = {
