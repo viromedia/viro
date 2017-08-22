@@ -1,5 +1,13 @@
 #version 300 es
 
+layout (std140) uniform lighting_vertex {
+    int num_lights;
+    lowp float lv_padding0, lv_padding1, lv_padding2;
+    
+    mat4 shadow_view_matrices[8];
+    mat4 shadow_projection_matrices[8];
+};
+
 struct VROShaderGeometry {
     vec3 position;
     vec3 normal;

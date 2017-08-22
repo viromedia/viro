@@ -14,6 +14,7 @@
 #include <string>
 
 class VROVector3f;
+class VROVector4f;
 class VROQuaternion;
 
 class VROMatrix4f {
@@ -60,6 +61,7 @@ public:
      */
     VROMatrix4f multiply(const VROMatrix4f &matrix) const;
     VROVector3f multiply(const VROVector3f &vector) const;
+    VROVector4f multiply(const VROVector4f &vector) const;
     
     /*
      Decomposition into affine transforms. These methods only work on affine 

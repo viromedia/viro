@@ -17,7 +17,7 @@ typedef void (^VROViewARTapHandler)(VROARHitTestResult, std::shared_ptr<VROARSes
 
 class VROARSessionDelegate;
 
-@interface VROViewAR : GLKView <VROView>
+@interface VROViewAR : GLKView <VROView, UIGestureRecognizerDelegate>
 
 @property (readwrite, nonatomic) BOOL suspended;
 

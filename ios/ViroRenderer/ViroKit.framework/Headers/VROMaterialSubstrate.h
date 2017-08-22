@@ -25,15 +25,26 @@ enum class VROEyeType;
 class VROMaterialSubstrate {
 public:
     virtual ~VROMaterialSubstrate() {}
-    virtual void updateSortKey(VROSortKey &key) const = 0;
+    
+    /*
+     Update the given sort key with the properties in this material, if the
+     given lights are used.
+     */
+    virtual void updateSortKey(VROSortKey &key, const std::vector<std::shared_ptr<VROLight>> &lights,
+                               std::shared_ptr<VRODriver> driver) = 0;
     
     /*
      Bind the shader used in this material to the active rendering context.
-     This is kept independent of the bind() function because shader changes
+     This is kept independent of the bindProperties() function because shader changes
      are expensive, so we want to manage them independent of materials in the
      render loop.
+     
+     The shader used is a function both of the underlying material properties
+     and of the desired lighting configuration.
      */
-    virtual void bindShader() = 0;
+    virtual void bindShader(int lightsHash,
+                            const std::vector<std::shared_ptr<VROLight>> &lights,
+                            std::shared_ptr<VRODriver> &driver) = 0;
     
     /*
      Bind the properties of this material to the active rendering context.
@@ -50,21 +61,12 @@ public:
     virtual void bindGeometry(float opacity, const VROGeometry &geometry) = 0;
     
     /*
-     Bind the properties of the given lights to the active rendering context.
-     */
-    virtual void bindLights(int lightsHash,
-                            const std::vector<std::shared_ptr<VROLight>> &lights,
-                            const VRORenderContext &context,
-                            std::shared_ptr<VRODriver> &driver) = 0;
-    
-    /*
      Bind the properties of the view and projection to the active rendering
      context.
      */
     virtual void bindView(VROMatrix4f modelMatrix, VROMatrix4f viewMatrix,
                           VROMatrix4f projectionMatrix, VROMatrix4f normalMatrix,
-                          VROVector3f cameraPosition, VROEyeType eyeType,
-                          VROMatrix4f shadowViewMatrix, VROMatrix4f shadowProjectionMatrix) = 0;
+                          VROVector3f cameraPosition, VROEyeType eyeType) = 0;
     
 };
 

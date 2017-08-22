@@ -131,6 +131,13 @@ public:
      Get the portal tree. Reconstructed each frame.
      */
     const tree<std::shared_ptr<VROPortal>> getPortalTree() const;
+    
+    /*
+     Get all the lights in the scene, as collected from the last render cycle.
+     */
+    const std::vector<std::shared_ptr<VROLight>> &getLights() const {
+        return _lights;
+    }
 
 protected:
     
@@ -148,6 +155,11 @@ protected:
      The portals in tree form, with the active portal at the root.
      */
     tree<std::shared_ptr<VROPortal>> _portals;
+    
+    /*
+     All the lights in the scene, as collected during the last render cycle.
+     */
+    std::vector<std::shared_ptr<VROLight>> _lights;
     
     /*
      The distance from the camera of the furthest away object, since the last

@@ -29,23 +29,31 @@ void main() {
     _surface.position = v_surface_position;
     _surface.view = normalize(camera_position - _surface.position);
     
-    _lightingContribution.ambient  = ambient_light_color.xyz;
-    _lightingContribution.diffuse  = vec3(0, 0, 0);
-    _lightingContribution.specular = vec3(0, 0, 0);
-    _lightingContribution.visibility = 1.0;
-
+    lowp vec3 _ambient  = ambient_light_color.xyz;
+    lowp vec3 _diffuse  = vec3(0, 0, 0);
+    lowp vec3 _specular = vec3(0, 0, 0);
+    
 #pragma surface_modifier_body
   
     for (int i = 0; i < num_lights; i++) {
+        _lightingContribution.ambient  = vec3(0, 0, 0);
+        _lightingContribution.diffuse  = vec3(0, 0, 0);
+        _lightingContribution.specular = vec3(0, 0, 0);
+        _lightingContribution.visibility = 1.0;
+        
         _light.color = lights[i].color;
         _light.attenuation = compute_attenuation(lights[i], _surface.position, _light.surface_to_light);
         
 #pragma lighting_model_modifier_body
+        
+        _ambient  += _lightingContribution.ambient;
+        _diffuse  += _lightingContribution.diffuse  * _lightingContribution.visibility;
+        _specular += _lightingContribution.specular * _lightingContribution.visibility;
     }
     
-    lowp vec4 _output_color = vec4(_lightingContribution.ambient  * _surface.diffuse_color.xyz +
-                                   _lightingContribution.diffuse  * _surface.diffuse_color.xyz * _surface.diffuse_intensity * _lightingContribution.visibility +
-                                   _lightingContribution.specular * _surface.specular_color * _lightingContribution.visibility,
+    lowp vec4 _output_color = vec4(_ambient  * _surface.diffuse_color.xyz +
+                                   _diffuse  * _surface.diffuse_color.xyz * _surface.diffuse_intensity +
+                                   _specular * _surface.specular_color,
                                    _surface.alpha * _surface.diffuse_color.a);
     
 #pragma fragment_modifier_body

@@ -127,7 +127,8 @@ public:
                                   std::shared_ptr<VRODriver> &driver);
     
     void updateSortKeys(VRONode *node, uint32_t hierarchyId, uint32_t hierarchyDepth,
-                        uint32_t lightsHash, float opacity, float distanceFromCamera, float zFar,
+                        uint32_t lightsHash, const std::vector<std::shared_ptr<VROLight>> &lights,
+                        float opacity, float distanceFromCamera, float zFar,
                         std::shared_ptr<VRODriver> &driver);
     void getSortKeys(std::vector<VROSortKey> *outKeys);
     

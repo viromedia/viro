@@ -11,6 +11,7 @@
 
 #include "VRODefines.h"
 #include "VROMatrix4f.h"
+#include "VROMath.h"
 
 #if VRO_METAL
 #include <MetalKit/MetalKit.h>
@@ -46,15 +47,7 @@ public:
         float bottom = _y;
         float top    = _y + _height;
         
-        VROMatrix4f projection;
-        projection[0]  =  2.0 / (right - left);
-        projection[5]  =  2.0 / (top - bottom);
-        projection[10] =  -2.0 / (far - near);
-        projection[12] = -(right + left) / (right - left);
-        projection[13] = -(top + bottom) / (top - bottom);
-        projection[14] = -(far + near) / (far - near);
-        
-        return projection;
+        return VROMathComputeOrthographicProjection(left, right, bottom, top, near, far);
     }
     
     void setViewport(int x, int y, int width, int height) {

@@ -91,13 +91,19 @@ public:
         return _materialId;
     }
     
-    void bindShader(std::shared_ptr<VRODriver> &driver);
-    void bindProperties(std::shared_ptr<VRODriver> &driver);
-    void bindLights(int lightsHash,
+    /*
+     Bind shader and properties. These must be called in order: material properties
+     cannot be bound until the shader is bound.
+     
+     Lights are passed into bindShader because the shader used by a material
+     is a function both of that material's properties and of the desired lighting
+     configuration.
+     */
+    void bindShader(int lightsHash,
                     const std::vector<std::shared_ptr<VROLight>> &lights,
-                    const VRORenderContext &context,
                     std::shared_ptr<VRODriver> &driver);
-    
+    void bindProperties(std::shared_ptr<VRODriver> &driver);
+
     VROMaterialVisual &getDiffuse() const {
         return *_diffuse;
     }
@@ -221,9 +227,11 @@ public:
     VROMaterialSubstrate *const getSubstrate(std::shared_ptr<VRODriver> &driver);
     
     /*
-     Update the given sort key with fields from this material.
+     Update the given sort key with fields from this material, if the given
+     lights are used in the render.
      */
-    void updateSortKey(VROSortKey &key, std::shared_ptr<VRODriver> &driver);
+    void updateSortKey(VROSortKey &key, const std::vector<std::shared_ptr<VROLight>> &lights,
+                       std::shared_ptr<VRODriver> &driver);
     
 private:
     

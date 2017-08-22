@@ -105,6 +105,10 @@ public:
     const std::vector<VROUniform *> &getUniforms() const {
         return _uniforms;
     }
+    
+    const std::vector<std::string> &getSamplers() const {
+        return _samplers;
+    }
 
     const std::string &getName() const {
         return _shaderName;
@@ -114,11 +118,18 @@ public:
         return _program;
     }
     
-    bool hasLightingBlock() const {
-        return _lightingBlockIndex != GL_INVALID_INDEX;
+    bool hasLightingFragmentBlock() const {
+        return _lightingFragmentBlockIndex != GL_INVALID_INDEX;
     }
-    GLuint getLightingBlockIndex() const {
-        return _lightingBlockIndex;
+    GLuint getLightingFragmentBlockIndex() const {
+        return _lightingFragmentBlockIndex;
+    }
+    
+    bool hasLightingVertexBlock() const {
+        return _lightingVertexBlockIndex != GL_INVALID_INDEX;
+    }
+    GLuint getLightingVertexBlockIndex() const {
+        return _lightingVertexBlockIndex;
     }
     
     bool hasBonesBlock() const {
@@ -178,7 +189,8 @@ private:
      The uniform block indices used by this shader to refer to the lighting block and the 
      bones block, if supported.
      */
-    GLuint _lightingBlockIndex;
+    GLuint _lightingFragmentBlockIndex;
+    GLuint _lightingVertexBlockIndex;
     GLuint _bonesBlockIndex;
 
     /*
@@ -272,9 +284,9 @@ private:
      Inflate the shader modifiers into the shader source.
      */
     void inflateVertexShaderModifiers(const std::vector<std::shared_ptr<VROShaderModifier>> &modifiers,
-                                      std::string &source) const;
+                                      std::string &source);
     void inflateFragmentShaderModifiers(const std::vector<std::shared_ptr<VROShaderModifier>> &modifiers,
-                                      std::string &source) const;
+                                      std::string &source);
     void inflateReplacements(const std::map<std::string, std::string> &replacements, std::string &source) const;
     void insertModifier(std::string modifierSource, std::string directive, std::string &source) const;
 

@@ -77,6 +77,7 @@ public:
     virtual void setDepthReadingEnabled(bool enabled) = 0;
     virtual void setCullMode(VROCullMode cullMode) = 0;
     virtual void setColorWritingEnabled(bool enabled) = 0;
+    virtual void bindShader(std::shared_ptr<VROShaderProgram> program) = 0;
     
     virtual VROGeometrySubstrate *newGeometrySubstrate(const VROGeometry &geometry) = 0;
     virtual VROMaterialSubstrate *newMaterialSubstrate(VROMaterial &material) = 0;
@@ -88,7 +89,7 @@ public:
                                                      int width, int height, std::vector<uint32_t> mipSizes,
                                                      VROWrapMode wrapS, VROWrapMode wrapT,
                                                      VROFilterMode minFilter, VROFilterMode magFilter, VROFilterMode mipFilter) = 0;
-    virtual std::shared_ptr<VRORenderTarget> newRenderTarget(VRORenderTargetType type) = 0;
+    virtual std::shared_ptr<VRORenderTarget> newRenderTarget(VRORenderTargetType type, int numImages) = 0;
     virtual std::shared_ptr<VRORenderTarget> getDisplay() = 0;
     virtual std::shared_ptr<VROImagePostProcess> newImagePostProcess(std::shared_ptr<VROShaderProgram> shader) = 0;
     virtual std::shared_ptr<VROVideoTextureCache> newVideoTextureCache() = 0;
