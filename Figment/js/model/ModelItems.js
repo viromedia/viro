@@ -9,7 +9,7 @@ var ModelItems = [
     "obj": require("../res/pug_animated/pug_animated.vrx"),
     "materials": null,
     "animation":{name:"Take 001", delay:0, loop:true, run:true},
-    "scale": [.3, .3, .3],
+    "scale": [.2, .2, .2],
     "physics": undefined,
     "ref_pointer": undefined,
     "resources": [require('../res/pug_animated/pug_body_diffuse.jpg'), require('../res/pug_animated/pug_body_normal.png')],

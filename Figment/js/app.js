@@ -41,6 +41,7 @@ import {
 
 import {
   ViroARSceneNavigator,
+  ViroConstants,
 } from 'react-viro';
 
 import Video from 'react-native-video';
@@ -63,6 +64,7 @@ export class App extends Component {
     this._getListItems = this._getListItems.bind(this);
     this._saveToCameraRoll = this._saveToCameraRoll.bind(this);
     this._renderPhotosSelector = this._renderPhotosSelector.bind(this);
+    this._takeScreenshot = this._takeScreenshot.bind(this);
 
     this.state = {
       currentModeSelected:kObjSelectMode,
@@ -71,6 +73,7 @@ export class App extends Component {
       playPreview : false,
       viroAppProps: {loadingObjectCallback: this._onListItemLoaded},
       showPhotosSelector : false,
+      hasPreview: false,
     };
   }
 
@@ -111,18 +114,20 @@ export class App extends Component {
   _renderShareScreen() {
     if(this.props.currentScreen == UIConstants.SHOW_SHARE_SCREEN) {
       return (
-        <View style={localStyles.shareScreenContainer} >
+        <View style={this.state.hasPreview ? localStyles.shareScreenContainer : localStyles.shareScreenContainerTransparent} >
 
           {/* So with react-native-video, if you turn repeat to true and then onEnd pause
               the video, you'll end up with black screen. So we should simply not repeat
               and seek to 0 when we want to play the video again (seeking will auto start
               the video player too, but we set the state to true to dismiss the play btn)*/}
-          <Video ref={(ref) => {this.player = ref}}
+
+          {renderIf(this.state.hasPreview, <Video ref={(ref) => {this.player = ref}}
             source={{uri : this.state.videoUrl}} paused={!this.state.playPreview}
             repeat={false} style={localStyles.backgroundVideo}
             onEnd={()=>{this.setState({playPreview : false})}} />
+          )}
 
-          {renderIf(!this.state.playPreview,
+          {renderIf(!this.state.playPreview && this.state.hasPreview,
           <TouchableOpacity onPress={()=>{this.player.seek(0); this.setState({ playPreview : true })}}>
             <Image source={require("./res/play_btn.png")} style={localStyles.previewPlayButton} />
           </TouchableOpacity>
@@ -201,7 +206,34 @@ export class App extends Component {
           stateImageArray={[require("./res/btn_stop.png"), require("./res/btn_record.png")]}
           style={localStyles.photo} />
       </View>);
+
+      recordViews.push(
+        <View key="camera_button_container" style={{position: 'absolute',  right: 70, bottom: 110,  alignItems: 'center'}}>
+          <ButtonComponent
+            key="camera_button" onPress={()=>{this._takeScreenshot()}}
+            buttonState={(this.props.currentScreen==UIConstants.SHOW_MAIN_SCREEN) ? 'off':'on'}
+            stateImageArray={[require("./res/btn_camera.png"), require("./res/btn_camera.png")]}
+            style={localStyles.photo} />
+        </View>);
     return recordViews;
+  }
+
+  _takeScreenshot() {
+    this._arNavigator._takeScreenshot("figment_11", false).then((retDict)=>{
+      if (!retDict.success) {
+        if (retDict.errorCode == ViroConstants.RECORD_ERROR_NO_PERMISSION) {
+          this._displayVideoRecordAlert("Screenshot Error", "Please allow camera permissions!" + errorCode);
+        }
+      }
+
+      this.setState({
+        videoUrl: "file://" + retDict.url,
+        haveSavedMedia : false,
+        playPreview : false,
+        hasPreview: false,
+      });
+      this.props.dispatchDisplayUIScreen(UIConstants.SHOW_SHARE_SCREEN);
+    });
   }
 
   _startRecording() {
@@ -227,6 +259,7 @@ export class App extends Component {
         videoUrl: "file://" + retDict.url,
         haveSavedMedia : false,
         playPreview : true,
+        hasPreview: true,
       });
       this.props.dispatchDisplayUIScreen(UIConstants.SHOW_SHARE_SCREEN);
     });
@@ -358,6 +391,18 @@ var localStyles = StyleSheet.create({
     height : 100,
     width : 100,
   },
+  shareScreenContainerTransparent: {
+    position : 'absolute',
+    top: 0,
+    left: 0,
+    bottom: 0,
+    right: 0,
+    backgroundColor : '#00000000',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
   shareScreenContainer: {
     position : 'absolute',
     top: 0,
