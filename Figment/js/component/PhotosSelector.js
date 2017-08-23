@@ -32,6 +32,8 @@ var COLUMN_PREFIX = "COLUMN_";
 var TAB_STOCK = "stock";
 var TAB_360 = "360";
 var TAB_RECENT = "recent";
+var REF_PREFIX = "ref";
+var REF_DELIM = "_";
 
 var STOCK_360_PHOTOS = [
   {
@@ -70,12 +72,7 @@ export class PhotosSelector extends Component {
 
      index: index of which photo was selected
 
-     image: createStrictShapeTypeChecker({
-       uri: PropTypes.string.isRequired,
-       height: PropTypes.number.isRequired,
-       width: PropTypes.number.isRequired,
-       isStored: PropTypes.bool,
-     })
+     source : pass this into the source property of React or Viro image components
      */
     onPhotoSelected : PropTypes.func,
   }
@@ -92,24 +89,35 @@ export class PhotosSelector extends Component {
   state = {
     scrollViewWidth : 0, // width of the scrollView itself
     scrollViewHeight : 0, // height of the scrollView itself
-    user360Photos : [],
-    userPhotos : [], // non-360 photos
-    shouldSearchContinue : true,
-    fetchCount : 0,
-    selectedIndex : -1,
-    selectedTab : TAB_STOCK,
   }
 
   componentDidMount() {
+    this._updateDataSource();
     this._getCameraRollAssets();
   }
 
   constructor(props) {
     super(props);
 
+    // these are kinda like instance variables...
+    // just using the fact that everything's an object in JS.
+    this.user360Photos = [];
+    this.userPhotos = [];
+    this.finishedSearching = false;
+    this.selectedTab = TAB_STOCK;
+    this.selectedRow = -1;
+    this.selectedColumn = -1;
+    this.refList = {};
+
+    // initialize some more state
+    var dataSource = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+    this.state.dataSource = dataSource;
+
     // binding functions to this
+    this._updateDataSource = this._updateDataSource.bind(this)
     this._getPhotos = this._getPhotos.bind(this);
     this._storeDimensions = this._storeDimensions.bind(this);
+    this._getRow = this._getRow.bind(this);
     this._getRows = this._getRows.bind(this);
     this._getTabBar = this._getTabBar.bind(this);
     this._getRowElements = this._getRowElements.bind(this);
@@ -118,30 +126,51 @@ export class PhotosSelector extends Component {
     this._getCameraRollAssets = this._getCameraRollAssets.bind(this);
     this._getTabPress = this._getTabPress.bind(this);
     this._filterPhotos = this._filterPhotos.bind(this);
+    this._storeRef = this._storeRef.bind(this);
+    this._getRefKey = this._getRefKey.bind(this);
+    this._updatePhotoSelection = this._updatePhotoSelection.bind(this);
   }
 
   _getPhotos() {
-    if (this.state.selectedTab == TAB_STOCK) {
+    if (this.selectedTab == TAB_STOCK) {
       return STOCK_360_PHOTOS;
-    } else if (this.state.selectedTab == TAB_360) {
-      return this.state.user360Photos;
-    } else if (this.state.selectedTab == TAB_RECENT) {
-      return this.state.userPhotos;
+    } else if (this.selectedTab == TAB_360) {
+      return this.user360Photos;
+    } else if (this.selectedTab == TAB_RECENT) {
+      return this.userPhotos;
     }
+  }
+
+  _updateDataSource(onStateSetFunc) {
+    let data = this._getPhotos();
+    let newData = [];
+    for (var i = 0; i < data.length; i+=this.props.columns) {
+      let subArray = data.slice(i, i + this.props.columns);
+      newData.push(subArray);
+    }
+    this.setState({
+      dataSource : this.state.dataSource.cloneWithRows(newData)
+    }, onStateSetFunc)
   }
 
   // -- Render functions --
 
   render() {
+
     return(
       <View style={[localStyles.outerContainer, this.props.style]}>
-        <ScrollView style={localStyles.scrollView} onLayout={this._storeDimensions} bounces={true}>
-          {this._getRows()}
-        </ScrollView>
+        <ListView style={localStyles.scrollView} dataSource={this.state.dataSource}
+          renderRow={this._getRow} onLayout={this._storeDimensions}/>
         {this._getTabBar()}
       </View>
     );
   }
+
+  /*
+        <ScrollView style={localStyles.scrollView} onLayout={this._storeDimensions} bounces={true}>
+          {this._getRows()}
+        </ScrollView>
+   */
 
   _storeDimensions(event) {
     var {x, y, width, height} = event.nativeEvent.layout;
@@ -153,61 +182,86 @@ export class PhotosSelector extends Component {
 
   _getRows() {
     let toReturn = [];
-    let height = this.state.scrollViewHeight / this.props.rows
-    let rows = this._getPhotos().length / this.props.columns + 1
 
-    for (var i = 0; i < parseInt(rows); i++) {
-      toReturn.push((
-        <View key={ROW_PREFIX + i} style={[localStyles.rowContainer, {height : height}]}>
-          {this._getRowElements(i)}
-        </View>
-      ));
+    for (var i = 0; i < this.state.dataSource.length; i++) {
+      toReturn.push(this._getRow(this.state.dataSource[i], 0, i));
     }
     return toReturn;
+  }
+
+  _getRow(data, sectionid, rowIndex) {
+    console.log(data);
+    let height = this.state.scrollViewHeight / this.props.rows
+    return (
+      <View key={ROW_PREFIX + rowIndex} style={[localStyles.rowContainer, {height : height}]} >
+        {this._getRowElements(data, rowIndex)}
+      </View>)
   }
 
   // row number, 0th indexed.
-  _getRowElements(rowNumber) {
+  _getRowElements(data, rowNumber) {
     let toReturn = [];
     for (var i = 0; i < this.props.columns; i++) {
-      var index = this.props.columns * rowNumber + i;
       toReturn.push((
-        <View key={COLUMN_PREFIX + this.state.selectedTab + i} style={localStyles.rowElement} >
-          {this._getImageIndex(index)}
+        <View key={COLUMN_PREFIX + this.selectedTab + i} style={localStyles.rowElement} >
+          {this._getImageIndex(data[i], rowNumber, i)}
         </View>
       ));
     }
     return toReturn;
   }
 
-  _getImageIndex(index) {
-    let photos = this._getPhotos();
-    if (index < photos.length) {
-      let opacity = index == this.state.selectedIndex ? {opacity : .5} : {opacity : 1};
+  _getImageIndex(data, row, column) {
+    // data could be undefined... if it is, do nothing!
+    if (data) {
+      let index = this.props.columns * row + column;
       return (
-        <TouchableOpacity style={[localStyles.touchElement]} activeOpacity={.5} focusedOpacity={.5} onPress={this._getElementClick(index)} >
-          <Image style={[localStyles.fetchedImageStyle, opacity]} source={photos[index].source}
+        <TouchableOpacity style={[localStyles.touchElement]} activeOpacity={.5} focusedOpacity={.5} onPress={this._getElementClick(row, column, data.source)} >
+          <Image style={localStyles.fetchedImageStyle} source={data.source} ref={this._storeRef(row, column)}
               onError={(error)=>{console.log("[PhotoSelector] load image error: " + error.nativeEvent.error)}} />
         </TouchableOpacity>
       )
     }
   }
 
-  _getElementClick(index) {
-    let photos = this._getPhotos();
-    if (index < photos.length) {
-      return () => {
-        if (index == this.state.selectedIndex) {
-          return;
-        }
-        console.log("[PhotoSelector] user selected index " + index);
-        this.setState({
-          selectedIndex : index
-        })
-        this.props.onPhotoSelected && this.props.onPhotoSelected(index, photos[index].source);
-      }
+  _storeRef(row, column) {
+    return (ref) => {
+      let key = this._getRefKey(row, column);
+      this.refList[key] = ref;
     }
-    return ()=>{}
+  }
+
+  _getRefKey(row, column) {
+    return REF_PREFIX + REF_DELIM + row + REF_DELIM + column;
+  }
+
+  _getElementClick(row, column, source) {
+    let photos = this._getPhotos();
+    return () => {
+      let index = this.props.columns * row + column;
+      if (row == this.selectedRow && column == this.selectedColumn) {
+        return;
+      }
+      console.log("[PhotoSelector] user selected index " + index);
+      this._updatePhotoSelection(row, column);
+      this.props.onPhotoSelected && this.props.onPhotoSelected(index, source);
+    }
+  }
+
+  _updatePhotoSelection(row, column) {
+
+    let previousSelection = this.refList[this._getRefKey(this.selectedRow, this.selectedColumn)];
+    if (previousSelection) {
+      previousSelection.setNativeProps({ style : { opacity : 1 } }); 
+    }
+    
+    let newSelection = this.refList[this._getRefKey(row, column)];
+    if (newSelection) {
+      newSelection.setNativeProps({ style: { opacity : .5 } });
+    }
+
+    this.selectedRow = row;
+    this.selectedColumn = column;
   }
 
   _getTabBar() {
@@ -231,14 +285,14 @@ export class PhotosSelector extends Component {
   _getTabPress(type) {
     return () => {
 
-      if (this.state.selectedTab == type) {
+      if (this.selectedTab == type) {
         return; // do nothing!
       }
 
-      this.setState({
-        selectedIndex : -1,
-        selectedTab : type,
-      })
+      this.refList = {};
+      this.selectedTab = type;
+      this._updatePhotoSelection(-1,-1);
+      this._updateDataSource();
     }
   }
 
@@ -246,10 +300,6 @@ export class PhotosSelector extends Component {
   // https://facebook.github.io/react-native/docs/cameraroll.html
 
   _getCameraRollAssets() {
-    if (!this.state.shouldSearchContinue) {
-      return;
-    }
-
     console.log("[PhotoSelector] fetching Camera Roll assets.");
     CameraRoll.getPhotos({
       first: this.props.searchIncrement,
@@ -267,16 +317,17 @@ export class PhotosSelector extends Component {
 
       console.log("[PhotoSelector] after filtering, found " + photos360.length + " 360 photos and " + photos.length + " non-360 photos");
 
-      // we should continue search if we haven't met quota AND if there are still more results to be found
-      var shouldSearchContinue = (this.state.fetchCount + numResults) < this.props.searchQuota && numResults == this.props.searchIncrement;
+      this.user360Photos.push(...photos360);
+      this.userPhotos.push(...photos);
+      this.endCursor = retValue.page_info.end_cursor;
+      this.fetchCount += numResults;
 
-      this.setState({
-        user360Photos : [...this.state.user360Photos, ...photos360],
-        userPhotos : [...this.state.userPhotos, ...photos],
-        endCursor : retValue.page_info.end_cursor,
-        fetchCount : this.state.fetchCount + numResults,
-        shouldSearchContinue,
-      }, ()=>{this._getCameraRollAssets()}); // run this function again once the state settles.
+      // continue getting assets if we've not reached the search quota and we didn't run out of results.
+      if ((this.fetchCount < this.props.searchQuota) && (numResults == this.props.searchIncrement)) {
+        this._updateDataSource(()=>{this._getCameraRollAssets()});
+      } else {
+        this._updateDataSource();
+      }
     }).catch((err)=>{
       console.log("[PhotoSelector] error while fetching Camera Roll assets: " + err.message);
       // TODO: handle photo selector assets error

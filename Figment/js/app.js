@@ -99,10 +99,11 @@ export class App extends Component {
     }
 
   _renderPhotosSelector() {
-    // TODO: remove this
+    // TODO: remove the return to render the selector when portal is tapped
     return;
     if (this.props.listMode == UIConstants.LIST_MODE_PORTAL) {
-      return (<PhotosSelector style={localStyles.photosSelectorStyle} rows={2.3} columns={4}/>)
+      return (<PhotosSelector style={localStyles.photosSelectorStyle} rows={2.3} columns={4}
+        onPhotoSelected={(index, source)=>{console.log("Selected " + index + ", source " + source)}}/>)
     }
   }
 
