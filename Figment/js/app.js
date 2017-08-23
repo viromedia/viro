@@ -24,6 +24,10 @@ const kObjSelectMode = 1;
 const kPortalSelectMode = 2;
 const kEffectSelectMode = 3;
 
+const kPreviewTypePhoto = 1;
+const kPreviewTypeVideo = 2;
+
+
 import {
   AppRegistry,
   Text,
@@ -74,7 +78,7 @@ export class App extends Component {
       playPreview : false,
       viroAppProps: {loadingObjectCallback: this._onListItemLoaded},
       showPhotosSelector : false,
-      hasPreview: false,
+      previewType: kPreviewTypeVideo,
     };
   }
 
@@ -117,20 +121,23 @@ export class App extends Component {
   _renderShareScreen() {
     if(this.props.currentScreen == UIConstants.SHOW_SHARE_SCREEN) {
       return (
-        <View style={this.state.hasPreview ? localStyles.shareScreenContainer : localStyles.shareScreenContainerTransparent} >
+        <View style={localStyles.shareScreenContainer} >
 
           {/* So with react-native-video, if you turn repeat to true and then onEnd pause
               the video, you'll end up with black screen. So we should simply not repeat
               and seek to 0 when we want to play the video again (seeking will auto start
               the video player too, but we set the state to true to dismiss the play btn)*/}
 
-          {renderIf(this.state.hasPreview, <Video ref={(ref) => {this.player = ref}}
+          {renderIf(this.state.previewType == kPreviewTypePhoto, <Image source={{uri:this.state.videoUrl}} style={localStyles.backgroundVideo} />)}
+
+          {renderIf(this.state.previewType == kPreviewTypeVideo, <Video ref={(ref) => {this.player = ref}}
             source={{uri : this.state.videoUrl}} paused={!this.state.playPreview}
             repeat={false} style={localStyles.backgroundVideo}
             onEnd={()=>{this.setState({playPreview : false})}} />
           )}
 
-          {renderIf(!this.state.playPreview && this.state.hasPreview,
+
+          {renderIf(!this.state.playPreview && (this.state.previewType == kPreviewTypeVideo),
           <TouchableOpacity onPress={()=>{this.player.seek(0); this.setState({ playPreview : true })}} underlayColor="#00000000">
             <Image source={require("./res/play_btn.png")} style={localStyles.previewPlayButton} />
           </TouchableOpacity>
@@ -233,7 +240,7 @@ export class App extends Component {
         videoUrl: "file://" + retDict.url,
         haveSavedMedia : false,
         playPreview : false,
-        hasPreview: false,
+        previewType: kPreviewTypePhoto,
       });
       this.props.dispatchDisplayUIScreen(UIConstants.SHOW_SHARE_SCREEN);
     });
@@ -262,7 +269,7 @@ export class App extends Component {
         videoUrl: "file://" + retDict.url,
         haveSavedMedia : false,
         playPreview : true,
-        hasPreview: true,
+        previewType: kPreviewTypeVideo,
       });
       this.props.dispatchDisplayUIScreen(UIConstants.SHOW_SHARE_SCREEN);
     });
@@ -395,18 +402,6 @@ var localStyles = StyleSheet.create({
     height : 100,
     width : 100,
   },
-  shareScreenContainerTransparent: {
-    position : 'absolute',
-    top: 0,
-    left: 0,
-    bottom: 0,
-    right: 0,
-    backgroundColor : '#00000000',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-
   shareScreenContainer: {
     position : 'absolute',
     top: 0,
