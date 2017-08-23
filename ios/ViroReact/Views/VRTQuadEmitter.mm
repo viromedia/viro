@@ -71,7 +71,7 @@
             NSNumber *height = [self.quad objectForKey:@"height"];
             float fwidth = width ? [width floatValue] : 1.0;
             float fheight = height ? [height floatValue] : 1.0;
-            std::shared_ptr<VROTexture> texture = std::make_shared<VROTexture>(VROTextureInternalFormat::RGBA8,
+            std::shared_ptr<VROTexture> texture = std::make_shared<VROTexture>(VROTextureInternalFormat::RGBA8, true,
                                                                                VROMipmapMode::Runtime,
                                                                                std::make_shared<VROImageiOS>(image, VROTextureInternalFormat::RGBA8),
                                                                                VROStereoMode::None);
