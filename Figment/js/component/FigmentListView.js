@@ -109,7 +109,7 @@ var styles = StyleSheet.create({
     flex:8,
   },
   listViewContainer: {
-    height:100,
+    height:80,
   },
   photo: {
     height: 80,
