@@ -111,13 +111,12 @@ RCT_EXPORT_METHOD(setJSMaterials:(NSDictionary *)materialsDict)
     }
 }
 
-- (std::shared_ptr<VROTexture>)createTexture2D:(id)json {
+- (std::shared_ptr<VROTexture>)createTexture2D:(id)json sRGB:(BOOL)sRGB {
     UIImage *image = [self retrieveImage:json];
     VROTextureInternalFormat format = [self parseImageFormat:json];
     VROMipmapMode mipmap = [self parseImageMipmapMode:json];
     
-    return std::make_shared<VROTexture>(format,
-                                        mipmap,
+    return std::make_shared<VROTexture>(format, sRGB, mipmap,
                                         std::make_shared<VROImageiOS>(image, format));
 }
 
@@ -163,7 +162,7 @@ RCT_EXPORT_METHOD(setJSMaterials:(NSDictionary *)materialsDict)
         std::make_shared<VROImageiOS>(cubeMapImages[@"nz"], format)
     };
     
-    return std::make_shared<VROTexture>(format, cubeImages);
+    return std::make_shared<VROTexture>(format, true, cubeImages);
 }
 
 - (void)loadProperties:(NSDictionary *)properties forTexture:(std::shared_ptr<VROTexture>)texture {
@@ -234,8 +233,10 @@ RCT_EXPORT_METHOD(setJSMaterials:(NSDictionary *)materialsDict)
             if(path != nil) {
                 if([self isVideoTexture:path]) {
                     [materialWrapper setMaterialPropertyName:materialPropertyName forVideoTexturePath:path];
-                }else {
-                    std::shared_ptr<VROTexture> texture = [self createTexture2D:material[key]];
+                } else {
+                    BOOL sRGB = [materialPropertyName caseInsensitiveCompare:@"diffuseTexture"] == NSOrderedSame;
+                    
+                    std::shared_ptr<VROTexture> texture = [self createTexture2D:material[key] sRGB:sRGB];
                     [self loadProperties:material forTexture:texture];
                     [self setTextureForMaterial:vroMaterial texture:texture name:materialPropertyName];
                 }

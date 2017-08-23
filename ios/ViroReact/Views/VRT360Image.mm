@@ -118,7 +118,7 @@
                 mode = VROTextureUtil::getStereoModeForString(std::string([self.stereoMode UTF8String]));
             }
             
-            _sphereTexture = std::make_shared<VROTexture>(self.format,
+            _sphereTexture = std::make_shared<VROTexture>(self.format, true,
                                                           VROMipmapMode::None, // Don't mipmap 360 images, wastes memory
                                                           std::make_shared<VROImageiOS>(image, self.format),
                                                           mode);
