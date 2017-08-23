@@ -5,7 +5,7 @@ var ModelItems = [
   {
     "selected": false,
     "loading": LoadingConstants.NONE,
-    "icon_img":require("../res/btn_temp.png"),
+    "icon_img":require("../res/icon_pug.png"),
     "obj": require("../res/pug_animated/pug_animated.vrx"),
     "materials": null,
     "animation":{name:"Take 001", delay:0, loop:true, run:true},
@@ -17,7 +17,7 @@ var ModelItems = [
   {
     "selected": false,
     "loading": LoadingConstants.NONE,
-    "icon_img":require("../res/btn_temp_2.png"),
+    "icon_img":require("../res/icon_emoji_sad.png"),
     "obj": require("../res/emoji_sad/emoji_sad.vrx"),
     "materials": null,
     "animation":null,
@@ -29,7 +29,7 @@ var ModelItems = [
   {
     "selected": false,
     "loading": LoadingConstants.NONE,
-    "icon_img":require("../res/btn_temp.png"),
+    "icon_img":require("../res/icon_emoji_happy.png"),
     "obj": require("../res/emoji_smile/emoji_smile.vrx"),
     "materials": null,
     "animation":null,

@@ -17,7 +17,7 @@ var PortalItems = [
   {
     "selected": false,
     "loading": LoadingConstants.NONE,
-    "icon_img":require("../res/btn_temp.png"),
+    "icon_img":require("../res/icon_portal_archway.png"),
     "obj": require("../res/portal_archway/portal_archway.vrx"),
     "materials": null,
     "animation":undefined,
@@ -27,7 +27,7 @@ var PortalItems = [
   {
     "selected": false,
     "loading": LoadingConstants.NONE,
-    "icon_img":require("../res/btn_temp_2.png"),
+    "icon_img":require("../res/icon_portal_picture_frame.png"),
     "obj": require("../res/portal_picture_frame/portal_picture_frame.vrx"),
     "materials": null,
     "animation":null,
@@ -39,7 +39,7 @@ var PortalItems = [
   {
     "selected": false,
     "loading": LoadingConstants.NONE,
-    "icon_img":require("../res/btn_temp_2.png"),
+    "icon_img":require("../res/icon_portal_shipdoor.png"),
     "obj": require("../res/portal_ship/portal_ship.obj"),
     "materials": ["portal_ship"],
     "animation":null,
