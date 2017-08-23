@@ -11,6 +11,7 @@ import React, { Component } from 'react';
 
 
 import { connect } from 'react-redux';
+import { BlurView } from 'react-native-blur';
 import {toggleModelSelection, togglePortalSelection, changePortalLoadState, changeModelLoadState, switchListMode, removeARObject, displayUIScreen } from './redux/actions';
 import * as LoadingConstants from './redux/LoadingStateConstants';
 import * as UIConstants from './redux/UIConstants';
@@ -87,6 +88,7 @@ export class App extends Component {
 
           {renderIf(this.props.currentScreen != UIConstants.SHOW_SHARE_SCREEN,
             <View style={localStyles.listView}>
+              <BlurView style={localStyles.absolute} blurType="dark" blurAmount={10} />
               <FigmentListView items={this._getListItems()} onPress={this._onListPressed} />
             </View>)}
 
@@ -356,6 +358,7 @@ var localStyles = StyleSheet.create({
   },
   listView: {
     height : 100,
+    width : '100%',
     position : 'absolute',
     bottom : 0,
   },
@@ -427,7 +430,12 @@ var localStyles = StyleSheet.create({
     width: '100%',
     height : '40%',
     bottom : 0
-  }
+  },
+  absolute: {
+    position: "absolute",
+    top: 0, left: 0, bottom: 0, right: 0,
+  },
+
 });
 
 function selectProps(store) {
