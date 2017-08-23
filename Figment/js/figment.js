@@ -39,6 +39,8 @@ import {
   ViroSurface,
   Viro3DObject,
   ViroAmbientLight,
+  ViroDirectionalLight,
+  ViroSpotLight
 } from 'react-viro';
 
 import TimerMixin from 'react-timer-mixin';
@@ -60,7 +62,25 @@ var figment = React.createClass({
     console.log("Figment; Rerender AR Scene OCCURRED");
     return (
         <ViroARScene ref="arscene" reticleEnabled={false} physicsWorld={{gravity:[0, -9.81, 0]}} >
-            <ViroAmbientLight color="#ffffff" />
+            <ViroDirectionalLight color="#ffffff" direction={[0,-1,-.2]}/>
+            <ViroAmbientLight color="#ffffff" intensity={200}/>
+
+            <ViroSpotLight
+              innerAngle={5}
+              outerAngle={90}
+              direction={[0,-1,0]}
+              position={[0, 5, 0]}
+              color="#ffffff"/>
+
+
+            <ViroSpotLight
+              innerAngle={5}
+              outerAngle={90}
+              direction={[0,1,0]}
+              position={[0, -5, 0]}
+              color="#ffffff"
+              intensity={500}/>
+
             {this.renderModels(this.props.modelItems)}
             {this.renderPortals(this.props.portalItems)}
         </ViroARScene>

@@ -103,6 +103,7 @@ export class PhotosSelector extends Component {
     // just using the fact that everything's an object in JS.
     this.user360Photos = [];
     this.userPhotos = [];
+    this.fetchCount = 0;
     this.finishedSearching = false;
     this.selectedTab = TAB_STOCK;
     this.selectedRow = -1;

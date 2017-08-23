@@ -156,9 +156,11 @@ ViroMaterials.createMaterials({
     diffuseColor: "#ff000000",
   },
   porsche: {
+    lightingModel:"Blinn",
     diffuseTexture: require("../res/car_porsche/Porsche911turboS_diff.jpg"),
   },
   bball: {
+    lightingModel:"Blinn",
     diffuseTexture: require("../res/bball/bball.jpg"),
   },
   ring: {
