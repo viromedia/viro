@@ -49,7 +49,7 @@ var PortalItemRender = React.createClass({
         var j = this.props.index;
         return (
           <ViroPortal position={[0, 0, 0]} scale={this.props.portalItem.scale} onRotate={this._onRotateGesture(j)}
-          onPinch={this._onPinchIndex(j)} ref={this._setComponentRef()} >
+          onPinch={this._onPinchIndex(j)} passable={true} ref={this._setComponentRef()} >
              <ViroPortalFrame>
                <Viro3DObject source={this.props.portalItem.obj}
                              position={[0, 0, 0]}
