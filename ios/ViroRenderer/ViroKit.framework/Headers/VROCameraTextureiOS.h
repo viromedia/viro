@@ -65,7 +65,8 @@ private:
 @property (nonatomic, strong) VROTrackingHelper* trackingHelper;
 
 - (id)initWithCameraTexture:(std::shared_ptr<VROCameraTextureiOS>)texture
-                      cache:(std::shared_ptr<VROVideoTextureCache>)cache;
+                      cache:(std::shared_ptr<VROVideoTextureCache>)cache
+                     driver:(std::shared_ptr<VRODriver>)driver;
 
 @end
 

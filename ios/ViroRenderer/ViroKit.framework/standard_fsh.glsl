@@ -29,9 +29,9 @@ void main() {
     _surface.position = v_surface_position;
     _surface.view = normalize(camera_position - _surface.position);
     
-    lowp vec3 _ambient  = ambient_light_color.xyz;
-    lowp vec3 _diffuse  = vec3(0, 0, 0);
-    lowp vec3 _specular = vec3(0, 0, 0);
+    highp vec3 _ambient  = ambient_light_color.xyz;
+    highp vec3 _diffuse  = vec3(0, 0, 0);
+    highp vec3 _specular = vec3(0, 0, 0);
     
 #pragma surface_modifier_body
   

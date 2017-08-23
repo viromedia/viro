@@ -79,11 +79,18 @@ public:
     virtual void setColorWritingEnabled(bool enabled) = 0;
     virtual void bindShader(std::shared_ptr<VROShaderProgram> program) = 0;
     
+    /*
+     If gamma correction is not enabled, then gamma correction framebuffer writes
+     will be disabled, and sRGB texture sampling will be disabled (meaning we will do all
+     shader compuatations in non-linear gamma 2.2 space, which is bad).
+     */
+    virtual bool isGammaCorrectionEnabled() = 0;
+    
     virtual VROGeometrySubstrate *newGeometrySubstrate(const VROGeometry &geometry) = 0;
     virtual VROMaterialSubstrate *newMaterialSubstrate(VROMaterial &material) = 0;
     virtual VROTextureSubstrate *newTextureSubstrate(VROTextureType type,
                                                      VROTextureFormat format,
-                                                     VROTextureInternalFormat internalFormat,
+                                                     VROTextureInternalFormat internalFormat, bool sRGB,
                                                      VROMipmapMode mipmapMode,
                                                      std::vector<std::shared_ptr<VROData>> &data,
                                                      int width, int height, std::vector<uint32_t> mipSizes,
