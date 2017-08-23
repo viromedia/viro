@@ -93,6 +93,7 @@ export class App extends Component {
           {renderIf(this.props.currentScreen != UIConstants.SHOW_SHARE_SCREEN,
             <View style={localStyles.listView}>
               <BlurView style={localStyles.absolute} blurType="dark" blurAmount={10} />
+              <Text style={localStyles.listViewText}>{this.props.listTitle}</Text>
               <FigmentListView items={this._getListItems()} onPress={this._onListPressed} />
             </View>)}
 
@@ -169,27 +170,27 @@ export class App extends Component {
     var buttons = [];
     // render the object mode button.
     buttons.push(
-      <View key="modebuttonobj" style={{position:'absolute',  left:10, bottom:110, width:100, height:100}}>
+      <View key="modebuttonobj" style={{position:'absolute',  left:10, bottom:95, width:100, height:100}}>
         <ButtonComponent
-          onPress={()=>{this.props.dispatchSwitchListMode(UIConstants.LIST_MODE_MODEL)}}
+          onPress={()=>{this.props.dispatchSwitchListMode(UIConstants.LIST_MODE_MODEL, UIConstants.LIST_TITLE_MODELS)}}
           buttonState={(this.props.listMode==UIConstants.LIST_MODE_MODEL) ? 'on':'off'}
           stateImageArray={[require("./res/btn_mode_objects_on.png"), require("./res/btn_mode_objects.png")]}
           />
       </View>);
 
     buttons.push(
-      <View key="modebuttoneffects" style={{position:'absolute', flex: 1, left:10, bottom:210, width:100, height:100}}>
+      <View key="modebuttoneffects" style={{position:'absolute', flex: 1, left:10, bottom:170, width:100, height:100}}>
         <ButtonComponent
-          onPress={()=>{this.props.dispatchSwitchListMode(UIConstants.LIST_MODE_EFFECTS)}}
+          onPress={()=>{this.props.dispatchSwitchListMode(UIConstants.LIST_MODE_EFFECTS, UIConstants.LIST_TITLE_EFFECTS)}}
           buttonState={(this.props.listMode==UIConstants.LIST_MODE_EFFECT) ? 'on':'off'}
           stateImageArray={[require("./res/btn_mode_effects_on.png"), require("./res/btn_mode_effects.png")]}
           />
       </View>);
 
     buttons.push(
-      <View key="modebuttonportals" style={{position:'absolute', flex: 1, left:10, bottom:310, width:100, height:100}}>
+      <View key="modebuttonportals" style={{position:'absolute', flex: 1, left:10, bottom:245, width:100, height:100}}>
         <ButtonComponent
-          onPress={()=>{this.props.dispatchSwitchListMode(UIConstants.LIST_MODE_PORTAL)}}
+          onPress={()=>{this.props.dispatchSwitchListMode(UIConstants.LIST_MODE_PORTAL, UIConstants.LIST_TITLE_PORTALS)}}
           buttonState={(this.props.listMode==UIConstants.LIST_MODE_PORTAL) ? 'on':'off'}
           stateImageArray={[require("./res/btn_mode_portals_on.png"), require("./res/btn_mode_portals.png")]}
           />
@@ -209,7 +210,7 @@ export class App extends Component {
     }
 
     recordViews.push(
-      <View key="record_button_container" style={{position: 'absolute',  left: 0, right: 0, bottom: 110,  alignItems: 'center'}}>
+      <View key="record_button_container" style={{position: 'absolute',  left: 0, right: 0, bottom: 120,  alignItems: 'center'}}>
         <ButtonComponent
           key="record_button" onPress={()=>{(this.props.currentScreen==UIConstants.SHOW_MAIN_SCREEN) ? this._startRecording(): this._stopRecording()}}
           buttonState={(this.props.currentScreen==UIConstants.SHOW_MAIN_SCREEN) ? 'off':'on'}
@@ -218,7 +219,7 @@ export class App extends Component {
       </View>);
 
       recordViews.push(
-        <View key="camera_button_container" style={{position: 'absolute',  right: 70, bottom: 110,  alignItems: 'center'}}>
+        <View key="camera_button_container" style={{position: 'absolute',  right: 70, bottom: 120,  alignItems: 'center'}}>
           <ButtonComponent
             key="camera_button" onPress={()=>{this._takeScreenshot()}}
             buttonState={(this.props.currentScreen==UIConstants.SHOW_MAIN_SCREEN) ? 'off':'on'}
@@ -364,10 +365,19 @@ var localStyles = StyleSheet.create({
     flex:1,
   },
   listView: {
-    height : 100,
+    height : 115,
     width : '100%',
     position : 'absolute',
     bottom : 0,
+  },
+  listViewText: {
+    textAlign: 'left',
+    color: '#d6d6d6',
+    fontFamily: 'Helvetica Neue',
+    marginLeft:25,
+    marginTop:5,
+    marginBottom: 5,
+    backgroundColor: '#00000000',
   },
   previewScreenButtons: {
     height: 80,
@@ -434,11 +444,13 @@ var localStyles = StyleSheet.create({
 });
 
 function selectProps(store) {
+
   return {
     modelItems: store.arobjects.modelItems,
     portalItems: store.arobjects.portalItems,
     currentScreen: store.ui.currentScreen,
     listMode: store.ui.listMode,
+    listTitle: store.ui.listTitle,
   };
 }
 
@@ -456,7 +468,7 @@ const mapDispatchToProps = (dispatch) => {
     dispatchChangeModelLoadState:(index, loadState) =>dispatch(changeModelLoadState(index, loadState)),
     dispatchChangePortalLoadState:(index, loadState) =>dispatch(changePortalLoadState(index, loadState)),
     dispatchDisplayUIScreen: (uiScreenState) => dispatch(displayUIScreen(uiScreenState)),
-    dispatchSwitchListMode: (listMode) =>dispatch(switchListMode(listMode)),
+    dispatchSwitchListMode: (listMode, listTitle) =>dispatch(switchListMode(listMode, listTitle)),
   }
 }
 

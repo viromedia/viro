@@ -13,6 +13,7 @@
  const initialState = {
   currentScreen: UIConstants.SHOW_MAIN_SCREEN,
   listMode: UIConstants.LIST_MODE_MODEL,
+  listTitle: UIConstants.LIST_TITLE_MODELS,
  }
 
 function ui(state = initialState, action) {
@@ -26,6 +27,7 @@ function ui(state = initialState, action) {
       return {
         ...state,
         listMode: action.listMode,
+        listTitle: action.listTitle,
       };
     default:
       return state;

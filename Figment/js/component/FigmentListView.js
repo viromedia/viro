@@ -52,7 +52,10 @@ var FigmentListView = React.createClass({
         horizontal={true}
         contentContainerStyle={styles.listViewContainer}
         dataSource={this.state.dataSource}
-        renderRow={this._renderListItem} />);
+        renderRow={this._renderListItem}
+        showsVerticalScrollIndicator={false}
+        showsHorizontalScrollIndicator={false}
+        directionalLockEnabled={true}/>);
     },
 
     _renderListItem(data, sectionid, rowId) {
@@ -107,7 +110,6 @@ var styles = StyleSheet.create({
   },
   listViewContainer: {
     height:100,
-    padding: 12,
   },
   photo: {
     height: 80,
@@ -115,8 +117,7 @@ var styles = StyleSheet.create({
     borderRadius: 20,
     justifyContent: 'center',
     alignItems: 'center',
-    paddingLeft:10,
-    paddingRight:10,
+    marginRight: 5,
   },
   submitText: {
     color:'#fff',

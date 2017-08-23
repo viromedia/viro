@@ -32,10 +32,11 @@ export function togglePortalSelection(index) {
   };
 }
 
-export function switchListMode(listMode) {
+export function switchListMode(listMode, listTitle) {
   return {
     type: 'SWITCH_LIST_MODE',
     listMode: listMode,
+    listTitle: listTitle,
   };
 }
 
