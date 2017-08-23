@@ -42,6 +42,8 @@ var ViroPortal = React.createClass({
     onScroll: React.PropTypes.func,
     onSwipe: React.PropTypes.func,
     onDrag: React.PropTypes.func,
+    onPinch: React.PropTypes.func,
+    onRotate: React.PropTypes.func,
     onFuse: PropTypes.oneOfType([
       React.PropTypes.shape({
         callback: React.PropTypes.func.isRequired,
@@ -100,6 +102,18 @@ var ViroPortal = React.createClass({
     if (event.nativeEvent.clickState == CLICKED){
         this._onClick(event)
     }
+  },
+
+  setNativeProps: function(nativeProps) {
+     this._viro3dobj.setNativeProps(nativeProps);
+  },
+
+  _onPinch: function(event: Event) {
+    this.props.onPinch && this.props.onPinch(event.nativeEvent.pinchState, event.nativeEvent.scaleFactor, event.nativeEvent.source);
+  },
+
+  _onRotate: function(event: Event) {
+    this.props.onRotate && this.props.onRotate(event.nativeEvent.rotateState, event.nativeEvent.rotationFactor, event.nativeEvent.source);
   },
 
   _onTouch: function(event: Event) {
@@ -198,6 +212,7 @@ var ViroPortal = React.createClass({
     return (
       <VRTPortal
         {...this.props}
+        ref={ component => { this._viro3dobj = component; }}
         position={this.state.propsPositionState}
         onNativeTransformDelegateViro={transformDelegate}
         hasTransformDelegate={this.props.onTransformUpdate != undefined}
@@ -209,6 +224,8 @@ var ViroPortal = React.createClass({
         canSwipe={this.props.onSwipe != undefined}
         canDrag={this.props.onDrag != undefined}
         canFuse={this.props.onFuse != undefined}
+        canPinch={this.props.onPinch != undefined}
+        canRotate={this.props.onRotate != undefined}
         onHoverViro={this._onHover}
         onClickViro={this._onClickState}
         onTouchViro={this._onTouch}
@@ -216,6 +233,8 @@ var ViroPortal = React.createClass({
         onSwipeViro={this._onSwipe}
         onDragViro={this._onDrag}
         onFuseViro={this._onFuse}
+        onPinchViro={this._onPinch}
+        onRotateViro={this._onRotate}
         timeToFuse={timeToFuse}
         canCollide={this.props.onCollided != undefined}
         onCollidedViro={this._onCollided}
@@ -235,6 +254,10 @@ var VRTPortal = requireNativeComponent(
             canSwipe: true,
             canDrag: true,
             canFuse: true,
+            canPinch: true,
+            canRotate: true,
+            onPinchViro:true,
+            onRotateViro:true,
             onHoverViro:true,
             onClickViro:true,
             onTouchViro:true,

@@ -165,7 +165,7 @@ export class App extends Component {
           onPress={()=>{this.props.dispatchSwitchListMode(UIConstants.LIST_MODE_MODEL)}}
           buttonState={(this.props.listMode==UIConstants.LIST_MODE_MODEL) ? 'on':'off'}
           stateImageArray={[require("./res/btn_mode_objects_on.png"), require("./res/btn_mode_objects.png")]}
-          style={localStyles.photo} />
+          />
       </View>);
 
     buttons.push(
@@ -174,7 +174,7 @@ export class App extends Component {
           onPress={()=>{this.props.dispatchSwitchListMode(UIConstants.LIST_MODE_EFFECTS)}}
           buttonState={(this.props.listMode==UIConstants.LIST_MODE_EFFECT) ? 'on':'off'}
           stateImageArray={[require("./res/btn_mode_effects_on.png"), require("./res/btn_mode_effects.png")]}
-          style={localStyles.photo} />
+          />
       </View>);
 
     buttons.push(
@@ -183,7 +183,7 @@ export class App extends Component {
           onPress={()=>{this.props.dispatchSwitchListMode(UIConstants.LIST_MODE_PORTAL)}}
           buttonState={(this.props.listMode==UIConstants.LIST_MODE_PORTAL) ? 'on':'off'}
           stateImageArray={[require("./res/btn_mode_portals_on.png"), require("./res/btn_mode_portals.png")]}
-          style={localStyles.photo} />
+          />
       </View>);
     return buttons;
   }
@@ -205,7 +205,7 @@ export class App extends Component {
           key="record_button" onPress={()=>{(this.props.currentScreen==UIConstants.SHOW_MAIN_SCREEN) ? this._startRecording(): this._stopRecording()}}
           buttonState={(this.props.currentScreen==UIConstants.SHOW_MAIN_SCREEN) ? 'off':'on'}
           stateImageArray={[require("./res/btn_stop.png"), require("./res/btn_record.png")]}
-          style={localStyles.photo} />
+          />
       </View>);
 
       recordViews.push(
@@ -214,7 +214,7 @@ export class App extends Component {
             key="camera_button" onPress={()=>{this._takeScreenshot()}}
             buttonState={(this.props.currentScreen==UIConstants.SHOW_MAIN_SCREEN) ? 'off':'on'}
             stateImageArray={[require("./res/btn_camera.png"), require("./res/btn_camera.png")]}
-            style={localStyles.photo} />
+            />
         </View>);
     return recordViews;
   }

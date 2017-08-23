@@ -34,6 +34,13 @@ var PortalItemRender = React.createClass({
         index: PropTypes.number,
     },
 
+    getInitialState() {
+      return {
+        scale : this.props.portalItem.scale,
+        rotation : [0, 0, 0],
+      }
+    },
+
     componentWillMount() {
       this._ref_object = null;
     },
@@ -41,15 +48,12 @@ var PortalItemRender = React.createClass({
     render: function() {
         var j = this.props.index;
         return (
-          <ViroPortal position={[0, 0, 0]} scale={this.props.portalItem.scale}>
+          <ViroPortal position={[0, 0, 0]} scale={this.props.portalItem.scale} onRotate={this._onRotateGesture(j)}
+          onPinch={this._onPinchIndex(j)} ref={this._setComponentRef()} >
              <ViroPortalFrame>
                <Viro3DObject source={this.props.portalItem.obj}
                              position={[0, 0, 0]}
-                             rotation={[0, 0, 0]}
                              materials={this.props.portalItem.materials}
-                             scale={this.props.portalItem.scale}
-                             onPinch={this._onRotateGesture(j)}
-                             onRotate={this._onPinchIndex(j)}
                              resource={this.props.portalItem.resources} onLoadStart={this._onObjectLoadStart(j)} onLoadEnd={this._onObjectLoadEnd(j)}/>
              </ViroPortalFrame>
             <Viro360Image source={require('../res/360_diving.jpg')} />
@@ -77,35 +81,53 @@ var PortalItemRender = React.createClass({
       });
     },
 
+    /*
+     Rotation should be relative to its current rotation *not* set to the absolute
+     value of the given rotationFactor.
+     */
     _onRotate(rotateState, rotationFactor, source, index) {
       if(rotateState == 1) {
-        console.log("STARTING ROTATE WITH Scale factor: " + rotationFactor);
+        console.log("STARTING ROTATE WITH Rotation factor: " + rotationFactor);
+        return;
       } else if(rotateState ==2){
-        console.log("MID ROTATE WITH Scale factor: " + rotationFactor);
+        console.log("MID ROTATE WITH Rotation factor: " + rotationFactor);
       } else if(rotateState == 3) {
-        console.log("END ROTATE WITH Scale factor: " + rotationFactor);
+        console.log("END ROTATE WITH Rotation factor: " + rotationFactor);
+        this.setState({
+          rotation : [0, this.state.rotation[1] - rotationFactor, 0]
+        })
+        return;
       }
 
       console.log("ONROTATE INDEX:" + index);
 
-      this._ref_object.setNativeProps({rotation:[0, -rotationFactor, 0]});
+      this._ref_object.setNativeProps({rotation:[0, this.state.rotation[1] - rotationFactor, 0]});
     },
 
+    /*
+     Pinch scaling should be relative to its last value *not* the absolute value of the
+     scale factor. So while the pinching is ongoing set scale through setNativeProps
+     and multiply the state by that factor. At the end of a pinch event, set the state
+     to the final value and store it in state.
+     */
     _onPinch(pinchState, scaleFactor, source, index) {
       if(pinchState == 1) {
         console.log("STARTING PINCH WITH Scale factor: " + scaleFactor);
-      } else if(pinchState ==2){
+        return;
+      } else if(pinchState == 2){
         console.log("MID PINCH WITH Scale factor: " + scaleFactor);
       } else if(pinchState == 3) {
         console.log("END PINCH WITH Scale factor: " + scaleFactor);
+        this.setState({
+          scale : this.state.scale.map((x)=>{return x * scaleFactor})
+        });
+        return;
       }
 
-      var scaleX = this.props.portalItem.scale[0] * scaleFactor;
-      var scaleY = this.props.portalItem.scale[1] * scaleFactor;
-      var scaleZ = this.props.portalItem.scale[2] * scaleFactor;
       console.log("ONPINCH INDEX:" + index);
 
-      this._ref_object.setNativeProps({scale:[scaleX, scaleY, scaleZ]});
+      var newScale = this.state.scale.map((x)=>{return x * scaleFactor})
+      this._ref_object.setNativeProps({scale:newScale});
     },
 
     _onError(index) {
