@@ -61,7 +61,7 @@ var FigmentListView = React.createClass({
         if(data.loading == LoadingConstants.LOADED) {
           return (
             <View style={{marginLeft: 10}}>
-              <TouchableHighlight onPress={this._onListItemPressed(rowId)}>
+              <TouchableHighlight onPress={this._onListItemPressed(rowId)} underlayColor="#00000000">
                 <Image source={data.icon_img} style={styles.photo} >
                   <Image source={require("../res/btn_cancel.png")} style={styles.photo} />
                 </Image>
@@ -71,7 +71,7 @@ var FigmentListView = React.createClass({
         } else if(data.loading == LoadingConstants.NONE) {
             return (
               <View style={{marginLeft: 10}}>
-                <TouchableHighlight onPress={this._onListItemPressed(rowId)}>
+                <TouchableHighlight onPress={this._onListItemPressed(rowId)} underlayColor="#00000000">
                   <Image source={data.icon_img} style={styles.photo} />
                 </TouchableHighlight>
               </View>

@@ -129,25 +129,25 @@ export class App extends Component {
           )}
 
           {renderIf(!this.state.playPreview && this.state.hasPreview,
-          <TouchableOpacity onPress={()=>{this.player.seek(0); this.setState({ playPreview : true })}}>
+          <TouchableOpacity onPress={()=>{this.player.seek(0); this.setState({ playPreview : true })}} underlayColor="#00000000">
             <Image source={require("./res/play_btn.png")} style={localStyles.previewPlayButton} />
           </TouchableOpacity>
           )}
 
           <View style={{position:'absolute', left:10, bottom:10, width:100, height:100}}>
-            <TouchableHighlight onPress={()=>{this._saveToCameraRoll()}}>
+            <TouchableHighlight onPress={()=>{this._saveToCameraRoll()}} underlayColor="#00000000">
               <Image source={require("./res/btn_save.png")} style={localStyles.previewScreenButtons} />
             </TouchableHighlight>
           </View>
 
           <View style={{position:'absolute', left:120, bottom:10, width:100, height:100}}>
-            <TouchableHighlight onPress={()=>{this._openShareActionSheet()}}>
+            <TouchableHighlight onPress={()=>{this._openShareActionSheet()}} underlayColor="#00000000">
               <Image source={require("./res/btn_share.png")} style={localStyles.previewScreenButtons} />
             </TouchableHighlight>
           </View>
 
           <View style={{position:'absolute', left:10, top:10, width:100, height:100}}>
-            <TouchableHighlight onPress={()=>{this.props.dispatchDisplayUIScreen(UIConstants.SHOW_MAIN_SCREEN)}}>
+            <TouchableHighlight onPress={()=>{this.props.dispatchDisplayUIScreen(UIConstants.SHOW_MAIN_SCREEN)}} underlayColor="#00000000">
               <Image source={require("./res/btn_close.png")} style={localStyles.previewScreenButtons} />
             </TouchableHighlight>
           </View>

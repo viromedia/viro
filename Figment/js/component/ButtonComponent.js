@@ -31,7 +31,7 @@ var ButtonComponent = React.createClass({
         console.log(this.props.buttonState);
       }
       return (
-        <TouchableHighlight onPress={this.props.onPress}>
+        <TouchableHighlight onPress={this.props.onPress} underlayColor="#00000000">
           <Image source={this.props.stateImageArray[index]} style={this.props.style} />
         </TouchableHighlight>
         );
