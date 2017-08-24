@@ -18,6 +18,7 @@
 
 - (instancetype)initWithDelegate:(id<VRTImageAsyncLoaderEventDelegate>)delegate;
 - (void)loadImage:(RCTImageSource *)imageSource;
+- (void)cancel;
 
 @end
 

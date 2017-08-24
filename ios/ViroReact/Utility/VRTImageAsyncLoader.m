@@ -24,12 +24,16 @@
     return self;
 }
 
--(void)loadImage:(RCTImageSource *)imageSource {
+- (void)cancel{
     if (_currentDownloadTask){
-        //Cancel the currently downloading task before initating a new one.
         [_currentDownloadTask cancel];
         _currentDownloadTask = nil;
     }
+}
+
+-(void)loadImage:(RCTImageSource *)imageSource {
+    // Cancel the currently downloading task before initating a new one.
+    [self cancel];
     
     if (self.delegate) {
         [self.delegate imageLoaderDidStart:self];

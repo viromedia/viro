@@ -22,10 +22,8 @@ var ViroPropTypes = require('./Styles/ViroPropTypes');
 var StyleSheetPropType = require('react-native/Libraries/StyleSheet/StyleSheetPropType');
 var stylePropType = StyleSheetPropType(ViroPropTypes);
 var ColorPropType = require('react-native').ColorPropType;
+var processColor = require('react-native').processColor;
 
-/**
- * Used to render a ViroSurface
- */
 var ViroQuadEmitter = React.createClass({
   // TODO: make certain props required.
   propTypes: {
@@ -51,12 +49,12 @@ var ViroQuadEmitter = React.createClass({
       ]),
       height: PropTypes.number,
       width: PropTypes.number,
-    }),
+    }).isRequired,
     spawnModifier: PropTypes.shape({
       // TODO: maybe make this oneOfType?
       emissionRatePerSecond: PropTypes.arrayOf(PropTypes.number),
       emissionRatePerMeter: PropTypes.arrayOf(PropTypes.number),
-      particleLifetime: PropTypes.number,
+      particleLifetime: PropTypes.arrayOf(PropTypes.number),
       maxParticles: PropTypes.number,
       despawnDistance: PropTypes.number,
       emissionBurst: PropTypes.arrayOf(PropTypes.oneOfType([
@@ -77,7 +75,8 @@ var ViroQuadEmitter = React.createClass({
       ])),
       spawnVolume: PropTypes.shape({
         shape: PropTypes.string,
-        size: PropTypes.arrayOf(PropTypes.number),
+        params: PropTypes.arrayOf(PropTypes.number),
+        spawnOnSurface:PropTypes.bool
       }),
     }),
     appearanceModifier: PropTypes.shape({
@@ -85,8 +84,8 @@ var ViroQuadEmitter = React.createClass({
       opacity: PropTypes.shape({
         min: PropTypes.number,
         max: PropTypes.number,
+        factor: PropTypes.string,
         modifier: PropTypes.arrayOf(PropTypes.shape({
-          factor: PropTypes.string,
           finalValue: PropTypes.number,
           interval: PropTypes.arrayOf(PropTypes.number),
         })),
@@ -94,8 +93,8 @@ var ViroQuadEmitter = React.createClass({
       scale: PropTypes.shape({
         min: PropTypes.arrayOf(PropTypes.number),
         max: PropTypes.arrayOf(PropTypes.number),
+        factor: PropTypes.string,
         modifier: PropTypes.arrayOf(PropTypes.shape({
-          factor: PropTypes.string,
           finalValue: PropTypes.arrayOf(PropTypes.number),
           interval: PropTypes.arrayOf(PropTypes.number),
         })),
@@ -104,8 +103,8 @@ var ViroQuadEmitter = React.createClass({
       rotation: PropTypes.shape({
         min: PropTypes.number,
         max: PropTypes.number,
+        factor: PropTypes.string,
         modifier: PropTypes.arrayOf(PropTypes.shape({
-          factor: PropTypes.string,
           finalValue: PropTypes.number,
           interval: PropTypes.arrayOf(PropTypes.number),
         })),
@@ -113,8 +112,8 @@ var ViroQuadEmitter = React.createClass({
       color: PropTypes.shape({
         min: ColorPropType,
         max: ColorPropType,
+        factor: PropTypes.string,
         modifier: PropTypes.arrayOf(PropTypes.shape({
-          factor: PropTypes.string,
           finalValue: ColorPropType,
           interval: PropTypes.arrayOf(PropTypes.number),
         })),
@@ -128,6 +127,10 @@ var ViroQuadEmitter = React.createClass({
       acceleration: PropTypes.shape({
         min: PropTypes.arrayOf(PropTypes.number),
         max: PropTypes.arrayOf(PropTypes.number),
+      }),
+      initialExplosiveImpulse:PropTypes.shape({
+        impulse: PropTypes.number,
+        position: PropTypes.arrayOf(PropTypes.number),
       }),
     }),
   },
@@ -189,6 +192,56 @@ var ViroQuadEmitter = React.createClass({
     nativeProps.onNativeTransformDelegateViro = transformDelegate;
     nativeProps.hasTransformDelegate = this.props.onTransformUpdate != undefined;
     nativeProps.quad = quad;
+
+    // For color modifiers, we'll need to processColor for each color value.
+    if (this.props.appearanceModifier && this.props.appearanceModifier.color){
+      let colorModifier = this.props.appearanceModifier.color;
+      let minColorFinal = processColor(colorModifier.min);
+      let maxColorFinal = processColor(colorModifier.max);
+      let modifierFinal = [];
+      for (let i = 0; i < colorModifier.modifier.length; i ++){
+        let processedColor = processColor(colorModifier.modifier[i].finalValue);
+        let mod = {
+            interval: colorModifier.modifier[i].interval,
+            finalValue: processedColor
+        };
+        modifierFinal.push(mod);
+      }
+
+      let newAppearanceColorMod = {
+        min: minColorFinal,
+        max: maxColorFinal,
+        factor:colorModifier.factor,
+        modifier:modifierFinal
+      }
+      nativeProps.appearanceModifier.color = newAppearanceColorMod;
+    }
+
+    // For rotation modifiers, convert degrees to radians, then apply the
+    // Z rotation (due to billboarding for quad particles)
+    if (this.props.appearanceModifier && this.props.appearanceModifier.rotation){
+      let rotMod = this.props.appearanceModifier.rotation;
+      let minRotFinal = [0,0,rotMod.min * Math.PI / 180];
+      let maxRotFinal = [0,0,rotMod.max * Math.PI / 180];
+      let modifierFinal = [];
+      for (var i = 0; i < rotMod.modifier.length; i ++){
+        let processedRot = [0,0, rotMod.modifier[i].finalValue * Math.PI / 180];
+        let mod = {
+            interval: rotMod.modifier[i].interval,
+            finalValue: processedRot
+        };
+        modifierFinal.push(mod);
+      }
+
+      let newAppearanceRotMod = {
+        min: minRotFinal,
+        max: maxRotFinal,
+        factor:rotMod.factor,
+        modifier:modifierFinal
+      }
+      nativeProps.appearanceModifier.rotation = newAppearanceRotMod;
+    }
+
     return (
       <VRTQuadEmitter {...nativeProps} />
     );
