@@ -176,15 +176,15 @@ var ModelItemRender = React.createClass({
              return;
            }
          }
-         //no valid point found, just project the forward vector out 3 meters.
-         var newPos = [forward[0] * 3, forward[1]* 3, forward[2]* 3];
-         console.log("DIDN'T FIND HIT TEST, new arnode projected position:");
-         console.log(newPos);
-         this.setState({
-           position : newPos,
-           nodeIsVisible: true,
-         });
-       }
+      }
+      //no valid point found, just project the forward vector out 3 meters.
+      var newPos = [forward[0] * 3, forward[1]* 3, forward[2]* 3];
+      console.log("DIDN'T FIND HIT TEST, new arnode projected position:");
+      console.log(newPos);
+      this.setState({
+        position : newPos,
+        nodeIsVisible: true,
+      });
     }
 });
 
