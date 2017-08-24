@@ -31,6 +31,7 @@ var ModelItemRender = React.createClass({
         modelItem: PropTypes.any,
         onLoadCallback: PropTypes.func,
         index: PropTypes.number,
+        hitTestMethod: PropTypes.func,
     },
 
     componentWillMount() {
@@ -41,21 +42,25 @@ var ModelItemRender = React.createClass({
       return {
         scale : this.props.modelItem.scale,
         rotation : [0, 0, 0],
+        nodeIsVisible : false,
+        position: [0, 0, 0],
       }
     },
 
     render: function() {
         var j = this.props.index;
         return (
-        <Viro3DObject ref={this._setComponentRef()}
-            scale={this.state.scale}
-            rotation={this.state.rotation}
-            source={this.props.modelItem.obj}
-            materials={this.props.modelItem.materials}
-            resources={this.props.modelItem.resources}
-            animation={this.props.modelItem.animation}
-            onError={this._onError(j)}  onRotate={this._onRotateGesture(j)} onLoadStart={this._onObjectLoadStart(j)} onLoadEnd={this._onObjectLoadEnd(j)}
-            position={[0,0,0]} onPinch={this._onPinchIndex(j)} />
+        <ViroARNode key={j} visible={this.state.nodeIsVisible} position={this.state.position} onDrag={()=>{}}>
+          <Viro3DObject ref={this._setComponentRef()}
+              scale={this.state.scale}
+              rotation={this.state.rotation}
+              source={this.props.modelItem.obj}
+              materials={this.props.modelItem.materials}
+              resources={this.props.modelItem.resources}
+              animation={this.props.modelItem.animation}
+              onError={this._onError(j)}  onRotate={this._onRotateGesture(j)} onLoadStart={this._onObjectLoadStart(j)} onLoadEnd={this._onObjectLoadEnd(j)}
+              position={[0,0,0]} onPinch={this._onPinchIndex(j)} />
+        </ViroARNode>
         );
     },
 
@@ -146,9 +151,41 @@ var ModelItemRender = React.createClass({
     _onObjectLoadEnd(index) {
         return () => {
           this.props.onLoadCallback(index, LoadConstants.LOADED);
+          this.props.hitTestMethod(this._onARHitTestResults);
           //this.props.arSceneNavigator.viroAppProps.loadingObjectCallback(index, LoadingConstants.LOADED);
         };
     },
+
+    _onARHitTestResults(forward, results) {
+      if (results.length > 0) {
+         for (var i = 0; i < results.length; i++) {
+           let result = results[i];
+           if (result.type == "ExistingPlaneUsingExtent" || result.type == "FeaturePoint") {
+             console.log("FOUND HIT TEST, new arnode projected position:");
+             console.log(result.transform.position);
+             var distance = Math.sqrt((result.transform.position[0] * result.transform.position[0]) + (result.transform.position[1] * result.transform.position[1]) + (result.transform.position[2] * result.transform.position[2]));
+             if(distance < 2) {
+              console.log("Skipping this result since distance is :" + distance);
+              continue;
+             }
+
+             this.setState({
+               position : result.transform.position,
+               nodeIsVisible: true,
+             });
+             return;
+           }
+         }
+         //no valid point found, just project the forward vector out 3 meters.
+         var newPos = [forward[0] * 3, forward[1]* 3, forward[2]* 3];
+         console.log("DIDN'T FIND HIT TEST, new arnode projected position:");
+         console.log(newPos);
+         this.setState({
+           position : newPos,
+           nodeIsVisible: true,
+         });
+       }
+    }
 });
 
 ViroMaterials.createMaterials({

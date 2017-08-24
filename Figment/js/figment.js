@@ -95,9 +95,7 @@ var figment = React.createClass({
           console.log("Figment: Pushing VIRO 3DOBJECT index:" + i);
           var j = i;
           renderedObjects.push(
-              <ViroARNode key={j} position={[0,0,-3]} onDrag={()=>{}}>
-                <ModelItemRender modelItem={modelItems[j]} index={j} onLoadCallback={this._onLoadCallback} />
-              </ViroARNode>
+            <ModelItemRender key={j} modelItem={modelItems[j]} index={j} hitTestMethod={this._performARHitTest} onLoadCallback={this._onLoadCallback} />
           );
         }
       }
@@ -113,14 +111,20 @@ var figment = React.createClass({
           console.log("Figment: Pushing VIRO PORTAL index:" + i);
           var j = i;
           renderedObjects.push(
-              <ViroARNode key={j} position={[0,0,-3]} onDrag={()=>{}}>
-                <PortalItemRender portalItem={portalItems[j]} index={j} onLoadCallback={this._onLoadCallback} />
-              </ViroARNode>
+            <PortalItemRender key={j} portalItem={portalItems[j]} index={j} hitTestMethod={this._performARHitTest} onLoadCallback={this._onLoadCallback} />
           );
         }
       }
     }
     return renderedObjects;
+  },
+
+  _performARHitTest(callback) {
+    this.refs["arscene"].getCameraOrientationAsync().then((orientation) => {
+      this.refs["arscene"].performARHitTestWithRay(orientation.forward).then((results)=>{
+        callback(orientation.forward, results);
+      })
+    });
   },
 
   _onLoadCallback(index, loadState) {

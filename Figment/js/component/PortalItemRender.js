@@ -32,12 +32,15 @@ var PortalItemRender = React.createClass({
         portalItem: PropTypes.any,
         onLoadCallback: PropTypes.func,
         index: PropTypes.number,
+        hitTestMethod: PropTypes.func,
     },
 
     getInitialState() {
       return {
         scale : this.props.portalItem.scale,
         rotation : [0, 0, 0],
+        nodeIsVisible : false,
+        position: [0, 0, 0],
       }
     },
 
@@ -48,16 +51,18 @@ var PortalItemRender = React.createClass({
     render: function() {
         var j = this.props.index;
         return (
-          <ViroPortal position={[0, 0, 0]} scale={this.props.portalItem.scale} onRotate={this._onRotateGesture(j)}
-          onPinch={this._onPinchIndex(j)} passable={true} ref={this._setComponentRef()} >
-             <ViroPortalFrame>
-               <Viro3DObject source={this.props.portalItem.obj}
-                             position={[0, 0, 0]}
-                             materials={this.props.portalItem.materials}
-                             resource={this.props.portalItem.resources} onLoadStart={this._onObjectLoadStart(j)} onLoadEnd={this._onObjectLoadEnd(j)}/>
-             </ViroPortalFrame>
-            <Viro360Image source={require('../res/360_diving.jpg')} />
-          </ViroPortal>
+          <ViroARNode key={j} visible={this.state.nodeIsVisible} position={this.state.position} onDrag={()=>{}}>
+            <ViroPortal position={[0, 0, 0]} scale={this.props.portalItem.scale} onRotate={this._onRotateGesture(j)}
+            onPinch={this._onPinchIndex(j)} passable={true} ref={this._setComponentRef()} >
+               <ViroPortalFrame>
+                 <Viro3DObject source={this.props.portalItem.obj}
+                               position={[0, 0, 0]}
+                               materials={this.props.portalItem.materials}
+                               resource={this.props.portalItem.resources} onLoadStart={this._onObjectLoadStart(j)} onLoadEnd={this._onObjectLoadEnd(j)}/>
+               </ViroPortalFrame>
+              <Viro360Image source={require('../res/360_diving.jpg')} />
+            </ViroPortal>
+          </ViroARNode>
         );
     },
 
@@ -146,7 +151,39 @@ var PortalItemRender = React.createClass({
     _onObjectLoadEnd(index) {
         return () => {
           this.props.onLoadCallback(index, LoadConstants.LOADED);
+          this.props.hitTestMethod(this._onARHitTestResults);
         };
+    },
+
+    _onARHitTestResults(forward, results) {
+      if (results.length > 0) {
+         for (var i = 0; i < results.length; i++) {
+           let result = results[i];
+           if (result.type == "ExistingPlaneUsingExtent" || result.type == "FeaturePoint") {
+             console.log("FOUND HIT TEST, new arnode projected position:");
+             console.log(result.transform.position);
+             var distance = Math.sqrt((result.transform.position[0] * result.transform.position[0]) + (result.transform.position[1] * result.transform.position[1]) + (result.transform.position[2] * result.transform.position[2]));
+             if(distance < 2) {
+              console.log("Skipping this result since distance is :" + distance);
+              continue;
+             }
+
+             this.setState({
+               position : result.transform.position,
+               nodeIsVisible: true,
+             });
+             return;
+           }
+         }
+         //no valid point found, just project the forward vector out 3 meters.
+         var newPos = [forward[0] * 3, forward[1]* 3, forward[2]* 3];
+         console.log("DIDN'T FIND HIT TEST, new arnode projected position:");
+         console.log(newPos);
+         this.setState({
+           position : newPos,
+           nodeIsVisible: true,
+         });
+       }
     },
 });
 
