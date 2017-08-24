@@ -40,8 +40,8 @@ public class SpotLightManager extends ViroViewGroupManager<SpotLight> {
     }
 
     @ReactProp(name = "intensity", defaultFloat = 1000.0f)
-    public void setIntensity(AmbientLight ambientLight, float intensity) {
-        ambientLight.setIntensity(intensity);
+    public void setIntensity(SpotLight spotLight, float intensity) {
+        spotLight.setIntensity(intensity);
     }
 
     @ReactProp(name = "direction")

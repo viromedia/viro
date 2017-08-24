@@ -162,7 +162,7 @@ public class MaterialManager extends ReactContextBaseJavaModule {
 
     private void setImageOnMaterial(ImageJni image, TextureFormat format, boolean mipmap,
                                     MaterialJni material, String name, ReadableMap materialMap) {
-        TextureJni nativeTexture = new TextureJni(image, format, mipmap);
+        TextureJni nativeTexture = new TextureJni(image, format, true, mipmap);
         setTextureOnMaterial(material, nativeTexture, name, materialMap);
     }
 

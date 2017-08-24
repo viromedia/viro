@@ -25,6 +25,7 @@ RCT_EXPORT_MODULE()
 RCT_EXPORT_VIEW_PROPERTY(color, UIColor)
 RCT_EXPORT_VIEW_PROPERTY(intensity, float)
 RCT_EXPORT_VIEW_PROPERTY(direction, NSNumberArray)
+RCT_EXPORT_VIEW_PROPERTY(intensity, float)
 
 - (VRTView *)view
 {

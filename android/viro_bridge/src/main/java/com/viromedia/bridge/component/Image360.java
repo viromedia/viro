@@ -155,7 +155,7 @@ public class Image360 extends Component {
                     }
 
                     mLatestImage = new ImageJni(result, mFormat);
-                    mLatestTexture = new TextureJni(mLatestImage, mFormat, false, mStereoMode);
+                    mLatestTexture = new TextureJni(mLatestImage, mFormat, true, false, mStereoMode);
 
                     if (mScene != null) {
                         mScene.setBackgroundImageTexture(mLatestTexture);

@@ -39,8 +39,8 @@ public class OmniLightManager extends ViroViewGroupManager<OmniLight> {
     }
 
     @ReactProp(name = "intensity", defaultFloat = 1000.0f)
-    public void setIntensity(AmbientLight ambientLight, float intensity) {
-        ambientLight.setIntensity(intensity);
+    public void setIntensity(OmniLight omniLight, float intensity) {
+        omniLight.setIntensity(intensity);
     }
 
     @ReactProp(name = "position")

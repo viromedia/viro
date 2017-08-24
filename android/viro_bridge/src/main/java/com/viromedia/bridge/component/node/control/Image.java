@@ -260,7 +260,7 @@ public class Image extends Control {
         }
 
         mLatestImage = new ImageJni(image, mFormat);
-        mLatestImageTexture = new TextureJni(mLatestImage, mFormat, mMipmap, mStereoMode);
+        mLatestImageTexture = new TextureJni(mLatestImage, mFormat, true, mMipmap, mStereoMode);
         mNativeSurface.setImageTexture(mLatestImageTexture);
     }
 

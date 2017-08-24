@@ -40,8 +40,8 @@ public class DirectionalLightManager extends ViroViewGroupManager<DirectionalLig
     }
 
     @ReactProp(name = "intensity", defaultFloat = 1000.0f)
-    public void setIntensity(AmbientLight ambientLight, float intensity) {
-        ambientLight.setIntensity(intensity);
+    public void setIntensity(DirectionalLight directionalLight, float intensity) {
+        directionalLight.setIntensity(intensity);
     }
 
     @ReactProp(name = "direction")
