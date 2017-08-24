@@ -108,4 +108,33 @@ RCT_EXPORT_METHOD(setInstantaneousVelocity:(nonnull NSNumber *)viewTag
         [node setVelocity:velocity isConstant:NO];
     }];
 }
+
+RCT_EXPORT_METHOD(getNodeTransform:(nonnull NSNumber *)viewTag
+                  resolve:(RCTPromiseResolveBlock)resolve
+                  reject:(RCTPromiseRejectBlock)reject) {
+    [self.bridge.uiManager addUIBlock:^(__unused RCTUIManager *uiManager, NSDictionary<NSNumber *, UIView *> *viewRegistry) {
+        UIView *nodeView = viewRegistry[viewTag];
+        
+        if (![nodeView isKindOfClass:[VRTNode class]]) {
+            RCTLogError(@"Invalid view, expected VRTNode, got [%@]", nodeView);
+            return;
+        }
+
+        VRTNode *node = (VRTNode *) nodeView;
+        std::shared_ptr<VRONode> vroNode = [node node];
+        VROMatrix4f transform = vroNode->getLastComputedTransform();
+        
+        
+        VROVector3f position = transform.extractTranslation();
+        VROVector3f scale = transform.extractScale();
+        VROVector3f rotation = transform.extractRotation(scale).toEuler();
+        
+        resolve(@{
+                 @"position" : @[@(position.x), @(position.y), @(position.z)],
+                 @"rotation" : @[@(toDegrees(rotation.x)), @(toDegrees(rotation.y)), @(toDegrees(rotation.z))],
+                 @"scale" : @[@(scale.x), @(scale.y), @(scale.z)]
+                 });
+    }];
+}
+
 @end

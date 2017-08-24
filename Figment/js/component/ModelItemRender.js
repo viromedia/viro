@@ -21,6 +21,7 @@ import {
   ViroMaterials,
   ViroNode,
   Viro3DObject,
+  ViroText,
 } from 'react-viro';
 
 
@@ -41,26 +42,33 @@ var ModelItemRender = React.createClass({
     getInitialState() {
       return {
         scale : this.props.modelItem.scale,
-        rotation : [0, 0, 0],
+        rotation : [90, 90, 90],
         nodeIsVisible : false,
         position: [0, 0, 0],
+        shouldBillboard : false,
       }
     },
 
     render: function() {
         var j = this.props.index;
+        let transformBehaviors = {}
+        if (this.state.shouldBillboard) {
+          transformBehaviors.transformBehaviors = this.state.shouldBillboard ? "billboardY" : [];
+        }
         return (
-        <ViroARNode key={j} visible={this.state.nodeIsVisible} position={this.state.position} onDrag={()=>{}}>
-          <Viro3DObject ref={this._setComponentRef()}
-              scale={this.state.scale}
-              rotation={this.state.rotation}
-              source={this.props.modelItem.obj}
-              materials={this.props.modelItem.materials}
-              resources={this.props.modelItem.resources}
-              animation={this.props.modelItem.animation}
-              onError={this._onError(j)}  onRotate={this._onRotateGesture(j)} onLoadStart={this._onObjectLoadStart(j)} onLoadEnd={this._onObjectLoadEnd(j)}
-              position={[0,0,0]} onPinch={this._onPinchIndex(j)} />
-        </ViroARNode>
+          <ViroARNode key={j} visible={this.state.nodeIsVisible} position={this.state.position} onDrag={()=>{}}>
+            <Viro3DObject ref={this._setComponentRef()}
+                {...transformBehaviors}
+                scale={this.state.scale}
+                rotation={this.state.rotation}
+                source={this.props.modelItem.obj}
+                materials={this.props.modelItem.materials}
+                resources={this.props.modelItem.resources}
+                animation={this.props.modelItem.animation}
+                onClickState={this._onClickState}
+                onError={this._onError(j)}  onRotate={this._onRotateGesture(j)} onLoadStart={this._onObjectLoadStart(j)} onLoadEnd={this._onObjectLoadEnd(j)}
+                position={[0,0,0]} onPinch={this._onPinchIndex(j)} />
+          </ViroARNode>
         );
     },
 
@@ -69,6 +77,35 @@ var ModelItemRender = React.createClass({
         console.log("SETTING COMPONENT REF!!! index:" + this.props.index);
         console.log("Component ref value:");
         this._ref_object = component;
+      }
+    },
+
+    _onClickState(clickState, position, source) {
+      if (clickState == 1) {
+        // if "ClickDown", then enable billboardY
+        this.setState({shouldBillboard : true});
+      } else if (clickState == 2) {
+        // for some reason this method gives us values "opposite" of what they should be
+        // which is why we negate the y rotation, but also the y-rotation values are
+        // always within -90 -> 90 so the x/z need to be adjusted back to 0 and the y
+        // rotation recalculated in order for the rotation gesture to function properly
+        this._ref_object.getTransformAsync().then((retDict)=>{
+          let rotation = retDict.rotation;
+          let absX = Math.abs(rotation[0]);
+          let absZ = Math.abs(rotation[2]);
+          // negate the y rotation
+          let yRotation = - (rotation[1]);
+
+          // if the X and Z aren't 0, then adjust the y rotation.
+          if (absX > 1 && absZ > 1) {
+            yRotation = 180 - (yRotation);
+          }
+
+          this.setState({
+            rotation : [0,yRotation,0],
+            shouldBillboard : false
+          });
+        })
       }
     },
 
@@ -97,14 +134,14 @@ var ModelItemRender = React.createClass({
       } else if(rotateState == 3) {
         console.log("END ROTATE WITH Rotation factor: " + rotationFactor);
         this.setState({
-          rotation : [0, this.state.rotation[1] - rotationFactor, 0]
+          rotation : [this.state.rotation[0], this.state.rotation[1] - rotationFactor, this.state.rotation[2]]
         })
         return;
       }
 
       console.log("ONROTATE INDEX:" + index);
 
-      this._ref_object.setNativeProps({rotation:[0, this.state.rotation[1] - rotationFactor, 0]});
+      this._ref_object.setNativeProps({rotation:[this.state.rotation[0], this.state.rotation[1] - rotationFactor, this.state.rotation[2]]});
     },
 
     /*
@@ -212,7 +249,8 @@ ViroMaterials.createMaterials({
     writesToDepthBuffer: false,
     readsFromDepthBuffer: false,
   },
-
 });
+
+
 
 module.exports = ModelItemRender;

@@ -175,6 +175,10 @@ var ViroPortal = React.createClass({
     });
   },
 
+  async getTransformAsync() {
+    return await NativeModules.VRTNodeModule.getNodeTransform(findNodeHandle(this));
+  },
+
   // Set the propsPositionState on the native control if the
   // nextProps.position state differs from the nativePositionState that
   // reflects this control's current vroNode position.

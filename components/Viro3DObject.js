@@ -15,7 +15,6 @@ import { requireNativeComponent, View, StyleSheet, findNodeHandle } from 'react-
 import React, { Component } from 'react';
 var NativeModules = require('react-native').NativeModules;
 var PropTypes = require('react/lib/ReactPropTypes');
-var NativeModules = require('react-native').NativeModules;
 
 import resolveAssetSource from "react-native/Libraries/Image/resolveAssetSource";
 
@@ -243,6 +242,10 @@ var Viro3DObject = React.createClass({
         this.props.onTransformUpdate(position);
       }
     });
+  },
+
+  async getTransformAsync() {
+    return await NativeModules.VRTNodeModule.getNodeTransform(findNodeHandle(this));
   },
 
   // Set the propsPositionState on the native control if the
