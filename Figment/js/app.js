@@ -97,8 +97,8 @@ export class App extends Component {
               <FigmentListView items={this._getListItems()} onPress={this._onListPressed} />
             </View>)}
 
-          {this._renderButtonLeftMenu()}
           {this._renderRecord()}
+          {this._renderButtonLeftMenu()}
           {this._renderShareScreen()}
           {this._renderPhotosSelector()}
         </View>
@@ -170,32 +170,31 @@ export class App extends Component {
     var buttons = [];
     // render the object mode button.
     buttons.push(
-      <View key="modebuttonobj" style={{position:'absolute',  left:10, bottom:95, width:100, height:100}}>
-        <ButtonComponent
-          onPress={()=>{this.props.dispatchSwitchListMode(UIConstants.LIST_MODE_MODEL, UIConstants.LIST_TITLE_MODELS)}}
-          buttonState={(this.props.listMode==UIConstants.LIST_MODE_MODEL) ? 'on':'off'}
-          stateImageArray={[require("./res/btn_mode_objects_on.png"), require("./res/btn_mode_objects.png")]}
-          />
-      </View>);
-
-    buttons.push(
-      <View key="modebuttoneffects" style={{position:'absolute', flex: 1, left:10, bottom:170, width:100, height:100}}>
-        <ButtonComponent
-          onPress={()=>{this.props.dispatchSwitchListMode(UIConstants.LIST_MODE_EFFECTS, UIConstants.LIST_TITLE_EFFECTS)}}
-          buttonState={(this.props.listMode==UIConstants.LIST_MODE_EFFECT) ? 'on':'off'}
-          stateImageArray={[require("./res/btn_mode_effects_on.png"), require("./res/btn_mode_effects.png")]}
-          />
-      </View>);
-
-    buttons.push(
-      <View key="modebuttonportals" style={{position:'absolute', flex: 1, left:10, bottom:245, width:100, height:100}}>
-        <ButtonComponent
+        <ButtonComponent key="button_portals"
           onPress={()=>{this.props.dispatchSwitchListMode(UIConstants.LIST_MODE_PORTAL, UIConstants.LIST_TITLE_PORTALS)}}
           buttonState={(this.props.listMode==UIConstants.LIST_MODE_PORTAL) ? 'on':'off'}
           stateImageArray={[require("./res/btn_mode_portals_on.png"), require("./res/btn_mode_portals.png")]}
-          />
-      </View>);
-    return buttons;
+          />);
+
+    buttons.push(
+        <ButtonComponent key="button_effects"
+          onPress={()=>{this.props.dispatchSwitchListMode(UIConstants.LIST_MODE_EFFECTS, UIConstants.LIST_TITLE_EFFECTS)}}
+          buttonState={(this.props.listMode==UIConstants.LIST_MODE_EFFECT) ? 'on':'off'}
+          stateImageArray={[require("./res/btn_mode_effects_on.png"), require("./res/btn_mode_effects.png")]}
+          />);
+
+    buttons.push(
+        <ButtonComponent key="button_models"
+            onPress={()=>{this.props.dispatchSwitchListMode(UIConstants.LIST_MODE_MODEL, UIConstants.LIST_TITLE_MODELS)}}
+            buttonState={(this.props.listMode==UIConstants.LIST_MODE_MODEL) ? 'on':'off'}
+            stateImageArray={[require("./res/btn_mode_objects_on.png"), require("./res/btn_mode_objects.png")]}
+            />);
+
+    return (
+         <View style={{position:'absolute', justifyContent: 'space-between', flexDirection:'column', left:10, bottom:120, width:100, height:240, flex:1}}>
+            {buttons}
+         </View>
+      );
   }
 
   _renderRecord() {
@@ -210,7 +209,7 @@ export class App extends Component {
     }
 
     recordViews.push(
-      <View key="record_button_container" style={{position: 'absolute',  left: 0, right: 0, bottom: 120,  alignItems: 'center'}}>
+      <View key="record_button_container" style={{position: 'absolute', left: 0, right: 0, bottom: 120,  alignItems: 'center'}}>
         <ButtonComponent
           key="record_button" onPress={()=>{(this.props.currentScreen==UIConstants.SHOW_MAIN_SCREEN) ? this._startRecording(): this._stopRecording()}}
           buttonState={(this.props.currentScreen==UIConstants.SHOW_MAIN_SCREEN) ? 'off':'on'}
