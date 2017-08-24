@@ -78,6 +78,7 @@ public:
     virtual void setCullMode(VROCullMode cullMode) = 0;
     virtual void setColorWritingEnabled(bool enabled) = 0;
     virtual void bindShader(std::shared_ptr<VROShaderProgram> program) = 0;
+    virtual void unbindShader() = 0;
     
     /*
      If gamma correction is not enabled, then gamma correction framebuffer writes

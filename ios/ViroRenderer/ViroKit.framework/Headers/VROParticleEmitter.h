@@ -11,11 +11,35 @@
 #include "VRODriver.h"
 #include "VROParticleModifier.h"
 
+// Assumed mass of a single particle, used for all physics calculations.
+static float kAssumedParticleMass = 1;
+
 class VROSurface;
 class VROParticleUBO;
 class VROParticle;
 class VRONode;
 class VROTexture;
+
+/*
+ Volume describing the area around which particles spawn within / around.
+ */
+struct VROParticleSpawnVolume{
+    enum class Shape{
+        Box,
+        Sphere,
+        Point
+    };
+
+    Shape shape;
+
+    // Vec of params to be provided for configuring the specified shape.
+    std::vector<double> shapeParams;
+
+    // True if particles should be spawned on this shape's surface
+    // instead of within it. Applicable for Box and Sphere shapes only.
+    bool spawnOnSurface;
+};
+
 
 /*
  VROParticleEmitter handles the behavior of quad particles emitted in the scene in terms of
@@ -102,6 +126,22 @@ public:
     void setParticleBursts(std::vector<VROParticleBurst> bursts) {
         _bursts = bursts;
         _scheduledBurst = bursts;
+    }
+
+    /*
+     Overrides the current specified VROParticleSpawnVolume.
+     */
+    void setParticleSpawnVolume(VROParticleSpawnVolume volume) {
+        _currentVolume = volume;
+    }
+
+    /*
+     Parameters for configuring an initial explosive force at a given explosionPoint local
+     to the emitter with a magnitude of impulseExplosion.
+     */
+    void setInitialExplosion(VROVector3f explosionPoint, float impulseExplosion){
+        _explosionCenter = explosionPoint;
+        _impulseExplosionMagnitude = impulseExplosion;
     }
 
     /*
@@ -332,8 +372,34 @@ private:
 
     /*
      Resets the particle to a set of known defaults, so that it can be re-used / re-emitted.
-     */
+     */ 
     void resetParticle(VROParticle &particle, double currentTime);
+
+    /*
+     Volume defining the location of where particles would spawn.
+     */
+    VROParticleSpawnVolume _currentVolume;
+
+    /*
+     Location local to this Particle Emitter from which to calculate an explosive force
+     to determine initial velocity.
+     */
+    VROVector3f _explosionCenter;
+
+    /*
+     The magnitude of an explosion's impulse.
+     */
+    float _impulseExplosionMagnitude = -1;
+
+    /*
+     Grabs a random point from the currently configured _currentVolume.
+     */
+    VROVector3f getPointInSpawnVolume();
+
+    /*
+     Extrapolate the initial velocity for this particle if explosion parameters have been set.
+     */
+    VROVector3f getExplosionInitialVel(VROVector3f particlePosition);
 };
 
 #endif /* VROParticleEmitter_h */

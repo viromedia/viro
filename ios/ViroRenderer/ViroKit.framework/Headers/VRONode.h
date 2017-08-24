@@ -52,8 +52,14 @@ enum class VRONodeType {
 };
 
 enum class VROSilhouetteMode {
-    Flat,         // Render silhouettes with constant lighting, no textures
-    Textured,     // Render silhouettes with constant lighting and textures
+    Flat,             // Render silhouettes with constant lighting, no textures
+    Textured,         // Render silhouettes with constant lighting and textures
+};
+
+enum class VROSilhouetteFilter {
+    Static,           // Render silhouettes of static objects only
+    Skeletal,         // Render silhouettes of objects with skeletal animation only
+    None              // Render all silhouettes
 };
 
 class VRONode : public VROAnimatable, public VROThreadRestricted {
@@ -165,8 +171,12 @@ public:
      Lighting is fixed at constant, and the given material is used for all elements.
      If mode is set to Textured, then textures will be bound. This method is typically
      used to render to the stencil or depth buffers only.
+     
+     The VROSilhouetteFilter is used to only render the silhouettes of specific objects.
+     If we filter to render objects with skeletal animation, we should provide a material
+     with the appropriate skeletal animation modifiers.
      */
-    void renderSilhouettes(std::shared_ptr<VROMaterial> &material, VROSilhouetteMode mode,
+    void renderSilhouettes(std::shared_ptr<VROMaterial> &material, VROSilhouetteMode mode, VROSilhouetteFilter filter,
                            const VRORenderContext &context, std::shared_ptr<VRODriver> &driver);
     
 #pragma mark - Geometry
@@ -498,7 +508,6 @@ public:
     }
 
     void setIsBeingDragged(bool isDragging) {
-        _selectable = !isDragging;
         std::shared_ptr<VROPhysicsBody> physicsBody = getPhysicsBody();
         if (physicsBody != nullptr) {
             physicsBody->setKinematicDrag(isDragging);
