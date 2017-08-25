@@ -37,19 +37,29 @@ var REF_DELIM = "_";
 
 var STOCK_360_PHOTOS = [
   {
-    source : require('../res/360_diving.jpg')
+    source : require('../res/360_diving.jpg'),
+    height : 1,
+    width : 2,
   },
   {
-    source : require('../res/360_guadalupe.jpg')
+    source : require('../res/360_guadalupe.jpg'),
+    height : 1,
+    width : 2,
   },
   {
-    source : require('../res/360_space.jpg')
+    source : require('../res/360_space.jpg'),
+    height : 1,
+    width : 2,
   },
   {
-    source : require('../res/360_waikiki.jpg')
+    source : require('../res/360_waikiki.jpg'),
+    height : 1,
+    width : 2,
   },
   {
-    source : require('../res/360_westlake.jpg')
+    source : require('../res/360_westlake.jpg'),
+    height : 1,
+    width : 2,
   },
 ];
 
@@ -338,10 +348,16 @@ export class PhotosSelector extends Component {
   _filterPhotos(edges, photos360, photos) {
     for (var i = 0; i < edges.length; i++) {
       let edge = edges[i];
+
+      let image = {
+        source : { uri : edge.node.image.uri},
+        width : edge.node.image.width,
+        height : edge.node.image.height
+      }
       if (this._is360Photo(edge)) {
-        photos360.push({source : { uri : edge.node.image.uri}});
+        photos360.push(image);
       } else {
-        photos.push({source : { uri : edge.node.image.uri}});
+        photos.push(image);
       }
     }
   }
