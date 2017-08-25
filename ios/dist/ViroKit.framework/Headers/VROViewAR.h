@@ -17,11 +17,16 @@ typedef void (^VROViewARTapHandler)(VROARHitTestResult, std::shared_ptr<VROARSes
 
 class VROARSessionDelegate;
 
-@interface VROViewAR : GLKView <VROView>
+@interface VROViewAR : GLKView <VROView, UIGestureRecognizerDelegate>
 
 @property (readwrite, nonatomic) BOOL suspended;
 
 - (void)setARSessionDelegate:(std::shared_ptr<VROARSessionDelegate>)delegate;
+
+/*
+ Sets the paused state of the underlying CADisplayLink
+ */
+- (void)setPaused:(BOOL)paused;
 
 /*
  Performs an AR hit test with the given ray assuming origin is the camera

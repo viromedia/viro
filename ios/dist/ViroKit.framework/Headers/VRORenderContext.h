@@ -22,11 +22,15 @@
 
 class VROFrameSynchronizer;
 class VRORenderTarget;
+class VROTexture;
 enum class VROEyeType;
 
 /*
  Holds data specific to the current frame. Includes things like transformation
  matrices. There is nothing driver or device specific contained here.
+ 
+ Objects should *not* hold onto the VRORenderContext, as it is replaced each
+ frame with fresh data.
  */
 class VRORenderContext {
     
@@ -104,6 +108,13 @@ public:
     }
     VROMatrix4f getOrthographicMatrix() const {
         return _orthographicMatrix;
+    }
+    
+    std::shared_ptr<VROTexture> getShadowMap() const {
+        return _shadowMap;
+    }
+    void setShadowMap(std::shared_ptr<VROTexture> shadowMap) {
+        _shadowMap = shadowMap;
     }
     
     const VROCamera &getCamera() const {
@@ -202,6 +213,11 @@ private:
      Scheduler used for queueing and executing rendering thread tasks.
      */
     std::shared_ptr<VROFrameScheduler> _frameScheduler;
+    
+    /*
+     The texture containing shadow maps for all lights. This is a depth texture array.
+     */
+    std::shared_ptr<VROTexture> _shadowMap;
 
     /*
      VROPencil is used for drawing a list of VROPolylines in a separate render pass,

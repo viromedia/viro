@@ -46,9 +46,11 @@ public:
     
     /*
      Used to replace a texture quickly without regenerating the
-     entire substrate.
+     entire substrate. If this is the first time adding a texture,
+     then the substrate must be replaced. In this case we return
+     true.
      */
-    void swapTexture(std::shared_ptr<VROTexture> texture);
+    bool swapTexture(std::shared_ptr<VROTexture> texture);
     
     VROTextureType getTextureType() const {
         if (_contentsTexture) {

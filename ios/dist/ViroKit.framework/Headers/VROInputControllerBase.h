@@ -24,6 +24,7 @@
 
 static const float ON_DRAG_DISTANCE_THRESHOLD = 0.01;
 static const float ON_PINCH_SCALE_THRESHOLD = 0.02;
+static const float ON_ROTATE_THRESHOLD = 0.02;
 static float kSceneBackgroundDistance = 8;
 
 /**
@@ -124,6 +125,8 @@ public:
      * PinchState::PinchStart.
      */
     void onPinch(int source, float scaleFactor, VROEventDelegate::PinchState pinchState);
+    
+    void onRotate(int source, float rotationFactor, VROEventDelegate::RotateState rotateState);
 
 protected:
     
@@ -196,6 +199,11 @@ protected:
      * Last known pinch scale value.
      */
     float _lastPinchScale;
+    
+    /*
+     * Last known rotation value.
+     */
+    float _lastRotation;
 
     /**
      * Delegates registered within the manager to be notified of events
@@ -256,6 +264,8 @@ private:
      * Current node that we are pinching on.
      */
     std::shared_ptr<VRONode> _currentPinchedNode;
+    
+    std::shared_ptr<VRONode>  _currentRotateNode;
 
     /**
      * Time at which the onFuse event is triggered, in milliseconds.

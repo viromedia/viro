@@ -108,6 +108,13 @@ public:
         return _spotOuterAngle;
     }
     
+    void setInfluenceBitMask(int influenceBitMask) {
+        _influenceBitMask = influenceBitMask;
+    }
+    int getInfluenceBitMask() const {
+        return _influenceBitMask;
+    }
+    
 #pragma mark - Shadow Properties
     
     void setCastsShadow(bool castsShadow);
@@ -310,6 +317,14 @@ private:
      light's shadow map.
      */
     int _shadowMapIndex;
+    
+    /*
+     Bit mask that is ANDed with each node's lightBitMask and shadowCastingBitMask
+     to determine what objects are illuminated by, and cast shadows from, this light.
+     
+     Default is 1.
+     */
+    int _influenceBitMask;
     
     /*
      The view and projection matrices used to transform any point in world

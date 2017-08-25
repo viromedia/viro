@@ -63,6 +63,9 @@ FOUNDATION_EXPORT const unsigned char ViroKitVersionString[];
 #import <ViroKit/VROTransformDelegate.h>
 #import <ViroKit/VROTransformDelegateiOS.h>
 #import <ViroKit/VROTree.h>
+#import <ViroKit/VROParticleEmitter.h>
+#import <ViroKit/VROParticle.h>
+#import <ViroKit/VROParticleModifier.h>
 
 // Animation
 #import <ViroKit/VROAnimation.h>
@@ -164,6 +167,7 @@ FOUNDATION_EXPORT const unsigned char ViroKitVersionString[];
 #import <ViroKit/VROARNodeDelegateiOS.h>
 #import <ViroKit/VROARSceneDelegateiOS.h>
 #import <ViroKit/VROARDraggableNode.h>
+#import <ViroKit/VROARShadow.h>
 
 // OpenCV
 #import <ViroKit/VROOpenCV.h>

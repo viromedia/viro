@@ -101,6 +101,8 @@
 
 #elif VRO_PLATFORM_IOS
 
+#include "VROOpenGL.h" // For pglpush and pglpop implementations
+
 /*
  ANSI colors don't resolve on the iOS debug console, so we
  deactivate them.

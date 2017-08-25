@@ -22,6 +22,7 @@
 - (void)onFuse:(int)source;
 - (void)onDrag:(int)source posX:(float)x posY:(float)y posZ:(float)y;
 - (void)onPinch:(int)source scaleFactor:(float)scale pinchState:(VROEventDelegate::PinchState)pinchState;
+- (void)onRotate:(int)source rotationFactor:(float)rotation rotateState:(VROEventDelegate::RotateState)rotateState;
 @end
 
 /**
@@ -61,6 +62,10 @@ public:
     
     virtual void onPinch(int source, float scale, PinchState pinchState) {
         [_delegate onPinch:source scaleFactor:scale pinchState:pinchState];
+    }
+    
+    virtual void onRotate(int source, float rotation, RotateState rotateState) {
+        [_delegate onRotate:source rotationFactor:rotation rotateState:rotateState];
     }
 
 private:

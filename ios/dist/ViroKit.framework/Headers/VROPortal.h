@@ -41,7 +41,8 @@ public:
      Render this portal's silhouette. The geometry is rendered using the provided material. This
      method is typically used to render into the stencil or depth buffers only.
      */
-    void renderPortalSilhouette(std::shared_ptr<VROMaterial> &material, VROSilhouetteMode mode,
+    void renderPortalSilhouette(std::shared_ptr<VROMaterial> &material,
+                                VROSilhouetteMode mode, std::function<bool(const VRONode &)> filter,
                                 const VRORenderContext &context, std::shared_ptr<VRODriver> &driver);
     
     /*
@@ -234,6 +235,12 @@ private:
      Installs required shader modifiers on the background.
      */
     void installBackgroundShaderModifier();
+    
+    /*
+     Deactivates culling on every geometry in the given node, recursively down the
+     tree. Needed to ensure culling is off on portal frames.
+     */
+    void deactivateCulling(std::shared_ptr<VRONode> node);
     
 };
 

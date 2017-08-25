@@ -45,7 +45,7 @@ private:
         _thickness(thickness)
     {}
     
-    static size_t encodeLine(const std::vector<VROVector3f> path, VROByteBuffer &outBuffer);
+    static size_t encodeLine(const std::vector<VROVector3f> &path, VROByteBuffer &outBuffer);
     static size_t encodeQuad(VROLineSegment segment, bool beginDegenerate, bool endDegenerate, VROByteBuffer &buffer);
     static size_t encodeCircularEndcap(VROVector3f center, bool beginDegenerate, bool endDegenerate, VROByteBuffer &buffer);
 

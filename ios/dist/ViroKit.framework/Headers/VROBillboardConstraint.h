@@ -25,11 +25,9 @@ public:
     VROBillboardConstraint(VROBillboardAxis freeAxis) :
         _freeAxis(freeAxis) {}
     
-    virtual VROMatrix4f getTransform(const VRONode &node,
-                                     const VRORenderContext &context,
+    VROMatrix4f getTransform(const VRORenderContext &context,
                                      VROMatrix4f transform);
-    
-    
+
 private:
     
     VROBillboardAxis _freeAxis;

@@ -26,12 +26,13 @@ enum class VROCullMode {
 };
 
 enum class VROBlendMode {
+    None,
     Alpha,
     Add,
-    Subtract,
-    Multiply,
-    Screen,
-    Replace
+    Multiply,   // Note: Unimplemented mode
+    Subtract,   // Note: Unimplemented mode
+    Screen,     // Note: Unimplemented mode
+    Replace     // Note: Unimplemented mode
 };
 
 enum class VROTransparencyMode {
@@ -175,6 +176,10 @@ public:
     VROBlendMode getBlendMode() const {
         return _blendMode;
     }
+    void setBlendMode(VROBlendMode mode){
+        _blendMode = mode;
+    }
+
     bool getWritesToDepthBuffer() const {
         return _writesToDepthBuffer;
     }
@@ -189,6 +194,13 @@ public:
     void setReadsFromDepthBuffer(bool readsFromDepthBuffer) {
         _readsFromDepthBuffer = readsFromDepthBuffer;
         updateSubstrate();
+    }
+    
+    void setBloomThreshold(float threshold) {
+        _bloomThreshold = threshold;
+    }
+    float getBloomThreshold() const {
+        return _bloomThreshold;
     }
 
     void addShaderModifier(std::shared_ptr<VROShaderModifier> modifier);
@@ -312,6 +324,12 @@ private:
      Modifiers to alter the shader code.
      */
     std::vector<std::shared_ptr<VROShaderModifier>> _shaderModifiers;
+    
+    /*
+     If fragments of this material exceed this value, then those fragments will
+     glow. If less than 0, bloom will be disabled. Defaults to -1.
+     */
+    float _bloomThreshold;
     
     /*
      Representation of this material in the underlying graphics hardware.

@@ -42,7 +42,7 @@ public:
      method is typically used to render into the stencil or depth buffers only.
      */
     void renderPortalSilhouette(std::shared_ptr<VROMaterial> &material,
-                                VROSilhouetteMode mode, VROSilhouetteFilter filter,
+                                VROSilhouetteMode mode, std::function<bool(const VRONode &)> filter,
                                 const VRORenderContext &context, std::shared_ptr<VRODriver> &driver);
     
     /*

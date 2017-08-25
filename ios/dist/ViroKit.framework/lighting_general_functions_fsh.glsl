@@ -17,18 +17,31 @@ struct VROLightUniforms {
     highp float spot_inner_angle;
     
     highp float spot_outer_angle;
-    lowp float padding3;
-    lowp float padding4;
-    lowp float padding5;
+    int shadow_map_index;
+    lowp float shadow_bias;
+    lowp float shadow_opacity;
 };
 
-layout (std140) uniform lighting {
+layout (std140) uniform lighting_fragment {
     int num_lights;
     lowp float padding0, padding1, padding2;
     
     lowp vec4 ambient_light_color;
     VROLightUniforms lights[8];
 };
+
+struct VROLightingContribution {
+    highp vec3 ambient;
+    highp vec3 diffuse;
+    highp vec3 specular;
+    highp float visibility; // Fades light, e.g. due to shadows
+} _lightingContribution;
+
+struct VROShaderLight {
+    highp vec3  color;
+    highp vec3  surface_to_light;
+    highp float attenuation;
+} _light;
 
 highp float compute_attenuation(const VROLightUniforms light,
                                 highp vec3 surface_pos,
@@ -38,13 +51,13 @@ highp float compute_attenuation(const VROLightUniforms light,
     
     // Directional light
     if (light.type == 1) {
-        surface_to_light = normalize(light.direction.xyz);
+        surface_to_light = -normalize(light.direction.xyz);
         attenuation = 1.0;
     }
     
     // Omni + Spot lights
     else {
-        surface_to_light = -normalize(light.position.xyz - surface_pos);
+        surface_to_light = normalize(light.position.xyz - surface_pos);
         highp float distance_to_light = length(light.position.xyz - surface_pos);
         highp float d = clamp((distance_to_light - light.attenuation_start_distance) /
                               (light.attenuation_end_distance - light.attenuation_start_distance),
@@ -54,7 +67,7 @@ highp float compute_attenuation(const VROLightUniforms light,
         
         // Spot light
         if (light.type == 3) {
-            highp float light_surface_angle = acos(dot(surface_to_light, normalize(light.direction.xyz)));
+            highp float light_surface_angle = acos(dot(surface_to_light, -normalize(light.direction.xyz)));
             if (light_surface_angle > light.spot_inner_angle) {
                 highp float t = clamp((light_surface_angle - light.spot_inner_angle) / light.spot_outer_angle, 0.0, 1.0);
                 attenuation = mix(attenuation, 0.0, t);

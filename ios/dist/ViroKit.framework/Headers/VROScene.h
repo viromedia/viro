@@ -19,6 +19,7 @@
 #include "VROThreadRestricted.h"
 #include "VROPhysicsWorld.h"
 #include "VROTree.h"
+#include "VROParticleEmitter.h"
 
 class VRONode;
 class VROPortal;
@@ -85,7 +86,24 @@ public:
             _physicsWorld->computePhysics(context);
         }
     }
-    
+
+    /*
+     Particle Emitters are stored and computed per scene.
+     */
+    void computeParticles(const VRORenderContext &context) {
+        for (std::shared_ptr<VROParticleEmitter> emitter: _activeParticles) {
+            emitter->update(context);
+        }
+    }
+
+    void addParticleEmitter(std::shared_ptr<VROParticleEmitter> emitter) {
+        _activeParticles.push_back(emitter);
+    }
+
+    void removeParticleEmitter(std::shared_ptr<VROParticleEmitter> emitter) {
+        _activeParticles.erase(std::remove(_activeParticles.begin(), _activeParticles.end(), emitter), _activeParticles.end());
+    }
+
     /*
      Attach or detach input controllers.
      */
@@ -113,6 +131,13 @@ public:
      Get the portal tree. Reconstructed each frame.
      */
     const tree<std::shared_ptr<VROPortal>> getPortalTree() const;
+    
+    /*
+     Get all the lights in the scene, as collected from the last render cycle.
+     */
+    const std::vector<std::shared_ptr<VROLight>> &getLights() const {
+        return _lights;
+    }
 
 protected:
     
@@ -132,6 +157,11 @@ protected:
     tree<std::shared_ptr<VROPortal>> _portals;
     
     /*
+     All the lights in the scene, as collected during the last render cycle.
+     */
+    std::vector<std::shared_ptr<VROLight>> _lights;
+    
+    /*
      The distance from the camera of the furthest away object, since the last
      call to updateSortKeys. Distance is from the camera to the bounding
      box of the object.
@@ -142,6 +172,11 @@ protected:
      Manages the physics in the scene.
      */
     std::shared_ptr<VROPhysicsWorld> _physicsWorld = nullptr;
+
+    /*
+     Represents a list of all actively emitting particles in this scene.
+     */
+    std::vector<std::shared_ptr<VROParticleEmitter>> _activeParticles;
     
     /*
      The active portal; the scene is rendered as though the camera is in this

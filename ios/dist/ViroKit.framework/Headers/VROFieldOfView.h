@@ -73,7 +73,7 @@ public:
         float bottom = -tanf(degrees_to_radians(_bottom)) * near;
         float top    =  tanf(degrees_to_radians(_top))    * near;
         
-        return matrix_for_frustum(left, right, bottom, top, near, far);
+        return VROMathComputeFrustum(left, right, bottom, top, near, far);
     }
     
     bool equals(const VROFieldOfView *other) const {

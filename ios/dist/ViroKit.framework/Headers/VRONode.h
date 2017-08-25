@@ -15,6 +15,7 @@
 #include <string>
 #include <set>
 #include <algorithm>
+#include <functional>
 #include "optional.hpp"
 #include "VROMatrix4f.h"
 #include "VROQuaternion.h"
@@ -52,8 +53,8 @@ enum class VRONodeType {
 };
 
 enum class VROSilhouetteMode {
-    Flat,         // Render silhouettes with constant lighting, no textures
-    Textured,     // Render silhouettes with constant lighting and textures
+    Flat,             // Render silhouettes with constant lighting, no textures
+    Textured,         // Render silhouettes with constant lighting and textures
 };
 
 class VRONode : public VROAnimatable, public VROThreadRestricted {
@@ -165,9 +166,14 @@ public:
      Lighting is fixed at constant, and the given material is used for all elements.
      If mode is set to Textured, then textures will be bound. This method is typically
      used to render to the stencil or depth buffers only.
+     
+     The filter is used to only render the silhouettes of specific objects. Returns
+     true on each node to render, false to not. Either way we continue down the tree
+     recursively.
      */
-    void renderSilhouette(std::shared_ptr<VROMaterial> &material, VROSilhouetteMode mode,
-                          const VRORenderContext &context, std::shared_ptr<VRODriver> &driver);
+    void renderSilhouettes(std::shared_ptr<VROMaterial> &material, VROSilhouetteMode mode,
+                           std::function<bool(const VRONode&)> filter,
+                           const VRORenderContext &context, std::shared_ptr<VRODriver> &driver);
     
 #pragma mark - Geometry
     
@@ -194,6 +200,7 @@ public:
     VROVector3f getComputedPosition() const;
     VROMatrix4f getComputedRotation() const;
     VROMatrix4f getComputedTransform() const;
+    VROMatrix4f getLastComputedTransform() const;
 
     VROVector3f getPosition() const {
         return _position;
@@ -330,6 +337,20 @@ public:
     }
     uint32_t getComputedLightsHash() const {
         return _computedLightsHash;
+    }
+    
+    void setLightBitMask(int bitMask) {
+        _lightBitMask = bitMask;
+    }
+    int getLightBitMask() const {
+        return _lightBitMask;
+    }
+    
+    void setShadowCastingBitMask(int bitMask) {
+        _shadowCastingBitMask = bitMask;
+    }
+    int getShadowCastingBitMask() const {
+        return _shadowCastingBitMask;
     }
 
 #pragma mark - Sounds
@@ -498,7 +519,6 @@ public:
     }
 
     void setIsBeingDragged(bool isDragging) {
-        _selectable = !isDragging;
         std::shared_ptr<VROPhysicsBody> physicsBody = getPhysicsBody();
         if (physicsBody != nullptr) {
             physicsBody->setKinematicDrag(isDragging);
@@ -607,6 +627,12 @@ private:
     uint32_t _computedLightsHash;
     VROVector3f _computedPosition;
     std::weak_ptr<VROTransformDelegate> _transformDelegate;
+
+    /*
+     Because _computedTransform is computed multiple times during a single render, storing
+     the last fully computed transform is necessary to retrieve a "valid" computedTransform.
+     */
+    VROMatrix4f _lastComputedTransform;
 
     /*
      The transformed bounding box containing this node's geometry. The 
@@ -721,10 +747,21 @@ private:
     bool hitTestGeometry(VROVector3f origin, VROVector3f ray, VROMatrix4f transform);
     
     /*
-     If the portal is inside-out, meaning during the last renderStencil() we wrote its parent's
-     stencil bits, then this is true.
+     The light and shadow bit masks. These are logically ANDed with each light's
+     influence bit mask.
+     
+     If the result is non-zero for the light bit mask, then the light will illuminate
+     the node. If the result is zero, then this node will be excluded from the light's
+     illumination, including receipt of that light's shadows.
+     
+     If the AND result is non-zero for the shadow casting bit map, then the node
+     will be cast shadows from the light (e.g. it will be rendered to that light's
+     shadow map). If the result is zero, it will not cast shadows from said light.
+     
+     These both default to 1.
      */
-    bool _portalInsideOut;
+    int _lightBitMask;
+    int _shadowCastingBitMask;
 
     /*
      Physics rigid body that if defined, drives and sets the transformations of this node.

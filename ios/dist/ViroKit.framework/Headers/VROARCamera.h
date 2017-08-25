@@ -61,7 +61,7 @@ public:
      Get the projection matrix needed to render a 3D scene to match the image
      captured by this AR camera. The returned matrix is a concatenation of the
      AR camera's intrinsic matrix (3D space --> 2D space) and the renderer's
-     orthogonal projection matrix (2D space --> normalized device space).
+     orthographic projection matrix (2D space --> normalized device space).
      This function should also output the field of view in the provided output
      variable.
      */

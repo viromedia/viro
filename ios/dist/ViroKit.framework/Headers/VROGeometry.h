@@ -30,6 +30,7 @@ class VROGeometryElement;
 class VROGeometrySource;
 class VROGeometrySubstrate;
 class VROMatrix4f;
+class VROInstancedUBO;
 enum class VROGeometrySourceSemantic;
 
 /*
@@ -52,7 +53,8 @@ public:
         _cameraEnclosure(false),
         _screenSpace(false),
         _bounds(nullptr),
-        _substrate(nullptr) {
+        _substrate(nullptr),
+        _instancedUBO(nullptr){
             
          ALLOCATION_TRACKER_ADD(Geometry, 1);
     }
@@ -125,7 +127,8 @@ public:
                                   std::shared_ptr<VRODriver> &driver);
     
     void updateSortKeys(VRONode *node, uint32_t hierarchyId, uint32_t hierarchyDepth,
-                        uint32_t lightsHash, float opacity, float distanceFromCamera, float zFar,
+                        uint32_t lightsHash, const std::vector<std::shared_ptr<VROLight>> &lights,
+                        float opacity, float distanceFromCamera, float zFar,
                         std::shared_ptr<VRODriver> &driver);
     void getSortKeys(std::vector<VROSortKey> *outKeys);
     
@@ -181,6 +184,13 @@ public:
     
     std::vector<std::shared_ptr<VROGeometrySource>> getGeometrySourcesForSemantic(VROGeometrySourceSemantic semantic) const;
 
+    void setInstancedUBO(std::shared_ptr<VROInstancedUBO> instancedUBO) {
+        _instancedUBO = instancedUBO;
+    }
+
+    const std::shared_ptr<VROInstancedUBO> &getInstancedUBO() const{
+        return _instancedUBO;
+    }
 protected:
     
     void setSources(std::vector<std::shared_ptr<VROGeometrySource>> sources) {
@@ -193,7 +203,6 @@ protected:
     }
     
 private:
-    
     /*
      User-assigned name of this geometry.
      */
@@ -252,7 +261,12 @@ private:
      geometry sources or elements change).
      */
     void updateSubstrate();
-    
+
+    /*
+     If set, this geometry is instanced rendered with the configurations set by this
+     instancedUBO.
+     */
+    std::shared_ptr<VROInstancedUBO> _instancedUBO;
 };
 
 #endif /* VROGeometry_h */

@@ -40,6 +40,7 @@ enum class VROMipmapMode;
 enum class VRORenderTargetType;
 enum class VROFace;
 enum class VROCullMode;
+enum class VROBlendMode;
 
 /*
  The driver is used to interface with the rendering subsystem (OpenGL,
@@ -87,6 +88,12 @@ public:
      */
     virtual bool isGammaCorrectionEnabled() = 0;
     
+    /*
+     Return true if bloom rendering is enabled. If so, materials that exceed their
+     bloom threshold will glow.
+     */
+    virtual bool isBloomEnabled() = 0;
+    
     virtual VROGeometrySubstrate *newGeometrySubstrate(const VROGeometry &geometry) = 0;
     virtual VROMaterialSubstrate *newMaterialSubstrate(VROMaterial &material) = 0;
     virtual VROTextureSubstrate *newTextureSubstrate(VROTextureType type,
@@ -97,7 +104,7 @@ public:
                                                      int width, int height, std::vector<uint32_t> mipSizes,
                                                      VROWrapMode wrapS, VROWrapMode wrapT,
                                                      VROFilterMode minFilter, VROFilterMode magFilter, VROFilterMode mipFilter) = 0;
-    virtual std::shared_ptr<VRORenderTarget> newRenderTarget(VRORenderTargetType type, int numImages) = 0;
+    virtual std::shared_ptr<VRORenderTarget> newRenderTarget(VRORenderTargetType type, int numAttachments, int numImages) = 0;
     virtual std::shared_ptr<VRORenderTarget> getDisplay() = 0;
     virtual std::shared_ptr<VROImagePostProcess> newImagePostProcess(std::shared_ptr<VROShaderProgram> shader) = 0;
     virtual std::shared_ptr<VROVideoTextureCache> newVideoTextureCache() = 0;
@@ -108,7 +115,7 @@ public:
     virtual std::shared_ptr<VROTypeface> newTypeface(std::string typeface, int size) = 0;
     virtual void setSoundRoom(float sizeX, float sizeY, float sizeZ, std::string wallMaterial,
                               std::string ceilingMaterial, std::string floorMaterial) = 0;
-
+    virtual void setBlendingMode(VROBlendMode mode) = 0;
 };
 
 #endif /* VRODriver_hpp */

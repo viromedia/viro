@@ -81,7 +81,9 @@ public:
     
     /*
      Create a new VROTexture with no underlying image data.
-     The image data must be injected via setImage*() or setSubstrate().
+     The image data must be injected via setSubstrate(). This is
+     the preferred constructor for multi-substrate textures
+     (e.g. YCbCr).
      */
     VROTexture(VROTextureType type,
                VROTextureInternalFormat internalFormat,
@@ -97,21 +99,28 @@ public:
     /*
      Create a new VROTexture from a VROImage.
      */
-    VROTexture(VROTextureInternalFormat internalFormat,
+    VROTexture(VROTextureInternalFormat internalFormat, bool sRGB,
                VROMipmapMode mipmapMode,
                std::shared_ptr<VROImage> image,
                VROStereoMode stereoMode = VROStereoMode::None);
 
-    VROTexture(VROTextureInternalFormat internalFormat,
+    VROTexture(VROTextureInternalFormat internalFormat, bool sRGB,
                std::vector<std::shared_ptr<VROImage>> &images,
                VROStereoMode stereoMode = VROStereoMode::None);
     
     /*
      Create a new VROTexture from the given raw data in the given format.
+     The format parameter defines the input format of the data, and
+     internal format specifies how to store the texture in GPU memory.
+     Set sRGB to true if the texture is in sRGB color space (gamma 2.2), and
+     should be gamma-uncorrected into linear RGB space when sampled, for better
+     accuracy during shader computations. This should *only* be used if gamma
+     correction is enabled on the framebuffer or shader (to convert
+     from linear back to gamma 2.2 space when writing to the framebuffer).
      */
     VROTexture(VROTextureType type,
                VROTextureFormat format,
-               VROTextureInternalFormat internalFormat,
+               VROTextureInternalFormat internalFormat, bool sRGB,
                VROMipmapMode mipmapMode,
                std::vector<std::shared_ptr<VROData>> &data,
                int width, int height,
@@ -241,6 +250,13 @@ private:
      each represented by a separate substrate.
      */
     std::vector<std::unique_ptr<VROTextureSubstrate>> _substrates;
+    
+    /*
+     True if the underlying substrate should gamma-uncorrect the texture data
+     into linear space when sampled. Typically only diffuse texture are stored
+     in sRGB formats and therefore need gamma-uncorrection.
+     */
+    bool _sRGB;
 
     /*
      Represents the stereo property of the image, if any.
