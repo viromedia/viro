@@ -69,7 +69,7 @@ var PortalItemRender = React.createClass({
                                materials={this.props.portalItem.materials}
                                resource={this.props.portalItem.resources} onLoadStart={this._onObjectLoadStart(j)} onLoadEnd={this._onObjectLoadEnd(j)}/>
                </ViroPortalFrame>
-              <Viro360Image source={require('../res/360_diving.jpg')} />
+              <Viro360Image source={this.props.portalItem.portal360Image} />
             </ViroPortal>
           </ViroARNode>
         );

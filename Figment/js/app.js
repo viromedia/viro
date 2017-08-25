@@ -12,7 +12,7 @@ import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
 import { BlurView } from 'react-native-blur';
-import {toggleModelSelection, togglePortalSelection, changePortalLoadState, changeModelLoadState, switchListMode, removeARObject, displayUIScreen } from './redux/actions';
+import {toggleModelSelection, togglePortalSelection, changePortalLoadState, changePortalPhoto, changeModelLoadState, switchListMode, removeARObject, displayUIScreen } from './redux/actions';
 import * as LoadingConstants from './redux/LoadingStateConstants';
 import * as UIConstants from './redux/UIConstants';
 import renderIf from './helpers/renderIf';
@@ -42,6 +42,8 @@ import {
   ActionSheetIOS,
   CameraRoll,
   Alert,
+  Button,
+  StatusBar,
 } from 'react-native';
 
 import {
@@ -70,6 +72,7 @@ export class App extends Component {
     this._saveToCameraRoll = this._saveToCameraRoll.bind(this);
     this._renderPhotosSelector = this._renderPhotosSelector.bind(this);
     this._takeScreenshot = this._takeScreenshot.bind(this);
+    this._onPhotoSelected = this._onPhotoSelected.bind(this);
 
     this.state = {
       currentModeSelected:kObjSelectMode,
@@ -79,6 +82,7 @@ export class App extends Component {
       viroAppProps: {loadingObjectCallback: this._onListItemLoaded},
       showPhotosSelector : false,
       previewType: kPreviewTypeVideo,
+      lastSelectedPortalIndex: -1,
     };
   }
 
@@ -107,11 +111,27 @@ export class App extends Component {
 
   _renderPhotosSelector() {
     // TODO: remove the return to render the selector when portal is tapped
-    return;
-    if (this.props.listMode == UIConstants.LIST_MODE_PORTAL) {
-      return (<PhotosSelector style={localStyles.photosSelectorStyle} rows={2.3} columns={4}
-        onPhotoSelected={(index, source)=>{console.log("Selected " + index + ", source " + source)}}/>)
+    if (this.state.showPhotosSelector == true && this.props.listMode == UIConstants.LIST_MODE_PORTAL && this.state.lastSelectedPortalIndex != -1) {
+      var photoSelectorViews = [];
+        photoSelectorViews.push(<StatusBar key="statusBarKey" hidden={true} />);
+        photoSelectorViews.push(<View key="topPhotoBar" style={localStyles.topPhotoBar}>
+          <BlurView style={localStyles.absolute} blurType="dark" blurAmount={10} />
+          <View style={{flex:1, backgroundColor:"#00000000"}}/>
+            <Text style={localStyles.photosText}>My Photos</Text>
+            <Text onPress={()=>{this.setState({showPhotosSelector:false})}}
+                  style={localStyles.doneText}>Done</Text>
+          </View>);
+          photoSelectorViews.push(<PhotosSelector key="photosSelector" style={localStyles.photosSelectorStyle} rows={2.3} columns={4}
+          onPhotoSelected={this._onPhotoSelected}/>);
+          return photoSelectorViews;
     }
+    return null;
+  }
+
+  _onPhotoSelected(index, source) {
+    console.log("onPhotoSelected index: " + index + "source:");
+    console.log(source);
+    this.props.dispatchChangePortalPhoto(this.state.lastSelectedPortalIndex, source);
   }
 
   _setARNavigatorRef(ARNavigator){
@@ -190,11 +210,14 @@ export class App extends Component {
             stateImageArray={[require("./res/btn_mode_objects_on.png"), require("./res/btn_mode_objects.png")]}
             />);
 
-    return (
-         <View style={{position:'absolute', justifyContent: 'space-between', flexDirection:'column', left:10, bottom:120, width:100, height:240, flex:1}}>
-            {buttons}
-         </View>
-      );
+    if(this.props.currentScreen == UIConstants.SHOW_MAIN_SCREEN && (this.state.showPhotosSelector==false)) {
+      return (
+           <View style={{position:'absolute', justifyContent: 'space-between', flexDirection:'column', left:10, bottom:120, width:100, height:240, flex:1}}>
+              {buttons}
+           </View>
+        );
+    }
+    return null;
   }
 
   _renderRecord() {
@@ -202,7 +225,7 @@ export class App extends Component {
 
     if(this.props.currentScreen == UIConstants.SHOW_RECORDING_SCREEN) {
       recordViews.push(
-        <View  key="record_timeline" style={{position: 'absolute', backgroundColor: '#22222244', left: 0, right: 0, top: 0, height:100,  alignSelf: 'stretch', }}>
+        <View key="record_timeline" style={{position: 'absolute', backgroundColor: '#22222244', left: 0, right: 0, top: 0, height:100,  alignSelf: 'stretch', }}>
           <Text style={localStyles.recordingTimeText}>00:01:00</Text>
         </View>
       );
@@ -307,8 +330,17 @@ export class App extends Component {
 
     if(this.props.listMode == UIConstants.LIST_MODE_PORTAL) {
       if(this.props.portalItems[index].selected == true) {
-            this.props.dispatchChangePortalLoadState(index, LoadingConstants.NONE);
+          this.props.dispatchChangePortalLoadState(index, LoadingConstants.NONE);
+          this.setState({
+            lastSelectedPortalIndex:-1,
+          });
+      } else {
+        this.setState({
+          lastSelectedPortalIndex:index,
+          showPhotosSelector: true,
+        });
       }
+
       this.props.dispatchTogglePortalSelection(index);
     }
   }
@@ -369,6 +401,14 @@ var localStyles = StyleSheet.create({
     position : 'absolute',
     bottom : 0,
   },
+  topPhotoBar: {
+    height : 50,
+    width : '100%',
+    position : 'absolute',
+    top : 0,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
   listViewText: {
     textAlign: 'left',
     color: '#d6d6d6',
@@ -377,6 +417,27 @@ var localStyles = StyleSheet.create({
     marginTop:5,
     marginBottom: 5,
     backgroundColor: '#00000000',
+  },
+  doneText: {
+    textAlign: 'right',
+    color: '#d6d6d6',
+    fontFamily: 'Helvetica Neue',
+    fontSize: 16,
+    marginTop:20,
+    marginRight:10,
+    marginBottom: 5,
+    backgroundColor: '#00000000',
+    flex:1,
+  },
+  photosText: {
+    textAlign: 'center',
+    color: '#d6d6d6',
+    fontFamily: 'Helvetica Neue',
+    fontSize: 16,
+    marginTop:20,
+    marginBottom: 5,
+    backgroundColor: '#00000000',
+    flex:1,
   },
   previewScreenButtons: {
     height: 80,
@@ -418,6 +479,17 @@ var localStyles = StyleSheet.create({
     bottom: 0,
     right: 0,
     backgroundColor : '#000000',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  shareScreenContainerTransparent: {
+    position : 'absolute',
+    top: 0,
+    left: 0,
+    bottom: 0,
+    right: 0,
+    backgroundColor : '#00000000',
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
@@ -468,6 +540,7 @@ const mapDispatchToProps = (dispatch) => {
     dispatchChangePortalLoadState:(index, loadState) =>dispatch(changePortalLoadState(index, loadState)),
     dispatchDisplayUIScreen: (uiScreenState) => dispatch(displayUIScreen(uiScreenState)),
     dispatchSwitchListMode: (listMode, listTitle) =>dispatch(switchListMode(listMode, listTitle)),
+    dispatchChangePortalPhoto:(index, source)=>dispatch(changePortalPhoto(index, source)),
   }
 }
 

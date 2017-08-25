@@ -49,6 +49,14 @@ export function changeModelLoadState(index, loadState) {
   };
 }
 
+export function changePortalPhoto(index, photo) {
+  return {
+    type: 'CHANGE_PORTAL_PHOTO',
+    index: index,
+    photoSource: photo,
+  }
+}
+
 export function changePortalLoadState(index, loadState) {
   console.log("EXECUTING CHANGE PORTAL LOAD STATE index:" + index);
   return {

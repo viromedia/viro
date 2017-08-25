@@ -44,15 +44,33 @@ import * as PortalData from  '../../model/PortalItems';
    }
  }
 
+ function changePortalPhoto(state = {}, action) {
+    switch (action.type) {
+        case 'CHANGE_PORTAL_PHOTO':
+          return {
+            ...state,
+            portal360Image: action.photoSource,
+          };
+        default:
+          return state;
+    }
+ }
+
 function modifyItem(state = [], action) {
     switch (action.type) {
+      case 'CHANGE_PORTAL_PHOTO':
+        return [
+          ...state.slice(0, action.index),
+          changePortalPhoto(state[action.index], action),
+          ...state.slice(parseInt(action.index) +1),
+        ]
       case 'TOGGLE_MODEL_SELECTED':
       case 'TOGGLE_PORTAL_SELECTED':
-      return [
-        ...state.slice(0, action.index),
-        toggleItemSelected(state[action.index], action),
-        ...state.slice(parseInt(action.index) +1),
-      ]
+        return [
+          ...state.slice(0, action.index),
+          toggleItemSelected(state[action.index], action),
+          ...state.slice(parseInt(action.index) +1),
+        ]
 
       case 'CHANGE_MODEL_LOAD_STATE':
       case 'CHANGE_PORTAL_LOAD_STATE':
@@ -65,7 +83,6 @@ function modifyItem(state = [], action) {
         return state;
     }
 }
-
 
 function arobjects(state = initialState, action) {
   switch (action.type) {
@@ -81,6 +98,7 @@ function arobjects(state = initialState, action) {
       };
     case 'CHANGE_PORTAL_LOAD_STATE':
     case 'TOGGLE_PORTAL_SELECTED':
+    case 'CHANGE_PORTAL_PHOTO':
         var updatedPortalInfo = modifyItem(state.portalItems.slice(0), action);
         return {
           ...state,
