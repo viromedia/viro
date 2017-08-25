@@ -10,12 +10,14 @@
 #import "VRTImage.h"
 #import "VRTMaterialManager.h"
 #import "VRTImageAsyncLoader.h"
+#import "VRTPhotoLibraryAsyncLoader.h"
 
 static float const kDefaultWidth = 1;
 static float const kDefaultHeight = 1;
 
 @implementation VRTImage {
     VRTImageAsyncLoader *_loader;
+    VRTPhotoLibraryAsyncLoader *_assetLoader;
     std::shared_ptr<VROTexture> _texture;
     BOOL _widthOrHeightPropSet;
     BOOL _widthOrHeightChanged;
@@ -36,6 +38,7 @@ static float const kDefaultHeight = 1;
     self = [super initWithBridge:bridge];
     if (self) {
         _loader = [[VRTImageAsyncLoader alloc] initWithDelegate:self];
+        _assetLoader = [[VRTPhotoLibraryAsyncLoader alloc] initWithDelegate:self];
         _width = kDefaultWidth;
         _height = kDefaultHeight;
         _scaledWidth = kDefaultWidth;
@@ -149,7 +152,11 @@ static float const kDefaultHeight = 1;
         
         // Start loading the image
         if (_source) {
-            [_loader loadImage:_source];
+            if([_assetLoader canLoadImageURL:_source.request.URL]) {
+                [_assetLoader loadImage:_source];
+            } else {
+                [_loader loadImage:_source];
+            }
         }
         _imageNeedsDownload = NO;
     }
