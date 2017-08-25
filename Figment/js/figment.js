@@ -62,28 +62,29 @@ var figment = React.createClass({
   render: function() {
     console.log("Figment; Rerender AR Scene OCCURRED");
     return (
-        <ViroARScene ref="arscene" reticleEnabled={false} physicsWorld={{gravity:[0, -9.81, 0]}} >
-            <ViroDirectionalLight color="#ffffff" direction={[0,-1,-.2]}/>
-            <ViroAmbientLight color="#ffffff" intensity={200}/>
+        <ViroARScene ref="arscene" physicsWorld={{gravity:[0, -9.81, 0]}} 
+            onTrackingInitialized={()=>{console.log("ARScene Initialized!")}}>
+          <ViroDirectionalLight color="#ffffff" direction={[0,-1,-.2]}/>
+          <ViroAmbientLight color="#ffffff" intensity={200}/>
 
-            <ViroSpotLight
-              innerAngle={5}
-              outerAngle={90}
-              direction={[0,-1,0]}
-              position={[0, 5, 0]}
-              color="#ffffff"/>
+          <ViroSpotLight
+            innerAngle={5}
+            outerAngle={90}
+            direction={[0,-1,0]}
+            position={[0, 5, 0]}
+            color="#ffffff"/>
 
 
-            <ViroSpotLight
-              innerAngle={5}
-              outerAngle={90}
-              direction={[0,1,0]}
-              position={[0, -5, 0]}
-              color="#ffffff"
-              intensity={500}/>
+          <ViroSpotLight
+            innerAngle={5}
+            outerAngle={90}
+            direction={[0,1,0]}
+            position={[0, -5, 0]}
+            color="#ffffff"
+            intensity={500}/>
 
-            {this.renderModels(this.props.modelItems)}
-            {this.renderPortals(this.props.portalItems)}
+          {this.renderModels(this.props.modelItems)}
+          {this.renderPortals(this.props.portalItems)}
         </ViroARScene>
     );
   },

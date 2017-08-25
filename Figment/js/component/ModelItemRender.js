@@ -44,7 +44,7 @@ var ModelItemRender = React.createClass({
     getInitialState() {
       return {
         scale : this.props.modelItem.scale,
-        rotation : [90, 90, 90],
+        rotation : [0, 0, 0],
         nodeIsVisible : false,
         position: [0, 0, 0],
         shouldBillboard : false,
@@ -61,7 +61,9 @@ var ModelItemRender = React.createClass({
           <ViroARNode key={j} visible={this.state.nodeIsVisible} position={this.state.position} onDrag={()=>{}}>
             <Viro3DObject ref={this._setComponentRef()}
                 {...transformBehaviors}
+                position={this.props.modelItem.position}
                 scale={this.state.scale}
+                scalePivot={this.props.modelItem.scalePivot}
                 rotation={this.state.rotation}
                 source={this.props.modelItem.obj}
                 materials={this.props.modelItem.materials}
@@ -69,7 +71,7 @@ var ModelItemRender = React.createClass({
                 animation={this.props.modelItem.animation}
                 onClickState={this._onClickState(j)}
                 onError={this._onError(j)}  onRotate={this._onRotateGesture(j)} onLoadStart={this._onObjectLoadStart(j)} onLoadEnd={this._onObjectLoadEnd(j)}
-                position={[0,0,0]} onPinch={this._onPinchIndex(j)} />
+                onPinch={this._onPinchIndex(j)} />
           </ViroARNode>
         );
     },
