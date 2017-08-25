@@ -49,7 +49,7 @@ import * as PortalData from  '../../model/PortalItems';
         case 'CHANGE_PORTAL_PHOTO':
           return {
             ...state,
-            portal360Image: action.photoSource,
+            portal360Image: {...action.photoSource},
           };
         default:
           return state;

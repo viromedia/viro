@@ -23,6 +23,8 @@ import {
   ViroPortal,
   ViroPortalFrame,
   ViroMaterials,
+  ViroImage,
+  ViroSphere,
 } from 'react-viro';
 
 
@@ -71,7 +73,7 @@ var PortalItemRender = React.createClass({
                                materials={this.props.portalItem.materials}
                                resource={this.props.portalItem.resources} onLoadStart={this._onObjectLoadStart(j)} onLoadEnd={this._onObjectLoadEnd(j)}/>
                </ViroPortalFrame>
-              <Viro360Image source={this.props.portalItem.portal360Image} />
+              {this._renderPortalInside()}
             </ViroPortal>
           </ViroARNode>
         );
@@ -115,6 +117,29 @@ var PortalItemRender = React.createClass({
         }
         this.props.onClickStateCallback(index, clickState, UIConstants.LIST_MODE_PORTAL);
       });
+    },
+
+    _renderPortalInside() {
+        console.log("_renderPortalInside");
+        console.log(this.props.portalItem.portal360Image);
+        console.log("_renderPortalInside source:");
+        console.log(this.props.portalItem.portal360Image.source);
+        if(this._is360Photo(this.props.portalItem.portal360Image.width, this.props.portalItem.portal360Image.height)) {
+          return (
+            <Viro360Image source={this.props.portalItem.portal360Image.source} />
+          );
+        } else {
+          var viewArray = [];
+          viewArray.push(<ViroSphere position={[0,0,0]} radius={56} facesOutward={false} key="background_portal" materials="theatre" />);
+          viewArray.push(<ViroImage key="image_portal" width={1} height={1}  resizeMode='scaleToFit' source={this.props.portalItem.portal360Image.source}
+                         position={[0, 3.9, -39]} scale={[42, 21, 1]} />);
+          return viewArray;
+        }
+    },
+
+    _is360Photo(width, height) {
+      let ratio = width / height;
+      return (ratio > 1.9 && ratio < 2.2);
     },
 
     _onRotateGesture(index) {
@@ -234,6 +259,9 @@ ViroMaterials.createMaterials({
   portal_ship: {
     diffuseTexture: require("../res/portal_ship/portal_ship_diffuse.png"),
     normalTexture: require("../res/portal_ship/portal_ship_normal.png"),
+  },
+  theatre: {
+    diffuseTexture: require("../res/360_dark_theatre.jpg"),
   },
 });
 

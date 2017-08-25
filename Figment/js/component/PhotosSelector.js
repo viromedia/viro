@@ -64,7 +64,7 @@ var STOCK_360_PHOTOS = [
 ];
 
 export class PhotosSelector extends Component {
-  // -- Props/State/Constructors 
+  // -- Props/State/Constructors
 
   static propTypes = {
     /*
@@ -227,7 +227,7 @@ export class PhotosSelector extends Component {
     if (data) {
       let index = this.props.columns * row + column;
       return (
-        <TouchableOpacity style={[localStyles.touchElement]} activeOpacity={.5} focusedOpacity={.5} onPress={this._getElementClick(row, column, data.source)} >
+        <TouchableOpacity style={[localStyles.touchElement]} activeOpacity={.5} focusedOpacity={.5} onPress={this._getElementClick(row, column, data)} >
           <Image style={localStyles.fetchedImageStyle} source={data.source} ref={this._storeRef(row, column)}
               onError={(error)=>{console.log("[PhotoSelector] load image error: " + error.nativeEvent.error)}} />
         </TouchableOpacity>
@@ -263,9 +263,9 @@ export class PhotosSelector extends Component {
 
     let previousSelection = this.refList[this._getRefKey(this.selectedRow, this.selectedColumn)];
     if (previousSelection) {
-      previousSelection.setNativeProps({ style : { opacity : 1 } }); 
+      previousSelection.setNativeProps({ style : { opacity : 1 } });
     }
-    
+
     let newSelection = this.refList[this._getRefKey(row, column)];
     if (newSelection) {
       newSelection.setNativeProps({ style: { opacity : .5 } });
@@ -285,7 +285,7 @@ export class PhotosSelector extends Component {
         <TouchableOpacity style={localStyles.tabTouch} activeOpacity={.5} onPress={this._getTabPress(TAB_360)} >
           <Text style={localStyles.tabBarText}>360°</Text>
         </TouchableOpacity>
-        
+
         <TouchableOpacity style={localStyles.tabTouch} activeOpacity={.5} onPress={this._getTabPress(TAB_RECENT)} >
           <Text style={localStyles.tabBarText}>Recent</Text>
         </TouchableOpacity>
@@ -450,4 +450,3 @@ var localStyles = StyleSheet.create({
 });
 
 module.exports = PhotosSelector;
-
