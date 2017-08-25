@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		137E9D811F50E8C1008238E5 /* VRTPhotoLibraryAsyncLoader.h in Headers */ = {isa = PBXBuildFile; fileRef = 137E9D7D1F50E8C0008238E5 /* VRTPhotoLibraryAsyncLoader.h */; };
+		137E9D821F50E8C1008238E5 /* VRTPhotoLibraryAsyncLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 137E9D801F50E8C0008238E5 /* VRTPhotoLibraryAsyncLoader.m */; };
 		8A0524321EF0A49C00A02361 /* VRTARScene.h in Headers */ = {isa = PBXBuildFile; fileRef = 8A0524301EF0A49C00A02361 /* VRTARScene.h */; };
 		8A0524331EF0A49C00A02361 /* VRTARScene.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8A0524311EF0A49C00A02361 /* VRTARScene.mm */; };
 		8A0524381EF0A4B900A02361 /* VRTARSceneManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 8A0524361EF0A4B900A02361 /* VRTARSceneManager.h */; };
@@ -380,6 +382,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		137E9D7D1F50E8C0008238E5 /* VRTPhotoLibraryAsyncLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VRTPhotoLibraryAsyncLoader.h; path = ViroReact/Utility/VRTPhotoLibraryAsyncLoader.h; sourceTree = "<group>"; };
+		137E9D801F50E8C0008238E5 /* VRTPhotoLibraryAsyncLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VRTPhotoLibraryAsyncLoader.m; path = ViroReact/Utility/VRTPhotoLibraryAsyncLoader.m; sourceTree = "<group>"; };
 		8A0524301EF0A49C00A02361 /* VRTARScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = VRTARScene.h; path = ViroReact/AR/Views/VRTARScene.h; sourceTree = "<group>"; };
 		8A0524311EF0A49C00A02361 /* VRTARScene.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = VRTARScene.mm; path = ViroReact/AR/Views/VRTARScene.mm; sourceTree = "<group>"; };
 		8A0524361EF0A4B900A02361 /* VRTARSceneManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = VRTARSceneManager.h; path = ViroReact/AR/Managers/VRTARSceneManager.h; sourceTree = "<group>"; };
@@ -863,6 +867,8 @@
 		8BE0D51C1DFA3DDA0032AB99 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				137E9D7D1F50E8C0008238E5 /* VRTPhotoLibraryAsyncLoader.h */,
+				137E9D801F50E8C0008238E5 /* VRTPhotoLibraryAsyncLoader.m */,
 				8BCF287A1E8090A900F0DD62 /* VRTUIImageWrapper.m */,
 				8BCF287B1E8090A900F0DD62 /* VRTUIImageWrapper.h */,
 				8BE0D51D1DFA3DEA0032AB99 /* VRTCubeMap.h */,
@@ -942,6 +948,7 @@
 				8BDDA11B1E5BD3FC00A42870 /* VRTShadowFlexView.h in Headers */,
 				8BDDA11C1E5BD3FC00A42870 /* VRTShadowView.h in Headers */,
 				8BDDA11D1E5BD3FC00A42870 /* VRTSkybox.h in Headers */,
+				137E9D811F50E8C1008238E5 /* VRTPhotoLibraryAsyncLoader.h in Headers */,
 				8BDDA11E1E5BD3FC00A42870 /* VRTSound.h in Headers */,
 				8BDDA11F1E5BD3FC00A42870 /* VRTSphere.h in Headers */,
 				8BDDA1201E5BD3FC00A42870 /* VRTSurface.h in Headers */,
@@ -1161,6 +1168,7 @@
 				8A1462DB1F33B5D200643EF4 /* VRTARDraggableNode.mm in Sources */,
 				8BE0D49D1DFA15880032AB99 /* VRTBoxManager.mm in Sources */,
 				8BE0D5241DFA3DEA0032AB99 /* VRTCubeMap.m in Sources */,
+				137E9D821F50E8C1008238E5 /* VRTPhotoLibraryAsyncLoader.m in Sources */,
 				8A5630301EBBFF5F009E71A7 /* VRTPolylineManager.mm in Sources */,
 				8A7743831EEF62F90004C17A /* VRTARSceneNavigator.mm in Sources */,
 				8BE0D4AD1DFA15880032AB99 /* VRTSkyboxManager.mm in Sources */,
