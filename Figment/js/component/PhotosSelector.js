@@ -177,12 +177,6 @@ export class PhotosSelector extends Component {
     );
   }
 
-  /*
-        <ScrollView style={localStyles.scrollView} onLayout={this._storeDimensions} bounces={true}>
-          {this._getRows()}
-        </ScrollView>
-   */
-
   _storeDimensions(event) {
     var {x, y, width, height} = event.nativeEvent.layout;
     this.setState({
@@ -191,17 +185,7 @@ export class PhotosSelector extends Component {
     })
   }
 
-  _getRows() {
-    let toReturn = [];
-
-    for (var i = 0; i < this.state.dataSource.length; i++) {
-      toReturn.push(this._getRow(this.state.dataSource[i], 0, i));
-    }
-    return toReturn;
-  }
-
-  _getRow(data, sectionid, rowIndex) {
-    console.log(data);
+  _getRow(data, sectionId, rowIndex) {
     let height = this.state.scrollViewHeight / this.props.rows
     return (
       <View key={ROW_PREFIX + rowIndex} style={[localStyles.rowContainer, {height : height}]} >
@@ -315,7 +299,7 @@ export class PhotosSelector extends Component {
     CameraRoll.getPhotos({
       first: this.props.searchIncrement,
       assetType : 'Photos',
-      after : this.state.endCursor,
+      after : this.endCursor,
       groupTypes : 'All'
     }).then((retValue)=>{
       var numResults = retValue.edges.length;
