@@ -34,6 +34,8 @@ var ViroPortalFrame = React.createClass({
     onTransformUpdate: React.PropTypes.func,
     visible: PropTypes.bool,
     opacity: PropTypes.number,
+    lightBitMask : PropTypes.number,
+    shadowCastingBitMask : PropTypes.number,
 
     onHover: React.PropTypes.func,
     onClick: React.PropTypes.func,
@@ -195,7 +197,7 @@ var ViroPortalFrame = React.createClass({
     let transformDelegate = this.props.onTransformUpdate != undefined ? this._onNativeTransformUpdate : undefined;
 
     return (
-      <VRTPortal
+      <VRTPortalFrame
         {...this.props}
         position={this.state.propsPositionState}
         onNativeTransformDelegateViro={transformDelegate}
@@ -223,7 +225,7 @@ var ViroPortalFrame = React.createClass({
   }
 });
 
-var VRTPortal = requireNativeComponent(
+var VRTPortalFrame = requireNativeComponent(
   'VRTPortalFrame', ViroPortalFrame, {
     nativeOnly: {
             materials: [],

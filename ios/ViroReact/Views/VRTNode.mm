@@ -229,7 +229,7 @@ const double kTransformDelegateDistanceFilter = 0.01;
 // Apply materials to the underlying geometry if materials were explicitly set
 // via the materials prop
 - (void)applyMaterials {
-  if (!self.node || !self.materials) {
+  if (!self.node) {
     return;
   }
 
@@ -237,6 +237,15 @@ const double kTransformDelegateDistanceFilter = 0.01;
   if (!geometry) {
     return;
   }
+    
+    if (_acceptShadows) {
+        VROARShadow::apply(geometry->getMaterials().front());
+        return;
+    }
+    
+    if (!self.materials) {
+        return;
+    }
 
   VRTMaterialManager *materialManager = [self.bridge moduleForClass:[VRTMaterialManager class]];
 
@@ -361,6 +370,21 @@ const double kTransformDelegateDistanceFilter = 0.01;
 - (void)setTimeToFuse:(float)durationMillis {
     _timeToFuse = durationMillis;
     self.eventDelegate->setTimeToFuse(durationMillis);
+}
+
+- (void)setLightBitMask:(int)lightBitMask {
+    _lightBitMask = lightBitMask;
+    _node->setLightBitMask(lightBitMask);
+}
+
+- (void)setShadowCastingBitMask:(int)shadowCastingBitMask {
+    _shadowCastingBitMask = shadowCastingBitMask;
+    _node->setShadowCastingBitMask(shadowCastingBitMask);
+}
+
+- (void)setAcceptShadows:(BOOL)acceptShadows {
+    _acceptShadows = acceptShadows;
+    [self applyMaterials];
 }
 
 -(void)onHover:(int)source

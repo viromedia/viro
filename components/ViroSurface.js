@@ -43,6 +43,9 @@ var ViroSurface = React.createClass({
       PropTypes.arrayOf(PropTypes.string),
       PropTypes.string
     ]),
+    lightBitMask : PropTypes.number,
+    shadowCastingBitMask : PropTypes.number,
+    acceptShadows : PropTypes.bool,
     onTransformUpdate: React.PropTypes.func,
     visible: PropTypes.bool,
     style: stylePropType,

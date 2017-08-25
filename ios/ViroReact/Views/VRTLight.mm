@@ -45,6 +45,14 @@
     _light->setIntensity(intensity);
 }
 
+- (void)setInfluenceBitMask:(int)bitMask {
+    _light->setInfluenceBitMask(bitMask);
+}
+
+- (void)setCastsShadow:(BOOL)castsShadow {
+    _light->setCastsShadow(castsShadow);
+}
+
 @end
 
 @implementation VRTAmbientLight

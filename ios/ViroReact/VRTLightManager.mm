@@ -24,6 +24,8 @@ RCT_EXPORT_MODULE()
 
 RCT_EXPORT_VIEW_PROPERTY(color, UIColor)
 RCT_EXPORT_VIEW_PROPERTY(intensity, float)
+RCT_EXPORT_VIEW_PROPERTY(influenceBitMask, int)
+RCT_EXPORT_VIEW_PROPERTY(castsShadow, BOOL)
 RCT_EXPORT_VIEW_PROPERTY(direction, NSNumberArray)
 
 - (VRTView *)view
@@ -45,6 +47,8 @@ RCT_EXPORT_VIEW_PROPERTY(attenuationEndDistance, float)
 RCT_EXPORT_VIEW_PROPERTY(position, NSNumberArray)
 RCT_EXPORT_VIEW_PROPERTY(color, UIColor)
 RCT_EXPORT_VIEW_PROPERTY(intensity, float)
+RCT_EXPORT_VIEW_PROPERTY(influenceBitMask, int)
+RCT_EXPORT_VIEW_PROPERTY(castsShadow, BOOL)
 RCT_EXPORT_VIEW_PROPERTY(direction, NSNumberArray)
 
 - (VRTView *)view
@@ -61,6 +65,7 @@ RCT_EXPORT_MODULE()
 
 RCT_EXPORT_VIEW_PROPERTY(color, UIColor)
 RCT_EXPORT_VIEW_PROPERTY(intensity, float)
+RCT_EXPORT_VIEW_PROPERTY(influenceBitMask, int)
 
 - (VRTView *)view
 {
@@ -79,6 +84,7 @@ RCT_EXPORT_VIEW_PROPERTY(attenuationEndDistance, float)
 RCT_EXPORT_VIEW_PROPERTY(position, NSNumberArray)
 RCT_EXPORT_VIEW_PROPERTY(color, UIColor)
 RCT_EXPORT_VIEW_PROPERTY(intensity, float)
+RCT_EXPORT_VIEW_PROPERTY(influenceBitMask, int)
 
 - (VRTView *)view
 {

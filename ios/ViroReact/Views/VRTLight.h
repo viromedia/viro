@@ -18,6 +18,8 @@
 - (std::shared_ptr<VROLight>)light;
 - (void)setColor:(NSArray<NSNumber *> *)color;
 - (void)setIntensity:(float)intensity;
+- (void)setInfluenceBitMask:(int)bitMask;
+- (void)setCastsShadow:(BOOL)castsShadow;
 
 @end
 

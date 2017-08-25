@@ -38,6 +38,8 @@ var Viro3DObject = React.createClass({
       PropTypes.string
     ]),
     opacity: PropTypes.number,
+    lightBitMask : PropTypes.number,
+    shadowCastingBitMask : PropTypes.number,
     onTransformUpdate: React.PropTypes.func,
     /*
      * The model file, which is required
