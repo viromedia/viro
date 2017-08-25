@@ -129,7 +129,6 @@ export class PhotosSelector extends Component {
     this._getPhotos = this._getPhotos.bind(this);
     this._storeDimensions = this._storeDimensions.bind(this);
     this._getRow = this._getRow.bind(this);
-    this._getRows = this._getRows.bind(this);
     this._getTabBar = this._getTabBar.bind(this);
     this._getRowElements = this._getRowElements.bind(this);
     this._getImageIndex = this._getImageIndex.bind(this);
