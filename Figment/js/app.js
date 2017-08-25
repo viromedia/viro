@@ -118,17 +118,18 @@ export class App extends Component {
     var clickState = this.props.currentItemClickState;
 
     // If clickState == 2, start timer for 2 seconds, then dispatch state change to reset item selection
-    if (selectedItemIndex != '' && clickState == 2) {
+    if (selectedItemIndex != -1 && clickState == 2) {
       TimerMixin.setTimeout(
         () => {
-          this.props.dispatchChangeItemClickState('', '', '');
+          this.props.dispatchChangeItemClickState(-1, '', '');
         },
         2000
       );
     }
       return (
         <View style={{position:'absolute', right:10, top:10, width:100, height:100}}>
-          {renderIf(this.props.currentItemSelectionIndex != '',
+          {console.log("this.props.currentItemSelectionIndex in render - " + this.props.currentItemSelectionIndex)}
+          {renderIf(this.props.currentItemSelectionIndex != -1,
             <TouchableHighlight onPress={this._onContextMenuRemoveButtonPressed} underlayColor="#00000000">
               <Image source={require("./res/btn_close.png")} style={localStyles.previewScreenButtons} />
             </TouchableHighlight>
@@ -140,7 +141,7 @@ export class App extends Component {
   _onContextMenuRemoveButtonPressed() {
     var index = this.props.currentItemSelectionIndex;
     console.log("_onContextMenuRemoveButtonPressed - index: " + this.props.currentItemSelectionIndex + ", clickState: " + this.props.currentItemClickState + ", type: " + this.props.currentSelectedItemType);
-    if (this.props.currentItemSelectionIndex != '' && this.props.currentItemClickState != '') {
+    if (this.props.currentItemSelectionIndex != -1 && this.props.currentItemClickState != '') {
       
       if (this.props.currentSelectedItemType == UIConstants.LIST_MODE_MODEL) {
         if(this.props.modelItems[index].selected == true) {
@@ -158,7 +159,7 @@ export class App extends Component {
         } 
         this.props.dispatchTogglePortalSelection(index);
       }
-      this.props.dispatchChangeItemClickState('', '', '');
+      this.props.dispatchChangeItemClickState(-1, '', '');
 
     }
   }

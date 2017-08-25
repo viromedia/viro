@@ -14,7 +14,7 @@
   currentScreen: UIConstants.SHOW_MAIN_SCREEN,
   listMode: UIConstants.LIST_MODE_MODEL,
   listTitle: UIConstants.LIST_TITLE_MODELS,
-  currentItemSelectionIndex: '',
+  currentItemSelectionIndex: -1,
   currentItemClickState: '',
  }
 
