@@ -76,6 +76,7 @@ export class App extends Component {
     this._takeScreenshot = this._takeScreenshot.bind(this);
     this._onPhotoSelected = this._onPhotoSelected.bind(this);
     this._onItemClickedInScene = this._onItemClickedInScene.bind(this);
+    this._onContextMenuRemoveButtonPressed = this._onContextMenuRemoveButtonPressed.bind(this);
 
     this.state = {
       currentModeSelected:kObjSelectMode,
@@ -120,7 +121,7 @@ export class App extends Component {
     if (selectedItemIndex != '' && clickState == 2) {
       TimerMixin.setTimeout(
         () => {
-          this.props.dispatchChangeItemClickState('', '');
+          this.props.dispatchChangeItemClickState('', '', '');
         },
         2000
       );
@@ -128,13 +129,38 @@ export class App extends Component {
       return (
         <View style={{position:'absolute', right:10, top:10, width:100, height:100}}>
           {renderIf(this.props.currentItemSelectionIndex != '',
-            <TouchableHighlight onPress={()=>{this._onListPressed(selectedItemIndex)}} underlayColor="#00000000">
+            <TouchableHighlight onPress={this._onContextMenuRemoveButtonPressed} underlayColor="#00000000">
               <Image source={require("./res/btn_close.png")} style={localStyles.previewScreenButtons} />
             </TouchableHighlight>
           )}
         </View>
     
     );
+  }
+  _onContextMenuRemoveButtonPressed() {
+    var index = this.props.currentItemSelectionIndex;
+    console.log("_onContextMenuRemoveButtonPressed - index: " + this.props.currentItemSelectionIndex + ", clickState: " + this.props.currentItemClickState + ", type: " + this.props.currentSelectedItemType);
+    if (this.props.currentItemSelectionIndex != '' && this.props.currentItemClickState != '') {
+      
+      if (this.props.currentSelectedItemType == UIConstants.LIST_MODE_MODEL) {
+        if(this.props.modelItems[index].selected == true) {
+              this.props.dispatchChangeModelLoadState(index, LoadingConstants.NONE);
+        }
+        this.props.dispatchToggleModelSelection(index);        
+      }
+
+      if(this.props.currentSelectedItemType == UIConstants.LIST_MODE_PORTAL) {
+        if(this.props.portalItems[index].selected == true) {
+            this.props.dispatchChangePortalLoadState(index, LoadingConstants.NONE);
+            this.setState({
+              lastSelectedPortalIndex:-1,
+            });
+        } 
+        this.props.dispatchTogglePortalSelection(index);
+      }
+      this.props.dispatchChangeItemClickState('', '', '');
+
+    }
   }
   _renderPhotosSelector() {
     // TODO: remove the return to render the selector when portal is tapped
@@ -351,18 +377,12 @@ export class App extends Component {
     if(this.props.listMode == UIConstants.LIST_MODE_MODEL) {
       if(this.props.modelItems[index].selected == true) {
             this.props.dispatchChangeModelLoadState(index, LoadingConstants.NONE);
-            if (this.props.currentSelectedItemType == UIConstants.LIST_MODE_MODEL && this.props.currentItemSelectionIndex != '' && this.props.currentItemClickState != '') {
-              this.props.dispatchChangeItemClickState('', '');
-            }
       }
       this.props.dispatchToggleModelSelection(index);
     }
 
     if(this.props.listMode == UIConstants.LIST_MODE_PORTAL) {
       if(this.props.portalItems[index].selected == true) {
-          if (this.props.currentSelectedItemType == UIConstants.LIST_MODE_PORTAL && this.props.currentItemSelectionIndex != '' && this.props.currentItemClickState != '') {
-              this.props.dispatchChangeItemClickState('', '');
-          }
           this.props.dispatchChangePortalLoadState(index, LoadingConstants.NONE);
           this.setState({
             lastSelectedPortalIndex:-1,
