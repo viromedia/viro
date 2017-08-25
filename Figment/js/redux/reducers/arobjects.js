@@ -88,10 +88,10 @@ function arobjects(state = initialState, action) {
   switch (action.type) {
     case 'TOGGLE_MODEL_SELECTED':
     case 'CHANGE_MODEL_LOAD_STATE':
-      console.log("EXECUTING REDUCER ADDAROBJECT: " + action.index);
+      console.log("Figment: EXECUTING REDUCER ADDAROBJECT: " + action.index);
       var updatedModelInfo = modifyItem(state.modelItems.slice(0), action);
-      console.log("REDUCER NEW STATE:");
-      console.log(updatedModelInfo);
+      console.log("Figment: REDUCER NEW STATE:");
+      console.log("Figment: " + updatedModelInfo);
       return {
         ...state,
         modelItems: updatedModelInfo.slice(0),

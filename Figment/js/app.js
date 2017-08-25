@@ -12,7 +12,9 @@ import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
 import { BlurView } from 'react-native-blur';
-import {toggleModelSelection, togglePortalSelection, changePortalLoadState, changePortalPhoto, changeModelLoadState, switchListMode, removeARObject, displayUIScreen } from './redux/actions';
+import {toggleModelSelection, togglePortalSelection, changePortalLoadState, changePortalPhoto, changeModelLoadState, changeItemClickState, switchListMode, removeARObject, displayUIScreen } from './redux/actions';
+import TimerMixin from 'react-timer-mixin';
+
 import * as LoadingConstants from './redux/LoadingStateConstants';
 import * as UIConstants from './redux/UIConstants';
 import renderIf from './helpers/renderIf';
@@ -73,19 +75,19 @@ export class App extends Component {
     this._renderPhotosSelector = this._renderPhotosSelector.bind(this);
     this._takeScreenshot = this._takeScreenshot.bind(this);
     this._onPhotoSelected = this._onPhotoSelected.bind(this);
+    this._onItemClickedInScene = this._onItemClickedInScene.bind(this);
 
     this.state = {
       currentModeSelected:kObjSelectMode,
       videoUrl: null,
       haveSavedMedia: false,
       playPreview : false,
-      viroAppProps: {loadingObjectCallback: this._onListItemLoaded},
+      viroAppProps: {loadingObjectCallback: this._onListItemLoaded, clickStateCallback: this._onItemClickedInScene},
       showPhotosSelector : false,
       previewType: kPreviewTypeVideo,
       lastSelectedPortalIndex: -1,
     };
   }
-
   render() {
       console.log("RERENDER App OCCURRED");
       return (
@@ -101,6 +103,7 @@ export class App extends Component {
               <FigmentListView items={this._getListItems()} onPress={this._onListPressed} />
             </View>)}
 
+          {this._renderContextMenu()}
           {this._renderRecord()}
           {this._renderButtonLeftMenu()}
           {this._renderShareScreen()}
@@ -108,7 +111,31 @@ export class App extends Component {
         </View>
       );
     }
+  _renderContextMenu() {
+    console.log("_renderContextMenu + index: " + this.props.currentItemSelectionIndex + ", clickState: " + this.props.currentItemClickState);
+    var selectedItemIndex = this.props.currentItemSelectionIndex;
+    var clickState = this.props.currentItemClickState;
 
+    // If clickState == 2, start timer for 2 seconds, then dispatch state change to reset item selection
+    if (selectedItemIndex != '' && clickState == 2) {
+      TimerMixin.setTimeout(
+        () => {
+          this.props.dispatchChangeItemClickState('', '');
+        },
+        2000
+      );
+    }
+      return (
+        <View style={{position:'absolute', right:10, top:10, width:100, height:100}}>
+          {renderIf(this.props.currentItemSelectionIndex != '',
+            <TouchableHighlight onPress={()=>{this._onListPressed(selectedItemIndex)}} underlayColor="#00000000">
+              <Image source={require("./res/btn_close.png")} style={localStyles.previewScreenButtons} />
+            </TouchableHighlight>
+          )}
+        </View>
+    
+    );
+  }
   _renderPhotosSelector() {
     // TODO: remove the return to render the selector when portal is tapped
     if (this.state.showPhotosSelector == true && this.props.listMode == UIConstants.LIST_MODE_PORTAL && this.state.lastSelectedPortalIndex != -1) {
@@ -324,12 +351,18 @@ export class App extends Component {
     if(this.props.listMode == UIConstants.LIST_MODE_MODEL) {
       if(this.props.modelItems[index].selected == true) {
             this.props.dispatchChangeModelLoadState(index, LoadingConstants.NONE);
+            if (this.props.currentSelectedItemType == UIConstants.LIST_MODE_MODEL && this.props.currentItemSelectionIndex != '' && this.props.currentItemClickState != '') {
+              this.props.dispatchChangeItemClickState('', '');
+            }
       }
       this.props.dispatchToggleModelSelection(index);
     }
 
     if(this.props.listMode == UIConstants.LIST_MODE_PORTAL) {
       if(this.props.portalItems[index].selected == true) {
+          if (this.props.currentSelectedItemType == UIConstants.LIST_MODE_PORTAL && this.props.currentItemSelectionIndex != '' && this.props.currentItemClickState != '') {
+              this.props.dispatchChangeItemClickState('', '');
+          }
           this.props.dispatchChangePortalLoadState(index, LoadingConstants.NONE);
           this.setState({
             lastSelectedPortalIndex:-1,
@@ -343,6 +376,7 @@ export class App extends Component {
 
       this.props.dispatchTogglePortalSelection(index);
     }
+
   }
 
   _onListItemLoaded(index, loadState) {
@@ -356,6 +390,10 @@ export class App extends Component {
     }
   }
 
+  _onItemClickedInScene(index, clickState, itemType) {
+    console.log("Dispatching item clicked state: " + index + ", clickState:" + clickState);
+    this.props.dispatchChangeItemClickState(index, clickState, itemType);
+  }
   _getListItems() {
     if(this.props.listMode == UIConstants.LIST_MODE_MODEL) {
       return this.props.modelItems;
@@ -522,6 +560,9 @@ function selectProps(store) {
     currentScreen: store.ui.currentScreen,
     listMode: store.ui.listMode,
     listTitle: store.ui.listTitle,
+    currentItemSelectionIndex: store.ui.currentItemSelectionIndex,
+    currentItemClickState: store.ui.currentItemClickState,
+    currentSelectedItemType: store.ui.currentSelectedItemType,
   };
 }
 
@@ -541,6 +582,7 @@ const mapDispatchToProps = (dispatch) => {
     dispatchDisplayUIScreen: (uiScreenState) => dispatch(displayUIScreen(uiScreenState)),
     dispatchSwitchListMode: (listMode, listTitle) =>dispatch(switchListMode(listMode, listTitle)),
     dispatchChangePortalPhoto:(index, source)=>dispatch(changePortalPhoto(index, source)),
+    dispatchChangeItemClickState:(index, clickState, itemType) =>dispatch(changeItemClickState(index, clickState, itemType)),
   }
 }
 

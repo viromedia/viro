@@ -12,6 +12,7 @@
 
 import React, { Component } from 'react';
 import * as LoadConstants from '../redux/LoadingStateConstants';
+import * as UIConstants from '../redux/UIConstants';
 import {
   ViroScene,
   ViroARScene,
@@ -31,6 +32,7 @@ var PortalItemRender = React.createClass({
     propTypes: {
         portalItem: PropTypes.any,
         onLoadCallback: PropTypes.func,
+        onClickStateCallback: PropTypes.func,
         index: PropTypes.number,
         hitTestMethod: PropTypes.func,
     },
@@ -61,7 +63,7 @@ var PortalItemRender = React.createClass({
                 scale={this.state.scale} onRotate={this._onRotateGesture(j)}
                 onPinch={this._onPinchIndex(j)} passable={true}
                 ref={this._setComponentRef()} {...transformBehaviors}
-                onClickState={this._onClickState} >
+                onClickState={this._onClickState(j)} >
 
                <ViroPortalFrame>
                  <Viro3DObject source={this.props.portalItem.obj}
@@ -83,33 +85,36 @@ var PortalItemRender = React.createClass({
       }
     },
 
-    _onClickState(clickState, position, source) {
-      if (clickState == 1) {
-        // if "ClickDown", then enable billboardY
-        this.setState({shouldBillboard : true});
-      } else if (clickState == 2) {
-        // for some reason this method gives us values "opposite" of what they should be
-        // which is why we negate the y rotation, but also the y-rotation values are
-        // always within -90 -> 90 so the x/z need to be adjusted back to 0 and the y
-        // rotation recalculated in order for the rotation gesture to function properly
-        this._ref_object.getTransformAsync().then((retDict)=>{
-          let rotation = retDict.rotation;
-          let absX = Math.abs(rotation[0]);
-          let absZ = Math.abs(rotation[2]);
-          // negate the y rotation
-          let yRotation = - (rotation[1]);
+    _onClickState(index) {
+      return ((clickState, position, source) => {
+        if (clickState == 1) {
+          // if "ClickDown", then enable billboardY
+          this.setState({shouldBillboard : true});
+        } else if (clickState == 2) {
+          // for some reason this method gives us values "opposite" of what they should be
+          // which is why we negate the y rotation, but also the y-rotation values are
+          // always within -90 -> 90 so the x/z need to be adjusted back to 0 and the y
+          // rotation recalculated in order for the rotation gesture to function properly
+          this._ref_object.getTransformAsync().then((retDict)=>{
+            let rotation = retDict.rotation;
+            let absX = Math.abs(rotation[0]);
+            let absZ = Math.abs(rotation[2]);
+            // negate the y rotation
+            let yRotation = - (rotation[1]);
 
-          // if the X and Z aren't 0, then adjust the y rotation.
-          if (absX > 1 && absZ > 1) {
-            yRotation = 180 - (yRotation);
-          }
+            // if the X and Z aren't 0, then adjust the y rotation.
+            if (absX > 1 && absZ > 1) {
+              yRotation = 180 - (yRotation);
+            }
 
-          this.setState({
-            rotation : [0,yRotation,0],
-            shouldBillboard : false
-          });
-        })
-      }
+            this.setState({
+              rotation : [0,yRotation,0],
+              shouldBillboard : false
+            });
+          })
+        }
+        this.props.onClickStateCallback(index, clickState, UIConstants.LIST_MODE_PORTAL);
+      });
     },
 
     _onRotateGesture(index) {

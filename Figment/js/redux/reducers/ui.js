@@ -14,6 +14,8 @@
   currentScreen: UIConstants.SHOW_MAIN_SCREEN,
   listMode: UIConstants.LIST_MODE_MODEL,
   listTitle: UIConstants.LIST_TITLE_MODELS,
+  currentItemSelectionIndex: '',
+  currentItemClickState: '',
  }
 
 function ui(state = initialState, action) {
@@ -29,6 +31,13 @@ function ui(state = initialState, action) {
         listMode: action.listMode,
         listTitle: action.listTitle,
       };
+    case 'CHANGE_ITEM_CLICK_STATE':
+      return {
+        ...state,
+        currentItemSelectionIndex: action.index,
+        currentItemClickState: action.clickState,
+        currentSelectedItemType: action.itemType,
+      }
     default:
       return state;
   }

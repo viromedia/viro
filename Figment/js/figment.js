@@ -9,6 +9,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as LoadingConstants from './redux/LoadingStateConstants';
+import * as UIConstants from './redux/UIConstants';
 import ModelItemRender from './component/ModelItemRender';
 import PortalItemRender from './component/PortalItemRender';
 
@@ -95,7 +96,7 @@ var figment = React.createClass({
           console.log("Figment: Pushing VIRO 3DOBJECT index:" + i);
           var j = i;
           renderedObjects.push(
-            <ModelItemRender key={j} modelItem={modelItems[j]} index={j} hitTestMethod={this._performARHitTest} onLoadCallback={this._onLoadCallback} />
+            <ModelItemRender key={j} modelItem={modelItems[j]} index={j} hitTestMethod={this._performARHitTest} onLoadCallback={this._onLoadCallback} onClickStateCallback={this._onModelsClickStateCallback} />
           );
         }
       }
@@ -111,7 +112,7 @@ var figment = React.createClass({
           console.log("Figment: Pushing VIRO PORTAL index:" + i);
           var j = i;
           renderedObjects.push(
-            <PortalItemRender key={j} portalItem={portalItems[j]} index={j} hitTestMethod={this._performARHitTest} onLoadCallback={this._onLoadCallback} />
+            <PortalItemRender key={j} portalItem={portalItems[j]} index={j} hitTestMethod={this._performARHitTest} onLoadCallback={this._onLoadCallback} onClickStateCallback={this._onPortalsClickStateCallback}/>
           );
         }
       }
@@ -130,7 +131,15 @@ var figment = React.createClass({
   _onLoadCallback(index, loadState) {
     console.log("_onLoadCallback" + index + ", loadCallback:" + loadState);
     this.props.arSceneNavigator.viroAppProps.loadingObjectCallback(index, loadState);
-  }
+  },
+  _onModelsClickStateCallback(index, clickState, itemType) {
+    console.log("_onClickStateCallback - index: " + index + ", clickState: " + clickState);
+    this.props.arSceneNavigator.viroAppProps.clickStateCallback(index, clickState, itemType);
+  },
+  _onPortalsClickStateCallback(index, clickState, itemType) {
+    console.log("_onClickStateCallback - index: " + index + ", clickState: " + clickState);
+    this.props.arSceneNavigator.viroAppProps.clickStateCallback(index, clickState, itemType);
+  },
 });
 
 function selectProps(store) {

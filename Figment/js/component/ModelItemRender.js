@@ -11,6 +11,7 @@
 
 import React, { Component } from 'react';
 import * as LoadConstants from '../redux/LoadingStateConstants';
+import * as UIConstants from '../redux/UIConstants';
 import {
   ViroScene,
   ViroARScene,
@@ -31,6 +32,7 @@ var ModelItemRender = React.createClass({
     propTypes: {
         modelItem: PropTypes.any,
         onLoadCallback: PropTypes.func,
+        onClickStateCallback: PropTypes.func,
         index: PropTypes.number,
         hitTestMethod: PropTypes.func,
     },
@@ -65,7 +67,7 @@ var ModelItemRender = React.createClass({
                 materials={this.props.modelItem.materials}
                 resources={this.props.modelItem.resources}
                 animation={this.props.modelItem.animation}
-                onClickState={this._onClickState}
+                onClickState={this._onClickState(j)}
                 onError={this._onError(j)}  onRotate={this._onRotateGesture(j)} onLoadStart={this._onObjectLoadStart(j)} onLoadEnd={this._onObjectLoadEnd(j)}
                 position={[0,0,0]} onPinch={this._onPinchIndex(j)} />
           </ViroARNode>
@@ -80,11 +82,12 @@ var ModelItemRender = React.createClass({
       }
     },
 
-    _onClickState(clickState, position, source) {
-      if (clickState == 1) {
+    _onClickState(index) {
+     return ((clickState, position, source)=> {
+      if (clickState == 1) { // clickState == 1 -> "ClickDown"
         // if "ClickDown", then enable billboardY
         this.setState({shouldBillboard : true});
-      } else if (clickState == 2) {
+      } else if (clickState == 2) { // clickState == 2 -> "ClickUp"
         // for some reason this method gives us values "opposite" of what they should be
         // which is why we negate the y rotation, but also the y-rotation values are
         // always within -90 -> 90 so the x/z need to be adjusted back to 0 and the y
@@ -107,8 +110,9 @@ var ModelItemRender = React.createClass({
           });
         })
       }
-    },
-
+      this.props.onClickStateCallback(index, clickState, UIConstants.LIST_MODE_MODEL);
+    });
+  },
     _onRotateGesture(index) {
       return ((rotateState, rotationFactor, source)=> {
           this._onRotate(rotateState, rotationFactor, source, index);

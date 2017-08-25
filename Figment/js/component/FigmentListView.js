@@ -12,7 +12,7 @@
 import * as LoadingConstants from '../redux/LoadingStateConstants';
 import React, { Component } from 'react';
 import {StyleSheet, TouchableHighlight, ActivityIndicator, View, ListView, Image} from 'react-native';
-
+import renderIf from '../helpers/renderIf';
 var PropTypes = require('react/lib/ReactPropTypes');
 
 var FigmentListView = React.createClass({
@@ -61,13 +61,11 @@ var FigmentListView = React.createClass({
     _renderListItem(data, sectionid, rowId) {
         console.log("renderListItem rowID: " + rowId);
         console.log("Data: " + data.selected + ", data.loading:" + data.loading);
-        if(data.loading == LoadingConstants.LOADED) {
+        /*if(data.loading == LoadingConstants.LOADED) {
           return (
             <View style={{marginLeft: 10}}>
               <TouchableHighlight onPress={this._onListItemPressed(rowId)} underlayColor="#00000000">
-                <Image source={data.icon_img} style={styles.photo} >
-                  <Image source={require("../res/btn_cancel.png")} style={styles.photo} />
-                </Image>
+                <Image source={data.icon_img} style={styles.photo} />
               </TouchableHighlight>
             </View>
           );
@@ -87,7 +85,18 @@ var FigmentListView = React.createClass({
                 </Image>
             </View>
             );
-        }
+        }*/
+        return (
+          <View style={{marginLeft: 10}}>
+              <TouchableHighlight onPress={this._onListItemPressed(rowId)} underlayColor="#00000000">
+                <Image source={data.icon_img} style={styles.photo}>
+                {renderIf(data.loading == LoadingConstants.LOADING,
+                    <ActivityIndicator animating={true} size='large'/>
+                )}
+                </Image>
+              </TouchableHighlight>
+            </View>
+        );
     },
 
     _onListItemPressed(rowId) {

@@ -65,3 +65,12 @@ export function changePortalLoadState(index, loadState) {
     loadState: loadState,
   };
 }
+export function changeItemClickState(index, clickState, itemType) {
+  console.log("EXECUTING CHANGE MODEL CLICK STATE index:" + index);
+  return {
+    type: 'CHANGE_ITEM_CLICK_STATE',
+    index: index,
+    clickState: clickState,
+    itemType: itemType,
+  };
+}
