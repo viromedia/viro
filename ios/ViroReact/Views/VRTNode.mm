@@ -26,100 +26,100 @@ const double kTransformDelegateDistanceFilter = 0.01;
 @implementation VRTNode
 
 - (instancetype)initWithBridge:(RCTBridge *)bridge  {
-  self = [super initWithBridge:bridge];
-  if(self) {
-    _node = [self createVroNode];
-    _node->setPosition({0, 0, 0});
-    _node->setScale({1, 1, 1});
-    _visible = YES; // default to visible.
-    _opacity = 1.0; //default opacity to 1.0
-    _highAccuracyGaze = NO;
-
-    // Create and attach event delegate
-    _eventDelegate = std::make_shared<VROEventDelegateiOS>(self);
-    _node->setEventDelegate(_eventDelegate);
-  }
-
-  return self;
+    self = [super initWithBridge:bridge];
+    if(self) {
+        _node = [self createVroNode];
+        _node->setPosition({0, 0, 0});
+        _node->setScale({1, 1, 1});
+        _visible = YES; // default to visible.
+        _opacity = 1.0; //default opacity to 1.0
+        _highAccuracyGaze = NO;
+        
+        // Create and attach event delegate
+        _eventDelegate = std::make_shared<VROEventDelegateiOS>(self);
+        _node->setEventDelegate(_eventDelegate);
+    }
+    
+    return self;
 }
 
 - (std::shared_ptr<VRONode>)createVroNode {
-  return std::make_shared<VRONode>();
+    return std::make_shared<VRONode>();
 }
-   
+
 - (void)insertReactSubview:(UIView *)view atIndex:(NSInteger)atIndex {
-  VRTView *child = (VRTView *)view;
+    VRTView *child = (VRTView *)view;
     
-  if ([child isKindOfClass:[VRTLight class]]) {
-    VRTLight *light = (VRTLight *)child;
-    self.node->addLight([light light]);
-  } else if ([child isKindOfClass:[VRTPortalFrame class]]) {
-    // Ignore, this is only handled by VRTPortal
-  } else if ([child isKindOfClass:[VRTNode class]]) {
-    VRTNode *nodeView = (VRTNode *)child;
-    self.node->addChildNode(nodeView.node);
-  } else if ([child isKindOfClass:[VRTAnimatedComponent class]]) {
-    /*
-     Add all children (the targets of the animation) to the node.
-     */
-    NSArray *subsubViews = [child reactSubviews];
-    BOOL childFound = false;
-
-    for(VRTView *subsubview in subsubViews){
-      if (![subsubview isKindOfClass:[VRTNode class]]) {
-        continue;
-      }
-
-      VRTNode *subsubNodeView = (VRTNode *)subsubview;
-
-      std::vector<std::shared_ptr<VRONode>> subnodeArray = self.node->getChildNodes();
-      for(std::shared_ptr<VRONode> node: subnodeArray){
-        if(node.get() == subsubNodeView.node.get()){
-          childFound = true;
-          break;
+    if ([child isKindOfClass:[VRTLight class]]) {
+        VRTLight *light = (VRTLight *)child;
+        self.node->addLight([light light]);
+    } else if ([child isKindOfClass:[VRTPortalFrame class]]) {
+        // Ignore, this is only handled by VRTPortal
+    } else if ([child isKindOfClass:[VRTNode class]]) {
+        VRTNode *nodeView = (VRTNode *)child;
+        self.node->addChildNode(nodeView.node);
+    } else if ([child isKindOfClass:[VRTAnimatedComponent class]]) {
+        /*
+         Add all children (the targets of the animation) to the node.
+         */
+        NSArray *subsubViews = [child reactSubviews];
+        BOOL childFound = false;
+        
+        for(VRTView *subsubview in subsubViews){
+            if (![subsubview isKindOfClass:[VRTNode class]]) {
+                continue;
+            }
+            
+            VRTNode *subsubNodeView = (VRTNode *)subsubview;
+            
+            std::vector<std::shared_ptr<VRONode>> subnodeArray = self.node->getChildNodes();
+            for(std::shared_ptr<VRONode> node: subnodeArray){
+                if(node.get() == subsubNodeView.node.get()){
+                    childFound = true;
+                    break;
+                }
+            }
+            
+            if(!childFound){
+                self.node->addChildNode(subsubNodeView.node);
+            }
         }
-      }
-
-      if(!childFound){
-        self.node->addChildNode(subsubNodeView.node);
-      }
     }
-  }
-
-  [super insertReactSubview:view atIndex:atIndex];
+    
+    [super insertReactSubview:view atIndex:atIndex];
 }
 
 - (void)removeReactSubview:(UIView *)subview {
-  VRTView *vroView = (VRTView *)subview;
-
-  if ([vroView isKindOfClass:[VRTLight class]]) {
-    VRTLight *light = (VRTLight *)vroView;
-    self.node->removeLight([light light]);
-  }
-  else if ([vroView isKindOfClass:[VRTPortalFrame class]]) {
-    // Ignore, this is only handled by VRTPortal
-  }
-  else if ([vroView isKindOfClass:[VRTNode class]]) {
-    VRTNode *nodeView = (VRTNode *)vroView;
-    [nodeView clearPhysicsBody];
-    nodeView.node->removeFromParentNode();
-  }
-
-  else if ([vroView isKindOfClass:[VRTAnimatedComponent class]]) {
-    /*
-     Remove the child (the target of the animation) from the node.
-     */
-    for(VRTView *subsubview in [vroView reactSubviews]) {
-      if (![subsubview isKindOfClass:[VRTNode class]]) {
-        continue;
-      }
-
-      VRTNode *subsubNodeView = (VRTNode *)subsubview;
-      subsubNodeView.node->removeFromParentNode();
+    VRTView *vroView = (VRTView *)subview;
+    
+    if ([vroView isKindOfClass:[VRTLight class]]) {
+        VRTLight *light = (VRTLight *)vroView;
+        self.node->removeLight([light light]);
     }
-  }
-
-  [super removeReactSubview:subview];
+    else if ([vroView isKindOfClass:[VRTPortalFrame class]]) {
+        // Ignore, this is only handled by VRTPortal
+    }
+    else if ([vroView isKindOfClass:[VRTNode class]]) {
+        VRTNode *nodeView = (VRTNode *)vroView;
+        [nodeView clearPhysicsBody];
+        nodeView.node->removeFromParentNode();
+    }
+    
+    else if ([vroView isKindOfClass:[VRTAnimatedComponent class]]) {
+        /*
+         Remove the child (the target of the animation) from the node.
+         */
+        for(VRTView *subsubview in [vroView reactSubviews]) {
+            if (![subsubview isKindOfClass:[VRTNode class]]) {
+                continue;
+            }
+            
+            VRTNode *subsubNodeView = (VRTNode *)subsubview;
+            subsubNodeView.node->removeFromParentNode();
+        }
+    }
+    
+    [super removeReactSubview:subview];
 }
 
 // Override parent shouldAppear function.
@@ -136,14 +136,14 @@ const double kTransformDelegateDistanceFilter = 0.01;
     if (body) {
         body->setIsSimulated([self shouldAppear]);
     }
-    [super handleAppearanceChange];    
+    [super handleAppearanceChange];
 }
 
 - (void)setPosition:(NSArray<NSNumber *> *)position {
-  _position = [position copy];
-  float positionValues[3];
-  populateFloatArrayFromNSArray(position, positionValues, 3);
-  [self node]->setPosition({positionValues[0], positionValues[1], positionValues[2]});
+    _position = [position copy];
+    float positionValues[3];
+    populateFloatArrayFromNSArray(position, positionValues, 3);
+    [self node]->setPosition({positionValues[0], positionValues[1], positionValues[2]});
 }
 
 -(void)setHasTransformDelegate:(BOOL)hasDelegate {
@@ -168,75 +168,75 @@ const double kTransformDelegateDistanceFilter = 0.01;
 }
 
 - (void)setOpacity:(float)opacity {
-  _opacity = opacity;
-  [self node]->setOpacity(_opacity);
+    _opacity = opacity;
+    [self node]->setOpacity(_opacity);
 }
 
 - (void)setRotation:(NSArray<NSNumber *> *)rotation {
-  _rotation = [rotation copy];
-  float rotationValues[3];
-  populateFloatArrayFromNSArray(rotation, rotationValues, 3);
-  [self node]->setRotation({toRadians(rotationValues[0]), toRadians(rotationValues[1]), toRadians(rotationValues[2])});
+    _rotation = [rotation copy];
+    float rotationValues[3];
+    populateFloatArrayFromNSArray(rotation, rotationValues, 3);
+    [self node]->setRotation({toRadians(rotationValues[0]), toRadians(rotationValues[1]), toRadians(rotationValues[2])});
 }
 
 - (void)setScale:(NSArray<NSNumber *> *)scale {
-  _scale = [scale copy];
-  float scaleValues[3];
-  populateFloatArrayFromNSArray(scale, scaleValues, 3);
-  [self node]->setScale({scaleValues[0], scaleValues[1], scaleValues[2]});
+    _scale = [scale copy];
+    float scaleValues[3];
+    populateFloatArrayFromNSArray(scale, scaleValues, 3);
+    [self node]->setScale({scaleValues[0], scaleValues[1], scaleValues[2]});
 }
 
 - (void)setRotationPivot:(NSArray<NSNumber *> *)pivot {
-  _rotationPivot = [pivot copy];
-  float pivotValues[3];
-  populateFloatArrayFromNSArray(pivot, pivotValues, 3);
+    _rotationPivot = [pivot copy];
+    float pivotValues[3];
+    populateFloatArrayFromNSArray(pivot, pivotValues, 3);
     
-  VROMatrix4f pivotMatrix;
-  pivotMatrix.translate(pivotValues[0], pivotValues[1], pivotValues[2]);
-  [self node]->setRotationPivot(pivotMatrix);
+    VROMatrix4f pivotMatrix;
+    pivotMatrix.translate(pivotValues[0], pivotValues[1], pivotValues[2]);
+    [self node]->setRotationPivot(pivotMatrix);
 }
 
 - (void)setScalePivot:(NSArray<NSNumber *> *)pivot {
-  _scalePivot = [pivot copy];
-  float pivotValues[3];
-  populateFloatArrayFromNSArray(pivot, pivotValues, 3);
+    _scalePivot = [pivot copy];
+    float pivotValues[3];
+    populateFloatArrayFromNSArray(pivot, pivotValues, 3);
     
-  VROMatrix4f pivotMatrix;
-  pivotMatrix.translate(pivotValues[0], pivotValues[1], pivotValues[2]);
-  [self node]->setScalePivot(pivotMatrix);
+    VROMatrix4f pivotMatrix;
+    pivotMatrix.translate(pivotValues[0], pivotValues[1], pivotValues[2]);
+    [self node]->setScalePivot(pivotMatrix);
 }
 
 - (void)setTransformBehaviors:(NSArray<NSString *> *)behaviors {
-  [self node]->removeAllConstraints();
-  for (NSString *behavior in behaviors) {
-    if ([behavior caseInsensitiveCompare:@"billboard"] == NSOrderedSame) {
-      [self node]->addConstraint(std::make_shared<VROBillboardConstraint>(VROBillboardAxis::All));
+    [self node]->removeAllConstraints();
+    for (NSString *behavior in behaviors) {
+        if ([behavior caseInsensitiveCompare:@"billboard"] == NSOrderedSame) {
+            [self node]->addConstraint(std::make_shared<VROBillboardConstraint>(VROBillboardAxis::All));
+        }
+        if ([behavior caseInsensitiveCompare:@"billboardX"] == NSOrderedSame) {
+            [self node]->addConstraint(std::make_shared<VROBillboardConstraint>(VROBillboardAxis::X));
+        }
+        if ([behavior caseInsensitiveCompare:@"billboardY"] == NSOrderedSame) {
+            [self node]->addConstraint(std::make_shared<VROBillboardConstraint>(VROBillboardAxis::Y));
+        }
     }
-    if ([behavior caseInsensitiveCompare:@"billboardX"] == NSOrderedSame) {
-      [self node]->addConstraint(std::make_shared<VROBillboardConstraint>(VROBillboardAxis::X));
-    }
-    if ([behavior caseInsensitiveCompare:@"billboardY"] == NSOrderedSame) {
-      [self node]->addConstraint(std::make_shared<VROBillboardConstraint>(VROBillboardAxis::Y));
-    }
-  }
 }
 
 - (void)setMaterials:(NSArray<NSString *> *)materials {
-  _materials = materials;
-  [self applyMaterials];
+    _materials = materials;
+    [self applyMaterials];
 }
 
 // Apply materials to the underlying geometry if materials were explicitly set
 // via the materials prop
 - (void)applyMaterials {
-  if (!self.node) {
-    return;
-  }
-
-  std::shared_ptr<VROGeometry> geometry = self.node->getGeometry();
-  if (!geometry) {
-    return;
-  }
+    if (!self.node) {
+        return;
+    }
+    
+    std::shared_ptr<VROGeometry> geometry = self.node->getGeometry();
+    if (!geometry) {
+        return;
+    }
     
     if (_acceptShadows) {
         VROARShadow::apply(geometry->getMaterials().front());
@@ -246,31 +246,31 @@ const double kTransformDelegateDistanceFilter = 0.01;
     if (!self.materials) {
         return;
     }
-
-  VRTMaterialManager *materialManager = [self.bridge moduleForClass:[VRTMaterialManager class]];
-
-  std::vector<std::shared_ptr<VROMaterial>> tempMaterials;
-  for (int i = 0; i < self.materials.count; i++) {
-    NSString *materialName = [self.materials objectAtIndex:i];
-
-    std::shared_ptr<VROMaterial> material = [materialManager getMaterialByName:materialName];
-    if (material == NULL) {
-      RCTLogError(@"Unknown Material Name: \"%@\"", materialName);
-      return;
+    
+    VRTMaterialManager *materialManager = [self.bridge moduleForClass:[VRTMaterialManager class]];
+    
+    std::vector<std::shared_ptr<VROMaterial>> tempMaterials;
+    for (int i = 0; i < self.materials.count; i++) {
+        NSString *materialName = [self.materials objectAtIndex:i];
+        
+        std::shared_ptr<VROMaterial> material = [materialManager getMaterialByName:materialName];
+        if (material == NULL) {
+            RCTLogError(@"Unknown Material Name: \"%@\"", materialName);
+            return;
+        }
+        
+        // Always copy materials from the material manager, as they may be
+        // modified by animations, etc. and we don't want these changes to
+        // propagate to the reference material held by the material manager
+        tempMaterials.push_back(std::make_shared<VROMaterial>(material));
     }
-
-    // Always copy materials from the material manager, as they may be
-    // modified by animations, etc. and we don't want these changes to
-    // propagate to the reference material held by the material manager
-    tempMaterials.push_back(std::make_shared<VROMaterial>(material));
-  }
-  geometry->setMaterials(tempMaterials);
+    geometry->setMaterials(tempMaterials);
 }
 
 - (void)setVisible:(BOOL)visible {
-  _visible = visible;
-  [self handleAppearanceChange];
-  [self node]->setHidden(!_visible);
+    _visible = visible;
+    [self handleAppearanceChange];
+    [self node]->setHidden(!_visible);
 }
 
 - (void)setViroTag:(NSString *)tag {
@@ -282,28 +282,28 @@ const double kTransformDelegateDistanceFilter = 0.01;
 }
 
 - (void)setHighAccuracyGaze:(BOOL)enabled{
-  _highAccuracyGaze = enabled;
-  [self node]->setHighAccuracyGaze(enabled);
+    _highAccuracyGaze = enabled;
+    [self node]->setHighAccuracyGaze(enabled);
 }
 
 - (void)reactSetFrame:(CGRect)frame {
-  // These frames are in terms of anchorPoint = topLeft, but internally the
-  // views are anchorPoint = center for easier scale and rotation animations.
-  // Convert the frame so it works with anchorPoint = center.
-  CGPoint position = {CGRectGetMidX(frame), CGRectGetMidY(frame)};
-  CGRect bounds = {CGPointZero, frame.size};
-
-  self.position2DFlex = position;
-  self.centerPoint2DFlex = CGPointMake(bounds.size.width/2, bounds.size.height/2);
-  self.bounds2DFlex = bounds;
+    // These frames are in terms of anchorPoint = topLeft, but internally the
+    // views are anchorPoint = center for easier scale and rotation animations.
+    // Convert the frame so it works with anchorPoint = center.
+    CGPoint position = {CGRectGetMidX(frame), CGRectGetMidY(frame)};
+    CGRect bounds = {CGPointZero, frame.size};
+    
+    self.position2DFlex = position;
+    self.centerPoint2DFlex = CGPointMake(bounds.size.width/2, bounds.size.height/2);
+    self.bounds2DFlex = bounds;
 }
 
 -(CGPoint)fudgeFlexboxScaleX:(float)width3d  Y:(float)height3d {
-  return CGPointMake(width3d, height3d);
+    return CGPointMake(width3d, height3d);
 }
 
 - (BOOL)isRootFlexboxView {
-  return NO;
+    return NO;
 }
 
 #pragma mark VRTEventDelegateProtocol Delegates
@@ -317,19 +317,19 @@ const double kTransformDelegateDistanceFilter = 0.01;
 
 - (void)setCanCollide:(BOOL)canCollide {
     _canCollide = canCollide;
-
+    
     if (canCollide && !_physicsDelegate) {
         _physicsDelegate = std::make_shared<VROPhysicsBodyDelegateiOS>(self);
     } else if (!canCollide) {
         _physicsDelegate = nil;
     }
-
+    
     // Update the physic body's delegate if possible
     std::shared_ptr<VROPhysicsBody> body = [self node]->getPhysicsBody();
     if (!body) {
         return;
     }
-
+    
     if (canCollide) {
         body->setPhysicsDelegate(_physicsDelegate);
     } else {
@@ -399,7 +399,7 @@ const double kTransformDelegateDistanceFilter = 0.01;
         }
         
         self.onHoverViro(@{@"source": @(source),
-                         @"isHovering":@(isHovering),
+                           @"isHovering":@(isHovering),
                            @"position": locationArray});
     }
 }
@@ -422,7 +422,7 @@ const double kTransformDelegateDistanceFilter = 0.01;
 }
 
 - (void)onPinch:(int)source scaleFactor:(float)scale
-    pinchState:(VROEventDelegate::PinchState)pinchState {
+     pinchState:(VROEventDelegate::PinchState)pinchState {
     if(self.onPinchViro != nil) {
         self.onPinchViro(@{@"source": @(source), @"pinchState":@(pinchState), @"scaleFactor":@(scale)});
     }
@@ -454,7 +454,7 @@ const double kTransformDelegateDistanceFilter = 0.01;
 #pragma mark Physics Implementations
 - (void)setScene:(std::shared_ptr<VROScene>)scene {
     [super setScene:scene];
-
+    
     std::shared_ptr<VROPhysicsBody> body = [self node]->getPhysicsBody();
     if (body){
         scene->getPhysicsWorld()->addPhysicsBody(body);
@@ -466,22 +466,22 @@ const double kTransformDelegateDistanceFilter = 0.01;
     if (self.scene && body){
         self.scene->getPhysicsWorld()->removePhysicsBody(body);
     }
-
+    
     if (body){
         [self node]->clearPhysicsBody();
     }
 }
 
 - (std::shared_ptr<VROPhysicsBody>)createPhysicsBody:(VROPhysicsBody::VROPhysicsBodyType) bodyType
-                                            withMass:(float)mass
-                                           withShape:(std::shared_ptr<VROPhysicsShape>) phsyicsShape{
+withMass:(float)mass
+withShape:(std::shared_ptr<VROPhysicsShape>) phsyicsShape{
     std::shared_ptr<VROPhysicsBody> body = [self node]->initPhysicsBody(bodyType,
                                                                         mass,
                                                                         phsyicsShape);
     if (self.scene){
         self.scene->getPhysicsWorld()->addPhysicsBody(body);
     }
-
+    
     if (_physicsDelegate) {
         body->setPhysicsDelegate(_physicsDelegate);
     } else {
@@ -497,7 +497,7 @@ const double kTransformDelegateDistanceFilter = 0.01;
         self.physicsDictionary = dictionary;
         return;
     }
-
+    
     // Else update the current physicsBody with the new properties, recreating
     // the body if needed. Log and return if an error has occured.
     if (![self recreatePhysicsBodyIfNeeded:dictionary]
@@ -505,7 +505,7 @@ const double kTransformDelegateDistanceFilter = 0.01;
         || ![self applyForcesOnBody:dictionary]){
         return;
     }
-
+    
     // Finally save a copy of the last known set physics properties.
     self.physicsDictionary = dictionary;
 }
@@ -517,13 +517,13 @@ const double kTransformDelegateDistanceFilter = 0.01;
     if (self.physicsDictionary){
         nsStringBodyTypeCurrent = [self.physicsDictionary objectForKey:@"type"];
     }
-
+    
     bool hasBodyTypeChanged = nsStringBodyTypeProp != nsStringBodyTypeCurrent;
     if (nsStringBodyTypeProp){
         hasBodyTypeChanged = ![nsStringBodyTypeProp isEqualToString:nsStringBodyTypeCurrent];
     }
     std::string stringBodyType = std::string([nsStringBodyTypeProp UTF8String]);
-
+    
     // Check if the provided phsyics body type with the given mass is valid.
     std::string errorMsg;
     float mass = [[dictionary objectForKey:@"mass"] floatValue];
@@ -532,24 +532,24 @@ const double kTransformDelegateDistanceFilter = 0.01;
         RCTLogError(@"%@", [NSString stringWithUTF8String:errorMsg.c_str()]);
         return false;
     }
-
+    
     // Determine if the physics shape has changed
     NSDictionary *nsShapeDictionaryProp = [dictionary objectForKey:@"shape"];
     NSDictionary *nsShapeDictionaryCurrent = nullptr;
     if (self.physicsDictionary){
         nsShapeDictionaryCurrent = [self.physicsDictionary objectForKey:@"shape"];
     }
-
+    
     bool hasBodyShapeChanged = nsShapeDictionaryProp != nsShapeDictionaryCurrent;
     if (nsShapeDictionaryProp){
         hasBodyTypeChanged = ![nsShapeDictionaryProp isEqualToDictionary:nsShapeDictionaryCurrent];
     }
-
+    
     // Create or update the VROPhysicsBody only if needed
     std::shared_ptr<VROPhysicsBody> body = [self node]->getPhysicsBody();
     if (!body || hasBodyTypeChanged || hasBodyShapeChanged){
         std::shared_ptr<VROPhysicsShape> propPhysicsShape = nullptr;
-
+        
         // Recreate a physics shape with the latest properties by grabbing
         // the current shapeType (required in JS if providing a physics shape)
         if (nsShapeDictionaryProp){
@@ -560,21 +560,21 @@ const double kTransformDelegateDistanceFilter = 0.01;
                 return false;
             }
         }
-
+        
         // Re-create the physics body if the type has changed or if one doesn't exists.
         if (!body || hasBodyTypeChanged){
             // Clean up the existing physicsBody if it exists.
             [self clearPhysicsBody];
-
+            
             // Create and attach the Physics body to the scene
             VROPhysicsBody::VROPhysicsBodyType propBodyType
-                                    = VROPhysicsBody::getBodyTypeForString(stringBodyType);
+            = VROPhysicsBody::getBodyTypeForString(stringBodyType);
             body = [self createPhysicsBody:propBodyType withMass:mass withShape:propPhysicsShape];
         } else if (hasBodyShapeChanged){
             body->setPhysicsShape(propPhysicsShape);
         }
     }
-
+    
     body->setIsSimulated([self shouldAppear]);
     return true;
 }
@@ -583,20 +583,20 @@ const double kTransformDelegateDistanceFilter = 0.01;
     std::shared_ptr<VROPhysicsBody> body = [self node]->getPhysicsBody();
     float mass = [[dictionary objectForKey:@"mass"] floatValue];
     std::string stringBodyType = std::string([[dictionary objectForKey:@"type"] UTF8String]);
-
+    
     NSArray *inertia = [dictionary objectForKey:@"inertia"];
     if (inertia != nil){
         if ([inertia count] != 3) {
             RCTLogError(@"Incorrect parameters provided for inertia, expected: [x, y, z]!");
             return false;
         }
-
+        
         VROVector3f inertia3f = VROVector3f([[inertia objectAtIndex:1] floatValue],
                                             [[inertia objectAtIndex:2] floatValue],
                                             [[inertia objectAtIndex:3] floatValue]);
         body->setInertia(inertia3f);
     }
-
+    
     if ([dictionary objectForKey:@"mass"]) {
         std::string errorMsg;
         bool isValid = VROPhysicsBody::isValidType(stringBodyType, mass, errorMsg);
@@ -606,26 +606,26 @@ const double kTransformDelegateDistanceFilter = 0.01;
         }
         body->setMass(mass);
     }
-
+    
     if ([dictionary objectForKey:@"friction"]) {
         float friction = [[dictionary objectForKey:@"friction"] floatValue];
         body->setFriction(friction);
     }
-
+    
     if ([dictionary objectForKey:@"restitution"]) {
         float restitution = [[dictionary objectForKey:@"restitution"] floatValue];
         body->setRestitution(restitution);
     }
-
+    
     if ([dictionary objectForKey:@"enabled"]) {
         bool enabled = [[dictionary objectForKey:@"enabled"] boolValue];
         body->setIsSimulated(enabled);
     }
-
+    
     if ([dictionary objectForKey:@"useGravity"]) {
         bool useGravity = [[dictionary objectForKey:@"useGravity"] boolValue];
         VROPhysicsBody::VROPhysicsBodyType propBodyType
-                                    = VROPhysicsBody::getBodyTypeForString(stringBodyType);
+        = VROPhysicsBody::getBodyTypeForString(stringBodyType);
         if (propBodyType != VROPhysicsBody::VROPhysicsBodyType::Dynamic && useGravity){
             RCTLogWarn(@"Attempted to set useGravity for non-dynamic phsyics bodies.");
         } else {
@@ -705,7 +705,7 @@ const double kTransformDelegateDistanceFilter = 0.01;
         
         VROVector3f torque3f = VROVector3f([[torque objectAtIndex:0] floatValue],
                                            [[torque objectAtIndex:1] floatValue],
-                                           [[torque objectAtIndex:2] floatValue]);        
+                                           [[torque objectAtIndex:2] floatValue]);
         body->applyTorque(torque3f);
     }
     
@@ -760,8 +760,8 @@ const double kTransformDelegateDistanceFilter = 0.01;
         RCTLogError(@"Attempted to set a velocity on a non-physics node");
     }
     VROVector3f velocity3f = VROVector3f([[velocity objectAtIndex:0] floatValue],
-                                             [[velocity objectAtIndex:1] floatValue],
-                                             [[velocity objectAtIndex:2] floatValue]);
+                                         [[velocity objectAtIndex:1] floatValue],
+                                         [[velocity objectAtIndex:2] floatValue]);
     body->setVelocity(velocity3f, constant);
 }
 
@@ -815,17 +815,17 @@ const double kTransformDelegateDistanceFilter = 0.01;
 
 - (void)onCollided:(std::string) bodyKey
          collision:(VROPhysicsBody::VROCollision)collision {
-
+    
     NSMutableArray *coordinate = [NSMutableArray array];
     [coordinate insertObject:[NSNumber numberWithFloat:collision.collidedPoint.x] atIndex:0];
     [coordinate insertObject:[NSNumber numberWithFloat:collision.collidedPoint.y] atIndex:1];
     [coordinate insertObject:[NSNumber numberWithFloat:collision.collidedPoint.z] atIndex:2];
-
+    
     NSMutableArray *normal = [NSMutableArray array];
     [normal insertObject:[NSNumber numberWithFloat:collision.collidedNormal.x] atIndex:0];
     [normal insertObject:[NSNumber numberWithFloat:collision.collidedNormal.y] atIndex:1];
     [normal insertObject:[NSNumber numberWithFloat:collision.collidedNormal.z] atIndex:2];
-
+    
     self.onCollidedViro(@{@"viroTag": @(collision.collidedBodyTag.c_str()), @"collidedPoint":coordinate, @"collidedNormal":normal});
 }
 @end
