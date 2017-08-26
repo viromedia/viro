@@ -127,27 +127,32 @@ export class App extends Component {
       );
     }
       return (
-        <View style={{position:'absolute', right:10, top:10, width:100, height:100}}>
+        <View style={{position:'absolute',  flex:1, flexDirection:'column', right:10, top:10, width:100, height:100}}>
           {console.log("this.props.currentItemSelectionIndex in render - " + this.props.currentItemSelectionIndex)}
-          {renderIf(this.props.currentItemSelectionIndex != -1,
+          {renderIf(this.props.currentItemSelectionIndex != -1 && (this.state.showPhotosSelector==false),
             <TouchableHighlight onPress={this._onContextMenuRemoveButtonPressed} underlayColor="#00000000">
               <Image source={require("./res/btn_close.png")} style={localStyles.previewScreenButtons} />
             </TouchableHighlight>
           )}
+
+          {renderIf(this.props.currentItemSelectionIndex != -1 && (this.props.currentSelectedItemType == UIConstants.LIST_MODE_PORTAL) && (this.state.showPhotosSelector==false),
+            <TouchableHighlight onPress={()=>{this.setState({showPhotosSelector:true, lastSelectedPortalIndex:this.props.currentItemSelectionIndex})}} underlayColor="#00000000">
+              <Image source={require("./res/btn_add.png")} style={localStyles.previewScreenButtons} />
+            </TouchableHighlight>
+          )}
         </View>
-    
+
     );
   }
   _onContextMenuRemoveButtonPressed() {
     var index = this.props.currentItemSelectionIndex;
     console.log("_onContextMenuRemoveButtonPressed - index: " + this.props.currentItemSelectionIndex + ", clickState: " + this.props.currentItemClickState + ", type: " + this.props.currentSelectedItemType);
     if (this.props.currentItemSelectionIndex != -1 && this.props.currentItemClickState != '') {
-      
       if (this.props.currentSelectedItemType == UIConstants.LIST_MODE_MODEL) {
         if(this.props.modelItems[index].selected == true) {
               this.props.dispatchChangeModelLoadState(index, LoadingConstants.NONE);
         }
-        this.props.dispatchToggleModelSelection(index);        
+        this.props.dispatchToggleModelSelection(index);
       }
 
       if(this.props.currentSelectedItemType == UIConstants.LIST_MODE_PORTAL) {
@@ -156,7 +161,7 @@ export class App extends Component {
             this.setState({
               lastSelectedPortalIndex:-1,
             });
-        } 
+        }
         this.props.dispatchTogglePortalSelection(index);
       }
       this.props.dispatchChangeItemClickState(-1, '', '');
@@ -165,7 +170,7 @@ export class App extends Component {
   }
   _renderPhotosSelector() {
     // TODO: remove the return to render the selector when portal is tapped
-    if (this.state.showPhotosSelector == true && this.props.listMode == UIConstants.LIST_MODE_PORTAL && this.state.lastSelectedPortalIndex != -1) {
+    if (this.state.showPhotosSelector == true) {
       var photoSelectorViews = [];
         photoSelectorViews.push(<StatusBar key="statusBarKey" hidden={true} />);
         photoSelectorViews.push(<View key="topPhotoBar" style={localStyles.topPhotoBar}>
@@ -388,11 +393,6 @@ export class App extends Component {
           this.setState({
             lastSelectedPortalIndex:-1,
           });
-      } else {
-        this.setState({
-          lastSelectedPortalIndex:index,
-          showPhotosSelector: true,
-        });
       }
 
       this.props.dispatchTogglePortalSelection(index);
