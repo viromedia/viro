@@ -91,8 +91,8 @@ export class PhotosSelector extends Component {
   static defaultProps = {
     columns : 3,
     rows : 2,
-    searchIncrement: 20,
-    searchQuota : 60,
+    searchIncrement: 12,
+    searchQuota : 24,
   }
 
   // default state
@@ -114,7 +114,8 @@ export class PhotosSelector extends Component {
     this.user360Photos = [];
     this.userPhotos = [];
     this.fetchCount = 0;
-    this.finishedSearching = false;
+    this.isFetching = false;
+    this.fetchedAllPhotos = false;
     this.selectedTab = TAB_STOCK;
     this.selectedRow = -1;
     this.selectedColumn = -1;
@@ -185,6 +186,11 @@ export class PhotosSelector extends Component {
   }
 
   _getRow(data, sectionId, rowIndex) {
+    if (rowIndex == this.state.dataSource.getRowCount() - 1 && this.selectedTab == TAB_RECENT
+        && !this.isFetching && !this.fetchedAllPhotos) {
+      this._getCameraRollAssets();
+    }
+
     let height = this.state.scrollViewHeight / this.props.rows
     return (
       <View key={ROW_PREFIX + rowIndex} style={[localStyles.rowContainer, {height : height}]} >
@@ -294,6 +300,7 @@ export class PhotosSelector extends Component {
   // https://facebook.github.io/react-native/docs/cameraroll.html
 
   _getCameraRollAssets() {
+    this.isFetching = true;
     console.log("[PhotoSelector] fetching Camera Roll assets.");
     CameraRoll.getPhotos({
       first: this.props.searchIncrement,
@@ -316,10 +323,15 @@ export class PhotosSelector extends Component {
       this.endCursor = retValue.page_info.end_cursor;
       this.fetchCount += numResults;
 
+      if (!retValue.page_info.has_next_page) {
+        this.fetchedAllPhotos = true;
+      }
+
       // continue getting assets if we've not reached the search quota and we didn't run out of results.
-      if ((this.fetchCount < this.props.searchQuota) && (numResults == this.props.searchIncrement)) {
+      if ((this.fetchCount < this.props.searchQuota) && (retValue.page_info.has_next_page)) {
         this._updateDataSource(()=>{this._getCameraRollAssets()});
       } else {
+        this.isFetching = false;
         this._updateDataSource();
       }
     }).catch((err)=>{
