@@ -12,6 +12,7 @@ import * as LoadingConstants from './redux/LoadingStateConstants';
 import * as UIConstants from './redux/UIConstants';
 import ModelItemRender from './component/ModelItemRender';
 import PortalItemRender from './component/PortalItemRender';
+import EffectItemRender from './component/EffectItemRender';
 
 import {
   AppRegistry,
@@ -62,7 +63,7 @@ var figment = React.createClass({
   render: function() {
     console.log("Figment; Rerender AR Scene OCCURRED");
     return (
-        <ViroARScene ref="arscene" physicsWorld={{gravity:[0, -9.81, 0]}} 
+        <ViroARScene ref="arscene" physicsWorld={{gravity:[0, -9.81, 0]}}
             onTrackingInitialized={()=>{console.log("ARScene Initialized!")}}>
           <ViroDirectionalLight color="#ffffff" direction={[0,-1,-.2]}/>
           <ViroAmbientLight color="#ffffff" intensity={200}/>
@@ -85,6 +86,7 @@ var figment = React.createClass({
 
           {this.renderModels(this.props.modelItems)}
           {this.renderPortals(this.props.portalItems)}
+          {this.renderEffects(this.props.effectItems)}
         </ViroARScene>
     );
   },
@@ -121,6 +123,16 @@ var figment = React.createClass({
     return renderedObjects;
   },
 
+  renderEffects(effectItems) {
+    if(effectItems){
+      for(var i =0; i<effectItems.length; i++) {
+          if(effectItems[i].selected) {
+            return (<EffectItemRender key={i} effectItem={effectItems[i]} />);
+          }
+      }
+    }
+  },
+
   _performARHitTest(callback) {
     this.refs["arscene"].getCameraOrientationAsync().then((orientation) => {
       this.refs["arscene"].performARHitTestWithRay(orientation.forward).then((results)=>{
@@ -147,6 +159,7 @@ function selectProps(store) {
   return {
     modelItems: store.arobjects.modelItems,
     portalItems: store.arobjects.portalItems,
+    effectItems: store.arobjects.effectItems,
   };
 }
 

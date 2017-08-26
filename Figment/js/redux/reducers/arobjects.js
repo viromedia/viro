@@ -9,11 +9,11 @@
  */
 import * as ModelData from  '../../model/ModelItems';
 import * as PortalData from  '../../model/PortalItems';
-
+import * as EffectData from  '../../model/EffectItems';
  const initialState = {
    modelItems: ModelData.getInitModelArray(),
    portalItems: PortalData.getInitPortalArray(),
-   effectItems: undefined,
+   effectItems: EffectData.getInitEffectArray(),
  }
 
 
@@ -56,6 +56,14 @@ import * as PortalData from  '../../model/PortalItems';
     }
  }
 
+ export function toggleEffectSelection(index) {
+   return {
+     type: 'TOGGLE_EFFECT_SELECTED',
+     index: index,
+   };
+ }
+
+
 function modifyItem(state = [], action) {
     switch (action.type) {
       case 'CHANGE_PORTAL_PHOTO':
@@ -79,9 +87,26 @@ function modifyItem(state = [], action) {
           changeLoadState(state[action.index], action),
           ...state.slice(parseInt(action.index) +1),
         ];
+
       default:
         return state;
     }
+}
+
+function modifyEffectSelection(state = [], action) {
+  switch(action.type) {
+    case 'TOGGLE_EFFECT_SELECTED':
+      var effectToggleArray = [];
+      for(var i =0; i<state.length; i++) {
+        if(i != action.index) {
+          state[i].selected = false;
+        } else {
+          state[i].selected = !state[i].selected;
+        }
+        effectToggleArray.push(state[i]);
+      }
+      return effectToggleArray;
+  }
 }
 
 function arobjects(state = initialState, action) {
@@ -104,6 +129,12 @@ function arobjects(state = initialState, action) {
           ...state,
           portalItems: updatedPortalInfo.slice(0),
       }
+    case 'TOGGLE_EFFECT_SELECTED':
+        var updatedEffects = modifyEffectSelection(state.effectItems.slice(0), action);
+        return  {
+          ...state,
+          effectItems: updatedEffects.slice(0),
+        }
     default:
       return state;
   }

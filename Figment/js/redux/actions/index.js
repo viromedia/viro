@@ -24,6 +24,13 @@ export function toggleModelSelection(index) {
   };
 }
 
+export function toggleEffectSelection(index) {
+  return {
+    type: 'TOGGLE_EFFECT_SELECTED',
+    index: index,
+  };
+}
+
 export function togglePortalSelection(index) {
   console.log("EXECUTING TOGGLE PORTAL SELECTED index:" + index);
   return {

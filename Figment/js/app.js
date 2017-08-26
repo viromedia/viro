@@ -12,7 +12,7 @@ import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
 import { BlurView } from 'react-native-blur';
-import {toggleModelSelection, togglePortalSelection, changePortalLoadState, changePortalPhoto, changeModelLoadState, changeItemClickState, switchListMode, removeARObject, displayUIScreen } from './redux/actions';
+import {toggleModelSelection, togglePortalSelection,toggleEffectSelection, changePortalLoadState, changePortalPhoto, changeModelLoadState, changeItemClickState, switchListMode, removeARObject, displayUIScreen } from './redux/actions';
 import TimerMixin from 'react-timer-mixin';
 
 import * as LoadingConstants from './redux/LoadingStateConstants';
@@ -257,7 +257,7 @@ export class App extends Component {
 
     buttons.push(
         <ButtonComponent key="button_effects"
-          onPress={()=>{this.props.dispatchSwitchListMode(UIConstants.LIST_MODE_EFFECTS, UIConstants.LIST_TITLE_EFFECTS)}}
+          onPress={()=>{this.props.dispatchSwitchListMode(UIConstants.LIST_MODE_EFFECT, UIConstants.LIST_TITLE_EFFECTS)}}
           buttonState={(this.props.listMode==UIConstants.LIST_MODE_EFFECT) ? 'on':'off'}
           stateImageArray={[require("./res/btn_mode_effects_on.png"), require("./res/btn_mode_effects.png")]}
           />);
@@ -394,10 +394,12 @@ export class App extends Component {
             lastSelectedPortalIndex:-1,
           });
       }
-
       this.props.dispatchTogglePortalSelection(index);
     }
 
+    if(this.props.listMode == UIConstants.LIST_MODE_EFFECT) {
+      this.props.dispatchToggleEffectSelection(index);
+    }
   }
 
   _onListItemLoaded(index, loadState) {
@@ -421,7 +423,7 @@ export class App extends Component {
     }else if(this.props.listMode == UIConstants.LIST_MODE_PORTAL) {
       return this.props.portalItems;
     } else if(this.props.listMode == UIConstants.LIST_MODE_EFFECT) {
-      return this.props.portalItems;
+      return this.props.effectItems;
     }
   }
 
@@ -574,10 +576,12 @@ var localStyles = StyleSheet.create({
 });
 
 function selectProps(store) {
-
+  console.log("STORE:");
+  console.log(store.arobjects.effectItems);
   return {
     modelItems: store.arobjects.modelItems,
     portalItems: store.arobjects.portalItems,
+    effectItems: store.arobjects.effectItems,
     currentScreen: store.ui.currentScreen,
     listMode: store.ui.listMode,
     listTitle: store.ui.listTitle,
@@ -598,6 +602,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     dispatchToggleModelSelection: (index) => dispatch(toggleModelSelection(index)),
     dispatchTogglePortalSelection: (index) => dispatch(togglePortalSelection(index)),
+    dispatchToggleEffectSelection: (index) => dispatch(toggleEffectSelection(index)),
     dispatchChangeModelLoadState:(index, loadState) =>dispatch(changeModelLoadState(index, loadState)),
     dispatchChangePortalLoadState:(index, loadState) =>dispatch(changePortalLoadState(index, loadState)),
     dispatchDisplayUIScreen: (uiScreenState) => dispatch(displayUIScreen(uiScreenState)),
