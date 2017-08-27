@@ -304,7 +304,7 @@ export class PhotosSelector extends Component {
     console.log("[PhotoSelector] fetching Camera Roll assets.");
     CameraRoll.getPhotos({
       first: this.props.searchIncrement,
-      assetType : 'Photos',
+      assetType : 'All',
       after : this.endCursor,
       groupTypes : 'All'
     }).then((retValue)=>{
@@ -358,6 +358,10 @@ export class PhotosSelector extends Component {
   }
 
   _is360Photo(edge) {
+    if(edge.node.image.height  == 0) {
+      return false;
+    }
+
     let ratio = edge.node.image.width / edge.node.image.height;
     return ratio > 1.9 && ratio < 2.2;
   }

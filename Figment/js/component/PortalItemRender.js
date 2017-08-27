@@ -25,6 +25,7 @@ import {
   ViroMaterials,
   ViroImage,
   ViroSphere,
+  ViroVideo,
 } from 'react-viro';
 
 
@@ -131,8 +132,14 @@ var PortalItemRender = React.createClass({
         } else {
           var viewArray = [];
           viewArray.push(<ViroSphere position={[0,0,0]} radius={56} facesOutward={false} key="background_portal" materials="theatre" />);
-          viewArray.push(<ViroImage key="image_portal" width={1} height={1}  resizeMode='scaleToFit' source={this.props.portalItem.portal360Image.source}
+          if(this.props.portalItem.portal360Image.source.uri.endsWith("mp4")) {
+            console.log("movie uri: " + this.props.portalItem.portal360Image.source.uri);
+            viewArray.push(<ViroVideo key="image_portal" width={1} height={1}  source={this.props.portalItem.portal360Image.source}
                          position={[0, 3.9, -39]} scale={[42, 21, 1]} />);
+          } else {
+            viewArray.push(<ViroImage key="image_portal" width={1} height={1}  resizeMode='scaleToFit' source={this.props.portalItem.portal360Image.source}
+                         position={[0, 3.9, -39]} scale={[42, 21, 1]} />);
+          }
           return viewArray;
         }
     },
