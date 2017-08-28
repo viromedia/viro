@@ -86,12 +86,14 @@ var figment = React.createClass({
     if(modelItems) {
       console.log("_renderModels()");
       var root = this;
+      let objBitMask = 1; // start with 1 because that's the default, we'll increment then use it.
       Object.keys(modelItems).forEach(function(currentKey) {
+        objBitMask++;
         console.log("rendering key:" + currentKey);
         if(modelItems[currentKey] != null && modelItems[currentKey] != undefined) {
           renderedObjects.push(
             <ModelItemRender key={modelItems[currentKey].uuid} modelIDProps={modelItems[currentKey]}  hitTestMethod={root._performARHitTest}
-            onLoadCallback={root._onLoadCallback} onClickStateCallback={root._onModelsClickStateCallback}  bitMask={Math.pow(2,modelItems[currentKey].index+2)} />
+              onLoadCallback={root._onLoadCallback} onClickStateCallback={root._onModelsClickStateCallback}  bitMask={Math.pow(2,objBitMask)} />
           );
         }
       });

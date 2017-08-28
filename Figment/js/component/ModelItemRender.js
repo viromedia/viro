@@ -100,6 +100,7 @@ var ModelItemRender = React.createClass({
             <ViroSurface
               ref={this._setShadowRef()}
               rotation={[-90, 0, 0]}
+              position={[0, -.005 * this.props.bitMask, 0]}
               width={2} height={2}
               scale={this.state.scale}
               lightBitMask={this.props.bitMask | 1}
