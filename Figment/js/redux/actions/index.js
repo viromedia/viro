@@ -14,8 +14,23 @@ export function displayUIScreen(uiScreenToShow) {
   return {
     type: 'DISPLAY_UI_SCREEN',
     ui: uiScreenToShow,
-  };
+  }
 }
+
+export function addModelWithIndex(index) {
+  return {
+      type:'ADD_MODEL',
+      index: index,
+  }
+}
+
+export function removeModelWithUUID(uuid) {
+  return {
+      type:'REMOVE_MODEL',
+      uuid: uuid,
+  }
+}
+
 export function toggleModelSelection(index) {
   console.log("EXECUTING TOGGLE_MODEL_ITEM index:" + index);
   return {
@@ -47,11 +62,11 @@ export function switchListMode(listMode, listTitle) {
   };
 }
 
-export function changeModelLoadState(index, loadState) {
-  console.log("EXECUTING TOGGLE_MODEL_ITEM index:" + index);
+export function changeModelLoadState(uuid, loadState) {
+  console.log("EXECUTING TOGGLE_MODEL_ITEM uuid:" + uuid);
   return {
     type: 'CHANGE_MODEL_LOAD_STATE',
-    index: index,
+    uuid: uuid,
     loadState: loadState,
   };
 }

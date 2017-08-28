@@ -161,7 +161,7 @@ var ModelItems = [
 ]
 
 module.exports = {
-  getInitModelArray: function() {
+  getModelArray: function() {
     return ModelItems;
   }
 };

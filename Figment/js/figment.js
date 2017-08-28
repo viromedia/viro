@@ -84,17 +84,18 @@ var figment = React.createClass({
   renderModels(modelItems) {
     var renderedObjects = [];
     if(modelItems) {
-      for(var i =0; i<modelItems.length; i++) {
-        if(modelItems[i].selected) {
-          console.log("Figment: Pushing VIRO 3DOBJECT index:" + i);
-          var j = i;
+      console.log("_renderModels()");
+      var root = this;
+      Object.keys(modelItems).forEach(function(currentKey) {
+        console.log("rendering key:" + currentKey);
+        if(modelItems[currentKey] != null && modelItems[currentKey] != undefined) {
           renderedObjects.push(
-            <ModelItemRender key={j} modelItem={modelItems[j]} index={j} hitTestMethod={this._performARHitTest}
-              onLoadCallback={this._onLoadCallback} onClickStateCallback={this._onModelsClickStateCallback}
-              bitMask={Math.pow(2,j+2)} />
+            <ModelItemRender key={modelItems[currentKey].uuid} modelIDProps={modelItems[currentKey]}  hitTestMethod={root._performARHitTest}
+            onLoadCallback={root._onLoadCallback} onClickStateCallback={root._onModelsClickStateCallback}  bitMask={Math.pow(2,modelItems[currentKey].index+2)} />
           );
         }
-      }
+      });
+
     }
     return renderedObjects;
   },
@@ -133,13 +134,13 @@ var figment = React.createClass({
     });
   },
 
-  _onLoadCallback(index, loadState) {
-    console.log("_onLoadCallback" + index + ", loadCallback:" + loadState);
-    this.props.arSceneNavigator.viroAppProps.loadingObjectCallback(index, loadState);
+  _onLoadCallback(uuid, loadState) {
+    console.log("_onLoadCallback" + uuid + ", loadCallback:" + loadState);
+    this.props.arSceneNavigator.viroAppProps.loadingObjectCallback(uuid, loadState);
   },
-  _onModelsClickStateCallback(index, clickState, itemType) {
-    console.log("_onClickStateCallback - index: " + index + ", clickState: " + clickState);
-    this.props.arSceneNavigator.viroAppProps.clickStateCallback(index, clickState, itemType);
+  _onModelsClickStateCallback(uuid, clickState, itemType) {
+    console.log("_onClickStateCallback - index: " + uuid + ", clickState: " + clickState);
+    this.props.arSceneNavigator.viroAppProps.clickStateCallback(uuid, clickState, itemType);
   },
   _onPortalsClickStateCallback(index, clickState, itemType) {
     console.log("_onClickStateCallback - index: " + index + ", clickState: " + clickState);

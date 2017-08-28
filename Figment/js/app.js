@@ -12,7 +12,7 @@ import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
 import { BlurView } from 'react-native-blur';
-import {toggleModelSelection, togglePortalSelection,toggleEffectSelection, changePortalLoadState, changePortalPhoto, changeModelLoadState, changeItemClickState, switchListMode, removeARObject, displayUIScreen } from './redux/actions';
+import {addModelWithIndex, removeModelWithUUID, togglePortalSelection,toggleEffectSelection, changePortalLoadState, changePortalPhoto, changeModelLoadState, changeItemClickState, switchListMode, removeARObject, displayUIScreen } from './redux/actions';
 import TimerMixin from 'react-timer-mixin';
 
 import * as LoadingConstants from './redux/LoadingStateConstants';
@@ -21,6 +21,7 @@ import renderIf from './helpers/renderIf';
 import ButtonComponent from './component/ButtonComponent';
 import FigmentListView from './component/FigmentListView';
 import PhotosSelector from './component/PhotosSelector';
+import * as ModelData from  './model/ModelItems';
 
 const kObjSelectMode = 1;
 const kPortalSelectMode = 2;
@@ -149,10 +150,8 @@ export class App extends Component {
     console.log("_onContextMenuRemoveButtonPressed - index: " + this.props.currentItemSelectionIndex + ", clickState: " + this.props.currentItemClickState + ", type: " + this.props.currentSelectedItemType);
     if (this.props.currentItemSelectionIndex != -1 && this.props.currentItemClickState != '') {
       if (this.props.currentSelectedItemType == UIConstants.LIST_MODE_MODEL) {
-        if(this.props.modelItems[index].selected == true) {
-              this.props.dispatchChangeModelLoadState(index, LoadingConstants.NONE);
-        }
-        this.props.dispatchToggleModelSelection(index);
+
+        this.props.dispatchRemoveModelWithUUID(index);
       }
 
       if(this.props.currentSelectedItemType == UIConstants.LIST_MODE_PORTAL) {
@@ -381,10 +380,7 @@ export class App extends Component {
 
   _onListPressed(index) {
     if(this.props.listMode == UIConstants.LIST_MODE_MODEL) {
-      if(this.props.modelItems[index].selected == true) {
-            this.props.dispatchChangeModelLoadState(index, LoadingConstants.NONE);
-      }
-      this.props.dispatchToggleModelSelection(index);
+      this.props.dispatchAddModel(index);
     }
 
     if(this.props.listMode == UIConstants.LIST_MODE_PORTAL) {
@@ -417,9 +413,10 @@ export class App extends Component {
     console.log("Dispatching item clicked state: " + index + ", clickState:" + clickState);
     this.props.dispatchChangeItemClickState(index, clickState, itemType);
   }
+
   _getListItems() {
     if(this.props.listMode == UIConstants.LIST_MODE_MODEL) {
-      return this.props.modelItems;
+      return ModelData.getModelArray();
     }else if(this.props.listMode == UIConstants.LIST_MODE_PORTAL) {
       return this.props.portalItems;
     } else if(this.props.listMode == UIConstants.LIST_MODE_EFFECT) {
@@ -577,7 +574,7 @@ var localStyles = StyleSheet.create({
 
 function selectProps(store) {
   console.log("STORE:");
-  console.log(store.arobjects.effectItems);
+  console.log(store.arobjects.modelItems);
   return {
     modelItems: store.arobjects.modelItems,
     portalItems: store.arobjects.portalItems,
@@ -600,7 +597,8 @@ function selectProps(store) {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    dispatchToggleModelSelection: (index) => dispatch(toggleModelSelection(index)),
+    dispatchAddModel: (index) => dispatch(addModelWithIndex(index)),
+    dispatchRemoveModelWithUUID: (uuid) => dispatch(removeModelWithUUID(uuid)),
     dispatchTogglePortalSelection: (index) => dispatch(togglePortalSelection(index)),
     dispatchToggleEffectSelection: (index) => dispatch(toggleEffectSelection(index)),
     dispatchChangeModelLoadState:(index, loadState) =>dispatch(changeModelLoadState(index, loadState)),

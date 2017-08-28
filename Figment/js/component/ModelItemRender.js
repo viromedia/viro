@@ -12,6 +12,7 @@
 import React, { Component } from 'react';
 import * as LoadConstants from '../redux/LoadingStateConstants';
 import * as UIConstants from '../redux/UIConstants';
+import * as ModelData from  '../model/ModelItems';
 import {
   ViroScene,
   ViroARScene,
@@ -32,21 +33,21 @@ var PropTypes = require('react/lib/ReactPropTypes');
 
 var ModelItemRender = React.createClass({
     propTypes: {
-        modelItem: PropTypes.any,
+        modelIDProps: PropTypes.any,
         onLoadCallback: PropTypes.func,
         onClickStateCallback: PropTypes.func,
-        index: PropTypes.number,
         hitTestMethod: PropTypes.func,
     },
 
     componentWillMount() {
       this._ref_object = null;
       this._ref_shadow_surface = null;
+      this._modelData = ModelData.getModelArray()
     },
 
     getInitialState() {
       return {
-        scale : this.props.modelItem.scale,
+        scale : ModelData.getModelArray()[this.props.modelIDProps.index].scale,
         rotation : [0, 0, 0],
         nodeIsVisible : false,
         position: [0, 0, 0],
@@ -55,47 +56,46 @@ var ModelItemRender = React.createClass({
     },
 
     render: function() {
-        var j = this.props.index;
+        var modelItem = ModelData.getModelArray()[this.props.modelIDProps.index];
         let transformBehaviors = {}
         if (this.state.shouldBillboard) {
           transformBehaviors.transformBehaviors = this.state.shouldBillboard ? "billboardY" : [];
         }
         let lightPosition = [0, 2, 0]
-        let lightScalePivot = this.props.modelItem.scalePivot.slice();
+        let lightScalePivot = modelItem.scalePivot.slice();
         lightScalePivot[1] = lightScalePivot[1] - lightPosition[1]; // we want the scale pivot to be the same as the object
 
         // below we OR the light bitmask with 1 on the object because the default bitmask for lights
-        // is 1 and we want the object to be lit up by all lights, but only have shadows casted by 
+        // is 1 and we want the object to be lit up by all lights, but only have shadows casted by
         // one SpotLight contain within this component
         return (
-          <ViroARNode key={j} visible={this.state.nodeIsVisible} position={this.state.position} onDrag={()=>{}} >
 
+          <ViroARNode key={this.props.modelIDProps.uuid} visible={this.state.nodeIsVisible} position={this.state.position} onDrag={()=>{}}>
             <ViroSpotLight
               innerAngle={5}
               outerAngle={30}
               direction={[0,-1,0]}
               position={lightPosition}
               scale={this.state.scale}
-              scalePivot={this.props.modelItem.scalePivot}
+              scalePivot={modelItem.scalePivot}
               color="#ffffff"
               castsShadow={true}
               influenceBitMask={this.props.bitMask}/>
-
             <Viro3DObject ref={this._setComponentRef()}
                 {...transformBehaviors}
-                position={this.props.modelItem.position}
+                position={modelItem.position}
                 scale={this.state.scale}
-                scalePivot={this.props.modelItem.scalePivot}
+                scalePivot={modelItem.scalePivot}
                 rotation={this.state.rotation}
-                source={this.props.modelItem.obj}
-                materials={this.props.modelItem.materials}
-                resources={this.props.modelItem.resources}
-                animation={this.props.modelItem.animation}
+                source={modelItem.obj}
+                materials={modelItem.materials}
+                resources={modelItem.resources}
+                animation={modelItem.animation}
                 lightBitMask={this.props.bitMask | 1}
                 shadowCastingBitMask={this.props.bitMask}
-                onClickState={this._onClickState(j)}
-                onError={this._onError(j)}  onRotate={this._onRotateGesture(j)} onLoadStart={this._onObjectLoadStart(j)} onLoadEnd={this._onObjectLoadEnd(j)}
-                onPinch={this._onPinchIndex(j)} />
+                onClickState={this._onClickState(this.props.modelIDProps.uuid)}
+                onError={this._onError(this.props.modelIDProps.uuid)}  onRotate={this._onRotateGesture()} onLoadStart={this._onObjectLoadStart(this.props.modelIDProps.uuid)} onLoadEnd={this._onObjectLoadEnd(this.props.modelIDProps.uuid)}
+                onPinch={this._onPinchIndex()} />
 
             <ViroSurface
               ref={this._setShadowRef()}
@@ -104,6 +104,7 @@ var ModelItemRender = React.createClass({
               scale={this.state.scale}
               lightBitMask={this.props.bitMask | 1}
               acceptShadows={true} />
+
           </ViroARNode>
         );
     },
@@ -113,7 +114,6 @@ var ModelItemRender = React.createClass({
     // comment.
     _setComponentRef() {
       return (component) => {
-        console.log("SETTING COMPONENT REF!!! index:" + this.props.index);
         console.log("Component ref value:");
         this._ref_object = component;
       }
@@ -125,7 +125,7 @@ var ModelItemRender = React.createClass({
       }
     },
 
-    _onClickState(index) {
+    _onClickState(uuid) {
      return ((clickState, position, source)=> {
       if (clickState == 1) { // clickState == 1 -> "ClickDown"
         // if "ClickDown", then enable billboardY
@@ -153,18 +153,18 @@ var ModelItemRender = React.createClass({
           });
         })
       }
-      this.props.onClickStateCallback(index, clickState, UIConstants.LIST_MODE_MODEL);
+      this.props.onClickStateCallback(uuid, clickState, UIConstants.LIST_MODE_MODEL);
     });
   },
-    _onRotateGesture(index) {
+    _onRotateGesture() {
       return ((rotateState, rotationFactor, source)=> {
-          this._onRotate(rotateState, rotationFactor, source, index);
+          this._onRotate(rotateState, rotationFactor, source);
       });
     },
 
-    _onPinchIndex(index) {
+    _onPinchIndex() {
       return ((pinchState, scaleFactor, source)=> {
-          this._onPinch(pinchState, scaleFactor, source, index);
+          this._onPinch(pinchState, scaleFactor, source);
       });
     },
 
@@ -172,7 +172,7 @@ var ModelItemRender = React.createClass({
      Rotation should be relative to its current rotation *not* set to the absolute
      value of the given rotationFactor.
      */
-    _onRotate(rotateState, rotationFactor, source, index) {
+    _onRotate(rotateState, rotationFactor, source) {
       if(rotateState == 1) {
         console.log("STARTING ROTATE WITH Rotation factor: " + rotationFactor);
         return;
@@ -186,8 +186,6 @@ var ModelItemRender = React.createClass({
         return;
       }
 
-      console.log("ONROTATE INDEX:" + index);
-
       this._ref_object.setNativeProps({rotation:[this.state.rotation[0], this.state.rotation[1] - rotationFactor, this.state.rotation[2]]});
     },
 
@@ -197,7 +195,7 @@ var ModelItemRender = React.createClass({
      and multiply the state by that factor. At the end of a pinch event, set the state
      to the final value and store it in state.
      */
-    _onPinch(pinchState, scaleFactor, source, index) {
+    _onPinch(pinchState, scaleFactor, source) {
       if(pinchState == 1) {
         console.log("STARTING PINCH WITH Scale factor: " + scaleFactor);
         return;
@@ -211,31 +209,30 @@ var ModelItemRender = React.createClass({
         return;
       }
 
-      console.log("ONPINCH INDEX:" + index);
-
       var newScale = this.state.scale.map((x)=>{return x * scaleFactor})
       this._ref_object.setNativeProps({scale:newScale});
       this._ref_shadow_surface.setNativeProps({scale:newScale});
     },
 
-    _onError(index) {
+    _onError(uuid) {
         return () => {
-          console.log("MODEL has error HAS ERROR" + index);
-          this.props.loadCallback(index, LoadConstants.ERROR);
+          console.log("MODEL has error HAS ERROR");
+          this.props.loadCallback(uuid, LoadConstants.ERROR);
           //this.props.arSceneNavigator.viroAppProps.loadingObjectCallback(index, LoadingConstants.LOAD_ERROR);
         };
 
       },
 
-    _onObjectLoadStart(index) {
+    _onObjectLoadStart(uuid) {
+        console.log("_onObjectLoadStart uuid:" + uuid);
         return () => {
-          this.props.onLoadCallback(index, LoadConstants.LOADING);
+          this.props.onLoadCallback(uuid, LoadConstants.LOADING);
         };
     },
 
-    _onObjectLoadEnd(index) {
+    _onObjectLoadEnd(uuid) {
         return () => {
-          this.props.onLoadCallback(index, LoadConstants.LOADED);
+          this.props.onLoadCallback(uuid, LoadConstants.LOADED);
           this.props.hitTestMethod(this._onARHitTestResults);
           //this.props.arSceneNavigator.viroAppProps.loadingObjectCallback(index, LoadingConstants.LOADED);
         };

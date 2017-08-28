@@ -10,12 +10,24 @@
 import * as ModelData from  '../../model/ModelItems';
 import * as PortalData from  '../../model/PortalItems';
 import * as EffectData from  '../../model/EffectItems';
+import * as LoadingConstants from '../LoadingStateConstants';
+
+const uuidv1 = require('uuid/v1');
+
+//data model for models is:
+//{
+//{uuid}: {selected: false, loading:, index:}
+//}
  const initialState = {
-   modelItems: ModelData.getInitModelArray(),
+   //modelItems: ModelData.getInitModelArray(),
+  modelItems: {},
    portalItems: PortalData.getInitPortalArray(),
    effectItems: EffectData.getInitEffectArray(),
  }
 
+function newModelItem(indexToCreate) {
+  return {uuid: uuidv1(), selected: false, loading: LoadingConstants.NONE, index: indexToCreate};
+}
 
  function toggleItemSelected(state = {}, action) {
    switch (action.type) {
@@ -33,7 +45,6 @@ import * as EffectData from  '../../model/EffectItems';
  function changeLoadState(state = {}, action) {
    switch (action.type) {
      case 'CHANGE_MODEL_LOAD_STATE':
-     case 'CHANGE_PORTAL_LOAD_STATE':
       console.log("Changing load state to:" + action.loadState);
        return {
          ...state,
@@ -72,7 +83,6 @@ function modifyItem(state = [], action) {
           changePortalPhoto(state[action.index], action),
           ...state.slice(parseInt(action.index) +1),
         ]
-      case 'TOGGLE_MODEL_SELECTED':
       case 'TOGGLE_PORTAL_SELECTED':
         return [
           ...state.slice(0, action.index),
@@ -80,7 +90,6 @@ function modifyItem(state = [], action) {
           ...state.slice(parseInt(action.index) +1),
         ]
 
-      case 'CHANGE_MODEL_LOAD_STATE':
       case 'CHANGE_PORTAL_LOAD_STATE':
         return [
           ...state.slice(0, action.index),
@@ -109,18 +118,45 @@ function modifyEffectSelection(state = [], action) {
   }
 }
 
+function addModelItem(state = {}, action) {
+  var model = newModelItem(action.index);
+  console.log("addModelItem redux:");
+  console.log(model);
+  state[model.uuid] = model;
+  return state;
+}
+
+
+function removeModelItem(state = {}, action) {
+  state[action.uuid] = null;
+  return state;
+}
+
+function modifyLoadState(state = {}, action) {
+  if(state[action.uuid] != null || state[action.uuid] != undefined) {
+    state[action.uuid].loading = action.loadState;
+  }
+  return state;
+}
+
 function arobjects(state = initialState, action) {
   switch (action.type) {
-    case 'TOGGLE_MODEL_SELECTED':
-    case 'CHANGE_MODEL_LOAD_STATE':
-      console.log("Figment: EXECUTING REDUCER ADDAROBJECT: " + action.index);
-      var updatedModelInfo = modifyItem(state.modelItems.slice(0), action);
-      console.log("Figment: REDUCER NEW STATE:");
-      console.log("Figment: " + updatedModelInfo);
+
+    case 'ADD_MODEL':
       return {
         ...state,
-        modelItems: updatedModelInfo.slice(0),
-      };
+        modelItems: {...addModelItem(state.modelItems, action)},
+      }
+    case 'REMOVE_MODEL':
+      return {
+        ...state,
+        modelItems: {...removeModelItem(state.modelItems, action)},
+      }
+   case 'CHANGE_MODEL_LOAD_STATE':
+      return {
+        ...state,
+        modelItems: modifyLoadState(state.modelItems, action),
+      }
     case 'CHANGE_PORTAL_LOAD_STATE':
     case 'TOGGLE_PORTAL_SELECTED':
     case 'CHANGE_PORTAL_PHOTO':
