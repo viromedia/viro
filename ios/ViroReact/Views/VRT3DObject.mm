@@ -167,6 +167,9 @@
             [self updateAnimation];
         }
         
+        // TODO: remove this once we do shadows better!
+        [self setSelfShadowProps:node];
+        
         if (self.onLoadEndViro) {
             self.onLoadEndViro(nil);
         }
@@ -184,6 +187,31 @@
         VROFBXLoader::loadFBXFromURL(url, base, true, onFinish);
     }
     _sourceChanged = NO;
+}
+
+/*
+ This function sets this object's shadow props on the given vroNode and its
+ children recursively. This is needed because the shadow props aren't currently
+ inheirited and so to make shadows appear for FBX objects which can define multiple
+ nodes, we need to recursively go down the node tree and set the shadow properties.
+ TODO: remove this once the shadow properties are inheirited. 
+ */
+- (void)setSelfShadowProps:(std::shared_ptr<VRONode>)vroNode {
+    vroNode->setShadowCastingBitMask([self shadowCastingBitMask]);
+    vroNode->setLightBitMask([self lightBitMask]);
+    for (std::shared_ptr<VRONode> child : vroNode->getChildNodes()) {
+        [self setSelfShadowProps:child];
+    }
+}
+
+- (void)setLightBitMask:(int)lightBitMask {
+    [super setLightBitMask:lightBitMask];
+    [self setSelfShadowProps:[self node]];
+}
+
+- (void)setShadowCastingBitMask:(int)shadowCastingBitMask {
+    [super setShadowCastingBitMask:shadowCastingBitMask];
+    [self setSelfShadowProps:[self node]];
 }
 
 @end

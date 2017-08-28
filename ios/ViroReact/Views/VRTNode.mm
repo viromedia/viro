@@ -34,6 +34,9 @@ const double kTransformDelegateDistanceFilter = 0.01;
         _visible = YES; // default to visible.
         _opacity = 1.0; //default opacity to 1.0
         _highAccuracyGaze = NO;
+        _lightBitMask = 1;
+        _shadowCastingBitMask = 1;
+        _acceptShadows = false;
         
         // Create and attach event delegate
         _eventDelegate = std::make_shared<VROEventDelegateiOS>(self);

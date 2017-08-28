@@ -23,6 +23,8 @@ import {
   ViroNode,
   Viro3DObject,
   ViroText,
+  ViroSpotLight,
+  ViroSurface,
 } from 'react-viro';
 
 
@@ -39,6 +41,7 @@ var ModelItemRender = React.createClass({
 
     componentWillMount() {
       this._ref_object = null;
+      this._ref_shadow_surface = null;
     },
 
     getInitialState() {
@@ -57,8 +60,27 @@ var ModelItemRender = React.createClass({
         if (this.state.shouldBillboard) {
           transformBehaviors.transformBehaviors = this.state.shouldBillboard ? "billboardY" : [];
         }
+        let lightPosition = [0, 2, 0]
+        let lightScalePivot = this.props.modelItem.scalePivot.slice();
+        lightScalePivot[1] = lightScalePivot[1] - lightPosition[1]; // we want the scale pivot to be the same as the object
+
+        // below we OR the light bitmask with 1 on the object because the default bitmask for lights
+        // is 1 and we want the object to be lit up by all lights, but only have shadows casted by 
+        // one SpotLight contain within this component
         return (
-          <ViroARNode key={j} visible={this.state.nodeIsVisible} position={this.state.position} onDrag={()=>{}}>
+          <ViroARNode key={j} visible={this.state.nodeIsVisible} position={this.state.position} onDrag={()=>{}} >
+
+            <ViroSpotLight
+              innerAngle={5}
+              outerAngle={30}
+              direction={[0,-1,0]}
+              position={lightPosition}
+              scale={this.state.scale}
+              scalePivot={this.props.modelItem.scalePivot}
+              color="#ffffff"
+              castsShadow={true}
+              influenceBitMask={this.props.bitMask}/>
+
             <Viro3DObject ref={this._setComponentRef()}
                 {...transformBehaviors}
                 position={this.props.modelItem.position}
@@ -69,18 +91,37 @@ var ModelItemRender = React.createClass({
                 materials={this.props.modelItem.materials}
                 resources={this.props.modelItem.resources}
                 animation={this.props.modelItem.animation}
+                lightBitMask={this.props.bitMask | 1}
+                shadowCastingBitMask={this.props.bitMask}
                 onClickState={this._onClickState(j)}
                 onError={this._onError(j)}  onRotate={this._onRotateGesture(j)} onLoadStart={this._onObjectLoadStart(j)} onLoadEnd={this._onObjectLoadEnd(j)}
                 onPinch={this._onPinchIndex(j)} />
+
+            <ViroSurface
+              ref={this._setShadowRef()}
+              rotation={[-90, 0, 0]}
+              width={2} height={2}
+              scale={this.state.scale}
+              lightBitMask={this.props.bitMask | 1}
+              acceptShadows={true} />
           </ViroARNode>
         );
     },
 
+    // not sure why we're returning a lambda vs just returning this function. I remember
+    // vik mentioning something about why we should do this. We should confirm and add a
+    // comment.
     _setComponentRef() {
       return (component) => {
         console.log("SETTING COMPONENT REF!!! index:" + this.props.index);
         console.log("Component ref value:");
         this._ref_object = component;
+      }
+    },
+
+    _setShadowRef() {
+      return (component) => {
+        this._ref_shadow_surface = component;
       }
     },
 
@@ -174,6 +215,7 @@ var ModelItemRender = React.createClass({
 
       var newScale = this.state.scale.map((x)=>{return x * scaleFactor})
       this._ref_object.setNativeProps({scale:newScale});
+      this._ref_shadow_surface.setNativeProps({scale:newScale});
     },
 
     _onError(index) {

@@ -21,7 +21,6 @@ import {
   View
 } from 'react-native';
 
-
 import {
   ViroScene,
   ViroARScene,
@@ -47,7 +46,6 @@ import {
 
 import TimerMixin from 'react-timer-mixin';
 
-
 var figment = React.createClass({
   mixins: [TimerMixin],
 
@@ -67,14 +65,6 @@ var figment = React.createClass({
             onTrackingInitialized={()=>{console.log("ARScene Initialized!")}}>
           <ViroDirectionalLight color="#ffffff" direction={[0,-1,-.2]}/>
           <ViroAmbientLight color="#ffffff" intensity={200}/>
-
-          <ViroSpotLight
-            innerAngle={5}
-            outerAngle={90}
-            direction={[0,-1,0]}
-            position={[0, 5, 0]}
-            color="#ffffff"/>
-
 
           <ViroSpotLight
             innerAngle={5}
@@ -99,7 +89,9 @@ var figment = React.createClass({
           console.log("Figment: Pushing VIRO 3DOBJECT index:" + i);
           var j = i;
           renderedObjects.push(
-            <ModelItemRender key={j} modelItem={modelItems[j]} index={j} hitTestMethod={this._performARHitTest} onLoadCallback={this._onLoadCallback} onClickStateCallback={this._onModelsClickStateCallback} />
+            <ModelItemRender key={j} modelItem={modelItems[j]} index={j} hitTestMethod={this._performARHitTest}
+              onLoadCallback={this._onLoadCallback} onClickStateCallback={this._onModelsClickStateCallback}
+              bitMask={Math.pow(2,j+2)} />
           );
         }
       }
