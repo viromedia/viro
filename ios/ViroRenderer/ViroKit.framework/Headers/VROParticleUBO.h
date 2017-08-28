@@ -9,6 +9,7 @@
 #define VROParticleUBO_h
 
 #include "VROInstancedUBO.h"
+
 static const int kMaxParticlesPerUBO = 180;
 static const int kMaxFloatsPerTransform = 16;
 static const int kMaxFloatsPerColor = 4;
@@ -64,8 +65,12 @@ public:
      Update the data in this UBO with the latest list of instanced particle data
      like transformation matrix / color.
      */
-    void update(std::vector<VROParticle> &particles);
+    void update(std::vector<VROParticle> &particles, VROBoundingBox &box);
 
+    /*
+     Returns a bounding box that encapsulates all _lastKnownParticles.
+     */
+    VROBoundingBox getInstancedBoundingBox();
 private:
     /*
      Tracks the current number of allocated VROParticleUBO instances, so as to
@@ -92,6 +97,7 @@ private:
      */
     std::weak_ptr<VRODriver> _driver;
     std::vector<VROParticle> _lastKnownParticles;
+    VROBoundingBox _lastKnownBoundingBox;
 };
 
 #endif /* VROParticleUBO_h */

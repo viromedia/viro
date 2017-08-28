@@ -2741,7 +2741,7 @@
 		</data>
 		<key>Headers/VROParticleUBO.h</key>
 		<data>
-		v2CZGZ3lS7k8ADf/aJyIhA5d3Is=
+		psDIGkLN9ZrA4bFyDDWpsuY3uKU=
 		</data>
 		<key>Headers/VROPencil.h</key>
 		<data>
@@ -2841,7 +2841,7 @@
 		</data>
 		<key>Headers/VROShaderModifier.h</key>
 		<data>
-		QfnfyQgcAQyFK4KmDiAZn956eoc=
+		pztdg5TCI3PWOeBY2YnxogZHWLY=
 		</data>
 		<key>Headers/VROShaderProgram.h</key>
 		<data>
@@ -2997,7 +2997,7 @@
 		</data>
 		<key>Headers/VROUniform.h</key>
 		<data>
-		pDnrcQvIFcw8FS3tSmkySmdKj1o=
+		tNvLszRAa2WoZ5jTGK6Z5pa1oQY=
 		</data>
 		<key>Headers/VROVector3f.h</key>
 		<data>
@@ -3069,7 +3069,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		DclDnpDtFMGfFUUkK8O+6ElQP+I=
+		QjmJ7dVKCqwoHLHLtfr2JBHrwk0=
 		</data>
 		<key>MaterialRobotoFontLoader.bundle/Roboto-Black.ttf</key>
 		<data>
@@ -8275,11 +8275,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			v2CZGZ3lS7k8ADf/aJyIhA5d3Is=
+			psDIGkLN9ZrA4bFyDDWpsuY3uKU=
 			</data>
 			<key>hash2</key>
 			<data>
-			KHS+X8MqZxpB4q3slRm5RcQ62RGvqFT+pYKDkwVG0gg=
+			ROe2hXqp83MyLn+PEkHGy8ZLyU+TK5C5OnTZe8m6Ee8=
 			</data>
 		</dict>
 		<key>Headers/VROPencil.h</key>
@@ -8550,11 +8550,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			QfnfyQgcAQyFK4KmDiAZn956eoc=
+			pztdg5TCI3PWOeBY2YnxogZHWLY=
 			</data>
 			<key>hash2</key>
 			<data>
-			lY0VPg10eyYhDGC3hLKGh2E9rdvMj3abmnzUdzAunXI=
+			9dmsqCiyj8zTo2dUdNayJ4airWQtVp9t9Rv8orwE3M8=
 			</data>
 		</dict>
 		<key>Headers/VROShaderProgram.h</key>
@@ -8979,11 +8979,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			pDnrcQvIFcw8FS3tSmkySmdKj1o=
+			tNvLszRAa2WoZ5jTGK6Z5pa1oQY=
 			</data>
 			<key>hash2</key>
 			<data>
-			v67WiuDa4LPf427oP+nP8rZsBEoku5GH2jbJe5JkfO0=
+			+v3HpZycv6gEmWbmEgLj0h+dYuQNG87OIT+P7xLqSJE=
 			</data>
 		</dict>
 		<key>Headers/VROVector3f.h</key>
