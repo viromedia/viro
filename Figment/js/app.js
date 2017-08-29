@@ -78,7 +78,7 @@ export class App extends Component {
     this._onPhotoSelected = this._onPhotoSelected.bind(this);
     this._onItemClickedInScene = this._onItemClickedInScene.bind(this);
     this._onContextMenuRemoveButtonPressed = this._onContextMenuRemoveButtonPressed.bind(this);
-
+    this._startStopWatch = this._startStopWatch.bind(this);
     this.state = {
       currentModeSelected:kObjSelectMode,
       videoUrl: null,
@@ -88,12 +88,19 @@ export class App extends Component {
       showPhotosSelector : false,
       previewType: kPreviewTypeVideo,
       lastSelectedPortalIndex: -1,
+      timer:null,
+      hours: '00',
+      minutes: '00',
+      seconds: '00',
+      miliseconds: '00',
+
     };
   }
   render() {
       console.log("RERENDER App OCCURRED");
       return (
         <View style={localStyles.flex}>
+          <StatusBar hidden={true} />
           <ViroARSceneNavigator style={localStyles.arView} apiKey="7EEDCB99-2C3B-4681-AE17-17BC165BF792"
             initialScene={{scene: InitialScene}}  ref={this._setARNavigatorRef} viroAppProps={this.state.viroAppProps}
             />
@@ -281,8 +288,8 @@ export class App extends Component {
 
     if(this.props.currentScreen == UIConstants.SHOW_RECORDING_SCREEN) {
       recordViews.push(
-        <View key="record_timeline" style={{position: 'absolute', backgroundColor: '#22222244', left: 0, right: 0, top: 0, height:100,  alignSelf: 'stretch', }}>
-          <Text style={localStyles.recordingTimeText}>00:01:00</Text>
+        <View key="record_timeline" style={{position: 'absolute', backgroundColor: '#00000099', left: 0, right: 0, top: 0, height:45,  alignSelf: 'stretch' }}>
+          <Text style={localStyles.recordingTimeText}>{this.state.hours}:{this.state.minutes}:{this.state.seconds}</Text>
         </View>
       );
     }
@@ -333,9 +340,45 @@ export class App extends Component {
         this.props.dispatchDisplayUIScreen(UIConstants.SHOW_MAIN_SCREEN);
         });
     this.props.dispatchDisplayUIScreen(UIConstants.SHOW_RECORDING_SCREEN);
+
+    this._startStopWatch();
   }
 
+  _startStopWatch() {
+    // Stopwatch at the top while recording
+    let timer = TimerMixin.setInterval(() => {
+      
+      var seconds = (Number(this.state.seconds) + 1).toString(),
+          minutes = this.state.minutes,
+          hours = this.state.hours;
+
+      if ( Number(this.state.seconds) == 59) {
+        minutes = (Number(this.state.minutes) + 1).toString();
+        seconds = '00';
+      }
+
+      if ( Number(this.state.minutes) == 59) {
+        hours = (Number(this.state.hours) + 1).toString();
+        minutes = '00';
+        seconds = '00';
+      }
+
+      this.setState({
+        hours: hours.length == 1 ? '0' + hours: hours,
+        minutes : minutes.length == 1 ? '0' + minutes: minutes,
+        seconds : seconds.length == 1 ? '0' + seconds: seconds,
+      });
+    }, 1000);
+    this.setState({timer});
+  }
   _stopRecording() {
+    clearInterval(this.state.timer);
+    this.setState({
+        hours: '00',
+        minutes: '00',
+        seconds: '00',
+        miliseconds: '00',
+      });
     this._arNavigator._stopVideoRecording().then((retDict)=>{
       console.log("[JS] success? " + retDict.success);
       console.log("[JS] the url was: " + retDict.url);
@@ -518,10 +561,12 @@ var localStyles = StyleSheet.create({
   },
   recordingTimeText: {
     textAlign: 'center',
-    color: '#ffffff',
-    marginBottom: 5,
-    marginTop:20,
-    borderWidth: 1,
+    justifyContent: 'center', 
+    alignItems: 'center',
+    color: '#d6d6d6',
+    fontFamily: 'Helvetica Neue',
+    fontSize:18,
+    marginTop: 10,
   },
   previewPlayButton : {
     height : 100,
