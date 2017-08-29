@@ -142,7 +142,7 @@ var ModelItems = [
     "position" : [0, .135234, 0],
     "physics": undefined,
     "ref_pointer": undefined,
-    "resources": [require('../res/object_bday_cake/object_cake_specular.png'), require('../res/object_bday_cake/object_cake_specular.png'), require('../res/object_bday_cake/object_cake_specular.png')],
+    "resources": [require('../res/object_bday_cake/object_cake_specular.png'), require('../res/object_bday_cake/object_cake_diffuse.png'), require('../res/object_bday_cake/object_cake_normal.png')],
   },
   {
     "selected": false,
@@ -156,7 +156,7 @@ var ModelItems = [
     "position" : [0, .290760, 0],
     "physics": undefined,
     "ref_pointer": undefined,
-    "resources": [require('../res/object_flowers/object_flowers_specular.png'), require('../res/object_flowers/object_flowers_specular.png'), require('../res/object_flowers/object_flowers_specular.png')],
+    "resources": [require('../res/object_flowers/object_flowers_specular.png'), require('../res/object_flowers/object_flowers_diffuse.png'), require('../res/object_flowers/object_flowers_normal.png')],
   },
   {
     "selected": false,
