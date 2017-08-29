@@ -29,7 +29,7 @@ import {
 } from 'react-viro';
 
 
-var PropTypes = require('react/lib/ReactPropTypes');
+var PropTypes = React.PropTypes;
 
 var PortalItemRender = React.createClass({
     propTypes: {

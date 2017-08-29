@@ -17,7 +17,7 @@ import resolveAssetSource from "react-native/Libraries/Image/resolveAssetSource"
 import normalizeColor from "react-native/Libraries/StyleSheet/normalizeColor"
 var NativeModules = require('react-native').NativeModules;
 
-var PropTypes = require('react/lib/ReactPropTypes');
+var PropTypes = React.PropTypes;
 var CubeMapPropType = require('./Material/CubeMapPropType');
 var ColorPropType = require('react-native').ColorPropType;
 

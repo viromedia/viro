@@ -13,7 +13,7 @@
 
 import { requireNativeComponent, View, StyleSheet, Platform } from 'react-native';
 import React from 'react';
-var PropTypes = require('react/lib/ReactPropTypes');
+var PropTypes = React.PropTypes;
 
 /**
  * Used to render a ViroAnimatedComponent

@@ -82,11 +82,6 @@ public class ReactViroPackage implements ReactPackage {
     }
 
     @Override
-    public List<Class<? extends JavaScriptModule>> createJSModules() {
-        return emptyList();
-    }
-
-    @Override
     public List<ViewManager> createViewManagers(ReactApplicationContext reactContext) {
         return Arrays.<ViewManager>asList(
                 new SceneNavigatorManager(reactContext, mViroPlatform),

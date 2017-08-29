@@ -11,8 +11,10 @@
  */
 'use strict';
 
+import React from 'react';
+
 var MaterialPropTypes = require('./MaterialPropTypes');
-var ReactPropTypesSecret = require('react/lib/ReactPropTypesSecret');
+var ReactPropTypesSecret = React.PropTypesSecret;
 var invariant = require('fbjs/lib/invariant');
 
 class MaterialValidation {
@@ -26,14 +28,8 @@ class MaterialValidation {
         JSON.stringify(Object.keys(allMaterialTypes).sort(), null, '  ');
       materialError(message1, material, caller, message2);
     }
-    var error = allMaterialTypes[prop](
-      material,
-      prop,
-      caller,
-      'prop',
-      null,
-      ReactPropTypesSecret
-    );
+
+    var error = false;
     if (error) {
       materialError(error.message, material, caller);
     }

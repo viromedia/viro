@@ -11,7 +11,7 @@
 import { requireNativeComponent, findNodeHandle, View, StyleSheet, Platform } from 'react-native';
 import React, { Component } from 'react';
 var NativeModules = require('react-native').NativeModules;
-var PropTypes = require('react/lib/ReactPropTypes');
+var PropTypes = React.PropTypes;
 var ViroControllerModule = require('react-native').NativeModules.VRTControllerModule;
 
 var ViroController = React.createClass({

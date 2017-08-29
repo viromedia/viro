@@ -8,7 +8,7 @@
  */
 import { requireNativeComponent, findNodeHandle, View } from 'react-native';
 import React, { Component } from 'react';
-var PropTypes = require('react/lib/ReactPropTypes');
+var PropTypes = React.PropTypes;
 var NativeModules = require('react-native').NativeModules;
 
 var ViroARScene = React.createClass({

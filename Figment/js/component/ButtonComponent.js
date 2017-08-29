@@ -12,7 +12,7 @@
 import React, { Component } from 'react';
 import {StyleSheet, TouchableHighlight, Image} from 'react-native';
 
-var PropTypes = require('react/lib/ReactPropTypes');
+var PropTypes = React.PropTypes;
 
 var ButtonComponent = React.createClass({
     propTypes: {

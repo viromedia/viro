@@ -15,7 +15,7 @@ import { requireNativeComponent, View, Platform, findNodeHandle } from 'react-na
 import resolveAssetSource from "react-native/Libraries/Image/resolveAssetSource";
 import React from 'react';
 var NativeModules = require('react-native').NativeModules;
-var PropTypes = require('react/lib/ReactPropTypes');
+var PropTypes = React.PropTypes;
 var StyleSheet = require('react-native/Libraries/StyleSheet/StyleSheet');
 
 var ViroPropTypes = require('./Styles/ViroPropTypes');

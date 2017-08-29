@@ -11,7 +11,7 @@
 'user strict';
 
 import React, { Component } from 'react';
-var PropTypes = require('react/lib/ReactPropTypes');
+var PropTypes = React.PropTypes;
 var ViroMaterials = require('./Material/ViroMaterials');
 var ViroAnimations = require('./Animation/ViroAnimations');
 var ViroNode = require('./ViroNode');

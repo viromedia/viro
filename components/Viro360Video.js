@@ -21,7 +21,7 @@ import {
 import React, { Component } from 'react';
 import resolveAssetSource from "react-native/Libraries/Image/resolveAssetSource";
 
-var PropTypes = require('react/lib/ReactPropTypes');
+var PropTypes = React.PropTypes;
 var NativeModules = require('react-native').NativeModules;
 var RCT_360_VIDEO_REF = 'viro360videocomponent';
 

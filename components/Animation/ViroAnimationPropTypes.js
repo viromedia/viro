@@ -12,8 +12,10 @@
 
  'use strict';
 
+import React from 'react';
+
 var createStrictShapeTypeChecker = require('react-native/Libraries/Utilities/createStrictShapeTypeChecker');
-var ReactPropTypes = require('react/lib/ReactPropTypes');
+var ReactPropTypes = React.PropTypes;
 var ColorPropType = require('react-native').ColorPropType;
 
 var ViroAnimationPropTypes = {

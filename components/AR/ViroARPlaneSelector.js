@@ -13,7 +13,7 @@
 
 import { requireNativeComponent, View, StyleSheet, findNodeHandle } from 'react-native';
 import React, { Component } from 'react';
-var PropTypes = require('react/lib/ReactPropTypes');
+var PropTypes = React.PropTypes;
 var ViroMaterials = require('../Material/ViroMaterials');
 var ViroARPlane = require('./ViroARPlane');
 var ViroSurface = require('../ViroSurface');

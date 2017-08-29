@@ -12,7 +12,7 @@
 'use strict';
 
 var NativeModules = require('react-native').NativeModules;
-var PropTypes = require('react/lib/ReactPropTypes');
+var PropTypes = React.PropTypes;
 var ViroSceneNavigatorModule = require('react-native').NativeModules.VRTSceneNavigatorModule;
 import { requireNativeComponent, View, StyleSheet, findNodeHandle } from 'react-native';
 import React, { Component } from 'react';

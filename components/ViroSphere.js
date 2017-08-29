@@ -13,7 +13,7 @@
 
 import React, { Component } from 'react';
 import { requireNativeComponent, View, StyleSheet, findNodeHandle } from 'react-native';
-var PropTypes = require('react/lib/ReactPropTypes');
+var PropTypes = React.PropTypes;
 var NativeModules = require('react-native').NativeModules;
 
 /**

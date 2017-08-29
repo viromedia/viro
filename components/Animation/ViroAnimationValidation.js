@@ -11,8 +11,10 @@
  */
 'use strict';
 
+import React from 'react';
+
 var AnimationPropTypes = require('./ViroAnimationPropTypes');
-var ReactPropTypesSecret = require('react/lib/ReactPropTypesSecret');
+var ReactPropTypesSecret = React.PropTypesSecret;
 var invariant = require('fbjs/lib/invariant');
 
 class ViroAnimationValidation {
@@ -26,15 +28,8 @@ class ViroAnimationValidation {
         JSON.stringify(Object.keys(allAnimationTypes).sort(), null, '  ');
       animationError(message1, animation, caller, message2);
     }
-    //TODO: add more specific error checking for Animations here.
-    var error = allAnimationTypes[prop](
-      animation,
-      prop,
-      caller,
-      'prop',
-      null,
-      ReactPropTypesSecret
-    );
+    //TODO: actually do validation.
+    var error = false;
     if (error) {
       animationError(error.message, animation, caller);
     }

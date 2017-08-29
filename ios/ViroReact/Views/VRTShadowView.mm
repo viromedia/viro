@@ -25,8 +25,6 @@
 #import "VRTShadowView.h"
 #import "VRTNode.h"
 
-
-#import <React/UIView+Private.h>
 #import "VRTAnimatedComponentShadowView.h"
 #import "VRTAnimatedComponent.h"
 #import "VRTImage.h"

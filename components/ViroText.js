@@ -14,7 +14,7 @@
 import { requireNativeComponent, View, findNodeHandle} from 'react-native';
 import React, { Component } from 'react';
 var NativeModules = require('react-native').NativeModules;
-var PropTypes = require('react/lib/ReactPropTypes');
+var PropTypes = React.PropTypes;
 var StyleSheet = require('react-native/Libraries/StyleSheet/StyleSheet');
 var ColorPropType = require('react-native').ColorPropType;
 var StyleSheetPropType = require('react-native/Libraries/StyleSheet/StyleSheetPropType');

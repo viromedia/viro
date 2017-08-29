@@ -13,7 +13,7 @@ import {
   Text,
   View
 } from 'react-native';
-var PropTypes = require('react/lib/ReactPropTypes');
+var PropTypes = React.PropTypes;
 
 import {
   ViroSceneNavigator,

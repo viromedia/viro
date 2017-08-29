@@ -20,7 +20,7 @@ import {
 import React from 'react';
 
 var NativeModules = require('react-native/Libraries/BatchedBridge/NativeModules');
-var PropTypes = require('react/lib/ReactPropTypes');
+var PropTypes = React.PropTypes;
 var StyleSheet = require('react-native/Libraries/StyleSheet/StyleSheet');
 var ViroPropTypes = require('./Styles/ViroPropTypes');
 var ColorPropType = require('react-native/Libraries/StyleSheet/ColorPropType');

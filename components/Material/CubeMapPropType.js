@@ -11,7 +11,8 @@
  */
 'use strict';
 
-var ReactPropTypes = require('react/lib/ReactPropTypes');
+import React from 'react';
+var ReactPropTypes = React.PropTypes;
 
 // Reflective textures are cube maps(nx, px, ny, py, nz, pz), which is
 // left(negative x), right(positive x), down(neg y), up(pos y), forward(neg z), backward(pos z)

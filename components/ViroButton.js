@@ -14,7 +14,7 @@
 import { requireNativeComponent, View, StyleSheet } from 'react-native';
 import React, { Component } from 'react';
 import resolveAssetSource from "react-native/Libraries/Image/resolveAssetSource";
-var PropTypes = require('react/lib/ReactPropTypes');
+var PropTypes = React.PropTypes;
 
 var ViroPropTypes = require('./Styles/ViroPropTypes');
 var StyleSheetPropType = require('react-native/Libraries/StyleSheet/StyleSheetPropType');

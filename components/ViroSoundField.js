@@ -15,7 +15,7 @@ import { requireNativeComponent, View, findNodeHandle, Platform } from 'react-na
 import resolveAssetSource from "react-native/Libraries/Image/resolveAssetSource";
 import React from 'react';
 
-var PropTypes = require('react/lib/ReactPropTypes');
+var PropTypes = React.PropTypes;
 var NativeModules = require('react-native').NativeModules;
 var RCT_SOUNDFIELD_REF = 'virosoundfieldcomponent';
 

@@ -13,7 +13,7 @@ import * as LoadingConstants from '../redux/LoadingStateConstants';
 import React, { Component } from 'react';
 import {StyleSheet, TouchableHighlight, ActivityIndicator, View, ListView, Image} from 'react-native';
 import renderIf from '../helpers/renderIf';
-var PropTypes = require('react/lib/ReactPropTypes');
+var PropTypes = React.PropTypes;
 
 var FigmentListView = React.createClass({
     propTypes: {

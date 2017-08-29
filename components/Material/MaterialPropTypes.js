@@ -11,7 +11,8 @@
  */
 'use strict';
 
-var ReactPropTypes = require('react/lib/ReactPropTypes');
+import React from 'react';
+var ReactPropTypes = React.PropTypes;
 var CubeMapPropType = require('./CubeMapPropType');
 var ColorPropType = require('react-native').ColorPropType;
 
