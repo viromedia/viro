@@ -104,6 +104,7 @@ var ModelItemRender = React.createClass({
               width={2} height={2}
               scale={this.state.scale}
               lightBitMask={this.props.bitMask | 1}
+              materials={"transparentFloor"}
               acceptShadows={true} />
 
           </ViroARNode>
@@ -272,9 +273,6 @@ var ModelItemRender = React.createClass({
 });
 
 ViroMaterials.createMaterials({
-  transparentFloor: {
-    diffuseColor: "#ff000000",
-  },
   porsche: {
     lightingModel:"Blinn",
     diffuseTexture: require("../res/car_porsche/Porsche911turboS_diff.jpg"),
@@ -291,9 +289,7 @@ ViroMaterials.createMaterials({
     lightingModel:"Blinn",
   },
   transparentFloor: {
-    diffuseColor: "#ff000000",
     writesToDepthBuffer: false,
-    readsFromDepthBuffer: false,
   },
 });
 

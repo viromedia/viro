@@ -241,12 +241,10 @@ const double kTransformDelegateDistanceFilter = 0.01;
         return;
     }
     
-    if (_acceptShadows) {
-        VROARShadow::apply(geometry->getMaterials().front());
-        return;
-    }
-    
     if (!self.materials) {
+        if (_acceptShadows) {
+            VROARShadow::apply(geometry->getMaterials().front());
+        }
         return;
     }
     
@@ -268,6 +266,10 @@ const double kTransformDelegateDistanceFilter = 0.01;
         tempMaterials.push_back(std::make_shared<VROMaterial>(material));
     }
     geometry->setMaterials(tempMaterials);
+    
+    if (_acceptShadows) {
+        VROARShadow::apply(geometry->getMaterials().front());
+    }
 }
 
 - (void)setVisible:(BOOL)visible {
