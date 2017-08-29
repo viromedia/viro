@@ -240,28 +240,28 @@ var ModelItemRender = React.createClass({
     },
 
     _onARHitTestResults(forward, results) {
+      let validPosition = undefined;
       if (results.length > 0) {
-         for (var i = 0; i < results.length; i++) {
-           let result = results[i];
-           if (result.type == "ExistingPlaneUsingExtent" || result.type == "FeaturePoint") {
-             console.log("FOUND HIT TEST, new arnode projected position:");
-             console.log(result.transform.position);
-             var distance = Math.sqrt((result.transform.position[0] * result.transform.position[0]) + (result.transform.position[1] * result.transform.position[1]) + (result.transform.position[2] * result.transform.position[2]));
-             if(distance < 2) {
+        for (var i = 0; i < results.length; i++) {
+          let result = results[i];
+          if (result.type == "ExistingPlaneUsingExtent") {
+            this.setState({
+              position : result.transform.position,
+              nodeIsVisible: true,
+            });
+            return;
+          } else if (result.type == "FeaturePoint") {
+            var distance = Math.sqrt((result.transform.position[0] * result.transform.position[0]) + (result.transform.position[1] * result.transform.position[1]) + (result.transform.position[2] * result.transform.position[2]));
+            if(distance < 2) {
               console.log("Skipping this result since distance is :" + distance);
               continue;
-             }
-
-             this.setState({
-               position : result.transform.position,
-               nodeIsVisible: true,
-             });
-             return;
-           }
-         }
+            }
+            validPosition = result.transform.position;
+          }
+        }
       }
       //no valid point found, just project the forward vector out 3 meters.
-      var newPos = [forward[0] * 3, forward[1]* 3, forward[2]* 3];
+      var newPos = validPosition ? validPosition : [forward[0] * 3, forward[1]* 3, forward[2]* 3];
       console.log("DIDN'T FIND HIT TEST, new arnode projected position:");
       console.log(newPos);
       this.setState({
