@@ -105,6 +105,7 @@ export class App extends Component {
               <FigmentListView items={this._getListItems()} onPress={this._onListPressed} />
             </View>)}
 
+          {console.log("CurrentScreen = " + this.props.currentScreen)}
           {this._renderContextMenu()}
           {this._renderRecord()}
           {this._renderButtonLeftMenu()}
@@ -261,13 +262,16 @@ export class App extends Component {
             buttonState={(this.props.listMode==UIConstants.LIST_MODE_MODEL) ? 'on':'off'}
             stateImageArray={[require("./res/btn_mode_objects_on.png"), require("./res/btn_mode_objects.png")]}
             />);
-
-    if(this.props.currentScreen == UIConstants.SHOW_MAIN_SCREEN && (this.state.showPhotosSelector==false)) {
+    console.log("UIConstants." + this.props.currentScreen);
+    if(this.props.currentScreen == UIConstants.SHOW_MAIN_SCREEN || this.props.currentScreen == UIConstants.SHOW_RECORDING_SCREEN) {
+      console.log("CurrentScreen = " + this.props.currentScreen);
+      if (this.state.showPhotosSelector==false) {
       return (
            <View style={{position:'absolute', justifyContent: 'space-between', flexDirection:'column', left:10, bottom:120, width:100, height:240, flex:1}}>
               {buttons}
            </View>
         );
+      }
     }
     return null;
   }
