@@ -128,7 +128,7 @@ export class App extends Component {
       );
     }
       return (
-        <View style={{position:'absolute',  flex:1, flexDirection:'column', right:10, top:10, width:100, height:100}}>
+        <View style={{position:'absolute',  flex:1, flexDirection:'column', right:5, top:20, width:80, height:80}}>
           {console.log("this.props.currentItemSelectionIndex in render - " + this.props.currentItemSelectionIndex)}
           {renderIf(this.props.currentItemSelectionIndex != -1 && (this.state.showPhotosSelector==false),
             <TouchableHighlight onPress={this._onContextMenuRemoveButtonPressed} underlayColor="#00000000">
@@ -218,23 +218,17 @@ export class App extends Component {
 
           {renderIf(!this.state.playPreview && (this.state.previewType == kPreviewTypeVideo),
           <TouchableOpacity onPress={()=>{this.player.seek(0); this.setState({ playPreview : true })}} underlayColor="#00000000">
-            <Image source={require("./res/play_btn.png")} style={localStyles.previewPlayButton} />
+            <Image source={require("./res/btn_play.png")} style={localStyles.previewPlayButton} />
           </TouchableOpacity>
           )}
 
-          <View style={{position:'absolute', left:10, bottom:10, width:100, height:100}}>
-            <TouchableHighlight onPress={()=>{this._saveToCameraRoll()}} underlayColor="#00000000">
-              <Image source={require("./res/btn_save.png")} style={localStyles.previewScreenButtons} />
-            </TouchableHighlight>
-          </View>
-
-          <View style={{position:'absolute', left:120, bottom:10, width:100, height:100}}>
+          <View style={{position:'absolute', left:35, bottom:1, width:80, height:80}}>
             <TouchableHighlight onPress={()=>{this._openShareActionSheet()}} underlayColor="#00000000">
-              <Image source={require("./res/btn_share.png")} style={localStyles.previewScreenButtons} />
+              <Image source={require("./res/btn_share.png")} style={localStyles.previewScreenButtonShare} />
             </TouchableHighlight>
           </View>
 
-          <View style={{position:'absolute', left:10, top:10, width:100, height:100}}>
+          <View style={{position:'absolute', left:25, top:20, width:80, height:80}}>
             <TouchableHighlight onPress={()=>{this.props.dispatchDisplayUIScreen(UIConstants.SHOW_MAIN_SCREEN)}} underlayColor="#00000000">
               <Image source={require("./res/btn_close.png")} style={localStyles.previewScreenButtons} />
             </TouchableHighlight>
@@ -498,14 +492,19 @@ var localStyles = StyleSheet.create({
     flex:1,
   },
   previewScreenButtons: {
-    height: 80,
-    width: 80,
+    height: 30,
+    width: 30,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  previewScreenButtonShare: {
+    height: 50,
+    width: 50,
     borderRadius: 20,
     justifyContent: 'center',
     alignItems: 'center',
-    paddingLeft:10,
-    paddingRight:10,
   },
+
   overlayView : {
     position: 'absolute',
     bottom: 10,
