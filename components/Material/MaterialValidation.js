@@ -18,21 +18,30 @@ var ReactPropTypesSecret = React.PropTypesSecret;
 var invariant = require('fbjs/lib/invariant');
 
 class MaterialValidation {
-  static validateMaterialProp(prop, material, caller) {
+
+  /*
+   This method checks 1 prop at a time even though we could be checking
+   all of them at a time so that we can surface a better error message
+   */
+  static validateMaterialProp(prop, materialName, material, caller) {
     if (!__DEV__) {
       return;
     }
     if (allMaterialTypes[prop] === undefined) {
-      var message1 = '"' + prop + '" is not a valid material property.';
+      var message1 = '"' + prop + '" of material "' + materialName + '" is not a valid material property.';
       var message2 = '\nValid material props: ' +
         JSON.stringify(Object.keys(allMaterialTypes).sort(), null, '  ');
       materialError(message1, material, caller, message2);
     }
 
-    var error = false;
-    if (error) {
-      materialError(error.message, material, caller);
-    }
+    var errorCallback = ()=>{
+      materialError('"' + prop + '" of material "' + materialName + '" is not valid.', material, caller);
+    };
+    let validationDict = {};
+    validationDict[prop] = MaterialPropTypes[prop];
+    let valueDict = {};
+    valueDict[prop] = material[prop];
+    React.PropTypes.checkPropTypes(validationDict, valueDict, 'prop', caller, errorCallback);
   }
 
   static validateMaterial(name, materials) {
@@ -40,8 +49,16 @@ class MaterialValidation {
       return;
     }
     for (var prop in materials[name]) {
-      MaterialValidation.validateMaterialProp(prop, materials[name], 'MaterialValidation ' + name);
+      MaterialValidation.validateMaterialProp(prop, name, materials[name], 'MaterialValidation ' + name);
     }
+
+    // If we don't want to "loop", then we can use the below commented out code to simply
+    // check all the props at once!
+    // var errorCallback = ()=>{
+    //   materialError("Error validating Material: [" + name + "]", materials[name], 'MaterialValidation ' + name);
+    // };
+    // React.PropTypes.checkPropTypes(MaterialPropTypes, name, materials[name], 'prop', 'MaterialValidation ' + name, errorCallback);
+
   }
 
   static addValidMaterialPropTypes(materialPropTypes) {

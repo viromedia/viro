@@ -18,7 +18,7 @@ var ReactPropTypesSecret = React.PropTypesSecret;
 var invariant = require('fbjs/lib/invariant');
 
 class ViroAnimationValidation {
-  static validateAnimationProp(prop, animation, caller) {
+  static validateAnimationProp(prop, animationName, animation, caller) {
     if (!__DEV__) {
       return;
     }
@@ -28,11 +28,15 @@ class ViroAnimationValidation {
         JSON.stringify(Object.keys(allAnimationTypes).sort(), null, '  ');
       animationError(message1, animation, caller, message2);
     }
-    //TODO: actually do validation.
-    var error = false;
-    if (error) {
-      animationError(error.message, animation, caller);
-    }
+
+    var errorCallback = ()=>{
+      animationError('"' + prop + '" of animation "' + animationName + '" is not valid.', animation, caller);
+    };
+    let validationDict = {};
+    validationDict[prop] = AnimationPropTypes[prop];
+    let valueDict = {};
+    valueDict[prop] = animation[prop];
+    React.PropTypes.checkPropTypes(validationDict, valueDict, 'prop', caller, errorCallback);
   }
 
   static validateAnimation(name, animations) {
@@ -40,8 +44,16 @@ class ViroAnimationValidation {
       return;
     }
     for (var prop in animations[name]) {
-      ViroAnimationValidation.validateAnimationProp(prop, animations[name], 'AnimationValidation ' + name);
+      ViroAnimationValidation.validateAnimationProp(prop, name, animations[name], 'AnimationValidation ' + name);
     }
+
+    // If we don't want to "loop", then we can use the below commented out code to simply
+    // check all the props at once! If so, then remove the loop above.
+    // var errorCallback = ()=>{
+    //   animationError("Error validating Animation: [" + name + "]", animations[name], 'AnimationValidation ' + name);
+    // };
+    // React.PropTypes.checkPropTypes(AnimationPropTypes, name, animations[name], 'prop', 'AnimationValidation ' + name, errorCallback);
+
   }
 
   /**
