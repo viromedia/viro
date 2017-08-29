@@ -421,13 +421,7 @@ export class App extends Component {
   _openShareActionSheet() {
       ActionSheetIOS.showShareActionSheetWithOptions({url:this.state.videoUrl},  (error) => alert(error),
       (success, method) => {
-      var text;
-      if (success) {
-        text = `Shared via ${method}`;
-      } else {
-        text = 'You didn\'t share';
-      }
-      alert(text);
+      // For now nothing; This is called when the "Share screen returns"
     });
   }
 }
