@@ -45,6 +45,7 @@ var ViroARScene = React.createClass({
       gravity: PropTypes.arrayOf(PropTypes.number).isRequired,
       drawBounds: PropTypes.bool,
     }),
+    postProcessEffects: PropTypes.arrayOf(PropTypes.string),
   },
 
   _onHover: function(event: Event) {
@@ -216,4 +217,3 @@ var VRTARScene = requireNativeComponent(
 );
 
 module.exports = ViroARScene;
-

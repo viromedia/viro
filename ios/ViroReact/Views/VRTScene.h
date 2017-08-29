@@ -18,6 +18,7 @@
 @property (nonatomic, copy) NSDictionary *physicsWorld;
 @property (nonatomic, readwrite) std::shared_ptr<VROSceneControllerDelegateiOS> delegate;
 @property (nonatomic, readwrite) std::shared_ptr<VROSceneController> sceneController;
+@property (nonatomic, copy, nullable) NSArray<NSString *> *postProcessEffects;
 
 - (instancetype)initWithBridge:(RCTBridge *)bridge;
 - (void) initSceneController;

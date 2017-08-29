@@ -230,6 +230,16 @@ static NSArray<NSNumber *> *const kDefaultSize = @[@(0), @(0), @(0)];
     physicsWorld->setDebugDrawVisible(enabled);
 }
 
+- (void)setPostProcessEffects:(NSArray<NSString *> *)effects {
+    std::vector<std::string> strEffects;
+    for (int i = 0; i < [effects count]; i++) {
+        NSString *effect = [effects objectAtIndex:i];
+        std::string strEffect = std::string([effect UTF8String]);
+        strEffects.push_back(strEffect);
+    }
+    self.scene->setSceneEffect(strEffects);
+}
+
 /**
  * Log out debug information specific to this scene, such as Camera forward vector
  * in cartesian and polar formats.

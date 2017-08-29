@@ -199,6 +199,7 @@ var VRTScene = requireNativeComponent(
           timeToFuse:true,
           physicsBody:true,
           onCollidedViro:true,
+          postProcessEffects:true,
         }
     }
 );

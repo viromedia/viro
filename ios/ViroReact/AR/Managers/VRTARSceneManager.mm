@@ -32,6 +32,7 @@ RCT_EXPORT_VIEW_PROPERTY(onPlatformUpdateViro, RCTDirectEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onTrackingInitializedViro, RCTDirectEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onAmbientLightUpdateViro, RCTDirectEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(physicsWorld, NSDictionary)
+RCT_EXPORT_VIEW_PROPERTY(postProcessEffects, NSArray<NSString *>)
 
 - (VRTView *)view
 {
