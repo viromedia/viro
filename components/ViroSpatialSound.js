@@ -87,7 +87,7 @@ var ViroSpatialSound = React.createClass({
 
   async getTransformAsync() {
     if (Platform.OS == 'ios') {
-      return new Error("getTransformAsync not supported for \"SpatialSounds\" on iOS."));
+      return new Error("getTransformAsync not supported for \"SpatialSounds\" on iOS.");
     } else {
       return await NativeModules.VRTNodeModule.getNodeTransform(findNodeHandle(this));
     }
