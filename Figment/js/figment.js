@@ -59,7 +59,19 @@ var figment = React.createClass({
   },
 
   render: function() {
-    console.log("Figment; Rerender AR Scene OCCURRED");
+    
+    // the starting bitmask is 1 because the default is 0 (2^0 = 1)
+    let startingBitMask = 2;
+    // fetch models
+    let models = this.renderModels(this.props.modelItems, startingBitMask);
+    // increment startingBitMask by the number of models
+    startingBitMask += this.props.modelItems.length;
+    let portals = this.renderPortals(this.props.portalItems, startingBitMask);
+
+    // TODO: because of how shadows work, techncially we only have 31 bits to
+    // work with so after the 32nd shadow object is added, we either crash...
+    // or no shadows appear...
+
     return (
         <ViroARScene ref="arscene" physicsWorld={{gravity:[0, -9.81, 0]}}
             onTrackingInitialized={()=>{console.log("ARScene Initialized!")}}>
@@ -74,45 +86,54 @@ var figment = React.createClass({
             color="#ffffff"
             intensity={500}/>
 
-          {this.renderModels(this.props.modelItems)}
-          {this.renderPortals(this.props.portalItems)}
+          {models}
+          {portals}
           {this.renderEffects(this.props.effectItems)}
         </ViroARScene>
     );
   },
 
-  renderModels(modelItems) {
+  renderModels(modelItems, startingBitMask) {
     var renderedObjects = [];
     if(modelItems) {
-      console.log("_renderModels()");
       var root = this;
-      let objBitMask = 1; // start with 1 because that's the default, we'll increment then use it.
+      let objBitMask = startingBitMask;
       Object.keys(modelItems).forEach(function(currentKey) {
-        objBitMask++;
-        console.log("rendering key:" + currentKey);
         if(modelItems[currentKey] != null && modelItems[currentKey] != undefined) {
           renderedObjects.push(
-            <ModelItemRender key={modelItems[currentKey].uuid} modelIDProps={modelItems[currentKey]}  hitTestMethod={root._performARHitTest}
-              onLoadCallback={root._onLoadCallback} onClickStateCallback={root._onModelsClickStateCallback}  bitMask={Math.pow(2,objBitMask)} />
+            <ModelItemRender key={modelItems[currentKey].uuid}
+              modelIDProps={modelItems[currentKey]}
+              hitTestMethod={root._performARHitTest}
+              onLoadCallback={root._onLoadCallback}
+              onClickStateCallback={root._onModelsClickStateCallback}
+              bitMask={Math.pow(2,objBitMask)} />
           );
         }
+        objBitMask++;
       });
 
     }
     return renderedObjects;
   },
 
-  renderPortals(portalItems) {
+  renderPortals(portalItems, startingBitMask) {
     var renderedObjects = [];
+    let portalBitMask = startingBitMask;
     if(portalItems) {
-      for(var i =0; i<portalItems.length; i++) {
+      for(var i = 0; i<portalItems.length; i++) {
         if(portalItems[i].selected) {
-          console.log("Figment: Pushing VIRO PORTAL index:" + i);
-          var j = i;
           renderedObjects.push(
-            <PortalItemRender key={j} portalItem={portalItems[j]} index={j} hitTestMethod={this._performARHitTest} onLoadCallback={this._onLoadCallback} onClickStateCallback={this._onPortalsClickStateCallback}/>
+            <PortalItemRender
+            key={i}
+            portalItem={portalItems[i]}
+            index={i}
+            hitTestMethod={this._performARHitTest}
+            onLoadCallback={this._onLoadCallback}
+            onClickStateCallback={this._onPortalsClickStateCallback}
+            bitMask={portalBitMask}/>
           );
         }
+        portalBitMask++;
       }
     }
     return renderedObjects;
