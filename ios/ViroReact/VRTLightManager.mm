@@ -24,9 +24,16 @@ RCT_EXPORT_MODULE()
 
 RCT_EXPORT_VIEW_PROPERTY(color, UIColor)
 RCT_EXPORT_VIEW_PROPERTY(intensity, float)
+RCT_EXPORT_VIEW_PROPERTY(direction, NSNumberArray)
+// Shadow properties
 RCT_EXPORT_VIEW_PROPERTY(influenceBitMask, int)
 RCT_EXPORT_VIEW_PROPERTY(castsShadow, BOOL)
-RCT_EXPORT_VIEW_PROPERTY(direction, NSNumberArray)
+RCT_EXPORT_VIEW_PROPERTY(shadowOpacity, float)
+RCT_EXPORT_VIEW_PROPERTY(shadowOrthographicScale, float)
+RCT_EXPORT_VIEW_PROPERTY(shadowMapSize, int)
+RCT_EXPORT_VIEW_PROPERTY(shadowBias, float)
+RCT_EXPORT_VIEW_PROPERTY(shadowNearZ, float)
+RCT_EXPORT_VIEW_PROPERTY(shadowFarZ, float)
 
 - (VRTView *)view
 {
@@ -47,9 +54,15 @@ RCT_EXPORT_VIEW_PROPERTY(attenuationEndDistance, float)
 RCT_EXPORT_VIEW_PROPERTY(position, NSNumberArray)
 RCT_EXPORT_VIEW_PROPERTY(color, UIColor)
 RCT_EXPORT_VIEW_PROPERTY(intensity, float)
+RCT_EXPORT_VIEW_PROPERTY(direction, NSNumberArray)
+// Shadow properties
 RCT_EXPORT_VIEW_PROPERTY(influenceBitMask, int)
 RCT_EXPORT_VIEW_PROPERTY(castsShadow, BOOL)
-RCT_EXPORT_VIEW_PROPERTY(direction, NSNumberArray)
+RCT_EXPORT_VIEW_PROPERTY(shadowOpacity, float)
+RCT_EXPORT_VIEW_PROPERTY(shadowMapSize, int)
+RCT_EXPORT_VIEW_PROPERTY(shadowBias, float)
+RCT_EXPORT_VIEW_PROPERTY(shadowNearZ, float)
+RCT_EXPORT_VIEW_PROPERTY(shadowFarZ, float)
 
 - (VRTView *)view
 {

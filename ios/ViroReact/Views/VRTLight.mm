@@ -53,6 +53,30 @@
     _light->setCastsShadow(castsShadow);
 }
 
+- (void)setShadowOpacity:(float)shadowOpacity {
+    _light->setShadowOpacity(shadowOpacity);
+}
+
+- (void)setShadowOrthographicScale:(float)orthographicScale {
+    _light->setShadowOrthographicScale(orthographicScale);
+}
+
+- (void)setShadowMapSize:(int)shadowMapSize {
+    _light->setShadowMapSize(shadowMapSize);
+}
+
+- (void)setShadowBias:(float)shadowBias {
+    _light->setShadowBias(shadowBias);
+}
+
+- (void)setShadowNearZ:(float)nearZ {
+    _light->setShadowNearZ(nearZ);
+}
+
+- (void)setShadowFarZ:(float)farZ {
+    _light->setShadowFarZ(farZ);
+}
+
 @end
 
 @implementation VRTAmbientLight

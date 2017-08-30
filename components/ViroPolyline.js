@@ -26,6 +26,8 @@ var ViroPolyline = React.createClass({
       PropTypes.arrayOf(PropTypes.string),
       PropTypes.string
     ]),
+    lightBitMask : PropTypes.number,
+    shadowCastingBitMask : PropTypes.number,
     onTransformUpdate: React.PropTypes.func,
     materials: PropTypes.oneOfType([
       PropTypes.arrayOf(PropTypes.string),

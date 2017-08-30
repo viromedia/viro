@@ -44,8 +44,10 @@ var ViroText = React.createClass({
       PropTypes.arrayOf(PropTypes.string),
       PropTypes.string
     ]),
-    onTransformUpdate: React.PropTypes.func,
+    lightBitMask : PropTypes.number,
+    shadowCastingBitMask : PropTypes.number,
 
+    onTransformUpdate: React.PropTypes.func,
     onHover: React.PropTypes.func,
     onClick: React.PropTypes.func,
     onClickState: React.PropTypes.func,

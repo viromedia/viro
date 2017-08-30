@@ -37,6 +37,8 @@ var ViroVideo = React.createClass({
       PropTypes.arrayOf(PropTypes.string),
       PropTypes.string
     ]),
+    lightBitMask : PropTypes.number,
+    shadowCastingBitMask : PropTypes.number,
     onTransformUpdate: React.PropTypes.func,
     stereoMode:PropTypes.oneOf(['leftRight', 'rightLeft', 'topBottom', 'bottomTop', 'none']),
     width: PropTypes.number,

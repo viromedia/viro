@@ -41,6 +41,8 @@ RCT_EXPORT_VIEW_PROPERTY(canCollide, BOOL)
 RCT_EXPORT_VIEW_PROPERTY(viroTag, NSString)
 RCT_EXPORT_VIEW_PROPERTY(onNativeTransformDelegateViro, RCTDirectEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(hasTransformDelegate, BOOL)
+RCT_EXPORT_VIEW_PROPERTY(lightBitMask, int)
+RCT_EXPORT_VIEW_PROPERTY(shadowCastingBitMask, int)
 
 - (VRTView *)view
 {
