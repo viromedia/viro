@@ -49,7 +49,8 @@ var ViroQuadEmitter = React.createClass({
       ]),
       height: PropTypes.number,
       width: PropTypes.number,
-    }).isRequired,
+      bloomThreshold: PropTypes.number,
+    }),
     spawnModifier: PropTypes.shape({
       // TODO: maybe make this oneOfType?
       emissionRatePerSecond: PropTypes.arrayOf(PropTypes.number),
@@ -131,6 +132,7 @@ var ViroQuadEmitter = React.createClass({
       initialExplosiveImpulse:PropTypes.shape({
         impulse: PropTypes.number,
         position: PropTypes.arrayOf(PropTypes.number),
+        deccelerationPeriod: PropTypes.number,
       }),
     }),
   },

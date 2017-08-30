@@ -162,6 +162,12 @@ const int kDefaultMaxParticles = 500;
     float fwidth = width ? [width floatValue] : 1.0;
     float fheight = height ? [height floatValue] : 1.0;
     _emitter = std::make_shared<VROParticleEmitter>(self.driver, self.node, _particleTexture, fwidth, fheight);
+   
+    if ([self.quad objectForKey:@"bloomThreshold"]){
+        float threshold = [[self.quad objectForKey:@"bloomThreshold"] doubleValue];
+        self.node->getGeometry()->getMaterials()[0]->setBloomThreshold(threshold);
+    }
+    
     self.scene->addParticleEmitter(_emitter);
 }
 
@@ -362,7 +368,11 @@ const int kDefaultMaxParticles = 500;
                                              [[position objectAtIndex:1] floatValue],
                                              [[position objectAtIndex:2] floatValue]);
         float impulse = [[explosiveDict objectForKey:@"impulse"] floatValue];
-        _emitter->setInitialExplosion(explodedAt, impulse);
+        float reverseAccel = [[explosiveDict objectForKey:@"deccelerationPeriod"] floatValue];
+        if (![explosiveDict objectForKey:@"deccelerationPeriod"]){
+            reverseAccel = -1;
+        }
+        _emitter->setInitialExplosion(explodedAt, impulse, reverseAccel);
     } else {
         _emitter->setInitialExplosion(VROVector3f(0,0,0), 0);
     }
