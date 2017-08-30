@@ -35,6 +35,7 @@ var ViroBox = React.createClass({
     ]),
     lightBitMask : PropTypes.number,
     shadowCastingBitMask : PropTypes.number,
+    acceptShadows : PropTypes.bool,
     onTransformUpdate: React.PropTypes.func,
     onHover: React.PropTypes.func,
     onClick: React.PropTypes.func,
