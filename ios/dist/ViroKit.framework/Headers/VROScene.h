@@ -139,6 +139,28 @@ public:
         return _lights;
     }
 
+    /*
+     Sets a list of post processing effects corresponding to VROPostProcessEffect to be applied
+     on this scene.
+     */
+    void setSceneEffect(std::vector<std::string> effects){
+        _activeEffects = effects;
+        _hasPendingEffects = true;
+    }
+
+    /*
+     Called by the renderer to process the latest list of post processing effects to be applied
+     on this scene. Returns false if the list has already been processed and is thus an old list.
+     Else returns true otherwise to indicate that a new effect list has been set and scheduled to
+     be applied by the renderer.
+     */
+    bool processSceneEffect(std::vector<std::string> &effects){
+        effects = _activeEffects;
+
+        bool hasNewEffects = _hasPendingEffects;
+        _hasPendingEffects = false;
+        return hasNewEffects;
+    }
 protected:
     
     /*
@@ -206,7 +228,6 @@ protected:
      Retrieve all background textures in the scene.
      */
     void getBackgrounds(std::shared_ptr<VRONode> node, std::vector<std::shared_ptr<VROGeometry>> &backgrounds) const;
-
 private:
     
     /*
@@ -216,6 +237,16 @@ private:
     void drawBoundingBoxCorners(std::shared_ptr<VRONode> node,
                                 const VRORenderContext &context,
                                 std::shared_ptr<VRODriver> &driver);
+
+    /*
+     List of post processing effects to be applied in the renderer.
+     */
+    std::vector<std::string> _activeEffects;
+
+    /*
+     True if we have called setSceneEffect to set a list of _activeEffects.
+     */
+    bool _hasPendingEffects = false;
 };
 
 #endif /* VROScene_h */

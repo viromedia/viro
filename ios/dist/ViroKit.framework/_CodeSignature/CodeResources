@@ -2733,7 +2733,7 @@
 		</data>
 		<key>Headers/VROParticleEmitter.h</key>
 		<data>
-		0DfOOfFjilL+IjhCnYrAG+g3I3Y=
+		7J2AsOHHjlS1Ikn3hU6AAWMESvA=
 		</data>
 		<key>Headers/VROParticleModifier.h</key>
 		<data>
@@ -2799,6 +2799,10 @@
 		<data>
 		NrsAUkLPgrF3Nc2fVEEMeUMaHcY=
 		</data>
+		<key>Headers/VROPostProcessEffectFactory.h</key>
+		<data>
+		4/qhCm9/aQlfkoHGpJC9bPI2xic=
+		</data>
 		<key>Headers/VROProjector.h</key>
 		<data>
 		QjpfNxjyosDocYJrOj0VS43IAS0=
@@ -2829,7 +2833,7 @@
 		</data>
 		<key>Headers/VROScene.h</key>
 		<data>
-		d5Zx+mHvbq4Zu6pUFhY5jgZwGGY=
+		zbOZvQ6oNxI7SXqPCmgv3NLwQuk=
 		</data>
 		<key>Headers/VROSceneController.h</key>
 		<data>
@@ -3069,7 +3073,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		QjmJ7dVKCqwoHLHLtfr2JBHrwk0=
+		DclDnpDtFMGfFUUkK8O+6ElQP+I=
 		</data>
 		<key>MaterialRobotoFontLoader.bundle/Roboto-Black.ttf</key>
 		<data>
@@ -8253,11 +8257,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			0DfOOfFjilL+IjhCnYrAG+g3I3Y=
+			7J2AsOHHjlS1Ikn3hU6AAWMESvA=
 			</data>
 			<key>hash2</key>
 			<data>
-			Ft5DDlxjdHstrISyhrjTz4+896ip480gi3OTZ2o9wl0=
+			i+KGV1VmzpB2/fYwL6wF6uTijHM9/VGVIIPr1ezZbGk=
 			</data>
 		</dict>
 		<key>Headers/VROParticleModifier.h</key>
@@ -8436,6 +8440,17 @@
 			AaJhM7Ax9vsVnkHyWOP2VLw+qWsQ4tOhSHkheDmU+Sk=
 			</data>
 		</dict>
+		<key>Headers/VROPostProcessEffectFactory.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			4/qhCm9/aQlfkoHGpJC9bPI2xic=
+			</data>
+			<key>hash2</key>
+			<data>
+			Jrqs1MNmW8AfDM9RDrOsL6lkS6/m42Av+mDn6NdADGI=
+			</data>
+		</dict>
 		<key>Headers/VROProjector.h</key>
 		<dict>
 			<key>hash</key>
@@ -8517,11 +8532,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			d5Zx+mHvbq4Zu6pUFhY5jgZwGGY=
+			zbOZvQ6oNxI7SXqPCmgv3NLwQuk=
 			</data>
 			<key>hash2</key>
 			<data>
-			LtKj5XrSeaN6m4/PbPZ7Rl2IJyrxhdg/HKbizfiyxR4=
+			PHoQ2+P1Vo3Qp97KG+cLUJHh4RjGISux+aIDwoqyg84=
 			</data>
 		</dict>
 		<key>Headers/VROSceneController.h</key>

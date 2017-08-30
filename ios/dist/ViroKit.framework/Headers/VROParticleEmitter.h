@@ -143,7 +143,7 @@ public:
      Parameters for configuring an initial explosive force at a given explosionPoint local
      to the emitter with a magnitude of impulseExplosion.
      */
-    void setInitialExplosion(VROVector3f explosionPoint, float impulseExplosion){
+    void setInitialExplosion(VROVector3f explosionPoint, float impulseExplosion, float decelleration = -1){
         _explosionCenter = explosionPoint;
         _impulseExplosionMagnitude = impulseExplosion;
     }
@@ -419,6 +419,7 @@ private:
      */
     float _impulseExplosionMagnitude = -1;
 
+    double _impulseDeaccelerationExplosionPeriod = -1;
     /*
      Grabs a random point from the currently configured _currentVolume.
      */
@@ -428,6 +429,7 @@ private:
      Extrapolate the initial velocity for this particle if explosion parameters have been set.
      */
     VROVector3f getExplosionInitialVel(VROVector3f particlePosition);
+    VROVector3f getExplosionAccel(VROVector3f particlePosition);
 };
 
 #endif /* VROParticleEmitter_h */
