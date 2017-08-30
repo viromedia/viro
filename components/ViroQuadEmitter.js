@@ -142,6 +142,10 @@ var ViroQuadEmitter = React.createClass({
     }
   },
 
+  async getTransformAsync() {
+    return await NativeModules.VRTNodeModule.getNodeTransform(findNodeHandle(this));
+  },
+
   // Called from native on the event a positional change has occured
   // for the underlying control within the renderer.
   _onNativeTransformUpdate: function(event: Event){

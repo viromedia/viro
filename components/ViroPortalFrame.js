@@ -130,6 +130,10 @@ var ViroPortalFrame = React.createClass({
     }
   },
 
+  async getTransformAsync() {
+    return await NativeModules.VRTNodeModule.getNodeTransform(findNodeHandle(this));
+  },
+
   applyImpulse: function(force, position) {
     NativeModules.VRTNodeModule.applyImpulse(findNodeHandle(this), force, position);
   },

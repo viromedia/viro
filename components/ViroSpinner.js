@@ -111,6 +111,10 @@ var ViroSpinner = React.createClass({
     this.refs[RCT_SPINNER_REF].setInstantaneousVelocity(findNodeHandle(this), velocity);
   },
 
+  async getTransformAsync() {
+    return await this.refs[RCT_SPINNER_REF].getTransformAsync();
+  },
+
   render: function() {
     // Since transformBehaviors can be either a string or an array, convert the string to a 1-element array.
     let transformBehaviors = typeof this.props.transformBehaviors === 'string' ?

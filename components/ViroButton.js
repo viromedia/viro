@@ -166,6 +166,10 @@ var RCT_BUTTON_REF = 'virobuttoncomponent';
     this.refs[RCT_BUTTON_REF].setInstantaneousVelocity(velocity);
   },
 
+  async getTransformAsync() {
+    return await this.refs[RCT_BUTTON_REF].getTransformAsync();
+  },
+
   getInitialState: function() {
     return {buttonType: BTN_TYPE_NORMAL};
   },
