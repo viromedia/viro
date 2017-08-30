@@ -55,25 +55,36 @@ var PortalItemRender = React.createClass({
     },
 
     render: function() {
-        var j = this.props.index;
+        var index = this.props.index;
         let transformBehaviors = {}
         if (this.state.shouldBillboard) {
           transformBehaviors.transformBehaviors = this.state.shouldBillboard ? "billboardY" : [];
         }
         return (
-          <ViroARNode key={j} visible={this.state.nodeIsVisible} position={this.state.position} onDrag={()=>{}}>
-            <ViroPortal position={[0, 0, 0]} rotation={this.state.rotation}
-                scale={this.state.scale} onRotate={this._onRotateGesture(j)}
-                onPinch={this._onPinchIndex(j)} passable={true}
-                ref={this._setComponentRef()} {...transformBehaviors}
-                onClickState={this._onClickState(j)} >
+          <ViroARNode
+            key={index}
+            visible={this.state.nodeIsVisible}
+            position={this.state.position}
+            onDrag={()=>{}} >
 
-               <ViroPortalFrame>
-                 <Viro3DObject source={this.props.portalItem.obj}
-                               position={[0, 0, 0]}
-                               materials={this.props.portalItem.materials}
-                               resource={this.props.portalItem.resources} onLoadStart={this._onObjectLoadStart(j)} onLoadEnd={this._onObjectLoadEnd(j)}/>
-               </ViroPortalFrame>
+            <ViroPortal
+                {...transformBehaviors}
+                rotation={this.state.rotation}
+                scale={this.state.scale}
+                onRotate={this._onRotate}
+                onPinch={this._onPinch}
+                passable={true}
+                ref={this._setComponentRef()}
+                onClickState={this._onClickState(index)} >
+
+              <ViroPortalFrame>
+                <Viro3DObject source={this.props.portalItem.obj}
+                              position={[0, 0, 0]}
+                              materials={this.props.portalItem.materials}
+                              resource={this.props.portalItem.resources}
+                              onLoadStart={this._onObjectLoadStart(index)}
+                              onLoadEnd={this._onObjectLoadEnd(index)}/>
+              </ViroPortalFrame>
               {this._renderPortalInside()}
             </ViroPortal>
           </ViroARNode>
@@ -82,8 +93,6 @@ var PortalItemRender = React.createClass({
 
     _setComponentRef() {
       return (component) => {
-        console.log("SETTING COMPONENT REF!!! index:" + this.props.index);
-        console.log("Component ref value:");
         this._ref_object = component;
       }
     },
@@ -121,10 +130,6 @@ var PortalItemRender = React.createClass({
     },
 
     _renderPortalInside() {
-        console.log("_renderPortalInside");
-        console.log(this.props.portalItem.portal360Image);
-        console.log("_renderPortalInside source:");
-        console.log(this.props.portalItem.portal360Image.source);
         if(this._is360Photo(this.props.portalItem.portal360Image.width, this.props.portalItem.portal360Image.height)) {
           return (
             <Viro360Image source={this.props.portalItem.portal360Image.source} />
@@ -149,37 +154,22 @@ var PortalItemRender = React.createClass({
       return (ratio > 1.9 && ratio < 2.2);
     },
 
-    _onRotateGesture(index) {
-      return ((rotateState, rotationFactor, source)=> {
-          this._onRotate(rotateState, rotationFactor, source, index);
-      });
-    },
-
-    _onPinchIndex(index) {
-      return ((pinchState, scaleFactor, source)=> {
-          this._onPinch(pinchState, scaleFactor, source, index);
-      });
-    },
-
     /*
      Rotation should be relative to its current rotation *not* set to the absolute
      value of the given rotationFactor.
      */
     _onRotate(rotateState, rotationFactor, source, index) {
+      // ignore the first factor, there's a bug with it. VIRO-1651
       if(rotateState == 1) {
-        console.log("STARTING ROTATE WITH Rotation factor: " + rotationFactor);
         return;
-      } else if(rotateState ==2){
-        console.log("MID ROTATE WITH Rotation factor: " + rotationFactor);
-      } else if(rotateState == 3) {
-        console.log("END ROTATE WITH Rotation factor: " + rotationFactor);
+      }
+
+      if (rotateState == 3) {
         this.setState({
           rotation : [this.state.rotation[0], this.state.rotation[1] - rotationFactor, this.state.rotation[2]]
         })
         return;
       }
-
-      console.log("ONROTATE INDEX:" + index);
 
       this._ref_object.setNativeProps({rotation:[this.state.rotation[0], this.state.rotation[1] - rotationFactor, this.state.rotation[2]]});
     },
@@ -191,20 +181,17 @@ var PortalItemRender = React.createClass({
      to the final value and store it in state.
      */
     _onPinch(pinchState, scaleFactor, source, index) {
+      // ignore the first factor, there's a bug with it. VIRO-1651
       if(pinchState == 1) {
-        console.log("STARTING PINCH WITH Scale factor: " + scaleFactor);
         return;
-      } else if(pinchState == 2){
-        console.log("MID PINCH WITH Scale factor: " + scaleFactor);
-      } else if(pinchState == 3) {
-        console.log("END PINCH WITH Scale factor: " + scaleFactor);
+      } 
+
+      if(pinchState == 3) {
         this.setState({
           scale : this.state.scale.map((x)=>{return x * scaleFactor})
         });
         return;
       }
-
-      console.log("ONPINCH INDEX:" + index);
 
       var newScale = this.state.scale.map((x)=>{return x * scaleFactor})
       this._ref_object.setNativeProps({scale:newScale});
@@ -212,9 +199,8 @@ var PortalItemRender = React.createClass({
 
     _onError(index) {
         return () => {
-          console.log("MODEL has error HAS ERROR" + index);
           this.props.loadCallback(index, LoadConstants.ERROR);
-          };
+        };
       },
 
     _onObjectLoadStart(index) {

@@ -90,16 +90,19 @@ var ModelItemRender = React.createClass({
               shadowOpacity={.9} />
             
             <Viro3DObject
-                position={modelItem.position}
-                source={modelItem.obj}
-                materials={modelItem.materials}
-                resources={modelItem.resources}
-                animation={modelItem.animation}
-                lightBitMask={this.props.bitMask | 1}
-                shadowCastingBitMask={this.props.bitMask}
-                onClickState={this._onClickState(this.props.modelIDProps.uuid)}
-                onError={this._onError(this.props.modelIDProps.uuid)}  onRotate={this._onRotateGesture()} onLoadStart={this._onObjectLoadStart(this.props.modelIDProps.uuid)} onLoadEnd={this._onObjectLoadEnd(this.props.modelIDProps.uuid)}
-                onPinch={this._onPinchIndex()} />
+              position={modelItem.position}
+              source={modelItem.obj}
+              materials={modelItem.materials}
+              resources={modelItem.resources}
+              animation={modelItem.animation}
+              lightBitMask={this.props.bitMask | 1}
+              shadowCastingBitMask={this.props.bitMask}
+              onClickState={this._onClickState(this.props.modelIDProps.uuid)}
+              onError={this._onError(this.props.modelIDProps.uuid)}
+              onRotate={this._onRotate}
+              onPinch={this._onPinch}
+              onLoadStart={this._onObjectLoadStart(this.props.modelIDProps.uuid)}
+              onLoadEnd={this._onObjectLoadEnd(this.props.modelIDProps.uuid)} />
 
             <ViroSurface
               rotation={[-90, 0, 0]}
@@ -118,45 +121,34 @@ var ModelItemRender = React.createClass({
     },
 
     _onClickState(uuid) {
-     return ((clickState, position, source)=> {
-      if (clickState == 1) { // clickState == 1 -> "ClickDown"
-        // if "ClickDown", then enable billboardY
-        this.setState({shouldBillboard : true});
-      } else if (clickState == 2) { // clickState == 2 -> "ClickUp"
-        // for some reason this method gives us values "opposite" of what they should be
-        // which is why we negate the y rotation, but also the y-rotation values are
-        // always within -90 -> 90 so the x/z need to be adjusted back to 0 and the y
-        // rotation recalculated in order for the rotation gesture to function properly
-        this.arNodeRef.getTransformAsync().then((retDict)=>{
-          let rotation = retDict.rotation;
-          let absX = Math.abs(rotation[0]);
-          let absZ = Math.abs(rotation[2]);
-          // negate the y rotation
-          let yRotation = - (rotation[1]);
+      return ((clickState, position, source)=> {
+        if (clickState == 1) { // clickState == 1 -> "ClickDown"
+          // if "ClickDown", then enable billboardY
+          this.setState({shouldBillboard : true});
+        } else if (clickState == 2) { // clickState == 2 -> "ClickUp"
+          // for some reason this method gives us values "opposite" of what they should be
+          // which is why we negate the y rotation, but also the y-rotation values are
+          // always within -90 -> 90 so the x/z need to be adjusted back to 0 and the y
+          // rotation recalculated in order for the rotation gesture to function properly
+          this.arNodeRef.getTransformAsync().then((retDict)=>{
+            let rotation = retDict.rotation;
+            let absX = Math.abs(rotation[0]);
+            let absZ = Math.abs(rotation[2]);
+            // negate the y rotation
+            let yRotation = - (rotation[1]);
 
-          // if the X and Z aren't 0, then adjust the y rotation.
-          if (absX > 1 && absZ > 1) {
-            yRotation = 180 - (yRotation);
-          }
+            // if the X and Z aren't 0, then adjust the y rotation.
+            if (absX > 1 && absZ > 1) {
+              yRotation = 180 - (yRotation);
+            }
 
-          this.setState({
-            rotation : [0,yRotation,0],
-            shouldBillboard : false
+            this.setState({
+              rotation : [0,yRotation,0],
+              shouldBillboard : false
+            });
           });
-        })
-      }
-      this.props.onClickStateCallback(uuid, clickState, UIConstants.LIST_MODE_MODEL);
-    });
-  },
-    _onRotateGesture() {
-      return ((rotateState, rotationFactor, source)=> {
-          this._onRotate(rotateState, rotationFactor, source);
-      });
-    },
-
-    _onPinchIndex() {
-      return ((pinchState, scaleFactor, source)=> {
-          this._onPinch(pinchState, scaleFactor, source);
+        }
+        this.props.onClickStateCallback(uuid, clickState, UIConstants.LIST_MODE_MODEL);
       });
     },
 
@@ -165,6 +157,11 @@ var ModelItemRender = React.createClass({
      value of the given rotationFactor.
      */
     _onRotate(rotateState, rotationFactor, source) {
+      // ignore the first factor, there's a bug with it. VIRO-1651
+      if (rotateState == 1) {
+        return;
+      }
+
       if (rotateState == 3) {
         this.setState({
           rotation : [this.state.rotation[0], this.state.rotation[1] - rotationFactor, this.state.rotation[2]]
@@ -182,6 +179,11 @@ var ModelItemRender = React.createClass({
      to the final value and store it in state.
      */
     _onPinch(pinchState, scaleFactor, source) {
+      // ignore the first factor, there's a bug with it. VIRO-1651
+      if (pinchState == 1) {
+        return;
+      }
+
       if (pinchState == 3) {
         this.setState({
           scale : this.state.scale.map((x)=>{return x * scaleFactor})
