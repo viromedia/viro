@@ -143,7 +143,7 @@ var ViroSurface = React.createClass({
   },
 
   setNativeProps: function(nativeProps) {
-     this._viroSurface.setNativeProps(nativeProps);
+    this._component.setNativeProps(nativeProps);
   },
 
   applyImpulse: function(force, position) {
@@ -244,10 +244,10 @@ var ViroSurface = React.createClass({
     nativeProps.timeToFuse = timeToFuse;
     nativeProps.canCollide = this.props.onCollided != undefined;
     nativeProps.onCollidedViro = this._onCollided;
+    nativeProps.ref = component => {this._component = component; };
+
     return (
-      <VRTSurface 
-        ref={ component => {this._viroSurface = component; }}
-        {...nativeProps}/>
+      <VRTSurface {...nativeProps} />
     );
   }
 });

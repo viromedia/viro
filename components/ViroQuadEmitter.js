@@ -177,6 +177,10 @@ var ViroQuadEmitter = React.createClass({
     return true;
   },
 
+  setNativeProps: function(nativeProps) {
+    this._component.setNativeProps(nativeProps);
+  },
+
   render: function() {
 
     let quad = {...this.props.quad}
@@ -241,6 +245,8 @@ var ViroQuadEmitter = React.createClass({
       }
       nativeProps.appearanceModifier.rotation = newAppearanceRotMod;
     }
+
+    nativeProps.ref = component => {this._component = component; };
 
     return (
       <VRTQuadEmitter {...nativeProps} />

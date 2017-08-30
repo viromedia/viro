@@ -35,9 +35,14 @@ var ViroOrbitCamera = React.createClass({
     this.context.cameraWillReceiveProps(this, nextProps);
   },
 
+  setNativeProps: function(nativeProps) {
+    this._component.setNativeProps(nativeProps);
+  },
+
   render: function() {
     return (
       <VRTOrbitCamera
+        ref={ component => {this._component = component; }}
         {...this.props}
       />
     );

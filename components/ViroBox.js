@@ -196,6 +196,10 @@ var ViroBox = React.createClass({
     return true;
   },
 
+  setNativeProps: function(nativeProps) {
+    this._component.setNativeProps(nativeProps);
+  },
+
   render: function() {
     // Since materials and transformBehaviors can be either a string or an array, convert the string to a 1-element array.
     let materials = typeof this.props.materials === 'string' ? new Array(this.props.materials) : this.props.materials;
@@ -221,6 +225,7 @@ var ViroBox = React.createClass({
     return (
         <VRTBox
             {...this.props}
+            ref={ component => {this._component = component; }}
             position={this.state.propsPositionState}
             onNativeTransformDelegateViro={transformDelegate}
             hasTransformDelegate={this.props.onTransformUpdate != undefined}

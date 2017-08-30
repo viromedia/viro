@@ -194,6 +194,10 @@ var ViroText = React.createClass({
     return true;
   },
 
+  setNativeProps: function(nativeProps) {
+    this._component.setNativeProps(nativeProps);
+  },
+
   render: function() {
     let onGaze = this.props.onGaze ? this._onGaze : undefined;
     // Since materials and transformBehaviors can be either a string or an array, convert the string to a 1-element array.
@@ -210,6 +214,7 @@ var ViroText = React.createClass({
     return (
       <VRTText
         {...this.props}
+        ref={ component => {this._component = component; }}
         position={this.state.propsPositionState}
         onNativeTransformDelegateViro={transformDelegate}
         hasTransformDelegate={this.props.onTransformUpdate != undefined}

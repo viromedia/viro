@@ -65,6 +65,10 @@ var ViroSkybox = React.createClass({
     this.props.onLoadEnd && this.props.onLoadEnd(event);
   },
 
+  setNativeProps: function(nativeProps) {
+    this._component.setNativeProps(nativeProps);
+  },
+
   render: function() {
     if (this.props.src) {
       console.error('The <ViroSkybox> component takes a `source` property rather than `src`.');
@@ -93,6 +97,7 @@ var ViroSkybox = React.createClass({
     nativeProps.onViroSkyBoxLoadStart = this._onLoadStart;
     nativeProps.onViroSkyBoxLoadEnd = this._onLoadEnd;
     nativeProps.color = this.props.color;
+    nativeProps.ref = component => {this._component = component; };
 
     return (
       <VRTSkybox {...nativeProps}/>

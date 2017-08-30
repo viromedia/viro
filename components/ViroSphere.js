@@ -207,6 +207,10 @@ getInitialState: function() {
     return true;
   },
 
+  setNativeProps: function(nativeProps) {
+    this._component.setNativeProps(nativeProps);
+  },
+
   render: function() {
     if (this.props.material) {
       console.error('The <ViroSphere> component takes a `materials` property rather than `material`.');
@@ -226,6 +230,7 @@ getInitialState: function() {
     return (
       <VRTSphere
         {...this.props}
+        ref={ component => {this._component = component; }}
         position={this.state.propsPositionState}
         materials={materials}
         transformBehaviors={transformBehaviors}

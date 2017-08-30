@@ -104,6 +104,10 @@ var Viro360Video = React.createClass({
     this.props.onUpdateTime && this.props.onUpdateTime(event.nativeEvent.currentTime, event.nativeEvent.totalTime);
   },
 
+  setNativeProps: function(nativeProps) {
+    this._component.setNativeProps(nativeProps);
+  },
+
   render: function() {
     if (this.props.src) {
       console.error('The <Viro360Video> component takes a `source` property rather than `src`.');
@@ -119,6 +123,7 @@ var Viro360Video = React.createClass({
     nativeProps.onErrorViro = this._onError;
     nativeProps.onFinishViro = this._onFinish;
     nativeProps.onUpdateTimeViro = this._onUpdateTime;
+    nativeProps.ref = component => {this._component = component; };
     return (
       <VRO360Video {...nativeProps} />
     );

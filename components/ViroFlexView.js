@@ -207,6 +207,10 @@ var ViroFlexView = React.createClass({
     return true;
   },
 
+  setNativeProps: function(nativeProps) {
+    this._component.setNativeProps(nativeProps);
+  },
+
   render: function() {
     let onGaze = this.props.onGaze ? this._onGaze : undefined;
     // Since materials and transformBehaviors can be either a string or an array, convert the string to a 1-element array.
@@ -246,6 +250,7 @@ var ViroFlexView = React.createClass({
     nativeProps.timeToFuse = timeToFuse;
     nativeProps.canCollide = this.props.onCollided != undefined;
     nativeProps.onCollidedViro = this._onCollided;
+    nativeProps.ref = component => {this._component = component; };
     return (
       <VROFlexView {...nativeProps} />
     );

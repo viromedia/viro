@@ -105,7 +105,7 @@ var ViroPortal = React.createClass({
   },
 
   setNativeProps: function(nativeProps) {
-     this._viro3dobj.setNativeProps(nativeProps);
+     this._component.setNativeProps(nativeProps);
   },
 
   _onPinch: function(event: Event) {
@@ -216,7 +216,7 @@ var ViroPortal = React.createClass({
     return (
       <VRTPortal
         {...this.props}
-        ref={ component => { this._viro3dobj = component; }}
+        ref={ component => { this._component = component; }}
         position={this.state.propsPositionState}
         onNativeTransformDelegateViro={transformDelegate}
         hasTransformDelegate={this.props.onTransformUpdate != undefined}

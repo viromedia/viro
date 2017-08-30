@@ -66,10 +66,15 @@ var ViroController = React.createClass({
     return await ViroControllerModule.getForwardVectorAsync(findNodeHandle(this));
   },
 
+  setNativeProps: function(nativeProps) {
+    this._component.setNativeProps(nativeProps);
+  },
+
   render: function() {
       return (
         <VRTController
           {...this.props}
+          ref={ component => {this._component = component; }}
           canClick={this.props.onClick != undefined || this.props.onClickState != undefined}
           canTouch={this.props.onTouch != undefined}
           canScroll={this.props.onScroll != undefined}

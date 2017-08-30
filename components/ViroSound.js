@@ -59,6 +59,10 @@ var ViroSound = React.createClass({
     this.props.onError && this.props.onError(event);
   },
 
+  setNativeProps: function(nativeProps) {
+    this._component.setNativeProps(nativeProps);
+  },
+
   render: function() {
 
     var soundSrc = this.props.source;
@@ -73,6 +77,7 @@ var ViroSound = React.createClass({
     nativeProps.source = soundSrc;
     nativeProps.onFinishViro = this._onFinish;
     nativeProps.onErrorViro = this._onError;
+    nativeProps.ref = component => {this._component = component; };
 
     return (
       <VRTSound {...nativeProps} />

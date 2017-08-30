@@ -32,10 +32,15 @@ var ViroOmniLight = React.createClass({
     attenuationEndDistance: PropTypes.number,
   },
 
+  setNativeProps: function(nativeProps) {
+    this._component.setNativeProps(nativeProps);
+  },
+
   render: function() {
       let nativeProps = Object.assign({}, this.props);
       nativeProps.style=[this.props.style];
       nativeProps.color=this.props.color;
+      nativeProps.ref = component => {this._component = component; };
 
       return (
         <VRTOmniLight

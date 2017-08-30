@@ -77,6 +77,10 @@ var Viro360Image = React.createClass({
     this.props.onError && this.props.onError(event);
   },
 
+  setNativeProps: function(nativeProps) {
+    this._component.setNativeProps(nativeProps);
+  },
+
   render: function() {
     var imgsrc = resolveAssetSource(this.props.source);
     if (this.props.src) {
@@ -97,6 +101,8 @@ var Viro360Image = React.createClass({
     nativeProps.onErrorViro = this._onError;
     nativeProps.onLoadStartViro = this._onLoadStart;
     nativeProps.onLoadEndViro = this._onLoadEnd;
+    nativeProps.ref = component => {this._component = component; };
+
 
     return (
       <VRT360Image {...nativeProps} />

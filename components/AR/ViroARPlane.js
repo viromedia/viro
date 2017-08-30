@@ -116,6 +116,10 @@ var ViroARPlane = React.createClass({
     }
   },
 
+  setNativeProps: function(nativeProps) {
+    this._component.setNativeProps(nativeProps);
+  },
+
   render: function() {
 
     let timeToFuse = undefined;
@@ -126,6 +130,7 @@ var ViroARPlane = React.createClass({
     return (
       <VRTARPlane
         {...this.props}
+        ref={ component => {this._component = component; }}
         canHover={this.props.onHover != undefined}
         canClick={this.props.onClick != undefined || this.props.onClickState != undefined}
         canTouch={this.props.onTouch != undefined}

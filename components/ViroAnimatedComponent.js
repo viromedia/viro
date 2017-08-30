@@ -37,10 +37,15 @@ var ViroAnimatedComponent = React.createClass({
     this.props.onFinish && this.props.onFinish();
   },
 
+  setNativeProps: function(nativeProps) {
+    this._component.setNativeProps(nativeProps);
+  },
+
   render: function() {
     let nativeProps = Object.assign({}, this.props);
     nativeProps.onAnimationFinishViro = this._onFinish;
     nativeProps.onAnimationStartViro = this._onStart;
+    nativeProps.ref = component => {this._component = component; };
 
     return (
       <VRTAnimatedComponent {...nativeProps} />

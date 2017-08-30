@@ -129,6 +129,10 @@ var ViroARNode = React.createClass({
     }
   },
 
+  setNativeProps: function(nativeProps) {
+    this._component.setNativeProps(nativeProps);
+  },
+
   applyImpulse: function(force, position) {
     NativeModules.VRTNodeModule.applyImpulse(findNodeHandle(this), force, position);
   },
@@ -198,6 +202,7 @@ var ViroARNode = React.createClass({
     return (
       <VRTARDraggableNode
         {...this.props}
+        ref={ component => {this._component = component; }}
         position={this.state.propsPositionState}
         onNativeTransformDelegateViro={transformDelegate}
         hasTransformDelegate={this.props.onTransformUpdate != undefined}

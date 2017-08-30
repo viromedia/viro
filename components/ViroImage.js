@@ -273,6 +273,10 @@ var ViroImage = React.createClass({
     return true;
   },
 
+  setNativeProps: function(nativeProps) {
+    this._component.setNativeProps(nativeProps);
+  },
+
   render: function() {
     var defaultPlaceholder = require('./Resources/viro_blank.png');
     var imgsrc = resolveAssetSource(this.props.source);
@@ -344,6 +348,7 @@ var ViroImage = React.createClass({
     nativeProps.timeToFuse = timeToFuse;
     nativeProps.canCollide = this.props.onCollided != undefined;
     nativeProps.onCollidedViro = this._onCollided;
+    nativeProps.ref = component => {this._component = component; };
     return (
       <VRTImage {...nativeProps}/>
     );

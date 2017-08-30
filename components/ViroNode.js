@@ -182,6 +182,10 @@ var ViroNode = React.createClass({
     return true;
   },
 
+  setNativeProps: function(nativeProps) {
+    this._component.setNativeProps(nativeProps);
+  },
+
   render: function() {
     // Since transformBehaviors can be either a string or an array, convert the string to a 1-element array.
     let transformBehaviors = typeof this.props.transformBehaviors === 'string' ?
@@ -197,6 +201,7 @@ var ViroNode = React.createClass({
     return (
       <VRTViewContainer
         {...this.props}
+        ref={ component => {this._component = component; }}
         position={this.state.propsPositionState}
         onNativeTransformDelegateViro={transformDelegate}
         hasTransformDelegate={this.props.onTransformUpdate != undefined}

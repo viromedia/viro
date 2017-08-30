@@ -31,14 +31,18 @@ var ViroAmbientLight = React.createClass({
     influenceBitMask: PropTypes.number,
   },
 
+  setNativeProps: function(nativeProps) {
+    this._component.setNativeProps(nativeProps);
+  },
+
   render: function() {
       let nativeProps = Object.assign({}, this.props);
       nativeProps.style=[this.props.style];
       nativeProps.color = this.props.color;
+      nativeProps.ref = component => {this._component = component; };
 
       return (
-        <VRTAmbientLight
-          {...nativeProps}
+        <VRTAmbientLight {...nativeProps}
         />
       );
   }

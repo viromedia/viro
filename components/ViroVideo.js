@@ -197,6 +197,10 @@ var ViroVideo = React.createClass({
     }
   },
 
+  setNativeProps: function(nativeProps) {
+    this._component.setNativeProps(nativeProps);
+  },
+
   applyImpulse: function(force, position) {
     NativeModules.VRTNodeModule.applyImpulse(findNodeHandle(this), force, position);
   },
@@ -304,8 +308,9 @@ var ViroVideo = React.createClass({
     nativeProps.timeToFuse = timeToFuse;
     nativeProps.canCollide = this.props.onCollided != undefined;
     nativeProps.onCollidedViro = this._onCollided;
+    nativeProps.ref = component => {this._component = component; };
     return (
-      <VRTVideoSurface {...nativeProps}/>
+      <VRTVideoSurface {...nativeProps} />
     );
   },
 

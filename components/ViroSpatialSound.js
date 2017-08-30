@@ -54,6 +54,10 @@ var ViroSpatialSound = React.createClass({
     this.props.onError && this.props.onError(event);
   },
 
+  setNativeProps: function(nativeProps) {
+    this._component.setNativeProps(nativeProps);
+  },
+
   render: function() {
 
     var soundSrc = this.props.source;
@@ -68,6 +72,7 @@ var ViroSpatialSound = React.createClass({
     nativeProps.source = soundSrc;
     nativeProps.onErrorViro = this._onError;
     nativeProps.onFinishViro = this._onFinish;
+    nativeProps.ref = component => {this._component = component; };
 
     if (Platform.OS === 'ios') {
       return (
