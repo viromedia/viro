@@ -36,8 +36,17 @@
                                                       moduleName:@"Figment"
                                                initialProperties:nil
                                                    launchOptions:launchOptions];
-    rootView.backgroundColor = [[UIColor alloc] initWithRed:1.0f green:1.0f blue:1.0f alpha:1];
 
+    rootView.backgroundColor = UIColor.blackColor;
+    
+    // If we want a splash image, then we also need to set the image to the background b/c the RCTRootView
+    // appears while we're loading and processing the bundle too.
+//    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"viro_loading.png"]];
+//    [rootView addSubview:imageView];
+//    [rootView sendSubviewToBack:imageView];
+//    [imageView setFrame:[UIScreen mainScreen].bounds];
+//    imageView.contentMode = UIViewContentModeScaleToFill;
+    
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     UIViewController *rootViewController = [UIViewController new];
     rootViewController.view = rootView;

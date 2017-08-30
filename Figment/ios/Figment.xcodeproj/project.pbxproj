@@ -25,6 +25,7 @@
 		5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		867921639E2245F68A6EE0B1 /* libRNBlur.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 447D165F955947608AD1736D /* libRNBlur.a */; };
+		8A1BF3061F57471C00B2E8FD /* viro_loading.png in Resources */ = {isa = PBXBuildFile; fileRef = 8A1BF3051F57471C00B2E8FD /* viro_loading.png */; };
 		8AD2381F1F478D2F009B2057 /* libRCTVideo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AD2381C1F4785A4009B2057 /* libRCTVideo.a */; };
 		8AD238291F47BD20009B2057 /* libRCTCameraRoll.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AD238271F47BD08009B2057 /* libRCTCameraRoll.a */; };
 		8AEEA3491F461DE20033BD59 /* libViroReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AEEA3061F46175D0033BD59 /* libViroReact.a */; };
@@ -303,7 +304,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		008F07F21AC5B25A0029DE68 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
 		00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTActionSheet.xcodeproj; path = "../node_modules/react-native/Libraries/ActionSheetIOS/RCTActionSheet.xcodeproj"; sourceTree = "<group>"; };
 		00C302B51ABCB90400DB3ED1 /* RCTGeolocation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTGeolocation.xcodeproj; path = "../node_modules/react-native/Libraries/Geolocation/RCTGeolocation.xcodeproj"; sourceTree = "<group>"; };
 		00C302BB1ABCB91800DB3ED1 /* RCTImage.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTImage.xcodeproj; path = "../node_modules/react-native/Libraries/Image/RCTImage.xcodeproj"; sourceTree = "<group>"; };
@@ -330,6 +330,7 @@
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
+		8A1BF3051F57471C00B2E8FD /* viro_loading.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = viro_loading.png; sourceTree = "<group>"; };
 		8AD238271F47BD08009B2057 /* libRCTCameraRoll.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libRCTCameraRoll.a; path = "../../../../Library/Developer/Xcode/DerivedData/Figment-fhxipglfcvuknqavlzoklrvwcbwl/Build/Products/Debug-iphoneos/libRCTCameraRoll.a"; sourceTree = "<group>"; };
 		8AEEA2E71F46175D0033BD59 /* ViroReact.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ViroReact.xcodeproj; path = ../../ios/ViroReact.xcodeproj; sourceTree = "<group>"; };
 		8AEEA32D1F461DB90033BD59 /* libPods-ViroReact.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-ViroReact.a"; path = "../../../../Library/Developer/Xcode/DerivedData/Figment-delkaflngzscrygeyitvubgotjud/Build/Products/Debug-iphoneos/libPods-ViroReact.a"; sourceTree = "<group>"; };
@@ -464,13 +465,13 @@
 		13B07FAE1A68108700A75B9A /* Figment */ = {
 			isa = PBXGroup;
 			children = (
-				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
 				13B07FB71A68108700A75B9A /* main.m */,
+				8A1BF3041F5746F900B2E8FD /* Resources */,
 			);
 			name = Figment;
 			sourceTree = "<group>";
@@ -566,6 +567,14 @@
 				00E356EE1AD99517003FC87E /* FigmentTests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		8A1BF3041F5746F900B2E8FD /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				8A1BF3051F57471C00B2E8FD /* viro_loading.png */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		8AAAFBC41F4B868800B8CE83 /* Products */ = {
@@ -1025,6 +1034,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8A1BF3061F57471C00B2E8FD /* viro_loading.png in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 			);
