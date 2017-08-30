@@ -110,7 +110,9 @@ function modifyEffectSelection(state = [], action) {
         if(i != action.index) {
           state[i].selected = false;
         } else {
-          state[i].selected = !state[i].selected;
+          if (!state[i].selected) {
+            state[i].selected = true;
+          } // else if this effect was already selected; do nothing
         }
         effectToggleArray.push(state[i]);
       }

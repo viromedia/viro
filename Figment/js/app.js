@@ -371,7 +371,9 @@ export class App extends Component {
     }, 1000);
     this.setState({timer});
   }
+
   _stopRecording() {
+    // Stop stop watch at the top
     clearInterval(this.state.timer);
     this.setState({
         hours: '00',
@@ -379,6 +381,7 @@ export class App extends Component {
         seconds: '00',
         miliseconds: '00',
       });
+
     this._arNavigator._stopVideoRecording().then((retDict)=>{
       console.log("[JS] success? " + retDict.success);
       console.log("[JS] the url was: " + retDict.url);

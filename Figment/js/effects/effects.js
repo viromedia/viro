@@ -15,7 +15,10 @@
    ViroQuadEmitter,
  } from 'react-viro';
 
-
+  export function getEmptyEffect() {
+    var views = [];
+    return views;
+  }
   export function getSnow() {
      var views = [];
        views.push((

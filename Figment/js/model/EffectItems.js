@@ -1,9 +1,15 @@
 
 import * as LoadingConstants from '../redux/LoadingStateConstants';
-import {getSnow, getFireWorks} from '../effects/effects.js'
+import {getEmptyEffect, getSnow, getFireWorks} from '../effects/effects.js'
 
 
 var EffectItems = [
+  {
+    "effect": getEmptyEffect,
+    "loading": LoadingConstants.NONE,
+    "icon_img":require("../res/btn_temp_2.png"),
+    "selected": false,
+  },
   {
     "effect": getSnow,
     "loading": LoadingConstants.NONE,
