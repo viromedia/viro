@@ -57,36 +57,40 @@ var ModelItemRender = React.createClass({
 
     render: function() {
         var modelItem = ModelData.getModelArray()[this.props.modelIDProps.index];
-        let transformBehaviors = {}
+        let transformBehaviors = {};
         if (this.state.shouldBillboard) {
           transformBehaviors.transformBehaviors = this.state.shouldBillboard ? "billboardY" : [];
         }
-        let lightPosition = [0, 2, 0]
-        let lightScalePivot = modelItem.scalePivot.slice();
-        lightScalePivot[1] = lightScalePivot[1] - lightPosition[1]; // we want the scale pivot to be the same as the object
 
         // below we OR the light bitmask with 1 on the object because the default bitmask for lights
         // is 1 and we want the object to be lit up by all lights, but only have shadows casted by
         // one SpotLight contain within this component
         return (
 
-          <ViroARNode key={this.props.modelIDProps.uuid} visible={this.state.nodeIsVisible} position={this.state.position} onDrag={()=>{}}>
+          <ViroARNode
+            {...transformBehaviors}
+            key={this.props.modelIDProps.uuid}
+            ref={this._setARNodeRef}
+            visible={this.state.nodeIsVisible}
+            position={this.state.position}
+            scale={this.state.scale}
+            rotation={this.state.rotation}
+            onDrag={()=>{}}>
+            
             <ViroSpotLight
               innerAngle={5}
-              outerAngle={30}
+              outerAngle={20}
               direction={[0,-1,0]}
-              position={lightPosition}
-              scale={this.state.scale}
-              scalePivot={modelItem.scalePivot}
+              position={[0, 5, 0]}
               color="#ffffff"
               castsShadow={true}
-              influenceBitMask={this.props.bitMask}/>
-            <Viro3DObject ref={this._setComponentRef()}
-                {...transformBehaviors}
+              influenceBitMask={this.props.bitMask}
+              shadowNearZ={.1}
+              shadowFarZ={5}
+              shadowOpacity={.9} />
+            
+            <Viro3DObject
                 position={modelItem.position}
-                scale={this.state.scale}
-                scalePivot={modelItem.scalePivot}
-                rotation={this.state.rotation}
                 source={modelItem.obj}
                 materials={modelItem.materials}
                 resources={modelItem.resources}
@@ -98,11 +102,9 @@ var ModelItemRender = React.createClass({
                 onPinch={this._onPinchIndex()} />
 
             <ViroSurface
-              ref={this._setShadowRef()}
               rotation={[-90, 0, 0]}
-              position={[0, -.005 * this.props.bitMask, 0]}
+              position={[0, -.001 * this.props.bitMask, 0]}
               width={2} height={2}
-              scale={this.state.scale}
               lightBitMask={this.props.bitMask | 1}
               materials={"transparentFloor"}
               acceptShadows={true} />
@@ -111,20 +113,8 @@ var ModelItemRender = React.createClass({
         );
     },
 
-    // not sure why we're returning a lambda vs just returning this function. I remember
-    // vik mentioning something about why we should do this. We should confirm and add a
-    // comment.
-    _setComponentRef() {
-      return (component) => {
-        console.log("Component ref value:");
-        this._ref_object = component;
-      }
-    },
-
-    _setShadowRef() {
-      return (component) => {
-        this._ref_shadow_surface = component;
-      }
+    _setARNodeRef(component) {
+      this.arNodeRef = component;
     },
 
     _onClickState(uuid) {
@@ -137,7 +127,7 @@ var ModelItemRender = React.createClass({
         // which is why we negate the y rotation, but also the y-rotation values are
         // always within -90 -> 90 so the x/z need to be adjusted back to 0 and the y
         // rotation recalculated in order for the rotation gesture to function properly
-        this._ref_object.getTransformAsync().then((retDict)=>{
+        this.arNodeRef.getTransformAsync().then((retDict)=>{
           let rotation = retDict.rotation;
           let absX = Math.abs(rotation[0]);
           let absZ = Math.abs(rotation[2]);
@@ -175,20 +165,14 @@ var ModelItemRender = React.createClass({
      value of the given rotationFactor.
      */
     _onRotate(rotateState, rotationFactor, source) {
-      if(rotateState == 1) {
-        console.log("STARTING ROTATE WITH Rotation factor: " + rotationFactor);
-        return;
-      } else if(rotateState ==2){
-        console.log("MID ROTATE WITH Rotation factor: " + rotationFactor);
-      } else if(rotateState == 3) {
-        console.log("END ROTATE WITH Rotation factor: " + rotationFactor);
+      if (rotateState == 3) {
         this.setState({
           rotation : [this.state.rotation[0], this.state.rotation[1] - rotationFactor, this.state.rotation[2]]
         })
         return;
       }
 
-      this._ref_object.setNativeProps({rotation:[this.state.rotation[0], this.state.rotation[1] - rotationFactor, this.state.rotation[2]]});
+      this.arNodeRef.setNativeProps({rotation:[this.state.rotation[0], this.state.rotation[1] - rotationFactor, this.state.rotation[2]]});
     },
 
     /*
@@ -198,13 +182,7 @@ var ModelItemRender = React.createClass({
      to the final value and store it in state.
      */
     _onPinch(pinchState, scaleFactor, source) {
-      if(pinchState == 1) {
-        console.log("STARTING PINCH WITH Scale factor: " + scaleFactor);
-        return;
-      } else if(pinchState == 2){
-        console.log("MID PINCH WITH Scale factor: " + scaleFactor);
-      } else if(pinchState == 3) {
-        console.log("END PINCH WITH Scale factor: " + scaleFactor);
+      if (pinchState == 3) {
         this.setState({
           scale : this.state.scale.map((x)=>{return x * scaleFactor})
         });
@@ -212,8 +190,7 @@ var ModelItemRender = React.createClass({
       }
 
       var newScale = this.state.scale.map((x)=>{return x * scaleFactor})
-      this._ref_object.setNativeProps({scale:newScale});
-      this._ref_shadow_surface.setNativeProps({scale:newScale});
+      this.arNodeRef.setNativeProps({scale:newScale});
     },
 
     _onError(uuid) {

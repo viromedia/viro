@@ -129,6 +129,10 @@ var ViroARNode = React.createClass({
     }
   },
 
+  async getTransformAsync() {
+    return await NativeModules.VRTNodeModule.getNodeTransform(findNodeHandle(this));
+  },
+
   setNativeProps: function(nativeProps) {
     this._component.setNativeProps(nativeProps);
   },
