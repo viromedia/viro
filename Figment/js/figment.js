@@ -72,7 +72,7 @@ var figment = React.createClass({
     // or no shadows appear...
 
     return (
-        <ViroARScene ref="arscene" physicsWorld={{gravity:[0, -9.81, 0]}}
+        <ViroARScene ref="arscene" physicsWorld={{gravity:[0, -9.81, 0]}} postProcessEffects={[this.props.postProcessEffect]}
             onTrackingInitialized={()=>{console.log("ARScene Initialized!")}}>
           <ViroDirectionalLight color="#ffffff" direction={[0,-1,-.2]}/>
           <ViroAmbientLight color="#ffffff" intensity={200}/>
@@ -183,6 +183,7 @@ function selectProps(store) {
     modelItems: store.arobjects.modelItems,
     portalItems: store.arobjects.portalItems,
     effectItems: store.arobjects.effectItems,
+    postProcessEffect: store.arobjects.postProcessEffect,
   };
 }
 

@@ -19,6 +19,37 @@
     var views = [];
     return views;
   }
+
+  export function getGrayScale() {
+    var views = [];
+    return views;
+  }
+
+  export function getSepia() {
+    var views = [];
+    return views;
+  }
+
+  export function getThermal() {
+    var views = [];
+    return views;
+  }
+
+  export function getSinCity() {
+    var views = [];
+    return views;
+  }
+
+  export function getBarrel() {
+    var views = [];
+    return views;
+  }
+
+  export function getPinCushion() {
+    var views = [];
+    return views;
+  }
+
   export function getSnow() {
      var views = [];
        views.push((

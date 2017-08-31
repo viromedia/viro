@@ -11,7 +11,8 @@ import * as ModelData from  '../../model/ModelItems';
 import * as PortalData from  '../../model/PortalItems';
 import * as EffectData from  '../../model/EffectItems';
 import * as LoadingConstants from '../LoadingStateConstants';
-
+import * as EffectsConstants from '../EffectsConstants';
+console.log(EffectData);
 const uuidv1 = require('uuid/v1');
 
 //data model for models is:
@@ -23,6 +24,7 @@ const uuidv1 = require('uuid/v1');
   modelItems: {},
    portalItems: PortalData.getInitPortalArray(),
    effectItems: EffectData.getInitEffectArray(),
+   postProcessEffect: EffectsConstants.EFFECT_NONE,
  }
 
 function newModelItem(indexToCreate) {
@@ -112,6 +114,7 @@ function modifyEffectSelection(state = [], action) {
         } else {
           if (!state[i].selected) {
             state[i].selected = true;
+
           } // else if this effect was already selected; do nothing
         }
         effectToggleArray.push(state[i]);
@@ -169,9 +172,11 @@ function arobjects(state = initialState, action) {
       }
     case 'TOGGLE_EFFECT_SELECTED':
         var updatedEffects = modifyEffectSelection(state.effectItems.slice(0), action);
+        console.log("postProcessEffect: " + updatedEffects[action.index].postProcessEffect);
         return  {
           ...state,
           effectItems: updatedEffects.slice(0),
+          postProcessEffect: updatedEffects[action.index].postProcessEffect,
         }
     default:
       return state;
