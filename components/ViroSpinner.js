@@ -57,6 +57,8 @@ var ViroSpinner = React.createClass({
     onClickState: React.PropTypes.func,
     onTouch: React.PropTypes.func,
     onDrag: React.PropTypes.func,
+    onPinch: React.PropTypes.func,
+    onRotate: React.PropTypes.func,
     onFuse: PropTypes.oneOfType([
       React.PropTypes.shape({
         callback: React.PropTypes.func.isRequired,
@@ -125,7 +127,8 @@ var ViroSpinner = React.createClass({
             rotationPivot={this.props.rotationPivot} scalePivot={this.props.scalePivot} physicsBody={this.props.physicsBody}
             opacity={this.props.opacity} transformBehaviors={transformBehaviors} visible={this.props.visible}
             onHover={this.props.onHover} onClick={this.props.onClick} onClickState={this.props.onClickState}
-            onTouch={this.props.onTouch} onDrag={this.props.onDrag} onFuse={this.props.onFuse}
+            onTouch={this.props.onTouch} onDrag={this.props.onDrag} onPinch={this.props.onPinch}
+            onRotate={this.props.onRotate} onFuse={this.props.onFuse}
             onTransformUpdate={this.props.onTransformUpdate} ref={RCT_SPINNER_REF}>
 
         <ViroAnimatedComponent animation="_ViroSpinner_clockwiseZ" run={true} loop={true} >

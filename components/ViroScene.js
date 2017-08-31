@@ -28,6 +28,9 @@ var ViroScene = React.createClass({
       }),
       React.PropTypes.func
     ]),
+    onDrag: React.PropTypes.func,
+    onPinch: React.PropTypes.func,
+    onRotate: React.PropTypes.func,
     onPlatformUpdate: React.PropTypes.func,
     /**
      * Describes the acoustic properties of the room around the user
@@ -81,6 +84,18 @@ var ViroScene = React.createClass({
         this.props.onFuse.callback(event.nativeEvent.source);
       }
     }
+  },
+
+  _onPinch: function(event: Event) {
+    this.props.onPinch && this.props.onPinch(event.nativeEvent.pinchState, event.nativeEvent.scaleFactor, event.nativeEvent.source);
+  },
+
+  _onRotate: function(event: Event) {
+    this.props.onRotate && this.props.onRotate(event.nativeEvent.rotateState, event.nativeEvent.rotationFactor, event.nativeEvent.source);
+  },
+
+  _onDrag: function(event: Event) {
+      this.props.onDrag && this.props.onDrag(event.nativeEvent.dragToPos, event.nativeEvent.source);
   },
 
   _onPlatformUpdate: function(event: Event) {
@@ -163,12 +178,18 @@ var ViroScene = React.createClass({
         canScroll={this.props.onScroll != undefined}
         canSwipe={this.props.onSwipe != undefined}
         canFuse={this.props.onFuse != undefined}
+        canDrag={this.props.onDrag != undefined}
+        canPinch={this.props.onPinch != undefined}
+        canRotate={this.props.onRotate != undefined}
         onHoverViro={this._onHover}
         onClickViro={this._onClickState}
         onTouchViro={this._onTouch}
         onScrollViro={this._onScroll}
         onSwipeViro={this._onSwipe}
         onFuseViro={this._onFuse}
+        onDragViro={this._onDrag}
+        onRotateViro={this._onRotate}
+        onPinchViro={this._onPinch}
         onPlatformUpdateViro={this._onPlatformUpdate}
         timeToFuse={timeToFuse}
         />
@@ -191,6 +212,8 @@ var VRTScene = requireNativeComponent(
           canScroll: true,
           canSwipe: true,
           canDrag: true,
+          canPinch: true,
+          canRotate: true,
           canFuse: true,
           canCollide: true,
           onHoverViro: true,
@@ -199,6 +222,8 @@ var VRTScene = requireNativeComponent(
           onScrollViro: true,
           onSwipeViro: true,
           onDragViro:true,
+          onPinchViro:true,
+          onRotateViro:true,
           onPlatformUpdateViro: true,
           onFuseViro:true,
           timeToFuse:true,

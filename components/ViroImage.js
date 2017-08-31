@@ -97,6 +97,8 @@ var ViroImage = React.createClass({
     onScroll: React.PropTypes.func,
     onSwipe: React.PropTypes.func,
     onDrag: React.PropTypes.func,
+    onPinch: React.PropTypes.func,
+    onRotate: React.PropTypes.func,
     onFuse: PropTypes.oneOfType([
           React.PropTypes.shape({
             callback: React.PropTypes.func.isRequired,
@@ -208,6 +210,14 @@ var ViroImage = React.createClass({
   _onDrag: function(event: Event) {
       this.props.onDrag
         && this.props.onDrag(event.nativeEvent.dragToPos, event.nativeEvent.source);
+  },
+
+  _onPinch: function(event: Event) {
+    this.props.onPinch && this.props.onPinch(event.nativeEvent.pinchState, event.nativeEvent.scaleFactor, event.nativeEvent.source);
+  },
+
+  _onRotate: function(event: Event) {
+    this.props.onRotate && this.props.onRotate(event.nativeEvent.rotateState, event.nativeEvent.rotationFactor, event.nativeEvent.source);
   },
 
   _onFuse: function(event: Event){
@@ -342,6 +352,8 @@ var ViroImage = React.createClass({
     nativeProps.onScrollViro = this._onScroll;
     nativeProps.onSwipeViro = this._onSwipe;
     nativeProps.onDragViro = this._onDrag;
+    nativeProps.onPinchViro = this._onPinch;
+    nativeProps.onRotateViro = this._onRotate;
     nativeProps.canHover = this.props.onHover != undefined;
     nativeProps.canClick = this.props.onClick != undefined || this.props.onClickState != undefined;
     nativeProps.canTouch = this.props.onTouch != undefined;
@@ -349,6 +361,8 @@ var ViroImage = React.createClass({
     nativeProps.canSwipe = this.props.onSwipe != undefined;
     nativeProps.canDrag = this.props.onDrag != undefined;
     nativeProps.canFuse = this.props.onFuse != undefined;
+    nativeProps.canPinch = this.props.onPinch != undefined;
+    nativeProps.canRotate = this.props.onRotate != undefined;
     nativeProps.onFuseViro = this._onFuse;
     nativeProps.timeToFuse = timeToFuse;
     nativeProps.canCollide = this.props.onCollided != undefined;
@@ -372,12 +386,16 @@ var VRTImage = requireNativeComponent(
             canScroll: true,
             canSwipe: true,
             canDrag: true,
+            canPinch: true,
+            canRotate: true,
             onHoverViro:true,
             onClickViro:true,
             onTouchViro:true,
             onScrollViro:true,
             onSwipeViro:true,
             onDragViro:true,
+            onPinchViro:true,
+            onRotateViro:true,
             canFuse: true,
             onFuseViro:true,
             timeToFuse:true,

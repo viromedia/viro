@@ -21,6 +21,9 @@ var ViroARScene = React.createClass({
     onTouch: React.PropTypes.func,
     onScroll: React.PropTypes.func,
     onSwipe: React.PropTypes.func,
+    onDrag: React.PropTypes.func,
+    onPinch: React.PropTypes.func,
+    onRotate: React.PropTypes.func,
     onFuse: PropTypes.oneOfType([
       React.PropTypes.shape({
         callback: React.PropTypes.func.isRequired,
@@ -74,6 +77,18 @@ var ViroARScene = React.createClass({
 
   _onSwipe: function(event: Event) {
     this.props.onSwipe && this.props.onSwipe(event.nativeEvent.swipeState, event.nativeEvent.source);
+  },
+
+  _onPinch: function(event: Event) {
+    this.props.onPinch && this.props.onPinch(event.nativeEvent.pinchState, event.nativeEvent.scaleFactor, event.nativeEvent.source);
+  },
+
+  _onRotate: function(event: Event) {
+    this.props.onRotate && this.props.onRotate(event.nativeEvent.rotateState, event.nativeEvent.rotationFactor, event.nativeEvent.source);
+  },
+
+  _onDrag: function(event: Event) {
+      this.props.onDrag && this.props.onDrag(event.nativeEvent.dragToPos, event.nativeEvent.source);
   },
 
   _onFuse: function(event: Event){
@@ -169,12 +184,18 @@ var ViroARScene = React.createClass({
         canTouch={this.props.onTouch != undefined}
         canScroll={this.props.onScroll != undefined}
         canSwipe={this.props.onSwipe != undefined}
+        canDrag={this.props.onDrag != undefined}
+        canPinch={this.props.onPinch != undefined}
+        canRotate={this.props.onRotate != undefined}
         canFuse={this.props.onFuse != undefined}
         onHoverViro={this._onHover}
         onClickViro={this._onClickState}
         onTouchViro={this._onTouch}
         onScrollViro={this._onScroll}
         onSwipeViro={this._onSwipe}
+        onDragViro={this._onDrag}
+        onPinchViro={this._onPinch}
+        onRotateViro={this._onRotate}
         onFuseViro={this._onFuse}
         onPlatformUpdateViro={this._onPlatformUpdate}
         onTrackingInitializedViro={this._onTrackingInitialized}
@@ -200,6 +221,8 @@ var VRTARScene = requireNativeComponent(
           canScroll: true,
           canSwipe: true,
           canDrag: true,
+          canPinch: true,
+          canRotate: true,
           canFuse: true,
           onHoverViro: true,
           onClickViro: true,
@@ -207,6 +230,8 @@ var VRTARScene = requireNativeComponent(
           onScrollViro: true,
           onSwipeViro: true,
           onDragViro:true,
+          onPinchViro:true,
+          onRotateViro:true,
           onFuseViro:true,
           onPlatformUpdateViro: true,
           onTrackingInitializedViro: true,

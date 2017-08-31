@@ -118,6 +118,8 @@ var RCT_BUTTON_REF = 'virobuttoncomponent';
     onScroll: React.PropTypes.func,
     onSwipe: React.PropTypes.func,
     onDrag: React.PropTypes.func,
+    onPinch: React.PropTypes.func,
+    onRotate: React.PropTypes.func,
     onFuse: PropTypes.oneOfType([
       React.PropTypes.shape({
         callback: React.PropTypes.func.isRequired,
@@ -231,6 +233,8 @@ var RCT_BUTTON_REF = 'virobuttoncomponent';
             onHover={this._onButtonHover}
             onClick={this._onButtonClicked}
             onDrag={this.props.onDrag}
+            onPinch={this.props.onPinch}
+            onRotate={this.props.onRotate}
             onCollided={this.props.onCollided}
             viroTag={this.props.viroTag}
             onFuse={this.props.onFuse}>

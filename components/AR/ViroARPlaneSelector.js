@@ -43,6 +43,8 @@ var ViroARPlaneSelector = React.createClass({
     onScroll: React.PropTypes.func,
     onSwipe: React.PropTypes.func,
     onDrag: React.PropTypes.func,
+    onPinch: React.PropTypes.func,
+    onRotate: React.PropTypes.func,
     onFuse: PropTypes.oneOfType([
       React.PropTypes.shape({
         callback: React.PropTypes.func.isRequired,

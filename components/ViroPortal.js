@@ -133,6 +133,14 @@ var ViroPortal = React.createClass({
         && this.props.onDrag(event.nativeEvent.dragToPos, event.nativeEvent.source);
   },
 
+  _onPinch: function(event: Event) {
+    this.props.onPinch && this.props.onPinch(event.nativeEvent.pinchState, event.nativeEvent.scaleFactor, event.nativeEvent.source);
+  },
+
+  _onRotate: function(event: Event) {
+    this.props.onRotate && this.props.onRotate(event.nativeEvent.rotateState, event.nativeEvent.rotationFactor, event.nativeEvent.source);
+  },
+
   _onFuse: function(event: Event){
     if (this.props.onFuse){
       if (typeof this.props.onFuse === 'function'){
@@ -264,14 +272,14 @@ var VRTPortal = requireNativeComponent(
             canFuse: true,
             canPinch: true,
             canRotate: true,
-            onPinchViro:true,
-            onRotateViro:true,
             onHoverViro:true,
             onClickViro:true,
             onTouchViro:true,
             onScrollViro:true,
             onSwipeViro:true,
             onDragViro:true,
+            onPinchViro:true,
+            onRotateViro:true,
             onFuseViro:true,
             timeToFuse:true,
             canCollide:true,

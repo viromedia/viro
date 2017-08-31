@@ -43,6 +43,9 @@ var ViroBox = React.createClass({
     onTouch: React.PropTypes.func,
     onScroll: React.PropTypes.func,
     onSwipe: React.PropTypes.func,
+    onDrag: React.PropTypes.func,
+    onPinch: React.PropTypes.func,
+    onRotate: React.PropTypes.func,
     onFuse: PropTypes.oneOfType([
       React.PropTypes.shape({
         callback: React.PropTypes.func.isRequired,
@@ -64,6 +67,8 @@ var ViroBox = React.createClass({
      */
     highAccuracyGaze:PropTypes.bool,
     onDrag: React.PropTypes.func,
+    onPinch: React.PropTypes.func,
+    onRotate: React.PropTypes.func,
     physicsBody: React.PropTypes.shape({
       type: React.PropTypes.oneOf(['dynamic','kinematic','static']).isRequired,
       mass: PropTypes.number,
@@ -126,6 +131,14 @@ var ViroBox = React.createClass({
 
   _onSwipe: function(event: Event) {
     this.props.onSwipe && this.props.onSwipe(event.nativeEvent.swipeState, event.nativeEvent.source);
+  },
+
+  _onPinch: function(event: Event) {
+    this.props.onPinch && this.props.onPinch(event.nativeEvent.pinchState, event.nativeEvent.scaleFactor, event.nativeEvent.source);
+  },
+
+  _onRotate: function(event: Event) {
+    this.props.onRotate && this.props.onRotate(event.nativeEvent.rotateState, event.nativeEvent.rotationFactor, event.nativeEvent.source);
   },
 
   _onDrag: function(event: Event) {
@@ -241,6 +254,8 @@ var ViroBox = React.createClass({
             canScroll={this.props.onScroll != undefined}
             canSwipe={this.props.onSwipe != undefined}
             canDrag={this.props.onDrag != undefined}
+            canPinch={this.props.onPinch != undefined}
+            canRotate={this.props.onRotate != undefined}
             canFuse={this.props.onFuse != undefined}
             onHoverViro={this._onHover}
             onClickViro={this._onClickState}
@@ -248,6 +263,8 @@ var ViroBox = React.createClass({
             onScrollViro={this._onScroll}
             onSwipeViro={this._onSwipe}
             onDragViro={this._onDrag}
+            onPinchViro={this._onPinch}
+            onRotateViro={this._onRotate}
             onFuseViro={this._onFuse}
             canCollide={this.props.onCollided != undefined}
             onCollidedViro={this._onCollided}
@@ -265,6 +282,8 @@ var VRTBox = requireNativeComponent(
             canScroll: true,
             canSwipe: true,
             canDrag: true,
+            canPinch: true,
+            canRotate: true,
             canFuse: true,
             onHoverViro:true,
             onClickViro:true,
@@ -272,6 +291,8 @@ var VRTBox = requireNativeComponent(
             onScrollViro:true,
             onSwipeViro:true,
             onDragViro:true,
+            onPinchViro:true,
+            onRotateViro:true,
             onFuseViro:true,
             timeToFuse:true,
             canCollide:true,
