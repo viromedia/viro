@@ -43,8 +43,10 @@
 	<string></string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Record Audio with Video</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Used to save photos and videos taken through Figment.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Used to Save Photos/Videos and to Load 360 Photos</string>
+	<string>Used to load user's photos and videos in the app.</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>
