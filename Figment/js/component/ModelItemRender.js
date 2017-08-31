@@ -17,13 +17,11 @@ import {
   ViroScene,
   ViroARScene,
   ViroARNode,
-  ViroARPlaneSelector,
   ViroARPlane,
   ViroBox,
   ViroMaterials,
   ViroNode,
   Viro3DObject,
-  ViroText,
   ViroSpotLight,
   ViroSurface,
 } from 'react-viro';
@@ -40,8 +38,6 @@ var ModelItemRender = React.createClass({
     },
 
     componentWillMount() {
-      this._ref_object = null;
-      this._ref_shadow_surface = null;
       this._modelData = ModelData.getModelArray()
     },
 
@@ -50,7 +46,7 @@ var ModelItemRender = React.createClass({
         scale : ModelData.getModelArray()[this.props.modelIDProps.index].scale,
         rotation : [0, 0, 0],
         nodeIsVisible : false,
-        position: [0, 0, 0],
+        position: [0, 10, 1], // make it appear initially high in the sky
         shouldBillboard : false,
       }
     },
@@ -109,7 +105,7 @@ var ModelItemRender = React.createClass({
               position={[0, -.001 * this.props.bitMask, 0]}
               width={2} height={2}
               lightBitMask={this.props.bitMask | 1}
-              materials={"transparentFloor"}
+              materials={"shadowCatcher"}
               acceptShadows={true} />
 
           </ViroARNode>
@@ -184,20 +180,20 @@ var ModelItemRender = React.createClass({
         return;
       }
 
+      var newScale = this.state.scale.map((x)=>{return x * scaleFactor})
+
       if (pinchState == 3) {
         this.setState({
-          scale : this.state.scale.map((x)=>{return x * scaleFactor})
+          scale : newScale
         });
         return;
       }
 
-      var newScale = this.state.scale.map((x)=>{return x * scaleFactor})
       this.arNodeRef.setNativeProps({scale:newScale});
     },
 
     _onError(uuid) {
         return () => {
-          console.log("MODEL has error HAS ERROR");
           this.props.loadCallback(uuid, LoadConstants.ERROR);
           //this.props.arSceneNavigator.viroAppProps.loadingObjectCallback(index, LoadingConstants.LOAD_ERROR);
         };
@@ -205,7 +201,6 @@ var ModelItemRender = React.createClass({
       },
 
     _onObjectLoadStart(uuid) {
-        console.log("_onObjectLoadStart uuid:" + uuid);
         return () => {
           this.props.onLoadCallback(uuid, LoadConstants.LOADING);
         };
@@ -220,58 +215,41 @@ var ModelItemRender = React.createClass({
     },
 
     _onARHitTestResults(forward, results) {
-      let validPosition = undefined;
+      // default position is just 3 forward of the user
+      let newPosition = [forward[0] * 3, forward[1]* 3, forward[2]* 3];
+
+      // try to find a more informed position via the hit test results
       if (results.length > 0) {
+        let hitResultPosition = undefined;
         for (var i = 0; i < results.length; i++) {
           let result = results[i];
           if (result.type == "ExistingPlaneUsingExtent") {
-            this.setState({
-              position : result.transform.position,
-              nodeIsVisible: true,
-            });
-            return;
-          } else if (result.type == "FeaturePoint") {
+            hitResultPosition = result.transform.position;
+            break;
+          } else if (result.type == "FeaturePoint" && !hitResultPosition) {
             var distance = Math.sqrt((result.transform.position[0] * result.transform.position[0]) + (result.transform.position[1] * result.transform.position[1]) + (result.transform.position[2] * result.transform.position[2]));
-            if(distance < 2) {
-              console.log("Skipping this result since distance is :" + distance);
-              continue;
+            if (distance < 2) {
+              hitResultPosition = result.transform.position;
             }
-            validPosition = result.transform.position;
           }
         }
+
+        if (hitResultPosition) {
+          newPosition = hitResultPosition;
+        }
       }
-      //no valid point found, just project the forward vector out 3 meters.
-      var newPos = validPosition ? validPosition : [forward[0] * 3, forward[1]* 3, forward[2]* 3];
-      console.log("DIDN'T FIND HIT TEST, new arnode projected position:");
-      console.log(newPos);
+
+      // we need to set the position before making the node visible because of a race condition
+      // in the case of portals, this could cause the portal to appear where the user is before
+      // moving to it's location causing the user to accidentally "pass" through the portal.
       this.setState({
-        position : newPos,
-        nodeIsVisible: true,
+        position : newPosition,
+      }, ()=>{
+        this.setState({
+          nodeIsVisible: true,
+        })
       });
-    }
+    },
 });
-
-ViroMaterials.createMaterials({
-  porsche: {
-    lightingModel:"Blinn",
-    diffuseTexture: require("../res/car_porsche/Porsche911turboS_diff.jpg"),
-  },
-  bball: {
-    lightingModel:"Blinn",
-    diffuseTexture: require("../res/bball/bball.jpg"),
-  },
-  ring: {
-    diffuseTexture: require("../res/portal_ring/portal_ring.png"),
-  },
-  tesla: {
-    shininess: 1.0,
-    lightingModel:"Blinn",
-  },
-  transparentFloor: {
-    writesToDepthBuffer: false,
-  },
-});
-
-
 
 module.exports = ModelItemRender;

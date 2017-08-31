@@ -26,6 +26,8 @@ import {
   ViroImage,
   ViroSphere,
   ViroVideo,
+  ViroSpotLight,
+  ViroSurface,
 } from 'react-viro';
 
 
@@ -45,56 +47,80 @@ var PortalItemRender = React.createClass({
         scale : this.props.portalItem.scale,
         rotation : [0, 0, 0],
         nodeIsVisible : false,
-        position: [0, 0, 0],
+        position: [0, 10, 1], // make it appear initially high in the sky
         shouldBillboard : false,
       }
     },
 
     componentWillMount() {
-      this._ref_object = null;
     },
 
     render: function() {
-        var index = this.props.index;
-        let transformBehaviors = {}
-        if (this.state.shouldBillboard) {
-          transformBehaviors.transformBehaviors = this.state.shouldBillboard ? "billboardY" : [];
-        }
-        return (
-          <ViroARNode
-            key={index}
-            visible={this.state.nodeIsVisible}
-            position={this.state.position}
-            onDrag={()=>{}} >
+      var index = this.props.index;
+      let transformBehaviors = {}
+      if (this.state.shouldBillboard) {
+        transformBehaviors.transformBehaviors = this.state.shouldBillboard ? "billboardY" : [];
+      }
+      return (
+        <ViroARNode
+          {...transformBehaviors}
+          key={index}
+          ref={this._setARNodeRef}
+          visible={this.state.nodeIsVisible}
+          position={this.state.position}
+          scale={this.state.scale}
+          rotation={this.state.rotation}
+          onDrag={()=>{}} >
 
+          <ViroSpotLight
+            innerAngle={5}
+            outerAngle={20}
+            direction={[0,-1,-.2]}
+            position={[0, 5, 1]}
+            color="#ffffff"
+            castsShadow={true}
+            influenceBitMask={this.props.bitMask}
+            shadowNearZ={.1}
+            shadowFarZ={5}
+            shadowOpacity={.9} />
+            
             <ViroPortal
-                {...transformBehaviors}
-                rotation={this.state.rotation}
-                scale={this.state.scale}
-                onRotate={this._onRotate}
-                onPinch={this._onPinch}
-                passable={true}
-                ref={this._setComponentRef()}
-                onClickState={this._onClickState(index)} >
+              position={this.props.portalItem.position}
+              onRotate={this._onRotate}
+              onPinch={this._onPinch}
+              passable={true}
+              scale={this.props.portalItem.portalScale}
+              onClickState={this._onClickState(index)} >
 
               <ViroPortalFrame>
-                <Viro3DObject source={this.props.portalItem.obj}
-                              position={[0, 0, 0]}
-                              materials={this.props.portalItem.materials}
-                              resource={this.props.portalItem.resources}
-                              onLoadStart={this._onObjectLoadStart(index)}
-                              onLoadEnd={this._onObjectLoadEnd(index)}/>
+                <Viro3DObject
+                  source={this.props.portalItem.obj}
+                  materials={this.props.portalItem.materials}
+                  resource={this.props.portalItem.resources}
+                  onLoadStart={this._onObjectLoadStart(index)}
+                  onLoadEnd={this._onObjectLoadEnd(index)}
+                  lightBitMask={this.props.bitMask | 1}
+                  shadowCastingBitMask={this.props.bitMask} />
               </ViroPortalFrame>
+
               {this._renderPortalInside()}
+
             </ViroPortal>
-          </ViroARNode>
-        );
+
+          <ViroSurface
+            rotation={[-90, 0, 0]}
+            position={[0, -.001 * this.props.bitMask, 0]}
+            width={2.5} height={2.5}
+            lightBitMask={this.props.bitMask | 1}
+            materials={"shadowCatcher"}
+            acceptShadows={true} />
+
+        </ViroARNode>
+      );
     },
 
-    _setComponentRef() {
-      return (component) => {
-        this._ref_object = component;
-      }
+    _setARNodeRef(component) {
+      this.arNodeRef = component;
     },
 
     _onClickState(index) {
@@ -107,7 +133,7 @@ var PortalItemRender = React.createClass({
           // which is why we negate the y rotation, but also the y-rotation values are
           // always within -90 -> 90 so the x/z need to be adjusted back to 0 and the y
           // rotation recalculated in order for the rotation gesture to function properly
-          this._ref_object.getTransformAsync().then((retDict)=>{
+          this.arNodeRef.getTransformAsync().then((retDict)=>{
             let rotation = retDict.rotation;
             let absX = Math.abs(rotation[0]);
             let absZ = Math.abs(rotation[2]);
@@ -138,7 +164,6 @@ var PortalItemRender = React.createClass({
           var viewArray = [];
           viewArray.push(<ViroSphere position={[0,0,0]} radius={56} facesOutward={false} key="background_portal" materials="theatre" />);
           if(this.props.portalItem.portal360Image.source.uri.endsWith("mp4")) {
-            console.log("PortalImageRender, movie uri: " + this.props.portalItem.portal360Image.source.uri);
             viewArray.push(<ViroVideo key="image_portal" width={1} height={1}  source={this.props.portalItem.portal360Image.source}
                          position={[0, 3.9, -39]} scale={[42, 21, 1]} />);
           } else {
@@ -171,7 +196,7 @@ var PortalItemRender = React.createClass({
         return;
       }
 
-      this._ref_object.setNativeProps({rotation:[this.state.rotation[0], this.state.rotation[1] - rotationFactor, this.state.rotation[2]]});
+      this.arNodeRef.setNativeProps({rotation:[this.state.rotation[0], this.state.rotation[1] - rotationFactor, this.state.rotation[2]]});
     },
 
     /*
@@ -186,15 +211,16 @@ var PortalItemRender = React.createClass({
         return;
       } 
 
+      var newScale = this.state.scale.map((x)=>{return x * scaleFactor})
+
       if(pinchState == 3) {
         this.setState({
-          scale : this.state.scale.map((x)=>{return x * scaleFactor})
+          scale : newScale
         });
         return;
       }
 
-      var newScale = this.state.scale.map((x)=>{return x * scaleFactor})
-      this._ref_object.setNativeProps({scale:newScale});
+      this.arNodeRef.setNativeProps({scale:newScale});
     },
 
     _onError(index) {
@@ -217,45 +243,41 @@ var PortalItemRender = React.createClass({
     },
 
     _onARHitTestResults(forward, results) {
-      if (results.length > 0) {
-         for (var i = 0; i < results.length; i++) {
-           let result = results[i];
-           if (result.type == "ExistingPlaneUsingExtent" || result.type == "FeaturePoint") {
-             console.log("FOUND HIT TEST, new arnode projected position:");
-             console.log(result.transform.position);
-             var distance = Math.sqrt((result.transform.position[0] * result.transform.position[0]) + (result.transform.position[1] * result.transform.position[1]) + (result.transform.position[2] * result.transform.position[2]));
-             if(distance < 2) {
-              console.log("Skipping this result since distance is :" + distance);
-              continue;
-             }
+      // default position is just 3 forward of the user
+      let newPosition = [forward[0] * 3, forward[1]* 3, forward[2]* 3];
 
-             this.setState({
-               position : result.transform.position,
-               nodeIsVisible: true,
-             });
-             return;
-           }
-         }
+      // try to find a more informed position via the hit test results
+      if (results.length > 0) {
+        let hitResultPosition = undefined;
+        for (var i = 0; i < results.length; i++) {
+          let result = results[i];
+          if (result.type == "ExistingPlaneUsingExtent") {
+            hitResultPosition = result.transform.position;
+            break;
+          } else if (result.type == "FeaturePoint" && !hitResultPosition) {
+            var distance = Math.sqrt((result.transform.position[0] * result.transform.position[0]) + (result.transform.position[1] * result.transform.position[1]) + (result.transform.position[2] * result.transform.position[2]));
+            if (distance < 2) {
+              hitResultPosition = result.transform.position;
+            }
+          }
+        }
+
+        if (hitResultPosition) {
+          newPosition = hitResultPosition;
+        }
       }
-      //no valid point found, just project the forward vector out 3 meters.
-      var newPos = [forward[0] * 3, forward[1]* 3, forward[2]* 3];
-      console.log("DIDN'T FIND HIT TEST, new arnode projected position:");
-      console.log(newPos);
+
+      // we need to set the position before making the node visible because of a race condition
+      // in the case of portals, this could cause the portal to appear where the user is before
+      // moving to it's location causing the user to accidentally "pass" through the portal.
       this.setState({
-        position : newPos,
-        nodeIsVisible: true,
+        position : newPosition,
+      }, ()=>{
+        this.setState({
+          nodeIsVisible: true,
+        })
       });
     },
-});
-
-ViroMaterials.createMaterials({
-  portal_ship: {
-    diffuseTexture: require("../res/portal_ship/portal_ship_diffuse.png"),
-    normalTexture: require("../res/portal_ship/portal_ship_normal.png"),
-  },
-  theatre: {
-    diffuseTexture: require("../res/360_dark_theatre.jpg"),
-  },
 });
 
 module.exports = PortalItemRender;

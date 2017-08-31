@@ -59,13 +59,12 @@ var figment = React.createClass({
   },
 
   render: function() {
-    
     // the starting bitmask is 1 because the default is 0 (2^0 = 1)
     let startingBitMask = 2;
     // fetch models
     let models = this.renderModels(this.props.modelItems, startingBitMask);
     // increment startingBitMask by the number of models
-    startingBitMask += this.props.modelItems.length;
+    startingBitMask += Object.keys(this.props.modelItems).length;
     let portals = this.renderPortals(this.props.portalItems, startingBitMask);
 
     // TODO: because of how shadows work, techncially we only have 31 bits to
@@ -122,6 +121,7 @@ var figment = React.createClass({
     if(portalItems) {
       for(var i = 0; i<portalItems.length; i++) {
         if(portalItems[i].selected) {
+          portalBitMask++;
           renderedObjects.push(
             <PortalItemRender
             key={i}
@@ -130,7 +130,7 @@ var figment = React.createClass({
             hitTestMethod={this._performARHitTest}
             onLoadCallback={this._onLoadCallback}
             onClickStateCallback={this._onPortalsClickStateCallback}
-            bitMask={portalBitMask}/>
+            bitMask={Math.pow(2,portalBitMask)}/>
           );
         }
         portalBitMask++;
@@ -168,6 +168,13 @@ var figment = React.createClass({
   _onPortalsClickStateCallback(index, clickState, itemType) {
     console.log("_onClickStateCallback - index: " + index + ", clickState: " + clickState);
     this.props.arSceneNavigator.viroAppProps.clickStateCallback(index, clickState, itemType);
+  },
+});
+
+// Since materials are global, I'm declaring the shadowCatcher material here.
+ViroMaterials.createMaterials({
+  shadowCatcher: {
+    writesToDepthBuffer: false,
   },
 });
 
