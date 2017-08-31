@@ -105,70 +105,70 @@
      return views;
    }
 
-   // Ensure that fireworks continue spawning all around user.
-   // This just spawns the fireworks in front of the camera facing
-   // the z direction.
-  export function getFireWorks() {
+  export function getFireWorks(){
      var views = [];
-     for (var i = -1; i < 2; i ++){
+     var colors =["#ff0000","#00ff00","#0000ff","#ffff00","#ff00e9","#00ff1d","#0000ff","#ff0000"];
+     var position=[[0, 0.3, -1],
+                   [-1, 0.5, -1],
+                   [2, 0.2, -1],
+                   [1.75, 0.1, .75],
+                   [-0.75, 0.1, .75],
+                   [-0.5, 0.0, .5],
+                   [1.5, 0.0, .5]];
+     for (var i = 0; i < position.length; i ++){
+     var randomCoolDown = Math.floor((Math.random() * 1000) + 1000);
+     var randomInterval = Math.floor((Math.random() * 500) + 500);
        views.push((
-         <ViroQuadEmitter key={"firework" + i}
-             position={[i * 3, 1, -5]}
+         <ViroQuadEmitter
+             position={position[i]}
              duration={12000}
              visible={true}
-             delay={((i+1) *1000)}
+             delay={((i+1) * 400)}
              run={true}
              loop={true}
              fixedToEmitter={true}
 
              quad={{
                     source:require("../res/cloud.png"),                 // Image source of the quad particle.
-                    height:0.1,
-                    width:0.1,
+                    height:0.01,
+                    width:0.01,
+                    bloomThreshold:1.0
              }}
 
              spawnModifier={{
-               particleLifetime:[2000,2000],
+               particleLifetime:[1800,2000],
                emissionRatePerSecond:[0,0],
                emissionBurst:[
-                 {time:500, min:100, max:100, cycles:10, cooldownPeriod:2350}
+                 {time:500, min:400, max:400, cycles:10, cooldownPeriod:randomCoolDown}
                ],
-               spawnVolume:{shape:"sphere", params:[0.5], spawnOnSurface:true},
-               maxParticles:500
+               spawnVolume:{shape:"sphere", params:[0.15], spawnOnSurface:true},
+               maxParticles:2000
              }}
 
              appearanceModifier={{
                opacity:{min:1.0, max:1.0, factor:"time",
                  modifier:[
                    {finalValue:1.0, interval:[0,1500]},
-                   {finalValue:1.0, interval:[1500,2000]}
-                 ]
-               },
-               rotation:{min:0, max:0, factor:"time",
-                 modifier:[
-                   {finalValue:360, interval:[0,2000]},
+                   {finalValue:0.0, interval:[1500,1700]}
                  ]
                },
                scale:{min:[1,1,1], max:[1,1,1], factor:"time",
                  modifier:[
-                   {finalValue:[3,3,3], interval:[0,1000]},
+                   {finalValue:[1,1,1], interval:[0,1000]},
                    {finalValue:[1,1,1], interval:[1000,2000]}
                  ]
                },
                color:{min:0xff0000, max:"#ff0000", factor:"time",
                  modifier:[
-                   {finalValue:"#ff0f00", interval:[0,500]},
-                   {finalValue:"#ff00ff", interval:[500,1000]},
-                   {finalValue:"#0ff0ff", interval:[1000,2000]}
-
+                   {finalValue:colors[i], interval:[0,500]},
+                   {finalValue:colors[6-i], interval:[700,1400]},
+                   {finalValue:"#0ff0ff", interval:[1700,2000]}
                  ]
                }
              }}
 
              physicsModifier={{
-               initialExplosiveImpulse:{impulse:5, position:[0,0,0]},
-               velocity:{min:[0,10,0], max:[0,10,0]},
-               acceleration:{min:[0,-9.81,0], max:[0,-9.81,0]}
+               initialExplosiveImpulse:{impulse:0.1, position:[0,0,0], deccelerationPeriod:1.0},
              }}
            />
        ));
