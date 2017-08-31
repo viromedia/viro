@@ -15,7 +15,10 @@ var PortalItems = [
     "scale": [1, 1, 1],
     "portalScale": [.4, .4, .4], // scale on the portal, normalizes its height to ~1
     "position": [0, .5, 0],
-    "resources": [require('../res/portal_archway/portal_archway_normal.png'), require('../res/portal_archway/portal_archway_diffuse.png'),require('../res/portal_archway/portal_archway_specular.png')],
+    "resources": [require('../res/portal_archway/portal_archway_normal.png'),
+                  require('../res/portal_archway/portal_archway_diffuse.png'),
+                  require('../res/portal_archway/portal_archway_specular.png'),
+                  require('../res/portal_archway/portal_entry.png')],
   },
   {
     "selected": false,
