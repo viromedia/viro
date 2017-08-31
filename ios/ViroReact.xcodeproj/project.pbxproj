@@ -1,4 +1,3 @@
-Figment/ios/Figment/Info.plist// !$*UTF8*$!
 {
 	archiveVersion = 1;
 	classes = {
