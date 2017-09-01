@@ -171,10 +171,15 @@ var figment = React.createClass({
   },
 });
 
-// Since materials are global, I'm declaring the shadowCatcher material here.
+// Since materials are global, we declare the shadowCatcher and theatre material here.
+
 ViroMaterials.createMaterials({
   shadowCatcher: {
     writesToDepthBuffer: false,
+  },
+
+  theatre: {
+    diffuseTexture: require('./res/360_dark_theatre.jpg'),
   },
 });
 
