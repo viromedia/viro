@@ -83,7 +83,7 @@ var PortalItemRender = React.createClass({
             shadowNearZ={.1}
             shadowFarZ={5}
             shadowOpacity={.9} />
-            
+
             <ViroPortal
               position={this.props.portalItem.position}
               onRotate={this._onRotate}
@@ -158,17 +158,29 @@ var PortalItemRender = React.createClass({
     _renderPortalInside() {
         if(this._is360Photo(this.props.portalItem.portal360Image.width, this.props.portalItem.portal360Image.height)) {
           return (
-            <Viro360Image source={this.props.portalItem.portal360Image.source} />
+            <Viro360Image key="background_portal" source={this.props.portalItem.portal360Image.source} />
           );
         } else {
           var viewArray = [];
-          viewArray.push(<ViroSphere position={[0,0,0]} radius={56} facesOutward={false} key="background_portal" materials="theatre" />);
           if(this.props.portalItem.portal360Image.source.uri.endsWith("mp4")) {
+            viewArray.push(<ViroSphere  position={[0,0,0]} radius={56} facesOutward={false} key="background_portal" materials="theatre" />);
             viewArray.push(<ViroVideo key="image_portal" width={1} height={1}  source={this.props.portalItem.portal360Image.source}
                          position={[0, 3.9, -39]} scale={[42, 21, 1]} />);
           } else {
+            viewArray.push(  <ViroSpotLight key="obj_spotlight"
+                innerAngle={5}
+                outerAngle={20}
+                direction={[0,-1,0]}
+                position={[0, 6, 0]}
+                color="#ffffff"
+                castShadows={true}
+                shadowNearZ={.1}
+                shadowFarZ={5}
+                shadowOpacity={.9} />);
+            viewArray.push(<Viro3DObject key="obj_3d" position={[0,-2,-6]} source={require('../res/art_gallery/artgallery2.vrx')} key="background_portal" />);
+            viewArray.push(<Viro3DObject key="obj_3d_frame" opacity={.4} position={[0, 0,-6]} source={require('../res/art_gallery/artgallery_picture_frame.vrx')} />);
             viewArray.push(<ViroImage key="image_portal" width={1} height={1}  resizeMode='scaleToFit' source={this.props.portalItem.portal360Image.source}
-                         position={[0, 3.9, -39]} scale={[42, 21, 1]} />);
+                        position={[0, 0,-6]} scale={[1, 1, 1]} />);
           }
           return viewArray;
         }
@@ -209,7 +221,7 @@ var PortalItemRender = React.createClass({
       // ignore the first factor, there's a bug with it. VIRO-1651
       if(pinchState == 1) {
         return;
-      } 
+      }
 
       var newScale = this.state.scale.map((x)=>{return x * scaleFactor})
 
