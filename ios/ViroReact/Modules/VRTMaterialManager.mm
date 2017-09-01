@@ -275,6 +275,10 @@ RCT_EXPORT_METHOD(setJSMaterials:(NSDictionary *)materialsDict)
                 VROCullMode cullMode = [self convertCullMode:material[key]];
                 vroMaterial->setCullMode(cullMode);
             }
+            else if ([@"bloomThreshold" caseInsensitiveCompare:materialPropertyName]  == NSOrderedSame){
+                NSNumber *number =  material[key];
+                vroMaterial->setBloomThreshold([number floatValue]);
+            }
         }
     }
     return materialWrapper;

@@ -34,6 +34,7 @@ var MaterialPropTypes = {
   minificationFilter: ReactPropTypes.oneOf(['Nearest', 'Linear']),
   magnificationFilter: ReactPropTypes.oneOf(['Nearest', 'Linear']),
   mipFilter: ReactPropTypes.oneOf(['Nearest', 'Linear']),
+  bloomThreshold: ReactPropTypes.number,
 };
 
 module.exports = MaterialPropTypes;

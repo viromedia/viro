@@ -154,6 +154,8 @@ public class MaterialManager extends ReactContextBaseJavaModule {
                     nativeMaterial.setCullMode(materialMap.getString(materialPropertyName));
                 } else if ("diffuseIntensity".equalsIgnoreCase(materialPropertyName)) {
                     nativeMaterial.setDiffuseIntensity((float)materialMap.getDouble(materialPropertyName));
+                } else if ("bloomThreshold".equalsIgnoreCase(materialPropertyName)) {
+                    nativeMaterial.setBloomThreshold((float)materialMap.getDouble(materialPropertyName));
                 }
             }
         }
