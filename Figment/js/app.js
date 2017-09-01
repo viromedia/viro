@@ -315,7 +315,7 @@ export class App extends Component {
   }
 
   _takeScreenshot() {
-    this._arNavigator._takeScreenshot("figment_11", false).then((retDict)=>{
+    this._arNavigator._takeScreenshot("figment_still", false).then((retDict)=>{
       if (!retDict.success) {
         if (retDict.errorCode == ViroConstants.RECORD_ERROR_NO_PERMISSION) {
           this._displayVideoRecordAlert("Screenshot Error", "Please allow camera permissions!" + errorCode);
@@ -334,7 +334,7 @@ export class App extends Component {
 
   _startRecording() {
     console.log("[JS] begin recording!");
-    this._arNavigator._startVideoRecording("testVid11", false,
+    this._arNavigator._startVideoRecording("figment_video", false,
        (errorCode)=>{
         this._displayVideoRecordAlert("Recording Error", "[JS] onError callback errorCode: " + errorCode);
         this.props.dispatchDisplayUIScreen(UIConstants.SHOW_MAIN_SCREEN);
