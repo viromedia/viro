@@ -38,15 +38,15 @@
 		</dict>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string>Used to Record Video of your World</string>
+	<string>to record a video or take a photo</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string></string>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>Record Audio with Video</string>
+	<string>to capture sound for the video</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>Used to save photos and videos taken through Figment.</string>
+	<string>to save videos/photos to camera roll</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Used to load user's photos and videos in the app.</string>
+	<string>to add them to the scene</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>
