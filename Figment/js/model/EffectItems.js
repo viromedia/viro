@@ -1,6 +1,6 @@
 
 import * as LoadingConstants from '../redux/LoadingStateConstants';
-import {getEmptyEffect, getGrayScale, getSepia, getSnow, getThermal, getSinCity, getBarrel, getPinCushion, getFireWorks} from '../effects/effects.js'
+import {getEmptyEffect, getGrayScale, getSepia, getSnow, getBubbles, getThermal, getSinCity, getBarrel, getPinCushion, getFireWorks} from '../effects/effects.js'
 import * as EffectsConstants from '../redux/EffectsConstants';
 
 var EffectItems = [
@@ -65,6 +65,13 @@ var EffectItems = [
     "loading": LoadingConstants.NONE,
     "postProcessEffect": EffectsConstants.EFFECT_NONE,
     "icon_img":require("../res/icon_effects_fireworks.png"),
+    "selected": false,
+  },
+  {
+    "effect": getBubbles,
+    "loading": LoadingConstants.NONE,
+    "postProcessEffect": EffectsConstants.EFFECT_NONE,
+    "icon_img":require("../res/icon_effects_bubbles.png"),
     "selected": false,
   },
 ]
