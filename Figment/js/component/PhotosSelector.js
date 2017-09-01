@@ -26,6 +26,10 @@ import {
   ScrollView,
 } from 'react-native';
 
+import { BlurView } from 'react-native-blur';
+import * as PSConstants from './PSConstants';
+import renderIf from '../helpers/renderIf';
+
 var ROW_PREFIX = "ROW_";
 var COLUMN_PREFIX = "COLUMN_";
 
@@ -40,26 +44,31 @@ var STOCK_360_PHOTOS = [
     source : require('../res/360_diving.jpg'),
     height : 1,
     width : 2,
+    type : PSConstants.PS_TYPE_360_PHOTO,
   },
   {
     source : require('../res/360_guadalupe.jpg'),
     height : 1,
     width : 2,
+    type : PSConstants.PS_TYPE_360_PHOTO,
   },
   {
     source : require('../res/360_space.jpg'),
     height : 1,
     width : 2,
+    type : PSConstants.PS_TYPE_360_PHOTO,
   },
   {
     source : require('../res/360_waikiki.jpg'),
     height : 1,
     width : 2,
+    type : PSConstants.PS_TYPE_360_PHOTO,
   },
   {
     source : require('../res/360_westlake.jpg'),
     height : 1,
     width : 2,
+    type : PSConstants.PS_TYPE_360_PHOTO,
   },
 ];
 
@@ -145,8 +154,6 @@ export class PhotosSelector extends Component {
   _getPhotos() {
     if (this.selectedTab == TAB_STOCK) {
       return STOCK_360_PHOTOS;
-    } else if (this.selectedTab == TAB_360) {
-      return this.user360Photos;
     } else if (this.selectedTab == TAB_RECENT) {
       return this.userPhotos;
     }
@@ -218,7 +225,11 @@ export class PhotosSelector extends Component {
       return (
         <TouchableOpacity style={[localStyles.touchElement]} activeOpacity={.5} focusedOpacity={.5} onPress={this._getElementClick(row, column, data)} >
           <Image style={localStyles.fetchedImageStyle} source={data.source} ref={this._storeRef(row, column)}
-              onError={(error)=>{console.log("[PhotoSelector] load image error: " + error.nativeEvent.error)}} />
+              onError={(error)=>{console.log("[PhotoSelector] load image error: " + error.nativeEvent.error)}} >
+            <View style={{flex:0.85}}></View>
+            {renderIf(data.type == PSConstants.PS_TYPE_360_PHOTO, <Image  style={{marginRight:10}} source={require('../res/icon_360_photo.png')} />)}
+            {renderIf(data.type == PSConstants.PS_TYPE_VIDEO, <Image  style={{marginRight:10}} source={require('../res/icon_video.png')} />)}
+          </Image>
         </TouchableOpacity>
       )
     }
@@ -267,15 +278,13 @@ export class PhotosSelector extends Component {
   _getTabBar() {
     return(
       <View style={localStyles.tabBarContainer}>
+        <BlurView style={{top: 0, left: 0, bottom: 0, right: 0}} blurType="dark" blurAmount={10} />
         <TouchableOpacity style={localStyles.tabTouch} activeOpacity={.5} onPress={this._getTabPress(TAB_STOCK)} >
           <Text style={localStyles.tabBarText}>Stock</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={localStyles.tabTouch} activeOpacity={.5} onPress={this._getTabPress(TAB_360)} >
-          <Text style={localStyles.tabBarText}>360°</Text>
-        </TouchableOpacity>
-
         <TouchableOpacity style={localStyles.tabTouch} activeOpacity={.5} onPress={this._getTabPress(TAB_RECENT)} >
+          <BlurView style={{top: 0, left: 0, bottom: 0, right: 0}} blurType="dark" blurAmount={10} />
           <Text style={localStyles.tabBarText}>Recent</Text>
         </TouchableOpacity>
       </View>
@@ -318,7 +327,6 @@ export class PhotosSelector extends Component {
 
       console.log("[PhotoSelector] after filtering, found " + photos360.length + " 360 photos and " + photos.length + " non-360 photos");
 
-      this.user360Photos.push(...photos360);
       this.userPhotos.push(...photos);
       this.endCursor = retValue.page_info.end_cursor;
       this.fetchCount += numResults;
@@ -347,13 +355,14 @@ export class PhotosSelector extends Component {
       let image = {
         source : { uri : edge.node.image.uri},
         width : edge.node.image.width,
-        height : edge.node.image.height
+        height : edge.node.image.height,
+        type: this._is360Photo(edge) ? PSConstants.PS_TYPE_360_PHOTO : PSConstants.PS_TYPE_PHOTO,
       }
-      if (this._is360Photo(edge)) {
-        photos360.push(image);
-      } else {
-        photos.push(image);
+      if(image.source.uri.endsWith("mp4")) {
+          image.type = PSConstants.PS_TYPE_VIDEO;
       }
+
+      photos.push(image);
     }
   }
 
@@ -371,13 +380,13 @@ export class PhotosSelector extends Component {
 var localStyles = StyleSheet.create({
   outerContainer : {
     flexDirection : 'column',
-    backgroundColor : 'white',
+    backgroundColor : 'black',
   },
   scrollView: {
     height: '80%',
     width: '100%',
     borderWidth: 1,
-    borderColor: 'white',
+    borderColor: 'black',
   },
   rowContainer : {
     flexDirection : 'row',
@@ -394,17 +403,21 @@ var localStyles = StyleSheet.create({
     flexDirection : 'row',
     height : '100%',
     alignItems: 'center',
-    backgroundColor : '#AAAAAA',
   },
   tabBarText:{
     flex : 1,
     fontSize : 20,
     textAlign: 'center',
+    fontFamily: 'Helvetica Neue',
+    borderColor: 'white',
+    color: '#d6d6d6',
+    borderWidth: 1,
+    margin: 10,
   },
   rowElement : {
     flex : 1,
     borderWidth: .5,
-    borderColor: 'white',
+    borderColor: 'black',
   },
   touchElement : {
     width : '100%',
@@ -420,7 +433,10 @@ var localStyles = StyleSheet.create({
     right : 0,
     width: undefined, // react-native is weird, for images we need to set width/height undefined.
     height: undefined,
-    resizeMode : "cover"
+    resizeMode : "cover",
+    flex: 1,
+    alignItems: 'flex-end',
+    alignSelf: 'flex-end',
   },
   opaque: {
     position : 'absolute',
