@@ -339,7 +339,7 @@ const int kDefaultMaxParticles = 500;
     if (!_physicsModifier) {
         _emitter->setVelocityModifier(_defaultVelocityModifier);
         _emitter->setAccelerationmodifier(_defaultAccelerationModifier);
-        _emitter->setInitialExplosion(VROVector3f(0,0,0), 0);
+        _emitter->setInitialExplosion(VROVector3f(0,0,0), -1);
         return;
     }
     
@@ -374,7 +374,7 @@ const int kDefaultMaxParticles = 500;
         }
         _emitter->setInitialExplosion(explodedAt, impulse, reverseAccel);
     } else {
-        _emitter->setInitialExplosion(VROVector3f(0,0,0), 0);
+        _emitter->setInitialExplosion(VROVector3f(0,0,0), -1);
     }
 }
 
