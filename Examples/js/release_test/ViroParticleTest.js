@@ -43,6 +43,55 @@
        num:3
      };
    },
+   getBubbles(){
+     var views = [];
+       views.push((
+         <ViroQuadEmitter
+             position={[0, -5.0, 0]}
+             duration={5000}
+             visible={true}
+             delay={0}
+             run={true}
+             loop={true}
+             fixedToEmitter={true}
+
+             quad={{
+                    source:require("../res/particle_bubble.png"),                 // Image source of the quad particle.
+                    height:0.1,
+                    width:0.1,
+                    bloomThreshold:1.0
+             }}
+
+             spawnModifier={{
+               particleLifetime:[14000,14000],
+               emissionRatePerSecond:[80, 150], // or 300 with a max of 2000
+               spawnVolume:{shape:"box", params:[15, 1, 15], spawnOnSurface:false},
+               maxParticles:2000
+             }}
+
+             appearanceModifier={{
+               opacity:{min:0.0, max:0.0, factor:"time",
+                 modifier:[
+                   {finalValue:1.0, interval:[0,500]},
+                   {finalValue:0.0, interval:[13700,14000]}
+                 ]
+               },
+               scale:{min:[1,1,1], max:[1,1,1], factor:"time",
+                 modifier:[
+                   {finalValue:[1.5,1.5,1.5], interval:[4000,9700]},
+                   {finalValue:[3,3,3], interval:[13700,14000]}
+                 ]
+               },
+
+             }}
+
+             physicsModifier={{
+               velocity:{min:[-.1,.7,0], max:[.1,.95,0]}
+             }}
+           />
+       ));
+     return views;
+   },
 
 
      getSnow(){
