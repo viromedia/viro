@@ -14,28 +14,32 @@ import {StyleSheet, TouchableHighlight, Image} from 'react-native';
 
 var PropTypes = React.PropTypes;
 
-var ButtonComponent = React.createClass({
-    propTypes: {
+class ButtonComponent extends Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    var index = 0;
+    if(this.props.buttonState === 'off') {
+      console.log("BUTTONCOMPONENT: SETTING BUTTON STATE TO OFF!!!");
+      index = 1;
+    } else {
+      console.log("BUTTONCOMPONENT: SETTING BUTTON STATE TO ON!!!");
+      console.log(this.props.buttonState);
+    }
+    return (
+      <TouchableHighlight onPress={this.props.onPress} underlayColor="#00000000">
+        <Image source={this.props.stateImageArray[index]} style={this.props.style} />
+      </TouchableHighlight>
+      );
+  }
+}
+
+ButtonComponent.propTypes = {
         onPress: PropTypes.func.isRequired,
         buttonState: PropTypes.oneOf(['on', 'off']).isRequired,
         stateImageArray: PropTypes.array.isRequired,
-    },
+        style: PropTypes.any
+};
 
-    render: function() {
-      var index = 0;
-      if(this.props.buttonState === 'off') {
-        console.log("BUTTONCOMPONENT: SETTING BUTTON STATE TO OFF!!!");
-        index = 1;
-      } else {
-        console.log("BUTTONCOMPONENT: SETTING BUTTON STATE TO ON!!!");
-        console.log(this.props.buttonState);
-      }
-      return (
-        <TouchableHighlight onPress={this.props.onPress} underlayColor="#00000000">
-          <Image source={this.props.stateImageArray[index]} style={this.props.style} />
-        </TouchableHighlight>
-        );
-    },
-});
-
-module.exports = ButtonComponent;
+export default ButtonComponent;

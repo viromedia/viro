@@ -121,12 +121,13 @@ var styles = StyleSheet.create({
     height:80,
   },
   photo: {
-    height: 80,
-    width: 80,
-    borderRadius: 20,
+    height: 53,
+    width: 56.8,
+    borderRadius: 5,
     justifyContent: 'center',
     alignItems: 'center',
     marginRight: 5,
+    marginTop: 10,
   },
   submitText: {
     color:'#fff',

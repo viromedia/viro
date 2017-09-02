@@ -19,6 +19,7 @@ import * as LoadingConstants from './redux/LoadingStateConstants';
 import * as UIConstants from './redux/UIConstants';
 import renderIf from './helpers/renderIf';
 import ButtonComponent from './component/ButtonComponent';
+import RecordButton from './component/RecordButton';
 import FigmentListView from './component/FigmentListView';
 import PhotosSelector from './component/PhotosSelector';
 import * as ModelData from  './model/ModelItems';
@@ -113,7 +114,6 @@ export class App extends Component {
           {renderIf(this.props.currentScreen != UIConstants.SHOW_SHARE_SCREEN,
             <View style={localStyles.listView}>
               <BlurView style={localStyles.absolute} blurType="dark" blurAmount={10} />
-              <Text style={localStyles.listViewText}>{this.props.listTitle}</Text>
               <FigmentListView items={this._getListItems()} onPress={this._onListPressed} />
             </View>)}
 
@@ -268,6 +268,7 @@ export class App extends Component {
           onPress={()=>{this.props.dispatchSwitchListMode(UIConstants.LIST_MODE_PORTAL, UIConstants.LIST_TITLE_PORTALS)}}
           buttonState={(this.props.listMode==UIConstants.LIST_MODE_PORTAL) ? 'on':'off'}
           stateImageArray={[require("./res/btn_mode_portals_on.png"), require("./res/btn_mode_portals.png")]}
+          style={localStyles.screenIcon}
           />);
 
     buttons.push(
@@ -275,6 +276,7 @@ export class App extends Component {
           onPress={()=>{this.props.dispatchSwitchListMode(UIConstants.LIST_MODE_EFFECT, UIConstants.LIST_TITLE_EFFECTS)}}
           buttonState={(this.props.listMode==UIConstants.LIST_MODE_EFFECT) ? 'on':'off'}
           stateImageArray={[require("./res/btn_mode_effects_on.png"), require("./res/btn_mode_effects.png")]}
+          style={localStyles.screenIcon}
           />);
 
     buttons.push(
@@ -282,13 +284,14 @@ export class App extends Component {
             onPress={()=>{this.props.dispatchSwitchListMode(UIConstants.LIST_MODE_MODEL, UIConstants.LIST_TITLE_MODELS)}}
             buttonState={(this.props.listMode==UIConstants.LIST_MODE_MODEL) ? 'on':'off'}
             stateImageArray={[require("./res/btn_mode_objects_on.png"), require("./res/btn_mode_objects.png")]}
+            style={localStyles.screenIcon}
             />);
     console.log("UIConstants." + this.props.currentScreen);
     if(this.props.currentScreen == UIConstants.SHOW_MAIN_SCREEN || this.props.currentScreen == UIConstants.SHOW_RECORDING_SCREEN) {
       console.log("CurrentScreen = " + this.props.currentScreen);
       if (this.state.showPhotosSelector==false) {
       return (
-           <View style={{position:'absolute', justifyContent: 'space-between', flexDirection:'column', left:10, bottom:120, width:100, height:240, flex:1}}>
+           <View style={{position:'absolute', justifyContent: 'space-between', flexDirection:'column', left:10, bottom:107, width:100, height:140, flex:1}}>
               {buttons}
            </View>
         );
@@ -309,20 +312,22 @@ export class App extends Component {
     }
 
     recordViews.push(
-      <View key="record_button_container" style={{position: 'absolute', left: 0, right: 0, bottom: 120,  alignItems: 'center'}}>
+      <View key="record_button_container" style={{position: 'absolute', left: 0, right: 0, bottom: 77,  alignItems: 'center'}}>
         <ButtonComponent
           key="record_button" onPress={()=>{(this.props.currentScreen==UIConstants.SHOW_MAIN_SCREEN) ? this._startRecording(): this._stopRecording()}}
           buttonState={(this.props.currentScreen==UIConstants.SHOW_MAIN_SCREEN) ? 'off':'on'}
           stateImageArray={[require("./res/btn_stop.png"), require("./res/btn_record.png")]}
+          style={localStyles.screenIcon}
           />
       </View>);
 
       recordViews.push(
-        <View key="camera_button_container" style={{position: 'absolute',  right: 70, bottom: 120,  alignItems: 'center'}}>
+        <View key="camera_button_container" style={{position: 'absolute',  right: 70, bottom: 85,  alignItems: 'center'}}>
           <ButtonComponent
             key="camera_button" onPress={()=>{this._takeScreenshot()}}
             buttonState={(this.props.currentScreen==UIConstants.SHOW_MAIN_SCREEN) ? 'off':'on'}
             stateImageArray={[require("./res/btn_camera.png"), require("./res/btn_camera.png")]}
+            style={localStyles.cameraIcon}
             />
         </View>);
     return recordViews;
@@ -506,7 +511,7 @@ export class App extends Component {
   }
 
   _openShareActionSheet() {
-      ActionSheetIOS.showShareActionSheetWithOptions({url:this.state.videoUrl},  (error) => alert(error),
+      ActionSheetIOS.showShareActionSheetWithOptions({url:this.state.videoUrl, message: "Shared by Figment AR", subject: "Made by Figment AR"},  (error) => alert(error),
       (success, method) => {
       // For now nothing; This is called when the "Share screen returns"
     });
@@ -529,9 +534,12 @@ var localStyles = StyleSheet.create({
     flex:1,
   },
   listView: {
-    height : 115,
+    flex:1,
+    height : 72,
     width : '100%',
     position : 'absolute',
+    justifyContent: 'center',
+    alignItems: 'center',
     bottom : 0,
   },
   topPhotoBar: {
@@ -585,7 +593,18 @@ var localStyles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-
+  screenIcon: {
+    height: 58,
+    width: 58,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  cameraIcon: {
+    height: 30,
+    width: 30,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   overlayView : {
     position: 'absolute',
     bottom: 10,
