@@ -62,7 +62,7 @@ var PortalItemRender = React.createClass({
         transformBehaviors.transformBehaviors = this.state.shouldBillboard ? "billboardY" : [];
       }
       return (
-        <ViroARNode
+        <ViroNode
           {...transformBehaviors}
           key={index}
           ref={this._setARNodeRef}
@@ -115,7 +115,7 @@ var PortalItemRender = React.createClass({
             materials={"shadowCatcher"}
             acceptShadows={true} />
 
-        </ViroARNode>
+        </ViroNode>
       );
     },
 
@@ -146,6 +146,7 @@ var PortalItemRender = React.createClass({
             }
 
             this.setState({
+              position: retDict.location,
               rotation : [0,yRotation,0],
               shouldBillboard : false
             });
