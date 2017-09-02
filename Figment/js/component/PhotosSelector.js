@@ -351,7 +351,6 @@ export class PhotosSelector extends Component {
   _filterPhotos(edges, photos360, photos) {
     for (var i = 0; i < edges.length; i++) {
       let edge = edges[i];
-
       let image = {
         source : { uri : edge.node.image.uri},
         width : edge.node.image.width,

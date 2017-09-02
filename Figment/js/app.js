@@ -12,7 +12,7 @@ import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
 import { BlurView } from 'react-native-blur';
-import {addModelWithIndex, removeModelWithUUID, togglePortalSelection,toggleEffectSelection, changePortalLoadState, changePortalPhoto, changeModelLoadState, changeItemClickState, switchListMode, removeARObject, displayUIScreen } from './redux/actions';
+import {addPortalWithIndex, removePortalWithUUID, addModelWithIndex, removeModelWithUUID, togglePortalSelection,toggleEffectSelection, changePortalLoadState, changePortalPhoto, changeModelLoadState, changeItemClickState, switchListMode, removeARObject, displayUIScreen } from './redux/actions';
 import TimerMixin from 'react-timer-mixin';
 
 import * as LoadingConstants from './redux/LoadingStateConstants';
@@ -22,6 +22,7 @@ import ButtonComponent from './component/ButtonComponent';
 import FigmentListView from './component/FigmentListView';
 import PhotosSelector from './component/PhotosSelector';
 import * as ModelData from  './model/ModelItems';
+import * as PortalData from  './model/PortalItems';
 
 const kObjSelectMode = 1;
 const kPortalSelectMode = 2;
@@ -90,7 +91,7 @@ export class App extends Component {
       viroAppProps: {loadingObjectCallback: this._onListItemLoaded, clickStateCallback: this._onItemClickedInScene},
       showPhotosSelector : false,
       previewType: kPreviewTypeVideo,
-      lastSelectedPortalIndex: -1,
+      lastSelectedPortalUUID: -1,
       timer:null,
       hours: '00',
       minutes: '00',
@@ -150,7 +151,7 @@ export class App extends Component {
           )}
 
           {renderIf(this.props.currentItemSelectionIndex != -1 && (this.props.currentSelectedItemType == UIConstants.LIST_MODE_PORTAL) && (this.state.showPhotosSelector==false),
-            <TouchableHighlight onPress={()=>{this.setState({showPhotosSelector:true, lastSelectedPortalIndex:this.props.currentItemSelectionIndex})}} underlayColor="#00000000">
+            <TouchableHighlight onPress={()=>{this.setState({showPhotosSelector:true, lastSelectedPortalUUID:this.props.currentItemSelectionIndex})}} underlayColor="#00000000">
               <Image source={require("./res/btn_add.png")} style={localStyles.previewScreenButtons} />
             </TouchableHighlight>
           )}
@@ -172,10 +173,10 @@ export class App extends Component {
         if(this.props.portalItems[index].selected == true) {
             this.props.dispatchChangePortalLoadState(index, LoadingConstants.NONE);
             this.setState({
-              lastSelectedPortalIndex:-1,
+              lastSelectedPortalUUID:-1,
             });
         }
-        this.props.dispatchTogglePortalSelection(index);
+        this.props.dispatchRemovePortalWithUUID(index);
       }
       this.props.dispatchChangeItemClickState(-1, '', '');
 
@@ -204,7 +205,7 @@ export class App extends Component {
   _onPhotoSelected(index, source) {
     console.log("onPhotoSelected index: " + index + "source:");
     console.log(source);
-    this.props.dispatchChangePortalPhoto(this.state.lastSelectedPortalIndex, source);
+    this.props.dispatchChangePortalPhoto(this.state.lastSelectedPortalUUID, source);
   }
 
   _setARNavigatorRef(ARNavigator){
@@ -435,13 +436,7 @@ export class App extends Component {
     }
 
     if(this.props.listMode == UIConstants.LIST_MODE_PORTAL) {
-      if(this.props.portalItems[index].selected == true) {
-          this.props.dispatchChangePortalLoadState(index, LoadingConstants.NONE);
-          this.setState({
-            lastSelectedPortalIndex:-1,
-          });
-      }
-      this.props.dispatchTogglePortalSelection(index);
+        this.props.dispatchAddPortal(index);
     }
 
     if(this.props.listMode == UIConstants.LIST_MODE_EFFECT) {
@@ -467,35 +462,35 @@ export class App extends Component {
 
   _getListItems() {
     if(this.props.listMode == UIConstants.LIST_MODE_MODEL) {
-      return this._constructListArrayModel();
+      return this._constructListArrayModel(ModelData.getModelArray(), this.props.modelItems);
     }else if(this.props.listMode == UIConstants.LIST_MODE_PORTAL) {
-      return this.props.portalItems;
+      return this._constructListArrayModel(PortalData.getPortalArray(), this.props.portalItems);
     } else if(this.props.listMode == UIConstants.LIST_MODE_EFFECT) {
       return this.props.effectItems;
     }
   }
 
-  _constructListArrayModel() {
+  _constructListArrayModel(sourceArray, items) {
       var listArrayModel = [];
       // This is really slow, optimize by indexing index of model to loading variable.
-      for(var i =0; i<ModelData.getModelArray().length; i++) {
-          listArrayModel.push({icon_img:ModelData.getModelArray()[i].icon_img, loading:this._getLoadingforModelIndex(i)})
+      for(var i =0; i<sourceArray.length; i++) {
+          listArrayModel.push({icon_img:sourceArray[i].icon_img, loading:this._getLoadingforModelIndex(i, items)})
       }
      return listArrayModel;
   }
 
-  _getLoadingforModelIndex(modelIndex) {
+  _getLoadingforModelIndex(index, items) {
     console.log("_getLoadingforModelIndex invoked!");
-    if(this.props.modelItems == null || this.props.modelItems == undefined) {
+    if(items == null || items == undefined) {
       return LoadingConstants.NONE;
     }
     var loadingConstant = LoadingConstants.NONE;
-    var modelItems = this.props.modelItems;
-    Object.keys(modelItems).forEach(function(currentKey) {
-      if(modelItems[currentKey] != null && modelItems[currentKey] != undefined) {
-        if(modelItems[currentKey].loading != LoadingConstants.NONE && modelItems[currentKey].index == modelIndex){
-          console.log("_getLoadingforModelIndex returning " + modelItems[currentKey].loading);
-          loadingConstant = modelItems[currentKey].loading;
+
+    Object.keys(items).forEach(function(currentKey) {
+      if(items[currentKey] != null && items[currentKey] != undefined) {
+        if(items[currentKey].loading != LoadingConstants.NONE && items[currentKey].index == index){
+          console.log("_getLoadingforModelIndex returning " + items[currentKey].loading);
+          loadingConstant = items[currentKey].loading;
         }
       }
     });
@@ -678,6 +673,8 @@ function selectProps(store) {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    dispatchAddPortal: (index) => dispatch(addPortalWithIndex(index)),
+    dispatchRemovePortalWithUUID: (uuid) => dispatch(removePortalWithUUID(uuid)),
     dispatchAddModel: (index) => dispatch(addModelWithIndex(index)),
     dispatchRemoveModelWithUUID: (uuid) => dispatch(removeModelWithUUID(uuid)),
     dispatchTogglePortalSelection: (index) => dispatch(togglePortalSelection(index)),

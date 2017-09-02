@@ -31,6 +31,20 @@ export function removeModelWithUUID(uuid) {
   }
 }
 
+export function addPortalWithIndex(index) {
+  return {
+      type:'ADD_PORTAL',
+      index: index,
+  }
+}
+
+export function removePortalWithUUID(uuid) {
+  return {
+      type:'REMOVE_PORTAL',
+      uuid: uuid,
+  }
+}
+
 export function toggleModelSelection(index) {
   console.log("EXECUTING TOGGLE_MODEL_ITEM index:" + index);
   return {
@@ -71,19 +85,19 @@ export function changeModelLoadState(uuid, loadState) {
   };
 }
 
-export function changePortalPhoto(index, photo) {
+export function changePortalPhoto(uuid, photo) {
   return {
     type: 'CHANGE_PORTAL_PHOTO',
-    index: index,
+    uuid: uuid,
     photoSource: photo,
   }
 }
 
-export function changePortalLoadState(index, loadState) {
-  console.log("EXECUTING CHANGE PORTAL LOAD STATE index:" + index);
+export function changePortalLoadState(uuid, loadState) {
+  console.log("EXECUTING CHANGE PORTAL LOAD STATE index:" + uuid);
   return {
     type: 'CHANGE_PORTAL_LOAD_STATE',
-    index: index,
+    uuid: uuid,
     loadState: loadState,
   };
 }

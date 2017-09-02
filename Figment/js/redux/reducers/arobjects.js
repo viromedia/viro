@@ -22,7 +22,7 @@ const uuidv1 = require('uuid/v1');
  const initialState = {
    //modelItems: ModelData.getInitModelArray(),
   modelItems: {},
-   portalItems: PortalData.getInitPortalArray(),
+   portalItems: {},
    effectItems: EffectData.getInitEffectArray(),
    postProcessEffect: EffectsConstants.EFFECT_NONE,
  }
@@ -30,19 +30,6 @@ const uuidv1 = require('uuid/v1');
 function newModelItem(indexToCreate) {
   return {uuid: uuidv1(), selected: false, loading: LoadingConstants.NONE, index: indexToCreate};
 }
-
- function toggleItemSelected(state = {}, action) {
-   switch (action.type) {
-     case 'TOGGLE_MODEL_SELECTED':
-     case 'TOGGLE_PORTAL_SELECTED':
-       return {
-         ...state,
-         selected: !state.selected,
-       };
-     default:
-       return state;
-   }
- }
 
  function changeLoadState(state = {}, action) {
    switch (action.type) {
@@ -60,10 +47,13 @@ function newModelItem(indexToCreate) {
  function changePortalPhoto(state = {}, action) {
     switch (action.type) {
         case 'CHANGE_PORTAL_PHOTO':
-          return {
-            ...state,
-            portal360Image: {...action.photoSource},
-          };
+          if(state[action.uuid] != null || state[action.uuid] != undefined) {
+            var model = state[action.uuid];
+            var newModel = {...model};
+            newModel.portal360Image = {...action.photoSource};
+            state[action.uuid] = newModel;
+          }
+          return state;
         default:
           return state;
     }
@@ -75,34 +65,6 @@ function newModelItem(indexToCreate) {
      index: index,
    };
  }
-
-
-function modifyItem(state = [], action) {
-    switch (action.type) {
-      case 'CHANGE_PORTAL_PHOTO':
-        return [
-          ...state.slice(0, action.index),
-          changePortalPhoto(state[action.index], action),
-          ...state.slice(parseInt(action.index) +1),
-        ]
-      case 'TOGGLE_PORTAL_SELECTED':
-        return [
-          ...state.slice(0, action.index),
-          toggleItemSelected(state[action.index], action),
-          ...state.slice(parseInt(action.index) +1),
-        ]
-
-      case 'CHANGE_PORTAL_LOAD_STATE':
-        return [
-          ...state.slice(0, action.index),
-          changeLoadState(state[action.index], action),
-          ...state.slice(parseInt(action.index) +1),
-        ];
-
-      default:
-        return state;
-    }
-}
 
 function modifyEffectSelection(state = [], action) {
   switch(action.type) {
@@ -160,18 +122,30 @@ function arobjects(state = initialState, action) {
         ...state,
         modelItems: {...removeModelItem(state.modelItems, action)},
       }
+    case 'ADD_PORTAL':
+      return {
+        ...state,
+        portalItems: {...addModelItem(state.portalItems, action)},
+      }
+    case 'REMOVE_PORTAL':
+      return {
+        ...state,
+        portalItems: {...removeModelItem(state.portalItems, action)},
+      }
    case 'CHANGE_MODEL_LOAD_STATE':
       return {
         ...state,
         modelItems: {...modifyLoadState(state.modelItems, action)},
       }
     case 'CHANGE_PORTAL_LOAD_STATE':
-    case 'TOGGLE_PORTAL_SELECTED':
+      return {
+        ...state,
+        portalItems: {...modifyLoadState(state.portalItems, action)},
+      }
     case 'CHANGE_PORTAL_PHOTO':
-        var updatedPortalInfo = modifyItem(state.portalItems.slice(0), action);
         return {
           ...state,
-          portalItems: updatedPortalInfo.slice(0),
+          portalItems: {...changePortalPhoto(state.portalItems, action)},
       }
     case 'TOGGLE_EFFECT_SELECTED':
         var updatedEffects = modifyEffectSelection(state.effectItems.slice(0), action);

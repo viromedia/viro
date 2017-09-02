@@ -13,6 +13,8 @@
 import React, { Component } from 'react';
 import * as LoadConstants from '../redux/LoadingStateConstants';
 import * as UIConstants from '../redux/UIConstants';
+import * as PortalData from  '../model/PortalItems';
+
 import {
   ViroScene,
   ViroARScene,
@@ -35,16 +37,15 @@ var PropTypes = React.PropTypes;
 
 var PortalItemRender = React.createClass({
     propTypes: {
-        portalItem: PropTypes.any,
+        portalIDProps: PropTypes.any,
         onLoadCallback: PropTypes.func,
         onClickStateCallback: PropTypes.func,
-        index: PropTypes.number,
         hitTestMethod: PropTypes.func,
     },
 
     getInitialState() {
       return {
-        scale : this.props.portalItem.scale,
+        scale : PortalData.getPortalArray()[this.props.portalIDProps.index].scale,
         rotation : [0, 0, 0],
         nodeIsVisible : false,
         position: [0, 10, 1], // make it appear initially high in the sky
@@ -53,10 +54,11 @@ var PortalItemRender = React.createClass({
     },
 
     componentWillMount() {
+        this._portalData = PortalData.getPortalArray()
     },
 
     render: function() {
-      var index = this.props.index;
+      var portalItem = PortalData.getPortalArray()[this.props.portalIDProps.index];
       let transformBehaviors = {}
       if (this.state.shouldBillboard) {
         transformBehaviors.transformBehaviors = this.state.shouldBillboard ? "billboardY" : [];
@@ -64,7 +66,7 @@ var PortalItemRender = React.createClass({
       return (
         <ViroNode
           {...transformBehaviors}
-          key={index}
+          key={this.props.portalIDProps.uuid}
           ref={this._setARNodeRef}
           visible={this.state.nodeIsVisible}
           position={this.state.position}
@@ -85,25 +87,25 @@ var PortalItemRender = React.createClass({
             shadowOpacity={.9} />
 
             <ViroPortal
-              position={this.props.portalItem.position}
+              position={portalItem.position}
               onRotate={this._onRotate}
               onPinch={this._onPinch}
               passable={true}
-              scale={this.props.portalItem.portalScale}
-              onClickState={this._onClickState(index)} >
+              scale={portalItem.portalScale}
+              onClickState={this._onClickState(this.props.portalIDProps.uuid)} >
 
               <ViroPortalFrame>
                 <Viro3DObject
-                  source={this.props.portalItem.obj}
-                  materials={this.props.portalItem.materials}
-                  resource={this.props.portalItem.resources}
-                  onLoadStart={this._onObjectLoadStart(index)}
-                  onLoadEnd={this._onObjectLoadEnd(index)}
+                  source={portalItem.obj}
+                  materials={portalItem.materials}
+                  resource={portalItem.resources}
+                  onLoadStart={this._onObjectLoadStart(this.props.portalIDProps.uuid)}
+                  onLoadEnd={this._onObjectLoadEnd(this.props.portalIDProps.uuid)}
                   lightBitMask={this.props.bitMask | 1}
                   shadowCastingBitMask={this.props.bitMask} />
               </ViroPortalFrame>
 
-              {this._renderPortalInside()}
+              {this._renderPortalInside(portalItem)}
 
             </ViroPortal>
 
@@ -123,7 +125,7 @@ var PortalItemRender = React.createClass({
       this.arNodeRef = component;
     },
 
-    _onClickState(index) {
+    _onClickState(uuid) {
       return ((clickState, position, source) => {
         if (clickState == 1) {
           // if "ClickDown", then enable billboardY
@@ -152,20 +154,21 @@ var PortalItemRender = React.createClass({
             });
           })
         }
-        this.props.onClickStateCallback(index, clickState, UIConstants.LIST_MODE_PORTAL);
+        this.props.onClickStateCallback(uuid, clickState, UIConstants.LIST_MODE_PORTAL);
       });
     },
 
-    _renderPortalInside() {
-        if(this._is360Photo(this.props.portalItem.portal360Image.width, this.props.portalItem.portal360Image.height)) {
+    _renderPortalInside(portalItem) {
+        var portalSource = (this.props.portalIDProps.portal360Image != undefined && this.props.portalIDProps.portal360Image != null) ? this.props.portalIDProps.portal360Image: portalItem.portal360Image;
+        if(this._is360Photo(portalSource.width, portalSource.height)) {
           return (
-            <Viro360Image key="background_portal" source={this.props.portalItem.portal360Image.source} />
+            <Viro360Image key="background_portal" source={portalSource.source} />
           );
         } else {
           var viewArray = [];
-          if(this.props.portalItem.portal360Image.source.uri.endsWith("mp4")) {
+          if(portalSource.source.uri.endsWith("mp4")) {
             viewArray.push(<ViroSphere  position={[0,0,0]} radius={56} facesOutward={false} key="background_portal" materials="theatre" />);
-            viewArray.push(<ViroVideo key="image_portal" width={1} height={1}  source={this.props.portalItem.portal360Image.source}
+            viewArray.push(<ViroVideo key="image_portal" width={1} height={1}  source={portalSource.source}
                          position={[0, 3.9, -39]} scale={[42, 21, 1]} />);
           } else {
             viewArray.push(  <ViroSpotLight key="obj_spotlight"
@@ -180,7 +183,7 @@ var PortalItemRender = React.createClass({
                 shadowOpacity={.9} />);
             viewArray.push(<Viro3DObject key="obj_3d" position={[0,-2,-6]} source={require('../res/art_gallery/artgallery2.vrx')} key="background_portal" />);
             viewArray.push(<Viro3DObject key="obj_3d_frame" opacity={.4} position={[0, 0,-6]} source={require('../res/art_gallery/artgallery_picture_frame.vrx')} />);
-            viewArray.push(<ViroImage key="image_portal" width={1} height={1}  resizeMode='scaleToFit' source={this.props.portalItem.portal360Image.source}
+            viewArray.push(<ViroImage key="image_portal" width={1} height={1}  resizeMode='scaleToFit' source={portalSource.source}
                         position={[0, 0,-6]} scale={[1, 1, 1]} />);
           }
           return viewArray;
@@ -196,7 +199,7 @@ var PortalItemRender = React.createClass({
      Rotation should be relative to its current rotation *not* set to the absolute
      value of the given rotationFactor.
      */
-    _onRotate(rotateState, rotationFactor, source, index) {
+    _onRotate(rotateState, rotationFactor, source) {
       // ignore the first factor, there's a bug with it. VIRO-1651
       if(rotateState == 1) {
         return;
@@ -218,7 +221,7 @@ var PortalItemRender = React.createClass({
      and multiply the state by that factor. At the end of a pinch event, set the state
      to the final value and store it in state.
      */
-    _onPinch(pinchState, scaleFactor, source, index) {
+    _onPinch(pinchState, scaleFactor, source) {
       // ignore the first factor, there's a bug with it. VIRO-1651
       if(pinchState == 1) {
         return;
@@ -236,21 +239,21 @@ var PortalItemRender = React.createClass({
       this.arNodeRef.setNativeProps({scale:newScale});
     },
 
-    _onError(index) {
+    _onError(uuid) {
         return () => {
-          this.props.loadCallback(index, LoadConstants.ERROR);
+          this.props.loadCallback(uuid, LoadConstants.ERROR);
         };
       },
 
-    _onObjectLoadStart(index) {
+    _onObjectLoadStart(uuid) {
         return () => {
-          this.props.onLoadCallback(index, LoadConstants.LOADING);
+          this.props.onLoadCallback(uuid, LoadConstants.LOADING);
         };
     },
 
-    _onObjectLoadEnd(index) {
+    _onObjectLoadEnd(uuid) {
         return () => {
-          this.props.onLoadCallback(index, LoadConstants.LOADED);
+          this.props.onLoadCallback(uuid, LoadConstants.LOADED);
           this.props.hitTestMethod(this._onARHitTestResults);
         };
     },
@@ -269,7 +272,7 @@ var PortalItemRender = React.createClass({
             break;
           } else if (result.type == "FeaturePoint" && !hitResultPosition) {
             var distance = Math.sqrt((result.transform.position[0] * result.transform.position[0]) + (result.transform.position[1] * result.transform.position[1]) + (result.transform.position[2] * result.transform.position[2]));
-            if (distance < 2) {
+            if (distance > 2) {
               hitResultPosition = result.transform.position;
             }
           }

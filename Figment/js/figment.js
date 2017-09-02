@@ -117,24 +117,23 @@ var figment = React.createClass({
 
   renderPortals(portalItems, startingBitMask) {
     var renderedObjects = [];
-    let portalBitMask = startingBitMask;
     if(portalItems) {
-      for(var i = 0; i<portalItems.length; i++) {
-        if(portalItems[i].selected) {
-          portalBitMask++;
+      var root = this;
+      let portalBitMask = startingBitMask;
+      Object.keys(portalItems).forEach(function(currentKey) {
+        if(portalItems[currentKey] != null && portalItems[currentKey] != undefined) {
           renderedObjects.push(
             <PortalItemRender
-            key={i}
-            portalItem={portalItems[i]}
-            index={i}
-            hitTestMethod={this._performARHitTest}
-            onLoadCallback={this._onLoadCallback}
-            onClickStateCallback={this._onPortalsClickStateCallback}
+            key={portalItems[currentKey].uuid}
+            portalIDProps={portalItems[currentKey]}
+            hitTestMethod={root._performARHitTest}
+            onLoadCallback={root._onLoadCallback}
+            onClickStateCallback={root._onPortalsClickStateCallback}
             bitMask={Math.pow(2,portalBitMask)}/>
           );
         }
         portalBitMask++;
-      }
+      });
     }
     return renderedObjects;
   },

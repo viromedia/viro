@@ -72,7 +72,7 @@ var ModelItemRender = React.createClass({
             scale={this.state.scale}
             rotation={this.state.rotation}
             onDrag={()=>{}}>
-            
+
             <ViroSpotLight
               innerAngle={5}
               outerAngle={20}
@@ -84,7 +84,7 @@ var ModelItemRender = React.createClass({
               shadowNearZ={.1}
               shadowFarZ={5}
               shadowOpacity={.9} />
-            
+
             <Viro3DObject
               position={modelItem.position}
               source={modelItem.obj}
@@ -228,7 +228,7 @@ var ModelItemRender = React.createClass({
             break;
           } else if (result.type == "FeaturePoint" && !hitResultPosition) {
             var distance = Math.sqrt((result.transform.position[0] * result.transform.position[0]) + (result.transform.position[1] * result.transform.position[1]) + (result.transform.position[2] * result.transform.position[2]));
-            if (distance < 2) {
+            if (distance > .2) {
               hitResultPosition = result.transform.position;
             }
           }

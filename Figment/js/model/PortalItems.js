@@ -84,7 +84,7 @@ var PortalItems = [
 
 
 module.exports = {
-  getInitPortalArray: function() {
+  getPortalArray: function() {
     return PortalItems;
   }
 };
