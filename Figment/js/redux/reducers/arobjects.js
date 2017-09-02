@@ -17,7 +17,7 @@ const uuidv1 = require('uuid/v1');
 
 //data model for models is:
 //{
-//{uuid}: {selected: false, loading:, index:}
+//{uuid}: {selected: false, loading:[LoadingConstant] index:[index into appr Items array]}
 //}
  const initialState = {
    //modelItems: ModelData.getInitModelArray(),
@@ -139,7 +139,10 @@ function removeModelItem(state = {}, action) {
 
 function modifyLoadState(state = {}, action) {
   if(state[action.uuid] != null || state[action.uuid] != undefined) {
-    state[action.uuid].loading = action.loadState;
+    var model = state[action.uuid];
+    var newModel = {...model};
+    newModel.loading = action.loadState;
+    state[action.uuid] = newModel;
   }
   return state;
 }
@@ -160,7 +163,7 @@ function arobjects(state = initialState, action) {
    case 'CHANGE_MODEL_LOAD_STATE':
       return {
         ...state,
-        modelItems: modifyLoadState(state.modelItems, action),
+        modelItems: {...modifyLoadState(state.modelItems, action)},
       }
     case 'CHANGE_PORTAL_LOAD_STATE':
     case 'TOGGLE_PORTAL_SELECTED':

@@ -60,7 +60,7 @@ var FigmentListView = React.createClass({
 
     _renderListItem(data, sectionid, rowId) {
         console.log("renderListItem rowID: " + rowId);
-        console.log("Data: " + data.selected + ", data.loading:" + data.loading);
+        console.log("Data.loading:" + data.loading);
         /*if(data.loading == LoadingConstants.LOADED) {
           return (
             <View style={{marginLeft: 10}}>

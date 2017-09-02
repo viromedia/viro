@@ -79,6 +79,9 @@ export class App extends Component {
     this._onItemClickedInScene = this._onItemClickedInScene.bind(this);
     this._onContextMenuRemoveButtonPressed = this._onContextMenuRemoveButtonPressed.bind(this);
     this._startStopWatch = this._startStopWatch.bind(this);
+    this._getLoadingforModelIndex = this._getLoadingforModelIndex.bind(this);
+    this._constructListArrayModel = this._constructListArrayModel.bind(this);
+
     this.state = {
       currentModeSelected:kObjSelectMode,
       videoUrl: null,
@@ -96,6 +99,7 @@ export class App extends Component {
 
     };
   }
+
   render() {
       console.log("RERENDER App OCCURRED");
       return (
@@ -120,7 +124,8 @@ export class App extends Component {
           {this._renderPhotosSelector()}
         </View>
       );
-    }
+  }
+
   _renderContextMenu() {
     console.log("_renderContextMenu + index: " + this.props.currentItemSelectionIndex + ", clickState: " + this.props.currentItemClickState);
     var selectedItemIndex = this.props.currentItemSelectionIndex;
@@ -153,6 +158,7 @@ export class App extends Component {
 
     );
   }
+
   _onContextMenuRemoveButtonPressed() {
     var index = this.props.currentItemSelectionIndex;
     console.log("_onContextMenuRemoveButtonPressed - index: " + this.props.currentItemSelectionIndex + ", clickState: " + this.props.currentItemClickState + ", type: " + this.props.currentSelectedItemType);
@@ -175,6 +181,7 @@ export class App extends Component {
 
     }
   }
+
   _renderPhotosSelector() {
     // TODO: remove the return to render the selector when portal is tapped
     if (this.state.showPhotosSelector == true) {
@@ -347,7 +354,7 @@ export class App extends Component {
   _startStopWatch() {
     // Stopwatch at the top while recording
     let timer = TimerMixin.setInterval(() => {
-      
+
       var seconds = (Number(this.state.seconds) + 1).toString(),
           minutes = this.state.minutes,
           hours = this.state.hours;
@@ -460,12 +467,41 @@ export class App extends Component {
 
   _getListItems() {
     if(this.props.listMode == UIConstants.LIST_MODE_MODEL) {
-      return ModelData.getModelArray();
+      return this._constructListArrayModel();
     }else if(this.props.listMode == UIConstants.LIST_MODE_PORTAL) {
       return this.props.portalItems;
     } else if(this.props.listMode == UIConstants.LIST_MODE_EFFECT) {
       return this.props.effectItems;
     }
+  }
+
+  _constructListArrayModel() {
+      var listArrayModel = [];
+      // This is really slow, optimize by indexing index of model to loading variable.
+      for(var i =0; i<ModelData.getModelArray().length; i++) {
+          listArrayModel.push({icon_img:ModelData.getModelArray()[i].icon_img, loading:this._getLoadingforModelIndex(i)})
+      }
+     return listArrayModel;
+  }
+
+  _getLoadingforModelIndex(modelIndex) {
+    console.log("_getLoadingforModelIndex invoked!");
+    if(this.props.modelItems == null || this.props.modelItems == undefined) {
+      return LoadingConstants.NONE;
+    }
+    var loadingConstant = LoadingConstants.NONE;
+    var modelItems = this.props.modelItems;
+    Object.keys(modelItems).forEach(function(currentKey) {
+      if(modelItems[currentKey] != null && modelItems[currentKey] != undefined) {
+        if(modelItems[currentKey].loading != LoadingConstants.NONE && modelItems[currentKey].index == modelIndex){
+          console.log("_getLoadingforModelIndex returning " + modelItems[currentKey].loading);
+          loadingConstant = modelItems[currentKey].loading;
+        }
+      }
+    });
+
+    console.log("_getLoadingforModelIndex returning LoadingConstants.NONE");
+    return loadingConstant;
   }
 
   _openShareActionSheet() {
@@ -564,7 +600,7 @@ var localStyles = StyleSheet.create({
   },
   recordingTimeText: {
     textAlign: 'center',
-    justifyContent: 'center', 
+    justifyContent: 'center',
     alignItems: 'center',
     color: '#d6d6d6',
     fontFamily: 'Helvetica Neue',
