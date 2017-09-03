@@ -56,6 +56,7 @@ var ViroVideo = React.createClass({
         PropTypes.number
     ]).isRequired,
 
+    ignoreEventHandling: PropTypes.bool,
     onHover: React.PropTypes.func,
     onClick: React.PropTypes.func,
     onClickState: React.PropTypes.func,

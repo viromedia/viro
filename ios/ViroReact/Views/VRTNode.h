@@ -48,6 +48,9 @@ extern const int k2DPointsPerSpatialUnit;
 @property (nonatomic, assign) BOOL canRotate;
 @property (nonatomic, assign) BOOL highAccuracyGaze;
 @property (nonatomic, assign) float timeToFuse;
+@property (nonatomic, assign) BOOL ignoreEventHandling;
+
+// Shadow/Light properties
 @property (nonatomic, assign) int lightBitMask;
 @property (nonatomic, assign) int shadowCastingBitMask;
 @property (nonatomic, assign) BOOL acceptShadows;

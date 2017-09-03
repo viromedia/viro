@@ -377,6 +377,12 @@ const double kTransformDelegateDistanceFilter = 0.01;
     self.eventDelegate->setTimeToFuse(durationMillis);
 }
 
+- (void)setIgnoreEventHandling:(BOOL)ignoreEventHandling {
+    // TODO: make this recursive
+    _ignoreEventHandling = ignoreEventHandling;
+    [self node]->setIgnoreEventHandling(ignoreEventHandling);
+}
+
 - (void)setLightBitMask:(int)lightBitMask {
     _lightBitMask = lightBitMask;
     _node->setLightBitMask(lightBitMask);

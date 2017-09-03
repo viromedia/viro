@@ -14,7 +14,7 @@ var NativeModules = require('react-native').NativeModules;
 var ViroARScene = React.createClass({
   propTypes: {
     ...View.propTypes,
-
+    ignoreEventHandling: PropTypes.bool,
     onHover: React.PropTypes.func,
     onClick: React.PropTypes.func,
     onClickState: React.PropTypes.func,

@@ -111,6 +111,7 @@ var RCT_BUTTON_REF = 'virobuttoncomponent';
   	width: PropTypes.number,
     style: stylePropType,
 
+    ignoreEventHandling: PropTypes.bool,
     onHover: React.PropTypes.func,
     onClick: React.PropTypes.func,
     onClickState: React.PropTypes.func,

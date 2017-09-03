@@ -34,6 +34,7 @@ var ViroNode = React.createClass({
     onTransformUpdate: React.PropTypes.func,
     visible: PropTypes.bool,
     opacity: PropTypes.number,
+    ignoreEventHanlding: PropTypes.bool,
 
     onHover: React.PropTypes.func,
     onClick: React.PropTypes.func,

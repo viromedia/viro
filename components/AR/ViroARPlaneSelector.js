@@ -35,6 +35,7 @@ var ViroARPlaneSelector = React.createClass({
     minWidth: PropTypes.number,
     visible: PropTypes.bool,
     opacity: PropTypes.number,
+    ignoreEventHandling: PropTypes.bool,
 
     onHover: React.PropTypes.func,
     onClick: React.PropTypes.func,

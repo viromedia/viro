@@ -115,7 +115,8 @@ var PortalItemRender = React.createClass({
             width={2.5} height={2.5}
             lightBitMask={this.props.bitMask | 1}
             materials={"shadowCatcher"}
-            acceptShadows={true} />
+            acceptShadows={true}
+            ignoreEventHandling={true} />
 
         </ViroNode>
       );
