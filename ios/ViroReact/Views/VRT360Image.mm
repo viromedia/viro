@@ -11,6 +11,7 @@
 #import "VRTUtils.h"
 #import "VRT360Image.h"
 #import "VRTImageAsyncLoader.h"
+#import "VRTPhotoLibraryAsyncLoader.h"
 
 @interface RCTImageSource (Viro)
 
@@ -23,6 +24,7 @@
     BOOL _sphereTextureAddedToScene;
     BOOL _imageNeedsDownload;
     VRTImageAsyncLoader *_imageAsyncLoader;
+    VRTPhotoLibraryAsyncLoader *_assetLoader;
     NSString *_stereoMode;
 }
 
@@ -38,6 +40,7 @@
         _imageNeedsDownload = NO;
         _format = VROTextureInternalFormat::RGBA8;
         _imageAsyncLoader = [[VRTImageAsyncLoader alloc] initWithDelegate:self];
+        _assetLoader = [[VRTPhotoLibraryAsyncLoader alloc] initWithDelegate:self];
     }
     
     return self;
@@ -79,8 +82,13 @@
 - (void)didSetProps:(NSArray<NSString *> *)changedProps {
     if (_imageNeedsDownload && _source) {
         _sphereTextureAddedToScene = NO;
-        [_imageAsyncLoader loadImage:_source];
-        
+        if (_source) {
+            if([_assetLoader canLoadImageURL:_source.request.URL]) {
+                [_assetLoader loadImage:_source];
+            } else {
+                [_imageAsyncLoader loadImage:_source];
+            }
+        }
         _imageNeedsDownload = NO;
     }
 }
