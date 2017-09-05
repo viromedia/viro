@@ -291,7 +291,7 @@ export class App extends Component {
       if (this.state.showPhotosSelector==false) {
       return (
           /*Don't know why space-around works, but it works! Don't touch this. Magic.*/
-           <View style={{backgroundColor: '#0000ff', position:'absolute', flexDirection:'column', justifyContent: 'space-around',left:10, bottom:107, width:70, height:160, flex:1}}>
+           <View style={{position:'absolute', flexDirection:'column', justifyContent: 'space-around',left:10, bottom:107, width:70, height:160, flex:1}}>
               {buttons}
            </View>
         );
@@ -315,7 +315,7 @@ export class App extends Component {
       <View key="record_button_container" style={{left: 0, right: 0, bottom: 77,  alignItems: 'center', height: 58}}>
         <View key="record_container" style={{left: 0, right: 0, bottom: 0, flexDirection: 'row', justifyContent: 'flex-end', alignItems:'center', height: 58, width: 120}}>
             <View key="container" style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', height: 58, width: 89}}>
-          <ButtonComponent
+          <RecordButton
             key="record_button" onPress={()=>{(this.props.currentScreen==UIConstants.SHOW_MAIN_SCREEN) ? this._startRecording(): this._stopRecording()}}
             buttonState={(this.props.currentScreen==UIConstants.SHOW_MAIN_SCREEN) ? 'off':'on'}
             stateImageArray={[require("./res/btn_stop.png"), require("./res/btn_record.png")]}

@@ -11,7 +11,7 @@
 
 import React, { Component } from 'react';
 import {StyleSheet,
-        TouchableWithoutFeedback,
+        TouchableHighlight,
         Animated,
         Easing,
         Image,
@@ -55,7 +55,7 @@ class ButtonComponent extends Component {
   render() {
 
     return (
-      <TouchableWithoutFeedback onPress={this._onPress}>
+      <TouchableHighlight underlayColor="#00000000" onPress={this._onPress}>
       <View >
         <Animated.Image 
             source={this.props.stateImageArray[1]}
@@ -70,7 +70,7 @@ class ButtonComponent extends Component {
           source={this.props.stateImageArray[0]}
           style={[this.props.style, {opacity: this.opacity}]} />
       </View>
-      </TouchableWithoutFeedback>
+      </TouchableHighlight>
       );
   }
 

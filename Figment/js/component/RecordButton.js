@@ -12,78 +12,192 @@
 import React, { Component } from 'react';
 import {StyleSheet,
         TouchableHighlight,
-        Image,
         Animated,
         Easing,
-        LayoutAnimation,
-      } from 'react-native';
+        Image,
+        View,
+        } from 'react-native';
+import renderIf from '../helpers/renderIf';
 
 var PropTypes = React.PropTypes;
 
 class RecordButton extends Component {
   constructor(props) {
     super(props);
-    this.spinValue = new Animated.Value(0);
+    this.scaleDownValue = new Animated.Value(0);
+    this.scaleUpValue = new Animated.Value(0);
 
-    var animations = [
-      {
-        animation: 'spin',
-        enabled: true,
-      }
-    ];
-    this.state = {
-      animations: animations
-    };
+    this.fadeInValue = new Animated.Value(0);
+    this.fadeOutValue = new Animated.Value(0);
+
+    // Bindings
+    this.scale = this.scale.bind(this);
+    this._onPress = this._onPress.bind(this);
+    this.crossFade = this.crossFade.bind(this);
+    this.scaleAndFade = this.scaleAndFade.bind(this);
+
+    var imgSource = this.props.stateImageArray[1];
+    var imgClickSource = this.props.stateImageArray[0];
+
+    this.circleScale = this.scaleDownValue.interpolate({
+      inputRange: [0, 1],
+      outputRange: [1, 0.8]
+    });
+
+    this.circleOpacity = this.fadeOutValue.interpolate({
+      inputRange: [0,1],
+      outputRange: [1,0]
+    });
+
+    this.squareOpacity = this.fadeInValue.interpolate({
+      inputRange: [0,1],
+      outputRange: [0,1]
+    });
+    this.squareScale = this.scaleUpValue.interpolate({
+      inputRange: [0, 1],
+      outputRange: [0.8, 1]
+    });
 
   }
+  componentWillMount() {
+    this.scaleUpValue.setValue(0);
+    this.scaleDownValue.setValue(0);
 
-  spin() {
-    this.spinValue.setValue(0);
+    this.fadeInValue.setValue(0);
+    this.fadeOutValue.setValue(0);
+  }
+
+  componentWillUpdate() {
+    this.scaleUpValue.setValue(0);
+    this.scaleDownValue.setValue(0);
+
+    this.fadeInValue.setValue(0);
+    this.fadeOutValue.setValue(0);
+
+  }
+  render() {
+
+    return (
+      <TouchableHighlight underlayColor="#00000000" onPress={this._onPress}>
+      <View style={{backgroundColor: '#0000ff'}} >
+        <Animated.Image 
+            source={this.props.stateImageArray[1]}
+            style={[this.props.style, {opacity: this.props.buttonState == 'off' ? this.circleOpacity : this.squareOpacity},
+                      {
+                        transform:[
+                          {scale: this.props.buttonState == 'off' ? this.circleScale : this.squareScale}
+                        ]
+                      }
+                  ]} />
+        <Animated.Image 
+          source={this.props.stateImageArray[0]}
+          style={[this.props.style, {opacity: this.props.buttonState == 'off' ? this.squareOpacity : this.circleOpacity},
+                      {
+                        transform:[
+                          {scale: this.props.buttonState == 'off' ? this.squareScale : this.circleScale}
+                        ]
+                      }
+                  ]} />
+      </View>
+      </TouchableHighlight>
+      );
+  }
+
+  _onPress() {
+      this.scaleAndFade();
+     
+      // Picked from here https://facebook.github.io/react-native/docs/performance.html#my-touchablex-view-isn-t-very-responsive
+      requestAnimationFrame(() => {
+        this.props.onPress();   
+        
+      });
+  }
+  scale() {
+    this.scaleUpValue.setValue(0);
+    this.scaleDownValue.setValue(0);
+
+    this.fadeInValue.setValue(0);
+    this.fadeOutValue.setValue(0);
+
     Animated.timing(
-      this.spinValue,
+        this.scaleValue,
+        {
+          toValue: 1,
+          duration: 200,
+          easing: Easing.easeInOutBack,
+          useNativeDriver: true,
+        }
+    ).start(() => {
+      this.crossFade();
+    });
+  }
+  crossFade() {
+    this.fadeInValue.setValue(0);
+    Animated.timing(
+      this.fadeInValue,
       {
         toValue: 1,
-        duration: 1500,
-        easing: Easing.linear
+        duration: 100,
+        easing: Easing.linear,
+        useNativeDriver: true, 
       }
-    ).start(() => {
-      this.spin();
-    });
+    ).start();
   }
+  scaleAndFade() {
+    this.scaleUpValue.setValue(0);
+    this.scaleDownValue.setValue(0);
 
-  render() {
-    const spin = this.spinValue.interpolate({
-      inputRange:[0, 1],
-      outputRange: ['0deg', '360deg']
-    });
-    {this.spin()}
-    var index = 0;
-    if(this.props.buttonState === 'off') {
-      console.log("BUTTONCOMPONENT: SETTING BUTTON STATE TO OFF!!!");
-      index = 1;
-    } else {
-      console.log("BUTTONCOMPONENT: SETTING BUTTON STATE TO ON!!!");
-      console.log(this.props.buttonState);
-    }
-    return (
-        <Animated.Image 
-        style={[this.props.style,
-                          {
-                            transform:[
-                              {rotate: spin}
-                            ]
-                          }
-                        ]}
-        source={this.props.stateImageArray[index]} 
-                         />
-    );
+    this.fadeInValue.setValue(0);
+    this.fadeOutValue.setValue(0);
+
+    Animated.parallel([
+      Animated.timing(
+        this.scaleDownValue,
+        {
+          toValue: 1,
+          duration: 300,
+          easing: Easing.linear,
+          useNativeDriver: true,
+        }
+    ),
+    Animated.timing(
+        this.scaleUpValue,
+        {
+          toValue: 1,
+          duration: 300,
+          easing: Easing.linear,
+          useNativeDriver: true,
+        }
+    ),
+    Animated.timing(
+      this.fadeInValue,
+      {
+        toValue: 1,
+        duration: 300,
+        easing: Easing.linear,
+        useNativeDriver: true, 
+      }
+    ),
+    Animated.timing(
+      this.fadeOutValue,
+      {
+        toValue: 1,
+        duration: 300,
+        easing: Easing.linear,
+        useNativeDriver: true, 
+      }
+    )
+    ]).start();
   }
 }
-  RecordButton.propTypes = {
-      onPress: PropTypes.func.isRequired,
-      buttonState: PropTypes.oneOf(['on', 'off']).isRequired,
-      stateImageArray: PropTypes.array.isRequired,
-      style: PropTypes.any
-  };
+
+
+RecordButton.propTypes = {
+        onPress: PropTypes.func.isRequired,
+        buttonState: PropTypes.oneOf(['on', 'off']).isRequired,
+        stateImageArray: PropTypes.array.isRequired,
+        style: PropTypes.any,
+        selected: PropTypes.bool,
+};
 
 export default RecordButton;

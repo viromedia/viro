@@ -56,6 +56,7 @@ var FigmentListView = React.createClass({
         renderRow={this._renderListItem}
         showsVerticalScrollIndicator={false}
         showsHorizontalScrollIndicator={false}
+        pageSize={5}
         directionalLockEnabled={true}/>);
     },
 
@@ -122,7 +123,7 @@ var styles = StyleSheet.create({
     flex:8,
   },
   listViewContainer: {
-    height:80,
+    height:72,
   },
   photo: {
     height: 53,
