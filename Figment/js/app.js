@@ -284,14 +284,14 @@ export class App extends Component {
             onPress={()=>{this.props.dispatchSwitchListMode(UIConstants.LIST_MODE_MODEL, UIConstants.LIST_TITLE_MODELS)}}
             buttonState={(this.props.listMode==UIConstants.LIST_MODE_MODEL) ? 'on':'off'}
             stateImageArray={[require("./res/btn_mode_objects_on.png"), require("./res/btn_mode_objects.png")]}
-            style={localStyles.screenIcon}
+            style={localStyles.screenIcon} selected={true}
             />);
     console.log("UIConstants." + this.props.currentScreen);
     if(this.props.currentScreen == UIConstants.SHOW_MAIN_SCREEN || this.props.currentScreen == UIConstants.SHOW_RECORDING_SCREEN) {
-      console.log("CurrentScreen = " + this.props.currentScreen);
       if (this.state.showPhotosSelector==false) {
       return (
-           <View style={{position:'absolute', justifyContent: 'space-between', flexDirection:'column', left:10, bottom:107, width:100, height:140, flex:1}}>
+          /*Don't know why space-around works, but it works! Don't touch this. Magic.*/
+           <View style={{position:'absolute', flexDirection:'column', justifyContent: 'space-around',left:10, bottom:107, width:70, height:160, flex:1}}>
               {buttons}
            </View>
         );
@@ -312,23 +312,27 @@ export class App extends Component {
     }
 
     recordViews.push(
-      <View key="record_button_container" style={{position: 'absolute', left: 0, right: 0, bottom: 77,  alignItems: 'center'}}>
-        <ButtonComponent
-          key="record_button" onPress={()=>{(this.props.currentScreen==UIConstants.SHOW_MAIN_SCREEN) ? this._startRecording(): this._stopRecording()}}
-          buttonState={(this.props.currentScreen==UIConstants.SHOW_MAIN_SCREEN) ? 'off':'on'}
-          stateImageArray={[require("./res/btn_stop.png"), require("./res/btn_record.png")]}
-          style={localStyles.screenIcon}
-          />
-      </View>);
-
-      recordViews.push(
-        <View key="camera_button_container" style={{position: 'absolute',  right: 70, bottom: 85,  alignItems: 'center'}}>
+      <View key="record_button_container" style={{left: 0, right: 0, bottom: 77,  alignItems: 'center', height: 58}}>
+        <View key="record_container" style={{left: 0, right: 0, bottom: 0, flexDirection: 'row', justifyContent: 'flex-end', alignItems:'center', height: 58, width: 120}}>
+            <View key="container" style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', height: 58, width: 89}}>
           <ButtonComponent
+            key="record_button" onPress={()=>{(this.props.currentScreen==UIConstants.SHOW_MAIN_SCREEN) ? this._startRecording(): this._stopRecording()}}
+            buttonState={(this.props.currentScreen==UIConstants.SHOW_MAIN_SCREEN) ? 'off':'on'}
+            stateImageArray={[require("./res/btn_stop.png"), require("./res/btn_record.png")]}
+            style={localStyles.recordIcon}
+            />
+      {/* </View>);
+
+      // recordViews.push(
+      //   <View key="camera_button_container" style={{position: 'absolute',  right: 70, bottom: 85,  alignItems: 'center'}}>*/}
+           <ButtonComponent
             key="camera_button" onPress={()=>{this._takeScreenshot()}}
             buttonState={(this.props.currentScreen==UIConstants.SHOW_MAIN_SCREEN) ? 'off':'on'}
             stateImageArray={[require("./res/btn_camera.png"), require("./res/btn_camera.png")]}
             style={localStyles.cameraIcon}
             />
+            </View>
+          </View>
         </View>);
     return recordViews;
   }
@@ -594,16 +598,21 @@ var localStyles = StyleSheet.create({
     alignItems: 'center',
   },
   screenIcon: {
+    position : 'absolute',
     height: 58,
     width: 58,
-    justifyContent: 'center',
-    alignItems: 'center',
+  },
+    recordIcon: {
+    position : 'absolute',
+    height: 58,
+    width: 58,
+    top: -29,
   },
   cameraIcon: {
+    position : 'absolute',
     height: 30,
     width: 30,
-    justifyContent: 'center',
-    alignItems: 'center',
+    top: -15,
   },
   overlayView : {
     position: 'absolute',

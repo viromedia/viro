@@ -8,6 +8,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "babel-plugin-transform-remove-console": "^6.8.5",
     "react": "16.0.0-alpha.12",
     "react-native": "0.47.2",
     "react-native-blur": "^3.1.3",
