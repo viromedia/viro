@@ -48,7 +48,14 @@ extern const int k2DPointsPerSpatialUnit;
 @property (nonatomic, assign) BOOL canRotate;
 @property (nonatomic, assign) BOOL highAccuracyGaze;
 @property (nonatomic, assign) float timeToFuse;
+
+/*
+ Whether or not we actually ignore event handling is determined by "and"-ing this component's
+ ignoreEventHandling with shouldIgnoreHandling, which is the parent's resolved ignoreEventHandling.
+ */
 @property (nonatomic, assign) BOOL ignoreEventHandling;
+@property (nonatomic, assign) BOOL shouldIgnoreEventHandling; // parent's resolved ignoreEventHandling
+
 
 // Shadow/Light properties
 @property (nonatomic, assign) int lightBitMask;

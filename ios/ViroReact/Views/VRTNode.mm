@@ -37,6 +37,8 @@ const double kTransformDelegateDistanceFilter = 0.01;
         _lightBitMask = 1;
         _shadowCastingBitMask = 1;
         _acceptShadows = false;
+        _shouldIgnoreEventHandling = NO; // default is NO
+        _ignoreEventHandling = NO; // default is NO
         
         // Create and attach event delegate
         _eventDelegate = std::make_shared<VROEventDelegateiOS>(self);
@@ -378,9 +380,21 @@ const double kTransformDelegateDistanceFilter = 0.01;
 }
 
 - (void)setIgnoreEventHandling:(BOOL)ignoreEventHandling {
-    // TODO: make this recursive
     _ignoreEventHandling = ignoreEventHandling;
-    [self node]->setIgnoreEventHandling(ignoreEventHandling);
+    [self resolveIgnoreEventHandling];
+}
+
+- (void)setShouldIgnoreEventHandling:(BOOL)ignoreEventHandling {
+    _shouldIgnoreEventHandling = ignoreEventHandling;
+    [self resolveIgnoreEventHandling];
+}
+
+- (void)resolveIgnoreEventHandling {
+    BOOL resolvedIgnoreEventHandling = _ignoreEventHandling || _shouldIgnoreEventHandling;
+    [self node]->setIgnoreEventHandling(resolvedIgnoreEventHandling);
+    for (VRTNode *child : [self reactSubviews]) {
+        child.shouldIgnoreEventHandling = resolvedIgnoreEventHandling;
+    }
 }
 
 - (void)setLightBitMask:(int)lightBitMask {
