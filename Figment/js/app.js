@@ -291,7 +291,7 @@ export class App extends Component {
       if (this.state.showPhotosSelector==false) {
       return (
           /*Don't know why space-around works, but it works! Don't touch this. Magic.*/
-           <View style={{position:'absolute', flexDirection:'column', justifyContent: 'space-around',left:10, bottom:107, width:70, height:160, flex:1}}>
+           <View style={{backgroundColor: '#0000ff', position:'absolute', flexDirection:'column', justifyContent: 'space-around',left:10, bottom:107, width:70, height:160, flex:1}}>
               {buttons}
            </View>
         );

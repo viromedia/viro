@@ -13,6 +13,7 @@ import * as LoadingConstants from '../redux/LoadingStateConstants';
 import React, { Component } from 'react';
 import {StyleSheet, TouchableHighlight, ActivityIndicator, View, ListView, Image} from 'react-native';
 import renderIf from '../helpers/renderIf';
+import ListViewItem from './ListViewItem';
 var PropTypes = React.PropTypes;
 
 var FigmentListView = React.createClass({
@@ -88,14 +89,17 @@ var FigmentListView = React.createClass({
         }*/
         return (
           <View style={{marginLeft: 10}}>
-              <TouchableHighlight onPress={this._onListItemPressed(rowId)} underlayColor="#00000000">
-                <Image source={data.icon_img} style={styles.photo}>
+              {/*<TouchableHighlight onPress={this._onListItemPressed(rowId)} underlayColor="#00000000">
+                <Image source={data.icon_img} style={styles.photo}>*/}
+              <ListViewItem onPress={this._onListItemPressed(rowId)} 
+                    stateImageArray={[data.icon_img]}
+                    style={styles.photo}/>
                 {renderIf(data.loading == LoadingConstants.LOADING,
-                    <ActivityIndicator animating={true} size='large'/>
+                    <ActivityIndicator style={{position:'absolute', marginLeft: 12, marginTop: 19, }} animating={true} size='large'/>
                 )}
-                </Image>
-              </TouchableHighlight>
-            </View>
+          </View>
+
+                    
         );
     },
 
