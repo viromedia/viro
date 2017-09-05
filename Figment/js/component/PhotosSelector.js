@@ -108,6 +108,7 @@ export class PhotosSelector extends Component {
   state = {
     scrollViewWidth : 0, // width of the scrollView itself
     scrollViewHeight : 0, // height of the scrollView itself
+    selectedTab: TAB_STOCK,
   }
 
   componentDidMount() {
@@ -125,7 +126,6 @@ export class PhotosSelector extends Component {
     this.fetchCount = 0;
     this.isFetching = false;
     this.fetchedAllPhotos = false;
-    this.selectedTab = TAB_STOCK;
     this.selectedRow = -1;
     this.selectedColumn = -1;
     this.refList = {};
@@ -152,9 +152,9 @@ export class PhotosSelector extends Component {
   }
 
   _getPhotos() {
-    if (this.selectedTab == TAB_STOCK) {
+    if (this.state.selectedTab == TAB_STOCK) {
       return STOCK_360_PHOTOS;
-    } else if (this.selectedTab == TAB_RECENT) {
+    } else if (this.state.selectedTab == TAB_RECENT) {
       return this.userPhotos;
     }
   }
@@ -193,7 +193,7 @@ export class PhotosSelector extends Component {
   }
 
   _getRow(data, sectionId, rowIndex) {
-    if (rowIndex == this.state.dataSource.getRowCount() - 1 && this.selectedTab == TAB_RECENT
+    if (rowIndex == this.state.dataSource.getRowCount() - 1 && this.state.selectedTab == TAB_RECENT
         && !this.isFetching && !this.fetchedAllPhotos) {
       this._getCameraRollAssets();
     }
@@ -210,7 +210,7 @@ export class PhotosSelector extends Component {
     let toReturn = [];
     for (var i = 0; i < this.props.columns; i++) {
       toReturn.push((
-        <View key={COLUMN_PREFIX + this.selectedTab + i} style={localStyles.rowElement} >
+        <View key={COLUMN_PREFIX + this.state.selectedTab + i} style={localStyles.rowElement} >
           {this._getImageIndex(data[i], rowNumber, i)}
         </View>
       ));
@@ -278,14 +278,13 @@ export class PhotosSelector extends Component {
   _getTabBar() {
     return(
       <View style={localStyles.tabBarContainer}>
-        <BlurView style={{top: 0, left: 0, bottom: 0, right: 0}} blurType="dark" blurAmount={10} />
+        <BlurView style={{position: "absolute",top: 0, left: 0, bottom: 0, right: 0}} blurType="dark" blurAmount={10} />
         <TouchableOpacity style={localStyles.tabTouch} activeOpacity={.5} onPress={this._getTabPress(TAB_STOCK)} >
-          <Text style={localStyles.tabBarText}>Stock</Text>
+          <Text style={[localStyles.tabBarText, {fontWeight:this.state.selectedTab==TAB_STOCK ? 'bold': 'normal'}]}>Stock</Text>
         </TouchableOpacity>
 
         <TouchableOpacity style={localStyles.tabTouch} activeOpacity={.5} onPress={this._getTabPress(TAB_RECENT)} >
-          <BlurView style={{top: 0, left: 0, bottom: 0, right: 0}} blurType="dark" blurAmount={10} />
-          <Text style={localStyles.tabBarText}>Recent</Text>
+            <Text style={[localStyles.tabBarText, {fontWeight:this.state.selectedTab==TAB_RECENT ? 'bold': 'normal'}]}>Recent</Text>
         </TouchableOpacity>
       </View>
     )
@@ -294,14 +293,15 @@ export class PhotosSelector extends Component {
   _getTabPress(type) {
     return () => {
 
-      if (this.selectedTab == type) {
+      if (this.state.selectedTab == type) {
         return; // do nothing!
       }
 
       this.refList = {};
-      this.selectedTab = type;
-      this._updatePhotoSelection(-1,-1);
-      this._updateDataSource();
+      this.setState({selectedTab:type}, function() {
+        this._updatePhotoSelection(-1,-1);
+        this._updateDataSource();
+      });
     }
   }
 
@@ -382,7 +382,7 @@ var localStyles = StyleSheet.create({
     backgroundColor : 'black',
   },
   scrollView: {
-    height: '80%',
+    height: '100%',
     width: '100%',
     borderWidth: 1,
     borderColor: 'black',
@@ -396,6 +396,9 @@ var localStyles = StyleSheet.create({
     flexDirection : 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
+    backgroundColor:"#00000000",
+    position:"absolute",
+    bottom:0,
   },
   tabTouch : {
     flex : 1,
@@ -408,9 +411,8 @@ var localStyles = StyleSheet.create({
     fontSize : 20,
     textAlign: 'center',
     fontFamily: 'Helvetica Neue',
-    borderColor: 'white',
+
     color: '#d6d6d6',
-    borderWidth: 1,
     margin: 10,
   },
   rowElement : {
