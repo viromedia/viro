@@ -138,21 +138,27 @@ export class App extends Component {
         () => {
           this.props.dispatchChangeItemClickState(-1, '', '');
         },
-        2000
+        3500
       );
     }
       return (
-        <View style={{position:'absolute',  flex:1, flexDirection:'column', right:5, top:20, width:80, height:80}}>
+        <View style={{position:'absolute', flex:1, flexDirection:'column', justifyContent: 'space-between',alignItems: 'flex-end', right:10, top:20, width:80, height:120}}>
           {console.log("this.props.currentItemSelectionIndex in render - " + this.props.currentItemSelectionIndex)}
           {renderIf(this.props.currentItemSelectionIndex != -1 && (this.state.showPhotosSelector==false),
             <TouchableHighlight onPress={this._onContextMenuRemoveButtonPressed} underlayColor="#00000000">
-              <Image source={require("./res/btn_close.png")} style={localStyles.previewScreenButtons} />
+              <Image source={require("./res/btn_trash.png")} style={localStyles.previewScreenButtons} />
             </TouchableHighlight>
           )}
 
           {renderIf(this.props.currentItemSelectionIndex != -1 && (this.props.currentSelectedItemType == UIConstants.LIST_MODE_PORTAL) && (this.state.showPhotosSelector==false),
             <TouchableHighlight onPress={()=>{this.setState({showPhotosSelector:true, lastSelectedPortalUUID:this.props.currentItemSelectionIndex})}} underlayColor="#00000000">
-              <Image source={require("./res/btn_add.png")} style={localStyles.previewScreenButtons} />
+              <Image source={require("./res/btn_clear_all.png")} style={localStyles.previewScreenButtons} />
+            </TouchableHighlight>
+          )}
+
+          {renderIf(this.props.currentItemSelectionIndex != -1 && (this.props.currentSelectedItemType == UIConstants.LIST_MODE_PORTAL) && (this.state.showPhotosSelector==false),
+            <TouchableHighlight onPress={()=>{this.setState({showPhotosSelector:true, lastSelectedPortalUUID:this.props.currentItemSelectionIndex})}} underlayColor="#00000000">
+              <Image source={require("./res/btn_add_pic.png")} style={localStyles.previewScreenButtons} />
             </TouchableHighlight>
           )}
         </View>
