@@ -20,6 +20,7 @@ import * as UIConstants from './redux/UIConstants';
 import renderIf from './helpers/renderIf';
 import ButtonComponent from './component/ButtonComponent';
 import RecordButton from './component/RecordButton';
+import ContextMenuButton from './component/ContextMenuButton';
 import FigmentListView from './component/FigmentListView';
 import PhotosSelector from './component/PhotosSelector';
 import * as ModelData from  './model/ModelItems';
@@ -145,21 +146,21 @@ export class App extends Component {
         <View style={{position:'absolute', flex:1, flexDirection:'column', justifyContent: 'space-between',alignItems: 'flex-end', right:10, top:20, width:80, height:120}}>
           {console.log("this.props.currentItemSelectionIndex in render - " + this.props.currentItemSelectionIndex)}
           {renderIf(this.props.currentItemSelectionIndex != -1 && (this.state.showPhotosSelector==false),
-            <TouchableHighlight onPress={this._onContextMenuRemoveButtonPressed} underlayColor="#00000000">
-              <Image source={require("./res/btn_trash.png")} style={localStyles.previewScreenButtons} />
-            </TouchableHighlight>
+            <ContextMenuButton onPress={this._onContextMenuRemoveButtonPressed} 
+                    stateImageArray={[require("./res/btn_trash.png")]}
+                    style={localStyles.previewScreenButtons} />
           )}
 
           {renderIf(this.props.currentItemSelectionIndex != -1 && (this.props.currentSelectedItemType == UIConstants.LIST_MODE_PORTAL) && (this.state.showPhotosSelector==false),
-            <TouchableHighlight onPress={()=>{this.setState({showPhotosSelector:true, lastSelectedPortalUUID:this.props.currentItemSelectionIndex})}} underlayColor="#00000000">
-              <Image source={require("./res/btn_clear_all.png")} style={localStyles.previewScreenButtons} />
-            </TouchableHighlight>
+            <ContextMenuButton onPress={()=>{this.setState({showPhotosSelector:true, lastSelectedPortalUUID:this.props.currentItemSelectionIndex})}} 
+                    stateImageArray={[require("./res/btn_clear_all.png")]}
+                    style={localStyles.previewScreenButtons} />
           )}
 
           {renderIf(this.props.currentItemSelectionIndex != -1 && (this.props.currentSelectedItemType == UIConstants.LIST_MODE_PORTAL) && (this.state.showPhotosSelector==false),
-            <TouchableHighlight onPress={()=>{this.setState({showPhotosSelector:true, lastSelectedPortalUUID:this.props.currentItemSelectionIndex})}} underlayColor="#00000000">
-              <Image source={require("./res/btn_add_pic.png")} style={localStyles.previewScreenButtons} />
-            </TouchableHighlight>
+            <ContextMenuButton onPress={()=>{this.setState({showPhotosSelector:true, lastSelectedPortalUUID:this.props.currentItemSelectionIndex})}} 
+                    stateImageArray={[require("./res/btn_add_pic.png")]}
+                    style={localStyles.previewScreenButtons} />
           )}
         </View>
 

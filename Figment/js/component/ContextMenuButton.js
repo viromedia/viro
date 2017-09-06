@@ -21,12 +21,14 @@ import renderIf from '../helpers/renderIf';
 
 var PropTypes = React.PropTypes;
 
-class ListViewItem extends Component {
+class ContextMenuButton extends Component {
   constructor(props) {
     super(props);
     this.scaleValue = new Animated.Value(0);
+    this.fadeInValue = new Animated.Value(0);
+
     // Bindings
-    this.scale = this.scale.bind(this);
+    this.fadeAndScale = this.fadeAndScale.bind(this);
     this._onPress = this._onPress.bind(this);
 
     var imgSource = this.props.stateImageArray[1];
@@ -34,17 +36,24 @@ class ListViewItem extends Component {
 
     this.buttonScale = this.scaleValue.interpolate({
       inputRange: [0, 0.5, 0.8, 1],
-      outputRange: [1, 0.8, 1.1, 1]
+      outputRange: [1, 1.2, 0.8, 1]
+    });
+    this.buttonOpacity = this.fadeInValue.interpolate({
+      inputRange: [0,1],
+      outputRange: [0,1]
     });
 
-  }  
+  }
+  componentDidMount() {
+    this.fadeAndScale();
+  }
   render() {
     return (
       <TouchableHighlight underlayColor="#00000000" onPress={this._onPress}>
       <View>
         <Animated.Image 
             source={this.props.stateImageArray[0]}
-            style={[this.props.style,
+            style={[this.props.style,{opacity: this.buttonOpacity},
                       {
                         transform:[
                           {scale: this.buttonScale}
@@ -57,32 +66,42 @@ class ListViewItem extends Component {
   }
 
   _onPress() {
-    this.scale();
     // Picked from here https://facebook.github.io/react-native/docs/performance.html#my-touchablex-view-isn-t-very-responsive
     requestAnimationFrame(() => {
       this.props.onPress();   
     });
   }
-  scale() {
+  fadeAndScale() {
     this.scaleValue.setValue(0);
-    Animated.timing(
+    Animated.parallel([
+      Animated.timing(
         this.scaleValue,
         {
           toValue: 1,
-          duration: 400,
+          duration: 200,
           easing: Easing.easeInOutBack,
           useNativeDriver: true,
         }
-    ).start();
+      ),
+      Animated.timing(
+        this.fadeInValue,
+        {
+          toValue: 1,
+          duration: 100,
+          easing: Easing.easeInOutBack,
+          useNativeDriver: true, 
+        }
+      )
+    ]).start();
   }
 }
 
 
-ListViewItem.propTypes = {
+ContextMenuButton.propTypes = {
         onPress: PropTypes.func.isRequired,
         stateImageArray: PropTypes.array.isRequired,
         style: PropTypes.any,
         selected: PropTypes.bool,
 };
 
-export default ListViewItem;
+export default ContextMenuButton;
