@@ -113,18 +113,22 @@ export class App extends Component {
             initialScene={{scene: InitialScene}}  ref={this._setARNavigatorRef} viroAppProps={this.state.viroAppProps}
             />
 
+
           {renderIf(this.props.currentScreen != UIConstants.SHOW_SHARE_SCREEN,
             <View style={localStyles.listView}>
               <BlurView style={localStyles.absolute} blurType="dark" blurAmount={10} />
               <FigmentListView items={this._getListItems()} onPress={this._onListPressed} />
-            </View>)}
+            </View>
+            )}
+          
 
           {console.log("CurrentScreen = " + this.props.currentScreen)}
           {this._renderContextMenu()}
-          {this._renderRecord()}
+          {this._renderRecord()}        
           {this._renderButtonLeftMenu()}
           {this._renderShareScreen()}
           {this._renderPhotosSelector()}
+
         </View>
       );
   }
@@ -329,7 +333,7 @@ export class App extends Component {
     }
 
     recordViews.push(
-      <View key="record_button_container" style={{left: 0, right: 0, bottom: 77,  alignItems: 'center', height: 58}}>
+      <View key="record_button_container" style={{position: 'absolute', left: 0, right: 0, bottom: 77,  alignItems: 'center', height: 58}}>
         <View key="record_container" style={{left: 0, right: 0, bottom: 0, flexDirection: 'row', justifyContent: 'flex-end', alignItems:'center', height: 58, width: 120}}>
             <View key="container" style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', height: 58, width: 89}}>
           <RecordButton
