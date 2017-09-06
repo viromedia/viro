@@ -12,7 +12,7 @@ import React, { Component } from 'react';
 
 import { connect } from 'react-redux';
 import { BlurView } from 'react-native-blur';
-import {addPortalWithIndex, removePortalWithUUID, addModelWithIndex, removeModelWithUUID, togglePortalSelection,toggleEffectSelection, changePortalLoadState, changePortalPhoto, changeModelLoadState, changeItemClickState, switchListMode, removeARObject, displayUIScreen } from './redux/actions';
+import {addPortalWithIndex, removePortalWithUUID, addModelWithIndex, removeAll, removeModelWithUUID,toggleEffectSelection, changePortalLoadState, changePortalPhoto, changeModelLoadState, changeItemClickState, switchListMode, removeARObject, displayUIScreen } from './redux/actions';
 import TimerMixin from 'react-timer-mixin';
 
 import * as LoadingConstants from './redux/LoadingStateConstants';
@@ -84,6 +84,7 @@ export class App extends Component {
     this._startStopWatch = this._startStopWatch.bind(this);
     this._getLoadingforModelIndex = this._getLoadingforModelIndex.bind(this);
     this._constructListArrayModel = this._constructListArrayModel.bind(this);
+    this._onContextClearAll = this._onContextClearAll.bind(this);
 
     this.state = {
       currentModeSelected:kObjSelectMode,
@@ -132,7 +133,10 @@ export class App extends Component {
     console.log("_renderContextMenu + index: " + this.props.currentItemSelectionIndex + ", clickState: " + this.props.currentItemClickState);
     var selectedItemIndex = this.props.currentItemSelectionIndex;
     var clickState = this.props.currentItemClickState;
-
+    var totalHeight = 120;
+    if(this.props.currentSelectedItemType != UIConstants.LIST_MODE_PORTAL) {
+        totalHeight = 80;
+    }
     // If clickState == 2, start timer for 2 seconds, then dispatch state change to reset item selection
     if (selectedItemIndex != -1 && clickState == 2) {
       TimerMixin.setTimeout(
@@ -143,7 +147,7 @@ export class App extends Component {
       );
     }
       return (
-        <View style={{position:'absolute', flex:1, flexDirection:'column', justifyContent: 'space-between',alignItems: 'flex-end', right:10, top:20, width:80, height:120}}>
+        <View style={{position:'absolute', flex:1, flexDirection:'column', justifyContent: 'space-between',alignItems: 'flex-end', right:10, top:20, width:80, height:totalHeight}}>
           {console.log("this.props.currentItemSelectionIndex in render - " + this.props.currentItemSelectionIndex)}
           {renderIf(this.props.currentItemSelectionIndex != -1 && (this.state.showPhotosSelector==false),
             <ContextMenuButton onPress={this._onContextMenuRemoveButtonPressed} 
@@ -152,7 +156,7 @@ export class App extends Component {
           )}
 
           {renderIf(this.props.currentItemSelectionIndex != -1 && (this.props.currentSelectedItemType == UIConstants.LIST_MODE_PORTAL) && (this.state.showPhotosSelector==false),
-            <ContextMenuButton onPress={()=>{this.setState({showPhotosSelector:true, lastSelectedPortalUUID:this.props.currentItemSelectionIndex})}} 
+            <ContextMenuButton onPress={()=>{this._onContextClearAll}}
                     stateImageArray={[require("./res/btn_clear_all.png")]}
                     style={localStyles.previewScreenButtons} />
           )}
@@ -183,11 +187,23 @@ export class App extends Component {
               lastSelectedPortalUUID:-1,
             });
         }
+
         this.props.dispatchRemovePortalWithUUID(index);
       }
       this.props.dispatchChangeItemClickState(-1, '', '');
 
     }
+  }
+
+  _onContextClearAll() {
+      Alert.alert(
+        "Remove All Objects",
+        "Are you sure you want to clear the entire scene?",
+        [
+          {text: 'Cancel', onPress: () => {}},
+          {text: 'OK', onPress: () => this.props.dispatchRemoveAll()},
+        ],
+      );
   }
 
   _renderPhotosSelector() {
@@ -567,6 +583,7 @@ var localStyles = StyleSheet.create({
   doneText: {
     textAlign: 'right',
     color: '#d6d6d6',
+    fontWeight: 'bold',
     fontFamily: 'Helvetica Neue',
     fontSize: 16,
     marginTop:20,
@@ -719,7 +736,7 @@ const mapDispatchToProps = (dispatch) => {
     dispatchRemovePortalWithUUID: (uuid) => dispatch(removePortalWithUUID(uuid)),
     dispatchAddModel: (index) => dispatch(addModelWithIndex(index)),
     dispatchRemoveModelWithUUID: (uuid) => dispatch(removeModelWithUUID(uuid)),
-    dispatchTogglePortalSelection: (index) => dispatch(togglePortalSelection(index)),
+    dispatchRemoveAll:() => dispatch(removeAll()),
     dispatchToggleEffectSelection: (index) => dispatch(toggleEffectSelection(index)),
     dispatchChangeModelLoadState:(index, loadState) =>dispatch(changeModelLoadState(index, loadState)),
     dispatchChangePortalLoadState:(index, loadState) =>dispatch(changePortalLoadState(index, loadState)),

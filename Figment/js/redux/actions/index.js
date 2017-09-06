@@ -45,6 +45,12 @@ export function removePortalWithUUID(uuid) {
   }
 }
 
+export function removeAll() {
+  return {
+    type:'REMOVE_ALL',
+  }
+}
+
 export function toggleModelSelection(index) {
   console.log("EXECUTING TOGGLE_MODEL_ITEM index:" + index);
   return {
@@ -56,14 +62,6 @@ export function toggleModelSelection(index) {
 export function toggleEffectSelection(index) {
   return {
     type: 'TOGGLE_EFFECT_SELECTED',
-    index: index,
-  };
-}
-
-export function togglePortalSelection(index) {
-  console.log("EXECUTING TOGGLE PORTAL SELECTED index:" + index);
-  return {
-    type: 'TOGGLE_PORTAL_SELECTED',
     index: index,
   };
 }

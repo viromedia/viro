@@ -76,10 +76,16 @@ function modifyEffectSelection(state = [], action) {
         } else {
           if (!state[i].selected) {
             state[i].selected = true;
-
           } // else if this effect was already selected; do nothing
         }
         effectToggleArray.push(state[i]);
+      }
+      return effectToggleArray;
+    case 'REMOVE_ALL':
+      var effectToggleArray = [];
+      for(var i =0; i<state.length; i++) {
+          state[i].selected = false;
+          effectToggleArray.push(state[i]);
       }
       return effectToggleArray;
   }
@@ -132,7 +138,17 @@ function arobjects(state = initialState, action) {
         ...state,
         portalItems: {...removeModelItem(state.portalItems, action)},
       }
-   case 'CHANGE_MODEL_LOAD_STATE':
+    case 'REMOVE_ALL':
+      //clear efffects
+      var updatedEffects = modifyEffectSelection(state.effectItems.slice(0), action);
+      return {
+        ...state,
+        portalItems:{},
+        modelItems:{},
+        effectItems: updatedEffects.slice(0),
+        postProcessEffect: EffectsConstants.EFFECT_NONE,
+      }
+    case 'CHANGE_MODEL_LOAD_STATE':
       return {
         ...state,
         modelItems: {...modifyLoadState(state.modelItems, action)},
