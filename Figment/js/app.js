@@ -289,7 +289,7 @@ export class App extends Component {
           onPress={()=>{this.props.dispatchSwitchListMode(UIConstants.LIST_MODE_PORTAL, UIConstants.LIST_TITLE_PORTALS)}}
           buttonState={(this.props.listMode==UIConstants.LIST_MODE_PORTAL) ? 'on':'off'}
           stateImageArray={[require("./res/btn_mode_portals_on.png"), require("./res/btn_mode_portals.png")]}
-          style={localStyles.screenIcon}
+          style={localStyles.screenIcon} selected={(this.props.listMode == UIConstants.LIST_MODE_PORTAL)}
           />);
 
     buttons.push(
@@ -297,7 +297,7 @@ export class App extends Component {
           onPress={()=>{this.props.dispatchSwitchListMode(UIConstants.LIST_MODE_EFFECT, UIConstants.LIST_TITLE_EFFECTS)}}
           buttonState={(this.props.listMode==UIConstants.LIST_MODE_EFFECT) ? 'on':'off'}
           stateImageArray={[require("./res/btn_mode_effects_on.png"), require("./res/btn_mode_effects.png")]}
-          style={localStyles.screenIcon}
+          style={localStyles.screenIcon} selected={(this.props.listMode == UIConstants.LIST_MODE_EFFECT)}
           />);
 
     buttons.push(
@@ -305,7 +305,7 @@ export class App extends Component {
             onPress={()=>{this.props.dispatchSwitchListMode(UIConstants.LIST_MODE_MODEL, UIConstants.LIST_TITLE_MODELS)}}
             buttonState={(this.props.listMode==UIConstants.LIST_MODE_MODEL) ? 'on':'off'}
             stateImageArray={[require("./res/btn_mode_objects_on.png"), require("./res/btn_mode_objects.png")]}
-            style={localStyles.screenIcon} selected={true}
+            style={localStyles.screenIcon} selected={(this.props.listMode == UIConstants.LIST_MODE_MODEL)}
             />);
     console.log("UIConstants." + this.props.currentScreen);
     if(this.props.currentScreen == UIConstants.SHOW_MAIN_SCREEN || this.props.currentScreen == UIConstants.SHOW_RECORDING_SCREEN) {
