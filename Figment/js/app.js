@@ -160,7 +160,7 @@ export class App extends Component {
           )}
 
           {renderIf(this.props.currentItemSelectionIndex != -1 && (this.state.showPhotosSelector==false),
-            <ContextMenuButton onPress={()=>{this._onContextClearAll}}
+            <ContextMenuButton onPress={this._onContextClearAll}
                     stateImageArray={[require("./res/btn_clear_all.png")]}
                     style={localStyles.previewScreenButtons} />
           )}
