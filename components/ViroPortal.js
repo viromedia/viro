@@ -109,14 +109,6 @@ var ViroPortal = React.createClass({
      this._component.setNativeProps(nativeProps);
   },
 
-  _onPinch: function(event: Event) {
-    this.props.onPinch && this.props.onPinch(event.nativeEvent.pinchState, event.nativeEvent.scaleFactor, event.nativeEvent.source);
-  },
-
-  _onRotate: function(event: Event) {
-    this.props.onRotate && this.props.onRotate(event.nativeEvent.rotateState, event.nativeEvent.rotationFactor, event.nativeEvent.source);
-  },
-
   _onTouch: function(event: Event) {
     this.props.onTouch && this.props.onTouch(event.nativeEvent.touchState, event.nativeEvent.touchPos, event.nativeEvent.source);
   },

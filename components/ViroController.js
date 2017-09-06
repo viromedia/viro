@@ -65,6 +65,14 @@ var ViroController = React.createClass({
     this.props.onFuse && this.props.onFuse(event.nativeEvent.source);
   },
 
+  _onPinch: function(event: Event) {
+    this.props.onPinch && this.props.onPinch(event.nativeEvent.pinchState, event.nativeEvent.scaleFactor, event.nativeEvent.source);
+  },
+
+  _onRotate: function(event: Event) {
+    this.props.onRotate && this.props.onRotate(event.nativeEvent.rotateState, event.nativeEvent.rotationFactor, event.nativeEvent.source);
+  },
+
   async getControllerForwardAsync() {
     return await ViroControllerModule.getForwardVectorAsync(findNodeHandle(this));
   },
