@@ -69,7 +69,7 @@ class ListViewItem extends Component {
         this.scaleValue,
         {
           toValue: 1,
-          duration: 400,
+          duration: 300,
           easing: Easing.easeInOutBack,
           useNativeDriver: true,
         }

@@ -245,15 +245,15 @@ export class App extends Component {
           </TouchableOpacity>
           )}
 
-          <View style={{position:'absolute', left:35, bottom:1, width:80, height:80}}>
+          <View style={{position:'absolute', left:25, bottom:15, width:30, height:30}}>
             <TouchableHighlight onPress={()=>{this._openShareActionSheet()}} underlayColor="#00000000">
               <Image source={require("./res/btn_share.png")} style={localStyles.previewScreenButtonShare} />
             </TouchableHighlight>
           </View>
 
-          <View style={{position:'absolute', left:25, top:20, width:80, height:80}}>
+          <View style={{position:'absolute', left:25, top:20, width:30, height:30}}>
             <TouchableHighlight onPress={()=>{this.props.dispatchDisplayUIScreen(UIConstants.SHOW_MAIN_SCREEN)}} underlayColor="#00000000">
-              <Image source={require("./res/btn_close.png")} style={localStyles.previewScreenButtons} />
+              <Image source={require("./res/btn_close.png")} style={localStyles.previewScreenButtonClose} />
             </TouchableHighlight>
           </View>
         </View>
@@ -591,9 +591,16 @@ var localStyles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  previewScreenButtonClose: {
+    height: 20,
+    width: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
   previewScreenButtonShare: {
-    height: 50,
-    width: 50,
+    height: 30,
+    width: 30,
     borderRadius: 20,
     justifyContent: 'center',
     alignItems: 'center',
@@ -638,8 +645,8 @@ var localStyles = StyleSheet.create({
     marginTop: 10,
   },
   previewPlayButton : {
-    height : 100,
-    width : 100,
+    height : 60,
+    width : 60,
   },
   shareScreenContainer: {
     position : 'absolute',

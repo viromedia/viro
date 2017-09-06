@@ -78,7 +78,7 @@ class ContextMenuButton extends Component {
         this.scaleValue,
         {
           toValue: 1,
-          duration: 200,
+          duration: 300,
           easing: Easing.easeInOutBack,
           useNativeDriver: true,
         }
@@ -87,8 +87,8 @@ class ContextMenuButton extends Component {
         this.fadeInValue,
         {
           toValue: 1,
-          duration: 100,
-          easing: Easing.easeInOutBack,
+          duration: 300,
+          easing: Easing.linear,
           useNativeDriver: true, 
         }
       )
