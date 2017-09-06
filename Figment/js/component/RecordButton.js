@@ -66,15 +66,6 @@ class RecordButton extends Component {
     this.fadeInValue.setValue(0);
     this.fadeOutValue.setValue(0);
   }
-
-  componentWillUpdate() {
-    this.scaleUpValue.setValue(0);
-    this.scaleDownValue.setValue(0);
-
-    this.fadeInValue.setValue(0);
-    this.fadeOutValue.setValue(0);
-
-  }
   render() {
 
     return (
@@ -102,7 +93,13 @@ class RecordButton extends Component {
       </TouchableHighlight>
       );
   }
-
+  componentDidUpdate() {
+    // Don't know why this works. Don't touch this. Magic.
+    if (this.props.buttonState == 'off') {
+          this.fadeOutValue.setValue(0);
+          this.scaleDownValue.setValue(0);
+    }
+  }
   _onPress() {
       this.scaleAndFade();
      
@@ -155,8 +152,8 @@ class RecordButton extends Component {
         this.scaleDownValue,
         {
           toValue: 1,
-          duration: 300,
-          easing: Easing.linear,
+          duration: 200,
+          easing: Easing.easeInOutBack,
           useNativeDriver: true,
         }
     ),
@@ -164,8 +161,8 @@ class RecordButton extends Component {
         this.scaleUpValue,
         {
           toValue: 1,
-          duration: 300,
-          easing: Easing.linear,
+          duration: 200,
+          easing: Easing.easeInOutBack,
           useNativeDriver: true,
         }
     ),
@@ -173,7 +170,7 @@ class RecordButton extends Component {
       this.fadeInValue,
       {
         toValue: 1,
-        duration: 300,
+        duration: 200,
         easing: Easing.linear,
         useNativeDriver: true, 
       }
@@ -182,7 +179,7 @@ class RecordButton extends Component {
       this.fadeOutValue,
       {
         toValue: 1,
-        duration: 300,
+        duration: 200,
         easing: Easing.linear,
         useNativeDriver: true, 
       }
