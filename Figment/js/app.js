@@ -326,7 +326,7 @@ export class App extends Component {
 
     if(this.props.currentScreen == UIConstants.SHOW_RECORDING_SCREEN) {
       recordViews.push(
-        <View key="record_timeline" style={{position: 'absolute', backgroundColor: '#00000099', left: 0, right: 0, top: 0, height:45,  alignSelf: 'stretch' }}>
+        <View key="record_timeline" style={{position: 'absolute', backgroundColor: '#00000066', left: 0, right: 0, top: 0, height:34,  alignSelf: 'stretch', alignItems: 'center', justifyContent: 'center'}}>
           <Text style={localStyles.recordingTimeText}>{this.state.hours}:{this.state.minutes}:{this.state.seconds}</Text>
         </View>
       );
@@ -417,14 +417,6 @@ export class App extends Component {
   }
 
   _stopRecording() {
-    // Stop stop watch at the top
-    clearInterval(this.state.timer);
-    this.setState({
-        hours: '00',
-        minutes: '00',
-        seconds: '00',
-        miliseconds: '00',
-      });
 
     this._arNavigator._stopVideoRecording().then((retDict)=>{
       console.log("[JS] success? " + retDict.success);
@@ -441,6 +433,16 @@ export class App extends Component {
         previewType: kPreviewTypeVideo,
       });
       this.props.dispatchDisplayUIScreen(UIConstants.SHOW_SHARE_SCREEN);
+
+      // Stop stop watch at the top
+      clearInterval(this.state.timer);
+      this.setState({
+          hours: '00',
+          minutes: '00',
+          seconds: '00',
+          miliseconds: '00',
+        });
+
     });
   }
 
@@ -658,12 +660,9 @@ var localStyles = StyleSheet.create({
   },
   recordingTimeText: {
     textAlign: 'center',
-    justifyContent: 'center',
-    alignItems: 'center',
     color: '#d6d6d6',
     fontFamily: 'Helvetica Neue',
-    fontSize:18,
-    marginTop: 10,
+    fontSize:16,
   },
   previewPlayButton : {
     height : 60,
