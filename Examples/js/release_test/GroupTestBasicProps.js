@@ -80,6 +80,7 @@ var GroupTestBasicProps = React.createClass({
                          scale={[1.8 * this.state.offsetData[10].scale, 1.8 * this.state.offsetData[10].scale , 1.8]}
                          position={[-3.2 + this.state.offsetData[10].translate, 2.5, -4.5]}
                           rotation={[0,this.state.offsetData[10].rotate,0]}
+                          type="OBJ"
                           materials={["heart"]} onClick={this._elementClick(10)} visible={this.state.offsetData[10].isVisible}/>
 
                   <ViroBox

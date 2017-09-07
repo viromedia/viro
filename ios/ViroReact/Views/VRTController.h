@@ -14,8 +14,13 @@
 
 @property (nonatomic, copy, nullable) RCTDirectEventBlock onClickViro;
 @property (nonatomic, copy, nullable) RCTDirectEventBlock onFuseViro;
+@property (nonatomic, copy, nullable) RCTDirectEventBlock onRotateViro;
+@property (nonatomic, copy, nullable) RCTDirectEventBlock onPinchViro;
+
 @property (nonatomic, assign) BOOL canClick;
 @property (nonatomic, assign) BOOL canFuse;
+@property (nonatomic, assign) BOOL canRotate;
+@property (nonatomic, assign) BOOL canPinch;
 
 - (instancetype) initWithBridge:(RCTBridge *)bridge;
 - (void) onClick:(int)source clickState:(VROEventDelegate::ClickState)clickState;

@@ -46,12 +46,15 @@ var HelloWorldScene = React.createClass({
 
           <Viro3DObject source={require('./res/3d_objects/orbit_ring_a.obj')}
               position={[0, 0, 0]}
+              type="OBJ"
               materials={["earth_orbit"]} />
           <Viro3DObject source={require('./res/3d_objects/sun.obj')}
               position={[0, 0, 0]}
+              type="OBJ"
               materials={["sun"]} />
           <Viro3DObject source={require('./res/3d_objects/e_sun_glow.obj')}
               position={[0, 0, 0]}
+              type="OBJ"
               materials={["sun_glow"]}
               rotation={[90,0,0]}
               transformBehaviors={["billboard"]} />
@@ -73,6 +76,7 @@ var HelloWorldScene = React.createClass({
                 <Viro3DObject source={require('./res/3d_objects/earth.obj')}
                                 position={[-11.6, 0, 0]}
                                 scale={[2.5, 2.5, 2.5]}
+                                type="OBJ"
                                 materials={["earth"]} />
               </ViroAnimatedComponent>
 
@@ -82,6 +86,7 @@ var HelloWorldScene = React.createClass({
                   <ViroNode position={[0.85, 0, 0]} >
                     <Viro3DObject source={require('./res/3d_objects/moon.obj')}
                                     scale={[2.5, 2.5, 2.5]}
+                                    type="OBJ"
                                     materials={["moon"]} />
                   </ViroNode>
                 </ViroNode>

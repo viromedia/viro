@@ -49,6 +49,7 @@ var scene_ios_test = React.createClass({
                                       require('./res/01_-_Default1noCulling.JPG'),
                                       require('./res/male-02-1noCulling.JPG'),
                                       require('./res/orig_02_-_Defaul1noCulling.JPG')]}
+                          type="OBJ"
                           position={[-0.0, -100, -10]}
                           scale={[0.1, 0.1, 0.1]}
                           onLoadStart={this._onLoadObjStart}
@@ -57,6 +58,7 @@ var scene_ios_test = React.createClass({
           <Viro3DObject source={require('./res/heart.obj')}
                           position={[0.2, -5.5, -1.15]}
                           materials={["heart"]}
+                          type="OBJ"
                            />
         </ViroScene>
     );

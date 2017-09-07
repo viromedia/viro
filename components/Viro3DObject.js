@@ -37,6 +37,7 @@ var Viro3DObject = React.createClass({
       PropTypes.arrayOf(PropTypes.string),
       PropTypes.string
     ]),
+    type: PropTypes.oneOf(['OBJ', 'VRX']).isRequired,
     opacity: PropTypes.number,
     ignoreEventHandling: PropTypes.bool,
     lightBitMask : PropTypes.number,

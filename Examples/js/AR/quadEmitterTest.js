@@ -140,7 +140,7 @@ var testARScene = React.createClass({
         <ViroARPlane minHeight={0} maxHeight={0} onComponentFound={()=>{console.log("ARPlane component 1 found!")}} >
           <ViroSurface rotation={[-90,0,0]} materials={"blue"} opacity={.5} />
           <Viro3DObject source={require('./res/aliengirl.obj')} scale={[.005,.005,.005]}
-                  materials={["aliengirl"]}
+                  materials={["aliengirl"]} type="OBJ"
                   onClick={()=>{this.setState({showObj : false})}} />
         </ViroARPlane>)
     }

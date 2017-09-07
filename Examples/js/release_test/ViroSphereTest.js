@@ -128,7 +128,7 @@
      });
    },
    _toggleRadius() {
-     var newRadius = this.state.radius + 2;
+     var newRadius = this.state.radius + 5;
      if (newRadius > 20){
         newRadius = 0.5;
      }

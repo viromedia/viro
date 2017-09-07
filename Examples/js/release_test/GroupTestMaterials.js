@@ -96,7 +96,8 @@ var GroupTestMaterials = React.createClass({
                 <Viro3DObject source={require('../res/heart.obj')}
                               scale={[1.8, 1.8, 1.8]}
                               position={[-3.2, 2.5, -4.5]}
-                              materials={[heartMat]}/>
+                              type="OBJ"
+                              materials={heartMat == "null" ? [] : [heartMat]}/>
 
                 <ViroBox position={[-1, 1, 0]}
                          scale={[0.4, 0.4, 0.4]}

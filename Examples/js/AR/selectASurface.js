@@ -112,7 +112,7 @@ var testARScene = React.createClass({
   },
   _getObject(planeNum) {
     if (planeNum == this.state.selectedSurface) {
-      return (<Viro3DObject source={require('./res/aliengirl.obj')} scale={[.005,.005,.005]}
+      return (<Viro3DObject source={require('./res/aliengirl.obj')} scale={[.005,.005,.005]} type="OBJ"
                 materials={["aliengirl"]} onDrag={()=>{}} onClick={()=>{this.setState({showObj : false})}}/>)
     }
   },

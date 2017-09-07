@@ -144,9 +144,7 @@
     }
     
     BOOL isOBJ = NO;
-    std::string urlPath = std::string([[_url path] UTF8String]);
-    VROStringUtil::toLowerCase(urlPath);
-    if (VROStringUtil::endsWith(urlPath, "obj")) {
+    if ([_type isEqualToString:@"OBJ"]) {
         isOBJ = YES;
     }
     

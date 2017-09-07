@@ -28,6 +28,10 @@ import java.util.Set;
 public class Object3d extends Control {
     private static final String TAG = ViroLog.getTag(Object3d.class);
 
+    private enum ObjectType {
+        OBJ, VRX
+    }
+
     private static class Object3dAnimation extends ManagedAnimation {
         private NodeJni mNode;
         private String mAnimationKey;
@@ -60,6 +64,7 @@ public class Object3d extends Control {
     private List<String> mResources = null;
     private boolean mObjLoaded = false;
     private boolean mSourceChanged = false;
+    private ObjectType mType;
 
     public Object3d(ReactApplicationContext reactContext) {
         super(reactContext);
@@ -77,6 +82,14 @@ public class Object3d extends Control {
             mNative3dObject = null;
         }
         super.onTearDown();
+    }
+
+    public void setType(String type) {
+        try {
+            mType = ObjectType.valueOf(type.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException("String [" + type + "] is not a valid object type.");
+        }
     }
 
     public void setSource(String source) {
@@ -148,10 +161,7 @@ public class Object3d extends Control {
             }
         };
 
-        boolean isFBX = true;
-        if (mSource.getPath().toLowerCase().endsWith("obj")) {
-            isFBX = false;
-        }
+        boolean isVRX = mType == ObjectType.VRX;
 
         // if the source is from resources, then pass in the resources it depends on (if any)
         if (mSource.getScheme().equals("res")) {
@@ -164,9 +174,9 @@ public class Object3d extends Control {
                 }
             }
 
-            mNative3dObject = new ObjectJni(mSource, isFBX, listener, resourceMap);
+            mNative3dObject = new ObjectJni(mSource, isVRX, listener, resourceMap);
         } else {
-            mNative3dObject = new ObjectJni(mSource, isFBX, listener);
+            mNative3dObject = new ObjectJni(mSource, isVRX, listener);
         }
         setGeometry(mNative3dObject);
 

@@ -70,6 +70,11 @@ public class Object3dManager extends NodeManager<Object3d> {
         object3d.setAnimation(map);
     }
 
+    @ReactProp(name = "type")
+    public void setType(Object3d object3d, @Nullable String type) {
+        object3d.setType(type);
+    }
+
     @Override
     public Map getExportedCustomDirectEventTypeConstants() {
         return MapBuilder.of(

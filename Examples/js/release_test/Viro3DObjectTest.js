@@ -70,6 +70,7 @@ var Viro3DObjectTest = React.createClass({
                        materials={["grey"]}
                        rotation={[0, 45, 0]}
                        scale={[.1, .1, .1]}
+                       type="OBJ"
                        onHover={this._startAnimation1}
                        onLoadEnd={this._startAnimation4}
           />
@@ -79,6 +80,7 @@ var Viro3DObjectTest = React.createClass({
                      position={[0, 0, -12.0]}
                      rotation={[0, 0, 0]}
                      scale={[0.1, 0.1, 0.1]}
+                     type="VRX"
                      animation={{name:"Take 001", delay:0, loop:true, run:true,
                                  onStart:this._onAnimStart, onFinish:this._onAnimEnd}}
        />
@@ -89,6 +91,7 @@ var Viro3DObjectTest = React.createClass({
                        materials={["grey"]}
                        rotation={[0,0,0]}
                        scale={[.3,.3,.3]}
+                       type="OBJ"
                        onClick={this._startAnimation2}
                        onLoadStart={this._startAnimation3}
          />
@@ -98,6 +101,7 @@ var Viro3DObjectTest = React.createClass({
          <Viro3DObject source={require('./res/tantiveIV.obj')}
                        position={[-2, -2, -5]}
                        materials={["grey"]}
+                       type="OBJ"
                        rotation={[0,0,0]}
                        scale={[.2,.2,.2]}
          />
@@ -110,6 +114,7 @@ var Viro3DObjectTest = React.createClass({
                                  require('./res/orig_02_-_Defaul1noCulling.JPG')]}
                      position={[-0.0, -20, -10]}
                      scale={[0.1, 0.1, 0.1]}
+                     type="OBJ"
                      onLoadStart={this._onLoadObjStart}
                      onLoadEnd={this._onLoadObjEnd}
         />
@@ -121,6 +126,7 @@ var Viro3DObjectTest = React.createClass({
                         position={[2.0, 0.0, 5.0]}
                         scale={[0.01, 0.01, 0.01]}
                         materials={["earth"]}
+                        type="OBJ"
            />
          </ViroAnimatedComponent>
 

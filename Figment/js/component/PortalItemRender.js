@@ -99,6 +99,7 @@ var PortalItemRender = React.createClass({
                   source={portalItem.obj}
                   materials={portalItem.materials}
                   resource={portalItem.resources}
+                  type={portalItem.frameType}
                   onLoadStart={this._onObjectLoadStart(this.props.portalIDProps.uuid)}
                   onLoadEnd={this._onObjectLoadEnd(this.props.portalIDProps.uuid)}
                   lightBitMask={this.props.bitMask | 1}
@@ -182,8 +183,8 @@ var PortalItemRender = React.createClass({
                 shadowNearZ={.1}
                 shadowFarZ={5}
                 shadowOpacity={.9} />);
-            viewArray.push(<Viro3DObject key="obj_3d" position={[0,-2,-6]} source={require('../res/art_gallery/artgallery2.vrx')} key="background_portal" />);
-            viewArray.push(<Viro3DObject key="obj_3d_frame" opacity={.4} position={[0, 0,-6]} source={require('../res/art_gallery/artgallery_picture_frame.vrx')} />);
+            viewArray.push(<Viro3DObject key="obj_3d" position={[0,-2,-6]} source={require('../res/art_gallery/artgallery2.vrx')} key="background_portal" type="VRX" />);
+            viewArray.push(<Viro3DObject key="obj_3d_frame" opacity={.4} position={[0, 0,-6]} source={require('../res/art_gallery/artgallery_picture_frame.vrx')} type="VRX" />);
             viewArray.push(<ViroImage key="image_portal" width={1} height={1}  resizeMode='scaleToFit' source={portalSource.source}
                         position={[0, 0,-6]} scale={[1, 1, 1]} />);
           }

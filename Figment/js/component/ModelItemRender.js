@@ -88,6 +88,7 @@ var ModelItemRender = React.createClass({
             <Viro3DObject
               position={modelItem.position}
               source={modelItem.obj}
+              type={modelItem.type}
               materials={modelItem.materials}
               resources={modelItem.resources}
               animation={modelItem.animation}

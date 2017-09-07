@@ -59,6 +59,7 @@ var LeakTest1 = React.createClass({
                 source={require('../res/heart.obj')}
                 scale={[1.8, 1.8, 1.8]}
                 position={[-3.2, 2.5, -4.5]}
+                type="OBJ"
                 materials={[heartMat]}
               />
 

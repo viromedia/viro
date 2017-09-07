@@ -95,6 +95,7 @@ onDrag(objectTag){return (dragtoPos, source) => {
                              scale={[1.8, 1.8, 1.8]}
                               position={[-3.2, 2.5, -4.5]}
                               materials={["heart"]}
+                              type="OBJ"
                               onDrag={this.onDrag("3dObject")}/>
 
                   <ViroBox

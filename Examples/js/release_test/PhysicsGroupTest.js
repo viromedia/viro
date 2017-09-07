@@ -149,6 +149,7 @@ var GroupTestBasicPhysics = React.createClass({
                       scale={[1.8, 1.8, 1.8]}
                       position={[-3.2, 2.5, -4.5]}
                       materials={["heart"]}
+                      type="OBJ"
                       onDrag={this.state.toggleDraggable ? this.onDrag("Viro3DObject") : undefined}
                       physicsBody={this.state.physicsEnabled?
                         {type:'dynamic', mass:1, enabled:true, useGravity:this.state.gravityEnabled}:undefined}

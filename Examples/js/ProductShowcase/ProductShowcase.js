@@ -210,7 +210,7 @@ var ProductShowcase = React.createClass({
 
     // a product may have multiple obj's representing it, so create a Viro3DObject component for each 
     for (var i = 0; i < product.objects.length; i++) {
-      objects.push((<Viro3DObject key={"model" + i} source={product.objects[i]} materials={product.materials[i]}/>))
+      objects.push((<Viro3DObject key={"model" + i} source={product.objects[i]} type="OBJ" materials={product.materials[i]}/>))
     }
 
     var position = [0 + product.objectOffset[0], 0 + product.objectOffset[1], -5 + product.objectOffset[2]];

@@ -96,7 +96,7 @@ var A9Demo = React.createClass({
   _get3dObject() {
       if(this.state.show3dModel) {
         return(<ViroAnimatedComponent animation={this.state.tvAnimation} run={this.state.runTVAnimation} loop={false}>
-            <Viro3DObject onClick={this._objectClick} source={require('./res/a9_3d_assets/samsung_tv.obj')} materials="tv" rotation={[0, 38, 0]} scale={[0.3, 0.3, 0.3]} position={[0, 0, -5]}/>
+            <Viro3DObject onClick={this._objectClick} source={require('./res/a9_3d_assets/samsung_tv.obj')} type="OBJ" materials="tv" rotation={[0, 38, 0]} scale={[0.3, 0.3, 0.3]} position={[0, 0, -5]}/>
           </ViroAnimatedComponent>);
       }else {
         <ViroBox position={[0, -50, 0]} />

@@ -77,6 +77,7 @@ var GroupTestBasicAnimation = React.createClass({
                               scale={[1.8, 1.8, 1.8]}
                               position={[-3.2, 2.5, -4.5]}
                               materials={["heart"]}
+                              type="OBJ"
                               onClick={this._elementClick(10)} />
 
                  </ViroAnimatedComponent>

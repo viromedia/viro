@@ -97,6 +97,7 @@ var GroupTestBasicBillboard = React.createClass({
                              scale={[.2 , .2  , .2]}
                               position={[-2 , 1, 0]}
                               materials={["heart"]}
+                              type="OBJ"
                               transformBehaviors={newTransformBehaviors}/>
 
                   <ViroBox

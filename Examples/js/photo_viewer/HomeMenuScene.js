@@ -52,7 +52,7 @@ var HomeMenuScene = React.createClass({
         rotation={[0,180,0]}/>
 
         <Viro3DObject source={require("./res/home_logo_viro_top.obj")} position={polarToCartesian([6.5, 0, 30])}
-        materials={["home_logo_viro"]} transformBehaviors={"billboardY"}/>
+        materials={["home_logo_viro"]} transformBehaviors={"billboardY"} type="OBJ" />
 
         <ViroSphere radius={1.7} position={polarToCartesian([6.5, -35, 9])} materials={["spherematerial1"]} />
         <ViroAnimatedComponent animation='animateSphere' run={this.state.runSphereAnimation}>
@@ -63,38 +63,38 @@ var HomeMenuScene = React.createClass({
         <ViroAnimatedComponent animation={this.state.button1Animation} run={this.state.moveForwardAnimation1} onFinish={this._onAnimationFinished}>
           <ViroNode>
               <Viro3DObject source={require("./res/btn_home_a.obj")} position={polarToCartesian([6.1, -40, -20])}
-              materials={["home_button_cameraroll"]} transformBehaviors={"billboardY"} onHover={this._cameraRollMoveForward}/>
+              materials={["home_button_cameraroll"]} transformBehaviors={"billboardY"} onHover={this._cameraRollMoveForward} type="OBJ"/>
               <Viro3DObject source={require("./res/home_cameraroll.obj")} position={polarToCartesian([5.8, -40, -20])}
-              materials={["home_cameraroll"]} transformBehaviors={"billboardY"}/>
+              materials={["home_cameraroll"]} transformBehaviors={"billboardY"} type="OBJ"/>
               <ViroImage source={require('./res/camera_roll_shadow.png')} transformBehaviors={"billboardY"} position={polarToCartesian([5.9, -41, -21])}/>
           </ViroNode>
         </ViroAnimatedComponent>
         <ViroAnimatedComponent animation={this.state.button2Animation} run={this.state.moveForwardAnimation2} onFinish={this._onAnimationFinished}>
           <ViroNode>
             <Viro3DObject source={require("./res/btn_home_a.obj")} position={polarToCartesian([6.1, -20, -20])}
-            materials={["home_button_viro"]} transformBehaviors={"billboardY"} onHover={this._viroMoveForward}/>
+            materials={["home_button_viro"]} transformBehaviors={"billboardY"} onHover={this._viroMoveForward} type="OBJ"/>
             <Viro3DObject source={require("./res/btn_viro.obj")} position={polarToCartesian([5.8, -20, -14])}
-            materials={["home_viro"]} transformBehaviors={"billboardY"} scale={[0.1,0.1,0.1]}/>
+            materials={["home_viro"]} transformBehaviors={"billboardY"} scale={[0.1,0.1,0.1]} type="OBJ"/>
             <ViroImage source={require('./res/viro_shadow.png')} transformBehaviors={"billboardY"} position={polarToCartesian([5.9, -20.5, -20.5])}/>
           </ViroNode>
         </ViroAnimatedComponent>
         <Viro3DObject source={require("./res/btn_home_a.obj")} position={polarToCartesian([6.1, 0, -20])}
-        materials={["home_button_flickr"]} transformBehaviors={"billboardY"}/>
+        materials={["home_button_flickr"]} transformBehaviors={"billboardY"} type="OBJ"/>
         <Viro3DObject source={require("./res/home_global360.obj")} position={polarToCartesian([5.4, -2, -22])}
-        materials={["home_flickr"]} transformBehaviors={"billboardY"} scale={[0.1,0.1,0.1]}/>
+        materials={["home_flickr"]} transformBehaviors={"billboardY"} scale={[0.1,0.1,0.1]} type="OBJ"/>
         <ViroImage source={require('./res/global360_shadow.jpg')} transformBehaviors={"billboardY"} position={polarToCartesian([5.9, 0, -20.5])} scale={[1.6,1.6,1.6]}/>
 
         <Viro3DObject source={require("./res/btn_home_a.obj")} position={polarToCartesian([6.1, 20, -20])}
-        materials={["home_button_fblive"]} transformBehaviors={"billboardY"}/>
+        materials={["home_button_fblive"]} transformBehaviors={"billboardY"} type="OBJ" />
         <Viro3DObject source={require("./res/home_livevideo.obj")} position={polarToCartesian([5.7, 20, -20])}
-        materials={["home_livevideo"]} transformBehaviors={"billboardY"}/>
+        materials={["home_livevideo"]} transformBehaviors={"billboardY"} type="OBJ" />
         <ViroImage source={require('./res/fb_live_shadow.png')} transformBehaviors={"billboardY"} position={polarToCartesian([5.8, 20.5, -20.5])}/>
 
 
         <Viro3DObject source={require("./res/btn_home_a.obj")} position={polarToCartesian([6.1, 40, -20])}
-        materials={["home_button_movie"]} transformBehaviors={"billboardY"}/>
+        materials={["home_button_movie"]} transformBehaviors={"billboardY"} type="OBJ"/>
         <Viro3DObject source={require("./res/home_movie.obj")} position={polarToCartesian([6, 40, -20])}
-        materials={["home_movie"]} transformBehaviors={"billboardY"}/>
+        materials={["home_movie"]} transformBehaviors={"billboardY"} type="OBJ"/>
       </ViroScene>
     );
   },

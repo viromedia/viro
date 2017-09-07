@@ -64,6 +64,7 @@ var ViroPortalTest = React.createClass({
                                rotation={[0, 0, 0]}
                                scale={[0.1, 0.1, 0.1]}
                                materials={["ring"]}
+                               type="OBJ"
                  />
                </ViroPortalFrame>
 
