@@ -145,9 +145,13 @@ var ViroVideoTest = React.createClass({
     });
   },
   _restartVideo() {
-    this.refs[VIDEO_REF].seekToTime(0);
+    // This tests seeking to a non integer number and seeking in general.
+    this.refs[VIDEO_REF].seekToTime(shouldResetToHalfSecond ? .5 : 0);
+    shouldResetToHalfSecond = !shouldResetToHalfSecond;
   },
 });
+
+var shouldResetToHalfSecond = false;
 
 var styles = StyleSheet.create({
   baseTextTwo: {
