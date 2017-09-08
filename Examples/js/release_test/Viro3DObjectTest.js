@@ -85,6 +85,12 @@ var Viro3DObjectTest = React.createClass({
                                  onStart:this._onAnimStart, onFinish:this._onAnimEnd}}
        />
 
+       <Viro3DObject source={{"uri" : "https://s3-us-west-2.amazonaws.com/viro/heart.obj"}}
+              scale={[1.8, 1.8, 1.8]}
+              position={[-2, 1, 0]}
+              type="OBJ"
+              materials="heart"/>
+
        <ViroAnimatedComponent animation="loopRotate" run={this.state.runAnimation2} >
          <Viro3DObject source={require('./res/xwing.obj')}
                        position={[2, -2, -5]}
@@ -213,7 +219,7 @@ var styles = StyleSheet.create({
 ViroMaterials.createMaterials({
   heart: {
     lightingModel: "Constant",
-    diffuseTexture: require('../res/heart_d.jpg'),
+    diffuseTexture: { "uri" : "https://s3-us-west-2.amazonaws.com/viro/heart_d.jpg" },
   },
   grey: {
     shininess : 2.0,
