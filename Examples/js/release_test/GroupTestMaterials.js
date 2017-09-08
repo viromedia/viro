@@ -53,6 +53,12 @@ var GroupTestMaterials = React.createClass({
     var newMaterial;
     var transformText;
     var heartMat;
+    // TODO: this is NOT the right way to unset materials, either
+    // set the array to empty array or "remove" the material property
+    // setting material to "none" will simply invoke a lookup of the
+    // material "none" and cause a red screen/crash usually (that's why
+    // "none" has been registered as a material below!). Heart is set up
+    // correctly though.
     if (this.state.materialFlag == 0) {
         newMaterial = "none";
         transformText = "none";
@@ -83,6 +89,12 @@ var GroupTestMaterials = React.createClass({
         heartMat="heartSun";
     }
 
+    // this is how we "properly" unset materials.
+    let heartMaterial = {};
+    if (heartMat != "none") {
+      heartMaterial["materials"] = [heartMat];
+    } 
+
     return (
         <ViroScene>
             <ViroAmbientLight color={"#666666"} />
@@ -97,7 +109,7 @@ var GroupTestMaterials = React.createClass({
                               scale={[1.8, 1.8, 1.8]}
                               position={[-3.2, 2.5, -4.5]}
                               type="OBJ"
-                              materials={heartMat == "null" ? [] : [heartMat]}/>
+                              {...heartMaterial}/>
 
                 <ViroBox position={[-1, 1, 0]}
                          scale={[0.4, 0.4, 0.4]}
@@ -280,6 +292,10 @@ ViroMaterials.createMaterials({
   },
 
   sun_texture: {
+    diffuseTexture: require("../res/sun_2302.jpg"),
+  },
+
+  none: {
     diffuseTexture: require("../res/sun_2302.jpg"),
   }
 });

@@ -26,6 +26,8 @@ import com.viromedia.bridge.utility.ViroLog;
 import java.util.ArrayList;
 import java.util.Map;
 
+import javax.annotation.Nullable;
+
 /**
  * Abstract NodeManager for setting {@link Node} Control properties.
  * NOTE: Always extend from this class for all Node Viro controls.
@@ -117,26 +119,32 @@ public abstract class NodeManager <T extends Node> extends ViroViewGroupManager<
     }
 
     @ReactProp(name = "materials")
-    public void setMaterials(Node view, ReadableArray materials) {
+    public void setMaterials(Node view, @Nullable ReadableArray materials) {
         // get material manager
         MaterialManager materialManager = getContext().getNativeModule(MaterialManager.class);
 
         ArrayList<MaterialJni> nativeMaterials = new ArrayList<>();
-        for (int i = 0; i < materials.size(); i++) {
-            MaterialJni nativeMaterial = materialManager.getMaterial(materials.getString(i));
-            if (nativeMaterial == null) {
-                throw new IllegalArgumentException("Material [" + materials.getString(i) + "] not found. Did you create it?");
+        if (materials != null) {
+            for (int i = 0; i < materials.size(); i++) {
+                MaterialJni nativeMaterial = materialManager.getMaterial(materials.getString(i));
+                if (nativeMaterial == null) {
+                    throw new IllegalArgumentException("Material [" + materials.getString(i) + "] not found. Did you create it?");
+                }
+                nativeMaterials.add(nativeMaterial);
             }
-            nativeMaterials.add(nativeMaterial);
         }
         view.setMaterials(nativeMaterials);
     }
 
     @ReactProp(name = "transformBehaviors")
-    public void setTransformBehaviors(Node view, ReadableArray transformBehaviors) {
-        String[] behaviors = new String[transformBehaviors.size()];
-        for (int i = 0; i < transformBehaviors.size(); i++) {
-            behaviors[i] = transformBehaviors.getString(i);
+    public void setTransformBehaviors(Node view, @Nullable ReadableArray transformBehaviors) {
+
+        String[] behaviors = new String[0];
+        if (transformBehaviors != null) {
+            behaviors = new String[transformBehaviors.size()];
+            for (int i = 0; i < transformBehaviors.size(); i++) {
+                behaviors[i] = transformBehaviors.getString(i);
+            }
         }
         view.setTransformBehaviors(behaviors);
     }
