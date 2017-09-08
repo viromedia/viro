@@ -26,7 +26,6 @@ var ViroAnimations = require('./Animation/ViroAnimations');
 var BTN_TYPE_HOVER = 'hovering';
 var BTN_TYPE_NORMAL = 'normal';
 var BTN_TYPE_CLICKED = 'clicked';
-var RCT_BUTTON_REF = 'virobuttoncomponent';
 
 /**
  * Composite controle for 2D button
@@ -158,19 +157,19 @@ var RCT_BUTTON_REF = 'virobuttoncomponent';
   },
 
   applyImpulse: function(force, atPosition) {
-    this.refs[RCT_BUTTON_REF].applyImpulse(force, atPosition);
+    this._component.applyImpulse(force, atPosition);
   },
 
   applyTorqueImpulse: function(torque) {
-    this.refs[RCT_BUTTON_REF].applyTorqueImpulse(torque);
+    this._component.applyTorqueImpulse(torque);
   },
 
   setInstantaneousVelocity: function(velocity) {
-    this.refs[RCT_BUTTON_REF].setInstantaneousVelocity(velocity);
+    this._component.setInstantaneousVelocity(velocity);
   },
 
   async getTransformAsync() {
-    return await this.refs[RCT_BUTTON_REF].getTransformAsync();
+    return await this._component.getTransformAsync();
   },
 
   getInitialState: function() {
@@ -223,7 +222,7 @@ var RCT_BUTTON_REF = 'virobuttoncomponent';
 
     return (
         <ViroNode
-            ref={RCT_BUTTON_REF}
+            ref={component => {this._component = component}}
             physicsBody={this.props.physicsBody}
             position={this.props.position}
             onTransformUpdate={this.props.onTransformUpdate}

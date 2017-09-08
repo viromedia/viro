@@ -17,7 +17,6 @@ import React from 'react';
 
 var PropTypes = React.PropTypes;
 var NativeModules = require('react-native').NativeModules;
-var RCT_SPATIALSOUND_REF = 'virospatialsoundcomponent';
 
 var ViroSpatialSound = React.createClass({
   propTypes: {
@@ -68,7 +67,6 @@ var ViroSpatialSound = React.createClass({
     }
 
     let nativeProps = Object.assign({}, this.props);
-    nativeProps.ref = RCT_SPATIALSOUND_REF;
     nativeProps.source = soundSrc;
     nativeProps.onErrorViro = this._onError;
     nativeProps.onFinishViro = this._onFinish;
@@ -94,7 +92,7 @@ var ViroSpatialSound = React.createClass({
   },
 
   getNodeHandle: function(): any {
-    return findNodeHandle(this.refs[RCT_SPATIALSOUND_REF]);
+    return findNodeHandle(this._component);
   },
 
   seekToTime(timeInSeconds) {

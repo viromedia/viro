@@ -16,7 +16,6 @@ var PropTypes = React.PropTypes;
 var ViroSceneNavigatorModule = require('react-native').NativeModules.VRTSceneNavigatorModule;
 import { requireNativeComponent, View, StyleSheet, findNodeHandle } from 'react-native';
 import React, { Component } from 'react';
-var SCENE_NAVIGATOR_REF = 'viroscenenavigator';
 
 type Scene = {
   scene: Function;
@@ -386,7 +385,7 @@ var ViroSceneNavigator = React.createClass({
   },
 
   _getNodeHandle: function(): any {
-    return findNodeHandle(this.refs[SCENE_NAVIGATOR_REF]);
+    return findNodeHandle(this._component);
   },
 
   _recenterTracking() {
@@ -418,7 +417,7 @@ var ViroSceneNavigator = React.createClass({
 
     return (
       <VRTSceneNavigator
-        ref={SCENE_NAVIGATOR_REF}
+        ref={component => {this._component = component}}
         {...this.props}
         currentSceneIndex={this.state.currentSceneIndex}
         style={this.props.style, styles.container}

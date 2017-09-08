@@ -18,7 +18,6 @@ var PropTypes = React.PropTypes;
 var ViroARSceneNavigatorModule = require('react-native').NativeModules.VRTARSceneNavigatorModule;
 import { requireNativeComponent, View, StyleSheet, findNodeHandle, Platform, Text } from 'react-native';
 import React, { Component } from 'react';
-var AR_SCENE_NAVIGATOR_REF = 'viroarscenenavigator';
 
 type Scene = {
   scene: Function;
@@ -376,7 +375,7 @@ var ViroARSceneNavigator = React.createClass({
   },
 
   _getNodeHandle: function(): any {
-    return findNodeHandle(this.refs[AR_SCENE_NAVIGATOR_REF]);
+    return findNodeHandle(this._component);
   },
 
   _recenterTracking() {
@@ -443,7 +442,7 @@ var ViroARSceneNavigator = React.createClass({
     }
     return (
       <VRTARSceneNavigator
-        ref={AR_SCENE_NAVIGATOR_REF}
+        ref={ component => {this._component = component; }}
         {...this.props}
         currentSceneIndex={this.state.currentSceneIndex}
         style={this.props.style, styles.container}

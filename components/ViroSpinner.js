@@ -23,7 +23,6 @@ var ViroSpinner_1 = require('./Resources/viro_spinner_1.png');
 var ViroSpinner_1a = require('./Resources/viro_spinner_1a.png');
 var ViroSpinner_1_w = require('./Resources/viro_spinner_1_w.png');
 var ViroSpinner_1a_w = require('./Resources/viro_spinner_1a_w.png');
-var RCT_SPINNER_REF = 'virospinnercomponent';
 /**
  * Composite control for a 2D Spinner
  */
@@ -102,19 +101,19 @@ var ViroSpinner = React.createClass({
   },
 
   applyImpulse: function(force, position) {
-    this.refs[RCT_SPINNER_REF].applyImpulse(force, position);
+    this._component.applyImpulse(force, position);
   },
 
   applyTorqueImpulse: function(torque) {
-    this.refs[RCT_SPINNER_REF].applyTorqueImpulse(torque);
+    this._component.applyTorqueImpulse(torque);
   },
 
   setInstantaneousVelocity: function(velocity) {
-    this.refs[RCT_SPINNER_REF].setInstantaneousVelocity(findNodeHandle(this), velocity);
+    this._component.setInstantaneousVelocity(findNodeHandle(this), velocity);
   },
 
   async getTransformAsync() {
-    return await this.refs[RCT_SPINNER_REF].getTransformAsync();
+    return await this._component.getTransformAsync();
   },
 
   render: function() {
@@ -129,7 +128,7 @@ var ViroSpinner = React.createClass({
             onHover={this.props.onHover} onClick={this.props.onClick} onClickState={this.props.onClickState}
             onTouch={this.props.onTouch} onDrag={this.props.onDrag} onPinch={this.props.onPinch}
             onRotate={this.props.onRotate} onFuse={this.props.onFuse}
-            onTransformUpdate={this.props.onTransformUpdate} ref={RCT_SPINNER_REF}>
+            onTransformUpdate={this.props.onTransformUpdate} ref={component => {this._component = component}}>
 
         <ViroAnimatedComponent animation="_ViroSpinner_clockwiseZ" run={true} loop={true} >
           <ViroImage source={this._getImage1()} materials={this.props.materials} />

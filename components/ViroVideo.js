@@ -17,7 +17,6 @@ import resolveAssetSource from "react-native/Libraries/Image/resolveAssetSource"
 import React, { Component } from 'react';
 var NativeModules = require('react-native').NativeModules;
 var PropTypes = React.PropTypes;
-var RCT_VIDEO_REF = 'virovideocomponent';
 
 var ViroVideo = React.createClass({
   propTypes: {
@@ -297,7 +296,6 @@ var ViroVideo = React.createClass({
     nativeProps.position = this.state.propsPositionState;
     nativeProps.onNativeTransformDelegateViro = transformDelegate;
     nativeProps.hasTransformDelegate = this.props.onTransformUpdate != undefined;
-    nativeProps.ref = RCT_VIDEO_REF;
     nativeProps.style = [this.props.style];
     nativeProps.source = source;
     nativeProps.materials = materials;
@@ -335,7 +333,7 @@ var ViroVideo = React.createClass({
   },
 
   getNodeHandle: function(): any {
-    return findNodeHandle(this.refs[RCT_VIDEO_REF]);
+    return findNodeHandle(this._component);
   },
 
   seekToTime(timeInSeconds) {

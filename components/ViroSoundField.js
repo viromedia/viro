@@ -17,7 +17,6 @@ import React from 'react';
 
 var PropTypes = React.PropTypes;
 var NativeModules = require('react-native').NativeModules;
-var RCT_SOUNDFIELD_REF = 'virosoundfieldcomponent';
 
 var ViroSoundField = React.createClass({
   propTypes: {
@@ -64,7 +63,6 @@ var ViroSoundField = React.createClass({
     }
 
     let nativeProps = Object.assign({}, this.props);
-    nativeProps.ref = RCT_SOUNDFIELD_REF;
     nativeProps.source = soundSrc;
     nativeProps.onErrorViro = this._onError;
     nativeProps.onFinishViro = this._onFinish;
@@ -82,7 +80,7 @@ var ViroSoundField = React.createClass({
   },
 
   getNodeHandle: function(): any {
-    return findNodeHandle(this.refs[RCT_SOUNDFIELD_REF]);
+    return findNodeHandle(this._component);
   },
 
   seekToTime(timeInSeconds) {

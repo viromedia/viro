@@ -18,7 +18,6 @@ import React from 'react';
 var PropTypes = React.PropTypes;
 var NativeModules = require('react-native').NativeModules;
 var SoundModule = NativeModules.VRTSoundModule;
-var RCT_SOUND_REF = 'virosoundcomponent';
 
 var ViroSound = React.createClass({
   statics: {
@@ -73,7 +72,6 @@ var ViroSound = React.createClass({
     }
 
     let nativeProps = Object.assign({}, this.props);
-    nativeProps.ref = RCT_SOUND_REF;
     nativeProps.source = soundSrc;
     nativeProps.onFinishViro = this._onFinish;
     nativeProps.onErrorViro = this._onError;
@@ -85,7 +83,7 @@ var ViroSound = React.createClass({
   },
 
   getNodeHandle: function(): any {
-    return findNodeHandle(this.refs[RCT_SOUND_REF]);
+    return findNodeHandle(this._component);
   },
 
   seekToTime(timeInSeconds) {

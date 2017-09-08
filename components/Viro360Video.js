@@ -23,7 +23,6 @@ import resolveAssetSource from "react-native/Libraries/Image/resolveAssetSource"
 
 var PropTypes = React.PropTypes;
 var NativeModules = require('react-native').NativeModules;
-var RCT_360_VIDEO_REF = 'viro360videocomponent';
 
 /**
  * Used to render a 360 video on the background sphere.
@@ -81,7 +80,7 @@ var Viro360Video = React.createClass({
   },
 
   getNodeHandle: function(): any {
-    return findNodeHandle(this.refs[RCT_360_VIDEO_REF]);
+    return findNodeHandle(this._component);
   },
 
   _onBufferStart: function(event: Event) {
@@ -116,7 +115,6 @@ var Viro360Video = React.createClass({
     var vidsrc = resolveAssetSource(this.props.source);
 
     let nativeProps = Object.assign({}, this.props);
-    nativeProps.ref = RCT_360_VIDEO_REF;
     nativeProps.source = vidsrc;
     nativeProps.onBufferStartViro = this._onBufferStart;
     nativeProps.onBufferEndViro = this._onBufferEnd;
