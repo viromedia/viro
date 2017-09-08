@@ -76,9 +76,11 @@
 
 -(void)onClick:(int)source clickState:(VROEventDelegate::ClickState)clickState clickLocation:(std::vector<float>)location {
     if (self.onClickViro != nil) {
-        self.onClickViro(@{@"source": @(source),
-                           @"clickState":@(clickState),
-                           @"position":@[@(location[0]), @(location[1]), @(location[2])]});
+        if (location.size() > 0) {
+            self.onClickViro(@{@"source": @(source),
+                               @"clickState":@(clickState),
+                               @"position":@[@(location[0]), @(location[1]), @(location[2])]});
+        }
     }
 }
 
