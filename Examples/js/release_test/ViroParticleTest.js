@@ -2,408 +2,612 @@
  * Sample React Native App
  * https://github.com/facebook/react-native
  */
- 'use strict';
+'use strict';
 
- import React, { Component } from 'react';
- import {
-   AppRegistry,
-   StyleSheet,
-   Text,
-   View
- } from 'react-native';
+import React, { Component } from 'react';
+import {
+  AppRegistry,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
+
 
  import {
    ViroSceneNavigator,
    ViroScene,
+   ViroARScene,
+   ViroBox,
    ViroMaterials,
    ViroNode,
+   ViroOrbitCamera,
    ViroCamera,
+   ViroAmbientLight,
+   ViroOmniLight,
+   ViroSpotLight,
+   ViroDirectionalLight,
    ViroImage,
+   ViroVideo,
+   Viro360Image,
+   Viro360Video,
+   ViroFlexView,
    ViroUtils,
    ViroText,
    ViroAnimations,
+   ViroQuadEmitter,
    ViroAnimatedComponent,
    ViroSurface,
+   ViroSkyBox,
+   ViroPortal,
+   ViroPortalFrame,
    ViroSphere,
    Viro3DObject,
-   ViroQuadEmitter,
  } from 'react-viro';
 
- let polarToCartesian = ViroUtils.polarToCartesian;
- var viroFireworkColors =["#ff2d2d","#42ff42","#00edff","#ffff00","#ffb5f8","#00ff1d","#00edff","#ffb14c", "#ff7cf4"];
-
- // **This test has not been done.  This is placeholder for scene and navigation arrows**
-
- var ReleaseMenu = require("./ReleaseMenu.js");
-
- var ViroParticleTest = React.createClass({
-   getInitialState() {
-     return {
-       apply:true,
-       num:3
-     };
-   },
-   getBubbles(){
-     var views = [];
-       views.push((
-         <ViroQuadEmitter
-             position={[0, -5.0, 0]}
-             duration={5000}
-             visible={true}
-             delay={0}
-             run={true}
-             loop={true}
-             fixedToEmitter={true}
-
-             quad={{
-                    source:require("../res/particle_bubble.png"),                 // Image source of the quad particle.
-                    height:0.1,
-                    width:0.1,
-                    bloomThreshold:1.0
-             }}
-
-             spawnModifier={{
-               particleLifetime:[14000,14000],
-               emissionRatePerSecond:[80, 150], // or 300 with a max of 2000
-               spawnVolume:{shape:"box", params:[15, 1, 15], spawnOnSurface:false},
-               maxParticles:2000
-             }}
-
-             appearanceModifier={{
-               opacity:{min:0.0, max:0.0, factor:"time",
-                 modifier:[
-                   {finalValue:1.0, interval:[0,500]},
-                   {finalValue:0.0, interval:[13700,14000]}
-                 ]
-               },
-               scale:{min:[1,1,1], max:[1,1,1], factor:"time",
-                 modifier:[
-                   {finalValue:[1.5,1.5,1.5], interval:[4000,9700]},
-                   {finalValue:[3,3,3], interval:[13700,14000]}
-                 ]
-               },
-
-             }}
-
-             physicsModifier={{
-               velocity:{min:[-.1,.7,0], max:[.1,.95,0]}
-             }}
-           />
-       ));
-     return views;
-   },
+var lightMask1:3              // 0011
+var lightMask2:5              // 0101
+var lightMask3:13             // 1101
+var allLights: 15             // 1111
 
 
-     getSnow(){
-       var views = [];
-         views.push((
-           <ViroQuadEmitter
-               position={[0, 4.5, 0]}
-               duration={2000}
-               visible={true}
-               delay={0}
-               run={true}
-               loop={true}
-               fixedToEmitter={true}
+var durationFinal = 3000;
+var fireworkParticle = require("./res/particle_firework.png");
+var cloudParticle = require("./res/particle_bubble.png");
 
-               quad={{
-                      source:require("../res/particle_snow.png"),                 // Image source of the quad particle.
-                      height:0.01,
-                      width:0.01,
-                      bloomThreshold:1.0
-               }}
+var ViroShadowTest = React.createClass({
+  getInitialState() {
+    return {
+      emissionRatePerSecond:5,
+      particleLifetime:2000,
+      maxParticles:100,
+      emissionBurst:undefined,
+      spawnVolume:undefined,
+      spawnOnSurface:true,
+      velocityScale:3,
+      accelerationScale:0,
+      explosion:undefined,
 
-               spawnModifier={{
-                 particleLifetime:[5000,5000],
-                 emissionRatePerSecond:[800, 800], // or 300 with a max of 2000
-                 spawnVolume:{shape:"box", params:[20, 1, 20], spawnOnSurface:false},
-                 maxParticles:4000
-               }}
+      disablePhysicsModifier:false,
+      disableAppearanceModifier:false,
+      disableSpawnModifier:false,
 
-               appearanceModifier={{
-                 opacity:{min:0, max:0, factor:"time",
-                   modifier:[
-                     {finalValue:1.0, interval:[0,500]},
-                     {finalValue:0.0, interval:[4000,5000]}
-                   ]
-                 },
-                 rotation:{min:0, max:360, factor:"time",
-                   modifier:[
-                     {finalValue:1080, interval:[0,5000]},
-                   ]
-                 },
-                 scale:{min:[5,5,5], max:[10,10,10], factor:"time",
-                   modifier:[
-                     {finalValue:[6,6,6], interval:[0,1000]},
-                     {finalValue:[10,10,10], interval:[3000,5000]},
-                     {finalValue:[5,5,5], interval:[4000,5000]}
-                   ]
-                 },
+      opacity:undefined,
+      scale:undefined,
+      rotation:undefined,
+      color:undefined,
 
-               }}
+      duration:durationFinal,
+      delay:0,
+      loop:true,
+      run:true,
+      fixedToEmitter:true,
 
-               physicsModifier={{
-                 velocity:{min:[-2,-.5,0], max:[2,-3.5,0]}
-               }}
-             />
-         ));
-       return views;
-     },
+      quadSize:0.1,
+      quadSource:1,
+      quadBloom:0.0,
+
+      runAnimation:false,
+
+    };
+  },
+
+  toggleProperty(num){
+      return () => {
+        console.log("Daniel TOGGLE PROPERTY WTF "+ num);
+          let that = this;
+          if (num == 1){
+            var emissionRatePerSecondCurrent = this.state.emissionRatePerSecond + 10;
+            if (emissionRatePerSecondCurrent > 100){
+              emissionRatePerSecondCurrent = 5;
+            }
+            this.setState({
+             emissionRatePerSecond:emissionRatePerSecondCurrent
+            });
+          } else if (num == 2){
+            var particleLifetimeCurrent = this.state.particleLifetime + 500;
+            if (particleLifetimeCurrent > 10000){
+              particleLifetimeCurrent = 500;
+            }
+            this.setState({
+             particleLifetime:particleLifetimeCurrent
+            });
+          } else if (num == 3){
+            var maxParticlesCurrent = this.state.maxParticles + 40;
+            if (maxParticlesCurrent > 800){
+              maxParticlesCurrent = 100;
+            }
+            this.setState({
+             maxParticles:maxParticlesCurrent
+            });
+          } else if (num == 4){
+            var emissionBurst = this.state.emissionBurst;
+            if (emissionBurst != undefined){
+              emissionBurst = undefined;
+            } else {
+              emissionBurst = [
+                {time:500, min:40, max:40, cycles:1, cooldownPeriod:1000},
+                {time:1000, min:50, max:50, cycles:2, cooldownPeriod:1000},
+                {time:4000, min:100, max:100, cycles:2, cooldownPeriod:100}
+              ]
+            }
+            this.setState({
+             emissionBurst:emissionBurst
+            });
+          } else if (num == 5){
+            if (this.state.spawnVolume === undefined){
+              this.setState({
+                  spawnOnSurface:!this.state.spawnOnSurface,
+              });
+              return;
+            }
+
+            var shape = {
+              shape:this.state.spawnVolume.shape,
+              params:this.state.spawnVolume.params,
+              shape:!this.state.spawnOnSurface
+            };
+
+            this.setState({
+             spawnOnSurface:!this.state.spawnOnSurface,
+             spawnVolume:shape
+            });
+          } else if (num == 6){
+            var spawnShape = this.state.spawnVolume;
+            if (spawnShape === undefined){
+              spawnShape = {shape:"sphere", params:[1], spawnOnSurface:this.state.spawnOnSurface};
+            } else if (spawnShape.shape =="sphere"){
+              spawnShape = {shape:"box", params:[2, 2, 2], spawnOnSurface:this.state.spawnOnSurface};
+            } else if (spawnShape.shape =="box"){
+              spawnShape = undefined;
+            }
+            this.setState({
+             spawnVolume:spawnShape
+            });
+          } else if (num == 7){
+            let velocityScaleCurrent = this.state.velocityScale + 1;
+            if (velocityScaleCurrent > 7){
+              velocityScaleCurrent = 0;
+            }
+            this.setState({
+             velocityScale:velocityScaleCurrent
+            });
+
+          } else if (num == 8){
+            let accelerationScaleCurrent = this.state.accelerationScale + 1;
+            if (accelerationScaleCurrent > 15){
+              accelerationScaleCurrent = 0;
+            }
+            this.setState({
+             accelerationScale:accelerationScaleCurrent
+            });
+          } else if (num == 9){       // Explode with a decceleration period, like fireworks.
+            var explosion = this.state.explosion;
+            if (explosion == undefined){
+              explosion = {impulse:1.12, position:[0,0,0], deccelerationPeriod:3.0};
+            } else {
+              explosion = undefined;
+            }
+
+            this.setState({
+             explosion:explosion
+            });
+          } else if (num == 10){      // Explode, but do not deccelerate.
+            var explosion = this.state.explosion;
+            if (explosion == undefined){
+              explosion = {impulse:1.12, position:[0,0,0]};
+            } else {
+              explosion = undefined;
+            }
+
+            this.setState({
+             explosion:explosion
+            });
+          } else if (num == 11){      // Opacity that causes a particle to dissappear
+            var opacity = this.state.opacity;
+            if (opacity != undefined){
+              opacity = undefined;
+            } else {
+              opacity = {min:1.0, max:1.0, factor:"time",
+                modifier:[
+                  {finalValue:1.0, interval:[0,this.state.particleLifetime/3*1]},
+                  {finalValue:1.0, interval:[this.state.particleLifetime/3*1, this.state.particleLifetime/3*2]},
+                  {finalValue:0.0, interval:[this.state.particleLifetime/3*2, this.state.particleLifetime/3*3]}
+                ]
+              };
+            }
+
+            this.setState({
+             opacity:opacity
+            });
+          } else if (num == 12){
+            var scale = this.state.scale;
+            if (scale != undefined){
+              scale = undefined;
+            } else {
+              scale = {min:[6.0, 6.0, 6.0], max:[6.0, 6.0, 6.0], factor:"time",
+                modifier:[
+                  {finalValue:[6.0, 6.0, 6.0], interval:[0,this.state.particleLifetime/3*1]},
+                  {finalValue:[6.0, 6.0, 6.0], interval:[this.state.particleLifetime/3*1,this.state.particleLifetime/3*2]},
+                  {finalValue:[0, 0, 0], interval:[this.state.particleLifetime/3*2,this.state.particleLifetime/3*3]}
+                ]
+              };
+            }
+
+            this.setState({
+             scale:scale
+            });
+          } else if (num == 13){
+            var rotation = this.state.rotation;
+            if (rotation != undefined){
+              rotation = undefined;
+            } else {
+              rotation = {min:0.0, max:0.0, factor:"time",
+                modifier:[
+                  {finalValue:0.0, interval:[0,this.state.particleLifetime/3*1]},
+                  {finalValue:360.0, interval:[this.state.particleLifetime/3*1,this.state.particleLifetime/3*2]},
+                  {finalValue:0.0, interval:[this.state.particleLifetime/3*2,this.state.particleLifetime/3*3]}
+                ]
+              };
+            }
+
+            this.setState({
+             rotation:rotation
+            });
+          } else if (num == 14){
+            var color = this.state.color;
+            if (color != undefined){
+              color = undefined;
+            } else {
+              color = {min:"#ffffff", max:"#ffffff", factor:"time",
+                modifier:[
+                  {finalValue:"#ffff00", interval:[0,this.state.particleLifetime/3*1]},
+                  {finalValue:"#ff00ff", interval:[this.state.particleLifetime/3*1,this.state.particleLifetime/3*2]},
+                  {finalValue:"#ffffff", interval:[this.state.particleLifetime/3*2,this.state.particleLifetime/3*3]}
+                ]
+              };
+            }
+
+            this.setState({
+             color:color
+            });
+          } else if (num == 15){
+            var durationCurrent = this.state.duration + 500;
+            if (durationCurrent > 6000){
+              durationCurrent = durationFinal;
+            }
+            this.setState({
+             duration:durationCurrent
+            });
+          } else if (num == 16){
+            var delayCurrent = this.state.delay + 500;
+            if (delayCurrent > 5000){
+              delayCurrent = 0;
+            }
+            this.setState({
+             delay:delayCurrent
+            });
+          } else if (num == 17){
+            this.setState({
+             loop:!this.state.loop
+            });
+          } else if (num == 18){
+            this.setState({
+             run:!this.state.run
+            });
+          } else if (num == 19){
+            this.setState({
+             fixedToEmitter:!this.state.fixedToEmitter
+            });
+          } else if (num == 20){
+            this.setState({
+             quadSource:this.state.quadSource == 1 ? 0 : 1
+            });
+          } else if (num == 21){
+            var quadSizeCurrent = this.state.quadSize + 0.1;
+            if (quadSizeCurrent > 0.5){
+              quadSizeCurrent = 0.1;
+            }
+
+            this.setState({
+             quadSize:quadSizeCurrent
+            });
+          } else if (num == 22){
+            console.log("Daniel quad bloom is : " + this.state.quadBloom);
+
+            this.setState({
+             quadBloom:this.state.quadBloom == 1.0 ? 0.0 : 1.0
+            });
+          } else if (num == 23){
+            this.setState({
+             disableSpawnModifier:!this.state.disableSpawnModifier
+            });
+          } else if (num == 24){
+            this.setState({
+             disableAppearanceModifier:!this.state.disableAppearanceModifier
+            });
+          } else if (num == 25){
+            this.setState({
+             disablePhysicsModifier:!this.state.disablePhysicsModifier
+            });
+          }  else if (num == 26){
+            this.setState({
+              runAnimation:!this.state.runAnimation
+            });
+          }
+      }
+  },
+
+  render: function() {
+    if (this.state.reset){
+      return (<ViroScene />);
+    }
+
+    return (
+              <ViroScene ref="scene1">
+                 {/* Left half of the screen, tests for collision with ray shot in scene */}
+                 <ViroNode position={[-5 , 5, -8]} transformBehaviors={["billboard"]}>
+                 <ViroText fontSize={35}  style={styles.centeredText} lightBitMask={0} // 0 to avoid influencing the test
+                   position={[0,0, 0]} width={6} height ={1} maxLines={1}
+                   text={"Toggle emissionRatePerSecond " + this.state.emissionRatePerSecond }
+                   onClick={this.toggleProperty(1)}
+                 />
+                 <ViroText fontSize={35}  style={styles.centeredText} lightBitMask={0} // 0 to avoid influencing the test
+                   position={[0,-1, 0]} width={6} height ={1} maxLines={1}
+                   text={"Toggle particleLifetime " + this.state.particleLifetime }
+                   onClick={this.toggleProperty(2)}
+                 />
+                 <ViroText fontSize={35}  style={styles.centeredText} lightBitMask={0} // 0 to avoid influencing the test
+                   position={[0,-2, 0]} width={6} height ={1} maxLines={1}
+                   text={"Toggle maxParticles " + this.state.maxParticles }
+                   onClick={this.toggleProperty(3)}
+                 />
+                 <ViroText fontSize={35}  style={styles.centeredText} lightBitMask={0} // 0 to avoid influencing the test
+                   position={[0,-3, 0]} width={6} height ={1} maxLines={1}
+                   text={"Toggle emissionBurst" }
+                   onClick={this.toggleProperty(4)}
+                 />
+                 <ViroText fontSize={35}  style={styles.centeredText} lightBitMask={0} // 0 to avoid influencing the test
+                   position={[0,-4, 0]} width={6} height ={1} maxLines={1}
+                   text={"Toggle spawnOnSurface " + this.state.spawnOnSurface }
+                   onClick={this.toggleProperty(5)}
+                 />
+                 <ViroText fontSize={35}  style={styles.centeredText} lightBitMask={0} // 0 to avoid influencing the test
+                   position={[0,-5, 0]} width={6} height ={1} maxLines={1}
+                   text={"Toggle shape " + (this.state.spawnVolume != undefined ? this.state.spawnVolume.shape : "point") }
+                   onClick={this.toggleProperty(6)}
+                 />
+                 <ViroText fontSize={35}  style={styles.centeredText} lightBitMask={0} // 0 to avoid influencing the test
+                   position={[0,-6, 0]} width={6} height ={1} maxLines={1}
+                   text={"Toggle velocityScale " + this.state.velocityScale }
+                   onClick={this.toggleProperty(7)}
+                 />
+                 <ViroText fontSize={35}  style={styles.centeredText} lightBitMask={0} // 0 to avoid influencing the test
+                   position={[0,-7, 0]} width={6} height ={1} maxLines={1}
+                   text={"Toggle accelerationScale " + this.state.accelerationScale }
+                   onClick={this.toggleProperty(8)}
+                 />
+                 <ViroText fontSize={35}  style={styles.centeredText} lightBitMask={0} // 0 to avoid influencing the test
+                   position={[0,-8, 0]} width={6} height ={1} maxLines={1}
+                   text={"Toggle explosion with slowdown"}
+                   onClick={this.toggleProperty(9)}
+                 />
+                 <ViroText fontSize={35}  style={styles.centeredText} lightBitMask={0} // 0 to avoid influencing the test
+                   position={[0,-9, 0]} width={6} height ={1} maxLines={1}
+                   text={"Toggle explosion no slowdown "}
+                   onClick={this.toggleProperty(10)}
+                 />
+                 <ViroText fontSize={35}  style={styles.centeredText} lightBitMask={0} // 0 to avoid influencing the test
+                   position={[0,-10, 0]} width={6} height ={1} maxLines={1}
+                   text={"Toggle opacity modifier "}
+                   onClick={this.toggleProperty(11)}
+                 />
+                 <ViroText fontSize={35}  style={styles.centeredText} lightBitMask={0} // 0 to avoid influencing the test
+                   position={[0,-11, 0]} width={6} height ={1} maxLines={1}
+                   text={"Toggle scale modifier " }
+                   onClick={this.toggleProperty(12)}
+                 />
+                 <ViroText fontSize={35}  style={styles.centeredText} lightBitMask={0} // 0 to avoid influencing the test
+                   position={[0,-12, 0]} width={6} height ={1} maxLines={1}
+                   text={"Toggle rotation modifier " }
+                   onClick={this.toggleProperty(13)}
+                 />
+                 <ViroText fontSize={35}  style={styles.centeredText} lightBitMask={0} // 0 to avoid influencing the test
+                   position={[0,-13, 0]} width={6} height ={1} maxLines={1}
+                   text={"Toggle color modifier " }
+                   onClick={this.toggleProperty(14)}
+                 />
+                 </ViroNode>
+                 <ViroNode position={[5 , 5, -8]} transformBehaviors={["billboard"]}>
+
+                 <ViroText fontSize={35}  style={styles.centeredText} lightBitMask={0} // 0 to avoid influencing the test
+                   position={[0,0, 0]} width={6} height ={1} maxLines={1}
+                   text={"Toggle particle duration" + this.state.duration }
+                   onClick={this.toggleProperty(15)}
+                 />
+                 <ViroText fontSize={35}  style={styles.centeredText} lightBitMask={0} // 0 to avoid influencing the test
+                   position={[0,-1, 0]} width={6} height ={1} maxLines={1}
+                   text={"Toggle delay " + this.state.delay }
+                   onClick={this.toggleProperty(16)}
+                 />
+                 <ViroText fontSize={35}  style={styles.centeredText} lightBitMask={0} // 0 to avoid influencing the test
+                   position={[0,-2, 0]} width={6} height ={1} maxLines={1}
+                   text={"Toggle loop " + this.state.loop }
+                   onClick={this.toggleProperty(17)}
+                 />
+                 <ViroText fontSize={35}  style={styles.centeredText} lightBitMask={0} // 0 to avoid influencing the test
+                   position={[0,-3, 0]} width={6} height ={1} maxLines={1}
+                   text={"Toggle run " + this.state.run}
+                   onClick={this.toggleProperty(18)}
+                 />
+                 <ViroText fontSize={35}  style={styles.centeredText} lightBitMask={0} // 0 to avoid influencing the test
+                   position={[0,-4, 0]} width={6} height ={1} maxLines={1}
+                   text={"Toggle fixedToEmitter " + this.state.fixedToEmitter }
+                   onClick={this.toggleProperty(19)}
+                 />
+                 <ViroText fontSize={35}  style={styles.centeredText} lightBitMask={0} // 0 to avoid influencing the test
+                   position={[0,-5, 0]} width={6} height ={1} maxLines={1}
+                   text={"Toggle quadSource " }
+                   onClick={this.toggleProperty(20)}
+                 />
+                 <ViroText fontSize={35}  style={styles.centeredText} lightBitMask={0} // 0 to avoid influencing the test
+                   position={[0,-6, 0]} width={6} height ={1} maxLines={1}
+                   text={"Toggle quadSize " + this.state.quadSize}
+                   onClick={this.toggleProperty(21)}
+                 />
+                 <ViroText fontSize={35}  style={styles.centeredText} lightBitMask={0} // 0 to avoid influencing the test
+                   position={[0,-7, 0]} width={6} height ={1} maxLines={1}
+                   text={"Toggle quadBloom " + this.state.quadBloom }
+                   onClick={this.toggleProperty(22)}
+                 />
+                 <ViroText fontSize={35}  style={styles.centeredText} lightBitMask={0} // 0 to avoid influencing the test
+                   position={[0,-8, 0]} width={6} height ={1} maxLines={1}
+                   text={"Disable SpawnModifier " + this.state.disableSpawnModifier }
+                   onClick={this.toggleProperty(23)}
+                 />
+                 <ViroText fontSize={35}  style={styles.centeredText} lightBitMask={0} // 0 to avoid influencing the test
+                   position={[0,-9, 0]} width={6} height ={1} maxLines={1}
+                   text={"Disable Appearance Modifier " + this.state.disableAppearanceModifier }
+                   onClick={this.toggleProperty(24)}
+                 />
+                 <ViroText fontSize={35}  style={styles.centeredText} lightBitMask={0} // 0 to avoid influencing the test
+                   position={[0,-10, 0]} width={6} height ={1} maxLines={1}
+                   text={"Disable Physics Modifier  " + this.state.disablePhysicsModifier }
+                   onClick={this.toggleProperty(25)}
+                 />
+                 <ViroText fontSize={35}  style={styles.centeredText} lightBitMask={0} // 0 to avoid influencing the test
+                   position={[0,-11, 0]} width={6} height ={1} maxLines={1}
+                   text={"Toggle runAnimation " + this.state.runAnimation}
+                   onClick={this.toggleProperty(26)}
+                 />
+                </ViroNode>
 
 
-   getFireWorks(){
-     var views = [];
-     var radius = 3;
-     var colors =["#ff2d2d","#42ff42","#003fff","#ffff00","#ffb5f8","#00ff1d","#00edff","#ffb14c", "#ff7cf4"];
 
-     var f = new Array(30);
-     f[1] = this.getFireWork(polarToCartesian([radius, -90 , 30]), colors[1], 0);
-     f[2] = this.getFireWork(polarToCartesian([radius, -70 , 20]), colors[1], 3000);
-     f[3] = this.getFireWork(polarToCartesian([radius, -50 , 40]), colors[2], 2000);
-     f[4] = this.getFireWork(polarToCartesian([radius, -30 , 28]), colors[4], 1000);
-     f[5] = this.getFireWork(polarToCartesian([radius, -10 , 25]), colors[5], 1500);
-     f[6] = this.getFireWork(polarToCartesian([radius, 10 , 20]), colors[7], 300);
-     f[7] = this.getFireWork(polarToCartesian([radius, 30 , 40]), colors[7], 1300);
-     f[8] = this.getFireWork(polarToCartesian([radius, 50 , 35]), colors[2], 1900);
-     f[9] = this.getFireWork(polarToCartesian([radius, 70 , 25]), colors[5], 2050);
-     f[10] = this.getFireWork(polarToCartesian([radius, 80 , 10]), colors[5], 350);
+                <ViroAnimatedComponent
+                    animation={"sequentialAnimParticle"}
+                    run={this.state.runAnimation}
+                    loop={true}>
 
-     f[11] = this.getFireWorkGravity(polarToCartesian([radius, -85 , 20]), colors[7], 600);
-     f[12] = this.getFireWorkGravity(polarToCartesian([radius, -60 , 45]), colors[0], 1400);
-     f[13] = this.getFireWorkGravity(polarToCartesian([radius, -40 , 40]), colors[3], 1800);
-     f[14] = this.getFireWorkGravity(polarToCartesian([radius, -20 , 25]), colors[5], 2500);
-     f[15] = this.getFireWorkGravity(polarToCartesian([radius, -5 , 30]), colors[6], 1000);
-     f[29] = this.getFireWorkGravity(polarToCartesian([radius, 5 , 25]), colors[6], 1500);
-     f[16] = this.getFireWorkGravity(polarToCartesian([radius, 20 , 20]), colors[3], 2000);
-     f[17] = this.getFireWorkGravity(polarToCartesian([radius, 40 , 40]), colors[3], 1600);
-     f[18] = this.getFireWorkGravity(polarToCartesian([radius, 60 , 25]), colors[3], 100);
-     f[19] = this.getFireWorkGravity(polarToCartesian([radius, 85 , 36]), colors[3], 2300);
+                  <ViroNode position={[0,-2,-4]}>
+                    <ViroQuadEmitter
+                        delay={this.state.delay}
+                        position={[0,0,0]}
+                        duration={this.state.duration}
+                        visible={true}
+                        run={this.state.run}
+                        loop={this.state.loop}
+                        fixedToEmitter={this.state.fixedToEmitter}
 
+                        quad={{
+                               source:this.state.quadSource == 1? fireworkParticle : cloudParticle,                 // Image source of the quad particle.
+                               height:this.state.quadSize,
+                               width:this.state.quadSize,
+                               bloomThreshold:this.state.quadBloom
+                        }}
 
-     f[20] = this.getFireWorkBrightDarkBright(polarToCartesian([radius, -80 , 30]), colors[0], colors[3], 2340);
-     f[21] = this.getFireWorkBrightDarkBright(polarToCartesian([radius, -50 , 40]), colors[1], colors[4], 0);
-     f[22] = this.getFireWorkBrightDarkBright(polarToCartesian([radius, -25 , 20]), colors[2], colors[5], 800);
-     f[23] = this.getFireWorkBrightDarkBright(polarToCartesian([radius, -15 , 33]), colors[3], colors[7], 200);
-     f[24] = this.getFireWorkBrightDarkBright(polarToCartesian([radius, 8 , 40]), colors[4], colors[6], 1900);
-     f[25] = this.getFireWorkBrightDarkBright(polarToCartesian([radius, 15 , 20]), colors[4], colors[6], 1700);
-     f[26] = this.getFireWorkBrightDarkBright(polarToCartesian([radius, 35 , 33]), colors[4], colors[6], 200);
-     f[27] = this.getFireWorkBrightDarkBright(polarToCartesian([radius, 65 , 40]), colors[4], colors[6], 3720);
-     f[28] = this.getFireWorkBrightDarkBright(polarToCartesian([radius, 90 , 25]), colors[4], colors[6], 1020);
+                        spawnModifier={this.state.disableSpawnModifier? undefined :{
+                          particleLifetime:[this.state.particleLifetime, this.state.particleLifetime],
+                          emissionRatePerSecond:[this.state.emissionRatePerSecond, this.state.emissionRatePerSecond],
+                          emissionBurst:this.state.emissionBurst,
+                          spawnVolume:this.state.spawnVolume,
+                          maxParticles:this.state.maxParticles
+                        }}
 
-     var i =0;
-     for ( i =0; i < f.length ; i ++){
-       views.push(f[i]);
-     }
-     return views;
-   },
+                        appearanceModifier={this.state.disableAppearanceModifier? undefined :{
+                          opacity:this.state.opacity,
+                          color:this.state.color,
+                          rotation:this.state.rotation,
+                          scale:this.state.scale
+                        }}
 
-    getFireWork(position, color, delay){
-      var colorRand = viroFireworkColors[Math.floor((Math.random() * 5) + 0)];
+                        physicsModifier={this.state.disablePhysicsModifier? undefined :{
+                          velocity:{
+                            min:[-0.3 * this.state.velocityScale, 1* this.state.velocityScale, 0],
+                            max:[0.3 * this.state.velocityScale, 1* this.state.velocityScale, 0]
+                          },
+                          acceleration:{
+                            min:[0,-1 * this.state.accelerationScale,0],
+                            max:[0,-1 * this.state.accelerationScale,0]
+                          },
+                          initialExplosiveImpulse:this.state.explosion
 
-        return((
-          <ViroQuadEmitter
-              position={position}
-              duration={4000}
-              visible={true}
-              run={true}
-              loop={true}
-              fixedToEmitter={true}
-
-              quad={{
-                     source:require("../res/particle_firework.png"),                 // Image source of the quad particle.
-                     height:0.01,
-                     width:0.01,
-                     bloomThreshold:0.0
-              }}
-
-              spawnModifier={{
-                particleLifetime:[1400,1500],
-                emissionRatePerSecond:[0,0],
-                emissionBurst:[
-                  {time:delay, min:500, max:500, cycles:10, cooldownPeriod:1200}
-                ],
-                spawnVolume:{shape:"sphere", params:[0.15], spawnOnSurface:true},
-                maxParticles:800
-              }}
-
-              appearanceModifier={{
-                opacity:{min:1.0, max:1.0, factor:"time",
-                  modifier:[
-                    {finalValue:0.5, interval:[0,1000]},
-                    {finalValue:0.0, interval:[1000,1500]}
-                  ]
-                },
-
-                color:{min:color, max:colorRand, factor:"time",
-                  modifier:[
-                    {finalValue:color, interval:[600,1500]}
-                  ]
-                }
-              }}
-
-              physicsModifier={{
-                initialExplosiveImpulse:{impulse:0.12, position:[0,0,0], deccelerationPeriod:1.0},
-              }}
-            />
-        ));
-    },
+                        }}
+                      />
+                  </ViroNode>
+                  </ViroAnimatedComponent>
 
 
-      getFireWorkBrightDarkBright(position, color, color2, delay){
-        var colorRand = viroFireworkColors[Math.floor((Math.random() * 5) + 0)];
 
-          return((
-            <ViroQuadEmitter
-                position={position}
-                duration={3000}
-                visible={true}
-                run={true}
-                loop={true}
-                fixedToEmitter={true}
 
-                quad={{
-                       source:require("../res/particle_firework.png"),                 // Image source of the quad particle.
-                       height:0.01,
-                       width:0.01,
-                       bloomThreshold:0.0
-                }}
+            </ViroScene>
 
-                spawnModifier={{
-                  particleLifetime:[1200,1200],
-                  emissionRatePerSecond:[0,0],
-                  emissionBurst:[
-                    {time:delay, min:500, max:500, cycles:10, cooldownPeriod:1400}
-                  ],
-                  spawnVolume:{shape:"sphere", params:[0.15], spawnOnSurface:true},
-                  maxParticles:800
-                }}
+    );
+  },
+});
 
-                appearanceModifier={{
-                  opacity:{min:1.0, max:1.0, factor:"time",
-                    modifier:[
-                      {finalValue:1.0, interval:[0,350]},
-                      {finalValue:0.0, interval:[350,500]},
-                      {finalValue:1.0, interval:[600,1000]},
-                      {finalValue:0.0, interval:[1000,1200]}
-                    ]
-                  },
-
-                  color:{min:color, max:colorRand, factor:"time",
-                    modifier:[
-                      {finalValue:color, interval:[0,500]},
-                      {finalValue:color2, interval:[500,600]},
-                      {finalValue:color2, interval:[600,1200]},
-                    ]
-                  }
-                }}
-
-                physicsModifier={{
-                  initialExplosiveImpulse:{impulse:0.10, position:[0,0,0], deccelerationPeriod:1.2},
-                }}
-              />
-          ));
-      },
-
-    getFireWorkGravity(position, color, delay){
-
-      var colorRand1 = viroFireworkColors[Math.floor((Math.random() * 5) + 0)];
-      var colorRand2 = viroFireworkColors[Math.floor((Math.random() * 5) + 0)];
-
-        return((
-          <ViroQuadEmitter
-              position={position}
-              duration={3000}
-              visible={true}
-              run={true}
-              loop={true}
-              fixedToEmitter={true}
-
-              quad={{
-                     source:require("../res/particle_firework.png"),                 // Image source of the quad particle.
-                     height:0.01,
-                     width:0.01,
-                     bloomThreshold:0.0
-              }}
-
-              spawnModifier={{
-                particleLifetime:[600,600],
-                emissionRatePerSecond:[0,0],
-                emissionBurst:[
-                  {time:delay, min:400, max:500, cycles:2, cooldownPeriod:1000}
-                ],
-                spawnVolume:{shape:"sphere", params:[0.15], spawnOnSurface:true},
-                maxParticles:800
-              }}
-
-              appearanceModifier={{
-                opacity:{min:1.0, max:1.0, factor:"time",
-                  modifier:[
-                    {finalValue:0.0, interval:[0,600]}
-                  ]
-                },
-
-                color:{min:color, max:colorRand2, factor:"time",
-                  modifier:[
-                    {finalValue:color, interval:[0,300]},
-                    {finalValue:colorRand1, interval:[300,400]},
-                    {finalValue:colorRand2, interval:[4000,600]}
-                  ]
-                }
-              }}
-
-              physicsModifier={{
-                initialExplosiveImpulse:{impulse:0.1, position:[0,0,0]},
-                   acceleration:{min:[0,-1.41,0], max:[0,-1.41,0]}
-              }}
-            />
-        ));
-    },
-
-   onClicky(){
-     var finalNum = this.state.num + 3;
-     if (finalNum>40){
-       finalNum = 3;
-     }
-      //this.setState({apply:!this.state.apply});
-       this.setState({apply:!this.state.apply, num:finalNum});
-   },
-   render: function() {
-     return (
-      <ViroScene >
-      <ReleaseMenu sceneNavigator={this.props.sceneNavigator}/>
-      <ViroText style={styles.baseTextTwo}  position={[0,-1.5, -3]} width={4} height ={4}
-             text={"Toggle " + this.state.apply}
-             onClick={this.onClicky}/>
-
-             <ViroNode position={[0,0,0]}>
-             {this.getCircleFireworks()}
-             {this.getFireWorks()}
-             </ViroNode>
-      </ViroScene>
-     );
-   },
- });
-
- var styles = StyleSheet.create({
-   container: {
-     flex: 1,
-     justifyContent: 'center',
-     alignItems: 'center',
-   },
-   elementText: {
-     fontFamily: 'HelveticaNeue-Medium',
-     fontSize: 30,
-     color: '#ffffff',
-     textAlign: 'center',
-   },
-   baseTextTwo: {
+var styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  elementText: {
+    fontFamily: 'HelveticaNeue-Medium',
+    fontSize: 30,
+    color: '#ffffff',
+    textAlign: 'center',
+  },
+  baseTextTwo: {
+    fontFamily: 'Arial',
+    color: '#ffffff',
+    flex: 1,
+  },
+  centeredText: {
        fontFamily: 'Arial',
-       fontSize: 20,
        color: '#ffffff',
        flex: 1,
-       textAlignVertical: 'center',
-       textAlign: 'center',
-   },
+  },
+
+});
+
+ViroMaterials.createMaterials({
+  blue: {
+    lightingModel: "Blinn",
+
+      cullMode: "None",
+      shininess: 2.0,
+      diffuseColor: "#3399ff99"
+    },
+    ground: {
+      lightingModel: "Blinn",
+
+        cullMode: "None",
+        shininess: 2.0,
+        diffuseColor: "#ffffff"
+      },
+    shadowCatcher: {
+      writesToDepthBuffer: false,
+    },
+  green: {
+        cullMode: "None",
+        shininess: 2.0,
+        diffuseColor: "#33cc3399"
+
+      },
+
+  ground:{
+    cullMode: "None",
+    shininess: 2.0,
+    diffuseColor: "#ff9999"
+  }
  });
 
- module.exports = ViroParticleTest;
+ ViroAnimations.registerAnimations({
+   moveRightParticle:{properties:{positionX:"+=4",}, duration:3000, delay:0},
+   moveLeftParticle:{properties:{positionX:"-=4",}, duration:3000, delay:0},
+   sequentialAnimParticle:[
+         ["moveRightParticle","moveLeftParticle"]
+   ],
+ });
+
+module.exports = ViroShadowTest;

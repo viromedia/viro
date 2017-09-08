@@ -210,6 +210,7 @@ var styles = StyleSheet.create({
 
 ViroMaterials.createMaterials({
    box1: {
+     bloomThreshold : 1.0,
      shininess : 2.0,
      lightingModel: "Blinn",
      diffuseTexture: require('./res/earth.png'),
