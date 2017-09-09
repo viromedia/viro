@@ -84,7 +84,7 @@ public class Video360 extends Component {
         }
 
         @Override
-        public void onVideoUpdatedTime(int currentTime, int totalVideoTime) {
+        public void onVideoUpdatedTime(float currentTime, float totalVideoTime) {
             Video360 video = mVideo.get();
             if (video == null || video.isTornDown()) {
                 return;
@@ -206,7 +206,7 @@ public class Video360 extends Component {
         }
     }
 
-    public void seekToTime(int time) {
+    public void seekToTime(float time) {
         if (mVideoTextureJni != null) {
             mVideoTextureJni.seekToTime(time);
             if (!mPaused) {
@@ -249,10 +249,10 @@ public class Video360 extends Component {
                 null);
     }
 
-    private void reactPlayerOnUpdateTime(int currentTime, int totalTime) {
+    private void reactPlayerOnUpdateTime(float currentTime, float totalTime) {
         WritableMap event = Arguments.createMap();
-        event.putInt("currentTime", currentTime);
-        event.putInt("totalTime", totalTime);
+        event.putDouble("currentTime", (double) currentTime);
+        event.putDouble("totalTime", (double) totalTime);
         mReactContext.getJSModule(RCTEventEmitter.class).receiveEvent(
                 getId(),
                 ViroEvents.ON_UPDATE_TIME,

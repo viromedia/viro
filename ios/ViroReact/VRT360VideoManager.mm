@@ -32,7 +32,7 @@ RCT_EXPORT_VIEW_PROPERTY(stereoMode, NSString)
     return [[VRT360Video alloc] initWithBridge:self.bridge];
 }
 
-RCT_EXPORT_METHOD(seekToTime:(nonnull NSNumber *)reactTag time:(NSInteger)time)
+RCT_EXPORT_METHOD(seekToTime:(nonnull NSNumber *)reactTag time:(float)time)
 {
     [self.bridge.uiManager addUIBlock:^(__unused RCTUIManager *uiManager, NSDictionary<NSNumber *, UIView*> *viewRegistry) {
         VRTView *view = (UIView *)viewRegistry[reactTag];

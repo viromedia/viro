@@ -28,5 +28,5 @@
 @property (nonatomic, copy, nullable) NSString *stereoMode;
 
 - (instancetype)initWithBridge:(RCTBridge *)bridge;
-- (void)seekToTime:(NSInteger)time;
+- (void)seekToTime:(float)time;
 @end

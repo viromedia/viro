@@ -76,7 +76,7 @@ public class VideoSurface extends Control {
         }
 
         @Override
-        public void onVideoUpdatedTime(int currentTime, int totalVideoTime) {
+        public void onVideoUpdatedTime(float currentTime, float totalVideoTime) {
             VideoSurface surface = mSurface.get();
             if (surface == null || surface.isTornDown()) {
                 return;
@@ -212,7 +212,7 @@ public class VideoSurface extends Control {
         }
     }
 
-    public void seekToTime(int time) {
+    public void seekToTime(float time) {
         if (mVideoTextureJni != null) {
             mVideoTextureJni.seekToTime(time);
             if (!mPaused) {
@@ -242,10 +242,10 @@ public class VideoSurface extends Control {
                 null);
     }
 
-    private void playerOnUpdateTime(int currentTime, int totalTime) {
+    private void playerOnUpdateTime(float currentTime, float totalTime) {
         WritableMap event = Arguments.createMap();
-        event.putInt("currentTime", currentTime);
-        event.putInt("totalTime", totalTime);
+        event.putDouble("currentTime", (double) currentTime);
+        event.putDouble("totalTime", (double) totalTime);
 
         mReactContext.getJSModule(RCTEventEmitter.class).receiveEvent(
                 getId(),

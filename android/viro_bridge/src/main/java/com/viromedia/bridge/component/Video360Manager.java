@@ -84,7 +84,7 @@ public class Video360Manager extends ViroViewGroupManager<Video360> {
     public void receiveCommand(Video360 video, int commandType, @Nullable ReadableArray args) {
         switch (commandType) {
             case ViroCommands.SEEK_TO_TIME_INDEX:
-                video.seekToTime((int) args.getDouble(0));
+                video.seekToTime((float) args.getDouble(0));
                 break;
             default:
                 throw new IllegalArgumentException("Unsupported command " + commandType

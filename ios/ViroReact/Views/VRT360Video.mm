@@ -69,7 +69,7 @@
     }
 }
 
-- (void)seekToTime:(NSInteger)time {
+- (void)seekToTime:(float)time {
     if (_videoTexture) {
         _videoTexture->seekToTime(time);
     }
@@ -181,7 +181,7 @@
     }
 }
 
-- (void)videoDidUpdateTime:(int)currentTimeInSeconds totalTimeInSeconds:(int)totalTime{
+- (void)videoDidUpdateTime:(float)currentTimeInSeconds totalTimeInSeconds:(float)totalTime {
     if (self.onUpdateTimeViro) {
         self.onUpdateTimeViro(@{@"currentTime": @(currentTimeInSeconds),
                                 @"totalTime": @(totalTime)});
