@@ -64,7 +64,7 @@ static NSString *const kVRTInvalidAPIKeyMessage = @"The given API Key is either 
         [self setSceneView:sceneView];
     }
     
-    [sceneView addTraversalListenerToARView];
+    [sceneView addTraversalListenerToVROView];
     [super insertReactSubview:subview atIndex:atIndex];
 }
 
@@ -84,7 +84,7 @@ static NSString *const kVRTInvalidAPIKeyMessage = @"The given API Key is either 
 
 - (void)removeReactSubview:(UIView *)subview {
     VRTARScene *sceneView = (VRTARScene *)subview;
-    [sceneView removeTraversalListenerFromARView];
+    [sceneView removeTraversalListenerFromVROView];
     [self.currentViews removeObject:sceneView];
     [super removeReactSubview:subview];
 }

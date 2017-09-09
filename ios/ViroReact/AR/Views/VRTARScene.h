@@ -13,12 +13,9 @@
 
 @property (nonatomic, copy, nullable) RCTDirectEventBlock onTrackingInitializedViro;
 @property (nonatomic, copy, nullable) RCTDirectEventBlock onAmbientLightUpdateViro;
-@property (readwrite, nonatomic) std::shared_ptr<VROPortalTraversalListener> portalTraversalListener;
 
 
 - (instancetype)initWithBridge:(RCTBridge *)bridge;
--(void)addTraversalListenerToARView;
--(void)removeTraversalListenerFromARView;
 
 - (void)initSceneController;
 

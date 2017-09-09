@@ -46,19 +46,6 @@ static NSString *const kVRTColorTemperatureKey = @"colorTemperature";
 
 // Add portal traversal listener for this AR scene.
 
--(void)addTraversalListenerToARView {
-    self.portalTraversalListener = std::make_shared<VROPortalTraversalListener>(_vroArScene);
-    VROViewAR *viewAR = (VROViewAR *)[self getVROView];
-    viewAR.frameSynchronizer->addFrameListener(self.portalTraversalListener);
-}
-
-// Remove portal traversal listener for this AR scene.
--(void)removeTraversalListenerFromARView {
-    if(self.portalTraversalListener) {
-        VROViewAR *viewAR = (VROViewAR *)[self getVROView];
-        viewAR.frameSynchronizer->removeFrameListener(self.portalTraversalListener);
-    }
-}
 
 #pragma mark VROARSceneDelegateProtocol Implementation
 

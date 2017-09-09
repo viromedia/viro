@@ -35,7 +35,7 @@ static NSArray<NSNumber *> *const kDefaultSize = @[@(0), @(0), @(0)];
 @implementation VRTScene {
     id <VROView> _vroView;
     VRTCamera *_camera;
-    
+    std::shared_ptr<VROScene> _vroScene;
     NSArray<NSNumber *> *_size;
     NSString *_wallMaterial;
     NSString *_ceilingMaterial;
@@ -65,6 +65,8 @@ static NSArray<NSNumber *> *const kDefaultSize = @[@(0), @(0), @(0)];
     
     //Set root node for this scene
     _sceneController->getScene()->getRootNode()->addChildNode(self.node);
+    _vroScene = std::dynamic_pointer_cast<VROScene>(self.sceneController->getScene());
+    self.portalTraversalListener = std::make_shared<VROPortalTraversalListener>(_vroScene);
 }
 
 - (void)setView:(id <VROView>)view {
@@ -74,8 +76,23 @@ static NSArray<NSNumber *> *const kDefaultSize = @[@(0), @(0), @(0)];
     [self notifyOnPlatformUpdate];
 }
 
+
 - (id<VROView>)getVROView {
     return _vroView;
+}
+
+// Add portal traversal listener for this scene.
+-(void)addTraversalListenerToVROView {
+    id<VROView> view = [self getVROView];
+    view.frameSynchronizer->addFrameListener(self.portalTraversalListener);
+}
+
+// Remove portal traversal listener for this AR scene.
+-(void)removeTraversalListenerFromVROView {
+    if(self.portalTraversalListener) {
+        id<VROView> view  = [self getVROView];
+        view.frameSynchronizer->removeFrameListener(self.portalTraversalListener);
+    }
 }
 
 -(void)setDriver:(std::shared_ptr<VRODriver>)driver {
