@@ -59,7 +59,7 @@ var ViroShadowTest = React.createClass({
     return {
       emissionRatePerSecond:5,
       particleLifetime:2000,
-      maxParticles:100,
+      maxParticles:30,
       emissionBurst:undefined,
       spawnVolume:undefined,
       spawnOnSurface:true,
@@ -84,7 +84,7 @@ var ViroShadowTest = React.createClass({
 
       quadSize:0.1,
       quadSource:1,
-      quadBloom:0.0,
+      quadBloom: -1.0 ,
 
       runAnimation:false,
 
@@ -209,9 +209,7 @@ var ViroShadowTest = React.createClass({
             } else {
               opacity = {min:1.0, max:1.0, factor:"time",
                 modifier:[
-                  {finalValue:1.0, interval:[0,this.state.particleLifetime/3*1]},
-                  {finalValue:1.0, interval:[this.state.particleLifetime/3*1, this.state.particleLifetime/3*2]},
-                  {finalValue:0.0, interval:[this.state.particleLifetime/3*2, this.state.particleLifetime/3*3]}
+                  {finalValue:0.0, interval:[0, this.state.particleLifetime/3*3]}
                 ]
               };
             }
@@ -224,11 +222,9 @@ var ViroShadowTest = React.createClass({
             if (scale != undefined){
               scale = undefined;
             } else {
-              scale = {min:[6.0, 6.0, 6.0], max:[6.0, 6.0, 6.0], factor:"time",
+              scale = {min:[0, 0, 0], max:[0, 0, 0], factor:"time",
                 modifier:[
-                  {finalValue:[6.0, 6.0, 6.0], interval:[0,this.state.particleLifetime/3*1]},
-                  {finalValue:[6.0, 6.0, 6.0], interval:[this.state.particleLifetime/3*1,this.state.particleLifetime/3*2]},
-                  {finalValue:[0, 0, 0], interval:[this.state.particleLifetime/3*2,this.state.particleLifetime/3*3]}
+                  {finalValue:[6.0, 6.0, 6.0], interval:[ 0 ,this.state.particleLifetime/3*3]}
                 ]
               };
             }
@@ -260,9 +256,9 @@ var ViroShadowTest = React.createClass({
             } else {
               color = {min:"#ffffff", max:"#ffffff", factor:"time",
                 modifier:[
-                  {finalValue:"#ffff00", interval:[0,this.state.particleLifetime/3*1]},
+                  {finalValue:"#fdfa00", interval:[0,this.state.particleLifetime/3*1]},
                   {finalValue:"#ff00ff", interval:[this.state.particleLifetime/3*1,this.state.particleLifetime/3*2]},
-                  {finalValue:"#ffffff", interval:[this.state.particleLifetime/3*2,this.state.particleLifetime/3*3]}
+                  {finalValue:"#ff0f0f", interval:[this.state.particleLifetime/3*2,this.state.particleLifetime/3*3]}
                 ]
               };
             }
@@ -314,8 +310,9 @@ var ViroShadowTest = React.createClass({
           } else if (num == 22){
             console.log("Daniel quad bloom is : " + this.state.quadBloom);
 
+
             this.setState({
-             quadBloom:this.state.quadBloom == 1.0 ? 0.0 : 1.0
+             quadBloom:this.state.quadBloom == 1.0 ? -1.0 : 1.0
             });
           } else if (num == 23){
             this.setState({

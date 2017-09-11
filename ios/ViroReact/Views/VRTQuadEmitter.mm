@@ -10,6 +10,7 @@
 #import <React/RCTConvert.h>
 #import "VRTQuadEmitter.h"
 #import "VRTImageAsyncLoader.h"
+#import "VRTSurface.h"
 
 const int kDefaultSpawnRate = 0;
 const int kDefaultParticleLifetime = 0;
@@ -19,8 +20,10 @@ const int kDefaultMaxParticles = 500;
     VRTImageAsyncLoader *_loader;
     std::shared_ptr<VROParticleEmitter> _emitter;
     std::shared_ptr<VROTexture> _particleTexture;
-    bool _needsQuadUpdate;
+    std::shared_ptr<VROSurface> _particleGeometry;
     bool _needsRestart;
+    bool _needsQuadUpdate;
+    NSString *_currentQuadSource;
     
     std::shared_ptr<VROParticleModifier> _defaultAlphaModifier;
     std::shared_ptr<VROParticleModifier> _defaultColorModifier;
@@ -39,6 +42,7 @@ const int kDefaultMaxParticles = 500;
         _needsRestart = false;
         _run = false;
         _needsQuadUpdate = false;
+        _currentQuadSource = nil;
 
         // Set modifier defaults to simulate particle in its original configuration.
         _defaultAlphaModifier = std::make_shared<VROParticleModifier>(VROVector3f(1,0,0));
@@ -47,6 +51,9 @@ const int kDefaultMaxParticles = 500;
         _defaultRotationModifier = std::make_shared<VROParticleModifier>(VROVector3f(0,0,0));
         _defaultVelocityModifier = std::make_shared<VROParticleModifier>(VROVector3f(0,0,0));
         _defaultAccelerationModifier = std::make_shared<VROParticleModifier>(VROVector3f(0,0,0));
+        
+        // Create a VROSurface, representing the particle geometry template for this emitter.
+        _particleGeometry = VROSurface::createSurface(1, 1);
     }
     return self;
 }
@@ -105,6 +112,11 @@ const int kDefaultMaxParticles = 500;
     if (!self.driver || !self.node || !self.quad || !self.scene) {
         return;
     }
+    
+    if (!self.quad){
+        RCTLogError(@"Viro: Missing required quad for a Viro Quad Emitter!");
+        return;
+    }
 
     // If the image or image size has changed, recreate the emitter.
     [self updateImageIfNeeded];
@@ -114,7 +126,12 @@ const int kDefaultMaxParticles = 500;
     if ([self.quad objectForKey:@"source"] && _particleTexture == nullptr) {
         return;
     }
-
+    
+    if (_needsQuadUpdate){
+        [self updateQuad];
+        _needsQuadUpdate = false;
+    }
+    
     // Create the emitter if we haven't yet done so, or if the texture has changed.
     if (_emitter == nullptr) {
         [self createEmitter];
@@ -136,38 +153,52 @@ const int kDefaultMaxParticles = 500;
 }
 
 - (void)updateImageIfNeeded {
-    // Don't update if we have already updated the image.
-    if (!_needsQuadUpdate) {
+    // Schedule image for download if given.
+    NSString *nsStringQuadSource = [self.quad objectForKey:@"source"][@"uri"];
+    
+    // Return if the image for this quad emitter has not changed.
+    if ((_currentQuadSource && nsStringQuadSource && [_currentQuadSource isEqualToString:nsStringQuadSource])
+        || (!_currentQuadSource && !nsStringQuadSource)) {
         return;
     }
+    _currentQuadSource = nsStringQuadSource;
 
-    // If image has changed, redownload it and re-update the emitter once done.
-    [self removeEmitter];
-
-    // Schedule image for download if given.
-    NSString *nsStringQuadSource = [self.quad objectForKey:@"source"];
+    // Else, start the download with the newly provided image.
+    _particleTexture = nullptr;
     if (nsStringQuadSource != nil) {
         [_loader loadImage:[RCTConvert RCTImageSource:nsStringQuadSource]];
     } else {
         [_loader cancel];
-        _loader.tag = nil;
         _particleTexture = nullptr;
     }
-    _needsQuadUpdate = false;
 }
 
--(void)createEmitter {
+-(void)updateQuad {
     NSNumber *width = [self.quad objectForKey:@"width"];
     NSNumber *height = [self.quad objectForKey:@"height"];
     float fwidth = width ? [width floatValue] : 1.0;
     float fheight = height ? [height floatValue] : 1.0;
-    _emitter = std::make_shared<VROParticleEmitter>(self.driver, self.node, _particleTexture, fwidth, fheight);
-   
+    _particleGeometry->setWidth(fwidth);
+    _particleGeometry->setHeight(fheight);
+    
+    // Create a VROSurface, representing the particle geometry template for this emitter.
+    std::shared_ptr<VROMaterial> material = _particleGeometry->getMaterials()[0];
+    // Apply the particle texture, if given.
+    if (_particleTexture) {
+        material->getDiffuse().setTexture(_particleTexture);
+    }
+
     if ([self.quad objectForKey:@"bloomThreshold"]){
         float threshold = [[self.quad objectForKey:@"bloomThreshold"] doubleValue];
-        self.node->getGeometry()->getMaterials()[0]->setBloomThreshold(threshold);
+        _particleGeometry->getMaterials()[0]->setBloomThreshold(threshold);
+    } else {
+        _particleGeometry->getMaterials()[0]->setBloomThreshold(-1.0f);
     }
-    
+     _particleGeometry->getMaterials()[0]->updateSubstrate();
+}
+
+-(void)createEmitter {
+    _emitter = std::make_shared<VROParticleEmitter>(self.driver, self.node, _particleGeometry);
     self.scene->addParticleEmitter(_emitter);
 }
 
@@ -266,7 +297,7 @@ const int kDefaultMaxParticles = 500;
         NSString *stringShapeName = [spawnVolume objectForKey:@"shape"];
         NSArray *shapeParams = [spawnVolume objectForKey:@"params"];
 
-        if (!stringShapeName) {
+        if (stringShapeName == nil) {
             RCTLogError(@"Viro: Missing required volume shape type, skipping spawn volume modifier.");
             return;
         }
@@ -332,6 +363,9 @@ const int kDefaultMaxParticles = 500;
     _emitter->setAlphaModifier(alphaModifier != nullptr ? alphaModifier : _defaultAlphaModifier);
     _emitter->setScaleModifier(scaleModifier != nullptr ? scaleModifier : _defaultScaleModifier);
     _emitter->setRotationModifier(rotationModifier != nullptr ? rotationModifier : _defaultRotationModifier);
+    
+    pwarn("Daniel color modifier is null? %d", colorModifier != nullptr );
+    
     _emitter->setColorModifier(colorModifier != nullptr ? colorModifier : _defaultColorModifier);
 }
 
@@ -505,6 +539,7 @@ const int kDefaultMaxParticles = 500;
                                                                                VROMipmapMode::Runtime,
                                                                                std::make_shared<VROImageiOS>(image, VROTextureInternalFormat::RGBA8),
                                                                                VROStereoMode::None);
+            _needsQuadUpdate = true;
             [self updateEmitter];
         } else {
             perror("Viro: Error loading particle image resource");
