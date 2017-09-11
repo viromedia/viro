@@ -93,7 +93,7 @@ var GroupTestMaterials = React.createClass({
     let heartMaterial = {};
     if (heartMat != "none") {
       heartMaterial["materials"] = [heartMat];
-    } 
+    }
 
     return (
         <ViroScene>
@@ -231,7 +231,8 @@ ViroMaterials.createMaterials({
   blueBlinn: {
     shininess: 2.0,
     lightingModel: "Blinn",
-    diffuseColor: "#0000ff"
+    diffuseColor: "#0000ff",
+    specularTexture: require('./res/specular.png'),
   },
 
   whiteCullModeBack: {
@@ -267,6 +268,7 @@ ViroMaterials.createMaterials({
     shininess: 2.0,
     lightingModel: "Blinn",
     diffuseTexture: require('../res/heart_d.jpg'),
+    specularTexture: require('./res/specular.png'),
   },
 
   heartCullModeBack: {

@@ -325,7 +325,8 @@ ViroMaterials.createMaterials({
   },
   whiteColorBlinn: {
     lightingModel: "Blinn",
-    diffuseColor: "#ffffff"
+    diffuseColor: "#ffffff",
+    specularTexture: require('./res/specular.png')
   },
  });
 
