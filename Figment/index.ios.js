@@ -31,3 +31,5 @@ export default class Root extends Component {
 }
 
 AppRegistry.registerComponent('Figment', () => Root);
+
+AppRegistry.registerComponent('ViroSample', () => Root);

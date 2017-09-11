@@ -74,6 +74,7 @@ var ModelItemRender = React.createClass({
             dragType="FixedToWorld">
 
             <ViroSpotLight
+              ref={component=>{this.spotLight = component}}
               innerAngle={5}
               outerAngle={20}
               direction={[0,-1,0]}
@@ -82,7 +83,7 @@ var ModelItemRender = React.createClass({
               castsShadow={true}
               influenceBitMask={this.props.bitMask}
               shadowNearZ={.1}
-              shadowFarZ={5}
+              shadowFarZ={6 * this.state.scale[0]}
               shadowOpacity={.9} />
 
             <Viro3DObject
@@ -193,6 +194,7 @@ var ModelItemRender = React.createClass({
       }
 
       this.arNodeRef.setNativeProps({scale:newScale});
+      this.spotLight.setNativeProps({shadowFarZ: 6 * newScale[0]});
     },
 
     _onError(uuid) {
