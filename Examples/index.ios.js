@@ -22,8 +22,8 @@ import {
   ViroARSceneNavigator
 } from 'react-viro';
 
-var InitialVRScene = require('./js/release_test/Viro3DObjectTest');
-var InitialARScene = require('./js/AR/arHitTest');
+var InitialVRScene = require('./js/release_test/ViroVideoTest');
+var InitialARScene = require('./js/AR/release_test/ARSceneAndNavigatorTest');
 
 var UNSET = "UNSET";
 var VR_NAVIGATOR_TYPE = "VR";
