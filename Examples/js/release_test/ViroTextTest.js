@@ -114,27 +114,27 @@ var ViroTextTest = React.createClass({
         </ViroFlexView>
 
         <ViroFlexView style={styles.containerVertical} width={2} height={0.8} materials="redColor" position={[-1, 2, 0]}>
-          <ViroText fontSize={this.state.fontSize} style={newStyle}  text="Vertical Centered Text Top!" textAlignVertical={"top"}/>
+          <ViroText fontSize={this.state.fontSize} style={newStyle}  text="Vertical Céntéréd Text Top!" textAlignVertical={"top"}/>
         </ViroFlexView>
 
         <ViroFlexView style={styles.containerVertical} width={2} height={0.8} materials="redColor" position={[-1, 1, 0]}>
-          <ViroText fontSize={this.state.fontSize} style={newStyle}  text="Vertical Centered Text Center!" textAlignVertical={"center"}/>
+          <ViroText fontSize={this.state.fontSize} style={newStyle}  text="Vertical Céntéréd Text Center!" textAlignVertical={"center"}/>
         </ViroFlexView>
 
         <ViroFlexView style={styles.containerVertical} width={2} height={0.8} materials="redColor" position={[-1, 0, 0]}>
-          <ViroText fontSize={this.state.fontSize} style={newStyle}  text="Vertical Centered Text Bottom!" textAlignVertical={"bottom"}/>
+          <ViroText fontSize={this.state.fontSize} style={newStyle}  text="Vertical Céntéréd Text Bottom!" textAlignVertical={"bottom"}/>
         </ViroFlexView>
 
         <ViroFlexView style={styles.containerVertical} width={2} height={0.8} materials="redColor" position={[2, 2, 0]}>
-          <ViroText fontSize={this.state.fontSize} style={newStyle} width={2} height={0.8} text="Horizontal Centered Text Left!"  textAlign={"left"}/>
+          <ViroText fontSize={this.state.fontSize} style={newStyle} width={2} height={0.8} text="Horizontal Céntéréd Text Left!"  textAlign={"left"}/>
         </ViroFlexView>
 
         <ViroFlexView style={styles.containerVertical} width={2} height={0.8} materials="redColor" position={[2, 1, 0]}>
-          <ViroText fontSize={this.state.fontSize} style={newStyle} width={2} height={0.8} text="Horizontal Centered Text Center!" textAlign={"center"}/>
+          <ViroText fontSize={this.state.fontSize} style={newStyle} width={2} height={0.8} text="Horizontal Céntéréd Text Center!" textAlign={"center"}/>
         </ViroFlexView>
 
         <ViroFlexView style={styles.containerVertical} width={2} height={0.8} materials="redColor" position={[2, 0, 0]}>
-          <ViroText fontSize={this.state.fontSize} style={newStyle} width={2} height={0.8} text="Horizontal Centered Text Right!" textAlign={"right"}/>
+          <ViroText fontSize={this.state.fontSize} style={newStyle} width={2} height={0.8} text="Horizontal Céntéréd Text Right!" textAlign={"right"}/>
         </ViroFlexView>
 
         <ViroFlexView style={styles.containerVertical}  width={2} height={1}  materials="redColor"position={[-4,-1, 0]}>

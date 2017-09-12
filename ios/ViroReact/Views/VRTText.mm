@@ -116,7 +116,11 @@ NSString *const VRTLabelReactTagAttributeName = @"ReactTagAttributeName";
     int fontSize = (int)self.fontSize;
     
     std::shared_ptr<VROTypeface> typeFace = self.driver->newTypeface(fontFamily, fontSize);
-    std::string text = std::string([_text UTF8String]);
+    
+    NSStringEncoding encoding = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingUTF32LE);
+    NSData *textData = [_text dataUsingEncoding:encoding];
+    
+    std::wstring text = std::wstring((wchar_t *) [textData bytes], [textData length] / sizeof(wchar_t));
     VROVector4f colorVector(1.0f, 1.0f, 1.0f, 1.0f);
     
     if(self.color != nil) {
@@ -126,7 +130,7 @@ NSString *const VRTLabelReactTagAttributeName = @"ReactTagAttributeName";
     }
     _vroText = VROText::createText(text, typeFace, colorVector, _width, _height,
                                    self.textAlign, self.textAlignVertical,
-                                   self.textLineBreakMode, self.textClipMode, self.maxLines);
+                                   self.textLineBreakMode, self.textClipMode, (int) self.maxLines);
     
     [self node]->setGeometry(_vroText);
 }
