@@ -38,7 +38,7 @@ var ARDragTest = React.createClass({
   },
   render: function() {
     return (
-        <ViroARScene onClick={()=>{console.log("arScene onClick"); this.refs["planeSelector"].reset()}} >
+        <ViroARScene onClick={()=>{this.refs["planeSelector"].reset()}} >
           <ViroNode position={[0,0,-1]} onDrag={()=>{}} dragType="FixedToWorld">
             <ViroBox position={[0,.13,0]} scale={[.2,.2,.2]} materials="blueBox"/>
             <ViroImage rotation={[-90,0,0]} scale={[.3,.3,.3]} position={[0,.01,0]}

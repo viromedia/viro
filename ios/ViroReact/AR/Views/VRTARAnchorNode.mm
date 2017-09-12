@@ -27,23 +27,23 @@
 - (void)onARAnchorAttached:(std::shared_ptr<VROARAnchor>) anchor {
     self.isAnchored = true;
     [self handleAppearanceChange];
-    if (_onComponentFoundViro) {
-        _onComponentFoundViro(@{ @"componentFoundMap" : [self createDictionaryFromAnchor:anchor]});
+    if (_onAnchorFoundViro) {
+        _onAnchorFoundViro(@{ @"anchorFoundMap" : [self createDictionaryFromAnchor:anchor]});
     }
 }
 
 - (void)onARAnchorUpdated:(std::shared_ptr<VROARAnchor>) anchor {
-    if (_onComponentUpdatedViro) {
-        _onComponentUpdatedViro(@{ @"componentUpdatedMap" : [self createDictionaryFromAnchor:anchor]});
+    if (_onAnchorUpdatedViro) {
+        _onAnchorUpdatedViro(@{ @"anchorUpdatedMap" : [self createDictionaryFromAnchor:anchor]});
     }
 }
 
 - (void)onARAnchorRemoved {
     self.isAnchored = false;
     [self handleAppearanceChange];
-    if (_onComponentRemovedViro) {
+    if (_onAnchorRemovedViro) {
         // we don't need to return any args for anchor removed
-        _onComponentRemovedViro(@{});
+        _onAnchorRemovedViro(@{});
     }
 }
 

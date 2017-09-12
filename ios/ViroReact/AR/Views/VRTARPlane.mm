@@ -81,7 +81,7 @@ static float const kARPlaneDefaultMinWidth = 0;
     VROQuaternion rotation = transform.extractRotation(transform.extractScale());
     VROVector3f extent = planeAnchor->getExtent();
     return @{
-             @"position" : @[@(center.x), @(center.y), @(center.z)],
+             @"center" : @[@(center.x), @(center.y), @(center.z)],
              @"rotation" : @[@(rotation.X), @(rotation.Y), @(rotation.Z)],
              @"width" : @(extent.x),
              @"height" : @(extent.z)

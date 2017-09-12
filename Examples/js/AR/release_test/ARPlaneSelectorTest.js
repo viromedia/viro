@@ -68,14 +68,12 @@ var testARScene = React.createClass({
     this.setState({
       selectedState : "Selected"
     })
-    this.setTimeout( () => {
-      this.setState({
-        selectedState : "NOT Selected"
-      });
-    }, 1000);
   },
   _onClick() {
     this.refs["planeSelector"].reset();
+    this.setState({
+      selectedState : "NOT Selected"
+    })
   },
   _goToNextTest() {
     // do something!

@@ -48,7 +48,7 @@ var testARScene = React.createClass({
         <ViroARScene ref="arscene">
           <ViroText position={polarToCartesian([2, -10, 0])} text={"Mode: " + (this.state.testWithRay ? "testWithRay" : "testWithPosition")}
             style={styles.baseTextTwo} onClick={this._switchRayTestType} transformBehaviors={["billboard"]}/>
-          <ViroARPlane onComponentUpdated={this._onPlaneUpdate}>
+          <ViroARPlane onAnchorUpdated={this._onPlaneUpdate}>
             <ViroSurface materials={"transparent"} scale={this.state.surfaceSize}
              rotation={[-90, 0, 0]} onClick={this._onSurfaceClickUsingPosition}/>
           </ViroARPlane>
@@ -64,7 +64,7 @@ var testARScene = React.createClass({
     );
   },
   /*
-          <ViroARPlane onComponentUpdated={this._onPlaneUpdate}>
+          <ViroARPlane onAnchorUpdated={this._onPlaneUpdate}>
             <ViroSurface materials={"transparent"} scale={this.state.surfaceSize}
              rotation={[-90, 0, 0]} onClick={this._onSurfaceClickUsingPosition}/>
           </ViroARPlane>

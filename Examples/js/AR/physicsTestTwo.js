@@ -86,7 +86,7 @@ var testARScene = React.createClass({
       }
       color = "light" // override color
       planes.push((
-        <ViroARPlane key={prefix + i} onClick={this._addOneBox} onComponentFound={this._updateBoxState(i)} onComponentUpdated={this._updateBoxState(i)}>
+        <ViroARPlane key={prefix + i} onClick={this._addOneBox} onAnchorFound={this._updateBoxState(i)} onAnchorUpdated={this._updateBoxState(i)}>
           <ViroBox scale={[this.state["box" + i][0], .1, this.state["box" + i][1]]} position={[0,0,0]} rotation={[0,0,0]}
             physicsBody={{
                       type:'static', restitution:0

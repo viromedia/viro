@@ -56,9 +56,9 @@ var ViroARPlaneSelector = React.createClass({
     ]),
     onCollided: React.PropTypes.func,
     viroTag: PropTypes.string,
-    onComponentFound: React.PropTypes.func,
-    onComponentUpdated: React.PropTypes.func,
-    onComponentRemoved: React.PropTypes.func,
+    onAnchorFound: React.PropTypes.func,
+    onAnchorUpdated: React.PropTypes.func,
+    onAnchorRemoved: React.PropTypes.func,
     onPlaneSelected: React.PropTypes.func,
   },
 
@@ -85,13 +85,15 @@ var ViroARPlaneSelector = React.createClass({
         let arPlaneSize = this.state.arPlaneSizes[i];
         let surfaceWidth = arPlaneSize ? arPlaneSize.width : 0;
         let surfaceHeight = arPlaneSize ? arPlaneSize.height : 0;
+        let surfacePosition = arPlaneSize ? arPlaneSize.center : [0,0,0];
         arPlanes.push((
           <ViroARPlane key={_planePrefix + i}
             minWidth={this.props.minWidth}
             minHeight = {this.props.minHeight}
-            onComponentUpdated={this._onARPlaneUpdated(i)} >
+            onAnchorUpdated={this._onARPlaneUpdated(i)} >
             <ViroSurface materials={"ViroARPlaneSelector_Translucent"}
               onClick={this._getOnClickSurface(i)}
+              position={surfacePosition}
               width={surfaceWidth} height={surfaceHeight}
               rotation={[-90,0,0]} />
           </ViroARPlane>

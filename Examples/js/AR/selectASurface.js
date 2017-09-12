@@ -89,7 +89,7 @@ var testARScene = React.createClass({
       }
       planes.push((
         <ViroARPlane key={prefix + i} onClick={this._addOneBox}
-         onComponentFound={this._updateBoxState(i)} onComponentUpdated={this._updateBoxState(i)}
+         onAnchorFound={this._updateBoxState(i)} onAnchorUpdated={this._updateBoxState(i)}
          visible={this.state.selectedSurface == -1 || this.state.selectedSurface == i}>
           <ViroBox scale={[this.state["box" + i][0], .01, this.state["box" + i][1]]} position={[0,0,0]} rotation={[0,0,0]}
             physicsBody={{

@@ -31,6 +31,8 @@
 	<string>Used to scan Cardboard Reader</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Record Audio with Video</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Used to add video/Photos to Camera Roll</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Used to add video/photos to Camera Roll</string>
 	<key>UILaunchStoryboardName</key>

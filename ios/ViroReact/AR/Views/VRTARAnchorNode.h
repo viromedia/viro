@@ -14,9 +14,9 @@
  */
 @interface VRTARAnchorNode : VRTNode<VROARNodeDelegateProtocol>
 
-@property (nonatomic, copy, nullable) RCTDirectEventBlock onComponentFoundViro;
-@property (nonatomic, copy, nullable) RCTDirectEventBlock onComponentUpdatedViro;
-@property (nonatomic, copy, nullable) RCTDirectEventBlock onComponentRemovedViro;
+@property (nonatomic, copy, nullable) RCTDirectEventBlock onAnchorFoundViro;
+@property (nonatomic, copy, nullable) RCTDirectEventBlock onAnchorUpdatedViro;
+@property (nonatomic, copy, nullable) RCTDirectEventBlock onAnchorRemovedViro;
 
 /*
  True/false if the AR node is attached to some anchor in the real world.

@@ -47,9 +47,9 @@ var ViroARPlane = React.createClass({
     ]),
     onCollided: React.PropTypes.func,
     viroTag: PropTypes.string,
-    onComponentFound: React.PropTypes.func,
-    onComponentUpdated: React.PropTypes.func,
-    onComponentRemoved: React.PropTypes.func,
+    onAnchorFound: React.PropTypes.func,
+    onAnchorUpdated: React.PropTypes.func,
+    onAnchorRemoved: React.PropTypes.func,
   },
 
   _onHover: function(event: Event) {
@@ -110,21 +110,21 @@ var ViroARPlane = React.createClass({
     }
   },
 
-  _onComponentFound: function(event: Event) {
-    if (this.props.onComponentFound) {
-      this.props.onComponentFound(event.nativeEvent.componentFoundMap);
+  _onAnchorFound: function(event: Event) {
+    if (this.props.onAnchorFound) {
+      this.props.onAnchorFound(event.nativeEvent.anchorFoundMap);
     }
   },
 
-  _onComponentUpdated: function(event: Event) {
-    if (this.props.onComponentUpdated) {
-      this.props.onComponentUpdated(event.nativeEvent.componentUpdatedMap);
+  _onAnchorUpdated: function(event: Event) {
+    if (this.props.onAnchorUpdated) {
+      this.props.onAnchorUpdated(event.nativeEvent.anchorUpdatedMap);
     }
   },
 
-  _onComponentRemoved: function(event: Event) {
-    if (this.props.onComponentRemoved) {
-      this.props.onComponentRemoved();
+  _onAnchorRemoved: function(event: Event) {
+    if (this.props.onAnchorRemoved) {
+      this.props.onAnchorRemoved();
     }
   },
 
@@ -164,9 +164,9 @@ var ViroARPlane = React.createClass({
         timeToFuse={timeToFuse}
         canCollide={this.props.onCollided != undefined}
         onCollidedViro={this._onCollided}
-        onComponentFoundViro={this._onComponentFound}
-        onComponentUpdatedViro={this._onComponentUpdated}
-        onComponentRemovedViro={this._onComponentRemoved}
+        onAnchorFoundViro={this._onAnchorFound}
+        onAnchorUpdatedViro={this._onAnchorUpdated}
+        onAnchorRemovedViro={this._onAnchorRemoved}
         />
     );
   }
@@ -198,9 +198,9 @@ var VRTARPlane = requireNativeComponent(
       timeToFuse:true,
       canCollide:true,
       onCollidedViro:true,
-      onComponentFoundViro:true,
-      onComponentUpdatedViro:true,
-      onComponentRemovedViro:true,
+      onAnchorFoundViro:true,
+      onAnchorUpdatedViro:true,
+      onAnchorRemovedViro:true,
     }
   }
 );

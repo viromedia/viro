@@ -110,6 +110,11 @@ var ViroARScene = React.createClass({
     this.props.onTrackingInitialized && this.props.onTrackingInitialized();
   },
 
+  /*
+   Gives constant estimates of the ambient light as detected by the camera.
+
+   Returns object w/ "intensity" and "colorTemperature" keys
+   */
   _onAmbientLightUpdate: function(event: Event) {
     this.props.onAmbientLightUpdate && this.props.onAmbientLightUpdate(event.nativeEvent.ambientLightInfo)
   },

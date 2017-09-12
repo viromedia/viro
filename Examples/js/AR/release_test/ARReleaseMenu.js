@@ -38,14 +38,11 @@ let polarToCartesian = ViroUtils.polarToCartesian;
 var maxRows = 4
 
 var testFiles = [
-  ["ARHitTest", require("./ARHitTest")],
+  ["ARScene/Navigator", require("./ARSceneAndNavigatorTest")],
   ["ARDragTest", require("./ARDragTest")],
   ["ARPlaneSelectorTest", require("./ARPlaneSelectorTest")],
-  ["ARSomethingTest2", require("./ARHitTest")],
-  ["ARSomethingTest3", require("./ARHitTest")],
-  ["ARSomethingTest4", require("./ARHitTest")],
-  ["ARSomethingTest5", require("./ARHitTest")],
-  ["ARSomethingTest6", require("./ARHitTest")],
+  ["ARPlaneTest", require("./ARPlaneTest")],
+  ["ARHitTest", require("./ARHitTest")],
 ]
 
 var ARReleaseMenu = React.createClass({
