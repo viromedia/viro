@@ -17,7 +17,7 @@ var PropTypes = React.PropTypes;
 var NativeModules = require('react-native').NativeModules;
 
 /**
- * Portal container for revealing different sections of the scene graph.
+ * Frame that serves as a 'window' into a ViroPortal
  */
 var ViroPortal = React.createClass({
   propTypes: {
@@ -34,6 +34,8 @@ var ViroPortal = React.createClass({
     onTransformUpdate: React.PropTypes.func,
     visible: PropTypes.bool,
     opacity: PropTypes.number,
+    lightBitMask : PropTypes.number,
+    shadowCastingBitMask : PropTypes.number,
     ignoreEventHandling: PropTypes.bool,
     dragType: PropTypes.oneOf(["FixedDistance", "FixedToWorld"]),
 
@@ -80,7 +82,6 @@ var ViroPortal = React.createClass({
 
     viroTag: PropTypes.string,
     onCollided: React.PropTypes.func,
-    passable: PropTypes.bool,
   },
 
   getInitialState: function() {
@@ -104,10 +105,6 @@ var ViroPortal = React.createClass({
     if (event.nativeEvent.clickState == CLICKED){
         this._onClick(event)
     }
-  },
-
-  setNativeProps: function(nativeProps) {
-     this._component.setNativeProps(nativeProps);
   },
 
   _onTouch: function(event: Event) {
@@ -203,6 +200,10 @@ var ViroPortal = React.createClass({
     return true;
   },
 
+  setNativeProps: function(nativeProps) {
+    this._component.setNativeProps(nativeProps);
+  },
+
   render: function() {
     // Since transformBehaviors can be either a string or an array, convert the string to a 1-element array.
     let transformBehaviors = typeof this.props.transformBehaviors === 'string' ?
@@ -216,9 +217,9 @@ var ViroPortal = React.createClass({
     let transformDelegate = this.props.onTransformUpdate != undefined ? this._onNativeTransformUpdate : undefined;
 
     return (
-      <VRTPortal
+      <VRTPortalFrame
         {...this.props}
-        ref={ component => { this._component = component; }}
+        ref={ component => {this._component = component; }}
         position={this.state.propsPositionState}
         onNativeTransformDelegateViro={transformDelegate}
         hasTransformDelegate={this.props.onTransformUpdate != undefined}
@@ -229,18 +230,18 @@ var ViroPortal = React.createClass({
         canScroll={this.props.onScroll != undefined}
         canSwipe={this.props.onSwipe != undefined}
         canDrag={this.props.onDrag != undefined}
-        canFuse={this.props.onFuse != undefined}
         canPinch={this.props.onPinch != undefined}
         canRotate={this.props.onRotate != undefined}
+        canFuse={this.props.onFuse != undefined}
         onHoverViro={this._onHover}
         onClickViro={this._onClickState}
         onTouchViro={this._onTouch}
         onScrollViro={this._onScroll}
         onSwipeViro={this._onSwipe}
         onDragViro={this._onDrag}
-        onFuseViro={this._onFuse}
         onPinchViro={this._onPinch}
         onRotateViro={this._onRotate}
+        onFuseViro={this._onFuse}
         timeToFuse={timeToFuse}
         canCollide={this.props.onCollided != undefined}
         onCollidedViro={this._onCollided}
@@ -249,8 +250,8 @@ var ViroPortal = React.createClass({
   }
 });
 
-var VRTPortal = requireNativeComponent(
-  'VRTPortal', ViroPortal, {
+var VRTPortalFrame = requireNativeComponent(
+  'VRTPortalFrame', ViroPortal, {
     nativeOnly: {
             materials: [],
             canHover: true,
@@ -259,9 +260,9 @@ var VRTPortal = requireNativeComponent(
             canScroll: true,
             canSwipe: true,
             canDrag: true,
-            canFuse: true,
             canPinch: true,
             canRotate: true,
+            canFuse: true,
             onHoverViro:true,
             onClickViro:true,
             onTouchViro:true,

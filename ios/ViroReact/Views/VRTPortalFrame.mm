@@ -7,6 +7,8 @@
 //
 
 #import "VRTPortalFrame.h"
+#import "VRT3DObject.h"
+#import <React/RCTLog.h>
 
 @interface VRTPortalFrame ()
 
@@ -22,6 +24,13 @@
     return self;
 }
 
+- (void)insertReactSubview:(UIView *)subview atIndex:(NSInteger)atIndex {
+    if(![subview isKindOfClass:[VRT3DObject class]]) {
+           RCTLogError(@"Only a Viro3DObject can be a child of ViroPortal.");
+    }
+ 
+    [super insertReactSubview:subview atIndex:atIndex];
+}
 - (std::shared_ptr<VRONode>)createVroNode {
     return std::make_shared<VROPortalFrame>();
 }

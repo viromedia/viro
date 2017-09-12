@@ -37,7 +37,7 @@
    ViroSurface,
    ViroSkyBox,
    ViroPortal,
-   ViroPortalFrame,
+   ViroPortalScene,
    ViroSphere,
    Viro3DObject,
  } from 'react-viro';
@@ -58,34 +58,34 @@ var ViroPortalTest = React.createClass({
       return (
         <ViroARScene>
             <ViroOmniLight position={[0, 0, 0]} color="#ffffff" attenuationStartDistance={40} attenuationEndDistance={50}/>
-            <ViroPortal position={[0, 0, 1]} passable={false} scale={[1, 1, 1]}>
-               <ViroPortalFrame>
+            <ViroPortalScene position={[0, 0, 1]} passable={false} scale={[1, 1, 1]}>
+               <ViroPortal>
                  <Viro3DObject source={require('./res/portal_ring.obj')}
                                position={[0, 0, 0]}
                                rotation={[0, 0, 0]}
                                scale={[0.04, 0.18, 0.08]}
-                               materials={["ring"]} />
-               </ViroPortalFrame>
+                               materials={["ring"]}  type="OBJ" />
+               </ViroPortal>
 
                <ViroSkyBox color="#66b7f9" />
 
                <ViroAnimatedComponent animation="boxSpin" run={true} loop={true}>
                  <ViroBox width={0.25} height={0.25} position={[0, 0, -2]}/>
                </ViroAnimatedComponent>
-            </ViroPortal>
+            </ViroPortalScene>
 
 
             {
               // Stacked Portals
             }
-            <ViroPortal passable={true} position={[0, 0, -portalDistance + offsetTorwardsCamera]} scale={[1, 1, 1]}>
-               <ViroPortalFrame>
+            <ViroPortalScene passable={true} position={[0, 0, -portalDistance + offsetTorwardsCamera]} scale={[1, 1, 1]}>
+               <ViroPortal>
                  <Viro3DObject source={require('./res/portal_ring.obj')}
                                position={[0, 0, 0]}
                                rotation={[0, 0, 0]}
                                scale={[0.04, 0.18, 0.08]}
-                               materials={["ring"]}  />
-               </ViroPortalFrame>
+                               materials={["ring"]}  type="OBJ"/>
+               </ViroPortal>
 
                <Viro360Video
                     source={Uri360Video}
@@ -97,7 +97,7 @@ var ViroPortalTest = React.createClass({
                                               require('./res/male-02-1noCulling.JPG'),
                                               require('./res/orig_02_-_Defaul1noCulling.JPG')]}
                                   position={[0.5, 0, -0.5]}
-                                  scale={[0.01, 0.01, 0.01]}
+                                  scale={[0.01, 0.01, 0.01]} type="OBJ"
                      />
 
 
@@ -106,12 +106,12 @@ var ViroPortalTest = React.createClass({
                  <ViroBox width={0.25} height={0.25} position={[-1.5, 0, -2]}/>
                </ViroAnimatedComponent>
 
-              <ViroPortal position={[0, 0, -portalDistance*2 + offsetTorwardsCamera]} scale={[1, 1, 1]} passable={true}>
-                 <ViroPortalFrame>
+              <ViroPortalScene position={[0, 0, -portalDistance*2 + offsetTorwardsCamera]} scale={[1, 1, 1]} passable={true}>
+                 <ViroPortal>
                    <Viro3DObject source={require('./res/portal_ring.obj')}
                                 scale={[0.04, 0.18, 0.08]}
-                                 materials={["ring"]} />
-                 </ViroPortalFrame>
+                                 materials={["ring"]}  type="OBJ" />
+                 </ViroPortal>
 
                  <Viro360Image source={require('./res/360_park.jpg')} />
 
@@ -119,27 +119,27 @@ var ViroPortalTest = React.createClass({
                    <ViroBox width={0.125} height={0.125} position={[-0.75, 0, -1]} materials={["box1"]}/>
                  </ViroAnimatedComponent>
 
-              </ViroPortal>
-            </ViroPortal>
+              </ViroPortalScene>
+            </ViroPortalScene>
 
             {
               // Portal behind the stacked portals (you should not see this.)
             }
-            <ViroPortal position={[0, 0, -portalDistance*3 + offsetTorwardsCamera]} passable={true} scale={[1, 1, 1]}>
-               <ViroPortalFrame>
+            <ViroPortalScene position={[0, 0, -portalDistance*3 + offsetTorwardsCamera]} passable={true} scale={[1, 1, 1]}>
+               <ViroPortal>
                  <Viro3DObject source={require('./res/portal_ring.obj')}
                                position={[0, 0, 0]}
                                rotation={[0, 0, 0]}
                                scale={[0.04, 0.18, 0.08]}
-                               materials={["ring"]} />
-               </ViroPortalFrame>
+                               materials={["ring"]}  type="OBJ" />
+               </ViroPortal>
 
                <ViroSkyBox color="#66b7f9" />
 
                <ViroAnimatedComponent animation="boxSpin" run={true} loop={true}>
                  <ViroBox width={0.25} height={0.25} position={[-1.5, 0, -2]}/>
                </ViroAnimatedComponent>
-            </ViroPortal>
+            </ViroPortalScene>
 
         </ViroARScene>
       );

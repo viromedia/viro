@@ -36,8 +36,8 @@
    ViroAnimatedComponent,
    ViroSurface,
    ViroSkyBox,
+   ViroPortalScene,
    ViroPortal,
-   ViroPortalFrame,
    ViroSphere,
    Viro3DObject,
  } from 'react-viro';
@@ -57,8 +57,8 @@ var ViroPortalTest = React.createClass({
       return (
         <ViroARScene>
             <ViroOmniLight position={[0, 0, 0]} color="#ffffff" attenuationStartDistance={40} attenuationEndDistance={50}/>
-            <ViroPortal position={[0, 0, 0]} scale={[1, 1, 1]}>
-               <ViroPortalFrame>
+            <ViroPortalScene position={[0, 0, 0]} scale={[1, 1, 1]}>
+               <ViroPortal>
                  <Viro3DObject source={require('./res/portal_ring.obj')}
                                position={[0, 0, -2]}
                                rotation={[0, 0, 0]}
@@ -66,14 +66,14 @@ var ViroPortalTest = React.createClass({
                                materials={["ring"]}
                                type="OBJ"
                  />
-               </ViroPortalFrame>
+               </ViroPortal>
 
                <ViroSkyBox color="#098765" />
 
                <ViroAnimatedComponent animation="parallelAnim" run={true} loop={true}>
                  <ViroBox width={0.25} height={0.25} position={[-1.5, 0, -2]}/>
                </ViroAnimatedComponent>
-            </ViroPortal>
+            </ViroPortalScene>
         </ViroARScene>
       );
    },
