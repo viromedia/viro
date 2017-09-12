@@ -18,6 +18,8 @@
 #import "VRTUtils.h"
 #import "VRTCamera.h"
 #import "VRTPortalFrame.h"
+#import "VRT360Image.h"
+#import "VRT3DObject.h"
 #import "VRTAnimatedComponent.h"
 #import "VRTMaterialManager.h"
 
@@ -103,6 +105,11 @@ const double kTransformDelegateDistanceFilter = 0.01;
     }
     else if ([vroView isKindOfClass:[VRTPortalFrame class]]) {
         // Ignore, this is only handled by VRTPortal
+    }
+    else if([vroView isKindOfClass:[VRT360Image class]]) {
+        VRTNode *nodeView = (VRTNode *)vroView;
+        nodeView.node->getParentPortal()->removeBackground();
+        nodeView.node->removeFromParentNode();
     }
     else if ([vroView isKindOfClass:[VRTNode class]]) {
         VRTNode *nodeView = (VRTNode *)vroView;
