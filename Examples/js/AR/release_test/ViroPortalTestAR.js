@@ -60,7 +60,7 @@ var ViroPortalTest = React.createClass({
             <ViroOmniLight position={[0, 0, 0]} color="#ffffff" attenuationStartDistance={40} attenuationEndDistance={50}/>
             <ViroPortalScene position={[0, 0, 1]} passable={false} scale={[1, 1, 1]}>
                <ViroPortal>
-                 <Viro3DObject source={require('./res/portal_ring.obj')}
+                 <Viro3DObject source={require('../res/portal_ring.obj')}
                                position={[0, 0, 0]}
                                rotation={[0, 0, 0]}
                                scale={[0.04, 0.18, 0.08]}
@@ -74,13 +74,16 @@ var ViroPortalTest = React.createClass({
                </ViroAnimatedComponent>
             </ViroPortalScene>
 
+            <ViroText position={[-2, 0, 0]} text={"Release Menu"}
+                     style={styles.instructionText} onClick={()=>{this.props.arSceneNavigator.replace("ARReleaseMenu", {scene: require("./ARReleaseMenu")})}}
+                     transformBehaviors={["billboard"]}/>
 
             {
               // Stacked Portals
             }
             <ViroPortalScene passable={true} position={[0, 0, -portalDistance + offsetTorwardsCamera]} scale={[1, 1, 1]}>
                <ViroPortal>
-                 <Viro3DObject source={require('./res/portal_ring.obj')}
+                 <Viro3DObject source={require('../res/portal_ring.obj')}
                                position={[0, 0, 0]}
                                rotation={[0, 0, 0]}
                                scale={[0.04, 0.18, 0.08]}
@@ -91,30 +94,35 @@ var ViroPortalTest = React.createClass({
                     source={Uri360Video}
                     loop={true} />
 
-                    <Viro3DObject source={require('./res/male02_obj.obj')}
-                                  resources={[require('./res/male02.mtl'),
-                                              require('./res/01_-_Default1noCulling.JPG'),
-                                              require('./res/male-02-1noCulling.JPG'),
-                                              require('./res/orig_02_-_Defaul1noCulling.JPG')]}
+                    <Viro3DObject source={require('../res/male02_obj.obj')}
+                                  resources={[require('../res/male02.mtl'),
+                                              require('../res/01_-_Default1noCulling.JPG'),
+                                              require('../res/male-02-1noCulling.JPG'),
+                                              require('../res/orig_02_-_Defaul1noCulling.JPG')]}
                                   position={[0.5, 0, -0.5]}
                                   scale={[0.01, 0.01, 0.01]} type="OBJ"
                      />
 
 
-
+              <ViroText position={[-2, 0.5, -2]} text={"Release Menu"}
+                      style={styles.instructionText} onClick={()=>{this.props.arSceneNavigator.replace("ARReleaseMenu", {scene: require("./ARReleaseMenu")})}}
+                      transformBehaviors={["billboard"]}/>
                <ViroAnimatedComponent animation="boxSpin" run={true} loop={true}>
                  <ViroBox width={0.25} height={0.25} position={[-1.5, 0, -2]}/>
                </ViroAnimatedComponent>
 
               <ViroPortalScene position={[0, 0, -portalDistance*2 + offsetTorwardsCamera]} scale={[1, 1, 1]} passable={true}>
                  <ViroPortal>
-                   <Viro3DObject source={require('./res/portal_ring.obj')}
+                   <Viro3DObject source={require('../res/portal_ring.obj')}
                                 scale={[0.04, 0.18, 0.08]}
                                  materials={["ring"]}  type="OBJ" />
                  </ViroPortal>
 
-                 <Viro360Image source={require('./res/360_park.jpg')} />
+                 <Viro360Image source={require('../res/360_park.jpg')} />
 
+                 <ViroText position={[-2, 0.5, -2]} text={"Release Menu"}
+                          style={styles.instructionText} onClick={()=>{this.props.arSceneNavigator.replace("ARReleaseMenu", {scene: require("./ARReleaseMenu")})}}
+                          transformBehaviors={["billboard"]}/>
                  <ViroAnimatedComponent animation="boxSpin" run={true} loop={true}>
                    <ViroBox width={0.125} height={0.125} position={[-0.75, 0, -1]} materials={["box1"]}/>
                  </ViroAnimatedComponent>
@@ -127,7 +135,7 @@ var ViroPortalTest = React.createClass({
             }
             <ViroPortalScene position={[0, 0, -portalDistance*3 + offsetTorwardsCamera]} passable={true} scale={[1, 1, 1]}>
                <ViroPortal>
-                 <Viro3DObject source={require('./res/portal_ring.obj')}
+                 <Viro3DObject source={require('../res/portal_ring.obj')}
                                position={[0, 0, 0]}
                                rotation={[0, 0, 0]}
                                scale={[0.04, 0.18, 0.08]}
@@ -135,7 +143,6 @@ var ViroPortalTest = React.createClass({
                </ViroPortal>
 
                <ViroSkyBox color="#66b7f9" />
-
                <ViroAnimatedComponent animation="boxSpin" run={true} loop={true}>
                  <ViroBox width={0.25} height={0.25} position={[-1.5, 0, -2]}/>
                </ViroAnimatedComponent>
@@ -155,17 +162,25 @@ var styles = StyleSheet.create({
       textAlignVertical: 'center',
       textAlign: 'center',
   },
+  instructionText: {
+      fontFamily: 'Arial',
+      fontSize: 30,
+      color: '#FFFFFF',
+      flex: 1,
+      textAlignVertical: 'center',
+      textAlign: 'center',
+  },
 });
 
 ViroMaterials.createMaterials({
   ring: {
     lightingModel: "Lambert",
-    diffuseTexture: require('./res/portal_ring.png'),
+    diffuseTexture: require('../res/portal_ring.png'),
   },
   box1: {
     shininess : 2.0,
     lightingModel: "Blinn",
-    diffuseTexture: require('./res/sun_2302.jpg'),
+    diffuseTexture: require('../res/sun_2302.jpg'),
   },
 });
 

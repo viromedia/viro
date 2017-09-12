@@ -53,6 +53,7 @@ var allLights: 15             // 1111
 var durationFinal = 3000;
 var fireworkParticle = require("./res/particle_firework.png");
 var cloudParticle = require("./res/particle_bubble.png");
+var ReleaseMenu = require("./ReleaseMenu.js");
 
 var ViroShadowTest = React.createClass({
   getInitialState() {
@@ -93,7 +94,6 @@ var ViroShadowTest = React.createClass({
 
   toggleProperty(num){
       return () => {
-        console.log("Daniel TOGGLE PROPERTY WTF "+ num);
           let that = this;
           if (num == 1){
             var emissionRatePerSecondCurrent = this.state.emissionRatePerSecond + 10;
@@ -341,6 +341,8 @@ var ViroShadowTest = React.createClass({
 
     return (
               <ViroScene ref="scene1">
+              <ReleaseMenu position={[0 , -3, -4]} sceneNavigator={this.props.sceneNavigator}/>
+
                  {/* Left half of the screen, tests for collision with ray shot in scene */}
                  <ViroNode position={[-5 , 5, -5]} transformBehaviors={["billboard"]}>
                  <ViroText fontSize={35}  style={styles.centeredText} lightBitMask={0} // 0 to avoid influencing the test

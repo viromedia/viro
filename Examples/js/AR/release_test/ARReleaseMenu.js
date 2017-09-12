@@ -43,6 +43,8 @@ var testFiles = [
   ["ARPlaneSelectorTest", require("./ARPlaneSelectorTest")],
   ["ARPlaneTest", require("./ARPlaneTest")],
   ["ARHitTest", require("./ARHitTest")],
+  ["ViroPortalTestAR", require("./ViroPortalTestAR")],
+  ["ViroPostProcessTestAR", require("./ViroPostProcessTestAR")],
 ]
 
 var ARReleaseMenu = React.createClass({

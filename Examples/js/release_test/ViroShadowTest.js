@@ -48,6 +48,7 @@ var lightMask2 = 4;              // 0100
 var lightMask3 = 8;              // 1000
 var allLights =  15;             // 1111
 var enviromentLight = 16;        // 10000
+var ReleaseMenu = require("./ReleaseMenu.js");
 
 var ViroShadowTest = React.createClass({
   getInitialState() {
@@ -157,6 +158,8 @@ var ViroShadowTest = React.createClass({
 
     return (
               <ViroScene ref="scene1">
+              <ReleaseMenu position={[0 , -3, -4]} sceneNavigator={this.props.sceneNavigator}/>
+
                  {/* Left half of the screen, tests for collision with ray shot in scene */}
                  <ViroNode position={[-3 , 4, -6]} transformBehaviors={["billboard"]}>
                  <ViroText fontSize={35}  style={styles.centeredText} lightBitMask={0} // 0 to avoid influencing the test

@@ -101,6 +101,9 @@ var ViroPostProcesTest = React.createClass({
                    text={"Toggle property: " + postEffectTestsTag[this.state.number] }
                    onClick={this.toggleProperty(1)}
                    />
+                   <ViroText position={[0 , 0, -6]} text={"Release Menu"}
+                     style={styles.instructionText} onClick={()=>{this.props.arSceneNavigator.replace("ARReleaseMenu", {scene: require("./ARReleaseMenu")})}}
+                     transformBehaviors={["billboard"]}/>
                 </ViroNode>
             </ViroARScene>
 
@@ -129,6 +132,13 @@ var styles = StyleSheet.create({
        fontFamily: 'Arial',
        color: '#ffffff',
        flex: 1,
+  },instructionText: {
+      fontFamily: 'Arial',
+      fontSize: 10,
+      color: '#cccccc',
+      flex: 1,
+      textAlignVertical: 'center',
+      textAlign: 'center',
   },
 
 });

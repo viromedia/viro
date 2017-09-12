@@ -52,6 +52,7 @@ var Uri360Video = {uri:"https://s3-us-west-2.amazonaws.com/viro/360_surf.mp4"};
 var Local360Video = require("./res/360Asteroids.mp4");
 
 var LocalButtonImage = require("./res/icon_live.jpg");
+var ReleaseMenu = require("./ReleaseMenu.js");
 
 
 var lightMask1 = 2;              // 0010
@@ -177,6 +178,7 @@ var ViroShadowGroupTest = React.createClass({
 
     return (
               <ViroScene ref="scene1">
+
                  {/* Left half of the screen, tests for collision with ray shot in scene */}
                  <ViroNode position={[5 , 3, 0]} transformBehaviors={["billboard"]}>
                  <ViroText fontSize={35}  style={styles.centeredText} lightBitMask={0} // 0 to avoid influencing the test
@@ -199,6 +201,8 @@ var ViroShadowGroupTest = React.createClass({
                         text={"Toggle shadowBias " + this.state.shadowBias}
                         onClick={this.toggleProperty(8)}
                   />
+                  <ReleaseMenu position={[0 , -4, 0.2]} sceneNavigator={this.props.sceneNavigator}/>
+
                 </ViroNode>
                 <ViroNode position={[-3,0,-3]}>
                   <ViroSpotLight

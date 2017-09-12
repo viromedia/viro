@@ -46,6 +46,7 @@ let polarToCartesian = ViroUtils.polarToCartesian;
 var portalDistance = 1.25;
 var offsetTorwardsCamera =0.25;
 var Uri360Video = {uri:"https://s3-us-west-2.amazonaws.com/viro/360_surf.mp4"};
+var ReleaseMenu = require("./ReleaseMenu.js");
 
 var ViroPortalTest = React.createClass({
    getInitialState() {
@@ -64,11 +65,13 @@ var ViroPortalTest = React.createClass({
       return (
         <ViroScene>
              <ViroAnimatedComponent
-                            animation="sequentialAnim"
+                            animation="sequentialAnimPortal"
                             run={true}
                             loop={true} >
                 <ViroCamera position={[0,0,0]} active={true} />
+
              </ViroAnimatedComponent>
+             <ReleaseMenu position={[-0.5 , 0, -0.5]} sceneNavigator={this.props.sceneNavigator}/>
 
             <ViroOmniLight position={[0, 0, 0]} color="#ffffff" attenuationStartDistance={40} attenuationEndDistance={50}/>
             {
@@ -84,9 +87,8 @@ var ViroPortalTest = React.createClass({
                                materials={["ring"]} type="OBJ" />
                </ViroPortal>
 
-               <ViroSkyBox color="#66b7f9" />
-
-               <ViroAnimatedComponent animation="boxSpin" run={true} loop={true}>
+               <ReleaseMenu position={[-1.0 , 0, -0.5]} sceneNavigator={this.props.sceneNavigator}/>
+               <ViroAnimatedComponent animation="boxSpinPortal" run={true} loop={true}>
                  <ViroBox width={0.25} height={0.25} position={[0, 0, -2]}/>
                </ViroAnimatedComponent>
             </ViroPortalScene>
@@ -104,7 +106,7 @@ var ViroPortalTest = React.createClass({
                                scale={[0.04, 0.18, 0.08]}
                                materials={["ring"]} type="OBJ" />
                </ViroPortal>
-               <Viro360Image source={require('./res/360_park.jpg')} />
+               <Viro360Image source={require('./res/360_waikiki.jpg')} />
 
                     {
                       /*<Viro360Video
@@ -124,7 +126,7 @@ var ViroPortalTest = React.createClass({
                      />
 
 
-
+                     <ReleaseMenu position={[-1.0 , 0, -2]} sceneNavigator={this.props.sceneNavigator}/>
               <ViroAnimatedComponent animation="boxSpinPortal" run={true} loop={true}>
                  <ViroBox width={0.25} height={0.25} position={[-1.5, 0, -2]}/>
               </ViroAnimatedComponent>
@@ -135,10 +137,9 @@ var ViroPortalTest = React.createClass({
                                 scale={[0.04, 0.18, 0.08]}
                                  materials={["ring"]} type="OBJ" />
                  </ViroPortal>
-
+                 <ReleaseMenu position={[-1.0 , 0, -2]} sceneNavigator={this.props.sceneNavigator}/>
                  <Viro360Image source={require('./res/360_park.jpg')} />
-
-                 <ViroAnimatedComponent animation="boxSpin" run={true} loop={true}>
+                 <ViroAnimatedComponent animation="boxSpinPortal" run={true} loop={true}>
                    <ViroBox width={0.125} height={0.125} position={[-0.75, 0, -1]} materials={["box1"]}/>
                  </ViroAnimatedComponent>
 
@@ -161,7 +162,7 @@ var ViroPortalTest = React.createClass({
 
                <ViroSkyBox color="#f96d66" />
 
-               <ViroAnimatedComponent animation="boxSpin" run={true} loop={true}>
+               <ViroAnimatedComponent animation="boxSpinPortal" run={true} loop={true}>
                  <ViroBox width={0.25} height={0.25} position={[-1.5, 0, -2]}/>
                </ViroAnimatedComponent>
             </ViroPortalScene>
