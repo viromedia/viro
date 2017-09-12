@@ -91,7 +91,7 @@ var PhysicsScaleTest = React.createClass({
 
   render: function() {
     return (
-                <ViroScene physicsWorld={{gravity:[0,-9.81,0],drawBounds:true}}>
+                <ViroScene physicsWorld={{gravity:[0,-9.81,0], drawBounds:true}}>
                 <ReleaseMenu sceneNavigator={this.props.sceneNavigator}/>
 
                 <ViroNode position={[1 , -2, -3]} transformBehaviors={["billboard"]}>

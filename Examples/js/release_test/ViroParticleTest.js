@@ -342,7 +342,7 @@ var ViroShadowTest = React.createClass({
     return (
               <ViroScene ref="scene1">
                  {/* Left half of the screen, tests for collision with ray shot in scene */}
-                 <ViroNode position={[-5 , 5, -8]} transformBehaviors={["billboard"]}>
+                 <ViroNode position={[-5 , 5, -5]} transformBehaviors={["billboard"]}>
                  <ViroText fontSize={35}  style={styles.centeredText} lightBitMask={0} // 0 to avoid influencing the test
                    position={[0,0, 0]} width={6} height ={1} maxLines={1}
                    text={"Toggle emissionRatePerSecond " + this.state.emissionRatePerSecond }

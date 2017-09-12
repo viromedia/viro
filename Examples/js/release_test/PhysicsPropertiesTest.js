@@ -148,7 +148,7 @@ var PhysicsRayTest = React.createClass({
                  <ViroText fontSize={35}  style={styles.centeredText}
                    position={[0,3, 0]} width={4} height ={2} maxLines={3}
                    color={this.state.toggleBounce ? '#0000ff' : '#ffffff'}
-                   text={"Toggle Restitution " } onClick={this.toggleProperty(1)}
+                   text={"Release Blue Box " } onClick={this.toggleProperty(1)}
                    />
                   <ViroText fontSize={35}  style={styles.centeredText}
                     position={[0,2, 0]} width={4} height ={2} maxLines={3}
@@ -157,7 +157,7 @@ var PhysicsRayTest = React.createClass({
                   <ViroText fontSize={35}  style={styles.centeredText}
                         position={[0,1, 0]} width={4} height ={2} maxLines={3}
                         color={this.state.toggleFriction ? '#0000ff' : '#ffffff'}
-                        text={"Toggle Friction "} onClick={this.toggleProperty(2)}
+                        text={"Push Green Box "} onClick={this.toggleProperty(2)}
                         />
                   <ViroText fontSize={35}  style={styles.centeredText}
                       position={[0,0, 0]} width={4} height ={2} maxLines={3}

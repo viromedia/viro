@@ -54,6 +54,12 @@ var ViroPortalTest = React.createClass({
      };
    },
 
+   /*
+   Portals are placed in the following order:
+   -------> Dirction in -Z axis
+   [P0]  [Camera -> starting facing / going this way]   [P1 [P2]] [P3]
+   */
+
    render: function() {
       return (
         <ViroScene>
@@ -65,9 +71,13 @@ var ViroPortalTest = React.createClass({
              </ViroAnimatedComponent>
 
             <ViroOmniLight position={[0, 0, 0]} color="#ffffff" attenuationStartDistance={40} attenuationEndDistance={50}/>
+            {
+              // Portal P0. You should not be able to enter this portal.
+            }
             <ViroPortalScene position={[0, 0, 1]} passable={false} scale={[1, 1, 1]}>
                <ViroPortal>
                  <Viro3DObject source={require('./res/portal_ring.obj')}
+                              type="OBJ"
                                position={[0, 0, 0]}
                                rotation={[0, 0, 0]}
                                scale={[0.04, 0.18, 0.08]}
@@ -83,11 +93,12 @@ var ViroPortalTest = React.createClass({
 
 
             {
-              // Stacked Portals
+              // Recursively stacked Portals [P1  [P2]]
             }
             <ViroPortalScene passable={true} position={[0, 0, -portalDistance + offsetTorwardsCamera]} scale={[1, 1, 1]}>
                <ViroPortal>
                  <Viro3DObject source={require('./res/portal_ring.obj')}
+                               type="OBJ"
                                position={[0, 0, 0]}
                                rotation={[0, 0, 0]}
                                scale={[0.04, 0.18, 0.08]}
@@ -95,12 +106,15 @@ var ViroPortalTest = React.createClass({
                </ViroPortal>
                <Viro360Image source={require('./res/360_park.jpg')} />
 
-      {         /*<Viro360Video
-                    source={Uri360Video}
-                    loop={true} />
-                  */}
+                    {
+                      /*<Viro360Video
+                        source={Uri360Video}
+                        loop={true} />
+                        */
+                    }
 
                     <Viro3DObject source={require('./res/male02_obj.obj')}
+                                   type="OBJ"
                                   resources={[require('./res/male02.mtl'),
                                               require('./res/01_-_Default1noCulling.JPG'),
                                               require('./res/male-02-1noCulling.JPG'),
@@ -111,9 +125,9 @@ var ViroPortalTest = React.createClass({
 
 
 
-               <ViroAnimatedComponent animation="boxSpin" run={true} loop={true}>
+              <ViroAnimatedComponent animation="boxSpinPortal" run={true} loop={true}>
                  <ViroBox width={0.25} height={0.25} position={[-1.5, 0, -2]}/>
-               </ViroAnimatedComponent>
+              </ViroAnimatedComponent>
 
               <ViroPortalScene position={[0, 0, (-portalDistance*2) + offsetTorwardsCamera]} scale={[1, 1, 1]} passable={true}>
                  <ViroPortal>
@@ -132,18 +146,20 @@ var ViroPortalTest = React.createClass({
             </ViroPortalScene>
 
             {
-              // Portal behind the stacked portals (you should not see this.)
+              // Portal behind the recursively stacked portals in the root level (you should not see or enter this.)
+              // This should be portal [P3]
             }
             <ViroPortalScene position={[0, 0, (-portalDistance*3) + offsetTorwardsCamera]} passable={true} scale={[1, 1, 1]}>
                <ViroPortal>
                  <Viro3DObject source={require('./res/portal_ring.obj')}
                                position={[0, 0, 0]}
                                rotation={[0, 0, 0]}
+                               type="OBJ"
                                scale={[0.04, 0.18, 0.08]}
                                materials={["ring"]} type="OBJ" />
                </ViroPortal>
 
-               <ViroSkyBox color="#66b7f9" />
+               <ViroSkyBox color="#f96d66" />
 
                <ViroAnimatedComponent animation="boxSpin" run={true} loop={true}>
                  <ViroBox width={0.25} height={0.25} position={[-1.5, 0, -2]}/>
@@ -180,17 +196,29 @@ ViroMaterials.createMaterials({
 
 
 ViroAnimations.registerAnimations({
-  boxSpin:{properties:{rotateY:"+=180"}, duration:1000},
-  forward:{properties:{positionZ:"-=1.5"}, duration:3000},
-  backward:{properties:{positionZ:"+=1.5"}, duration:3000},
-  loopRotate:{properties:{rotateY:"+=180"}, duration:1000},
-  moveRight:{properties:{positionX:"+=2",}, duration:3000, delay:0},
-  moveLeft:{properties:{positionX:"-=2"}, duration:3000, delay:0},
-  leftRightMove:[
-      ["moveLeft", "moveRight", "moveRight", "moveLeft"]
+  forwardPortalWithDelay:{properties:{positionZ:"-=1.5"}, duration:3000, delay:3000},
+  boxSpinPortal:{properties:{rotateY:"+=180"}, duration:1000},
+  forwardPortal:{properties:{positionZ:"-=2.5"}, duration:3000},
+  backwardPortal:{properties:{positionZ:"+=2.5"}, duration:3000},
+  loopRotatePortal:{properties:{rotateY:"+=180"}, duration:1000},
+  moveRightPortal:{properties:{positionX:"+=2",}, duration:3000, delay:0},
+  moveLeftPortal:{properties:{positionX:"-=2"}, duration:3000, delay:0},
+  forwardOne:{properties:{positionZ:"-=1",}, duration:1000, delay:0},
+  leftRightMovePortal:[
+      ["moveLeftPortal", "moveRightPortal", "moveRightPortal", "moveLeftPortal"]
   ],
-  sequentialAnim:[
-        ["forward","leftRightMove", "forward","leftRightMove", "loopRotate", "backward","leftRightMove", "backward","leftRightMove", "loopRotate"]
+  sequentialAnimPortal:[
+        ["forwardPortalWithDelay",  // -1.5 into z
+        "leftRightMovePortal",
+        "forwardPortal",            // net -4 into z
+        "leftRightMovePortal",
+        "loopRotatePortal",
+        "backwardPortal",           // net -1.5 into z
+        "leftRightMovePortal",
+         "backwardPortal",          // net +1 into z
+         "leftRightMovePortal",
+         "loopRotatePortal",
+         "forwardOne"]              // net 0 into z - back where we started.
   ],
 });
 

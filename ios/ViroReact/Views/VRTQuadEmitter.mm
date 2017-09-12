@@ -154,9 +154,12 @@ const int kDefaultMaxParticles = 500;
 
 - (void)updateImageIfNeeded {
     // Schedule image for download if given.
-    NSString *nsStringQuadSource = [self.quad objectForKey:@"source"][@"uri"];
+    if (![self.quad objectForKey:@"source"]){
+        return;
+    }
     
     // Return if the image for this quad emitter has not changed.
+    NSString *nsStringQuadSource = [self.quad objectForKey:@"source"][@"uri"];
     if ((_currentQuadSource && nsStringQuadSource && [_currentQuadSource isEqualToString:nsStringQuadSource])
         || (!_currentQuadSource && !nsStringQuadSource)) {
         return;
@@ -363,9 +366,6 @@ const int kDefaultMaxParticles = 500;
     _emitter->setAlphaModifier(alphaModifier != nullptr ? alphaModifier : _defaultAlphaModifier);
     _emitter->setScaleModifier(scaleModifier != nullptr ? scaleModifier : _defaultScaleModifier);
     _emitter->setRotationModifier(rotationModifier != nullptr ? rotationModifier : _defaultRotationModifier);
-    
-    pwarn("Daniel color modifier is null? %d", colorModifier != nullptr );
-    
     _emitter->setColorModifier(colorModifier != nullptr ? colorModifier : _defaultColorModifier);
 }
 

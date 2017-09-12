@@ -30,15 +30,15 @@ var dynamicDynamicPosDefault = [0,0,0];
 var dynamicDynamicPosDefault2 = [0,-2,0];
 var kinematicDynamicPos1Default = [2,0.5,0];
 var kinematicDynamicPos2Default = [2,-2,0];
+var collisionOutputArray = [];
+var collisionOutput = "Output:";
 
 var ReleaseMenu = require("./ReleaseMenu.js");
-var PhysicsRayTest = React.createClass({
+var PhysicsCollisionTest = React.createClass({
   getInitialState() {
     return {
       bodyTypeRayTest:"dynamic",
       bodyMassRayTest:1,
-      collisionOutputArray:[],
-      collisionOutput:"",
       dynamicStaticToggle:false,
       dynamicdynamicToggle:false,
       kinematicDynamicToggle:false,
@@ -50,22 +50,22 @@ var PhysicsRayTest = React.createClass({
   },
 
 addToConsole(stringToAdd){
-  let collisionOutputArrayNew = this.state.collisionOutputArray;
-  collisionOutputArrayNew.unshift(stringToAdd);
+  collisionOutputArray.unshift(stringToAdd);
 
-  if (collisionOutputArrayNew.length + 1 > 20){
-      collisionOutputArrayNew.pop();
+  if (collisionOutputArray.length + 1 > 20){
+      collisionOutputArray.pop();
   }
 
-  let output ="";
+  let output ="Output:";
   let i = 0;
-  for (i; i < collisionOutputArrayNew.length; i ++){
-      output = output.concat(collisionOutputArrayNew[i]);
+  for (i; i < collisionOutputArray.length; i ++){
+      output = output.concat(collisionOutputArray[i]);
   }
 
-  this.setState({
-    collisionOutput: output,
-    collisionOutputArray:collisionOutputArrayNew
+  collisionOutput = output;
+
+  this.refs["collisionOutput"].setNativeProps({
+    text: collisionOutput
   });
 },
 
@@ -143,11 +143,11 @@ addToConsole(stringToAdd){
     return () => {
       this.addToConsole("\n");
       if (num == 1){
-         this.refs["scene1"].findCollisionsWithRayAsync([-3,-4,0], [-3,-4,-30], true, "testRayBlaster1").then((collide) => {
+         this.refs["scene1"].findCollisionsWithRayAsync([-3,-2,0], [-3,-2,-30], true, "testRayBlaster1").then((collide) => {
            this.addToConsole("Viro Finished find closests With Ray Async call " + collide+ " \n"); }); // Should collide
       } else if (num ==2){
-         this.refs["scene1"].findCollisionsWithRayAsync([-3,-4,0], [-3,-4,-30], false, "testRayBlaster2").then((collide) => {
-         this.addToConsole("Viro Finished find all With Ray Async call\n"); }); // Should collide
+         this.refs["scene1"].findCollisionsWithRayAsync([-3,-2,0], [-3,-2,-30], false, "testRayBlaster2").then((collide) => {
+         this.addToConsole("Viro Finished find all With Ray Async call"+ collide+ " \n"); }); // Should collide
       } else if (num ==3){
          this.refs["scene1"].findCollisionsWithShapeAsync([-3,-2,0], [-3,-2,-30], "sphere", [20], "testSphereRay").then((collide) => {
            this.addToConsole("Viro Finished find closests With Shape Async call\n"); }); // Should collide
@@ -197,7 +197,8 @@ addToConsole(stringToAdd){
                 <ViroText fontSize={25}  style={styles.centeredText} transformBehaviors={["billboard"]}
                   position={[0,3, -6]} width={10} height ={10} maxLines={20}
                   color={'#ffffff'} textAlign={'center'}
-                  text={this.state.collisionOutput}
+                  ref="collisionOutput"
+                  text={collisionOutput}
                 />
 
                  {/* Left half of the screen, tests for collision with ray shot in scene */}
@@ -224,7 +225,7 @@ addToConsole(stringToAdd){
 
                   <ViroText fontSize={35}  style={styles.centeredText}
                       position={[0,-2, 0]} width={4} height ={2} maxLines={3}
-                      text={"Find All collisions with shape"} onClick={this.testRay(4)}
+                      text={"Find All collisions with shape at point."} onClick={this.testRay(4)}
                       />
                 </ViroNode>
 
@@ -236,7 +237,8 @@ addToConsole(stringToAdd){
                       height={1} width={1} length={1}
                       physicsBody={{
                         type:this.state.bodyTypeRayTest,
-                        mass:this.state.bodyMassRayTest
+                        mass:this.state.bodyMassRayTest,
+                        useGravity:false
                       }}
                       viroTag="RayTest Box1"
                       onCollided={this.onCollide}
@@ -249,7 +251,8 @@ addToConsole(stringToAdd){
                       height={1} width={1} length={1}
                       physicsBody={{
                         type:this.state.bodyTypeRayTest,
-                        mass:this.state.bodyMassRayTest
+                        mass:this.state.bodyMassRayTest,
+                        useGravity:false
                       }}
                       viroTag="RayTest Box2"
                       onCollided={this.onCollide}
@@ -263,6 +266,7 @@ addToConsole(stringToAdd){
                       physicsBody={{
                         type:this.state.bodyTypeRayTest,
                         mass:this.state.bodyMassRayTest,
+                        useGravity:false
                       }}
                       viroTag="RayTest Box3"
                       onCollided={this.onCollide}
@@ -404,8 +408,8 @@ ViroAnimations.registerAnimations({
     loopMove:[
       ["moveDown", "moveUp"]
     ],
-    moveDownSmall:{properties:{positionY:"-=2"}, duration:2000, easing:"Linear"},
-    moveUpSmall:{properties:{positionY:"+=2"}, duration:2000, easing:"Linear"},
+    moveDownSmall:{properties:{positionY:"-=1.6"}, duration:2000, easing:"Linear"},
+    moveUpSmall:{properties:{positionY:"+=1.6"}, duration:2000, easing:"Linear"},
     loopMoveSmall:[
       ["moveDownSmall", "moveUpSmall"]
     ]
@@ -440,4 +444,4 @@ ViroMaterials.createMaterials({
   }
  });
 
-module.exports = PhysicsRayTest;
+module.exports = PhysicsCollisionTest;
