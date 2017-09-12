@@ -314,6 +314,7 @@ export class PhotosSelector extends Component {
     CameraRoll.getPhotos({
       first: this.props.searchIncrement,
       assetType : 'All',
+      groupName : 'Camera Roll',
       after : this.endCursor,
       groupTypes : 'All'
     }).then((retValue)=>{

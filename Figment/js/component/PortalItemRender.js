@@ -21,8 +21,8 @@ import {
   ViroNode,
   Viro3DObject,
   Viro360Image,
+  ViroPortalScene,
   ViroPortal,
-  ViroPortalFrame,
   ViroMaterials,
   ViroImage,
   ViroSphere,
@@ -85,7 +85,7 @@ var PortalItemRender = React.createClass({
             shadowFarZ={5}
             shadowOpacity={.9} />
 
-            <ViroPortal
+            <ViroPortalScene
               position={portalItem.position}
               onRotate={this._onRotate}
               onPinch={this._onPinch}
@@ -93,7 +93,7 @@ var PortalItemRender = React.createClass({
               scale={portalItem.portalScale}
               onClickState={this._onClickState(this.props.portalIDProps.uuid)} >
 
-              <ViroPortalFrame>
+              <ViroPortal>
                 <Viro3DObject
                   source={portalItem.obj}
                   materials={portalItem.materials}
@@ -103,11 +103,11 @@ var PortalItemRender = React.createClass({
                   onLoadEnd={this._onObjectLoadEnd(this.props.portalIDProps.uuid)}
                   lightBitMask={this.props.bitMask | 1}
                   shadowCastingBitMask={this.props.bitMask} />
-              </ViroPortalFrame>
+              </ViroPortal>
 
               {this._renderPortalInside(portalItem)}
 
-            </ViroPortal>
+            </ViroPortalScene>
 
           <ViroSurface
             rotation={[-90, 0, 0]}
@@ -182,8 +182,25 @@ var PortalItemRender = React.createClass({
                 shadowNearZ={.1}
                 shadowFarZ={5}
                 shadowOpacity={.9} />);
-            viewArray.push(<Viro3DObject key="obj_3d" position={[0,-2,-6]} source={require('../res/art_gallery/artgallery2.vrx')} key="background_portal" type="VRX" />);
-            viewArray.push(<Viro3DObject key="obj_3d_frame" opacity={.4} position={[0, 0,-6]} source={require('../res/art_gallery/artgallery_picture_frame.vrx')} type="VRX" />);
+            viewArray.push(<Viro3DObject 
+                  key="obj_3d" 
+                  position={[0,-2,-6]} 
+                  source={require('../res/art_gallery/artgallery2.vrx')}
+                  resources={[require('../res/art_gallery/art_gallery_projector_diffuse.png'),
+                       require('../res/art_gallery/art_gallery_projector_specular.png'),
+                       require('../res/art_gallery/art_gallery_walls_diffuse.png'),
+                       require('../res/art_gallery/art_gallery_walls_specular.png'),
+                       require('../res/art_gallery/art_gallery_projector_beams_diffuse.png')]}
+                  key="background_portal" 
+                  type="VRX" />
+              );
+            viewArray.push(<Viro3DObject 
+                key="obj_3d_frame" 
+                opacity={.4} 
+                position={[0, 0,-6]} 
+                source={require('../res/art_gallery/artgallery_picture_frame.vrx')}
+                resources={[require('../res/art_gallery/art_gallery_projector_picture.png')]}
+                type="VRX" />);
             viewArray.push(<ViroImage key="image_portal" width={1} height={1}  resizeMode='scaleToFit' source={portalSource.source}
                         position={[0, 0,-6]} scale={[1, 1, 1]} />);
           }
