@@ -15,7 +15,6 @@ import * as UIConstants from '../redux/UIConstants';
 import {
   ViroScene,
   ViroARScene,
-  ViroARNode,
   ViroARPlane,
   ViroMaterials,
   ViroNode,

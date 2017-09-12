@@ -18,7 +18,6 @@ import * as PortalData from  '../model/PortalItems';
 import {
   ViroScene,
   ViroARScene,
-  ViroARNode,
   ViroNode,
   Viro3DObject,
   Viro360Image,

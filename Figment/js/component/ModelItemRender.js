@@ -16,7 +16,6 @@ import * as ModelData from  '../model/ModelItems';
 import {
   ViroScene,
   ViroARScene,
-  ViroARNode,
   ViroARPlane,
   ViroBox,
   ViroMaterials,
@@ -41,7 +40,7 @@ var ModelItemRender = React.createClass({
       this._modelData = ModelData.getModelArray()
     },
 
-    getInitialState() {
+    getInitialState() { 
       return {
         scale : ModelData.getModelArray()[this.props.modelIDProps.index].scale,
         rotation : [0, 0, 0],
@@ -63,7 +62,7 @@ var ModelItemRender = React.createClass({
         // one SpotLight contain within this component
         return (
 
-          <ViroARNode
+          <ViroNode
             {...transformBehaviors}
             key={this.props.modelIDProps.uuid}
             ref={this._setARNodeRef}
@@ -71,7 +70,8 @@ var ModelItemRender = React.createClass({
             position={this.state.position}
             scale={this.state.scale}
             rotation={this.state.rotation}
-            onDrag={()=>{}}>
+            onDrag={()=>{}}
+            dragType="FixedToWorld">
 
             <ViroSpotLight
               innerAngle={5}
@@ -110,7 +110,7 @@ var ModelItemRender = React.createClass({
               acceptShadows={true}
               ignoreEventHandling={true} />
 
-          </ViroARNode>
+          </ViroNode>
         );
     },
 
@@ -141,6 +141,7 @@ var ModelItemRender = React.createClass({
             }
 
             this.setState({
+              position: retDict.location,
               rotation : [0,yRotation,0],
               shouldBillboard : false
             });

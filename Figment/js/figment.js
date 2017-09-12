@@ -24,7 +24,6 @@ import {
 import {
   ViroScene,
   ViroARScene,
-  ViroARNode,
   ViroARPlaneSelector,
   ViroARPlane,
   ViroBox,
