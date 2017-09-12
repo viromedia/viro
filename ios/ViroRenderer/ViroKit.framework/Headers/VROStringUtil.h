@@ -19,12 +19,18 @@ public:
     
     static std::string toString(int i);
     static std::string toString(double n, int precision);
+    static std::wstring toWString(int i);
+    static std::wstring toWString(double n, int precision);
+
     static int   toInt(std::string s);
     static float toFloat(std::string s);
     
     static std::vector<std::string> split(const std::string &s,
                                           const std::string &delimiters,
                                           bool emptiesOk);
+    static std::vector<std::wstring> split(const std::wstring &s,
+                                           const std::wstring &delimiters,
+                                           bool emptiesOk);
 
     // Simple string compare, not unicode safe (since there are multiple ways of representing some
     // characters and this function does a character-by-character comparison.

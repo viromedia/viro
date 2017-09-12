@@ -93,9 +93,9 @@ typedef std::function<void(VROUniform *uniform, GLuint location,
  the _lightingContribution structure:
  
  struct VROLightingContribution {
-     lowp vec3 ambient;
-     lowp vec3 diffuse;
-     lowp vec3 specular;
+     highp vec3 ambient;
+     highp vec3 diffuse;
+     highp vec3 specular;
      highp float visibility;
  } _lightingContribution;
  
@@ -121,7 +121,7 @@ typedef std::function<void(VROUniform *uniform, GLuint location,
  Fragment entry point. The code may declare uniforms and read/write
  to the variable:
  
- lowp vec4 _output_color;
+ highp vec4 _output_color;
  
  The Fragment entry point enables modifiers to alter the final color of each
  fragment, after the lighting computation.

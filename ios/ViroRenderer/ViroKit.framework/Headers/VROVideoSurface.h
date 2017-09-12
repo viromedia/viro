@@ -36,7 +36,7 @@ public:
     void setMuted(bool muted);
     void setVolume(float volume);
     void setLoop(bool loop);
-    void seekToTime(int seconds);
+    void seekToTime(float seconds);
     void setDelegate(std::shared_ptr<VROVideoDelegateInternal> delegate);
   
     ~VROVideoSurface();

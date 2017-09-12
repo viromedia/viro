@@ -128,8 +128,8 @@ private:
     std::shared_ptr<VROImagePostProcess> createThermalVision(std::shared_ptr<VRODriver> driver);
     std::shared_ptr<VROImagePostProcess> createPixel(std::shared_ptr<VRODriver> driver);
     std::shared_ptr<VROImagePostProcess> createCrossHatch(std::shared_ptr<VRODriver> driver);
-
     std::shared_ptr<VROImagePostProcess> createEmptyEffect(std::shared_ptr<VRODriver> driver);
+    std::vector<std::string> getHBCSModification(float hue, float brightness, float contrast, float saturation);
 };
 
 #endif /* VROPostProcessEffectFactory_h */

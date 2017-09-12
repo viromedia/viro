@@ -16,7 +16,7 @@
 - (void)videoWillBuffer;
 - (void)videoDidBuffer;
 - (void)videoDidFinish;
-- (void)videoDidUpdateTime:(int)currentTimeInSeconds totalTimeInSeconds:(int)seconds;
+- (void)videoDidUpdateTime:(float)currentTimeInSeconds totalTimeInSeconds:(float)seconds;
 - (void)videoDidFail:(NSString *)error;
 
 @end

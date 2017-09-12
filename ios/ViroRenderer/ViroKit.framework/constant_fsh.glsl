@@ -2,8 +2,8 @@
 #include constant_functions_fsh
 #include particles_fsh
 
-uniform lowp vec4 material_diffuse_surface_color;
-uniform lowp float material_diffuse_intensity;
+uniform highp vec4 material_diffuse_surface_color;
+uniform highp float material_diffuse_intensity;
 uniform lowp float material_alpha;
 
 #pragma surface_modifier_uniforms
@@ -26,7 +26,7 @@ void main() {
 
 #pragma surface_modifier_body
 
-    lowp vec4 _output_color = vec4(_surface.diffuse_color.xyz * _surface.diffuse_intensity, _surface.alpha * _surface.diffuse_color.a);
+    highp vec4 _output_color = vec4(_surface.diffuse_color.xyz * _surface.diffuse_intensity, _surface.alpha * _surface.diffuse_color.a);
     
 #pragma fragment_modifier_body
     
