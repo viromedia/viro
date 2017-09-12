@@ -38,6 +38,7 @@ RCT_EXPORT_VIEW_PROPERTY(onComponentFoundViro, RCTDirectEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onComponentUpdatedViro, RCTDirectEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onComponentRemovedViro, RCTDirectEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(ignoreEventHandling, BOOL)
+RCT_EXPORT_VIEW_PROPERTY(dragType, NSString)
 
 - (VRTNodeContainerShadowView *)shadowView
 {

@@ -47,6 +47,7 @@ var ViroText = React.createClass({
     lightBitMask : PropTypes.number,
     shadowCastingBitMask : PropTypes.number,
     ignoreEventHandling: PropTypes.bool,
+    dragType: PropTypes.oneOf(["FixedDistance", "FixedToWorld"]),
 
     onTransformUpdate: React.PropTypes.func,
     onHover: React.PropTypes.func,

@@ -15,6 +15,7 @@ var ViroARScene = React.createClass({
   propTypes: {
     ...View.propTypes,
     ignoreEventHandling: PropTypes.bool,
+    dragType: PropTypes.oneOf(["FixedDistance", "FixedToWorld"]),
     onHover: React.PropTypes.func,
     onClick: React.PropTypes.func,
     onClickState: React.PropTypes.func,

@@ -57,9 +57,7 @@ var testARScene = React.createClass({
           </ViroARPlane>
    */
   _getBox() {
-    console.log("mario box 1");
     if (this.state.boxLocation != undefined) {
-      console.log("mario box 2");
       return (
         <ViroNode position={this.state.boxLocation} >
           <ViroBox position={[0,.075,0]} scale={[.15,.15,.15]} />
@@ -90,15 +88,12 @@ var testARScene = React.createClass({
     });
   },
   _onSurfaceClickUsingPosition(position) {
-    console.log("kirby surfaceClickPosition 1");
     console.log(position);
     this.refs["arscene"].performARHitTestWithPosition(position).then((results)=>{
-      console.log("kirby surfaceClickPosition 2");
       if (results.length > 0) {
         for (var i = 0; i < results.length; i++) {
           let result = results[i];
           if (result.type == "ExistingPlaneUsingExtent") {
-            console.log("kirby surfaceClickPosition 3");
             this.setState({
               boxLocation : result.transform.position
             });

@@ -56,6 +56,7 @@ var ViroVideo = React.createClass({
     ]).isRequired,
 
     ignoreEventHandling: PropTypes.bool,
+    dragType: PropTypes.oneOf(["FixedDistance", "FixedToWorld"]),
     onHover: React.PropTypes.func,
     onClick: React.PropTypes.func,
     onClickState: React.PropTypes.func,

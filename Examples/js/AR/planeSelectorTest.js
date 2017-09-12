@@ -43,7 +43,7 @@ var testARScene = React.createClass({
         <ViroARScene position={[0,0,0]} reticleEnabled={false} >
           <ViroSurface scale={[.5,.5,.5]} visible={!this.state.success} materials={"green"} position={[0, .5, -1]} onClick={this._startRecording}/>
           <ViroSurface scale={[.5,.5,.5]} visible={!this.state.success} materials={"red"} position={[.5, .5, -1]} onClick={this._stopRecording}/>
-          <ViroARPlaneSelector ref={"ref"}
+          <ViroARPlaneSelector ref={"planeSelector"}
             maxPlanes={2}
             onPlaneSelected={()=>{console.log("plane was selected")}} >
             <ViroImage
@@ -79,7 +79,7 @@ var testARScene = React.createClass({
     });
   },
   _onClick() {
-    this.refs["ref"].reset();
+    this.refs["planeSelector"].reset();
   },
   _getVideo() {
     if (this.state.success) {

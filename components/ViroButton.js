@@ -109,6 +109,7 @@ var BTN_TYPE_CLICKED = 'clicked';
   	height: PropTypes.number,
   	width: PropTypes.number,
     style: stylePropType,
+    dragType: PropTypes.oneOf(["FixedDistance", "FixedToWorld"]),
 
     ignoreEventHandling: PropTypes.bool,
     onHover: React.PropTypes.func,
@@ -220,6 +221,8 @@ var BTN_TYPE_CLICKED = 'clicked';
         clickSrcVisible = false;
     }
 
+    // TODO: rather than manually expanding/setting props, we should do
+    // {...this.props} which will save us time when adding new properties
     return (
         <ViroNode
             ref={component => {this._component = component}}
@@ -237,7 +240,9 @@ var BTN_TYPE_CLICKED = 'clicked';
             onRotate={this.props.onRotate}
             onCollided={this.props.onCollided}
             viroTag={this.props.viroTag}
-            onFuse={this.props.onFuse}>
+            onFuse={this.props.onFuse}
+            ignoreEventHandling={this.props.ignoreEventHandling}
+            dragType={this.props.dragType} >
 
             <ViroImage
                 source={this.props.source}

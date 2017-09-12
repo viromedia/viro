@@ -42,6 +42,7 @@ RCT_EXPORT_VIEW_PROPERTY(onPlatformUpdateViro, RCTDirectEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(physicsWorld, NSDictionary)
 RCT_EXPORT_VIEW_PROPERTY(postProcessEffects, NSArray<NSString *>)
 RCT_EXPORT_VIEW_PROPERTY(ignoreEventHandling, BOOL)
+RCT_EXPORT_VIEW_PROPERTY(dragType, NSString)
 
 - (VRTView *)view
 {

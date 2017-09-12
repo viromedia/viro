@@ -39,7 +39,7 @@ var maxRows = 4
 
 var testFiles = [
   ["ARHitTest", require("./ARHitTest")],
-  ["ARNodeTest", require("./ARNodeTest")],
+  ["ARDragTest", require("./ARDragTest")],
   ["ARPlaneSelectorTest", require("./ARPlaneSelectorTest")],
   ["ARSomethingTest2", require("./ARHitTest")],
   ["ARSomethingTest3", require("./ARHitTest")],

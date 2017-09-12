@@ -48,6 +48,7 @@ extern const int k2DPointsPerSpatialUnit;
 @property (nonatomic, assign) BOOL canRotate;
 @property (nonatomic, assign) BOOL highAccuracyGaze;
 @property (nonatomic, assign) float timeToFuse;
+@property (nonatomic, copy, nullable) NSString *dragType;
 
 /*
  Whether or not we actually ignore event handling is determined by "and"-ing this component's

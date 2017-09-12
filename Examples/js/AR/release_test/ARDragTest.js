@@ -23,7 +23,7 @@ import {
   ViroARPlaneSelector,
   ViroSurface,
   ViroConstants,
-  ViroARNode,
+  ViroNode,
   ViroBox,
   ViroOmniLight,
   ViroText,
@@ -32,18 +32,18 @@ import {
 
 let polarToCartesian = ViroUtils.polarToCartesian;
 
-var ARNodeTest = React.createClass({
+var ARDragTest = React.createClass({
   getInitialState: function() {
     return {};
   },
   render: function() {
     return (
         <ViroARScene onClick={()=>{console.log("arScene onClick"); this.refs["planeSelector"].reset()}} >
-          <ViroARNode position={[0,0,-1]} onDrag={()=>{}}>
+          <ViroNode position={[0,0,-1]} onDrag={()=>{}} dragType="FixedToWorld">
             <ViroBox position={[0,.13,0]} scale={[.2,.2,.2]} materials="blueBox"/>
             <ViroImage rotation={[-90,0,0]} scale={[.3,.3,.3]} position={[0,.01,0]}
                 source={require('../res/dark_circle_shadow.png')} materials="doesntWriteToDepthBuffer"/>
-          </ViroARNode>
+          </ViroNode>
 
           {/* Display the planes using this, tap on scene to bring them back if you
               accidentally tap on them.*/}
@@ -85,4 +85,4 @@ ViroMaterials.createMaterials({
   }
 });
 
-module.exports = ARNodeTest;
+module.exports = ARDragTest;

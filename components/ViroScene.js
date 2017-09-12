@@ -33,6 +33,8 @@ var ViroScene = React.createClass({
     onRotate: React.PropTypes.func,
     onPlatformUpdate: React.PropTypes.func,
     ignoreEventHandling: PropTypes.bool,
+    dragType: PropTypes.oneOf(["FixedDistance", "FixedToWorld"]),
+
     /**
      * Describes the acoustic properties of the room around the user
      */

@@ -42,14 +42,17 @@ var ViroSpinner = React.createClass({
       PropTypes.arrayOf(PropTypes.string),
       PropTypes.string
     ]),
-    onTransformUpdate: React.PropTypes.func,
+    onTransformUpdate: PropTypes.func,
     visible: PropTypes.bool,
 
     /**
      * Spinner visual type for either a light or dark theme.
      * This defaults to dark.
      */
-    type: React.PropTypes.oneOf(['dark','light']),
+    type: PropTypes.oneOf(['dark','light']),
+    ignoreEventHandling: PropTypes.bool,
+    dragType: PropTypes.oneOf(["FixedDistance", "FixedToWorld"]),
+
 
     onHover: React.PropTypes.func,
     onClick: React.PropTypes.func,
@@ -121,13 +124,15 @@ var ViroSpinner = React.createClass({
     let transformBehaviors = typeof this.props.transformBehaviors === 'string' ?
         new Array(this.props.transformBehaviors) : this.props.transformBehaviors;
 
+    // TODO: rather than manually expanding/setting all the props, we should use {...this.props}
     return (
       <ViroNode position={this.props.position} rotation={this.props.rotation} scale={this.props.scale}
             rotationPivot={this.props.rotationPivot} scalePivot={this.props.scalePivot} physicsBody={this.props.physicsBody}
             opacity={this.props.opacity} transformBehaviors={transformBehaviors} visible={this.props.visible}
             onHover={this.props.onHover} onClick={this.props.onClick} onClickState={this.props.onClickState}
             onTouch={this.props.onTouch} onDrag={this.props.onDrag} onPinch={this.props.onPinch}
-            onRotate={this.props.onRotate} onFuse={this.props.onFuse}
+            onRotate={this.props.onRotate} onFuse={this.props.onFuse} dragType={this.props.dragType}
+            ignoreEventHandling={this.props.ignoreEventHandling}
             onTransformUpdate={this.props.onTransformUpdate} ref={component => {this._component = component}}>
 
         <ViroAnimatedComponent animation="_ViroSpinner_clockwiseZ" run={true} loop={true} >

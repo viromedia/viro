@@ -42,6 +42,7 @@ var ViroSphere = React.createClass({
       PropTypes.string
     ]),
     ignoreEventHandling: PropTypes.bool,
+    dragType: PropTypes.oneOf(["FixedDistance", "FixedToWorld"]),
     lightBitMask : PropTypes.number,
     shadowCastingBitMask : PropTypes.number,
     acceptShadows : PropTypes.bool,

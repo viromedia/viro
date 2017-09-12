@@ -51,6 +51,7 @@ RCT_EXPORT_VIEW_PROPERTY(lightBitMask, int)
 RCT_EXPORT_VIEW_PROPERTY(shadowCastingBitMask, int)
 RCT_EXPORT_VIEW_PROPERTY(acceptShadows, BOOL)
 RCT_EXPORT_VIEW_PROPERTY(ignoreEventHandling, BOOL)
+RCT_EXPORT_VIEW_PROPERTY(dragType, NSString)
 
 - (VRTFlexView *)view
 {

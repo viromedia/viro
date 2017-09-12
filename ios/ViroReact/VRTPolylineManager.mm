@@ -43,6 +43,7 @@ RCT_EXPORT_VIEW_PROPERTY(hasTransformDelegate, BOOL)
 RCT_EXPORT_VIEW_PROPERTY(lightBitMask, int)
 RCT_EXPORT_VIEW_PROPERTY(shadowCastingBitMask, int)
 RCT_EXPORT_VIEW_PROPERTY(ignoreEventHandling, BOOL)
+RCT_EXPORT_VIEW_PROPERTY(dragType, NSString)
 
 - (VRTView *)view {
     return [[VRTPolyline alloc] initWithBridge:self.bridge];

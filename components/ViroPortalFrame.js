@@ -37,6 +37,7 @@ var ViroPortalFrame = React.createClass({
     lightBitMask : PropTypes.number,
     shadowCastingBitMask : PropTypes.number,
     ignoreEventHandling: PropTypes.bool,
+    dragType: PropTypes.oneOf(["FixedDistance", "FixedToWorld"]),
 
     onHover: React.PropTypes.func,
     onClick: React.PropTypes.func,

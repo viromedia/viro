@@ -264,7 +264,7 @@ const double kTransformDelegateDistanceFilter = 0.01;
         
         // Always copy materials from the material manager, as they may be
         // modified by animations, etc. and we don't want these changes to
-        // propagate to the reference material held by the material manager
+        // propagate to the reference material held by theo material manager
         tempMaterials.push_back(std::make_shared<VROMaterial>(material));
     }
     geometry->setMaterials(tempMaterials);
@@ -377,6 +377,16 @@ const double kTransformDelegateDistanceFilter = 0.01;
 - (void)setTimeToFuse:(float)durationMillis {
     _timeToFuse = durationMillis;
     self.eventDelegate->setTimeToFuse(durationMillis);
+}
+
+- (void)setDragType:(NSString *)dragType {
+    if ([dragType isEqualToString:@"FixedDistance"]) {
+        _node->setDragType(VRODragType::FixedDistance);
+    } else if ([dragType isEqualToString:@"FixedToWorld"]) {
+        _node->setDragType(VRODragType::FixedToWorld);
+    } else {
+        RCTLogError(@"Received unknown drag type: %@", dragType);
+    }
 }
 
 - (void)setIgnoreEventHandling:(BOOL)ignoreEventHandling {

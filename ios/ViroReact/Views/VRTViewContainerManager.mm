@@ -39,6 +39,7 @@ RCT_EXPORT_VIEW_PROPERTY(viroTag, NSString)
 RCT_EXPORT_VIEW_PROPERTY(onNativeTransformDelegateViro, RCTDirectEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(hasTransformDelegate, BOOL)
 RCT_EXPORT_VIEW_PROPERTY(ignoreEventHandling, BOOL)
+RCT_EXPORT_VIEW_PROPERTY(dragType, NSString)
 
 - (VRTNodeContainerShadowView *)shadowView
 {

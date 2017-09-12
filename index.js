@@ -47,7 +47,6 @@ const ReactViro = {
   get ViroARScene() { return require('./components/AR/ViroARScene'); },
   get ViroARPlane() { return require('./components/AR/ViroARPlane'); },
   get ViroARPlaneSelector() { return require('./components/AR/ViroARPlaneSelector'); },
-  get ViroARNode() { return require('./components/AR/ViroARNode'); },
 }
 
 module.exports = ReactViro;

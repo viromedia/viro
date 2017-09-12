@@ -36,6 +36,7 @@ var ViroARPlaneSelector = React.createClass({
     visible: PropTypes.bool,
     opacity: PropTypes.number,
     ignoreEventHandling: PropTypes.bool,
+    dragType: PropTypes.oneOf(["FixedDistance", "FixedToWorld"]),
 
     onHover: React.PropTypes.func,
     onClick: React.PropTypes.func,

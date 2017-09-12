@@ -1,3 +1,4 @@
+// !$*UTF8*$!
 {
 	archiveVersion = 1;
 	classes = {
@@ -12,8 +13,6 @@
 		8A130D811E3AAEA10050D83B /* VRTSound.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8A130D801E3AAEA10050D83B /* VRTSound.mm */; };
 		8A130D901E3BC0690050D83B /* VRTSoundManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8A130D8F1E3BC0690050D83B /* VRTSoundManager.mm */; };
 		8A130DAE1E43A8AB0050D83B /* VRTSoundModule.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8A130DAD1E43A8AB0050D83B /* VRTSoundModule.mm */; };
-		8A1462D51F33B52C00643EF4 /* VRTARDraggableNodeManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8A1462D31F33B52C00643EF4 /* VRTARDraggableNodeManager.mm */; };
-		8A1462DB1F33B5D200643EF4 /* VRTARDraggableNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8A1462D91F33B5D200643EF4 /* VRTARDraggableNode.mm */; };
 		8A31CFA41E27047100550CFE /* VRTSurfaceManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8A31CFA31E27047100550CFE /* VRTSurfaceManager.mm */; };
 		8A31CFB41E2705EC00550CFE /* VRTSurface.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8A31CFB31E2705EC00550CFE /* VRTSurface.mm */; };
 		8A31D61E1F43C94F00AC24DE /* VRTQuadEmitterManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8A31D61C1F43C94F00AC24DE /* VRTQuadEmitterManager.mm */; };
@@ -302,10 +301,6 @@
 		8A130D8F1E3BC0690050D83B /* VRTSoundManager.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = VRTSoundManager.mm; path = ViroReact/VRTSoundManager.mm; sourceTree = "<group>"; };
 		8A130DAC1E43A8AB0050D83B /* VRTSoundModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VRTSoundModule.h; path = ViroReact/Modules/VRTSoundModule.h; sourceTree = "<group>"; };
 		8A130DAD1E43A8AB0050D83B /* VRTSoundModule.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = VRTSoundModule.mm; path = ViroReact/Modules/VRTSoundModule.mm; sourceTree = "<group>"; };
-		8A1462D21F33B52C00643EF4 /* VRTARDraggableNodeManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = VRTARDraggableNodeManager.h; path = ViroReact/AR/Managers/VRTARDraggableNodeManager.h; sourceTree = "<group>"; };
-		8A1462D31F33B52C00643EF4 /* VRTARDraggableNodeManager.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = VRTARDraggableNodeManager.mm; path = ViroReact/AR/Managers/VRTARDraggableNodeManager.mm; sourceTree = "<group>"; };
-		8A1462D81F33B5D200643EF4 /* VRTARDraggableNode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = VRTARDraggableNode.h; path = ViroReact/AR/Views/VRTARDraggableNode.h; sourceTree = "<group>"; };
-		8A1462D91F33B5D200643EF4 /* VRTARDraggableNode.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; name = VRTARDraggableNode.mm; path = ViroReact/AR/Views/VRTARDraggableNode.mm; sourceTree = "<group>"; };
 		8A31CFA21E27047100550CFE /* VRTSurfaceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VRTSurfaceManager.h; path = ViroReact/VRTSurfaceManager.h; sourceTree = "<group>"; };
 		8A31CFA31E27047100550CFE /* VRTSurfaceManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = VRTSurfaceManager.mm; path = ViroReact/VRTSurfaceManager.mm; sourceTree = "<group>"; };
 		8A31CFB21E2705EC00550CFE /* VRTSurface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VRTSurface.h; path = ViroReact/Views/VRTSurface.h; sourceTree = "<group>"; };
@@ -526,8 +521,6 @@
 				8AEFA2231EF3175C006851B7 /* VRTARPlaneManager.mm */,
 				8A0524361EF0A4B900A02361 /* VRTARSceneManager.h */,
 				8A0524371EF0A4B900A02361 /* VRTARSceneManager.mm */,
-				8A1462D21F33B52C00643EF4 /* VRTARDraggableNodeManager.h */,
-				8A1462D31F33B52C00643EF4 /* VRTARDraggableNodeManager.mm */,
 			);
 			name = Manager;
 			sourceTree = "<group>";
@@ -543,8 +536,6 @@
 				8AEFA2291EF3197E006851B7 /* VRTARPlane.mm */,
 				8A0524301EF0A49C00A02361 /* VRTARScene.h */,
 				8A0524311EF0A49C00A02361 /* VRTARScene.mm */,
-				8A1462D81F33B5D200643EF4 /* VRTARDraggableNode.h */,
-				8A1462D91F33B5D200643EF4 /* VRTARDraggableNode.mm */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -971,7 +962,6 @@
 				8BE0D4A01DFA15880032AB99 /* VROHUDManager.mm in Sources */,
 				8BE0D49A1DFA15880032AB99 /* VRT360ImageManager.mm in Sources */,
 				A53359701E9E0169005B3EC5 /* VRTControllerModule.mm in Sources */,
-				8A1462DB1F33B5D200643EF4 /* VRTARDraggableNode.mm in Sources */,
 				8BE0D49D1DFA15880032AB99 /* VRTBoxManager.mm in Sources */,
 				8BE0D5241DFA3DEA0032AB99 /* VRTCubeMap.m in Sources */,
 				137E9D821F50E8C1008238E5 /* VRTPhotoLibraryAsyncLoader.m in Sources */,
@@ -981,7 +971,6 @@
 				8BE0D5001DFA3D9B0032AB99 /* VRTHUDComponent.mm in Sources */,
 				8BE0D4FF1DFA3D9B0032AB99 /* VRTHUD.mm in Sources */,
 				8A31CFA41E27047100550CFE /* VRTSurfaceManager.mm in Sources */,
-				8A1462D51F33B52C00643EF4 /* VRTARDraggableNodeManager.mm in Sources */,
 				8BE0D5081DFA3D9B0032AB99 /* VRTOrbitCamera.mm in Sources */,
 				8BE0D4AC1DFA15880032AB99 /* VRTOrbitCameraManager.mm in Sources */,
 				8BE0D5011DFA3D9B0032AB99 /* VRTImage.mm in Sources */,

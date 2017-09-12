@@ -91,6 +91,7 @@ var ViroImage = React.createClass({
     format: PropTypes.oneOf(['RGBA8', 'RGBA4', 'RGB565']),
 
     ignoreEventHandling: PropTypes.bool,
+    dragType: PropTypes.oneOf(["FixedDistance", "FixedToWorld"]),
     onHover: React.PropTypes.func,
     onClick: React.PropTypes.func,
     onClickState: React.PropTypes.func,
