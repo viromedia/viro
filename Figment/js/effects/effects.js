@@ -12,7 +12,7 @@
 
  import {
    ViroImage,
-   ViroQuadEmitter,
+   ViroParticleEmitter,
    ViroUtils,
  } from 'react-viro';
 
@@ -54,7 +54,7 @@
   export function getSnow(){
     var views = [];
       views.push((
-        <ViroQuadEmitter
+        <ViroParticleEmitter
             position={[0, 4.5, 0]}
             duration={2000}
             visible={true}
@@ -63,44 +63,51 @@
             loop={true}
             fixedToEmitter={true}
 
-            quad={{
-                   source:require("../res/particle_snow.png"),                 // Image source of the quad particle.
+            image={{
+                   source:require("../res/particle_snow.png"),                 // Image source of the image particle.
                    height:0.01,
                    width:0.01,
                    bloomThreshold:1.0
             }}
 
-            spawnModifier={{
+            spawnBehavior={{
               particleLifetime:[5000,5000],
               emissionRatePerSecond:[800, 800], // or 300 with a max of 2000
               spawnVolume:{shape:"box", params:[20, 1, 20], spawnOnSurface:false},
               maxParticles:4000
             }}
 
-            appearanceModifier={{
-              opacity:{min:0, max:0, factor:"time",
-                modifier:[
-                  {finalValue:1.0, interval:[0,500]},
-                  {finalValue:0.0, interval:[4000,5000]}
+            particleAppearance={{
+              opacity:{
+                initialRange:[0, 0],
+                factor:"time",
+                interpolation:[
+                  {endValue:1.0, interval:[0,500]},
+                  {endValue:0.0, interval:[4000,5000]}
                 ]
               },
-              rotation:{min:0, max:360, factor:"time",
-                modifier:[
-                  {finalValue:1080, interval:[0,5000]},
+              rotation:{
+                initialRange:[0, 360],
+                factor:"time",
+                interpolation:[
+                  {endValue:1080, interval:[0,5000]},
                 ]
               },
-              scale:{min:[5,5,5], max:[10,10,10], factor:"time",
-                modifier:[
-                  {finalValue:[6,6,6], interval:[0,1000]},
-                  {finalValue:[10,10,10], interval:[3000,5000]},
-                  {finalValue:[5,5,5], interval:[4000,5000]}
+              scale:{
+                initialRange:[[5,5,5], [10,10,10]],
+                factor:"time",
+                interpolation:[
+                  {endValue:[6,6,6], interval:[0,1000]},
+                  {endValue:[10,10,10], interval:[3000,5000]},
+                  {endValue:[5,5,5], interval:[4000,5000]}
                 ]
               },
 
             }}
 
-            physicsModifier={{
-              velocity:{min:[-2,-.5,0], max:[2,-3.5,0]}
+            particlePhysics={{
+              velocity:{
+                initialRange:[[-2,-.5,0], [2,-3.5,0]]}
             }}
           />
       ));
@@ -109,7 +116,7 @@
   export function getBubbles(){
     var views = [];
       views.push((
-        <ViroQuadEmitter
+        <ViroParticleEmitter
             position={[0, -5.0, 0]}
             duration={5000}
             visible={true}
@@ -118,38 +125,41 @@
             loop={true}
             fixedToEmitter={true}
 
-            quad={{
-                   source:require("../res/particle_bubble.png"),                 // Image source of the quad particle.
+            image={{
+                   source:require("../res/particle_bubble.png"),                 // Image source of the image particle.
                    height:0.1,
                    width:0.1,
                    bloomThreshold:1.0
             }}
 
-            spawnModifier={{
+            spawnBehavior={{
               particleLifetime:[14000,14000],
               emissionRatePerSecond:[80, 150], // or 300 with a max of 2000
               spawnVolume:{shape:"box", params:[15, 1, 15], spawnOnSurface:false},
               maxParticles:2000
             }}
-
-            appearanceModifier={{
-              opacity:{min:0.0, max:0.0, factor:"time",
-                modifier:[
-                  {finalValue:1.0, interval:[0,500]},
-                  {finalValue:0.0, interval:[13700,14000]}
+            particleAppearance={{
+              opacity:{
+                initialRange:[0.0, 0.0],
+                factor:"time",
+                interpolation:[
+                  {endValue:1.0, interval:[0,500]},
+                  {endValue:0.0, interval:[13700,14000]}
                 ]
               },
-              scale:{min:[1,1,1], max:[1,1,1], factor:"time",
-                modifier:[
-                  {finalValue:[1.5,1.5,1.5], interval:[4000,9700]},
-                  {finalValue:[3,3,3], interval:[13700,14000]}
+              scale:{
+                initialRange:[[1,1,1], [1,1,1]],
+                factor:"time",
+                interpolation:[
+                  {endValue:[1.5,1.5,1.5], interval:[4000,9700]},
+                  {endValue:[3,3,3], interval:[13700,14000]}
                 ]
               },
 
             }}
 
-            physicsModifier={{
-              velocity:{min:[-.1,.7,0], max:[.1,.95,0]}
+            particlePhysics={{
+              velocity:{initialRange:[[-.1,.7,0], [.1,.95,0]]}
             }}
           />
       ));
@@ -206,7 +216,7 @@
      var viroFireworkColors =["#ff2d2d","#42ff42","#00edff","#ffff00","#ffb5f8","#00ff1d","#00edff","#ffb14c", "#ff7cf4"];
      var colorRand = viroFireworkColors[Math.floor((Math.random() * 5) + 0)];
        return((
-         <ViroQuadEmitter
+         <ViroParticleEmitter
              position={position}
              duration={5000}
              visible={true}
@@ -214,14 +224,14 @@
              loop={true}
              fixedToEmitter={true}
 
-             quad={{
-                    source:require("../res/particle_firework.png"),                 // Image source of the quad particle.
+             image={{
+                    source:require("../res/particle_firework.png"),                 // Image source of the image particle.
                     height:0.02,
                     width:0.02,
                     bloomThreshold:0.0
              }}
 
-             spawnModifier={{
+             spawnBehavior={{
                particleLifetime:[1400,1500],
                emissionRatePerSecond:[0,0],
                emissionBurst:[
@@ -231,23 +241,27 @@
                maxParticles:800
              }}
 
-             appearanceModifier={{
-               opacity:{min:1.0, max:1.0, factor:"time",
-                 modifier:[
-                   {finalValue:0.5, interval:[0,1000]},
-                   {finalValue:0.0, interval:[1000,1500]}
+             particleAppearance={{
+               opacity:{
+                 initialRange:[1.0, 1.0],
+                 factor:"time",
+                 interpolation:[
+                   {endValue:0.5, interval:[0,1000]},
+                   {endValue:0.0, interval:[1000,1500]}
                  ]
                },
 
-               color:{min:color, max:colorRand, factor:"time",
-                 modifier:[
-                   {finalValue:color, interval:[600,1500]}
+               color:{
+                 initialRange:[color, colorRand],
+                 factor:"time",
+                 interpolation:[
+                   {endValue:color, interval:[600,1500]}
                  ]
                }
              }}
 
-             physicsModifier={{
-               initialExplosiveImpulse:{impulse:0.12, position:[0,0,0], deccelerationPeriod:1.0},
+             particlePhysics={{
+               explosiveImpulse:{impulse:0.12, position:[0,0,0], decelerationPeriod:1.0},
              }}
            />
        ));
@@ -258,7 +272,7 @@
        var colorRand = viroFireworkColors[Math.floor((Math.random() * 5) + 0)];
 
          return((
-           <ViroQuadEmitter
+           <ViroParticleEmitter
                position={position}
                duration={5000}
                visible={true}
@@ -266,14 +280,14 @@
                loop={true}
                fixedToEmitter={true}
 
-               quad={{
-                      source:require("../res/particle_firework.png"),                 // Image source of the quad particle.
+               image={{
+                      source:require("../res/particle_firework.png"),                 // Image source of the image particle.
                       height:0.02,
                       width:0.02,
                       bloomThreshold:0.0
                }}
 
-               spawnModifier={{
+               spawnBehavior={{
                  particleLifetime:[1200,1200],
                  emissionRatePerSecond:[0,0],
                  emissionBurst:[
@@ -283,27 +297,31 @@
                  maxParticles:800
                }}
 
-               appearanceModifier={{
-                 opacity:{min:1.0, max:1.0, factor:"time",
-                   modifier:[
-                     {finalValue:1.0, interval:[0,350]},
-                     {finalValue:0.0, interval:[350,500]},
-                     {finalValue:1.0, interval:[600,1000]},
-                     {finalValue:0.0, interval:[1000,1200]}
+               particleAppearance={{
+                 opacity:{
+                   initialRange:[1.0, 1.0],
+                   factor:"time",
+                   interpolation:[
+                     {endValue:1.0, interval:[0,350]},
+                     {endValue:0.0, interval:[350,500]},
+                     {endValue:1.0, interval:[600,1000]},
+                     {endValue:0.0, interval:[1000,1200]}
                    ]
                  },
 
-                 color:{min:color, max:colorRand, factor:"time",
-                   modifier:[
-                     {finalValue:color, interval:[0,500]},
-                     {finalValue:color2, interval:[500,600]},
-                     {finalValue:color2, interval:[600,1200]},
+                 color:{
+                   initialRange:[color, colorRand],
+                   factor:"time",
+                   interpolation:[
+                     {endValue:color, interval:[0,500]},
+                     {endValue:color2, interval:[500,600]},
+                     {endValue:color2, interval:[600,1200]},
                    ]
                  }
                }}
 
-               physicsModifier={{
-                 initialExplosiveImpulse:{impulse:0.10, position:[0,0,0], deccelerationPeriod:1.2},
+               particlePhysics={{
+                 explosiveImpulse:{impulse:0.10, position:[0,0,0], decelerationPeriod:1.2},
                }}
              />
          ));
@@ -315,7 +333,7 @@
      var colorRand2 = viroFireworkColors[Math.floor((Math.random() * 5) + 0)];
 
        return((
-         <ViroQuadEmitter
+         <ViroParticleEmitter
              position={position}
              duration={5000}
              visible={true}
@@ -323,14 +341,14 @@
              loop={true}
              fixedToEmitter={true}
 
-             quad={{
-                    source:require("../res/particle_firework.png"),                 // Image source of the quad particle.
+             image={{
+                    source:require("../res/particle_firework.png"),                 // Image source of the image particle.
                     height:0.02,
                     width:0.02,
                     bloomThreshold:0.0
              }}
 
-             spawnModifier={{
+             spawnBehavior={{
                particleLifetime:[600,600],
                emissionRatePerSecond:[0,0],
                emissionBurst:[
@@ -340,25 +358,29 @@
                maxParticles:800
              }}
 
-             appearanceModifier={{
-               opacity:{min:1.0, max:1.0, factor:"time",
-                 modifier:[
-                   {finalValue:0.0, interval:[0,600]}
+             particleAppearance={{
+               opacity:{
+                 initialRange:[1.0, 1.0],
+                 factor:"time",
+                 interpolation:[
+                   {endValue:0.0, interval:[0,600]}
                  ]
                },
 
-               color:{min:color, max:colorRand2, factor:"time",
-                 modifier:[
-                   {finalValue:color, interval:[0,300]},
-                   {finalValue:colorRand1, interval:[300,400]},
-                   {finalValue:colorRand2, interval:[4000,600]}
+               color:{
+                 initialRange:[color, colorRand2],
+                 factor:"time",
+                 interpolation:[
+                   {endValue:color, interval:[0,300]},
+                   {endValue:colorRand1, interval:[300,400]},
+                   {endValue:colorRand2, interval:[4000,600]}
                  ]
                }
              }}
 
-             physicsModifier={{
-               initialExplosiveImpulse:{impulse:0.1, position:[0,0,0]},
-                  acceleration:{min:[0,-1.41,0], max:[0,-1.41,0]}
+             particlePhysics={{
+               explosiveImpulse:{impulse:0.1, position:[0,0,0]},
+                  acceleration:{initialRange:[[0,-1.41,0], [0,-1.41,0]]}
              }}
            />
        ));
