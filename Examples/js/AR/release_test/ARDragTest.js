@@ -59,7 +59,7 @@ var ARDragTest = React.createClass({
     );
   },
   _goToNextTest() {
-    // do something!
+    this.props.arSceneNavigator.replace("ARPlaneSelectorTest", {scene:require("./ARPlaneSelectorTest")})    
   },
 });
 

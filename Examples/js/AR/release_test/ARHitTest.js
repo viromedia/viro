@@ -63,14 +63,8 @@ var testARScene = React.createClass({
         </ViroARScene>
     );
   },
-  /*
-          <ViroARPlane onAnchorUpdated={this._onPlaneUpdate}>
-            <ViroSurface materials={"transparent"} scale={this.state.surfaceSize}
-             rotation={[-90, 0, 0]} onClick={this._onSurfaceClickUsingPosition}/>
-          </ViroARPlane>
-   */
   _goToNextTest() {
-    // do something!
+    this.props.arSceneNavigator.replace("ARScene/Navigator", {scene:require("./ARSceneAndNavigatorTest")})
   },
   _switchRayTestType() {
     this.setState({

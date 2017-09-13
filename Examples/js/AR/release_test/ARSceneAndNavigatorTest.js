@@ -178,7 +178,7 @@ var testARScene = React.createClass({
     });
   },
   _goToNextTest() {
-    // do something!
+    this.props.arSceneNavigator.replace("ARDragTest", {scene:require("./ARDragTest")})
   },
 });
 
