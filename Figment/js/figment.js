@@ -150,7 +150,7 @@ var figment = React.createClass({
   _performARHitTest(callback) {
     this.refs["arscene"].getCameraOrientationAsync().then((orientation) => {
       this.refs["arscene"].performARHitTestWithRay(orientation.forward).then((results)=>{
-        callback(orientation.forward, results);
+        callback(orientation.position, orientation.forward, results);
       })
     });
   },

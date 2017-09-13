@@ -219,9 +219,9 @@ var ModelItemRender = React.createClass({
         };
     },
 
-    _onARHitTestResults(forward, results) {
+    _onARHitTestResults(position, forward, results) {
       // default position is just 3 forward of the user
-      let newPosition = [forward[0] * 3, forward[1]* 3, forward[2]* 3];
+      let newPosition = [forward[0] * 1.5, forward[1]* 1.5, forward[2]* 1.5];
 
       // try to find a more informed position via the hit test results
       if (results.length > 0) {
@@ -229,11 +229,16 @@ var ModelItemRender = React.createClass({
         for (var i = 0; i < results.length; i++) {
           let result = results[i];
           if (result.type == "ExistingPlaneUsingExtent") {
-            hitResultPosition = result.transform.position;
-            break;
+            var distance = Math.sqrt(((result.transform.position[0] - position[0]) * (result.transform.position[0] - position[0])) + ((result.transform.position[1] - position[1]) * (result.transform.position[1] - position[1])) + ((result.transform.position[2] - position[2]) * (result.transform.position[2] - position[2])));
+            if(distance > .2 && distance < 10) {
+              console.log("distance from user ExistingPlaneUsingExtent:" + distance);
+              hitResultPosition = result.transform.position;
+              break;
+            }
           } else if (result.type == "FeaturePoint" && !hitResultPosition) {
-            var distance = Math.sqrt((result.transform.position[0] * result.transform.position[0]) + (result.transform.position[1] * result.transform.position[1]) + (result.transform.position[2] * result.transform.position[2]));
-            if (distance > .2) {
+            var distance = Math.sqrt(((result.transform.position[0] - position[0]) * (result.transform.position[0] - position[0])) + ((result.transform.position[1] - position[1]) * (result.transform.position[1] - position[1])) + ((result.transform.position[2] - position[2]) * (result.transform.position[2] - position[2])));
+            if (distance > .2  && distance < 10) {
+              console.log("distance from user featurepoint:" + distance);
               hitResultPosition = result.transform.position;
             }
           }
@@ -247,6 +252,8 @@ var ModelItemRender = React.createClass({
       // we need to set the position before making the node visible because of a race condition
       // in the case of portals, this could cause the portal to appear where the user is before
       // moving to it's location causing the user to accidentally "pass" through the portal.
+      console.log("distance: Setting new position of ModelItem");
+      console.log(newPosition);
       this.setState({
         position : newPosition,
       }, ()=>{

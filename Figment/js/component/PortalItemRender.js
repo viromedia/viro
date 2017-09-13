@@ -277,7 +277,7 @@ var PortalItemRender = React.createClass({
         };
     },
 
-    _onARHitTestResults(forward, results) {
+    _onARHitTestResults(position, forward, results) {
       // default position is just 3 forward of the user
       let newPosition = [forward[0] * 3, forward[1]* 3, forward[2]* 3];
 
