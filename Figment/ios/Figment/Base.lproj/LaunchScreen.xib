@@ -14,24 +14,10 @@
         <view contentMode="scaleToFill" id="iN0-l3-epB">
             <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-            <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="viro_loading.png" translatesAutoresizingMaskIntoConstraints="NO" id="a8e-yZ-JSy">
-                    <rect key="frame" x="0.0" y="0.0" width="480" height="480"/>
-                </imageView>
-            </subviews>
             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-            <constraints>
-                <constraint firstItem="a8e-yZ-JSy" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="A1A-ER-79d"/>
-                <constraint firstAttribute="bottom" secondItem="a8e-yZ-JSy" secondAttribute="bottom" id="KqG-xd-AkP"/>
-                <constraint firstItem="a8e-yZ-JSy" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="MCQ-Ka-8Rx"/>
-                <constraint firstAttribute="trailing" secondItem="a8e-yZ-JSy" secondAttribute="trailing" id="taw-va-Xj8"/>
-            </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="548" y="455"/>
         </view>
     </objects>
-    <resources>
-        <image name="viro_loading.png" width="1080" height="1920"/>
-    </resources>
 </document>
