@@ -47,7 +47,7 @@ var PortalItemRender = React.createClass({
         scale : PortalData.getPortalArray()[this.props.portalIDProps.index].scale,
         rotation : [0, 0, 0],
         nodeIsVisible : false,
-        position: [0, 10, 1], // make it appear initially high in the sky
+        position: [0, 2, 1], // make it appear initially high in the sky
         shouldBillboard : false,
       }
     },
@@ -108,16 +108,6 @@ var PortalItemRender = React.createClass({
               {this._renderPortalInside(portalItem)}
 
             </ViroPortalScene>
-
-          <ViroSurface
-            rotation={[-90, 0, 0]}
-            position={[0, -.001, 0]}
-            width={2.5} height={2.5}
-            lightReceivingBitMask={this.props.bitMask | 1}
-            materials={"shadowCatcher"}
-            arShadowReceiver={true}
-            ignoreEventHandling={true} />
-
         </ViroNode>
       );
     },
@@ -211,6 +201,7 @@ var PortalItemRender = React.createClass({
             viewArray.push(<ViroImage key="image_portal" width={2} height={5}  resizeMode='scaleToFit' source={portalSource.source}
                         position={[0, 0.8,-5.8]} scale={[1, 1, 1]} />);
             viewArray.push(<Viro360Image key="background_portal_image" source={require('../res/360_space.jpg')} />);
+
           }
           return viewArray;
         }
@@ -286,32 +277,14 @@ var PortalItemRender = React.createClass({
 
     _onARHitTestResults(position, forward, results) {
       // default position is just 3 forward of the user
-      let newPosition = [forward[0] * 3, forward[1]* 3, forward[2]* 3];
-
-      // try to find a more informed position via the hit test results
-      if (results.length > 0) {
-        let hitResultPosition = undefined;
-        for (var i = 0; i < results.length; i++) {
-          let result = results[i];
-          if (result.type == "ExistingPlaneUsingExtent") {
-            hitResultPosition = result.transform.position;
-            break;
-          } else if (result.type == "FeaturePoint" && !hitResultPosition) {
-            var distance = Math.sqrt((result.transform.position[0] * result.transform.position[0]) + (result.transform.position[1] * result.transform.position[1]) + (result.transform.position[2] * result.transform.position[2]));
-            if (distance > 2) {
-              hitResultPosition = result.transform.position;
-            }
-          }
-        }
-
-        if (hitResultPosition) {
-          newPosition = hitResultPosition;
-        }
-      }
+      let scaledForwardVector = [forward[0] * 1.2, forward[1]* 1.2, forward[2]* 1.2];
+      let newPosition = [position[0] + scaledForwardVector[0], position[1] + scaledForwardVector[1], position[2] + scaledForwardVector[2]];
 
       // we need to set the position before making the node visible because of a race condition
       // in the case of portals, this could cause the portal to appear where the user is before
       // moving to it's location causing the user to accidentally "pass" through the portal.
+      console.log("distance: Setting new position of PortalItem");
+      console.log(newPosition);
       this.setState({
         position : newPosition,
       }, ()=>{
