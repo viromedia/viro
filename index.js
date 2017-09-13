@@ -41,7 +41,7 @@ const ReactViro = {
   get ViroSpinner() { return require('./components/ViroSpinner'); },
   get ViroPolyline() { return require('./components/ViroPolyline'); },
   get ViroConstants() { return require('./components/ViroConstants'); },
-  get ViroQuadEmitter() { return require('./components/ViroQuadEmitter'); },
+  get ViroParticleEmitter() { return require('./components/ViroParticleEmitter'); },
   // AR Components
   get ViroARSceneNavigator() { return require('./components/AR/ViroARSceneNavigator'); },
   get ViroARScene() { return require('./components/AR/ViroARScene'); },

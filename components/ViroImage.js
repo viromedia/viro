@@ -137,7 +137,7 @@ var ViroImage = React.createClass({
       mass: PropTypes.number,
       restitution: PropTypes.number,
       shape: React.PropTypes.shape({
-        type: PropTypes.string.isRequired,
+        type: PropTypes.oneOf(["box", "sphere"]).isRequired,
         params: PropTypes.arrayOf(PropTypes.number)
       }),
       friction: PropTypes.number,
@@ -146,11 +146,11 @@ var ViroImage = React.createClass({
       velocity: PropTypes.arrayOf(PropTypes.number),
       force: PropTypes.oneOfType([
         PropTypes.arrayOf(React.PropTypes.shape({
-          power: PropTypes.arrayOf(PropTypes.number),
+          value: PropTypes.arrayOf(PropTypes.number),
           position: PropTypes.arrayOf(PropTypes.number)
         })),
         React.PropTypes.shape({
-          power: PropTypes.arrayOf(PropTypes.number),
+          value: PropTypes.arrayOf(PropTypes.number),
           position: PropTypes.arrayOf(PropTypes.number)
         }),
       ]),
@@ -158,7 +158,7 @@ var ViroImage = React.createClass({
     }),
 
     viroTag: PropTypes.string,
-    onCollided: React.PropTypes.func,
+    onCollision: React.PropTypes.func,
   },
 
   getInitialState: function() {
@@ -243,13 +243,13 @@ var ViroImage = React.createClass({
     NativeModules.VRTNodeModule.applyTorqueImpulse(findNodeHandle(this), torque);
   },
 
-  setInstantaneousVelocity: function(velocity) {
-    NativeModules.VRTNodeModule.setInstantaneousVelocity(findNodeHandle(this), velocity);
+  setVelocity: function(velocity) {
+    NativeModules.VRTNodeModule.setVelocity(findNodeHandle(this), velocity);
   },
 
-  _onCollided: function(event: Event){
-    if (this.props.onCollided){
-      this.props.onCollided(event.nativeEvent.viroTag, event.nativeEvent.collidedPoint,
+  _onCollision: function(event: Event){
+    if (this.props.onCollision){
+      this.props.onCollision(event.nativeEvent.viroTag, event.nativeEvent.collidedPoint,
                                                            event.nativeEvent.collidedNormal);
     }
   },
@@ -366,8 +366,8 @@ var ViroImage = React.createClass({
     nativeProps.canRotate = this.props.onRotate != undefined;
     nativeProps.onFuseViro = this._onFuse;
     nativeProps.timeToFuse = timeToFuse;
-    nativeProps.canCollide = this.props.onCollided != undefined;
-    nativeProps.onCollidedViro = this._onCollided;
+    nativeProps.canCollide = this.props.onCollision != undefined;
+    nativeProps.onCollisionViro = this._onCollision;
     nativeProps.ref = component => {this._component = component; };
     return (
       <VRTImage {...nativeProps}/>
@@ -401,7 +401,7 @@ var VRTImage = requireNativeComponent(
             onFuseViro:true,
             timeToFuse:true,
             canCollide:true,
-            onCollidedViro:true,
+            onCollisionViro:true,
             onNativeTransformDelegateViro:true,
             hasTransformDelegate:true
           }

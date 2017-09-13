@@ -82,7 +82,7 @@ var VRTOrbitCamera = requireNativeComponent(
                 scalePivot: true,
                 rotationPivot: true,
                 canCollide:true,
-                onCollidedViro:true,
+                onCollisionViro:true,
                 onNativeTransformDelegateViro:true,
                 hasTransformDelegate:true,
                 physicsBody:true

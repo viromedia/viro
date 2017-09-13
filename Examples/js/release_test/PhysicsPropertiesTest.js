@@ -140,7 +140,7 @@ var PhysicsRayTest = React.createClass({
                     width={50}
                     length={50}
                     viroTag="Ground"
-                    onCollided={this.onCollide}
+                    onCollision={this.onCollide}
                 />
 
                  {/* Left half of the screen, tests for collision with ray shot in scene */}

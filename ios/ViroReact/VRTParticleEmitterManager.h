@@ -1,5 +1,5 @@
 //
-//  VRTQuadEmitterManager.h
+//  VRTParticleEmitterManager.h
 //  ViroReact
 //
 //  Created by Andy Chu on 8/15/17.
@@ -9,6 +9,6 @@
 #import <Foundation/Foundation.h>
 #import "ViroViewManager.h"
 
-@interface VRTQuadEmitterManager : ViroViewManager
+@interface VRTParticleEmitterManager : ViroViewManager
 
 @end

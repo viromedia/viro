@@ -87,7 +87,7 @@ RCT_EXPORT_METHOD(applyTorqueImpulse:(nonnull NSNumber *)viewTag
 }
 
 
-RCT_EXPORT_METHOD(setInstantaneousVelocity:(nonnull NSNumber *)viewTag
+RCT_EXPORT_METHOD(setVelocity:(nonnull NSNumber *)viewTag
                   withTorque:(NSArray<NSNumber *> *)velocity) {
     [self.bridge.uiManager addUIBlock:^(__unused RCTUIManager *uiManager, NSDictionary<NSNumber *, UIView *> *viewRegistry) {
         UIView *nodeView = viewRegistry[viewTag];

@@ -102,7 +102,7 @@ var PhysicsRayTest = React.createClass({
             applyConstantVelocity: finalConst
           });
         } else if (tag == 9){
-          this.refs["box"].setInstantaneousVelocity([3,0,0]);
+          this.refs["box"].setVelocity([3,0,0]);
         }
     }
   },
@@ -176,7 +176,7 @@ var PhysicsRayTest = React.createClass({
                         mass:this.state.mass,
                         friction:0.5,
                         force:{
-                          power:this.state.applyConstantForce === undefined ? [0,0,0] : this.state.applyConstantForce
+                          value:this.state.applyConstantForce === undefined ? [0,0,0] : this.state.applyConstantForce
                         },
                         torque:this.state.applyConstantTorque,
                         velocity:this.state.applyConstantVelocity

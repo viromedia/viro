@@ -67,7 +67,7 @@ extern const int k2DPointsPerSpatialUnit;
 @property (nonatomic, assign) BOOL hasTransformDelegate;
 
 // Physics properties
-@property (nonatomic, copy, nullable) RCTDirectEventBlock onCollidedViro;
+@property (nonatomic, copy, nullable) RCTDirectEventBlock onCollisionViro;
 @property (nonatomic, copy) NSDictionary *physicsDictionary;
 - (void)applyImpulse:(VROVector3f)impulse withOffset:(VROVector3f)offset;
 - (void)applyTorqueImpulse:(VROVector3f)torque;

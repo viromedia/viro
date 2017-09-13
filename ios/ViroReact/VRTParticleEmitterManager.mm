@@ -1,16 +1,16 @@
 //
-//  VRTQuadEmitterManager.m
+//  VRTParticleEmitterManager.m
 //  ViroReact
 //
 //  Created by Andy Chu on 8/15/17.
 //  Copyright © 2017 Viro Media. All rights reserved.
 //
 
-#import "VRTQuadEmitterManager.h"
+#import "VRTParticleEmitterManager.h"
 #import "VRTNodeContainerShadowView.h"
-#import "VRTQuadEmitter.h"
+#import "VRTParticleEmitter.h"
 
-@implementation VRTQuadEmitterManager
+@implementation VRTParticleEmitterManager
 
 RCT_EXPORT_MODULE()
 
@@ -25,10 +25,10 @@ RCT_EXPORT_VIEW_PROPERTY(loop, BOOL)
 RCT_EXPORT_VIEW_PROPERTY(run, BOOL)
 RCT_EXPORT_VIEW_PROPERTY(visible, BOOL)
 RCT_EXPORT_VIEW_PROPERTY(fixedToEmitter, BOOL)
-RCT_EXPORT_VIEW_PROPERTY(quad, NSDictionary)
-RCT_EXPORT_VIEW_PROPERTY(spawnModifier, NSDictionary)
-RCT_EXPORT_VIEW_PROPERTY(appearanceModifier, NSDictionary)
-RCT_EXPORT_VIEW_PROPERTY(physicsModifier, NSDictionary)
+RCT_EXPORT_VIEW_PROPERTY(image, NSDictionary)
+RCT_EXPORT_VIEW_PROPERTY(spawnBehavior, NSDictionary)
+RCT_EXPORT_VIEW_PROPERTY(particleAppearance, NSDictionary)
+RCT_EXPORT_VIEW_PROPERTY(particlePhysics, NSDictionary)
 RCT_EXPORT_VIEW_PROPERTY(onNativeTransformDelegateViro, RCTDirectEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(hasTransformDelegate, BOOL)
 
@@ -37,9 +37,9 @@ RCT_EXPORT_VIEW_PROPERTY(hasTransformDelegate, BOOL)
     return [VRTNodeContainerShadowView new];
 }
 
-- (VRTQuadEmitter *)view
+- (VRTParticleEmitter *)view
 {
-    return [[VRTQuadEmitter alloc] initWithBridge:self.bridge];
+    return [[VRTParticleEmitter alloc] initWithBridge:self.bridge];
 }
 
 @end

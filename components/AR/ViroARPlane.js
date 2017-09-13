@@ -45,7 +45,7 @@ var ViroARPlane = React.createClass({
       }),
       React.PropTypes.func
     ]),
-    onCollided: React.PropTypes.func,
+    onCollision: React.PropTypes.func,
     viroTag: PropTypes.string,
     onAnchorFound: React.PropTypes.func,
     onAnchorUpdated: React.PropTypes.func,
@@ -103,9 +103,9 @@ var ViroARPlane = React.createClass({
     }
   },
 
-  _onCollided: function(event: Event){
-    if (this.props.onCollided){
-      this.props.onCollided(event.nativeEvent.viroTag, event.nativeEvent.collidedPoint,
+  _onCollision: function(event: Event){
+    if (this.props.onCollision){
+      this.props.onCollision(event.nativeEvent.viroTag, event.nativeEvent.collidedPoint,
                                                            event.nativeEvent.collidedNormal);
     }
   },
@@ -162,8 +162,8 @@ var ViroARPlane = React.createClass({
         onRotateViro={this._onRotate}
         onFuseViro={this._onFuse}
         timeToFuse={timeToFuse}
-        canCollide={this.props.onCollided != undefined}
-        onCollidedViro={this._onCollided}
+        canCollide={this.props.onCollision != undefined}
+        onCollisionViro={this._onCollision}
         onAnchorFoundViro={this._onAnchorFound}
         onAnchorUpdatedViro={this._onAnchorUpdated}
         onAnchorRemovedViro={this._onAnchorRemoved}
@@ -197,7 +197,7 @@ var VRTARPlane = requireNativeComponent(
       onFuseViro:true,
       timeToFuse:true,
       canCollide:true,
-      onCollidedViro:true,
+      onCollisionViro:true,
       onAnchorFoundViro:true,
       onAnchorUpdatedViro:true,
       onAnchorRemovedViro:true,

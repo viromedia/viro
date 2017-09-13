@@ -1,5 +1,5 @@
 //
-//  VRTQuadEmitter.m
+//  VRTParticleEmitter.m
 //  ViroReact
 //
 //  Created by Andy Chu on 8/15/17.
@@ -8,7 +8,7 @@
 
 #import <ViroKit/ViroKit.h>
 #import <React/RCTConvert.h>
-#import "VRTQuadEmitter.h"
+#import "VRTParticleEmitter.h"
 #import "VRTImageAsyncLoader.h"
 #import "VRTSurface.h"
 
@@ -16,14 +16,14 @@ const int kDefaultSpawnRate = 0;
 const int kDefaultParticleLifetime = 0;
 const int kDefaultMaxParticles = 500;
 
-@implementation VRTQuadEmitter {
+@implementation VRTParticleEmitter {
     VRTImageAsyncLoader *_loader;
     std::shared_ptr<VROParticleEmitter> _emitter;
     std::shared_ptr<VROTexture> _particleTexture;
     std::shared_ptr<VROSurface> _particleGeometry;
     bool _needsRestart;
-    bool _needsQuadUpdate;
-    NSString *_currentQuadSource;
+    bool _needsImageUpdate;
+    NSString *_currentImageSource;
     
     std::shared_ptr<VROParticleModifier> _defaultAlphaModifier;
     std::shared_ptr<VROParticleModifier> _defaultColorModifier;
@@ -41,8 +41,8 @@ const int kDefaultMaxParticles = 500;
         _emitter = nullptr;
         _needsRestart = false;
         _run = false;
-        _needsQuadUpdate = false;
-        _currentQuadSource = nil;
+        _needsImageUpdate = false;
+        _currentImageSource = nil;
 
         // Set modifier defaults to simulate particle in its original configuration.
         _defaultAlphaModifier = std::make_shared<VROParticleModifier>(VROVector3f(1,0,0));
@@ -68,23 +68,23 @@ const int kDefaultMaxParticles = 500;
     _needsRestart = true;
 }
 
-- (void)setQuad:(NSDictionary *)quad {
-    _quad = quad;
-    _needsQuadUpdate = true;
+- (void)setImage:(NSDictionary *)image {
+    _image = image;
+    _needsImageUpdate = true;
 }
 
-- (void)setSpawnModifier:(NSDictionary *)spawnModifier {
-    _spawnModifier = spawnModifier;
+- (void)setSpawnBehavior:(NSDictionary *)spawnBehavior {
+    _spawnBehavior = spawnBehavior;
     _needsRestart = true;
 }
 
-- (void)setAppearanceModifier:(NSDictionary *)appearanceModifier {
-    _appearanceModifier = appearanceModifier;
+- (void)setParticleAppearance:(NSDictionary *)particleAppearance {
+    _particleAppearance = particleAppearance;
     _needsRestart = true;
 }
 
-- (void)setPhysicsModifier:(NSDictionary *)physicsModifier {
-    _physicsModifier = physicsModifier;
+- (void)setParticlePhysics:(NSDictionary *)particlePhysics {
+    _particlePhysics = particlePhysics;
     _needsRestart = true;
 }
 
@@ -109,12 +109,12 @@ const int kDefaultMaxParticles = 500;
 }
 
 - (void)updateEmitter {
-    if (!self.driver || !self.node || !self.quad || !self.scene) {
+    if (!self.driver || !self.node || !self.image || !self.scene) {
         return;
     }
     
-    if (!self.quad){
-        RCTLogError(@"Viro: Missing required quad for a Viro Quad Emitter!");
+    if (!self.image){
+        RCTLogError(@"Viro: Missing required Image for a Viro Particle Emitter!");
         return;
     }
 
@@ -123,13 +123,13 @@ const int kDefaultMaxParticles = 500;
 
     // If a particle source image is provided, wait for it to be loaded
     // into the texture before initializing the emitter with it.
-    if ([self.quad objectForKey:@"source"] && _particleTexture == nullptr) {
+    if ([self.image objectForKey:@"source"] && _particleTexture == nullptr) {
         return;
     }
     
-    if (_needsQuadUpdate){
-        [self updateQuad];
-        _needsQuadUpdate = false;
+    if (_needsImageUpdate){
+        [self updateImage];
+        _needsImageUpdate = false;
     }
     
     // Create the emitter if we haven't yet done so, or if the texture has changed.
@@ -154,31 +154,31 @@ const int kDefaultMaxParticles = 500;
 
 - (void)updateImageIfNeeded {
     // Schedule image for download if given.
-    if (![self.quad objectForKey:@"source"]){
+    if (![self.image objectForKey:@"source"]){
         return;
     }
     
-    // Return if the image for this quad emitter has not changed.
-    NSString *nsStringQuadSource = [self.quad objectForKey:@"source"][@"uri"];
-    if ((_currentQuadSource && nsStringQuadSource && [_currentQuadSource isEqualToString:nsStringQuadSource])
-        || (!_currentQuadSource && !nsStringQuadSource)) {
+    // Return if the image for this Image emitter has not changed.
+    NSString *nsStringImageSource = [self.image objectForKey:@"source"][@"uri"];
+    if ((_currentImageSource && nsStringImageSource && [_currentImageSource isEqualToString:nsStringImageSource])
+        || (!_currentImageSource && !nsStringImageSource)) {
         return;
     }
-    _currentQuadSource = nsStringQuadSource;
+    _currentImageSource = nsStringImageSource;
 
     // Else, start the download with the newly provided image.
     _particleTexture = nullptr;
-    if (nsStringQuadSource != nil) {
-        [_loader loadImage:[RCTConvert RCTImageSource:nsStringQuadSource]];
+    if (nsStringImageSource != nil) {
+        [_loader loadImage:[RCTConvert RCTImageSource:nsStringImageSource]];
     } else {
         [_loader cancel];
         _particleTexture = nullptr;
     }
 }
 
--(void)updateQuad {
-    NSNumber *width = [self.quad objectForKey:@"width"];
-    NSNumber *height = [self.quad objectForKey:@"height"];
+-(void)updateImage {
+    NSNumber *width = [self.image objectForKey:@"width"];
+    NSNumber *height = [self.image objectForKey:@"height"];
     float fwidth = width ? [width floatValue] : 1.0;
     float fheight = height ? [height floatValue] : 1.0;
     _particleGeometry->setWidth(fwidth);
@@ -191,8 +191,8 @@ const int kDefaultMaxParticles = 500;
         material->getDiffuse().setTexture(_particleTexture);
     }
 
-    if ([self.quad objectForKey:@"bloomThreshold"]){
-        float threshold = [[self.quad objectForKey:@"bloomThreshold"] doubleValue];
+    if ([self.image objectForKey:@"bloomThreshold"]){
+        float threshold = [[self.image objectForKey:@"bloomThreshold"] doubleValue];
         _particleGeometry->getMaterials()[0]->setBloomThreshold(threshold);
     } else {
         _particleGeometry->getMaterials()[0]->setBloomThreshold(-1.0f);
@@ -226,11 +226,11 @@ const int kDefaultMaxParticles = 500;
 }
 
 - (void)updateSpawnModifier {
-    if (!_spawnModifier) {
+    if (!_spawnBehavior) {
         return;
     }
 
-    NSArray *emissionRatePerSec = [_spawnModifier objectForKey:@"emissionRatePerSecond"];
+    NSArray *emissionRatePerSec = [_spawnBehavior objectForKey:@"emissionRatePerSecond"];
     if (emissionRatePerSec && [emissionRatePerSec count] == 2) {
         std::pair<int, int> range = std::pair<int, int>([[emissionRatePerSec objectAtIndex:0] intValue],
                                                         [[emissionRatePerSec objectAtIndex:1] intValue]);
@@ -239,7 +239,7 @@ const int kDefaultMaxParticles = 500;
         _emitter->setEmissionRatePerSecond(std::pair<int, int>(kDefaultSpawnRate, kDefaultSpawnRate));
     }
 
-    NSArray *emissionRatePerMeter = [_spawnModifier objectForKey:@"emissionRatePerMeter"];
+    NSArray *emissionRatePerMeter = [_spawnBehavior objectForKey:@"emissionRatePerMeter"];
     if (emissionRatePerMeter && [emissionRatePerMeter count] == 2){
         std::pair<int, int> range = std::pair<int, int>([[emissionRatePerMeter objectAtIndex:0] intValue],
                                                         [[emissionRatePerMeter objectAtIndex:1] intValue]);
@@ -248,7 +248,7 @@ const int kDefaultMaxParticles = 500;
         _emitter->setEmissionRatePerDistance(std::pair<int, int>(kDefaultSpawnRate, kDefaultSpawnRate));
     }
 
-    NSArray *particleLifeTime = [_spawnModifier objectForKey:@"particleLifetime"];
+    NSArray *particleLifeTime = [_spawnBehavior objectForKey:@"particleLifetime"];
     if (particleLifeTime && [particleLifeTime count] == 2) {
         std::pair<int, int> range = std::pair<int, int>([[particleLifeTime objectAtIndex:0] intValue],
                                                         [[particleLifeTime objectAtIndex:1] intValue]);
@@ -257,16 +257,16 @@ const int kDefaultMaxParticles = 500;
         _emitter->setParticleLifeTime(std::pair<int, int>(kDefaultParticleLifetime, kDefaultParticleLifetime));
     }
 
-    if ([_spawnModifier objectForKey:@"maxParticles"]) {
-        int maxParticles = [[_spawnModifier objectForKey:@"maxParticles"] intValue];
+    if ([_spawnBehavior objectForKey:@"maxParticles"]) {
+        int maxParticles = [[_spawnBehavior objectForKey:@"maxParticles"] intValue];
         _emitter->setMaxParticles(maxParticles);
     } else {
         _emitter->setMaxParticles(kDefaultMaxParticles);
     }
 
-    if ([_spawnModifier objectForKey:@"emissionBurst"]) {
+    if ([_spawnBehavior objectForKey:@"emissionBurst"]) {
         std::vector<VROParticleEmitter::VROParticleBurst> bursts;
-        NSArray *burstArray = [_spawnModifier objectForKey:@"emissionBurst"];
+        NSArray *burstArray = [_spawnBehavior objectForKey:@"emissionBurst"];
 
         // Process each burst
         for (int i = 0; i < [burstArray count]; i ++) {
@@ -281,9 +281,10 @@ const int kDefaultMaxParticles = 500;
                 burst.referenceValueStart = [[burstDictionary objectForKey:@"distance"] doubleValue];
                 burst.referenceValueInterval = [[burstDictionary objectForKey:@"cooldownDistance"] doubleValue];
             } else {
-                RCTLogError(@"Viro: Unsupported modifier factor provided! Must specify either time or distance.");
+                RCTLogError(@"Viro: Unsupported interpolation factor provided! Must specify either time or distance.");
                 continue;
             }
+            
             int min = [[burstDictionary objectForKey:@"min"] intValue];
             int max = [[burstDictionary objectForKey:@"max"] intValue];
             burst.numberOfParticles = std::pair<int, int>(min,max);
@@ -295,13 +296,13 @@ const int kDefaultMaxParticles = 500;
         _emitter->setParticleBursts(std::vector<VROParticleEmitter::VROParticleBurst>());
     }
 
-    if ([_spawnModifier objectForKey:@"spawnVolume"]) {
-        NSDictionary *spawnVolume = [_spawnModifier objectForKey:@"spawnVolume"];
+    if ([_spawnBehavior objectForKey:@"spawnVolume"]) {
+        NSDictionary *spawnVolume = [_spawnBehavior objectForKey:@"spawnVolume"];
         NSString *stringShapeName = [spawnVolume objectForKey:@"shape"];
         NSArray *shapeParams = [spawnVolume objectForKey:@"params"];
 
         if (stringShapeName == nil) {
-            RCTLogError(@"Viro: Missing required volume shape type, skipping spawn volume modifier.");
+            RCTLogError(@"Viro: Missing required volume shape type, skipping spawn volume interpolation data.");
             return;
         }
 
@@ -335,7 +336,7 @@ const int kDefaultMaxParticles = 500;
 }
 
 -(void)updateAppearanceModifier {
-    if (!_appearanceModifier) {
+    if (!_particleAppearance) {
         _emitter->setAlphaModifier(_defaultAlphaModifier);
         _emitter->setScaleModifier(_defaultScaleModifier);
         _emitter->setRotationModifier(_defaultRotationModifier);
@@ -343,22 +344,22 @@ const int kDefaultMaxParticles = 500;
         return;
     }
 
-    std::shared_ptr<VROParticleModifier> alphaModifier = [self getModifier:[_appearanceModifier objectForKey:@"opacity"]
+    std::shared_ptr<VROParticleModifier> alphaModifier = [self getModifier:[_particleAppearance objectForKey:@"opacity"]
                                                                     isVec3:false
                                                                    isColor:false
                                                                    isFloat:true];
     
-    std::shared_ptr<VROParticleModifier> scaleModifier = [self getModifier:[_appearanceModifier objectForKey:@"scale"]
+    std::shared_ptr<VROParticleModifier> scaleModifier = [self getModifier:[_particleAppearance objectForKey:@"scale"]
                                                                     isVec3:true
                                                                    isColor:false
                                                                    isFloat:false];
     
-    std::shared_ptr<VROParticleModifier> rotationModifier = [self getModifier:[_appearanceModifier objectForKey:@"rotation"]
+    std::shared_ptr<VROParticleModifier> rotationModifier = [self getModifier:[_particleAppearance objectForKey:@"rotation"]
                                                                     isVec3:true
                                                                    isColor:false
                                                                    isFloat:false];
     
-    std::shared_ptr<VROParticleModifier> colorModifier = [self getModifier:[_appearanceModifier objectForKey:@"color"]
+    std::shared_ptr<VROParticleModifier> colorModifier = [self getModifier:[_particleAppearance objectForKey:@"color"]
                                                                     isVec3:false
                                                                    isColor:true
                                                                    isFloat:false];
@@ -370,19 +371,19 @@ const int kDefaultMaxParticles = 500;
 }
 
 -(void)updatePhysicsModifier{
-    if (!_physicsModifier) {
+    if (!_particlePhysics) {
         _emitter->setVelocityModifier(_defaultVelocityModifier);
         _emitter->setAccelerationmodifier(_defaultAccelerationModifier);
         _emitter->setInitialExplosion(VROVector3f(0,0,0), -1);
         return;
     }
     
-    std::shared_ptr<VROParticleModifier> velocityMod = [self getModifier:[_physicsModifier objectForKey:@"velocity"]
+    std::shared_ptr<VROParticleModifier> velocityMod = [self getModifier:[_particlePhysics objectForKey:@"velocity"]
                                                                        isVec3:true
                                                                       isColor:false
                                                                       isFloat:false];
     
-    std::shared_ptr<VROParticleModifier> accelMod = [self getModifier:[_physicsModifier objectForKey:@"acceleration"]
+    std::shared_ptr<VROParticleModifier> accelMod = [self getModifier:[_particlePhysics objectForKey:@"acceleration"]
                                                                        isVec3:true
                                                                       isColor:false
                                                                       isFloat:false];
@@ -390,11 +391,11 @@ const int kDefaultMaxParticles = 500;
     _emitter->setVelocityModifier(velocityMod != nullptr ? velocityMod : _defaultVelocityModifier);
     _emitter->setAccelerationmodifier(accelMod != nullptr ? accelMod : _defaultAccelerationModifier);
 
-    if ([_physicsModifier objectForKey:@"initialExplosiveImpulse"]) {
-        NSDictionary *explosiveDict = [_physicsModifier objectForKey:@"initialExplosiveImpulse"];
+    if ([_particlePhysics objectForKey:@"explosiveImpulse"]) {
+        NSDictionary *explosiveDict = [_particlePhysics objectForKey:@"explosiveImpulse"];
         NSArray *position = [explosiveDict objectForKey:@"position"];
         if ([position count] < 3) {
-            RCTLogError(@"Incorrect parameters provided initial explosion impulse");
+            RCTLogError(@"Incorrect parameters provided explosion impulse");
             return;
         }
 
@@ -402,8 +403,8 @@ const int kDefaultMaxParticles = 500;
                                              [[position objectAtIndex:1] floatValue],
                                              [[position objectAtIndex:2] floatValue]);
         float impulse = [[explosiveDict objectForKey:@"impulse"] floatValue];
-        float reverseAccel = [[explosiveDict objectForKey:@"deccelerationPeriod"] floatValue];
-        if (![explosiveDict objectForKey:@"deccelerationPeriod"]){
+        float reverseAccel = [[explosiveDict objectForKey:@"decelerationPeriod"] floatValue];
+        if (![explosiveDict objectForKey:@"decelerationPeriod"]){
             reverseAccel = -1;
         }
         _emitter->setInitialExplosion(explodedAt, impulse, reverseAccel);
@@ -421,7 +422,7 @@ const int kDefaultMaxParticles = 500;
         return nullptr;
     }
     
-    NSArray *intervalsDictArray = [modDictionary objectForKey:@"modifier"];
+    NSArray *intervalsDictArray = [modDictionary objectForKey:@"interpolation"];
     VROParticleModifier::VROModifierFactor factor = VROParticleModifier::VROModifierFactor::Time;
 
     // Grab the VROModifierFactor this modifier is interpolating against.
@@ -431,7 +432,7 @@ const int kDefaultMaxParticles = 500;
         if (stringFactor == "distance") {
             factor = VROParticleModifier::VROModifierFactor::Distance;
         } else if (stringFactor != "time" && intervalsDictArray && [intervalsDictArray count] > 0) {
-            RCTLogError(@"Viro: Provided unknown modifier factor to interpolate against!");
+            RCTLogError(@"Viro: Provided unknown interpolation factor to interpolate against!");
             return nullptr;
         }
     }
@@ -441,8 +442,8 @@ const int kDefaultMaxParticles = 500;
     for (int i = 0; i < [intervalsDictArray count]; i ++) {
         // Ensure we have a valid interval configuration
         NSDictionary *intervalDict = [intervalsDictArray objectAtIndex:i];
-        if (![intervalDict objectForKey:@"interval"] || ![intervalDict objectForKey:@"finalValue"]) {
-            RCTLogError(@"Viro: Incorrectly configured modifier, skipping modifier.");
+        if (![intervalDict objectForKey:@"interval"] || ![intervalDict objectForKey:@"endValue"]) {
+            RCTLogError(@"Viro: Incorrectly configured interpolation data, skipping interpolation.");
             continue;
         }
 
@@ -450,7 +451,7 @@ const int kDefaultMaxParticles = 500;
         // fail to grab it, skip to the next modifier.
         VROParticleModifier::VROModifierInterval interval;
         if (![self getVecValueFromDict:intervalDict
-                               withKey:@"finalValue"
+                               withKey:@"endValue"
                                 isVec3:isVec3 isColor:isColor isFloat:isFloat
                                 outVec:interval.targetedValue]) {
             continue;
@@ -468,18 +469,15 @@ const int kDefaultMaxParticles = 500;
     }
 
     // Grab the inital values to be set in the Particle Modifier
-    VROVector3f minVec;
-    VROVector3f maxVec;
-    bool hasValue = [self getVecValueFromDict:modDictionary withKey:@"min"
-                                       isVec3:isVec3 isColor:isColor isFloat:isFloat outVec:minVec];
-    hasValue = hasValue && [self getVecValueFromDict:modDictionary withKey:@"max"
-                                       isVec3:isVec3 isColor:isColor isFloat:isFloat outVec:maxVec];
+    std::pair<VROVector3f, VROVector3f> initialVecRange;
+    bool hasValue = [self getVecValueFromTuple:modDictionary withKey:@"initialRange"
+                                       isVec3:isVec3 isColor:isColor isFloat:isFloat outVec:initialVecRange];
 
     if (!hasValue) {
         return nullptr;
     }
 
-    return std::make_shared<VROParticleModifier>(minVec, maxVec, factor, intervals);
+    return std::make_shared<VROParticleModifier>(initialVecRange.first, initialVecRange.second, factor, intervals);
 }
 
 - (bool)getVecValueFromDict:(NSDictionary *)dict
@@ -527,6 +525,74 @@ const int kDefaultMaxParticles = 500;
     return false;
 }
 
+- (bool)getVecValueFromTuple:(NSDictionary *)dict
+                    withKey:(NSString *)key
+                     isVec3:(bool)isVec3
+                    isColor:(bool)isColor
+                    isFloat:(bool)isFloat
+                      outVec:(std::pair<VROVector3f, VROVector3f> &)vec{
+    
+    if (![dict objectForKey:key]) {
+        RCTLogError(@"Incorrect parameters provided for tag %@!", key);
+        return false;
+    }
+    
+    NSArray *tupeValues = [dict objectForKey:key];
+    if ([tupeValues count] != 2) {
+        RCTLogError(@"Incorrect parameters provided for %@, expected: [min, max]!", key);
+        return false;
+    }
+    
+    if (isFloat) {
+        float value1 =[[tupeValues objectAtIndex:0] floatValue];
+        float value2 =[[tupeValues objectAtIndex:1] floatValue];
+        vec = std::pair<VROVector3f, VROVector3f>(VROVector3f(value1,0,0), VROVector3f(value2,0,0));
+        return true;
+    }
+    
+    if (isColor) {
+        UIColor *color1 =[RCTConvert UIColor:[tupeValues objectAtIndex:0]];
+        UIColor *color2 =[RCTConvert UIColor:[tupeValues objectAtIndex:1]];
+        
+        if (!color1 || !color2) {
+            return false;
+        }
+        
+        CGFloat red,green,blue, alpha;
+        [color1 getRed:&red green:&green blue:&blue alpha:&alpha];
+        
+        CGFloat red2,green2,blue2, alpha2;
+        [color2 getRed:&red2 green:&green2 blue:&blue2 alpha:&alpha2];
+        
+        vec = std::pair<VROVector3f, VROVector3f>(VROVector3f(red,green,blue),
+                                                  VROVector3f(red2,green2,blue2));
+        return true;
+    }
+    
+    if (isVec3) {
+        
+        NSArray *valueVec1 =[tupeValues objectAtIndex:0];
+        NSArray *valueVec2 =[tupeValues objectAtIndex:1];
+        
+        if ([valueVec1 count] < 3 || [valueVec2 count] < 3) {
+            RCTLogError(@"Incorrect parameters provided for %@, expected: [x, y, z]!", key);
+            return false;
+        }
+        
+        VROVector3f vec1 = VROVector3f([[valueVec1 objectAtIndex:0] floatValue],
+                                      [[valueVec1 objectAtIndex:1] floatValue],
+                                      [[valueVec1 objectAtIndex:2] floatValue]);
+        
+        VROVector3f vec2 = VROVector3f([[valueVec2 objectAtIndex:0] floatValue],
+                                       [[valueVec2 objectAtIndex:1] floatValue],
+                                       [[valueVec2 objectAtIndex:2] floatValue]);
+        vec = std::pair<VROVector3f, VROVector3f>(vec1, vec2);
+
+        return true;
+    }
+    return false;
+}
+
 #pragma mark VRTImageAsyncLoaderEventDelegate
 - (void)imageLoaderDidStart:(VRTImageAsyncLoader *)loader {
     // no-op
@@ -539,7 +605,7 @@ const int kDefaultMaxParticles = 500;
                                                                                VROMipmapMode::Runtime,
                                                                                std::make_shared<VROImageiOS>(image, VROTextureInternalFormat::RGBA8),
                                                                                VROStereoMode::None);
-            _needsQuadUpdate = true;
+            _needsImageUpdate = true;
             [self updateEmitter];
         } else {
             perror("Viro: Error loading particle image resource");

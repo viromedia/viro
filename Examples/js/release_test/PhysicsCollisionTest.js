@@ -135,7 +135,7 @@ addToConsole(stringToAdd){
   },
 
   onCollide(collidedTag, collidedPoint, collidedNormal){
-      let text = "Viro onCollidedBox Javascript: (" + collidedTag + ")  collidedPoint:" + collidedPoint[0] +","+ collidedPoint [1]+"," + collidedPoint[2] + "\n";
+      let text = "Viro onCollisionBox Javascript: (" + collidedTag + ")  collidedPoint:" + collidedPoint[0] +","+ collidedPoint [1]+"," + collidedPoint[2] + "\n";
       this.addToConsole(text);
   },
 
@@ -191,7 +191,7 @@ addToConsole(stringToAdd){
                     width={50}
                     length={50}
                     viroTag="Ground"
-                    onCollided={this.onCollide}
+                    onCollision={this.onCollide}
                 />
 
                 <ViroText fontSize={25}  style={styles.centeredText} transformBehaviors={["billboard"]}
@@ -241,7 +241,7 @@ addToConsole(stringToAdd){
                         useGravity:false
                       }}
                       viroTag="RayTest Box1"
-                      onCollided={this.onCollide}
+                      onCollision={this.onCollide}
                       />
 
                     <ViroBox
@@ -255,7 +255,7 @@ addToConsole(stringToAdd){
                         useGravity:false
                       }}
                       viroTag="RayTest Box2"
-                      onCollided={this.onCollide}
+                      onCollision={this.onCollide}
                       />
 
                     <ViroBox
@@ -269,7 +269,7 @@ addToConsole(stringToAdd){
                         useGravity:false
                       }}
                       viroTag="RayTest Box3"
-                      onCollided={this.onCollide}
+                      onCollision={this.onCollide}
                       />
                 </ViroNode>
 
@@ -303,7 +303,7 @@ addToConsole(stringToAdd){
                         mass:this.state.dynamicStaticToggle?1:0
                       }}
                       viroTag="DynamicBox 1"
-                      onCollided={this.onCollide}
+                      onCollision={this.onCollide}
                       />
 
                       <ViroBox
@@ -316,7 +316,7 @@ addToConsole(stringToAdd){
                             mass:1
                           }:undefined}
                           viroTag="DynamicBoxAbove 2"
-                          onCollided={this.onCollide}
+                          onCollision={this.onCollide}
                           />
 
 
@@ -330,7 +330,7 @@ addToConsole(stringToAdd){
                             mass:1
                           }}
                           viroTag="DynamicBoxBelow 2"
-                          onCollided={this.onCollide}
+                          onCollision={this.onCollide}
                       />
 
                       <ViroAnimatedComponent
@@ -347,7 +347,7 @@ addToConsole(stringToAdd){
                             mass:0
                           }}
                           viroTag="KinematicBox 3"
-                          onCollided={this.onCollide}
+                          onCollision={this.onCollide}
                           />
 
                       </ViroAnimatedComponent>
@@ -362,7 +362,7 @@ addToConsole(stringToAdd){
                               mass:1,
                           }}
                           viroTag="DynamicBox 3"
-                          onCollided={this.onCollide}
+                          onCollision={this.onCollide}
                           />
                 </ViroNode>
 

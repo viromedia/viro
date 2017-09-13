@@ -42,7 +42,7 @@ RCT_EXPORT_VIEW_PROPERTY(transformBehaviors, NSArray<NSString *>)
 RCT_EXPORT_VIEW_PROPERTY(visible, BOOL)
 RCT_REMAP_VIEW_PROPERTY(backgroundColor, flexBackgroundColor, UIColor) //backgroundColor is reserved
 RCT_EXPORT_VIEW_PROPERTY(physicsBody, NSDictionary)
-RCT_EXPORT_VIEW_PROPERTY(onCollidedViro, RCTDirectEventBlock)
+RCT_EXPORT_VIEW_PROPERTY(onCollisionViro, RCTDirectEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(canCollide, BOOL)
 RCT_EXPORT_VIEW_PROPERTY(viroTag, NSString)
 RCT_EXPORT_VIEW_PROPERTY(onNativeTransformDelegateViro, RCTDirectEventBlock)

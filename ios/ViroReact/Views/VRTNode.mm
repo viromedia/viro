@@ -745,20 +745,20 @@ withShape:(std::shared_ptr<VROPhysicsShape>) phsyicsShape{
             return false;
         }
         
-        // Grab the required power of the force.
+        // Grab the required value of the force.
         VROVector3f force3f;
-        NSArray *power = [forceArray[i] objectForKey:@"power"];
-        if (power) {
-            if ([power count] != 3) {
-                RCTLogError(@"Incorrect parameters provided for force's power, expected: [x, y, z]!");
+        NSArray *value = [forceArray[i] objectForKey:@"value"];
+        if (value) {
+            if ([value count] != 3) {
+                RCTLogError(@"Incorrect parameters provided for force's value, expected: [x, y, z]!");
                 return false;
             }
             
-            force3f = VROVector3f([[power objectAtIndex:0] floatValue],
-                                  [[power objectAtIndex:1] floatValue],
-                                  [[power objectAtIndex:2] floatValue]);
+            force3f = VROVector3f([[value objectAtIndex:0] floatValue],
+                                  [[value objectAtIndex:1] floatValue],
+                                  [[value objectAtIndex:2] floatValue]);
         } else {
-            RCTLogError(@"Incorrect parameters: missing power of format [x, y, z] for force!");
+            RCTLogError(@"Incorrect parameters: missing value of format [x, y, z] for force!");
             return false;
         }
         
@@ -855,6 +855,6 @@ withShape:(std::shared_ptr<VROPhysicsShape>) phsyicsShape{
     [normal insertObject:[NSNumber numberWithFloat:collision.collidedNormal.y] atIndex:1];
     [normal insertObject:[NSNumber numberWithFloat:collision.collidedNormal.z] atIndex:2];
     
-    self.onCollidedViro(@{@"viroTag": @(collision.collidedBodyTag.c_str()), @"collidedPoint":coordinate, @"collidedNormal":normal});
+    self.onCollisionViro(@{@"viroTag": @(collision.collidedBodyTag.c_str()), @"collidedPoint":coordinate, @"collidedNormal":normal});
 }
 @end

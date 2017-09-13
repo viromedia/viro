@@ -133,7 +133,7 @@ var BTN_TYPE_CLICKED = 'clicked';
       mass: PropTypes.number,
       restitution: PropTypes.number,
       shape: React.PropTypes.shape({
-        type: PropTypes.string.isRequired,
+        type: PropTypes.oneOf(["box", "sphere"]).isRequired,
         params: PropTypes.arrayOf(PropTypes.number)
       }).isRequired,
       friction: PropTypes.number,
@@ -142,11 +142,11 @@ var BTN_TYPE_CLICKED = 'clicked';
       velocity: PropTypes.arrayOf(PropTypes.number),
       force: PropTypes.oneOfType([
         PropTypes.arrayOf(React.PropTypes.shape({
-          power: PropTypes.arrayOf(PropTypes.number),
+          value: PropTypes.arrayOf(PropTypes.number),
           position: PropTypes.arrayOf(PropTypes.number)
         })),
         React.PropTypes.shape({
-          power: PropTypes.arrayOf(PropTypes.number),
+          value: PropTypes.arrayOf(PropTypes.number),
           position: PropTypes.arrayOf(PropTypes.number)
         }),
       ]),
@@ -154,7 +154,7 @@ var BTN_TYPE_CLICKED = 'clicked';
     }),
 
     viroTag: PropTypes.string,
-    onCollided: React.PropTypes.func,
+    onCollision: React.PropTypes.func,
   },
 
   applyImpulse: function(force, atPosition) {
@@ -165,8 +165,8 @@ var BTN_TYPE_CLICKED = 'clicked';
     this._component.applyTorqueImpulse(torque);
   },
 
-  setInstantaneousVelocity: function(velocity) {
-    this._component.setInstantaneousVelocity(velocity);
+  setVelocity: function(velocity) {
+    this._component.setVelocity(velocity);
   },
 
   async getTransformAsync() {
@@ -238,7 +238,7 @@ var BTN_TYPE_CLICKED = 'clicked';
             onDrag={this.props.onDrag}
             onPinch={this.props.onPinch}
             onRotate={this.props.onRotate}
-            onCollided={this.props.onCollided}
+            onCollision={this.props.onCollision}
             viroTag={this.props.viroTag}
             onFuse={this.props.onFuse}
             ignoreEventHandling={this.props.ignoreEventHandling}

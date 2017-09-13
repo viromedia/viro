@@ -81,7 +81,7 @@ var ViroSphere = React.createClass({
       mass: PropTypes.number,
       restitution: PropTypes.number,
       shape: React.PropTypes.shape({
-        type: PropTypes.string.isRequired,
+        type: PropTypes.oneOf(["box", "sphere"]).isRequired,
         params: PropTypes.arrayOf(PropTypes.number)
       }),
       friction: PropTypes.number,
@@ -90,11 +90,11 @@ var ViroSphere = React.createClass({
       velocity: PropTypes.arrayOf(PropTypes.number),
       force: PropTypes.oneOfType([
         PropTypes.arrayOf(React.PropTypes.shape({
-          power: PropTypes.arrayOf(PropTypes.number),
+          value: PropTypes.arrayOf(PropTypes.number),
           position: PropTypes.arrayOf(PropTypes.number)
         })),
         React.PropTypes.shape({
-          power: PropTypes.arrayOf(PropTypes.number),
+          value: PropTypes.arrayOf(PropTypes.number),
           position: PropTypes.arrayOf(PropTypes.number)
         }),
       ]),
@@ -102,7 +102,7 @@ var ViroSphere = React.createClass({
     }),
 
     viroTag: PropTypes.string,
-    onCollided: React.PropTypes.func,
+    onCollision: React.PropTypes.func,
   },
 
 getInitialState: function() {
@@ -175,13 +175,13 @@ getInitialState: function() {
     NativeModules.VRTNodeModule.applyTorqueImpulse(findNodeHandle(this), torque);
   },
 
-  setInstantaneousVelocity: function(velocity) {
-    NativeModules.VRTNodeModule.setInstantaneousVelocity(findNodeHandle(this), velocity);
+  setVelocity: function(velocity) {
+    NativeModules.VRTNodeModule.setVelocity(findNodeHandle(this), velocity);
   },
 
-  _onCollided: function(event: Event){
-    if (this.props.onCollided){
-      this.props.onCollided(event.nativeEvent.viroTag, event.nativeEvent.collidedPoint,
+  _onCollision: function(event: Event){
+    if (this.props.onCollision){
+      this.props.onCollision(event.nativeEvent.viroTag, event.nativeEvent.collidedPoint,
                                                            event.nativeEvent.collidedNormal);
     }
   },
@@ -267,8 +267,8 @@ getInitialState: function() {
         onPinchViro={this._onPinch}
         onRotateViro={this._onRotate}
         onFuseViro={this._onFuse}
-        canCollide={this.props.onCollided != undefined}
-        onCollidedViro={this._onCollided}
+        canCollide={this.props.onCollision != undefined}
+        onCollisionViro={this._onCollision}
         onNativeTransformDelegateViro={transformDelegate}
         hasTransformDelegate={this.props.onTransformUpdate != undefined}
         timeToFuse={timeToFuse}
@@ -301,7 +301,7 @@ var VRTSphere = requireNativeComponent(
             onFuseViro:true,
             timeToFuse:true,
             canCollide:true,
-            onCollidedViro:true,
+            onCollisionViro:true,
             onNativeTransformDelegateViro:true,
             hasTransformDelegate:true,
           }

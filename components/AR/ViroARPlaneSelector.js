@@ -54,7 +54,7 @@ var ViroARPlaneSelector = React.createClass({
       }),
       React.PropTypes.func
     ]),
-    onCollided: React.PropTypes.func,
+    onCollision: React.PropTypes.func,
     viroTag: PropTypes.string,
     onAnchorFound: React.PropTypes.func,
     onAnchorUpdated: React.PropTypes.func,

@@ -73,7 +73,7 @@ var ViroSpinner = React.createClass({
       mass: PropTypes.number,
       restitution: PropTypes.number,
       shape: React.PropTypes.shape({
-        type: PropTypes.string.isRequired,
+        type: PropTypes.oneOf(["box", "sphere"]).isRequired,
         params: PropTypes.arrayOf(PropTypes.number)
       }).isRequired,
       friction: PropTypes.number,
@@ -82,11 +82,11 @@ var ViroSpinner = React.createClass({
       velocity: PropTypes.arrayOf(PropTypes.number),
       force: PropTypes.oneOfType([
         PropTypes.arrayOf(React.PropTypes.shape({
-          power: PropTypes.arrayOf(PropTypes.number),
+          value: PropTypes.arrayOf(PropTypes.number),
           position: PropTypes.arrayOf(PropTypes.number)
         })),
         React.PropTypes.shape({
-          power: PropTypes.arrayOf(PropTypes.number),
+          value: PropTypes.arrayOf(PropTypes.number),
           position: PropTypes.arrayOf(PropTypes.number)
         }),
       ]),
@@ -94,7 +94,7 @@ var ViroSpinner = React.createClass({
     }),
 
     viroTag: PropTypes.string,
-    onCollided: React.PropTypes.func,
+    onCollision: React.PropTypes.func,
   },
 
   getDefaultProps() {
@@ -111,8 +111,8 @@ var ViroSpinner = React.createClass({
     this._component.applyTorqueImpulse(torque);
   },
 
-  setInstantaneousVelocity: function(velocity) {
-    this._component.setInstantaneousVelocity(findNodeHandle(this), velocity);
+  setVelocity: function(velocity) {
+    this._component.setVelocity(findNodeHandle(this), velocity);
   },
 
   async getTransformAsync() {

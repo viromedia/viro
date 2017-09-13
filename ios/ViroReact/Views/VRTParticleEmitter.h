@@ -1,5 +1,5 @@
 //
-//  VRTQuadEmitter.h
+//  ViroParticleEmitter
 //  ViroReact
 //
 //  Created by Andy Chu on 8/15/17.
@@ -11,17 +11,17 @@
 #import "VRTControl.h"
 #import "VRTImageAsyncLoaderEventDelegate.h"
 
-@interface VRTQuadEmitter : VRTControl <VRTImageAsyncLoaderEventDelegate>
+@interface VRTParticleEmitter : VRTControl <VRTImageAsyncLoaderEventDelegate>
 
 @property (nonatomic, assign) float duration;
 @property (nonatomic, assign) float delay;
 @property (nonatomic, assign) BOOL loop;
 @property (nonatomic, assign) BOOL run;
 @property (nonatomic, assign) BOOL fixedToEmitter;
-@property (nonatomic, copy, nullable) NSDictionary *quad;
-@property (nonatomic, copy, nullable) NSDictionary *spawnModifier;
-@property (nonatomic, copy, nullable) NSDictionary *appearanceModifier;
-@property (nonatomic, copy, nullable) NSDictionary *physicsModifier;
+@property (nonatomic, copy, nullable) NSDictionary *image;
+@property (nonatomic, copy, nullable) NSDictionary *spawnBehavior;
+@property (nonatomic, copy, nullable) NSDictionary *particleAppearance;
+@property (nonatomic, copy, nullable) NSDictionary *particlePhysics;
 
 - (instancetype)initWithBridge:(RCTBridge *)bridge;
 

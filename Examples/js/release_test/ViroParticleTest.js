@@ -34,7 +34,7 @@ import {
    ViroUtils,
    ViroText,
    ViroAnimations,
-   ViroQuadEmitter,
+   ViroParticleEmitter,
    ViroAnimatedComponent,
    ViroSurface,
    ViroSkyBox,
@@ -183,7 +183,7 @@ var ViroShadowTest = React.createClass({
           } else if (num == 9){       // Explode with a decceleration period, like fireworks.
             var explosion = this.state.explosion;
             if (explosion == undefined){
-              explosion = {impulse:1.12, position:[0,0,0], deccelerationPeriod:3.0};
+              explosion = {impulse:1.12, position:[0,0,0], decelerationPeriod:3.0};
             } else {
               explosion = undefined;
             }
@@ -207,9 +207,9 @@ var ViroShadowTest = React.createClass({
             if (opacity != undefined){
               opacity = undefined;
             } else {
-              opacity = {min:1.0, max:1.0, factor:"time",
-                modifier:[
-                  {finalValue:0.0, interval:[0, this.state.particleLifetime/3*3]}
+              opacity = {initialRange:[1.0, 1.0], factor:"time",
+                interpolation:[
+                  {endValue:0.0, interval:[0, this.state.particleLifetime/3*3]}
                 ]
               };
             }
@@ -222,9 +222,11 @@ var ViroShadowTest = React.createClass({
             if (scale != undefined){
               scale = undefined;
             } else {
-              scale = {min:[0, 0, 0], max:[0, 0, 0], factor:"time",
-                modifier:[
-                  {finalValue:[6.0, 6.0, 6.0], interval:[ 0 ,this.state.particleLifetime/3*3]}
+              scale = {
+                initialRange:[[0, 0, 0],[0, 0, 0]],
+                factor:"time",
+                interpolation:[
+                  {endValue:[6.0, 6.0, 6.0], interval:[ 0 ,this.state.particleLifetime/3*3]}
                 ]
               };
             }
@@ -237,11 +239,11 @@ var ViroShadowTest = React.createClass({
             if (rotation != undefined){
               rotation = undefined;
             } else {
-              rotation = {min:0.0, max:0.0, factor:"time",
-                modifier:[
-                  {finalValue:0.0, interval:[0,this.state.particleLifetime/3*1]},
-                  {finalValue:360.0, interval:[this.state.particleLifetime/3*1,this.state.particleLifetime/3*2]},
-                  {finalValue:0.0, interval:[this.state.particleLifetime/3*2,this.state.particleLifetime/3*3]}
+              rotation = {initialRange:[0.0, 1.0], factor:"time",
+                interpolation:[
+                  {endValue:0.0, interval:[0,this.state.particleLifetime/3*1]},
+                  {endValue:360.0, interval:[this.state.particleLifetime/3*1,this.state.particleLifetime/3*2]},
+                  {endValue:0.0, interval:[this.state.particleLifetime/3*2,this.state.particleLifetime/3*3]}
                 ]
               };
             }
@@ -254,11 +256,11 @@ var ViroShadowTest = React.createClass({
             if (color != undefined){
               color = undefined;
             } else {
-              color = {min:"#ffffff", max:"#ffffff", factor:"time",
-                modifier:[
-                  {finalValue:"#fdfa00", interval:[0,this.state.particleLifetime/3*1]},
-                  {finalValue:"#ff00ff", interval:[this.state.particleLifetime/3*1,this.state.particleLifetime/3*2]},
-                  {finalValue:"#ff0f0f", interval:[this.state.particleLifetime/3*2,this.state.particleLifetime/3*3]}
+              color = {initialRange:["#ffffff", "#ffffff"], factor:"time",
+                interpolation:[
+                  {endValue:"#fdfa00", interval:[0,this.state.particleLifetime/3*1]},
+                  {endValue:"#ff00ff", interval:[this.state.particleLifetime/3*1,this.state.particleLifetime/3*2]},
+                  {endValue:"#ff0f0f", interval:[this.state.particleLifetime/3*2,this.state.particleLifetime/3*3]}
                 ]
               };
             }
@@ -344,8 +346,8 @@ var ViroShadowTest = React.createClass({
               <ReleaseMenu position={[0 , -3, -4]} sceneNavigator={this.props.sceneNavigator}/>
 
                  {/* Left half of the screen, tests for collision with ray shot in scene */}
-                 <ViroNode position={[-5 , 5, -5]} transformBehaviors={["billboard"]}>
-                 <ViroText fontSize={35}  style={styles.centeredText} lightReceivingBitMask={0} // 0 to avoid influencing the test
+                 <ViroNode position={[-4 , 7, -3]} transformBehaviors={["billboard"]}>
+                 <ViroText fontSize={35}  style={styles.centeredText} lightBitMask={0} // 0 to avoid influencing the test
                    position={[0,0, 0]} width={6} height ={1} maxLines={1}
                    text={"Toggle emissionRatePerSecond " + this.state.emissionRatePerSecond }
                    onClick={this.toggleProperty(1)}
@@ -488,7 +490,7 @@ var ViroShadowTest = React.createClass({
                     loop={true}>
 
                   <ViroNode position={[0,-2,-4]}>
-                    <ViroQuadEmitter
+                    <ViroParticleEmitter
                         delay={this.state.delay}
                         position={[0,0,0]}
                         duration={this.state.duration}
@@ -497,14 +499,14 @@ var ViroShadowTest = React.createClass({
                         loop={this.state.loop}
                         fixedToEmitter={this.state.fixedToEmitter}
 
-                        quad={{
+                        image={{
                                source:this.state.quadSource == 1? fireworkParticle : cloudParticle,                 // Image source of the quad particle.
                                height:this.state.quadSize,
                                width:this.state.quadSize,
                                bloomThreshold:this.state.quadBloom
                         }}
 
-                        spawnModifier={this.state.disableSpawnModifier? undefined :{
+                        spawnBehavior={this.state.disableSpawnModifier? undefined :{
                           particleLifetime:[this.state.particleLifetime, this.state.particleLifetime],
                           emissionRatePerSecond:[this.state.emissionRatePerSecond, this.state.emissionRatePerSecond],
                           emissionBurst:this.state.emissionBurst,
@@ -512,23 +514,27 @@ var ViroShadowTest = React.createClass({
                           maxParticles:this.state.maxParticles
                         }}
 
-                        appearanceModifier={this.state.disableAppearanceModifier? undefined :{
+                        particleAppearance={this.state.disableAppearanceModifier? undefined :{
                           opacity:this.state.opacity,
                           color:this.state.color,
                           rotation:this.state.rotation,
                           scale:this.state.scale
                         }}
 
-                        physicsModifier={this.state.disablePhysicsModifier? undefined :{
+                        particlePhysics={this.state.disablePhysicsModifier? undefined :{
                           velocity:{
-                            min:[-0.3 * this.state.velocityScale, 1* this.state.velocityScale, 0],
-                            max:[0.3 * this.state.velocityScale, 1* this.state.velocityScale, 0]
+                            initialRange:[
+                              [-0.3 * this.state.velocityScale, 1* this.state.velocityScale, 0],
+                              [0.3 * this.state.velocityScale, 1* this.state.velocityScale, 0]
+                            ]
                           },
                           acceleration:{
-                            min:[0,-1 * this.state.accelerationScale,0],
-                            max:[0,-1 * this.state.accelerationScale,0]
+                            initialRange:[
+                              [0,-1 * this.state.accelerationScale,0],
+                              [0,-1 * this.state.accelerationScale,0]
+                            ]
                           },
-                          initialExplosiveImpulse:this.state.explosion
+                          explosiveImpulse:this.state.explosion
 
                         }}
                       />

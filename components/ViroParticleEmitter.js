@@ -6,7 +6,7 @@
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  *
- * @providesModule ViroQuadEmitter
+ * @providesModule ViroParticleEmitter
  * @flow
  */
 'use strict';
@@ -24,8 +24,7 @@ var stylePropType = StyleSheetPropType(ViroPropTypes);
 var ColorPropType = require('react-native').ColorPropType;
 var processColor = require('react-native').processColor;
 
-var ViroQuadEmitter = React.createClass({
-  // TODO: make certain props required.
+var ViroParticleEmitter = React.createClass({
   propTypes: {
     ...View.propTypes,
     position: PropTypes.arrayOf(PropTypes.number),
@@ -34,30 +33,31 @@ var ViroQuadEmitter = React.createClass({
     scalePivot: PropTypes.arrayOf(PropTypes.number),
     rotationPivot: PropTypes.arrayOf(PropTypes.number),
     onTransformUpdate: React.PropTypes.func,
+    visible: PropTypes.bool,
+
     duration: PropTypes.number,
     delay: PropTypes.number,
     loop: PropTypes.bool,
     run: PropTypes.bool,
-    visible: PropTypes.bool,
     fixedToEmitter : PropTypes.bool,
-    quad: PropTypes.shape({
+
+    image: PropTypes.shape({
       source : PropTypes.oneOfType([
         PropTypes.shape({
             uri: PropTypes.string,
         }),
-        PropTypes.number // opaque type returned by require('./res/source')
-      ]),
+        PropTypes.number
+      ]).isRequired,
       height: PropTypes.number,
       width: PropTypes.number,
       bloomThreshold: PropTypes.number,
-    }),
-    spawnModifier: PropTypes.shape({
-      // TODO: maybe make this oneOfType?
+    }).isRequired,
+
+    spawnBehavior: PropTypes.shape({
       emissionRatePerSecond: PropTypes.arrayOf(PropTypes.number),
       emissionRatePerMeter: PropTypes.arrayOf(PropTypes.number),
       particleLifetime: PropTypes.arrayOf(PropTypes.number),
       maxParticles: PropTypes.number,
-      despawnDistance: PropTypes.number,
       emissionBurst: PropTypes.arrayOf(PropTypes.oneOfType([
         PropTypes.shape({
           time: PropTypes.number,
@@ -80,59 +80,55 @@ var ViroQuadEmitter = React.createClass({
         spawnOnSurface:PropTypes.bool
       }),
     }),
-    appearanceModifier: PropTypes.shape({
-      stretchFactor: PropTypes.arrayOf(PropTypes.number),
+
+    particleAppearance: PropTypes.shape({
       opacity: PropTypes.shape({
-        min: PropTypes.number,
-        max: PropTypes.number,
-        factor: PropTypes.string,
-        modifier: PropTypes.arrayOf(PropTypes.shape({
-          finalValue: PropTypes.number,
+        initialRange: PropTypes.arrayOf(PropTypes.number),
+        factor: PropTypes.oneOf(["time", "distance"]),
+        interpolation: PropTypes.arrayOf(PropTypes.shape({
           interval: PropTypes.arrayOf(PropTypes.number),
+          endValue: PropTypes.number,
         })),
       }),
       scale: PropTypes.shape({
-        min: PropTypes.arrayOf(PropTypes.number),
-        max: PropTypes.arrayOf(PropTypes.number),
-        factor: PropTypes.string,
-        modifier: PropTypes.arrayOf(PropTypes.shape({
-          finalValue: PropTypes.arrayOf(PropTypes.number),
+        initialRange: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)),
+        factor: PropTypes.oneOf(["time", "distance"]),
+        interpolation: PropTypes.arrayOf(PropTypes.shape({
           interval: PropTypes.arrayOf(PropTypes.number),
+          endValue: PropTypes.arrayOf(PropTypes.number),
         })),
       }),
       // rotation is only about the Z axis
       rotation: PropTypes.shape({
-        min: PropTypes.number,
-        max: PropTypes.number,
-        factor: PropTypes.string,
-        modifier: PropTypes.arrayOf(PropTypes.shape({
-          finalValue: PropTypes.number,
+        initialRange: PropTypes.arrayOf(PropTypes.number),
+        factor: PropTypes.oneOf(["time", "distance"]),
+        interpolation: PropTypes.arrayOf(PropTypes.shape({
           interval: PropTypes.arrayOf(PropTypes.number),
+          endValue: PropTypes.number,
         })),
       }),
       color: PropTypes.shape({
-        min: ColorPropType,
-        max: ColorPropType,
-        factor: PropTypes.string,
-        modifier: PropTypes.arrayOf(PropTypes.shape({
-          finalValue: ColorPropType,
+        initialRange:  PropTypes.arrayOf(ColorPropType),
+        factor: PropTypes.oneOf(["time", "distance"]),
+        interpolation: PropTypes.arrayOf(PropTypes.shape({
           interval: PropTypes.arrayOf(PropTypes.number),
+          endValue: ColorPropType,
         })),
       }),
     }),
-    physicsModifier: PropTypes.shape({
+
+    particlePhysics: PropTypes.shape({
       velocity: PropTypes.shape({
-        min: PropTypes.arrayOf(PropTypes.number),
-        max: PropTypes.arrayOf(PropTypes.number),
+        initialRange: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)),
       }),
       acceleration: PropTypes.shape({
-        min: PropTypes.arrayOf(PropTypes.number),
-        max: PropTypes.arrayOf(PropTypes.number),
+        initialRange: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)),
       }),
-      initialExplosiveImpulse:PropTypes.shape({
+
+      explosiveImpulse:PropTypes.shape({
         impulse: PropTypes.number,
         position: PropTypes.arrayOf(PropTypes.number),
-        deccelerationPeriod: PropTypes.number,
+        decelerationPeriod: PropTypes.number,
       }),
     }),
   },
@@ -188,10 +184,9 @@ var ViroQuadEmitter = React.createClass({
   },
 
   render: function() {
-
-    let quad = {...this.props.quad}
-    if (quad.source != undefined) {
-      quad.source = resolveAssetSource(quad.source);
+    let image = {...this.props.image}
+    if (image.source != undefined) {
+      image.source = resolveAssetSource(image.source);
     }
 
     let transformDelegate = this.props.onTransformUpdate != undefined ? this._onNativeTransformUpdate : undefined;
@@ -201,67 +196,74 @@ var ViroQuadEmitter = React.createClass({
     nativeProps.position = this.state.propsPositionState;
     nativeProps.onNativeTransformDelegateViro = transformDelegate;
     nativeProps.hasTransformDelegate = this.props.onTransformUpdate != undefined;
-    nativeProps.quad = quad;
+    nativeProps.image = image;
 
     // For color modifiers, we'll need to processColor for each color value.
-    if (this.props.appearanceModifier && this.props.appearanceModifier.color){
-      let colorModifier = this.props.appearanceModifier.color;
-      let minColorFinal = processColor(colorModifier.min);
-      let maxColorFinal = processColor(colorModifier.max);
+    if (this.props.particleAppearance && this.props.particleAppearance.color){
+      let colorModifier = this.props.particleAppearance.color;
+      if (colorModifier.initialRange.length != 2){
+        console.error('The <ViroParticleEmitter> component requires initial value of [min, max] when defining inital rotation property!');
+        return;
+      }
+
+      let minColorFinal = processColor(colorModifier.initialRange[0]);
+      let maxColorFinal = processColor(colorModifier.initialRange[1]);
       let modifierFinal = [];
-      for (let i = 0; i < colorModifier.modifier.length; i ++){
-        let processedColor = processColor(colorModifier.modifier[i].finalValue);
+      for (let i = 0; i < colorModifier.interpolation.length; i ++){
+        let processedColor = processColor(colorModifier.interpolation[i].endValue);
         let mod = {
-            interval: colorModifier.modifier[i].interval,
-            finalValue: processedColor
+            interval: colorModifier.interpolation[i].interval,
+            endValue: processedColor
         };
         modifierFinal.push(mod);
       }
 
       let newAppearanceColorMod = {
-        min: minColorFinal,
-        max: maxColorFinal,
+        initialRange: [minColorFinal, maxColorFinal],
         factor:colorModifier.factor,
-        modifier:modifierFinal
+        interpolation:modifierFinal
       }
-      nativeProps.appearanceModifier.color = newAppearanceColorMod;
+      nativeProps.particleAppearance.color = newAppearanceColorMod;
     }
 
     // For rotation modifiers, convert degrees to radians, then apply the
     // Z rotation (due to billboarding for quad particles)
-    if (this.props.appearanceModifier && this.props.appearanceModifier.rotation){
-      let rotMod = this.props.appearanceModifier.rotation;
-      let minRotFinal = [0,0,rotMod.min * Math.PI / 180];
-      let maxRotFinal = [0,0,rotMod.max * Math.PI / 180];
+    if (this.props.particleAppearance && this.props.particleAppearance.rotation){
+      let rotMod = this.props.particleAppearance.rotation;
+      if (rotMod.initialRange.length != 2){
+        console.error('The <ViroParticleEmitter> component requires initial value of [min, max] when defining inital rotation property!');
+      }
+
+      let minRotFinal = [0,0,rotMod.initialRange[0] * Math.PI / 180];
+      let maxRotFinal = [0,0,rotMod.initialRange[1] * Math.PI / 180];
       let modifierFinal = [];
-      for (var i = 0; i < rotMod.modifier.length; i ++){
-        let processedRot = [0,0, rotMod.modifier[i].finalValue * Math.PI / 180];
+      for (var i = 0; i < rotMod.interpolation.length; i ++){
+        let processedRot = [0,0, rotMod.interpolation[i].endValue * Math.PI / 180];
         let mod = {
-            interval: rotMod.modifier[i].interval,
-            finalValue: processedRot
+            interval: rotMod.interpolation[i].interval,
+            endValue: processedRot
         };
         modifierFinal.push(mod);
       }
 
       let newAppearanceRotMod = {
-        min: minRotFinal,
-        max: maxRotFinal,
+        initialRange: [minRotFinal, maxRotFinal],
         factor:rotMod.factor,
-        modifier:modifierFinal
+        interpolation:modifierFinal
       }
-      nativeProps.appearanceModifier.rotation = newAppearanceRotMod;
+      nativeProps.particleAppearance.rotation = newAppearanceRotMod;
     }
 
     nativeProps.ref = component => {this._component = component; };
 
     return (
-      <VRTQuadEmitter {...nativeProps} />
+      <VRTParticleEmitter {...nativeProps} />
     );
   }
 });
 
-var VRTQuadEmitter = requireNativeComponent(
-  'VRTQuadEmitter', ViroQuadEmitter, {
+var VRTParticleEmitter = requireNativeComponent(
+  'VRTParticleEmitter', ViroParticleEmitter, {
     nativeOnly: {
       onNativeTransformDelegateViro:true,
       hasTransformDelegate:true
@@ -269,4 +271,4 @@ var VRTQuadEmitter = requireNativeComponent(
   }
 );
 
-module.exports = ViroQuadEmitter;
+module.exports = ViroParticleEmitter;
