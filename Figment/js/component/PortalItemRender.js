@@ -168,6 +168,7 @@ var PortalItemRender = React.createClass({
         } else {
           var viewArray = [];
           if(portalSource.source.uri.endsWith("mp4")) {
+
             viewArray.push(<ViroSphere  position={[0,0,0]} radius={56} facesOutward={false} key="background_portal" materials="theatre" />);
             viewArray.push(<ViroVideo key="image_portal" width={1} height={1}  source={portalSource.source}
                          position={[0, 3.9, -39]} scale={[42, 21, 1]} />);
@@ -185,25 +186,31 @@ var PortalItemRender = React.createClass({
             viewArray.push(<Viro3DObject
                   key="obj_3d"
                   position={[0,-2,-6]}
-                  source={require('../res/art_gallery/artgallery2.vrx')}
+                  source={require('../res/art_gallery/artgallery3.vrx')}
                   resources={[require('../res/art_gallery/art_gallery_projector_diffuse.png'),
                        require('../res/art_gallery/art_gallery_projector_specular.png'),
                        require('../res/art_gallery/art_gallery_walls_diffuse.png'),
-                       require('../res/art_gallery/art_gallery_walls_specular.png'),
-                       require('../res/art_gallery/art_gallery_projector_beams_diffuse.png')]}
+                       require('../res/art_gallery/art_gallery_walls_specular.png')]}
                   key="background_portal"
                   type="VRX" />
               );
             viewArray.push(<Viro3DObject
                 key="obj_3d_frame"
                 opacity={.4}
-                position={[0, 0,-6]}
+                position={[0, -2,-6]}
                 source={require('../res/art_gallery/artgallery_picture_frame.vrx')}
                 resources={[require('../res/art_gallery/art_gallery_projector_picture.png')]}
                 type="VRX" />);
-
+            viewArray.push(<Viro3DObject
+                key="obj_3d_frame_beam"
+                opacity={.4}
+                position={[0, -2,-6]}
+                source={require('../res/art_gallery/artgallery_projector.vrx')}
+                resources={[require('../res/art_gallery/art_gallery_projector_beams_diffuse.png')]}
+                type="VRX" />);
             viewArray.push(<ViroImage key="image_portal" width={1} height={1}  resizeMode='scaleToFit' source={portalSource.source}
-                        position={[0, 0,-6]} scale={[1, 1, 1]} />);
+                        position={[0, 0,-5.5]} scale={[1, 1, 1]} />);
+            viewArray.push(<Viro360Image key="background_portal_image" source={portalItem.portal360Image} />);
           }
           return viewArray;
         }
