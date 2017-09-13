@@ -142,11 +142,11 @@ public:
         return _shadowBias;
     }
     
-    void setShadowOrthographicScale(float scale) {
-        _shadowOrthographicScale = scale;
+    void setShadowOrthographicSize(float size) {
+        _shadowOrthographicSize = size;
     }
-    float getShadowOrthographicScale() const {
-        return _shadowOrthographicScale;
+    float getShadowOrthographicSize() const {
+        return _shadowOrthographicSize;
     }
 
     void setShadowNearZ(float nearZ) {
@@ -234,9 +234,16 @@ private:
     bool _updatedVertexData;
     
     /*
-     Omni and Spot parameters.
+     The position of the light. For omnidirectional and spotlights, this represents
+     the position from which the light emanates. For directional lights there is no
+     position, but we still use this field to indicate where the directional light's
+     shadow map should be centered.
      */
     VROVector3f _position;
+    
+    /*
+     Attenuation parameters for omni and spot lights.
+     */
     float _attenuationStartDistance;
     float _attenuationEndDistance;
     float _attenuationFalloffExponent;
@@ -299,12 +306,14 @@ private:
     
     /*
      This property only applies to directional lights, where an orthographic
-     projection is used to render the shadow map. The orthographic scale determines
-     the extent of the screen that's visible to the light when rendering the
-     shadow map. A larger value means more of the scene will be shadowed, but
+     projection is used to render the shadow map. The orthographic size determines
+     the width and height of the area, centered at _position, that should be rendered
+     to the shadow map.
+     
+     A larger value means more of the scene will be shadowed, but
      at lower resolution.
      */
-    float _shadowOrthographicScale;
+    float _shadowOrthographicSize;
     
     /*
      The near and far clipping planes to use when rendering shadows. Shadows are
@@ -319,7 +328,7 @@ private:
     int _shadowMapIndex;
     
     /*
-     Bit mask that is ANDed with each node's lightBitMask and shadowCastingBitMask
+     Bit mask that is ANDed with each node's lightReceivingBitMask and shadowCastingBitMask
      to determine what objects are illuminated by, and cast shadows from, this light.
      
      Default is 1.

@@ -346,11 +346,11 @@ public:
         return _computedLightsHash;
     }
     
-    void setLightBitMask(int bitMask) {
-        _lightBitMask = bitMask;
+    void setLightReceivingBitMask(int bitMask) {
+        _lightReceivingBitMask = bitMask;
     }
-    int getLightBitMask() const {
-        return _lightBitMask;
+    int getLightReceivingBitMask() const {
+        return _lightReceivingBitMask;
     }
     
     void setShadowCastingBitMask(int bitMask) {
@@ -818,7 +818,7 @@ private:
      
      These both default to 1.
      */
-    int _lightBitMask;
+    int _lightReceivingBitMask;
     int _shadowCastingBitMask;
 
     /*

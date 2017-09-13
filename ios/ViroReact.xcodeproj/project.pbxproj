@@ -17,6 +17,28 @@
 		8A31CFB41E2705EC00550CFE /* VRTSurface.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8A31CFB31E2705EC00550CFE /* VRTSurface.mm */; };
 		8A35BA261F3BAA48002B069E /* VRTARSceneModule.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8A35BA241F3BAA48002B069E /* VRTARSceneModule.mm */; };
 		8A5630301EBBFF5F009E71A7 /* VRTPolylineManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8A56302E1EBBFF5F009E71A7 /* VRTPolylineManager.mm */; };
+		8A5CDE171F68D4BD0093F43B /* VRTARSceneNavigator.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8A7743801EEF62F90004C17A /* VRTARSceneNavigator.h */; };
+		8A5CDE181F68D4BD0093F43B /* VRTARAnchorNode.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8AEFA22C1EF34487006851B7 /* VRTARAnchorNode.h */; };
+		8A5CDE191F68D4BD0093F43B /* VRTARPlane.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8AEFA2281EF3197E006851B7 /* VRTARPlane.h */; };
+		8A5CDE1A1F68D4BD0093F43B /* VRTARScene.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8A0524301EF0A49C00A02361 /* VRTARScene.h */; };
+		8A5CDE1B1F68D4BD0093F43B /* VRTARSceneNavigatorManager.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8A744F5C1EEF655F00ECDBC4 /* VRTARSceneNavigatorManager.h */; };
+		8A5CDE1C1F68D4BD0093F43B /* VRTARPlaneManager.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8AEFA2221EF3175C006851B7 /* VRTARPlaneManager.h */; };
+		8A5CDE1D1F68D4BD0093F43B /* VRTARSceneManager.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8A0524361EF0A4B900A02361 /* VRTARSceneManager.h */; };
+		8A5CDE1E1F68D4BD0093F43B /* VRTARSceneModule.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8A35BA231F3BAA48002B069E /* VRTARSceneModule.h */; };
+		8A5CDE1F1F68D4BD0093F43B /* VRTARSceneNavigatorModule.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8A82C12F1F27D35C00736972 /* VRTARSceneNavigatorModule.h */; };
+		8A5CDE221F68D5470093F43B /* VRTPolyline.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8AFC1C351EC1001C0000F7EB /* VRTPolyline.h */; };
+		8A5CDE231F68D5470093F43B /* VRTPortal.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8FEF00631F37ACCC006AE4B1 /* VRTPortal.h */; };
+		8A5CDE241F68D5470093F43B /* VRTPortalFrame.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8FEF00841F37D04F006AE4B1 /* VRTPortalFrame.h */; };
+		8A5CDE251F68D5470093F43B /* VRTQuadEmitter.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8A31D6201F43D02700AC24DE /* VRTQuadEmitter.h */; };
+		8A5CDE261F68D5470093F43B /* VRTPolylineManager.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8A56302D1EBBFF5F009E71A7 /* VRTPolylineManager.h */; };
+		8A5CDE271F68D5470093F43B /* VRTPortalManager.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8FEF00821F37CAEF006AE4B1 /* VRTPortalManager.h */; };
+		8A5CDE281F68D5470093F43B /* VRTPortalFrameManager.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8FEF00871F37D0C0006AE4B1 /* VRTPortalFrameManager.h */; };
+		8A5CDE291F68D5470093F43B /* VRTQuadEmitterManager.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8A31D61B1F43C94F00AC24DE /* VRTQuadEmitterManager.h */; };
+		8A5CDE2A1F68D56F0093F43B /* VRTNodeModule.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = A50A310C1ECE1E8800DEBE9B /* VRTNodeModule.h */; };
+		8A5CDE2B1F68D56F0093F43B /* VRTSceneModule.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = A5E8F0A71ED6B64D00729916 /* VRTSceneModule.h */; };
+		8A5CDE2C1F68D56F0093F43B /* VRTControllerModule.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = A533596D1E9E0169005B3EC5 /* VRTControllerModule.h */; };
+		8A5CDE2D1F68D56F0093F43B /* VRTSceneNavigatorModule.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = A5A937A71E81D1FB00FE0406 /* VRTSceneNavigatorModule.h */; };
+		8A5CDE2E1F68D56F0093F43B /* VRTPerfMonitor.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8F705DE41E8B3754008BE8F8 /* VRTPerfMonitor.h */; };
 		8A744F5D1EEF655F00ECDBC4 /* VRTARSceneNavigatorManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8A744F591EEF655F00ECDBC4 /* VRTARSceneNavigatorManager.mm */; };
 		8A7743831EEF62F90004C17A /* VRTARSceneNavigator.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8A7743811EEF62F90004C17A /* VRTARSceneNavigator.mm */; };
 		8A82C1321F27D35C00736972 /* VRTARSceneNavigatorModule.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8A82C1301F27D35C00736972 /* VRTARSceneNavigatorModule.mm */; };
@@ -190,6 +212,28 @@
 			dstPath = "${SRCROOT}/dist/include";
 			dstSubfolderSpec = 16;
 			files = (
+				8A5CDE2A1F68D56F0093F43B /* VRTNodeModule.h in CopyFiles */,
+				8A5CDE2B1F68D56F0093F43B /* VRTSceneModule.h in CopyFiles */,
+				8A5CDE2C1F68D56F0093F43B /* VRTControllerModule.h in CopyFiles */,
+				8A5CDE2D1F68D56F0093F43B /* VRTSceneNavigatorModule.h in CopyFiles */,
+				8A5CDE2E1F68D56F0093F43B /* VRTPerfMonitor.h in CopyFiles */,
+				8A5CDE221F68D5470093F43B /* VRTPolyline.h in CopyFiles */,
+				8A5CDE231F68D5470093F43B /* VRTPortal.h in CopyFiles */,
+				8A5CDE241F68D5470093F43B /* VRTPortalFrame.h in CopyFiles */,
+				8A5CDE251F68D5470093F43B /* VRTQuadEmitter.h in CopyFiles */,
+				8A5CDE261F68D5470093F43B /* VRTPolylineManager.h in CopyFiles */,
+				8A5CDE271F68D5470093F43B /* VRTPortalManager.h in CopyFiles */,
+				8A5CDE281F68D5470093F43B /* VRTPortalFrameManager.h in CopyFiles */,
+				8A5CDE291F68D5470093F43B /* VRTQuadEmitterManager.h in CopyFiles */,
+				8A5CDE171F68D4BD0093F43B /* VRTARSceneNavigator.h in CopyFiles */,
+				8A5CDE181F68D4BD0093F43B /* VRTARAnchorNode.h in CopyFiles */,
+				8A5CDE191F68D4BD0093F43B /* VRTARPlane.h in CopyFiles */,
+				8A5CDE1A1F68D4BD0093F43B /* VRTARScene.h in CopyFiles */,
+				8A5CDE1B1F68D4BD0093F43B /* VRTARSceneNavigatorManager.h in CopyFiles */,
+				8A5CDE1C1F68D4BD0093F43B /* VRTARPlaneManager.h in CopyFiles */,
+				8A5CDE1D1F68D4BD0093F43B /* VRTARSceneManager.h in CopyFiles */,
+				8A5CDE1E1F68D4BD0093F43B /* VRTARSceneModule.h in CopyFiles */,
+				8A5CDE1F1F68D4BD0093F43B /* VRTARSceneNavigatorModule.h in CopyFiles */,
 				8BDDA13F1E5BF02E00A42870 /* VRTAnimationManager.h in CopyFiles */,
 				8BDDA1401E5BF02E00A42870 /* VRTCameraModule.h in CopyFiles */,
 				8BDDA1411E5BF02E00A42870 /* VRTMaterialManager.h in CopyFiles */,
