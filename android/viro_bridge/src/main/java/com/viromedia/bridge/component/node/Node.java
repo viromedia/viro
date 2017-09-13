@@ -715,8 +715,8 @@ public class Node extends Component {
         // Apply force
         for (ReadableMap forceMap : forcesListProp){
             float forceArray[];
-            if (forceMap.hasKey("power")){
-                ReadableArray paramsArray = forceMap.getArray("power");
+            if (forceMap.hasKey("value")){
+                ReadableArray paramsArray = forceMap.getArray("value");
                 forceArray = new float[paramsArray.size()];
                 for (int i = 0; i < paramsArray.size(); i ++){
                     forceArray[i] = (float) paramsArray.getDouble(i);
@@ -724,11 +724,11 @@ public class Node extends Component {
 
                 if (forceArray.length != 3){
                     throw new JSApplicationCausedNativeException("Incorrect parameters " +
-                            "provided for force's power, expected: [x, y, z]!");
+                            "provided for force's value, expected: [x, y, z]!");
                 }
             } else {
                 throw new JSApplicationCausedNativeException("Incorrect parameters: missing" +
-                        " power of format [x, y, z] for force!");
+                        " value of format [x, y, z] for force!");
             }
 
             float positionArray[];

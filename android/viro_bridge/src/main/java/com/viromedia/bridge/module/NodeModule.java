@@ -82,7 +82,7 @@ public class NodeModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void setInstantaneousVelocity(final int viewTag, final ReadableArray velocity) {
+    public void setVelocity(final int viewTag, final ReadableArray velocity) {
         UIManagerModule uiManager = getReactApplicationContext().getNativeModule(UIManagerModule.class);
         uiManager.addUIBlock(new UIBlock() {
             @Override
