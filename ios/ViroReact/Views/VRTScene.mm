@@ -46,7 +46,6 @@ static NSArray<NSNumber *> *const kDefaultSize = @[@(0), @(0), @(0)];
     self = [super initWithBridge:bridge];
     if (self) {
         _recticleEnabled = true;
-        [self initSceneController];
     }
     _size = kDefaultSize;
     _wallMaterial = kDefaultMaterial;
@@ -63,10 +62,13 @@ static NSArray<NSNumber *> *const kDefaultSize = @[@(0), @(0), @(0)];
     _delegate = std::make_shared<VROSceneControllerDelegateiOS>(self);
     _sceneController->setDelegate(_delegate);
     
-    //Set root node for this scene
-    _sceneController->getScene()->getRootNode()->addChildNode(self.node);
     _vroScene = std::dynamic_pointer_cast<VROScene>(self.sceneController->getScene());
     self.portalTraversalListener = std::make_shared<VROPortalTraversalListener>(_vroScene);
+}
+
+- (std::shared_ptr<VRONode>)createVroNode {
+    [self initSceneController];
+    return self.sceneController->getScene()->getRootNode();
 }
 
 - (void)setView:(id <VROView>)view {

@@ -37,9 +37,6 @@ static NSString *const kVRTColorTemperatureKey = @"colorTemperature";
     self.delegate = std::make_shared<VROSceneControllerDelegateiOS>(self);
     self.sceneController->setDelegate(self.delegate);
     
-    //Set root node for this scene
-    self.sceneController->getScene()->getRootNode()->addChildNode(self.node);
-    
     _vroArScene = std::dynamic_pointer_cast<VROARScene>(self.sceneController->getScene());
     self.portalTraversalListener = std::make_shared<VROPortalTraversalListener>(_vroArScene);
 }
