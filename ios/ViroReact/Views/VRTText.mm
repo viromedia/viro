@@ -117,22 +117,26 @@ NSString *const VRTLabelReactTagAttributeName = @"ReactTagAttributeName";
     
     std::shared_ptr<VROTypeface> typeFace = self.driver->newTypeface(fontFamily, fontSize);
     
-    NSStringEncoding encoding = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingUTF32LE);
-    NSData *textData = [_text dataUsingEncoding:encoding];
-    
-    std::wstring text = std::wstring((wchar_t *) [textData bytes], [textData length] / sizeof(wchar_t));
-    VROVector4f colorVector(1.0f, 1.0f, 1.0f, 1.0f);
-    
-    if(self.color != nil) {
-        CGFloat red,green,blue, alpha;
-        [self.color getRed:&red green:&green blue:&blue alpha:&alpha];
-        colorVector.set(red, green, blue, alpha);
+    if(_text != nil && [_text length] !=0) {
+        NSStringEncoding encoding = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingUTF32LE);
+        NSData *textData = [_text dataUsingEncoding:encoding];
+
+        std::wstring text = std::wstring((wchar_t *) [textData bytes], [textData length] / sizeof(wchar_t));
+        VROVector4f colorVector(1.0f, 1.0f, 1.0f, 1.0f);
+
+        if(self.color != nil) {
+            CGFloat red,green,blue, alpha;
+            [self.color getRed:&red green:&green blue:&blue alpha:&alpha];
+            colorVector.set(red, green, blue, alpha);
+        }
+        _vroText = VROText::createText(text, typeFace, colorVector, _width, _height,
+                                       self.textAlign, self.textAlignVertical,
+                                       self.textLineBreakMode, self.textClipMode, (int) self.maxLines);
+
+        [self node]->setGeometry(_vroText);
+    }else {
+        [self node]->setGeometry(nil);
     }
-    _vroText = VROText::createText(text, typeFace, colorVector, _width, _height,
-                                   self.textAlign, self.textAlignVertical,
-                                   self.textLineBreakMode, self.textClipMode, (int) self.maxLines);
-    
-    [self node]->setGeometry(_vroText);
 }
 
 // Method invoked before being added to scene, meant to overridden by subclasses.
