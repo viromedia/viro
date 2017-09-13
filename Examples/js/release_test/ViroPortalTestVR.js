@@ -80,7 +80,6 @@ var ViroPortalTest = React.createClass({
             <ViroPortalScene position={[0, 0, 1]} passable={false} scale={[1, 1, 1]}>
                <ViroPortal>
                  <Viro3DObject source={require('./res/portal_ring.obj')}
-                              type="OBJ"
                                position={[0, 0, 0]}
                                rotation={[0, 0, 0]}
                                scale={[0.04, 0.18, 0.08]}
@@ -100,7 +99,6 @@ var ViroPortalTest = React.createClass({
             <ViroPortalScene passable={true} position={[0, 0, -portalDistance + offsetTorwardsCamera]} scale={[1, 1, 1]}>
                <ViroPortal>
                  <Viro3DObject source={require('./res/portal_ring.obj')}
-                               type="OBJ"
                                position={[0, 0, 0]}
                                rotation={[0, 0, 0]}
                                scale={[0.04, 0.18, 0.08]}
@@ -116,7 +114,6 @@ var ViroPortalTest = React.createClass({
                     }
 
                     <Viro3DObject source={require('./res/male02_obj.obj')}
-                                   type="OBJ"
                                   resources={[require('./res/male02.mtl'),
                                               require('./res/01_-_Default1noCulling.JPG'),
                                               require('./res/male-02-1noCulling.JPG'),
@@ -155,7 +152,6 @@ var ViroPortalTest = React.createClass({
                  <Viro3DObject source={require('./res/portal_ring.obj')}
                                position={[0, 0, 0]}
                                rotation={[0, 0, 0]}
-                               type="OBJ"
                                scale={[0.04, 0.18, 0.08]}
                                materials={["ring"]} type="OBJ" />
                </ViroPortal>
@@ -186,7 +182,7 @@ var styles = StyleSheet.create({
 ViroMaterials.createMaterials({
   ring: {
     lightingModel: "Lambert",
-    diffuseTexture: require('./res/portal_ring.png'),
+    diffuseTexture: require('./res/portal_ring_d.png'),
   },
   box1: {
     shininess : 2.0,

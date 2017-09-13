@@ -144,7 +144,7 @@ var ViroShadowTest = React.createClass({
             var shape = {
               shape:this.state.spawnVolume.shape,
               params:this.state.spawnVolume.params,
-              shape:!this.state.spawnOnSurface
+              spawnOnSurface:!this.state.spawnOnSurface
             };
 
             this.setState({
@@ -593,12 +593,6 @@ ViroMaterials.createMaterials({
         diffuseColor: "#33cc3399"
 
       },
-
-  ground:{
-    cullMode: "None",
-    shininess: 2.0,
-    diffuseColor: "#ff9999"
-  }
  });
 
  ViroAnimations.registerAnimations({

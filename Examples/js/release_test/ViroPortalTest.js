@@ -93,7 +93,7 @@ var styles = StyleSheet.create({
 ViroMaterials.createMaterials({
   ring: {
     lightingModel: "Lambert",
-    diffuseTexture: require('./res/portal_ring.png'),
+    diffuseTexture: require('./res/portal_ring_d.png'),
   },
 });
 

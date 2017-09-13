@@ -167,12 +167,6 @@ ViroMaterials.createMaterials({
         diffuseColor: "#33cc3399"
 
       },
-
-  ground:{
-    cullMode: "None",
-    shininess: 2.0,
-    diffuseColor: "#ff9999"
-  }
  });
 
 module.exports = ViroPostProcesTest;

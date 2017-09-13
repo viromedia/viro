@@ -532,11 +532,6 @@ ViroMaterials.createMaterials({
           lightingModel: "Constant",
           diffuseTexture: require('../res/heart_d.jpg'),
         },
-  ground:{
-    cullMode: "None",
-    shininess: 2.0,
-    diffuseColor: "#ff9999"
-  },
   grey: {
     shininess : 2.0,
     lightingModel: "Blinn",
