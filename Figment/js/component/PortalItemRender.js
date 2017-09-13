@@ -208,9 +208,9 @@ var PortalItemRender = React.createClass({
                 source={require('../res/art_gallery/artgallery_projector.vrx')}
                 resources={[require('../res/art_gallery/art_gallery_projector_beams_diffuse.png')]}
                 type="VRX" />);
-            viewArray.push(<ViroImage key="image_portal" width={1} height={1}  resizeMode='scaleToFit' source={portalSource.source}
-                        position={[0, 0,-5.5]} scale={[1, 1, 1]} />);
-            viewArray.push(<Viro360Image key="background_portal_image" source={portalItem.portal360Image} />);
+            viewArray.push(<ViroImage key="image_portal" width={2} height={5}  resizeMode='scaleToFit' source={portalSource.source}
+                        position={[0, 0.8,-5.8]} scale={[1, 1, 1]} />);
+            viewArray.push(<Viro360Image key="background_portal_image" source={require('../res/360_space.jpg')} />);
           }
           return viewArray;
         }

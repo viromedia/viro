@@ -266,15 +266,17 @@ export class App extends Component {
           )}
 
           <View style={{position:'absolute', left:25, bottom:15, width:30, height:30}}>
-            <TouchableHighlight onPress={()=>{this._openShareActionSheet()}} underlayColor="#00000000">
-              <Image source={require("./res/btn_share.png")} style={localStyles.previewScreenButtonShare} />
-            </TouchableHighlight>
+            <ButtonComponent onPress={()=>{this._openShareActionSheet()}}
+            buttonState={'off'}
+            stateImageArray={[require("./res/btn_share.png"), require("./res/btn_share.png")]} 
+            style={localStyles.previewScreenButtonShare} />
           </View>
 
           <View style={{position:'absolute', left:25, top:20, width:30, height:30}}>
-            <TouchableHighlight onPress={()=>{this.props.dispatchDisplayUIScreen(UIConstants.SHOW_MAIN_SCREEN)}} underlayColor="#00000000">
-              <Image source={require("./res/btn_close.png")} style={localStyles.previewScreenButtonClose} />
-            </TouchableHighlight>
+            <ButtonComponent onPress={()=>{this.props.dispatchDisplayUIScreen(UIConstants.SHOW_MAIN_SCREEN)}}
+              buttonState={'off'}
+              stateImageArray={[require("./res/btn_close.png"), require("./res/btn_close.png")]} 
+              style={localStyles.previewScreenButtonClose} />
           </View>
         </View>
       )
@@ -615,6 +617,7 @@ var localStyles = StyleSheet.create({
     alignItems: 'center',
   },
   previewScreenButtonClose: {
+    position:'absolute',
     height: 20,
     width: 20,
     justifyContent: 'center',
@@ -622,6 +625,7 @@ var localStyles = StyleSheet.create({
   },
 
   previewScreenButtonShare: {
+    position:'absolute',
     height: 30,
     width: 30,
     borderRadius: 20,
