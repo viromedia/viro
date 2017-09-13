@@ -56,8 +56,8 @@ public:
         [_delegate onFuse:source];
     }
     
-    virtual void onDrag(int source, float x, float y, float z) {
-        [_delegate onDrag:source posX:x posY:y posZ:z];
+    virtual void onDrag(int source, VROVector3f position) {
+        [_delegate onDrag:source posX:position.x posY:position.y posZ:position.z];
     }
     
     virtual void onPinch(int source, float scale, PinchState pinchState) {

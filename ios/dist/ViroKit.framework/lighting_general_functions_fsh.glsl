@@ -13,7 +13,7 @@ struct VROLightUniforms {
     highp vec4 position;
     highp vec4 direction;
     
-    lowp vec3 color;
+    highp vec3 color;
     highp float spot_inner_angle;
     
     highp float spot_outer_angle;
@@ -26,7 +26,7 @@ layout (std140) uniform lighting_fragment {
     int num_lights;
     lowp float padding0, padding1, padding2;
     
-    lowp vec4 ambient_light_color;
+    highp vec4 ambient_light_color;
     VROLightUniforms lights[8];
 };
 

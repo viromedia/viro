@@ -2,8 +2,8 @@
 #include lighting_general_functions_fsh
 
 uniform highp vec3 camera_position;
-uniform lowp vec4 material_diffuse_surface_color;
-uniform lowp float material_diffuse_intensity;
+uniform highp vec4 material_diffuse_surface_color;
+uniform highp float material_diffuse_intensity;
 uniform lowp float material_alpha;
 uniform lowp float material_shininess;
 

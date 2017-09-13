@@ -1,5 +1,5 @@
 //
-//  VRTImageSurface.h
+//  VRTImage.h
 //  React
 //
 //  Created by Vik Advani on 3/3/16.

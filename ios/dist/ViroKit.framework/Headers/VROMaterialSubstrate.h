@@ -27,6 +27,12 @@ public:
     virtual ~VROMaterialSubstrate() {}
     
     /*
+     Update the textures used by this substrate. Invoked when the material's
+     textures are updated, in lieu of regenerating the entire substrate.
+     */
+    virtual void updateTextures() = 0;
+    
+    /*
      Update the given sort key with the properties in this material, if the
      given lights are used.
      */

@@ -1,7 +1,7 @@
 struct VROSurface {
-    lowp  vec4 diffuse_color;
+    highp vec4 diffuse_color;
     highp vec2 diffuse_texcoord;
-    lowp float diffuse_intensity;
+    highp float diffuse_intensity;
     
     lowp float shininess;
     lowp  vec3 specular_color;

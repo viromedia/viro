@@ -55,9 +55,9 @@ public:
     void play();
     bool isPaused();
     
-    void seekToTime(int seconds);
-    int getCurrentTimeInSeconds();
-    int getVideoDurationInSeconds();
+    void seekToTime(float seconds);
+    float getCurrentTimeInSeconds();
+    float getVideoDurationInSeconds();
 
     void setMuted(bool muted);
     void setVolume(float volume);

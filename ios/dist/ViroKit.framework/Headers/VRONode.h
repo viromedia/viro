@@ -42,6 +42,7 @@ class VROHitTestResult;
 class VROConstraint;
 class VROExecutableAnimation;
 class VROTransformDelegate;
+class VROTransaction;
 
 extern bool kDebugSortOrder;
 extern const std::string kDefaultNodeTag;
@@ -56,6 +57,12 @@ enum class VROSilhouetteMode {
     Flat,             // Render silhouettes with constant lighting, no textures
     Textured,         // Render silhouettes with constant lighting and textures
 };
+
+enum class VRODragType {
+    FixedDistance,  // Drags objects with a fixed distance to camera/controller/etc.
+    FixedToWorld,   // Currently available to AR only. Attempts to drag object w.r.t. the real world.
+};
+
 
 class VRONode : public VROAnimatable, public VROThreadRestricted {
     
@@ -476,7 +483,7 @@ public:
      */
     void onAnimationFinished();
     
-#pragma mark - Events 
+#pragma mark - Events
     
     VROBoundingBox getBoundingBox() const;
     VROBoundingBox getUmbrellaBoundingBox() const;
@@ -504,6 +511,14 @@ public:
         return _selectable;
     }
 
+    void setIgnoreEventHandling(bool canHandle) {
+        _ignoreEventHandling = canHandle;
+    }
+
+    bool getIgnoreEventHandling() const {
+        return _ignoreEventHandling;
+    }
+
     void setTag(std::string tag) {
         _tag = tag;
     }
@@ -523,6 +538,30 @@ public:
         if (physicsBody != nullptr) {
             physicsBody->setKinematicDrag(isDragging);
         }
+    }
+
+    void setDragType(VRODragType dragType) {
+        _dragType = dragType;
+    }
+
+    VRODragType getDragType() {
+        return _dragType;
+    }
+
+    bool isAnimatingDrag() {
+        return _isAnimatingDrag;
+    }
+
+    void setIsAnimatingDrag(bool isAnimatingDrag) {
+        _isAnimatingDrag = isAnimatingDrag;
+    }
+
+    std::shared_ptr<VROTransaction> getDragAnimation() {
+        return _dragAnimation;
+    }
+    
+    void setDragAnimation(std::shared_ptr<VROTransaction> dragAnimation) {
+        _dragAnimation = dragAnimation;
     }
 
 #pragma mark - Constraints
@@ -666,6 +705,11 @@ private:
     bool _selectable;
 
     /*
+     True if this node is set to ignore all events fired from VROBaseInputController.
+     */
+    bool _ignoreEventHandling;
+
+    /*
      Delegate through which events are notified from the VROEventManager.
      */
     std::weak_ptr<VROEventDelegate> _eventDelegateWeak;
@@ -697,7 +741,21 @@ private:
      2D layouts like flexbox views. Defaults to false.
      */
     bool _hierarchicalRendering;
+
+    /*
+     The drag type to use for this VRONode.
+     */
+    VRODragType _dragType;
     
+    /*
+     Whether or not a drag is still being animated (used only if _dragType == VRODragType::FixedToWorld
+     */
+    bool _isAnimatingDrag;
+
+    /*
+     The VROTransaction representing the animation from dragging while _dragType == VRODragType::FixedToWorld.
+     */
+    std::shared_ptr<VROTransaction> _dragAnimation;
 #pragma mark - Private
     
     /*

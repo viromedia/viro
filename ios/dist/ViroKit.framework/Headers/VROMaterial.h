@@ -233,6 +233,12 @@ public:
     void updateSubstrate();
     
     /*
+     Faster than updateSubstrate(), used only when the textures of this material are
+     updated.
+     */
+    void updateSubstrateTextures();
+    
+    /*
      Get the representation of this material in the underlying graphics 
      technology.
      */

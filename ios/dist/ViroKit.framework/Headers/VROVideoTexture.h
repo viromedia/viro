@@ -15,6 +15,7 @@
 #include "VROVideoDelegateInternal.h"
 #include "VROTime.h"
 #include <math.h>       /* floor */
+#include <cmath>
 
 class VRORenderContext;
 class VROFrameSynchronizer;
@@ -48,9 +49,9 @@ public:
     virtual void play() = 0;
     virtual bool isPaused() = 0;
 
-    virtual void seekToTime(int seconds) = 0;
-    virtual int getCurrentTimeInSeconds() = 0;
-    virtual int getVideoDurationInSeconds() = 0;
+    virtual void seekToTime(float seconds) = 0;
+    virtual float getCurrentTimeInSeconds() = 0;
+    virtual float getVideoDurationInSeconds() = 0;
 
     virtual void setMuted(bool muted) = 0;
     virtual void setVolume(float volume) = 0;
@@ -87,13 +88,16 @@ protected:
 
         /*
          Only notify delegates if the last known CurrentVideoTime returned
-         from the AVPlayer has changed.
+         from the AVPlayer has changed. Also, we're doing it by integer seconds
          */
         int currentVideoTimeInSeconds = getCurrentTimeInSeconds();
         if (_lastCurrentVideoTimeInSeconds != currentVideoTimeInSeconds) {
-            delegate->onVideoUpdatedTime(currentVideoTimeInSeconds,
-                                          getVideoDurationInSeconds());
-            _lastCurrentVideoTimeInSeconds = currentVideoTimeInSeconds;
+            // if a video just starts, then getVideoDurationInSeconds returns NaN, do nothing in this case.
+            float duration = getVideoDurationInSeconds();
+            if (!isnan(duration)) {
+                delegate->onVideoUpdatedTime(currentVideoTimeInSeconds, duration);
+                _lastCurrentVideoTimeInSeconds = currentVideoTimeInSeconds;
+            }
         }
     }
 

@@ -18,7 +18,7 @@
                                          renderContext:(VRORenderContext *)context
                                                 driver:(std::shared_ptr<VRODriver>)driver;
 - (std::shared_ptr<VROTexture>)createTextureCubeMap:(NSDictionary *)cubeMapDict;
-- (std::shared_ptr<VROTexture>)createTexture2D:(id)json;
+- (std::shared_ptr<VROTexture>)createTexture2D:(id)json sRGB:(BOOL)sRGB;
 
 @property (nonatomic, copy) NSDictionary<NSString *, NSDictionary *> *materials;
 

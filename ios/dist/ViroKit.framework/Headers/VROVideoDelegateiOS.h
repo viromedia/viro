@@ -32,7 +32,7 @@ public:
     void videoDidFinish() {
         [_delegate videoDidFinish];
     }
-    void onVideoUpdatedTime(int currentTimeInSeconds, int totalTimeInSeconds){
+    void onVideoUpdatedTime(float currentTimeInSeconds, float totalTimeInSeconds){
         [_delegate videoDidUpdateTime:currentTimeInSeconds totalTimeInSeconds:totalTimeInSeconds];
     }
     void videoDidFail(std::string error) {
