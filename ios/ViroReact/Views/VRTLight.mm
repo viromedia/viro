@@ -57,8 +57,8 @@
     _light->setShadowOpacity(shadowOpacity);
 }
 
-- (void)setShadowOrthographicScale:(float)orthographicScale {
-    _light->setShadowOrthographicScale(orthographicScale);
+- (void)setShadowOrthographicSize:(float)orthographicSize {
+    _light->setShadowOrthographicSize(orthographicSize);
 }
 
 - (void)setShadowMapSize:(int)shadowMapSize {
@@ -101,6 +101,12 @@
     float directionValues[3];
     populateFloatArrayFromNSArray(direction, directionValues, 3);
     self.light->setDirection({directionValues[0], directionValues[1], directionValues[2]});
+}
+
+- (void)setShadowOrthographicPosition:(NSArray<NSNumber *> *)orthographicPosition {
+    float position[3];
+    populateFloatArrayFromNSArray(orthographicPosition, position, 3);
+    self.light->setPosition({ position[0], position[1], position[2] });
 }
 
 @end

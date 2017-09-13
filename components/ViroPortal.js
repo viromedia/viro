@@ -34,7 +34,7 @@ var ViroPortal = React.createClass({
     onTransformUpdate: React.PropTypes.func,
     visible: PropTypes.bool,
     opacity: PropTypes.number,
-    lightBitMask : PropTypes.number,
+    lightReceivingBitMask : PropTypes.number,
     shadowCastingBitMask : PropTypes.number,
     ignoreEventHandling: PropTypes.bool,
     dragType: PropTypes.oneOf(["FixedDistance", "FixedToWorld"]),

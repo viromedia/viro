@@ -59,9 +59,8 @@ extern const int k2DPointsPerSpatialUnit;
 
 
 // Shadow/Light properties
-@property (nonatomic, assign) int lightBitMask;
+@property (nonatomic, assign) int lightReceivingBitMask;
 @property (nonatomic, assign) int shadowCastingBitMask;
-@property (nonatomic, assign) BOOL acceptShadows;
 
 // Transform Update properties:
 @property (nonatomic, copy, nullable) RCTDirectEventBlock onNativeTransformDelegateViro;

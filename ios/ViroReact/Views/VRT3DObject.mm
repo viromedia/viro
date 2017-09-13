@@ -196,14 +196,14 @@
  */
 - (void)setSelfShadowProps:(std::shared_ptr<VRONode>)vroNode {
     vroNode->setShadowCastingBitMask([self shadowCastingBitMask]);
-    vroNode->setLightBitMask([self lightBitMask]);
+    vroNode->setLightReceivingBitMask([self lightReceivingBitMask]);
     for (std::shared_ptr<VRONode> child : vroNode->getChildNodes()) {
         [self setSelfShadowProps:child];
     }
 }
 
-- (void)setLightBitMask:(int)lightBitMask {
-    [super setLightBitMask:lightBitMask];
+- (void)setLightReceivingBitMask:(int)lightReceivingBitMask {
+    [super setLightReceivingBitMask:lightReceivingBitMask];
     [self setSelfShadowProps:[self node]];
 }
 

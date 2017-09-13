@@ -42,7 +42,7 @@ var Viro3DObject = React.createClass({
     ignoreEventHandling: PropTypes.bool,
     dragType: PropTypes.oneOf(["FixedDistance", "FixedToWorld"]),
 
-    lightBitMask : PropTypes.number,
+    lightReceivingBitMask : PropTypes.number,
     shadowCastingBitMask : PropTypes.number,
     onTransformUpdate: React.PropTypes.func,
     /*

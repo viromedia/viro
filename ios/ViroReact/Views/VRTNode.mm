@@ -36,9 +36,8 @@ const double kTransformDelegateDistanceFilter = 0.01;
         _visible = YES; // default to visible.
         _opacity = 1.0; //default opacity to 1.0
         _highAccuracyGaze = NO;
-        _lightBitMask = 1;
+        _lightReceivingBitMask = 1;
         _shadowCastingBitMask = 1;
-        _acceptShadows = false;
         _shouldIgnoreEventHandling = NO; // default is NO
         _ignoreEventHandling = NO; // default is NO
         
@@ -251,9 +250,6 @@ const double kTransformDelegateDistanceFilter = 0.01;
     }
     
     if (!self.materials) {
-        if (_acceptShadows) {
-            VROARShadow::apply(geometry->getMaterials().front());
-        }
         return;
     }
     
@@ -275,10 +271,6 @@ const double kTransformDelegateDistanceFilter = 0.01;
         tempMaterials.push_back(std::make_shared<VROMaterial>(material));
     }
     geometry->setMaterials(tempMaterials);
-    
-    if (_acceptShadows) {
-        VROARShadow::apply(geometry->getMaterials().front());
-    }
 }
 
 - (void)setVisible:(BOOL)visible {
@@ -414,19 +406,14 @@ const double kTransformDelegateDistanceFilter = 0.01;
     }
 }
 
-- (void)setLightBitMask:(int)lightBitMask {
-    _lightBitMask = lightBitMask;
-    _node->setLightBitMask(lightBitMask);
+- (void)setLightReceivingBitMask:(int)lightReceivingBitMask {
+    _lightReceivingBitMask = lightReceivingBitMask;
+    _node->setLightReceivingBitMask(lightReceivingBitMask);
 }
 
 - (void)setShadowCastingBitMask:(int)shadowCastingBitMask {
     _shadowCastingBitMask = shadowCastingBitMask;
     _node->setShadowCastingBitMask(shadowCastingBitMask);
-}
-
-- (void)setAcceptShadows:(BOOL)acceptShadows {
-    _acceptShadows = acceptShadows;
-    [self applyMaterials];
 }
 
 -(void)onHover:(int)source

@@ -32,9 +32,9 @@ var ViroSpotLight = React.createClass({
     attenuationEndDistance: PropTypes.number,
     innerAngle: PropTypes.number,
     outerAngle : PropTypes.number,
+    influenceBitMask: PropTypes.number,
 
     // Shadow Properties
-    influenceBitMask: PropTypes.number,
     castsShadow: PropTypes.bool,
     shadowOpacity: PropTypes.number,
     shadowMapSize: PropTypes.number,

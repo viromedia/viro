@@ -24,6 +24,7 @@ static float const kDefaultHeight = 1;
         _width = kDefaultWidth;
         _height = kDefaultHeight;
         _surface = VROSurface::createSurface(_width, _height);
+        _arShadowReceiver = NO;
         [self node]->setGeometry(_surface);
         _surfaceNeedsUpdate = NO;
     }
@@ -46,6 +47,11 @@ static float const kDefaultHeight = 1;
     _surfaceNeedsUpdate = YES;
 }
 
+- (void)setARShadowReceiver:(BOOL)arShadowReceiver {
+    _arShadowReceiver = arShadowReceiver;
+    [self applyMaterials];
+}
+
 - (void)updateGeometry {
     _surface = VROSurface::createSurface([self width], [self height]);
     [self node]->setGeometry(_surface);
@@ -59,5 +65,11 @@ static float const kDefaultHeight = 1;
     }
 }
 
+- (void)applyMaterials {
+    [super applyMaterials];
+    if (_arShadowReceiver) {
+        VROARShadow::apply(_surface->getMaterials().front());
+    }
+}
 
 @end

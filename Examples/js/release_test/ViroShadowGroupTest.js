@@ -69,7 +69,7 @@ var ViroShadowGroupTest = React.createClass({
       shadowClippingPlaneStart:0.1,
       shadowOpacity: 0.9,
       shadowMapSize:4096,
-      shadowOrthographicScale:10,
+      shadowOrthographicSize:10,
       shadowBias:0.005,
       runAnimation:false,
       isVisible:true
@@ -128,13 +128,13 @@ var ViroShadowGroupTest = React.createClass({
             });
 
           } else if (num == 7){
-            let shadowOrthographicScaleCurrent = this.state.shadowOrthographicScale;
-            shadowOrthographicScaleCurrent = shadowOrthographicScaleCurrent +1;
-            if (shadowOrthographicScaleCurrent > 50){
-              shadowOrthographicScaleCurrent = 10;
+            let shadowOrthographicSizeCurrent = this.state.shadowOrthographicSize;
+            shadowOrthographicSizeCurrent = shadowOrthographicSizeCurrent +1;
+            if (shadowOrthographicSizeCurrent > 50){
+              shadowOrthographicSizeCurrent = 10;
             }
             this.setState({
-             shadowOrthographicScale:shadowOrthographicScaleCurrent
+             shadowOrthographicSize:shadowOrthographicSizeCurrent
             });
 
           } else if (num == 8){
@@ -181,22 +181,22 @@ var ViroShadowGroupTest = React.createClass({
 
                  {/* Left half of the screen, tests for collision with ray shot in scene */}
                  <ViroNode position={[5 , 3, 0]} transformBehaviors={["billboard"]}>
-                 <ViroText fontSize={35}  style={styles.centeredText} lightBitMask={0} // 0 to avoid influencing the test
+                 <ViroText fontSize={35}  style={styles.centeredText} lightReceivingBitMask={0} // 0 to avoid influencing the test
                    position={[0,0, 0]} width={6} height ={2} maxLines={2}
                    text={"Toggle Cast Shadow " + this.state.castshadowLights }
                    onClick={this.toggleProperty(1)}
                    />
-                  <ViroText fontSize={35}  style={styles.centeredText} lightBitMask={0}
+                  <ViroText fontSize={35}  style={styles.centeredText} lightReceivingBitMask={0}
                         position={[0,-1, 0]} width={6} height ={2} maxLines={2}
                         text={"Run animation " + this.state.runAnimation}
                         onClick={this.toggleProperty(9)}
                   />
-                  <ViroText fontSize={35}  style={styles.centeredText} lightBitMask={0}
+                  <ViroText fontSize={35}  style={styles.centeredText} lightReceivingBitMask={0}
                         position={[0,-2, 0]} width={6} height ={2} maxLines={2}
                         text={"Toggle control visibility " + this.state.isVisible}
                         onClick={this.toggleProperty(10)}
                   />
-                  <ViroText fontSize={35}  style={styles.centeredText} lightBitMask={0}
+                  <ViroText fontSize={35}  style={styles.centeredText} lightReceivingBitMask={0}
                         position={[0,-3, 0]} width={6} height ={2} maxLines={2}
                         text={"Toggle shadowBias " + this.state.shadowBias}
                         onClick={this.toggleProperty(8)}
@@ -228,13 +228,13 @@ var ViroShadowGroupTest = React.createClass({
                     rotation={[0, 0, 0]}
                     position={[0, 0, 0.15]}
                     width={6.2} height={6.2}
-                    lightBitMask={allLights}
+                    lightReceivingBitMask={allLights}
                     materials={"shadowCatcher"}
                     acceptShadows={true}
                     ignoreEventHandling={true} />
 
                   <ViroSurface
-                     lightBitMask={allLights}
+                     lightReceivingBitMask={allLights}
                       materials={"ground"}
                       rotation={[0, 0, 0]}
                       scale={[1,1,1]}
@@ -254,7 +254,7 @@ var ViroShadowGroupTest = React.createClass({
                                 position={[-1.8, 0.5, 0]}
                                   type="VRX"
                                   visible={this.state.isVisible}
-                                  lightBitMask={allLights}
+                                  lightReceivingBitMask={allLights}
                                   shadowCastingBitMask={allLights}
 
                     />
@@ -268,7 +268,7 @@ var ViroShadowGroupTest = React.createClass({
                                     loop={true} >
 
                   <ViroBox
-                  lightBitMask={allLights}
+                  lightReceivingBitMask={allLights}
                   shadowCastingBitMask={allLights}
                       position={[-1, 1, 0]}
                       scale={[0.4, 0.4, 0.4]}
@@ -287,7 +287,7 @@ var ViroShadowGroupTest = React.createClass({
                          loop={true} >
 
                   <ViroButton
-                      lightBitMask={allLights}
+                      lightReceivingBitMask={allLights}
                       shadowCastingBitMask={allLights}
                       position={[0, 1, 0]}
                       scale={[0.2, 0.2, 0.1]}
@@ -305,7 +305,7 @@ var ViroShadowGroupTest = React.createClass({
                          loop={true} >
 
                   <ViroFlexView
-                      lightBitMask={allLights}
+                      lightReceivingBitMask={allLights}
                       shadowCastingBitMask={allLights}
                       position={[1, 1, 0]}
                       scale={[0.2, 0.2, 0.1]}
@@ -322,7 +322,7 @@ var ViroShadowGroupTest = React.createClass({
                          loop={true} >
 
                   <ViroImage
-                      lightBitMask={allLights}
+                      lightReceivingBitMask={allLights}
                       shadowCastingBitMask={allLights}
                       width={1} height={1}
                       format="RGBA8" mipmap={true}
@@ -345,7 +345,7 @@ var ViroShadowGroupTest = React.createClass({
                     onClick={this._elementClick(4)}
                     rotation={[0,0,0]}>
                     <ViroText
-                        lightBitMask={allLights}
+                        lightReceivingBitMask={allLights}
                         shadowCastingBitMask={allLights}
                         style={styles.baseTextTwo}
                         visible={this.state.isVisible}
@@ -359,7 +359,7 @@ var ViroShadowGroupTest = React.createClass({
                          loop={true} >
 
                   <ViroSphere
-                      lightBitMask={allLights}
+                      lightReceivingBitMask={allLights}
                       shadowCastingBitMask={allLights}
                       position={[0, 0, 0]}
                       scale={[0.3, 0.3, 0.3]}
@@ -378,7 +378,7 @@ var ViroShadowGroupTest = React.createClass({
                          loop={true} >
 
                   <ViroSpinner
-                      lightBitMask={allLights}
+                      lightReceivingBitMask={allLights}
                       shadowCastingBitMask={allLights}
                       position={[1, 0, 0]}
                       scale={[0.3, 0.3, 0.1]}
@@ -392,7 +392,7 @@ var ViroShadowGroupTest = React.createClass({
                          loop={true} >
 
                   <ViroSurface
-                      lightBitMask={allLights}
+                      lightReceivingBitMask={allLights}
                       shadowCastingBitMask={allLights}
                       position={[-2, -1, 0]}
                       scale={[0.5, 0.5, 0.1]}
@@ -409,7 +409,7 @@ var ViroShadowGroupTest = React.createClass({
                          loop={true} >
 
                   <ViroText
-                      lightBitMask={allLights}
+                      lightReceivingBitMask={allLights}
                       shadowCastingBitMask={allLights}
                       position={[-1, -1, 0]}
                       scale={[0.5 , 0.5, 0.1]}
@@ -425,7 +425,7 @@ var ViroShadowGroupTest = React.createClass({
                          loop={true} >
 
                   <ViroVideo
-                      lightBitMask={allLights}
+                      lightReceivingBitMask={allLights}
                       shadowCastingBitMask={allLights}
                       position={[0 , -1,0]}
                       scale={[0.1, 0.1, 0.1]}
@@ -446,7 +446,7 @@ var ViroShadowGroupTest = React.createClass({
                                    scale={[.08,.08,.08]}
                                    type="OBJ"
                                    visible={this.state.isVisible}
-                                   lightBitMask={allLights}
+                                   lightReceivingBitMask={allLights}
                                    shadowCastingBitMask={allLights}
                      />
                </ViroAnimatedComponent>

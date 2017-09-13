@@ -33,9 +33,8 @@ var ViroBox = React.createClass({
       PropTypes.arrayOf(PropTypes.string),
       PropTypes.string
     ]),
-    lightBitMask : PropTypes.number,
+    lightReceivingBitMask : PropTypes.number,
     shadowCastingBitMask : PropTypes.number,
-    acceptShadows : PropTypes.bool,
     ignoreEventHandling: PropTypes.bool,
     dragType: PropTypes.oneOf(["FixedDistance", "FixedToWorld"]),
 

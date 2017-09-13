@@ -345,72 +345,72 @@ var ViroShadowTest = React.createClass({
 
                  {/* Left half of the screen, tests for collision with ray shot in scene */}
                  <ViroNode position={[-5 , 5, -5]} transformBehaviors={["billboard"]}>
-                 <ViroText fontSize={35}  style={styles.centeredText} lightBitMask={0} // 0 to avoid influencing the test
+                 <ViroText fontSize={35}  style={styles.centeredText} lightReceivingBitMask={0} // 0 to avoid influencing the test
                    position={[0,0, 0]} width={6} height ={1} maxLines={1}
                    text={"Toggle emissionRatePerSecond " + this.state.emissionRatePerSecond }
                    onClick={this.toggleProperty(1)}
                  />
-                 <ViroText fontSize={35}  style={styles.centeredText} lightBitMask={0} // 0 to avoid influencing the test
+                 <ViroText fontSize={35}  style={styles.centeredText} lightReceivingBitMask={0} // 0 to avoid influencing the test
                    position={[0,-1, 0]} width={6} height ={1} maxLines={1}
                    text={"Toggle particleLifetime " + this.state.particleLifetime }
                    onClick={this.toggleProperty(2)}
                  />
-                 <ViroText fontSize={35}  style={styles.centeredText} lightBitMask={0} // 0 to avoid influencing the test
+                 <ViroText fontSize={35}  style={styles.centeredText} lightReceivingBitMask={0} // 0 to avoid influencing the test
                    position={[0,-2, 0]} width={6} height ={1} maxLines={1}
                    text={"Toggle maxParticles " + this.state.maxParticles }
                    onClick={this.toggleProperty(3)}
                  />
-                 <ViroText fontSize={35}  style={styles.centeredText} lightBitMask={0} // 0 to avoid influencing the test
+                 <ViroText fontSize={35}  style={styles.centeredText} lightReceivingBitMask={0} // 0 to avoid influencing the test
                    position={[0,-3, 0]} width={6} height ={1} maxLines={1}
                    text={"Toggle emissionBurst" }
                    onClick={this.toggleProperty(4)}
                  />
-                 <ViroText fontSize={35}  style={styles.centeredText} lightBitMask={0} // 0 to avoid influencing the test
+                 <ViroText fontSize={35}  style={styles.centeredText} lightReceivingBitMask={0} // 0 to avoid influencing the test
                    position={[0,-4, 0]} width={6} height ={1} maxLines={1}
                    text={"Toggle spawnOnSurface " + this.state.spawnOnSurface }
                    onClick={this.toggleProperty(5)}
                  />
-                 <ViroText fontSize={35}  style={styles.centeredText} lightBitMask={0} // 0 to avoid influencing the test
+                 <ViroText fontSize={35}  style={styles.centeredText} lightReceivingBitMask={0} // 0 to avoid influencing the test
                    position={[0,-5, 0]} width={6} height ={1} maxLines={1}
                    text={"Toggle shape " + (this.state.spawnVolume != undefined ? this.state.spawnVolume.shape : "point") }
                    onClick={this.toggleProperty(6)}
                  />
-                 <ViroText fontSize={35}  style={styles.centeredText} lightBitMask={0} // 0 to avoid influencing the test
+                 <ViroText fontSize={35}  style={styles.centeredText} lightReceivingBitMask={0} // 0 to avoid influencing the test
                    position={[0,-6, 0]} width={6} height ={1} maxLines={1}
                    text={"Toggle velocityScale " + this.state.velocityScale }
                    onClick={this.toggleProperty(7)}
                  />
-                 <ViroText fontSize={35}  style={styles.centeredText} lightBitMask={0} // 0 to avoid influencing the test
+                 <ViroText fontSize={35}  style={styles.centeredText} lightReceivingBitMask={0} // 0 to avoid influencing the test
                    position={[0,-7, 0]} width={6} height ={1} maxLines={1}
                    text={"Toggle accelerationScale " + this.state.accelerationScale }
                    onClick={this.toggleProperty(8)}
                  />
-                 <ViroText fontSize={35}  style={styles.centeredText} lightBitMask={0} // 0 to avoid influencing the test
+                 <ViroText fontSize={35}  style={styles.centeredText} lightReceivingBitMask={0} // 0 to avoid influencing the test
                    position={[0,-8, 0]} width={6} height ={1} maxLines={1}
                    text={"Toggle explosion with slowdown"}
                    onClick={this.toggleProperty(9)}
                  />
-                 <ViroText fontSize={35}  style={styles.centeredText} lightBitMask={0} // 0 to avoid influencing the test
+                 <ViroText fontSize={35}  style={styles.centeredText} lightReceivingBitMask={0} // 0 to avoid influencing the test
                    position={[0,-9, 0]} width={6} height ={1} maxLines={1}
                    text={"Toggle explosion no slowdown "}
                    onClick={this.toggleProperty(10)}
                  />
-                 <ViroText fontSize={35}  style={styles.centeredText} lightBitMask={0} // 0 to avoid influencing the test
+                 <ViroText fontSize={35}  style={styles.centeredText} lightReceivingBitMask={0} // 0 to avoid influencing the test
                    position={[0,-10, 0]} width={6} height ={1} maxLines={1}
                    text={"Toggle opacity modifier "}
                    onClick={this.toggleProperty(11)}
                  />
-                 <ViroText fontSize={35}  style={styles.centeredText} lightBitMask={0} // 0 to avoid influencing the test
+                 <ViroText fontSize={35}  style={styles.centeredText} lightReceivingBitMask={0} // 0 to avoid influencing the test
                    position={[0,-11, 0]} width={6} height ={1} maxLines={1}
                    text={"Toggle scale modifier " }
                    onClick={this.toggleProperty(12)}
                  />
-                 <ViroText fontSize={35}  style={styles.centeredText} lightBitMask={0} // 0 to avoid influencing the test
+                 <ViroText fontSize={35}  style={styles.centeredText} lightReceivingBitMask={0} // 0 to avoid influencing the test
                    position={[0,-12, 0]} width={6} height ={1} maxLines={1}
                    text={"Toggle rotation modifier " }
                    onClick={this.toggleProperty(13)}
                  />
-                 <ViroText fontSize={35}  style={styles.centeredText} lightBitMask={0} // 0 to avoid influencing the test
+                 <ViroText fontSize={35}  style={styles.centeredText} lightReceivingBitMask={0} // 0 to avoid influencing the test
                    position={[0,-13, 0]} width={6} height ={1} maxLines={1}
                    text={"Toggle color modifier " }
                    onClick={this.toggleProperty(14)}
@@ -418,62 +418,62 @@ var ViroShadowTest = React.createClass({
                  </ViroNode>
                  <ViroNode position={[5 , 5, -8]} transformBehaviors={["billboard"]}>
 
-                 <ViroText fontSize={35}  style={styles.centeredText} lightBitMask={0} // 0 to avoid influencing the test
+                 <ViroText fontSize={35}  style={styles.centeredText} lightReceivingBitMask={0} // 0 to avoid influencing the test
                    position={[0,0, 0]} width={6} height ={1} maxLines={1}
                    text={"Toggle particle duration" + this.state.duration }
                    onClick={this.toggleProperty(15)}
                  />
-                 <ViroText fontSize={35}  style={styles.centeredText} lightBitMask={0} // 0 to avoid influencing the test
+                 <ViroText fontSize={35}  style={styles.centeredText} lightReceivingBitMask={0} // 0 to avoid influencing the test
                    position={[0,-1, 0]} width={6} height ={1} maxLines={1}
                    text={"Toggle delay " + this.state.delay }
                    onClick={this.toggleProperty(16)}
                  />
-                 <ViroText fontSize={35}  style={styles.centeredText} lightBitMask={0} // 0 to avoid influencing the test
+                 <ViroText fontSize={35}  style={styles.centeredText} lightReceivingBitMask={0} // 0 to avoid influencing the test
                    position={[0,-2, 0]} width={6} height ={1} maxLines={1}
                    text={"Toggle loop " + this.state.loop }
                    onClick={this.toggleProperty(17)}
                  />
-                 <ViroText fontSize={35}  style={styles.centeredText} lightBitMask={0} // 0 to avoid influencing the test
+                 <ViroText fontSize={35}  style={styles.centeredText} lightReceivingBitMask={0} // 0 to avoid influencing the test
                    position={[0,-3, 0]} width={6} height ={1} maxLines={1}
                    text={"Toggle run " + this.state.run}
                    onClick={this.toggleProperty(18)}
                  />
-                 <ViroText fontSize={35}  style={styles.centeredText} lightBitMask={0} // 0 to avoid influencing the test
+                 <ViroText fontSize={35}  style={styles.centeredText} lightReceivingBitMask={0} // 0 to avoid influencing the test
                    position={[0,-4, 0]} width={6} height ={1} maxLines={1}
                    text={"Toggle fixedToEmitter " + this.state.fixedToEmitter }
                    onClick={this.toggleProperty(19)}
                  />
-                 <ViroText fontSize={35}  style={styles.centeredText} lightBitMask={0} // 0 to avoid influencing the test
+                 <ViroText fontSize={35}  style={styles.centeredText} lightReceivingBitMask={0} // 0 to avoid influencing the test
                    position={[0,-5, 0]} width={6} height ={1} maxLines={1}
                    text={"Toggle quadSource " }
                    onClick={this.toggleProperty(20)}
                  />
-                 <ViroText fontSize={35}  style={styles.centeredText} lightBitMask={0} // 0 to avoid influencing the test
+                 <ViroText fontSize={35}  style={styles.centeredText} lightReceivingBitMask={0} // 0 to avoid influencing the test
                    position={[0,-6, 0]} width={6} height ={1} maxLines={1}
                    text={"Toggle quadSize " + this.state.quadSize}
                    onClick={this.toggleProperty(21)}
                  />
-                 <ViroText fontSize={35}  style={styles.centeredText} lightBitMask={0} // 0 to avoid influencing the test
+                 <ViroText fontSize={35}  style={styles.centeredText} lightReceivingBitMask={0} // 0 to avoid influencing the test
                    position={[0,-7, 0]} width={6} height ={1} maxLines={1}
                    text={"Toggle quadBloom " + this.state.quadBloom }
                    onClick={this.toggleProperty(22)}
                  />
-                 <ViroText fontSize={35}  style={styles.centeredText} lightBitMask={0} // 0 to avoid influencing the test
+                 <ViroText fontSize={35}  style={styles.centeredText} lightReceivingBitMask={0} // 0 to avoid influencing the test
                    position={[0,-8, 0]} width={6} height ={1} maxLines={1}
                    text={"Disable SpawnModifier " + this.state.disableSpawnModifier }
                    onClick={this.toggleProperty(23)}
                  />
-                 <ViroText fontSize={35}  style={styles.centeredText} lightBitMask={0} // 0 to avoid influencing the test
+                 <ViroText fontSize={35}  style={styles.centeredText} lightReceivingBitMask={0} // 0 to avoid influencing the test
                    position={[0,-9, 0]} width={6} height ={1} maxLines={1}
                    text={"Disable Appearance Modifier " + this.state.disableAppearanceModifier }
                    onClick={this.toggleProperty(24)}
                  />
-                 <ViroText fontSize={35}  style={styles.centeredText} lightBitMask={0} // 0 to avoid influencing the test
+                 <ViroText fontSize={35}  style={styles.centeredText} lightReceivingBitMask={0} // 0 to avoid influencing the test
                    position={[0,-10, 0]} width={6} height ={1} maxLines={1}
                    text={"Disable Physics Modifier  " + this.state.disablePhysicsModifier }
                    onClick={this.toggleProperty(25)}
                  />
-                 <ViroText fontSize={35}  style={styles.centeredText} lightBitMask={0} // 0 to avoid influencing the test
+                 <ViroText fontSize={35}  style={styles.centeredText} lightReceivingBitMask={0} // 0 to avoid influencing the test
                    position={[0,-11, 0]} width={6} height ={1} maxLines={1}
                    text={"Toggle runAnimation " + this.state.runAnimation}
                    onClick={this.toggleProperty(26)}

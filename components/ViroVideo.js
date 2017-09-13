@@ -36,9 +36,8 @@ var ViroVideo = React.createClass({
       PropTypes.arrayOf(PropTypes.string),
       PropTypes.string
     ]),
-    lightBitMask : PropTypes.number,
+    lightReceivingBitMask : PropTypes.number,
     shadowCastingBitMask : PropTypes.number,
-    acceptShadows : PropTypes.bool,
     onTransformUpdate: React.PropTypes.func,
     stereoMode:PropTypes.oneOf(['leftRight', 'rightLeft', 'topBottom', 'bottomTop', 'none']),
     width: PropTypes.number,
@@ -173,7 +172,7 @@ var ViroVideo = React.createClass({
         this._onClick(event)
     }
   },
-  
+
   _onTouch: function(event: Event) {
     this.props.onTouch && this.props.onTouch(event.nativeEvent.touchState, event.nativeEvent.touchPos, event.nativeEvent.source);
   },

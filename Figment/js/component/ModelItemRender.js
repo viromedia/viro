@@ -40,7 +40,7 @@ var ModelItemRender = React.createClass({
       this._modelData = ModelData.getModelArray()
     },
 
-    getInitialState() { 
+    getInitialState() {
       return {
         scale : ModelData.getModelArray()[this.props.modelIDProps.index].scale,
         rotation : [0, 0, 0],
@@ -93,7 +93,7 @@ var ModelItemRender = React.createClass({
               materials={modelItem.materials}
               resources={modelItem.resources}
               animation={modelItem.animation}
-              lightBitMask={this.props.bitMask | 1}
+              lightReceivingBitMask={this.props.bitMask | 1}
               shadowCastingBitMask={this.props.bitMask}
               onClickState={this._onClickState(this.props.modelIDProps.uuid)}
               onError={this._onError(this.props.modelIDProps.uuid)}
@@ -106,9 +106,9 @@ var ModelItemRender = React.createClass({
               rotation={[-90, 0, 0]}
               position={[0, -.001, 0]}
               width={2.5} height={2.5}
-              lightBitMask={this.props.bitMask | 1}
+              lightReceivingBitMask={this.props.bitMask | 1}
               materials={"shadowCatcher"}
-              acceptShadows={true}
+              arShadowReceiver={true}
               ignoreEventHandling={true} />
 
           </ViroNode>
