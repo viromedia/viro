@@ -27,6 +27,14 @@ var ViroPortalScene = React.createClass({
     rotation: PropTypes.arrayOf(PropTypes.number),
     scalePivot: PropTypes.arrayOf(PropTypes.number),
     rotationPivot: PropTypes.arrayOf(PropTypes.number),
+    animation: React.PropTypes.shape({
+      name: PropTypes.string,
+      delay: PropTypes.number,
+      loop: PropTypes.bool,
+      onStart: React.PropTypes.func,
+      onFinish: React.PropTypes.func,
+      run: PropTypes.bool,
+    }),
     transformBehaviors: PropTypes.oneOfType([
       PropTypes.arrayOf(PropTypes.string),
       PropTypes.string
@@ -145,6 +153,14 @@ var ViroPortalScene = React.createClass({
     }
   },
 
+  _onAnimationStart: function(event: Event) {
+    this.props.animation && this.props.animation.onStart && this.props.animation.onStart();
+  },
+
+  _onAnimationFinish: function(event: Event) {
+    this.props.animation && this.props.animation.onFinish && this.props.animation.onFinish();
+  },
+
   async getTransformAsync() {
     return await NativeModules.VRTNodeModule.getNodeTransform(findNodeHandle(this));
   },
@@ -241,6 +257,8 @@ var ViroPortalScene = React.createClass({
         onFuseViro={this._onFuse}
         onPinchViro={this._onPinch}
         onRotateViro={this._onRotate}
+        onAnimationStartViro={this._onAnimationStart}
+        onAnimationFinishViro={this._onAnimationFinish}
         timeToFuse={timeToFuse}
         canCollide={this.props.onCollision != undefined}
         onCollisionViro={this._onCollision}
@@ -275,7 +293,9 @@ var VRTPortal = requireNativeComponent(
             canCollide:true,
             onCollisionViro:true,
             onNativeTransformDelegateViro:true,
-            hasTransformDelegate:true
+            hasTransformDelegate:true,
+            onAnimationStartViro:true,
+            onAnimationFinishViro:true
           }
   }
 );

@@ -38,6 +38,14 @@ var ViroSpinner = React.createClass({
       PropTypes.arrayOf(PropTypes.string),
       PropTypes.string
     ]),
+    animation: React.PropTypes.shape({
+      name: PropTypes.string,
+      delay: PropTypes.number,
+      loop: PropTypes.bool,
+      onStart: React.PropTypes.func,
+      onFinish: React.PropTypes.func,
+      run: PropTypes.bool,
+    }),
     transformBehaviors: PropTypes.oneOfType([
       PropTypes.arrayOf(PropTypes.string),
       PropTypes.string
@@ -115,6 +123,14 @@ var ViroSpinner = React.createClass({
     this._component.setVelocity(findNodeHandle(this), velocity);
   },
 
+  _onAnimationStart: function(event: Event) {
+    this.props.animation && this.props.animation.onStart && this.props.animation.onStart();
+  },
+
+  _onAnimationFinish: function(event: Event) {
+    this.props.animation && this.props.animation.onFinish && this.props.animation.onFinish();
+  },
+
   async getTransformAsync() {
     return await this._component.getTransformAsync();
   },
@@ -127,11 +143,24 @@ var ViroSpinner = React.createClass({
     // TODO: rather than manually expanding/setting all the props, we should use {...this.props}
     return (
       <ViroNode position={this.props.position} rotation={this.props.rotation} scale={this.props.scale}
-            rotationPivot={this.props.rotationPivot} scalePivot={this.props.scalePivot} physicsBody={this.props.physicsBody}
-            opacity={this.props.opacity} transformBehaviors={transformBehaviors} visible={this.props.visible}
-            onHover={this.props.onHover} onClick={this.props.onClick} onClickState={this.props.onClickState}
-            onTouch={this.props.onTouch} onDrag={this.props.onDrag} onPinch={this.props.onPinch}
-            onRotate={this.props.onRotate} onFuse={this.props.onFuse} dragType={this.props.dragType}
+            rotationPivot={this.props.rotationPivot}
+            scalePivot={this.props.scalePivot}
+            physicsBody={this.props.physicsBody}
+            opacity={this.props.opacity}
+            transformBehaviors={transformBehaviors}
+            visible={this.props.visible}
+            onHover={this.props.onHover}
+            onClick={this.props.onClick}
+            onClickState={this.props.onClickState}
+            onTouch={this.props.onTouch}
+            onDrag={this.props.onDrag}
+            onPinch={this.props.onPinch}
+            onRotate={this.props.onRotate}
+            onFuse={this.props.onFuse}
+            animation={this.props.animation}
+            onAnimationStartViro={this._onAnimationStart}
+            onAnimationFinishViro={this._onAnimationFinish}
+            dragType={this.props.dragType}
             ignoreEventHandling={this.props.ignoreEventHandling}
             onTransformUpdate={this.props.onTransformUpdate} ref={component => {this._component = component}}>
 

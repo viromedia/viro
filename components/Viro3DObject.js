@@ -215,7 +215,6 @@ var Viro3DObject = React.createClass({
 
   setNativeProps: function(nativeProps) {
      this._viro3dobj.setNativeProps(nativeProps);
-
   },
 
   applyImpulse: function(force, position) {

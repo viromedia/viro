@@ -18,6 +18,7 @@ import com.facebook.react.uimanager.annotations.ReactPropGroup;
 import com.facebook.yoga.YogaConstants;
 import com.viro.renderer.jni.MaterialJni;
 import com.viromedia.bridge.component.ViroViewGroupManager;
+import com.viromedia.bridge.component.node.control.Object3d;
 import com.viromedia.bridge.module.MaterialManager;
 import com.viromedia.bridge.utility.Helper;
 import com.viromedia.bridge.utility.ViroEvents;
@@ -116,6 +117,11 @@ public abstract class NodeManager <T extends Node> extends ViroViewGroupManager<
     @ReactProp(name = "timeToFuse", defaultFloat = Node.DEFAULT_TIME_TO_FUSE_MILLIS)
     public void setTimeToFuse(Node view, float durationMillis) {
         view.setTimeToFuse(durationMillis);
+    }
+
+    @ReactProp(name = "animation")
+    public void setAnimation(Node view, @android.support.annotation.Nullable ReadableMap map) {
+        view.setAnimation(map);
     }
 
     @ReactProp(name = "materials")
@@ -237,6 +243,8 @@ public abstract class NodeManager <T extends Node> extends ViroViewGroupManager<
         map.put(ViroEvents.ON_DRAG, MapBuilder.of("registrationName", ViroEvents.ON_DRAG));
         map.put(ViroEvents.ON_COLLIDED, MapBuilder.of("registrationName", ViroEvents.ON_COLLIDED));
         map.put(ViroEvents.ON_TRANSFORM_DELEGATE, MapBuilder.of("registrationName", ViroEvents.ON_TRANSFORM_DELEGATE));
+        map.put(ViroEvents.ON_ANIMATION_START, MapBuilder.of("registrationName", ViroEvents.ON_ANIMATION_START));
+        map.put(ViroEvents.ON_ANIMATION_FINISH, MapBuilder.of("registrationName", ViroEvents.ON_ANIMATION_FINISH));
         return map;
     }
 

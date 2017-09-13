@@ -23,13 +23,16 @@ import com.viro.renderer.jni.BaseGeometry;
 import com.viro.renderer.jni.EventDelegateJni;
 import com.viro.renderer.jni.MaterialJni;
 import com.viro.renderer.jni.NodeJni;
+import com.viro.renderer.jni.ExecutableAnimationJni;
 import com.viromedia.bridge.component.AnimatedComponent;
 import com.viromedia.bridge.component.Component;
 import com.viromedia.bridge.component.Light;
+import com.viromedia.bridge.component.ManagedAnimation;
 import com.viromedia.bridge.component.node.control.Image;
 import com.viromedia.bridge.component.node.control.Surface;
 import com.viromedia.bridge.component.node.control.Text;
 import com.viromedia.bridge.component.node.control.VideoSurface;
+import com.viromedia.bridge.module.AnimationManager;
 import com.viromedia.bridge.utility.ComponentEventDelegate;
 import com.viromedia.bridge.utility.ViroEvents;
 import com.viromedia.bridge.utility.ViroLog;
@@ -45,6 +48,38 @@ import static com.viromedia.bridge.component.node.NodeManager.s2DUnitPer3DUnit;
  */
 public class Node extends Component {
     private static final String TAG = ViroLog.getTag(Node.class);
+
+    public static class NodeAnimation extends ManagedAnimation {
+
+        protected String mAnimationName;
+        private AnimationManager mAnimationManager;
+
+        public NodeAnimation(ReactApplicationContext context, Node parent) {
+            super(context, parent);
+            super.setNode(parent);
+            mAnimationManager = context.getNativeModule(AnimationManager.class);
+        }
+
+        public void setAnimationName(String name) {
+            mAnimationName = name;
+        }
+
+        @Override
+        public ExecutableAnimationJni loadAnimation() {
+            if (mAnimationName != null) {
+                ExecutableAnimationJni animation = mAnimationManager.getAnimation(mAnimationName);
+                if (animation != null) {
+                    return animation.copy();
+                }
+                else {
+                    return null;
+                }
+            }
+            else {
+                return null;
+            }
+        }
+    }
 
     // Always place the children of views .01 in front of the parent. This helps with z-fighting
     // and ensures that the child is always in front of the parent for hit detection
@@ -72,6 +107,7 @@ public class Node extends Component {
     protected List<MaterialJni> mMaterials;
     private EventDelegateJni mEventDelegateJni;
     private NodeTransformDelegate mTransformDelegate;
+    protected NodeAnimation mNodeAnimation;
 
     // these are used to preserve the old 2D layout values which we'll store before and restore after
     // calling attemptRecalcLayout
@@ -106,6 +142,8 @@ public class Node extends Component {
         mEventDelegateJni = new EventDelegateJni();
         mEventDelegateJni.setEventDelegateCallback(new ComponentEventDelegate(this));
         mNodeJni.setEventDelegateJni(mEventDelegateJni);
+
+        mNodeAnimation = new NodeAnimation(reactContext, this);
     }
 
     public NodeJni getNodeJni(){
@@ -435,6 +473,17 @@ public class Node extends Component {
         if (mMaterials != null) {
             mNodeJni.setMaterials(mMaterials);
         }
+    }
+
+    public void setAnimation(ReadableMap animation) {
+        mNodeAnimation.parseFromMap(animation);
+        if (animation.hasKey("name")) {
+            mNodeAnimation.setAnimationName(animation.getString("name"));
+        }
+        else {
+            mNodeAnimation.setAnimationName(null);
+        }
+        mNodeAnimation.updateAnimation();
     }
 
     protected void setMaterials(List<MaterialJni> materials) {

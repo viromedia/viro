@@ -10,13 +10,9 @@
 #import "VRT3DObject.h"
 #import "VRTMaterialManager.h"
 #import "VRTUtils.h"
-#import "VRTManagedAnimation.h"
+#import "VRTAnimationManager.h"
 
-@interface VRT3DObjectAnimation : VRTManagedAnimation
-
-@property (readwrite, nonatomic) std::string animationKey;
-
-- (std::shared_ptr<VROExecutableAnimation>)loadAnimation;
+@interface VRT3DObjectAnimation : VRTNodeAnimation
 
 @end
 
@@ -25,28 +21,32 @@
 - (std::shared_ptr<VROExecutableAnimation>)loadAnimation {
     std::shared_ptr<VRONode> node = self.node.lock();
     if (!node) {
-        return nullptr;
+        return [super loadAnimation];
+    }
+    std::set<std::string> animationKeys = node->getAnimationKeys(true);
+    if (animationKeys.empty()) {
+        return [super loadAnimation];
     }
     
-    if (!self.animationKey.empty()) {
-        return node->getAnimation(self.animationKey, true);
+    if (self.animationName) {
+        std::string key = std::string([self.animationName UTF8String]);
+        
+        auto it = animationKeys.find(key);
+        if (it != animationKeys.end()) {
+            return node->getAnimation(key, true);
+        }
+        else {
+            return [super loadAnimation];
+        }
     }
     else {
-        return nullptr;
+        return [super loadAnimation];
     }
-}
-
-- (void)setAnimationKey:(std::string)key {
-    _animationKey = key;
-    [super updateAnimation];
 }
 
 @end
 
 @interface VRT3DObject ()
-
-@property (readwrite, nonatomic) NSString *animationName;
-@property (readwrite, nonatomic) VRT3DObjectAnimation *managedAnimation;
 
 @end
 
@@ -61,8 +61,9 @@
 - (instancetype)initWithBridge:(RCTBridge *)bridge  {
     self = [super initWithBridge:bridge];
     _sourceChanged = NO;
-    self.managedAnimation = [[VRT3DObjectAnimation alloc] init];
-    self.managedAnimation.node = self.node;
+    self.nodeAnimation = [[VRT3DObjectAnimation alloc] init];
+    self.nodeAnimation.animationManager = [bridge animationManager];
+    self.nodeAnimation.node = self.node;
     
     return self;
 }
@@ -74,45 +75,22 @@
 
 - (void)updateAnimation {
     /*
-     Get all the animations loaded from the object.
+     If no animation name was specified, then use the first keyframe animation,
+     if available.
      */
-    std::set<std::string> animationKeys = self.node->getAnimationKeys(true);
-    if (animationKeys.empty()) {
-        return;
+    if (!self.nodeAnimation.animationName || self.nodeAnimation.animationName.length == 0) {
+        std::set<std::string> animationKeys = self.node->getAnimationKeys(true);
+        if (!animationKeys.empty()) {
+            self.nodeAnimation.animationName = [NSString stringWithUTF8String:animationKeys.begin()->c_str()];
+        }
     }
     
-    /*
-     If an animation to run was specified (animation.name), then run that animation;
-     otherwise just run the first animation.
-     */
-    std::string key;
-    if (self.animationName == nil) {
-        key = *animationKeys.begin();
-    }
-    else {
-        auto it = animationKeys.find(std::string([self.animationName UTF8String]));
-        if (it != animationKeys.end()) {
-            key = *it;
-        }
-        else {
-            RCTLogWarn(@"Animation %@ cannot be run: was not found on object!", self.animationName);
-        }
-    }
-    self.managedAnimation.animationKey = key;
+    [self.nodeAnimation updateAnimation];
 }
 
 - (void)setAnimation:(NSDictionary *)animation {
-    [self.managedAnimation parseFromDictionary:animation];
-    self.animationName = [animation objectForKey:@"name"];
+    [super setAnimation:animation];
     [self updateAnimation];
-}
-
-- (void)setOnAnimationStartViro:(RCTDirectEventBlock)onAnimationStartViro {
-    self.managedAnimation.onStart = onAnimationStartViro;
-}
-
-- (void)setOnAnimationFinishViro:(RCTDirectEventBlock)onAnimationFinishViro {
-    self.managedAnimation.onFinish = onAnimationFinishViro;
 }
 
 - (void)didSetProps:(NSArray<NSString *> *)changedProps {

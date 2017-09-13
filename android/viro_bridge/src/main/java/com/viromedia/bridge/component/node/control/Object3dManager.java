@@ -65,11 +65,6 @@ public class Object3dManager extends NodeManager<Object3d> {
         object3d.setResources(resourceList);
     }
 
-    @ReactProp(name = "animation")
-    public void setAnimation(Object3d object3d, @Nullable ReadableMap map) {
-        object3d.setAnimation(map);
-    }
-
     @ReactProp(name = "type")
     public void setType(Object3d object3d, @Nullable String type) {
         object3d.setType(type);

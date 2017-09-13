@@ -32,33 +32,36 @@ public class Object3d extends Control {
         OBJ, VRX
     }
 
-    private static class Object3dAnimation extends ManagedAnimation {
+    private static class Object3dAnimation extends NodeAnimation {
         private NodeJni mNode;
-        private String mAnimationKey;
 
         public Object3dAnimation(ReactApplicationContext context, Object3d parent) {
             super(context, parent);
             mNode = parent.getNodeJni();
         }
 
-        public void setAnimationKey(String key) {
-            mAnimationKey = key;
-            updateAnimation();
-        }
-
         @Override
         public ExecutableAnimationJni loadAnimation() {
-            if (mAnimationKey != null) {
-                return new ExecutableAnimationJni(mNode, mAnimationKey);
+            Set<String> animationKeys = mNode.getAnimationKeys();
+            if (animationKeys.isEmpty()) {
+                return super.loadAnimation();
+            }
+
+            if (mAnimationName != null) {
+                if (animationKeys.contains(mAnimationName)) {
+                    return new ExecutableAnimationJni(mNode, mAnimationName);
+                }
+                else {
+                    return super.loadAnimation();
+                }
             }
             else {
-                return null;
+                return super.loadAnimation();
             }
         }
     }
 
     private ObjectJni mNative3dObject;
-    private Object3dAnimation mManagedAnimation = null;
     private String mAnimationName = null;
     private Uri mSource;
     private List<String> mResources = null;
@@ -68,8 +71,8 @@ public class Object3d extends Control {
 
     public Object3d(ReactApplicationContext reactContext) {
         super(reactContext);
-        mManagedAnimation = new Object3dAnimation(reactContext, this);
-        mManagedAnimation.setNode(this);
+        mNodeAnimation = new Object3dAnimation(reactContext, this);
+        mNodeAnimation.setNode(this);
     }
 
     @Override
@@ -101,13 +104,7 @@ public class Object3d extends Control {
     }
 
     public void setAnimation(ReadableMap animation) {
-        mManagedAnimation.parseFromMap(animation);
-        if (animation.hasKey("name")) {
-            mAnimationName = animation.getString("name");
-        }
-        else {
-            mAnimationName = null;
-        }
+        super.setAnimation(animation);
         updateAnimation();
     }
 
@@ -204,28 +201,16 @@ public class Object3d extends Control {
 
     private void updateAnimation() {
         /*
-         Get all the animations loaded from the object.
-         */
-        Set<String> animationKeys = getNodeJni().getAnimationKeys();
-        Log.w(TAG, "Keys : " + animationKeys);
-        if (animationKeys.isEmpty()) {
-            return;
-        }
-
-        /*
-         If an animation to run was specified (animation.name), then run that animation;
-         otherwise just run the first animation.
-         */
-        String key = null;
-        if (mAnimationName == null) {
-            key = animationKeys.iterator().next();
-        } else {
-            if (animationKeys.contains(mAnimationName)) {
-                key = mAnimationName;
-            } else {
-                ViroLog.warn(TAG, "Animation " + mAnimationName + " cannot be run: was not found on object!");
+         If no animation name was specified, then use the first keyframe animation,
+         if available.
+        */
+        if (mAnimationName == null || mAnimationName.length() == 0) {
+            Set<String> animationKeys = getNodeJni().getAnimationKeys();
+            if (!animationKeys.isEmpty()) {
+                mNodeAnimation.setAnimationName(animationKeys.iterator().next());
             }
         }
-        mManagedAnimation.setAnimationKey(key);
+
+        mNodeAnimation.updateAnimation();
     }
 }

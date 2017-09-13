@@ -39,6 +39,14 @@ var ViroSurface = React.createClass({
       PropTypes.arrayOf(PropTypes.string),
       PropTypes.string
     ]),
+    animation: React.PropTypes.shape({
+      name: PropTypes.string,
+      delay: PropTypes.number,
+      loop: PropTypes.bool,
+      onStart: React.PropTypes.func,
+      onFinish: React.PropTypes.func,
+      run: PropTypes.bool,
+    }),
     transformBehaviors: PropTypes.oneOfType([
       PropTypes.arrayOf(PropTypes.string),
       PropTypes.string
@@ -154,6 +162,14 @@ var ViroSurface = React.createClass({
     }
   },
 
+  _onAnimationStart: function(event: Event) {
+    this.props.animation && this.props.animation.onStart && this.props.animation.onStart();
+  },
+
+  _onAnimationFinish: function(event: Event) {
+    this.props.animation && this.props.animation.onFinish && this.props.animation.onFinish();
+  },
+
   async getTransformAsync() {
     return await NativeModules.VRTNodeModule.getNodeTransform(findNodeHandle(this));
   },
@@ -261,6 +277,8 @@ var ViroSurface = React.createClass({
     nativeProps.canRotate = this.props.onRotate != undefined;
     nativeProps.canFuse = this.props.onFuse != undefined;
     nativeProps.onFuseViro = this._onFuse;
+    nativeProps.onAnimationStartViro = this._onAnimationStart;
+    nativeProps.onAnimationFinishViro = this._onAnimationFinish;
     nativeProps.timeToFuse = timeToFuse;
     nativeProps.canCollide = this.props.onCollision != undefined;
     nativeProps.onCollisionViro = this._onCollision;
@@ -297,7 +315,9 @@ var VRTSurface = requireNativeComponent(
             canCollide:true,
             onCollisionViro:true,
             onNativeTransformDelegateViro:true,
-            hasTransformDelegate:true
+            hasTransformDelegate:true,
+            onAnimationStartViro:true,
+            onAnimationFinishViro:true
           }
   }
 );

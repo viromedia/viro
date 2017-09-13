@@ -99,7 +99,15 @@ var BTN_TYPE_CLICKED = 'clicked';
       PropTypes.arrayOf(PropTypes.string),
   	  PropTypes.string
   	]),
-      transformBehaviors: PropTypes.oneOfType([
+    animation: React.PropTypes.shape({
+      name: PropTypes.string,
+      delay: PropTypes.number,
+      loop: PropTypes.bool,
+      onStart: React.PropTypes.func,
+      onFinish: React.PropTypes.func,
+      run: PropTypes.bool,
+    }),
+    transformBehaviors: PropTypes.oneOfType([
       PropTypes.arrayOf(PropTypes.string),
   	  PropTypes.string
   	]),
@@ -169,6 +177,14 @@ var BTN_TYPE_CLICKED = 'clicked';
     this._component.setVelocity(velocity);
   },
 
+  _onAnimationStart: function(event: Event) {
+    this.props.animation && this.props.animation.onStart && this.props.animation.onStart();
+  },
+
+  _onAnimationFinish: function(event: Event) {
+    this.props.animation && this.props.animation.onFinish && this.props.animation.onFinish();
+  },
+
   async getTransformAsync() {
     return await this._component.getTransformAsync();
   },
@@ -176,8 +192,8 @@ var BTN_TYPE_CLICKED = 'clicked';
   getInitialState: function() {
     return {buttonType: BTN_TYPE_NORMAL};
   },
-  render: function() {
 
+  render: function() {
     if (this.props.material) {
       console.error('The <ViroButton> component takes a `materials` property rather than `material`.');
     }
@@ -241,6 +257,9 @@ var BTN_TYPE_CLICKED = 'clicked';
             onCollision={this.props.onCollision}
             viroTag={this.props.viroTag}
             onFuse={this.props.onFuse}
+            animation={this.props.animation}
+            onAnimationStartViro={this._onAnimationStart}
+            onAnimationFinishViro={this._onAnimationFinish}
             ignoreEventHandling={this.props.ignoreEventHandling}
             dragType={this.props.dragType} >
 

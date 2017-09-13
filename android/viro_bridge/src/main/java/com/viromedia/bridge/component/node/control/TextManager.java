@@ -7,10 +7,14 @@ import android.graphics.Color;
 
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReadableArray;
+import com.facebook.react.common.MapBuilder;
 import com.facebook.react.uimanager.ThemedReactContext;
 import com.facebook.react.uimanager.annotations.ReactProp;
 import com.viromedia.bridge.component.node.NodeManager;
 import com.viromedia.bridge.utility.Helper;
+import com.viromedia.bridge.utility.ViroEvents;
+
+import java.util.Map;
 
 import javax.annotation.Nullable;
 
@@ -88,5 +92,10 @@ public class TextManager extends NodeManager<Text> {
         text.setTextLineBreakMode(textLineBreakMode);
     }
 
+    public Map getExportedCustomDirectEventTypeConstants() {
+        return MapBuilder.of(
+                ViroEvents.ON_ANIMATION_START, MapBuilder.of("registrationName", ViroEvents.ON_ANIMATION_START),
+                ViroEvents.ON_ANIMATION_FINISH, MapBuilder.of("registrationName", ViroEvents.ON_ANIMATION_FINISH));
+    }
 
 }

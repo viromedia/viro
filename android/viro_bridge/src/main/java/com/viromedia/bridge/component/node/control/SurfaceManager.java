@@ -4,9 +4,13 @@
 package com.viromedia.bridge.component.node.control;
 
 import com.facebook.react.bridge.ReactApplicationContext;
+import com.facebook.react.common.MapBuilder;
 import com.facebook.react.uimanager.ThemedReactContext;
 import com.facebook.react.uimanager.annotations.ReactProp;
 import com.viromedia.bridge.component.node.NodeManager;
+import com.viromedia.bridge.utility.ViroEvents;
+
+import java.util.Map;
 
 public class SurfaceManager extends NodeManager<Surface> {
 
@@ -34,4 +38,9 @@ public class SurfaceManager extends NodeManager<Surface> {
         view.setHeight(height);
     }
 
+    public Map getExportedCustomDirectEventTypeConstants() {
+        return MapBuilder.of(
+                ViroEvents.ON_ANIMATION_START, MapBuilder.of("registrationName", ViroEvents.ON_ANIMATION_START),
+                ViroEvents.ON_ANIMATION_FINISH, MapBuilder.of("registrationName", ViroEvents.ON_ANIMATION_FINISH));
+    }
 }

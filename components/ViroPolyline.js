@@ -22,6 +22,14 @@ var ViroPolyline = React.createClass({
     scale: PropTypes.arrayOf(PropTypes.number),
     opacity: PropTypes.number,
     visible: PropTypes.bool,
+    animation: React.PropTypes.shape({
+      name: PropTypes.string,
+      delay: PropTypes.number,
+      loop: PropTypes.bool,
+      onStart: React.PropTypes.func,
+      onFinish: React.PropTypes.func,
+      run: PropTypes.bool,
+    }),
     transformBehaviors: PropTypes.oneOfType([
       PropTypes.arrayOf(PropTypes.string),
       PropTypes.string
@@ -151,6 +159,14 @@ var ViroPolyline = React.createClass({
     }
   },
 
+  _onAnimationStart: function(event: Event) {
+    this.props.animation && this.props.animation.onStart && this.props.animation.onStart();
+  },
+
+  _onAnimationFinish: function(event: Event) {
+    this.props.animation && this.props.animation.onFinish && this.props.animation.onFinish();
+  },
+
   async getTransformAsync() {
     return await NativeModules.VRTNodeModule.getNodeTransform(findNodeHandle(this));
   },
@@ -258,6 +274,8 @@ var ViroPolyline = React.createClass({
             onFuseViro={this._onFuse}
             canCollide={this.props.onCollision != undefined}
             onCollisionViro={this._onCollision}
+            onAnimationStartViro={this._onAnimationStart}
+            onAnimationFinishViro={this._onAnimationFinish}
             timeToFuse={timeToFuse}/>
     );
   }
@@ -288,7 +306,9 @@ var VRTPolyline = requireNativeComponent(
             canCollide:true,
             onCollisionViro:true,
             onNativeTransformDelegateViro:true,
-            hasTransformDelegate:true
+            hasTransformDelegate:true,
+            onAnimationStartViro:true,
+            onAnimationFinishViro:true
           }
     }
 );

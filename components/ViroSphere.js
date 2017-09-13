@@ -37,6 +37,14 @@ var ViroSphere = React.createClass({
       PropTypes.arrayOf(PropTypes.string),
       PropTypes.string
     ]),
+    animation: React.PropTypes.shape({
+      name: PropTypes.string,
+      delay: PropTypes.number,
+      loop: PropTypes.bool,
+      onStart: React.PropTypes.func,
+      onFinish: React.PropTypes.func,
+      run: PropTypes.bool,
+    }),
     transformBehaviors: PropTypes.oneOfType([
       PropTypes.arrayOf(PropTypes.string),
       PropTypes.string
@@ -163,6 +171,14 @@ getInitialState: function() {
     }
   },
 
+  _onAnimationStart: function(event: Event) {
+    this.props.animation && this.props.animation.onStart && this.props.animation.onStart();
+  },
+
+  _onAnimationFinish: function(event: Event) {
+    this.props.animation && this.props.animation.onFinish && this.props.animation.onFinish();
+  },
+
   async getTransformAsync() {
     return await NativeModules.VRTNodeModule.getNodeTransform(findNodeHandle(this));
   },
@@ -269,6 +285,8 @@ getInitialState: function() {
         onFuseViro={this._onFuse}
         canCollide={this.props.onCollision != undefined}
         onCollisionViro={this._onCollision}
+        onAnimationStartViro={this._onAnimationStart}
+        onAnimationFinishViro={this._onAnimationFinish}
         onNativeTransformDelegateViro={transformDelegate}
         hasTransformDelegate={this.props.onTransformUpdate != undefined}
         timeToFuse={timeToFuse}
@@ -304,6 +322,8 @@ var VRTSphere = requireNativeComponent(
             onCollisionViro:true,
             onNativeTransformDelegateViro:true,
             hasTransformDelegate:true,
+            onAnimationStartViro:true,
+            onAnimationFinishViro:true
           }
   }
 );

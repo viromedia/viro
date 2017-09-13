@@ -22,9 +22,39 @@
 #import "VRT3DObject.h"
 #import "VRTAnimatedComponent.h"
 #import "VRTMaterialManager.h"
+#import "VRTManagedAnimation.h"
+#import "VRTAnimationManager.h"
 
 const int k2DPointsPerSpatialUnit = 1000;
 const double kTransformDelegateDistanceFilter = 0.01;
+
+#pragma mark - Node Animation Class
+
+@implementation VRTNodeAnimation
+
+- (std::shared_ptr<VROExecutableAnimation>)loadAnimation {
+    if (self.animationName != nil) {
+        std::shared_ptr<VROExecutableAnimation> animation = [self.animationManager animationForName:self.animationName];
+        if (animation) {
+            return animation->copy();
+        }
+        else {
+            return nullptr;
+        }
+    }
+    else {
+        return nullptr;
+    }
+}
+
+- (void)setAnimationName:(NSString *)animationName {
+    _animationName = [animationName copy];
+}
+
+@end
+
+#pragma mark - Node Class
+
 @implementation VRTNode
 
 - (instancetype)initWithBridge:(RCTBridge *)bridge  {
@@ -40,6 +70,10 @@ const double kTransformDelegateDistanceFilter = 0.01;
         _shadowCastingBitMask = 1;
         _shouldIgnoreEventHandling = NO; // default is NO
         _ignoreEventHandling = NO; // default is NO
+        
+        _nodeAnimation = [[VRTNodeAnimation alloc] init];
+        _nodeAnimation.animationManager = [bridge animationManager];
+        _nodeAnimation.node = _node;
         
         // Create and attach event delegate
         _eventDelegate = std::make_shared<VROEventDelegateiOS>(self);
@@ -150,6 +184,22 @@ const double kTransformDelegateDistanceFilter = 0.01;
     [super handleAppearanceChange];
 }
 
+- (void)setVisible:(BOOL)visible {
+    _visible = visible;
+    [self handleAppearanceChange];
+    [self node]->setHidden(!_visible);
+}
+
+- (void)setViroTag:(NSString *)tag {
+    std::string nodeTag;
+    if (tag) {
+        nodeTag = std::string([tag UTF8String]);
+    }
+    [self node]->setTag(nodeTag);
+}
+
+#pragma mark - Transforms
+
 - (void)setPosition:(NSArray<NSNumber *> *)position {
     _position = [position copy];
     float positionValues[3];
@@ -232,6 +282,8 @@ const double kTransformDelegateDistanceFilter = 0.01;
     }
 }
 
+#pragma mark - Materials
+
 - (void)setMaterials:(NSArray<NSString *> *)materials {
     _materials = materials;
     [self applyMaterials];
@@ -273,24 +325,23 @@ const double kTransformDelegateDistanceFilter = 0.01;
     geometry->setMaterials(tempMaterials);
 }
 
-- (void)setVisible:(BOOL)visible {
-    _visible = visible;
-    [self handleAppearanceChange];
-    [self node]->setHidden(!_visible);
+#pragma mark - Animation
+
+- (void)setAnimation:(NSDictionary *)animation {
+    [self.nodeAnimation parseFromDictionary:animation];
+    self.nodeAnimation.animationName = [animation objectForKey:@"name"];
+    [self.nodeAnimation updateAnimation];
 }
 
-- (void)setViroTag:(NSString *)tag {
-    std::string nodeTag;
-    if (tag) {
-        nodeTag = std::string([tag UTF8String]);
-    }
-    [self node]->setTag(nodeTag);
+- (void)setOnAnimationStartViro:(RCTDirectEventBlock)onAnimationStartViro {
+    self.nodeAnimation.onStart = onAnimationStartViro;
 }
 
-- (void)setHighAccuracyGaze:(BOOL)enabled{
-    _highAccuracyGaze = enabled;
-    [self node]->setHighAccuracyGaze(enabled);
+- (void)setOnAnimationFinishViro:(RCTDirectEventBlock)onAnimationFinishViro {
+    self.nodeAnimation.onFinish = onAnimationFinishViro;
 }
+
+#pragma mark - Flexbox
 
 - (void)reactSetFrame:(CGRect)frame {
     // These frames are in terms of anchorPoint = topLeft, but internally the
@@ -312,7 +363,13 @@ const double kTransformDelegateDistanceFilter = 0.01;
     return NO;
 }
 
-#pragma mark VRTEventDelegateProtocol Delegates
+#pragma mark - Events
+
+- (void)setHighAccuracyGaze:(BOOL)enabled{
+    _highAccuracyGaze = enabled;
+    [self node]->setHighAccuracyGaze(enabled);
+}
+
 - (void)onHoverViro:(RCTDirectEventBlock)block {
     _onHoverViro = block;
 }
@@ -480,7 +537,8 @@ const double kTransformDelegateDistanceFilter = 0.01;
     }
 }
 
-#pragma mark Physics Implementations
+#pragma mark - Physics Implementations
+
 - (void)setScene:(std::shared_ptr<VROScene>)scene {
     [super setScene:scene];
     
