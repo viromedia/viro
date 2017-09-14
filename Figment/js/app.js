@@ -218,7 +218,7 @@ export class App extends Component {
         photoSelectorViews.push(<StatusBar key="statusBarKey" hidden={true} />);
         photoSelectorViews.push(<View key="topPhotoBar" style={localStyles.topPhotoBar}>
           <BlurView style={localStyles.absolute} blurType="dark" blurAmount={10} />
-          <View style={{flex:1, backgroundColor:"#00000000"}}/>
+          <View style={{flex:1, backgroundColor:"#00000000", justifyContent: 'center', alignItems: 'center'}}/>
             <Text style={localStyles.photosText}>My Photos</Text>
             <Text onPress={()=>{this.setState({showPhotosSelector:false})}}
                   style={localStyles.doneText}>Done</Text>
@@ -578,7 +578,8 @@ var localStyles = StyleSheet.create({
     position : 'absolute',
     top : 0,
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   listViewText: {
     textAlign: 'left',
@@ -595,9 +596,7 @@ var localStyles = StyleSheet.create({
     fontWeight: 'bold',
     fontFamily: 'Helvetica Neue',
     fontSize: 16,
-    marginTop:20,
     marginRight:10,
-    marginBottom: 5,
     backgroundColor: '#00000000',
     flex:1,
   },
@@ -606,8 +605,6 @@ var localStyles = StyleSheet.create({
     color: '#d6d6d6',
     fontFamily: 'Helvetica Neue',
     fontSize: 16,
-    marginTop:20,
-    marginBottom: 5,
     backgroundColor: '#00000000',
     flex:1,
   },
@@ -619,16 +616,16 @@ var localStyles = StyleSheet.create({
   },
   previewScreenButtonClose: {
     position:'absolute',
-    height: 20,
-    width: 20,
+    height: 23,
+    width: 23,
     justifyContent: 'center',
     alignItems: 'center',
   },
 
   previewScreenButtonShare: {
     position:'absolute',
-    height: 30,
-    width: 30,
+    height: 35,
+    width: 35,
     borderRadius: 20,
     justifyContent: 'center',
     alignItems: 'center',
@@ -670,8 +667,8 @@ var localStyles = StyleSheet.create({
     fontSize:16,
   },
   previewPlayButton : {
-    height : 60,
-    width : 60,
+    height : 90,
+    width : 90,
   },
   shareScreenContainer: {
     position : 'absolute',

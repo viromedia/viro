@@ -314,9 +314,7 @@ export class PhotosSelector extends Component {
     CameraRoll.getPhotos({
       first: this.props.searchIncrement,
       assetType : 'All',
-      groupName : 'Camera Roll',
       after : this.endCursor,
-      groupTypes : 'All'
     }).then((retValue)=>{
       var numResults = retValue.edges.length;
       console.log("[PhotoSelector] got " + numResults + " Camera Roll assets.");
@@ -409,7 +407,8 @@ var localStyles = StyleSheet.create({
   },
   tabBarText:{
     flex : 1,
-    fontSize : 20,
+    fontSize : 16,
+    color: '#d6d6d6',
     textAlign: 'center',
     fontFamily: 'Helvetica Neue',
 
