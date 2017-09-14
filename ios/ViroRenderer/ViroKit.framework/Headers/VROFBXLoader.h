@@ -85,6 +85,15 @@ private:
                                                                           std::shared_ptr<VROSkeleton> skeleton);
     static std::shared_ptr<VROKeyframeAnimation> loadFBXKeyframeAnimation(const viro::Node_KeyframeAnimation &animation_pb);
     
+    /*
+     Remove nodes that do not have any geometry in their sub-graph. These nodes
+     are empty cruft that do not need to be loaded into the renderer (in fact if
+     they are loaded in, they can cause significant CPU churn as we recurse down
+     them each frame).
+     */
+    static void trimEmptyNodes(std::shared_ptr<VRONode> node);
+    static bool nodeHasGeometryRecursive(std::shared_ptr<VRONode> node);
+    
 };
 
 #endif /* VROFBXLoader_h */

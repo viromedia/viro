@@ -31,6 +31,7 @@ class VROGeometrySource;
 class VROGeometrySubstrate;
 class VROMatrix4f;
 class VROInstancedUBO;
+class VRORenderMetadata;
 enum class VROGeometrySourceSemantic;
 
 /*
@@ -129,6 +130,7 @@ public:
     void updateSortKeys(VRONode *node, uint32_t hierarchyId, uint32_t hierarchyDepth,
                         uint32_t lightsHash, const std::vector<std::shared_ptr<VROLight>> &lights,
                         float opacity, float distanceFromCamera, float zFar,
+                        std::shared_ptr<VRORenderMetadata> &metadata,
                         std::shared_ptr<VRODriver> &driver);
     void getSortKeys(std::vector<VROSortKey> *outKeys);
     
