@@ -117,7 +117,6 @@ var FigmentListView = React.createClass({
 
     _isSelected(data, rowId) {
       return (this.props.listMode == UIConstants.LIST_MODE_EFFECT 
-        && this.state.selectedItem == rowId
         && this.state.animationDone
         && data.selected);
     },

@@ -139,7 +139,7 @@ var PortalItemRender = React.createClass({
             }
 
             this.setState({
-              position: retDict.location,
+              position: retDict.position,
               rotation : [0,yRotation,0],
               shouldBillboard : false
             });
