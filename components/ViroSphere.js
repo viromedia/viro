@@ -113,13 +113,6 @@ var ViroSphere = React.createClass({
     onCollision: React.PropTypes.func,
   },
 
-getInitialState: function() {
-  return {
-    propsPositionState:this.props.position,
-    nativePositionState:undefined
-  }
-},
-
   _onHover: function(event: Event) {
     this.props.onHover && this.props.onHover(event.nativeEvent.isHovering, event.nativeEvent.position, event.nativeEvent.source);
   },
@@ -206,36 +199,9 @@ getInitialState: function() {
   // for the underlying control within the renderer.
   _onNativeTransformUpdate: function(event: Event){
     var position =  event.nativeEvent.position;
-    this.setState({
-      nativePositionState:position
-    }, () => {
-      if (this.props.onTransformUpdate){
-        this.props.onTransformUpdate(position);
-      }
-    });
-  },
-
-  // Set the propsPositionState on the native control if the
-  // nextProps.position state differs from the nativePositionState that
-  // reflects this control's current vroNode position.
-  componentWillReceiveProps(nextProps){
-    if(nextProps.position != this.state.nativePositionState){
-      var newPosition = [nextProps.position[0], nextProps.position[1], nextProps.position[2], Math.random()];
-      this.setState({
-        propsPositionState:newPosition
-      });
+    if (this.props.onTransformUpdate){
+      this.props.onTransformUpdate(position);
     }
-  },
-
-
-  // Ignore all changes in native position state as it is only required to
-  // keep track of the latest position prop set on this control.
-  shouldComponentUpdate: function(nextProps, nextState) {
-    if (nextState.nativePositionState != this.state.nativePositionState){
-      return false;
-    }
-
-    return true;
   },
 
   setNativeProps: function(nativeProps) {
@@ -262,7 +228,6 @@ getInitialState: function() {
       <VRTSphere
         {...this.props}
         ref={ component => {this._component = component; }}
-        position={this.state.propsPositionState}
         materials={materials}
         transformBehaviors={transformBehaviors}
         canHover={this.props.onHover != undefined}
@@ -327,6 +292,5 @@ var VRTSphere = requireNativeComponent(
           }
   }
 );
-
 
 module.exports = ViroSphere;

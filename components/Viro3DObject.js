@@ -135,13 +135,6 @@ var Viro3DObject = React.createClass({
     onCollision: React.PropTypes.func,
   },
 
-  getInitialState: function() {
-    return {
-      propsPositionState:this.props.position,
-      nativePositionState:undefined
-    }
-  },
-
   _onHover: function(event: Event) {
     this.props.onHover && this.props.onHover(event.nativeEvent.isHovering, event.nativeEvent.position, event.nativeEvent.source);
   },
@@ -240,39 +233,13 @@ var Viro3DObject = React.createClass({
   // for the underlying control within the renderer.
   _onNativeTransformUpdate: function(event: Event){
     var position =  event.nativeEvent.position;
-    this.setState({
-      nativePositionState:position
-    }, () => {
-      if (this.props.onTransformUpdate){
+    if (this.props.onTransformUpdate) {
         this.props.onTransformUpdate(position);
-      }
-    });
+    }
   },
 
   async getTransformAsync() {
     return await NativeModules.VRTNodeModule.getNodeTransform(findNodeHandle(this));
-  },
-
-  // Set the propsPositionState on the native control if the
-  // nextProps.position state differs from the nativePositionState that
-  // reflects this control's current vroNode position.
-  componentWillReceiveProps(nextProps){
-    if(nextProps.position != this.state.nativePositionState){
-      var newPosition = [nextProps.position[0], nextProps.position[1], nextProps.position[2], Math.random()];
-      this.setState({
-        propsPositionState:newPosition
-      });
-    }
-  },
-
-  // Ignore all changes in native position state as it is only required to
-  // keep track of the latest position prop set on this control.
-  shouldComponentUpdate: function(nextProps, nextState) {
-    if (nextState.nativePositionState != this.state.nativePositionState){
-      return false;
-    }
-
-    return true;
   },
 
   render: function() {
@@ -331,7 +298,6 @@ var Viro3DObject = React.createClass({
       <VRT3DObject
         {...this.props}
         ref={ component => { this._viro3dobj = component; }}
-        position={this.state.propsPositionState}
         onNativeTransformDelegateViro={transformDelegate}
         hasTransformDelegate={this.props.onTransformUpdate != undefined}
         physicsBody={newPhysicsBody}
