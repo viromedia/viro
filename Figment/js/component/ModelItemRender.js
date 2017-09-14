@@ -100,7 +100,7 @@ var ModelItemRender = React.createClass({
               onRotate={this._onRotate}
               onPinch={this._onPinch}
               onLoadStart={this._onObjectLoadStart(this.props.modelIDProps.uuid)}
-              onLoadEnd={this._onObjectLoadEnd(this.props.modelIDProps.uuid)}
+              onLoadEnd={this._onObjectLoadEnd(this.props.modelIDProps.uuid)} 
               type = "VRX"/>
 
             <ViroSurface
@@ -134,8 +134,8 @@ var ModelItemRender = React.createClass({
             let rotation = retDict.rotation;
             let absX = Math.abs(rotation[0]);
             let absZ = Math.abs(rotation[2]);
-            // negate the y rotation
-            let yRotation = - (rotation[1]);
+            
+            let yRotation = (rotation[1]);
 
             // if the X and Z aren't 0, then adjust the y rotation.
             if (absX > 1 && absZ > 1) {
@@ -143,7 +143,6 @@ var ModelItemRender = React.createClass({
             }
 
             this.setState({
-              position: retDict.position,
               rotation : [0,yRotation,0],
               shouldBillboard : false
             });
