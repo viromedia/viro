@@ -100,7 +100,7 @@ var ModelItemRender = React.createClass({
               onRotate={this._onRotate}
               onPinch={this._onPinch}
               onLoadStart={this._onObjectLoadStart(this.props.modelIDProps.uuid)}
-              onLoadEnd={this._onObjectLoadEnd(this.props.modelIDProps.uuid)} 
+              onLoadEnd={this._onObjectLoadEnd(this.props.modelIDProps.uuid)}
               type = "VRX"/>
 
             <ViroSurface
@@ -143,7 +143,7 @@ var ModelItemRender = React.createClass({
             }
 
             this.setState({
-              position: retDict.location,
+              position: retDict.position,
               rotation : [0,yRotation,0],
               shouldBillboard : false
             });
