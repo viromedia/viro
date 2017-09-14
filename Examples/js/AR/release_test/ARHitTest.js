@@ -40,17 +40,18 @@ var testARScene = React.createClass({
   getInitialState: function() {
     return {
       surfaceSize : [0,0,0],
+      center : [0,0,0],
       testWithRay : true,
     }
   },
   render: function() {
     return (
-        <ViroARScene ref="arscene">
+        <ViroARScene ref="arscene" onClick={this.state.testWithRay ? this._onSurfaceClickCameraForward : this._onSurfaceClickUsingPosition} >
           <ViroText position={polarToCartesian([2, -10, 0])} text={"Mode: " + (this.state.testWithRay ? "testWithRay" : "testWithPosition")}
             style={styles.baseTextTwo} onClick={this._switchRayTestType} transformBehaviors={["billboard"]}/>
           <ViroARPlane onAnchorUpdated={this._onPlaneUpdate}>
-            <ViroSurface materials={"transparent"} scale={this.state.surfaceSize}
-             rotation={[-90, 0, 0]} onClick={this._onSurfaceClickUsingPosition}/>
+            <ViroSurface materials={"transparent"} position={this.state.center} scale={this.state.surfaceSize}
+             rotation={[-90, 0, 0]} />
           </ViroARPlane>
           {this._getBox()}
 
@@ -82,7 +83,8 @@ var testARScene = React.createClass({
   },
   _onPlaneUpdate(updateDict) {
     this.setState({
-      surfaceSize : [updateDict.width, updateDict.height, 1]
+      surfaceSize : [updateDict.width, updateDict.height, 1],
+      center : updateDict.center,
     })
   },
   _onSurfaceClickCameraForward() {

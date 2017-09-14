@@ -37,14 +37,16 @@ var testARScene = React.createClass({
   getInitialState: function() {
     return {
       surfaceSize : [0,0,0],
+      center : [0,0,0],
     }
   },
   render: function() {
     return (
         <ViroARScene ref="arscene">
           <ViroARPlane onAnchorUpdated={this._onPlaneUpdate}>
-            <ViroSurface materials={"transparent"} scale={this.state.surfaceSize}
-             rotation={[-90, 0, 0]} onClick={this._onSurfaceClickUsingPosition}/>
+            <ViroSurface materials={"transparent"} position={this.state.center}
+             scale={this.state.surfaceSize} rotation={[-90, 0, 0]}
+             onClick={this._onSurfaceClickUsingPosition}/>
           </ViroARPlane>
           {this._getBox()}
         </ViroARScene>
@@ -67,7 +69,8 @@ var testARScene = React.createClass({
   },
   _onPlaneUpdate(updateDict) {
     this.setState({
-      surfaceSize : [updateDict.width, updateDict.height, 1]
+      surfaceSize : [updateDict.width, updateDict.height, 1],
+      center : updateDict.center,
     })
   },
   _onSurfaceClickCameraForward() {
