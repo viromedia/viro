@@ -190,7 +190,7 @@ var PhysicsRayTest = React.createClass({
                         type:this.state.toggleFriction ? 'dynamic' : 'kinematic',
                         mass:this.state.toggleFriction ? 5 :0,
                         friction:this.state.friction,
-                        force: this.state.toggleFriction ? {power:[0,0,-30]} : {power:[0,0,0]}
+                        force: this.state.toggleFriction ? {value:[0,0,-30]} : {value:[0,0,0]}
                       }}
                       />
                 </ViroNode>
