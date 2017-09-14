@@ -1,5 +1,5 @@
 //
-//  VRTPortalFrameManager.h
+//  VRTPortalSceneManager.h
 //  ViroExample
 //
 //  Created by Raj Advani on 8/6/17.
@@ -9,6 +9,6 @@
 #import <Foundation/Foundation.h>
 #import "ViroViewManager.h"
 
-@interface VRTPortalFrameManager : ViroViewManager
+@interface VRTPortalSceneManager : ViroViewManager
 
 @end

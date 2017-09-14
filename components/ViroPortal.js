@@ -235,7 +235,7 @@ var ViroPortal = React.createClass({
 });
 
 var VRTPortalFrame = requireNativeComponent(
-  'VRTPortalFrame', ViroPortal, {
+  'VRTPortal', ViroPortal, {
     nativeOnly: {
             materials: [],
             canHover: true,

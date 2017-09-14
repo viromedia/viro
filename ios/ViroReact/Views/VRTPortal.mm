@@ -7,7 +7,8 @@
 //
 
 #import "VRTPortal.h"
-#import "VRTPortalFrame.h"
+#import "VRT3DObject.h"
+#import <React/RCTLog.h>
 
 @interface VRTPortal ()
 
@@ -23,34 +24,19 @@
     return self;
 }
 
+- (void)insertReactSubview:(UIView *)subview atIndex:(NSInteger)atIndex {
+    if(![subview isKindOfClass:[VRT3DObject class]]) {
+           RCTLogError(@"Only a Viro3DObject can be a child of ViroPortal.");
+    }
+ 
+    [super insertReactSubview:subview atIndex:atIndex];
+}
 - (std::shared_ptr<VRONode>)createVroNode {
-    return std::make_shared<VROPortal>();
+    return std::make_shared<VROPortalFrame>();
 }
 
-- (std::shared_ptr<VROPortal>)portal {
-    return std::dynamic_pointer_cast<VROPortal>(self.node);
-}
-
-- (void)setPassable:(BOOL)passable {
-    [self portal]->setPassable(passable);
-}
-
-- (void)insertReactSubview:(UIView *)view atIndex:(NSInteger)atIndex {
-    if ([view isKindOfClass:[VRTPortalFrame class]]) {
-        VRTPortalFrame *frameView = (VRTPortalFrame *)view;
-        [self portal]->setPortalEntrance([frameView portalFrame]);
-    }
-    [super insertReactSubview:view atIndex:atIndex];
-}
-
-- (void)removeReactSubview:(UIView *)subview {
-    if ([subview isKindOfClass:[VRTPortalFrame class]]) {
-        VRTPortalFrame *frameView = (VRTPortalFrame *)subview;
-        [frameView clearPhysicsBody];
-        
-        [self portal]->setPortalEntrance({});
-    }
-    [super removeReactSubview:subview];
+- (std::shared_ptr<VROPortalFrame>)portalFrame {
+    return std::dynamic_pointer_cast<VROPortalFrame>(self.node);
 }
 
 @end

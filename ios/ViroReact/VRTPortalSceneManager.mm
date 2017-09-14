@@ -1,16 +1,16 @@
 //
-//  VRTPortalFrameManager.m
+//  VRTPortalSceneManager.m
 //  ViroExample
 //
 //  Created by Raj Advani on 8/6/17.
 //  Copyright © 2017 Viro Media. All rights reserved.
 //
 
-#import "VRTPortalFrameManager.h"
-#import "VRTPortalFrame.h"
+#import "VRTPortalSceneManager.h"
+#import "VRTPortalScene.h"
 #import "VRTNodeContainerShadowView.h"
 
-@implementation VRTPortalFrameManager
+@implementation VRTPortalSceneManager
 
 RCT_EXPORT_MODULE()
 
@@ -28,24 +28,23 @@ RCT_EXPORT_VIEW_PROPERTY(onHoverViro, RCTDirectEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onClickViro, RCTDirectEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onFuseViro, RCTDirectEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onDragViro, RCTDirectEventBlock)
+RCT_EXPORT_VIEW_PROPERTY(onPinchViro, RCTDirectEventBlock)
+RCT_EXPORT_VIEW_PROPERTY(onRotateViro, RCTDirectEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(timeToFuse, float)
 RCT_EXPORT_VIEW_PROPERTY(canHover, BOOL)
 RCT_EXPORT_VIEW_PROPERTY(canClick, BOOL)
 RCT_EXPORT_VIEW_PROPERTY(canFuse, BOOL)
 RCT_EXPORT_VIEW_PROPERTY(canDrag, BOOL)
-RCT_EXPORT_VIEW_PROPERTY(opacity, float)
-RCT_EXPORT_VIEW_PROPERTY(onPinchViro, RCTDirectEventBlock)
-RCT_EXPORT_VIEW_PROPERTY(onRotateViro, RCTDirectEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(canPinch, BOOL)
 RCT_EXPORT_VIEW_PROPERTY(canRotate, BOOL)
+RCT_EXPORT_VIEW_PROPERTY(opacity, float)
 RCT_EXPORT_VIEW_PROPERTY(physicsBody, NSDictionary)
 RCT_EXPORT_VIEW_PROPERTY(onCollisionViro, RCTDirectEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(canCollide, BOOL)
+RCT_EXPORT_VIEW_PROPERTY(passable, BOOL)
 RCT_EXPORT_VIEW_PROPERTY(viroTag, NSString)
 RCT_EXPORT_VIEW_PROPERTY(onNativeTransformDelegateViro, RCTDirectEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(hasTransformDelegate, BOOL)
-RCT_EXPORT_VIEW_PROPERTY(lightReceivingBitMask, int)
-RCT_EXPORT_VIEW_PROPERTY(shadowCastingBitMask, int)
 RCT_EXPORT_VIEW_PROPERTY(ignoreEventHandling, BOOL)
 RCT_EXPORT_VIEW_PROPERTY(dragType, NSString)
 
@@ -54,9 +53,9 @@ RCT_EXPORT_VIEW_PROPERTY(dragType, NSString)
     return [VRTNodeContainerShadowView new];
 }
 
-- (VRTPortalFrame *)view
+- (VRTPortalScene *)view
 {
-    return [[VRTPortalFrame alloc] initWithBridge:self.bridge];
+    return [[VRTPortalScene alloc] initWithBridge:self.bridge];
 }
 
 @end

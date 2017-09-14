@@ -9,8 +9,9 @@
 #import <Foundation/Foundation.h>
 #import "VRTNode.h"
 
-@interface VRTPortalFrame : VRTNode
+@interface VRTPortalScene : VRTNode
 
-- (std::shared_ptr<VROPortalFrame>)portalFrame;
+@property (readwrite, nonatomic) BOOL passable;
+- (std::shared_ptr<VROPortal>)portal;
 
 @end

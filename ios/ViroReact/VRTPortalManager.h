@@ -1,5 +1,5 @@
 //
-//  VRTPortalManager.h
+//  VRTPortalFrameManager.h
 //  ViroExample
 //
 //  Created by Raj Advani on 8/6/17.

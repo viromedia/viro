@@ -11,7 +11,6 @@
 
 @interface VRTPortal : VRTNode
 
-@property (readwrite, nonatomic) BOOL passable;
-- (std::shared_ptr<VROPortal>)portal;
+- (std::shared_ptr<VROPortalFrame>)portalFrame;
 
 @end
