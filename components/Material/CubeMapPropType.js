@@ -12,49 +12,49 @@
 'use strict';
 
 import React from 'react';
-var ReactPropTypes = React.PropTypes;
+import PropTypes from 'prop-types';
 
 // Reflective textures are cube maps(nx, px, ny, py, nz, pz), which is
 // left(negative x), right(positive x), down(neg y), up(pos y), forward(neg z), backward(pos z)
 
-var CubeMapPropType = ReactPropTypes.shape(
+var CubeMapPropType = PropTypes.shape(
     {
       // Opaque type returned by require('./image.jpg')
-      nx: ReactPropTypes.oneOfType([
-        ReactPropTypes.shape({
-          uri: ReactPropTypes.string,
+      nx: PropTypes.oneOfType([
+        PropTypes.shape({
+          uri: PropTypes.string,
         }),
-        ReactPropTypes.number,
+        PropTypes.number,
       ]).isRequired,
-      px: ReactPropTypes.oneOfType([
-        ReactPropTypes.shape({
-          uri: ReactPropTypes.string,
+      px: PropTypes.oneOfType([
+        PropTypes.shape({
+          uri: PropTypes.string,
         }),
-        ReactPropTypes.number,
+        PropTypes.number,
       ]).isRequired,
-      ny: ReactPropTypes.oneOfType([
-        ReactPropTypes.shape({
-          uri: ReactPropTypes.string,
+      ny: PropTypes.oneOfType([
+        PropTypes.shape({
+          uri: PropTypes.string,
         }),
-        ReactPropTypes.number,
+        PropTypes.number,
       ]).isRequired,
-      py: ReactPropTypes.oneOfType([
-        ReactPropTypes.shape({
-          uri: ReactPropTypes.string,
+      py: PropTypes.oneOfType([
+        PropTypes.shape({
+          uri: PropTypes.string,
         }),
-        ReactPropTypes.number,
+        PropTypes.number,
       ]).isRequired,
-      nz: ReactPropTypes.oneOfType([
-        ReactPropTypes.shape({
-          uri: ReactPropTypes.string,
+      nz: PropTypes.oneOfType([
+        PropTypes.shape({
+          uri: PropTypes.string,
         }),
-        ReactPropTypes.number,
+        PropTypes.number,
       ]).isRequired,
-      pz: ReactPropTypes.oneOfType([
-        ReactPropTypes.shape({
-          uri: ReactPropTypes.string,
+      pz: PropTypes.oneOfType([
+        PropTypes.shape({
+          uri: PropTypes.string,
         }),
-        ReactPropTypes.number,
+        PropTypes.number,
       ]).isRequired,
     }
 );

@@ -21,7 +21,7 @@ import {
 import React, { Component } from 'react';
 import resolveAssetSource from "react-native/Libraries/Image/resolveAssetSource";
 
-var PropTypes = React.PropTypes;
+import PropTypes from 'prop-types';
 var NativeModules = require('react-native').NativeModules;
 
 /**
@@ -51,31 +51,31 @@ var Viro360Video = React.createClass({
      * Callback invoked when the underlying video component begins buffering. Called at
      * least once at the beginning of playback/video creation.
      */
-    onBufferStart: React.PropTypes.func,
+    onBufferStart: PropTypes.func,
 
     /**
      * Callback invoked when the underlying video component has finished buffering.
      */
-    onBufferEnd: React.PropTypes.func,
+    onBufferEnd: PropTypes.func,
 
     /**
      * Callback that is called when the video is finished playing. This
      * function isn't called at the end of a video if looping is enabled.
      */
-    onFinish: React.PropTypes.func,
+    onFinish: PropTypes.func,
 
     /**
       * Callback that is called when the current playback position has changed.
       * This is called in the form:
       *     onUpdateTime(currentPlaybackTimeInSeconds, totalPlayBackDurationInSeconds);
       */
-    onUpdateTime: React.PropTypes.func,
+    onUpdateTime: PropTypes.func,
 
     /**
      * Callback triggered when the video fails to load. Invoked with
      * {nativeEvent: {error}}
      */
-    onError: React.PropTypes.func,
+    onError: PropTypes.func,
     stereoMode:PropTypes.oneOf(['leftRight', 'rightLeft', 'topBottom', 'bottomTop', 'none']),
   },
 

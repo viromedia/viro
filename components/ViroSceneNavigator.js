@@ -12,7 +12,7 @@
 'use strict';
 
 var NativeModules = require('react-native').NativeModules;
-var PropTypes = React.PropTypes;
+import PropTypes from 'prop-types';
 var ViroSceneNavigatorModule = require('react-native').NativeModules.VRTSceneNavigatorModule;
 import { requireNativeComponent, View, StyleSheet, findNodeHandle } from 'react-native';
 import React, { Component } from 'react';
@@ -61,7 +61,7 @@ var ViroSceneNavigator = React.createClass({
          * Called when either the user physically decides to exit vr (hits
          * the "X" buton).
          */
-        onExitViro: React.PropTypes.func,
+        onExitViro: PropTypes.func,
       }).isRequired,
   },
 

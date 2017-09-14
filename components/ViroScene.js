@@ -8,30 +8,30 @@
  */
 import { requireNativeComponent, findNodeHandle, View } from 'react-native';
 import React, { Component } from 'react';
-var PropTypes = React.PropTypes;
+import PropTypes from 'prop-types';
 var NativeModules = require('react-native').NativeModules;
 
 var ViroScene = React.createClass({
   propTypes: {
     ...View.propTypes,
 
-    onHover: React.PropTypes.func,
-    onClick: React.PropTypes.func,
-    onClickState: React.PropTypes.func,
-    onTouch: React.PropTypes.func,
-    onScroll: React.PropTypes.func,
-    onSwipe: React.PropTypes.func,
+    onHover: PropTypes.func,
+    onClick: PropTypes.func,
+    onClickState: PropTypes.func,
+    onTouch: PropTypes.func,
+    onScroll: PropTypes.func,
+    onSwipe: PropTypes.func,
     onFuse: PropTypes.oneOfType([
-      React.PropTypes.shape({
-        callback: React.PropTypes.func.isRequired,
+      PropTypes.shape({
+        callback: PropTypes.func.isRequired,
         timeToFuse: PropTypes.number
       }),
-      React.PropTypes.func
+      PropTypes.func
     ]),
-    onDrag: React.PropTypes.func,
-    onPinch: React.PropTypes.func,
-    onRotate: React.PropTypes.func,
-    onPlatformUpdate: React.PropTypes.func,
+    onDrag: PropTypes.func,
+    onPinch: PropTypes.func,
+    onRotate: PropTypes.func,
+    onPlatformUpdate: PropTypes.func,
     ignoreEventHandling: PropTypes.bool,
     dragType: PropTypes.oneOf(["FixedDistance", "FixedToWorld"]),
 
@@ -201,9 +201,9 @@ var ViroScene = React.createClass({
 });
 
 ViroScene.childContextTypes = {
-  cameraDidMount: React.PropTypes.func,
-  cameraWillUnmount: React.PropTypes.func,
-  cameraWillReceiveProps: React.PropTypes.func,
+  cameraDidMount: PropTypes.func,
+  cameraWillUnmount: PropTypes.func,
+  cameraWillReceiveProps: PropTypes.func,
 };
 
 var VRTScene = requireNativeComponent(

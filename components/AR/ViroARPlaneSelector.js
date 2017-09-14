@@ -13,7 +13,8 @@
 
 import { requireNativeComponent, View, StyleSheet, findNodeHandle } from 'react-native';
 import React, { Component } from 'react';
-var PropTypes = React.PropTypes;
+import PropTypes from 'prop-types';
+
 var ViroMaterials = require('../Material/ViroMaterials');
 var ViroARPlane = require('./ViroARPlane');
 var ViroSurface = require('../ViroSurface');
@@ -38,28 +39,28 @@ var ViroARPlaneSelector = React.createClass({
     ignoreEventHandling: PropTypes.bool,
     dragType: PropTypes.oneOf(["FixedDistance", "FixedToWorld"]),
 
-    onHover: React.PropTypes.func,
-    onClick: React.PropTypes.func,
-    onClickState: React.PropTypes.func,
-    onTouch: React.PropTypes.func,
-    onScroll: React.PropTypes.func,
-    onSwipe: React.PropTypes.func,
-    onDrag: React.PropTypes.func,
-    onPinch: React.PropTypes.func,
-    onRotate: React.PropTypes.func,
+    onHover: PropTypes.func,
+    onClick: PropTypes.func,
+    onClickState: PropTypes.func,
+    onTouch: PropTypes.func,
+    onScroll: PropTypes.func,
+    onSwipe: PropTypes.func,
+    onDrag: PropTypes.func,
+    onPinch: PropTypes.func,
+    onRotate: PropTypes.func,
     onFuse: PropTypes.oneOfType([
-      React.PropTypes.shape({
-        callback: React.PropTypes.func.isRequired,
+      PropTypes.shape({
+        callback: PropTypes.func.isRequired,
         timeToFuse: PropTypes.number
       }),
-      React.PropTypes.func
+      PropTypes.func
     ]),
-    onCollision: React.PropTypes.func,
+    onCollision: PropTypes.func,
     viroTag: PropTypes.string,
-    onAnchorFound: React.PropTypes.func,
-    onAnchorUpdated: React.PropTypes.func,
-    onAnchorRemoved: React.PropTypes.func,
-    onPlaneSelected: React.PropTypes.func,
+    onAnchorFound: PropTypes.func,
+    onAnchorUpdated: PropTypes.func,
+    onAnchorRemoved: PropTypes.func,
+    onPlaneSelected: PropTypes.func,
   },
 
   getInitialState: function() {

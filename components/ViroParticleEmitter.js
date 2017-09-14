@@ -15,7 +15,7 @@ import { requireNativeComponent, View, findNodeHandle } from 'react-native';
 import React from 'react';
 import resolveAssetSource from "react-native/Libraries/Image/resolveAssetSource";
 var NativeModules = require('react-native').NativeModules;
-var PropTypes = React.PropTypes;
+import PropTypes from 'prop-types';
 var StyleSheet = require('react-native/Libraries/StyleSheet/StyleSheet');
 
 var ViroPropTypes = require('./Styles/ViroPropTypes');
@@ -32,7 +32,7 @@ var ViroParticleEmitter = React.createClass({
     scale: PropTypes.arrayOf(PropTypes.number),
     scalePivot: PropTypes.arrayOf(PropTypes.number),
     rotationPivot: PropTypes.arrayOf(PropTypes.number),
-    onTransformUpdate: React.PropTypes.func,
+    onTransformUpdate: PropTypes.func,
     visible: PropTypes.bool,
 
     duration: PropTypes.number,

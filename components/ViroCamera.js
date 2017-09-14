@@ -13,7 +13,7 @@
 
 import { requireNativeComponent, View, StyleSheet } from 'react-native';
 import React, { Component } from 'react';
-var PropTypes = React.PropTypes;
+import PropTypes from 'prop-types';
 
 var ViroCamera = React.createClass({
   propTypes: {
@@ -50,9 +50,9 @@ var ViroCamera = React.createClass({
 });
 
 ViroCamera.contextTypes = {
-  cameraDidMount: React.PropTypes.func,
-  cameraWillUnmount: React.PropTypes.func,
-  cameraWillReceiveProps: React.PropTypes.func,
+  cameraDidMount: PropTypes.func,
+  cameraWillUnmount: PropTypes.func,
+  cameraWillReceiveProps: PropTypes.func,
 };
 
 var VRTCamera = requireNativeComponent(

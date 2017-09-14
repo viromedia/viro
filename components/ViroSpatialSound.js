@@ -15,7 +15,7 @@ import { requireNativeComponent, View, Platform, findNodeHandle } from 'react-na
 import resolveAssetSource from "react-native/Libraries/Image/resolveAssetSource";
 import React from 'react';
 
-var PropTypes = React.PropTypes;
+import PropTypes from 'prop-types';
 var NativeModules = require('react-native').NativeModules;
 
 var ViroSpatialSound = React.createClass({
@@ -41,8 +41,8 @@ var ViroSpatialSound = React.createClass({
     rolloffModel: PropTypes.string,
     minDistance: PropTypes.number,
     maxDistance: PropTypes.number,
-    onFinish: React.PropTypes.func,
-    onError: React.PropTypes.func,
+    onFinish: PropTypes.func,
+    onError: PropTypes.func,
   },
 
   _onFinish: function(event: Event) {

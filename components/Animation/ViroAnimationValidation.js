@@ -12,9 +12,9 @@
 'use strict';
 
 import React from 'react';
+import PropTypes from 'prop-types'
 
 var AnimationPropTypes = require('./ViroAnimationPropTypes');
-var ReactPropTypesSecret = React.PropTypesSecret;
 var invariant = require('fbjs/lib/invariant');
 
 class ViroAnimationValidation {
@@ -36,7 +36,7 @@ class ViroAnimationValidation {
     validationDict[prop] = AnimationPropTypes[prop];
     let valueDict = {};
     valueDict[prop] = animation[prop];
-    React.PropTypes.checkPropTypes(validationDict, valueDict, 'prop', caller, errorCallback);
+    PropTypes.checkPropTypes(validationDict, valueDict, 'prop', caller, errorCallback);
   }
 
   static validateAnimation(name, animations) {
@@ -52,7 +52,7 @@ class ViroAnimationValidation {
     // var errorCallback = ()=>{
     //   animationError("Error validating Animation: [" + name + "]", animations[name], 'AnimationValidation ' + name);
     // };
-    // React.PropTypes.checkPropTypes(AnimationPropTypes, name, animations[name], 'prop', 'AnimationValidation ' + name, errorCallback);
+    // PropTypes.checkPropTypes(AnimationPropTypes, name, animations[name], 'prop', 'AnimationValidation ' + name, errorCallback);
 
   }
 

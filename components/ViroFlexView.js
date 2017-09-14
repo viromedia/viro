@@ -20,7 +20,7 @@ import {
 import React from 'react';
 
 var NativeModules = require('react-native/Libraries/BatchedBridge/NativeModules');
-var PropTypes = React.PropTypes;
+import PropTypes from 'prop-types';
 var StyleSheet = require('react-native/Libraries/StyleSheet/StyleSheet');
 var ViroPropTypes = require('./Styles/ViroPropTypes');
 var ColorPropType = require('react-native/Libraries/StyleSheet/ColorPropType');
@@ -62,28 +62,28 @@ var ViroFlexView = React.createClass({
     ignoreEventHandling: PropTypes.bool,
     dragType: PropTypes.oneOf(["FixedDistance", "FixedToWorld"]),
 
-    onTransformUpdate: React.PropTypes.func,
-    onHover: React.PropTypes.func,
-    onClick: React.PropTypes.func,
-    onClickState: React.PropTypes.func,
-    onTouch: React.PropTypes.func,
-    onScroll: React.PropTypes.func,
-    onSwipe: React.PropTypes.func,
-    onDrag: React.PropTypes.func,
-    onPinch: React.PropTypes.func,
-    onRotate: React.PropTypes.func,
+    onTransformUpdate: PropTypes.func,
+    onHover: PropTypes.func,
+    onClick: PropTypes.func,
+    onClickState: PropTypes.func,
+    onTouch: PropTypes.func,
+    onScroll: PropTypes.func,
+    onSwipe: PropTypes.func,
+    onDrag: PropTypes.func,
+    onPinch: PropTypes.func,
+    onRotate: PropTypes.func,
     onFuse: PropTypes.oneOfType([
-      React.PropTypes.shape({
-        callback: React.PropTypes.func.isRequired,
+      PropTypes.shape({
+        callback: PropTypes.func.isRequired,
         timeToFuse: PropTypes.number
       }),
-      React.PropTypes.func
+      PropTypes.func
     ]),
-    physicsBody: React.PropTypes.shape({
-      type: React.PropTypes.oneOf(['dynamic','kinematic','static']).isRequired,
+    physicsBody: PropTypes.shape({
+      type: PropTypes.oneOf(['dynamic','kinematic','static']).isRequired,
       mass: PropTypes.number,
       restitution: PropTypes.number,
-      shape: React.PropTypes.shape({
+      shape: PropTypes.shape({
         type: PropTypes.oneOf(["box", "sphere"]).isRequired,
         params: PropTypes.arrayOf(PropTypes.number)
       }).isRequired,
@@ -92,11 +92,11 @@ var ViroFlexView = React.createClass({
       enabled: PropTypes.bool,
       velocity: PropTypes.arrayOf(PropTypes.number),
       force: PropTypes.oneOfType([
-        PropTypes.arrayOf(React.PropTypes.shape({
+        PropTypes.arrayOf(PropTypes.shape({
           value: PropTypes.arrayOf(PropTypes.number),
           position: PropTypes.arrayOf(PropTypes.number)
         })),
-        React.PropTypes.shape({
+        PropTypes.shape({
           value: PropTypes.arrayOf(PropTypes.number),
           position: PropTypes.arrayOf(PropTypes.number)
         }),
@@ -105,7 +105,7 @@ var ViroFlexView = React.createClass({
     }),
 
     viroTag: PropTypes.string,
-    onCollision: React.PropTypes.func,
+    onCollision: PropTypes.func,
   },
 
 

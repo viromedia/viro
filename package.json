@@ -13,7 +13,7 @@
   },
   "peerDependencies": {
     "react": "16.0.0-alpha.12",
-    "react-native": "0.47.2" 
+    "react-native": "0.47.2"
   },
   "files": [
     "components",
@@ -24,5 +24,8 @@
     "ios/ViroReact.podspec",
     "bin",
     "LICENSE"
-  ]
+  ],
+  "dependencies": {
+    "prop-types": "^15.5.10"
+  }
 }

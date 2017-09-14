@@ -12,9 +12,9 @@
 'use strict';
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 var MaterialPropTypes = require('./MaterialPropTypes');
-var ReactPropTypesSecret = React.PropTypesSecret;
 var invariant = require('fbjs/lib/invariant');
 
 class MaterialValidation {
@@ -41,7 +41,7 @@ class MaterialValidation {
     validationDict[prop] = MaterialPropTypes[prop];
     let valueDict = {};
     valueDict[prop] = material[prop];
-    React.PropTypes.checkPropTypes(validationDict, valueDict, 'prop', caller, errorCallback);
+    PropTypes.checkPropTypes(validationDict, valueDict, 'prop', caller, errorCallback);
   }
 
   static validateMaterial(name, materials) {
@@ -57,7 +57,7 @@ class MaterialValidation {
     // var errorCallback = ()=>{
     //   materialError("Error validating Material: [" + name + "]", materials[name], 'MaterialValidation ' + name);
     // };
-    // React.PropTypes.checkPropTypes(MaterialPropTypes, name, materials[name], 'prop', 'MaterialValidation ' + name, errorCallback);
+    // PropTypes.checkPropTypes(MaterialPropTypes, name, materials[name], 'prop', 'MaterialValidation ' + name, errorCallback);
 
   }
 

@@ -14,7 +14,7 @@
 import { requireNativeComponent, View, findNodeHandle } from 'react-native';
 import React from 'react';
 var NativeModules = require('react-native').NativeModules;
-var PropTypes = React.PropTypes;
+import PropTypes from 'prop-types';
 var StyleSheet = require('react-native/Libraries/StyleSheet/StyleSheet');
 
 var ViroPropTypes = require('./Styles/ViroPropTypes');
@@ -39,12 +39,12 @@ var ViroSurface = React.createClass({
       PropTypes.arrayOf(PropTypes.string),
       PropTypes.string
     ]),
-    animation: React.PropTypes.shape({
+    animation: PropTypes.shape({
       name: PropTypes.string,
       delay: PropTypes.number,
       loop: PropTypes.bool,
-      onStart: React.PropTypes.func,
-      onFinish: React.PropTypes.func,
+      onStart: PropTypes.func,
+      onFinish: PropTypes.func,
       run: PropTypes.bool,
     }),
     transformBehaviors: PropTypes.oneOfType([
@@ -56,31 +56,31 @@ var ViroSurface = React.createClass({
     lightReceivingBitMask : PropTypes.number,
     shadowCastingBitMask : PropTypes.number,
     arShadowReceiver: PropTypes.bool,
-    onTransformUpdate: React.PropTypes.func,
+    onTransformUpdate: PropTypes.func,
     visible: PropTypes.bool,
     style: stylePropType,
 
-    onHover: React.PropTypes.func,
-    onClick: React.PropTypes.func,
-    onClickState: React.PropTypes.func,
-    onTouch: React.PropTypes.func,
-    onScroll: React.PropTypes.func,
-    onSwipe: React.PropTypes.func,
-    onDrag: React.PropTypes.func,
-    onPinch: React.PropTypes.func,
-    onRotate: React.PropTypes.func,
+    onHover: PropTypes.func,
+    onClick: PropTypes.func,
+    onClickState: PropTypes.func,
+    onTouch: PropTypes.func,
+    onScroll: PropTypes.func,
+    onSwipe: PropTypes.func,
+    onDrag: PropTypes.func,
+    onPinch: PropTypes.func,
+    onRotate: PropTypes.func,
     onFuse: PropTypes.oneOfType([
-      React.PropTypes.shape({
-        callback: React.PropTypes.func.isRequired,
+      PropTypes.shape({
+        callback: PropTypes.func.isRequired,
         timeToFuse: PropTypes.number
       }),
-      React.PropTypes.func
+      PropTypes.func
     ]),
-    physicsBody: React.PropTypes.shape({
-      type: React.PropTypes.oneOf(['dynamic','kinematic','static']).isRequired,
+    physicsBody: PropTypes.shape({
+      type: PropTypes.oneOf(['dynamic','kinematic','static']).isRequired,
       mass: PropTypes.number,
       restitution: PropTypes.number,
-      shape: React.PropTypes.shape({
+      shape: PropTypes.shape({
         type: PropTypes.oneOf(["box", "sphere"]).isRequired,
         params: PropTypes.arrayOf(PropTypes.number)
       }),
@@ -89,11 +89,11 @@ var ViroSurface = React.createClass({
       enabled: PropTypes.bool,
       velocity: PropTypes.arrayOf(PropTypes.number),
       force: PropTypes.oneOfType([
-        PropTypes.arrayOf(React.PropTypes.shape({
+        PropTypes.arrayOf(PropTypes.shape({
           value: PropTypes.arrayOf(PropTypes.number),
           position: PropTypes.arrayOf(PropTypes.number)
         })),
-        React.PropTypes.shape({
+        PropTypes.shape({
           value: PropTypes.arrayOf(PropTypes.number),
           position: PropTypes.arrayOf(PropTypes.number)
         }),
@@ -102,7 +102,7 @@ var ViroSurface = React.createClass({
     }),
 
     viroTag: PropTypes.string,
-    onCollision: React.PropTypes.func,
+    onCollision: PropTypes.func,
   },
 
   _onHover: function(event: Event) {

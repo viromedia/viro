@@ -11,24 +11,24 @@
 import { requireNativeComponent, findNodeHandle, View, StyleSheet, Platform } from 'react-native';
 import React, { Component } from 'react';
 var NativeModules = require('react-native').NativeModules;
-var PropTypes = React.PropTypes;
+import PropTypes from 'prop-types';
 var ViroControllerModule = require('react-native').NativeModules.VRTControllerModule;
 
 var ViroController = React.createClass({
 
   propTypes: {
     ...View.propTypes,
-    onHover: React.PropTypes.func,
-    onClick: React.PropTypes.func,
-    onClickState: React.PropTypes.func,
-    onTouch: React.PropTypes.func,
-    onScroll: React.PropTypes.func,
-    onSwipe: React.PropTypes.func,
-    onControllerStatus: React.PropTypes.func,
-    onDrag: React.PropTypes.func,
-    onPinch: React.PropTypes.func,
-    onRotate: React.PropTypes.func,
-    onFuse: React.PropTypes.func,
+    onHover: PropTypes.func,
+    onClick: PropTypes.func,
+    onClickState: PropTypes.func,
+    onTouch: PropTypes.func,
+    onScroll: PropTypes.func,
+    onSwipe: PropTypes.func,
+    onControllerStatus: PropTypes.func,
+    onDrag: PropTypes.func,
+    onPinch: PropTypes.func,
+    onRotate: PropTypes.func,
+    onFuse: PropTypes.func,
     reticleVisibility: PropTypes.bool,
     controllerVisibility: PropTypes.bool,
   },

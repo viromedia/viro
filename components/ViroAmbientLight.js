@@ -16,7 +16,7 @@ import { requireNativeComponent, View, StyleSheet, Platform } from 'react-native
 import React, { Component } from 'react';
 import normalizeColor from "react-native/Libraries/StyleSheet/normalizeColor"
 var NativeModules = require('react-native').NativeModules;
-var PropTypes = React.PropTypes;
+import PropTypes from 'prop-types';
 var ColorPropType = require('react-native').ColorPropType;
 
 

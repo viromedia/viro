@@ -14,7 +14,7 @@
 import { requireNativeComponent, View, StyleSheet } from 'react-native';
 import React, { Component } from 'react';
 import resolveAssetSource from "react-native/Libraries/Image/resolveAssetSource";
-var PropTypes = React.PropTypes;
+import PropTypes from 'prop-types';
 
 /**
  * Used to render a 360 image in a sphere.
@@ -41,7 +41,7 @@ var Viro360Image = React.createClass({
      * Callback triggered when we are processing the assets to be
      * displayed in this 360 Photo (either downloading / reading from file).
      */
-    onLoadStart: React.PropTypes.func,
+    onLoadStart: PropTypes.func,
 
     /**
      * Callback triggered when we have finished processing assets to be
@@ -55,13 +55,13 @@ var Viro360Image = React.createClass({
      *   }
      *
      */
-    onLoadEnd: React.PropTypes.func,
+    onLoadEnd: PropTypes.func,
 
     /**
      * Callback triggered when the image fails to load. Invoked with
      * {nativeEvent: {error}}
      */
-    onError: React.PropTypes.func,
+    onError: PropTypes.func,
 
   },
 

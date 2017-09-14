@@ -14,7 +14,7 @@
 import { requireNativeComponent, View, StyleSheet, findNodeHandle } from 'react-native';
 import React, { Component } from 'react';
 var NativeModules = require('react-native').NativeModules;
-var PropTypes = React.PropTypes;
+import PropTypes from 'prop-types';
 
 import resolveAssetSource from "react-native/Libraries/Image/resolveAssetSource";
 
@@ -44,7 +44,7 @@ var Viro3DObject = React.createClass({
 
     lightReceivingBitMask : PropTypes.number,
     shadowCastingBitMask : PropTypes.number,
-    onTransformUpdate: React.PropTypes.func,
+    onTransformUpdate: PropTypes.func,
     /*
      * The model file, which is required
      */
@@ -63,34 +63,34 @@ var Viro3DObject = React.createClass({
         PropTypes.number,
       ])
     ),
-    animation: React.PropTypes.shape({
+    animation: PropTypes.shape({
       name: PropTypes.string,
       delay: PropTypes.number,
       loop: PropTypes.bool,
-      onStart: React.PropTypes.func,
-      onFinish: React.PropTypes.func,
+      onStart: PropTypes.func,
+      onFinish: PropTypes.func,
       run: PropTypes.bool,
     }),
     visible: PropTypes.bool,
 
-    onHover: React.PropTypes.func,
-    onClick: React.PropTypes.func,
-    onClickState: React.PropTypes.func,
-    onTouch: React.PropTypes.func,
-    onScroll: React.PropTypes.func,
-    onSwipe: React.PropTypes.func,
-    onLoadStart: React.PropTypes.func,
-    onLoadEnd: React.PropTypes.func,
-    onError: React.PropTypes.func,
-    onDrag: React.PropTypes.func,
-    onPinch: React.PropTypes.func,
-    onRotate: React.PropTypes.func,
+    onHover: PropTypes.func,
+    onClick: PropTypes.func,
+    onClickState: PropTypes.func,
+    onTouch: PropTypes.func,
+    onScroll: PropTypes.func,
+    onSwipe: PropTypes.func,
+    onLoadStart: PropTypes.func,
+    onLoadEnd: PropTypes.func,
+    onError: PropTypes.func,
+    onDrag: PropTypes.func,
+    onPinch: PropTypes.func,
+    onRotate: PropTypes.func,
     onFuse: PropTypes.oneOfType([
-          React.PropTypes.shape({
-            callback: React.PropTypes.func.isRequired,
+          PropTypes.shape({
+            callback: PropTypes.func.isRequired,
             timeToFuse: PropTypes.number
           }),
-          React.PropTypes.func
+          PropTypes.func
         ]),
     /**
      * Enables high accuracy gaze collision checks for this object.
@@ -106,11 +106,11 @@ var Viro3DObject = React.createClass({
      */
     highAccuracyGaze:PropTypes.bool,
 
-    physicsBody: React.PropTypes.shape({
-      type: React.PropTypes.oneOf(['dynamic','kinematic','static']).isRequired,
+    physicsBody: PropTypes.shape({
+      type: PropTypes.oneOf(['dynamic','kinematic','static']).isRequired,
       mass: PropTypes.number,
       restitution: PropTypes.number,
-      shape: React.PropTypes.shape({
+      shape: PropTypes.shape({
         type: PropTypes.oneOf(["box", "sphere"]).isRequired,
         params: PropTypes.arrayOf(PropTypes.number)
       }),
@@ -119,11 +119,11 @@ var Viro3DObject = React.createClass({
       enabled: PropTypes.bool,
       velocity: PropTypes.arrayOf(PropTypes.number),
       force: PropTypes.oneOfType([
-        PropTypes.arrayOf(React.PropTypes.shape({
+        PropTypes.arrayOf(PropTypes.shape({
           value: PropTypes.arrayOf(PropTypes.number),
           position: PropTypes.arrayOf(PropTypes.number)
         })),
-        React.PropTypes.shape({
+        PropTypes.shape({
           value: PropTypes.arrayOf(PropTypes.number),
           position: PropTypes.arrayOf(PropTypes.number)
         }),
@@ -132,7 +132,7 @@ var Viro3DObject = React.createClass({
     }),
 
     viroTag: PropTypes.string,
-    onCollision: React.PropTypes.func,
+    onCollision: PropTypes.func,
   },
 
   _onHover: function(event: Event) {

@@ -12,29 +12,30 @@
 'use strict';
 
 import React from 'react';
-var ReactPropTypes = React.PropTypes;
+import PropTypes from 'prop-types';
+
 var CubeMapPropType = require('./CubeMapPropType');
 var ColorPropType = require('react-native').ColorPropType;
 
 var MaterialPropTypes = {
-  shininess: ReactPropTypes.number,
-  fresnelExponent: ReactPropTypes.number,
-  lightingModel: ReactPropTypes.oneOf(['Phong', 'Blinn', 'Lambert', 'Constant']),
-  writesToDepthBuffer: ReactPropTypes.bool,
-  readsFromDepthBuffer: ReactPropTypes.bool,
-  cullMode: ReactPropTypes.oneOf(['None', 'Back', 'Front']),
-  diffuseTexture: ReactPropTypes.any,
-  diffuseIntensity: ReactPropTypes.number,
-  specularTexture: ReactPropTypes.any,
-  normalTexture: ReactPropTypes.any,
+  shininess: PropTypes.number,
+  fresnelExponent: PropTypes.number,
+  lightingModel: PropTypes.oneOf(['Phong', 'Blinn', 'Lambert', 'Constant']),
+  writesToDepthBuffer: PropTypes.bool,
+  readsFromDepthBuffer: PropTypes.bool,
+  cullMode: PropTypes.oneOf(['None', 'Back', 'Front']),
+  diffuseTexture: PropTypes.any,
+  diffuseIntensity: PropTypes.number,
+  specularTexture: PropTypes.any,
+  normalTexture: PropTypes.any,
   reflectiveTexture: CubeMapPropType,
   diffuseColor: ColorPropType,
-  wrapS: ReactPropTypes.oneOf(['Clamp', 'Repeat', 'Mirror']),
-  wrapT: ReactPropTypes.oneOf(['Clamp', 'Repeat', 'Mirror']),
-  minificationFilter: ReactPropTypes.oneOf(['Nearest', 'Linear']),
-  magnificationFilter: ReactPropTypes.oneOf(['Nearest', 'Linear']),
-  mipFilter: ReactPropTypes.oneOf(['Nearest', 'Linear']),
-  bloomThreshold: ReactPropTypes.number,
+  wrapS: PropTypes.oneOf(['Clamp', 'Repeat', 'Mirror']),
+  wrapT: PropTypes.oneOf(['Clamp', 'Repeat', 'Mirror']),
+  minificationFilter: PropTypes.oneOf(['Nearest', 'Linear']),
+  magnificationFilter: PropTypes.oneOf(['Nearest', 'Linear']),
+  mipFilter: PropTypes.oneOf(['Nearest', 'Linear']),
+  bloomThreshold: PropTypes.number,
 };
 
 module.exports = MaterialPropTypes;

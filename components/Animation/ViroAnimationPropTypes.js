@@ -13,69 +13,69 @@
  'use strict';
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 var createStrictShapeTypeChecker = require('react-native/Libraries/Utilities/createStrictShapeTypeChecker');
-var ReactPropTypes = React.PropTypes;
 var ColorPropType = require('react-native').ColorPropType;
 
 var ViroAnimationPropTypes = {
-  duration: ReactPropTypes.number.isRequired,
-  delay: ReactPropTypes.number,
-  easing: ReactPropTypes.string,
+  duration: PropTypes.number.isRequired,
+  delay: PropTypes.number,
+  easing: PropTypes.string,
   properties: createStrictShapeTypeChecker(
       {
-        positionX: ReactPropTypes.oneOfType([
-                   ReactPropTypes.number,
-                   ReactPropTypes.string]),
+        positionX: PropTypes.oneOfType([
+                   PropTypes.number,
+                   PropTypes.string]),
 
-        positionY: ReactPropTypes.oneOfType([
-                   ReactPropTypes.number,
-                   ReactPropTypes.string]),
+        positionY: PropTypes.oneOfType([
+                   PropTypes.number,
+                   PropTypes.string]),
 
-        positionZ: ReactPropTypes.oneOfType([
-                   ReactPropTypes.number,
-                   ReactPropTypes.string]),
+        positionZ: PropTypes.oneOfType([
+                   PropTypes.number,
+                   PropTypes.string]),
 
-           scaleX: ReactPropTypes.oneOfType([
-                   ReactPropTypes.number,
-                   ReactPropTypes.string]),
+           scaleX: PropTypes.oneOfType([
+                   PropTypes.number,
+                   PropTypes.string]),
 
-           scaleY: ReactPropTypes.oneOfType([
-                   ReactPropTypes.number,
-                   ReactPropTypes.string]),
+           scaleY: PropTypes.oneOfType([
+                   PropTypes.number,
+                   PropTypes.string]),
 
-           scaleZ: ReactPropTypes.oneOfType([
-                   ReactPropTypes.number,
-                   ReactPropTypes.string]),
+           scaleZ: PropTypes.oneOfType([
+                   PropTypes.number,
+                   PropTypes.string]),
 
-          rotateX: ReactPropTypes.oneOfType([
-                   ReactPropTypes.number,
-                   ReactPropTypes.string]),
+          rotateX: PropTypes.oneOfType([
+                   PropTypes.number,
+                   PropTypes.string]),
 
-          rotateY: ReactPropTypes.oneOfType([
-                     ReactPropTypes.number,
-                     ReactPropTypes.string]),
+          rotateY: PropTypes.oneOfType([
+                     PropTypes.number,
+                     PropTypes.string]),
 
-          rotateZ: ReactPropTypes.oneOfType([
-                   ReactPropTypes.number,
-                   ReactPropTypes.string]),
+          rotateZ: PropTypes.oneOfType([
+                   PropTypes.number,
+                   PropTypes.string]),
 
-        translateX: ReactPropTypes.oneOfType([
-                   ReactPropTypes.number,
-                   ReactPropTypes.string]),
-        translateY: ReactPropTypes.oneOfType([
-                   ReactPropTypes.number,
-                   ReactPropTypes.string]),
+        translateX: PropTypes.oneOfType([
+                   PropTypes.number,
+                   PropTypes.string]),
+        translateY: PropTypes.oneOfType([
+                   PropTypes.number,
+                   PropTypes.string]),
 
-        translateZ: ReactPropTypes.oneOfType([
-                   ReactPropTypes.number,
-                   ReactPropTypes.string]),
+        translateZ: PropTypes.oneOfType([
+                   PropTypes.number,
+                   PropTypes.string]),
 
-        opacity:   ReactPropTypes.oneOfType([
-                   ReactPropTypes.number,
-                   ReactPropTypes.string]),
+        opacity:   PropTypes.oneOfType([
+                   PropTypes.number,
+                   PropTypes.string]),
         color:     ColorPropType,
-        material:  ReactPropTypes.string,
+        material:  PropTypes.string,
       }
     ).isRequired,
 };

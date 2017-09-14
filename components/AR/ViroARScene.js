@@ -8,7 +8,8 @@
  */
 import { requireNativeComponent, findNodeHandle, View } from 'react-native';
 import React, { Component } from 'react';
-var PropTypes = React.PropTypes;
+import PropTypes from 'prop-types';
+
 var NativeModules = require('react-native').NativeModules;
 
 var ViroARScene = React.createClass({
@@ -16,25 +17,25 @@ var ViroARScene = React.createClass({
     ...View.propTypes,
     ignoreEventHandling: PropTypes.bool,
     dragType: PropTypes.oneOf(["FixedDistance", "FixedToWorld"]),
-    onHover: React.PropTypes.func,
-    onClick: React.PropTypes.func,
-    onClickState: React.PropTypes.func,
-    onTouch: React.PropTypes.func,
-    onScroll: React.PropTypes.func,
-    onSwipe: React.PropTypes.func,
-    onDrag: React.PropTypes.func,
-    onPinch: React.PropTypes.func,
-    onRotate: React.PropTypes.func,
+    onHover: PropTypes.func,
+    onClick: PropTypes.func,
+    onClickState: PropTypes.func,
+    onTouch: PropTypes.func,
+    onScroll: PropTypes.func,
+    onSwipe: PropTypes.func,
+    onDrag: PropTypes.func,
+    onPinch: PropTypes.func,
+    onRotate: PropTypes.func,
     onFuse: PropTypes.oneOfType([
-      React.PropTypes.shape({
-        callback: React.PropTypes.func.isRequired,
+      PropTypes.shape({
+        callback: PropTypes.func.isRequired,
         timeToFuse: PropTypes.number
       }),
-      React.PropTypes.func
+      PropTypes.func
     ]),
-    onTrackingInitialized: React.PropTypes.func,
-    onPlatformUpdate: React.PropTypes.func,
-    onAmbientLightUpdate: React.PropTypes.func,
+    onTrackingInitialized: PropTypes.func,
+    onPlatformUpdate: PropTypes.func,
+    onAmbientLightUpdate: PropTypes.func,
     /**
      * Describes the acoustic properties of the room around the user
      */
@@ -213,9 +214,9 @@ var ViroARScene = React.createClass({
 });
 
 ViroARScene.childContextTypes = {
-  cameraDidMount: React.PropTypes.func,
-  cameraWillUnmount: React.PropTypes.func,
-  cameraWillReceiveProps: React.PropTypes.func,
+  cameraDidMount: PropTypes.func,
+  cameraWillUnmount: PropTypes.func,
+  cameraWillReceiveProps: PropTypes.func,
 };
 
 var VRTARScene = requireNativeComponent(

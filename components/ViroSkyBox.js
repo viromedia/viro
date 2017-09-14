@@ -17,7 +17,7 @@ import resolveAssetSource from "react-native/Libraries/Image/resolveAssetSource"
 import normalizeColor from "react-native/Libraries/StyleSheet/normalizeColor"
 var NativeModules = require('react-native').NativeModules;
 
-var PropTypes = React.PropTypes;
+import PropTypes from 'prop-types';
 var CubeMapPropType = require('./Material/CubeMapPropType');
 var ColorPropType = require('react-native').ColorPropType;
 
@@ -40,7 +40,7 @@ var ViroSkybox = React.createClass({
      * Callback triggered when we are processing the assets to be
      * displayed in this 360 Photo (either downloading / reading from file).
      */
-    onLoadStart: React.PropTypes.func,
+    onLoadStart: PropTypes.func,
 
     /**
      * Callback triggered when we have finished processing assets to be
@@ -54,7 +54,7 @@ var ViroSkybox = React.createClass({
      *   }
      *
      */
-    onLoadEnd: React.PropTypes.func,
+    onLoadEnd: PropTypes.func,
   },
 
   _onLoadStart: function(event: Event) {

@@ -13,10 +13,10 @@
 'use strict';
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 var ColorPropType = require('react-native').ColorPropType;
 var ViroStylePropTypes = require('./ViroPropTypes');
-var PropTypes = React.PropTypes;
 
 var ViroTextStylePropTypes =  Object.assign(Object.create(ViroStylePropTypes), {
   color: ColorPropType,

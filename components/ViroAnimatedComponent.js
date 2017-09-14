@@ -13,7 +13,7 @@
 
 import { requireNativeComponent, View, StyleSheet, Platform } from 'react-native';
 import React from 'react';
-var PropTypes = React.PropTypes;
+import PropTypes from 'prop-types';
 
 /**
  * Used to render a ViroAnimatedComponent
@@ -24,8 +24,8 @@ var ViroAnimatedComponent = React.createClass({
     animation: PropTypes.string,
     delay: PropTypes.number,
     loop: PropTypes.bool,
-    onStart: React.PropTypes.func,
-    onFinish: React.PropTypes.func,
+    onStart: PropTypes.func,
+    onFinish: PropTypes.func,
     run: PropTypes.bool,
   },
 
