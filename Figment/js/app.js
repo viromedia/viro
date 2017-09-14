@@ -21,6 +21,7 @@ import renderIf from './helpers/renderIf';
 import ButtonComponent from './component/ButtonComponent';
 import RecordButton from './component/RecordButton';
 import ContextMenuButton from './component/ContextMenuButton';
+import ShareScreenButton from './component/ShareScreenButtonComponent';
 import FigmentListView from './component/FigmentListView';
 import PhotosSelector from './component/PhotosSelector';
 import * as ModelData from  './model/ModelItems';
@@ -265,18 +266,18 @@ export class App extends Component {
           </TouchableOpacity>
           )}
 
-          <View style={{position:'absolute', left:25, bottom:15, width:30, height:30}}>
-            <ButtonComponent onPress={()=>{this._openShareActionSheet()}}
-            buttonState={'off'}
-            stateImageArray={[require("./res/btn_share.png"), require("./res/btn_share.png")]} 
-            style={localStyles.previewScreenButtonShare} />
-          </View>
-
-          <View style={{position:'absolute', left:25, top:20, width:30, height:30}}>
-            <ButtonComponent onPress={()=>{this.props.dispatchDisplayUIScreen(UIConstants.SHOW_MAIN_SCREEN)}}
+          <View style={{position:'absolute', left:0, top:0, width:30, height:30}}>
+            <ShareScreenButton onPress={()=>{this.props.dispatchDisplayUIScreen(UIConstants.SHOW_MAIN_SCREEN)}}
               buttonState={'off'}
               stateImageArray={[require("./res/btn_close.png"), require("./res/btn_close.png")]} 
               style={localStyles.previewScreenButtonClose} />
+          </View>
+
+          <View style={{position:'absolute', left:0, bottom:40, width:30, height:30}}>
+            <ShareScreenButton onPress={()=>{this._openShareActionSheet()}}
+            buttonState={'off'}
+            stateImageArray={[require("./res/btn_share.png"), require("./res/btn_share.png")]} 
+            style={localStyles.previewScreenButtonShare} />
           </View>
         </View>
       )

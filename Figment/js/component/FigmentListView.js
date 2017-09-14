@@ -9,7 +9,9 @@
  */
 'use strict';
 
+import *  as UIConstants from '../redux/UIConstants';
 import * as LoadingConstants from '../redux/LoadingStateConstants';
+import { connect } from 'react-redux'
 import React, { Component } from 'react';
 import {StyleSheet, TouchableHighlight, ActivityIndicator, View, ListView, Image} from 'react-native';
 import renderIf from '../helpers/renderIf';
@@ -28,6 +30,8 @@ var FigmentListView = React.createClass({
         rowChanged: 0,
         dataRows: this.props.items,
         dataSource: ds.cloneWithRows(this.props.items),
+        selectedItem: -1,
+        animationDone:false,
       };
     },
 
@@ -63,6 +67,7 @@ var FigmentListView = React.createClass({
     _renderListItem(data, sectionid, rowId) {
         console.log("renderListItem rowID: " + rowId);
         console.log("Data.loading:" + data.loading);
+        console.log("FigmentListView listMode - " + this.props.listMode);
         /*if(data.loading == LoadingConstants.LOADED) {
           return (
             <View style={{marginLeft: 10}}>
@@ -94,27 +99,54 @@ var FigmentListView = React.createClass({
                 <Image source={data.icon_img} style={styles.photo}>*/}
               <ListViewItem onPress={this._onListItemPressed(rowId)} 
                     stateImageArray={[data.icon_img]}
-                    style={styles.photo}/>
+                    style={styles.photo}
+                    animationDoneCallBack = {this._onAnimationDone}/>
                 {renderIf(data.loading == LoadingConstants.LOADING,
                     <ActivityIndicator style={{position:'absolute', marginLeft: 12, marginTop: 19, }} animating={true} size='large'/>
                 )}
+                
+                {renderIf(this._isSelected(data, rowId),
+                  <Image source={require("../res/icon_effects_selected_pink.png")} style={styles.photoSelection} />
+                )}
+                
           </View>
 
                     
         );
     },
 
+    _isSelected(data, rowId) {
+      return (this.props.listMode == UIConstants.LIST_MODE_EFFECT 
+        && this.state.selectedItem == rowId
+        && this.state.animationDone
+        && data.selected);
+    },
+    _onAnimationDone() {
+      // Called when animation on the listViewItem is done
+      console.log("AnimationDoneCallBack Called");
+      this.setState({
+        animationDone:true,
+      })
+    },
     _onListItemPressed(rowId) {
+        console.log("AnimationDoneCallBack _onListItemPressed");
         return () => {
           // if we tapped a list icon but we are still loading just return.
           this.setState({
              rowChanged: parseInt(rowId),
+             selectedItem: rowId,
           });
           this.props.onPress(rowId);
         }
     },
 });
 
+function selectProps(store) {
+  console.log("selectProps +" + JSON.stringify(store.ui));
+  return {
+    listMode: store.ui.listMode,
+  }
+}
 var styles = StyleSheet.create({
   flex : {
     flex : 1,
@@ -132,6 +164,12 @@ var styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginRight: 5,
+    marginTop: 10,
+  },
+  photoSelection: {
+    position: 'absolute',
+    height: 53,
+    width: 56.8,
     marginTop: 10,
   },
   submitText: {
@@ -161,4 +199,4 @@ var styles = StyleSheet.create({
   },
 });
 
-module.exports = FigmentListView;
+module.exports = connect(selectProps)(FigmentListView);

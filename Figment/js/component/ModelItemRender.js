@@ -100,7 +100,8 @@ var ModelItemRender = React.createClass({
               onRotate={this._onRotate}
               onPinch={this._onPinch}
               onLoadStart={this._onObjectLoadStart(this.props.modelIDProps.uuid)}
-              onLoadEnd={this._onObjectLoadEnd(this.props.modelIDProps.uuid)} />
+              onLoadEnd={this._onObjectLoadEnd(this.props.modelIDProps.uuid)} 
+              type = "VRX"/>
 
             <ViroSurface
               rotation={[-90, 0, 0]}

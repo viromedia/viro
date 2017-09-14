@@ -176,6 +176,7 @@ var PortalItemRender = React.createClass({
             viewArray.push(<Viro3DObject
                   key="obj_3d"
                   position={[0,-2,-6]}
+                  scale={[0.5,0.5,0.5]}
                   source={require('../res/art_gallery/artgallery3.vrx')}
                   resources={[require('../res/art_gallery/art_gallery_projector_diffuse.png'),
                        require('../res/art_gallery/art_gallery_projector_specular.png'),
@@ -184,7 +185,7 @@ var PortalItemRender = React.createClass({
                   key="background_portal"
                   type="VRX" />
               );
-            viewArray.push(<Viro3DObject
+            {/*viewArray.push(<Viro3DObject
                 key="obj_3d_frame"
                 opacity={.4}
                 position={[0, -2,-6]}
@@ -197,8 +198,8 @@ var PortalItemRender = React.createClass({
                 position={[0, -2,-6]}
                 source={require('../res/art_gallery/artgallery_projector.vrx')}
                 resources={[require('../res/art_gallery/art_gallery_projector_beams_diffuse.png')]}
-                type="VRX" />);
-            viewArray.push(<ViroImage key="image_portal" width={2} height={5}  resizeMode='scaleToFit' source={portalSource.source}
+                type="VRX" />);*/}
+            viewArray.push(<ViroImage key="image_portal" width={2} height={4}  resizeMode='scaleToFill' imageClipMode='none' source={portalSource.source}
                         position={[0, 0.8,-5.8]} scale={[1, 1, 1]} />);
             viewArray.push(<Viro360Image key="background_portal_image" source={require('../res/360_space.jpg')} />);
 

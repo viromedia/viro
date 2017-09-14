@@ -8,7 +8,7 @@ var EffectItems = [
     "effect": getEmptyEffect,
     "loading": LoadingConstants.NONE,
     "postProcessEffect": EffectsConstants.EFFECT_NONE,
-    "icon_img":require("../res/icon_effects_none.png"),
+    "icon_img":require("../res/icon_effects_none_darkgrey.png"),
     "selected": false,
   },
   {
