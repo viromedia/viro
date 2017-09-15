@@ -200,7 +200,7 @@ var ViroPortal = React.createClass({
     let transformDelegate = this.props.onTransformUpdate != undefined ? this._onNativeTransformUpdate : undefined;
 
     return (
-      <VRTPortalFrame
+      <VRTPortal
         {...this.props}
         ref={ component => {this._component = component; }}
         onNativeTransformDelegateViro={transformDelegate}
@@ -234,7 +234,7 @@ var ViroPortal = React.createClass({
   }
 });
 
-var VRTPortalFrame = requireNativeComponent(
+var VRTPortal = requireNativeComponent(
   'VRTPortal', ViroPortal, {
     nativeOnly: {
             materials: [],
