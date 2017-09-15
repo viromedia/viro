@@ -18,7 +18,8 @@
 - (instancetype)initWithBridge:(RCTBridge *)bridge {
     self = [super initWithBridge:bridge];
     if (self) {
-        
+        _portalDelegate = std::make_shared<VROPortalDelegateiOS>(self);
+        [self portal]->setPortalDelegate(_portalDelegate);
     }
     return self;
 }
@@ -51,6 +52,20 @@
         [self portal]->setPortalEntrance({});
     }
     [super removeReactSubview:subview];
+}
+
+#pragma mark - VROPortalDelegateProtocol Implementations
+
+- (void)onPortalEnter {
+    if (self.onPortalEnterViro) {
+        self.onPortalEnterViro(nil);
+    }
+}
+
+- (void)onPortalExit {
+    if (self.onPortalExitViro) {
+        self.onPortalExitViro(nil);
+    }
 }
 
 @end

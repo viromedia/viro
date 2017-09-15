@@ -58,8 +58,8 @@ var ViroPortalTest = React.createClass({
       return (
         <ViroARScene>
             <ViroOmniLight position={[0, 0, 0]} color="#ffffff" attenuationStartDistance={40} attenuationEndDistance={50}/>
-            <ViroPortalScene position={[0, 0, 1]} passable={false} scale={[1, 1, 1]}>
-               <ViroPortal>
+            <ViroPortalScene position={[0, 0, 1]} passable={true} scale={[1, 1, 1]} onPortalEnter={this._onPortalEnter} onPortalExit={this._onPortalExit}>
+               <ViroPortal >
                  <Viro3DObject source={require('../res/portal_ring.obj')}
                                position={[0, 0, 0]}
                                rotation={[0, 0, 0]}
@@ -151,7 +151,16 @@ var ViroPortalTest = React.createClass({
         </ViroARScene>
       );
    },
+
+  _onPortalEnter() {
+    console.log("On Portal Enter invoked");
+  },
+
+  _onPortalExit() {
+    console.log("On Portal Exit invoked");
+  },
  });
+
 
 var styles = StyleSheet.create({
   baseTextTwo: {

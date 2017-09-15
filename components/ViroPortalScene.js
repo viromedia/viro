@@ -45,6 +45,8 @@ var ViroPortalScene = React.createClass({
     ignoreEventHandling: PropTypes.bool,
     dragType: PropTypes.oneOf(["FixedDistance", "FixedToWorld"]),
 
+    onPortalEnter: PropTypes.func,
+    onPortalExit: PropTypes.func,
     onHover: PropTypes.func,
     onClick: PropTypes.func,
     onClickState: PropTypes.func,
@@ -109,6 +111,14 @@ var ViroPortalScene = React.createClass({
 
   setNativeProps: function(nativeProps) {
      this._component.setNativeProps(nativeProps);
+  },
+
+  _onPortalEnter: function(event: Event) {
+    this.props.onPortalEnter && this.props.onPortalEnter(event);
+  },
+
+  _onPortalExit: function(event: Event) {
+    this.props.onPortalExit && this.props.onPortalExit(event);
   },
 
   _onTouch: function(event: Event) {
@@ -223,6 +233,8 @@ var ViroPortalScene = React.createClass({
         onFuseViro={this._onFuse}
         onPinchViro={this._onPinch}
         onRotateViro={this._onRotate}
+        onPortalEnterViro={this._onPortalEnter}
+        onPortalExitViro={this._onPortalExit}
         onAnimationStartViro={this._onAnimationStart}
         onAnimationFinishViro={this._onAnimationFinish}
         timeToFuse={timeToFuse}
@@ -255,6 +267,8 @@ var VRTPortal = requireNativeComponent(
             onPinchViro:true,
             onRotateViro:true,
             onFuseViro:true,
+            onPortalEnterViro:true,
+            onPortalExitViro:true,
             timeToFuse:true,
             canCollide:true,
             onCollisionViro:true,
