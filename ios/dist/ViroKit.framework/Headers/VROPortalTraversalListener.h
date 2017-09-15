@@ -32,8 +32,11 @@ private:
     std::weak_ptr<VROScene> _scene;
     
     /*
-     Scan the portal tree to see if we've intersected any passable portal with the given
-     segment. Return the portal found, if any.
+     Scan the portal tree's immediate children to see if we've intersected any passable
+     portal with the given segment. Return the portal found, if any.
+     
+     Note this does *not* recurse because only the portals that are immediate children
+     of the current portal are passable.
      */
     std::shared_ptr<VROPortal> findPortalTraversal(const VROLineSegment &segment,
                                                    const tree<std::shared_ptr<VROPortal>> &portalTree);

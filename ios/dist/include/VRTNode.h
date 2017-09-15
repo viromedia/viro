@@ -10,8 +10,21 @@
 #import <React/RCTComponent.h>
 #import <React/RCTBridge.h>
 #import "VRTView.h"
+#import "VRTManagedAnimation.h"
 
 extern const int k2DPointsPerSpatialUnit;
+
+@class VRTNodeAnimation;
+@class VRTAnimationManager;
+
+@interface VRTNodeAnimation : VRTManagedAnimation
+
+@property (readwrite, nonatomic) NSString *animationName;
+@property (readwrite, nonatomic) VRTAnimationManager *animationManager;
+
+- (std::shared_ptr<VROExecutableAnimation>)loadAnimation;
+
+@end
 
 @interface VRTNode : VRTView<VROEventDelegateProtocol, VROPhysicsBodyDelegateProtocol, VROTransformDelegateProtocol>
 
@@ -57,6 +70,12 @@ extern const int k2DPointsPerSpatialUnit;
 @property (nonatomic, assign) BOOL ignoreEventHandling;
 @property (nonatomic, assign) BOOL shouldIgnoreEventHandling; // parent's resolved ignoreEventHandling
 
+// Animation object
+@property (nonatomic) VRTNodeAnimation *nodeAnimation;
+// Animation definition
+@property (readwrite, nonatomic) NSDictionary *animation;
+@property (nonatomic, copy) RCTDirectEventBlock onAnimationStartViro;
+@property (nonatomic, copy) RCTDirectEventBlock onAnimationFinishViro;
 
 // Shadow/Light properties
 @property (nonatomic, assign) int lightReceivingBitMask;
@@ -67,7 +86,7 @@ extern const int k2DPointsPerSpatialUnit;
 @property (nonatomic, assign) BOOL hasTransformDelegate;
 
 // Physics properties
-@property (nonatomic, copy, nullable) RCTDirectEventBlock onCollidedViro;
+@property (nonatomic, copy, nullable) RCTDirectEventBlock onCollisionViro;
 @property (nonatomic, copy) NSDictionary *physicsDictionary;
 - (void)applyImpulse:(VROVector3f)impulse withOffset:(VROVector3f)offset;
 - (void)applyTorqueImpulse:(VROVector3f)torque;

@@ -31,6 +31,7 @@ class VROHitTestResult;
 class VROVector3f;
 class VROVector4f;
 class VROAudioPlayer;
+class VRORenderMetadata;
 class VROInputControllerBase;
 
 class VROScene : public std::enable_shared_from_this<VROScene>, public VROThreadRestricted {
@@ -59,7 +60,8 @@ public:
     /*
      Update the sort keys for all nodes in this scene.
      */
-    void updateSortKeys(const VRORenderContext &context,
+    void updateSortKeys(std::shared_ptr<VRORenderMetadata> &metadata,
+                        const VRORenderContext &context,
                         std::shared_ptr<VRODriver> &driver);
         
     /*
@@ -138,6 +140,10 @@ public:
     const std::vector<std::shared_ptr<VROLight>> &getLights() const {
         return _lights;
     }
+    
+    const std::shared_ptr<VROPortal> getActivePortal() const {
+        return _activePortal;
+    }
 
     /*
      Sets a list of post processing effects corresponding to VROPostProcessEffect to be applied
@@ -145,7 +151,7 @@ public:
      */
     void setSceneEffect(std::vector<std::string> effects){
         _activeEffects = effects;
-        _hasPendingEffects = true;
+        _shouldResetEffects = true;
     }
 
     /*
@@ -157,10 +163,15 @@ public:
     bool processSceneEffect(std::vector<std::string> &effects){
         effects = _activeEffects;
 
-        bool hasNewEffects = _hasPendingEffects;
-        _hasPendingEffects = false;
+        bool hasNewEffects = _shouldResetEffects;
+        _shouldResetEffects = false;
         return hasNewEffects;
     }
+
+    void setShouldResetEffects(bool reset) {
+        _shouldResetEffects = reset;
+    }
+
 protected:
     
     /*
@@ -244,9 +255,9 @@ private:
     std::vector<std::string> _activeEffects;
 
     /*
-     True if we have called setSceneEffect to set a list of _activeEffects.
+     True if we should reset effects
      */
-    bool _hasPendingEffects = false;
+    bool _shouldResetEffects = false;
 };
 
 #endif /* VROScene_h */

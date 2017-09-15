@@ -43,6 +43,7 @@ class VROConstraint;
 class VROExecutableAnimation;
 class VROTransformDelegate;
 class VROTransaction;
+class VRORenderMetadata;
 
 extern bool kDebugSortOrder;
 extern const std::string kDefaultNodeTag;
@@ -135,13 +136,15 @@ public:
     /*
      Recursively updates the sort keys of this node, preparing this node and its children
      for rendering. This method also computes non-transform-related parameters for each
-     node (opacity, lights, etc.) that are required prior to render.
+     node (opacity, lights, etc.) that are required prior to render, and outputs metadata
+     about the forthcoming render to VRORenderMetadata.
      
      Note: this method and getSortKeys() *only* apply to visible nodes. Invisible nodes
      are skipped.
      */
     void updateSortKeys(uint32_t depth,
                         VRORenderParameters &params,
+                        std::shared_ptr<VRORenderMetadata> &metadata,
                         const VRORenderContext &context,
                         std::shared_ptr<VRODriver> &driver);
     

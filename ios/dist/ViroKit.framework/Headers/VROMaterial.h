@@ -197,10 +197,18 @@ public:
     }
     
     void setBloomThreshold(float threshold) {
+        bool needsSubstrateUpdate = (_bloomThreshold >= 0 && threshold < 0) || (_bloomThreshold < 0 && threshold >= 0);
         _bloomThreshold = threshold;
+        
+        if (needsSubstrateUpdate) {
+            updateSubstrate();
+        }
     }
     float getBloomThreshold() const {
         return _bloomThreshold;
+    }
+    bool isBloomEnabled() const {
+        return _bloomThreshold >= 0;
     }
 
     void addShaderModifier(std::shared_ptr<VROShaderModifier> modifier);

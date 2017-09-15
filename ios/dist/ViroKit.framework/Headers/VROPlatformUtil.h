@@ -40,7 +40,7 @@ std::string VROPlatformLoadFileAsString(std::string path);
  */
 std::string VROPlatformCopyResourceToFile(std::string asset);
 
-/**
+/*
  This function is used exclusively by Android (iOS is no-op) because it makes a few assumptions:
  1) key needs to have its extension removed
  2) key needs be lower case
@@ -56,6 +56,12 @@ std::string VROPlatformFindValueInResourceMap(std::string key, std::map<std::str
 std::string VROPlatformDownloadURLToFile(std::string url, bool *temp, bool *success);
 void VROPlatformDeleteFile(std::string filename);
 
+/*
+ Load the file into a binary blob and return it. The returned buffer
+ *must* be freed by the caller!
+ */
+void *VROPlatformLoadFile(std::string filename, int *outLength);
+
 #pragma mark - Image Loading
 
 // Returns empty shared_ptr on failure
@@ -68,10 +74,6 @@ jobject VROPlatformLoadBitmapFromFile(std::string path, VROTextureInternalFormat
 
 // Note the returned buffer *must* be freed by the caller!
 void *VROPlatformConvertBitmap(jobject jbitmap, int *bitmapLength, int *width, int *height);
-
-// Load the file into a binary blob and return it. The returned buffer
-// *must* be freed by the caller!
-void *VROPlatformLoadFile(std::string filename, int *outLength);
 
 #endif
 

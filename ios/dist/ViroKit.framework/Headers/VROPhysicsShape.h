@@ -62,7 +62,7 @@ public:
         if (strType == kSphereTag) {
             return VROPhysicsShape::VROShapeType::Sphere;
         } else if (strType == kAutoCompoundTag) {
-            return VROPhysicsShape::VROPhysicsShape::AutoCompound;
+            return VROPhysicsShape::VROShapeType::AutoCompound;
         }
         return VROPhysicsShape::VROShapeType::Box;
     }

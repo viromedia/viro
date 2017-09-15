@@ -44,6 +44,7 @@ FOUNDATION_EXPORT const unsigned char ViroKitVersionString[];
 #import <ViroKit/VRONode.h>
 #import <ViroKit/VROPortal.h>
 #import <ViroKit/VROPortalFrame.h>
+#import <ViroKit/VROPortalDelegateiOS.h>
 #import <ViroKit/VROGeometry.h>
 #import <ViroKit/VROGeometryElement.h>
 #import <ViroKit/VROGeometrySource.h>

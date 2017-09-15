@@ -12,6 +12,7 @@
 #include "VRONode.h"
 #include "VROTree.h"
 #include "VROLineSegment.h"
+#include "VROPortalDelegate.h"
 
 class VROPortalFrame;
 
@@ -101,6 +102,20 @@ public:
      */
     const std::shared_ptr<VROPortalFrame> getActivePortalFrame() const {
         return _activePortalFrame;
+    }
+    
+    /*
+      Return portalDelegate if it exists.
+     */
+    std::shared_ptr<VROPortalDelegate> getPortalDelegate(){
+        if (_portalDelegate.expired()){
+            return nullptr;
+        }
+        return _portalDelegate.lock();
+    }
+    
+    void setPortalDelegate(std::shared_ptr<VROPortalDelegate> delegate) {
+        _portalDelegate = delegate;
     }
     
     /*
@@ -225,6 +240,11 @@ private:
      node content.
      */
     std::shared_ptr<VROGeometry> _background;
+    
+    /*
+      Portal delegate that is invoked when a portal is entered and exited.
+     */
+    std::weak_ptr<VROPortalDelegate> _portalDelegate;
     
     /*
      Transform to apply to the background geometry.
