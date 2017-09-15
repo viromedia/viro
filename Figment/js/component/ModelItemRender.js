@@ -151,9 +151,9 @@ var ModelItemRender = React.createClass({
               });
             });
           }
-          this.props.onClickStateCallback(uuid, clickState, UIConstants.LIST_MODE_MODEL);
         });
       }
+      this.props.onClickStateCallback(uuid, clickState, UIConstants.LIST_MODE_MODEL);
     },
 
     /*

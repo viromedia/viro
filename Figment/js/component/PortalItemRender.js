@@ -148,9 +148,9 @@ var PortalItemRender = React.createClass({
               });
             })
           }
-          this.props.onClickStateCallback(uuid, clickState, UIConstants.LIST_MODE_PORTAL);
         });
       }
+      this.props.onClickStateCallback(uuid, clickState, UIConstants.LIST_MODE_PORTAL);
     },
 
     _renderPortalInside(portalItem) {
