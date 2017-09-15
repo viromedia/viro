@@ -837,11 +837,14 @@ public class Node extends Component {
     }
 
     private void clearPhysicsBody(){
+        if (mPhysicsDelegate != null){
+            mNodeJni.setPhysicsDelegate(null);
+        }
+
         if (mScene != null){
             mScene.removePhysicsBodyFromScene(this);
         }
 
-        mNodeJni.setPhysicsDelegate(null);
         mNodeJni.clearPhysicsBody();
         hasPhysicsBody = false;
     }
