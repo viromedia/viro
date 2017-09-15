@@ -25,8 +25,10 @@ import {
   ViroSurface,
 } from 'react-viro';
 
-
 var PropTypes = React.PropTypes;
+
+// Whether or not objects should billboard when clicked.
+var shouldBillboardOnTap = false;
 
 var ModelItemRender = React.createClass({
     propTypes: {
@@ -121,35 +123,37 @@ var ModelItemRender = React.createClass({
     },
 
     _onClickState(uuid) {
-      return ((clickState, position, source)=> {
-        if (clickState == 1) { // clickState == 1 -> "ClickDown"
-          // if "ClickDown", then enable billboardY
-          this.setState({shouldBillboard : true});
-        } else if (clickState == 2) { // clickState == 2 -> "ClickUp"
-          // for some reason this method gives us values "opposite" of what they should be
-          // which is why we negate the y rotation, but also the y-rotation values are
-          // always within -90 -> 90 so the x/z need to be adjusted back to 0 and the y
-          // rotation recalculated in order for the rotation gesture to function properly
-          this.arNodeRef.getTransformAsync().then((retDict)=>{
-            let rotation = retDict.rotation;
-            let absX = Math.abs(rotation[0]);
-            let absZ = Math.abs(rotation[2]);
-            
-            let yRotation = (rotation[1]);
+      if (shouldBillboardOnTap) {
+        return ((clickState, position, source)=> {
+          if (clickState == 1) { // clickState == 1 -> "ClickDown"
+            // if "ClickDown", then enable billboardY
+            this.setState({shouldBillboard : true});
+          } else if (clickState == 2) { // clickState == 2 -> "ClickUp"
+            // for some reason this method gives us values "opposite" of what they should be
+            // which is why we negate the y rotation, but also the y-rotation values are
+            // always within -90 -> 90 so the x/z need to be adjusted back to 0 and the y
+            // rotation recalculated in order for the rotation gesture to function properly
+            this.arNodeRef.getTransformAsync().then((retDict)=>{
+              let rotation = retDict.rotation;
+              let absX = Math.abs(rotation[0]);
+              let absZ = Math.abs(rotation[2]);
+              
+              let yRotation = (rotation[1]);
 
-            // if the X and Z aren't 0, then adjust the y rotation.
-            if (absX > 1 && absZ > 1) {
-              yRotation = 180 - (yRotation);
-            }
+              // if the X and Z aren't 0, then adjust the y rotation.
+              if (absX > 1 && absZ > 1) {
+                yRotation = 180 - (yRotation);
+              }
 
-            this.setState({
-              rotation : [0,yRotation,0],
-              shouldBillboard : false
+              this.setState({
+                rotation : [0,yRotation,0],
+                shouldBillboard : false
+              });
             });
-          });
-        }
-        this.props.onClickStateCallback(uuid, clickState, UIConstants.LIST_MODE_MODEL);
-      });
+          }
+          this.props.onClickStateCallback(uuid, clickState, UIConstants.LIST_MODE_MODEL);
+        });
+      }
     },
 
     /*
