@@ -150,6 +150,12 @@
     }
 }
 
+-(void)dealloc {
+    _superview = nil;
+    _childViews = nil;
+    _scene = nil;
+}
+
 - (void)setScene:(std::shared_ptr<VROScene>)scene {
     _scene = scene;
     for (id childView in _childViews) {

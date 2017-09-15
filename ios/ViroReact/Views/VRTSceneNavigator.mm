@@ -191,10 +191,18 @@ static NSString *const kVRTInvalidAPIKeyMessage = @"The given API Key is either 
     }
 }
 
+- (void)dealloc {
+    _currentViews = nil;
+    _currentScene = nil;
+    _vroView = nil;
+    _childViews = nil;
+}
+
 #pragma mark RCTInvalidating methods
 
 - (void)invalidate {
-    _currentViews = nil;
+    //NOTE: DO NOT NULL OUT _currentViews here, that will cause a memory leak and prevent child views from
+    //being released.
     _currentScene = nil;
     _vroView = nil;
     _childViews = nil;

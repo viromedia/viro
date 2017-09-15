@@ -207,7 +207,6 @@ static NSArray<NSNumber *> *const kDefaultSize = @[@(0), @(0), @(0)];
     // driver and scene down the entire scene tree.
     self.context = context;
     self.driver = driver;
-    self.scene = self.scene;
     [self sceneWillAppear];
     [self parentDidAppear];
 }
