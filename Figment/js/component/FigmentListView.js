@@ -51,7 +51,6 @@ var FigmentListView = React.createClass({
       if(this.state.dataSource == undefined) {
           return (<View/>);
       }
-      console.log("RETURNING LISTVIEW!!");
       return (
       <ListView
         horizontal={true}
@@ -65,9 +64,6 @@ var FigmentListView = React.createClass({
     },
 
     _renderListItem(data, sectionid, rowId) {
-        console.log("renderListItem rowID: " + rowId);
-        console.log("Data.loading:" + data.loading);
-        console.log("FigmentListView listMode - " + this.props.listMode);
         /*if(data.loading == LoadingConstants.LOADED) {
           return (
             <View style={{marginLeft: 10}}>
@@ -122,15 +118,13 @@ var FigmentListView = React.createClass({
     },
     _onAnimationDone() {
       // Called when animation on the listViewItem is done
-      console.log("AnimationDoneCallBack Called");
       this.setState({
         animationDone:true,
       })
     },
     _onListItemPressed(rowId) {
-        console.log("AnimationDoneCallBack _onListItemPressed");
         return () => {
-          // if we tapped a list icon but we are still loading just return.
+
           this.setState({
              rowChanged: parseInt(rowId),
              selectedItem: rowId,
@@ -141,7 +135,6 @@ var FigmentListView = React.createClass({
 });
 
 function selectProps(store) {
-  console.log("selectProps +" + JSON.stringify(store.ui));
   return {
     listMode: store.ui.listMode,
   }
