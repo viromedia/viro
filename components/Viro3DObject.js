@@ -111,7 +111,7 @@ var Viro3DObject = React.createClass({
       mass: PropTypes.number,
       restitution: PropTypes.number,
       shape: PropTypes.shape({
-        type: PropTypes.oneOf(["box", "sphere"]).isRequired,
+        type: PropTypes.oneOf(["box", "sphere", "compound"]).isRequired,
         params: PropTypes.arrayOf(PropTypes.number)
       }),
       friction: PropTypes.number,
@@ -273,7 +273,7 @@ var Viro3DObject = React.createClass({
     if (this.props.physicsBody){
       let newPhysicsShape = undefined;
       if (this.props.physicsBody.shape == undefined){
-        newPhysicsShape = {type:'AutoCompound'}
+        newPhysicsShape = {type:'compound'}
       } else {
         newPhysicsShape = this.props.physicsBody.shape;
       }

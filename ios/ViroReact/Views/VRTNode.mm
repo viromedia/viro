@@ -759,24 +759,24 @@ withShape:(std::shared_ptr<VROPhysicsShape>) phsyicsShape{
     
     // Deteremine if the applied torque has changed
     NSArray *torqueArrayCurrent = self.physicsDictionary? [self.physicsDictionary objectForKey:@"torque"]: nil;
-    bool hasTorqueChanged = torqueArray == torqueArrayCurrent;
+    bool hasTorqueChanged = torqueArray != torqueArrayCurrent;
     if (torqueArray) {
-        hasTorqueChanged = [torqueArray isEqualToArray:torqueArrayCurrent];
+        hasTorqueChanged = ![torqueArray isEqualToArray:torqueArrayCurrent];
     }
-    
+
     // Deteremine if the applied force has changed
     NSObject *forceObjectCurrent = self.physicsDictionary? [self.physicsDictionary objectForKey:@"force"]: nil;
     NSArray* forceArrayCurrent = nil;
     if ([forceObjectCurrent isKindOfClass:[NSDictionary class]]) {
-        forceArrayCurrent = [[NSArray alloc] initWithObjects:forceObject, nil];
+        forceArrayCurrent = [[NSArray alloc] initWithObjects:forceObjectCurrent, nil];
     } else if ([forceObjectCurrent isKindOfClass:[NSArray class]]) {
-        forceArrayCurrent = (NSArray*)forceObject;
+        forceArrayCurrent = (NSArray*)forceObjectCurrent;
     }
-    bool hasForceChanged = forceArray == forceArrayCurrent;
+    bool hasForceChanged = forceArray != forceArrayCurrent;
     if (forceArray) {
-        hasForceChanged = [forceArrayCurrent isEqualToArray:forceArrayCurrent];
+        hasForceChanged = ![forceArray isEqualToArray:forceArrayCurrent];
     }
-    
+
     // If nothing has changed, return
     if (!hasForceChanged && !hasTorqueChanged) {
         return true;

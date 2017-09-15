@@ -145,7 +145,7 @@ var ViroImage = React.createClass({
       mass: PropTypes.number,
       restitution: PropTypes.number,
       shape: PropTypes.shape({
-        type: PropTypes.oneOf(["box", "sphere"]).isRequired,
+        type: PropTypes.oneOf(["box", "sphere", "compound"]).isRequired,
         params: PropTypes.arrayOf(PropTypes.number)
       }),
       friction: PropTypes.number,

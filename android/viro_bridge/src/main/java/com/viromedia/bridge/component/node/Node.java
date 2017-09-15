@@ -841,6 +841,7 @@ public class Node extends Component {
             mScene.removePhysicsBodyFromScene(this);
         }
 
+        mNodeJni.setPhysicsDelegate(null);
         mNodeJni.clearPhysicsBody();
         hasPhysicsBody = false;
     }
