@@ -541,7 +541,7 @@ export class App extends Component {
   }
 
   _openShareActionSheet() {
-      ActionSheetIOS.showShareActionSheetWithOptions({url:this.state.videoUrl, message: "Shared by Figment AR", subject: "Made by Figment AR"},  (error) => alert(error),
+      ActionSheetIOS.showShareActionSheetWithOptions({url:this.state.videoUrl, message: "#FigmentAR", subject: "#FigmentAR"},  (error) => alert(error),
       (success, method) => {
       // For now nothing; This is called when the "Share screen returns"
     });
