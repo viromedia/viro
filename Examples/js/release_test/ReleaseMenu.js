@@ -175,6 +175,10 @@ var ReleaseMenu = React.createClass({
                         text={"ViroPortalTestVR"}
                         onClick={() => {this.props.sceneNavigator.replace("ViroPortalTestVR", {scene:require("./ViroPortalTestVR"), passProps:{showMenu:true}})}}
                  />
+                 <ViroText style={styles.centeredText}  position={[0, -11, -4]} width={1.5} height={2}
+                        text={"ViroAnimationTest"}
+                        onClick={() => {this.props.sceneNavigator.replace("ViroAnimationTest", {scene:require("./ViroAnimationTest"), passProps:{showMenu:true}})}}
+                 />
                 </ViroNode>
             </ViroScene>
     );
