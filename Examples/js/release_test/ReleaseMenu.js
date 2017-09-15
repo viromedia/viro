@@ -106,6 +106,10 @@ var ReleaseMenu = React.createClass({
                          text={"SceneTest1"}
                          onClick={() => {this.props.sceneNavigator.replace("SceneTest1", {scene:require("./SceneTest1"), passProps:{showMenu:true}})}} />
 
+                   <ViroText style={styles.centeredText}  position={[3, 0, -4]} width={1.5} height ={2}
+                         text={"ViroAnimationTest"}
+                         onClick={() => {this.props.sceneNavigator.replace("ViroAnimationTest", {scene:require("./ViroAnimationTest"), passProps:{showMenu:true}})}} />
+
                    <ViroText style={styles.centeredText}  position={[3,-1, -4]} width={1.5} height ={2}
                          text={"ViroSoundTest"}
                          onClick={() => {this.props.sceneNavigator.replace("ViroSoundTest", {scene:require("./ViroSoundTest"), passProps:{showMenu:true}})}} />
