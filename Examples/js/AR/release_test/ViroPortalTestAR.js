@@ -58,7 +58,12 @@ var ViroPortalTest = React.createClass({
       return (
         <ViroARScene>
             <ViroOmniLight position={[0, 0, 0]} color="#ffffff" attenuationStartDistance={40} attenuationEndDistance={50}/>
-            <ViroPortalScene position={[0, 0, 1]} passable={true} scale={[1, 1, 1]} onPortalEnter={this._onPortalEnter} onPortalExit={this._onPortalExit}>
+            <ViroText fontSize={35}  style={styles.baseTextTwo} color="#ffffff"
+              position={[0, 0, 3.5]} width={7} height ={3} maxLines={3} transformBehaviors={["billboard"]}
+              text={"You should see this text behind the unpassable portal." }
+             />
+
+            <ViroPortalScene position={[0, 0, 1]} passable={false} scale={[1, 1, 1]}>
                <ViroPortal >
                  <Viro3DObject source={require('../res/portal_ring.obj')}
                                position={[0, 0, 0]}
@@ -81,7 +86,7 @@ var ViroPortalTest = React.createClass({
             {
               // Stacked Portals
             }
-            <ViroPortalScene passable={true} position={[0, 0, -portalDistance + offsetTorwardsCamera]} scale={[1, 1, 1]}>
+            <ViroPortalScene passable={true} position={[0, 0, -portalDistance + offsetTorwardsCamera]} scale={[1, 1, 1]}  onPortalEnter={this._onPortalEnter} onPortalExit={this._onPortalExit}>
                <ViroPortal>
                  <Viro3DObject source={require('../res/portal_ring.obj')}
                                position={[0, 0, 0]}
@@ -165,7 +170,7 @@ var ViroPortalTest = React.createClass({
 var styles = StyleSheet.create({
   baseTextTwo: {
       fontFamily: 'Arial',
-      fontSize: 10,
+      fontSize: 30,
       color: '#ffffff',
       flex: 1,
       textAlignVertical: 'center',
