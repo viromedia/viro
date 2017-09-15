@@ -60,7 +60,7 @@ var testARScene = React.createClass({
           style={styles.instructionText} transformBehaviors={["billboard"]}/>
         <ViroText position={polarToCartesian([2, 0, -10])} text={this._getRemovedText()}
           style={styles.instructionText} transformBehaviors={["billboard"]}/>
-        <ViroText position={polarToCartesian([2, 0, -20])} text={this._getLastCallbackText()}
+        <ViroText position={polarToCartesian([2, 0, -20])} text={"No Callback"}
           style={styles.instructionText} transformBehaviors={["billboard"]}
           ref={component=>{this._callbackText = component}}/>
 
@@ -81,9 +81,9 @@ var testARScene = React.createClass({
             minHeight={this.state.minValue}
             minWidth={this.state.minValue}
             key={this.state.useFirstPlane ? "firstPlane" : "secondPlane"}
-            onClick={this._onCallback("onClick")}
-            onHover={this._onCallback("onHover")}
-            onDrag={this._onCallback("onDrag")}
+            onClick={this._setTextNatively("onClick")}
+            onHover={this._setTextNatively("onHover")}
+            onDrag={this._setTextNatively("onDrag")}
             onPinch={this._setTextNatively("onPinch")}
             onRotate={this._setTextNatively("onRotate")}
             onAnchorFound={this._onAnchorFound}
@@ -94,7 +94,7 @@ var testARScene = React.createClass({
             position={this.state.updateMap.position}
             rotation={[-90, 0, 0]}
             scale={[this.state.updateMap.width, this.state.updateMap.height, 1]}
-            materials={this.state.useFirstPlane ? "blue" : "red"}/>
+            materials={this.state.useFirstPlane ? "blue_plane" : "red_plane"}/>
 
         </ViroARPlane>));
     }
@@ -129,21 +129,13 @@ var testARScene = React.createClass({
   _getRemovedText() {
     return this.state.removed ? "Plane Removed" : "Plane NOT Removed";
   },
-  _getLastCallbackText() {
-    return !this.state.lastCallback ? "No Callbacks" : "Callback: " + this.state.lastCallback;
-  },
-  _onCallback(callbackType) {
-    return () => {
-      this.setState({
-        lastCallback : callbackType
-      })
-    }
-  },
   /*
-   We set text natively because pinch/rotate updates VERY quickly
+   We set text natively because some events update very quickly
    */
   _setTextNatively(callbackType) {
-    this._callbackText.setNativeProps({"text" : callbackType})
+    return ()=> {
+      this._callbackText.setNativeProps({"text" : "Callback: " + callbackType})
+    }
   },
   _addRemovePlane() {
     this.setState({
@@ -172,11 +164,11 @@ var styles = StyleSheet.create({
 });
 
 ViroMaterials.createMaterials({
-  blue: {
+  blue_plane: {
     lightingModel: "Constant",
     diffuseColor: "#0000ff50"
   },
-  red: {
+  red_plane: {
     lightingModel: "Constant",
     diffuseColor: "#ff000050"
   },
