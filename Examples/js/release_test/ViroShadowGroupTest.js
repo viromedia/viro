@@ -425,21 +425,6 @@ var ViroShadowGroupTest = React.createClass({
                       source={{"uri":"https://s3-us-west-2.amazonaws.com/viro/Climber1Top.mp4"}} />
 
                 </ViroAnimatedComponent>
-                <ViroAnimatedComponent
-                        animation="testLoopRotate"
-                        run={this.state.runAnimation}
-                        loop={true} >
-                     <Viro3DObject source={require('./res/xwing.obj')}
-                                   position={[1, -1.5, 0]}
-                                   materials={["grey"]}
-                                   rotation={[0,0,0]}
-                                   scale={[.08,.08,.08]}
-                                   type="OBJ"
-                                   visible={this.state.isVisible}
-                                   lightReceivingBitMask={allLights}
-                                   shadowCastingBitMask={allLights}
-                     />
-               </ViroAnimatedComponent>
 
                 </ViroNode>
             </ViroScene>
@@ -519,9 +504,9 @@ ViroMaterials.createMaterials({
         diffuseColor: "#0000ff"
       },
       heart: {
-          lightingModel: "Constant",
-          diffuseTexture: require('../res/heart_d.jpg'),
-        },
+        lightingModel: "Constant",
+        diffuseTexture: { "uri" : "https://s3-us-west-2.amazonaws.com/viro/heart_d.jpg" },
+      },
   grey: {
     shininess : 2.0,
     lightingModel: "Blinn",
