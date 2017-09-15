@@ -148,7 +148,7 @@ var testARScene = React.createClass({
     })
   },
   _goToNextTest() {
-    this.props.arSceneNavigator.replace(ARHitTest, {scene:require("./ARHitTest")})
+    this.props.arSceneNavigator.replace("ARHitTest", {scene:require("./ARHitTest")})
   },
 });
 
