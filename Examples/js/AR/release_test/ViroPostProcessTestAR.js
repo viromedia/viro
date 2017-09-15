@@ -98,16 +98,8 @@ var ViroPostProcesTest = React.createClass({
     );
   },
   _goBackToReleaseMenu() {
-    this.setState({
-      number : postEffectTests.length - 1,
-    }, ()=> {
-      // we need this timeout because we need time to set the postprocess back
-      // to None before we return to the release menu.
-      this.setTimeout(()=>{
-        this.props.arSceneNavigator.replace("ARReleaseMenu", {
-          scene: require("./ARReleaseMenu")
-        });
-      }, 500)
+    this.props.arSceneNavigator.replace("ARReleaseMenu", {
+      scene: require("./ARReleaseMenu")
     });
   },
 });

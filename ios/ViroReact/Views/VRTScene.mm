@@ -208,8 +208,13 @@ static NSArray<NSNumber *> *const kDefaultSize = @[@(0), @(0), @(0)];
     self.context = context;
     self.driver = driver;
     self.scene = self.scene; // this call self setScene: which passes the vroScene down the scene graph
+    
+    // we need to reset effects (override the ones from the previous scene) when we appear.
+    self.scene->setShouldResetEffects(true);
+    
     [self sceneWillAppear];
     [self parentDidAppear];
+
 }
 
 - (void)sceneDidAppear:(VRORenderContext *)context driver:(std::shared_ptr<VRODriver>)driver {
