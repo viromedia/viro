@@ -68,8 +68,8 @@ var ViroShadowGroupTest = React.createClass({
       castshadowLights:true,
       shadowClippingPlaneStart:0.1,
       shadowOpacity: 0.9,
-      shadowMapSize:4096,
-      shadowOrthographicSize:10,
+      shadowMapSize:1024,
+      shadowOrthographicSize:5,
       shadowBias:0.005,
       runAnimation:false,
       isVisible:true
@@ -222,16 +222,6 @@ var ViroShadowGroupTest = React.createClass({
                     shadowFarZ={this.state.shadowClippingPlaneStart + 10}
                     shadowOpacity={this.state.shadowOpacity}
                   />
-
-
-                  <ViroSurface
-                    rotation={[0, 0, 0]}
-                    position={[0, 0, 0.15]}
-                    width={6.2} height={6.2}
-                    lightReceivingBitMask={allLights}
-                    materials={"shadowCatcher"}
-                    acceptShadows={true}
-                    ignoreEventHandling={true} />
 
                   <ViroSurface
                      lightReceivingBitMask={allLights}

@@ -272,7 +272,7 @@ var GroupTestBasicPhysics = React.createClass({
                         position={[3, -1, 0]}
                         onDrag={this.state.toggleDraggable ? this.onDrag("CompoundNode") : undefined}
                         physicsBody={this.state.physicsEnabled?
-                          {type:'dynamic', mass:1, enabled:true, restitution:1, shape:{type:'AutoCompound'},
+                          {type:'dynamic', mass:1, enabled:true, restitution:1, shape:{type:'compound'},
                            useGravity:this.state.gravityEnabled}:undefined}
                         rotation={[0,0,-90]}>
 
