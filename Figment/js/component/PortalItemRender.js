@@ -120,16 +120,15 @@ var PortalItemRender = React.createClass({
     },
 
     _onClickState(uuid) {
-      if (shouldBillboardOnTap) {
-        return ((clickState, position, source) => {
+      return ((clickState, position, source) => {
+        if (shouldBillboardOnTap) {
           if (clickState == 1) {
             // if "ClickDown", then enable billboardY
             this.setState({shouldBillboard : true});
           } else if (clickState == 2) {
-            // for some reason this method gives us values "opposite" of what they should be
-            // which is why we negate the y rotation, but also the y-rotation values are
-            // always within -90 -> 90 so the x/z need to be adjusted back to 0 and the y
-            // rotation recalculated in order for the rotation gesture to function properly
+            // the y-rotation values are always within -90 -> 90 so the x/z need to be
+            // adjusted back to 0 and the y rotation recalculated in order for the
+            // rotation gesture to function properly
             this.arNodeRef.getTransformAsync().then((retDict)=>{
               let rotation = retDict.rotation;
               let absX = Math.abs(rotation[0]);
@@ -148,9 +147,11 @@ var PortalItemRender = React.createClass({
               });
             })
           }
-        });
-      }
-      this.props.onClickStateCallback(uuid, clickState, UIConstants.LIST_MODE_PORTAL);
+        }
+        if (clickState == 2) {
+          this.props.onClickStateCallback(uuid, clickState, UIConstants.LIST_MODE_PORTAL);
+        }
+      });
     },
 
     _renderPortalInside(portalItem) {
