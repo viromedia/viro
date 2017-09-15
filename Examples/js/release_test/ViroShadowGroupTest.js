@@ -234,23 +234,6 @@ var ViroShadowGroupTest = React.createClass({
 
                 <ViroNode position={[-2 , 0, -2.5]}>
 
-                <ViroAnimatedComponent
-                    animation="testLoopRotate"
-                    run={this.state.runAnimation}
-                    loop={true} >
-
-                    <Viro3DObject source={require('./res/bball.vrx')}
-                              scale={[0.05, 0.05, 0.05]}
-                                position={[-1.8, 0.5, 0]}
-                                  type="VRX"
-                                  visible={this.state.isVisible}
-                                  lightReceivingBitMask={allLights}
-                                  shadowCastingBitMask={allLights}
-
-                    />
-
-
-                 </ViroAnimatedComponent>
 
                 <ViroAnimatedComponent
                                     animation="testLoopMove"
@@ -425,6 +408,16 @@ var ViroShadowGroupTest = React.createClass({
                       source={{"uri":"https://s3-us-west-2.amazonaws.com/viro/Climber1Top.mp4"}} />
 
                 </ViroAnimatedComponent>
+                <ViroAnimatedComponent
+                        animation="testLoopRotate"
+                        run={this.state.runAnimation}
+                        loop={true} >
+                        <Viro3DObject source={{"uri" : "https://s3-us-west-2.amazonaws.com/viro/heart.obj"}}
+                               scale={[1.8, 1.8, 1.8]}
+                               position={[-2, 1, .2]}
+                               type="OBJ"
+                               materials="heart"/>
+               </ViroAnimatedComponent>
 
                 </ViroNode>
             </ViroScene>
