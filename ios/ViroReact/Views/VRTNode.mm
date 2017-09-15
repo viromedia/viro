@@ -302,6 +302,10 @@ const double kTransformDelegateDistanceFilter = 0.01;
     }
     
     if (!self.materials) {
+        // If materials were removed from object, then reset the materials array.
+        std::vector<std::shared_ptr<VROMaterial>> tempMaterials;
+        tempMaterials.push_back(std::make_shared<VROMaterial>());
+        geometry->setMaterials(tempMaterials);
         return;
     }
     
