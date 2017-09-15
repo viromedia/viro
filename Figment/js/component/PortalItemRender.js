@@ -217,11 +217,6 @@ var PortalItemRender = React.createClass({
      value of the given rotationFactor.
      */
     _onRotate(rotateState, rotationFactor, source) {
-      // ignore the first factor, there's a bug with it. VIRO-1651
-      if(rotateState == 1) {
-        return;
-      }
-
       if (rotateState == 3) {
         this.setState({
           rotation : [this.state.rotation[0], this.state.rotation[1] - rotationFactor, this.state.rotation[2]]
@@ -239,11 +234,6 @@ var PortalItemRender = React.createClass({
      to the final value and store it in state.
      */
     _onPinch(pinchState, scaleFactor, source) {
-      // ignore the first factor, there's a bug with it. VIRO-1651
-      if(pinchState == 1) {
-        return;
-      }
-
       var newScale = this.state.scale.map((x)=>{return x * scaleFactor})
 
       if(pinchState == 3) {
