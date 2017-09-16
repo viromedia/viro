@@ -49,7 +49,7 @@ const int kDefaultMaxParticles = 500;
         _defaultColorModifier = std::make_shared<VROParticleModifier>(VROVector3f(1,1,1));
         _defaultScaleModifier = std::make_shared<VROParticleModifier>(VROVector3f(1,1,1));
         _defaultRotationModifier = std::make_shared<VROParticleModifier>(VROVector3f(0,0,0));
-        _defaultVelocityModifier = std::make_shared<VROParticleModifier>(VROVector3f(0,0,0));
+        _defaultVelocityModifier = std::make_shared<VROParticleModifier>(VROVector3f(-0.5,1,0), VROVector3f(0.5,1,0));
         _defaultAccelerationModifier = std::make_shared<VROParticleModifier>(VROVector3f(0,0,0));
         
         // Create a VROSurface, representing the particle geometry template for this emitter.
