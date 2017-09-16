@@ -76,9 +76,6 @@ var ViroBox = React.createClass({
      * Flag is set to false by default.
      */
     highAccuracyGaze:PropTypes.bool,
-    onDrag: PropTypes.func,
-    onPinch: PropTypes.func,
-    onRotate: PropTypes.func,
     physicsBody: PropTypes.shape({
       type: PropTypes.oneOf(['dynamic','kinematic','static']).isRequired,
       mass: PropTypes.number,
