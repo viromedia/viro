@@ -72,9 +72,9 @@
 
             spawnBehavior={{
               particleLifetime:[5000,5000],
-              emissionRatePerSecond:[800, 800], // or 300 with a max of 2000
+              emissionRatePerSecond:[600, 600], // or 300 with a max of 2000
               spawnVolume:{shape:"box", params:[20, 1, 20], spawnOnSurface:false},
-              maxParticles:4000
+              maxParticles:2000
             }}
 
             particleAppearance={{
