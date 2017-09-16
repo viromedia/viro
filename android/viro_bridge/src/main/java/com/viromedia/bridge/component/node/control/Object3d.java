@@ -62,7 +62,6 @@ public class Object3d extends Control {
     }
 
     private ObjectJni mNative3dObject;
-    private String mAnimationName = null;
     private Uri mSource;
     private List<String> mResources = null;
     private boolean mObjLoaded = false;
@@ -141,6 +140,7 @@ public class Object3d extends Control {
                     // set materials on the node after it's finished loading OBJ
                     setMaterials(mMaterials);
                 }
+                updateAnimation();
                 loadDidEnd();
             }
 
@@ -204,7 +204,7 @@ public class Object3d extends Control {
          If no animation name was specified, then use the first keyframe animation,
          if available.
         */
-        if (mAnimationName == null || mAnimationName.length() == 0) {
+        if (mNodeAnimation.getAnimationName() == null || mNodeAnimation.getAnimationName().length() == 0) {
             Set<String> animationKeys = getNodeJni().getAnimationKeys();
             if (!animationKeys.isEmpty()) {
                 mNodeAnimation.setAnimationName(animationKeys.iterator().next());

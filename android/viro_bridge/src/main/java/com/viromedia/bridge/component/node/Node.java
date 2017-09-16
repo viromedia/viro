@@ -63,6 +63,7 @@ public class Node extends Component {
         public void setAnimationName(String name) {
             mAnimationName = name;
         }
+        public String getAnimationName() { return mAnimationName; }
 
         @Override
         public ExecutableAnimationJni loadAnimation() {
