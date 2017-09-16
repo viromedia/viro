@@ -181,13 +181,13 @@ const double kTransformDelegateDistanceFilter = 0.01;
     if (body) {
         body->setIsSimulated([self shouldAppear]);
     }
+    [self node]->setHidden(![self shouldAppear]);
     [super handleAppearanceChange];
 }
 
 - (void)setVisible:(BOOL)visible {
     _visible = visible;
     [self handleAppearanceChange];
-    [self node]->setHidden(!_visible);
 }
 
 - (void)setViroTag:(NSString *)tag {
@@ -283,7 +283,6 @@ const double kTransformDelegateDistanceFilter = 0.01;
 }
 
 #pragma mark - Materials
-
 - (void)setMaterials:(NSArray<NSString *> *)materials {
     _materials = materials;
     [self applyMaterials];
