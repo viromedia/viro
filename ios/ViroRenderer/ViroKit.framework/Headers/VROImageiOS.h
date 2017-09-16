@@ -34,6 +34,8 @@ public:
     
 private:
     
+    bool hasAlpha(UIImage *image);
+    
     int _width, _height;
     int _dataLength;
     unsigned char *_data;

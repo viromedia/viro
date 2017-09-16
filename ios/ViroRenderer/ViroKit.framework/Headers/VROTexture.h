@@ -36,6 +36,7 @@ enum class VROTextureFormat {
     ASTC_4x4_LDR,
     RGBA8,
     RGB565,
+    RGB8
 };
 
 // Texture formats for storage on the GPU
@@ -162,6 +163,11 @@ public:
     VROStereoMode getStereoMode() const {
         return _stereoMode;
     }
+    
+    /*
+     True if this texture has an alpha channel.
+     */
+    bool hasAlpha() const;
     
     /*
      Access and set wrap properties.
