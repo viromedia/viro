@@ -180,10 +180,26 @@ static NSString *const kVRTInvalidAPIKeyMessage = @"The given API Key is either 
             return;
         }
         
+        /*
+         * Search the top level rootView controllers and their children to see if their views are
+         * RCTRootView. If so, then make that root view visible. This is a hack that
+         * removes GVR's frozen frame referenced in VIRO-1067 during shutdown.
+         */
         for (int i = 0; i < [windowArray count]; i ++){
             UIWindow *window = [windowArray objectAtIndex:i];
-            if (window != nil && window.rootViewController != nil &&
-                [window.rootViewController.view isKindOfClass:[RCTRootView class]]){
+            if (window != nil && window.rootViewController != nil ){
+                if(window.rootViewController.view != nil && [self hasRCTROOTViewInTree:window.rootViewController]) {
+                    [window makeKeyAndVisible];
+                    return;
+                }
+            }
+        }
+        
+        //if we are still here we didn't make any window visible over GVR. Make first one with a valid
+        //rootViewController visible.
+        for (int i = 0; i < [windowArray count]; i ++){
+            UIWindow *window = [windowArray objectAtIndex:i];
+            if (window != nil && window.rootViewController != nil ) {
                 [window makeKeyAndVisible];
                 return;
             }
@@ -191,11 +207,40 @@ static NSString *const kVRTInvalidAPIKeyMessage = @"The given API Key is either 
     }
 }
 
-- (void)dealloc {
-    _currentViews = nil;
-    _currentScene = nil;
-    _vroView = nil;
-    _childViews = nil;
+//HACK for Viro VIRO-1067 Traverse controller and subtree to look for an RCTRootView. Return true if one is found.
+-(BOOL) hasRCTROOTViewInTree:(UIViewController *)controller {
+    if([controller.view isKindOfClass:[RCTRootView class]]) {
+        return YES;
+    }
+
+    for(UIView *view in controller.view.subviews) {
+        if([view isKindOfClass:[RCTRootView class]]) {
+            return YES;
+        }
+    }
+
+    if(controller.childViewControllers == nil) {
+        return NO;
+    }
+    
+    for(UIViewController *controllerChild in controller.childViewControllers) {
+        if(controllerChild.view != nil) {
+            if([controllerChild.view isKindOfClass:[RCTRootView class]]) {
+                return YES;
+            }
+            for(UIView *view in controllerChild.view.subviews) {
+                if([view isKindOfClass:[RCTRootView class]]) {
+                    return YES;
+                }
+            }
+        }
+
+        BOOL hasRCTRootView = [self hasRCTROOTViewInTree:controllerChild];
+        if(hasRCTRootView) {
+            return YES;
+        }
+    }
+    return NO;
 }
 
 #pragma mark RCTInvalidating methods
@@ -203,6 +248,7 @@ static NSString *const kVRTInvalidAPIKeyMessage = @"The given API Key is either 
 - (void)invalidate {
     //NOTE: DO NOT NULL OUT _currentViews here, that will cause a memory leak and prevent child views from
     //being released.
+    //_currentViews = nil;
     _currentScene = nil;
     _vroView = nil;
     _childViews = nil;
