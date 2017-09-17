@@ -63,30 +63,6 @@ var ViroPortalScene = React.createClass({
       }),
       PropTypes.func
     ]),
-    physicsBody: PropTypes.shape({
-      type: PropTypes.oneOf(['dynamic','kinematic','static']).isRequired,
-      mass: PropTypes.number,
-      restitution: PropTypes.number,
-      shape: PropTypes.shape({
-        type: PropTypes.oneOf(["box", "sphere", "compound"]).isRequired,
-        params: PropTypes.arrayOf(PropTypes.number)
-      }).isRequired,
-      friction: PropTypes.number,
-      useGravity: PropTypes.bool,
-      enabled: PropTypes.bool,
-      velocity: PropTypes.arrayOf(PropTypes.number),
-      force: PropTypes.oneOfType([
-        PropTypes.arrayOf(PropTypes.shape({
-          value: PropTypes.arrayOf(PropTypes.number),
-          position: PropTypes.arrayOf(PropTypes.number)
-        })),
-        PropTypes.shape({
-          value: PropTypes.arrayOf(PropTypes.number),
-          position: PropTypes.arrayOf(PropTypes.number)
-        }),
-      ]),
-      torque: PropTypes.arrayOf(PropTypes.number)
-    }),
 
     viroTag: PropTypes.string,
     onCollision: PropTypes.func,
@@ -168,25 +144,6 @@ var ViroPortalScene = React.createClass({
     return await NativeModules.VRTNodeModule.getNodeTransform(findNodeHandle(this));
   },
 
-  applyImpulse: function(force, position) {
-    NativeModules.VRTNodeModule.applyImpulse(findNodeHandle(this), force, position);
-  },
-
-  applyTorqueImpulse: function(torque) {
-    NativeModules.VRTNodeModule.applyTorqueImpulse(findNodeHandle(this), torque);
-  },
-
-  setVelocity: function(velocity) {
-    NativeModules.VRTNodeModule.setVelocity(findNodeHandle(this), velocity);
-  },
-
-  _onCollision: function(event: Event){
-    if (this.props.onCollision){
-      this.props.onCollision(event.nativeEvent.viroTag, event.nativeEvent.collidedPoint,
-                                                           event.nativeEvent.collidedNormal);
-    }
-  },
-
   // Called from native on the event a positional change has occured
   // for the underlying control within the renderer.
   _onNativeTransformUpdate: function(event: Event){
@@ -248,6 +205,7 @@ var ViroPortalScene = React.createClass({
 var VRTPortalScene = requireNativeComponent(
   'VRTPortalScene', ViroPortalScene, {
     nativeOnly: {
+            physicsBody: {},
             materials: [],
             canHover: true,
             canClick: true,
