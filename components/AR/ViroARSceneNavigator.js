@@ -387,6 +387,7 @@ var ViroARSceneNavigator = React.createClass({
 
    fileName - name of the file (without extension)
    saveToCameraRoll - whether or not the file should also be saved to the camera roll
+   onError - callback function that accepts an errorCode.
    */
   _startVideoRecording(fileName, saveToCameraRoll, onError) {
     ViroARSceneNavigatorModule.startVideoRecording(findNodeHandle(this), fileName, saveToCameraRoll, onError);

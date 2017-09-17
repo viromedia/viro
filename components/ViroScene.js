@@ -161,10 +161,6 @@ var ViroScene = React.createClass({
     };
   },
 
-  setNativeProps: function(nativeProps) {
-    this._component.setNativeProps(nativeProps);
-  },
-
   render: function() {
     let timeToFuse = undefined;
     if (this.props.onFuse != undefined && typeof this.props.onFuse === 'object'){
