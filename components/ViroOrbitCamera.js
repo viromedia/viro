@@ -21,6 +21,15 @@ var ViroOrbitCamera = React.createClass({
     position: PropTypes.arrayOf(PropTypes.number),
     focalPoint: PropTypes.arrayOf(PropTypes.number),
     active: PropTypes.bool.isRequired,
+    animation: PropTypes.shape({
+      name: PropTypes.string,
+      delay: PropTypes.number,
+      loop: PropTypes.bool,
+      onStart: PropTypes.func,
+      onFinish: PropTypes.func,
+      run: PropTypes.bool,
+    }),
+
   },
 
   componentDidMount() {
