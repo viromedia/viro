@@ -133,6 +133,10 @@ public class Image extends Control {
     @Override
     public void onPropsSet() {
         super.onPropsSet();
+        if (isTornDown()) {
+            return;
+        }
+
         resizeImage();
         updateSurface();
         if (mImageNeedsDownload) {
