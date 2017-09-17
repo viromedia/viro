@@ -101,13 +101,13 @@ public class Image extends Control {
     }
 
     public void setResizeMode(String resizeMode) {
-        mResizeMode = resizeMode;
+        mResizeMode = resizeMode == null ? "" : resizeMode;
         mGeometryNeedsUpdate = true;
         mResizeModeSet = true;
     }
 
     public void setImageClipMode(String imageClipMode) {
-        mImageClipMode = imageClipMode;
+        mImageClipMode = imageClipMode == null ? "" : imageClipMode;
         mGeometryNeedsUpdate = true;
     }
 
@@ -204,7 +204,8 @@ public class Image extends Control {
         if (isTornDown()) {
             return;
         }
-        super.onTearDown();
+
+        // Cancel all downloaders before tearing down.
         if (mPlaceholderListener != null) {
             mPlaceholderListener.invalidate();
         }
@@ -212,6 +213,7 @@ public class Image extends Control {
         if (mMainListener != null) {
             mMainListener.invalidate();
         }
+        super.onTearDown();
 
         if (mNativeSurface != null) {
             mNativeSurface.destroy();
