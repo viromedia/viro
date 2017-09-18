@@ -7,7 +7,6 @@ import {StyleSheet} from 'react-native';
 import {
   ViroARScene,
   ViroText,
-  Viro360Image,
 } from 'react-viro';
 
 var HelloWorldSceneAR = React.createClass({
