@@ -13,6 +13,8 @@ import React, { Component } from 'react';
 import * as LoadConstants from '../redux/LoadingStateConstants';
 import * as UIConstants from '../redux/UIConstants';
 import * as ModelData from  '../model/ModelItems';
+import TimerMixin from 'react-timer-mixin';
+
 import {
   ViroScene,
   ViroARScene,
@@ -31,6 +33,7 @@ var PropTypes = React.PropTypes;
 var shouldBillboardOnTap = false;
 
 var ModelItemRender = React.createClass({
+    mixins: [TimerMixin],
     propTypes: {
         modelIDProps: PropTypes.any,
         onLoadCallback: PropTypes.func,
@@ -48,7 +51,7 @@ var ModelItemRender = React.createClass({
         rotation : [0, 0, 0],
         nodeIsVisible : false,
         position: [0, 10, 1], // make it appear initially high in the sky
-        shouldBillboard : false,
+        shouldBillboard : true,
       }
     },
 
@@ -102,7 +105,7 @@ var ModelItemRender = React.createClass({
               onRotate={this._onRotate}
               onPinch={this._onPinch}
               onLoadStart={this._onObjectLoadStart(this.props.modelIDProps.uuid)}
-              onLoadEnd={this._onObjectLoadEnd(this.props.modelIDProps.uuid)} 
+              onLoadEnd={this._onObjectLoadEnd(this.props.modelIDProps.uuid)}
               type = "VRX"/>
 
             <ViroSurface
@@ -136,7 +139,7 @@ var ModelItemRender = React.createClass({
                 let rotation = retDict.rotation;
                 let absX = Math.abs(rotation[0]);
                 let absZ = Math.abs(rotation[2]);
-                
+
                 let yRotation = (rotation[1]);
 
                 // if the X and Z aren't 0, then adjust the y rotation.
@@ -156,7 +159,7 @@ var ModelItemRender = React.createClass({
             this.props.onClickStateCallback(uuid, clickState, UIConstants.LIST_MODE_MODEL);
           }
         });
-      
+
     },
 
     /*
@@ -253,13 +256,36 @@ var ModelItemRender = React.createClass({
       // moving to it's location causing the user to accidentally "pass" through the portal.
       console.log("distance: Setting new position of ModelItem");
       console.log(newPosition);
+
+      this._setInitialPlacement(newPosition);
+    },
+
+    _setInitialPlacement(position) {
       this.setState({
-        position : newPosition,
-      }, ()=>{
-        this.setState({
-          nodeIsVisible: true,
-        })
+          position: position,
       });
+      this.setTimeout(() =>{this._updateInitialRotation()}, 500);
+    },
+
+    _updateInitialRotation() {
+      this.arNodeRef.getTransformAsync().then((retDict)=>{
+         let rotation = retDict.rotation;
+         let absX = Math.abs(rotation[0]);
+         let absZ = Math.abs(rotation[2]);
+
+         let yRotation = (rotation[1]);
+
+         // if the X and Z aren't 0, then adjust the y rotation.
+         if (absX > 1 && absZ > 1) {
+           yRotation = 180 - (yRotation);
+         }
+         console.log("updating yrotation to: " + yRotation);
+         this.setState({
+           rotation : [0,yRotation,0],
+           shouldBillboard : false,
+           nodeIsVisible: true,
+         });
+       });
     },
 });
 
