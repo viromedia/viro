@@ -24,6 +24,15 @@ class VROARSessionDelegate;
 - (void)setARSessionDelegate:(std::shared_ptr<VROARSessionDelegate>)delegate;
 
 /*
+ Should be invoked before this object gets deallocated, to clean up GL
+ resources on the rendering thread before the underlying EAGLContext used
+ by this view is destroyed. This is required to prevent deadlocks in
+ CVOpenGLTextureCache, which hangs on dealloc if the EAGLContext it's using
+ is already gone.
+ */
+- (void)deleteGL;
+
+/*
  Sets the paused state of the underlying CADisplayLink
  */
 - (void)setPaused:(BOOL)paused;
