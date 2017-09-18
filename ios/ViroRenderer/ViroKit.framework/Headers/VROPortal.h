@@ -29,6 +29,14 @@ public:
     virtual ~VROPortal();
     
     /*
+     Delete any rendering resources. Invoked prior to destruction, on the
+     rendering thread.
+     
+     Recurses down the tree.
+     */
+    void deleteGL();
+    
+    /*
      Render this portal's background.
      */
     void renderBackground(const VRORenderContext &context, std::shared_ptr<VRODriver> &driver);

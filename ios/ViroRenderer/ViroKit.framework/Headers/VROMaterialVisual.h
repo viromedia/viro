@@ -35,6 +35,12 @@ public:
     VROMaterialVisual(const VROMaterialVisual &visual);
     
     /*
+     Delete any rendering resources. Invoked prior to destruction, on the
+     rendering thread.
+     */
+    void deleteGL();
+    
+    /*
      Copy from the given visual to this one. Does NOT copy the
      parent material, however.
      */

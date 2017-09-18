@@ -130,6 +130,12 @@ public:
     
     virtual ~VROTexture();
     
+    /*
+     Delete any rendering resources. Invoked prior to destruction, on the
+     rendering thread.
+     */
+    virtual void deleteGL() {}
+    
     VROTextureType getType() const {
         return _type;
     }
