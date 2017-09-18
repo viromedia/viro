@@ -8,6 +8,9 @@
  */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+
+import { GoogleAnalyticsTracker } from 'react-native-google-analytics-bridge';
+
 import * as LoadingConstants from './redux/LoadingStateConstants';
 import * as UIConstants from './redux/UIConstants';
 import ModelItemRender from './component/ModelItemRender';
@@ -44,6 +47,8 @@ import {
 } from 'react-viro';
 
 import TimerMixin from 'react-timer-mixin';
+
+global.tracker = new GoogleAnalyticsTracker('UA-96545983-1');
 
 var figment = React.createClass({
   mixins: [TimerMixin],

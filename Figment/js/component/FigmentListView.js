@@ -25,7 +25,7 @@ var FigmentListView = React.createClass({
     },
 
     getInitialState: function() {
-      var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+      var ds = new ListView.DataSource({rowHasChanged: (r1, r2) =>  r1 !== r2 });
       return {
         rowChanged: 0,
         dataRows: this.props.items,
@@ -114,7 +114,7 @@ var FigmentListView = React.createClass({
     _isSelected(data, rowId) {
       return (this.props.listMode == UIConstants.LIST_MODE_EFFECT 
         && this.state.animationDone
-        && data.selected);
+        && this.state.selectedItem == rowId);
     },
     _onAnimationDone() {
       // Called when animation on the listViewItem is done
@@ -123,11 +123,12 @@ var FigmentListView = React.createClass({
       })
     },
     _onListItemPressed(rowId) {
+        let selectedItem = this.props.listMode == UIConstants.LIST_MODE_EFFECT ? rowId : this.state.selectedItem;
         return () => {
 
           this.setState({
              rowChanged: parseInt(rowId),
-             selectedItem: rowId,
+             selectedItem: selectedItem,
           });
           this.props.onPress(rowId);
         }

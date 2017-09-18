@@ -35,12 +35,12 @@ class ContextMenuButton extends Component {
     var imgClickSource = this.props.stateImageArray[0];
 
     this.buttonScale = this.scaleValue.interpolate({
-      inputRange: [0, 0.5, 0.8, 1],
-      outputRange: [1, 1.2, 0.8, 1]
+      inputRange: [0, 0.8, 1],
+      outputRange: [1, 1.2, 1]
     });
     this.buttonOpacity = this.fadeInValue.interpolate({
-      inputRange: [0,1],
-      outputRange: [0,1]
+      inputRange: [0, 0.1875, 0.815, 1],
+      outputRange: [0,1, 1, 0]
     });
 
   }
@@ -87,7 +87,7 @@ class ContextMenuButton extends Component {
         this.fadeInValue,
         {
           toValue: 1,
-          duration: 300,
+          duration: 1600,
           easing: Easing.linear,
           useNativeDriver: true, 
         }

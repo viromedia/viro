@@ -58,7 +58,7 @@ class ShareScreenButtonComponent extends Component {
       <TouchableHighlight underlayColor="#00000000" onPress={this._onPress}>
       <View style={{position: 'absolute', width: 70, height: 70, justifyContent: 'center', alignItems: 'center',}}>
         <Animated.Image 
-            source={this.props.stateImageArray[1]}
+            source={this.props.buttonState === 'on' ? this.props.stateImageArray[0] : this.props.stateImageArray[1]}
             style={[this.props.style,
                       {
                         transform:[

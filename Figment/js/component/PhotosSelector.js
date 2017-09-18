@@ -292,6 +292,7 @@ export class PhotosSelector extends Component {
 
   _getTabPress(type) {
     return () => {
+      tracker.trackEvent('buttonClick', "photo_selector_" + type);
 
       if (this.state.selectedTab == type) {
         return; // do nothing!

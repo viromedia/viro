@@ -5,6 +5,7 @@ var POSITION_OFFSET = .05 // 5 cm
 
 var PortalItems = [
   {
+    "name": "portal_archway",
     "selected": false,
     "loading": LoadingConstants.NONE,
     "icon_img":require("../res/icon_portal_archway.png"),
@@ -22,6 +23,7 @@ var PortalItems = [
                   require('../res/portal_archway/portal_entry.png')],
   },
   {
+    "name": "portal_picture_frame",
     "selected": false,
     "loading": LoadingConstants.NONE,
     "icon_img":require("../res/icon_portal_picture_frame.png"),
@@ -38,6 +40,7 @@ var PortalItems = [
     "resources": [require('../res/portal_picture_frame/portal_picture_frame_specular.png'), require('../res/portal_picture_frame/portal_picture_frame_diffuse.png'), require('../res/portal_picture_frame/portal_picture_frame_normal.png')],
   },
   {
+    "name": "portal_window_frame",
     "selected": false,
     "loading": LoadingConstants.NONE,
     "icon_img":require("../res/icon_portal_windowframe.png"),
@@ -54,6 +57,7 @@ var PortalItems = [
     "resources": [require('../res/portal_window_frame/portal_window_frame_specular.png'), require('../res/portal_window_frame/portal_window_frame_diffuse.png'), require('../res/portal_window_frame/portal_window_frame_normal.png')],
   },
     {
+    "name": "portal_wood_frame",
     "selected": false,
     "loading": LoadingConstants.NONE,
     "icon_img":require("../res/icon_portal_wood_doorframe.png"),
@@ -70,6 +74,7 @@ var PortalItems = [
     "resources": [require('../res/portal_wood_frame/portal_wood_frame_specular.png'), require('../res/portal_wood_frame/portal_wood_frame_diffuse.png'), require('../res/portal_wood_frame/portal_wood_frame_normal.png')],
   },
   {
+    "name": "portal_ship",
     "selected": false,
     "loading": LoadingConstants.NONE,
     "icon_img":require("../res/icon_portal_shipdoor.png"),

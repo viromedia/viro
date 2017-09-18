@@ -64,6 +64,7 @@ class ListViewItem extends Component {
 
   _onPress() {
     this.scale();
+
     // Picked from here https://facebook.github.io/react-native/docs/performance.html#my-touchablex-view-isn-t-very-responsive
     requestAnimationFrame(() => {
       this.props.onPress();   

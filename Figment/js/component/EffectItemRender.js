@@ -33,6 +33,8 @@ var EffectItemRender = React.createClass({
 
     componentWillMount() {
       this._ref_object = null;
+      tracker.trackEvent('Effects', this.props.effectItem.name);
+
     },
 
     getInitialState() {

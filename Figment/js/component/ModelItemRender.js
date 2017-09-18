@@ -42,7 +42,9 @@ var ModelItemRender = React.createClass({
     },
 
     componentWillMount() {
-      this._modelData = ModelData.getModelArray()
+      this._modelData = ModelData.getModelArray();
+      tracker.trackEvent('Objects', this._modelData[this.props.modelIDProps.index].name);
+
     },
 
     getInitialState() {

@@ -101,12 +101,15 @@ export class App extends Component {
       minutes: '00',
       seconds: '00',
       miliseconds: '00',
-
+      recordStartTimeInMillis: 0,
     };
   }
 
   render() {
       console.log("RERENDER App OCCURRED");
+      tracker.setAppName('FigmentAR.iOS');
+      tracker.setTrackUncaughtExceptions(true);
+      tracker.trackScreenView('Main Scene');
       return (
         <View style={localStyles.flex}>
           <StatusBar hidden={true} />
@@ -177,6 +180,8 @@ export class App extends Component {
   }
 
   _onContextMenuRemoveButtonPressed() {
+    tracker.trackEvent('buttonClick', "context_menu_remove");
+
     var index = this.props.currentItemSelectionIndex;
     console.log("_onContextMenuRemoveButtonPressed - index: " + this.props.currentItemSelectionIndex + ", clickState: " + this.props.currentItemClickState + ", type: " + this.props.currentSelectedItemType);
     if (this.props.currentItemSelectionIndex != -1 && this.props.currentItemClickState != '') {
@@ -201,6 +206,9 @@ export class App extends Component {
   }
 
   _onContextClearAll() {
+
+      tracker.trackEvent('buttonClick', "context_menu_clear_all");
+
       Alert.alert(
         "Remove All Objects",
         "Are you sure you want to clear the entire scene?",
@@ -212,8 +220,11 @@ export class App extends Component {
   }
 
   _renderPhotosSelector() {
+
     // TODO: remove the return to render the selector when portal is tapped
     if (this.state.showPhotosSelector == true) {
+      tracker.trackEvent('buttonClick', "context_menu_photo_selector");
+
       var photoSelectorViews = [];
         photoSelectorViews.push(<StatusBar key="statusBarKey" hidden={true} />);
         photoSelectorViews.push(<View key="topPhotoBar" style={localStyles.topPhotoBar}>
@@ -259,12 +270,17 @@ export class App extends Component {
             onEnd={()=>{this.setState({playPreview : false})}} />
           )}
 
+            {renderIf(!this.state.playPreview && (this.state.previewType == kPreviewTypeVideo),
+            <TouchableOpacity onPress={()=>{this.player.seek(0); this.setState({ playPreview : true })}} underlayColor="#00000000">
+              <Image source={require("./res/btn_play.png")} style={localStyles.previewPlayButton} />
+            </TouchableOpacity>
+            )}
 
-          {renderIf(!this.state.playPreview && (this.state.previewType == kPreviewTypeVideo),
-          <TouchableOpacity onPress={()=>{this.player.seek(0); this.setState({ playPreview : true })}} underlayColor="#00000000">
-            <Image source={require("./res/btn_play.png")} style={localStyles.previewPlayButton} />
-          </TouchableOpacity>
-          )}
+            {renderIf(this.state.haveSavedMedia,
+              <ContextMenuButton onPress={()=>{}} 
+                      stateImageArray={[require("./res/icon_success.png")]}
+                      style={localStyles.previewSavedSuccess} />
+            )}
 
           <View style={{position:'absolute', left:0, top:0, width:30, height:30}}>
             <ShareScreenButton onPress={()=>{this.props.dispatchDisplayUIScreen(UIConstants.SHOW_MAIN_SCREEN)}}
@@ -274,8 +290,15 @@ export class App extends Component {
           </View>
 
           <View style={{position:'absolute', left:0, bottom:40, width:30, height:30}}>
+            <ShareScreenButton onPress={()=>{this._saveToCameraRoll()}}
+            buttonState={this.state.haveSavedMedia ? 'on': 'off'}
+            stateImageArray={[require("./res/btn_saved.png"), require("./res/btn_save.png")]} 
+            style={localStyles.previewScreenButtonShare} />
+          </View>
+
+          <View style={{position:'absolute', left:75, bottom:40, width:30, height:30}}>
             <ShareScreenButton onPress={()=>{this._openShareActionSheet()}}
-            buttonState={'off'}
+            buttonState={this.state.haveSavedMedia ? 'off' : 'on'}
             stateImageArray={[require("./res/btn_share.png"), require("./res/btn_share.png")]} 
             style={localStyles.previewScreenButtonShare} />
           </View>
@@ -362,6 +385,7 @@ export class App extends Component {
   }
 
   _takeScreenshot() {
+    tracker.trackEvent('buttonClick', "take_screenshot");
     this._arNavigator._takeScreenshot("figment_still", false).then((retDict)=>{
       if (!retDict.success) {
         if (retDict.errorCode == ViroConstants.RECORD_ERROR_NO_PERMISSION) {
@@ -381,6 +405,8 @@ export class App extends Component {
 
   _startRecording() {
     console.log("[JS] begin recording!");
+    const total_objects = Number(this.props.modelItems.length + this.props.portalItems.length + this.props.effectItems.length);
+    tracker.trackEvent('buttonClick', 'startRecording');
     this._arNavigator._startVideoRecording("figment_video", false,
        (errorCode)=>{
         this._displayVideoRecordAlert("Recording Error", "[JS] onError callback errorCode: " + errorCode);
@@ -416,11 +442,18 @@ export class App extends Component {
         seconds : seconds.length == 1 ? '0' + seconds: seconds,
       });
     }, 1000);
-    this.setState({timer});
+    this.setState({
+      timer: timer,
+      recordStartTimeInMillis: (new Date).getTime(),
+    });
   }
 
   _stopRecording() {
+    const total_objects = Number(this.props.modelItems.length + this.props.portalItems.length + this.props.effectItems.length);
+    tracker.trackEvent('buttonClick', 'stopRecording');
 
+    const recordTimeInMillis = (new Date).getTime() - this.state.recordStartTimeInMillis;
+    tracker.trackTiming('recordedVideoLength', recordTimeInMillis);
     this._arNavigator._stopVideoRecording().then((retDict)=>{
       console.log("[JS] success? " + retDict.success);
       console.log("[JS] the url was: " + retDict.url);
@@ -450,13 +483,11 @@ export class App extends Component {
   }
 
   _saveToCameraRoll() {
+    tracker.trackEvent('buttonClick', 'save_to_camera_roll');
     if (this.state.videoUrl != undefined && !this.state.haveSavedMedia) {
       this.setState({
         haveSavedMedia : true
       })
-      CameraRoll.saveToCameraRoll(this.state.videoUrl)
-        .then(Alert.alert('Success!', 'Added to Camera Roll.', [{text: 'OK'}]))
-        .catch((err) => {console.log('Error saving to Camera Roll:', err)})
     }
   }
 
@@ -541,9 +572,10 @@ export class App extends Component {
   }
 
   _openShareActionSheet() {
+      tracker.trackEvent('buttonClick', "open_share_action_sheet");
       ActionSheetIOS.showShareActionSheetWithOptions({url:this.state.videoUrl, message: "#FigmentAR", subject: "#FigmentAR"},  (error) => alert(error),
       (success, method) => {
-      // For now nothing; This is called when the "Share screen returns"
+      tracker.trackEvent('shared_via_method', method);
     });
   }
 }
@@ -667,9 +699,20 @@ var localStyles = StyleSheet.create({
     fontSize:16,
   },
   previewPlayButton : {
+    alignSelf: 'center',
+    position: 'absolute',
     height : 90,
     width : 90,
+    top: -60
   },
+  previewSavedSuccess : {
+    position: 'absolute',
+    height : 115,
+    width: 100,
+    top:-60,
+    alignSelf: 'center',
+  },
+
   shareScreenContainer: {
     position : 'absolute',
     top: 0,

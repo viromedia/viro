@@ -56,7 +56,8 @@ var PortalItemRender = React.createClass({
     },
 
     componentWillMount() {
-        this._portalData = PortalData.getPortalArray()
+        this._portalData = PortalData.getPortalArray();
+        tracker.trackEvent('Portal', this._portalData[this.props.portalIDProps.index].name);
     },
 
     render: function() {
@@ -157,17 +158,20 @@ var PortalItemRender = React.createClass({
     _renderPortalInside(portalItem) {
         var portalSource = (this.props.portalIDProps.portal360Image != undefined && this.props.portalIDProps.portal360Image != null) ? this.props.portalIDProps.portal360Image: portalItem.portal360Image;
         if(this._is360Photo(portalSource.width, portalSource.height)) {
+          tracker.trackEvent('inside_portal', "360_image");
+
           return (
             <Viro360Image key="background_portal" source={portalSource.source} />
           );
         } else {
           var viewArray = [];
           if(portalSource.source.uri.endsWith("mp4")) {
-
+            tracker.trackEvent('inside_portal', "movie_theater");
             viewArray.push(<ViroSphere  position={[0,0,0]} radius={56} facesOutward={false} key="background_portal" materials="theatre" />);
             viewArray.push(<ViroVideo key="image_portal" width={1} height={1}  source={portalSource.source}
                          position={[0, 3.9, -39]} scale={[42, 21, 1]} />);
           } else {
+            tracker.trackEvent('inside_portal', "art_gallery");
             viewArray.push(  <ViroSpotLight key="obj_spotlight"
                 innerAngle={5}
                 outerAngle={20}

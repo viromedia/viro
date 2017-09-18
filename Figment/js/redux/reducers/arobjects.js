@@ -12,6 +12,7 @@ import * as PortalData from  '../../model/PortalItems';
 import * as EffectData from  '../../model/EffectItems';
 import * as LoadingConstants from '../LoadingStateConstants';
 import * as EffectsConstants from '../EffectsConstants';
+
 console.log(EffectData);
 const uuidv1 = require('uuid/v1');
 

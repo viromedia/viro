@@ -26,6 +26,7 @@ function ui(state = initialState, action) {
         currentScreen: action.ui,
       };
     case 'SWITCH_LIST_MODE':
+      tracker.trackEvent('buttonClick', 'cateory_list_' + action.listTitle);
       return {
         ...state,
         listMode: action.listMode,
