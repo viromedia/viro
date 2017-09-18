@@ -175,28 +175,12 @@ static NSString *const kVRTInvalidAPIKeyMessage = @"The given API Key is either 
 
 - (void)removeFromSuperview{
     [self parentDidDisappear];
-    [super removeFromSuperview];
-    /*
-     * We need to always ensure that React's root view is showing when we
-     * are deallocating Viro and our renderer. This is because GVR does not
-     * perform the proper cleanup on its windows: VIRO-1067
-     */
-    if (RCTIsMainQueue()){
-        NSArray *windowArray = [UIApplication sharedApplication].windows;
-        
-        if (windowArray == nil || [windowArray count] == 0){
-            return;
-        }
-        
-        for (int i = 0; i < [windowArray count]; i ++){
-            UIWindow *window = [windowArray objectAtIndex:i];
-            if (window != nil && window.rootViewController != nil &&
-                [window.rootViewController.view isKindOfClass:[RCTRootView class]]){
-                [window makeKeyAndVisible];
-                return;
-            }
-        }
+    if (_vroView) {
+        VROViewAR *viewAR = (VROViewAR *)_vroView;
+        [viewAR deleteGL];
     }
+
+    [super removeFromSuperview];
 }
 
 #pragma mark RCTInvalidating methods
