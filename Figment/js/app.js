@@ -489,6 +489,7 @@ export class App extends Component {
         haveSavedMedia : true
       })
     }
+    CameraRoll.saveToCameraRoll(this.state.videoUrl);
   }
 
   _displayVideoRecordAlert(title, message) {

@@ -14,6 +14,7 @@ import React, { Component } from 'react';
 import * as LoadConstants from '../redux/LoadingStateConstants';
 import * as UIConstants from '../redux/UIConstants';
 import * as PortalData from  '../model/PortalItems';
+import TimerMixin from 'react-timer-mixin';
 
 import {
   ViroScene,
@@ -38,6 +39,7 @@ var PropTypes = React.PropTypes;
 var shouldBillboardOnTap = false;
 
 var PortalItemRender = React.createClass({
+    mixins: [TimerMixin],
     propTypes: {
         portalIDProps: PropTypes.any,
         onLoadCallback: PropTypes.func,
@@ -51,13 +53,13 @@ var PortalItemRender = React.createClass({
         rotation : [0, 0, 0],
         nodeIsVisible : false,
         position: [0, 2, 1], // make it appear initially high in the sky
-        shouldBillboard : false,
+        shouldBillboard : true,
       }
     },
 
     componentWillMount() {
         this._portalData = PortalData.getPortalArray();
-        tracker.trackEvent('Portal', this._portalData[this.props.portalIDProps.index].name);
+        tracker.trackEvent('Portals', this._portalData[this.props.portalIDProps.index].name);
     },
 
     render: function() {
@@ -285,13 +287,35 @@ var PortalItemRender = React.createClass({
       // moving to it's location causing the user to accidentally "pass" through the portal.
       console.log("distance: Setting new position of PortalItem");
       console.log(newPosition);
+      this._setInitialPlacement(newPosition);
+    },
+
+    _setInitialPlacement(position) {
       this.setState({
-        position : newPosition,
-      }, ()=>{
-        this.setState({
-          nodeIsVisible: true,
-        })
+          position: position,
       });
+      this.setTimeout(() =>{this._updateInitialRotation()}, 500);
+    },
+
+    _updateInitialRotation() {
+      this.arNodeRef.getTransformAsync().then((retDict)=>{
+         let rotation = retDict.rotation;
+         let absX = Math.abs(rotation[0]);
+         let absZ = Math.abs(rotation[2]);
+
+         let yRotation = (rotation[1]);
+
+         // if the X and Z aren't 0, then adjust the y rotation.
+         if (absX > 1 && absZ > 1) {
+           yRotation = 180 - (yRotation);
+         }
+         console.log("updating yrotation to: " + yRotation);
+         this.setState({
+           rotation : [0,yRotation,0],
+           shouldBillboard : false,
+           nodeIsVisible: true,
+         });
+       });
     },
 });
 
