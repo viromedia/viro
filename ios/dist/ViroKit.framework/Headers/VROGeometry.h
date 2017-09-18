@@ -87,6 +87,12 @@ public:
     virtual ~VROGeometry();
     
     /*
+     Delete any rendering resources. Invoked prior to destruction, on the
+     rendering thread.
+     */
+    void deleteGL();
+    
+    /*
      Get the geometry ready for usage now, in advance of when it's visible. If not invoked,
      the geometry will be initialized when it is made visible.
      */

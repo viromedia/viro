@@ -28,6 +28,12 @@ public:
     VROVideoTexture(VROTextureType type, VROStereoMode state = VROStereoMode::None) :
         VROTexture(type, VROTextureInternalFormat::RGBA8, state) {}
     virtual ~VROVideoTexture() {}
+    
+    /*
+     Delete any rendering resources. Invoked prior to destruction, on the
+     rendering thread.
+     */
+    virtual void deleteGL() {}
 
     /*
      Use this video texture to display the contents of the given URL. The video

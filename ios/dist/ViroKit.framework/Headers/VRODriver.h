@@ -81,6 +81,8 @@ public:
     virtual void setColorWritingEnabled(bool enabled) = 0;
     virtual void bindShader(std::shared_ptr<VROShaderProgram> program) = 0;
     virtual void unbindShader() = 0;
+    virtual void bindRenderTarget(std::shared_ptr<VRORenderTarget> target) = 0;
+    virtual void unbindRenderTarget() = 0;
     
     /*
      If gamma correction is not enabled, then gamma correction framebuffer writes

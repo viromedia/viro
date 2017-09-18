@@ -67,6 +67,12 @@ public:
     virtual ~VROMaterial();
     
     /*
+     Delete any rendering resources. Invoked prior to destruction, on the
+     rendering thread.
+     */
+    void deleteGL();
+    
+    /*
      Copy constructor for this material. Texture contents use shared references.
      */
     VROMaterial(std::shared_ptr<VROMaterial> material);

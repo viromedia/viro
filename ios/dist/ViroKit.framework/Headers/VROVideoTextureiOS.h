@@ -33,6 +33,12 @@ public:
     virtual ~VROVideoTextureiOS();
     
     /*
+     Delete any rendering resources. Invoked prior to destruction, on the
+     rendering thread.
+     */
+    virtual void deleteGL();
+    
+    /*
      Use this video texture to display the contents of the given URL. The video
      will not run until play() is invoked.
      */

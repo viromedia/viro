@@ -89,6 +89,14 @@ public:
     virtual ~VRONode();
     
     /*
+     Delete any rendering resources. Invoked prior to destruction, on the
+     rendering thread.
+     
+     Recurses down the tree.
+     */
+    virtual void deleteGL();
+    
+    /*
      Copy constructor that recursively copies all child nodes. This copies
      the node but *not* the underlying geometries or lights. Instead, these
      are shared by reference with the copied node.
