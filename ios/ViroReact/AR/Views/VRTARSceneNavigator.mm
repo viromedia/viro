@@ -191,7 +191,7 @@ static NSString *const kVRTInvalidAPIKeyMessage = @"The given API Key is either 
         VROViewAR *viewAR = (VROViewAR *)_vroView;
         [viewAR setPaused:YES];
     }
-    _currentViews = nil;
+    //NOTE: DO NOT NULL OUT _currentViews here, that will cause a memory leak and prevent child views from being released.
     _currentScene = nil;
     _vroView = nil;
     _childViews = nil;
