@@ -10,7 +10,6 @@
  */
 'use strict';
 
-const blacklist = require('react-native/packager/blacklist');
 const path = require('path');
 
 module.exports = {
@@ -23,11 +22,7 @@ module.exports = {
   },
 
   getAssetExts() {
-    return ["obj", "mtl"];
-  },
-
-  getBlacklistRE() {
-    return blacklist();
+    return ["obj", "mtl", "JPG", "vrx"];
   },
 
   _getRoots() {
@@ -41,10 +36,6 @@ module.exports = {
     } else {
       return [path.resolve(__dirname, '.')];
     }
-  },
-
-  getTransformModulePath() {
-    return require.resolve('react-native/packager/transformer');
   },
 
 };
