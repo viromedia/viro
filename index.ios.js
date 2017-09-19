@@ -17,6 +17,7 @@ import {
 
 import {
   ViroSceneNavigator,
+  ViroARSceneNavigator,
 } from 'react-viro';
 
 
@@ -26,22 +27,35 @@ var scenes = {
     'Human Body': require('./js/HumanBody/MainScene'),
     'ProductShowcase': require('./js/ProductShowcase/ProductShowcase'),
     'Viro Media Player': require('./js/ViroMediaPlayer/ViroTheatre'),
+    'AR Sample': require('./js/ARSample/HelloWorldSceneAR.js'),
 }
+
+var showARScene = false;
 
 var ViroCodeSamplesSceneNavigator = React.createClass({
   render: function() {
     // The 'viroAppProps={{...this.props}}' line below is used to pass
     // the initial properties from this base component to the ViroSceneNavigator
     // which will allow the scenes to access them.
-    return (
-      <ViroSceneNavigator
-        initialScene={{
-          scene: scenes['360 Photo Tour'],
-        }}
-        viroAppProps={{...this.props}}
-        apiKey="YOUR_API_KEY_HERE"
-      />
-    );
+    if (showARScene) {
+      return (
+        <ViroARSceneNavigator
+          initialScene={{
+            scene: scenes['AR Sample'],
+          }}
+          apiKey="YOUR_API_KEY_HERE"/>
+        );
+    } else {
+      return (
+        <ViroSceneNavigator
+          initialScene={{
+            scene: scenes['Viro Media Player'],
+          }}
+          viroAppProps={{...this.props}}
+          apiKey="YOUR_API_KEY_HERE"/>
+      );
+
+    }
   }
 });
 

@@ -12,6 +12,8 @@
  * Pull in all imports required for this control.
  */
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+
 import {
   ViroImage,
   ViroNode,
@@ -23,11 +25,6 @@ import {
  * Pull in all the images needed for this control.
  */
 var infoIconImage = require('../res/icon_info.png');
-
-/**
- * Required library when defining our own proptypes for this custom control.
- */
-var PropTypes = require('react/lib/ReactPropTypes');
 
 /**
  * Tags for referencing the animation component views used to execute animations on

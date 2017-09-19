@@ -13,6 +13,7 @@
  */
 import React, { Component } from 'react';
 import {StyleSheet} from 'react-native';
+import PropTypes from 'prop-types';
 
 import {
     ViroScene,
@@ -29,11 +30,6 @@ import {
     ViroUtils,
 } from 'react-viro';
 let polarToCartesian = ViroUtils.polarToCartesian;
-
-/**
- * Required library when defining our own proptypes for this custom control.
- */
-var PropTypes = require('react/lib/ReactPropTypes');
 
 /**
  * Render a simple custom control that groups together a ViroSpinner and text.
