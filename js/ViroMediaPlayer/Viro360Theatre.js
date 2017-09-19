@@ -18,7 +18,6 @@ import {
   ViroImage,
   ViroNode,
   ViroAnimations,
-  ViroAnimatedComponent,
 } from 'react-viro';
 
 
@@ -27,7 +26,6 @@ import {
  */
 var buttonSize = 0.25;
 var VIDEO_REF = "videoref";
-var VideoControlRef = "VideoControlRef";
 
 /**
  * Several references to video sources (wether it be local or on AWS) stored in an array.
@@ -55,10 +53,10 @@ var Viro360Theatre = React.createClass({
     return (
         <ViroScene onClick={this._onVideoTapped} reticleEnabled={this.state.videoControlsAnimation=="fadeIn"}>
           <Viro360Video ref={VIDEO_REF} source={videos[this.state.videoIndex]} volume={1.0}
-            loop={this.state.loopVideo} paused={this.state.videoPaused} onFinish={this._onFinish} />
-          <ViroAnimatedComponent animation={this.state.videoControlsAnimation} run={this.state.runAnimation} loop={false} ref={VideoControlRef}>
-              {this._renderVideoControl()}
-          </ViroAnimatedComponent>
+            loop={this.state.loopVideo} paused={this.state.videoPaused} />
+
+          {this._renderVideoControl()}
+
         </ViroScene>
     );
   },
@@ -82,55 +80,56 @@ var Viro360Theatre = React.createClass({
    */
   _renderVideoControl(){
     return(
-        <ViroNode position={[0,-0.8,0]} opacity={1.0}>
-            <ViroImage
-                scale={[1.4, 1.2, 1]}
-                position={[0, -0.27,-2.1]}
-                source={require("./res/player_controls_container.png")}/>
+      <ViroNode position={[0,-0.8,0]} opacity={1.0}
+        animation={{name : this.state.videoControlsAnimation, run : this.state.runAnimation, loop : false}} >
+        
+        <ViroImage
+          scale={[1.4, 1.2, 1]}
+          position={[0, -0.27,-2.1]}
+          source={require("./res/player_controls_container.png")} />
 
-            <ViroButton
-                position={[-buttonSize-0.1,0,-2]}
-                scale={[1, 1, 1]}
-                width={buttonSize}
-                height={buttonSize}
-                source={require("./res/previous.png")}
-                gazeSource={require("./res/previous_hover.png")}
-                tapSource={require("./res/previous_hover.png")}
-                onClick={this._playPreviousVideo}/>
+        <ViroButton
+          position={[-buttonSize-0.1,0,-2]}
+          scale={[1, 1, 1]}
+          width={buttonSize}
+          height={buttonSize}
+          source={require("./res/previous.png")}
+          gazeSource={require("./res/previous_hover.png")}
+          tapSource={require("./res/previous_hover.png")}
+          onClick={this._playPreviousVideo} />
 
-            {this._renderPlayControl()}
+        {this._renderPlayControl()}
 
-            <ViroButton
-                position={[buttonSize+0.1, 0,-2]}
-                scale={[1, 1, 1]}
-                width={buttonSize}
-                height={buttonSize}
-                source={require("./res/skip.png")}
-                gazeSource={require("./res/skip_hover.png")}
-                tapSource={require("./res/skip_hover.png")}
-                onClick={this._playNextVideo}/>
+        <ViroButton
+          position={[buttonSize+0.1, 0,-2]}
+          scale={[1, 1, 1]}
+          width={buttonSize}
+          height={buttonSize}
+          source={require("./res/skip.png")}
+          gazeSource={require("./res/skip_hover.png")}
+          tapSource={require("./res/skip_hover.png")}
+          onClick={this._playNextVideo} />
 
-          <ViroButton
-              position={[-0.3, -0.4 ,-2]}
-              scale={[1, 1, 1]}
-              width={0.5}
-              height={0.5}
-              source={require("./res/icon_2D.png")}
-              gazeSource={require("./res/icon_2D_hover.png")}
-              tapSource={require("./res/icon_2D_hover.png")}
-              onClick={this._launchTheatreScene}
-              />
+        <ViroButton
+          position={[-0.3, -0.4 ,-2]}
+          scale={[1, 1, 1]}
+          width={0.5}
+          height={0.5}
+          source={require("./res/icon_2D.png")}
+          gazeSource={require("./res/icon_2D_hover.png")}
+          tapSource={require("./res/icon_2D_hover.png")}
+          onClick={this._launchTheatreScene} />
 
-          <ViroButton
-              position={[0.3, -0.4 ,-2]}
-              scale={[1, 1, 1]}
-              width={0.5}
-              height={0.5}
-              source={require("./res/icon_360_hover.png")}
-              gazeSource={require("./res/icon_360_hover.png")}
-              tapSource={require("./res/icon_360_hover.png")}
-              />
-        </ViroNode>
+        <ViroButton
+          position={[0.3, -0.4 ,-2]}
+          scale={[1, 1, 1]}
+          width={0.5}
+          height={0.5}
+          source={require("./res/icon_360_hover.png")}
+          gazeSource={require("./res/icon_360_hover.png")}
+          tapSource={require("./res/icon_360_hover.png")} />
+      
+      </ViroNode>
     );
   },
 
@@ -201,11 +200,6 @@ var Viro360Theatre = React.createClass({
       });
     }
   },
-
-  _onFinish() {
-    console.log("The video is finished!");
-  },
-
 
 });
 

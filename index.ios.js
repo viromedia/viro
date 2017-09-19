@@ -20,39 +20,43 @@ import {
   ViroARSceneNavigator,
 } from 'react-viro';
 
+/*
+ * TODO: Add your API key below!
+ */
+var apiKey = "YOUR_API_KEY_HERE";
 
-var scenes = {
+var vrScenes = {
     '360 Photo Tour': require('./js/360PhotoTour/MainScene'),
     'Hello World': require('./js/HelloWorld/HelloWorldScene'),
     'Human Body': require('./js/HumanBody/MainScene'),
     'ProductShowcase': require('./js/ProductShowcase/ProductShowcase'),
     'Viro Media Player': require('./js/ViroMediaPlayer/ViroTheatre'),
-    'AR Sample': require('./js/ARSample/HelloWorldSceneAR.js'),
 }
 
-var showARScene = false;
+var arScenes = {
+  'AR Sample': require('./js/ARSample/HelloWorldSceneAR.js'),
+}
+
+var showARScene = true;
 
 var ViroCodeSamplesSceneNavigator = React.createClass({
   render: function() {
-    // The 'viroAppProps={{...this.props}}' line below is used to pass
-    // the initial properties from this base component to the ViroSceneNavigator
-    // which will allow the scenes to access them.
+
     if (showARScene) {
       return (
         <ViroARSceneNavigator
           initialScene={{
-            scene: scenes['AR Sample'],
+            scene: arScenes['AR Sample'],
           }}
-          apiKey="YOUR_API_KEY_HERE"/>
+          apiKey={apiKey} />
         );
     } else {
       return (
         <ViroSceneNavigator
           initialScene={{
-            scene: scenes['Viro Media Player'],
+            scene: vrScenes['360 Photo Tour'],
           }}
-          viroAppProps={{...this.props}}
-          apiKey="YOUR_API_KEY_HERE"/>
+          apiKey={apiKey} />
       );
 
     }

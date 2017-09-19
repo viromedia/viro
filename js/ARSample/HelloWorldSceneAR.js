@@ -28,6 +28,8 @@ var HelloWorldSceneAR = React.createClass({
   render: function() {
     return (
       <ViroARScene onTrackingInitialized={()=>{this.setState({text : "Hello World!"})}}>
+
+        {/* Text to show whether or not the AR system has initialized yet, see ViroARScene's onTrackingInitialized*/}
         <ViroText text={this.state.text} scale={[.5, .5, .5]} position={[0, 0, -1]} style={styles.helloWorldTextStyle} />
 
         <ViroBox position={[0, -.5, -1]}
@@ -45,8 +47,13 @@ var HelloWorldSceneAR = React.createClass({
             castsShadow={true}
             />
 
+        {/* Node that contains a light, an object and a surface to catch its shadow
+            notice that the dragType is "FixedToWorld" so the object can be dragged
+            along real world surfaces and points. */}
         <ViroNode position={[-.5, -.5, -.5]} dragType="FixedToWorld" onDrag={()=>{}} >
 
+          {/* Spotlight to cast light on the object and a shadow on the surface, see
+              the Viro documentation for more info on lights & shadows */}
           <ViroSpotLight
             innerAngle={5}
             outerAngle={45}
@@ -78,10 +85,15 @@ var HelloWorldSceneAR = React.createClass({
             arShadowReceiver={true}
             lightReceivingBitMask={2} />
 
-       </ViroNode>
+        </ViroNode>
 
+        {/* Node that contains a light, an object and a surface to catch its shadow
+          notice that the dragType is "FixedToWorld" so the object can be dragged
+          along real world surfaces and points. */}
         <ViroNode position={[.5,-.5,-.5]} dragType="FixedToWorld" onDrag={()=>{}} >
 
+          {/* Spotlight to cast light on the object and a shadow on the surface, see
+              the Viro documentation for more info on lights & shadows */}
           <ViroSpotLight
             innerAngle={5}
             outerAngle={45}

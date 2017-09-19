@@ -20,7 +20,6 @@ import {
     Viro360Image,
     ViroImage,
     ViroAnimations,
-    ViroAnimatedComponent,
     ViroNode,
     ViroText
 } from 'react-viro';
@@ -48,11 +47,16 @@ var MainScene = React.createClass({
         return (
             <ViroScene style={styles.container}>
                 <Viro360Image source={backgroundImage} onLoadEnd={this._onBackgroundPhotoLoadEnd}/>
-                <ViroAnimatedComponent animation="showTitleAnimation"
-                                       run={this.state.runShowTitleAnimation} loop={false}>
-                    <ViroImage position={[0, 0, -5]} source={weworkImage} scale={[.1, .1, .1]}
-                               opacity={0.0} onClick={this._onTitleClicked}/>
-                </ViroAnimatedComponent>
+
+                <ViroImage 
+                    position={[0, 0, -5]} source={weworkImage} scale={[.1, .1, .1]}
+                    opacity={0.0} onClick={this._onTitleClicked}
+                    animation={{
+                        name : "showTitleAnimation",
+                        run : this.state.runShowTitleAnimation,
+                        loop : false,
+                    }} />
+
             </ViroScene>
         );
     },
@@ -90,8 +94,7 @@ var styles = StyleSheet.create({
 });
 
 /**
- * Declare all your animations here to be referenced and played by the
- * ViroAnimatedComponents above.
+ * Declare all your animations here. They'll be referenced by the animation props.
  */
 ViroAnimations.registerAnimations({
     showTitleAnimation: {properties:{scaleX:2, scaleY:2, scaleZ:2, opacity:1.0}, easing:"PowerDecel", duration:1000},

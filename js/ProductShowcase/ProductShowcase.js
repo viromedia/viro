@@ -16,7 +16,6 @@ import {
   ViroCamera,
   ViroOrbitCamera,
   ViroNode,
-  ViroAnimatedComponent,
   ViroDirectionalLight,
   ViroAnimations,
   ViroBox,
@@ -151,52 +150,47 @@ var ProductShowcase = React.createClass({
         <ViroDirectionalLight color="#ffffff" direction={[0, 0, -1.0]} />
 
         {/* Outer animation block used to fade in/out components when switching between products */}
-        <ViroAnimatedComponent animation={this.state.globalAnimation} run={this.state.runGlobalAnimation} loop={false} onFinish={this.state.onFinishGlobal} >
-          <ViroNode>
+        <ViroNode animation={{ name : this.state.globalAnimation, run : this.state.runGlobalAnimation, loop : false, onFinish : this.state.onFinishGlobal }}>
 
-            {/* This is the top left text box containing the title + description text */}
-            <ViroAnimatedComponent animation={this.state.mainAnimation} run={this.state.runAnimation} loop={false} >
-              <ViroFlexView style={styles.titleContainer} position={[-3.8, 1, -7]} rotation={[0, 40, 0]} height={2} width={4} >
-                <ViroText style={styles.prodTitleText} text={product.productTitleText} width={4} height={.5} />
-                <ViroText style={styles.prodDescriptionText} text={product.productDescriptionText} />
-              </ViroFlexView>
-            </ViroAnimatedComponent>
+          {/* This is the top left text box containing the title + description text */}
+          <ViroFlexView style={styles.titleContainer} position={[-3.8, 1, -7]} rotation={[0, 40, 0]} height={2} width={4}
+            animation={{ name : this.state.mainAnimation, run : this.state.runAnimation, loop : false }} >
+            <ViroText style={styles.prodTitleText} text={product.productTitleText} width={4} height={.5} />
+            <ViroText style={styles.prodDescriptionText} text={product.productDescriptionText} />
+          </ViroFlexView>
 
-            {/* This is the bottom left text box containing the product details text */}
-            <ViroAnimatedComponent animation={this.state.mainAnimation} run={this.state.runAnimation} loop={false} >
-              <ViroFlexView style={styles.titleContainer} position={[-3.8, -1.1, -7]} rotation={[0, 40, 0]} height={2} width={4} >
-                <ViroFlexView style={styles.rowContainer}>
-                  <ViroText style={styles.prodDescriptionText} text={product.productDetails1} />
-                </ViroFlexView>
-                <ViroFlexView style={styles.rowContainer}>
-                  <ViroText style={styles.prodDescriptionText} text={product.productDetails2} />
-                </ViroFlexView>
-                <ViroFlexView style={styles.rowContainer}>
-                  <ViroText style={styles.prodDescriptionText} text={product.productDetails3} />
-                </ViroFlexView>
-              </ViroFlexView>
-            </ViroAnimatedComponent>
+          {/* This is the bottom left text box containing the product details text */}
+          <ViroFlexView style={styles.titleContainer} position={[-3.8, -1.1, -7]} rotation={[0, 40, 0]} height={2} width={4}
+            animation={{ name : this.state.mainAnimation, run : this.state.runAnimation, loop : false}} >
+            <ViroFlexView style={styles.rowContainer}>
+              <ViroText style={styles.prodDescriptionText} text={product.productDetails1} />
+            </ViroFlexView>
+            <ViroFlexView style={styles.rowContainer}>
+              <ViroText style={styles.prodDescriptionText} text={product.productDetails2} />
+            </ViroFlexView>
+            <ViroFlexView style={styles.rowContainer}>
+              <ViroText style={styles.prodDescriptionText} text={product.productDetails3} />
+            </ViroFlexView>
+          </ViroFlexView>
 
-            {/* This is the top right text box containing the product price and stock status*/}
-            <ViroAnimatedComponent animation={this.state.mainAnimation} run={this.state.runAnimation} loop={false} >
-              <ViroFlexView style={styles.titleContainer} position={[3.8, 1, -7]} rotation={[0, -40, 0]} height={2} width={4} >
-                <ViroFlexView style={styles.rowContainer} >
-                  <ViroText style={styles.prodDescriptionText} text="Price:" />
-                  <ViroText style={styles.priceText} text={product.price} />
-                </ViroFlexView>
-                <ViroText style={styles.prodDescriptionText} text={getInStockText(product.inStock)} />
-                <ViroText style={styles.prodDescriptionText} text={getProductSourceText(product.online, product.giftWrappable)} />
-              </ViroFlexView>
-            </ViroAnimatedComponent>
+          {/* This is the top right text box containing the product price and stock status*/}
+          <ViroFlexView style={styles.titleContainer} position={[3.8, 1, -7]} rotation={[0, -40, 0]} height={2} width={4}
+            animation={{ name : this.state.mainAnimation, run : this.state.runAnimation, loop : false}} >
+            <ViroFlexView style={styles.rowContainer} >
+              <ViroText style={styles.prodDescriptionText} text="Price:" />
+              <ViroText style={styles.priceText} text={product.price} />
+            </ViroFlexView>
+            <ViroText style={styles.prodDescriptionText} text={getInStockText(product.inStock)} />
+            <ViroText style={styles.prodDescriptionText} text={getProductSourceText(product.online, product.giftWrappable)} />
+          </ViroFlexView>
 
-            {this._getProductModel()}
+          {this._getProductModel()}
 
-            {this._getVideoIfAvailable()}
+          {this._getVideoIfAvailable()}
 
-            {this._getNavButtons()}
+          {this._getNavButtons()}
 
-          </ViroNode>
-        </ViroAnimatedComponent>
+        </ViroNode>
       </ViroScene>
     );
   },
@@ -210,7 +204,7 @@ var ProductShowcase = React.createClass({
 
     // a product may have multiple obj's representing it, so create a Viro3DObject component for each 
     for (var i = 0; i < product.objects.length; i++) {
-      objects.push((<Viro3DObject key={"model" + i} source={product.objects[i]} materials={product.materials[i]}/>))
+      objects.push((<Viro3DObject key={"model" + i} source={product.objects[i]} materials={product.materials[i]} type="OBJ"/>))
     }
 
     var position = [0 + product.objectOffset[0], 0 + product.objectOffset[1], -5 + product.objectOffset[2]];
@@ -221,11 +215,10 @@ var ProductShowcase = React.createClass({
     })
 
     return (
-      <ViroAnimatedComponent key="obj" animation={this.state.objectAnimation} run={this.state.runObjectAnimation} loop={true} >
-        <ViroNode rotation={product.objectRotation} scale={scale} position={position} onClick={this._onClickModel} >
-          {objects}
-        </ViroNode>
-      </ViroAnimatedComponent>
+      <ViroNode key="obj" rotation={product.objectRotation} scale={scale} position={position} onClick={this._onClickModel}
+        animation={{name : this.state.objectAnimation, run : this.state.runObjectAnimation, loop : true}} >
+        {objects}
+      </ViroNode>
     )
   },
   /*
@@ -241,10 +234,9 @@ var ProductShowcase = React.createClass({
     }
 
     return (
-      <ViroAnimatedComponent animation={this.state.mainAnimation} run={this.state.runAnimation} loop={false} >
-        <ViroVideo position={[3.8, -1.1, -7]} rotation={[0, -40, 0]} paused={this.state.videoPaused} loop={true} height={2} width={4}
-            onClick={this._onClickVideo} source={product.productVideo} />
-      </ViroAnimatedComponent>
+      <ViroVideo position={[3.8, -1.1, -7]} rotation={[0, -40, 0]} paused={this.state.videoPaused} loop={true} height={2} width={4}
+          onClick={this._onClickVideo} source={product.productVideo}
+          animation={{name : this.state.mainAnimation, run : this.state.runAnimation, loop : false}} />
     );
   },
   /*
@@ -272,13 +264,12 @@ var ProductShowcase = React.createClass({
   _getSingleNavButton(forward, index, centered) {
     var position = [(centered ? 0 : (forward ? 2 : -2)), -3, -7];
     return (
-      <ViroAnimatedComponent key={forward ? "forwardBtn" : "backBtn"} animation={this.state.mainAnimation} run={this.state.runAnimation} loop={false} >
-        <ViroNode position={position} onClick={this._prepareSwitchProduct(index)} transformBehaviors="billboard" >
-          <ViroImage source={products[index].previewImage} width={2.8} height={.7}/>
-          <ViroText text={products[index].productTitleText} width={2} height={.7} style={styles.navButtonText}
-              textClipMode="clipToBounds" position={[forward ? .1 : -.1, 0, .05]} />
-        </ViroNode>
-      </ViroAnimatedComponent>
+      <ViroNode key={forward ? "forwardBtn" : "backBtn"} position={position} onClick={this._prepareSwitchProduct(index)}
+        transformBehaviors="billboard" animation={{ name : this.state.mainAnimation, run : this.state.runAnimation, loop : false }} >
+        <ViroImage source={products[index].previewImage} width={2.8} height={.7}/>
+        <ViroText text={products[index].productTitleText} width={2} height={.7} style={styles.navButtonText}
+            textClipMode="clipToBounds" position={[forward ? .1 : -.1, 0, .05]} />
+      </ViroNode>
     );
   },
   /*
@@ -300,8 +291,8 @@ var ProductShowcase = React.createClass({
   },
   /*
    * This function returns an anonymous function that serves as the onFinish listener of the
-   * top-level ViroAnimatedComponent only when it is fading out. The returned function changes
-   * the state to the given productIndex and makes the various UI components fade back in. This
+   * top-level animation only when it is fading out. The returned function changes the
+   * state to the given productIndex and makes the various UI components fade back in. This
    * works in tandem with _prepareSwitchProduct().
    *
    * productIndex - the product to switch to

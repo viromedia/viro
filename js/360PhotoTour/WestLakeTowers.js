@@ -19,7 +19,6 @@ import {
     ViroScene,
     Viro360Image,
     ViroAnimations,
-    ViroAnimatedComponent,
     ViroNode,
     ViroImage,
     ViroUtils,
@@ -64,9 +63,9 @@ var OfficeTourSplashScene = React.createClass({
                      */
                 }
                 <LoadingSpinner visible={!this.state.showSceneItems} position={[0, 0, -5]}/>
-                <ViroAnimatedComponent animation="fadeIn" run={this.state.showSceneItems} loop={false}>
-                    {this._getInfoControls()}
-                </ViroAnimatedComponent>
+
+                {this._getInfoControls()}
+
             </ViroScene>
         );
     },
@@ -77,7 +76,14 @@ var OfficeTourSplashScene = React.createClass({
      */
     _getInfoControls(){
         return(
-            <ViroNode opacity={0.0} >
+            <ViroNode
+                opacity={0.0}
+                animation={{
+                    name : "fadeIn",
+                    run : this.state.showSceneItems, 
+                    loop : false,
+                }} >
+
                 <InfoElement content={slutWindowCard} contentCardScale={[3.67,4,1]} position={polarToCartesian([-5, 0, 0])}/>
                 <InfoElement content={monorailInfoCard} contentCardScale={[3.67,4,1]} position={polarToCartesian([-5, 77, -10])}/>
                 <InfoElement content={statueWindowCard} contentCardScale={[4,3.95,2]} position={polarToCartesian([-5, 277, 0])}/>
@@ -124,8 +130,7 @@ var styles = StyleSheet.create({
 });
 
 /**
- * Declare all your animations here to be referenced and played by the
- * ViroAnimatedComponents above.
+ * Declare all your animations here. They'll be referenced by the animation props.
  */
 ViroAnimations.registerAnimations({
     fadeIn:{properties:{opacity: 1.0}, duration: 1000},
