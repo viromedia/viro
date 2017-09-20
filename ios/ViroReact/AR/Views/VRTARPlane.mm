@@ -76,9 +76,10 @@ static float const kARPlaneDefaultMinWidth = 0;
 
 - (NSDictionary *)createDictionaryFromAnchor:(std::shared_ptr<VROARAnchor>) anchor {
     std::shared_ptr<VROARPlaneAnchor> planeAnchor = std::dynamic_pointer_cast<VROARPlaneAnchor>(anchor);
+   
     VROVector3f center = planeAnchor->getCenter();
     VROVector3f extent = planeAnchor->getExtent();
-    VROMatrix4f transform = [self node]->getLastComputedTransform();
+    VROMatrix4f transform =  planeAnchor->getTransform();
     VROVector3f rotation = transform.extractRotation(transform.extractScale()).toEuler();
     VROVector3f position = transform.extractTranslation();
     
