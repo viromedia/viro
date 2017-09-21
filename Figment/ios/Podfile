@@ -1,3 +1,0 @@
-target 'Figment' do
-    pod 'GVRSDK', '1.0.0'
-end
