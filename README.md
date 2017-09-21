@@ -33,16 +33,23 @@ Look at our [documentation](http://docs.viromedia.com/).
 ## Sample Code Overview
 
 ### [Hello World](https://github.com/viromedia/viro/tree/master/js/HelloWorld)
+![ScreenShot](js/HelloWorld/hello_world.jpg)
 A scene with a 360 photo that displays "Hello World".
 ### [360 Photo Tour](https://github.com/viromedia/viro/tree/master/js/360PhotoTour)
+![ScreenShot](js/360PhotoTour/photo_tour.jpg)
 360 photo tour example that shows you how to display a 360 photo with clickable hot spots.
 ### [Human Body](https://github.com/viromedia/viro/tree/master/js/HumanBody)
+![ScreenShot](js/HumanBody/heart.jpg)
 This example showcases 3d objects. Orbit around a 3d Heart to see it from different angles!
 ### [VR MediaPlayer](https://github.com/viromedia/viro/tree/master/js/ViroMediaPlayer)
+![ScreenShot](js/ViroMediaPlayer/theater.jpg)
 Learn how to display and play 2d and 360 video with interactive play controls that can play, pause and stop.
 ### [Product Showcase](https://github.com/viromedia/viro/tree/master/js/ProductShowcase)
+![ScreenShot](js/ProductShowcase/product_showcase.jpg)
 A demonstration on how to do an interactive shopping app for TV's. Uses flexbox for UI and 3d objects with animations.
-
+### [AR Sample](https://github.com/viromedia/viro/tree/master/js/ARSample)
+![ScreenShot](js/ARSample/ar_sample.png)
+A scene with objects, text and animation displayed on ARKit planes detected in the scene.
 
 
 
