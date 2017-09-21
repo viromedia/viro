@@ -21,7 +21,7 @@ import {
 } from 'react-viro';
 
 /*
- * TODO: Add your API key below!
+ * TODO: Add your API key below!!
  */
 var apiKey = "YOUR_API_KEY_HERE";
 
@@ -37,7 +37,7 @@ var arScenes = {
   'AR Sample': require('./js/ARSample/HelloWorldSceneAR.js'),
 }
 
-var showARScene = true;
+var showARScene = false;
 
 var ViroCodeSamplesSceneNavigator = React.createClass({
   render: function() {
@@ -54,7 +54,7 @@ var ViroCodeSamplesSceneNavigator = React.createClass({
       return (
         <ViroSceneNavigator
           initialScene={{
-            scene: vrScenes['360 Photo Tour'],
+            scene: vrScenes['Hello World'],
           }}
           apiKey={apiKey} />
       );
