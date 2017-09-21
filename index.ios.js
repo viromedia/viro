@@ -31,6 +31,8 @@ var vrScenes = {
     'Human Body': require('./js/HumanBody/MainScene'),
     'ProductShowcase': require('./js/ProductShowcase/ProductShowcase'),
     'Viro Media Player': require('./js/ViroMediaPlayer/ViroTheatre'),
+    'Particle Emitters': require('./js/ParticleEmitters/ViroParticleTemplates'),
+    'Physics Sample': require('./js/PhysicsSample/BasicPhysicsSample'),
 }
 
 var arScenes = {
