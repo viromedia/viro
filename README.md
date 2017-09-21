@@ -48,7 +48,7 @@ Learn how to display and play 2d and 360 video with interactive play controls th
 ![ScreenShot](js/ProductShowcase/product_showcase.jpg)
 A demonstration on how to do an interactive shopping app for TV's. Uses flexbox for UI and 3d objects with animations.
 ### [AR Sample](https://github.com/viromedia/viro/tree/master/js/ARSample)
-![ScreenShot](js/ARSample/ar_sample.png)
+![ScreenShot](js/ARSample/ar_sample.jpg)
 A scene with objects, text and animation displayed on ARKit planes detected in the scene.
 
 
