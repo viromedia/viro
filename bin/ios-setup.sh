@@ -15,9 +15,6 @@ if [ "$VIRO_VERBOSE" = true ]; then
   echo "running with verbose logging"
 fi
 
-currentDir=pwd
-echo $currentDir
-
 cp node_modules/react-viro/ios/dist/podFile/* ios/
 cp node_modules/react-viro/ios/dist/bin/* ios/
 chmod a+x ios/ngrok_launch.sh
