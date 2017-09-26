@@ -4,7 +4,6 @@
 package com.viromedia.bridge;
 
 import com.facebook.react.ReactPackage;
-import com.facebook.react.bridge.JavaScriptModule;
 import com.facebook.react.bridge.NativeModule;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.uimanager.ViewManager;
@@ -19,7 +18,10 @@ import com.viromedia.bridge.component.SoundFieldManager;
 import com.viromedia.bridge.component.SoundManager;
 import com.viromedia.bridge.component.SpatialSoundManager;
 import com.viromedia.bridge.component.SpotLightManager;
-import com.viromedia.bridge.component.ar.ARNavigatorManager;
+import com.viromedia.bridge.component.ARSceneNavigatorManager;
+import com.viromedia.bridge.component.node.ARPlaneManager;
+import com.viromedia.bridge.component.node.ARSceneManager;
+import com.viromedia.bridge.component.node.SceneManagerImpl;
 import com.viromedia.bridge.component.node.control.Object3dManager;
 import com.viromedia.bridge.component.node.control.PolylineManager;
 import com.viromedia.bridge.component.node.control.TextManager;
@@ -27,8 +29,7 @@ import com.viromedia.bridge.component.Video360Manager;
 import com.viromedia.bridge.component.node.control.CameraManager;
 import com.viromedia.bridge.component.node.control.OrbitCameraManager;
 import com.viromedia.bridge.component.node.FlexViewManager;
-import com.viromedia.bridge.component.node.NodeContainerManager;
-import com.viromedia.bridge.component.node.SceneManager;
+import com.viromedia.bridge.component.node.NodeManagerImpl;
 import com.viromedia.bridge.component.node.control.BoxManager;
 import com.viromedia.bridge.component.SceneNavigatorManager;
 import com.viromedia.bridge.component.node.control.SphereManager;
@@ -47,8 +48,6 @@ import com.viromedia.bridge.module.SoundModule;
 
 import java.util.Arrays;
 import java.util.List;
-
-import static java.util.Collections.emptyList;
 
 /**
  * ReactViroPackage class containing an array of all ViroViewManagers to be created.
@@ -85,11 +84,11 @@ public class ReactViroPackage implements ReactPackage {
     public List<ViewManager> createViewManagers(ReactApplicationContext reactContext) {
         return Arrays.<ViewManager>asList(
                 new SceneNavigatorManager(reactContext, mViroPlatform),
-                new SceneManager(reactContext),
+                new SceneManagerImpl(reactContext),
                 new BoxManager(reactContext),
                 new VideoSurfaceManager(reactContext),
                 new Video360Manager(reactContext),
-                new NodeContainerManager(reactContext),
+                new NodeManagerImpl(reactContext),
                 new CameraManager(reactContext),
                 new OrbitCameraManager(reactContext),
                 new SphereManager(reactContext),
@@ -113,7 +112,9 @@ public class ReactViroPackage implements ReactPackage {
                 new ControllerManager(reactContext),
                 new PolylineManager(reactContext),
                 // AR Components
-                new ARNavigatorManager(reactContext)
+                new ARSceneNavigatorManager(reactContext),
+                new ARSceneManager(reactContext),
+                new ARPlaneManager(reactContext)
         );
     }
 }

@@ -1,7 +1,7 @@
 /**
  * Copyright © 2017 Viro Media. All rights reserved.
  */
-package com.viromedia.bridge.component.ar;
+package com.viromedia.bridge.component;
 
 import android.content.Context;
 import android.widget.FrameLayout;
@@ -9,9 +9,9 @@ import android.widget.FrameLayout;
 /**
  * Android doesn't yet support AR, so this is a dummy class.
  */
-public class ARNavigator extends FrameLayout {
+public class ARSceneNavigator extends FrameLayout {
 
-    public ARNavigator(Context context) {
+    public ARSceneNavigator(Context context) {
         super(context);
     }
 

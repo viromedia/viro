@@ -7,8 +7,11 @@ package com.viromedia.bridge.component.node;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.uimanager.ThemedReactContext;
 
-public class NodeContainerManager extends NodeManager<NodeContainer> {
-    public NodeContainerManager(ReactApplicationContext context) {
+/*
+ The ViewManager for the ViroNode JS Component
+ */
+public class NodeManagerImpl extends NodeManager<Node> {
+    public NodeManagerImpl(ReactApplicationContext context) {
         super(context);
     }
 
@@ -18,7 +21,7 @@ public class NodeContainerManager extends NodeManager<NodeContainer> {
     }
 
     @Override
-    protected NodeContainer createViewInstance(ThemedReactContext reactContext) {
-        return new NodeContainer(getContext());
+    protected Node createViewInstance(ThemedReactContext reactContext) {
+        return new Node(getContext());
     }
 }

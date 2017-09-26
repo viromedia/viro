@@ -2,25 +2,24 @@
  * Copyright © 2017 Viro Media. All rights reserved.
  */
 
-package com.viromedia.bridge.component.ar;
+package com.viromedia.bridge.component;
 
 
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.common.MapBuilder;
 import com.facebook.react.uimanager.ThemedReactContext;
 import com.facebook.react.uimanager.annotations.ReactProp;
-import com.viromedia.bridge.component.ViroViewGroupManager;
 import com.viromedia.bridge.utility.ViroEvents;
 
 import java.util.Map;
 
 /**
- * ARNavigatorManager for building a {@link ARNavigator}
+ * ARSceneNavigatorManager for building a {@link ARSceneNavigator}
  * corresponding to the ViroARNavigator.js control.
  */
-public class ARNavigatorManager extends ViroViewGroupManager<ARNavigator> {
+public class ARSceneNavigatorManager extends ViroViewGroupManager<ARSceneNavigator> {
 
-    public ARNavigatorManager(ReactApplicationContext context) {
+    public ARSceneNavigatorManager(ReactApplicationContext context) {
         super(context);
     }
 
@@ -30,22 +29,22 @@ public class ARNavigatorManager extends ViroViewGroupManager<ARNavigator> {
     }
 
     @Override
-    protected ARNavigator createViewInstance(ThemedReactContext reactContext) {
-        return new ARNavigator(reactContext);
+    protected ARSceneNavigator createViewInstance(ThemedReactContext reactContext) {
+        return new ARSceneNavigator(reactContext);
     }
 
     @ReactProp(name = "currentSceneIndex")
-    public void setCurrentSceneIndex(ARNavigator view, int selectedIndex) {
+    public void setCurrentSceneIndex(ARSceneNavigator view, int selectedIndex) {
         // no-op
     }
 
     @ReactProp(name = "apiKey")
-    public void setApiKey(ARNavigator view, String apiKey) {
+    public void setApiKey(ARSceneNavigator view, String apiKey) {
         // no-op
     }
 
     @ReactProp(name = "hasOnExitViroCallback", defaultBoolean = false)
-    public void setHasOnExitViroCallback(ARNavigator navigator, boolean hasOnExitViroCallback) {
+    public void setHasOnExitViroCallback(ARSceneNavigator navigator, boolean hasOnExitViroCallback) {
         // no-op
     }
 

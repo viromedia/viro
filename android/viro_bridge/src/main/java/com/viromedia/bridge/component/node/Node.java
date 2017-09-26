@@ -137,7 +137,7 @@ public class Node extends Component {
     public Node(Context context, AttributeSet attrs, int defStyleAttr,
                      int defStyleRes, ReactApplicationContext reactContext) {
         super(context, attrs, defStyleAttr, defStyleRes, reactContext);
-        mNodeJni = new NodeJni();
+        mNodeJni = createNodeJni();
 
         // Create and attach callbacks.
         mEventDelegateJni = new EventDelegateJni();
@@ -147,7 +147,15 @@ public class Node extends Component {
         mNodeAnimation = new NodeAnimation(reactContext, this);
     }
 
-    public NodeJni getNodeJni(){
+    /**
+     This function creates a NodeJni object. Child classes should override to provide
+     their own NodeJni.
+     */
+    protected NodeJni createNodeJni() {
+        return new NodeJni();
+    }
+
+    public NodeJni getNodeJni() {
         return mNodeJni;
     }
 

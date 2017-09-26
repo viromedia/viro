@@ -18,7 +18,6 @@ import com.facebook.react.uimanager.annotations.ReactPropGroup;
 import com.facebook.yoga.YogaConstants;
 import com.viro.renderer.jni.MaterialJni;
 import com.viromedia.bridge.component.ViroViewGroupManager;
-import com.viromedia.bridge.component.node.control.Object3d;
 import com.viromedia.bridge.module.MaterialManager;
 import com.viromedia.bridge.utility.Helper;
 import com.viromedia.bridge.utility.ViroEvents;

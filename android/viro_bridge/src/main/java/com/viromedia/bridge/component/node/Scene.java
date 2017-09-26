@@ -30,7 +30,7 @@ public class Scene extends Node implements SceneControllerJni.SceneDelegate {
     private static final String DEFAULT_MATERIAL = "transparent";
     private static final float[] DEFAULT_SIZE = {0,0,0};
 
-    private final SceneControllerJni mNativeSceneController;
+    protected SceneControllerJni mNativeSceneController;
     private RendererJni mNativeRenderer;
     private Camera mCamera;
     private float[] mSoundRoomSize = DEFAULT_SIZE;
@@ -45,8 +45,16 @@ public class Scene extends Node implements SceneControllerJni.SceneDelegate {
 
     public Scene(ReactApplicationContext reactContext) {
         super(reactContext);
-        mNativeSceneController = new SceneControllerJni(getNodeJni());
+        mNativeSceneController = createSceneControllerJni();
         mNativeSceneController.registerDelegate(this);
+    }
+
+    /*
+     This function creates and returns a SceneControllerJni. Child classes
+     should override to return a different SceneController if desired.
+     */
+    protected SceneControllerJni createSceneControllerJni() {
+        return new SceneControllerJni(getNodeJni());
     }
 
     @Override

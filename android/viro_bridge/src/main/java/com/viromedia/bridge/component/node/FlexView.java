@@ -112,7 +112,9 @@ public class FlexView extends Node {
     }
 
     private boolean isRootFlexView() {
-        return getParent() instanceof Scene || getParent() instanceof NodeContainer;
+        // Since Node is the "parent" class of most components, we want to check if the parent
+        // is exactly a Node (not a child of Node).
+        return getParent() instanceof Scene || Node.class.equals(getParent().getClass());
     }
 
     private void createSurface() {
