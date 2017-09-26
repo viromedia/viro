@@ -16,7 +16,7 @@ import com.facebook.react.uimanager.NativeViewHierarchyManager;
 import com.facebook.react.uimanager.UIBlock;
 import com.facebook.react.uimanager.UIManagerModule;
 import com.viro.renderer.jni.NodeJni;
-import com.viro.renderer.jni.SceneJni;
+import com.viro.renderer.jni.SceneControllerJni;
 import com.viromedia.bridge.component.node.Scene;
 import com.viromedia.bridge.utility.Helper;
 
@@ -53,12 +53,13 @@ public class SceneModule extends ReactContextBaseJavaModule {
 
                 String rayCastTag = tag != null ? tag : "";
                 Scene scene = (Scene) sceneView;
-                scene.findCollisionsWithRayAsync(fromPosArray, toPosArray, closest, rayCastTag, new SceneJni.PhysicsWorldHitTestCallback() {
-                    @Override
-                    public void onComplete(boolean hasHit) {
-                        promise.resolve(hasHit);
-                    }
-                });
+                scene.findCollisionsWithRayAsync(fromPosArray, toPosArray, closest, rayCastTag,
+                        new SceneControllerJni.PhysicsWorldHitTestCallback() {
+                            @Override
+                            public void onComplete(boolean hasHit) {
+                                promise.resolve(hasHit);
+                            }
+                        });
 
             }
         });
@@ -93,12 +94,13 @@ public class SceneModule extends ReactContextBaseJavaModule {
 
                 String rayCastTag = tag != null ? tag : "";
                 Scene scene = (Scene) sceneView;
-                scene.findCollisionsWithShapeAsync(fromPosArray, toPosArray, shapeTypeString, params, rayCastTag, new SceneJni.PhysicsWorldHitTestCallback() {
-                    @Override
-                    public void onComplete(boolean hasHit) {
-                        promise.resolve(hasHit);
-                    }
-                });
+                scene.findCollisionsWithShapeAsync(fromPosArray, toPosArray, shapeTypeString, params, rayCastTag,
+                        new SceneControllerJni.PhysicsWorldHitTestCallback() {
+                            @Override
+                            public void onComplete(boolean hasHit) {
+                                promise.resolve(hasHit);
+                            }
+                        });
             }
         });
     }

@@ -11,10 +11,9 @@ import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.WritableMap;
-import com.facebook.react.uimanager.annotations.ReactProp;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
 import com.viro.renderer.jni.CameraCallback;
-import com.viro.renderer.jni.SceneJni;
+import com.viro.renderer.jni.SceneControllerJni;
 import com.viro.renderer.jni.TextureJni;
 import com.viro.renderer.jni.VideoTextureJni;
 import com.viro.renderer.jni.RendererJni;
@@ -22,7 +21,7 @@ import com.viromedia.bridge.component.node.control.Camera;
 import com.viromedia.bridge.utility.Helper;
 import com.viromedia.bridge.utility.ViroEvents;
 
-public class Scene extends Node implements SceneJni.SceneDelegate {
+public class Scene extends Node implements SceneControllerJni.SceneDelegate {
     private static final String TAG = Scene.class.getSimpleName();
     private static final String SIZE_KEY = "size";
     private static final String WALL_MATERIAL_KEY = "wallMaterial";
@@ -31,7 +30,7 @@ public class Scene extends Node implements SceneJni.SceneDelegate {
     private static final String DEFAULT_MATERIAL = "transparent";
     private static final float[] DEFAULT_SIZE = {0,0,0};
 
-    private final SceneJni mNativeScene;
+    private final SceneControllerJni mNativeSceneController;
     private RendererJni mNativeRenderer;
     private Camera mCamera;
     private float[] mSoundRoomSize = DEFAULT_SIZE;
@@ -46,24 +45,24 @@ public class Scene extends Node implements SceneJni.SceneDelegate {
 
     public Scene(ReactApplicationContext reactContext) {
         super(reactContext);
-        mNativeScene = new SceneJni(getNodeJni());
-        mNativeScene.registerDelegate(this);
+        mNativeSceneController = new SceneControllerJni(getNodeJni());
+        mNativeSceneController.registerDelegate(this);
     }
 
     @Override
-    public void onTearDown(){
+    public void onTearDown() {
         if (!isTornDown()) {
-            mNativeScene.destroy();
+            mNativeSceneController.destroy();
         }
         super.onTearDown();
     }
 
-    public SceneJni getNativeScene(){
-        return mNativeScene;
+    public SceneControllerJni getNativeScene() {
+        return mNativeSceneController;
     }
 
     public void setBackgroundVideoTexture(VideoTextureJni videoTexture) {
-        mNativeScene.setBackgroundVideoTexture(videoTexture);
+        mNativeSceneController.setBackgroundVideoTexture(videoTexture);
     }
 
     public void setNativeRenderer(RendererJni nativeRenderer) {
@@ -72,19 +71,19 @@ public class Scene extends Node implements SceneJni.SceneDelegate {
     }
 
     public void setBackgroundImageTexture(TextureJni texture) {
-        mNativeScene.setBackgroundImageTexture(texture);
+        mNativeSceneController.setBackgroundImageTexture(texture);
     }
 
     public void setBackgroundRotation(float[] rotation) {
-        mNativeScene.setBackgroundRotation(rotation);
+        mNativeSceneController.setBackgroundRotation(rotation);
     }
 
     public void setBackgroundCubeImageTexture(TextureJni texture) {
-        mNativeScene.setBackgroundCubeImageTexture(texture);
+        mNativeSceneController.setBackgroundCubeImageTexture(texture);
     }
 
     public void setBackgroundCubeWithColor(long color) {
-        mNativeScene.setBackgroundCubeWithColor(color);
+        mNativeSceneController.setBackgroundCubeWithColor(color);
     }
 
     public void setSoundRoom(ReadableMap soundRoom) {
@@ -93,7 +92,7 @@ public class Scene extends Node implements SceneJni.SceneDelegate {
         mCeilingMaterial = soundRoom.hasKey(CEILING_MATERIAL_KEY) ? soundRoom.getString(CEILING_MATERIAL_KEY) : DEFAULT_MATERIAL;
         mFloorMaterial = soundRoom.hasKey(FLOOR_MATERIAL_KEY) ? soundRoom.getString(FLOOR_MATERIAL_KEY) : DEFAULT_MATERIAL;
         if (mRenderContext != null) {
-            mNativeScene.setSoundRoom(mRenderContext, mSoundRoomSize, mWallMaterial, mCeilingMaterial, mFloorMaterial);
+            mNativeSceneController.setSoundRoom(mRenderContext, mSoundRoomSize, mWallMaterial, mCeilingMaterial, mFloorMaterial);
         }
     }
 
@@ -188,39 +187,39 @@ public class Scene extends Node implements SceneJni.SceneDelegate {
                 for (int i = 0; i < readableParams.size(); i ++){
                     params[i] = (float) readableParams.getDouble(i);
                 }
-                mNativeScene.setPhysicsWorldGravity(params);
+                mNativeSceneController.setPhysicsWorldGravity(params);
             }
         }
 
         if (map.hasKey("drawBounds")) {
-            mNativeScene.setPhysicsDebugDraw(map.getBoolean("drawBounds"));
+            mNativeSceneController.setPhysicsDebugDraw(map.getBoolean("drawBounds"));
         } else {
-            mNativeScene.setPhysicsDebugDraw(false);
+            mNativeSceneController.setPhysicsDebugDraw(false);
         }
     }
 
     public void addPhysicsBodyToScene(Node node){
         if (!isTornDown()) {
-            mNativeScene.attachBodyToPhysicsWorld(node.getNodeJni());
+            mNativeSceneController.attachBodyToPhysicsWorld(node.getNodeJni());
         }
     }
 
     public void removePhysicsBodyFromScene(Node node){
         if (!isTornDown()) {
-            mNativeScene.detachBodyFromPhysicsWorld(node.getNodeJni());
+            mNativeSceneController.detachBodyFromPhysicsWorld(node.getNodeJni());
         }
     }
 
     public void findCollisionsWithRayAsync(float[] fromPos, float toPos[], boolean closest,
                                            String tag,
-                                           SceneJni.PhysicsWorldHitTestCallback callback){
-        mNativeScene.findCollisionsWithRayAsync(fromPos, toPos, closest, tag, callback);
+                                           SceneControllerJni.PhysicsWorldHitTestCallback callback){
+        mNativeSceneController.findCollisionsWithRayAsync(fromPos, toPos, closest, tag, callback);
     }
 
     public void findCollisionsWithShapeAsync(float[] from, float[] to, String shapeType,
                                              float[] params, String tag,
-                                             SceneJni.PhysicsWorldHitTestCallback callback) {
-        mNativeScene.findCollisionsWithShapeAsync(from, to, shapeType, params, tag, callback);
+                                             SceneControllerJni.PhysicsWorldHitTestCallback callback) {
+        mNativeSceneController.findCollisionsWithShapeAsync(from, to, shapeType, params, tag, callback);
     }
 
     /**

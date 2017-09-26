@@ -233,7 +233,7 @@ public class SceneNavigator extends FrameLayout {
             return;
         }
 
-        mVrView.setScene(mSceneArray.get(mSelectedSceneIndex).getNativeScene());
+        mVrView.setSceneController(mSceneArray.get(mSelectedSceneIndex).getNativeScene());
     }
 
     @Override
