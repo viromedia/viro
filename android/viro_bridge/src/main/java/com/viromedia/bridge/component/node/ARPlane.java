@@ -6,11 +6,15 @@ package com.viromedia.bridge.component.node;
 import android.content.Context;
 import android.util.AttributeSet;
 
+import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.ReactApplicationContext;
+import com.facebook.react.bridge.WritableArray;
+import com.facebook.react.bridge.WritableMap;
+import com.viro.renderer.ARAnchor;
 import com.viro.renderer.jni.ARPlaneJni;
 import com.viro.renderer.jni.NodeJni;
 
-public class ARPlane extends Node {
+public class ARPlane extends ARNode {
 
     private static final float DEFAULT_WIDTH = 0f;
     private static final float DEFAULT_HEIGHT = 0f;
@@ -19,6 +23,17 @@ public class ARPlane extends Node {
 
     public ARPlane(ReactApplicationContext context) {
         super(context);
+    }
+
+    @Override
+    WritableMap mapFromARAnchor(ARAnchor arAnchor) {
+        WritableMap returnMap = Arguments.createMap();
+        returnMap.putArray("position", Arguments.makeNativeArray(arAnchor.getPosition()));
+        returnMap.putArray("rotation", Arguments.makeNativeArray(arAnchor.getPosition()));
+        returnMap.putArray("center", Arguments.makeNativeArray(arAnchor.getPosition()));
+        returnMap.putDouble("width", arAnchor.getExtent()[0]);
+        returnMap.putDouble("height", arAnchor.getExtent()[2]);
+        return returnMap;
     }
 
     protected NodeJni createNodeJni() {
