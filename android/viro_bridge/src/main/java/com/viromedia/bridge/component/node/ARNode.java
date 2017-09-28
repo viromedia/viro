@@ -12,6 +12,8 @@ import com.viromedia.bridge.utility.ViroEvents;
 
 public abstract class ARNode extends Node implements ARNodeJni.ARNodeDelegate {
 
+    protected boolean mIsAnchored = false;
+
     public ARNode(ReactApplicationContext context) {
         super(context);
     }
@@ -19,7 +21,16 @@ public abstract class ARNode extends Node implements ARNodeJni.ARNodeDelegate {
     abstract WritableMap mapFromARAnchor(ARAnchor arAnchor);
 
     @Override
+    public boolean shouldAppear() {
+        return super.shouldAppear() && mIsAnchored;
+    }
+
+    // -- ARNodeDelegate implementation --
+
+    @Override
     public void onAnchorFound(ARAnchor arAnchor) {
+        mIsAnchored = true;
+        handleAppearanceChange();
         WritableMap returnMap = mapFromARAnchor(arAnchor);
         mReactContext.getJSModule(RCTEventEmitter.class).receiveEvent(
                 getId(),
@@ -38,6 +49,8 @@ public abstract class ARNode extends Node implements ARNodeJni.ARNodeDelegate {
 
     @Override
     public void onAnchorRemoved() {
+        mIsAnchored = false;
+        handleAppearanceChange();
         mReactContext.getJSModule(RCTEventEmitter.class).receiveEvent(
                 getId(),
                 ViroEvents.ON_ANCHOR_REMOVED,

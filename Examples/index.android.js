@@ -18,7 +18,7 @@ import {
   ViroSceneNavigator,
 } from 'react-viro';
 
-var InitialScene = require('./js/release_test/ViroSkyBoxTest');
+var InitialScene = require('./js/SimpleVisibleTest');
 
 export default class ViroSample extends Component {
   render() {

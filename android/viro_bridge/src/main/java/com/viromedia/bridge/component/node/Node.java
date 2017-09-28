@@ -102,9 +102,9 @@ public class Node extends Component {
     protected float[] mScale;
     protected float[] mRotationPivot;
     protected float[] mScalePivot;
-    protected float mOpacity;
-    protected boolean mVisible;
-    protected boolean mHighAccuracyGazeEnabled;
+    protected float mOpacity = 1.0f;
+    protected boolean mVisible = true; // default visible value should be true
+    protected boolean mHighAccuracyGazeEnabled = false;
     protected List<MaterialJni> mMaterials;
     private EventDelegateJni mEventDelegateJni;
     private NodeTransformDelegate mTransformDelegate;
@@ -264,6 +264,20 @@ public class Node extends Component {
     }
 
     @Override
+    public boolean shouldAppear() {
+        return super.shouldAppear() && mVisible;
+    }
+
+    @Override
+    protected void handleAppearanceChange() {
+        if (mNodeJni != null) {
+            mNodeJni.setPhysicsIsSimulated(shouldAppear());
+            mNodeJni.setVisible(shouldAppear());
+        }
+        super.handleAppearanceChange();
+    }
+
+    @Override
     protected void onPropsSet() {
         super.onPropsSet();
         // Because props are set from the bottom of the scene tree up, if props are set on this
@@ -360,7 +374,7 @@ public class Node extends Component {
             FlexView flexView = (FlexView) this;
             flexView.setWidth(width3d);
             flexView.setHeight(height3d);
-        }else if (this instanceof VideoSurface) {
+        } else if (this instanceof VideoSurface) {
             VideoSurface videoSurface = (VideoSurface)this;
             videoSurface.setWidth(width3d);
             videoSurface.setHeight(height3d);
@@ -463,7 +477,7 @@ public class Node extends Component {
             return;
         }
         mVisible = visible;
-        mNodeJni.setVisible(visible);
+        handleAppearanceChange();
     }
 
     public void setHighAccuracyGaze(boolean highAccuracyGazeEnabled){

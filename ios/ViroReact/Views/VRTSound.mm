@@ -45,7 +45,7 @@ static NSString *const kWebPrefix = @"http";
 - (void)setPaused:(BOOL)paused {
     _paused = paused;
     if (_sound) {
-        paused ? _sound->pause() : _sound->play();
+        (paused || ![self shouldAppear]) ? _sound->pause() : _sound->play();
     }
 }
 
@@ -191,9 +191,8 @@ static NSString *const kWebPrefix = @"http";
 
 - (void)setNativeProps {
     if (_sound) {
-        if (_ready) {
-            _paused ? _sound->pause() : _sound->play();
-        }
+        [self setPaused:self.paused];
+
         _sound->setVolume(_volume);
         _sound->setMuted(_muted);
         _sound->setLoop(_loop);
@@ -207,12 +206,9 @@ static NSString *const kWebPrefix = @"http";
     }
 }
 
-
 - (void)soundIsReady {
     _ready = YES;
-    if (_sound) {
-        _paused ? _sound->pause() : _sound->play();
-    }
+    [self setPaused:self.paused];
 }
 
 - (void)soundDidFail:(NSString *)error {
@@ -275,7 +271,7 @@ static NSString *const kWebPrefix = @"http";
 - (void)setPaused:(BOOL)paused {
     [super setPaused:paused];
     if (_player) {
-        paused ? _player->pause() : _player->play();
+        (paused || ![self shouldAppear]) ? _player->pause() : _player->play();
     }
 }
 
@@ -325,7 +321,8 @@ static NSString *const kWebPrefix = @"http";
         _player->setMuted(self.muted);
         _player->setLoop(self.loop);
         _player->setVolume(self.volume);
-        self.paused ? _player->pause() : _player->play();
+        // re-run the setPaused logic to start/stop playback.
+        [self setPaused:self.paused];
     }
 }
 
@@ -341,31 +338,10 @@ static NSString *const kWebPrefix = @"http";
     }
 }
 
-- (void)parentDidAppear {
-    [self setPaused:self.paused];
-}
-
 - (void)sceneWillDisappear {
     if (_player) {
         _player->pause();
     }
-}
-
-- (void)parentDidDisappear {
-    if (_player) {
-        _player->pause();
-    }
-}
-
-- (void)handleAppearanceChange {
-    if (_player) {
-        if ([self shouldAppear] && !self.paused) {
-            _player->play();
-        } else {
-            _player->pause();
-        }
-    }
-    [super handleAppearanceChange];
 }
 
 @end

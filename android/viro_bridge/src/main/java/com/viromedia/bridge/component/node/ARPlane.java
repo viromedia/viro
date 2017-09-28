@@ -3,12 +3,8 @@
  */
 package com.viromedia.bridge.component.node;
 
-import android.content.Context;
-import android.util.AttributeSet;
-
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.ReactApplicationContext;
-import com.facebook.react.bridge.WritableArray;
 import com.facebook.react.bridge.WritableMap;
 import com.viro.renderer.ARAnchor;
 import com.viro.renderer.jni.ARPlaneJni;

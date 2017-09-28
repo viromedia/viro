@@ -9,7 +9,6 @@ import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
 import com.viro.renderer.jni.RenderContextJni;
 import com.viro.renderer.jni.SurfaceJni;
-import com.viro.renderer.jni.TextureJni;
 import com.viro.renderer.jni.VideoTextureJni;
 import com.viromedia.bridge.utility.Helper;
 import com.viromedia.bridge.utility.ViroEvents;
@@ -180,7 +179,7 @@ public class VideoSurface extends Control {
             return;
         }
 
-        if (mPaused) {
+        if (mPaused || !shouldAppear()) {
             mVideoTextureJni.pause();
         } else {
             mVideoTextureJni.play();
@@ -219,6 +218,12 @@ public class VideoSurface extends Control {
                 mVideoTextureJni.play();
             }
         }
+    }
+
+    @Override
+    protected void handleAppearanceChange() {
+        setPaused(mPaused);
+        super.handleAppearanceChange();
     }
 
     private void playerBufferStart() {

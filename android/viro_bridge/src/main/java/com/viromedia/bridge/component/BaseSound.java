@@ -45,6 +45,14 @@ public abstract class BaseSound extends Component implements SoundDelegate {
 
     public void setPaused(boolean paused) {
         mPaused = paused;
+
+        if (mReady && mNativeSound != null) {
+            if (mPaused || !shouldAppear()) {
+                mNativeSound.pause();
+            } else {
+                mNativeSound.play();
+            }
+        }
     }
 
     public void setVolume(float volume) {
@@ -84,17 +92,19 @@ public abstract class BaseSound extends Component implements SoundDelegate {
             return;
         }
 
-        if (mReady) {
-            if (mPaused) {
-                mNativeSound.pause();
-            } else {
-                mNativeSound.play();
-            }
-        }
+        // re-run the setPaused logic to start/stop playback.
+        setPaused(mPaused);
 
         mNativeSound.setVolume(mVolume);
         mNativeSound.setMuted(mMuted);
         mNativeSound.setLoop(mLoop);
+    }
+
+    @Override
+    protected void handleAppearanceChange() {
+        // re-run the setPaused logic to start/stop playback.
+        setPaused(mPaused);
+        super.handleAppearanceChange();
     }
 
     @Override

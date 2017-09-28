@@ -47,6 +47,8 @@ public class Scene extends Node implements SceneControllerJni.SceneDelegate {
         super(reactContext);
         mNativeSceneController = createSceneControllerJni();
         mNativeSceneController.registerDelegate(this);
+        mVisible = true; // Scenes are always visible!
+        mParentHasAppeared = true;
     }
 
     /*

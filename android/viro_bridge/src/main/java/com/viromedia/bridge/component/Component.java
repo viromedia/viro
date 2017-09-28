@@ -25,6 +25,10 @@ public class Component extends ReactViewGroup {
     protected RenderContextJni mRenderContext = null;
     protected ReactApplicationContext mReactContext = null;
     protected Scene mScene = null;
+    /*
+     True/False depending on whether or not the parent view has appeared.
+     */
+    protected boolean mParentHasAppeared = false;
 
     /*
      These three bools define the state of each component.
@@ -54,22 +58,6 @@ public class Component extends ReactViewGroup {
 
     public ReactApplicationContext getReactContext(){
         return mReactContext;
-    }
-
-    public void componentWillAppear() {
-        // no-op
-    }
-
-    public void componentWillDisappear() {
-        // no-op
-    }
-
-    public boolean hoverable() {
-        return false;
-    }
-
-    public boolean tappable() {
-        return false;
     }
 
     public void setRenderContext(RenderContextJni context){
@@ -119,6 +107,10 @@ public class Component extends ReactViewGroup {
 
         component.onTreeUpdate();
         onTreeUpdate();
+
+        if (shouldAppear()) {
+            component.parentDidAppear();
+        }
     }
 
     @Override
@@ -132,6 +124,7 @@ public class Component extends ReactViewGroup {
          */
         if (child instanceof Component) {
             Component component = (Component) child;
+            component.parentDidDisappear();
             component.onTreeUpdate();
         }
         onTreeUpdate();
@@ -262,7 +255,7 @@ public class Component extends ReactViewGroup {
         }
     }
 
-    public void onHostResume(){
+    public void onHostResume() {
         for (int i = getChildCount() - 1; i >= 0; i--) {
             final View child = getChildAt(i);
             if (child instanceof Component){
@@ -271,13 +264,52 @@ public class Component extends ReactViewGroup {
         }
     }
 
-    public void onHostPause(){
+    public void onHostPause() {
         for (int i = getChildCount() - 1; i >= 0; i--) {
             final View child = getChildAt(i);
             if (child instanceof Component){
                 ((Component)child).onHostPause();
             }
         }
+    }
+
+    /*
+     The default behavior of whether or not a Component should appear is whether
+     or not the parent component has appeared.
+     */
+    protected boolean shouldAppear() {
+        return mParentHasAppeared;
+    }
+
+    /*
+     This function is called when the appearance state of this Component has changed.
+     */
+    protected void handleAppearanceChange() {
+        if (this.shouldAppear()) {
+            for (int i = 0; i < getChildCount(); i++) {
+                ((Component) getChildAt(i)).parentDidAppear();
+            }
+        } else {
+            for (int i = 0; i < getChildCount(); i++) {
+                ((Component) getChildAt(i)).parentDidDisappear();
+            }
+        }
+    }
+
+    /*
+     Called by the parent Component to let child know that the Parent view has appeared.
+     */
+    protected void parentDidAppear() {
+        mParentHasAppeared = true;
+        handleAppearanceChange();
+    }
+
+    /*
+     Called by the parent Component to let child know that the Parent view has disappeared.
+     */
+    protected void parentDidDisappear() {
+        mParentHasAppeared = false;
+        handleAppearanceChange();
     }
 
     /**

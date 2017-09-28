@@ -37,7 +37,7 @@ var scene1 = React.createClass({
                                py:require("./res/sun_2302.jpg"),
                                nz:require("./res/sun_2302.jpg"),
                                pz:require("./res/sun_2302.jpg")}} format="RGBA8" />
-          <ViroOrbitCamera position={[0, 0, 1]} focalPoint={[0, 0, -3]}/>
+          <ViroOrbitCamera position={[0, 0, 1]} focalPoint={[0, 0, -3]} active={true}/>
           <ViroNode position={[2, -3, 0]} >
             <ViroBox materials="wework_title" position={[0, 0, -5]} scale={[2, 4, 2]} transformBehaviors={["billboard"]} />
             <ViroBox materials="box_texture" position={[1, 5, -2]} scale={[3,3,3]} transformBehaviors={["billboard"]} />

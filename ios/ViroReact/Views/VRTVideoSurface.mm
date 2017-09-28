@@ -42,8 +42,8 @@
 
 - (void)setPaused:(BOOL)paused {
     _paused = paused;
-    if (_surface) {
-        _paused ? _videoTexture->pause() : _videoTexture->play();
+    if (_videoTexture) {
+        (_paused || ![self shouldAppear]) ? _videoTexture->pause() : _videoTexture->play();
     }
 }
 
@@ -117,17 +117,15 @@
     _videoTexture->loadVideo(url, self.context->getFrameSynchronizer(), self.driver);
     
     _surface->getMaterials().front()->getDiffuse().setTexture(_videoTexture);
-    if (self.paused) {
-        _videoTexture->pause();
-    } else {
-        _videoTexture->play();
-    }
-    
+
     _videoTexture->setVolume(self.volume);
     _videoTexture->setMuted(self.muted);
     _videoTexture->setLoop(self.loop);
     _videoTexture->setDelegate(_videoDelegate);
-    
+
+    // set paused again (let the internal logic run).
+    [self setPaused:_paused];
+
     [self node]->setGeometry(_surface);
     
     // set that we did in fact update the surface
@@ -145,16 +143,8 @@
 }
 
 - (void)handleAppearanceChange {
-    if ([self shouldAppear]) {
-        [self updateSurface];
-        if (_videoTexture) {
-            [self setPaused:self.paused];
-        }
-    } else {
-        if (_videoTexture) {
-            _videoTexture->pause();
-        }
-    }
+    // set paused again to let the logic re-run & pause if necessary.
+    [self setPaused:self.paused];
     [super handleAppearanceChange];
 }
 
