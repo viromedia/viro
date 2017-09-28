@@ -23,6 +23,7 @@ import com.viromedia.bridge.component.node.ARPlaneManager;
 import com.viromedia.bridge.component.node.ARSceneManager;
 import com.viromedia.bridge.component.node.SceneManagerImpl;
 import com.viromedia.bridge.component.node.control.Object3dManager;
+import com.viromedia.bridge.component.node.control.ParticleEmitterManager;
 import com.viromedia.bridge.component.node.control.PolylineManager;
 import com.viromedia.bridge.component.node.control.TextManager;
 import com.viromedia.bridge.component.Video360Manager;
@@ -111,6 +112,7 @@ public class ReactViroPackage implements ReactPackage {
                 new Object3dManager(reactContext),
                 new ControllerManager(reactContext),
                 new PolylineManager(reactContext),
+                new ParticleEmitterManager(reactContext),
                 // AR Components
                 new ARSceneNavigatorManager(reactContext),
                 new ARSceneManager(reactContext),

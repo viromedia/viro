@@ -12,8 +12,9 @@
 #import "VRTImageAsyncLoader.h"
 #import "VRTSurface.h"
 
-const int kDefaultSpawnRate = 0;
-const int kDefaultParticleLifetime = 0;
+const int kDefaultSpawnRatePerSec = 10;
+const int kDefaultSpawnRatePerMeter = 0;
+const int kDefaultParticleLifetime = 2000;
 const int kDefaultMaxParticles = 500;
 
 @implementation VRTParticleEmitter {
@@ -109,28 +110,26 @@ const int kDefaultMaxParticles = 500;
 }
 
 - (void)updateEmitter {
-    if (!self.driver || !self.node || !self.image || !self.scene) {
+    if (!self.driver || !self.node || !self.scene) {
         return;
     }
     
-    if (!self.image){
+    if (!self.image || ![self.image objectForKey:@"source"]){
         RCTLogError(@"Viro: Missing required Image for a Viro Particle Emitter!");
         return;
     }
 
     // If the image or image size has changed, recreate the emitter.
-    [self updateImageIfNeeded];
+    [self downloadImageIfNeeded];
 
     // If a particle source image is provided, wait for it to be loaded
     // into the texture before initializing the emitter with it.
-    if ([self.image objectForKey:@"source"] && _particleTexture == nullptr) {
+    if (_particleTexture == nullptr) {
         return;
     }
     
-    if (_needsImageUpdate){
-        [self updateImage];
-        _needsImageUpdate = false;
-    }
+    // Refresh the images set on quad particles if needed.
+    [self refreshImageOnParticle];
     
     // Create the emitter if we haven't yet done so, or if the texture has changed.
     if (_emitter == nullptr) {
@@ -152,7 +151,7 @@ const int kDefaultMaxParticles = 500;
     }
 }
 
-- (void)updateImageIfNeeded {
+- (void)downloadImageIfNeeded {
     // Schedule image for download if given.
     if (![self.image objectForKey:@"source"]){
         return;
@@ -176,7 +175,10 @@ const int kDefaultMaxParticles = 500;
     }
 }
 
--(void)updateImage {
+-(void)refreshImageOnParticle {
+    if (!_needsImageUpdate){
+        return;
+    }
     NSNumber *width = [self.image objectForKey:@"width"];
     NSNumber *height = [self.image objectForKey:@"height"];
     float fwidth = width ? [width floatValue] : 1.0;
@@ -197,7 +199,8 @@ const int kDefaultMaxParticles = 500;
     } else {
         _particleGeometry->getMaterials()[0]->setBloomThreshold(-1.0f);
     }
-     _particleGeometry->getMaterials()[0]->updateSubstrate();
+    _particleGeometry->getMaterials()[0]->updateSubstrate();
+    _needsImageUpdate = false;
 }
 
 -(void)createEmitter {
@@ -213,6 +216,7 @@ const int kDefaultMaxParticles = 500;
     if (self.scene) {
         self.scene->removeParticleEmitter(_emitter);
     }
+    _particleGeometry = nullptr;
     _particleTexture = nullptr;
     _emitter = nullptr;
 }
@@ -227,6 +231,15 @@ const int kDefaultMaxParticles = 500;
 
 - (void)updateSpawnModifier {
     if (!_spawnBehavior) {
+        _emitter->setEmissionRatePerSecond(std::pair<int, int>(kDefaultSpawnRatePerSec, kDefaultSpawnRatePerSec));
+        _emitter->setEmissionRatePerDistance(std::pair<int, int>(kDefaultSpawnRatePerMeter, kDefaultSpawnRatePerMeter));
+        _emitter->setParticleLifeTime(std::pair<int, int>(kDefaultParticleLifetime, kDefaultParticleLifetime));
+        _emitter->setMaxParticles(kDefaultMaxParticles);
+        _emitter->setParticleBursts(std::vector<VROParticleEmitter::VROParticleBurst>());
+
+        VROParticleSpawnVolume defaultVol;
+        defaultVol.shape =  VROParticleSpawnVolume::Shape::Point;
+        _emitter->setParticleSpawnVolume(defaultVol);
         return;
     }
 
@@ -236,7 +249,7 @@ const int kDefaultMaxParticles = 500;
                                                         [[emissionRatePerSec objectAtIndex:1] intValue]);
         _emitter->setEmissionRatePerSecond(range);
     } else {
-        _emitter->setEmissionRatePerSecond(std::pair<int, int>(kDefaultSpawnRate, kDefaultSpawnRate));
+        _emitter->setEmissionRatePerSecond(std::pair<int, int>(kDefaultSpawnRatePerSec, kDefaultSpawnRatePerSec));
     }
 
     NSArray *emissionRatePerMeter = [_spawnBehavior objectForKey:@"emissionRatePerMeter"];
@@ -245,7 +258,7 @@ const int kDefaultMaxParticles = 500;
                                                         [[emissionRatePerMeter objectAtIndex:1] intValue]);
         _emitter->setEmissionRatePerDistance(range);
     } else {
-        _emitter->setEmissionRatePerDistance(std::pair<int, int>(kDefaultSpawnRate, kDefaultSpawnRate));
+        _emitter->setEmissionRatePerDistance(std::pair<int, int>(kDefaultSpawnRatePerMeter, kDefaultSpawnRatePerMeter));
     }
 
     NSArray *particleLifeTime = [_spawnBehavior objectForKey:@"particleLifetime"];
@@ -318,9 +331,9 @@ const int kDefaultMaxParticles = 500;
 
         // Grab the current shapeParams
         if (shapeParams) {
-            std::vector<double> params = {};
+            std::vector<float> params = {};
             for (int i = 0; i < [shapeParams count]; i ++) {
-                double value = [[shapeParams objectAtIndex:i] doubleValue];
+                float value = [[shapeParams objectAtIndex:i] floatValue];
                 params.push_back(value);
             }
             vol.shapeParams = params;

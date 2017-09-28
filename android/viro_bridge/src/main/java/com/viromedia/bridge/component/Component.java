@@ -190,7 +190,7 @@ public class Component extends ReactViewGroup {
      *
      * @return whether or not this component has already been torn down.
      */
-    protected boolean isTornDown() {
+    public boolean isTornDown() {
         return mTornDown;
     }
 
