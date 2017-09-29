@@ -116,16 +116,6 @@ static NSString *const kVRTInvalidAPIKeyMessage = @"The given API Key is either 
     
 }
 
-- (void)userDidRequestExitVR {
-    // Notify javascript listeners (for ReactNativeJs to ViroReactJs cases)
-    if (self.onExitViro != nil) {
-        self.onExitViro(nil);
-    }
-    
-    // Notify Native listeners (for NativeApp to ViroReactJs cases)
-    [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:kVRTOnExitViro object:nil]];
-}
-
 - (void)startVideoRecording:(NSString *)fileName
            saveToCameraRoll:(BOOL)saveToCameraRoll
                     onError:(RCTResponseSenderBlock)onError {

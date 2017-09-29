@@ -29,40 +29,39 @@ var mathRandomOffset = 0;
  */
 var ViroSceneNavigator = React.createClass({
   propTypes: {
-        /**
-         * Calling vrModeEnabled allows switching to and from VR mode.
-         * When set to false, it transitions back to pre-VR (mono) mode.
-         * When set to true, we set thie view into a full VR mode.
-         * This is set to true by default.
-         */
-        vrModeEnabled: PropTypes.bool,
+    /**
+     * Calling vrModeEnabled allows switching to and from VR mode.
+     * When set to false, it transitions back to pre-VR (mono) mode.
+     * When set to true, we set thie view into a full VR mode.
+     * This is set to true by default.
+     */
+    vrModeEnabled: PropTypes.bool,
 
-        /**
-         * A flag to enable/disable some debug features
-         */
-        debug: PropTypes.bool,
+    /**
+     * A flag to enable/disable some debug features
+     */
+    debug: PropTypes.bool,
 
-        ...View.propTypes,
+    ...View.propTypes,
 
-        apiKey: PropTypes.string.isRequired,
+    apiKey: PropTypes.string.isRequired,
 
-        /**
-         * ViroSceneNavigator uses "scene" objects like the following to
-         * describe a scene.
-         */
-        initialScene: PropTypes.shape({
+    /**
+     * ViroSceneNavigator uses "scene" objects like the following to
+     * describe a scene.
+     */
+    initialScene: PropTypes.shape({
+      /**
+       * The React Class to render for this scene.
+       */
+      scene: PropTypes.func.isRequired,
+    }).isRequired,
 
-        /**
-          * The React Class to render for this scene.
-          */
-        scene: PropTypes.func.isRequired,
-
-        /**
-         * Called when either the user physically decides to exit vr (hits
-         * the "X" buton).
-         */
-        onExitViro: PropTypes.func,
-      }).isRequired,
+    /**
+     * Called when either the user physically decides to exit vr (hits
+     * the "X" buton).
+     */
+    onExitViro: PropTypes.func,
   },
 
   sceneNavigator: (undefined: ?Object),

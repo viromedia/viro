@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.v4.content.LocalBroadcastManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 
@@ -36,7 +37,7 @@ public class SceneNavigator extends FrameLayout {
 
     private static final String DAYDREAM = "daydream";
 
-    private static class InnerGLListener implements GlListener {
+    protected static class InnerGLListener implements GlListener {
 
         private WeakReference<SceneNavigator> mNavigator;
 
@@ -103,7 +104,7 @@ public class SceneNavigator extends FrameLayout {
     /**
      * View containing our renderer
      */
-    private VrView mVrView;
+    private VrView mViroView;
 
     /**
      * Currently rendered scene
@@ -144,36 +145,25 @@ public class SceneNavigator extends FrameLayout {
         mPlatform = platform;
         mReactContext = reactContext;
 
-        VrView vrView = null;
-        switch (mPlatform) {
-            case OVR_MOBILE:
-                mVrView = new ViroOvrView(reactContext.getCurrentActivity(),
-                        new InnerGLListener(this));
-                break;
-            case GVR:
-                // default case is to use GVR
-            default:
-                ViroGvrLayout gvrLayout = new ViroGvrLayout(reactContext.getCurrentActivity(),
-                        new InnerGLListener(this), new OnGVRExitListener(this));
-                mVrView = gvrLayout;
-        }
+        // Create the ViroView
+        mViroView = createViroView(reactContext);
 
-        View baseVrView = (View)mVrView;
-        addView(baseVrView);
+        // Add the ViroView as a child so it's rendered.
+        addView((View) mViroView);
 
-        mRenderContext = mVrView.getRenderContextRef();
+        mRenderContext = mViroView.getRenderContextRef();
 
         /*
          * Set the view for the debug console.
          */
         PerfMonitor perfMonitor = reactContext.getNativeModule(PerfMonitor.class);
-        perfMonitor.setView(mVrView);
+        perfMonitor.setView(mViroView);
 
         /*
          * Trigger VrView's onActivityStarted and onActivityResumed of the vrView as
          * React creates it's views within the activity's onResume().
          */
-        mVrView.onActivityStarted(reactContext.getCurrentActivity());
+        mViroView.onActivityStarted(reactContext.getCurrentActivity());
 
         notifyScenePlatformInformation();
 
@@ -186,6 +176,19 @@ public class SceneNavigator extends FrameLayout {
          */
         MaterialManager materialManager = reactContext.getNativeModule(MaterialManager.class);
         materialManager.reloadMaterials();
+    }
+
+    protected VrView createViroView(ReactApplicationContext reactContext) {
+        switch (mPlatform) {
+            case OVR_MOBILE:
+                return new ViroOvrView(reactContext.getCurrentActivity(),
+                        new InnerGLListener(this));
+            case GVR:
+                // default case is to use GVR
+            default:
+                return new ViroGvrLayout(reactContext.getCurrentActivity(),
+                        new InnerGLListener(this), new OnGVRExitListener(this));
+        }
     }
 
     @Override
@@ -202,8 +205,8 @@ public class SceneNavigator extends FrameLayout {
 
         Scene childScene = (Scene)child;
         mSceneArray.add(index, childScene);
-        childScene.setPlatformInformation(mVrView.getPlatform(), mVrView.getHeadset(),
-                mVrView.getController());
+        childScene.setPlatformInformation(mViroView.getPlatform(), mViroView.getHeadset(),
+                mViroView.getController());
 
         // Adding the scene view can occur after the prop type is set on the bridge.
         // Thus, refresh the selection of the current scene as needed.
@@ -222,18 +225,18 @@ public class SceneNavigator extends FrameLayout {
             Scene childScene = mSceneArray.get(mSelectedSceneIndex);
             childScene.setRenderContext(mRenderContext);
             childScene.setScene(childScene);
-            childScene.setNativeRenderer(mVrView.getNativeRenderer());
+            childScene.setNativeRenderer(mViroView.getNativeRenderer());
         }
     }
 
-    public void setCurrentSceneIndex(int index){
+    public void setCurrentSceneIndex(int index) {
         mSelectedSceneIndex = index;
         if (index < 0 || index >= mSceneArray.size()){
             // Scene object may not yet have been initialized, so return here.
             return;
         }
 
-        mVrView.setSceneController(mSceneArray.get(mSelectedSceneIndex).getNativeScene());
+        mViroView.setSceneController(mSceneArray.get(mSelectedSceneIndex).getNativeScene());
         mSceneArray.get(mSelectedSceneIndex).parentDidAppear();
     }
 
@@ -267,7 +270,7 @@ public class SceneNavigator extends FrameLayout {
     }
 
     public void setVrModeEnabled(boolean vrModeEnabled) {
-        mVrView.setVrModeEnabled(vrModeEnabled);
+        mViroView.setVrModeEnabled(vrModeEnabled);
     }
 
     public void setHasOnExitViroCallback(boolean hasCallback) {
@@ -275,7 +278,7 @@ public class SceneNavigator extends FrameLayout {
     }
 
     public void setDebug(boolean debug) {
-        mVrView.setDebug(debug);
+        mViroView.setDebug(debug);
     }
 
     public void setApiKey(String apiKey) {
@@ -286,13 +289,13 @@ public class SceneNavigator extends FrameLayout {
                     "at www.viromedia.com.");
         }
 
-        mVrView.validateApiKey(apiKey.trim());
+        mViroView.validateApiKey(apiKey.trim());
     }
 
     private void notifyScenePlatformInformation() {
         for (Scene scene: mSceneArray) {
-            scene.setPlatformInformation(mVrView.getPlatform(), mVrView.getHeadset(),
-                    mVrView.getController());
+            scene.setPlatformInformation(mViroView.getPlatform(), mViroView.getHeadset(),
+                    mViroView.getController());
         }
     }
 
@@ -316,8 +319,8 @@ public class SceneNavigator extends FrameLayout {
         MaterialManager materialManager = mReactContext.getNativeModule(MaterialManager.class);
         materialManager.shouldReload();
 
-        mVrView.onActivityStopped(mReactContext.getCurrentActivity());
-        mVrView.destroy();
+        mViroView.onActivityStopped(mReactContext.getCurrentActivity());
+        mViroView.destroy();
     }
 
     private void onHostResume() {
@@ -326,8 +329,8 @@ public class SceneNavigator extends FrameLayout {
             childScene.onHostResume();
         }
 
-        if (mVrView != null){
-            mVrView.onActivityResumed(mReactContext.getCurrentActivity());
+        if (mViroView != null){
+            mViroView.onActivityResumed(mReactContext.getCurrentActivity());
         }
     }
 
@@ -337,8 +340,8 @@ public class SceneNavigator extends FrameLayout {
             childScene.onHostPause();
         }
 
-        if (mVrView != null){
-            mVrView.onActivityPaused(mReactContext.getCurrentActivity());
+        if (mViroView != null){
+            mViroView.onActivityPaused(mReactContext.getCurrentActivity());
         }
     }
 
@@ -365,10 +368,10 @@ public class SceneNavigator extends FrameLayout {
     }
 
     public void recenterTracking() {
-        if (mVrView.getHeadset().equalsIgnoreCase(DAYDREAM)) {
+        if (mViroView.getHeadset().equalsIgnoreCase(DAYDREAM)) {
             throw new IllegalStateException("recenterTracking should not be invoked on Daydream devices.");
         }
-        mVrView.recenterTracking();
+        mViroView.recenterTracking();
     }
 
     private static class OnGVRExitListener implements Runnable{

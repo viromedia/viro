@@ -45,12 +45,6 @@ var ViroARSceneNavigator = React.createClass({
           * The React Class to render for this scene.
           */
         scene: PropTypes.func.isRequired,
-
-        /**
-         * Called when either the user physically decides to exit AR (hits
-         * the "X" buton).
-         */
-        onExitViro: PropTypes.func,
       }).isRequired,
   },
 
@@ -72,21 +66,11 @@ var ViroARSceneNavigator = React.createClass({
       popN: this.popN,
       jump: this.jump,
       replace: this.replace,
-      exitViro: this.exitViro,
       startVideoRecording: this._startVideoRecording,
       stopVideoRecording: this._stopVideoRecording,
       takeScreenshot: this._takeScreenshot,
     };
   },
-
-  /**
-   * Called from native when either the user physically decides to exit vr (hits
-   * the "X" buton).
-   */
-  _onExitViro: function(event: Event) {
-    this.props.onExitViro && this.props.onExitViro();
-  },
-
   getInitialState: function(): State {
     var initialSceneTag = this.props.initialSceneKey;
     if (initialSceneTag == null){
@@ -160,36 +144,36 @@ var ViroARSceneNavigator = React.createClass({
    * replace ("sceneKey", scene);
    * replace (scene);
    */
-   replace: function(param1, param2){
-     var sceneKey = undefined;
-     var scene = undefined;
-     if (typeof param1 == 'string'){
-         sceneKey = param1;
-         scene = param2;
-     } else {
-         scene = param1;
-     }
+  replace: function(param1, param2){
+    var sceneKey = undefined;
+    var scene = undefined;
+    if (typeof param1 == 'string'){
+       sceneKey = param1;
+       scene = param2;
+    } else {
+       scene = param1;
+    }
 
-     if (scene == undefined && sceneKey == undefined){
-         console.log("ERROR: replacing requires either the scene tag, or both the tag and scene.");
-         return;
-     } else if (scene == undefined && sceneKey != undefined
-           && !(sceneKey in this.state.sceneDictionary)){
-         console.log("ERROR: Cannot replace with a new sceneKey with no associated scene.");
-         return;
-     }
+    if (scene == undefined && sceneKey == undefined){
+       console.log("ERROR: replacing requires either the scene tag, or both the tag and scene.");
+       return;
+    } else if (scene == undefined && sceneKey != undefined
+         && !(sceneKey in this.state.sceneDictionary)){
+       console.log("ERROR: Cannot replace with a new sceneKey with no associated scene.");
+       return;
+    }
 
-     if (sceneKey == undefined || (typeof sceneKey == 'string' && sceneKey.trim().length <=0)){
-         sceneKey = this.getRandomTag();
-     }
+    if (sceneKey == undefined || (typeof sceneKey == 'string' && sceneKey.trim().length <=0)){
+       sceneKey = this.getRandomTag();
+    }
 
-     // Pop 1 off the scene history (do not use popN because in this case we allow
-     // popping the root), then push this scene
-     this.decrementReferenceForLastNScenes(1);
-     this.popHistoryByN(1);
-     this.incrementSceneReference(scene, sceneKey, false);
-     this.addToHistory(sceneKey);
-   },
+    // Pop 1 off the scene history (do not use popN because in this case we allow
+    // popping the root), then push this scene
+    this.decrementReferenceForLastNScenes(1);
+    this.popHistoryByN(1);
+    this.incrementSceneReference(scene, sceneKey, false);
+    this.addToHistory(sceneKey);
+  },
 
   /**
    * Jumps to a given scene that had been previously pushed. If the scene was not pushed, we
@@ -437,18 +421,12 @@ var ViroARSceneNavigator = React.createClass({
     // so remove it.
     delete this.arSceneNavigator.viroAppProps.rootTag;
 
-    // TODO: remove this check when AR on Android is supported
-    if (Platform.OS == 'android') {
-      return (<Text>AR is not available on Android. </Text>);
-    }
     return (
       <VRTARSceneNavigator
         ref={ component => {this._component = component; }}
         {...this.props}
         currentSceneIndex={this.state.currentSceneIndex}
-        style={this.props.style, styles.container}
-        hasOnExitViroCallback={this.props.onExitViro != undefined}
-        onExitViro={this._onExitViro}>
+        style={this.props.style, styles.container} >
         {items}
       </VRTARSceneNavigator>
     );
@@ -466,7 +444,7 @@ var styles = StyleSheet.create({
 
 var VRTARSceneNavigator = requireNativeComponent(
     'VRTARSceneNavigator', ViroARSceneNavigator, {
-        nativeOnly: { currentSceneIndex:true, onExitViro:true, hasOnExitViroCallback:true }
+        nativeOnly: { currentSceneIndex:true }
     }
 );
 

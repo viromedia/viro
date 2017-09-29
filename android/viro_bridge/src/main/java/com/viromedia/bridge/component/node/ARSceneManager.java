@@ -6,7 +6,6 @@ package com.viromedia.bridge.component.node;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.common.MapBuilder;
 import com.facebook.react.uimanager.ThemedReactContext;
-import com.viro.renderer.jni.ARSceneControllerJni;
 import com.viromedia.bridge.utility.ViroEvents;
 
 import java.util.Map;

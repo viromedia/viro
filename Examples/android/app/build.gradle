@@ -157,7 +157,7 @@ dependencies {
 
     // Viro modules
     compile project(':viro_renderer')
-    compile project(path: ':gvr_common')
+    compile project(':arcore_client')
     compile project(path: ':viro_bridge')
     compile 'com.google.protobuf.nano:protobuf-javanano:3.0.0-alpha-7'
 }

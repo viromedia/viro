@@ -26,6 +26,7 @@ dependencies {
     compile 'com.android.support:appcompat-v7:25.0.0'
     testCompile 'junit:junit:4.12'
     compile 'com.facebook.react:react-native:+'
+    compile project(':arcore_client')
     compile project(':gvr_common')
     compile project(':viro_renderer')
     compile 'com.google.android.exoplayer:exoplayer:r2.2.0'

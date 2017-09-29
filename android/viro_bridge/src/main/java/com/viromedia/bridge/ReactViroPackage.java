@@ -56,7 +56,7 @@ public class ReactViroPackage implements ReactPackage {
     public static final String ON_EXIT_VIRO_BROADCAST ="com.viromedia.bridge.broadcast.OnExitViro";
 
     public enum ViroPlatform {
-        GVR, OVR_MOBILE
+        GVR, OVR_MOBILE, AR
     }
 
     private final ViroPlatform mViroPlatform;
