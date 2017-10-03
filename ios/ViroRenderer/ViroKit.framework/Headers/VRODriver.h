@@ -43,6 +43,29 @@ enum class VROCullMode;
 enum class VROBlendMode;
 
 /*
+ The color mode used when rendering.
+
+ NonLinear: textures are sampled in RGB (gamma-corrected) space, shader operations
+            are performed in this non-linear space, and rendered straight to the frame
+            buffer without conversion. In other words, inputs are gamma corrected and
+            output is gamma corrected. Less color accuracy.
+
+ Linear:    textures are sampled as sRGB, meaning they are converted to a linear
+            colorspace by the underlying hardware. Colors remain in linear color space
+            until the *final* framebuffer render, at which point they are gamma
+            corrected by the hardware (by rendering into an sRGB-configured framebuffer)
+
+ LinearSoftware: textures are sampled as sRGB, as with Linear, but the final framebuffer
+                 is gamma-corrected via shader code. This is typically used in situations
+                 where we are unable to allocate an sRGB framebuffer for the final render.
+ */
+enum class VROColorRenderingMode {
+    NonLinear,
+    Linear,
+    LinearSoftware,
+};
+
+/*
  The driver is used to interface with the rendering subsystem (OpenGL,
  Metal, etc.).
  */
@@ -85,11 +108,10 @@ public:
     virtual void unbindRenderTarget() = 0;
     
     /*
-     If gamma correction is not enabled, then gamma correction framebuffer writes
-     will be disabled, and sRGB texture sampling will be disabled (meaning we will do all
-     shader compuatations in non-linear gamma 2.2 space, which is bad).
+     Indicates how we handle linear rendering and gamma-correction for this device
+     and platform. Features like HDR are only enabled in linear space.
      */
-    virtual bool isGammaCorrectionEnabled() = 0;
+    virtual VROColorRenderingMode getColorRenderingMode() = 0;
     
     /*
      Return true if bloom rendering is enabled. If so, materials that exceed their

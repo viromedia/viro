@@ -30,10 +30,20 @@ struct VROParticleSpawnVolume{
         Point
     };
 
+    static VROParticleSpawnVolume::Shape getModifierFactorForString(std::string strType) {
+        if (VROStringUtil::strcmpinsensitive(strType, "Box")) {
+            return VROParticleSpawnVolume::Shape::Box;
+        } else if (VROStringUtil::strcmpinsensitive(strType, "Sphere")) {
+            return VROParticleSpawnVolume::Shape::Sphere;
+        } else {
+            return VROParticleSpawnVolume::Shape::Point;
+        }
+    }
+
     Shape shape;
 
     // Vec of params to be provided for configuring the specified shape.
-    std::vector<double> shapeParams;
+    std::vector<float> shapeParams;
 
     // True if particles should be spawned on this shape's surface
     // instead of within it. Applicable for Box and Sphere shapes only.
@@ -50,6 +60,12 @@ public:
     VROParticleEmitter(std::shared_ptr<VRODriver> driver,
                        std::shared_ptr<VRONode> emitterNode,
                        std::shared_ptr<VROSurface> particleGeometry);
+
+    /*
+     Constructor that creates an uninitialized emitter. To initialize this emitter before
+     it can be configured / modified, call VROParticleEmitter::initEmitter();
+     */
+    VROParticleEmitter();
     ~VROParticleEmitter();
 
     /*
@@ -170,6 +186,14 @@ public:
     void setAccelerationmodifier(std::shared_ptr<VROParticleModifier> mod) {
         _accelerationModifier = mod;
     }
+
+    /*
+     Initialize the emitter with default configurations and states.
+     */
+    void initEmitter(std::shared_ptr<VRODriver> driver,
+                     std::shared_ptr<VRONode> emitterNode,
+                     std::shared_ptr<VROSurface> particleGeometry);
+    void setDefaultValues();
 
 private:
     /*
@@ -344,11 +368,6 @@ private:
     double _intervalSpawnedInitTime = 0;
     double _particlesSpawnIntervalMs = 100;
     double _intervalSpawnedEmissionRate = 0;
-
-    /*
-     Initialize the emitter with default configurations and states.
-     */
-    void initEmitter();
 
     /*
      Updates any time / distance state that the emitter needs to determine particle behavior.

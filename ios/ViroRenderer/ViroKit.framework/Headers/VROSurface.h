@@ -40,6 +40,11 @@ public:
     void setV1(float v1);
     void setTexcoordTransform(VROMatrix4f transform);
     
+    /*
+     Directly set the texture coordinates of all four corners.
+     */
+    void setTextureCoordinates(VROVector3f BL, VROVector3f BR, VROVector3f TL, VROVector3f TR);
+    
     float getU0() const { return _u0; }
     float getU1() const { return _u1; }
     float getV0() const { return _v0; }
@@ -60,12 +65,12 @@ private:
     void updateSurface();
 
     void buildGeometry(float x, float y, float width, float height,
-                       float u0, float v0, float u1, float v1,
+                       VROVector3f texBL, VROVector3f texBR, VROVector3f texTL, VROVector3f texTR,
                        std::vector<std::shared_ptr<VROGeometrySource>> &sources,
                        std::vector<std::shared_ptr<VROGeometryElement>> &elements);
     void buildSurface(VROShapeVertexLayout *vertexLayout,
                       float left, float bottom, float right, float top,
-                      float u0, float v0, float u1, float v1);
+                      VROVector3f texBL, VROVector3f texBR, VROVector3f texTL, VROVector3f texTR);
     
     float _x, _y, _width, _height;
     float _u0, _v0, _u1, _v1;
