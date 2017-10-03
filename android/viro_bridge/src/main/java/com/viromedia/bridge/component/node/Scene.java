@@ -106,6 +106,22 @@ public class Scene extends Node implements SceneControllerJni.SceneDelegate {
         }
     }
 
+    public void setPostProcessEffects(ReadableArray effects){
+        if (effects == null || effects.size() == 0){
+            mNativeSceneController.setEffects(null);
+            return;
+        }
+
+        String nativeEffects[] = new String[effects.size()];
+        for (int i = 0; i < effects.size(); i ++){
+            String effect = effects.getString(i);
+            nativeEffects[i] = effect;
+        }
+        if (!mNativeSceneController.setEffects(nativeEffects)){
+            onError("Viro: Attempted to set an invalid effect!");
+        }
+    }
+
     @Override
     public void addView(View child, int index) {
         super.addView(child, index);

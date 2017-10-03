@@ -49,6 +49,7 @@ var ViroScene = React.createClass({
       gravity: PropTypes.arrayOf(PropTypes.number).isRequired,
       drawBounds: PropTypes.bool,
     }),
+    postProcessEffects: PropTypes.arrayOf(PropTypes.string),
   },
 
   _onHover: function(event: Event) {
@@ -228,7 +229,6 @@ var VRTScene = requireNativeComponent(
           timeToFuse:true,
           physicsBody:true,
           onCollisionViro:true,
-          postProcessEffects:true,
         }
     }
 );

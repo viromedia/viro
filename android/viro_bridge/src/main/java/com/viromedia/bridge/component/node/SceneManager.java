@@ -4,7 +4,10 @@
 package com.viromedia.bridge.component.node;
 
 
+import android.support.annotation.Nullable;
+
 import com.facebook.react.bridge.ReactApplicationContext;
+import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.common.MapBuilder;
 import com.facebook.react.uimanager.annotations.ReactProp;
@@ -44,6 +47,11 @@ public abstract class SceneManager<T extends Scene> extends ViroViewGroupManager
     @ReactProp(name = "soundRoom")
     public void setSoundRoom(Scene scene, ReadableMap soundRoom) {
         scene.setSoundRoom(soundRoom);
+    }
+
+    @ReactProp(name = "postProcessEffects")
+    public void setPostProcessEffects(Scene scene, @Nullable ReadableArray effects) {
+        scene.setPostProcessEffects(effects);
     }
 
     @Override
