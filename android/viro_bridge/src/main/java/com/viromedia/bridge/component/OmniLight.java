@@ -81,6 +81,7 @@ public class OmniLight extends Light {
             mNativeLight.setAttenuationEndDistance(mAttenuationEndDistance);
             mNativeLight.setPosition(mPosition);
         }
+        mNativeLight.setInfluenceBitMask(mInfluenceBitMask);
     }
 
 }

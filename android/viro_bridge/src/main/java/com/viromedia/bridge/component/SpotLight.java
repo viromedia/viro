@@ -113,5 +113,12 @@ public class SpotLight extends Light {
             mNativeLight.setInnerAngle(mInnerAngle);
             mNativeLight.setOuterAngle(mOuterAngle);
         }
+        mNativeLight.setCastsShadow(mCastsShadow);
+        mNativeLight.setShadowOpacity(mShadowOpacity);
+        mNativeLight.setShadowMapSize(mShadowMapSize);
+        mNativeLight.setShadowBias(mShadowBias);
+        mNativeLight.setShadowNearZ(mShadowNearZ);
+        mNativeLight.setShadowFarZ(mShadowFarZ);
+        mNativeLight.setInfluenceBitMask(mInfluenceBitMask);
     }
 }

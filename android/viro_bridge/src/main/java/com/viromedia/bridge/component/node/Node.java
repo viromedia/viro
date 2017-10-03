@@ -40,6 +40,7 @@ import com.viromedia.bridge.utility.ViroLog;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
+import android.util.Log;
 
 import static com.viromedia.bridge.component.node.NodeManager.s2DUnitPer3DUnit;
 
@@ -105,6 +106,10 @@ public class Node extends Component {
     protected float mOpacity = 1.0f;
     protected boolean mVisible = true; // default visible value should be true
     protected boolean mHighAccuracyGazeEnabled = false;
+
+    protected int mLightReceivingBitMask;
+    protected int mSetShadowCastingBitMask;
+
     protected List<MaterialJni> mMaterials;
     private EventDelegateJni mEventDelegateJni;
     private NodeTransformDelegate mTransformDelegate;
@@ -478,6 +483,23 @@ public class Node extends Component {
         }
         mVisible = visible;
         handleAppearanceChange();
+    }
+
+    public void setLightReceivingBitMask(int bitMask) {
+        if (isTornDown()) {
+            return;
+        }
+        mLightReceivingBitMask = bitMask;
+        Log.i(TAG, "mLightReceivingBitMask: " + bitMask);
+        mNodeJni.setLightReceivingBitMask(bitMask);
+    }
+
+    public void setShadowCastingBitMask(int bitMask) {
+        if (isTornDown()) {
+            return;
+        }
+        mSetShadowCastingBitMask = bitMask;
+        mNodeJni.setShadowCastingBitMask(bitMask);
     }
 
     public void setHighAccuracyGaze(boolean highAccuracyGazeEnabled){

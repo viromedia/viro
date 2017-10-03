@@ -69,6 +69,13 @@ public class ImageManager extends NodeManager<Image> {
     @ReactProp(name = "stereoMode")
     public void setStereoMode(Image view, String mode) { view.setStereoMode(mode); }
 
+    @ReactProp(name = "lightReceivingBitMask", defaultInt = 1)
+    public void setLightReceivingBitMask(Image view, int bitMask) {view.setLightReceivingBitMask(bitMask); }
+
+    @ReactProp(name = "shadowCastingBitMask", defaultInt = 1)
+    public void setShadowCastingBitMask(Image view, int bitMask) {view.setShadowCastingBitMask(bitMask); }
+
+
     @Override
     public Map getExportedCustomDirectEventTypeConstants() {
         return MapBuilder.of(

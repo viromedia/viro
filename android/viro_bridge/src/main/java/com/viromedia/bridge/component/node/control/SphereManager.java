@@ -58,6 +58,12 @@ public class SphereManager extends NodeManager<Sphere> {
         sphere.setHighAccuracyGaze(highAccuracyGaze);
     }
 
+    @ReactProp(name = "lightReceivingBitMask", defaultInt = 1)
+    public void setLightReceivingBitMask(Sphere sphere, int bitMask) {sphere.setLightReceivingBitMask(bitMask); }
+
+    @ReactProp(name = "shadowCastingBitMask", defaultInt = 1)
+    public void setShadowCastingBitMask(Sphere sphere, int bitMask) {sphere.setShadowCastingBitMask(bitMask); }
+
     public Map getExportedCustomDirectEventTypeConstants() {
         return MapBuilder.of(
                 ViroEvents.ON_ANIMATION_START, MapBuilder.of("registrationName", ViroEvents.ON_ANIMATION_START),

@@ -73,4 +73,41 @@ public class SpotLightManager extends ViroViewGroupManager<SpotLight> {
     public void setOuterAngle(SpotLight spotLight, float outerAngle) {
         spotLight.setOuterAngle(outerAngle);
     }
+
+
+    @ReactProp(name = "influenceBitMask")
+    public void setInfluenceBitMask(SpotLight spotLight, int bitMask) {
+        spotLight.setInfluenceBitMask(bitMask);
+    }
+
+    @ReactProp(name = "castsShadow")
+    public void setCastsShadow(SpotLight spotLight, boolean castsShadow) {
+        spotLight.setCastsShadow(castsShadow);
+    }
+
+    @ReactProp(name = "shadowOpacity")
+    public void setShadowOpacity(SpotLight spotLight, float opacity) {
+        spotLight.setShadowOpacity(opacity);
+    }
+
+
+    @ReactProp(name = "shadowMapSize")
+    public void setShadowMapSize(SpotLight spotLight, int mapSize) {
+        spotLight.setShadowMapSize(mapSize);
+    }
+
+    @ReactProp(name = "shadowBias")
+    public void setShadowBias(SpotLight spotLight, float bias) {
+        spotLight.setShadowBias(bias);
+    }
+
+    @ReactProp(name = "shadowNearZ")
+    public void setShadowNearZ(SpotLight spotLight, float nearZ) {
+        spotLight.setShadowNearZ(nearZ);
+    }
+
+    @ReactProp(name = "shadowFarZ")
+    public void setShadowFarZ(SpotLight spotLight, float farZ) {
+        spotLight.setShadowFarZ(farZ);
+    }
 }

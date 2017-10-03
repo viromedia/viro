@@ -77,6 +77,12 @@ public class VideoSurfaceManager extends NodeManager<VideoSurface> {
         view.setSource(map.getString("uri"));
     }
 
+    @ReactProp(name = "lightReceivingBitMask", defaultInt = 1)
+    public void setLightReceivingBitMask(VideoSurface view, int bitMask) {view.setLightReceivingBitMask(bitMask); }
+
+    @ReactProp(name = "shadowCastingBitMask", defaultInt = 1)
+    public void setShadowCastingBitMask(VideoSurface view, int bitMask) {view.setShadowCastingBitMask(bitMask); }
+
     @Override
     public @Nullable Map getExportedCustomDirectEventTypeConstants() {
         return MapBuilder.of(

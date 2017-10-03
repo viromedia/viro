@@ -70,6 +70,12 @@ public class Object3dManager extends NodeManager<Object3d> {
         object3d.setType(type);
     }
 
+    @ReactProp(name = "lightReceivingBitMask", defaultInt = 1)
+    public void setLightReceivingBitMask(Object3d object3d, int bitMask) {object3d.setLightReceivingBitMask(bitMask); }
+
+    @ReactProp(name = "shadowCastingBitMask", defaultInt = 1)
+    public void setShadowCastingBitMask(Object3d object3d, int bitMask) {object3d.setShadowCastingBitMask(bitMask); }
+
     @Override
     public Map getExportedCustomDirectEventTypeConstants() {
         return MapBuilder.of(

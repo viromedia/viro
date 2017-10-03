@@ -38,6 +38,12 @@ public class SurfaceManager extends NodeManager<Surface> {
         view.setHeight(height);
     }
 
+    @ReactProp(name = "lightReceivingBitMask", defaultInt = 1)
+    public void setLightReceivingBitMask(Surface view, int bitMask) {view.setLightReceivingBitMask(bitMask); }
+
+    @ReactProp(name = "shadowCastingBitMask", defaultInt = 1)
+    public void setShadowCastingBitMask(Surface view, int bitMask) {view.setShadowCastingBitMask(bitMask); }
+
     public Map getExportedCustomDirectEventTypeConstants() {
         return MapBuilder.of(
                 ViroEvents.ON_ANIMATION_START, MapBuilder.of("registrationName", ViroEvents.ON_ANIMATION_START),

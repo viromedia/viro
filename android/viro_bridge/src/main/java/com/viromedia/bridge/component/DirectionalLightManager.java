@@ -48,4 +48,49 @@ public class DirectionalLightManager extends ViroViewGroupManager<DirectionalLig
     public void setDirection(DirectionalLight directionalLight, ReadableArray direction) {
         directionalLight.setDirection(Helper.toFloatArray(direction));
     }
+
+    @ReactProp(name = "influenceBitMask")
+    public void setInfluenceBitMask(DirectionalLight directionalLight, int bitMask) {
+        directionalLight.setInfluenceBitMask(bitMask);
+    }
+
+    @ReactProp(name = "castsShadow")
+    public void setCastsShadow(DirectionalLight directionalLight, boolean castsShadow) {
+        directionalLight.setCastsShadow(castsShadow);
+    }
+
+    @ReactProp(name = "shadowOpacity")
+    public void setShadowOpacity(DirectionalLight directionalLight, float opacity) {
+        directionalLight.setShadowOpacity(opacity);
+    }
+
+    @ReactProp(name = "shadowOrthographicPosition")
+    public void setShadowOrthographicPosition(DirectionalLight directionalLight, ReadableArray position) {
+        directionalLight.setShadowOrthographicPosition(Helper.toFloatArray(position));
+    }
+
+    @ReactProp(name = "shadowOrthographicSize")
+    public void setShadowOrthographicSize(DirectionalLight directionalLight, float size) {
+        directionalLight.setShadowOrthographicSize(size);
+    }
+
+    @ReactProp(name = "shadowMapSize")
+    public void setShadowMapSize(DirectionalLight directionalLight, int mapSize) {
+        directionalLight.setShadowMapSize(mapSize);
+    }
+
+    @ReactProp(name = "shadowBias")
+    public void setShadowBias(DirectionalLight directionalLight, float bias) {
+        directionalLight.setShadowBias(bias);
+    }
+
+    @ReactProp(name = "shadowNearZ")
+    public void setShadowNearZ(DirectionalLight directionalLight, float nearZ) {
+        directionalLight.setShadowNearZ(nearZ);
+    }
+
+    @ReactProp(name = "shadowFarZ")
+    public void setShadowFarZ(DirectionalLight directionalLight, float farZ) {
+        directionalLight.setShadowFarZ(farZ);
+    }
 }

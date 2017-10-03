@@ -92,6 +92,12 @@ public class TextManager extends NodeManager<Text> {
         text.setTextLineBreakMode(textLineBreakMode);
     }
 
+    @ReactProp(name = "lightReceivingBitMask", defaultInt = 1)
+    public void setLightReceivingBitMask(Text text, int bitMask) {text.setLightReceivingBitMask(bitMask); }
+
+    @ReactProp(name = "shadowCastingBitMask", defaultInt = 1)
+    public void setShadowCastingBitMask(Text text, int bitMask) {text.setShadowCastingBitMask(bitMask); }
+
     public Map getExportedCustomDirectEventTypeConstants() {
         return MapBuilder.of(
                 ViroEvents.ON_ANIMATION_START, MapBuilder.of("registrationName", ViroEvents.ON_ANIMATION_START),

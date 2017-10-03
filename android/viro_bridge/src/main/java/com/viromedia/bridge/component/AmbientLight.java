@@ -48,5 +48,7 @@ public class AmbientLight extends Light {
             mNativeLight.setColor(mColor);
             mNativeLight.setIntensity(mIntensity);
         }
+
+        mNativeLight.setInfluenceBitMask(mInfluenceBitMask);
     }
 }

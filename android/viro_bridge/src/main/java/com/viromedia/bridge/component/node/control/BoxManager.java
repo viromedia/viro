@@ -53,6 +53,12 @@ public class BoxManager extends NodeManager<Box> {
         box.setHighAccuracyGaze(highAccuracyGaze);
     }
 
+    @ReactProp(name = "lightReceivingBitMask", defaultInt = 1)
+    public void setLightReceivingBitMask(Box box, int bitMask) {box.setLightReceivingBitMask(bitMask); }
+
+    @ReactProp(name = "shadowCastingBitMask", defaultInt = 1)
+    public void setShadowCastingBitMask(Box box, int bitMask) {box.setShadowCastingBitMask(bitMask); }
+
     public Map getExportedCustomDirectEventTypeConstants() {
         return MapBuilder.of(
                 ViroEvents.ON_ANIMATION_START, MapBuilder.of("registrationName", ViroEvents.ON_ANIMATION_START),

@@ -72,7 +72,6 @@ public abstract class NodeManager <T extends Node> extends ViroViewGroupManager<
     public void setOpacity(Node view, float opacity) {
         view.setOpacity(opacity);
     }
-
     @ReactProp(name = "visible", defaultBoolean = true)
     public void setVisible(Node view, boolean visibility) {
         view.setVisible(visibility);

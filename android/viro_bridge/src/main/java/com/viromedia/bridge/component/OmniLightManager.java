@@ -57,4 +57,9 @@ public class OmniLightManager extends ViroViewGroupManager<OmniLight> {
     public void setAttenuationEndDistance(OmniLight omniLight, float attenuationEndDistance) {
         omniLight.setAttenuationEndDistance(attenuationEndDistance);
     }
+
+    @ReactProp(name = "influenceBitMask")
+    public void setInfluenceBitMask(OmniLight omniLight, int bitMask) {
+        omniLight.setInfluenceBitMask(bitMask);
+    }
 }

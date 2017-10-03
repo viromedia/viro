@@ -62,5 +62,17 @@ public class DirectionalLight extends Light {
             mNativeLight.setIntensity(mIntensity);
             mNativeLight.setDirection(mDirection);
         }
+
+        mNativeLight.setCastsShadow(mCastsShadow);
+        mNativeLight.setShadowOpacity(mShadowOpacity);
+        if (mShadowOrthographicPosition != null) {
+            mNativeLight.setShadowOrthographicPosition(mShadowOrthographicPosition);
+        }
+        mNativeLight.setShadowOrthographicSize(mShadowOrthographicSize);
+        mNativeLight.setShadowMapSize(mShadowMapSize);
+        mNativeLight.setShadowBias(mShadowBias);
+        mNativeLight.setShadowNearZ(mShadowNearZ);
+        mNativeLight.setShadowFarZ(mShadowFarZ);
+        mNativeLight.setInfluenceBitMask(mInfluenceBitMask);
     }
 }

@@ -42,4 +42,9 @@ public class AmbientLightManager extends ViroViewGroupManager<AmbientLight> {
         ambientLight.setIntensity(intensity);
     }
 
+    @ReactProp(name = "influenceBitMask")
+    public void setInfluenceBitMask(AmbientLight ambientLight, int bitMask) {
+        ambientLight.setInfluenceBitMask(bitMask);
+    }
+
 }
