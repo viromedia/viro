@@ -126,6 +126,11 @@
         isOBJ = YES;
     }
     
+    // Clear all child nodes of this control before loading our 3D models
+    for (std::shared_ptr<VRONode> child : self.node->getChildNodes()) {
+        child->removeFromParentNode();
+    }
+    
     std::function<void(std::shared_ptr<VRONode> node, bool success)> onFinish =
     [self](std::shared_ptr<VRONode> node, bool success) {
         if (success) {
@@ -133,6 +138,8 @@
             self.node->setGeometry(node->getGeometry());
             
             // The children are set for FBX models (in FBX, the root node is a dummy node)
+            self.node->getChildNodes();
+            
             for (std::shared_ptr<VRONode> child : node->getChildNodes()) {
                 self.node->addChildNode(child);
             }

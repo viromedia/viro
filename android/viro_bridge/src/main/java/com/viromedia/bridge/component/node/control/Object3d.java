@@ -126,7 +126,19 @@ public class Object3d extends Control {
         }
 
         super.onPropsSet();
-        ObjectJni oldObject3d = mNative3dObject;
+
+        // Cancel previously loaded objects if we attempt to re-load
+        // the source while the previous 3dObjectJni is loading.
+        if (mNative3dObject != null){
+            mNative3dObject.destroy();
+            mNative3dObject = null;
+        }
+
+        NodeJni nodeJni = getNodeJni();
+        if (nodeJni != null && !isTornDown()){
+            nodeJni.removeAllChildNodes();
+        }
+
         loadDidStart();
 
         AsyncObjListener listener = new AsyncObjListener() {
@@ -176,10 +188,6 @@ public class Object3d extends Control {
             mNative3dObject = new ObjectJni(mSource, isVRX, listener);
         }
         setGeometry(mNative3dObject);
-
-        if (oldObject3d != null) {
-            oldObject3d.destroy();
-        }
         mSourceChanged = false;
     }
 
