@@ -40,7 +40,7 @@ import com.viromedia.bridge.utility.ViroLog;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
-import android.util.Log;
+
 
 import static com.viromedia.bridge.component.node.NodeManager.s2DUnitPer3DUnit;
 
@@ -490,7 +490,6 @@ public class Node extends Component {
             return;
         }
         mLightReceivingBitMask = bitMask;
-        Log.i(TAG, "mLightReceivingBitMask: " + bitMask);
         mNodeJni.setLightReceivingBitMask(bitMask);
     }
 
