@@ -13,6 +13,8 @@ import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
 import com.viro.renderer.jni.CameraCallback;
+import com.viro.renderer.jni.EventDelegateJni;
+import com.viro.renderer.jni.NodeJni;
 import com.viro.renderer.jni.SceneControllerJni;
 import com.viro.renderer.jni.TextureJni;
 import com.viro.renderer.jni.VideoTextureJni;
@@ -45,10 +47,14 @@ public class Scene extends Node implements SceneControllerJni.SceneDelegate {
 
     public Scene(ReactApplicationContext reactContext) {
         super(reactContext);
-        mNativeSceneController = createSceneControllerJni();
-        mNativeSceneController.registerDelegate(this);
         mVisible = true; // Scenes are always visible!
         mParentHasAppeared = true;
+    }
+
+    @Override
+    protected NodeJni createNodeJni() {
+        mNativeSceneController = createSceneControllerJni();
+        return mNativeSceneController.getSceneNode();
     }
 
     /*
@@ -56,7 +62,9 @@ public class Scene extends Node implements SceneControllerJni.SceneDelegate {
      should override to return a different SceneController if desired.
      */
     protected SceneControllerJni createSceneControllerJni() {
-        return new SceneControllerJni(getNodeJni());
+        SceneControllerJni sceneControllerJni = new SceneControllerJni();
+        sceneControllerJni.registerDelegate(this);
+        return sceneControllerJni;
     }
 
     @Override

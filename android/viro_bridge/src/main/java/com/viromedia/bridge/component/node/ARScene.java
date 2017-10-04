@@ -26,7 +26,7 @@ public class ARScene extends Scene implements ARSceneControllerJni.ARSceneDelega
 
     @Override
     protected SceneControllerJni createSceneControllerJni() {
-        ARSceneControllerJni sceneControllerJni = new ARSceneControllerJni(getNodeJni());
+        ARSceneControllerJni sceneControllerJni = new ARSceneControllerJni();
         sceneControllerJni.registerARDelegate(this);
         return sceneControllerJni;
     }
