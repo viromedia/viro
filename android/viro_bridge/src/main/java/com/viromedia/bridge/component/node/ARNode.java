@@ -3,6 +3,7 @@
  */
 package com.viromedia.bridge.component.node;
 
+import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
@@ -31,7 +32,8 @@ public abstract class ARNode extends Node implements ARNodeJni.ARNodeDelegate {
     public void onAnchorFound(ARAnchor arAnchor) {
         mIsAnchored = true;
         handleAppearanceChange();
-        WritableMap returnMap = mapFromARAnchor(arAnchor);
+        WritableMap returnMap = Arguments.createMap();
+        returnMap.putMap("anchorFoundMap", mapFromARAnchor(arAnchor));
         mReactContext.getJSModule(RCTEventEmitter.class).receiveEvent(
                 getId(),
                 ViroEvents.ON_ANCHOR_FOUND,
@@ -40,7 +42,8 @@ public abstract class ARNode extends Node implements ARNodeJni.ARNodeDelegate {
 
     @Override
     public void onAnchorUpdated(ARAnchor arAnchor) {
-        WritableMap returnMap = mapFromARAnchor(arAnchor);
+        WritableMap returnMap = Arguments.createMap();
+        returnMap.putMap("anchorUpdatedMap", mapFromARAnchor(arAnchor));
         mReactContext.getJSModule(RCTEventEmitter.class).receiveEvent(
                 getId(),
                 ViroEvents.ON_ANCHOR_UPDATED,

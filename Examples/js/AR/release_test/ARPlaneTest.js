@@ -35,7 +35,7 @@ var testARScene = React.createClass({
   mixins: [TimerMixin],
   getInitialState: function() {
     return {
-      addPlane : false,
+      addPlane : true,
       useFirstPlane : true,
       updateMap : {width:0, height:0, position:[0,0,0]},
       minValue : 0,
@@ -91,7 +91,7 @@ var testARScene = React.createClass({
             onAnchorRemoved={this._onAnchorRemoved} >
 
           <ViroSurface
-            position={this.state.updateMap.position}
+            position={this.state.updateMap.center}
             rotation={[-90, 0, 0]}
             scale={[this.state.updateMap.width, this.state.updateMap.height, 1]}
             materials={this.state.useFirstPlane ? "blue_plane" : "red_plane"}/>

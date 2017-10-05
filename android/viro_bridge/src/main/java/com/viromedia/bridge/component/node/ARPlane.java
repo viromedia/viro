@@ -3,6 +3,8 @@
  */
 package com.viromedia.bridge.component.node;
 
+import android.util.Log;
+
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.WritableMap;
@@ -25,8 +27,8 @@ public class ARPlane extends ARNode {
     WritableMap mapFromARAnchor(ARAnchor arAnchor) {
         WritableMap returnMap = Arguments.createMap();
         returnMap.putArray("position", Arguments.makeNativeArray(arAnchor.getPosition()));
-        returnMap.putArray("rotation", Arguments.makeNativeArray(arAnchor.getPosition()));
-        returnMap.putArray("center", Arguments.makeNativeArray(arAnchor.getPosition()));
+        returnMap.putArray("rotation", Arguments.makeNativeArray(arAnchor.getRotation()));
+        returnMap.putArray("center", Arguments.makeNativeArray(arAnchor.getCenter()));
         returnMap.putDouble("width", arAnchor.getExtent()[0]);
         returnMap.putDouble("height", arAnchor.getExtent()[2]);
         return returnMap;
@@ -34,6 +36,7 @@ public class ARPlane extends ARNode {
 
     protected NodeJni createNodeJni() {
         ARPlaneJni arPlaneJni = new ARPlaneJni(DEFAULT_WIDTH, DEFAULT_HEIGHT);
+        arPlaneJni.registerARNodeDelegate(this);
         return arPlaneJni;
     }
 
@@ -45,6 +48,21 @@ public class ARPlane extends ARNode {
     public void setMinHeight(float minHeight) {
         ((ARPlaneJni) getNodeJni()).setMinHeight(minHeight);
         mDimensionsUpdated = true;
+    }
+
+    @Override
+    public void setScene(Scene scene) {
+        super.setScene(scene);
+        if (scene != null) {
+            ((ARScene) scene).addARPlane((ARPlaneJni) getNodeJni());
+        }
+    }
+
+    @Override
+    public void parentDidDisappear() {
+        if (mScene != null) {
+            ((ARScene) mScene).removeARPlane((ARPlaneJni) getNodeJni());
+        }
     }
 
     @Override

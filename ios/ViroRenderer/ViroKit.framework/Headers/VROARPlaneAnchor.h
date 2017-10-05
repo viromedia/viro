@@ -12,8 +12,12 @@
 #include "VROARAnchor.h"
 #include "VROVector3f.h"
 
+// TODO: VIRO-1931 return this information to bridge/developer
 enum class VROARPlaneAlignment {
-    Horizontal
+    Horizontal = 0x1,
+    HorizontalUpwards = 0x11,
+    HorizontalDownwards = 0x101,
+    NonHorizontal = 0x0
 };
 
 /*

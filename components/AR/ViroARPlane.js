@@ -177,7 +177,16 @@ var ViroARPlane = React.createClass({
 var VRTARPlane = requireNativeComponent(
   'VRTARPlane', ViroARPlane, {
     nativeOnly: {
+      position : [],
+      scale : [],
+      rotation : [],
+      scalePivot : [],
+      rotationPivot : [],
+      animation : {},
       materials: [],
+      physicsBody : {},
+      transformBehaviors: [],
+      hasTransformDelegate:true,
       canHover: true,
       canClick: true,
       canTouch: true,

@@ -10,6 +10,7 @@
 #define VROARHitTestResult_h
 
 #include <stdio.h>
+#include "VROARAnchor.h"
 
 /*
  Types of hit test results:
