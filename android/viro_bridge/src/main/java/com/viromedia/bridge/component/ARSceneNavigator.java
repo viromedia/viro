@@ -39,4 +39,8 @@ public class ARSceneNavigator extends SceneNavigator {
         }
         super.addView(child, index);
     }
+
+    public ViroViewARCore getARView() {
+        return (ViroViewARCore) mViroView;
+    }
 }

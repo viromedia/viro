@@ -104,7 +104,7 @@ public class SceneNavigator extends FrameLayout {
     /**
      * View containing our renderer
      */
-    private VrView mViroView;
+    protected VrView mViroView;
 
     /**
      * Currently rendered scene

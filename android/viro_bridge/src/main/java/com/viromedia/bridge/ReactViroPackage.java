@@ -37,6 +37,7 @@ import com.viromedia.bridge.component.node.control.SphereManager;
 import com.viromedia.bridge.component.node.control.ImageManager;
 import com.viromedia.bridge.component.node.control.SurfaceManager;
 import com.viromedia.bridge.component.node.control.VideoSurfaceManager;
+import com.viromedia.bridge.module.ARSceneModule;
 import com.viromedia.bridge.module.AnimationManager;
 import com.viromedia.bridge.module.CameraModule;
 import com.viromedia.bridge.module.ControllerModule;
@@ -77,7 +78,8 @@ public class ReactViroPackage implements ReactPackage {
                 new PerfMonitor(reactContext),
                 new ControllerModule(reactContext),
                 new NodeModule(reactContext),
-                new SceneModule(reactContext)
+                new SceneModule(reactContext),
+                new ARSceneModule(reactContext)
         );
     }
 
