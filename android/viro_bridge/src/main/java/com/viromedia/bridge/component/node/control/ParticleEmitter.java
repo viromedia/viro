@@ -303,6 +303,17 @@ public class ParticleEmitter extends Control {
         mNativeEmitter.setLoop(mLoop);
         mNativeEmitter.setRun(mRun);
         mNativeEmitter.setFixedToEmitter(mFixedToEmitter);
+
+
+        if (mImage.hasKey("blendMode")){
+            String strBlendMode = mImage.getString("blendMode");
+            if (strBlendMode == null || !mNativeEmitter.setBlendMode(strBlendMode)){
+                onError("Viro: Attempted to set an invalid Blend mode!");
+                return;
+            }
+        } else {
+            mNativeEmitter.setBlendMode("Add");
+        }
     }
 
     private void updateSpawnModifier(){

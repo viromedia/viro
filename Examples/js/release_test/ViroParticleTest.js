@@ -88,6 +88,7 @@ var ViroShadowTest = React.createClass({
       quadBloom: -1.0 ,
 
       runAnimation:false,
+      blendMode:"Add"
 
     };
   },
@@ -332,6 +333,16 @@ var ViroShadowTest = React.createClass({
             this.setState({
               runAnimation:!this.state.runAnimation
             });
+          } else if (num == 27){
+            var mode = this.state.blendMode;
+            if (mode == "Add"){
+              mode = "Alpha";
+            } else if (mode == "Alpha"){
+              mode = "Multiply";
+            } else if (mode == "Multiply"){
+              mode = "Add";
+            }
+            this.setState({blendMode:mode});
           }
       }
   },
@@ -480,9 +491,15 @@ var ViroShadowTest = React.createClass({
                    text={"Toggle runAnimation " + this.state.runAnimation}
                    onClick={this.toggleProperty(26)}
                  />
+                 <ViroText fontSize={35}  style={styles.centeredText} lightReceivingBitMask={0} // 0 to avoid influencing the test
+                   position={[0,-12, 0]} width={6} height ={1} maxLines={1}
+                   text={"Toggle blendMode " + this.state.blendMode}
+                   onClick={this.toggleProperty(27)}
+                 />
                 </ViroNode>
 
 
+                <ViroSkyBox color="#ff0000" />
 
                 <ViroAnimatedComponent
                     animation={"sequentialAnimParticle"}
@@ -503,7 +520,8 @@ var ViroShadowTest = React.createClass({
                                source:this.state.quadSource == 1? fireworkParticle : cloudParticle,                 // Image source of the quad particle.
                                height:this.state.quadSize,
                                width:this.state.quadSize,
-                               bloomThreshold:this.state.quadBloom
+                               bloomThreshold:this.state.quadBloom,
+                               blendMode:this.state.blendMode
                         }}
 
                         spawnBehavior={this.state.disableSpawnModifier? undefined :{

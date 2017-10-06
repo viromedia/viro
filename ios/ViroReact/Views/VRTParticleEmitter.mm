@@ -199,6 +199,7 @@ const int kDefaultMaxParticles = 500;
     } else {
         _particleGeometry->getMaterials()[0]->setBloomThreshold(-1.0f);
     }
+
     _particleGeometry->getMaterials()[0]->updateSubstrate();
     _needsImageUpdate = false;
 }
@@ -227,6 +228,19 @@ const int kDefaultMaxParticles = 500;
     _emitter->setDuration(self.duration);
     _emitter->setLoop(self.loop);
     _emitter->setRun(self.run);
+    
+    if ([self.image objectForKey:@"blendMode"]){
+        std::string stringFactor;
+        stringFactor = std::string([[self.image objectForKey:@"blendMode"] UTF8String]);
+        VROBlendMode mode = VROMaterial::getBlendModeFromString(stringFactor);
+        if (mode == VROBlendMode::None){
+            RCTLogError(@"Viro: Attempted to set an invalid Blend mode!");
+            return;
+        }
+        _emitter->setBlendMode(mode);
+    } else {
+        _emitter->setBlendMode(VROBlendMode::Add);
+    }
 }
 
 - (void)updateSpawnModifier {

@@ -51,6 +51,7 @@ var ViroParticleEmitter = React.createClass({
       height: PropTypes.number,
       width: PropTypes.number,
       bloomThreshold: PropTypes.number,
+      blendMode: PropTypes.string,
     }).isRequired,
 
     spawnBehavior: PropTypes.shape({
