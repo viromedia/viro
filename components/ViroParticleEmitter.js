@@ -34,6 +34,11 @@ var ViroParticleEmitter = React.createClass({
     rotationPivot: PropTypes.arrayOf(PropTypes.number),
     onTransformUpdate: PropTypes.func,
     visible: PropTypes.bool,
+    viroTag: PropTypes.string,
+    transformBehaviors: PropTypes.oneOfType([
+      PropTypes.arrayOf(PropTypes.string),
+      PropTypes.string
+    ]),
 
     duration: PropTypes.number,
     delay: PropTypes.number,
@@ -267,7 +272,32 @@ var VRTParticleEmitter = requireNativeComponent(
   'VRTParticleEmitter', ViroParticleEmitter, {
     nativeOnly: {
       onNativeTransformDelegateViro:true,
-      hasTransformDelegate:true
+      hasTransformDelegate:true,
+      canHover: true,
+      canClick: true,
+      canTouch: true,
+      canScroll: true,
+      canSwipe: true,
+      canDrag: true,
+      canPinch: true,
+      canRotate: true,
+      canFuse: true,
+      canCollide: true,
+      onHoverViro: true,
+      onClickViro: true,
+      onTouchViro: true,
+      onScrollViro: true,
+      onSwipeViro: true,
+      onDragViro:true,
+      onPinchViro:true,
+      onRotateViro:true,
+      onPlatformUpdateViro: true,
+      onFuseViro:true,
+      timeToFuse:true,
+      physicsBody:true,
+      onCollisionViro:true,
+      animation:true,
+      materials:true,
     }
   }
 );
