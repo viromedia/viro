@@ -12,6 +12,7 @@
 #include <memory>
 #include "VROMaterialVisual.h"
 #include "VROAnimatable.h"
+#include "VROStringUtil.h"
 
 enum class VROFace {
     Front,
@@ -264,7 +265,21 @@ public:
      */
     void updateSortKey(VROSortKey &key, const std::vector<std::shared_ptr<VROLight>> &lights,
                        std::shared_ptr<VRODriver> &driver);
-    
+
+    /*
+     Returns a VROBlendMode for the given string. If no matching blend modes were found,
+     VROBlendMode::None is returned.
+     */
+    static VROBlendMode getBlendModeFromString(std::string strType) {
+        if (VROStringUtil::strcmpinsensitive(strType, "Alpha")){
+            return VROBlendMode::Alpha;
+        } else if (VROStringUtil::strcmpinsensitive(strType, "Add")){
+            return VROBlendMode::Add;
+        } else if (VROStringUtil::strcmpinsensitive(strType, "Multiply")){
+            return VROBlendMode::Multiply;
+        }
+        return VROBlendMode::None;
+    }
 private:
     
     uint32_t _materialId;

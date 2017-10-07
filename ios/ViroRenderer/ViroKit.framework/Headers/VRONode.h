@@ -507,11 +507,10 @@ public:
 
     void setEventDelegate(std::shared_ptr<VROEventDelegate> delegate) {
         passert_thread();
-        
         _eventDelegateWeak = delegate;
     }
 
-    std::shared_ptr<VROEventDelegate> getEventDelegate(){
+    std::shared_ptr<VROEventDelegate> getEventDelegate() {
         if (_eventDelegateWeak.expired()){
             return nullptr;
         }

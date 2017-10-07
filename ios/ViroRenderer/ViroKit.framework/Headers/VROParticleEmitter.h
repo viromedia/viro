@@ -109,6 +109,8 @@ public:
         _particlesEmittedPerMeter = rate;
     }
 
+    void setBlendMode(VROBlendMode mode);
+
     /*
      True if we are no longer emitting particles and have completed the emission cycle.
      */

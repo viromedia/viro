@@ -33,6 +33,7 @@ class VROVector4f;
 class VROAudioPlayer;
 class VRORenderMetadata;
 class VROInputControllerBase;
+enum class VROToneMappingMethod;
 
 class VROScene : public std::enable_shared_from_this<VROScene>, public VROThreadRestricted {
     
@@ -40,6 +41,8 @@ public:
     
     VROScene();
     virtual ~VROScene();
+    
+#pragma mark - Core Render Cycle
     
     /*
      Compute the transforms, recursively, for all nodes in this scene.
@@ -63,11 +66,31 @@ public:
     void updateSortKeys(std::shared_ptr<VRORenderMetadata> &metadata,
                         const VRORenderContext &context,
                         std::shared_ptr<VRODriver> &driver);
-        
+    
+#pragma mark - Scene Introspection
+    
     /*
      Retrieve the root node of the scene.
      */
     std::shared_ptr<VROPortal> getRootNode();
+    
+    float getDistanceOfFurthestObjectFromCamera() const {
+        return _distanceOfFurthestObjectFromCamera;
+    }
+    
+    /*
+     Get all backgrounds in the scene.
+     */
+    std::vector<std::shared_ptr<VROGeometry>> getBackgrounds() const;
+    
+    /*
+     Get all the lights in the scene, as collected from the last render cycle.
+     */
+    const std::vector<std::shared_ptr<VROLight>> &getLights() const {
+        return _lights;
+    }
+    
+#pragma mark - Physics
     
     /*
      Returns the associated physics world with this scene. If there's none
@@ -88,6 +111,8 @@ public:
             _physicsWorld->computePhysics(context);
         }
     }
+    
+#pragma mark - Particles
 
     /*
      Particle Emitters are stored and computed per scene.
@@ -105,6 +130,8 @@ public:
     void removeParticleEmitter(std::shared_ptr<VROParticleEmitter> emitter) {
         _activeParticles.erase(std::remove(_activeParticles.begin(), _activeParticles.end(), emitter), _activeParticles.end());
     }
+    
+#pragma mark - Input
 
     /*
      Attach or detach input controllers.
@@ -113,9 +140,7 @@ public:
     void detachInputController(std::shared_ptr<VROInputControllerBase> controller);
     std::shared_ptr<VROInputPresenter> getControllerPresenter();
     
-    float getDistanceOfFurthestObjectFromCamera() const {
-        return _distanceOfFurthestObjectFromCamera;
-    }
+#pragma mark - Portals
     
     /*
      Set the 'active', or present portal. This is the portal the user is
@@ -125,52 +150,51 @@ public:
     void setActivePortal(std::shared_ptr<VROPortal> node);
     
     /*
-     Get all backgrounds in the scene.
-     */
-    std::vector<std::shared_ptr<VROGeometry>> getBackgrounds() const;
-    
-    /*
      Get the portal tree. Reconstructed each frame.
      */
     const tree<std::shared_ptr<VROPortal>> getPortalTree() const;
     
     /*
-     Get all the lights in the scene, as collected from the last render cycle.
+     Get the active portal, which is the portal the user is currently "inside".
      */
-    const std::vector<std::shared_ptr<VROLight>> &getLights() const {
-        return _lights;
-    }
-    
     const std::shared_ptr<VROPortal> getActivePortal() const {
         return _activePortal;
     }
+    
+#pragma mark - Post-processing
+    
+    /*
+     Tone mapping settings. Note that linear rendering is controlled by the
+     driver's getColorRenderingMode() method, while this setting merely controls
+     whether or not we're using tone-mapping.
+     
+     If tone mapping is disabled, all HDR colors are translated directly into the
+     8-bit framebuffer, clamped at 1.0.
+     */
+    void setToneMappingEnabled(bool enabled);
+    void setToneMappingMethod(VROToneMappingMethod method);
+    void setToneMappingExposure(float exposure);
+    void setToneMappingWhitePoint(float whitePoint);
+    void setToneMappingUpdated(bool updated);
+    
+    bool isToneMappingEnabled() const { return _toneMappingEnabled; }
+    VROToneMappingMethod getToneMappingMethod() const { return _toneMappingMethod; }
+    float getToneMappingExposure()   const { return _toneMappingExposure; }
+    float getToneMappingWhitePoint() const { return _toneMappingWhitePoint; }
+    bool isToneMappingUpdated()      const { return _toneMappingUpdated; }
 
     /*
-     Sets a list of post processing effects corresponding to VROPostProcessEffect to be applied
-     on this scene.
+     Set or get the post-processing effects installed on the scene. Each string
+     corresponds to a VROPostProcessEffect.
      */
-    void setSceneEffect(std::vector<std::string> effects){
-        _activeEffects = effects;
-        _shouldResetEffects = true;
-    }
+    void setPostProcessingEffects(std::vector<std::string> effects);
+    std::vector<std::string> getPostProcessingEffects() const;
 
     /*
-     Called by the renderer to process the latest list of post processing effects to be applied
-     on this scene. Returns false if the list has already been processed and is thus an old list.
-     Else returns true otherwise to indicate that a new effect list has been set and scheduled to
-     be applied by the renderer.
+     Indicates if the renderer needs to update its installed post-processing effects.
      */
-    bool processSceneEffect(std::vector<std::string> &effects){
-        effects = _activeEffects;
-
-        bool hasNewEffects = _shouldResetEffects;
-        _shouldResetEffects = false;
-        return hasNewEffects;
-    }
-
-    void setShouldResetEffects(bool reset) {
-        _shouldResetEffects = reset;
-    }
+    bool isPostProcessingEffectsUpdated() const;
+    void setPostProcessingEffectsUpdated(bool updated);
 
 protected:
     
@@ -178,44 +202,6 @@ protected:
      The root node of the scene.
      */
     std::shared_ptr<VROPortal> _rootNode;
-
-    /*
-     UI representation of the underlying controller
-     */
-    std::shared_ptr<VROInputPresenter> _controllerPresenter;
-    
-    /*
-     The portals in tree form, with the active portal at the root.
-     */
-    tree<std::shared_ptr<VROPortal>> _portals;
-    
-    /*
-     All the lights in the scene, as collected during the last render cycle.
-     */
-    std::vector<std::shared_ptr<VROLight>> _lights;
-    
-    /*
-     The distance from the camera of the furthest away object, since the last
-     call to updateSortKeys. Distance is from the camera to the bounding
-     box of the object.
-     */
-    float _distanceOfFurthestObjectFromCamera;
-
-    /*
-     Manages the physics in the scene.
-     */
-    std::shared_ptr<VROPhysicsWorld> _physicsWorld = nullptr;
-
-    /*
-     Represents a list of all actively emitting particles in this scene.
-     */
-    std::vector<std::shared_ptr<VROParticleEmitter>> _activeParticles;
-    
-    /*
-     The active portal; the scene is rendered as though the camera is in this
-     portal. Defaults to the root node.
-     */
-    std::shared_ptr<VROPortal> _activePortal;
     
     /*
      Create a tree of portals in the scene graph, with the active portal at the
@@ -239,7 +225,66 @@ protected:
      Retrieve all background textures in the scene.
      */
     void getBackgrounds(std::shared_ptr<VRONode> node, std::vector<std::shared_ptr<VROGeometry>> &backgrounds) const;
+    
 private:
+    
+    /*
+     UI representation of the underlying controller
+     */
+    std::shared_ptr<VROInputPresenter> _controllerPresenter;
+    
+    /*
+     The portals in tree form, with the active portal at the root.
+     */
+    tree<std::shared_ptr<VROPortal>> _portals;
+    
+    /*
+     All the lights in the scene, as collected during the last render cycle.
+     */
+    std::vector<std::shared_ptr<VROLight>> _lights;
+    
+    /*
+     The distance from the camera of the furthest away object, since the last
+     call to updateSortKeys. Distance is from the camera to the bounding
+     box of the object.
+     */
+    float _distanceOfFurthestObjectFromCamera;
+    
+    /*
+     Manages the physics in the scene.
+     */
+    std::shared_ptr<VROPhysicsWorld> _physicsWorld = nullptr;
+    
+    /*
+     Represents a list of all actively emitting particles in this scene.
+     */
+    std::vector<std::shared_ptr<VROParticleEmitter>> _activeParticles;
+    
+    /*
+     The active portal; the scene is rendered as though the camera is in this
+     portal. Defaults to the root node.
+     */
+    std::shared_ptr<VROPortal> _activePortal;
+    
+    /*
+     List of post-processing effects to be applied in the renderer.
+     */
+    std::vector<std::string> _activePostProcessingEffects;
+    
+    /*
+     True if we post-processing effects were updated since the last time the
+     renderer checked.
+     */
+    bool _postProcessingEffectsUpdated;
+    
+    /*
+     Tone mapping parameters, and flag indicating if any have been updated.
+     */
+    bool _toneMappingEnabled;
+    VROToneMappingMethod _toneMappingMethod;
+    float _toneMappingExposure;
+    float _toneMappingWhitePoint;
+    bool _toneMappingUpdated;
     
     /*
      A helper method that draws a line from the max to min points of the given node's bounding box. Call
@@ -248,16 +293,6 @@ private:
     void drawBoundingBoxCorners(std::shared_ptr<VRONode> node,
                                 const VRORenderContext &context,
                                 std::shared_ptr<VRODriver> &driver);
-
-    /*
-     List of post processing effects to be applied in the renderer.
-     */
-    std::vector<std::string> _activeEffects;
-
-    /*
-     True if we should reset effects
-     */
-    bool _shouldResetEffects = false;
 };
 
 #endif /* VROScene_h */

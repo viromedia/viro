@@ -20,9 +20,9 @@
 static const float kReticleSizeMultiple = 3;
 static const bool kDebugSceneBackgroundDistance = false;
 
-/**
- * VROInputPresenter contains all UI view implementations to be displayed for a given
- * VROInputController.
+/*
+ VROInputPresenter contains all UI view implementations to be displayed for a given
+ VROInputController.
  */
 class VROInputPresenter : public VROEventDelegate, public VROThreadRestricted {
 public:

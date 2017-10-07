@@ -36,7 +36,8 @@ enum class VROTextureFormat {
     ASTC_4x4_LDR,
     RGBA8,
     RGB565,
-    RGB8
+    RGB8,
+    RGB9_E5,
 };
 
 // Texture formats for storage on the GPU
@@ -46,7 +47,8 @@ enum class VROTextureInternalFormat {
     RGBA8,
     RGBA4,
     RGB565,
-    YCBCR
+    YCBCR,
+    RGB9_E5,
 };
 
 enum class VROMipmapMode {
