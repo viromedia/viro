@@ -210,7 +210,7 @@ static NSArray<NSNumber *> *const kDefaultSize = @[@(0), @(0), @(0)];
     self.scene = self.scene; // this call self setScene: which passes the vroScene down the scene graph
     
     // we need to reset effects (override the ones from the previous scene) when we appear.
-    self.scene->setShouldResetEffects(true);
+    self.scene->setPostProcessingEffectsUpdated(true);
     
     [self sceneWillAppear];
     [self parentDidAppear];
@@ -261,7 +261,7 @@ static NSArray<NSNumber *> *const kDefaultSize = @[@(0), @(0), @(0)];
         std::string strEffect = std::string([effect UTF8String]);
         strEffects.push_back(strEffect);
     }
-    self.scene->setSceneEffect(strEffects);
+    self.scene->setPostProcessingEffects(strEffects);
 }
 
 /**
