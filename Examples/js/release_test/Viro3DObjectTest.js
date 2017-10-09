@@ -104,12 +104,12 @@ var Viro3DObjectTest = React.createClass({
        </ViroAnimatedComponent>
 
        <ViroAnimatedComponent animation="loopRotate" run={this.state.runAnimation4} >
-         <Viro3DObject source={require('./res/tantiveIV.obj')}
+         <Viro3DObject source={require('./res/object_star_anim.vrx')}
                        position={[-2, -2, -5]}
-                       materials={["grey"]}
-                       type="OBJ"
+                       type="VRX"
                        rotation={[0,0,0]}
-                       scale={[.2,.2,.2]}
+                       scale={[1,1,1]}
+                       animation={{name:"02_spin", delay:0, loop:true, run:true}}
          />
        </ViroAnimatedComponent>
 

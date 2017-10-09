@@ -44,7 +44,8 @@ var GroupTestBasicEvents = React.createClass({
     return {
         reticleVisibility:true,
         transformFlag: 1,
-        transformBehaviors:["billboard"]
+        transformBehaviors:["billboard"],
+        showImage:true
     };
   },
   onHover(objectTag) {
@@ -88,6 +89,19 @@ var GroupTestBasicEvents = React.createClass({
        console.log("GroupTest:" + objectTag + " onFuse");
     }
   },
+  _getImage() {
+    if (this.state.showImage) {
+      return (
+        <ViroImage position={[0.0, 2, -3.5]}
+          transformBehaviors={["billboard"]}
+          source={{uri: "https://images.sftcdn.net/images/t_optimized,f_auto/p/50d2f4ce-96d1-11e6-8a53-00163ed833e7/3980672443/google-earth-screenshot.jpg"}}
+          onFuse={()=>{this.setState({showImage : false})}} />
+      );
+    } else {
+      return;
+    }
+  },
+
   render: function() {
     return (
             <ViroScene onHover={this.onHover("ViroScene")}
@@ -109,6 +123,8 @@ var GroupTestBasicEvents = React.createClass({
 
               <ViroImage source={require('./res/poi_dot.png')} position={[-1, 0, 0]} transformBehaviors={["billboard"]} onClick={this._showNext} />
               <ReleaseMenu sceneNavigator={this.props.sceneNavigator}/>
+
+              {this._getImage()}
 
               <ViroOmniLight position={[0, 0, 0]}
                              color={"#FFFFFF"}
