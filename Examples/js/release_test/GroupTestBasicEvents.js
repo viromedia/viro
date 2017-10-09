@@ -102,6 +102,10 @@ var GroupTestBasicEvents = React.createClass({
     }
   },
 
+  toggleReticle(){
+    this.setState({reticleVisibility:!this.state.reticleVisibility});
+  },
+
   render: function() {
     return (
             <ViroScene onHover={this.onHover("ViroScene")}
@@ -285,6 +289,14 @@ var GroupTestBasicEvents = React.createClass({
                       onScroll={this.onScroll("ViroVideo")}
                       onSwipe={this.onSwipe("ViroVideo")}
                       source={{"uri":"https://s3-us-west-2.amazonaws.com/viro/Climber1Top.mp4"}} />
+
+                  <ViroText
+                          position={[0, -2, 0]}
+                          scale={[0.5 , 0.5, 0.1]}
+                          style={styles.baseTextTwo}
+                          text="Toggle Reticle Visibility"
+                          onClick={this.toggleReticle}/>
+
               </ViroNode>
             </ViroScene>
 
