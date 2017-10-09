@@ -271,7 +271,6 @@ public class VRTParticleEmitter extends VRTControl {
             mNativeSurface.setImageTexture(mLatestTexture);
         }
 
-        // TODO: Set Bloom properties after VIRO-1646
         mImageNeedsUpdate = false;
     }
 
@@ -305,7 +304,7 @@ public class VRTParticleEmitter extends VRTControl {
         mNativeEmitter.setFixedToEmitter(mFixedToEmitter);
 
 
-        if (mImage.hasKey("blendMode")){
+        if (mImage != null && mImage.hasKey("blendMode")){
             String strBlendMode = mImage.getString("blendMode");
             if (strBlendMode == null || !mNativeEmitter.setBlendMode(strBlendMode)){
                 onError("Viro: Attempted to set an invalid Blend mode!");
@@ -313,6 +312,13 @@ public class VRTParticleEmitter extends VRTControl {
             }
         } else {
             mNativeEmitter.setBlendMode("Add");
+        }
+
+        if (mImage != null && mImage.hasKey("bloomThreshold")){
+            float threshold = (float) mImage.getDouble("bloomThreshold");
+            mNativeEmitter.setParticleBloomThreshold(threshold);
+        } else {
+            mNativeEmitter.setParticleBloomThreshold(-1);
         }
     }
 
