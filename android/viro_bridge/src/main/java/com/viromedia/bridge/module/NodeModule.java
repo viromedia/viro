@@ -12,7 +12,7 @@ import com.facebook.react.uimanager.IllegalViewOperationException;
 import com.facebook.react.uimanager.NativeViewHierarchyManager;
 import com.facebook.react.uimanager.UIBlock;
 import com.facebook.react.uimanager.UIManagerModule;
-import com.viromedia.bridge.component.node.Node;
+import com.viromedia.bridge.component.node.VRTNode;
 
 public class NodeModule extends ReactContextBaseJavaModule {
 
@@ -32,7 +32,7 @@ public class NodeModule extends ReactContextBaseJavaModule {
             @Override
             public void execute(NativeViewHierarchyManager nativeViewHierarchyManager) {
                 View viroView = nativeViewHierarchyManager.resolveView(viewTag);
-                if (!(viroView instanceof Node)){
+                if (!(viroView instanceof VRTNode)){
                     throw new IllegalViewOperationException("Invalid view returned when applying force: expected a node-type control!");
                 }
 
@@ -53,7 +53,7 @@ public class NodeModule extends ReactContextBaseJavaModule {
                 }
                 float[] forceArray = { (float)force.getDouble(0), (float)force.getDouble(1), (float)force.getDouble(2)};
 
-                Node nodeControl = (Node) viroView;
+                VRTNode nodeControl = (VRTNode) viroView;
                 nodeControl.applyImpulse(forceArray, forcePosition);
             }
         });
@@ -66,7 +66,7 @@ public class NodeModule extends ReactContextBaseJavaModule {
             @Override
             public void execute(NativeViewHierarchyManager nativeViewHierarchyManager) {
                 View viroView = nativeViewHierarchyManager.resolveView(viewTag);
-                if (!(viroView instanceof Node)){
+                if (!(viroView instanceof VRTNode)){
                     throw new IllegalViewOperationException("Invalid view returned when applying force: expected a node-type control!");
                 }
 
@@ -75,7 +75,7 @@ public class NodeModule extends ReactContextBaseJavaModule {
                 }
 
                 float[] torqueArray = { (float)torque.getDouble(0), (float)torque.getDouble(1), (float)torque.getDouble(2)};
-                Node nodeControl = (Node) viroView;
+                VRTNode nodeControl = (VRTNode) viroView;
                 nodeControl.applyTorqueImpulse(torqueArray);
             }
         });
@@ -88,7 +88,7 @@ public class NodeModule extends ReactContextBaseJavaModule {
             @Override
             public void execute(NativeViewHierarchyManager nativeViewHierarchyManager) {
                 View viroView = nativeViewHierarchyManager.resolveView(viewTag);
-                if (!(viroView instanceof Node)){
+                if (!(viroView instanceof VRTNode)){
                     throw new IllegalViewOperationException("Invalid view returned when applying velocity: expected a node-type control!");
                 }
 
@@ -97,7 +97,7 @@ public class NodeModule extends ReactContextBaseJavaModule {
                 }
 
                 float[] velocityArray = { (float)velocity.getDouble(0), (float)velocity.getDouble(1), (float)velocity.getDouble(2)};
-                Node nodeControl = (Node) viroView;
+                VRTNode nodeControl = (VRTNode) viroView;
                 nodeControl.setVelocity(velocityArray, false);
             }
         });

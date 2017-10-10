@@ -5,7 +5,6 @@ package com.viromedia.bridge.module;
 
 import android.view.View;
 
-import com.facebook.react.bridge.JSApplicationCausedNativeException;
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
@@ -17,7 +16,7 @@ import com.facebook.react.uimanager.UIBlock;
 import com.facebook.react.uimanager.UIManagerModule;
 import com.viro.renderer.jni.NodeJni;
 import com.viro.renderer.jni.SceneControllerJni;
-import com.viromedia.bridge.component.node.Scene;
+import com.viromedia.bridge.component.node.VRTScene;
 import com.viromedia.bridge.utility.Helper;
 
 public class SceneModule extends ReactContextBaseJavaModule {
@@ -39,7 +38,7 @@ public class SceneModule extends ReactContextBaseJavaModule {
             @Override
             public void execute(NativeViewHierarchyManager nativeViewHierarchyManager) {
                 View sceneView = nativeViewHierarchyManager.resolveView(viewTag);
-                if (!(sceneView instanceof Scene)) {
+                if (!(sceneView instanceof VRTScene)) {
                     throw new IllegalViewOperationException("Invalid view returned when " +
                             "calling findCollisionsWithRayAsync: expected a ViroScene!");
                 }
@@ -52,7 +51,7 @@ public class SceneModule extends ReactContextBaseJavaModule {
                 }
 
                 String rayCastTag = tag != null ? tag : "";
-                Scene scene = (Scene) sceneView;
+                VRTScene scene = (VRTScene) sceneView;
                 scene.findCollisionsWithRayAsync(fromPosArray, toPosArray, closest, rayCastTag,
                         new SceneControllerJni.PhysicsWorldHitTestCallback() {
                             @Override
@@ -74,7 +73,7 @@ public class SceneModule extends ReactContextBaseJavaModule {
             @Override
             public void execute(NativeViewHierarchyManager nativeViewHierarchyManager) {
                 View sceneView = nativeViewHierarchyManager.resolveView(viewTag);
-                if (!(sceneView instanceof Scene)) {
+                if (!(sceneView instanceof VRTScene)) {
                     throw new IllegalViewOperationException("Invalid view returned when " +
                             "calling findCollisionsWithShapeAsync: expected a ViroScene!");
                 }
@@ -93,7 +92,7 @@ public class SceneModule extends ReactContextBaseJavaModule {
                 }
 
                 String rayCastTag = tag != null ? tag : "";
-                Scene scene = (Scene) sceneView;
+                VRTScene scene = (VRTScene) sceneView;
                 scene.findCollisionsWithShapeAsync(fromPosArray, toPosArray, shapeTypeString, params, rayCastTag,
                         new SceneControllerJni.PhysicsWorldHitTestCallback() {
                             @Override

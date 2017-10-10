@@ -3,7 +3,6 @@
  */
 package com.viromedia.bridge.module;
 
-import android.util.Log;
 import android.view.View;
 
 import com.facebook.react.bridge.Arguments;
@@ -21,7 +20,7 @@ import com.facebook.react.uimanager.UIManagerModule;
 import com.viro.renderer.ARHitTestResult;
 import com.viro.renderer.jni.RendererJni;
 import com.viro.renderer.jni.ViroViewARCore;
-import com.viromedia.bridge.component.ARSceneNavigator;
+import com.viromedia.bridge.component.VRTARSceneNavigator;
 
 
 public class ARSceneModule extends ReactContextBaseJavaModule {
@@ -43,12 +42,12 @@ public class ARSceneModule extends ReactContextBaseJavaModule {
             @Override
             public void execute(NativeViewHierarchyManager nativeViewHierarchyManager) {
                 View sceneView = nativeViewHierarchyManager.resolveView(viewTag);
-                if (sceneView.getParent() == null || !(sceneView.getParent() instanceof ARSceneNavigator)) {
+                if (sceneView.getParent() == null || !(sceneView.getParent() instanceof VRTARSceneNavigator)) {
                     throw new IllegalViewOperationException("Invalid view returned when calling " +
                             "calling performARHitTestWithRay: expected ViroARSceneNavigator as parent");
                 }
 
-                ARSceneNavigator arSceneNavigator = (ARSceneNavigator) sceneView.getParent();
+                VRTARSceneNavigator arSceneNavigator = (VRTARSceneNavigator) sceneView.getParent();
                 ViroViewARCore arView = arSceneNavigator.getARView();
 
                 if (ray.size() != 3) {
@@ -83,12 +82,12 @@ public class ARSceneModule extends ReactContextBaseJavaModule {
             @Override
             public void execute(NativeViewHierarchyManager nativeViewHierarchyManager) {
                 View sceneView = nativeViewHierarchyManager.resolveView(viewTag);
-                if (sceneView.getParent() == null || !(sceneView.getParent() instanceof ARSceneNavigator)) {
+                if (sceneView.getParent() == null || !(sceneView.getParent() instanceof VRTARSceneNavigator)) {
                     throw new IllegalViewOperationException("Invalid view returned when calling " +
                             "calling performARHitTestWithPosition: expected ViroARSceneNavigator as parent");
                 }
 
-                ARSceneNavigator arSceneNavigator = (ARSceneNavigator) sceneView.getParent();
+                VRTARSceneNavigator arSceneNavigator = (VRTARSceneNavigator) sceneView.getParent();
                 ViroViewARCore arView = arSceneNavigator.getARView();
 
                 if (position.size() != 3) {

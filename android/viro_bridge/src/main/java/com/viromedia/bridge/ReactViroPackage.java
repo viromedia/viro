@@ -7,36 +7,36 @@ import com.facebook.react.ReactPackage;
 import com.facebook.react.bridge.NativeModule;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.uimanager.ViewManager;
-import com.viromedia.bridge.component.AnimatedComponentManager;
-import com.viromedia.bridge.component.ControllerManager;
-import com.viromedia.bridge.component.Image360Manager;
-import com.viromedia.bridge.component.AmbientLightManager;
-import com.viromedia.bridge.component.DirectionalLightManager;
-import com.viromedia.bridge.component.OmniLightManager;
-import com.viromedia.bridge.component.SkyBoxManager;
-import com.viromedia.bridge.component.SoundFieldManager;
-import com.viromedia.bridge.component.SoundManager;
-import com.viromedia.bridge.component.SpatialSoundManager;
-import com.viromedia.bridge.component.SpotLightManager;
-import com.viromedia.bridge.component.ARSceneNavigatorManager;
-import com.viromedia.bridge.component.node.ARPlaneManager;
-import com.viromedia.bridge.component.node.ARSceneManager;
-import com.viromedia.bridge.component.node.SceneManagerImpl;
-import com.viromedia.bridge.component.node.control.Object3dManager;
-import com.viromedia.bridge.component.node.control.ParticleEmitterManager;
-import com.viromedia.bridge.component.node.control.PolylineManager;
-import com.viromedia.bridge.component.node.control.TextManager;
-import com.viromedia.bridge.component.Video360Manager;
-import com.viromedia.bridge.component.node.control.CameraManager;
-import com.viromedia.bridge.component.node.control.OrbitCameraManager;
-import com.viromedia.bridge.component.node.FlexViewManager;
-import com.viromedia.bridge.component.node.NodeManagerImpl;
-import com.viromedia.bridge.component.node.control.BoxManager;
-import com.viromedia.bridge.component.SceneNavigatorManager;
-import com.viromedia.bridge.component.node.control.SphereManager;
-import com.viromedia.bridge.component.node.control.ImageManager;
-import com.viromedia.bridge.component.node.control.SurfaceManager;
-import com.viromedia.bridge.component.node.control.VideoSurfaceManager;
+import com.viromedia.bridge.component.VRTAnimatedComponentManager;
+import com.viromedia.bridge.component.VRTControllerManager;
+import com.viromedia.bridge.component.VRT360ImageManager;
+import com.viromedia.bridge.component.VRTAmbientLightManager;
+import com.viromedia.bridge.component.VRTDirectionalLightManager;
+import com.viromedia.bridge.component.VRTOmniLightManager;
+import com.viromedia.bridge.component.VRTSkyBoxManager;
+import com.viromedia.bridge.component.VRTSoundFieldManager;
+import com.viromedia.bridge.component.VRTSoundManager;
+import com.viromedia.bridge.component.VRTSpatialSoundManager;
+import com.viromedia.bridge.component.VRTSpotLightManager;
+import com.viromedia.bridge.component.VRTARSceneNavigatorManager;
+import com.viromedia.bridge.component.node.VRTARPlaneManager;
+import com.viromedia.bridge.component.node.VRTARSceneManager;
+import com.viromedia.bridge.component.node.VRTSceneManagerImpl;
+import com.viromedia.bridge.component.node.control.VRT3DObjectManager;
+import com.viromedia.bridge.component.node.control.VRTParticleEmitterManager;
+import com.viromedia.bridge.component.node.control.VRTPolylineManager;
+import com.viromedia.bridge.component.node.control.VRTTextManager;
+import com.viromedia.bridge.component.VRT360VideoManager;
+import com.viromedia.bridge.component.node.control.VRTCameraManager;
+import com.viromedia.bridge.component.node.control.VRTOrbitCameraManager;
+import com.viromedia.bridge.component.node.VRTFlexViewManager;
+import com.viromedia.bridge.component.node.VRTNodeManagerImpl;
+import com.viromedia.bridge.component.node.control.VRTBoxManager;
+import com.viromedia.bridge.component.VRTSceneNavigatorManager;
+import com.viromedia.bridge.component.node.control.VRTSphereManager;
+import com.viromedia.bridge.component.node.control.VRTImageManager;
+import com.viromedia.bridge.component.node.control.VRTSurfaceManager;
+import com.viromedia.bridge.component.node.control.VRTVideoSurfaceManager;
 import com.viromedia.bridge.module.ARSceneModule;
 import com.viromedia.bridge.module.AnimationManager;
 import com.viromedia.bridge.module.CameraModule;
@@ -86,39 +86,39 @@ public class ReactViroPackage implements ReactPackage {
     @Override
     public List<ViewManager> createViewManagers(ReactApplicationContext reactContext) {
         return Arrays.<ViewManager>asList(
-                new SceneNavigatorManager(reactContext, mViroPlatform),
-                new SceneManagerImpl(reactContext),
-                new BoxManager(reactContext),
-                new VideoSurfaceManager(reactContext),
-                new Video360Manager(reactContext),
-                new NodeManagerImpl(reactContext),
-                new CameraManager(reactContext),
-                new OrbitCameraManager(reactContext),
-                new SphereManager(reactContext),
-                new ImageManager(reactContext),
-                new Image360Manager(reactContext),
-                new SkyBoxManager(reactContext),
-                new FlexViewManager(reactContext),
-                new AnimatedComponentManager(reactContext),
-                new SurfaceManager(reactContext),
-                new FlexViewManager(reactContext),
-                new DirectionalLightManager(reactContext),
-                new AmbientLightManager(reactContext),
-                new SpotLightManager(reactContext),
-                new OmniLightManager(reactContext),
-                new SoundManager(reactContext),
-                new SoundFieldManager(reactContext),
-                new SpatialSoundManager(reactContext),
-                new OmniLightManager(reactContext),
-                new TextManager(reactContext),
-                new Object3dManager(reactContext),
-                new ControllerManager(reactContext),
-                new PolylineManager(reactContext),
-                new ParticleEmitterManager(reactContext),
+                new VRTSceneNavigatorManager(reactContext, mViroPlatform),
+                new VRTSceneManagerImpl(reactContext),
+                new VRTBoxManager(reactContext),
+                new VRTVideoSurfaceManager(reactContext),
+                new VRT360VideoManager(reactContext),
+                new VRTNodeManagerImpl(reactContext),
+                new VRTCameraManager(reactContext),
+                new VRTOrbitCameraManager(reactContext),
+                new VRTSphereManager(reactContext),
+                new VRTImageManager(reactContext),
+                new VRT360ImageManager(reactContext),
+                new VRTSkyBoxManager(reactContext),
+                new VRTFlexViewManager(reactContext),
+                new VRTAnimatedComponentManager(reactContext),
+                new VRTSurfaceManager(reactContext),
+                new VRTFlexViewManager(reactContext),
+                new VRTDirectionalLightManager(reactContext),
+                new VRTAmbientLightManager(reactContext),
+                new VRTSpotLightManager(reactContext),
+                new VRTOmniLightManager(reactContext),
+                new VRTSoundManager(reactContext),
+                new VRTSoundFieldManager(reactContext),
+                new VRTSpatialSoundManager(reactContext),
+                new VRTOmniLightManager(reactContext),
+                new VRTTextManager(reactContext),
+                new VRT3DObjectManager(reactContext),
+                new VRTControllerManager(reactContext),
+                new VRTPolylineManager(reactContext),
+                new VRTParticleEmitterManager(reactContext),
                 // AR Components
-                new ARSceneNavigatorManager(reactContext),
-                new ARSceneManager(reactContext),
-                new ARPlaneManager(reactContext)
+                new VRTARSceneNavigatorManager(reactContext),
+                new VRTARSceneManager(reactContext),
+                new VRTARPlaneManager(reactContext)
         );
     }
 }

@@ -3,14 +3,12 @@
  */
 package com.viromedia.bridge.utility;
 
-import android.util.Log;
-
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.WritableArray;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
 import com.viro.renderer.jni.EventDelegateJni;
-import com.viromedia.bridge.component.Component;
+import com.viromedia.bridge.component.VRTComponent;
 
 import java.lang.ref.WeakReference;
 
@@ -18,14 +16,14 @@ import java.lang.ref.WeakReference;
  * Represents all java-to-javascript calls that can be triggered from an EventDelegate.
  */
 public class ComponentEventDelegate implements EventDelegateJni.EventDelegateCallback {
-    private WeakReference<Component> weakComponent;
-    public ComponentEventDelegate(Component component){
-        weakComponent = new WeakReference<Component>(component);
+    private WeakReference<VRTComponent> weakComponent;
+    public ComponentEventDelegate(VRTComponent component){
+        weakComponent = new WeakReference<VRTComponent>(component);
     }
 
     @Override
     public void onHover(int source, boolean isHovering, float position[]) {
-        Component component = weakComponent.get();
+        VRTComponent component = weakComponent.get();
         if (component == null){
             return;
         }
@@ -50,7 +48,7 @@ public class ComponentEventDelegate implements EventDelegateJni.EventDelegateCal
 
     @Override
     public void onClick(int source, EventDelegateJni.ClickState clickState, float position[]) {
-        Component component = weakComponent.get();
+        VRTComponent component = weakComponent.get();
         if (component == null){
             return;
         }
@@ -75,7 +73,7 @@ public class ComponentEventDelegate implements EventDelegateJni.EventDelegateCal
 
     @Override
     public void onTouch(int source, EventDelegateJni.TouchState touchState, float touchPadPos[]){
-        Component component = weakComponent.get();
+        VRTComponent component = weakComponent.get();
         if (component == null){
             return;
         }
@@ -97,7 +95,7 @@ public class ComponentEventDelegate implements EventDelegateJni.EventDelegateCal
 
     @Override
     public void onSwipe(int source, EventDelegateJni.SwipeState swipeState) {
-        Component node = weakComponent.get();
+        VRTComponent node = weakComponent.get();
         if (node == null){
             return;
         }
@@ -113,7 +111,7 @@ public class ComponentEventDelegate implements EventDelegateJni.EventDelegateCal
 
     @Override
     public void onScroll(int source, float x, float y) {
-        Component component = weakComponent.get();
+        VRTComponent component = weakComponent.get();
         if (component == null){
             return;
         }
@@ -133,7 +131,7 @@ public class ComponentEventDelegate implements EventDelegateJni.EventDelegateCal
 
     @Override
     public void onDrag(int source, float x, float y, float z) {
-        Component node = weakComponent.get();
+        VRTComponent node = weakComponent.get();
         if (node == null){
             return;
         }
@@ -154,7 +152,7 @@ public class ComponentEventDelegate implements EventDelegateJni.EventDelegateCal
 
     @Override
     public void onFuse(int source) {
-        Component node = weakComponent.get();
+        VRTComponent node = weakComponent.get();
         if (node == null){
             return;
         }
@@ -169,7 +167,7 @@ public class ComponentEventDelegate implements EventDelegateJni.EventDelegateCal
 
     @Override
     public void onControllerStatus(int source, EventDelegateJni.ControllerStatus controllerStatus) {
-        Component node = weakComponent.get();
+        VRTComponent node = weakComponent.get();
         if (node == null){
             return;
         }

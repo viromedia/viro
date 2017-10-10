@@ -15,8 +15,8 @@ import com.facebook.react.uimanager.NativeViewHierarchyManager;
 import com.facebook.react.uimanager.UIBlock;
 import com.facebook.react.uimanager.UIManagerModule;
 import com.viro.renderer.jni.CameraCallback;
-import com.viromedia.bridge.component.node.control.Camera;
-import com.viromedia.bridge.component.node.Scene;
+import com.viromedia.bridge.component.node.control.VRTCamera;
+import com.viromedia.bridge.component.node.VRTScene;
 
 public class CameraModule extends ReactContextBaseJavaModule {
 
@@ -36,8 +36,8 @@ public class CameraModule extends ReactContextBaseJavaModule {
             @Override
             public void execute(NativeViewHierarchyManager nativeViewHierarchyManager) {
                 View sceneView = nativeViewHierarchyManager.resolveView(sceneTag);
-                if (sceneView instanceof Scene) {
-                    Scene scene = (Scene) sceneView;
+                if (sceneView instanceof VRTScene) {
+                    VRTScene scene = (VRTScene) sceneView;
 
                     scene.getCameraPositionAsync(new CameraCallback() {
                         @Override
@@ -77,15 +77,15 @@ public class CameraModule extends ReactContextBaseJavaModule {
                 View sceneView = nativeViewHierarchyManager.resolveView(sceneTag);
                 View cameraView = nativeViewHierarchyManager.resolveView(cameraTag);
 
-                if (!(cameraView instanceof Camera)) {
+                if (!(cameraView instanceof VRTCamera)) {
                     //RCTLogError(@"Invalid view returned when setting camera: expected VRTCamera, got [%@]", cameraView);
                 }
-                else if (!(sceneView instanceof Scene)) {
+                else if (!(sceneView instanceof VRTScene)) {
                     //RCTLogError(@"Invalid view returned when setting camera: expected VRTScene, got [%@]", sceneView);
                 }
                 else {
-                    Camera camera = (Camera) cameraView;
-                    Scene scene = (Scene) sceneView;
+                    VRTCamera camera = (VRTCamera) cameraView;
+                    VRTScene scene = (VRTScene) sceneView;
 
                     scene.setCamera(camera);
                 }
@@ -102,15 +102,15 @@ public class CameraModule extends ReactContextBaseJavaModule {
                 View sceneView = nativeViewHierarchyManager.resolveView(sceneTag);
                 View cameraView = nativeViewHierarchyManager.resolveView(cameraTag);
 
-                if (!(cameraView instanceof Camera)) {
+                if (!(cameraView instanceof VRTCamera)) {
                     //RCTLogError(@"Invalid view returned when removing camera: expected VRTCamera, got [%@]", cameraView);
                 }
-                else if (!(sceneView instanceof Scene)) {
+                else if (!(sceneView instanceof VRTScene)) {
                     //RCTLogError(@"Invalid view returned when removing camera: expected VRTScene, got [%@]", sceneView);
                 }
                 else {
-                    Camera camera = (Camera) cameraView;
-                    Scene scene = (Scene) sceneView;
+                    VRTCamera camera = (VRTCamera) cameraView;
+                    VRTScene scene = (VRTScene) sceneView;
 
                     scene.removeCamera(camera);
                 }
