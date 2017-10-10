@@ -18,6 +18,7 @@ import com.viro.renderer.jni.SceneController;
 import com.viro.renderer.jni.Texture;
 import com.viro.renderer.jni.VideoTexture;
 import com.viro.renderer.jni.Renderer;
+import com.viro.renderer.jni.PortalTraversalListener;
 import com.viromedia.bridge.component.node.control.VRTCamera;
 import com.viromedia.bridge.utility.Helper;
 import com.viromedia.bridge.utility.ViroEvents;
@@ -31,9 +32,11 @@ public class VRTScene extends VRTNode implements SceneController.SceneDelegate {
     private static final String DEFAULT_MATERIAL = "transparent";
     private static final float[] DEFAULT_SIZE = {0,0,0};
 
+
     protected SceneController mNativeSceneController;
     private Renderer mNativeRenderer;
     private VRTCamera mCamera;
+    private PortalTraversalListener mPortalTraversalListener;
     private float[] mSoundRoomSize = DEFAULT_SIZE;
     private String mWallMaterial;
     private String mCeilingMaterial;
@@ -53,6 +56,7 @@ public class VRTScene extends VRTNode implements SceneController.SceneDelegate {
     @Override
     protected Node createNodeJni() {
         mNativeSceneController = createSceneControllerJni();
+        mPortalTraversalListener = new PortalTraversalListener(mNativeSceneController);
         return mNativeSceneController.getSceneNode();
     }
 
@@ -69,6 +73,10 @@ public class VRTScene extends VRTNode implements SceneController.SceneDelegate {
     @Override
     public void onTearDown() {
         if (!isTornDown()) {
+            if(mPortalTraversalListener != null) {
+                mPortalTraversalListener.destroy();
+                mPortalTraversalListener = null;
+            }
             mNativeSceneController.destroy();
         }
         super.onTearDown();
@@ -137,6 +145,18 @@ public class VRTScene extends VRTNode implements SceneController.SceneDelegate {
     private void setCameraIfPossible() {
         if (mCamera != null && mNativeRenderer != null && !isTornDown()) {
             mNativeRenderer.setPointOfView(mCamera.getNodeJni());
+        }
+    }
+
+    public void removePortalTraversalListener(Renderer rendererJni) {
+        if(rendererJni != null && mPortalTraversalListener != null) {
+            rendererJni.removeFrameListener(mPortalTraversalListener);
+        }
+    }
+
+    public void addPortalTraversalListener(Renderer rendererJni) {
+        if(rendererJni != null && mPortalTraversalListener != null) {
+            rendererJni.addFrameListener(mPortalTraversalListener);
         }
     }
 

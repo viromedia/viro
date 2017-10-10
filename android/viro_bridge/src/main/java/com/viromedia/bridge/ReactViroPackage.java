@@ -7,6 +7,7 @@ import com.facebook.react.ReactPackage;
 import com.facebook.react.bridge.NativeModule;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.uimanager.ViewManager;
+
 import com.viromedia.bridge.component.VRTAnimatedComponentManager;
 import com.viromedia.bridge.component.VRTControllerManager;
 import com.viromedia.bridge.component.VRT360ImageManager;
@@ -18,7 +19,6 @@ import com.viromedia.bridge.component.VRTSoundFieldManager;
 import com.viromedia.bridge.component.VRTSoundManager;
 import com.viromedia.bridge.component.VRTSpatialSoundManager;
 import com.viromedia.bridge.component.VRTSpotLightManager;
-import com.viromedia.bridge.component.VRTARSceneNavigatorManager;
 import com.viromedia.bridge.component.node.VRTARPlaneManager;
 import com.viromedia.bridge.component.node.VRTARSceneManager;
 import com.viromedia.bridge.component.node.VRTSceneManagerImpl;
@@ -33,10 +33,15 @@ import com.viromedia.bridge.component.node.VRTFlexViewManager;
 import com.viromedia.bridge.component.node.VRTNodeManagerImpl;
 import com.viromedia.bridge.component.node.control.VRTBoxManager;
 import com.viromedia.bridge.component.VRTSceneNavigatorManager;
+import com.viromedia.bridge.component.VRTARSceneNavigatorManager;
 import com.viromedia.bridge.component.node.control.VRTSphereManager;
 import com.viromedia.bridge.component.node.control.VRTImageManager;
 import com.viromedia.bridge.component.node.control.VRTSurfaceManager;
 import com.viromedia.bridge.component.node.control.VRTVideoSurfaceManager;
+import com.viromedia.bridge.component.node.VRTPortalSceneManager;
+import com.viromedia.bridge.component.node.VRTPortalManager;
+
+
 import com.viromedia.bridge.module.ARSceneModule;
 import com.viromedia.bridge.module.AnimationManager;
 import com.viromedia.bridge.module.CameraModule;
@@ -115,6 +120,8 @@ public class ReactViroPackage implements ReactPackage {
                 new VRTControllerManager(reactContext),
                 new VRTPolylineManager(reactContext),
                 new VRTParticleEmitterManager(reactContext),
+                new VRTPortalSceneManager(reactContext),
+                new VRTPortalManager(reactContext),
                 // AR Components
                 new VRTARSceneNavigatorManager(reactContext),
                 new VRTARSceneManager(reactContext),
