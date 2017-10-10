@@ -113,6 +113,7 @@ public class MaterialManager extends ReactContextBaseJavaModule {
                 String path = parseImagePath(materialMap, materialPropertyName);
                 TextureFormat format = parseImageFormat(materialMap, materialPropertyName);
                 boolean mipmap = parseImageMipmap(materialMap, materialPropertyName);
+                boolean sRGB = !materialPropertyName.startsWith("normal");
 
                 Uri uri = Helper.parseUri(path, mContext);
                 if (path != null) {
@@ -120,7 +121,7 @@ public class MaterialManager extends ReactContextBaseJavaModule {
                         materialWrapper.addVideoTexturePath(materialPropertyName, path);
                     } else {
                         if (mImageMap.get(materialPropertyName) != null) {
-                            setImageOnMaterial(mImageMap.get(materialPropertyName), format, mipmap, nativeMaterial,
+                            setImageOnMaterial(mImageMap.get(materialPropertyName), format, sRGB, mipmap, nativeMaterial,
                                     materialPropertyName, materialMap);
                         } else {
                             ImageDownloader downloader = new ImageDownloader(mContext);
@@ -129,7 +130,7 @@ public class MaterialManager extends ReactContextBaseJavaModule {
                             Bitmap imageBitmap = downloader.getImageSync(uri);
                             if (imageBitmap != null) {
                                 ImageJni nativeImage = new ImageJni(imageBitmap, format);
-                                setImageOnMaterial(nativeImage, format, mipmap, nativeMaterial, materialPropertyName, materialMap);
+                                setImageOnMaterial(nativeImage, format, sRGB, mipmap, nativeMaterial, materialPropertyName, materialMap);
                             }
                         }
                     }
@@ -162,9 +163,9 @@ public class MaterialManager extends ReactContextBaseJavaModule {
         return materialWrapper;
     }
 
-    private void setImageOnMaterial(ImageJni image, TextureFormat format, boolean mipmap,
+    private void setImageOnMaterial(ImageJni image, TextureFormat format, boolean sRGB, boolean mipmap,
                                     MaterialJni material, String name, ReadableMap materialMap) {
-        TextureJni nativeTexture = new TextureJni(image, format, true, mipmap);
+        TextureJni nativeTexture = new TextureJni(image, format, sRGB, mipmap);
         setTextureOnMaterial(material, nativeTexture, name, materialMap);
     }
 
