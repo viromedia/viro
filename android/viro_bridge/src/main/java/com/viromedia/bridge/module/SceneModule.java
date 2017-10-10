@@ -14,8 +14,8 @@ import com.facebook.react.uimanager.IllegalViewOperationException;
 import com.facebook.react.uimanager.NativeViewHierarchyManager;
 import com.facebook.react.uimanager.UIBlock;
 import com.facebook.react.uimanager.UIManagerModule;
-import com.viro.renderer.jni.NodeJni;
-import com.viro.renderer.jni.SceneControllerJni;
+import com.viro.renderer.jni.Node;
+import com.viro.renderer.jni.SceneController;
 import com.viromedia.bridge.component.node.VRTScene;
 import com.viromedia.bridge.utility.Helper;
 
@@ -53,7 +53,7 @@ public class SceneModule extends ReactContextBaseJavaModule {
                 String rayCastTag = tag != null ? tag : "";
                 VRTScene scene = (VRTScene) sceneView;
                 scene.findCollisionsWithRayAsync(fromPosArray, toPosArray, closest, rayCastTag,
-                        new SceneControllerJni.PhysicsWorldHitTestCallback() {
+                        new SceneController.PhysicsWorldHitTestCallback() {
                             @Override
                             public void onComplete(boolean hasHit) {
                                 promise.resolve(hasHit);
@@ -86,7 +86,7 @@ public class SceneModule extends ReactContextBaseJavaModule {
                 }
 
                 float[] params = Helper.toFloatArray(paramsArray);
-                String error = NodeJni.checkIsValidShapeType(shapeTypeString, params);
+                String error = Node.checkIsValidShapeType(shapeTypeString, params);
                 if (error != null){
                     throw new IllegalViewOperationException(error);
                 }
@@ -94,7 +94,7 @@ public class SceneModule extends ReactContextBaseJavaModule {
                 String rayCastTag = tag != null ? tag : "";
                 VRTScene scene = (VRTScene) sceneView;
                 scene.findCollisionsWithShapeAsync(fromPosArray, toPosArray, shapeTypeString, params, rayCastTag,
-                        new SceneControllerJni.PhysicsWorldHitTestCallback() {
+                        new SceneController.PhysicsWorldHitTestCallback() {
                             @Override
                             public void onComplete(boolean hasHit) {
                                 promise.resolve(hasHit);

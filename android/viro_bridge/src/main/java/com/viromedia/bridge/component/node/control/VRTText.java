@@ -6,8 +6,8 @@ package com.viromedia.bridge.component.node.control;
 import android.graphics.Color;
 
 import com.facebook.react.bridge.ReactApplicationContext;
-import com.viro.renderer.jni.RenderContextJni;
-import com.viro.renderer.jni.TextJni;
+import com.viro.renderer.jni.RenderContext;
+import com.viro.renderer.jni.Text;
 
 public class VRTText extends VRTControl {
     static final String DEFAULT_FONT = "Roboto";
@@ -17,7 +17,7 @@ public class VRTText extends VRTControl {
     static final int DEFAULT_MAX_LINES = 0;
     static final int DEFAULT_FONT_SIZE = 14;
 
-    private TextJni mNativeText = null;
+    private Text mNativeText = null;
     private long mColor = DEFAULT_COLOR;
     private int mMaxLines = DEFAULT_MAX_LINES;
     private float mWidth = DEFAULT_WIDTH;
@@ -100,7 +100,7 @@ public class VRTText extends VRTControl {
         }
 
         // Create text
-        mNativeText = new TextJni(mRenderContext, mText, mFontFamilyName, mSize, mColor, mWidth,
+        mNativeText = new Text(mRenderContext, mText, mFontFamilyName, mSize, mColor, mWidth,
                 mHeight, mHorizontalAlignment, mVerticalAlignment, mTextLineBreakMode,
                 mTextClipMode, mMaxLines);
 
@@ -109,7 +109,7 @@ public class VRTText extends VRTControl {
     }
 
     @Override
-    public void setRenderContext(RenderContextJni context) {
+    public void setRenderContext(RenderContext context) {
         super.setRenderContext(context);
         updateLabel();
     }

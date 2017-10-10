@@ -4,9 +4,9 @@
 package com.viromedia.bridge.component;
 
 import com.facebook.react.bridge.ReactApplicationContext;
-import com.viro.renderer.jni.ControllerJni;
-import com.viro.renderer.jni.EventDelegateJni;
-import com.viro.renderer.jni.RenderContextJni;
+import com.viro.renderer.jni.Controller;
+import com.viro.renderer.jni.EventDelegate;
+import com.viro.renderer.jni.RenderContext;
 import com.viromedia.bridge.utility.ComponentEventDelegate;
 
 public class VRTController extends VRTComponent {
@@ -19,14 +19,14 @@ public class VRTController extends VRTComponent {
     protected final static boolean DEFAULT_CAN_GET_CONTROLLER_STATUS = false;
     protected final static boolean DEFAULT_RETICLE_VISIBILITY = true;
     protected final static boolean DEFAULT_CONTROLLER_VISIBILITY = true;
-    private ControllerJni mNativeController = null;
+    private Controller mNativeController = null;
     private boolean mIsReticleVisible = DEFAULT_RETICLE_VISIBILITY;
     private boolean mIsControllerVisible = DEFAULT_CONTROLLER_VISIBILITY;
-    private EventDelegateJni mEventDelegateJni;
+    private EventDelegate mEventDelegateJni;
 
     public VRTController(ReactApplicationContext reactContext) {
         super(reactContext);
-        mEventDelegateJni = new EventDelegateJni();
+        mEventDelegateJni = new EventDelegate();
     }
     @Override
     public void onTearDown(){
@@ -38,9 +38,9 @@ public class VRTController extends VRTComponent {
     }
 
     @Override
-    public void setRenderContext(RenderContextJni context) {
+    public void setRenderContext(RenderContext context) {
         super.setRenderContext(context);
-        mNativeController = new ControllerJni(context);
+        mNativeController = new Controller(context);
         updateVisibility();
 
         // Create and attach callbacks.
@@ -57,30 +57,30 @@ public class VRTController extends VRTComponent {
     }
 
     protected void setCanClick(boolean canClick){
-        mEventDelegateJni.setEventEnabled(EventDelegateJni.EventAction.ON_CLICK, canClick);
+        mEventDelegateJni.setEventEnabled(EventDelegate.EventAction.ON_CLICK, canClick);
     }
 
     protected void setCanTouch(boolean canTouch){
-        mEventDelegateJni.setEventEnabled(EventDelegateJni.EventAction.ON_TOUCH, canTouch);
+        mEventDelegateJni.setEventEnabled(EventDelegate.EventAction.ON_TOUCH, canTouch);
     }
 
     protected void setCanSwipe(boolean canSwipe){
-        mEventDelegateJni.setEventEnabled(EventDelegateJni.EventAction.ON_SWIPE, canSwipe);
+        mEventDelegateJni.setEventEnabled(EventDelegate.EventAction.ON_SWIPE, canSwipe);
     }
 
     protected void setCanScroll(boolean canScroll){
-        mEventDelegateJni.setEventEnabled(EventDelegateJni.EventAction.ON_SCROLL, canScroll);
+        mEventDelegateJni.setEventEnabled(EventDelegate.EventAction.ON_SCROLL, canScroll);
     }
 
     protected void setCanFuse(boolean canFuse){
-        mEventDelegateJni.setEventEnabled(EventDelegateJni.EventAction.ON_FUSE, canFuse);
+        mEventDelegateJni.setEventEnabled(EventDelegate.EventAction.ON_FUSE, canFuse);
     }
 
     protected void setCanGetControllerStatus(boolean canGetControllerStatus){
-        mEventDelegateJni.setEventEnabled(EventDelegateJni.EventAction.ON_CONTROLLER_STATUS, canGetControllerStatus);
+        mEventDelegateJni.setEventEnabled(EventDelegate.EventAction.ON_CONTROLLER_STATUS, canGetControllerStatus);
     }
 
-    public void getForwardVectorAsync(ControllerJni.ControllerJniCallback callback){
+    public void getForwardVectorAsync(Controller.ControllerJniCallback callback){
         mNativeController.getControllerForwardVectorAsync(callback);
     }
 

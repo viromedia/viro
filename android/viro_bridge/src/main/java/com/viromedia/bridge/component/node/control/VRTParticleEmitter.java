@@ -11,13 +11,13 @@ import android.os.Looper;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReadableMap;
-import com.viro.renderer.jni.ImageJni;
-import com.viro.renderer.jni.NodeJni;
-import com.viro.renderer.jni.ParticleEmitterJni;
-import com.viro.renderer.jni.RenderContextJni;
-import com.viro.renderer.jni.SurfaceJni;
+import com.viro.renderer.jni.Image;
+import com.viro.renderer.jni.Node;
+import com.viro.renderer.jni.ParticleEmitter;
+import com.viro.renderer.jni.RenderContext;
+import com.viro.renderer.jni.Surface;
 import com.viro.renderer.jni.TextureFormat;
-import com.viro.renderer.jni.TextureJni;
+import com.viro.renderer.jni.Texture;
 import com.viromedia.bridge.component.node.VRTScene;
 import com.viromedia.bridge.utility.ImageDownloadListener;
 import com.viromedia.bridge.utility.ImageDownloader;
@@ -42,8 +42,8 @@ public class VRTParticleEmitter extends VRTControl {
     private float mDuration = DEFAULT_DURATION;
 
     // Native components representing this emitter, and it's particle geometry.
-    private ParticleEmitterJni mNativeEmitter = null;
-    private SurfaceJni mNativeSurface = null;
+    private ParticleEmitter mNativeEmitter = null;
+    private Surface mNativeSurface = null;
 
     // True if the image source, or it's configuration has changed.
     private boolean mImageNeedsUpdate = false;
@@ -54,8 +54,8 @@ public class VRTParticleEmitter extends VRTControl {
     // Components tracking the loaded image for particles in this emitter.
     private ReadableMap mImage = null;
     private String mCurrentImageUri = null;
-    private ImageJni mLatestImage;
-    private TextureJni mLatestTexture;
+    private Image mLatestImage;
+    private Texture mLatestTexture;
 
     // Components that download the particle's image.
     private Handler mMainHandler;
@@ -67,23 +67,23 @@ public class VRTParticleEmitter extends VRTControl {
     private ReadableMap mParticlePhysics = null;
 
     // Default particle emitter configurations
-    private ParticleEmitterJni.ParticleModifier mDefaultAlphaMod;
-    private ParticleEmitterJni.ParticleModifier mDefaultScaleMode;
-    private ParticleEmitterJni.ParticleModifier mDefaultRotMod;
-    private ParticleEmitterJni.ParticleModifier mDefaultColorMod;
-    private ParticleEmitterJni.ParticleModifier mDefaultVelocity;
-    private ParticleEmitterJni.ParticleModifier mDefaultAccelerationMod;
+    private ParticleEmitter.ParticleModifier mDefaultAlphaMod;
+    private ParticleEmitter.ParticleModifier mDefaultScaleMode;
+    private ParticleEmitter.ParticleModifier mDefaultRotMod;
+    private ParticleEmitter.ParticleModifier mDefaultColorMod;
+    private ParticleEmitter.ParticleModifier mDefaultVelocity;
+    private ParticleEmitter.ParticleModifier mDefaultAccelerationMod;
 
     public VRTParticleEmitter(ReactApplicationContext reactContext) {
         super(reactContext);
-        mDefaultAlphaMod = new ParticleEmitterJni.ParticleModifier(new float[]{1, 0, 0});
-        mDefaultScaleMode = new ParticleEmitterJni.ParticleModifier(new float[]{1, 1, 1});
-        mDefaultRotMod = new ParticleEmitterJni.ParticleModifier(new float[]{0, 0, 0});
-        mDefaultColorMod = new ParticleEmitterJni.ParticleModifier(new float[]{1, 1, 1});
-        mDefaultVelocity = new ParticleEmitterJni.ParticleModifier(new float[]{-0.5f, 1, 0}, new float[]{0.5f, 1, 0});
-        mDefaultAccelerationMod = new ParticleEmitterJni.ParticleModifier(new float[]{0, 0, 0});
+        mDefaultAlphaMod = new ParticleEmitter.ParticleModifier(new float[]{1, 0, 0});
+        mDefaultScaleMode = new ParticleEmitter.ParticleModifier(new float[]{1, 1, 1});
+        mDefaultRotMod = new ParticleEmitter.ParticleModifier(new float[]{0, 0, 0});
+        mDefaultColorMod = new ParticleEmitter.ParticleModifier(new float[]{1, 1, 1});
+        mDefaultVelocity = new ParticleEmitter.ParticleModifier(new float[]{-0.5f, 1, 0}, new float[]{0.5f, 1, 0});
+        mDefaultAccelerationMod = new ParticleEmitter.ParticleModifier(new float[]{0, 0, 0});
         mMainHandler = new Handler(Looper.getMainLooper());
-        mNativeSurface = new SurfaceJni(1,1, 0, 0, 1, 1);
+        mNativeSurface = new Surface(1,1, 0, 0, 1, 1);
     }
 
     @Override
@@ -168,7 +168,7 @@ public class VRTParticleEmitter extends VRTControl {
     }
 
     @Override
-    public void setRenderContext(RenderContextJni context) {
+    public void setRenderContext(RenderContext context) {
         super.setRenderContext(context);
 
         // Refresh the emitter when a new render context is set
@@ -194,7 +194,7 @@ public class VRTParticleEmitter extends VRTControl {
             return;
         }
 
-        final NodeJni node = getNodeJni();
+        final Node node = getNodeJni();
         if (mRenderContext == null || mScene == null || mScene.getNativeScene() == null|| node == null) {
             return;
         }
@@ -217,7 +217,7 @@ public class VRTParticleEmitter extends VRTControl {
 
         // Create emitter if we haven't yet done so.
         if (mNativeEmitter == null) {
-            mNativeEmitter = new ParticleEmitterJni(mRenderContext, node, mNativeSurface);
+            mNativeEmitter = new ParticleEmitter(mRenderContext, node, mNativeSurface);
             mScene.getNativeScene().addParticleEmitter(mNativeEmitter);
         }
 
@@ -288,8 +288,8 @@ public class VRTParticleEmitter extends VRTControl {
         }
 
         mImageNeedsUpdate = true;
-        mLatestImage = new ImageJni(result, TextureFormat.RGBA8);
-        mLatestTexture = new TextureJni(mLatestImage, TextureFormat.RGBA8, true, false, null);
+        mLatestImage = new Image(result, TextureFormat.RGBA8);
+        mLatestTexture = new Texture(mLatestImage, TextureFormat.RGBA8, true, false, null);
 
         mImageDownloadListener.invalidate();
         mImageDownloadListener = null;
@@ -328,7 +328,7 @@ public class VRTParticleEmitter extends VRTControl {
             mNativeEmitter.setEmissionRatePerMeter(new int[]{DEFAULT_SPAWN_RATE_METER,DEFAULT_SPAWN_RATE_METER});
             mNativeEmitter.setParticleLifetime(new int[]{DEFAULT_PARTICLE_LIFETIME, DEFAULT_PARTICLE_LIFETIME});
             mNativeEmitter.setMaxParticles(DEFAULT_MAX_PARTICLE);
-            mNativeEmitter.setParticleBursts(new ArrayList<ParticleEmitterJni.ParticleBursts>());
+            mNativeEmitter.setParticleBursts(new ArrayList<ParticleEmitter.ParticleBursts>());
             mNativeEmitter.setSpawnVolume("Point", null, false);
             return;
         }
@@ -392,7 +392,7 @@ public class VRTParticleEmitter extends VRTControl {
         }
 
         // Set emission bursts values.
-        ArrayList<ParticleEmitterJni.ParticleBursts> bursts = new ArrayList<ParticleEmitterJni.ParticleBursts>();
+        ArrayList<ParticleEmitter.ParticleBursts> bursts = new ArrayList<ParticleEmitter.ParticleBursts>();
         if (mSpawnBehavior.hasKey("emissionBurst")) {
             ReadableArray burstArray = mSpawnBehavior.getArray("emissionBurst");
             for (int i = 0; i < burstArray.size(); i++) {
@@ -420,7 +420,7 @@ public class VRTParticleEmitter extends VRTControl {
                 max = burstmap.getDouble("max");
                 cycles = burstmap.getDouble("cycles");
 
-                ParticleEmitterJni.ParticleBursts burst = new ParticleEmitterJni.ParticleBursts(referenceFactor,
+                ParticleEmitter.ParticleBursts burst = new ParticleEmitter.ParticleBursts(referenceFactor,
                         valueStart, coolPeriod, min, max, cycles);
                 bursts.add(burst);
             }
@@ -463,8 +463,8 @@ public class VRTParticleEmitter extends VRTControl {
     }
 
     private void updatePhysicsModifier(){
-        ParticleEmitterJni.ParticleModifier velocityMod = null;
-        ParticleEmitterJni.ParticleModifier accelerationMod = null;
+        ParticleEmitter.ParticleModifier velocityMod = null;
+        ParticleEmitter.ParticleModifier accelerationMod = null;
 
         if (mParticlePhysics != null){
             velocityMod = getModifier(mParticlePhysics, "velocity", true, false, false);
@@ -515,10 +515,10 @@ public class VRTParticleEmitter extends VRTControl {
     }
 
     private void updateAppearanceModifier(){
-        ParticleEmitterJni.ParticleModifier opacityMod = null;
-        ParticleEmitterJni.ParticleModifier scaleMode = null;
-        ParticleEmitterJni.ParticleModifier rotMod = null;
-        ParticleEmitterJni.ParticleModifier colorMod = null;
+        ParticleEmitter.ParticleModifier opacityMod = null;
+        ParticleEmitter.ParticleModifier scaleMode = null;
+        ParticleEmitter.ParticleModifier rotMod = null;
+        ParticleEmitter.ParticleModifier colorMod = null;
 
         if (mParticleAppearance != null){
             opacityMod = getModifier(mParticleAppearance, "opacity", false, false, true);
@@ -539,7 +539,7 @@ public class VRTParticleEmitter extends VRTControl {
         mNativeEmitter.setColorModifier(colorMod);
     }
 
-    private ParticleEmitterJni.ParticleModifier getModifier(ReadableMap appearanceMap,
+    private ParticleEmitter.ParticleModifier getModifier(ReadableMap appearanceMap,
                                                             String property, boolean isVec3,
                                                             boolean isColor, boolean isFloat){
         if (!appearanceMap.hasKey(property)){
@@ -592,7 +592,7 @@ public class VRTParticleEmitter extends VRTControl {
 
         // Set the modifier on this emitter through JNI
         String factor = map.hasKey("factor") ? map.getString("factor") : "time";
-        return new ParticleEmitterJni.ParticleModifier(factor, initialRange, interpolatedIntervals, interpolatedPoints);
+        return new ParticleEmitter.ParticleModifier(factor, initialRange, interpolatedIntervals, interpolatedPoints);
     }
 
     private float[][] getValueArrayFromDict(ReadableMap map, String key,

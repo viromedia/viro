@@ -6,10 +6,10 @@ package com.viromedia.bridge.component.node.control;
 
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReadableArray;
-import com.viro.renderer.jni.PolylineJni;
+import com.viro.renderer.jni.Polyline;
 
 public class VRTPolyline extends VRTControl {
-    private PolylineJni mNativeLine;
+    private Polyline mNativeLine;
     private boolean mDidSetGeometry = false;
     private float[][] mPoints;
     private float mThickness = 0.1f; // default thickness of line is 0.1f
@@ -62,7 +62,7 @@ public class VRTPolyline extends VRTControl {
                 mNativeLine.destroy();
             }
 
-            mNativeLine = new PolylineJni(mPoints, mThickness);
+            mNativeLine = new Polyline(mPoints, mThickness);
             setGeometry(mNativeLine);
             mDidSetGeometry = true;
         }

@@ -5,25 +5,25 @@ package com.viromedia.bridge.component;
 
 import android.content.Context;
 
-import com.viro.renderer.jni.AmbientLightJni;
-import com.viro.renderer.jni.NodeJni;
+import com.viro.renderer.jni.AmbientLight;
+import com.viro.renderer.jni.Node;
 
 public class VRTAmbientLight extends VRTLight {
 
-    private AmbientLightJni mNativeLight;
+    private AmbientLight mNativeLight;
 
     public VRTAmbientLight(Context context) {
         super(context);
     }
 
     @Override
-    public void addToNode(NodeJni nodeJni) {
+    public void addToNode(Node nodeJni) {
 
         mNativeLight.addToNode(nodeJni);
     }
 
     @Override
-    public void removeFromNode(NodeJni nodeJni) {
+    public void removeFromNode(Node nodeJni) {
 
         mNativeLight.removeFromNode(nodeJni);
     }
@@ -43,7 +43,7 @@ public class VRTAmbientLight extends VRTLight {
 
         if (mNativeLight == null) {
 
-            mNativeLight = new AmbientLightJni(mColor, mIntensity);
+            mNativeLight = new AmbientLight(mColor, mIntensity);
         } else {
             mNativeLight.setColor(mColor);
             mNativeLight.setIntensity(mIntensity);

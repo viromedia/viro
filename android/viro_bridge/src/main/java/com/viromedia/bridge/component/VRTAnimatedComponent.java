@@ -6,7 +6,7 @@ package com.viromedia.bridge.component;
 import android.view.View;
 
 import com.facebook.react.bridge.ReactApplicationContext;
-import com.viro.renderer.jni.ExecutableAnimationJni;
+import com.viro.renderer.jni.ExecutableAnimation;
 import com.viromedia.bridge.component.node.VRTNode;
 import com.viromedia.bridge.module.AnimationManager;
 import com.viromedia.bridge.utility.ViroLog;
@@ -30,7 +30,7 @@ public class VRTAnimatedComponent extends VRTComponent {
         }
 
         @Override
-        public ExecutableAnimationJni loadAnimation() {
+        public ExecutableAnimation loadAnimation() {
             if (mAnimationName != null) {
                 return mAnimationManager.getAnimation(mAnimationName).copy();
             }

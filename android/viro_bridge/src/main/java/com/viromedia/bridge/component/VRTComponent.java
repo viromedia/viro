@@ -12,7 +12,7 @@ import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
 import com.facebook.react.views.view.ReactViewGroup;
 import com.facebook.react.bridge.ReactApplicationContext;
-import com.viro.renderer.jni.RenderContextJni;
+import com.viro.renderer.jni.RenderContext;
 import com.viromedia.bridge.component.node.VRTScene;
 import com.viromedia.bridge.utility.ViroEvents;
 
@@ -22,7 +22,7 @@ import com.viromedia.bridge.utility.ViroEvents;
 public class VRTComponent extends ReactViewGroup {
 
     private static String TAG = VRTComponent.class.getSimpleName();
-    protected RenderContextJni mRenderContext = null;
+    protected RenderContext mRenderContext = null;
     protected ReactApplicationContext mReactContext = null;
     protected VRTScene mScene = null;
     /*
@@ -60,7 +60,7 @@ public class VRTComponent extends ReactViewGroup {
         return mReactContext;
     }
 
-    public void setRenderContext(RenderContextJni context){
+    public void setRenderContext(RenderContext context){
         mRenderContext = context;
 
         // Update our child views with the scene as well.

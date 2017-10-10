@@ -5,7 +5,7 @@ package com.viromedia.bridge.component;
 
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReadableMap;
-import com.viro.renderer.jni.RenderContextJni;
+import com.viro.renderer.jni.RenderContext;
 import com.viromedia.bridge.component.node.VRTNode;
 
 /**
@@ -81,7 +81,7 @@ public class VRTSpatialSoundWrapper extends VRTNode {
     }
 
     @Override
-    public void setRenderContext(RenderContextJni context) {
+    public void setRenderContext(RenderContext context) {
         mInnerSound.setRenderContext(context);
     }
 }

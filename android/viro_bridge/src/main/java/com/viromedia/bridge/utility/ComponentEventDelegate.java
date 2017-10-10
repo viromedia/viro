@@ -7,7 +7,7 @@ import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.WritableArray;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
-import com.viro.renderer.jni.EventDelegateJni;
+import com.viro.renderer.jni.EventDelegate;
 import com.viromedia.bridge.component.VRTComponent;
 
 import java.lang.ref.WeakReference;
@@ -15,7 +15,7 @@ import java.lang.ref.WeakReference;
 /**
  * Represents all java-to-javascript calls that can be triggered from an EventDelegate.
  */
-public class ComponentEventDelegate implements EventDelegateJni.EventDelegateCallback {
+public class ComponentEventDelegate implements EventDelegate.EventDelegateCallback {
     private WeakReference<VRTComponent> weakComponent;
     public ComponentEventDelegate(VRTComponent component){
         weakComponent = new WeakReference<VRTComponent>(component);
@@ -47,7 +47,7 @@ public class ComponentEventDelegate implements EventDelegateJni.EventDelegateCal
     }
 
     @Override
-    public void onClick(int source, EventDelegateJni.ClickState clickState, float position[]) {
+    public void onClick(int source, EventDelegate.ClickState clickState, float position[]) {
         VRTComponent component = weakComponent.get();
         if (component == null){
             return;
@@ -72,7 +72,7 @@ public class ComponentEventDelegate implements EventDelegateJni.EventDelegateCal
     }
 
     @Override
-    public void onTouch(int source, EventDelegateJni.TouchState touchState, float touchPadPos[]){
+    public void onTouch(int source, EventDelegate.TouchState touchState, float touchPadPos[]){
         VRTComponent component = weakComponent.get();
         if (component == null){
             return;
@@ -94,7 +94,7 @@ public class ComponentEventDelegate implements EventDelegateJni.EventDelegateCal
     }
 
     @Override
-    public void onSwipe(int source, EventDelegateJni.SwipeState swipeState) {
+    public void onSwipe(int source, EventDelegate.SwipeState swipeState) {
         VRTComponent node = weakComponent.get();
         if (node == null){
             return;
@@ -166,7 +166,7 @@ public class ComponentEventDelegate implements EventDelegateJni.EventDelegateCal
     }
 
     @Override
-    public void onControllerStatus(int source, EventDelegateJni.ControllerStatus controllerStatus) {
+    public void onControllerStatus(int source, EventDelegate.ControllerStatus controllerStatus) {
         VRTComponent node = weakComponent.get();
         if (node == null){
             return;

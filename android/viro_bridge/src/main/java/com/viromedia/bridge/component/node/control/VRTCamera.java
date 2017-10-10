@@ -5,11 +5,11 @@ package com.viromedia.bridge.component.node.control;
 
 
 import com.facebook.react.bridge.ReactApplicationContext;
-import com.viro.renderer.jni.CameraJni;
-import com.viro.renderer.jni.NodeJni;
+import com.viro.renderer.jni.Camera;
+import com.viro.renderer.jni.Node;
 
 public class VRTCamera extends VRTControl {
-    protected CameraJni mNativeCamera;
+    protected Camera mNativeCamera;
     private float[] mPosition;
 
     public VRTCamera(ReactApplicationContext context) {
@@ -25,11 +25,11 @@ public class VRTCamera extends VRTControl {
         super.onTearDown();
     }
 
-    public void addToNode(NodeJni node) {
+    public void addToNode(Node node) {
         mNativeCamera.addToNode(node);
     }
 
-    public void removeFromNode(NodeJni node) {
+    public void removeFromNode(Node node) {
         mNativeCamera.removeFromNode(node);
     }
 
@@ -50,7 +50,7 @@ public class VRTCamera extends VRTControl {
         super.onPropsSet();
 
         if (mNativeCamera == null) {
-            mNativeCamera = new CameraJni();
+            mNativeCamera = new Camera();
         }
         mNativeCamera.setPosition(mPosition);
         mNativeCamera.setRotationType(getRotationType());

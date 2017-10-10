@@ -5,8 +5,8 @@ package com.viromedia.bridge.component;
 
 import android.content.Context;
 
-import com.viro.renderer.jni.NodeJni;
-import com.viro.renderer.jni.OmniLightJni;
+import com.viro.renderer.jni.Node;
+import com.viro.renderer.jni.OmniLight;
 
 public class VRTOmniLight extends VRTLight {
 
@@ -16,21 +16,21 @@ public class VRTOmniLight extends VRTLight {
     private float mAttenuationStartDistance;
     private float mAttenuationEndDistance;
 
-    private OmniLightJni mNativeLight;
+    private OmniLight mNativeLight;
     public VRTOmniLight(Context context) {
         super(context);
     }
 
     @Override
-    public void addToNode(NodeJni nodeJni) {
+    public void addToNode(Node node) {
 
-        mNativeLight.addToNode(nodeJni);
+        mNativeLight.addToNode(node);
     }
 
     @Override
-    public void removeFromNode(NodeJni nodeJni) {
+    public void removeFromNode(Node node) {
 
-        mNativeLight.removeFromNode(nodeJni);
+        mNativeLight.removeFromNode(node);
     }
 
     @Override
@@ -72,7 +72,7 @@ public class VRTOmniLight extends VRTLight {
         super.onPropsSet();
 
         if (mNativeLight == null) {
-            mNativeLight = new OmniLightJni(mColor, mIntensity, mAttenuationStartDistance,
+            mNativeLight = new OmniLight(mColor, mIntensity, mAttenuationStartDistance,
                     mAttenuationEndDistance, mPosition);
         } else {
             mNativeLight.setColor(mColor);

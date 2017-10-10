@@ -13,16 +13,16 @@ import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
 import com.viro.renderer.jni.CameraCallback;
-import com.viro.renderer.jni.NodeJni;
-import com.viro.renderer.jni.SceneControllerJni;
-import com.viro.renderer.jni.TextureJni;
-import com.viro.renderer.jni.VideoTextureJni;
-import com.viro.renderer.jni.RendererJni;
+import com.viro.renderer.jni.Node;
+import com.viro.renderer.jni.SceneController;
+import com.viro.renderer.jni.Texture;
+import com.viro.renderer.jni.VideoTexture;
+import com.viro.renderer.jni.Renderer;
 import com.viromedia.bridge.component.node.control.VRTCamera;
 import com.viromedia.bridge.utility.Helper;
 import com.viromedia.bridge.utility.ViroEvents;
 
-public class VRTScene extends VRTNode implements SceneControllerJni.SceneDelegate {
+public class VRTScene extends VRTNode implements SceneController.SceneDelegate {
     private static final String TAG = VRTScene.class.getSimpleName();
     private static final String SIZE_KEY = "size";
     private static final String WALL_MATERIAL_KEY = "wallMaterial";
@@ -31,8 +31,8 @@ public class VRTScene extends VRTNode implements SceneControllerJni.SceneDelegat
     private static final String DEFAULT_MATERIAL = "transparent";
     private static final float[] DEFAULT_SIZE = {0,0,0};
 
-    protected SceneControllerJni mNativeSceneController;
-    private RendererJni mNativeRenderer;
+    protected SceneController mNativeSceneController;
+    private Renderer mNativeRenderer;
     private VRTCamera mCamera;
     private float[] mSoundRoomSize = DEFAULT_SIZE;
     private String mWallMaterial;
@@ -51,17 +51,17 @@ public class VRTScene extends VRTNode implements SceneControllerJni.SceneDelegat
     }
 
     @Override
-    protected NodeJni createNodeJni() {
+    protected Node createNodeJni() {
         mNativeSceneController = createSceneControllerJni();
         return mNativeSceneController.getSceneNode();
     }
 
     /*
-     This function creates and returns a SceneControllerJni. Child classes
+     This function creates and returns a SceneController. Child classes
      should override to return a different SceneController if desired.
      */
-    protected SceneControllerJni createSceneControllerJni() {
-        SceneControllerJni sceneControllerJni = new SceneControllerJni();
+    protected SceneController createSceneControllerJni() {
+        SceneController sceneControllerJni = new SceneController();
         sceneControllerJni.registerDelegate(this);
         return sceneControllerJni;
     }
@@ -74,20 +74,20 @@ public class VRTScene extends VRTNode implements SceneControllerJni.SceneDelegat
         super.onTearDown();
     }
 
-    public SceneControllerJni getNativeScene() {
+    public SceneController getNativeScene() {
         return mNativeSceneController;
     }
 
-    public void setBackgroundVideoTexture(VideoTextureJni videoTexture) {
+    public void setBackgroundVideoTexture(VideoTexture videoTexture) {
         mNativeSceneController.setBackgroundVideoTexture(videoTexture);
     }
 
-    public void setNativeRenderer(RendererJni nativeRenderer) {
+    public void setNativeRenderer(Renderer nativeRenderer) {
         mNativeRenderer = nativeRenderer;
         setCameraIfPossible();
     }
 
-    public void setBackgroundImageTexture(TextureJni texture) {
+    public void setBackgroundImageTexture(Texture texture) {
         mNativeSceneController.setBackgroundImageTexture(texture);
     }
 
@@ -95,7 +95,7 @@ public class VRTScene extends VRTNode implements SceneControllerJni.SceneDelegat
         mNativeSceneController.setBackgroundRotation(rotation);
     }
 
-    public void setBackgroundCubeImageTexture(TextureJni texture) {
+    public void setBackgroundCubeImageTexture(Texture texture) {
         mNativeSceneController.setBackgroundCubeImageTexture(texture);
     }
 
@@ -245,13 +245,13 @@ public class VRTScene extends VRTNode implements SceneControllerJni.SceneDelegat
 
     public void findCollisionsWithRayAsync(float[] fromPos, float toPos[], boolean closest,
                                            String tag,
-                                           SceneControllerJni.PhysicsWorldHitTestCallback callback){
+                                           SceneController.PhysicsWorldHitTestCallback callback){
         mNativeSceneController.findCollisionsWithRayAsync(fromPos, toPos, closest, tag, callback);
     }
 
     public void findCollisionsWithShapeAsync(float[] from, float[] to, String shapeType,
                                              float[] params, String tag,
-                                             SceneControllerJni.PhysicsWorldHitTestCallback callback) {
+                                             SceneController.PhysicsWorldHitTestCallback callback) {
         mNativeSceneController.findCollisionsWithShapeAsync(from, to, shapeType, params, tag, callback);
     }
 

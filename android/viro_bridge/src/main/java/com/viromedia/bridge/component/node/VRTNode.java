@@ -20,10 +20,10 @@ import com.facebook.react.uimanager.PixelUtil;
 
 import com.facebook.react.uimanager.events.RCTEventEmitter;
 import com.viro.renderer.jni.BaseGeometry;
-import com.viro.renderer.jni.EventDelegateJni;
-import com.viro.renderer.jni.MaterialJni;
-import com.viro.renderer.jni.NodeJni;
-import com.viro.renderer.jni.ExecutableAnimationJni;
+import com.viro.renderer.jni.EventDelegate;
+import com.viro.renderer.jni.Material;
+import com.viro.renderer.jni.Node;
+import com.viro.renderer.jni.ExecutableAnimation;
 import com.viromedia.bridge.component.VRTAnimatedComponent;
 import com.viromedia.bridge.component.VRTComponent;
 import com.viromedia.bridge.component.VRTLight;
@@ -67,9 +67,9 @@ public class VRTNode extends VRTComponent {
         public String getAnimationName() { return mAnimationName; }
 
         @Override
-        public ExecutableAnimationJni loadAnimation() {
+        public ExecutableAnimation loadAnimation() {
             if (mAnimationName != null) {
-                ExecutableAnimationJni animation = mAnimationManager.getAnimation(mAnimationName);
+                ExecutableAnimation animation = mAnimationManager.getAnimation(mAnimationName);
                 if (animation != null) {
                     return animation.copy();
                 }
@@ -97,7 +97,7 @@ public class VRTNode extends VRTComponent {
     protected final static float DEFAULT_TIME_TO_FUSE_MILLIS = 1000f;
     protected final static double TRANSFORM_DELEGATE_DISTANCE_FILTER = 0.01;
 
-    private NodeJni mNodeJni;
+    private Node mNodeJni;
     protected float[] mPosition;
     protected float[] mRotation;
     protected float[] mScale;
@@ -110,8 +110,8 @@ public class VRTNode extends VRTComponent {
     protected int mLightReceivingBitMask;
     protected int mSetShadowCastingBitMask;
 
-    protected List<MaterialJni> mMaterials;
-    private EventDelegateJni mEventDelegateJni;
+    protected List<Material> mMaterials;
+    private EventDelegate mEventDelegateJni;
     private NodeTransformDelegate mTransformDelegate;
     protected NodeAnimation mNodeAnimation;
 
@@ -145,7 +145,7 @@ public class VRTNode extends VRTComponent {
         mNodeJni = createNodeJni();
 
         // Create and attach callbacks.
-        mEventDelegateJni = new EventDelegateJni();
+        mEventDelegateJni = new EventDelegate();
         mEventDelegateJni.setEventDelegateCallback(new ComponentEventDelegate(this));
         mNodeJni.setEventDelegateJni(mEventDelegateJni);
 
@@ -153,14 +153,14 @@ public class VRTNode extends VRTComponent {
     }
 
     /**
-     This function creates a NodeJni object. Child classes should override to provide
-     their own NodeJni.
+     This function creates a Node object. Child classes should override to provide
+     their own Node.
      */
-    protected NodeJni createNodeJni() {
-        return new NodeJni();
+    protected Node createNodeJni() {
+        return new Node();
     }
 
-    public NodeJni getNodeJni() {
+    public Node getNodeJni() {
         return mNodeJni;
     }
 
@@ -530,7 +530,7 @@ public class VRTNode extends VRTComponent {
         mNodeAnimation.updateAnimation();
     }
 
-    protected void setMaterials(List<MaterialJni> materials) {
+    protected void setMaterials(List<Material> materials) {
         if (isTornDown()) {
             return;
         }
@@ -570,31 +570,31 @@ public class VRTNode extends VRTComponent {
     }
 
     protected void setCanHover(boolean canHover){
-        mEventDelegateJni.setEventEnabled(EventDelegateJni.EventAction.ON_HOVER, canHover);
+        mEventDelegateJni.setEventEnabled(EventDelegate.EventAction.ON_HOVER, canHover);
     }
 
     protected void setCanClick(boolean canClick){
-        mEventDelegateJni.setEventEnabled(EventDelegateJni.EventAction.ON_CLICK, canClick);
+        mEventDelegateJni.setEventEnabled(EventDelegate.EventAction.ON_CLICK, canClick);
     }
 
     protected void setCanTouch(boolean canTouch){
-        mEventDelegateJni.setEventEnabled(EventDelegateJni.EventAction.ON_TOUCH, canTouch);
+        mEventDelegateJni.setEventEnabled(EventDelegate.EventAction.ON_TOUCH, canTouch);
     }
 
     protected void setCanScroll(boolean canScroll){
-        mEventDelegateJni.setEventEnabled(EventDelegateJni.EventAction.ON_SCROLL, canScroll);
+        mEventDelegateJni.setEventEnabled(EventDelegate.EventAction.ON_SCROLL, canScroll);
     }
 
     protected void setCanSwipe(boolean canSwipe){
-        mEventDelegateJni.setEventEnabled(EventDelegateJni.EventAction.ON_SWIPE, canSwipe);
+        mEventDelegateJni.setEventEnabled(EventDelegate.EventAction.ON_SWIPE, canSwipe);
     }
 
     protected void setCanDrag(boolean canDrag){
-        mEventDelegateJni.setEventEnabled(EventDelegateJni.EventAction.ON_DRAG, canDrag);
+        mEventDelegateJni.setEventEnabled(EventDelegate.EventAction.ON_DRAG, canDrag);
     }
 
     protected void setCanFuse(boolean canFuse){
-        mEventDelegateJni.setEventEnabled(EventDelegateJni.EventAction.ON_FUSE, canFuse);
+        mEventDelegateJni.setEventEnabled(EventDelegate.EventAction.ON_FUSE, canFuse);
     }
 
     protected void setTimeToFuse(float durationInMillis){
@@ -926,7 +926,7 @@ public class VRTNode extends VRTComponent {
         mNodeJni.setPhysicsVelocity(velocity, isConstant);
     }
 
-    protected class PhysicsBodyDelegate implements NodeJni.PhysicsDelegate{
+    protected class PhysicsBodyDelegate implements Node.PhysicsDelegate{
         private WeakReference<VRTComponent> weakComponent;
         public PhysicsBodyDelegate(VRTComponent component){
             weakComponent = new WeakReference<VRTComponent>(component);
@@ -971,7 +971,7 @@ public class VRTNode extends VRTComponent {
         }
     }
 
-    protected class NodeTransformDelegate implements NodeJni.TransformDelegate{
+    protected class NodeTransformDelegate implements Node.TransformDelegate{
         private WeakReference<VRTComponent> weakComponent;
         public NodeTransformDelegate(VRTComponent component){
             weakComponent = new WeakReference<VRTComponent>(component);

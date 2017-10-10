@@ -13,8 +13,8 @@ import android.widget.FrameLayout;
 import com.facebook.react.bridge.LifecycleEventListener;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
-import com.viro.renderer.jni.GlListener;
-import com.viro.renderer.jni.RenderContextJni;
+import com.viro.renderer.jni.GLListener;
+import com.viro.renderer.jni.RenderContext;
 import com.viro.renderer.jni.ViroGvrLayout;
 import com.viro.renderer.jni.ViroOvrView;
 import com.viro.renderer.jni.VrView;
@@ -36,7 +36,7 @@ public class VRTSceneNavigator extends FrameLayout {
 
     private static final String DAYDREAM = "daydream";
 
-    protected static class InnerGLListener implements GlListener {
+    protected static class InnerGLListener implements GLListener {
 
         private WeakReference<VRTSceneNavigator> mNavigator;
 
@@ -129,7 +129,7 @@ public class VRTSceneNavigator extends FrameLayout {
     /**
      * Context passed around to views to get render specific information.
      */
-    private RenderContextJni mRenderContext;
+    private RenderContext mRenderContext;
 
     private final ReactApplicationContext mReactContext;
 

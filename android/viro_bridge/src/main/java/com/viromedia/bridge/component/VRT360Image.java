@@ -12,9 +12,9 @@ import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
-import com.viro.renderer.jni.ImageJni;
+import com.viro.renderer.jni.Image;
 import com.viro.renderer.jni.TextureFormat;
-import com.viro.renderer.jni.TextureJni;
+import com.viro.renderer.jni.Texture;
 import com.viromedia.bridge.component.node.VRTScene;
 import com.viromedia.bridge.utility.ImageDownloadListener;
 import com.viromedia.bridge.utility.ImageDownloader;
@@ -25,8 +25,8 @@ public class VRT360Image extends VRTComponent {
 
     private ReadableMap mSourceMap;
     private float[] mRotation = sDefaultRotation;
-    private ImageJni mLatestImage;
-    private TextureJni mLatestTexture;
+    private Image mLatestImage;
+    private Texture mLatestTexture;
     private String mStereoMode;
     private TextureFormat mFormat = TextureFormat.RGBA8;
     private Handler mMainHandler;
@@ -154,8 +154,8 @@ public class VRT360Image extends VRTComponent {
                         mLatestTexture.destroy();
                     }
 
-                    mLatestImage = new ImageJni(result, mFormat);
-                    mLatestTexture = new TextureJni(mLatestImage, mFormat, true, false, mStereoMode);
+                    mLatestImage = new Image(result, mFormat);
+                    mLatestTexture = new Texture(mLatestImage, mFormat, true, false, mStereoMode);
 
                     if (mScene != null) {
                         mScene.setBackgroundImageTexture(mLatestTexture);

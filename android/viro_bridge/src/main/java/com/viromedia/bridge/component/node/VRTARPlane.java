@@ -7,8 +7,8 @@ import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.WritableMap;
 import com.viro.renderer.ARAnchor;
-import com.viro.renderer.jni.ARPlaneJni;
-import com.viro.renderer.jni.NodeJni;
+import com.viro.renderer.jni.ARPlane;
+import com.viro.renderer.jni.Node;
 
 public class VRTARPlane extends VRTARNode {
 
@@ -32,19 +32,19 @@ public class VRTARPlane extends VRTARNode {
         return returnMap;
     }
 
-    protected NodeJni createNodeJni() {
-        ARPlaneJni arPlaneJni = new ARPlaneJni(DEFAULT_WIDTH, DEFAULT_HEIGHT);
+    protected Node createNodeJni() {
+        ARPlane arPlaneJni = new ARPlane(DEFAULT_WIDTH, DEFAULT_HEIGHT);
         arPlaneJni.registerARNodeDelegate(this);
         return arPlaneJni;
     }
 
     public void setMinWidth(float minWidth) {
-        ((ARPlaneJni) getNodeJni()).setMinWidth(minWidth);
+        ((ARPlane) getNodeJni()).setMinWidth(minWidth);
         mDimensionsUpdated = true;
     }
 
     public void setMinHeight(float minHeight) {
-        ((ARPlaneJni) getNodeJni()).setMinHeight(minHeight);
+        ((ARPlane) getNodeJni()).setMinHeight(minHeight);
         mDimensionsUpdated = true;
     }
 
@@ -52,21 +52,21 @@ public class VRTARPlane extends VRTARNode {
     public void setScene(VRTScene scene) {
         super.setScene(scene);
         if (scene != null) {
-            ((VRTARScene) scene).addARPlane((ARPlaneJni) getNodeJni());
+            ((VRTARScene) scene).addARPlane((ARPlane) getNodeJni());
         }
     }
 
     @Override
     public void parentDidDisappear() {
         if (mScene != null) {
-            ((VRTARScene) mScene).removeARPlane((ARPlaneJni) getNodeJni());
+            ((VRTARScene) mScene).removeARPlane((ARPlane) getNodeJni());
         }
     }
 
     @Override
     protected void onPropsSet() {
         if (mDimensionsUpdated && mScene != null) {
-            ((VRTARScene) mScene).updateARPlane((ARPlaneJni) getNodeJni());
+            ((VRTARScene) mScene).updateARPlane((ARPlane) getNodeJni());
             mDimensionsUpdated = false;
         }
     }

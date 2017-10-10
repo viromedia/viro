@@ -7,9 +7,9 @@ import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
-import com.viro.renderer.jni.RenderContextJni;
-import com.viro.renderer.jni.SurfaceJni;
-import com.viro.renderer.jni.VideoTextureJni;
+import com.viro.renderer.jni.RenderContext;
+import com.viro.renderer.jni.Surface;
+import com.viro.renderer.jni.VideoTexture;
 import com.viromedia.bridge.utility.Helper;
 import com.viromedia.bridge.utility.ViroEvents;
 
@@ -17,7 +17,7 @@ import java.lang.ref.WeakReference;
 
 public class VRTVideoSurface extends VRTControl {
 
-    private static class VideoSurfaceDelegate implements VideoTextureJni.VideoDelegate {
+    private static class VideoSurfaceDelegate implements VideoTexture.VideoDelegate {
 
         private WeakReference<VRTVideoSurface> mSurface;
 
@@ -91,9 +91,9 @@ public class VRTVideoSurface extends VRTControl {
     private boolean mMuted = false;
     private float mVolume = 1;
     private String mSource;
-    private SurfaceJni mSurfaceJni = null;
-    private VideoTextureJni mVideoTextureJni = null;
-    private VideoTextureJni.VideoDelegate mDelegate = null;
+    private Surface mSurface = null;
+    private VideoTexture mVideoTexture = null;
+    private VideoTexture.VideoDelegate mDelegate = null;
     private String mStereoMode;
     private boolean mGeometryNeedsUpdate = false;
 
@@ -103,13 +103,13 @@ public class VRTVideoSurface extends VRTControl {
 
     @Override
     public void onTearDown(){
-        if (mSurfaceJni != null) {
-            mSurfaceJni.destroy();
-            mSurfaceJni = null;
+        if (mSurface != null) {
+            mSurface.destroy();
+            mSurface = null;
         }
-        if (mVideoTextureJni != null){
-            mVideoTextureJni.delete();
-            mVideoTextureJni = null;
+        if (mVideoTexture != null){
+            mVideoTexture.delete();
+            mVideoTexture = null;
         }
         super.onTearDown();
     }
@@ -119,28 +119,28 @@ public class VRTVideoSurface extends VRTControl {
             return;
         }
 
-        if (mVideoTextureJni != null) {
-            mVideoTextureJni.delete();
-            mVideoTextureJni = null;
+        if (mVideoTexture != null) {
+            mVideoTexture.delete();
+            mVideoTexture = null;
         }
 
-        if (mSurfaceJni != null) {
-            mSurfaceJni.destroy();
-            mSurfaceJni = null;
+        if (mSurface != null) {
+            mSurface.destroy();
+            mSurface = null;
         }
 
         // Create Texture
-        mSurfaceJni = new SurfaceJni(mWidth, mHeight, 0, 0, 1, 1);
-        getNodeJni().setGeometry(mSurfaceJni);
-        mVideoTextureJni = new VideoTextureJni(mRenderContext, mStereoMode);
+        mSurface = new Surface(mWidth, mHeight, 0, 0, 1, 1);
+        getNodeJni().setGeometry(mSurface);
+        mVideoTexture = new VideoTexture(mRenderContext, mStereoMode);
 
         mDelegate = new VideoSurfaceDelegate(this);
-        mVideoTextureJni.setVideoDelegate(mDelegate);
+        mVideoTexture.setVideoDelegate(mDelegate);
     }
 
     private void loadVideo(){
-        mSurfaceJni.setVideoTexture(mVideoTextureJni);
-        mVideoTextureJni.loadSource(mSource, mRenderContext);
+        mSurface.setVideoTexture(mVideoTexture);
+        mVideoTexture.loadSource(mSource, mRenderContext);
         setVolume(mVolume);
         setLoop(mLoop);
         setMuted(mMuted);
@@ -149,7 +149,7 @@ public class VRTVideoSurface extends VRTControl {
     }
 
     @Override
-    public void setRenderContext(RenderContextJni context) {
+    public void setRenderContext(RenderContext context) {
         super.setRenderContext(context);
         resetVideo();
     }
@@ -175,47 +175,47 @@ public class VRTVideoSurface extends VRTControl {
 
     public void setPaused(boolean paused) {
         mPaused = paused;
-        if (mVideoTextureJni == null) {
+        if (mVideoTexture == null) {
             return;
         }
 
         if (mPaused || !shouldAppear()) {
-            mVideoTextureJni.pause();
+            mVideoTexture.pause();
         } else {
-            mVideoTextureJni.play();
+            mVideoTexture.play();
         }
     }
 
     public void setLoop(boolean loop) {
         mLoop = loop;
-        if (mVideoTextureJni != null) {
-            mVideoTextureJni.setLoop(loop);
+        if (mVideoTexture != null) {
+            mVideoTexture.setLoop(loop);
 
             if (!mPaused) {
-                mVideoTextureJni.play();
+                mVideoTexture.play();
             }
         }
     }
 
     public void setMuted(boolean muted) {
         mMuted = muted;
-        if (mVideoTextureJni != null) {
-            mVideoTextureJni.setMuted(muted);
+        if (mVideoTexture != null) {
+            mVideoTexture.setMuted(muted);
         }
     }
 
     public void setVolume(float volume) {
         mVolume = volume;
-        if (mVideoTextureJni != null) {
-            mVideoTextureJni.setVolume(volume);
+        if (mVideoTexture != null) {
+            mVideoTexture.setVolume(volume);
         }
     }
 
     public void seekToTime(float time) {
-        if (mVideoTextureJni != null) {
-            mVideoTextureJni.seekToTime(time);
+        if (mVideoTexture != null) {
+            mVideoTexture.seekToTime(time);
             if (!mPaused) {
-                mVideoTextureJni.play();
+                mVideoTexture.play();
             }
         }
     }
@@ -270,15 +270,15 @@ public class VRTVideoSurface extends VRTControl {
     @Override
     public void onHostPause(){
         super.onHostPause();
-        if (mVideoTextureJni != null) {
-            mVideoTextureJni.pause();
+        if (mVideoTexture != null) {
+            mVideoTexture.pause();
         }
     }
 
     @Override
     public void sceneWillDisappear() {
-        if (mVideoTextureJni != null){
-            mVideoTextureJni.pause();
+        if (mVideoTexture != null){
+            mVideoTexture.pause();
         }
     }
 

@@ -14,10 +14,10 @@ import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.ReadableMapKeySetIterator;
 import com.facebook.react.bridge.ReadableType;
-import com.viro.renderer.jni.ImageJni;
-import com.viro.renderer.jni.MaterialJni;
+import com.viro.renderer.jni.Image;
+import com.viro.renderer.jni.Material;
 import com.viro.renderer.jni.TextureFormat;
-import com.viro.renderer.jni.TextureJni;
+import com.viro.renderer.jni.Texture;
 import com.viromedia.bridge.utility.Helper;
 import com.viromedia.bridge.utility.ImageDownloader;
 
@@ -34,14 +34,14 @@ public class MaterialManager extends ReactContextBaseJavaModule {
 
     private final ReactApplicationContext mContext;
     private Map<String, MaterialWrapper> mMaterialsMap;
-    private Map<String, ImageJni> mImageMap;
+    private Map<String, Image> mImageMap;
     private boolean mShouldReload = false;
 
     public MaterialManager(ReactApplicationContext reactContext) {
         super(reactContext);
         mContext = reactContext;
         mMaterialsMap = new HashMap<String, MaterialWrapper>();
-        mImageMap = new HashMap<String, ImageJni>();
+        mImageMap = new HashMap<String, Image>();
     }
 
     @Override
@@ -49,7 +49,7 @@ public class MaterialManager extends ReactContextBaseJavaModule {
         return "VRTMaterialManager";
     }
 
-    public MaterialJni getMaterial(String name) {
+    public Material getMaterial(String name) {
         reloadMaterials();
 
         if (mMaterialsMap.containsKey(name)) {
@@ -96,7 +96,7 @@ public class MaterialManager extends ReactContextBaseJavaModule {
     }
 
     private MaterialWrapper createMaterial(ReadableMap materialMap) {
-        final MaterialJni nativeMaterial = new MaterialJni();
+        final Material nativeMaterial = new Material();
         MaterialWrapper materialWrapper = new MaterialWrapper(nativeMaterial, materialMap);
 
         ReadableMapKeySetIterator iter = materialMap.keySetIterator();
@@ -105,7 +105,7 @@ public class MaterialManager extends ReactContextBaseJavaModule {
 
             if (materialPropertyName.endsWith("texture") || materialPropertyName.endsWith("Texture")) {
                 if (materialPropertyName.equalsIgnoreCase("reflectiveTexture")) {
-                    TextureJni nativeTexture = createTextureCubeMap(materialMap.getMap(materialPropertyName), TextureFormat.RGBA8);
+                    Texture nativeTexture = createTextureCubeMap(materialMap.getMap(materialPropertyName), TextureFormat.RGBA8);
                     setTextureOnMaterial(nativeMaterial, nativeTexture, materialPropertyName, materialMap);
                     continue;
                 }
@@ -129,7 +129,7 @@ public class MaterialManager extends ReactContextBaseJavaModule {
 
                             Bitmap imageBitmap = downloader.getImageSync(uri);
                             if (imageBitmap != null) {
-                                ImageJni nativeImage = new ImageJni(imageBitmap, format);
+                                Image nativeImage = new Image(imageBitmap, format);
                                 setImageOnMaterial(nativeImage, format, sRGB, mipmap, nativeMaterial, materialPropertyName, materialMap);
                             }
                         }
@@ -163,13 +163,13 @@ public class MaterialManager extends ReactContextBaseJavaModule {
         return materialWrapper;
     }
 
-    private void setImageOnMaterial(ImageJni image, TextureFormat format, boolean sRGB, boolean mipmap,
-                                    MaterialJni material, String name, ReadableMap materialMap) {
-        TextureJni nativeTexture = new TextureJni(image, format, sRGB, mipmap);
+    private void setImageOnMaterial(Image image, TextureFormat format, boolean sRGB, boolean mipmap,
+                                    Material material, String name, ReadableMap materialMap) {
+        Texture nativeTexture = new Texture(image, format, sRGB, mipmap);
         setTextureOnMaterial(material, nativeTexture, name, materialMap);
     }
 
-    private void setTextureOnMaterial(MaterialJni nativeMaterial, TextureJni nativeTexture,
+    private void setTextureOnMaterial(Material nativeMaterial, Texture nativeTexture,
                                       String materialPropertyName, ReadableMap materialMap) {
         if (materialMap.hasKey("wrapS")) {
             nativeTexture.setWrapS(materialMap.getString("wrapS"));
@@ -192,14 +192,14 @@ public class MaterialManager extends ReactContextBaseJavaModule {
         nativeTexture.destroy();
     }
 
-    private TextureJni createTextureCubeMap(ReadableMap textureMap, TextureFormat format) {
+    private Texture createTextureCubeMap(ReadableMap textureMap, TextureFormat format) {
         ReadableMapKeySetIterator iter = textureMap.keySetIterator();
 
         if (!iter.hasNextKey()) {
             throw new IllegalArgumentException("Error creating cube map: ensure the nx, px, ny, py, nz, and pz params are passed in the body of the cube map texture");
         }
 
-        final Map<String, ImageJni> cubeMapImages = new HashMap<String, ImageJni>();
+        final Map<String, Image> cubeMapImages = new HashMap<String, Image>();
         long cubeSize = -1;
 
         // create an image for each texture
@@ -210,11 +210,11 @@ public class MaterialManager extends ReactContextBaseJavaModule {
             } else {
                 ImageDownloader downloader = new ImageDownloader(mContext);
                 downloader.setTextureFormat(format);
-                ImageJni nativeImage = new ImageJni(downloader.getImageSync(textureMap), format);
+                Image nativeImage = new Image(downloader.getImageSync(textureMap), format);
                 cubeMapImages.put(key, nativeImage);
             }
 
-            ImageJni nativeImageToValidate = cubeMapImages.get(key);
+            Image nativeImageToValidate = cubeMapImages.get(key);
             // check that the width == height and all sides are the same size
             if (cubeSize < 0) {
                 cubeSize = nativeImageToValidate.getWidth();
@@ -235,8 +235,8 @@ public class MaterialManager extends ReactContextBaseJavaModule {
                 cubeMapImages.get("nz") == null ) {
             throw new IllegalArgumentException("Some cube map images are null. Please check and fix");
         }
-        // create and return a TextureJni w/ all 6 sides.
-        return new TextureJni(cubeMapImages.get("px"), cubeMapImages.get("nx"),
+        // create and return a Texture w/ all 6 sides.
+        return new Texture(cubeMapImages.get("px"), cubeMapImages.get("nx"),
                               cubeMapImages.get("py"), cubeMapImages.get("ny"),
                               cubeMapImages.get("pz"), cubeMapImages.get("nz"), format);
     }
@@ -284,18 +284,18 @@ public class MaterialManager extends ReactContextBaseJavaModule {
      * MaterialWrapper Class
      */
     private class MaterialWrapper {
-        private MaterialJni mNativeMaterial;
+        private Material mNativeMaterial;
         // the source map that specified this material.
         private final ReadableMap mMaterialSource;
         private Map<String, String> mVideoTextures;
 
-        public MaterialWrapper(MaterialJni nativeMaterial, ReadableMap source) {
+        public MaterialWrapper(Material nativeMaterial, ReadableMap source) {
             mVideoTextures = new HashMap<String, String>();
             mNativeMaterial = nativeMaterial;
             mMaterialSource = source;
         }
 
-        public MaterialJni getNativeMaterial() {
+        public Material getNativeMaterial() {
             return mNativeMaterial;
         }
 

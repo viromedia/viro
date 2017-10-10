@@ -13,7 +13,7 @@ import com.facebook.react.bridge.WritableArray;
 import com.facebook.react.uimanager.NativeViewHierarchyManager;
 import com.facebook.react.uimanager.UIBlock;
 import com.facebook.react.uimanager.UIManagerModule;
-import com.viro.renderer.jni.ControllerJni;
+import com.viro.renderer.jni.Controller;
 import com.viromedia.bridge.component.VRTController;
 
 public class ControllerModule extends ReactContextBaseJavaModule {
@@ -36,7 +36,7 @@ public class ControllerModule extends ReactContextBaseJavaModule {
                 View controllerView = nativeViewHierarchyManager.resolveView(viewTag);
                 if (controllerView instanceof VRTController) {
                     VRTController controller = (VRTController) controllerView;
-                    controller.getForwardVectorAsync(new ControllerJni.ControllerJniCallback() {
+                    controller.getForwardVectorAsync(new Controller.ControllerJniCallback() {
                         @Override
                         public void onGetForwardVector(float x, float y, float z) {
                             WritableArray array = Arguments.createArray();

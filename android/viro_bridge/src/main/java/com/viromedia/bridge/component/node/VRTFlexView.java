@@ -4,8 +4,8 @@
 package com.viromedia.bridge.component.node;
 
 import com.viro.renderer.jni.BaseGeometry;
-import com.viro.renderer.jni.MaterialJni;
-import com.viro.renderer.jni.SurfaceJni;
+import com.viro.renderer.jni.Material;
+import com.viro.renderer.jni.Surface;
 
 import java.util.List;
 
@@ -22,13 +22,13 @@ public class VRTFlexView extends VRTNode {
     private float mHeight = 0;
     private long mBackgroundColor = Color.TRANSPARENT;
 
-    private final MaterialJni mDefaultMaterial;
-    private SurfaceJni mNativeSurface;
-    private MaterialJni mNativeColorMaterial;
+    private final Material mDefaultMaterial;
+    private Surface mNativeSurface;
+    private Material mNativeColorMaterial;
 
     public VRTFlexView(ReactApplicationContext context) {
         super(context);
-        mDefaultMaterial = new MaterialJni();
+        mDefaultMaterial = new Material();
         mDefaultMaterial.setColor(Color.TRANSPARENT, DIFFUSE_COLOR_NAME);
         getNodeJni().setHierarchicalRendering(true);
     }
@@ -51,7 +51,7 @@ public class VRTFlexView extends VRTNode {
      * Materials (ie. in the case a backgroundColor is also provided).
      */
     @Override
-    protected void setMaterials(List<MaterialJni> materials) {
+    protected void setMaterials(List<Material> materials) {
         mMaterials = materials;
         setBackgroundOnSurface();
     }
@@ -126,7 +126,7 @@ public class VRTFlexView extends VRTNode {
             mNativeSurface.destroy();
         }
 
-        mNativeSurface = new SurfaceJni(mWidth, mHeight, 0, 0, 1, 1);
+        mNativeSurface = new Surface(mWidth, mHeight, 0, 0, 1, 1);
         setBackgroundOnSurface();
         setGeometry(mNativeSurface);
     }
@@ -145,7 +145,7 @@ public class VRTFlexView extends VRTNode {
             if (mNativeColorMaterial != null) {
                 mNativeColorMaterial.destroy();
             }
-            mNativeColorMaterial = new MaterialJni();
+            mNativeColorMaterial = new Material();
             mNativeColorMaterial.setColor(mBackgroundColor, DIFFUSE_COLOR_NAME);
             mNativeSurface.setMaterial(mNativeColorMaterial);
         } else if (mMaterials != null && mMaterials.size() > 0) {

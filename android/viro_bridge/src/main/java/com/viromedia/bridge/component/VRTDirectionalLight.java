@@ -5,27 +5,27 @@ package com.viromedia.bridge.component;
 
 import android.content.Context;
 
-import com.viro.renderer.jni.DirectionalLightJni;
-import com.viro.renderer.jni.NodeJni;
+import com.viro.renderer.jni.DirectionalLight;
+import com.viro.renderer.jni.Node;
 
 public class VRTDirectionalLight extends VRTLight {
 
     private float[] mDirection;
 
-    private DirectionalLightJni mNativeLight;
+    private DirectionalLight mNativeLight;
 
     public VRTDirectionalLight(Context context) {
         super(context);
     }
 
     @Override
-    public void addToNode(NodeJni nodeJni) {
+    public void addToNode(Node nodeJni) {
 
         mNativeLight.addToNode(nodeJni);
     }
 
     @Override
-    public void removeFromNode(NodeJni nodeJni) {
+    public void removeFromNode(Node nodeJni) {
 
         mNativeLight.removeFromNode(nodeJni);
     }
@@ -56,7 +56,7 @@ public class VRTDirectionalLight extends VRTLight {
 
         if (mNativeLight == null) {
 
-            mNativeLight = new DirectionalLightJni(mColor, mIntensity, mDirection);
+            mNativeLight = new DirectionalLight(mColor, mIntensity, mDirection);
         } else {
             mNativeLight.setColor(mColor);
             mNativeLight.setIntensity(mIntensity);

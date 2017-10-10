@@ -9,10 +9,10 @@ import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
 import com.viro.renderer.jni.AsyncObjListener;
-import com.viro.renderer.jni.ExecutableAnimationJni;
-import com.viro.renderer.jni.MaterialJni;
-import com.viro.renderer.jni.NodeJni;
-import com.viro.renderer.jni.ObjectJni;
+import com.viro.renderer.jni.ExecutableAnimation;
+import com.viro.renderer.jni.Material;
+import com.viro.renderer.jni.Node;
+import com.viro.renderer.jni.Object3D;
 import com.viromedia.bridge.utility.ViroEvents;
 import com.viromedia.bridge.utility.Helper;
 import com.viromedia.bridge.utility.ViroLog;
@@ -30,7 +30,7 @@ public class VRT3DObject extends VRTControl {
     }
 
     private static class Object3dAnimation extends NodeAnimation {
-        private NodeJni mNode;
+        private Node mNode;
 
         public Object3dAnimation(ReactApplicationContext context, VRT3DObject parent) {
             super(context, parent);
@@ -38,7 +38,7 @@ public class VRT3DObject extends VRTControl {
         }
 
         @Override
-        public ExecutableAnimationJni loadAnimation() {
+        public ExecutableAnimation loadAnimation() {
             Set<String> animationKeys = mNode.getAnimationKeys();
             if (animationKeys.isEmpty()) {
                 return super.loadAnimation();
@@ -46,7 +46,7 @@ public class VRT3DObject extends VRTControl {
 
             if (mAnimationName != null) {
                 if (animationKeys.contains(mAnimationName)) {
-                    return new ExecutableAnimationJni(mNode, mAnimationName);
+                    return new ExecutableAnimation(mNode, mAnimationName);
                 }
                 else {
                     return super.loadAnimation();
@@ -58,7 +58,7 @@ public class VRT3DObject extends VRTControl {
         }
     }
 
-    private ObjectJni mNative3dObject;
+    private Object3D mNative3dObject;
     private Uri mSource;
     private List<String> mResources = null;
     private boolean mObjLoaded = false;
@@ -109,7 +109,7 @@ public class VRT3DObject extends VRTControl {
     }
 
     @Override
-    public void setMaterials(List<MaterialJni> materials) {
+    public void setMaterials(List<Material> materials) {
         if (mObjLoaded) {
             super.setMaterials(materials);
         }
@@ -125,13 +125,13 @@ public class VRT3DObject extends VRTControl {
         super.onPropsSet();
 
         // Cancel previously loaded objects if we attempt to re-load
-        // the source while the previous 3dObjectJni is loading.
+        // the source while the previous 3dObject is loading.
         if (mNative3dObject != null){
             mNative3dObject.destroy();
             mNative3dObject = null;
         }
 
-        NodeJni nodeJni = getNodeJni();
+        Node nodeJni = getNodeJni();
         if (nodeJni != null && !isTornDown()){
             nodeJni.removeAllChildNodes();
         }
@@ -180,9 +180,9 @@ public class VRT3DObject extends VRTControl {
                 }
             }
 
-            mNative3dObject = new ObjectJni(mSource, isVRX, listener, resourceMap);
+            mNative3dObject = new Object3D(mSource, isVRX, listener, resourceMap);
         } else {
-            mNative3dObject = new ObjectJni(mSource, isVRX, listener);
+            mNative3dObject = new Object3D(mSource, isVRX, listener);
         }
         setGeometry(mNative3dObject);
         mSourceChanged = false;

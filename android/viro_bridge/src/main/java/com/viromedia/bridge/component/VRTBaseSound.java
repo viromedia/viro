@@ -9,9 +9,9 @@ import com.facebook.react.bridge.JSApplicationCausedNativeException;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
-import com.viro.renderer.jni.BaseSoundJni;
-import com.viro.renderer.jni.RenderContextJni;
-import com.viro.renderer.jni.SoundDataJni;
+import com.viro.renderer.jni.BaseSound;
+import com.viro.renderer.jni.RenderContext;
+import com.viro.renderer.jni.SoundData;
 import com.viro.renderer.jni.SoundDelegate;
 import com.viromedia.bridge.module.SoundModule;
 import com.viromedia.bridge.utility.Helper;
@@ -24,7 +24,7 @@ public abstract class VRTBaseSound extends VRTComponent implements SoundDelegate
     protected static final String NAME = "name";
     protected static final String URI = "uri";
 
-    protected BaseSoundJni mNativeSound;
+    protected BaseSound mNativeSound;
     protected ReadableMap mSource;
     protected boolean mPaused = false;
     protected float mVolume = 1.0f;
@@ -108,7 +108,7 @@ public abstract class VRTBaseSound extends VRTComponent implements SoundDelegate
     }
 
     @Override
-    public void setRenderContext(RenderContextJni context) {
+    public void setRenderContext(RenderContext context) {
         super.setRenderContext(context);
         resetSound();
     }
@@ -127,7 +127,7 @@ public abstract class VRTBaseSound extends VRTComponent implements SoundDelegate
 
         // figure out what type of audio I have
         if (mSource.hasKey(NAME)) {
-            SoundDataJni data = getSoundDataForName(mSource.getString(NAME));
+            SoundData data = getSoundDataForName(mSource.getString(NAME));
             if (data == null) {
                 throw new JSApplicationCausedNativeException("Unknown Sound source with name: ["
                         + mSource.getString(NAME) + "]");
@@ -145,7 +145,7 @@ public abstract class VRTBaseSound extends VRTComponent implements SoundDelegate
         setNativeProps();
     }
 
-    private SoundDataJni getSoundDataForName(String name) {
+    private SoundData getSoundDataForName(String name) {
         SoundModule soundModule = mReactContext.getNativeModule(SoundModule.class);
         return soundModule.getSoundData(name);
     }
@@ -212,7 +212,7 @@ public abstract class VRTBaseSound extends VRTComponent implements SoundDelegate
      * @param local - whether or not the file is local
      * @return the native sound object
      */
-    protected abstract BaseSoundJni getNativeSound(String path, boolean local);
+    protected abstract BaseSound getNativeSound(String path, boolean local);
 
-    protected abstract BaseSoundJni getNativeSound(SoundDataJni data);
+    protected abstract BaseSound getNativeSound(SoundData data);
 }

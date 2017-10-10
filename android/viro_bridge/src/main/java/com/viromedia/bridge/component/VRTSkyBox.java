@@ -9,9 +9,9 @@ import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.ReadableMapKeySetIterator;
 import com.facebook.react.bridge.ReadableType;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
-import com.viro.renderer.jni.ImageJni;
+import com.viro.renderer.jni.Image;
 import com.viro.renderer.jni.TextureFormat;
-import com.viro.renderer.jni.TextureJni;
+import com.viro.renderer.jni.Texture;
 import com.viromedia.bridge.component.node.VRTScene;
 import com.viromedia.bridge.utility.ImageDownloadListener;
 import com.viromedia.bridge.utility.ImageDownloader;
@@ -28,8 +28,8 @@ public class VRTSkyBox extends VRTComponent {
     private static final String TAG = ViroLog.getTag(VRTSkyBox.class);
     private final ReactApplicationContext mContext;
     private ReadableMap mSourceMap;
-    private Map<String, ImageJni> mImageJniMap = new HashMap<>();
-    private TextureJni mLatestTexture;
+    private Map<String, Image> mImageMap = new HashMap<>();
+    private Texture mLatestTexture;
     private ImageDownloader mImageDownloader;
     private long mColor;
     private TextureFormat mFormat = TextureFormat.RGBA8;
@@ -101,12 +101,12 @@ public class VRTSkyBox extends VRTComponent {
             listener.invalidate();
         }
 
-        if (!mImageJniMap.isEmpty() && mSourceMap != null) {
+        if (!mImageMap.isEmpty() && mSourceMap != null) {
             ReadableMapKeySetIterator iterator = mSourceMap.keySetIterator();
             while (iterator.hasNextKey()) {
                 String key = iterator.nextKey();
-                mImageJniMap.get(key).destroy();
-                mImageJniMap.remove(key);
+                mImageMap.get(key).destroy();
+                mImageMap.remove(key);
             }
         }
 
@@ -146,9 +146,9 @@ public class VRTSkyBox extends VRTComponent {
         if (mLatestTexture != null) {
             mLatestTexture.destroy();
         }
-        mLatestTexture = new TextureJni(mImageJniMap.get("px"), mImageJniMap.get("nx"),
-                mImageJniMap.get("py"), mImageJniMap.get("ny"),
-                mImageJniMap.get("pz"), mImageJniMap.get("nz"), mFormat);
+        mLatestTexture = new Texture(mImageMap.get("px"), mImageMap.get("nx"),
+                mImageMap.get("py"), mImageMap.get("ny"),
+                mImageMap.get("pz"), mImageMap.get("nz"), mFormat);
 
         if (mScene != null && mUseTextureForSkybox) {
             mScene.setBackgroundCubeImageTexture(mLatestTexture);
@@ -186,13 +186,13 @@ public class VRTSkyBox extends VRTComponent {
                 return;
             }
 
-            ImageJni cubeFaceImage = mImageJniMap.get(mCubeFaceName);
+            Image cubeFaceImage = mImageMap.get(mCubeFaceName);
             if (cubeFaceImage != null) {
                 cubeFaceImage.destroy();
             }
 
-            cubeFaceImage = new ImageJni(result, mFormat);
-            mImageJniMap.put(mCubeFaceName, cubeFaceImage);
+            cubeFaceImage = new Image(result, mFormat);
+            mImageMap.put(mCubeFaceName, cubeFaceImage);
             mLatch.countDown();
 
             if (mLatch.getCount() == 0) {

@@ -12,7 +12,7 @@ import com.viromedia.bridge.component.node.VRTNode;
 
 /**
  * Control is inherited by all Viro UI controls that
- * contains a native Node {@link com.viro.renderer.jni.NodeJni}.
+ * contains a native Node {@link com.viro.renderer.jni.Node}.
  */
 public class VRTControl extends VRTNode {
 

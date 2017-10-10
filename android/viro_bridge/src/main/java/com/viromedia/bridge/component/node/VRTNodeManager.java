@@ -16,7 +16,7 @@ import com.facebook.react.common.MapBuilder;
 import com.facebook.react.uimanager.annotations.ReactProp;
 import com.facebook.react.uimanager.annotations.ReactPropGroup;
 import com.facebook.yoga.YogaConstants;
-import com.viro.renderer.jni.MaterialJni;
+import com.viro.renderer.jni.Material;
 import com.viromedia.bridge.component.VRTViroViewGroupManager;
 import com.viromedia.bridge.module.MaterialManager;
 import com.viromedia.bridge.utility.Helper;
@@ -127,10 +127,10 @@ public abstract class VRTNodeManager<T extends VRTNode> extends VRTViroViewGroup
         // get material manager
         MaterialManager materialManager = getContext().getNativeModule(MaterialManager.class);
 
-        ArrayList<MaterialJni> nativeMaterials = new ArrayList<>();
+        ArrayList<Material> nativeMaterials = new ArrayList<>();
         if (materials != null) {
             for (int i = 0; i < materials.size(); i++) {
-                MaterialJni nativeMaterial = materialManager.getMaterial(materials.getString(i));
+                Material nativeMaterial = materialManager.getMaterial(materials.getString(i));
                 if (nativeMaterial == null) {
                     throw new IllegalArgumentException("Material [" + materials.getString(i) + "] not found. Did you create it?");
                 }

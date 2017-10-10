@@ -9,13 +9,13 @@ import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.ReadableMapKeySetIterator;
-import com.viro.renderer.jni.SoundDataJni;
+import com.viro.renderer.jni.SoundData;
 
 import java.util.HashMap;
 
 public class SoundModule extends ReactContextBaseJavaModule {
 
-    private final HashMap<String, SoundDataJni> mSoundDataMap = new HashMap<>();
+    private final HashMap<String, SoundData> mSoundDataMap = new HashMap<>();
 
     public SoundModule(ReactApplicationContext context) {
         super(context);
@@ -27,7 +27,7 @@ public class SoundModule extends ReactContextBaseJavaModule {
     }
 
     /**
-     * This function takes a map of keys to sounds and creates SoundDataJni objects
+     * This function takes a map of keys to sounds and creates SoundData objects
      * to prefetch the data before storing them in a local map. We currently only
      * support external urls (web-based).
      *
@@ -38,7 +38,7 @@ public class SoundModule extends ReactContextBaseJavaModule {
         ReadableMapKeySetIterator iter = soundMap.keySetIterator();
         while(iter.hasNextKey()) {
             String key = iter.nextKey();
-            SoundDataJni nativeSoundData = new SoundDataJni(soundMap.getString(key), false);
+            SoundData nativeSoundData = new SoundData(soundMap.getString(key), false);
             mSoundDataMap.put(key, nativeSoundData);
         }
     }
@@ -47,7 +47,7 @@ public class SoundModule extends ReactContextBaseJavaModule {
     public void unloadSounds(ReadableArray soundArray) {
         for (int i = 0; i < soundArray.size(); i++) {
             String keyToRemove = soundArray.getString(i);
-            SoundDataJni dataToRemove = mSoundDataMap.get(keyToRemove);
+            SoundData dataToRemove = mSoundDataMap.get(keyToRemove);
             if (dataToRemove != null) {
                 dataToRemove.destroy();
                 mSoundDataMap.remove(keyToRemove);
@@ -55,7 +55,7 @@ public class SoundModule extends ReactContextBaseJavaModule {
         }
     }
 
-    public SoundDataJni getSoundData(String name) {
+    public SoundData getSoundData(String name) {
         return mSoundDataMap.get(name);
     }
 }

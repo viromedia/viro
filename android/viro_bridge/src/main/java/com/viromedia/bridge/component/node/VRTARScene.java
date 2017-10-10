@@ -7,12 +7,12 @@ import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
-import com.viro.renderer.jni.ARPlaneJni;
-import com.viro.renderer.jni.ARSceneControllerJni;
-import com.viro.renderer.jni.SceneControllerJni;
+import com.viro.renderer.jni.ARPlane;
+import com.viro.renderer.jni.ARSceneController;
+import com.viro.renderer.jni.SceneController;
 import com.viromedia.bridge.utility.ViroEvents;
 
-public class VRTARScene extends VRTScene implements ARSceneControllerJni.ARSceneDelegate {
+public class VRTARScene extends VRTScene implements ARSceneController.ARSceneDelegate {
 
     private static final String AMBIENT_LIGHT_INFO_KEY = "ambientLightInfo";
     private static final String INTENSITY_KEY = "intensity";
@@ -23,22 +23,22 @@ public class VRTARScene extends VRTScene implements ARSceneControllerJni.ARScene
     }
 
     @Override
-    protected SceneControllerJni createSceneControllerJni() {
-        ARSceneControllerJni sceneControllerJni = new ARSceneControllerJni();
+    protected SceneController createSceneControllerJni() {
+        ARSceneController sceneControllerJni = new ARSceneController();
         sceneControllerJni.registerARDelegate(this);
         return sceneControllerJni;
     }
 
-    public void addARPlane(ARPlaneJni planeJni) {
-        ((ARSceneControllerJni) mNativeSceneController).addARPlane(planeJni);
+    public void addARPlane(ARPlane planeJni) {
+        ((ARSceneController) mNativeSceneController).addARPlane(planeJni);
     }
 
-    public void updateARPlane(ARPlaneJni planeJni) {
-        ((ARSceneControllerJni) mNativeSceneController).updateARPlane(planeJni);
+    public void updateARPlane(ARPlane planeJni) {
+        ((ARSceneController) mNativeSceneController).updateARPlane(planeJni);
     }
 
-    public void removeARPlane(ARPlaneJni planeJni) {
-        ((ARSceneControllerJni) mNativeSceneController).removeARPlane(planeJni);
+    public void removeARPlane(ARPlane planeJni) {
+        ((ARSceneController) mNativeSceneController).removeARPlane(planeJni);
     }
 
     // -- ARSceneDelegate Implementation --

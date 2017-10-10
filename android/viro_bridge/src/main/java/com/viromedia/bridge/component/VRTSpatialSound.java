@@ -4,24 +4,24 @@
 package com.viromedia.bridge.component;
 
 import com.facebook.react.bridge.ReactApplicationContext;
-import com.viro.renderer.jni.BaseSoundJni;
-import com.viro.renderer.jni.NodeJni;
-import com.viro.renderer.jni.SoundDataJni;
-import com.viro.renderer.jni.SpatialSoundJni;
+import com.viro.renderer.jni.BaseSound;
+import com.viro.renderer.jni.Node;
+import com.viro.renderer.jni.SoundData;
+import com.viro.renderer.jni.SpatialSound;
 
 public class VRTSpatialSound extends VRTBaseSound {
 
     private static String DEFAULT_ROLLOFF_MODEL = "None";
     private static float[] DEFAULT_POSITION = {0f,0f,0f};
 
-    private final NodeJni mParentNode;
+    private final Node mParentNode;
 
     protected float[] mPosition = DEFAULT_POSITION;
     protected String mRolloffModel = DEFAULT_ROLLOFF_MODEL;
     protected float mMinDistance = 0f;
     protected float mMaxDistance = 10f;
 
-    public VRTSpatialSound(ReactApplicationContext reactContext, NodeJni parentNode) {
+    public VRTSpatialSound(ReactApplicationContext reactContext, Node parentNode) {
         super(reactContext);
         mParentNode = parentNode;
     }
@@ -60,17 +60,17 @@ public class VRTSpatialSound extends VRTBaseSound {
         boolean shouldSetNode = mShouldResetSound;
         super.resetSound();
         if (mNativeSound != null && shouldSetNode) {
-            ((SpatialSoundJni) mNativeSound).attachToNode(mParentNode);
+            ((SpatialSound) mNativeSound).attachToNode(mParentNode);
         }
     }
 
     @Override
-    protected BaseSoundJni getNativeSound(String path, boolean local) {
-        return new SpatialSoundJni(path, mRenderContext, this, local);
+    protected BaseSound getNativeSound(String path, boolean local) {
+        return new SpatialSound(path, mRenderContext, this, local);
     }
 
     @Override
-    protected BaseSoundJni getNativeSound(SoundDataJni data) {
-        return new SpatialSoundJni(data, mRenderContext, this);
+    protected BaseSound getNativeSound(SoundData data) {
+        return new SpatialSound(data, mRenderContext, this);
     }
 }

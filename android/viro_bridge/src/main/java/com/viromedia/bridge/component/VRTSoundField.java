@@ -5,9 +5,9 @@ package com.viromedia.bridge.component;
 
 
 import com.facebook.react.bridge.ReactApplicationContext;
-import com.viro.renderer.jni.BaseSoundJni;
-import com.viro.renderer.jni.SoundDataJni;
-import com.viro.renderer.jni.SoundFieldJni;
+import com.viro.renderer.jni.BaseSound;
+import com.viro.renderer.jni.SoundData;
+import com.viro.renderer.jni.SoundField;
 
 public class VRTSoundField extends VRTBaseSound {
 
@@ -35,12 +35,12 @@ public class VRTSoundField extends VRTBaseSound {
     }
 
     @Override
-    protected BaseSoundJni getNativeSound(String path, boolean local) {
-        return new SoundFieldJni(path, mRenderContext, this, local);
+    protected BaseSound getNativeSound(String path, boolean local) {
+        return new SoundField(path, mRenderContext, this, local);
     }
 
     @Override
-    protected BaseSoundJni getNativeSound(SoundDataJni data) {
-        return new SoundFieldJni(data, mRenderContext, this);
+    protected BaseSound getNativeSound(SoundData data) {
+        return new SoundField(data, mRenderContext, this);
     }
 }

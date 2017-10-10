@@ -4,7 +4,7 @@
 package com.viromedia.bridge.component.node.control;
 
 import com.facebook.react.bridge.ReactApplicationContext;
-import com.viro.renderer.jni.SphereJni;
+import com.viro.renderer.jni.Sphere;
 
 public class VRTSphere extends VRTControl {
     protected static final int DEFAULT_WIDTH_SEGMENT = 20;
@@ -12,7 +12,7 @@ public class VRTSphere extends VRTControl {
     protected static final float DEFAULT_RADIUS = 1.0f;
     protected static final boolean DEFAULT_FACES_OUTWARD = true;
 
-    private SphereJni mNativeSphere;
+    private Sphere mNativeSphere;
     private boolean mFacesOutward = DEFAULT_FACES_OUTWARD;
     private int mWidthSegmentCount = DEFAULT_WIDTH_SEGMENT;
     private int mHeightSegmentCount = DEFAULT_HEIGHT_SEGMENT;
@@ -53,7 +53,7 @@ public class VRTSphere extends VRTControl {
             mNativeSphere.delete();
         }
 
-        mNativeSphere = new SphereJni(mRadius, mWidthSegmentCount, mHeightSegmentCount, mFacesOutward);
+        mNativeSphere = new Sphere(mRadius, mWidthSegmentCount, mHeightSegmentCount, mFacesOutward);
         setGeometry(mNativeSphere);
     }
 

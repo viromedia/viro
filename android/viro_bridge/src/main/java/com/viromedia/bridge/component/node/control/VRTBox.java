@@ -5,14 +5,14 @@ package com.viromedia.bridge.component.node.control;
 
 
 import com.facebook.react.bridge.ReactApplicationContext;
-import com.viro.renderer.jni.BoxJni;
+import com.viro.renderer.jni.Box;
 
 public class VRTBox extends VRTControl {
-    private BoxJni mNativeBox;
+    private Box mNativeBox;
 
     public VRTBox(ReactApplicationContext reactContext) {
         super(reactContext);
-        mNativeBox = new BoxJni(1, 1, 1);
+        mNativeBox = new Box(1, 1, 1);
         setGeometry(mNativeBox);
     }
 

@@ -11,11 +11,11 @@ import android.os.Looper;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
-import com.viro.renderer.jni.ImageJni;
-import com.viro.renderer.jni.MaterialJni;
-import com.viro.renderer.jni.SurfaceJni;
+import com.viro.renderer.jni.Image;
+import com.viro.renderer.jni.Material;
+import com.viro.renderer.jni.Surface;
 import com.viro.renderer.jni.TextureFormat;
-import com.viro.renderer.jni.TextureJni;
+import com.viro.renderer.jni.Texture;
 import com.viromedia.bridge.utility.ImageDownloadListener;
 import com.viromedia.bridge.utility.ImageDownloader;
 import com.viromedia.bridge.utility.ViroEvents;
@@ -29,10 +29,10 @@ public class VRTImage extends VRTControl {
     static final String DEFAULT_CLIP_MODE = "clipToBounds";
     static final float DEFAULT_WIDTH = 1;
     static final float DEFAULT_HEIGHT = 1;
-    private MaterialJni mDefaultMaterial;
-    private SurfaceJni mNativeSurface;
-    private ImageJni mLatestImage;
-    private TextureJni mLatestImageTexture;
+    private Material mDefaultMaterial;
+    private Surface mNativeSurface;
+    private Image mLatestImage;
+    private Texture mLatestImageTexture;
     private String mStereoMode;
     private ReadableMap mSourceMap;
     private ReadableMap mPlaceholderSourceMap;
@@ -64,7 +64,7 @@ public class VRTImage extends VRTControl {
 
     public VRTImage(ReactApplicationContext context) {
         super(context);
-        mDefaultMaterial = new MaterialJni();
+        mDefaultMaterial = new Material();
         mMainHandler = new Handler(Looper.getMainLooper());
         mImageNeedsDownload = false;
     }
@@ -120,7 +120,7 @@ public class VRTImage extends VRTControl {
     }
 
     @Override
-    public void setMaterials(List<MaterialJni> materials) {
+    public void setMaterials(List<Material> materials) {
         // Override materials setting because we want to control which materials are set.
         mMaterials = materials;
         setMaterialOnSurface();
@@ -156,11 +156,11 @@ public class VRTImage extends VRTControl {
             imageSurfaceHeight = mScaledHeight;
         }
         if (mNativeSurface == null) {
-            mNativeSurface = new SurfaceJni(imageSurfaceWidth, imageSurfaceHeight, mU0, mV0, mU1, mV1);
+            mNativeSurface = new Surface(imageSurfaceWidth, imageSurfaceHeight, mU0, mV0, mU1, mV1);
             createdNewSurface = true;
         }
         else if (mGeometryNeedsUpdate) {
-            SurfaceJni newSurface = new SurfaceJni(imageSurfaceWidth, imageSurfaceHeight, mU0, mV0, mU1, mV1, mNativeSurface);
+            Surface newSurface = new Surface(imageSurfaceWidth, imageSurfaceHeight, mU0, mV0, mU1, mV1, mNativeSurface);
             mNativeSurface.destroy();
             mNativeSurface = newSurface;
             createdNewSurface = true;
@@ -247,7 +247,7 @@ public class VRTImage extends VRTControl {
             // set default (empty) material
             mNativeSurface.setMaterial(mDefaultMaterial);
         } else {
-            MaterialJni nativeMaterial = mMaterials.get(0);
+            Material nativeMaterial = mMaterials.get(0);
             mNativeSurface.setMaterial(nativeMaterial);
         }
     }
@@ -264,8 +264,8 @@ public class VRTImage extends VRTControl {
             mLatestImageTexture.destroy();
         }
 
-        mLatestImage = new ImageJni(image, mFormat);
-        mLatestImageTexture = new TextureJni(mLatestImage, mFormat, true, mMipmap, mStereoMode);
+        mLatestImage = new Image(image, mFormat);
+        mLatestImageTexture = new Texture(mLatestImage, mFormat, true, mMipmap, mStereoMode);
         mNativeSurface.setImageTexture(mLatestImageTexture);
     }
 

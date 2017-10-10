@@ -8,8 +8,8 @@ import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
-import com.viro.renderer.jni.RenderContextJni;
-import com.viro.renderer.jni.VideoTextureJni;
+import com.viro.renderer.jni.RenderContext;
+import com.viro.renderer.jni.VideoTexture;
 import com.viromedia.bridge.component.node.VRTScene;
 import com.viromedia.bridge.utility.Helper;
 import com.viromedia.bridge.utility.ViroEvents;
@@ -22,7 +22,7 @@ import java.lang.ref.WeakReference;
 public class VRT360Video extends VRTComponent {
     private static final float[] sDefaultRotation = {0, 0, 0};
 
-    private static class Video360Delegate implements VideoTextureJni.VideoDelegate {
+    private static class Video360Delegate implements VideoTexture.VideoDelegate {
 
         private WeakReference<VRT360Video> mVideo;
 
@@ -100,8 +100,8 @@ public class VRT360Video extends VRTComponent {
     private float mVolume = 1;
     private float[] mRotation = sDefaultRotation;
 
-    private VideoTextureJni mVideoTextureJni = null;
-    private VideoTextureJni.VideoDelegate mDelegate = null;
+    private VideoTexture mVideoTextureJni = null;
+    private VideoTexture.VideoDelegate mDelegate = null;
     private String mStereoMode;
 
     public VRT360Video(ReactApplicationContext reactContext) {
@@ -128,7 +128,7 @@ public class VRT360Video extends VRTComponent {
         }
 
         // Create Texture
-        mVideoTextureJni = new VideoTextureJni(mRenderContext, mStereoMode);
+        mVideoTextureJni = new VideoTexture(mRenderContext, mStereoMode);
 
         mDelegate = new Video360Delegate(this);
         mVideoTextureJni.setVideoDelegate(mDelegate);
@@ -140,7 +140,7 @@ public class VRT360Video extends VRTComponent {
     }
 
     @Override
-    public void setRenderContext(RenderContextJni context) {
+    public void setRenderContext(RenderContext context) {
         super.setRenderContext(context);
         resetVideo();
     }

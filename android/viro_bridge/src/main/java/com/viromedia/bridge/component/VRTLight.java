@@ -6,7 +6,7 @@ package com.viromedia.bridge.component;
 
 import android.content.Context;
 
-import com.viro.renderer.jni.NodeJni;
+import com.viro.renderer.jni.Node;
 
 public abstract class VRTLight extends VRTComponent {
 
@@ -75,7 +75,7 @@ public abstract class VRTLight extends VRTComponent {
         this.mInfluenceBitMask = influenceBitMask;
     }
 
-    public abstract void addToNode(NodeJni nodeJni);
+    public abstract void addToNode(Node nodeJni);
 
-    public abstract void removeFromNode(NodeJni nodeJni);
+    public abstract void removeFromNode(Node nodeJni);
 }

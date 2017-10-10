@@ -12,13 +12,13 @@ import com.viromedia.bridge.component.node.VRTNode;
 import com.viromedia.bridge.utility.ViroEvents;
 import com.viromedia.bridge.utility.ViroLog;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
-import com.viro.renderer.jni.ExecutableAnimationJni;
+import com.viro.renderer.jni.ExecutableAnimation;
 
 import java.lang.ref.WeakReference;
 
 /**
  * Manages the state (play, pause, loop, etc.) of an animation. Abstracts
- * away the loading of the ExecutableAnimationJni to subclasses.
+ * away the loading of the ExecutableAnimation to subclasses.
  */
 public abstract class VRTManagedAnimation {
     private static final String TAG = ViroLog.getTag(VRTManagedAnimation.class);
@@ -28,7 +28,7 @@ public abstract class VRTManagedAnimation {
     }
 
     private ReactApplicationContext mReactContext;
-    private ExecutableAnimationJni mExecutableAnimation = null;
+    private ExecutableAnimation mExecutableAnimation = null;
     private float mDelayInMilliseconds = 0; // milliseconds
     private boolean mLoop = false;
     private boolean mRun = false;
@@ -79,7 +79,7 @@ public abstract class VRTManagedAnimation {
      *
      * Return null to not run an animation.
      */
-    public abstract ExecutableAnimationJni loadAnimation();
+    public abstract ExecutableAnimation loadAnimation();
 
     /**
      * Load the animation fresh from its sources. This is only invoked
@@ -87,7 +87,7 @@ public abstract class VRTManagedAnimation {
      * returned by loadAnimation, then we keep the existing animation.
      */
     private void handleLoadAnimation() {
-        ExecutableAnimationJni animation = loadAnimation();
+        ExecutableAnimation animation = loadAnimation();
         if (mExecutableAnimation != null) {
             mExecutableAnimation.destroy();
         }
@@ -231,9 +231,9 @@ public abstract class VRTManagedAnimation {
         onStartAnimation();
 
         final WeakReference<VRTManagedAnimation> weakSelf = new WeakReference<>(this);
-        mExecutableAnimation.execute(mNode.getNodeJni(), new ExecutableAnimationJni.AnimationDelegate() {
+        mExecutableAnimation.execute(mNode.getNodeJni(), new ExecutableAnimation.AnimationDelegate() {
             @Override
-            public void onFinish(ExecutableAnimationJni animation) {
+            public void onFinish(ExecutableAnimation animation) {
                 VRTManagedAnimation self = weakSelf.get();
                 if (self != null) {
                     self.onFinishAnimation(animation);
@@ -257,7 +257,7 @@ public abstract class VRTManagedAnimation {
      * This method should be called by the JNI layer when the animation ends and notifies the JS
      * bridge. It also handles looping logic.
      */
-    private void onFinishAnimation(ExecutableAnimationJni animation) {
+    private void onFinishAnimation(ExecutableAnimation animation) {
         mReactContext.getJSModule(RCTEventEmitter.class).receiveEvent(
                 mParentComponent.getId(),
                 ViroEvents.ON_ANIMATION_FINISH,

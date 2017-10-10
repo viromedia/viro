@@ -5,8 +5,8 @@ package com.viromedia.bridge.component;
 
 import android.content.Context;
 
-import com.viro.renderer.jni.NodeJni;
-import com.viro.renderer.jni.SpotLightJni;
+import com.viro.renderer.jni.Node;
+import com.viro.renderer.jni.Spotlight;
 
 public class VRTSpotLight extends VRTLight {
     private static final float[] DEFAULT_POSITION = {0, 0, 0};
@@ -18,22 +18,22 @@ public class VRTSpotLight extends VRTLight {
     private float mInnerAngle;
     private float mOuterAngle;
 
-    private SpotLightJni mNativeLight;
+    private Spotlight mNativeLight;
 
     public VRTSpotLight(Context context) {
         super(context);
     }
 
     @Override
-    public void addToNode(NodeJni nodeJni) {
+    public void addToNode(Node node) {
 
-        mNativeLight.addToNode(nodeJni);
+        mNativeLight.addToNode(node);
     }
 
     @Override
-    public void removeFromNode(NodeJni nodeJni) {
+    public void removeFromNode(Node node) {
 
-        mNativeLight.removeFromNode(nodeJni);
+        mNativeLight.removeFromNode(node);
     }
 
     @Override
@@ -101,7 +101,7 @@ public class VRTSpotLight extends VRTLight {
         super.onPropsSet();
 
         if (mNativeLight == null) {
-            mNativeLight = new SpotLightJni(mColor, mIntensity, mAttenuationStartDistance, mAttenuationEndDistance,
+            mNativeLight = new Spotlight(mColor, mIntensity, mAttenuationStartDistance, mAttenuationEndDistance,
                     mPosition, mDirection, mInnerAngle, mOuterAngle);
         } else {
             mNativeLight.setColor(mColor);
