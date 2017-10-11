@@ -44,10 +44,8 @@ var testARScene = React.createClass({
     }
   },
   render: function() {
-    console.log("kirby onPinchRotateTest! - render");
-
     return (
-        <ViroARScene ref="arscene">
+        <ViroARScene ref="arscene" >
           <ViroARPlane onAnchorUpdated={this._onPlaneUpdate}>
             <ViroSurface materials={"transparent"} scale={this.state.surfaceSize}
              rotation={[-90, 0, 0]} onClick={this._onSurfaceClickUsingPosition}/>
