@@ -112,9 +112,24 @@ public abstract class VRTNodeManager<T extends VRTNode> extends VRTViroViewGroup
         view.setCanFuse(canFuse);
     }
 
+    @ReactProp(name = "canPinch", defaultBoolean = VRTNode.DEFAULT_CAN_PINCH)
+    public void setCanPinch(VRTNode view, boolean canPinch) {
+        view.setCanPinch(canPinch);
+    }
+
+    @ReactProp(name = "canRotate", defaultBoolean = VRTNode.DEFAULT_CAN_ROTATE)
+    public void setCanRotate(VRTNode view, boolean canRotate) {
+        view.setCanRotate(canRotate);
+    }
+
     @ReactProp(name = "timeToFuse", defaultFloat = VRTNode.DEFAULT_TIME_TO_FUSE_MILLIS)
     public void setTimeToFuse(VRTNode view, float durationMillis) {
         view.setTimeToFuse(durationMillis);
+    }
+
+    @ReactProp(name = "dragType")
+    public void setDragType(VRTNode view, String dragType) {
+        view.setDragType(dragType);
     }
 
     @ReactProp(name = "animation")
@@ -238,6 +253,8 @@ public abstract class VRTNodeManager<T extends VRTNode> extends VRTViroViewGroup
         map.put(ViroEvents.ON_SWIPE, MapBuilder.of("registrationName", ViroEvents.ON_SWIPE));
         map.put(ViroEvents.ON_SCROLL, MapBuilder.of("registrationName", ViroEvents.ON_SCROLL));
         map.put(ViroEvents.ON_FUSE, MapBuilder.of("registrationName", ViroEvents.ON_FUSE));
+        map.put(ViroEvents.ON_PINCH, MapBuilder.of("registrationName", ViroEvents.ON_PINCH));
+        map.put(ViroEvents.ON_ROTATE, MapBuilder.of("registrationName", ViroEvents.ON_ROTATE));
         map.put(ViroEvents.ON_DRAG, MapBuilder.of("registrationName", ViroEvents.ON_DRAG));
         map.put(ViroEvents.ON_COLLIDED, MapBuilder.of("registrationName", ViroEvents.ON_COLLIDED));
         map.put(ViroEvents.ON_TRANSFORM_DELEGATE, MapBuilder.of("registrationName", ViroEvents.ON_TRANSFORM_DELEGATE));

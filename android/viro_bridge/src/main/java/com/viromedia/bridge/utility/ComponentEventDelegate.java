@@ -166,6 +166,42 @@ public class ComponentEventDelegate implements EventDelegate.EventDelegateCallba
     }
 
     @Override
+    public void onPinch(int source, float scaleFactor, EventDelegate.PinchState pinchState) {
+        VRTComponent node = weakComponent.get();
+        if (node == null){
+            return;
+        }
+
+        WritableMap event = Arguments.createMap();
+        event.putInt("source", source);
+        event.putDouble("scaleFactor", scaleFactor);
+        event.putInt("pinchState", pinchState.mTypeId);
+
+        node.getReactContext().getJSModule(RCTEventEmitter.class).receiveEvent(
+                node.getId(),
+                ViroEvents.ON_PINCH,
+                event);
+    }
+
+    @Override
+    public void onRotate(int source, float rotationFactor, EventDelegate.RotateState rotateState) {
+        VRTComponent node = weakComponent.get();
+        if (node == null){
+            return;
+        }
+
+        WritableMap event = Arguments.createMap();
+        event.putInt("source", source);
+        event.putDouble("rotationFactor", rotationFactor);
+        event.putInt("rotateState", rotateState.mTypeId);
+
+        node.getReactContext().getJSModule(RCTEventEmitter.class).receiveEvent(
+                node.getId(),
+                ViroEvents.ON_ROTATE,
+                event);
+    }
+
+    @Override
     public void onControllerStatus(int source, EventDelegate.ControllerStatus controllerStatus) {
         VRTComponent node = weakComponent.get();
         if (node == null){

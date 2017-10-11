@@ -94,6 +94,8 @@ public class VRTNode extends VRTComponent {
     public final static boolean DEFAULT_HIGH_ACCURACY_GAZE = false;
     protected final static boolean DEFAULT_CAN_DRAG = false;
     protected final static boolean DEFAULT_CAN_FUSE = false;
+    protected final static boolean DEFAULT_CAN_PINCH = false;
+    protected final static boolean DEFAULT_CAN_ROTATE = false;
     protected final static float DEFAULT_TIME_TO_FUSE_MILLIS = 1000f;
     protected final static double TRANSFORM_DELEGATE_DISTANCE_FILTER = 0.01;
 
@@ -597,8 +599,23 @@ public class VRTNode extends VRTComponent {
         mEventDelegateJni.setEventEnabled(EventDelegate.EventAction.ON_FUSE, canFuse);
     }
 
+    protected void setCanPinch(boolean canPinch){
+        mEventDelegateJni.setEventEnabled(EventDelegate.EventAction.ON_PINCH, canPinch);
+    }
+
+    protected void setCanRotate(boolean canRotate){
+        mEventDelegateJni.setEventEnabled(EventDelegate.EventAction.ON_ROTATE, canRotate);
+    }
+
     protected void setTimeToFuse(float durationInMillis){
         mEventDelegateJni.setTimeToFuse(durationInMillis);
+    }
+
+    public void setDragType(String dragType) {
+        if (isTornDown()) {
+            return;
+        }
+        mNodeJni.setDragType(dragType);
     }
 
     public void setPhysicsBody(ReadableMap map){
