@@ -100,9 +100,11 @@ public class VRTText extends VRTControl {
         }
 
         // Create text
-        mNativeText = new Text(mViroContext, mText, mFontFamilyName, mSize, mColor, mWidth,
-                mHeight, mHorizontalAlignment, mVerticalAlignment, mTextLineBreakMode,
-                mTextClipMode, mMaxLines);
+        mNativeText = new Text(mViroContext, mText, mFontFamilyName, mSize, mColor, mWidth, mHeight,
+                getHorizontalAlignmentEnum(mHorizontalAlignment),
+                getVerticalAlignmentEnum(mVerticalAlignment),
+                getLineBreakModeEnum(mTextLineBreakMode),
+                getTextClipModeEnum(mTextClipMode), mMaxLines);
 
         // Add geometry
         getNodeJni().setGeometry(mNativeText);
@@ -119,4 +121,54 @@ public class VRTText extends VRTControl {
         super.onPropsSet();
         updateLabel();
     }
+
+    private Text.HorizontalAlignment getHorizontalAlignmentEnum(String strName) {
+        // Depending on string, return the right enum
+        if (strName.equalsIgnoreCase("Right")) {
+            return Text.HorizontalAlignment.RIGHT;
+        }
+        else if (strName.equalsIgnoreCase("Center")) {
+            return Text.HorizontalAlignment.CENTER;
+        }
+        else {
+            // Default to left alignment
+            return Text.HorizontalAlignment.LEFT;
+        }
+    }
+
+    private Text.VerticalAlignment getVerticalAlignmentEnum(String strName) {
+        // Depending on string, return the right enum
+        if (strName.equalsIgnoreCase("Bottom")) {
+            return Text.VerticalAlignment.BOTTOM;
+        } else if (strName.equalsIgnoreCase("Center")) {
+            return Text.VerticalAlignment.CENTER;
+        } else {
+            // Default to Top alignment
+            return Text.VerticalAlignment.TOP;
+        }
+    }
+
+    private Text.LineBreakMode getLineBreakModeEnum(String strName) {
+        // Depending on string, return the right enum
+        if (strName.equalsIgnoreCase("WordWrap")) {
+            return Text.LineBreakMode.WORD_WRAP;
+        } else if (strName.equalsIgnoreCase("CharWrap")) {
+            return Text.LineBreakMode.CHAR_WRAP;
+        } else if (strName.equalsIgnoreCase("Justify")) {
+            return Text.LineBreakMode.JUSTIFY;
+        } else {
+            // Default to none
+            return Text.LineBreakMode.NONE;
+        }
+    }
+
+    private Text.ClipMode getTextClipModeEnum(String strName) {
+        // Depending on string, return the right enum
+        if (strName.equalsIgnoreCase("ClipToBounds")) {
+            return Text.ClipMode.CLIP_TO_BOUNDS;
+        } else {
+            return Text.ClipMode.NONE;
+        }
+    }
+
 }
