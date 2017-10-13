@@ -19,7 +19,7 @@ import com.facebook.react.uimanager.IllegalViewOperationException;
 import com.facebook.react.uimanager.PixelUtil;
 
 import com.facebook.react.uimanager.events.RCTEventEmitter;
-import com.viro.renderer.jni.BaseGeometry;
+import com.viro.renderer.jni.Geometry;
 import com.viro.renderer.jni.EventDelegate;
 import com.viro.renderer.jni.Material;
 import com.viro.renderer.jni.Node;
@@ -174,7 +174,7 @@ public class VRTNode extends VRTComponent {
             clearPhysicsBody();
             mEventDelegateJni.setEventDelegateCallback(null);
             mEventDelegateJni.destroy();
-            mNodeJni.destroy();
+            mNodeJni.dispose();
             mNodeJni = null;
         }
     }
@@ -511,13 +511,13 @@ public class VRTNode extends VRTComponent {
         mNodeJni.setHighAccuracyGaze(highAccuracyGazeEnabled);
     }
 
-    protected void setGeometry(BaseGeometry geometry) {
+    protected void setGeometry(Geometry geometry) {
         if (isTornDown()) {
             return;
         }
         mNodeJni.setGeometry(geometry);
         if (mMaterials != null) {
-            mNodeJni.setMaterials(mMaterials);
+            geometry.setMaterials(mMaterials);
         }
     }
 
@@ -537,7 +537,9 @@ public class VRTNode extends VRTComponent {
             return;
         }
         mMaterials = materials;
-        mNodeJni.setMaterials(materials);
+        if (mNodeJni.getGeometry() != null) {
+            mNodeJni.getGeometry().setMaterials(materials);
+        }
     }
 
     protected void setTransformBehaviors(String[] transformBehaviors) {

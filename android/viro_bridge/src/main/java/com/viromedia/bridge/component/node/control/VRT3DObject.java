@@ -8,7 +8,7 @@ import android.net.Uri;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
-import com.viro.renderer.jni.AsyncObjListener;
+import com.viro.renderer.jni.AsyncObject3DListener;
 import com.viro.renderer.jni.ExecutableAnimation;
 import com.viro.renderer.jni.Material;
 import com.viro.renderer.jni.Node;
@@ -58,7 +58,6 @@ public class VRT3DObject extends VRTControl {
         }
     }
 
-    private Object3D mNative3dObject;
     private Uri mSource;
     private List<String> mResources = null;
     private boolean mObjLoaded = false;
@@ -72,15 +71,20 @@ public class VRT3DObject extends VRTControl {
     }
 
     @Override
+    protected Node createNodeJni() {
+        return new Object3D();
+    }
+
+    @Override
     public void onTearDown() {
         if (isTornDown()) {
             return;
         }
-        if (mNative3dObject != null){
-            mNative3dObject.destroy();
-            mNative3dObject = null;
-        }
         super.onTearDown();
+    }
+
+    private Object3D getObject3D() {
+        return (Object3D) getNodeJni();
     }
 
     public void setType(String type) {
@@ -124,13 +128,6 @@ public class VRT3DObject extends VRTControl {
 
         super.onPropsSet();
 
-        // Cancel previously loaded objects if we attempt to re-load
-        // the source while the previous 3dObject is loading.
-        if (mNative3dObject != null){
-            mNative3dObject.destroy();
-            mNative3dObject = null;
-        }
-
         Node nodeJni = getNodeJni();
         if (nodeJni != null && !isTornDown()){
             nodeJni.removeAllChildNodes();
@@ -138,15 +135,17 @@ public class VRT3DObject extends VRTControl {
 
         loadDidStart();
 
-        AsyncObjListener listener = new AsyncObjListener() {
+        AsyncObject3DListener listener = new AsyncObject3DListener() {
             @Override
-            public void onObjLoaded() {
+            public void onObject3DLoaded(Object3D object, Object3D.Type type) {
                 if (isTornDown()) {
                     return;
                 }
+                //object.transferToNode(getNodeJni());
                 mObjLoaded = true;
+
                 if (mMaterials != null) {
-                    // set materials on the node after it's finished loading OBJ
+                    // set materials on the node after it's finished loading
                     setMaterials(mMaterials);
                 }
                 updateAnimation();
@@ -154,12 +153,7 @@ public class VRT3DObject extends VRTControl {
             }
 
             @Override
-            public void onObjAttached() {
-                updateAnimation();
-            }
-
-            @Override
-            public void onObjFailed(String error) {
+            public void onObject3DFailed(String error) {
                 if (isTornDown()) {
                     return;
                 }
@@ -180,11 +174,16 @@ public class VRT3DObject extends VRTControl {
                 }
             }
 
-            mNative3dObject = new Object3D(mSource, isVRX, listener, resourceMap);
+            // When in release mode, the objects are packaged as resources so we use the
+            // resource constructor
+            getObject3D().loadModel(mSource.toString(), isVRX ? Object3D.Type.FBX : Object3D.Type.OBJ,
+                    listener, resourceMap);
         } else {
-            mNative3dObject = new Object3D(mSource, isVRX, listener);
+            // When in debug mode (not release), the objects are loaded as URLs so we use
+            // the URL constructor
+            getObject3D().loadModel(mSource, isVRX ? Object3D.Type.FBX : Object3D.Type.OBJ,
+                    listener);
         }
-        setGeometry(mNative3dObject);
         mSourceChanged = false;
     }
 

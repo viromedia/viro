@@ -36,7 +36,7 @@ public class VRTText extends VRTControl {
     @Override
     public void onTearDown() {
         if (mNativeText != null) {
-            mNativeText.destroy();
+            mNativeText.dispose();
             mNativeText = null;
         }
 
@@ -95,7 +95,7 @@ public class VRTText extends VRTControl {
         }
 
         if (mNativeText != null) {
-            mNativeText.destroy();
+            mNativeText.dispose();
             mNativeText = null;
         }
 

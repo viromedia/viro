@@ -420,6 +420,16 @@ public:
     }
     
     /*
+     Remove all children from this node.
+     */
+    void clearChildren() {
+        std::vector<std::shared_ptr<VRONode>> children = _subnodes;
+        for (std::shared_ptr<VRONode> &node : children) {
+            node->removeFromParentNode();
+        }
+    }
+    
+    /*
      Return the parent node. Null if this node is root or does not have a parent.
      */
     std::shared_ptr<VRONode> getParentNode() const {

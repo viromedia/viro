@@ -15,6 +15,7 @@ import com.facebook.react.uimanager.NativeViewHierarchyManager;
 import com.facebook.react.uimanager.UIBlock;
 import com.facebook.react.uimanager.UIManagerModule;
 import com.viro.renderer.jni.Node;
+import com.viro.renderer.jni.PhysicsWorld;
 import com.viro.renderer.jni.SceneController;
 import com.viromedia.bridge.component.node.VRTScene;
 import com.viromedia.bridge.utility.Helper;
@@ -53,7 +54,7 @@ public class SceneModule extends ReactContextBaseJavaModule {
                 String rayCastTag = tag != null ? tag : "";
                 VRTScene scene = (VRTScene) sceneView;
                 scene.findCollisionsWithRayAsync(fromPosArray, toPosArray, closest, rayCastTag,
-                        new SceneController.PhysicsWorldHitTestCallback() {
+                        new PhysicsWorld.HitTestCallback() {
                             @Override
                             public void onComplete(boolean hasHit) {
                                 promise.resolve(hasHit);
@@ -94,7 +95,7 @@ public class SceneModule extends ReactContextBaseJavaModule {
                 String rayCastTag = tag != null ? tag : "";
                 VRTScene scene = (VRTScene) sceneView;
                 scene.findCollisionsWithShapeAsync(fromPosArray, toPosArray, shapeTypeString, params, rayCastTag,
-                        new SceneController.PhysicsWorldHitTestCallback() {
+                        new PhysicsWorld.HitTestCallback() {
                             @Override
                             public void onComplete(boolean hasHit) {
                                 promise.resolve(hasHit);

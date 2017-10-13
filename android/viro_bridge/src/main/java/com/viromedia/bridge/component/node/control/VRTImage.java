@@ -161,7 +161,7 @@ public class VRTImage extends VRTControl {
         }
         else if (mGeometryNeedsUpdate) {
             Surface newSurface = new Surface(imageSurfaceWidth, imageSurfaceHeight, mU0, mV0, mU1, mV1, mNativeSurface);
-            mNativeSurface.destroy();
+            mNativeSurface.dispose();
             mNativeSurface = newSurface;
             createdNewSurface = true;
         }
@@ -219,7 +219,7 @@ public class VRTImage extends VRTControl {
         super.onTearDown();
 
         if (mNativeSurface != null) {
-            mNativeSurface.destroy();
+            mNativeSurface.dispose();
             mNativeSurface = null;
         }
 

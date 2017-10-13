@@ -14,8 +14,10 @@ import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
 import com.viro.renderer.jni.CameraCallback;
 import com.viro.renderer.jni.Node;
+import com.viro.renderer.jni.PhysicsWorld;
 import com.viro.renderer.jni.SceneController;
 import com.viro.renderer.jni.Texture;
+import com.viro.renderer.jni.Vector;
 import com.viro.renderer.jni.VideoTexture;
 import com.viro.renderer.jni.Renderer;
 import com.viro.renderer.jni.PortalTraversalListener;
@@ -57,7 +59,7 @@ public class VRTScene extends VRTNode implements SceneController.SceneDelegate {
     protected Node createNodeJni() {
         mNativeSceneController = createSceneControllerJni();
         mPortalTraversalListener = new PortalTraversalListener(mNativeSceneController);
-        return mNativeSceneController.getSceneNode();
+        return mNativeSceneController.getRootNode();
     }
 
     /*
@@ -77,7 +79,7 @@ public class VRTScene extends VRTNode implements SceneController.SceneDelegate {
                 mPortalTraversalListener.destroy();
                 mPortalTraversalListener = null;
             }
-            mNativeSceneController.destroy();
+            mNativeSceneController.dispose();
         }
         super.onTearDown();
     }
@@ -240,39 +242,41 @@ public class VRTScene extends VRTNode implements SceneController.SceneDelegate {
                 for (int i = 0; i < readableParams.size(); i ++){
                     params[i] = (float) readableParams.getDouble(i);
                 }
-                mNativeSceneController.setPhysicsWorldGravity(params);
+                mNativeSceneController.getPhysicsWorld().setGravity(new Vector(params));
             }
         }
 
         if (map.hasKey("drawBounds")) {
-            mNativeSceneController.setPhysicsDebugDraw(map.getBoolean("drawBounds"));
+            mNativeSceneController.getPhysicsWorld().setDebugDraw(map.getBoolean("drawBounds"));
         } else {
-            mNativeSceneController.setPhysicsDebugDraw(false);
+            mNativeSceneController.getPhysicsWorld().setDebugDraw(false);
         }
     }
 
     public void addPhysicsBodyToScene(VRTNode node){
         if (!isTornDown()) {
-            mNativeSceneController.attachBodyToPhysicsWorld(node.getNodeJni());
+            mNativeSceneController.getPhysicsWorld().attachBodyToPhysicsWorld(node.getNodeJni());
         }
     }
 
     public void removePhysicsBodyFromScene(VRTNode node){
         if (!isTornDown()) {
-            mNativeSceneController.detachBodyFromPhysicsWorld(node.getNodeJni());
+            mNativeSceneController.getPhysicsWorld().detachBodyFromPhysicsWorld(node.getNodeJni());
         }
     }
 
     public void findCollisionsWithRayAsync(float[] fromPos, float toPos[], boolean closest,
                                            String tag,
-                                           SceneController.PhysicsWorldHitTestCallback callback){
-        mNativeSceneController.findCollisionsWithRayAsync(fromPos, toPos, closest, tag, callback);
+                                           PhysicsWorld.HitTestCallback callback) {
+        mNativeSceneController.getPhysicsWorld().findCollisionsWithRayAsync(new Vector(fromPos), new Vector(toPos),
+                closest, tag, callback);
     }
 
     public void findCollisionsWithShapeAsync(float[] from, float[] to, String shapeType,
                                              float[] params, String tag,
-                                             SceneController.PhysicsWorldHitTestCallback callback) {
-        mNativeSceneController.findCollisionsWithShapeAsync(from, to, shapeType, params, tag, callback);
+                                             PhysicsWorld.HitTestCallback callback) {
+        mNativeSceneController.getPhysicsWorld().findCollisionsWithShapeAsync(new Vector(from), new Vector(to),
+                shapeType, params, tag, callback);
     }
 
     /**

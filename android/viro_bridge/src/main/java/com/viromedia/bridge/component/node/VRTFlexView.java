@@ -3,7 +3,7 @@
  */
 package com.viromedia.bridge.component.node;
 
-import com.viro.renderer.jni.BaseGeometry;
+import com.viro.renderer.jni.Geometry;
 import com.viro.renderer.jni.Material;
 import com.viro.renderer.jni.Surface;
 
@@ -60,7 +60,7 @@ public class VRTFlexView extends VRTNode {
      * Override setGeometry because we don't want to always use the Materials set on a FlexView.
      */
     @Override
-    protected void setGeometry(BaseGeometry geometry) {
+    protected void setGeometry(Geometry geometry) {
         if (getNodeJni() != null) {
             getNodeJni().setGeometry(geometry);
         }
@@ -81,7 +81,7 @@ public class VRTFlexView extends VRTNode {
         super.onTearDown();
 
         if (mNativeSurface != null) {
-            mNativeSurface.destroy();
+            mNativeSurface.dispose();
             mNativeSurface = null;
         }
 
@@ -123,7 +123,7 @@ public class VRTFlexView extends VRTNode {
         }
 
         if (mNativeSurface != null) {
-            mNativeSurface.destroy();
+            mNativeSurface.dispose();
         }
 
         mNativeSurface = new Surface(mWidth, mHeight, 0, 0, 1, 1);

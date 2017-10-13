@@ -38,7 +38,7 @@ public class VRTSurface extends VRTControl {
             mNativeSurface = new Surface(mWidth, mHeight, 0, 0, 1, 1);
         } else if (mGeometryNeedsUpdate) {
             // make sure we release the old surface before we let it go.
-            mNativeSurface.destroy();
+            mNativeSurface.dispose();
             mNativeSurface = new Surface(mWidth, mHeight, 0, 0, 1, 1);
         }
         setGeometry(mNativeSurface);
@@ -48,7 +48,7 @@ public class VRTSurface extends VRTControl {
     public void onTearDown() {
         super.onTearDown();
         if (mNativeSurface != null) {
-            mNativeSurface.destroy();
+            mNativeSurface.dispose();
             mNativeSurface = null;
         }
     }

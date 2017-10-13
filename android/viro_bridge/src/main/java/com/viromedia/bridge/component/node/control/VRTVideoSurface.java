@@ -104,7 +104,7 @@ public class VRTVideoSurface extends VRTControl {
     @Override
     public void onTearDown(){
         if (mSurface != null) {
-            mSurface.destroy();
+            mSurface.dispose();
             mSurface = null;
         }
         if (mVideoTexture != null){
@@ -125,7 +125,7 @@ public class VRTVideoSurface extends VRTControl {
         }
 
         if (mSurface != null) {
-            mSurface.destroy();
+            mSurface.dispose();
             mSurface = null;
         }
 

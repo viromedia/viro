@@ -134,16 +134,6 @@
     std::function<void(std::shared_ptr<VRONode> node, bool success)> onFinish =
     [self](std::shared_ptr<VRONode> node, bool success) {
         if (success) {
-            // The geometry is set for OBJ models
-            self.node->setGeometry(node->getGeometry());
-            
-            // The children are set for FBX models (in FBX, the root node is a dummy node)
-            self.node->getChildNodes();
-            
-            for (std::shared_ptr<VRONode> child : node->getChildNodes()) {
-                self.node->addChildNode(child);
-            }
-            
             if (self.materials) {
                 [self applyMaterials];
             }
@@ -164,10 +154,10 @@
     };
     
     if (isOBJ) {
-        VROOBJLoader::loadOBJFromURL(url, base, true, onFinish);
+        VROOBJLoader::loadOBJFromResource(url, VROResourceType::URL, self.node, true, onFinish);
     }
     else {
-        VROFBXLoader::loadFBXFromURL(url, base, true, onFinish);
+        VROFBXLoader::loadFBXFromResource(url, VROResourceType::URL, self.node, true, onFinish);
     }
     _sourceChanged = NO;
 }

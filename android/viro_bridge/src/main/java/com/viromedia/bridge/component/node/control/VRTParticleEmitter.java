@@ -98,7 +98,7 @@ public class VRTParticleEmitter extends VRTControl {
         }
 
         if (mNativeSurface != null){
-            mNativeSurface.destroy();
+            mNativeSurface.dispose();
             mNativeSurface = null;
         }
 

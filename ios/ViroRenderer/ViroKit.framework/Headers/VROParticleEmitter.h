@@ -110,6 +110,7 @@ public:
     }
 
     void setBlendMode(VROBlendMode mode);
+    void setBloomThreshold(float threshold);
 
     /*
      True if we are no longer emitting particles and have completed the emission cycle.

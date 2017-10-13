@@ -50,7 +50,7 @@ public class VRTSphere extends VRTControl {
     @Override
     protected void onPropsSet(){
         if (mNativeSphere != null){
-            mNativeSphere.delete();
+            mNativeSphere.dispose();
         }
 
         mNativeSphere = new Sphere(mRadius, mWidthSegmentCount, mHeightSegmentCount, mFacesOutward);
@@ -61,7 +61,7 @@ public class VRTSphere extends VRTControl {
     public void onTearDown() {
         super.onTearDown();
         if (mNativeSphere != null) {
-            mNativeSphere.delete();
+            mNativeSphere.dispose();
             mNativeSphere = null;
         }
     }

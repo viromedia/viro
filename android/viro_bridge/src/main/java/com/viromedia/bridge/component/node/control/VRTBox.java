@@ -19,7 +19,7 @@ public class VRTBox extends VRTControl {
     @Override
     public void onTearDown(){
         if (mNativeBox != null){
-            mNativeBox.destroy();
+            mNativeBox.dispose();
         }
         super.onTearDown();
     }

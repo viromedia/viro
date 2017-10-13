@@ -263,6 +263,12 @@ private:
      The skinner ties this geometry to a skeleton, enabling skeletal animation.
      */
     std::unique_ptr<VROSkinner> _skinner;
+
+    /*
+     If this geometry has no source data installed (_geometrySources and _geometryElements),
+     then returns false.
+     */
+    bool isRenderable() const;
     
     /*
      Invoke when the substrate needs to be refreshed (typically when underlying
