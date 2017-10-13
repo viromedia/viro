@@ -36,11 +36,11 @@ public class VRTSoundField extends VRTBaseSound {
 
     @Override
     protected BaseSound getNativeSound(String path, boolean local) {
-        return new SoundField(path, mRenderContext, this, local);
+        return new SoundField(path, mViroContext, this, local);
     }
 
     @Override
     protected BaseSound getNativeSound(SoundData data) {
-        return new SoundField(data, mRenderContext, this);
+        return new SoundField(data, mViroContext, this);
     }
 }

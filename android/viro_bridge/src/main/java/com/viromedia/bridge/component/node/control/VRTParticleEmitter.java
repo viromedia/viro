@@ -14,7 +14,7 @@ import com.facebook.react.bridge.ReadableMap;
 import com.viro.renderer.jni.Image;
 import com.viro.renderer.jni.Node;
 import com.viro.renderer.jni.ParticleEmitter;
-import com.viro.renderer.jni.RenderContext;
+import com.viro.renderer.jni.ViroContext;
 import com.viro.renderer.jni.Surface;
 import com.viro.renderer.jni.TextureFormat;
 import com.viro.renderer.jni.Texture;
@@ -168,8 +168,8 @@ public class VRTParticleEmitter extends VRTControl {
     }
 
     @Override
-    public void setRenderContext(RenderContext context) {
-        super.setRenderContext(context);
+    public void setViroContext(ViroContext context) {
+        super.setViroContext(context);
 
         // Refresh the emitter when a new render context is set
         if (mNativeEmitter == null){
@@ -195,7 +195,7 @@ public class VRTParticleEmitter extends VRTControl {
         }
 
         final Node node = getNodeJni();
-        if (mRenderContext == null || mScene == null || mScene.getNativeScene() == null|| node == null) {
+        if (mViroContext == null || mScene == null || mScene.getNativeScene() == null|| node == null) {
             return;
         }
 
@@ -217,7 +217,7 @@ public class VRTParticleEmitter extends VRTControl {
 
         // Create emitter if we haven't yet done so.
         if (mNativeEmitter == null) {
-            mNativeEmitter = new ParticleEmitter(mRenderContext, node, mNativeSurface);
+            mNativeEmitter = new ParticleEmitter(mViroContext, node, mNativeSurface);
             mScene.getNativeScene().addParticleEmitter(mNativeEmitter);
         }
 

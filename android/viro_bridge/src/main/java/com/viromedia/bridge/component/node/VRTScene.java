@@ -118,8 +118,8 @@ public class VRTScene extends VRTNode implements SceneController.SceneDelegate {
         mWallMaterial = soundRoom.hasKey(WALL_MATERIAL_KEY) ? soundRoom.getString(WALL_MATERIAL_KEY) : DEFAULT_MATERIAL;
         mCeilingMaterial = soundRoom.hasKey(CEILING_MATERIAL_KEY) ? soundRoom.getString(CEILING_MATERIAL_KEY) : DEFAULT_MATERIAL;
         mFloorMaterial = soundRoom.hasKey(FLOOR_MATERIAL_KEY) ? soundRoom.getString(FLOOR_MATERIAL_KEY) : DEFAULT_MATERIAL;
-        if (mRenderContext != null) {
-            mNativeSceneController.setSoundRoom(mRenderContext, mSoundRoomSize, mWallMaterial, mCeilingMaterial, mFloorMaterial);
+        if (mViroContext != null) {
+            mNativeSceneController.setSoundRoom(mViroContext, mSoundRoomSize, mWallMaterial, mCeilingMaterial, mFloorMaterial);
         }
     }
 
@@ -179,11 +179,11 @@ public class VRTScene extends VRTNode implements SceneController.SceneDelegate {
     }
 
     public void getCameraPositionAsync(CameraCallback callback) {
-        if (mRenderContext == null || isTornDown()) {
+        if (mViroContext == null || isTornDown()) {
             callback.onGetCameraOrientation(0,0,0,0,0,0,0,0,0,0,0,0);
         }
         else {
-            mRenderContext.getCameraOrientation(callback);
+            mViroContext.getCameraOrientation(callback);
         }
     }
 

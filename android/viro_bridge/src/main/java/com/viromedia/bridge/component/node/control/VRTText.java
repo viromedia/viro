@@ -6,7 +6,7 @@ package com.viromedia.bridge.component.node.control;
 import android.graphics.Color;
 
 import com.facebook.react.bridge.ReactApplicationContext;
-import com.viro.renderer.jni.RenderContext;
+import com.viro.renderer.jni.ViroContext;
 import com.viro.renderer.jni.Text;
 
 public class VRTText extends VRTControl {
@@ -90,7 +90,7 @@ public class VRTText extends VRTControl {
     }
 
     private void updateLabel() {
-        if (mRenderContext == null || isTornDown() || mText == null) {
+        if (mViroContext == null || isTornDown() || mText == null) {
             return;
         }
 
@@ -100,7 +100,7 @@ public class VRTText extends VRTControl {
         }
 
         // Create text
-        mNativeText = new Text(mRenderContext, mText, mFontFamilyName, mSize, mColor, mWidth,
+        mNativeText = new Text(mViroContext, mText, mFontFamilyName, mSize, mColor, mWidth,
                 mHeight, mHorizontalAlignment, mVerticalAlignment, mTextLineBreakMode,
                 mTextClipMode, mMaxLines);
 
@@ -109,8 +109,8 @@ public class VRTText extends VRTControl {
     }
 
     @Override
-    public void setRenderContext(RenderContext context) {
-        super.setRenderContext(context);
+    public void setViroContext(ViroContext context) {
+        super.setViroContext(context);
         updateLabel();
     }
 

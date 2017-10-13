@@ -14,7 +14,7 @@ import com.facebook.react.bridge.LifecycleEventListener;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
 import com.viro.renderer.jni.GLListener;
-import com.viro.renderer.jni.RenderContext;
+import com.viro.renderer.jni.ViroContext;
 import com.viro.renderer.jni.ViroGvrLayout;
 import com.viro.renderer.jni.ViroOvrView;
 import com.viro.renderer.jni.VrView;
@@ -56,7 +56,7 @@ public class VRTSceneNavigator extends FrameLayout {
                 @Override
                 public void run() {
                     navigator.mGLInitialized = true;
-                    navigator.setRenderContext();
+                    navigator.setViroContext();
                 }
             });
         }
@@ -129,7 +129,7 @@ public class VRTSceneNavigator extends FrameLayout {
     /**
      * Context passed around to views to get render specific information.
      */
-    private RenderContext mRenderContext;
+    private ViroContext mViroContext;
 
     private final ReactApplicationContext mReactContext;
 
@@ -150,7 +150,7 @@ public class VRTSceneNavigator extends FrameLayout {
         // Add the ViroView as a child so it's rendered.
         addView((View) mViroView);
 
-        mRenderContext = mViroView.getRenderContextRef();
+        mViroContext = mViroView.getViroContext();
 
         /*
          * Set the view for the debug console.
@@ -215,14 +215,14 @@ public class VRTSceneNavigator extends FrameLayout {
 
         mViewAdded = true;
         // In case gl was initialized before views were added.
-        setRenderContext();
+        setViroContext();
         super.addView(child, index);
     }
 
-    private void setRenderContext() {
+    private void setViroContext() {
         if (mViewAdded && mGLInitialized && mSelectedSceneIndex < mSceneArray.size()) {
             VRTScene childScene = mSceneArray.get(mSelectedSceneIndex);
-            childScene.setRenderContext(mRenderContext);
+            childScene.setViroContext(mViroContext);
             childScene.setScene(childScene);
             childScene.setNativeRenderer(mViroView.getNativeRenderer());
         }

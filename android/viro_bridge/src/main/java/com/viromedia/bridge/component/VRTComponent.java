@@ -12,7 +12,7 @@ import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
 import com.facebook.react.views.view.ReactViewGroup;
 import com.facebook.react.bridge.ReactApplicationContext;
-import com.viro.renderer.jni.RenderContext;
+import com.viro.renderer.jni.ViroContext;
 import com.viromedia.bridge.component.node.VRTScene;
 import com.viromedia.bridge.utility.ViroEvents;
 
@@ -22,7 +22,7 @@ import com.viromedia.bridge.utility.ViroEvents;
 public class VRTComponent extends ReactViewGroup {
 
     private static String TAG = VRTComponent.class.getSimpleName();
-    protected RenderContext mRenderContext = null;
+    protected ViroContext mViroContext = null;
     protected ReactApplicationContext mReactContext = null;
     protected VRTScene mScene = null;
     /*
@@ -60,14 +60,14 @@ public class VRTComponent extends ReactViewGroup {
         return mReactContext;
     }
 
-    public void setRenderContext(RenderContext context){
-        mRenderContext = context;
+    public void setViroContext(ViroContext context){
+        mViroContext = context;
 
         // Update our child views with the scene as well.
         for (int i = getChildCount() - 1; i >= 0; i--) {
             final View child = getChildAt(i);
             if (child instanceof VRTComponent){
-                ((VRTComponent)child).setRenderContext(context);
+                ((VRTComponent)child).setViroContext(context);
             }
         }
     }
@@ -86,7 +86,7 @@ public class VRTComponent extends ReactViewGroup {
 
     /**
      * If in the case a React view is added / destroyed, update
-     * the renderContext of child views if we can (if we have it).
+     * the ViroContext of child views if we can (if we have it).
      */
     @Override
     public void addView(View child, int index) {
@@ -98,8 +98,8 @@ public class VRTComponent extends ReactViewGroup {
         }
 
         VRTComponent component = (VRTComponent) child;
-        if (mRenderContext != null && component.mRenderContext == null){
-            component.setRenderContext(mRenderContext);
+        if (mViroContext != null && component.mViroContext == null){
+            component.setViroContext(mViroContext);
         }
         if (mScene != null && component.mScene == null){
             component.setScene(mScene);

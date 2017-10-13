@@ -66,11 +66,11 @@ public class VRTSpatialSound extends VRTBaseSound {
 
     @Override
     protected BaseSound getNativeSound(String path, boolean local) {
-        return new SpatialSound(path, mRenderContext, this, local);
+        return new SpatialSound(path, mViroContext, this, local);
     }
 
     @Override
     protected BaseSound getNativeSound(SoundData data) {
-        return new SpatialSound(data, mRenderContext, this);
+        return new SpatialSound(data, mViroContext, this);
     }
 }

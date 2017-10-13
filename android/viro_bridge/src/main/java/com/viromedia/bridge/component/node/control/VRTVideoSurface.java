@@ -7,7 +7,7 @@ import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
-import com.viro.renderer.jni.RenderContext;
+import com.viro.renderer.jni.ViroContext;
 import com.viro.renderer.jni.Surface;
 import com.viro.renderer.jni.VideoTexture;
 import com.viromedia.bridge.utility.Helper;
@@ -115,7 +115,7 @@ public class VRTVideoSurface extends VRTControl {
     }
 
     private void resetVideo() {
-        if (mRenderContext == null || mSource == null) {
+        if (mViroContext == null || mSource == null) {
             return;
         }
 
@@ -132,7 +132,7 @@ public class VRTVideoSurface extends VRTControl {
         // Create Texture
         mSurface = new Surface(mWidth, mHeight, 0, 0, 1, 1);
         getNodeJni().setGeometry(mSurface);
-        mVideoTexture = new VideoTexture(mRenderContext, mStereoMode);
+        mVideoTexture = new VideoTexture(mViroContext, mStereoMode);
 
         mDelegate = new VideoSurfaceDelegate(this);
         mVideoTexture.setVideoDelegate(mDelegate);
@@ -140,7 +140,7 @@ public class VRTVideoSurface extends VRTControl {
 
     private void loadVideo(){
         mSurface.setVideoTexture(mVideoTexture);
-        mVideoTexture.loadSource(mSource, mRenderContext);
+        mVideoTexture.loadSource(mSource, mViroContext);
         setVolume(mVolume);
         setLoop(mLoop);
         setMuted(mMuted);
@@ -149,8 +149,8 @@ public class VRTVideoSurface extends VRTControl {
     }
 
     @Override
-    public void setRenderContext(RenderContext context) {
-        super.setRenderContext(context);
+    public void setViroContext(ViroContext context) {
+        super.setViroContext(context);
         resetVideo();
     }
 

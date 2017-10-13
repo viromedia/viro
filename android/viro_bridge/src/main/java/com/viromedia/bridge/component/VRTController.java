@@ -6,7 +6,7 @@ package com.viromedia.bridge.component;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.viro.renderer.jni.Controller;
 import com.viro.renderer.jni.EventDelegate;
-import com.viro.renderer.jni.RenderContext;
+import com.viro.renderer.jni.ViroContext;
 import com.viromedia.bridge.utility.ComponentEventDelegate;
 
 public class VRTController extends VRTComponent {
@@ -38,8 +38,8 @@ public class VRTController extends VRTComponent {
     }
 
     @Override
-    public void setRenderContext(RenderContext context) {
-        super.setRenderContext(context);
+    public void setViroContext(ViroContext context) {
+        super.setViroContext(context);
         mNativeController = new Controller(context);
         updateVisibility();
 

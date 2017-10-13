@@ -10,7 +10,7 @@ import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
 import com.viro.renderer.jni.BaseSound;
-import com.viro.renderer.jni.RenderContext;
+import com.viro.renderer.jni.ViroContext;
 import com.viro.renderer.jni.SoundData;
 import com.viro.renderer.jni.SoundDelegate;
 import com.viromedia.bridge.module.SoundModule;
@@ -108,13 +108,13 @@ public abstract class VRTBaseSound extends VRTComponent implements SoundDelegate
     }
 
     @Override
-    public void setRenderContext(RenderContext context) {
-        super.setRenderContext(context);
+    public void setViroContext(ViroContext context) {
+        super.setViroContext(context);
         resetSound();
     }
 
     protected void resetSound() {
-        if (mRenderContext == null) {
+        if (mViroContext == null) {
             return;
         }
         if (mNativeSound != null) {

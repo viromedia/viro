@@ -8,7 +8,7 @@ import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
-import com.viro.renderer.jni.RenderContext;
+import com.viro.renderer.jni.ViroContext;
 import com.viro.renderer.jni.VideoTexture;
 import com.viromedia.bridge.component.node.VRTScene;
 import com.viromedia.bridge.utility.Helper;
@@ -67,7 +67,7 @@ public class VRT360Video extends VRTComponent {
             }
 
             video.updateVideoTexture();
-            video.mVideoTextureJni.loadSource(video.mSource, video.mRenderContext);
+            video.mVideoTextureJni.loadSource(video.mSource, video.mViroContext);
             video.setLoop(video.mLoop);
             video.setMuted(video.mMuted);
             video.setVolume(video.mVolume);
@@ -118,7 +118,7 @@ public class VRT360Video extends VRTComponent {
     }
 
     private void resetVideo() {
-        if (mRenderContext == null || mSource == null) {
+        if (mViroContext == null || mSource == null) {
             return;
         }
 
@@ -128,7 +128,7 @@ public class VRT360Video extends VRTComponent {
         }
 
         // Create Texture
-        mVideoTextureJni = new VideoTexture(mRenderContext, mStereoMode);
+        mVideoTextureJni = new VideoTexture(mViroContext, mStereoMode);
 
         mDelegate = new Video360Delegate(this);
         mVideoTextureJni.setVideoDelegate(mDelegate);
@@ -140,8 +140,8 @@ public class VRT360Video extends VRTComponent {
     }
 
     @Override
-    public void setRenderContext(RenderContext context) {
-        super.setRenderContext(context);
+    public void setViroContext(ViroContext context) {
+        super.setViroContext(context);
         resetVideo();
     }
 
