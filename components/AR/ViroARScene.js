@@ -36,6 +36,9 @@ var ViroARScene = React.createClass({
     onTrackingInitialized: PropTypes.func,
     onPlatformUpdate: PropTypes.func,
     onAmbientLightUpdate: PropTypes.func,
+    onAnchorFound: PropTypes.func,
+    onAnchorUpdated: PropTypes.func,
+    onAnchorRemoved: PropTypes.func,
     /**
      * Describes the acoustic properties of the room around the user
      */
@@ -118,6 +121,18 @@ var ViroARScene = React.createClass({
    */
   _onAmbientLightUpdate: function(event: Event) {
     this.props.onAmbientLightUpdate && this.props.onAmbientLightUpdate(event.nativeEvent.ambientLightInfo)
+  },
+
+  _onAnchorFound: function(event: Event) {
+    this.props.onAnchorFound && this.props.onAnchorFound(event.nativeEvent.anchor);
+  },
+
+  _onAnchorUpdated: function(event: Event) {
+    this.props.onAnchorUpdated && this.props.onAnchorUpdated(event.nativeEvent.anchor);
+  },
+
+  _onAnchorRemoved: function(event: Event) {
+    this.props.onAnchorRemoved && this.props.onAnchorRemoved(event.nativeEvent.anchor);
   },
 
   async findCollisionsWithRayAsync(from, to, closest, viroTag) {
@@ -207,6 +222,9 @@ var ViroARScene = React.createClass({
         onPlatformUpdateViro={this._onPlatformUpdate}
         onTrackingInitializedViro={this._onTrackingInitialized}
         onAmbientLightUpdateViro={this._onAmbientLightUpdate}
+        onAnchorFoundViro={this._onAnchorFound}
+        onAnchorUpdatedViro={this._onAnchorUpdated}
+        onAnchorRemovedViro={this._onAnchorRemoved}
         timeToFuse={timeToFuse}
         />
     );
@@ -243,6 +261,9 @@ var VRTARScene = requireNativeComponent(
           onPlatformUpdateViro: true,
           onTrackingInitializedViro: true,
           onAmbientLightUpdateViro: true,
+          onAnchorFoundViro: true,
+          onAnchorUpdatedViro: true,
+          onAnchorRemovedViro:true,
           timeToFuse:true,
       }
   }

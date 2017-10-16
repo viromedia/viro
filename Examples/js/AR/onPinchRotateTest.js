@@ -40,32 +40,28 @@ var testARScene = React.createClass({
       surfaceSize : [0,0,0],
       center : [0,0,0],
       rotation : [0,0,0],
-      scale : [.15,.15,.15],
+      scale : [1,1,1],
     }
   },
   render: function() {
     return (
         <ViroARScene ref="arscene" >
           <ViroARPlane onAnchorUpdated={this._onPlaneUpdate}>
-            <ViroSurface materials={"transparent"} scale={this.state.surfaceSize}
+            <ViroSurface materials={"transparent"} scale={this.state.surfaceSize} position={this.state.center}
              rotation={[-90, 0, 0]} onClick={this._onSurfaceClickUsingPosition}/>
           </ViroARPlane>
           {this._getBox()}
         </ViroARScene>
     );
   },
-  /*
-          <ViroARPlane onAnchorUpdated={this._onPlaneUpdate}>
-            <ViroSurface materials={"transparent"} scale={this.state.surfaceSize}
-             rotation={[-90, 0, 0]} onClick={this._onSurfaceClickUsingPosition}/>
-          </ViroARPlane>
-   */
   _getBox() {
     if (this.state.boxLocation != undefined) {
       return (
-        <ViroNode position={this.state.boxLocation} >
-          <ViroBox ref={(component)=>{this.boxRef = component}} position={[0,.075,0]} onDrag={()=>{}} dragType={"FixedToWorld"}
-           scale={this.state.scale} rotation={this.state.rotation} onPinch={this._onPinch} onRotate={this._onRotate}/>
+        <ViroNode ref={(component)=>{this.boxRef = component}} position={this.state.boxLocation}
+          onDrag={()=>{}} scale={this.state.scale} rotation={this.state.rotation} dragType={"FixedToWorld"} >
+
+          <ViroBox position={[0,.075,0]} scale={[.15, .15,.15]}
+            onPinch={this._onPinch} onRotate={this._onRotate}/>
         </ViroNode>
       )
     }
@@ -144,7 +140,7 @@ ViroMaterials.createMaterials({
   transparent: {
     shininess: 2.0,
     lightingModel: "Constant",
-    diffuseColor: "#00000055"
+    diffuseColor: "#0000cc55"
   },
 });
 

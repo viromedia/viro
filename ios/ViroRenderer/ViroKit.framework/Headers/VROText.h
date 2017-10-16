@@ -12,6 +12,7 @@
 #include <stdio.h>
 #include <ft2build.h>
 #include <map>
+#include <atomic>
 #include FT_FREETYPE_H
 
 #include "VROGeometry.h"
@@ -140,7 +141,7 @@ public:
     void setHorizontalAlignment(VROTextHorizontalAlignment horizontalAlignment);
     void setVerticalAlignment(VROTextVerticalAlignment verticalAlignment);
     void setLineBreakMode(VROLineBreakMode lineBreakMode);
-    void setTextClipMode(VROTextClipMode clipMode);
+    void setClipMode(VROTextClipMode clipMode);
     void setMaxLines(int maxLines);
     
 private:
@@ -155,7 +156,7 @@ private:
     VROTextClipMode _clipMode;
     int _maxLines;
 
-    float _realizedWidth, _realizedHeight;
+    std::atomic<float> _realizedWidth, _realizedHeight;
     
     VROText(std::vector<std::shared_ptr<VROGeometrySource>> sources,
             std::vector<std::shared_ptr<VROGeometryElement>> elements,

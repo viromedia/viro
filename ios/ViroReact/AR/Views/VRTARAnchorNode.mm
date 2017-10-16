@@ -7,6 +7,7 @@
 //
 
 #import "VRTARAnchorNode.h"
+#import "VRTARUtils.h"
 
 @implementation VRTARAnchorNode
 
@@ -19,6 +20,10 @@
     [self handleAppearanceChange];
 }
 
+- (void)setAnchorId:(NSString *)anchorId {
+    _anchorId = anchorId;
+}
+
 - (BOOL)shouldAppear {
     return [super shouldAppear] && self.isAnchored;
 }
@@ -28,13 +33,13 @@
     self.isAnchored = true;
     [self handleAppearanceChange];
     if (_onAnchorFoundViro) {
-        _onAnchorFoundViro(@{ @"anchorFoundMap" : [self createDictionaryFromAnchor:anchor]});
+        _onAnchorFoundViro(@{ @"anchorFoundMap" : [VRTARUtils createDictionaryFromAnchor:anchor]});
     }
 }
 
 - (void)onARAnchorUpdated:(std::shared_ptr<VROARAnchor>) anchor {
     if (_onAnchorUpdatedViro) {
-        _onAnchorUpdatedViro(@{ @"anchorUpdatedMap" : [self createDictionaryFromAnchor:anchor]});
+        _onAnchorUpdatedViro(@{ @"anchorUpdatedMap" : [VRTARUtils createDictionaryFromAnchor:anchor]});
     }
 }
 
@@ -45,10 +50,6 @@
         // we don't need to return any args for anchor removed
         _onAnchorRemovedViro(@{});
     }
-}
-
-- (NSDictionary *)createDictionaryFromAnchor:(std::shared_ptr<VROARAnchor>) anchor {
-    return @{};
 }
 
 @end

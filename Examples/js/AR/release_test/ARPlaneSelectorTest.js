@@ -35,14 +35,15 @@ var testARScene = React.createClass({
   mixins: [TimerMixin],
   getInitialState: function() {
     return {
-      selectedState : "NOT Selected"
+      selectedState : "NOT Selected",
+      numberOfPlanes : 2,
     }
   },
   render: function() {
     return (
       <ViroARScene position={[0,0,0]} reticleEnabled={false} >
         <ViroARPlaneSelector ref={"planeSelector"}
-          maxPlanes={2}
+          maxPlanes={this.state.numberOfPlanes}
           onPlaneSelected={this._onPlaneSelected} >
           <ViroImage
             width={.2} height={.5}
@@ -54,6 +55,8 @@ var testARScene = React.createClass({
 
         <ViroText position={polarToCartesian([2, 0, 10])} text={"State: " + this.state.selectedState}
           style={styles.instructionText} transformBehaviors={["billboard"]}/>
+        <ViroText position={polarToCartesian([2, 0, 0])} text={"MaxPlanes: " + this.state.numberOfPlanes}
+          style={styles.instructionText} transformBehaviors={["billboard"]} onClick={this._numPlanesTextClick}/>
 
         {/* Release Menu */}
         <ViroText position={polarToCartesian([2, -30, 0])} text={"Next test"}
@@ -74,6 +77,17 @@ var testARScene = React.createClass({
     this.setState({
       selectedState : "NOT Selected"
     })
+  },
+  _numPlanesTextClick() {
+    if (this.state.numberOfPlanes == 5) {
+      this.setState({
+        numberOfPlanes : 2
+      })
+    } else {
+      this.setState({
+        numberOfPlanes : this.state.numberOfPlanes + 1
+      })
+    }
   },
   _goToNextTest() {
     this.props.arSceneNavigator.replace("ARPlaneTest", {scene:require("./ARPlaneTest")})

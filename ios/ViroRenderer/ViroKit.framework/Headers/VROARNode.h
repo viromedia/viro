@@ -36,6 +36,14 @@ public:
     bool hasRequirementFulfilled(std::shared_ptr<VROARAnchor> candidate) {
         return false;
     };
+
+    void setId(std::string id) {
+        _id = id;
+    }
+
+    std::string getId() {
+        return _id;
+    }
     
     void setAnchor(std::shared_ptr<VROARAnchor> anchor) {
         _anchor = anchor;
@@ -77,6 +85,10 @@ public:
     }
     
 protected:
+    /*
+     ID of the anchor to which this node will attach. If not set, then this node will be auto-assigned an anchor when possible.
+     */
+    std::string _id;
     std::weak_ptr<VROARAnchor> _anchor;
     std::weak_ptr<VROARNodeDelegate> _arNodeDelegate;
     bool _isAttached;

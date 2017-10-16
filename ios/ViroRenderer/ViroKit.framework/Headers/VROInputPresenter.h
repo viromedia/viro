@@ -120,7 +120,11 @@ public:
 
     virtual void onFuse(int source, float timeToFuseRatio) {
         passert_thread();
-        
+
+        if (_reticle == nullptr){
+            return;
+        }
+
         std::shared_ptr<VROEventDelegate> delegate = getDelegate();
         if (delegate != nullptr && delegate->isEventEnabled(VROEventDelegate::EventAction::OnFuse)){
             delegate->onFuse(source, timeToFuseRatio);

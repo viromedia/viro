@@ -23,6 +23,7 @@ var NativeModules = require('react-native').NativeModules;
 var ViroARPlane = React.createClass({
   propTypes: {
     ...View.propTypes,
+    anchorId: PropTypes.string,
     minHeight: PropTypes.number,
     minWidth: PropTypes.number,
     visible: PropTypes.bool,

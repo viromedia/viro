@@ -1,13 +1,13 @@
 //
-//  VROARPlane.h
+//  VROARPlaneNode.h
 //  ViroRenderer
 //
 //  Created by Andy Chu on 6/17/17.
 //  Copyright © 2017 Viro Media. All rights reserved.
 //
 
-#ifndef VROARPlane_h
-#define VROARPlane_h
+#ifndef VROARPlaneNode_h
+#define VROARPlaneNode_h
 
 #include "VROARPlaneAnchor.h"
 #include "VROARNode.h"
@@ -16,21 +16,24 @@
  This class is a nice container that associates the virtual (VRONode), the real (VROARAnchor) and
  the constraints that bind them together.
  */
-class VROARPlane : public VROARNode {
+class VROARPlaneNode : public VROARNode {
 public:
-    VROARPlane(float minWidth, float minHeight) :
+    VROARPlaneNode(float minWidth, float minHeight) :
         _minWidth(minWidth),
         _minHeight(minHeight)
     {}
     
-    virtual ~VROARPlane() {}
+    virtual ~VROARPlaneNode() {}
     
     /*
      Returns whether or not the given VROARAnchor fulfills this plane's requirements.
      */
     bool hasRequirementsFulfilled(std::shared_ptr<VROARAnchor> candidate) {
         std::shared_ptr<VROARPlaneAnchor> planeAnchor = std::dynamic_pointer_cast<VROARPlaneAnchor>(candidate);
-        return planeAnchor && planeAnchor->getExtent().x >= _minWidth && planeAnchor->getExtent().z >= _minHeight;
+        if (planeAnchor) {
+            return planeAnchor && planeAnchor->getExtent().x >= _minWidth && planeAnchor->getExtent().z >= _minHeight;
+        }
+        return false;
     }
     
     void setMinWidth(float minWidth) {
@@ -51,4 +54,4 @@ private:
     float _minWidth;
     float _minHeight;
 };
-#endif /* VROARPlane_h */
+#endif /* VROARPlaneNode_h */

@@ -16,6 +16,9 @@
 @required
 - (void)onTrackingInitialized;
 - (void)onAmbientLightUpdate:(float)intensity colorTemperature:(float)colorTemperature;
+- (void)onAnchorFound:(std::shared_ptr<VROARAnchor>)anchor;
+- (void)onAnchorUpdated:(std::shared_ptr<VROARAnchor>)anchor;
+- (void)onAnchorRemoved:(std::shared_ptr<VROARAnchor>)anchor;
 @end
 
 /**
@@ -34,6 +37,18 @@ public:
 
     virtual void onAmbientLightUpdate(float intensity, float colorTemperature) {
         [_delegate onAmbientLightUpdate:intensity colorTemperature:colorTemperature];
+    }
+
+    virtual void onAnchorFound(std::shared_ptr<VROARAnchor> anchor) {
+        [_delegate onAnchorFound:anchor];
+    }
+
+    virtual void onAnchorUpdated(std::shared_ptr<VROARAnchor> anchor) {
+        [_delegate onAnchorUpdated:anchor];
+    }
+
+    virtual void onAnchorRemoved(std::shared_ptr<VROARAnchor> anchor) {
+        [_delegate onAnchorRemoved:anchor];
     }
 private:
     __weak id<VROARSceneDelegateProtocol> _delegate;

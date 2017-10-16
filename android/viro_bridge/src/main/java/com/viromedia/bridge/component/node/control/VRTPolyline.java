@@ -21,7 +21,7 @@ public class VRTPolyline extends VRTControl {
     @Override
     public void onTearDown() {
         if (mNativeLine != null) {
-            mNativeLine.destroy();
+            mNativeLine.dispose();
         }
         super.onTearDown();
     }
@@ -59,7 +59,7 @@ public class VRTPolyline extends VRTControl {
         super.onPropsSet();
         if (!mDidSetGeometry && mPoints != null) {
             if (mNativeLine != null) {
-                mNativeLine.destroy();
+                mNativeLine.dispose();
             }
 
             mNativeLine = new Polyline(mPoints, mThickness);

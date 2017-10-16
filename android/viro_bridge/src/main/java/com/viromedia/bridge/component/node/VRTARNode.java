@@ -9,17 +9,16 @@ import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
 import com.viro.renderer.ARAnchor;
 import com.viro.renderer.jni.ARNode;
+import com.viromedia.bridge.utility.ARUtils;
 import com.viromedia.bridge.utility.ViroEvents;
 
-public abstract class VRTARNode extends VRTNode implements ARNode.ARNodeDelegate {
+public class VRTARNode extends VRTNode implements ARNode.ARNodeDelegate {
 
     protected boolean mIsAnchored = false;
 
     public VRTARNode(ReactApplicationContext context) {
         super(context);
     }
-
-    abstract WritableMap mapFromARAnchor(ARAnchor arAnchor);
 
     @Override
     public boolean shouldAppear() {
@@ -33,7 +32,7 @@ public abstract class VRTARNode extends VRTNode implements ARNode.ARNodeDelegate
         mIsAnchored = true;
         handleAppearanceChange();
         WritableMap returnMap = Arguments.createMap();
-        returnMap.putMap("anchorFoundMap", mapFromARAnchor(arAnchor));
+        returnMap.putMap("anchorFoundMap", ARUtils.mapFromARAnchor(arAnchor));
         mReactContext.getJSModule(RCTEventEmitter.class).receiveEvent(
                 getId(),
                 ViroEvents.ON_ANCHOR_FOUND,
@@ -43,7 +42,7 @@ public abstract class VRTARNode extends VRTNode implements ARNode.ARNodeDelegate
     @Override
     public void onAnchorUpdated(ARAnchor arAnchor) {
         WritableMap returnMap = Arguments.createMap();
-        returnMap.putMap("anchorUpdatedMap", mapFromARAnchor(arAnchor));
+        returnMap.putMap("anchorUpdatedMap", ARUtils.mapFromARAnchor(arAnchor));
         mReactContext.getJSModule(RCTEventEmitter.class).receiveEvent(
                 getId(),
                 ViroEvents.ON_ANCHOR_UPDATED,

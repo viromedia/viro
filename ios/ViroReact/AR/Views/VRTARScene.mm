@@ -10,6 +10,7 @@
 #import "VRTARScene.h"
 #import "VRTARAnchorNode.h"
 #import "VRTARPlane.h"
+#import "VRTARUtils.h"
 
 static NSString *const kVRTAmbientLightInfoKey = @"ambientLightInfo";
 static NSString *const kVRTIntensityKey = @"intensity";
@@ -57,6 +58,24 @@ static NSString *const kVRTColorTemperatureKey = @"colorTemperature";
         self.onAmbientLightUpdateViro(@{kVRTAmbientLightInfoKey: @{ kVRTIntensityKey : @(intensity),
                                                                     kVRTColorTemperatureKey : @(colorTemperature)
                                                                     }});
+    }
+}
+
+- (void)onAnchorFound:(std::shared_ptr<VROARAnchor>)anchor {
+    if (self.onAnchorFoundViro) {
+        self.onAnchorFoundViro(@{@"anchor" : [VRTARUtils createDictionaryFromAnchor:anchor]});
+    }
+}
+
+- (void)onAnchorUpdated:(std::shared_ptr<VROARAnchor>)anchor {
+    if (self.onAnchorUpdatedViro) {
+        self.onAnchorUpdatedViro(@{@"anchor" : [VRTARUtils createDictionaryFromAnchor:anchor]});
+    }
+}
+
+- (void)onAnchorRemoved:(std::shared_ptr<VROARAnchor>)anchor {
+    if (self.onAnchorRemovedViro) {
+        self.onAnchorRemovedViro(@{@"anchor" : [VRTARUtils createDictionaryFromAnchor:anchor]});
     }
 }
 

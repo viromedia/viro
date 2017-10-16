@@ -7,9 +7,11 @@ import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
+import com.viro.renderer.ARAnchor;
 import com.viro.renderer.jni.ARPlane;
 import com.viro.renderer.jni.ARSceneController;
 import com.viro.renderer.jni.SceneController;
+import com.viromedia.bridge.utility.ARUtils;
 import com.viromedia.bridge.utility.ViroEvents;
 
 public class VRTARScene extends VRTScene implements ARSceneController.ARSceneDelegate {
@@ -64,5 +66,38 @@ public class VRTARScene extends VRTScene implements ARSceneController.ARSceneDel
                 getId(),
                 ViroEvents.ON_AMBIENT_LIGHT_UPDATE,
                 event);
+    }
+
+    @Override
+    public void onAnchorFound(ARAnchor arAnchor) {
+        WritableMap returnMap = Arguments.createMap();
+        returnMap.putMap("anchor", ARUtils.mapFromARAnchor(arAnchor));
+
+        mReactContext.getJSModule(RCTEventEmitter.class).receiveEvent(
+            getId(),
+            ViroEvents.ON_ANCHOR_FOUND,
+            returnMap);
+    }
+
+    @Override
+    public void onAnchorUpdated(ARAnchor arAnchor) {
+        WritableMap returnMap = Arguments.createMap();
+        returnMap.putMap("anchor", ARUtils.mapFromARAnchor(arAnchor));
+
+        mReactContext.getJSModule(RCTEventEmitter.class).receiveEvent(
+            getId(),
+            ViroEvents.ON_ANCHOR_UPDATED,
+            returnMap);
+    }
+
+    @Override
+    public void onAnchorRemoved(ARAnchor arAnchor) {
+        WritableMap returnMap = Arguments.createMap();
+        returnMap.putMap("anchor", ARUtils.mapFromARAnchor(arAnchor));
+
+        mReactContext.getJSModule(RCTEventEmitter.class).receiveEvent(
+            getId(),
+            ViroEvents.ON_ANCHOR_REMOVED,
+            returnMap);
     }
 }

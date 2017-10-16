@@ -125,7 +125,7 @@ ViroMaterials.createMaterials({
   transparent: {
     shininess: 2.0,
     lightingModel: "Constant",
-    diffuseColor: "#00000055"
+    diffuseColor: "#0000cc55"
   },
 });
 

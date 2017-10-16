@@ -15,21 +15,10 @@ public class VRTARPlane extends VRTARNode {
     private static final float DEFAULT_WIDTH = 0f;
     private static final float DEFAULT_HEIGHT = 0f;
 
-    private boolean mDimensionsUpdated = false;
+    private boolean mNeedsUpdate = false;
 
     public VRTARPlane(ReactApplicationContext context) {
         super(context);
-    }
-
-    @Override
-    WritableMap mapFromARAnchor(ARAnchor arAnchor) {
-        WritableMap returnMap = Arguments.createMap();
-        returnMap.putArray("position", Arguments.makeNativeArray(arAnchor.getPosition()));
-        returnMap.putArray("rotation", Arguments.makeNativeArray(arAnchor.getRotation()));
-        returnMap.putArray("center", Arguments.makeNativeArray(arAnchor.getCenter()));
-        returnMap.putDouble("width", arAnchor.getExtent()[0]);
-        returnMap.putDouble("height", arAnchor.getExtent()[2]);
-        return returnMap;
     }
 
     protected Node createNodeJni() {
@@ -40,12 +29,17 @@ public class VRTARPlane extends VRTARNode {
 
     public void setMinWidth(float minWidth) {
         ((ARPlane) getNodeJni()).setMinWidth(minWidth);
-        mDimensionsUpdated = true;
+        mNeedsUpdate = true;
     }
 
     public void setMinHeight(float minHeight) {
         ((ARPlane) getNodeJni()).setMinHeight(minHeight);
-        mDimensionsUpdated = true;
+        mNeedsUpdate = true;
+    }
+
+    public void setAnchorId(String anchorId) {
+        ((ARPlane) getNodeJni()).setAnchorId(anchorId);
+        mNeedsUpdate = true;
     }
 
     @Override
@@ -65,9 +59,9 @@ public class VRTARPlane extends VRTARNode {
 
     @Override
     protected void onPropsSet() {
-        if (mDimensionsUpdated && mScene != null) {
+        if (mNeedsUpdate && mScene != null) {
             ((VRTARScene) mScene).updateARPlane((ARPlane) getNodeJni());
-            mDimensionsUpdated = false;
+            mNeedsUpdate = false;
         }
     }
 }

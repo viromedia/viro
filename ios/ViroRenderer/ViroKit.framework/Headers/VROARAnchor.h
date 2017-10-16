@@ -43,6 +43,16 @@ public:
     virtual ~VROARAnchor() {}
     
     /*
+     String representing the ID of the anchor in the underlying platform (ARKit/ARCore).
+     */
+    std::string getId() const {
+        return _id;
+    }
+    void setId(std::string id) {
+        _id = id;
+    }
+    
+    /*
      Transformation matrix encoding the position, orientation and scale of the
      anchor in world coordinates.
      */
@@ -80,7 +90,9 @@ public:
     }
     
 private:
-    
+
+    std::string _id;
+
     VROMatrix4f _transform;
     
     /*

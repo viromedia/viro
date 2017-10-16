@@ -34,6 +34,7 @@ enum class VRORendererTestType {
     HDR,
     Bloom,
     Perf,
+    Polyline,
     NumTests,
 };
 

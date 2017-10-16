@@ -13,7 +13,9 @@
 
 @property (nonatomic, copy, nullable) RCTDirectEventBlock onTrackingInitializedViro;
 @property (nonatomic, copy, nullable) RCTDirectEventBlock onAmbientLightUpdateViro;
-
+@property (nonatomic, copy, nullable) RCTDirectEventBlock onAnchorFoundViro;
+@property (nonatomic, copy, nullable) RCTDirectEventBlock onAnchorUpdatedViro;
+@property (nonatomic, copy, nullable) RCTDirectEventBlock onAnchorRemovedViro;
 
 - (instancetype)initWithBridge:(RCTBridge *)bridge;
 

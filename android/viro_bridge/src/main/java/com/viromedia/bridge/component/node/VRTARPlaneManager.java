@@ -37,6 +37,11 @@ public class VRTARPlaneManager extends VRTNodeManager<VRTARPlane> {
         arPlane.setMinHeight(minHeight);
     }
 
+    @ReactProp(name="anchorId")
+    public void setAnchorId(VRTARPlane arPlane, String anchorId) {
+        arPlane.setAnchorId(anchorId);
+    }
+
     @Override
     public Map getExportedCustomDirectEventTypeConstants() {
         Map map = super.getExportedCustomDirectEventTypeConstants();
