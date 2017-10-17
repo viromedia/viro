@@ -52,7 +52,7 @@ public class VRTARPlane extends VRTARNode {
 
     @Override
     public void parentDidDisappear() {
-        if (mScene != null) {
+        if (mScene != null && getNodeJni() != null) {
             ((VRTARScene) mScene).removeARPlane((ARPlane) getNodeJni());
         }
     }

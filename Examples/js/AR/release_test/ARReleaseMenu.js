@@ -42,6 +42,7 @@ var testFiles = [
   ["ARDragTest", require("./ARDragTest")],
   ["ARPlaneSelectorTest", require("./ARPlaneSelectorTest")],
   ["ARPlaneTest", require("./ARPlaneTest")],
+  ["ARPlaneManualTest", require("./ARPlaneManualTest")],
   ["ARHitTest", require("./ARHitTest")],
   ["ViroPortalTestAR", require("./ViroPortalTestAR")],
   ["ViroPostProcessTestAR", require("./ViroPostProcessTestAR")],
