@@ -42,6 +42,10 @@ public class VRTARPlane extends VRTARNode {
         mNeedsUpdate = true;
     }
 
+    public void setPauseUpdates(boolean pauseUpdates) {
+        ((ARPlane) getNodeJni()).setPauseUpdates(pauseUpdates);
+    }
+
     @Override
     public void setScene(VRTScene scene) {
         super.setScene(scene);

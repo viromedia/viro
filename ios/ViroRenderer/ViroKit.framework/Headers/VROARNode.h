@@ -18,7 +18,8 @@ class VROARNode : public VRONode {
 public:
     VROARNode() :
         _isAttached(false),
-        _internalHidden(false) {}
+        _internalHidden(false),
+        _pauseUpdates(false) {}
 
     virtual ~VROARNode() {}
     
@@ -60,6 +61,12 @@ public:
     std::shared_ptr<VROARNodeDelegate> getARNodeDelegate() {
         return _arNodeDelegate.lock();
     }
+
+    void setPauseUpdates(bool pauseUpdates);
+
+    bool shouldPauseUpdates() {
+        return _pauseUpdates;
+    }
     
     void onARAnchorAttached() {
         setIsAttached(true);
@@ -93,6 +100,7 @@ protected:
     std::weak_ptr<VROARNodeDelegate> _arNodeDelegate;
     bool _isAttached;
     bool _internalHidden;
+    bool _pauseUpdates;
 
 };
 #endif /* VROARNode_h */

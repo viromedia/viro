@@ -16,6 +16,10 @@ var ViroARScene = React.createClass({
   propTypes: {
     ...View.propTypes,
     ignoreEventHandling: PropTypes.bool,
+    anchorDetectionTypes: PropTypes.oneOfType([
+      PropTypes.arrayOf(PropTypes.string),
+      PropTypes.string
+    ]),
     dragType: PropTypes.oneOf(["FixedDistance", "FixedToWorld"]),
     onHover: PropTypes.func,
     onClick: PropTypes.func,
@@ -193,6 +197,10 @@ var ViroARScene = React.createClass({
   },
 
   render: function() {
+    // Since anchorDetectionTypes can be either a string or an array, convert the string to a 1-element array.
+    let anchorDetectionTypes = typeof this.props.anchorDetectionTypes === 'string' ?
+        new Array(this.props.anchorDetectionTypes) : this.props.anchorDetectionTypes;
+
     let timeToFuse = undefined;
     if (this.props.onFuse != undefined && typeof this.props.onFuse === 'object'){
         timeToFuse = this.props.onFuse.timeToFuse;
@@ -226,6 +234,7 @@ var ViroARScene = React.createClass({
         onAnchorUpdatedViro={this._onAnchorUpdated}
         onAnchorRemovedViro={this._onAnchorRemoved}
         timeToFuse={timeToFuse}
+        anchorDetectionTypes={anchorDetectionTypes}
         />
     );
   },

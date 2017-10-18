@@ -35,9 +35,11 @@ var testARScene = React.createClass({
   mixins: [TimerMixin],
   getInitialState: function() {
     return {
+      pauseUpdates: false,
       addPlane : true,
       useFirstPlane : true,
-      updateMap : {width:0, height:0, position:[0,0,0]},
+      updateMap : {width:0, height:0, position:[0,0,0]}, // used to update render props
+      displayMap : {width:0, height:0, position:[0,0,0]}, // used to display info
       minValue : 0,
     }
   },
@@ -53,6 +55,9 @@ var testARScene = React.createClass({
           style={styles.instructionText} transformBehaviors={["billboard"]} onClick={this._switchPlane}/>
         <ViroText position={polarToCartesian([2, 30, -10])} text={"Min Width/Height: " + this.state.minValue}
           style={styles.instructionText} transformBehaviors={["billboard"]} onClick={this._increaseMinValue}/>
+        <ViroText position={polarToCartesian([2, 30, -20])} text={this.state.pauseUpdates ? "Resume Updates" : "Pause Updates"}
+          style={styles.instructionText} transformBehaviors={["billboard"]}
+          onClick={()=>{this.setState({pauseUpdates : !this.state.pauseUpdates})}}/>
 
         <ViroText position={polarToCartesian([2, 0, 10])} text={this._getFoundText()}
           style={styles.instructionText} transformBehaviors={["billboard"]}/>
@@ -80,6 +85,7 @@ var testARScene = React.createClass({
         <ViroARPlane
             minHeight={this.state.minValue}
             minWidth={this.state.minValue}
+            pauseUpdates={this.state.pauseUpdates}
             key={this.state.useFirstPlane ? "firstPlane" : "secondPlane"}
             onClick={this._setTextNatively("onClick")}
             onHover={this._setTextNatively("onHover")}
@@ -111,9 +117,12 @@ var testARScene = React.createClass({
     });
   },
   _onAnchorUpdated(updateMap) {
-    this.setState({
-      updateMap
-    })
+    let newState = {};
+    newState["displayMap"] = updateMap;
+    if (!this.state.pauseUpdates) {
+      newState["updateMap"] = updateMap;
+    }
+    this.setState(newState);
   },
   _onAnchorRemoved() {
     this.setState({
@@ -124,7 +133,7 @@ var testARScene = React.createClass({
     return this.state.found ? "Plane Found" : "Plane NOT Found";
   },
   _getUpdatedText() {
-    return this.state.updateMap ? ("Width: " + this.state.updateMap.width + ", Height: " + this.state.updateMap.height) : "No Updates";
+    return this.state.displayMap ? ("Width: " + this.state.displayMap.width + ", Height: " + this.state.displayMap.height) : "No Updates";
   },
   _getRemovedText() {
     return this.state.removed ? "Plane Removed" : "Plane NOT Removed";

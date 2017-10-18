@@ -52,9 +52,14 @@ private:
 
     // Anchors without an associated Node
     std::vector<std::shared_ptr<VROARAnchor>> _detachedAnchors;
-    // Planes without an associated Anchor
+
+    // Planes w/o id's without an associated Anchor
     std::vector<std::shared_ptr<VROARPlaneNode>> _detachedPlanes;
-    
+
+    // Planes w/ id's without an associated Anchor
+    std::vector<std::shared_ptr<VROARPlaneNode>> _detachedPlanesWithID;
+
+
     /*
      Returns a detached anchor that is suitable for the given plane
      */

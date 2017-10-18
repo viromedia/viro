@@ -4,6 +4,7 @@
 package com.viromedia.bridge.component.node;
 
 import com.facebook.react.bridge.ReactApplicationContext;
+import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.common.MapBuilder;
 import com.facebook.react.uimanager.ThemedReactContext;
 import com.facebook.react.uimanager.annotations.ReactProp;
@@ -40,6 +41,11 @@ public class VRTARPlaneManager extends VRTNodeManager<VRTARPlane> {
     @ReactProp(name="anchorId")
     public void setAnchorId(VRTARPlane arPlane, String anchorId) {
         arPlane.setAnchorId(anchorId);
+    }
+
+    @ReactProp(name="pauseUpdates", defaultBoolean = false)
+    public void setPauseUdpates(VRTARPlane arPlane, boolean pauseUpdates) {
+        arPlane.setPauseUpdates(pauseUpdates);
     }
 
     @Override

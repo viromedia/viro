@@ -18,8 +18,10 @@ static float const kARPlaneDefaultMinWidth = 0;
 - (instancetype)initWithBridge:(RCTBridge *)bridge {
     self = [super initWithBridge:bridge];
     if (self) {
+        // default min height/width is 0, we match any surface
         _minWidth = kARPlaneDefaultMinWidth;
         _minHeight = kARPlaneDefaultMinHeight;
+        _pauseUpdates = NO;
         _arNodeDelegate = std::make_shared<VROARNodeDelegateiOS>(self);
         
         std::shared_ptr<VROARPlaneNode> plane = std::dynamic_pointer_cast<VROARPlaneNode>([self node]);
@@ -66,6 +68,14 @@ static float const kARPlaneDefaultMinWidth = 0;
     std::shared_ptr<VROARPlaneNode> plane = std::dynamic_pointer_cast<VROARPlaneNode>([self node]);
     if (plane) {
         plane->setMinWidth(_minWidth);
+    }
+}
+
+- (void)setPauseUpdates:(BOOL)pauseUpdates {
+    _pauseUpdates = pauseUpdates;
+    std::shared_ptr<VROARPlaneNode> plane = std::dynamic_pointer_cast<VROARPlaneNode>([self node]);
+    if (plane) {
+        plane->setPauseUpdates(pauseUpdates);
     }
 }
 

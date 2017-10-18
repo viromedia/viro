@@ -3,16 +3,24 @@
  */
 package com.viromedia.bridge.component.node;
 
+import android.view.ViewParent;
+
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.ReactApplicationContext;
+import com.facebook.react.bridge.ReadableArray;
+import com.facebook.react.bridge.WritableArray;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
 import com.viro.renderer.ARAnchor;
 import com.viro.renderer.jni.ARPlane;
 import com.viro.renderer.jni.ARSceneController;
 import com.viro.renderer.jni.SceneController;
+import com.viro.renderer.jni.ViroViewARCore;
+import com.viromedia.bridge.component.VRTARSceneNavigator;
 import com.viromedia.bridge.utility.ARUtils;
 import com.viromedia.bridge.utility.ViroEvents;
+
+import java.util.ArrayList;
 
 public class VRTARScene extends VRTScene implements ARSceneController.ARSceneDelegate {
 
@@ -41,6 +49,23 @@ public class VRTARScene extends VRTScene implements ARSceneController.ARSceneDel
 
     public void removeARPlane(ARPlane planeJni) {
         ((ARSceneController) mNativeSceneController).removeARPlane(planeJni);
+    }
+
+    public void setAnchorDetectionTypes(ReadableArray types) {
+        ViewParent parent = getParent();
+        if (parent instanceof VRTARSceneNavigator) {
+            VRTARSceneNavigator navigator = (VRTARSceneNavigator) parent;
+            ViroViewARCore viroViewARCore = navigator.getARView();
+            if (viroViewARCore != null) {
+                ArrayList<String> typesList = new ArrayList<>();
+                if (types != null) {
+                    for (int i = 0; i < types.size(); i++) {
+                        typesList.add(types.getString(i));
+                    }
+                }
+                viroViewARCore.setAnchorDetectionTypes(typesList);
+            }
+        }
     }
 
     // -- ARSceneDelegate Implementation --

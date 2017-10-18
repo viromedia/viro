@@ -78,7 +78,7 @@ public:
      Update the anchor's node's transforms given the data in the anchor.
      */
     void updateNodeTransform() {
-        if (_node) {
+        if (_node && !_node->shouldPauseUpdates()) {
             VROVector3f scale = getTransform().extractScale();
             VROQuaternion rotation = getTransform().extractRotation(scale);
             VROVector3f position = getTransform().extractTranslation();
@@ -94,7 +94,7 @@ private:
     std::string _id;
 
     VROMatrix4f _transform;
-    
+
     /*
      The node associated with this anchor.
      */

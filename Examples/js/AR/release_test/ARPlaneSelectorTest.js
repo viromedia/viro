@@ -35,13 +35,14 @@ var testARScene = React.createClass({
   mixins: [TimerMixin],
   getInitialState: function() {
     return {
+      findPlanes : true,
       selectedState : "NOT Selected",
       numberOfPlanes : 2,
     }
   },
   render: function() {
     return (
-      <ViroARScene position={[0,0,0]} reticleEnabled={false} >
+      <ViroARScene anchorDetectionTypes={this.state.findPlanes ? "PlanesHorizontal" : "None"} >
         <ViroARPlaneSelector ref={"planeSelector"}
           maxPlanes={this.state.numberOfPlanes}
           onPlaneSelected={this._onPlaneSelected} >
@@ -57,6 +58,10 @@ var testARScene = React.createClass({
           style={styles.instructionText} transformBehaviors={["billboard"]}/>
         <ViroText position={polarToCartesian([2, 0, 0])} text={"MaxPlanes: " + this.state.numberOfPlanes}
           style={styles.instructionText} transformBehaviors={["billboard"]} onClick={this._numPlanesTextClick}/>
+        <ViroText position={polarToCartesian([2, 0, -10])}
+          text={this.state.findPlanes ? "Disable Plane Finding"  : "Enable Plane Finding"}
+          onClick={()=>{this.setState({findPlanes : !this.state.findPlanes})}}
+          style={styles.instructionText} transformBehaviors={["billboard"]}/>
 
         {/* Release Menu */}
         <ViroText position={polarToCartesian([2, -30, 0])} text={"Next test"}

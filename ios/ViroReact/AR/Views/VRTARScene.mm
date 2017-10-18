@@ -11,6 +11,7 @@
 #import "VRTARAnchorNode.h"
 #import "VRTARPlane.h"
 #import "VRTARUtils.h"
+#import "VRTARSceneNavigator.h"
 
 static NSString *const kVRTAmbientLightInfoKey = @"ambientLightInfo";
 static NSString *const kVRTIntensityKey = @"intensity";
@@ -42,8 +43,25 @@ static NSString *const kVRTColorTemperatureKey = @"colorTemperature";
     self.portalTraversalListener = std::make_shared<VROPortalTraversalListener>(_vroArScene);
 }
 
-// Add portal traversal listener for this AR scene.
-
+- (void)setAnchorDetectionTypes:(NSArray<NSString *> *)types {
+    _anchorDetectionTypes = types;
+    UIView *parent = [self superview];
+    if ([parent isKindOfClass:[VRTARSceneNavigator class]]) {
+        UIView *rootView = [((VRTARSceneNavigator *)parent) rootVROView];
+        if ([rootView isKindOfClass:[VROViewAR class]]) {
+            std::shared_ptr<VROARSession> session = [((VROViewAR *)rootView) getARSession];
+            std::set<VROAnchorDetection> detectionTypes;
+            for (NSString *type in types) {
+                if ([type caseInsensitiveCompare:@"None"] == NSOrderedSame) {
+                    detectionTypes.insert(VROAnchorDetection::None);
+                } else if([type caseInsensitiveCompare:@"PlanesHorizontal"] == NSOrderedSame) {
+                    detectionTypes.insert(VROAnchorDetection::PlanesHorizontal);
+                }
+            }
+            session->setAnchorDetection(detectionTypes);
+        }
+    }
+}
 
 #pragma mark VROARSceneDelegateProtocol Implementation
 

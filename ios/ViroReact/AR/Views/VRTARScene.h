@@ -11,6 +11,7 @@
 
 @interface VRTARScene : VRTScene <VROARSceneDelegateProtocol>
 
+@property (nonatomic, copy, nullable) NSArray<NSString *> *anchorDetectionTypes;
 @property (nonatomic, copy, nullable) RCTDirectEventBlock onTrackingInitializedViro;
 @property (nonatomic, copy, nullable) RCTDirectEventBlock onAmbientLightUpdateViro;
 @property (nonatomic, copy, nullable) RCTDirectEventBlock onAnchorFoundViro;

@@ -4,11 +4,16 @@
 package com.viromedia.bridge.component.node;
 
 import com.facebook.react.bridge.ReactApplicationContext;
+import com.facebook.react.bridge.ReadableArray;
+import com.facebook.react.bridge.WritableArray;
 import com.facebook.react.common.MapBuilder;
 import com.facebook.react.uimanager.ThemedReactContext;
+import com.facebook.react.uimanager.annotations.ReactProp;
 import com.viromedia.bridge.utility.ViroEvents;
 
 import java.util.Map;
+
+import javax.annotation.Nullable;
 
 public class VRTARSceneManager extends VRTSceneManager<VRTARScene> {
 
@@ -24,6 +29,11 @@ public class VRTARSceneManager extends VRTSceneManager<VRTARScene> {
     @Override
     protected VRTARScene createViewInstance(ThemedReactContext reactContext) {
         return new VRTARScene(getContext());
+    }
+
+    @ReactProp(name="anchorDetectionTypes")
+    public void setAnchorDetectionTypes(VRTARScene scene, @Nullable ReadableArray array) {
+        scene.setAnchorDetectionTypes(array);
     }
 
     @Override

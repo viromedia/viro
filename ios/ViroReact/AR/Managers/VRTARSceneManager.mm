@@ -20,6 +20,7 @@
 
 RCT_EXPORT_MODULE()
 
+RCT_EXPORT_VIEW_PROPERTY(anchorDetectionTypes, NSArray<NSString *>)
 RCT_EXPORT_VIEW_PROPERTY(onHoverViro, RCTDirectEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onClickViro, RCTDirectEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onFuseViro, RCTDirectEventBlock)

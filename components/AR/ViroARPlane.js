@@ -26,6 +26,7 @@ var ViroARPlane = React.createClass({
     anchorId: PropTypes.string,
     minHeight: PropTypes.number,
     minWidth: PropTypes.number,
+    pauseUpdates: PropTypes.bool,
     visible: PropTypes.bool,
     opacity: PropTypes.number,
     ignoreEventHandling: PropTypes.bool,
