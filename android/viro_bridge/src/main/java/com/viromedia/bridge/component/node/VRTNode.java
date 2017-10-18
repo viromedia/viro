@@ -24,6 +24,12 @@ import com.viro.renderer.jni.EventDelegate;
 import com.viro.renderer.jni.Material;
 import com.viro.renderer.jni.Node;
 import com.viro.renderer.jni.ExecutableAnimation;
+import com.viro.renderer.jni.PhysicsBody;
+import com.viro.renderer.jni.PhysicsShape;
+import com.viro.renderer.jni.PhysicsShapeAutoCompound;
+import com.viro.renderer.jni.PhysicsShapeBox;
+import com.viro.renderer.jni.PhysicsShapeSphere;
+import com.viro.renderer.jni.Vector;
 import com.viromedia.bridge.component.VRTAnimatedComponent;
 import com.viromedia.bridge.component.VRTComponent;
 import com.viromedia.bridge.component.VRTLight;
@@ -278,7 +284,9 @@ public class VRTNode extends VRTComponent {
     @Override
     protected void handleAppearanceChange() {
         if (mNodeJni != null) {
-            mNodeJni.setPhysicsIsSimulated(shouldAppear());
+            if (mNodeJni.getPhysicsBody() != null) {
+                mNodeJni.getPhysicsBody().setEnabled(shouldAppear());
+            }
             mNodeJni.setVisible(shouldAppear());
         }
         super.handleAppearanceChange();
@@ -650,9 +658,9 @@ public class VRTNode extends VRTComponent {
         }
 
         if (mPhysicsDelegate != null){
-            mNodeJni.setPhysicsDelegate(mPhysicsDelegate);
+            mNodeJni.getPhysicsBody().setPhysicsDelegate(mPhysicsDelegate);
         } else {
-            mNodeJni.setPhysicsDelegate(null);
+            mNodeJni.getPhysicsBody().setPhysicsDelegate(null);
         }
     }
 
@@ -675,9 +683,23 @@ public class VRTNode extends VRTComponent {
             hasBodyTypeChanged = !bodyTypeProp.equals(bodyTypeCurrent);
         }
 
-        String bodyTypeError = mNodeJni.checkIsValidBodyType(bodyTypeProp, mass);
+        String bodyTypeError = PhysicsBody.checkIsValidBodyType(bodyTypeProp, mass);
         if (bodyTypeError != null){
             throw new JSApplicationCausedNativeException(bodyTypeError);
+        }
+
+        PhysicsBody.RigidBodyType rigidBodyType;
+        if (bodyTypeProp.equals("dynamic")) {
+            rigidBodyType = PhysicsBody.RigidBodyType.DYNAMIC;
+        }
+        else if (bodyTypeProp.equalsIgnoreCase("static")) {
+            rigidBodyType = PhysicsBody.RigidBodyType.STATIC;
+        }
+        else if (bodyTypeProp.equalsIgnoreCase("kinematic")) {
+            rigidBodyType = PhysicsBody.RigidBodyType.KINEMATIC;
+        }
+        else {
+            throw new JSApplicationCausedNativeException("Invalid physics body type [" + bodyTypeProp + "]");
         }
 
         // Determine if the physics shape has changed
@@ -693,10 +715,11 @@ public class VRTNode extends VRTComponent {
         if (!hasPhysicsBody || hasBodyTypeChanged || hasShapeChanged){
             String propShapeType = null;
             float params[] = {};
+            PhysicsShape shape = null;
 
             // Recreate a physics shape with the latest properties by grabbing
             // the current shapeType (required in JS if providing a physics shape)
-            if (shapeTypeProp != null){
+            if (shapeTypeProp != null) {
                 propShapeType = shapeTypeProp.getString("type");
                 if (shapeTypeProp.hasKey("params")) {
                     ReadableArray readableParams = shapeTypeProp.getArray("params");
@@ -706,17 +729,30 @@ public class VRTNode extends VRTComponent {
                     }
                 }
 
-                String error = mNodeJni.checkIsValidShapeType(propShapeType, params);
+                String error = PhysicsBody.checkIsValidShapeType(propShapeType, params);
                 if (error != null){
                     throw new JSApplicationCausedNativeException(error);
+                }
+
+                if (propShapeType.equalsIgnoreCase("sphere")) {
+                    shape = new PhysicsShapeSphere(params[0]);
+                }
+                else if (propShapeType.equalsIgnoreCase("box")) {
+                    shape = new PhysicsShapeBox(params[0], params[1], params[2]);
+                }
+                else if (propShapeType.equalsIgnoreCase("compound")) {
+                    shape = new PhysicsShapeAutoCompound();
+                }
+                else {
+                    throw new JSApplicationCausedNativeException("Invalid shape type [" + propShapeType + "]");
                 }
             }
 
             if (!hasPhysicsBody || hasBodyTypeChanged){
                 clearPhysicsBody();
-                createPhysicsBody(bodyTypeProp, mass, propShapeType, params);
+                createPhysicsBody(rigidBodyType, mass, shape);
             } else {
-                mNodeJni.setPhysicsShape(propShapeType, params);
+                mNodeJni.getPhysicsBody().setShape(shape);
             }
         }
     }
@@ -725,11 +761,11 @@ public class VRTNode extends VRTComponent {
         if (map.hasKey("mass")) {
             float mass = (float)map.getDouble("mass");
             String bodyType = map.getString("type");
-            String bodyTypeError = mNodeJni.checkIsValidBodyType(bodyType, mass);
+            String bodyTypeError = PhysicsBody.checkIsValidBodyType(bodyType, mass);
             if (bodyTypeError != null){
                 throw new JSApplicationCausedNativeException(bodyTypeError);
             }
-            mNodeJni.setPhysicsMass(mass);
+            mNodeJni.getPhysicsBody().setMass(mass);
         }
 
         if (map.hasKey("inertia")){
@@ -744,19 +780,19 @@ public class VRTNode extends VRTComponent {
                         "provided for inertia, expected: [x, y, z]!");
             }
 
-            mNodeJni.setPhysicsInertia(inertiaArray);
+            mNodeJni.getPhysicsBody().setMomentOfInertia(new Vector(inertiaArray));
         }
 
         if (map.hasKey("friction")) {
-            mNodeJni.setPhysicsFriction((float)map.getDouble("friction"));
+            mNodeJni.getPhysicsBody().setFriction((float)map.getDouble("friction"));
         }
 
         if (map.hasKey("restitution")) {
-            mNodeJni.setPhysicsRestitution((float)map.getDouble("restitution"));
+            mNodeJni.getPhysicsBody().setRestitution((float)map.getDouble("restitution"));
         }
 
         if (map.hasKey("enabled")) {
-            mNodeJni.setPhysicsEnabled(map.getBoolean("enabled"));
+            mNodeJni.getPhysicsBody().setEnabled(map.getBoolean("enabled"));
         }
 
         if (map.hasKey("useGravity")) {
@@ -764,7 +800,7 @@ public class VRTNode extends VRTComponent {
             if (!bodyType.equalsIgnoreCase("dynamic")){
                 ViroLog.warn(TAG,"Attempted to set useGravity for non-dynamic phsyics bodies.");
             } else {
-                mNodeJni.setPhsyicsUseGravity(map.getBoolean("useGravity"));
+                mNodeJni.getPhysicsBody().setUseGravity(map.getBoolean("useGravity"));
             }
         }
 
@@ -780,9 +816,9 @@ public class VRTNode extends VRTComponent {
                         "provided for velocity, expected: [x, y, z]!");
             }
 
-            mNodeJni.setPhysicsVelocity(velocityArray, true);
+            mNodeJni.getPhysicsBody().setVelocity(new Vector(velocityArray), true);
         } else {
-            mNodeJni.setPhysicsVelocity(new float[]{0,0,0}, true);
+            mNodeJni.getPhysicsBody().setVelocity(new Vector(0, 0, 0), true);
         }
     }
 
@@ -806,7 +842,7 @@ public class VRTNode extends VRTComponent {
             return;
         }
 
-        mNodeJni.clearPhysicsForce();
+        mNodeJni.getPhysicsBody().clearForce();
 
         // Apply Torque
         if (map.hasKey("torque")){
@@ -821,7 +857,7 @@ public class VRTNode extends VRTComponent {
                         "provided for torque, expected: [x, y, z]!");
             }
 
-            mNodeJni.applyPhysicsTorque(torqueArray);
+            mNodeJni.getPhysicsBody().applyTorque(new Vector(torqueArray));
         }
 
         // Apply force
@@ -860,7 +896,7 @@ public class VRTNode extends VRTComponent {
                 positionArray = new float[]{0,0,0};
             }
 
-            mNodeJni.applyPhysicsForce(forceArray, positionArray);
+            mNodeJni.getPhysicsBody().applyForce(new Vector(forceArray), new Vector(positionArray));
         }
     }
 
@@ -883,29 +919,20 @@ public class VRTNode extends VRTComponent {
         return maps;
     }
 
-    private void createPhysicsBody(String bodyType, float mass, String shapeType,
-                                   float shapeParams[]){
-        mNodeJni.initPhysicsBody(bodyType, mass, shapeType, shapeParams);
-        if (mScene != null){
-            mScene.addPhysicsBodyToScene(this);
-        }
-
+    private void createPhysicsBody(PhysicsBody.RigidBodyType bodyType, float mass, PhysicsShape shape){
+        mNodeJni.initPhysicsBody(bodyType, mass, shape);
         if (mPhysicsDelegate != null){
-            mNodeJni.setPhysicsDelegate(mPhysicsDelegate);
+            mNodeJni.getPhysicsBody().setPhysicsDelegate(mPhysicsDelegate);
         } else {
-            mNodeJni.setPhysicsDelegate(null);
+            mNodeJni.getPhysicsBody().setPhysicsDelegate(null);
         }
 
         hasPhysicsBody = true;
     }
 
     private void clearPhysicsBody(){
-        if (mPhysicsDelegate != null){
-            mNodeJni.setPhysicsDelegate(null);
-        }
-
-        if (mScene != null){
-            mScene.removePhysicsBodyFromScene(this);
+        if (mNodeJni.getPhysicsBody() != null && mPhysicsDelegate != null) {
+            mNodeJni.getPhysicsBody().setPhysicsDelegate(null);
         }
 
         mNodeJni.clearPhysicsBody();
@@ -914,9 +941,6 @@ public class VRTNode extends VRTComponent {
 
     @Override
     public void setScene(VRTScene scene) {
-        if (hasPhysicsBody) {
-            scene.addPhysicsBodyToScene(this);
-        }
         super.setScene(scene);
     }
 
@@ -925,7 +949,7 @@ public class VRTNode extends VRTComponent {
             ViroLog.error(TAG, "Attempted to set an impulse force on a non-physics node");
             return;
         }
-        mNodeJni.applyPhysicsImpulse(force, position);
+        mNodeJni.getPhysicsBody().applyImpulse(new Vector(force), new Vector(position));
     }
 
     public void applyTorqueImpulse(float[] torque){
@@ -933,7 +957,7 @@ public class VRTNode extends VRTComponent {
             ViroLog.error(TAG, "Attempted to set an impulse force on a non-physics node");
             return;
         }
-        mNodeJni.applyPhysicsTorqueImpulse(torque);
+        mNodeJni.getPhysicsBody().applyTorqueImpulse(new Vector(torque));
     }
 
     public void setVelocity(float[] velocity, boolean isConstant){
@@ -942,31 +966,31 @@ public class VRTNode extends VRTComponent {
             return;
         }
 
-        mNodeJni.setPhysicsVelocity(velocity, isConstant);
+        mNodeJni.getPhysicsBody().setVelocity(new Vector(velocity), isConstant);
     }
 
-    protected class PhysicsBodyDelegate implements Node.PhysicsDelegate{
+    protected class PhysicsBodyDelegate implements PhysicsBody.PhysicsDelegate {
         private WeakReference<VRTComponent> weakComponent;
         public PhysicsBodyDelegate(VRTComponent component){
             weakComponent = new WeakReference<VRTComponent>(component);
         }
 
         @Override
-        public void onCollided(String collidedTag, float[] collidedPoint, float[] collidedNormal) {
+        public void onCollided(String collidedTag, Vector collidedPoint, Vector collidedNormal) {
             VRTComponent node = weakComponent.get();
             if (node == null){
                 return;
             }
 
             WritableArray points = Arguments.createArray();
-            points.pushDouble(collidedPoint[0]);
-            points.pushDouble(collidedPoint[1]);
-            points.pushDouble(collidedPoint[2]);
+            points.pushDouble(collidedPoint.x);
+            points.pushDouble(collidedPoint.y);
+            points.pushDouble(collidedPoint.z);
 
             WritableArray normals = Arguments.createArray();
-            normals.pushDouble(collidedNormal[0]);
-            normals.pushDouble(collidedNormal[1]);
-            normals.pushDouble(collidedNormal[2]);
+            normals.pushDouble(collidedNormal.x);
+            normals.pushDouble(collidedNormal.y);
+            normals.pushDouble(collidedNormal.z);
 
             WritableMap event = Arguments.createMap();
             event.putString("viroTag", collidedTag);

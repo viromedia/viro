@@ -14,6 +14,7 @@ import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
 import com.viro.renderer.jni.CameraCallback;
 import com.viro.renderer.jni.Node;
+import com.viro.renderer.jni.PhysicsShape;
 import com.viro.renderer.jni.PhysicsWorld;
 import com.viro.renderer.jni.SceneController;
 import com.viro.renderer.jni.Texture;
@@ -253,18 +254,6 @@ public class VRTScene extends VRTNode implements SceneController.SceneDelegate {
         }
     }
 
-    public void addPhysicsBodyToScene(VRTNode node){
-        if (!isTornDown()) {
-            mNativeSceneController.getPhysicsWorld().attachBodyToPhysicsWorld(node.getNodeJni());
-        }
-    }
-
-    public void removePhysicsBodyFromScene(VRTNode node){
-        if (!isTornDown()) {
-            mNativeSceneController.getPhysicsWorld().detachBodyFromPhysicsWorld(node.getNodeJni());
-        }
-    }
-
     public void findCollisionsWithRayAsync(float[] fromPos, float toPos[], boolean closest,
                                            String tag,
                                            PhysicsWorld.HitTestCallback callback) {
@@ -272,11 +261,10 @@ public class VRTScene extends VRTNode implements SceneController.SceneDelegate {
                 closest, tag, callback);
     }
 
-    public void findCollisionsWithShapeAsync(float[] from, float[] to, String shapeType,
-                                             float[] params, String tag,
+    public void findCollisionsWithShapeAsync(float[] from, float[] to, PhysicsShape shape, String tag,
                                              PhysicsWorld.HitTestCallback callback) {
         mNativeSceneController.getPhysicsWorld().findCollisionsWithShapeAsync(new Vector(from), new Vector(to),
-                shapeType, params, tag, callback);
+                shape, tag, callback);
     }
 
     /**

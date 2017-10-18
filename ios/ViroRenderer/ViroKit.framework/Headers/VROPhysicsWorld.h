@@ -19,6 +19,7 @@ class btSequentialImpulseConstraintSolver;
 class VROPhysicsDebugDraw;
 class VRODriver;
 class VRORenderContext;
+
 /*
  VROPhysicsWorld is a simulated physics environment that contains and processes
  all acting forces and collisions on VROPhysicsBodies. It also contains both
@@ -80,7 +81,9 @@ public:
      within this world.
      */
     void setDebugDrawVisible(bool isVisible);
+    
 private:
+    
     /*
      Represents the physicsBodies that have been added to and processed by this physics world.
      */

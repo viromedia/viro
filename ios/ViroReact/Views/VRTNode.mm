@@ -544,34 +544,19 @@ const double kTransformDelegateDistanceFilter = 0.01;
 
 - (void)setScene:(std::shared_ptr<VROScene>)scene {
     [super setScene:scene];
-    
-    std::shared_ptr<VROPhysicsBody> body = [self node]->getPhysicsBody();
-    if (body){
-        scene->getPhysicsWorld()->addPhysicsBody(body);
-    }
 }
 
-- (void)clearPhysicsBody{
+- (void)clearPhysicsBody {
     std::shared_ptr<VROPhysicsBody> body = [self node]->getPhysicsBody();
-    if (self.scene && body){
-        self.scene->getPhysicsWorld()->removePhysicsBody(body);
-    }
-    
-    if (body){
+    if (body) {
         [self node]->clearPhysicsBody();
     }
 }
 
-- (std::shared_ptr<VROPhysicsBody>)createPhysicsBody:(VROPhysicsBody::VROPhysicsBodyType) bodyType
-withMass:(float)mass
-withShape:(std::shared_ptr<VROPhysicsShape>) phsyicsShape{
-    std::shared_ptr<VROPhysicsBody> body = [self node]->initPhysicsBody(bodyType,
-                                                                        mass,
-                                                                        phsyicsShape);
-    if (self.scene){
-        self.scene->getPhysicsWorld()->addPhysicsBody(body);
-    }
-    
+- (std::shared_ptr<VROPhysicsBody>)createPhysicsBody:(VROPhysicsBody::VROPhysicsBodyType)bodyType
+                                            withMass:(float)mass
+                                           withShape:(std::shared_ptr<VROPhysicsShape>) physicsShape {
+    std::shared_ptr<VROPhysicsBody> body = [self node]->initPhysicsBody(bodyType, mass, physicsShape);
     if (_physicsDelegate) {
         body->setPhysicsDelegate(_physicsDelegate);
     } else {

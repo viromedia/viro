@@ -5,6 +5,7 @@ package com.viromedia.bridge.module;
 
 import android.view.View;
 
+import com.facebook.react.bridge.JSApplicationCausedNativeException;
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
@@ -15,6 +16,11 @@ import com.facebook.react.uimanager.NativeViewHierarchyManager;
 import com.facebook.react.uimanager.UIBlock;
 import com.facebook.react.uimanager.UIManagerModule;
 import com.viro.renderer.jni.Node;
+import com.viro.renderer.jni.PhysicsBody;
+import com.viro.renderer.jni.PhysicsShape;
+import com.viro.renderer.jni.PhysicsShapeAutoCompound;
+import com.viro.renderer.jni.PhysicsShapeBox;
+import com.viro.renderer.jni.PhysicsShapeSphere;
 import com.viro.renderer.jni.PhysicsWorld;
 import com.viro.renderer.jni.SceneController;
 import com.viromedia.bridge.component.node.VRTScene;
@@ -87,14 +93,28 @@ public class SceneModule extends ReactContextBaseJavaModule {
                 }
 
                 float[] params = Helper.toFloatArray(paramsArray);
-                String error = Node.checkIsValidShapeType(shapeTypeString, params);
+                String error = PhysicsBody.checkIsValidShapeType(shapeTypeString, params);
                 if (error != null){
                     throw new IllegalViewOperationException(error);
                 }
 
+                PhysicsShape shape = null;
+                if (shapeTypeString.equalsIgnoreCase("sphere")) {
+                    shape = new PhysicsShapeSphere(params[0]);
+                }
+                else if (shapeTypeString.equalsIgnoreCase("box")) {
+                    shape = new PhysicsShapeBox(params[0], params[1], params[2]);
+                }
+                else if (shapeTypeString.equalsIgnoreCase("compound")) {
+                    shape = new PhysicsShapeAutoCompound();
+                }
+                else {
+                    throw new JSApplicationCausedNativeException("Invalid shape type [" + shapeTypeString + "]");
+                }
+
                 String rayCastTag = tag != null ? tag : "";
                 VRTScene scene = (VRTScene) sceneView;
-                scene.findCollisionsWithShapeAsync(fromPosArray, toPosArray, shapeTypeString, params, rayCastTag,
+                scene.findCollisionsWithShapeAsync(fromPosArray, toPosArray, shape, rayCastTag,
                         new PhysicsWorld.HitTestCallback() {
                             @Override
                             public void onComplete(boolean hasHit) {

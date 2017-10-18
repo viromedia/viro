@@ -92,6 +92,10 @@ public:
     
 #pragma mark - Physics
     
+    bool hasPhysicsWorld() const {
+        return _physicsWorld != nullptr;
+    }
+    
     /*
      Returns the associated physics world with this scene. If there's none
      one is created and returned.
@@ -104,7 +108,8 @@ public:
     }
 
     /*
-     Grabs and computes a physics world if one exists.
+     Computes the physics simulation for the current frame, if a VROPhysicsWorld
+     exists.
      */
     void computePhysics(const VRORenderContext &context) {
         if (_physicsWorld != nullptr) {

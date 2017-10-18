@@ -16,6 +16,7 @@ class VROARSceneController : public VROSceneController {
 public:
     VROARSceneController() {
         _scene = std::make_shared<VROARScene>();
+        _scene->getRootNode()->setScene(_scene, true);
     }
     virtual ~VROARSceneController() {}
     

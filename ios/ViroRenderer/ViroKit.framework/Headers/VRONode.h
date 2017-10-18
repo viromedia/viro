@@ -34,6 +34,7 @@
 
 class VROGeometry;
 class VROLight;
+class VROScene;
 class VROAction;
 class VROTexture;
 class VROPortal;
@@ -390,44 +391,18 @@ public:
 
 #pragma mark - Scene Graph
     
-    void addChildNode(std::shared_ptr<VRONode> node) {
-        passert_thread();
-        passert (node);
-        
-        _subnodes.push_back(node);
-        node->_supernode = std::static_pointer_cast<VRONode>(shared_from_this());
-    }
-    void removeFromParentNode() {
-        passert_thread();
-        
-        std::shared_ptr<VRONode> supernode = _supernode.lock();
-        if (supernode) {
-            std::vector<std::shared_ptr<VRONode>> &parentSubnodes = supernode->_subnodes;
-            parentSubnodes.erase(
-                                 std::remove_if(parentSubnodes.begin(), parentSubnodes.end(),
-                                                [this](std::shared_ptr<VRONode> node) {
-                                                    return node.get() == this;
-                                                }), parentSubnodes.end());
-            _supernode.reset();
-        }
-    }
+    void addChildNode(std::shared_ptr<VRONode> node);
+    void removeFromParentNode();
     
     /*
      Return a copy of the subnode list.
      */
-    std::vector<std::shared_ptr<VRONode>> getChildNodes() const {
-        return _subnodes;
-    }
+    std::vector<std::shared_ptr<VRONode>> getChildNodes() const;
     
     /*
      Remove all children from this node.
      */
-    void clearChildren() {
-        std::vector<std::shared_ptr<VRONode>> children = _subnodes;
-        for (std::shared_ptr<VRONode> &node : children) {
-            node->removeFromParentNode();
-        }
-    }
+    void clearChildren();
     
     /*
      Return the parent node. Null if this node is root or does not have a parent.
@@ -435,6 +410,19 @@ public:
     std::shared_ptr<VRONode> getParentNode() const {
         return _supernode.lock();
     }
+    
+    /*
+     Get the parent scene of this VRONode. If this node is not attached to the
+     scene graph, this will return null.
+     */
+    std::shared_ptr<VROScene> getScene() const {
+        return _scene.lock();
+    }
+    
+    /*
+     Set the parent scene of this node. Internal use only.
+     */
+    void setScene(std::shared_ptr<VROScene> scene, bool recursive);
     
     /*
      Returns the type of this node. Faster then dynamic_cast.
@@ -609,6 +597,11 @@ protected:
     std::weak_ptr<VRONode> _supernode;
     
     /*
+     The VROScene to which this node belongs.
+     */
+    std::weak_ptr<VROScene> _scene;
+    
+    /*
      The geometry in the node. Null means the node has no geometry.
      */
     std::shared_ptr<VROGeometry> _geometry;
@@ -776,6 +769,7 @@ private:
      The VROTransaction representing the animation from dragging while _dragType == VRODragType::FixedToWorld.
      */
     std::shared_ptr<VROTransaction> _dragAnimation;
+    
 #pragma mark - Private
     
     /*

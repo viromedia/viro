@@ -45,7 +45,7 @@ public:
 
     VROSceneController() {
         _scene = std::make_shared<VROScene>();
-        
+        _scene->getRootNode()->setScene(_scene, true);
     }
     virtual ~VROSceneController() {}
 
