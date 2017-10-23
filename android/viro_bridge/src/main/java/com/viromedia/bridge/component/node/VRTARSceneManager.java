@@ -35,6 +35,11 @@ public class VRTARSceneManager extends VRTSceneManager<VRTARScene> {
     public void setAnchorDetectionTypes(VRTARScene scene, @Nullable ReadableArray array) {
         scene.setAnchorDetectionTypes(array);
     }
+    
+    @ReactProp(name = "canCameraHitTest", defaultBoolean = VRTNode.DEFAULT_CAN_CAMERA_HIT_TEST)
+    public void setCanCameraHitTest(VRTNode view, boolean canCameraHitTest) {
+        view.setCanCameraHitTest(canCameraHitTest);
+    }
 
     @Override
     public Map getExportedCustomDirectEventTypeConstants() {
@@ -44,6 +49,7 @@ public class VRTARSceneManager extends VRTSceneManager<VRTARScene> {
         map.put(ViroEvents.ON_ANCHOR_FOUND, MapBuilder.of("registrationName", ViroEvents.ON_ANCHOR_FOUND));
         map.put(ViroEvents.ON_ANCHOR_UPDATED, MapBuilder.of("registrationName", ViroEvents.ON_ANCHOR_UPDATED));
         map.put(ViroEvents.ON_ANCHOR_REMOVED, MapBuilder.of("registrationName", ViroEvents.ON_ANCHOR_REMOVED));
+        map.put(ViroEvents.ON_CAMERA_HIT_TEST_VIRO, MapBuilder.of("registrationName", ViroEvents.ON_CAMERA_HIT_TEST_VIRO));
         return map;
     }
 

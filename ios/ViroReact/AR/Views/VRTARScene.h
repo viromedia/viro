@@ -14,14 +14,19 @@
 @property (nonatomic, copy, nullable) NSArray<NSString *> *anchorDetectionTypes;
 @property (nonatomic, copy, nullable) RCTDirectEventBlock onTrackingInitializedViro;
 @property (nonatomic, copy, nullable) RCTDirectEventBlock onAmbientLightUpdateViro;
+
 @property (nonatomic, copy, nullable) RCTDirectEventBlock onAnchorFoundViro;
 @property (nonatomic, copy, nullable) RCTDirectEventBlock onAnchorUpdatedViro;
 @property (nonatomic, copy, nullable) RCTDirectEventBlock onAnchorRemovedViro;
+@property (nonatomic, copy, nullable) RCTDirectEventBlock onCameraHitTestViro;
+
 
 - (instancetype)initWithBridge:(RCTBridge *)bridge;
 
 - (void)initSceneController;
 
 - (void)insertReactSubview:(UIView *)view atIndex:(NSInteger)atIndex;
+
+- (void)onCameraHitTest:(int)source results:(std::vector<VROARHitTestResult>)results;
 
 @end

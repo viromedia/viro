@@ -7,8 +7,12 @@ import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.WritableArray;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
+import com.viro.renderer.ARHitTestResult;
+import com.viro.renderer.jni.CameraCallback;
 import com.viro.renderer.jni.EventDelegate;
 import com.viromedia.bridge.component.VRTComponent;
+import com.viromedia.bridge.component.node.VRTARScene;
+import com.viromedia.bridge.component.node.VRTScene;
 
 import java.lang.ref.WeakReference;
 
@@ -181,6 +185,55 @@ public class ComponentEventDelegate implements EventDelegate.EventDelegateCallba
                 node.getId(),
                 ViroEvents.ON_PINCH,
                 event);
+    }
+
+    @Override
+    public void onCameraHitTest(int source, ARHitTestResult results[]) {
+
+        VRTComponent node = weakComponent.get();
+
+        if (node == null){
+            return;
+        }
+        if( node instanceof VRTScene) {
+            final VRTScene scene = (VRTScene) node;
+            final ARHitTestResult arResults[] = results;
+            scene.getCameraPositionAsync(new CameraCallback() {
+                @Override
+                public void onGetCameraOrientation(float posX, float poxY, float posZ,
+                                                   float rotEulerX, float rotEulerY, float rotEulerZ,
+                                                   float forwardX, float forwardY, float forwardZ,
+                                                   float upX, float upY, float upZ) {
+                    WritableArray cameraOrientationArray = Arguments.createArray();
+                    cameraOrientationArray.pushDouble(posX);
+                    cameraOrientationArray.pushDouble(poxY);
+                    cameraOrientationArray.pushDouble(posZ);
+                    cameraOrientationArray.pushDouble(rotEulerX);
+                    cameraOrientationArray.pushDouble(rotEulerY);
+                    cameraOrientationArray.pushDouble(rotEulerZ);
+                    cameraOrientationArray.pushDouble(forwardX);
+                    cameraOrientationArray.pushDouble(forwardY);
+                    cameraOrientationArray.pushDouble(forwardZ);
+                    cameraOrientationArray.pushDouble(upX);
+                    cameraOrientationArray.pushDouble(upY);
+                    cameraOrientationArray.pushDouble(upZ);
+
+                    WritableArray hitTestResultsArray = Arguments.createArray();
+                    for (ARHitTestResult result : arResults) {
+                        hitTestResultsArray.pushMap(ARHitTestResultUtil.mapFromARHitTestResult(result));
+                    }
+                    WritableMap event = Arguments.createMap();
+                    event.putArray("hitTestResults", hitTestResultsArray);
+
+                    event.putArray("cameraOrientation", cameraOrientationArray);
+
+                    scene.getReactContext().getJSModule(RCTEventEmitter.class).receiveEvent(
+                            scene.getId(),
+                            ViroEvents.ON_CAMERA_HIT_TEST_VIRO,
+                            event);
+                }
+            });
+        }
     }
 
     @Override

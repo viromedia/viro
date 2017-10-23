@@ -47,6 +47,7 @@
 		8AEFA22B1EF3197E006851B7 /* VRTARPlane.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8AEFA2291EF3197E006851B7 /* VRTARPlane.mm */; };
 		8AEFA22F1EF34487006851B7 /* VRTARAnchorNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8AEFA22D1EF34487006851B7 /* VRTARAnchorNode.mm */; };
 		8AFC1C381EC1001C0000F7EB /* VRTPolyline.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8AFC1C361EC1001C0000F7EB /* VRTPolyline.mm */; };
+		8B78C9891F9DE61A00967DF1 /* VRTARHitTestUtil.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8B78C9881F9DE61A00967DF1 /* VRTARHitTestUtil.mm */; };
 		8BCF287C1E8090A900F0DD62 /* VRTUIImageWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BCF287A1E8090A900F0DD62 /* VRTUIImageWrapper.m */; };
 		8BDD9DD71E2EDC5200A42870 /* VRTCameraManager.h in Sources */ = {isa = PBXBuildFile; fileRef = 8BE0D4861DFA15880032AB99 /* VRTCameraManager.h */; };
 		8BDD9DD81E2EDC5200A42870 /* VRTCameraManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8BE0D4871DFA15880032AB99 /* VRTCameraManager.mm */; };
@@ -370,6 +371,8 @@
 		8AEFA22D1EF34487006851B7 /* VRTARAnchorNode.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = VRTARAnchorNode.mm; path = ViroReact/AR/Views/VRTARAnchorNode.mm; sourceTree = "<group>"; };
 		8AFC1C351EC1001C0000F7EB /* VRTPolyline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VRTPolyline.h; path = ViroReact/Views/VRTPolyline.h; sourceTree = "<group>"; };
 		8AFC1C361EC1001C0000F7EB /* VRTPolyline.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = VRTPolyline.mm; path = ViroReact/Views/VRTPolyline.mm; sourceTree = "<group>"; };
+		8B78C9851F9DE61900967DF1 /* VRTARHitTestUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VRTARHitTestUtil.h; path = ViroReact/Utility/VRTARHitTestUtil.h; sourceTree = "<group>"; };
+		8B78C9881F9DE61A00967DF1 /* VRTARHitTestUtil.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = VRTARHitTestUtil.mm; path = ViroReact/Utility/VRTARHitTestUtil.mm; sourceTree = "<group>"; };
 		8BCF287A1E8090A900F0DD62 /* VRTUIImageWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VRTUIImageWrapper.m; path = ViroReact/Utility/VRTUIImageWrapper.m; sourceTree = "<group>"; };
 		8BCF287B1E8090A900F0DD62 /* VRTUIImageWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VRTUIImageWrapper.h; path = ViroReact/Utility/VRTUIImageWrapper.h; sourceTree = "<group>"; };
 		8BDD9D9E1E09F39B00A42870 /* Pods.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Pods.xcodeproj; path = Pods/Pods.xcodeproj; sourceTree = "<group>"; };
@@ -815,6 +818,8 @@
 		8BE0D51C1DFA3DDA0032AB99 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				8B78C9851F9DE61900967DF1 /* VRTARHitTestUtil.h */,
+				8B78C9881F9DE61A00967DF1 /* VRTARHitTestUtil.mm */,
 				137E9D7D1F50E8C0008238E5 /* VRTPhotoLibraryAsyncLoader.h */,
 				137E9D801F50E8C0008238E5 /* VRTPhotoLibraryAsyncLoader.m */,
 				8BCF287A1E8090A900F0DD62 /* VRTUIImageWrapper.m */,
@@ -998,6 +1003,7 @@
 				8FEF008D1F38A718006AE4B1 /* VRTPortalSceneManager.mm in Sources */,
 				A5839B4E1F68B3F8009091A7 /* VRTParticleEmitter.mm in Sources */,
 				8BCF287C1E8090A900F0DD62 /* VRTUIImageWrapper.m in Sources */,
+				8B78C9891F9DE61A00967DF1 /* VRTARHitTestUtil.mm in Sources */,
 				8BE0D50B1DFA3D9B0032AB99 /* VRTSceneShadowView.mm in Sources */,
 				8FEF008C1F38A713006AE4B1 /* VRTPortalManager.mm in Sources */,
 				8F705DE71E8B3755008BE8F8 /* VRTPerfMonitor.mm in Sources */,

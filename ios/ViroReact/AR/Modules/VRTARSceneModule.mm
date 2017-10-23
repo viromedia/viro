@@ -10,15 +10,12 @@
 #import "VRTARScene.h"
 #import "VRTARSceneModule.h"
 #import "VRTARSceneNavigator.h"
+#import "VRTARHitTestUtil.h"
 
 @implementation VRTARSceneModule
 @synthesize bridge = _bridge;
 
-static NSString *const kVRTARHitTestTypeKey = @"type";
-static NSString *const kVRTARHitTestTransformKey = @"transform";
-static NSString *const kVRTARHitTestPositionKey = @"position";
-static NSString *const kVRTARHitTestRotationKey = @"rotation";
-static NSString *const kVRTARHitTestScaleKey = @"scale";
+
 
 RCT_EXPORT_MODULE()
 
@@ -47,7 +44,7 @@ RCT_EXPORT_METHOD(performARHitTestWithRay:(nonnull NSNumber *)viewTag
                     std::vector<VROARHitTestResult> results = [view performARHitTest:rayVector];
                     NSMutableArray *returnArray = [[NSMutableArray alloc] initWithCapacity:results.size()];
                     for (VROARHitTestResult result : results) {
-                        [returnArray addObject:[self dictForARHitResult:result]];
+                        [returnArray addObject:[VRTARHitTestUtil dictForARHitResult:result]];
                     }
                     resolve(returnArray);
                 }
@@ -83,7 +80,7 @@ RCT_EXPORT_METHOD(performARHitTestWithPosition:(nonnull NSNumber *)viewTag
                     std::vector<VROARHitTestResult> results = [view performARHitTest:(targetPosition - cameraPosition)];
                     NSMutableArray *returnArray = [[NSMutableArray alloc] initWithCapacity:results.size()];
                     for (VROARHitTestResult result : results) {
-                        [returnArray addObject:[self dictForARHitResult:result]];
+                        [returnArray addObject:[VRTARHitTestUtil dictForARHitResult:result]];
                     }
                     resolve(returnArray);
                 }
@@ -92,32 +89,5 @@ RCT_EXPORT_METHOD(performARHitTestWithPosition:(nonnull NSNumber *)viewTag
     }];
 }
 
-- (NSDictionary *)dictForARHitResult:(VROARHitTestResult)result {
-    NSMutableDictionary *resultDict = [[NSMutableDictionary alloc] init];
-    [resultDict setObject:[self stringForResultType:result.getType()] forKey:kVRTARHitTestTypeKey];
-    NSMutableDictionary *transformDict = [[NSMutableDictionary alloc] init];
-    [transformDict setObject:[self arrayFromVector:result.getWorldTransform().extractTranslation()] forKey:kVRTARHitTestPositionKey];
-    [transformDict setObject:[self arrayFromVector:result.getWorldTransform().extractScale()] forKey:kVRTARHitTestScaleKey];
-    [transformDict setObject:[self arrayFromVector:result.getWorldTransform().extractRotation(result.getWorldTransform().extractScale()).toEuler()] forKey:kVRTARHitTestRotationKey];
-    [resultDict setObject:transformDict forKey:kVRTARHitTestTransformKey];
-    return resultDict;
-}
-
-- (NSString *)stringForResultType:(VROARHitTestResultType)type {
-    switch(type) {
-        case VROARHitTestResultType::ExistingPlaneUsingExtent:
-            return @"ExistingPlaneUsingExtent";
-        case VROARHitTestResultType::ExistingPlane:
-            return @"ExistingPlane";
-        case VROARHitTestResultType::EstimatedHorizontalPlane:
-            return @"EstimatedHorizontalPlane";
-        case VROARHitTestResultType::FeaturePoint:
-            return @"FeaturePoint";
-    }
-}
-
-- (NSArray *)arrayFromVector:(VROVector3f)vector {
-    return @[@(vector.x), @(vector.y), @(vector.z)];
-}
 
 @end

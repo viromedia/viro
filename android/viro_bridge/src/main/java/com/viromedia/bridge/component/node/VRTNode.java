@@ -102,6 +102,7 @@ public class VRTNode extends VRTComponent {
     protected final static boolean DEFAULT_CAN_FUSE = false;
     protected final static boolean DEFAULT_CAN_PINCH = false;
     protected final static boolean DEFAULT_CAN_ROTATE = false;
+    protected final static boolean DEFAULT_CAN_CAMERA_HIT_TEST = false;
     protected final static float DEFAULT_TIME_TO_FUSE_MILLIS = 1000f;
     protected final static double TRANSFORM_DELEGATE_DISTANCE_FILTER = 0.01;
 
@@ -615,6 +616,10 @@ public class VRTNode extends VRTComponent {
 
     protected void setCanRotate(boolean canRotate){
         mEventDelegateJni.setEventEnabled(EventDelegate.EventAction.ON_ROTATE, canRotate);
+    }
+
+    protected void setCanCameraHitTest(boolean canCameraHitTest){
+        mEventDelegateJni.setEventEnabled(EventDelegate.EventAction.ON_CAMERA_HIT_TEST, canCameraHitTest);
     }
 
     protected void setTimeToFuse(float durationInMillis){

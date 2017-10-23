@@ -30,6 +30,7 @@ var ViroARScene = React.createClass({
     onDrag: PropTypes.func,
     onPinch: PropTypes.func,
     onRotate: PropTypes.func,
+    onCameraHitTest: PropTypes.func,
     onFuse: PropTypes.oneOfType([
       PropTypes.shape({
         callback: PropTypes.func.isRequired,
@@ -94,6 +95,19 @@ var ViroARScene = React.createClass({
 
   _onRotate: function(event: Event) {
     this.props.onRotate && this.props.onRotate(event.nativeEvent.rotateState, event.nativeEvent.rotationFactor, event.nativeEvent.source);
+  },
+
+  _onCameraHitTest: function(event: Event) {
+    var hitTestEventObj = {
+      hitTestResults: event.nativeEvent.hitTestResults,
+      cameraOrientation: {
+        position: [event.nativeEvent.cameraOrientation[0], event.nativeEvent.cameraOrientation[1], event.nativeEvent.cameraOrientation[2]],
+        rotation: [event.nativeEvent.cameraOrientation[3], event.nativeEvent.cameraOrientation[4], event.nativeEvent.cameraOrientation[5]],
+        forward: [event.nativeEvent.cameraOrientation[6], event.nativeEvent.cameraOrientation[7], event.nativeEvent.cameraOrientation[8]],
+        up: [event.nativeEvent.cameraOrientation[9], event.nativeEvent.cameraOrientation[10], event.nativeEvent.cameraOrientation[11]]
+      }
+    };
+    this.props.onCameraHitTest && this.props.onCameraHitTest(hitTestEventObj);
   },
 
   _onDrag: function(event: Event) {
@@ -218,6 +232,7 @@ var ViroARScene = React.createClass({
         canPinch={this.props.onPinch != undefined}
         canRotate={this.props.onRotate != undefined}
         canFuse={this.props.onFuse != undefined}
+        canCameraHitTest={this.props.onCameraHitTest != undefined}
         onHoverViro={this._onHover}
         onClickViro={this._onClickState}
         onTouchViro={this._onTouch}
@@ -227,6 +242,7 @@ var ViroARScene = React.createClass({
         onPinchViro={this._onPinch}
         onRotateViro={this._onRotate}
         onFuseViro={this._onFuse}
+        onCameraHitTestViro={this._onCameraHitTest}
         onPlatformUpdateViro={this._onPlatformUpdate}
         onTrackingInitializedViro={this._onTrackingInitialized}
         onAmbientLightUpdateViro={this._onAmbientLightUpdate}
@@ -258,6 +274,7 @@ var VRTARScene = requireNativeComponent(
           canPinch: true,
           canRotate: true,
           canFuse: true,
+          canCameraHitTest:true,
           onHoverViro: true,
           onClickViro: true,
           onTouchViro: true,
@@ -273,6 +290,7 @@ var VRTARScene = requireNativeComponent(
           onAnchorFoundViro: true,
           onAnchorUpdatedViro: true,
           onAnchorRemovedViro:true,
+          onCameraHitTestViro: true,
           timeToFuse:true,
       }
   }

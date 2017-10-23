@@ -21,6 +21,7 @@ import com.viro.renderer.ARHitTestResult;
 import com.viro.renderer.jni.Renderer;
 import com.viro.renderer.jni.ViroViewARCore;
 import com.viromedia.bridge.component.VRTARSceneNavigator;
+import com.viromedia.bridge.utility.ARHitTestResultUtil;
 
 
 public class ARSceneModule extends ReactContextBaseJavaModule {
@@ -65,7 +66,7 @@ public class ARSceneModule extends ReactContextBaseJavaModule {
                     public void onComplete(ARHitTestResult[] arHitTestResults) {
                         WritableArray returnArray = Arguments.createArray();
                         for (ARHitTestResult result : arHitTestResults) {
-                            returnArray.pushMap(mapFromARHitTestResult(result));
+                            returnArray.pushMap(ARHitTestResultUtil.mapFromARHitTestResult(result));
                         }
                         promise.resolve(returnArray);
                     }
@@ -105,7 +106,7 @@ public class ARSceneModule extends ReactContextBaseJavaModule {
                     public void onComplete(ARHitTestResult[] arHitTestResults) {
                         WritableArray returnArray = Arguments.createArray();
                         for (ARHitTestResult result : arHitTestResults) {
-                            returnArray.pushMap(mapFromARHitTestResult(result));
+                            returnArray.pushMap(ARHitTestResultUtil.mapFromARHitTestResult(result));
                         }
                         promise.resolve(returnArray);
                     }
@@ -114,25 +115,4 @@ public class ARSceneModule extends ReactContextBaseJavaModule {
         });
     }
 
-    private WritableMap mapFromARHitTestResult(ARHitTestResult result) {
-        WritableMap returnMap = Arguments.createMap();
-        returnMap.putString("type", result.getType());
-        WritableMap transformMap = Arguments.createMap();
-        transformMap.putArray("position", arrayFromFloatArray(result.getPosition()));
-        transformMap.putArray("scale", arrayFromFloatArray(result.getScale()));
-        transformMap.putArray("rotation", arrayFromFloatArray(result.getRotation()));
-        returnMap.putMap("transform", transformMap);
-        return returnMap;
-    }
-
-    /*
-     Assumes there are only 3 elements in it.
-     */
-    private WritableArray arrayFromFloatArray(float[] array) {
-        WritableArray returnArray = Arguments.createArray();
-        returnArray.pushDouble(array[0]);
-        returnArray.pushDouble(array[1]);
-        returnArray.pushDouble(array[2]);
-        return returnArray;
-    }
 }

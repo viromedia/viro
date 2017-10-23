@@ -40,4 +40,5 @@ public class ViroEvents {
     public static final String ON_ANCHOR_REMOVED = "onAnchorRemovedViro";
     public static final String ON_PORTAL_ENTER = "onPortalEnterViro";
     public static final String ON_PORTAL_EXIT = "onPortalExitViro";
+    public static final String ON_CAMERA_HIT_TEST_VIRO = "onCameraHitTestViro";
 }

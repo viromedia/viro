@@ -68,6 +68,10 @@ var VRTCamera = requireNativeComponent(
                 canScroll: true,
                 canSwipe: true,
                 canDrag: true,
+                canPinch: true,
+                canRotate: true,
+                onPinchViro: true,
+                onRotateViro: true,
                 onHoverViro:true,
                 onClickViro:true,
                 onTouchViro:true,
@@ -85,7 +89,9 @@ var VRTCamera = requireNativeComponent(
                 onCollisionViro:true,
                 onNativeTransformDelegateViro:true,
                 hasTransformDelegate:true,
-                physicsBody:true
+                physicsBody:true,
+                dragType: true,
+                animation:true,
       }
 });
 

@@ -9,7 +9,7 @@ import com.facebook.react.views.imagehelper.ResourceDrawableIdHelper;
 
 /**
  * Class containing few common helper methods.
- * Note - Feel free to split / rename this class ass this class gets more methods
+ * Note - Feel free to split / rename this class as this class gets more methods
  */
 
 public class Helper {

@@ -12,10 +12,14 @@
 #import "VRTARPlane.h"
 #import "VRTARUtils.h"
 #import "VRTARSceneNavigator.h"
+#import "VRTARHitTestUtil.h"
 
 static NSString *const kVRTAmbientLightInfoKey = @"ambientLightInfo";
 static NSString *const kVRTIntensityKey = @"intensity";
 static NSString *const kVRTColorTemperatureKey = @"colorTemperature";
+
+static NSString *const kCameraHitTestResults = @"hitTestResults";
+static NSString *const kCameraOrientation = @"cameraOrientation";
 
 @implementation VRTARScene {
     std::shared_ptr<VROARScene> _vroArScene;
@@ -94,6 +98,18 @@ static NSString *const kVRTColorTemperatureKey = @"colorTemperature";
 - (void)onAnchorRemoved:(std::shared_ptr<VROARAnchor>)anchor {
     if (self.onAnchorRemovedViro) {
         self.onAnchorRemovedViro(@{@"anchor" : [VRTARUtils createDictionaryFromAnchor:anchor]});
+    }
+}
+
+- (void)onCameraHitTest:(int)source results:(std::vector<VROARHitTestResult>)results {
+    if(self.onCameraHitTestViro) {
+        NSMutableArray *resultArray = [[NSMutableArray alloc] initWithCapacity:results.size()];
+        for (VROARHitTestResult result : results) {
+            [resultArray addObject:[VRTARHitTestUtil dictForARHitResult:result]];
+        }
+        
+        NSArray<NSNumber *> * camOrientation = [self cameraOrientation];
+    self.onCameraHitTestViro(@{kCameraHitTestResults:resultArray,kCameraOrientation:camOrientation});
     }
 }
 
