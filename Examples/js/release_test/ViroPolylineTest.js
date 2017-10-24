@@ -46,11 +46,11 @@ var ReleaseMenu = require("./ReleaseMenu.js");
 var Uri360Image = {uri:"https://lh3.googleusercontent.com/dB3Dvgf3VIglusoGJAfpNUAANhTXW8K9mvIsiIPkhJUAbAKGKJcEMPTf0mkSexzLM5o=w300"};
 var Local360Image = require("../res/sun_2302.jpg");
 
-var points = [[[0,0]],
-              [[0,0], [.5,.5]],
-              [[0,0], [.5,.5], [1,0]],
-              [[0,0], [.5,.5], [1,0], [1.5, 1]],
-              [[0,0], [.5,.5], [1,0], [1.5, 1], [5,5]]];
+var points = [[[0,0,0]],
+              [[0,0,0], [.5,.5,-.5]],
+              [[0,0,0], [.5,.5,-.5], [1,0,0]],
+              [[0,0,0], [.5,.5,-.5], [1,0,0], [1.5,1,.5]],
+              [[0,0,0], [.5,.5,-.5], [1,0,0], [1.5,1,.5], [5,5,0]]];
 
 var ViroPolylineTest = React.createClass({
   getInitialState() {
@@ -58,14 +58,18 @@ var ViroPolylineTest = React.createClass({
       materials:false,
       pointSet:0,
       thickness: .05,
+      orbit : false,
     };
   },
   render: function() {
     var image = this.state.showUrlImage ? Uri360Image : Local360Image;
     return (
       <ViroScene>
+        <ViroCamera position={[0, 0, 0]} active={!this.state.orbit}/>
+        <ViroOrbitCamera focalPoint={[0, -.25, -2]} active={this.state.orbit}/>
         <ReleaseMenu sceneNavigator={this.props.sceneNavigator}/>
-        <ViroPolyline position={[0,0,-2]} points={this._getPoints()} thickness={this.state.thickness} materials={this.state.materials ? "white" : "red"} />
+        <ViroPolyline position={[0,0,-2]} points={this._getPoints()} thickness={this.state.thickness}
+          materials={this.state.materials ? "white" : "red"} onClick={()=>{this.setState({orbit : !this.state.orbit})}}/>
         {this._getTestControls()}
       </ViroScene>
     );

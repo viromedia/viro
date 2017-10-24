@@ -79,6 +79,8 @@ var VRTOrbitCamera = requireNativeComponent(
                 canDrag: true,
                 canPinch: true,
                 canRotate: true,
+                onPinchViro: true,
+                onRotateViro: true,
                 onHoverViro:true,
                 onClickViro:true,
                 onTouchViro:true,
@@ -94,10 +96,11 @@ var VRTOrbitCamera = requireNativeComponent(
                 rotationPivot: true,
                 canCollide:true,
                 onCollisionViro:true,
-                dragType: true,
                 onNativeTransformDelegateViro:true,
                 hasTransformDelegate:true,
-                physicsBody:true
+                physicsBody:true,
+                dragType: true,
+                animation:true,
       }
 });
 

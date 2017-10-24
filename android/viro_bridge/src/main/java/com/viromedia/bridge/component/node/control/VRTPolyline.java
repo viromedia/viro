@@ -30,13 +30,13 @@ public class VRTPolyline extends VRTControl {
         if (points.size() == 0) {
             throw new IllegalArgumentException("Polyline should consist of at least 1 point");
         }
-        float[][] pointsArray = new float[points.size()][2];
+        float[][] pointsArray = new float[points.size()][3];
         for (int i = 0; i < points.size(); i++) {
             ReadableArray point = points.getArray(i);
-            if (point.size() < 2) {
-                throw new IllegalArgumentException("Polyline points should have at least 2 coordinates");
+            if (point.size() < 3) {
+                throw new IllegalArgumentException("Polyline points should have at least 3 coordinates");
             }
-            for (int j = 0; j < 2; j++) {
+            for (int j = 0; j < 3; j++) {
                 pointsArray[i][j] = (float) point.getDouble(j);
             }
         }

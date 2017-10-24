@@ -55,10 +55,10 @@
         
         for (int i = 0; i < [_points count]; i++) {
             NSArray *pointArray = [_points objectAtIndex:i];
-            if ([pointArray count] < 2) {
-                RCTLogError(@"Polyline points should have at least 2 coordinates.");
+            if ([pointArray count] < 3) {
+                RCTLogError(@"Polyline points should have at least 3 coordinates.");
             }
-            VROVector3f nativePoint = VROVector3f([[pointArray objectAtIndex:0] floatValue], [[pointArray objectAtIndex:1] floatValue]);
+            VROVector3f nativePoint = VROVector3f([[pointArray objectAtIndex:0] floatValue], [[pointArray objectAtIndex:1] floatValue], [[pointArray objectAtIndex:2] floatValue]);
             nativePoints.push_back(nativePoint);
         }
         
