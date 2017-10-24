@@ -7,6 +7,7 @@ import android.content.Context;
 
 import com.viro.renderer.jni.DirectionalLight;
 import com.viro.renderer.jni.Node;
+import com.viro.renderer.jni.Vector;
 
 public class VRTDirectionalLight extends VRTLight {
 
@@ -20,20 +21,18 @@ public class VRTDirectionalLight extends VRTLight {
 
     @Override
     public void addToNode(Node nodeJni) {
-
-        mNativeLight.addToNode(nodeJni);
+        nodeJni.addLight(mNativeLight);
     }
 
     @Override
     public void removeFromNode(Node nodeJni) {
-
-        mNativeLight.removeFromNode(nodeJni);
+        nodeJni.removeLight(mNativeLight);
     }
 
     @Override
     public void onTearDown(){
         if (mNativeLight != null){
-            mNativeLight.destroy();
+            mNativeLight.dispose();
             mNativeLight = null;
         }
         super.onTearDown();
@@ -55,18 +54,17 @@ public class VRTDirectionalLight extends VRTLight {
         super.onPropsSet();
 
         if (mNativeLight == null) {
-
-            mNativeLight = new DirectionalLight(mColor, mIntensity, mDirection);
+            mNativeLight = new DirectionalLight(mColor, mIntensity, new Vector(mDirection));
         } else {
             mNativeLight.setColor(mColor);
             mNativeLight.setIntensity(mIntensity);
-            mNativeLight.setDirection(mDirection);
+            mNativeLight.setDirection(new Vector(mDirection));
         }
 
         mNativeLight.setCastsShadow(mCastsShadow);
         mNativeLight.setShadowOpacity(mShadowOpacity);
         if (mShadowOrthographicPosition != null) {
-            mNativeLight.setShadowOrthographicPosition(mShadowOrthographicPosition);
+            mNativeLight.setShadowOrthographicPosition(new Vector(mShadowOrthographicPosition));
         }
         mNativeLight.setShadowOrthographicSize(mShadowOrthographicSize);
         mNativeLight.setShadowMapSize(mShadowMapSize);

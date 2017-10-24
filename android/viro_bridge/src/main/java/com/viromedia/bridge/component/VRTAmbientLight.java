@@ -18,20 +18,18 @@ public class VRTAmbientLight extends VRTLight {
 
     @Override
     public void addToNode(Node nodeJni) {
-
-        mNativeLight.addToNode(nodeJni);
+        nodeJni.addLight(mNativeLight);
     }
 
     @Override
     public void removeFromNode(Node nodeJni) {
-
-        mNativeLight.removeFromNode(nodeJni);
+        nodeJni.removeLight(mNativeLight);
     }
 
     @Override
     public void onTearDown(){
         if (mNativeLight != null){
-            mNativeLight.destroy();
+            mNativeLight.dispose();
             mNativeLight = null;
         }
         super.onTearDown();

@@ -7,6 +7,7 @@ import android.content.Context;
 
 import com.viro.renderer.jni.Node;
 import com.viro.renderer.jni.Spotlight;
+import com.viro.renderer.jni.Vector;
 
 public class VRTSpotLight extends VRTLight {
     private static final float[] DEFAULT_POSITION = {0, 0, 0};
@@ -25,21 +26,19 @@ public class VRTSpotLight extends VRTLight {
     }
 
     @Override
-    public void addToNode(Node node) {
-
-        mNativeLight.addToNode(node);
+    public void addToNode(Node nodeJni) {
+        nodeJni.addLight(mNativeLight);
     }
 
     @Override
-    public void removeFromNode(Node node) {
-
-        mNativeLight.removeFromNode(node);
+    public void removeFromNode(Node nodeJni) {
+        nodeJni.removeLight(mNativeLight);
     }
 
     @Override
     public void onTearDown(){
         if (mNativeLight != null){
-            mNativeLight.destroy();
+            mNativeLight.dispose();
             mNativeLight = null;
         }
         super.onTearDown();
@@ -102,14 +101,14 @@ public class VRTSpotLight extends VRTLight {
 
         if (mNativeLight == null) {
             mNativeLight = new Spotlight(mColor, mIntensity, mAttenuationStartDistance, mAttenuationEndDistance,
-                    mPosition, mDirection, mInnerAngle, mOuterAngle);
+                    new Vector(mPosition), new Vector(mDirection), mInnerAngle, mOuterAngle);
         } else {
             mNativeLight.setColor(mColor);
             mNativeLight.setIntensity(mIntensity);
             mNativeLight.setAttenuationStartDistance(mAttenuationStartDistance);
             mNativeLight.setAttenuationEndDistance(mAttenuationEndDistance);
-            mNativeLight.setPosition(mPosition);
-            mNativeLight.setDirection(mDirection);
+            mNativeLight.setPosition(new Vector(mPosition));
+            mNativeLight.setDirection(new Vector(mDirection));
             mNativeLight.setInnerAngle(mInnerAngle);
             mNativeLight.setOuterAngle(mOuterAngle);
         }
