@@ -23,6 +23,7 @@
 - (void)onDrag:(int)source posX:(float)x posY:(float)y posZ:(float)y;
 - (void)onPinch:(int)source scaleFactor:(float)scale pinchState:(VROEventDelegate::PinchState)pinchState;
 - (void)onRotate:(int)source rotationFactor:(float)rotation rotateState:(VROEventDelegate::RotateState)rotateState;
+- (void)onCameraHitTest:(int)source results:(std::vector<VROARHitTestResult>) results;
 @end
 
 /**
@@ -54,6 +55,10 @@ public:
             return;
         }
         [_delegate onFuse:source];
+    }
+    
+    virtual void onCameraHitTest(int source, std::vector<VROARHitTestResult> results) {
+        [_delegate onCameraHitTest:source results:results];
     }
     
     virtual void onDrag(int source, VROVector3f position) {

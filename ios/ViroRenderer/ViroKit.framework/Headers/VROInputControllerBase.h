@@ -211,6 +211,7 @@ protected:
      */
     std::set<std::shared_ptr<VROEventDelegate>> _delegates;
     
+    std::shared_ptr<VROScene> _scene;
 private:
     
     /*
@@ -229,7 +230,7 @@ private:
      */
     VROQuaternion _lastKnownRotation;
 
-    std::shared_ptr<VROScene> _scene;
+
 
     /*
      * Last node that we have clicked down on.

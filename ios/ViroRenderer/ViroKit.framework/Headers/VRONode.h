@@ -14,6 +14,7 @@
 #include <vector>
 #include <string>
 #include <set>
+#include <atomic>
 #include <algorithm>
 #include <functional>
 #include "optional.hpp"
@@ -219,7 +220,6 @@ public:
     VROVector3f getComputedPosition() const;
     VROMatrix4f getComputedRotation() const;
     VROMatrix4f getComputedTransform() const;
-    VROMatrix4f getLastComputedTransform() const;
 
     VROVector3f getPosition() const {
         return _position;
@@ -233,6 +233,16 @@ public:
     VROVector3f getRotationEuler() const {
         return _euler;
     }
+    
+    /*
+     The following are atomic, updated once per frame on the
+     rendering thread. They can be accessed safely from any thread
+     to get an up-to-date state of the transform.
+     */
+    VROMatrix4f getLastComputedTransform() const;
+    VROVector3f getLastComputedPosition() const;
+    VROVector3f getLastComputedScale() const;
+    VROQuaternion getLastComputedRotation() const;
     
     /*
      Set the rotation, position, or scale. Animatable.
@@ -684,7 +694,10 @@ private:
      Because _computedTransform is computed multiple times during a single render, storing
      the last fully computed transform is necessary to retrieve a "valid" computedTransform.
      */
-    VROMatrix4f _lastComputedTransform;
+    std::atomic<VROMatrix4f> _lastComputedTransform;
+    std::atomic<VROVector3f> _lastComputedPosition;
+    std::atomic<VROVector3f> _lastComputedScale;
+    std::atomic<VROQuaternion> _lastComputedRotation;
 
     /*
      The transformed bounding box containing this node's geometry. The 

@@ -45,6 +45,7 @@ import com.viromedia.bridge.utility.ViroLog;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.EnumSet;
 import java.util.List;
 
 
@@ -156,7 +157,7 @@ public class VRTNode extends VRTComponent {
         // Create and attach callbacks.
         mEventDelegateJni = new EventDelegate();
         mEventDelegateJni.setEventDelegateCallback(new ComponentEventDelegate(this));
-        mNodeJni.setEventDelegateJni(mEventDelegateJni);
+        mNodeJni.setEventDelegate(mEventDelegateJni);
 
         mNodeAnimation = new NodeAnimation(reactContext, this);
     }
@@ -229,7 +230,7 @@ public class VRTNode extends VRTComponent {
                 ((VRTLight) child).removeFromNode(mNodeJni);
             } else if (child instanceof VRTNode) {
                 final VRTNode childNode = (VRTNode) child;
-                mNodeJni.removeChildNode(childNode.mNodeJni);
+                childNode.mNodeJni.removeFromParentNode();
             } else if (child instanceof VRTAnimatedComponent) {
                 VRTAnimatedComponent animatedComponent = (VRTAnimatedComponent) child;
                 for (int i = 0; i < animatedComponent.getChildCount(); i++) {
@@ -274,7 +275,7 @@ public class VRTNode extends VRTComponent {
         if (isTornDown()) {
             return;
         }
-        mNodeJni.removeChildNode(child.getNodeJni());
+        child.getNodeJni().removeFromParentNode();
     }
 
     @Override
@@ -429,7 +430,7 @@ public class VRTNode extends VRTComponent {
         }
 
         mPosition = position;
-        mNodeJni.setPosition(position);
+        mNodeJni.setPosition(new Vector(position));
     }
 
     protected void setRotation(float[] rotation) {
@@ -441,7 +442,7 @@ public class VRTNode extends VRTComponent {
                     "[x,y,z] axis values are needed.");
         }
         mRotation = rotation;
-        mNodeJni.setRotation(rotation);
+        mNodeJni.setRotation(new Vector(rotation));
     }
 
     protected void setScale(float[] scale) {
@@ -453,7 +454,7 @@ public class VRTNode extends VRTComponent {
                     "[x,y,z] axis values are needed.");
         }
         mScale = scale;
-        mNodeJni.setScale(scale);
+        mNodeJni.setScale(new Vector(scale));
     }
 
     protected void setRotationPivot(float[] pivot) {
@@ -465,7 +466,7 @@ public class VRTNode extends VRTComponent {
                     "[x,y,z] axis values are needed.");
         }
         mRotationPivot = pivot;
-        mNodeJni.setRotationPivot(pivot);
+        mNodeJni.setRotationPivot(new Vector(pivot));
     }
 
     protected void setScalePivot(float[] pivot) {
@@ -477,7 +478,7 @@ public class VRTNode extends VRTComponent {
                     "[x,y,z] axis values are needed.");
         }
         mScalePivot = pivot;
-        mNodeJni.setScalePivot(pivot);
+        mNodeJni.setScalePivot(new Vector(pivot));
     }
 
     protected void setOpacity(float opacity) {
@@ -555,7 +556,25 @@ public class VRTNode extends VRTComponent {
         if (isTornDown()) {
             return;
         }
-        mNodeJni.setTransformBehaviors(transformBehaviors);
+
+        EnumSet<Node.TransformBehavior> behaviors = EnumSet.noneOf(Node.TransformBehavior.class);
+        for (int i = 0; i < transformBehaviors.length; i++) {
+            Node.TransformBehavior behavior = null;
+            if (transformBehaviors[i].equalsIgnoreCase("billboard")) {
+                behavior = Node.TransformBehavior.BILLBOARD;
+            }
+            else if (transformBehaviors[i].equalsIgnoreCase("billboardX")) {
+                behavior = Node.TransformBehavior.BILLBOARD_X;
+            }
+            else if (transformBehaviors[i].equalsIgnoreCase("billboardY")) {
+                behavior = Node.TransformBehavior.BILLBOARD_Y;
+            }
+            else {
+                throw new IllegalArgumentException("Received unknown transform behavior [" + transformBehaviors[i] + "]");
+            }
+            behaviors.add(behavior);
+        }
+        mNodeJni.setTransformBehaviors(behaviors);
     }
 
     protected float[] get2DPosition() {
@@ -630,7 +649,12 @@ public class VRTNode extends VRTComponent {
         if (isTornDown()) {
             return;
         }
-        mNodeJni.setDragType(dragType);
+
+        Node.DragType type = Node.DragType.FIXED_DISTANCE;
+        if (dragType.equalsIgnoreCase("FixedToWorld")) {
+            type = Node.DragType.FIXED_TO_WORLD;
+        }
+        mNodeJni.setDragType(type);
     }
 
     public void setPhysicsBody(ReadableMap map){
@@ -1026,16 +1050,16 @@ public class VRTNode extends VRTComponent {
         }
 
         @Override
-        public void onPositionUpdate(float[] pos) {
+        public void onPositionUpdate(Vector pos) {
             VRTComponent node = weakComponent.get();
             if (node == null){
                 return;
             }
 
             WritableArray position = Arguments.createArray();
-            position.pushDouble(pos[0]);
-            position.pushDouble(pos[1]);
-            position.pushDouble(pos[2]);
+            position.pushDouble(pos.x);
+            position.pushDouble(pos.y);
+            position.pushDouble(pos.z);
 
             WritableMap event = Arguments.createMap();
             event.putArray("position", position);
