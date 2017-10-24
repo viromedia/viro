@@ -10,7 +10,7 @@ import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.devsupport.interfaces.DevOptionHandler;
 import com.facebook.react.devsupport.interfaces.DevSupportManager;
-import com.viro.renderer.jni.VrView;
+import com.viro.renderer.jni.ViroView;
 
 import java.lang.ref.WeakReference;
 
@@ -37,21 +37,21 @@ public class PerfMonitor extends ReactContextBaseJavaModule {
 
     private boolean mIsInitialized = false;
 
-    private WeakReference<VrView> mView;
+    private WeakReference<ViroView> mView;
 
     public PerfMonitor(ReactApplicationContext context) {
         super(context);
     }
 
     public void onOptionSelected() {
-        VrView view = mView.get();
+        ViroView view = mView.get();
         if (view != null) {
             view.setDebugHUDEnabled(!mIsShowing);
         }
         mIsShowing = !mIsShowing;
     }
 
-    public void setView(VrView view) {
+    public void setView(ViroView view) {
         if (!mIsInitialized) {
             Application application = getCurrentActivity().getApplication();
             if (application instanceof ReactApplication) {
@@ -63,7 +63,7 @@ public class PerfMonitor extends ReactContextBaseJavaModule {
             }
         }
 
-        mView = new WeakReference<VrView>(view);
+        mView = new WeakReference<ViroView>(view);
         view.setDebugHUDEnabled(mIsShowing);
     }
 

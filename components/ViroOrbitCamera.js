@@ -77,6 +77,8 @@ var VRTOrbitCamera = requireNativeComponent(
                 canScroll: true,
                 canSwipe: true,
                 canDrag: true,
+                canPinch: true,
+                canRotate: true,
                 onHoverViro:true,
                 onClickViro:true,
                 onTouchViro:true,
@@ -92,6 +94,7 @@ var VRTOrbitCamera = requireNativeComponent(
                 rotationPivot: true,
                 canCollide:true,
                 onCollisionViro:true,
+                dragType: true,
                 onNativeTransformDelegateViro:true,
                 hasTransformDelegate:true,
                 physicsBody:true

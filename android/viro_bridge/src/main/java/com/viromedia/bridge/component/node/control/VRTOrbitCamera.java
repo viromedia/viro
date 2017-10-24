@@ -5,6 +5,8 @@ package com.viromedia.bridge.component.node.control;
 
 
 import com.facebook.react.bridge.ReactApplicationContext;
+import com.viro.renderer.jni.Camera;
+import com.viro.renderer.jni.Vector;
 
 public class VRTOrbitCamera extends VRTCamera {
     private float[] mFocalPoint;
@@ -14,8 +16,8 @@ public class VRTOrbitCamera extends VRTCamera {
     }
 
     @Override
-    public String getRotationType() {
-        return "Orbit";
+    public Camera.RotationType getRotationType() {
+        return Camera.RotationType.ORBIT;
     }
 
     public void setFocalPoint(float[] focalPoint) {
@@ -29,6 +31,6 @@ public class VRTOrbitCamera extends VRTCamera {
     @Override
     public void onPropsSet() {
         super.onPropsSet();
-        mNativeCamera.setOrbitFocalPoint(mFocalPoint);
+        mNativeCamera.setOrbitFocalPoint(new Vector(mFocalPoint));
     }
 }

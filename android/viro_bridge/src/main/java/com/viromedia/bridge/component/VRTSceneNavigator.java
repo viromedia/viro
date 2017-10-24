@@ -17,7 +17,7 @@ import com.viro.renderer.jni.GLListener;
 import com.viro.renderer.jni.ViroContext;
 import com.viro.renderer.jni.ViroGvrLayout;
 import com.viro.renderer.jni.ViroOvrView;
-import com.viro.renderer.jni.VrView;
+import com.viro.renderer.jni.ViroView;
 import com.viromedia.bridge.ReactViroPackage;
 import com.viromedia.bridge.component.node.VRTScene;
 import com.viromedia.bridge.module.MaterialManager;
@@ -103,7 +103,7 @@ public class VRTSceneNavigator extends FrameLayout {
     /**
      * View containing our renderer
      */
-    protected VrView mViroView;
+    protected ViroView mViroView;
 
     /**
      * Currently rendered scene
@@ -159,7 +159,7 @@ public class VRTSceneNavigator extends FrameLayout {
         perfMonitor.setView(mViroView);
 
         /*
-         * Trigger VrView's onActivityStarted and onActivityResumed of the vrView as
+         * Trigger ViroView's onActivityStarted and onActivityResumed of the vrView as
          * React creates it's views within the activity's onResume().
          */
         mViroView.onActivityStarted(reactContext.getCurrentActivity());
@@ -177,7 +177,7 @@ public class VRTSceneNavigator extends FrameLayout {
         materialManager.reloadMaterials();
     }
 
-    protected VrView createViroView(ReactApplicationContext reactContext) {
+    protected ViroView createViroView(ReactApplicationContext reactContext) {
         switch (mPlatform) {
             case OVR_MOBILE:
                 return new ViroOvrView(reactContext.getCurrentActivity(),
@@ -192,8 +192,8 @@ public class VRTSceneNavigator extends FrameLayout {
 
     @Override
     public void addView(View child, int index) {
-        if (child instanceof VrView) {
-            // only add a view to the childViews if it's a VrView. This function is called
+        if (child instanceof ViroView) {
+            // only add a view to the childViews if it's a ViroView. This function is called
             // by the single argument addView(child) method.
             super.addView(child, index);
             return;
@@ -206,7 +206,7 @@ public class VRTSceneNavigator extends FrameLayout {
         mSceneArray.add(index, childScene);
         childScene.setPlatformInformation(mViroView.getPlatform(), mViroView.getHeadset(),
                 mViroView.getController());
-        childScene.addPortalTraversalListener(mViroView.getNativeRenderer());
+        childScene.addPortalTraversalListener(mViroView.getRenderer());
         // Adding the scene view can occur after the prop type is set on the bridge.
         // Thus, refresh the selection of the current scene as needed.
         if (index == mSelectedSceneIndex){
@@ -224,7 +224,7 @@ public class VRTSceneNavigator extends FrameLayout {
             VRTScene childScene = mSceneArray.get(mSelectedSceneIndex);
             childScene.setViroContext(mViroContext);
             childScene.setScene(childScene);
-            childScene.setNativeRenderer(mViroView.getNativeRenderer());
+            childScene.setNativeRenderer(mViroView.getRenderer());
         }
     }
 
@@ -235,7 +235,7 @@ public class VRTSceneNavigator extends FrameLayout {
             return;
         }
 
-        mViroView.setSceneController(mSceneArray.get(mSelectedSceneIndex).getNativeScene());
+        mViroView.setScene(mSceneArray.get(mSelectedSceneIndex).getNativeScene());
         mSceneArray.get(mSelectedSceneIndex).parentDidAppear();
     }
 
@@ -257,7 +257,7 @@ public class VRTSceneNavigator extends FrameLayout {
          from the bridge, and cutting the VROScene from the scene controller.
          */
         if (view instanceof VRTScene) {
-            ((VRTScene) view).removePortalTraversalListener(mViroView.getNativeRenderer());
+            ((VRTScene) view).removePortalTraversalListener(mViroView.getRenderer());
             mSceneArray.remove(view);
             ((VRTScene) view).forceCascadeTearDown();
         }

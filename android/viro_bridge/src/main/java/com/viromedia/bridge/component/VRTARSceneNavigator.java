@@ -7,7 +7,7 @@ import android.view.View;
 
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.viro.renderer.jni.ViroViewARCore;
-import com.viro.renderer.jni.VrView;
+import com.viro.renderer.jni.ViroView;
 import com.viromedia.bridge.ReactViroPackage;
 import com.viromedia.bridge.component.node.VRTARScene;
 
@@ -24,7 +24,7 @@ public class VRTARSceneNavigator extends VRTSceneNavigator {
      Override the parent method to use the ViroARView.
      */
     @Override
-    protected VrView createViroView(ReactApplicationContext reactContext) {
+    protected ViroView createViroView(ReactApplicationContext reactContext) {
         return new ViroViewARCore(reactContext.getCurrentActivity(),
                 new InnerGLListener(this));
     }
@@ -32,7 +32,7 @@ public class VRTARSceneNavigator extends VRTSceneNavigator {
     @Override
     public void addView(View child, int index) {
         // This view only accepts ARScene and VrView children!
-        if (!(child instanceof VRTARScene) && !(child instanceof VrView)) {
+        if (!(child instanceof VRTARScene) && !(child instanceof ViroView)) {
             throw new IllegalArgumentException("Attempted to add a non-ARScene element ["
                     + child.getClass().getSimpleName() + "] to ARSceneNavigator!");
         }
