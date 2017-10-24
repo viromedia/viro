@@ -16,7 +16,7 @@ import com.viro.renderer.jni.CameraCallback;
 import com.viro.renderer.jni.Node;
 import com.viro.renderer.jni.PhysicsShape;
 import com.viro.renderer.jni.PhysicsWorld;
-import com.viro.renderer.jni.SceneController;
+import com.viro.renderer.jni.Scene;
 import com.viro.renderer.jni.Texture;
 import com.viro.renderer.jni.Vector;
 import com.viro.renderer.jni.VideoTexture;
@@ -26,7 +26,7 @@ import com.viromedia.bridge.component.node.control.VRTCamera;
 import com.viromedia.bridge.utility.Helper;
 import com.viromedia.bridge.utility.ViroEvents;
 
-public class VRTScene extends VRTNode implements SceneController.SceneDelegate {
+public class VRTScene extends VRTNode implements Scene.SceneDelegate {
     private static final String TAG = VRTScene.class.getSimpleName();
     private static final String SIZE_KEY = "size";
     private static final String WALL_MATERIAL_KEY = "wallMaterial";
@@ -36,7 +36,7 @@ public class VRTScene extends VRTNode implements SceneController.SceneDelegate {
     private static final float[] DEFAULT_SIZE = {0,0,0};
 
 
-    protected SceneController mNativeSceneController;
+    protected Scene mNativeScene;
     private Renderer mNativeRenderer;
     private VRTCamera mCamera;
     private PortalTraversalListener mPortalTraversalListener;
@@ -58,19 +58,19 @@ public class VRTScene extends VRTNode implements SceneController.SceneDelegate {
 
     @Override
     protected Node createNodeJni() {
-        mNativeSceneController = createSceneControllerJni();
-        mPortalTraversalListener = new PortalTraversalListener(mNativeSceneController);
-        return mNativeSceneController.getRootNode();
+        mNativeScene = createSceneJni();
+        mPortalTraversalListener = new PortalTraversalListener(mNativeScene);
+        return mNativeScene.getRootNode();
     }
 
     /*
-     This function creates and returns a SceneController. Child classes
-     should override to return a different SceneController if desired.
+     This function creates and returns a Scene. Child classes
+     should override to return a different Scene if desired.
      */
-    protected SceneController createSceneControllerJni() {
-        SceneController sceneControllerJni = new SceneController();
-        sceneControllerJni.registerDelegate(this);
-        return sceneControllerJni;
+    protected Scene createSceneJni() {
+        Scene sceneJni = new Scene();
+        sceneJni.registerDelegate(this);
+        return sceneJni;
     }
 
     @Override
@@ -80,17 +80,17 @@ public class VRTScene extends VRTNode implements SceneController.SceneDelegate {
                 mPortalTraversalListener.destroy();
                 mPortalTraversalListener = null;
             }
-            mNativeSceneController.dispose();
+            mNativeScene.dispose();
         }
         super.onTearDown();
     }
 
-    public SceneController getNativeScene() {
-        return mNativeSceneController;
+    public Scene getNativeScene() {
+        return mNativeScene;
     }
 
     public void setBackgroundVideoTexture(VideoTexture videoTexture) {
-        mNativeSceneController.setBackgroundVideoTexture(videoTexture);
+        mNativeScene.setBackgroundVideoTexture(videoTexture);
     }
 
     public void setNativeRenderer(Renderer nativeRenderer) {
@@ -99,19 +99,19 @@ public class VRTScene extends VRTNode implements SceneController.SceneDelegate {
     }
 
     public void setBackgroundImageTexture(Texture texture) {
-        mNativeSceneController.setBackgroundImageTexture(texture);
+        mNativeScene.setBackgroundImageTexture(texture);
     }
 
     public void setBackgroundRotation(float[] rotation) {
-        mNativeSceneController.setBackgroundRotation(rotation);
+        mNativeScene.setBackgroundRotation(new Vector(rotation));
     }
 
     public void setBackgroundCubeImageTexture(Texture texture) {
-        mNativeSceneController.setBackgroundCubeImageTexture(texture);
+        mNativeScene.setBackgroundCubeImageTexture(texture);
     }
 
     public void setBackgroundCubeWithColor(long color) {
-        mNativeSceneController.setBackgroundCubeWithColor(color);
+        mNativeScene.setBackgroundCubeWithColor(color);
     }
 
     public void setSoundRoom(ReadableMap soundRoom) {
@@ -120,13 +120,13 @@ public class VRTScene extends VRTNode implements SceneController.SceneDelegate {
         mCeilingMaterial = soundRoom.hasKey(CEILING_MATERIAL_KEY) ? soundRoom.getString(CEILING_MATERIAL_KEY) : DEFAULT_MATERIAL;
         mFloorMaterial = soundRoom.hasKey(FLOOR_MATERIAL_KEY) ? soundRoom.getString(FLOOR_MATERIAL_KEY) : DEFAULT_MATERIAL;
         if (mViroContext != null) {
-            mNativeSceneController.setSoundRoom(mViroContext, mSoundRoomSize, mWallMaterial, mCeilingMaterial, mFloorMaterial);
+            mNativeScene.setSoundRoom(mViroContext, mSoundRoomSize, mWallMaterial, mCeilingMaterial, mFloorMaterial);
         }
     }
 
     public void setPostProcessEffects(ReadableArray effects){
         if (effects == null || effects.size() == 0){
-            mNativeSceneController.setEffects(null);
+            mNativeScene.setEffects(null);
             return;
         }
 
@@ -135,7 +135,7 @@ public class VRTScene extends VRTNode implements SceneController.SceneDelegate {
             String effect = effects.getString(i);
             nativeEffects[i] = effect;
         }
-        if (!mNativeSceneController.setEffects(nativeEffects)){
+        if (!mNativeScene.setEffects(nativeEffects)){
             onError("Viro: Attempted to set an invalid effect!");
         }
     }
@@ -243,27 +243,27 @@ public class VRTScene extends VRTNode implements SceneController.SceneDelegate {
                 for (int i = 0; i < readableParams.size(); i ++){
                     params[i] = (float) readableParams.getDouble(i);
                 }
-                mNativeSceneController.getPhysicsWorld().setGravity(new Vector(params));
+                mNativeScene.getPhysicsWorld().setGravity(new Vector(params));
             }
         }
 
         if (map.hasKey("drawBounds")) {
-            mNativeSceneController.getPhysicsWorld().setDebugDraw(map.getBoolean("drawBounds"));
+            mNativeScene.getPhysicsWorld().setDebugDraw(map.getBoolean("drawBounds"));
         } else {
-            mNativeSceneController.getPhysicsWorld().setDebugDraw(false);
+            mNativeScene.getPhysicsWorld().setDebugDraw(false);
         }
     }
 
     public void findCollisionsWithRayAsync(float[] fromPos, float toPos[], boolean closest,
                                            String tag,
                                            PhysicsWorld.HitTestCallback callback) {
-        mNativeSceneController.getPhysicsWorld().findCollisionsWithRayAsync(new Vector(fromPos), new Vector(toPos),
+        mNativeScene.getPhysicsWorld().findCollisionsWithRayAsync(new Vector(fromPos), new Vector(toPos),
                 closest, tag, callback);
     }
 
     public void findCollisionsWithShapeAsync(float[] from, float[] to, PhysicsShape shape, String tag,
                                              PhysicsWorld.HitTestCallback callback) {
-        mNativeSceneController.getPhysicsWorld().findCollisionsWithShapeAsync(new Vector(from), new Vector(to),
+        mNativeScene.getPhysicsWorld().findCollisionsWithShapeAsync(new Vector(from), new Vector(to),
                 shape, tag, callback);
     }
 

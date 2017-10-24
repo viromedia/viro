@@ -13,8 +13,8 @@ import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
 import com.viro.renderer.ARAnchor;
 import com.viro.renderer.jni.ARPlane;
-import com.viro.renderer.jni.ARSceneController;
-import com.viro.renderer.jni.SceneController;
+import com.viro.renderer.jni.ARScene;
+import com.viro.renderer.jni.Scene;
 import com.viro.renderer.jni.ViroViewARCore;
 import com.viromedia.bridge.component.VRTARSceneNavigator;
 import com.viromedia.bridge.utility.ARUtils;
@@ -22,7 +22,7 @@ import com.viromedia.bridge.utility.ViroEvents;
 
 import java.util.ArrayList;
 
-public class VRTARScene extends VRTScene implements ARSceneController.ARSceneDelegate {
+public class VRTARScene extends VRTScene implements ARScene.ARSceneDelegate {
 
     private static final String AMBIENT_LIGHT_INFO_KEY = "ambientLightInfo";
     private static final String INTENSITY_KEY = "intensity";
@@ -33,22 +33,22 @@ public class VRTARScene extends VRTScene implements ARSceneController.ARSceneDel
     }
 
     @Override
-    protected SceneController createSceneControllerJni() {
-        ARSceneController sceneControllerJni = new ARSceneController();
+    protected Scene createSceneJni() {
+        ARScene sceneControllerJni = new ARScene();
         sceneControllerJni.registerARDelegate(this);
         return sceneControllerJni;
     }
 
     public void addARPlane(ARPlane planeJni) {
-        ((ARSceneController) mNativeSceneController).addARPlane(planeJni);
+        ((ARScene) mNativeScene).addARPlane(planeJni);
     }
 
     public void updateARPlane(ARPlane planeJni) {
-        ((ARSceneController) mNativeSceneController).updateARPlane(planeJni);
+        ((ARScene) mNativeScene).updateARPlane(planeJni);
     }
 
     public void removeARPlane(ARPlane planeJni) {
-        ((ARSceneController) mNativeSceneController).removeARPlane(planeJni);
+        ((ARScene) mNativeScene).removeARPlane(planeJni);
     }
 
     public void setAnchorDetectionTypes(ReadableArray types) {

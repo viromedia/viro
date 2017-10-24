@@ -22,7 +22,7 @@ import com.viro.renderer.jni.PhysicsShapeAutoCompound;
 import com.viro.renderer.jni.PhysicsShapeBox;
 import com.viro.renderer.jni.PhysicsShapeSphere;
 import com.viro.renderer.jni.PhysicsWorld;
-import com.viro.renderer.jni.SceneController;
+import com.viro.renderer.jni.Scene;
 import com.viromedia.bridge.component.node.VRTScene;
 import com.viromedia.bridge.utility.Helper;
 
