@@ -121,6 +121,11 @@
         self.onLoadStartViro(nil);
     }
     
+    if (!_type) {
+        RCTLogError(@"`type` property not set on Viro3DObject.");
+        return;
+    }
+
     BOOL isOBJ = NO;
     if ([_type isEqualToString:@"OBJ"]) {
         isOBJ = YES;

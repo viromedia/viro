@@ -126,6 +126,10 @@ public class VRT3DObject extends VRTControl {
             return;
         }
 
+        if (mType == null) {
+            throw new IllegalStateException("`type` property not set on Viro3DObject.");
+        }
+
         super.onPropsSet();
 
         Node nodeJni = getNodeJni();
