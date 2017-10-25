@@ -9,6 +9,10 @@
     <!-- Required for AR -->
     <uses-permission android:name="android.permission.CAMERA" />
 
+    <!-- Required for Camera Roll access -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
     <application
         android:name=".MainApplication"
         android:allowBackup="true"
