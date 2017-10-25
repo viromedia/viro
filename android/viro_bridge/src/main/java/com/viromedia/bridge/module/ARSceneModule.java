@@ -22,6 +22,7 @@ import com.viro.renderer.jni.Renderer;
 import com.viro.renderer.jni.ViroViewARCore;
 import com.viromedia.bridge.component.VRTARSceneNavigator;
 import com.viromedia.bridge.utility.ARHitTestResultUtil;
+import com.viromedia.bridge.utility.ARUtils;
 
 
 public class ARSceneModule extends ReactContextBaseJavaModule {
@@ -66,7 +67,7 @@ public class ARSceneModule extends ReactContextBaseJavaModule {
                     public void onComplete(ARHitTestResult[] arHitTestResults) {
                         WritableArray returnArray = Arguments.createArray();
                         for (ARHitTestResult result : arHitTestResults) {
-                            returnArray.pushMap(ARHitTestResultUtil.mapFromARHitTestResult(result));
+                            returnArray.pushMap(ARUtils.mapFromARHitTestResult(result));
                         }
                         promise.resolve(returnArray);
                     }
@@ -106,7 +107,7 @@ public class ARSceneModule extends ReactContextBaseJavaModule {
                     public void onComplete(ARHitTestResult[] arHitTestResults) {
                         WritableArray returnArray = Arguments.createArray();
                         for (ARHitTestResult result : arHitTestResults) {
-                            returnArray.pushMap(ARHitTestResultUtil.mapFromARHitTestResult(result));
+                            returnArray.pushMap(ARUtils.mapFromARHitTestResult(result));
                         }
                         promise.resolve(returnArray);
                     }

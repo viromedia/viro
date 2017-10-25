@@ -433,11 +433,6 @@ const double kTransformDelegateDistanceFilter = 0.01;
     self.eventDelegate->setEnabledEvent(VROEventDelegate::EventAction::OnDrag, canDrag);
 }
 
-- (void)setCanCameraHitTest:(BOOL)setCanCameraHitTest {
-    _canCameraHitTest = setCanCameraHitTest;
-    self.eventDelegate->setEnabledEvent(VROEventDelegate::EventAction::OnCameraHitTest, _canCameraHitTest);
-}
-
 - (void)setTimeToFuse:(float)durationMillis {
     _timeToFuse = durationMillis;
     self.eventDelegate->setTimeToFuse(durationMillis);
@@ -545,7 +540,7 @@ const double kTransformDelegateDistanceFilter = 0.01;
     }
 }
 
-- (void)onCameraHitTest:(int)source results:(std::vector<VROARHitTestResult>)results {
+- (void)onCameraARHitTest:(int)source results:(std::vector<VROARHitTestResult>)results {
     //no -op base class for this event.
 }
 

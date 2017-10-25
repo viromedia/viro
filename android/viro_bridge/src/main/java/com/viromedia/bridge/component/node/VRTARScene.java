@@ -13,8 +13,11 @@ import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
 import com.viro.renderer.ARAnchor;
 import com.viro.renderer.jni.ARPlane;
+
 import com.viro.renderer.jni.ARScene;
 import com.viro.renderer.jni.Scene;
+import com.viro.renderer.jni.EventDelegate;
+
 import com.viro.renderer.jni.ViroViewARCore;
 import com.viromedia.bridge.component.VRTARSceneNavigator;
 import com.viromedia.bridge.utility.ARUtils;
@@ -67,6 +70,11 @@ public class VRTARScene extends VRTScene implements ARScene.ARSceneDelegate {
             }
         }
     }
+
+    public void setCanCameraARHitTest(boolean canCameraHitTest){
+        mEventDelegateJni.setEventEnabled(EventDelegate.EventAction.ON_CAMERA_AR_HIT_TEST, canCameraHitTest);
+    }
+
 
     // -- ARSceneDelegate Implementation --
 

@@ -121,7 +121,7 @@ public class VRTNode extends VRTComponent {
     protected int mSetShadowCastingBitMask;
 
     protected List<Material> mMaterials;
-    private EventDelegate mEventDelegateJni;
+    protected EventDelegate mEventDelegateJni;
     private NodeTransformDelegate mTransformDelegate;
     protected NodeAnimation mNodeAnimation;
 
@@ -638,7 +638,7 @@ public class VRTNode extends VRTComponent {
     }
 
     protected void setCanCameraHitTest(boolean canCameraHitTest){
-        mEventDelegateJni.setEventEnabled(EventDelegate.EventAction.ON_CAMERA_HIT_TEST, canCameraHitTest);
+        mEventDelegateJni.setEventEnabled(EventDelegate.EventAction.ON_CAMERA_AR_HIT_TEST, canCameraHitTest);
     }
 
     protected void setTimeToFuse(float durationInMillis){

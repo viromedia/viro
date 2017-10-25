@@ -4,8 +4,10 @@
 package com.viromedia.bridge.utility;
 
 import com.facebook.react.bridge.Arguments;
+import com.facebook.react.bridge.WritableArray;
 import com.facebook.react.bridge.WritableMap;
 import com.viro.renderer.ARAnchor;
+import com.viro.renderer.ARHitTestResult;
 
 public class ARUtils {
 
@@ -24,5 +26,27 @@ public class ARUtils {
             returnMap.putString("alignment", anchor.getAlignment());
         }
         return returnMap;
+    }
+
+    public static WritableMap mapFromARHitTestResult(ARHitTestResult result) {
+        WritableMap returnMap = Arguments.createMap();
+        returnMap.putString("type", result.getType());
+        WritableMap transformMap = Arguments.createMap();
+        transformMap.putArray("position", ARUtils.arrayFromFloatArray(result.getPosition()));
+        transformMap.putArray("scale", ARUtils.arrayFromFloatArray(result.getScale()));
+        transformMap.putArray("rotation", ARUtils.arrayFromFloatArray(result.getRotation()));
+        returnMap.putMap("transform", transformMap);
+        return returnMap;
+    }
+
+    /*
+   Assumes there are only 3 elements in it.
+   */
+    private static WritableArray arrayFromFloatArray(float[] array) {
+        WritableArray returnArray = Arguments.createArray();
+        returnArray.pushDouble(array[0]);
+        returnArray.pushDouble(array[1]);
+        returnArray.pushDouble(array[2]);
+        return returnArray;
     }
 }

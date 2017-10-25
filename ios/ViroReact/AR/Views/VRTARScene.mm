@@ -83,6 +83,11 @@ static NSString *const kCameraOrientation = @"cameraOrientation";
     }
 }
 
+- (void)setCanCameraARHitTest:(BOOL)canCameraARHitTest {
+    _canCameraARHitTest = canCameraARHitTest;
+    self.eventDelegate->setEnabledEvent(VROEventDelegate::EventAction::OnCameraARHitTest, canCameraARHitTest);
+}
+
 - (void)onAnchorFound:(std::shared_ptr<VROARAnchor>)anchor {
     if (self.onAnchorFoundViro) {
         self.onAnchorFoundViro(@{@"anchor" : [VRTARUtils createDictionaryFromAnchor:anchor]});
@@ -101,15 +106,15 @@ static NSString *const kCameraOrientation = @"cameraOrientation";
     }
 }
 
-- (void)onCameraHitTest:(int)source results:(std::vector<VROARHitTestResult>)results {
-    if(self.onCameraHitTestViro) {
+- (void)onCameraARHitTest:(int)source results:(std::vector<VROARHitTestResult>)results {
+    if(self.onCameraARHitTestViro) {
         NSMutableArray *resultArray = [[NSMutableArray alloc] initWithCapacity:results.size()];
         for (VROARHitTestResult result : results) {
             [resultArray addObject:[VRTARHitTestUtil dictForARHitResult:result]];
         }
         
         NSArray<NSNumber *> * camOrientation = [self cameraOrientation];
-    self.onCameraHitTestViro(@{kCameraHitTestResults:resultArray,kCameraOrientation:camOrientation});
+    self.onCameraARHitTestViro(@{kCameraHitTestResults:resultArray,kCameraOrientation:camOrientation});
     }
 }
 

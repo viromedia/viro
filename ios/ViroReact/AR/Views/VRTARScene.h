@@ -18,7 +18,8 @@
 @property (nonatomic, copy, nullable) RCTDirectEventBlock onAnchorFoundViro;
 @property (nonatomic, copy, nullable) RCTDirectEventBlock onAnchorUpdatedViro;
 @property (nonatomic, copy, nullable) RCTDirectEventBlock onAnchorRemovedViro;
-@property (nonatomic, copy, nullable) RCTDirectEventBlock onCameraHitTestViro;
+@property (nonatomic, copy, nullable) RCTDirectEventBlock onCameraARHitTestViro;
+@property (nonatomic, assign) BOOL canCameraARHitTest;
 
 
 - (instancetype)initWithBridge:(RCTBridge *)bridge;

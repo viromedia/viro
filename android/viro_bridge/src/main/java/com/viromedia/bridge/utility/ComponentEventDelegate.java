@@ -188,7 +188,7 @@ public class ComponentEventDelegate implements EventDelegate.EventDelegateCallba
     }
 
     @Override
-    public void onCameraHitTest(int source, ARHitTestResult results[]) {
+    public void onCameraARHitTest(int source, ARHitTestResult results[]) {
 
         VRTComponent node = weakComponent.get();
 
@@ -220,7 +220,7 @@ public class ComponentEventDelegate implements EventDelegate.EventDelegateCallba
 
                     WritableArray hitTestResultsArray = Arguments.createArray();
                     for (ARHitTestResult result : arResults) {
-                        hitTestResultsArray.pushMap(ARHitTestResultUtil.mapFromARHitTestResult(result));
+                        hitTestResultsArray.pushMap(ARUtils.mapFromARHitTestResult(result));
                     }
                     WritableMap event = Arguments.createMap();
                     event.putArray("hitTestResults", hitTestResultsArray);
@@ -229,7 +229,7 @@ public class ComponentEventDelegate implements EventDelegate.EventDelegateCallba
 
                     scene.getReactContext().getJSModule(RCTEventEmitter.class).receiveEvent(
                             scene.getId(),
-                            ViroEvents.ON_CAMERA_HIT_TEST_VIRO,
+                            ViroEvents.ON_CAMERA_AR_HIT_TEST_VIRO,
                             event);
                 }
             });

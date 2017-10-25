@@ -59,7 +59,6 @@ extern const int k2DPointsPerSpatialUnit;
 @property (nonatomic, assign) BOOL canDrag;
 @property (nonatomic, assign) BOOL canPinch;
 @property (nonatomic, assign) BOOL canRotate;
-@property (nonatomic, assign) BOOL canCameraHitTest;
 @property (nonatomic, assign) BOOL highAccuracyGaze;
 @property (nonatomic, assign) float timeToFuse;
 @property (nonatomic, copy, nullable) NSString *dragType;
@@ -117,7 +116,7 @@ extern const int k2DPointsPerSpatialUnit;
 - (void) onDrag:(int)source posX:(float)x posY:(float)y posZ:(float)z;
 - (void) onPinch:(int)source scaleFactor:(float)scale pinchState:(VROEventDelegate::PinchState)pinchState;
 - (void) onRotate:(int)source rotationFactor:(float)rotation rotateState:(VROEventDelegate::RotateState)rotateState;
-- (void) onCameraHitTest:(int)source results:(std::vector<VROARHitTestResult>)results;
+- (void) onCameraARHitTest:(int)source results:(std::vector<VROARHitTestResult>)results;
 
 // Override for AR nodes
 - (std::shared_ptr<VRONode>)createVroNode;

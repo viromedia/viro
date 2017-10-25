@@ -56,14 +56,15 @@ var ARHitTestCamera = createReactClass({
   },
   render: function() {
     return (
-      <ViroARScene ref="arscene" onCameraHitTest={this._onCameraHitTest} >
+      <ViroARScene ref="arscene" onCameraARHitTest={this._onCameraARHitTest} >
         <ViroAmbientLight color="#ffffff" intensity={500}/>
         {this._getModel()}
       </ViroARScene>
     );
   },
 
-  _onCameraHitTest(results) {
+  _onCameraARHitTest(results) {
+      console.log("_onCameraARHitTest invoked!");
       if(results.hitTestResults.length > 0) {
         for (var i = 0; i < results.hitTestResults.length; i++) {
           let result = results.hitTestResults[i];
