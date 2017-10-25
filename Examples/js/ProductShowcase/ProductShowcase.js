@@ -24,6 +24,8 @@ import {
   ViroSurface,
 } from 'react-viro';
 
+var createReactClass = require('create-react-class');
+
 /*
  * This function returns the correct stock status text depending on the
  * given argument.
@@ -126,7 +128,7 @@ var products = [
   }
 ]
 
-var ProductShowcase = React.createClass({
+var ProductShowcase = createReactClass({
   getInitialState() {
     return {
         hideInfoCards: false,

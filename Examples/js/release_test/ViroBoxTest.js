@@ -39,11 +39,13 @@ import {
   Viro3DObject,
 } from 'react-viro';
 
+var createReactClass = require('create-react-class');
+
 let polarToCartesian = ViroUtils.polarToCartesian;
 var UriImage = {uri:"https://lh3.googleusercontent.com/dB3Dvgf3VIglusoGJAfpNUAANhTXW8K9mvIsiIPkhJUAbAKGKJcEMPTf0mkSexzLM5o=w300"};
 var ReleaseMenu = require("./ReleaseMenu.js");
 
-var ViroBoxTest = React.createClass({
+var ViroBoxTest = createReactClass({
 
   getInitialState() {
     return {

@@ -25,11 +25,13 @@ import {
   ViroAnimatedComponent
 } from 'react-viro';
 
+var createReactClass = require('create-react-class');
+
 var bouncePosDefault = [-2, 5, 0];
 var frictionPosDefault = [2,0,2];
 
 var ReleaseMenu = require("./ReleaseMenu.js");
-var PhysicsRayTest = React.createClass({
+var PhysicsRayTest = createReactClass({
   getInitialState() {
     return {
       restitution: 0,

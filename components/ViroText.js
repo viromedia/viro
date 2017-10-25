@@ -14,6 +14,7 @@
 import { requireNativeComponent, View, findNodeHandle} from 'react-native';
 import React, { Component } from 'react';
 var NativeModules = require('react-native').NativeModules;
+var createReactClass = require('create-react-class');
 import PropTypes from 'prop-types';
 var StyleSheet = require('react-native/Libraries/StyleSheet/StyleSheet');
 var ColorPropType = require('react-native').ColorPropType;
@@ -25,7 +26,7 @@ var stylePropType = StyleSheetPropType(TextStylePropTypes);
 /**
  * Used to render a ViroText
  */
-var ViroText = React.createClass({
+var ViroText = createReactClass({
   propTypes: {
     ...View.propTypes,
     position: PropTypes.arrayOf(PropTypes.number),

@@ -39,10 +39,12 @@ import {
   ViroSceneNavigator
 } from 'react-viro';
 
+var createReactClass = require('create-react-class');
+
 let polarToCartesian = ViroUtils.polarToCartesian;
 var LocalButtonImage = require("./res/icon_live.jpg");
 
-var LeakTest1 = React.createClass({
+var LeakTest1 = createReactClass({
   getInitialState() {
     return {
       isErrorState: true,

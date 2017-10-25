@@ -28,10 +28,11 @@ import {
   Viro360Video
 } from 'react-viro';
 
+var createReactClass = require('create-react-class');
 
 var ReleaseMenu = require("./ReleaseMenu.js");
 
-var SceneTest1 = React.createClass({
+var SceneTest1 = createReactClass({
 
   render: function() {
     return (

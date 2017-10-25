@@ -32,10 +32,13 @@ import {
 } from 'react-viro';
 
 import TimerMixin from 'react-timer-mixin';
+
+var createReactClass = require('create-react-class');
+
 let polarToCartesian = ViroUtils.polarToCartesian;
 
 
-var testARScene = React.createClass({
+var testARScene = createReactClass({
   mixins: [TimerMixin],
   getInitialState: function() {
     return {

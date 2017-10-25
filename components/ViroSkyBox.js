@@ -16,6 +16,7 @@ import React, { Component } from 'react';
 import resolveAssetSource from "react-native/Libraries/Image/resolveAssetSource";
 import normalizeColor from "react-native/Libraries/StyleSheet/normalizeColor"
 var NativeModules = require('react-native').NativeModules;
+var createReactClass = require('create-react-class');
 
 import PropTypes from 'prop-types';
 var CubeMapPropType = require('./Material/CubeMapPropType');
@@ -25,7 +26,7 @@ var ColorPropType = require('react-native').ColorPropType;
 /**
  * Used to render a skybox as a scene background.
  */
-var ViroSkybox = React.createClass({
+var ViroSkybox = createReactClass({
 
   propTypes: {
     ...View.propTypes,

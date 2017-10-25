@@ -42,14 +42,16 @@
    Viro3DObject,
  } from 'react-viro';
 
- let polarToCartesian = ViroUtils.polarToCartesian;
+let polarToCartesian = ViroUtils.polarToCartesian;
+
+var createReactClass = require('create-react-class');
 
 var ReleaseMenu = require("./ReleaseMenu.js");
 
 var Uri360Image = {uri:"https://lh3.googleusercontent.com/dB3Dvgf3VIglusoGJAfpNUAANhTXW8K9mvIsiIPkhJUAbAKGKJcEMPTf0mkSexzLM5o=w300"};
 var Local360Image = require("../res/sun_2302.jpg");
 
- var ViroSkyBoxTest = React.createClass({
+ var ViroSkyBoxTest = createReactClass({
    getInitialState() {
      return {
         color:"#098765",

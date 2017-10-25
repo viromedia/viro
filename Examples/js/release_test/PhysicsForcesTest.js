@@ -23,8 +23,10 @@ import {
   ViroOmniLight,
 } from 'react-viro';
 
+var createReactClass = require('create-react-class');
+
 var ReleaseMenu = require("./ReleaseMenu.js");
-var PhysicsRayTest = React.createClass({
+var PhysicsRayTest = createReactClass({
   getInitialState() {
     return {
       bodyType:"dynamic",

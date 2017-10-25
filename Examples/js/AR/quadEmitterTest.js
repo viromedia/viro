@@ -35,6 +35,8 @@ import {
 
 import TimerMixin from 'react-timer-mixin';
 
+var createReactClass = require('create-react-class');
+
 var quad = {
   source : require("./res/ironman.png"),
   height : .1,
@@ -100,7 +102,7 @@ var physicsModifier = {
   }
 }
 
-var testARScene = React.createClass({
+var testARScene = createReactClass({
   mixins: [TimerMixin],
   getInitialState: function() {
     return {

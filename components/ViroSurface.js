@@ -14,6 +14,7 @@
 import { requireNativeComponent, View, findNodeHandle } from 'react-native';
 import React from 'react';
 var NativeModules = require('react-native').NativeModules;
+var createReactClass = require('create-react-class');
 import PropTypes from 'prop-types';
 var StyleSheet = require('react-native/Libraries/StyleSheet/StyleSheet');
 
@@ -24,7 +25,7 @@ var stylePropType = StyleSheetPropType(ViroPropTypes);
 /**
  * Used to render a ViroSurface
  */
-var ViroSurface = React.createClass({
+var ViroSurface = createReactClass({
   propTypes: {
     ...View.propTypes,
     position: PropTypes.arrayOf(PropTypes.number),

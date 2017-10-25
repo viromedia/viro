@@ -32,6 +32,7 @@ import {
 } from 'react-viro';
 
 import TimerMixin from 'react-timer-mixin';
+var createReactClass = require('create-react-class');
 let polarToCartesian = ViroUtils.polarToCartesian;
 
 // Tweak this value to get max rows:
@@ -48,7 +49,7 @@ var testFiles = [
   ["ViroPostProcessTestAR", require("./ViroPostProcessTestAR")],
 ]
 
-var ARReleaseMenu = React.createClass({
+var ARReleaseMenu = createReactClass({
   mixins: [TimerMixin],
   getInitialState: function() {
     return {

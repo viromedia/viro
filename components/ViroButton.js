@@ -16,6 +16,7 @@ import resolveAssetSource from "react-native/Libraries/Image/resolveAssetSource"
 import PropTypes from 'prop-types';
 
 var ViroPropTypes = require('./Styles/ViroPropTypes');
+var createReactClass = require('create-react-class');
 var StyleSheetPropType = require('react-native/Libraries/StyleSheet/StyleSheetPropType');
 var stylePropType = StyleSheetPropType(ViroPropTypes);
 var ViroNode = require('./ViroNode');
@@ -29,7 +30,7 @@ var BTN_TYPE_CLICKED = 'clicked';
 /**
  * Composite controle for 2D button
  */
- var ViroButton = React.createClass({
+ var ViroButton = createReactClass({
   propTypes: {
   	...View.propTypes,
     /**

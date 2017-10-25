@@ -23,9 +23,11 @@ import {
 
 let polarToCartesian = ViroUtils.polarToCartesian;
 
+var createReactClass = require('create-react-class');
+
 var gameScene = require('./WhackAMole');
 
-var MainMenu = React.createClass({
+var MainMenu = createReactClass({
   getInitialState() {
     return {
       hideStart : false,

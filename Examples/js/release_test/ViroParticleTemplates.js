@@ -32,11 +32,13 @@
  let polarToCartesian = ViroUtils.polarToCartesian;
  var viroFireworkColors =["#ff2d2d","#42ff42","#00edff","#ffff00","#ffb5f8","#00ff1d","#00edff","#ffb14c", "#ff7cf4"];
 
+var createReactClass = require('create-react-class');
+
  // **This test has not been done.  This is placeholder for scene and navigation arrows**
 
  var ReleaseMenu = require("./ReleaseMenu.js");
 
- var ViroParticleTest = React.createClass({
+ var ViroParticleTest = createReactClass({
    getInitialState() {
      return {
        apply:true,

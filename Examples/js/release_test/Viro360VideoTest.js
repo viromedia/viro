@@ -39,6 +39,8 @@ import {
   Viro3DObject,
 } from 'react-viro';
 
+var createReactClass = require('create-react-class');
+
 let polarToCartesian = ViroUtils.polarToCartesian;
 var VIDEO_REF = "videoref";
 var Uri360Video = {uri:"https://s3-us-west-2.amazonaws.com/viro/360_surf.mp4"};
@@ -48,7 +50,7 @@ var Local360Surfing4kVideo = require("./res/360_surf_4k.mp4");
 var ReleaseMenu = require("./ReleaseMenu.js");
 var Local360StereoVideo = require("./res/stereoVid360.mp4")
 
-var Viro360VideoTest = React.createClass({
+var Viro360VideoTest = createReactClass({
 
   getInitialState() {
     return {

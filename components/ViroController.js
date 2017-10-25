@@ -11,10 +11,11 @@
 import { requireNativeComponent, findNodeHandle, View, StyleSheet, Platform } from 'react-native';
 import React, { Component } from 'react';
 var NativeModules = require('react-native').NativeModules;
+var createReactClass = require('create-react-class');
 import PropTypes from 'prop-types';
 var ViroControllerModule = require('react-native').NativeModules.VRTControllerModule;
 
-var ViroController = React.createClass({
+var ViroController = createReactClass({
 
   propTypes: {
     ...View.propTypes,

@@ -16,11 +16,12 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 var NativeModules = require('react-native').NativeModules;
+var createReactClass = require('create-react-class');
 
 /**
  * Container for Viro Components anchored to a detected plane.
  */
-var ViroARPlane = React.createClass({
+var ViroARPlane = createReactClass({
   propTypes: {
     ...View.propTypes,
     anchorId: PropTypes.string,

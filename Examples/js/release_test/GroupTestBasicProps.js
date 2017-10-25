@@ -31,6 +31,8 @@ import {
   ViroDirectionalLight
 } from 'react-viro';
 
+var createReactClass = require('create-react-class');
+
 let polarToCartesian = ViroUtils.polarToCartesian;
 
 var UriImage = {uri:"https://s3-us-west-2.amazonaws.com/viro/Explorer/360_horseshoe.jpg"};
@@ -45,7 +47,7 @@ var ReleaseMenu = require("./ReleaseMenu.js");
 
 var TEST_COMPONENT_NUM = 11;
 
-var GroupTestBasicProps = React.createClass({
+var GroupTestBasicProps = createReactClass({
   getInitialState() {
     var offsetArray = [11];
     var i;

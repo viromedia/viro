@@ -15,6 +15,7 @@ import { requireNativeComponent, View, findNodeHandle } from 'react-native';
 import React from 'react';
 import resolveAssetSource from "react-native/Libraries/Image/resolveAssetSource";
 var NativeModules = require('react-native').NativeModules;
+var createReactClass = require('create-react-class');
 import PropTypes from 'prop-types';
 var StyleSheet = require('react-native/Libraries/StyleSheet/StyleSheet');
 
@@ -24,7 +25,7 @@ var stylePropType = StyleSheetPropType(ViroPropTypes);
 var ColorPropType = require('react-native').ColorPropType;
 var processColor = require('react-native').processColor;
 
-var ViroParticleEmitter = React.createClass({
+var ViroParticleEmitter = createReactClass({
   propTypes: {
     ...View.propTypes,
     position: PropTypes.arrayOf(PropTypes.number),

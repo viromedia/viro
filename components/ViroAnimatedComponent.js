@@ -14,11 +14,12 @@
 import { requireNativeComponent, View, StyleSheet, Platform } from 'react-native';
 import React from 'react';
 import PropTypes from 'prop-types';
+var createReactClass = require('create-react-class');
 
 /**
  * Used to render a ViroAnimatedComponent
  */
-var ViroAnimatedComponent = React.createClass({
+var ViroAnimatedComponent = createReactClass({
   propTypes: {
     ...View.propTypes,
     animation: PropTypes.string,

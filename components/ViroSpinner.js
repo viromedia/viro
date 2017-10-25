@@ -12,6 +12,8 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+var createReactClass = require('create-react-class');
+
 var ViroMaterials = require('./Material/ViroMaterials');
 var ViroAnimations = require('./Animation/ViroAnimations');
 var ViroNode = require('./ViroNode');
@@ -26,7 +28,7 @@ var ViroSpinner_1a_w = require('./Resources/viro_spinner_1a_w.png');
 /**
  * Composite control for a 2D Spinner
  */
-var ViroSpinner = React.createClass({
+var ViroSpinner = createReactClass({
   propTypes: {
     position: PropTypes.arrayOf(PropTypes.number),
     rotation: PropTypes.arrayOf(PropTypes.number),

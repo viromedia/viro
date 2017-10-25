@@ -24,6 +24,8 @@ import {
 
 import TimerMixin from 'react-timer-mixin';
 
+var createReactClass = require('create-react-class');
+
 var polarToCartesian = ViroUtils.polarToCartesian;
 
 function getTimeSeconds() {
@@ -70,7 +72,7 @@ Ideas:
 - after every 5 successful hits - make timer faster
 */
 
-var WhackAMole = React.createClass({
+var WhackAMole = createReactClass({
   mixins: [TimerMixin],
   componentDidMount: function() {
     this.setInterval(

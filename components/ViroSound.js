@@ -17,9 +17,10 @@ import React from 'react';
 
 import PropTypes from 'prop-types';
 var NativeModules = require('react-native').NativeModules;
+var createReactClass = require('create-react-class');
 var SoundModule = NativeModules.VRTSoundModule;
 
-var ViroSound = React.createClass({
+var ViroSound = createReactClass({
   statics: {
     preloadSounds: function(soundMap:{[key:string]: string}) {
       SoundModule.preloadSounds(soundMap);

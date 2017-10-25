@@ -15,11 +15,12 @@ import { requireNativeComponent, View, StyleSheet, findNodeHandle } from 'react-
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 var NativeModules = require('react-native').NativeModules;
+var createReactClass = require('create-react-class');
 
 /**
  * Portal container for revealing different sections of the scene graph.
  */
-var ViroPortalScene = React.createClass({
+var ViroPortalScene = createReactClass({
   propTypes: {
     ...View.propTypes,
     position: PropTypes.arrayOf(PropTypes.number),

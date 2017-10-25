@@ -15,6 +15,7 @@ import { requireNativeComponent, View, Platform, findNodeHandle } from 'react-na
 import resolveAssetSource from "react-native/Libraries/Image/resolveAssetSource";
 import React from 'react';
 var NativeModules = require('react-native').NativeModules;
+var createReactClass = require('create-react-class');
 import PropTypes from 'prop-types';
 var StyleSheet = require('react-native/Libraries/StyleSheet/StyleSheet');
 
@@ -25,7 +26,7 @@ var stylePropType = StyleSheetPropType(ViroPropTypes);
 /**
  * Used to render a ViroImage
  */
-var ViroImage = React.createClass({
+var ViroImage = createReactClass({
   propTypes: {
     ...View.propTypes,
     /**

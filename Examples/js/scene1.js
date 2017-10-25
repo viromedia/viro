@@ -27,7 +27,9 @@ import {
   Viro360Video
 } from 'react-viro';
 
-var scene1 = React.createClass({
+var createReactClass = require('create-react-class');
+
+var scene1 = createReactClass({
   render: function() {
     return (
         <ViroScene position={[0,0,0]} reticleEnabled={false} onClick={this._recenterTracking} >

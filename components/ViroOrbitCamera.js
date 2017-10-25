@@ -14,8 +14,9 @@
 import { requireNativeComponent, View, StyleSheet } from 'react-native';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+var createReactClass = require('create-react-class');
 
-var ViroOrbitCamera = React.createClass({
+var ViroOrbitCamera = createReactClass({
   propTypes: {
     ...View.propTypes,
     position: PropTypes.arrayOf(PropTypes.number),

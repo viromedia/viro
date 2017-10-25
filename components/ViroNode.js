@@ -15,11 +15,12 @@ import { requireNativeComponent, View, StyleSheet, findNodeHandle } from 'react-
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 var NativeModules = require('react-native').NativeModules;
+var createReactClass = require('create-react-class');
 
 /**
  * Absolute container for Viro Controls
  */
-var ViroNode = React.createClass({
+var ViroNode = createReactClass({
   propTypes: {
     ...View.propTypes,
     position: PropTypes.arrayOf(PropTypes.number),

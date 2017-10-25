@@ -21,6 +21,7 @@ import {
   ViroImage,
 } from 'react-viro';
 
+var createReactClass = require('create-react-class');
 var VIDEO_REF = "videoref";
 let polarToCartesian = ViroUtils.polarToCartesian;
 
@@ -29,7 +30,7 @@ var localVideoStereo = require("./res/stereoVid.mp4");
 var uriSource = {uri:'https://s3.amazonaws.com/viro.video/Climber1Bottom.mp4'};
 var ReleaseMenu = require("./ReleaseMenu.js");
 
-var ViroVideoTest = React.createClass({
+var ViroVideoTest = createReactClass({
   getInitialState() {
     return {
       videoPaused: false,

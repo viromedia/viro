@@ -35,6 +35,8 @@ import {
   ViroAmbientLight
 } from 'react-viro';
 
+var createReactClass = require('create-react-class');
+
 let polarToCartesian = ViroUtils.polarToCartesian;
 var ReleaseMenu = require("./ReleaseMenu.js");
 var LocalButtonImage = require("./res/icon_live.jpg");
@@ -42,7 +44,7 @@ var LocalButtonImage = require("./res/icon_live.jpg");
 var TOGGLE_PLAY ="Toggle Play";
 var TOGGLE_PAUSE ="Toggle Pause";
 
-var GroupTestMaterials = React.createClass({
+var GroupTestMaterials = createReactClass({
   getInitialState() {
     return {
         materialFlag: 1

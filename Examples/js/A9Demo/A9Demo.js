@@ -23,7 +23,9 @@ import {
   ViroBox,
 } from 'react-viro';
 
-var A9Demo = React.createClass({
+var createReactClass = require('create-react-class');
+
+var A9Demo = createReactClass({
   mixins: [TimerMixin],
   getInitialState() {
     return {

@@ -42,10 +42,12 @@
    Viro3DObject,
  } from 'react-viro';
 
+var createReactClass = require('create-react-class');
+
 let polarToCartesian = ViroUtils.polarToCartesian;
 var Uri360Image = require("../res/sun_2302.jpg");
 
-var ViroPortalTest = React.createClass({
+var ViroPortalTest = createReactClass({
    getInitialState() {
      return {
 

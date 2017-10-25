@@ -20,6 +20,7 @@ import {
 import React from 'react';
 
 var NativeModules = require('react-native/Libraries/BatchedBridge/NativeModules');
+var createReactClass = require('create-react-class');
 import PropTypes from 'prop-types';
 var StyleSheet = require('react-native/Libraries/StyleSheet/StyleSheet');
 var ViroPropTypes = require('./Styles/ViroPropTypes');
@@ -35,7 +36,7 @@ var NativeModules = require('react-native').NativeModules;
 /**
  * Used to render a ViroFlexView
  */
-var ViroFlexView = React.createClass({
+var ViroFlexView = createReactClass({
   propTypes: {
     ...View.propTypes,
     position: PropTypes.arrayOf(PropTypes.number),

@@ -15,6 +15,8 @@ import { requireNativeComponent, View, StyleSheet, findNodeHandle } from 'react-
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+var createReactClass = require('create-react-class');
+
 var ViroMaterials = require('../Material/ViroMaterials');
 var ViroARPlane = require('./ViroARPlane');
 var ViroSurface = require('../ViroSurface');
@@ -28,7 +30,7 @@ var _planePrefix = "ViroARPlaneSelector_Plane_"
  * of an AR plane. This currently only allows for 1 plane to be selected,
  * but could easily be modified to allow for more planes.
  */
-var ViroARPlaneSelector = React.createClass({
+var ViroARPlaneSelector = createReactClass({
   propTypes: {
     ...View.propTypes,
     maxPlanes: PropTypes.number,

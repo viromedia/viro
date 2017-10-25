@@ -32,7 +32,9 @@ import {
 
 let polarToCartesian = ViroUtils.polarToCartesian;
 
-var visibleTest = React.createClass({
+var createReactClass = require('create-react-class');
+
+var visibleTest = createReactClass({
   getInitialState() {
     return {
       visible1 : true,

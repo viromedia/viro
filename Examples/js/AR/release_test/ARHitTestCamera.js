@@ -33,12 +33,15 @@ import {
 } from 'react-viro';
 
 import TimerMixin from 'react-timer-mixin';
+
+var createReactClass = require('create-react-class');
+
 let polarToCartesian = ViroUtils.polarToCartesian;
 
 var objSourceNoPlaneFound = require('./res/tracking_1.vrx')
 var objSourcePlane = require('./res/tracking_2.vrx')
 
-var ARHitTestCamera = React.createClass({
+var ARHitTestCamera = createReactClass({
   mixins: [TimerMixin],
   getInitialState: function() {
     return {

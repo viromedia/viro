@@ -12,6 +12,7 @@
 'use strict';
 
 var NativeModules = require('react-native').NativeModules;
+var createReactClass = require('create-react-class');
 import PropTypes from 'prop-types';
 var ViroSceneNavigatorModule = require('react-native').NativeModules.VRTSceneNavigatorModule;
 import { requireNativeComponent, View, StyleSheet, findNodeHandle } from 'react-native';
@@ -27,7 +28,7 @@ var mathRandomOffset = 0;
 /**
  * ViroSceneNavigator is used to transition between multiple scenes.
  */
-var ViroSceneNavigator = React.createClass({
+var ViroSceneNavigator = createReactClass({
   propTypes: {
     /**
      * Calling vrModeEnabled allows switching to and from VR mode.

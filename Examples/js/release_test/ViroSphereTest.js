@@ -44,12 +44,13 @@
 
  let polarToCartesian = ViroUtils.polarToCartesian;
 
+var createReactClass = require('create-react-class');
 
  // **This test has not been done.  This is placeholder for scene and navigation arrows**
 
  var ReleaseMenu = require("./ReleaseMenu.js");
 
- var ViroSphereTest = React.createClass({
+ var ViroSphereTest = createReactClass({
 
    getInitialState() {
      return {

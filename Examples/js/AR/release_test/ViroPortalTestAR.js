@@ -42,12 +42,14 @@
    Viro3DObject,
  } from 'react-viro';
 
+var createReactClass = require('create-react-class');
+
 let polarToCartesian = ViroUtils.polarToCartesian;
 var portalDistance = 1.25;
 var offsetTorwardsCamera =0.25;
 var Uri360Video = {uri:"https://s3-us-west-2.amazonaws.com/viro/360_surf.mp4"};
 
-var ViroPortalTest = React.createClass({
+var ViroPortalTest = createReactClass({
    getInitialState() {
      return {
 

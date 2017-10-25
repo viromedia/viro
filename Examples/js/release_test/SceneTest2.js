@@ -28,7 +28,9 @@ import {
   Viro360Video
 } from 'react-viro';
 
-var SceneTest2 = React.createClass({
+var createReactClass = require('create-react-class');
+
+var SceneTest2 = createReactClass({
 
   render: function() {
 

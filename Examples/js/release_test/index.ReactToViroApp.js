@@ -20,7 +20,9 @@ import {
   ViroSceneNavigator,
 } from 'react-viro';
 
-var ViroSample = React.createClass({
+var createReactClass = require('create-react-class');
+
+var ViroSample = createReactClass({
   render() {
     return (
       <Navigator
@@ -43,7 +45,7 @@ var ViroSample = React.createClass({
   }
 });
 
-var Main = React.createClass({
+var Main = createReactClass({
     render() {
         return (
           <View style={ MobileStyles.container }>
@@ -65,7 +67,7 @@ var Main = React.createClass({
     }
 });
 
-var Main2 = React.createClass({
+var Main2 = createReactClass({
     render() {
         return (
           <View style={ MobileStyles.container }>
@@ -94,7 +96,7 @@ var Main2 = React.createClass({
     }
 });
 
-var MainVR = React.createClass({
+var MainVR = createReactClass({
     render() {
         console.log("Daniel MainVR props passed: " + this.props.name);
         return (

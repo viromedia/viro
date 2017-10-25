@@ -33,12 +33,14 @@ import {
 
 } from 'react-viro';
 
+var createReactClass = require('create-react-class');
+
 var MAINCARD_REF = 'maincard';
 var MAINCARDTWO_REF = 'maincardtwo';
 var PETITECARD_REF = 'petitecardonecard';
 var PETITECARDTWO_REF = 'petitecardtwocard';
 
-var AnimationTest = React.createClass({
+var AnimationTest = createReactClass({
   getInitialState() {
     return {
        mainAnimationIn: false,

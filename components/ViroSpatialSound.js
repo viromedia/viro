@@ -17,8 +17,9 @@ import React from 'react';
 
 import PropTypes from 'prop-types';
 var NativeModules = require('react-native').NativeModules;
+var createReactClass = require('create-react-class');
 
-var ViroSpatialSound = React.createClass({
+var ViroSpatialSound = createReactClass({
   propTypes: {
     ...View.propTypes,
 

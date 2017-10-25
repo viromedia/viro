@@ -35,6 +35,8 @@ import {
   ViroSpatialSound,
 } from 'react-viro';
 
+var createReactClass = require('create-react-class');
+
 let polarToCartesian = ViroUtils.polarToCartesian;
 
 var stateOne = {
@@ -68,7 +70,7 @@ var soundRoom1 = {
 /*
  This file tests a simple flex view and updating properties within it.
  */
-var FlexViewTest = React.createClass({
+var FlexViewTest = createReactClass({
   getInitialState: function() {
     return {
       ...stateOne,

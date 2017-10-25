@@ -40,7 +40,9 @@ import {
 
 let polarToCartesian = ViroUtils.polarToCartesian;
 
-var FlexViewTest = React.createClass({
+var createReactClass = require('create-react-class');
+
+var FlexViewTest = createReactClass({
   getInitialState: function() {
     return {addLight: false};
   },

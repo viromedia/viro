@@ -11,8 +11,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 var NativeModules = require('react-native').NativeModules;
+var createReactClass = require('create-react-class');
 
-var ViroARScene = React.createClass({
+var ViroARScene = createReactClass({
   propTypes: {
     ...View.propTypes,
     ignoreEventHandling: PropTypes.bool,

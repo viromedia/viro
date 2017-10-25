@@ -39,6 +39,8 @@ import {
   ViroPolyline
 } from 'react-viro';
 
+var createReactClass = require('create-react-class');
+
 let polarToCartesian = ViroUtils.polarToCartesian;
 
 var ReleaseMenu = require("./ReleaseMenu.js");
@@ -52,7 +54,7 @@ var points = [[[0,0,0]],
               [[0,0,0], [.5,.5,-.5], [1,0,0], [1.5,1,.5]],
               [[0,0,0], [.5,.5,-.5], [1,0,0], [1.5,1,.5], [5,5,0]]];
 
-var ViroPolylineTest = React.createClass({
+var ViroPolylineTest = createReactClass({
   getInitialState() {
     return {
       materials:false,

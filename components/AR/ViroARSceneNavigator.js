@@ -17,6 +17,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 var NativeModules = require('react-native').NativeModules;
+var createReactClass = require('create-react-class');
 var ViroARSceneNavigatorModule = require('react-native').NativeModules.VRTARSceneNavigatorModule;
 
 type Scene = {
@@ -29,7 +30,7 @@ var mathRandomOffset = 0;
 /**
  * ViroARSceneNavigator is used to transition between multiple AR Scenes.
  */
-var ViroARSceneNavigator = React.createClass({
+var ViroARSceneNavigator = createReactClass({
   propTypes: {
 
       ...View.propTypes,

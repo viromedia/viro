@@ -29,7 +29,9 @@ import {
   Viro360Video
 } from 'react-viro';
 
-var ReleaseMenu = React.createClass({
+var createReactClass = require('create-react-class');
+
+var ReleaseMenu = createReactClass({
   propTypes: {
     position:  PropTypes.arrayOf(PropTypes.number),
     showMenu: PropTypes.bool,

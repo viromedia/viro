@@ -39,11 +39,13 @@ import {
   Viro3DObject,
 } from 'react-viro';
 
+var createReactClass = require('create-react-class');
+
 let polarToCartesian = ViroUtils.polarToCartesian;
 
 var ReleaseMenu = require("./ReleaseMenu.js");
 
-var ViroAnimatedComponentTest = React.createClass({
+var ViroAnimatedComponentTest = createReactClass({
 
   getInitialState() {
     return {

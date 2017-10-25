@@ -39,13 +39,14 @@ import {
   ViroSkyBox,
 } from 'react-viro';
 
+var createReactClass = require('create-react-class');
 let polarToCartesian = ViroUtils.polarToCartesian;
 var longTextTag ="I'm testing this to see if it works, this is the best most tremendous text engine. You won't be disappointed, believe me!";
 var longTextTag2 = "Changed text should see lots of #: ########### ########### ############### ########## ###### ########## ########## ###### End of #."
 
 var ReleaseMenu = require("./ReleaseMenu.js");
 
-var ViroTextTest = React.createClass({
+var ViroTextTest = createReactClass({
 
   getInitialState() {
     return {

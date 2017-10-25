@@ -30,9 +30,11 @@ import {
   ViroUtils,
 } from 'react-viro';
 
+var createReactClass = require('create-react-class');
+
 let polarToCartesian = ViroUtils.polarToCartesian;
 
-var ARDragTest = React.createClass({
+var ARDragTest = createReactClass({
   getInitialState: function() {
     return {};
   },

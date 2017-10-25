@@ -43,6 +43,8 @@
    Viro3DObject,
  } from 'react-viro';
 
+var createReactClass = require('create-react-class');
+
 var button_local = require("../res/card_main.png");
 var buttonHover_local = require("../res/card_petite_ansu.png");
 var buttonClick_local = require("../res/card_main.png");
@@ -53,7 +55,7 @@ var buttonClick_uri = {uri:"https://s3-us-west-2.amazonaws.com/viro/Explorer/360
 
 var ReleaseMenu = require("./ReleaseMenu.js");
 
-var ViroButtonTest = React.createClass({
+var ViroButtonTest = createReactClass({
    getInitialState() {
      return {
         widthAndHeight:1,

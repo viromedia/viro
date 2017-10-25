@@ -33,7 +33,9 @@ import {
 
 import TimerMixin from 'react-timer-mixin';
 
-var testARScene = React.createClass({
+var createReactClass = require('create-react-class');
+
+var testARScene = createReactClass({
   mixins: [TimerMixin],
   getInitialState: function() {
     return {

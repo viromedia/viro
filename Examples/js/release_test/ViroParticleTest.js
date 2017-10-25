@@ -44,6 +44,8 @@ import {
    Viro3DObject,
  } from 'react-viro';
 
+var createReactClass = require('create-react-class');
+
 var lightMask1:3              // 0011
 var lightMask2:5              // 0101
 var lightMask3:13             // 1101
@@ -55,7 +57,7 @@ var fireworkParticle = require("./res/particle_firework.png");
 var cloudParticle = require("./res/particle_bubble.png");
 var ReleaseMenu = require("./ReleaseMenu.js");
 
-var ViroShadowTest = React.createClass({
+var ViroShadowTest = createReactClass({
   getInitialState() {
     return {
       emissionRatePerSecond:5,

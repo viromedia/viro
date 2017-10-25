@@ -39,6 +39,8 @@ import {
   Viro3DObject,
 } from 'react-viro';
 
+var createReactClass = require('create-react-class');
+
 let polarToCartesian = ViroUtils.polarToCartesian;
 
 var Uri360Image = {uri:"https://s3-us-west-2.amazonaws.com/viro/Explorer/360_horseshoe.jpg"};
@@ -46,7 +48,7 @@ var Local360Image = require("./res/360_park.jpg");
 var Stereo360Image = require("./res/exploding_scene.jpg");
 var ReleaseMenu = require("./ReleaseMenu.js");
 
-var Viro360ImageTest = React.createClass({
+var Viro360ImageTest = createReactClass({
 
   getInitialState() {
     return {

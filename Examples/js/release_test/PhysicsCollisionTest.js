@@ -25,6 +25,8 @@ import {
   ViroAnimatedComponent
 } from 'react-viro';
 
+var createReactClass = require('create-react-class');
+
 var dynamicStatePosDefault = [-2, 0, 0];
 var dynamicDynamicPosDefault = [0,0,0];
 var dynamicDynamicPosDefault2 = [0,-2,0];
@@ -34,7 +36,7 @@ var collisionOutputArray = [];
 var collisionOutput = "Output:";
 
 var ReleaseMenu = require("./ReleaseMenu.js");
-var PhysicsCollisionTest = React.createClass({
+var PhysicsCollisionTest = createReactClass({
   getInitialState() {
     return {
       bodyTypeRayTest:"dynamic",

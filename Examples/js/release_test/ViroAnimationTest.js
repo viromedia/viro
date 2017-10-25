@@ -40,12 +40,14 @@ import {
   Viro3DObject,
 } from 'react-viro';
 
+var createReactClass = require('create-react-class');
+
 let polarToCartesian = ViroUtils.polarToCartesian;
 var LocalButtonImage = require("./res/icon_live.jpg");
 
 var ReleaseMenu = require("./ReleaseMenu.js");
 
-var ViroAnimationTest = React.createClass({
+var ViroAnimationTest = createReactClass({
 
   getInitialState() {
     return {

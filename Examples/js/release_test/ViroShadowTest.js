@@ -43,6 +43,8 @@ import {
    Viro3DObject,
  } from 'react-viro';
 
+var createReactClass = require('create-react-class');
+
 var lightMask1 = 2;              // 0010
 var lightMask2 = 4;              // 0100
 var lightMask3 = 8;              // 1000
@@ -50,7 +52,7 @@ var allLights =  15;             // 1111
 var enviromentLight = 16;        // 10000
 var ReleaseMenu = require("./ReleaseMenu.js");
 
-var ViroShadowTest = React.createClass({
+var ViroShadowTest = createReactClass({
   getInitialState() {
     return {
       boxMask:lightMask1,

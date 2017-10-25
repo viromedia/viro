@@ -45,6 +45,8 @@ import {
    ViroSpinner
  } from 'react-viro';
 
+var createReactClass = require('create-react-class');
+
 var UriImage = {uri:"https://s3-us-west-2.amazonaws.com/viro/Explorer/360_horseshoe.jpg"};
 var LocalImage = require("./res/360_park.jpg");
 
@@ -60,7 +62,7 @@ var lightMask2 = 4;              // 0100
 var lightMask3 = 8;              // 1000
 var allLights =  15;             // 1111
 
-var ViroShadowGroupTest = React.createClass({
+var ViroShadowGroupTest = createReactClass({
   getInitialState() {
     return {
       boxMask:lightMask1,

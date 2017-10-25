@@ -39,9 +39,11 @@ import {
   ViroSkyBox,
 } from 'react-viro';
 
+var createReactClass = require('create-react-class');
+
 let polarToCartesian = ViroUtils.polarToCartesian;
 
-var TextTest = React.createClass({
+var TextTest = createReactClass({
 
   _platformUpdate: function(updates) {
     console.log("Platform updated! platform: " + updates.platform + ", headset: " + updates.headset + ", controller: " + updates.controller);

@@ -34,7 +34,9 @@ import {
   ViroSurface,
 } from 'react-viro';
 
-var ColorAnimationTest = React.createClass({
+var createReactClass = require('create-react-class');
+
+var ColorAnimationTest = createReactClass({
   getInitialState() {
     return {
        runAnimation: false,

@@ -35,10 +35,12 @@ import {
   ViroAmbientLight
 } from 'react-viro';
 
+var createReactClass = require('create-react-class');
+
 let polarToCartesian = ViroUtils.polarToCartesian;
 var LocalButtonImage = require("./res/icon_live.jpg");
 
-var LeakTest2 = React.createClass({
+var LeakTest2 = createReactClass({
   getInitialState() {
     return {
 

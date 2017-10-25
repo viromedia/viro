@@ -45,9 +45,11 @@
 
  let polarToCartesian = ViroUtils.polarToCartesian;
 
+var createReactClass = require('create-react-class');
+
  // **This test has not been done.  This is placeholder for scene and navigation arrows**
 
- var ViroFlexViewLayoutTest = React.createClass({
+ var ViroFlexViewLayoutTest = createReactClass({
 
    getInitialState() {
      return {

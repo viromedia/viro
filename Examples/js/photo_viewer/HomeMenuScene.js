@@ -33,7 +33,9 @@ import {
 
 let polarToCartesian = ViroUtils.polarToCartesian;
 
-var HomeMenuScene = React.createClass({
+var createReactClass = require('create-react-class');
+
+var HomeMenuScene = createReactClass({
   getInitialState() {
     return {
       runSphereAnimation: false,

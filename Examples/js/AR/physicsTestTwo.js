@@ -33,6 +33,8 @@ import {
 
 import TimerMixin from 'react-timer-mixin';
 
+var createReactClass = require('create-react-class');
+
 var position = [0,0,0];
 var rotation = [0,0,0];
 var width = 0;
@@ -43,7 +45,7 @@ for (var i = 0; i < 15; i++) {
   boxStates["box" + i] = [.5,.5];
 }
 
-var testARScene = React.createClass({
+var testARScene = createReactClass({
   mixins: [TimerMixin],
   getInitialState: function() {
     var foo = {

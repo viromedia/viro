@@ -35,6 +35,8 @@ import {
   ViroController,
 } from 'react-viro';
 
+var createReactClass = require('create-react-class');
+
 let polarToCartesian = ViroUtils.polarToCartesian;
 
 var UriImage = {uri:"https://s3-us-west-2.amazonaws.com/viro/Explorer/360_horseshoe.jpg"};
@@ -51,7 +53,7 @@ var TOGGLE_PLAY ="Toggle Play";
 var TOGGLE_PAUSE ="Toggle Pause";
 
 
-var GroupTestDragEvents = React.createClass({
+var GroupTestDragEvents = createReactClass({
   getInitialState() {
     return {
         transformFlag: 1,

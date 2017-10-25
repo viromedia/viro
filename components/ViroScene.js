@@ -10,8 +10,9 @@ import { requireNativeComponent, findNodeHandle, View } from 'react-native';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 var NativeModules = require('react-native').NativeModules;
+var createReactClass = require('create-react-class');
 
-var ViroScene = React.createClass({
+var ViroScene = createReactClass({
   propTypes: {
     ...View.propTypes,
 

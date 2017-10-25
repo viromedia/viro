@@ -39,7 +39,9 @@ let polarToCartesian = ViroUtils.polarToCartesian;
 var LocalButtonImage = require("./res/icon_live.jpg");
 var ReleaseMenu = require("./ReleaseMenu.js");
 
-var GroupTestBasicEvents = React.createClass({
+var createReactClass = require('create-react-class');
+
+var GroupTestBasicEvents = createReactClass({
   getInitialState() {
     return {
         reticleVisibility:true,

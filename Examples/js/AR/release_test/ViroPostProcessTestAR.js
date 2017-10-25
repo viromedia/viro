@@ -27,6 +27,7 @@ import {
 
 import TimerMixin from 'react-timer-mixin';
 
+var createReactClass = require('create-react-class');
 
 var postEffectTests = [
   ["GrayScale"],
@@ -57,7 +58,7 @@ var postEffectTestsTag = [
   ["PincushionDistortion + GrayScale"],
   ["None"], // this should be the last one!
 ];
-var ViroPostProcesTest = React.createClass({
+var ViroPostProcesTest = createReactClass({
   mixins: [TimerMixin],
   getInitialState() {
     return {

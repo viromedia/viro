@@ -35,10 +35,12 @@ import {
   ViroController,
 } from 'react-viro';
 
+var createReactClass = require('create-react-class');
+
 var LocalButtonImage = require("./res/icon_live.jpg");
 var ReleaseMenu = require("./ReleaseMenu.js");
 
-var GroupTestBasicPhysics = React.createClass({
+var GroupTestBasicPhysics = createReactClass({
   getInitialState() {
     return {
       physicsEnabled:false,
