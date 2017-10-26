@@ -104,6 +104,11 @@ public:
      are shared by reference with the copied node.
      */
     std::shared_ptr<VRONode> clone();
+
+    /*
+     Get a unique ID for this VRONode.
+     */
+    int getUniqueID() { return _uniqueID; }
     
 #pragma mark - Render Cycle
 
@@ -329,7 +334,7 @@ public:
      children are visible either (we use the umbrella bounding box for
      visibility tests).
      */
-    bool isVisibile() const {
+    bool isVisible() const {
         return _visible;
     }
     
@@ -632,6 +637,11 @@ private:
      Name for debugging.
      */
     std::string _name;
+
+    /*
+     Unique identifier.
+     */
+    int _uniqueID;
     
     /*
      Lights, sound, and camera.

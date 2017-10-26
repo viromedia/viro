@@ -10,6 +10,13 @@ import com.facebook.react.uimanager.events.RCTEventEmitter;
 import com.viro.renderer.ARHitTestResult;
 import com.viro.renderer.jni.CameraCallback;
 import com.viro.renderer.jni.EventDelegate;
+import com.viro.renderer.jni.Node;
+import com.viro.renderer.jni.event.ClickState;
+import com.viro.renderer.jni.event.ControllerStatus;
+import com.viro.renderer.jni.event.PinchState;
+import com.viro.renderer.jni.event.RotateState;
+import com.viro.renderer.jni.event.SwipeState;
+import com.viro.renderer.jni.event.TouchState;
 import com.viromedia.bridge.component.VRTComponent;
 import com.viromedia.bridge.component.node.VRTARScene;
 import com.viromedia.bridge.component.node.VRTScene;
@@ -26,7 +33,7 @@ public class ComponentEventDelegate implements EventDelegate.EventDelegateCallba
     }
 
     @Override
-    public void onHover(int source, boolean isHovering, float position[]) {
+    public void onHover(int source, Node node, boolean isHovering, float position[]) {
         VRTComponent component = weakComponent.get();
         if (component == null){
             return;
@@ -51,7 +58,7 @@ public class ComponentEventDelegate implements EventDelegate.EventDelegateCallba
     }
 
     @Override
-    public void onClick(int source, EventDelegate.ClickState clickState, float position[]) {
+    public void onClick(int source, Node node, ClickState clickState, float position[]) {
         VRTComponent component = weakComponent.get();
         if (component == null){
             return;
@@ -66,7 +73,7 @@ public class ComponentEventDelegate implements EventDelegate.EventDelegateCallba
 
         WritableMap event = Arguments.createMap();
         event.putInt("source", source);
-        event.putInt("clickState", clickState.mTypeId);
+        event.putInt("clickState", clickState.getTypeId());
         event.putArray("position", positionArray);
 
         component.getReactContext().getJSModule(RCTEventEmitter.class).receiveEvent(
@@ -76,7 +83,7 @@ public class ComponentEventDelegate implements EventDelegate.EventDelegateCallba
     }
 
     @Override
-    public void onTouch(int source, EventDelegate.TouchState touchState, float touchPadPos[]){
+    public void onTouch(int source, Node node, TouchState touchState, float touchPadPos[]){
         VRTComponent component = weakComponent.get();
         if (component == null){
             return;
@@ -84,7 +91,7 @@ public class ComponentEventDelegate implements EventDelegate.EventDelegateCallba
 
         WritableMap event = Arguments.createMap();
         event.putInt("source", source);
-        event.putInt("touchState", touchState.mTypeId);
+        event.putInt("touchState", touchState.getTypeId());
 
         WritableArray touchPos = Arguments.createArray();
         touchPos.pushDouble(touchPadPos[0]);
@@ -98,7 +105,7 @@ public class ComponentEventDelegate implements EventDelegate.EventDelegateCallba
     }
 
     @Override
-    public void onSwipe(int source, EventDelegate.SwipeState swipeState) {
+    public void onSwipe(int source, Node target, SwipeState swipeState) {
         VRTComponent node = weakComponent.get();
         if (node == null){
             return;
@@ -106,7 +113,7 @@ public class ComponentEventDelegate implements EventDelegate.EventDelegateCallba
 
         WritableMap event = Arguments.createMap();
         event.putInt("source", source);
-        event.putInt("swipeState", swipeState.mTypeId);
+        event.putInt("swipeState", swipeState.getTypeId());
         node.getReactContext().getJSModule(RCTEventEmitter.class).receiveEvent(
                 node.getId(),
                 ViroEvents.ON_SWIPE,
@@ -114,7 +121,7 @@ public class ComponentEventDelegate implements EventDelegate.EventDelegateCallba
     }
 
     @Override
-    public void onScroll(int source, float x, float y) {
+    public void onScroll(int source, Node node, float x, float y) {
         VRTComponent component = weakComponent.get();
         if (component == null){
             return;
@@ -134,7 +141,7 @@ public class ComponentEventDelegate implements EventDelegate.EventDelegateCallba
     }
 
     @Override
-    public void onDrag(int source, float x, float y, float z) {
+    public void onDrag(int source, Node target, float x, float y, float z) {
         VRTComponent node = weakComponent.get();
         if (node == null){
             return;
@@ -155,7 +162,7 @@ public class ComponentEventDelegate implements EventDelegate.EventDelegateCallba
     }
 
     @Override
-    public void onFuse(int source) {
+    public void onFuse(int source, Node target) {
         VRTComponent node = weakComponent.get();
         if (node == null){
             return;
@@ -170,7 +177,7 @@ public class ComponentEventDelegate implements EventDelegate.EventDelegateCallba
     }
 
     @Override
-    public void onPinch(int source, float scaleFactor, EventDelegate.PinchState pinchState) {
+    public void onPinch(int source, Node target, float scaleFactor, PinchState pinchState) {
         VRTComponent node = weakComponent.get();
         if (node == null){
             return;
@@ -179,7 +186,7 @@ public class ComponentEventDelegate implements EventDelegate.EventDelegateCallba
         WritableMap event = Arguments.createMap();
         event.putInt("source", source);
         event.putDouble("scaleFactor", scaleFactor);
-        event.putInt("pinchState", pinchState.mTypeId);
+        event.putInt("pinchState", pinchState.getTypeId());
 
         node.getReactContext().getJSModule(RCTEventEmitter.class).receiveEvent(
                 node.getId(),
@@ -237,7 +244,7 @@ public class ComponentEventDelegate implements EventDelegate.EventDelegateCallba
     }
 
     @Override
-    public void onRotate(int source, float rotationFactor, EventDelegate.RotateState rotateState) {
+    public void onRotate(int source, Node target, float rotationFactor, RotateState rotateState) {
         VRTComponent node = weakComponent.get();
         if (node == null){
             return;
@@ -246,7 +253,7 @@ public class ComponentEventDelegate implements EventDelegate.EventDelegateCallba
         WritableMap event = Arguments.createMap();
         event.putInt("source", source);
         event.putDouble("rotationFactor", rotationFactor);
-        event.putInt("rotateState", rotateState.mTypeId);
+        event.putInt("rotateState", rotateState.getTypeId());
 
         node.getReactContext().getJSModule(RCTEventEmitter.class).receiveEvent(
                 node.getId(),
@@ -255,7 +262,7 @@ public class ComponentEventDelegate implements EventDelegate.EventDelegateCallba
     }
 
     @Override
-    public void onControllerStatus(int source, EventDelegate.ControllerStatus controllerStatus) {
+    public void onControllerStatus(int source, ControllerStatus controllerStatus) {
         VRTComponent node = weakComponent.get();
         if (node == null){
             return;
@@ -263,7 +270,7 @@ public class ComponentEventDelegate implements EventDelegate.EventDelegateCallba
 
         WritableMap event = Arguments.createMap();
         event.putInt("source", source);
-        event.putInt("controllerStatus", controllerStatus.mTypeId);
+        event.putInt("controllerStatus", controllerStatus.getTypeId());
         node.getReactContext().getJSModule(RCTEventEmitter.class).receiveEvent(
                 node.getId(),
                 ViroEvents.ON_CONTROLLER_STATUS,

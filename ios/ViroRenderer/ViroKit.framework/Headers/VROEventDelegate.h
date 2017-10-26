@@ -47,7 +47,7 @@ public:
         OnFuse = 9,
         OnPinch = 10,
         OnRotate = 11,
-        OnCameraHitTest = 12,
+        OnCameraARHitTest = 12,
     };
 
     /*
@@ -116,7 +116,7 @@ public:
         _enabledEventMap[VROEventDelegate::EventAction::OnFuse] = false;
         _enabledEventMap[VROEventDelegate::EventAction::OnPinch] = false;
         _enabledEventMap[VROEventDelegate::EventAction::OnRotate] = false;
-        _enabledEventMap[VROEventDelegate::EventAction::OnCameraHitTest] = false;
+        _enabledEventMap[VROEventDelegate::EventAction::OnCameraARHitTest] = false;
     }
 
     /*
@@ -134,24 +134,23 @@ public:
     /*
      Delegate events triggered by the VROInputControllerBase.
      */
-    virtual void onHover(int source, bool isHovering, std::vector<float> position) {
+    virtual void onHover(int source, std::shared_ptr<VRONode> node, bool isHovering, std::vector<float> position) {
         //No-op
     }
 
-    virtual void onClick(int source, ClickState clickState, std::vector<float> position) {
+    virtual void onClick(int source, std::shared_ptr<VRONode> node, ClickState clickState, std::vector<float> position) {
         //No-op
     }
 
-
-    virtual void onCameraHitTest(int source, std::vector<VROARHitTestResult> results) {
+    virtual void onCameraARHitTest(int source, std::vector<VROARHitTestResult> results) {
         // No-op
     }
     
-    virtual void onTouch(int source, TouchState touchState, float x, float y) {
+    virtual void onTouch(int source, std::shared_ptr<VRONode> node, TouchState touchState, float x, float y) {
         //No-op
     }
 
-    virtual void onMove(int source, VROVector3f rotation, VROVector3f position, VROVector3f forwardVec) {
+    virtual void onMove(int source, std::shared_ptr<VRONode> node, VROVector3f rotation, VROVector3f position, VROVector3f forwardVec) {
         //No-op
     }
 
@@ -159,31 +158,31 @@ public:
         //No-op
     }
 
-    virtual void onGazeHit(int source, const VROHitTestResult &hit) {
+    virtual void onGazeHit(int source, std::shared_ptr<VRONode> node, const VROHitTestResult &hit) {
         //No-op
     }
 
-    virtual void onSwipe(int source, SwipeState swipeState) {
+    virtual void onSwipe(int source, std::shared_ptr<VRONode> node, SwipeState swipeState) {
         //No-op
     }
 
-    virtual void onScroll(int source, float x, float y) {
+    virtual void onScroll(int source, std::shared_ptr<VRONode> node, float x, float y) {
         //No-op
     }
 
-    virtual void onDrag(int source, VROVector3f newPosition) {
+    virtual void onDrag(int source, std::shared_ptr<VRONode> node, VROVector3f newPosition) {
         //No-op
     }
 
-    virtual void onFuse(int source, float timeToFuseRatio) {
+    virtual void onFuse(int source, std::shared_ptr<VRONode> node, float timeToFuseRatio) {
         //No-op
     }
     
-    virtual void onPinch(int source, float scale, PinchState pinchState) {
+    virtual void onPinch(int source, std::shared_ptr<VRONode> node, float scale, PinchState pinchState) {
         //No-op
     }
     
-    virtual void onRotate(int source, float rotation, RotateState rotateState) {
+    virtual void onRotate(int source, std::shared_ptr<VRONode> node, float rotation, RotateState rotateState) {
         //No-op
     }
 
@@ -195,8 +194,8 @@ public:
         return _timeToFuseDuration;
     }
 
-
 private:
+    
     std::map<VROEventDelegate::EventAction , bool> _enabledEventMap;
 
     /*

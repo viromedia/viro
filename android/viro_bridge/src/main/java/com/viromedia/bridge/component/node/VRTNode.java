@@ -122,6 +122,7 @@ public class VRTNode extends VRTComponent {
 
     protected List<Material> mMaterials;
     protected EventDelegate mEventDelegateJni;
+    private ComponentEventDelegate mComponentEventDelegate;
     private NodeTransformDelegate mTransformDelegate;
     protected NodeAnimation mNodeAnimation;
 
@@ -155,8 +156,9 @@ public class VRTNode extends VRTComponent {
         mNodeJni = createNodeJni();
 
         // Create and attach callbacks.
+        mComponentEventDelegate = new ComponentEventDelegate(this);
         mEventDelegateJni = new EventDelegate();
-        mEventDelegateJni.setEventDelegateCallback(new ComponentEventDelegate(this));
+        mEventDelegateJni.setEventDelegateCallback(mComponentEventDelegate);
         mNodeJni.setEventDelegate(mEventDelegateJni);
 
         mNodeAnimation = new NodeAnimation(reactContext, this);
@@ -181,7 +183,7 @@ public class VRTNode extends VRTComponent {
             mTransformDelegate = null;
             clearPhysicsBody();
             mEventDelegateJni.setEventDelegateCallback(null);
-            mEventDelegateJni.destroy();
+            mEventDelegateJni.dispose();
             mNodeJni.dispose();
             mNodeJni = null;
         }

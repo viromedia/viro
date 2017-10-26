@@ -3,6 +3,8 @@
  */
 package com.viromedia.bridge.component;
 
+import android.util.Log;
+
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.viro.renderer.jni.Controller;
 import com.viro.renderer.jni.EventDelegate;
@@ -23,6 +25,7 @@ public class VRTController extends VRTComponent {
     private boolean mIsReticleVisible = DEFAULT_RETICLE_VISIBILITY;
     private boolean mIsControllerVisible = DEFAULT_CONTROLLER_VISIBILITY;
     private EventDelegate mEventDelegateJni;
+    private ComponentEventDelegate mComponentEventDelegate;
 
     public VRTController(ReactApplicationContext reactContext) {
         super(reactContext);
@@ -31,7 +34,7 @@ public class VRTController extends VRTComponent {
     @Override
     public void onTearDown(){
         if (mEventDelegateJni != null) {
-            mEventDelegateJni.destroy();
+            mEventDelegateJni.dispose();
             mEventDelegateJni = null;
         }
         super.onTearDown();
@@ -44,7 +47,8 @@ public class VRTController extends VRTComponent {
         updateVisibility();
 
         // Create and attach callbacks.
-        mEventDelegateJni.setEventDelegateCallback(new ComponentEventDelegate(this));
+        mComponentEventDelegate = new ComponentEventDelegate(this);
+        mEventDelegateJni.setEventDelegateCallback(mComponentEventDelegate);
         mNativeController.setEventDelegate(mEventDelegateJni);
     }
 
@@ -90,14 +94,12 @@ public class VRTController extends VRTComponent {
         updateVisibility();
     }
 
-
     private void updateVisibility(){
         if (mNativeController == null){
             return;
         }
-
-        mNativeController.setControllerVisibility(mIsControllerVisible);
-        mNativeController.setReticleVisibility(mIsReticleVisible);
+        mNativeController.setControllerVisible(mIsControllerVisible);
+        mNativeController.setReticleVisible(mIsReticleVisible);
     }
 
 }

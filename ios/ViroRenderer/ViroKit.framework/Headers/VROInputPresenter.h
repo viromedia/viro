@@ -9,6 +9,7 @@
 #define VROInputPresenter_H
 
 #include <memory>
+#include <atomic>
 #include "VROEventDelegate.h"
 #include "VRORenderContext.h"
 #include "VROReticle.h"
@@ -42,39 +43,40 @@ public:
         _eventDelegateWeak = delegate;
     }
 
-    virtual void onHover(int source, bool isHovering, std::vector<float> position) {
+    virtual void onHover(int source, std::shared_ptr<VRONode> node, bool isHovering, std::vector<float> position) {
         passert_thread();
         
         std::shared_ptr<VROEventDelegate> delegate = getDelegate();
         if (delegate != nullptr && delegate->isEventEnabled(VROEventDelegate::EventAction::OnHover)){
-            delegate->onHover(source, isHovering, position);
+            delegate->onHover(source, node, isHovering, position);
         }
     }
 
-    virtual void onClick(int source, ClickState clickState, std::vector<float> position) {
+    virtual void onClick(int source, std::shared_ptr<VRONode> node, ClickState clickState, std::vector<float> position) {
         passert_thread();
         
         std::shared_ptr<VROEventDelegate> delegate = getDelegate();
         if (delegate != nullptr && delegate->isEventEnabled(VROEventDelegate::EventAction::OnClick)){
-            delegate->onClick(source, clickState, position);
+            delegate->onClick(source, node, clickState, position);
         }
     }
 
-    virtual void onTouch(int source, TouchState state, float x, float y){
+    virtual void onTouch(int source, std::shared_ptr<VRONode> node, TouchState state, float x, float y){
         passert_thread();
         
         std::shared_ptr<VROEventDelegate> delegate = getDelegate();
         if (delegate != nullptr && delegate->isEventEnabled(VROEventDelegate::EventAction::OnTouch)){
-            delegate->onTouch(source, state, x, y);
+            delegate->onTouch(source, node, state, x, y);
         }
     }
 
-    virtual void onMove(int source, VROVector3f rotation, VROVector3f position, VROVector3f forwardVec) {
+    virtual void onMove(int source, std::shared_ptr<VRONode> node,
+                        VROVector3f rotation, VROVector3f position, VROVector3f forwardVec) {
         passert_thread();
-        _lastKnownForward = forwardVec;
+        _lastKnownForward.store(forwardVec);
         std::shared_ptr<VROEventDelegate> delegate = getDelegate();
         if (delegate != nullptr && delegate->isEventEnabled(VROEventDelegate::EventAction::OnMove)){
-            delegate->onMove(source, rotation, position, forwardVec);
+            delegate->onMove(source, node, rotation, position, forwardVec);
         }
     }
 
@@ -87,52 +89,51 @@ public:
         }
     }
 
-    virtual void onSwipe(int source, SwipeState swipeState) {
+    virtual void onSwipe(int source, std::shared_ptr<VRONode> node, SwipeState swipeState) {
         passert_thread();
         
         std::shared_ptr<VROEventDelegate> delegate = getDelegate();
         if (delegate != nullptr && delegate->isEventEnabled(VROEventDelegate::EventAction::OnSwipe)){
-            delegate->onSwipe(source, swipeState);
+            delegate->onSwipe(source, node, swipeState);
         }
     }
 
-    virtual void onScroll(int source, float x, float y) {
+    virtual void onScroll(int source, std::shared_ptr<VRONode> node, float x, float y) {
         passert_thread();
         
         std::shared_ptr<VROEventDelegate> delegate = getDelegate();
         if (delegate != nullptr && delegate->isEventEnabled(VROEventDelegate::EventAction::OnScroll)){
-            delegate->onScroll(source, x, y);
+            delegate->onScroll(source, node, x, y);
         }
     }
 
-    virtual void onGazeHit(int source, const VROHitTestResult &hit) {
+    virtual void onGazeHit(int source, std::shared_ptr<VRONode> node, const VROHitTestResult &hit) {
         //No-op
     }
 
-    virtual void onDrag(int source, VROVector3f newPosition) {
+    virtual void onDrag(int source, std::shared_ptr<VRONode> node, VROVector3f newPosition) {
         passert_thread();
         
         std::shared_ptr<VROEventDelegate> delegate = getDelegate();
         if (delegate != nullptr && delegate->isEventEnabled(VROEventDelegate::EventAction::OnDrag)){
-            delegate->onDrag(source, newPosition);
+            delegate->onDrag(source, node, newPosition);
         }
     }
 
-    virtual void onFuse(int source, float timeToFuseRatio) {
+    virtual void onFuse(int source, std::shared_ptr<VRONode> node, float timeToFuseRatio) {
         passert_thread();
-
-        if (_reticle == nullptr){
+        if (_reticle == nullptr) {
             return;
         }
 
         std::shared_ptr<VROEventDelegate> delegate = getDelegate();
-        if (delegate != nullptr && delegate->isEventEnabled(VROEventDelegate::EventAction::OnFuse)){
-            delegate->onFuse(source, timeToFuseRatio);
+        if (delegate != nullptr && delegate->isEventEnabled(VROEventDelegate::EventAction::OnFuse)) {
+            delegate->onFuse(source, node, timeToFuseRatio);
         }
 
         // TimeToFuseRatio is (time that has passed since fuse began) / (total time to fuse).
         // When the timeToFuseRatio reaches 1, it is an indication that the node has been "onFused".
-        if (timeToFuseRatio == kOnFuseReset){
+        if (timeToFuseRatio == kOnFuseReset) {
             _reticle->stopFuseAnimation();
         } else {
             _reticle->animateFuse(1 - timeToFuseRatio);
@@ -149,7 +150,11 @@ public:
     }
 
     VROVector3f getLastKnownForward(){
-        return _lastKnownForward;
+        return _lastKnownForward.load();
+    }
+
+    void updateLastKnownForward(VROVector3f forward) {
+        _lastKnownForward.store(forward);
     }
 
 protected:
@@ -158,7 +163,7 @@ protected:
 
     void onReticleGazeHit(const VROHitTestResult &hit) {
         passert_thread();
-        if (_reticle == nullptr){
+        if (_reticle == nullptr) {
             return;
         }
 
@@ -199,7 +204,7 @@ private:
 
     std::shared_ptr<VROReticle> _reticle;
     bool _reticleInitialPositionSet;
-    VROVector3f _lastKnownForward;
+    std::atomic<VROVector3f> _lastKnownForward;
 
     /*
      Event delegate for triggering calls back to Controller_JNI.
