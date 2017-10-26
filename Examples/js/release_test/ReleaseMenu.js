@@ -13,7 +13,7 @@ import {
   Text,
   View
 } from 'react-native';
-var PropTypes = React.PropTypes;
+import PropTypes from 'prop-types';
 
 import {
   ViroSceneNavigator,
