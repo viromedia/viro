@@ -476,7 +476,7 @@ const double kTransformDelegateDistanceFilter = 0.01;
     _node->setShadowCastingBitMask(shadowCastingBitMask);
 }
 
--(void)onHover:(int)source
+-(void)onHover:(int)source node:(std::shared_ptr<VRONode>)node
     isHovering:(bool)isHovering
  hoverLocation:(std::vector<float>)location {
     if (self.onHoverViro != nil) {
@@ -493,8 +493,7 @@ const double kTransformDelegateDistanceFilter = 0.01;
     }
 }
 
--(void)onClick:(int)source
-    clickState:(VROEventDelegate::ClickState)clickState
+-(void)onClick:(int)source node:(std::shared_ptr<VRONode>)node clickState:(VROEventDelegate::ClickState)clickState
  clickLocation:(std::vector<float>)location{
     if (self.onClickViro != nil) {
         NSArray *locationArray;
@@ -510,14 +509,14 @@ const double kTransformDelegateDistanceFilter = 0.01;
     }
 }
 
-- (void)onPinch:(int)source scaleFactor:(float)scale
+- (void)onPinch:(int)source node:(std::shared_ptr<VRONode>)node scaleFactor:(float)scale
      pinchState:(VROEventDelegate::PinchState)pinchState {
     if(self.onPinchViro != nil) {
         self.onPinchViro(@{@"source": @(source), @"pinchState":@(pinchState), @"scaleFactor":@(scale)});
     }
 }
 
-- (void)onRotate:(int)source rotationFactor:(float)rotation
+- (void)onRotate:(int)source node:(std::shared_ptr<VRONode>)node rotationFactor:(float)rotation
      rotateState:(VROEventDelegate::RotateState)rotateState {
     if(self.onRotateViro != nil) {
         //convert to degrees from radians
@@ -527,13 +526,13 @@ const double kTransformDelegateDistanceFilter = 0.01;
     }
 }
 
-- (void)onFuse:(int)source {
+- (void)onFuse:(int)source node:(std::shared_ptr<VRONode>)node {
     if (self.onFuseViro != nil) {
         self.onFuseViro(@{@"source": @(source)});
     }
 }
 
-- (void)onDrag:(int)source posX:(float)x posY:(float)y posZ:(float)z {
+- (void)onDrag:(int)source node:(std::shared_ptr<VRONode>)node posX:(float)x posY:(float)y posZ:(float)z {
     if (self.onDragViro != nil) {
         self.onDragViro(@{@"source": @(source),
                           @"dragToPos" : @[@(x), @(y), @(z)]});

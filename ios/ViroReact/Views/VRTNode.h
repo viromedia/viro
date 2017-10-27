@@ -109,13 +109,13 @@ extern const int k2DPointsPerSpatialUnit;
 - (void)applyMaterials;
 
 // VROEventDelegateProtocol
-- (void) onHover:(int)source isHovering:(bool)isHovering hoverLocation:(std::vector<float>)location;
-- (void) onClick:(int)source clickState:(VROEventDelegate::ClickState)clickState clickLocation:(std::vector<float>)location;
-- (void) onTouch:(int)source touchState:(VROEventDelegate::TouchState)clickState xPos:(float)x yPos:(float)y;
-- (void) onFuse:(int)source;
-- (void) onDrag:(int)source posX:(float)x posY:(float)y posZ:(float)z;
-- (void) onPinch:(int)source scaleFactor:(float)scale pinchState:(VROEventDelegate::PinchState)pinchState;
-- (void) onRotate:(int)source rotationFactor:(float)rotation rotateState:(VROEventDelegate::RotateState)rotateState;
+- (void) onHover:(int)source node:(std::shared_ptr<VRONode>)node isHovering:(bool)isHovering hoverLocation:(std::vector<float>)location;
+- (void) onClick:(int)source node:(std::shared_ptr<VRONode>)node clickState:(VROEventDelegate::ClickState)clickState clickLocation:(std::vector<float>)location;
+- (void) onTouch:(int)source node:(std::shared_ptr<VRONode>)node touchState:(VROEventDelegate::TouchState)clickState xPos:(float)x yPos:(float)y;
+- (void) onFuse:(int)source node:(std::shared_ptr<VRONode>)node;
+- (void) onDrag:(int)source node:(std::shared_ptr<VRONode>)node posX:(float)x posY:(float)y posZ:(float)z;
+- (void) onPinch:(int)source node:(std::shared_ptr<VRONode>)node scaleFactor:(float)scale pinchState:(VROEventDelegate::PinchState)pinchState;
+- (void) onRotate:(int)source node:(std::shared_ptr<VRONode>)node rotationFactor:(float)rotation rotateState:(VROEventDelegate::RotateState)rotateState;
 - (void) onCameraARHitTest:(int)source results:(std::vector<VROARHitTestResult>)results;
 
 // Override for AR nodes

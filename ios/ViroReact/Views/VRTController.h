@@ -23,7 +23,7 @@
 @property (nonatomic, assign) BOOL canPinch;
 
 - (instancetype) initWithBridge:(RCTBridge *)bridge;
-- (void) onClick:(int)source clickState:(VROEventDelegate::ClickState)clickState;
+- (void) onClick:(int)source node:(std::shared_ptr<VRONode>)node clickState:(VROEventDelegate::ClickState)clickState;
 - (NSArray<NSNumber *> *) getControllerForwardVector;
 
 @end

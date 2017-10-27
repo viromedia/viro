@@ -74,7 +74,8 @@
     _eventDelegate->setEnabledEvent(VROEventDelegate::EventAction::OnFuse, canFuse);
 }
 
--(void)onClick:(int)source clickState:(VROEventDelegate::ClickState)clickState clickLocation:(std::vector<float>)location {
+-(void)onClick:(int)source node:(std::shared_ptr<VRONode>)node clickState:(VROEventDelegate::ClickState)clickState
+ clickLocation:(std::vector<float>)location {
     if (self.onClickViro != nil) {
         if (location.size() > 0) {
             self.onClickViro(@{@"source": @(source),
@@ -84,7 +85,7 @@
     }
 }
 
--(void)onFuse:(int)source{
+-(void)onFuse:(int)source node:(std::shared_ptr<VRONode>)node {
     if (self.onFuseViro != nil) {
         self.onFuseViro(@{@"source": @(source)});
     }
