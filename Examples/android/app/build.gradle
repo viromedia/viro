@@ -1,6 +1,5 @@
 apply plugin: "com.android.application"
 
-apply from: "../../node_modules/react-native/react.gradle"
 import com.android.build.OutputFile
 
 /**
@@ -65,6 +64,12 @@ import com.android.build.OutputFile
  *   extraPackagerArgs: []
  * ]
  */
+
+project.ext.react = [
+    entryFile: "index.js"
+]
+
+apply from: "../../node_modules/react-native/react.gradle"
 
 /**
  * Set this to true to create two separate APKs instead of one:

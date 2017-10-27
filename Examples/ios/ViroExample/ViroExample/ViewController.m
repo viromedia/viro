@@ -40,7 +40,7 @@
 - (void)enterVr {
     
     VRTBundleURLProvider *bundleProvider = [[VRTBundleURLProvider alloc] init];
-    NSURL *jsCodeLocation = [bundleProvider jsBundleURLForBundleRoot:@"index.ios" fallbackResource:nil];
+    NSURL *jsCodeLocation = [bundleProvider jsBundleURLForBundleRoot:@"index" fallbackResource:nil];
     
     RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation
                                                         moduleName:@"ViroSample"

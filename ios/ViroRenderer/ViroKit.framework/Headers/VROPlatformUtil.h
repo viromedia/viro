@@ -96,6 +96,12 @@ void VROPlatformDispatchAsyncBackground(std::function<void()> fcn);
  */
 void VROPlatformDispatchAsyncApplication(std::function<void()> fcn);
 
+/*
+ Flushes the task queues from calling VROPlatformDispatch* before VROPlatformUtil
+ was set up.
+ */
+void VROPlatformFlushTaskQueues();
+
 #if VRO_PLATFORM_IOS
 #import <UIKit/UIKit.h>
 

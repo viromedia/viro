@@ -29,11 +29,11 @@
 #ifdef DEBUG
         if(usingNgrok) {
           VRTBundleURLProvider *bundleProvider = [[VRTBundleURLProvider alloc] init];
-          jsCodeLocation = [bundleProvider jsBundleURLForBundleRoot:@"index.ios" fallbackResource:nil];
+          jsCodeLocation = [bundleProvider jsBundleURLForBundleRoot:@"index" fallbackResource:nil];
         }
 #endif
         if(jsCodeLocation == nil) {
-          jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index.ios"
+          jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index"
                                                                                fallbackResource:nil];
         }
 

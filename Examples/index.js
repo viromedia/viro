@@ -142,4 +142,6 @@ var localStyles = StyleSheet.create({
   }
 });
 
+AppRegistry.registerComponent('ViroSample', () => ViroExperienceSelector);
+
 module.exports = ViroExperienceSelector;

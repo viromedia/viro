@@ -56,6 +56,20 @@
 			remoteGlobalIDString = 3D383D621EBD27B9005632C8;
 			remoteInfo = "double-conversion-tvOS";
 		};
+		8AF0E0101FA3C1460083CBAE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8BDD9D7E1E09EBB600A42870 /* RCTWebSocket.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 3DBE0D001F3B181A0099AA32;
+			remoteInfo = fishhook;
+		};
+		8AF0E0121FA3C1460083CBAE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8BDD9D7E1E09EBB600A42870 /* RCTWebSocket.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 3DBE0D0D1F3B181C0099AA32;
+			remoteInfo = "fishhook-tvOS";
+		};
 		8BDD9D671E09EB6900A42870 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 8BDD9D621E09EB6900A42870 /* RCTImage.xcodeproj */;
@@ -338,6 +352,8 @@
 			children = (
 				8BDD9D841E09EBB600A42870 /* libRCTWebSocket.a */,
 				8BDD9D861E09EBB600A42870 /* libRCTWebSocket-tvOS.a */,
+				8AF0E0111FA3C1460083CBAE /* libfishhook.a */,
+				8AF0E0131FA3C1460083CBAE /* libfishhook-tvOS.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -621,6 +637,20 @@
 			remoteRef = 8ABC82D21F54F7CC00217AB8 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		8AF0E0111FA3C1460083CBAE /* libfishhook.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libfishhook.a;
+			remoteRef = 8AF0E0101FA3C1460083CBAE /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		8AF0E0131FA3C1460083CBAE /* libfishhook-tvOS.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libfishhook-tvOS.a";
+			remoteRef = 8AF0E0121FA3C1460083CBAE /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		8BDD9D681E09EB6900A42870 /* libRCTImage.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -846,7 +876,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "export NODE_BINARY=node\n\n$SRCROOT/../../node_modules/react-native/scripts/react-native-xcode.sh $SRCROOT/../../index.ios.js";
+			shellScript = "export NODE_BINARY=node\n\n$SRCROOT/../../node_modules/react-native/scripts/react-native-xcode.sh $SRCROOT/../../index.js";
 		};
 /* End PBXShellScriptBuildPhase section */
 
