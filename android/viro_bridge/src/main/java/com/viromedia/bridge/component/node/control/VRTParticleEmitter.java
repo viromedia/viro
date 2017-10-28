@@ -16,7 +16,7 @@ import com.viro.renderer.jni.Node;
 import com.viro.renderer.jni.ParticleEmitter;
 import com.viro.renderer.jni.ViroContext;
 import com.viro.renderer.jni.Surface;
-import com.viro.renderer.jni.TextureFormat;
+import com.viro.renderer.jni.Texture.TextureFormat;
 import com.viro.renderer.jni.Texture;
 import com.viromedia.bridge.component.node.VRTScene;
 import com.viromedia.bridge.utility.ImageDownloadListener;
@@ -114,7 +114,7 @@ public class VRTParticleEmitter extends VRTControl {
         }
 
         if (mLatestTexture != null) {
-            mLatestTexture.destroy();
+            mLatestTexture.dispose();
             mLatestTexture = null;
         }
     }
@@ -284,7 +284,7 @@ public class VRTParticleEmitter extends VRTControl {
         }
 
         if (mLatestTexture != null) {
-            mLatestTexture.destroy();
+            mLatestTexture.dispose();
         }
 
         mImageNeedsUpdate = true;

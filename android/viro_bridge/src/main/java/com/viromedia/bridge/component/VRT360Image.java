@@ -13,7 +13,7 @@ import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
 import com.viro.renderer.jni.Image;
-import com.viro.renderer.jni.TextureFormat;
+import com.viro.renderer.jni.Texture.TextureFormat;
 import com.viro.renderer.jni.Texture;
 import com.viromedia.bridge.component.node.VRTScene;
 import com.viromedia.bridge.utility.ImageDownloadListener;
@@ -92,7 +92,7 @@ public class VRT360Image extends VRTComponent {
         }
 
         if (mLatestTexture != null) {
-            mLatestTexture.destroy();
+            mLatestTexture.dispose();
             mLatestTexture = null;
         }
     }
@@ -151,7 +151,7 @@ public class VRT360Image extends VRTComponent {
                     }
 
                     if (mLatestTexture != null) {
-                        mLatestTexture.destroy();
+                        mLatestTexture.dispose();
                     }
 
                     mLatestImage = new Image(result, mFormat);

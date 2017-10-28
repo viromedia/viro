@@ -14,7 +14,7 @@ import com.facebook.react.uimanager.events.RCTEventEmitter;
 import com.viro.renderer.jni.Image;
 import com.viro.renderer.jni.Material;
 import com.viro.renderer.jni.Surface;
-import com.viro.renderer.jni.TextureFormat;
+import com.viro.renderer.jni.Texture.TextureFormat;
 import com.viro.renderer.jni.Texture;
 import com.viromedia.bridge.utility.ImageDownloadListener;
 import com.viromedia.bridge.utility.ImageDownloader;
@@ -224,7 +224,7 @@ public class VRTImage extends VRTControl {
         }
 
         if (mDefaultMaterial != null) {
-            mDefaultMaterial.destroy();
+            mDefaultMaterial.dispose();
             mDefaultMaterial = null;
         }
 
@@ -234,7 +234,7 @@ public class VRTImage extends VRTControl {
         }
 
         if (mLatestImageTexture != null) {
-            mLatestImageTexture.destroy();
+            mLatestImageTexture.dispose();
             mLatestImageTexture = null;
         }
     }
@@ -261,7 +261,7 @@ public class VRTImage extends VRTControl {
             mLatestImage.destroy();
         }
         if (mLatestImageTexture != null) {
-            mLatestImageTexture.destroy();
+            mLatestImageTexture.dispose();
         }
 
         mLatestImage = new Image(image, mFormat);

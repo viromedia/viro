@@ -10,7 +10,7 @@ import com.facebook.react.bridge.ReadableMapKeySetIterator;
 import com.facebook.react.bridge.ReadableType;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
 import com.viro.renderer.jni.Image;
-import com.viro.renderer.jni.TextureFormat;
+import com.viro.renderer.jni.Texture.TextureFormat;
 import com.viro.renderer.jni.Texture;
 import com.viromedia.bridge.component.node.VRTScene;
 import com.viromedia.bridge.utility.ImageDownloadListener;
@@ -111,7 +111,7 @@ public class VRTSkyBox extends VRTComponent {
         }
 
         if (mLatestTexture != null) {
-            mLatestTexture.destroy();
+            mLatestTexture.dispose();
             mLatestTexture = null;
         }
     }
@@ -144,7 +144,7 @@ public class VRTSkyBox extends VRTComponent {
     private void imageDownloadDidFinish() {
 
         if (mLatestTexture != null) {
-            mLatestTexture.destroy();
+            mLatestTexture.dispose();
         }
         mLatestTexture = new Texture(mImageMap.get("px"), mImageMap.get("nx"),
                 mImageMap.get("py"), mImageMap.get("ny"),

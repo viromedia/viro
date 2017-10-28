@@ -20,7 +20,7 @@ public class VRTFlexView extends VRTNode {
     // it's width/height is 0.
     private float mWidth = 0;
     private float mHeight = 0;
-    private long mBackgroundColor = Color.TRANSPARENT;
+    private int mBackgroundColor = Color.TRANSPARENT;
 
     private final Material mDefaultMaterial;
     private Surface mNativeSurface;
@@ -29,7 +29,7 @@ public class VRTFlexView extends VRTNode {
     public VRTFlexView(ReactApplicationContext context) {
         super(context);
         mDefaultMaterial = new Material();
-        mDefaultMaterial.setColor(Color.TRANSPARENT, DIFFUSE_COLOR_NAME);
+        mDefaultMaterial.setDiffuseColor(Color.TRANSPARENT);
         getNodeJni().setHierarchicalRendering(true);
     }
 
@@ -42,7 +42,7 @@ public class VRTFlexView extends VRTNode {
     }
 
     public void setBackgroundColor(long color) {
-        mBackgroundColor = color;
+        mBackgroundColor = (int) color;
         setBackgroundOnSurface();
     }
 
@@ -86,11 +86,11 @@ public class VRTFlexView extends VRTNode {
         }
 
         if (mNativeColorMaterial != null) {
-            mNativeColorMaterial.destroy();
+            mNativeColorMaterial.dispose();
             mNativeColorMaterial = null;
         }
 
-        mDefaultMaterial.destroy();
+        mDefaultMaterial.dispose();
     }
 
     @Override
@@ -143,17 +143,17 @@ public class VRTFlexView extends VRTNode {
         if (mBackgroundColor != Color.TRANSPARENT) {
             // destroy the old color material
             if (mNativeColorMaterial != null) {
-                mNativeColorMaterial.destroy();
+                mNativeColorMaterial.dispose();
             }
             mNativeColorMaterial = new Material();
-            mNativeColorMaterial.setColor(mBackgroundColor, DIFFUSE_COLOR_NAME);
+            mNativeColorMaterial.setDiffuseColor(mBackgroundColor);
             mNativeSurface.setMaterial(mNativeColorMaterial);
         } else if (mMaterials != null && mMaterials.size() > 0) {
             // set the first material on the surface
             mNativeSurface.setMaterial(mMaterials.get(0));
         } else {
             if (mNativeColorMaterial != null) {
-                mNativeColorMaterial.destroy();
+                mNativeColorMaterial.dispose();
                 mNativeColorMaterial = null;
             }
             // set the default (transparent) material if no color or material is given
