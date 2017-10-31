@@ -43,6 +43,7 @@ import com.viromedia.bridge.component.node.VRTPortalManager;
 
 
 import com.viromedia.bridge.module.ARSceneModule;
+import com.viromedia.bridge.module.ARSceneNavigatorModule;
 import com.viromedia.bridge.module.AnimationManager;
 import com.viromedia.bridge.module.CameraModule;
 import com.viromedia.bridge.module.ControllerModule;
@@ -84,7 +85,8 @@ public class ReactViroPackage implements ReactPackage {
                 new ControllerModule(reactContext),
                 new NodeModule(reactContext),
                 new SceneModule(reactContext),
-                new ARSceneModule(reactContext)
+                new ARSceneModule(reactContext),
+                new ARSceneNavigatorModule(reactContext)
         );
     }
 
