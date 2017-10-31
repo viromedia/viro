@@ -3,10 +3,13 @@
  */
 package com.viromedia.bridge.component.node.control;
 
+import android.net.Uri;
+
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
+import com.viro.renderer.jni.Texture;
 import com.viro.renderer.jni.ViroContext;
 import com.viro.renderer.jni.Surface;
 import com.viro.renderer.jni.VideoTexture;
@@ -17,7 +20,7 @@ import java.lang.ref.WeakReference;
 
 public class VRTVideoSurface extends VRTControl {
 
-    private static class VideoSurfaceDelegate implements VideoTexture.VideoDelegate {
+    private static class VideoSurfaceDelegate implements VideoTexture.Delegate {
 
         private WeakReference<VRTVideoSurface> mSurface;
 
@@ -26,7 +29,7 @@ public class VRTVideoSurface extends VRTControl {
         }
 
         @Override
-        public void onVideoBufferStart() {
+        public void onVideoBufferStart(VideoTexture video) {
             VRTVideoSurface surface = mSurface.get();
             if (surface == null || surface.isTornDown()) {
                 return;
@@ -35,7 +38,7 @@ public class VRTVideoSurface extends VRTControl {
         }
 
         @Override
-        public void onVideoBufferEnd() {
+        public void onVideoBufferEnd(VideoTexture video) {
             VRTVideoSurface surface = mSurface.get();
             if (surface == null || surface.isTornDown()) {
                 return;
@@ -44,7 +47,7 @@ public class VRTVideoSurface extends VRTControl {
         }
 
         @Override
-        public void onVideoFinish() {
+        public void onVideoFinish(VideoTexture video) {
             VRTVideoSurface surface = mSurface.get();
             if (surface == null || surface.isTornDown()) {
                 return;
@@ -52,17 +55,9 @@ public class VRTVideoSurface extends VRTControl {
             surface.playerDidFinishPlaying();
         }
 
-        /**
-         * This method is called when the texture is ready to have its properties loaded. Not sure
-         * this is actually needed
-         */
         @Override
-        public void onReady() {
-            VRTVideoSurface surface = mSurface.get();
-            if (surface == null || surface.isTornDown()) {
-                return;
-            }
-            surface.loadVideo();
+        public void onReady(VideoTexture video) {
+
         }
 
         @Override
@@ -75,7 +70,7 @@ public class VRTVideoSurface extends VRTControl {
         }
 
         @Override
-        public void onVideoUpdatedTime(float currentTime, float totalVideoTime) {
+        public void onVideoUpdatedTime(VideoTexture video, float currentTime, float totalVideoTime) {
             VRTVideoSurface surface = mSurface.get();
             if (surface == null || surface.isTornDown()) {
                 return;
@@ -93,7 +88,7 @@ public class VRTVideoSurface extends VRTControl {
     private String mSource;
     private Surface mSurface = null;
     private VideoTexture mVideoTexture = null;
-    private VideoTexture.VideoDelegate mDelegate = null;
+    private VideoTexture.Delegate mDelegate = null;
     private String mStereoMode;
     private boolean mGeometryNeedsUpdate = false;
 
@@ -108,7 +103,7 @@ public class VRTVideoSurface extends VRTControl {
             mSurface = null;
         }
         if (mVideoTexture != null){
-            mVideoTexture.delete();
+            mVideoTexture.dispose();
             mVideoTexture = null;
         }
         super.onTearDown();
@@ -120,7 +115,7 @@ public class VRTVideoSurface extends VRTControl {
         }
 
         if (mVideoTexture != null) {
-            mVideoTexture.delete();
+            mVideoTexture.dispose();
             mVideoTexture = null;
         }
 
@@ -132,15 +127,17 @@ public class VRTVideoSurface extends VRTControl {
         // Create Texture
         mSurface = new Surface(mWidth, mHeight, 0, 0, 1, 1);
         getNodeJni().setGeometry(mSurface);
-        mVideoTexture = new VideoTexture(mViroContext, mStereoMode);
-
         mDelegate = new VideoSurfaceDelegate(this);
+
+        mVideoTexture = new VideoTexture(mViroContext, Uri.parse(mSource), mDelegate,
+                Texture.StereoMode.valueFromString(mStereoMode));
+        loadVideo();
+
         mVideoTexture.setVideoDelegate(mDelegate);
     }
 
     private void loadVideo(){
         mSurface.setVideoTexture(mVideoTexture);
-        mVideoTexture.loadSource(mSource, mViroContext);
         setVolume(mVolume);
         setLoop(mLoop);
         setMuted(mMuted);

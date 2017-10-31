@@ -3,11 +3,14 @@
  */
 package com.viromedia.bridge.component;
 
+import android.net.Uri;
+
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
+import com.viro.renderer.jni.Texture;
 import com.viro.renderer.jni.ViroContext;
 import com.viro.renderer.jni.VideoTexture;
 import com.viromedia.bridge.component.node.VRTScene;
@@ -22,7 +25,7 @@ import java.lang.ref.WeakReference;
 public class VRT360Video extends VRTComponent {
     private static final float[] sDefaultRotation = {0, 0, 0};
 
-    private static class Video360Delegate implements VideoTexture.VideoDelegate {
+    private static class Video360Delegate implements VideoTexture.Delegate {
 
         private WeakReference<VRT360Video> mVideo;
 
@@ -30,7 +33,7 @@ public class VRT360Video extends VRTComponent {
             mVideo = new WeakReference<VRT360Video>(video);
         }
 
-        public void onVideoBufferStart() {
+        public void onVideoBufferStart(VideoTexture videoTexture) {
             VRT360Video video = mVideo.get();
             if (video == null || video.isTornDown()) {
                 return;
@@ -40,7 +43,7 @@ public class VRT360Video extends VRTComponent {
         }
 
         @Override
-        public void onVideoBufferEnd() {
+        public void onVideoBufferEnd(VideoTexture videoTexture) {
             VRT360Video video = mVideo.get();
             if (video == null || video.isTornDown()) {
                 return;
@@ -50,7 +53,7 @@ public class VRT360Video extends VRTComponent {
         }
 
         @Override
-        public void onVideoFinish() {
+        public void onVideoFinish(VideoTexture videoTexture) {
             VRT360Video video = mVideo.get();
             if (video == null || video.isTornDown()) {
                 return;
@@ -60,18 +63,8 @@ public class VRT360Video extends VRTComponent {
         }
 
         @Override
-        public void onReady() {
-            VRT360Video video = mVideo.get();
-            if (video == null || video.isTornDown()) {
-                return;
-            }
+        public void onReady(VideoTexture videoTexture) {
 
-            video.updateVideoTexture();
-            video.mVideoTextureJni.loadSource(video.mSource, video.mViroContext);
-            video.setLoop(video.mLoop);
-            video.setMuted(video.mMuted);
-            video.setVolume(video.mVolume);
-            video.setPaused(video.mPaused);
         }
 
         @Override
@@ -84,7 +77,7 @@ public class VRT360Video extends VRTComponent {
         }
 
         @Override
-        public void onVideoUpdatedTime(float currentTime, float totalVideoTime) {
+        public void onVideoUpdatedTime(VideoTexture videoTexture, float currentTime, float totalVideoTime) {
             VRT360Video video = mVideo.get();
             if (video == null || video.isTornDown()) {
                 return;
@@ -101,7 +94,7 @@ public class VRT360Video extends VRTComponent {
     private float[] mRotation = sDefaultRotation;
 
     private VideoTexture mVideoTextureJni = null;
-    private VideoTexture.VideoDelegate mDelegate = null;
+    private VideoTexture.Delegate mDelegate = null;
     private String mStereoMode;
 
     public VRT360Video(ReactApplicationContext reactContext) {
@@ -111,7 +104,7 @@ public class VRT360Video extends VRTComponent {
     @Override
     public void onTearDown() {
         if (mVideoTextureJni != null){
-            mVideoTextureJni.delete();
+            mVideoTextureJni.dispose();
             mVideoTextureJni = null;
         }
         super.onTearDown();
@@ -123,15 +116,19 @@ public class VRT360Video extends VRTComponent {
         }
 
         if (mVideoTextureJni != null) {
-            mVideoTextureJni.delete();
+            mVideoTextureJni.dispose();
             mVideoTextureJni = null;
         }
 
         // Create Texture
-        mVideoTextureJni = new VideoTexture(mViroContext, mStereoMode);
-
         mDelegate = new Video360Delegate(this);
+        mVideoTextureJni = new VideoTexture(mViroContext, Uri.parse(mSource), mDelegate, Texture.StereoMode.valueFromString(mStereoMode));
         mVideoTextureJni.setVideoDelegate(mDelegate);
+        updateVideoTexture();
+        setLoop(mLoop);
+        setMuted(mMuted);
+        setVolume(mVolume);
+        setPaused(mPaused);
 
         if (mScene != null) {
             updateVideoTexture();
@@ -153,7 +150,7 @@ public class VRT360Video extends VRTComponent {
     }
 
     private void updateVideoTexture(){
-        if (mScene != null && mVideoTextureJni != null && mVideoTextureJni.isReady()) {
+        if (mScene != null && mVideoTextureJni != null) {
             mScene.setBackgroundVideoTexture(mVideoTextureJni);
         }
     }
@@ -169,7 +166,6 @@ public class VRT360Video extends VRTComponent {
 
     public void setPaused(boolean paused) {
         mPaused = paused;
-
         if (mVideoTextureJni == null) {
             return;
         }
