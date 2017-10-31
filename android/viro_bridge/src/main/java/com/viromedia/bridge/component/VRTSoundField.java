@@ -5,11 +5,14 @@ package com.viromedia.bridge.component;
 
 
 import com.facebook.react.bridge.ReactApplicationContext;
+import com.facebook.react.uimanager.events.RCTEventEmitter;
 import com.viro.renderer.jni.BaseSound;
 import com.viro.renderer.jni.SoundData;
 import com.viro.renderer.jni.SoundField;
+import com.viro.renderer.jni.Vector;
+import com.viromedia.bridge.utility.ViroEvents;
 
-public class VRTSoundField extends VRTBaseSound {
+public class VRTSoundField extends VRTBaseSound implements SoundField.Delegate {
 
     private static float[] DEFAULT_ROTATION = {0f,0f,0f};
 
@@ -26,21 +29,38 @@ public class VRTSoundField extends VRTBaseSound {
     @Override
     protected void setNativeProps() {
         super.setNativeProps();
-
         if (mNativeSound == null) {
             return;
         }
 
-        mNativeSound.setRotation(mRotation);
+        ((SoundField) mNativeSound).setRotation(new Vector(mRotation));
     }
 
     @Override
     protected BaseSound getNativeSound(String path, boolean local) {
-        return new SoundField(path, mViroContext, this, local);
+        SoundField sound = new SoundField(path, mViroContext, this, local);
+        sound.setDelegate(this);
+        return sound;
     }
 
     @Override
     protected BaseSound getNativeSound(SoundData data) {
-        return new SoundField(data, mViroContext, this);
+        SoundField sound = new SoundField(data, mViroContext, this);
+        sound.setDelegate(this);
+        return sound;
     }
+
+    @Override
+    public void onSoundReady(SoundField sound) {
+        mReady = true;
+        if (mNativeSound != null && !mPaused) {
+            mNativeSound.play();
+        }
+    }
+
+    @Override
+    public void onSoundFail(String error) {
+        onError(error);
+    }
+
 }

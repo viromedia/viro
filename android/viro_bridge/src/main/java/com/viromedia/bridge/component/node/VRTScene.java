@@ -120,7 +120,10 @@ public class VRTScene extends VRTNode implements Scene.SceneDelegate {
         mCeilingMaterial = soundRoom.hasKey(CEILING_MATERIAL_KEY) ? soundRoom.getString(CEILING_MATERIAL_KEY) : DEFAULT_MATERIAL;
         mFloorMaterial = soundRoom.hasKey(FLOOR_MATERIAL_KEY) ? soundRoom.getString(FLOOR_MATERIAL_KEY) : DEFAULT_MATERIAL;
         if (mViroContext != null) {
-            mNativeScene.setSoundRoom(mViroContext, mSoundRoomSize, mWallMaterial, mCeilingMaterial, mFloorMaterial);
+            mNativeScene.setSoundRoom(mViroContext, new Vector(mSoundRoomSize),
+                    Scene.AudioMaterial.valueFromString(mWallMaterial),
+                    Scene.AudioMaterial.valueFromString(mCeilingMaterial),
+                    Scene.AudioMaterial.valueFromString(mFloorMaterial));
         }
     }
 

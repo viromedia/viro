@@ -4,6 +4,7 @@
 package com.viromedia.bridge.component;
 
 import android.net.Uri;
+import android.util.Log;
 
 import com.facebook.react.bridge.JSApplicationCausedNativeException;
 import com.facebook.react.bridge.ReactApplicationContext;
@@ -12,13 +13,12 @@ import com.facebook.react.uimanager.events.RCTEventEmitter;
 import com.viro.renderer.jni.BaseSound;
 import com.viro.renderer.jni.ViroContext;
 import com.viro.renderer.jni.SoundData;
-import com.viro.renderer.jni.SoundDelegate;
 import com.viromedia.bridge.module.SoundModule;
 import com.viromedia.bridge.utility.Helper;
 import com.viromedia.bridge.utility.ViroEvents;
 import com.viromedia.bridge.utility.ViroLog;
 
-public abstract class VRTBaseSound extends VRTComponent implements SoundDelegate {
+public abstract class VRTBaseSound extends VRTComponent {
 
     private static final String TAG = ViroLog.getTag(VRTBaseSound.class);
     protected static final String NAME = "name";
@@ -45,7 +45,6 @@ public abstract class VRTBaseSound extends VRTComponent implements SoundDelegate
 
     public void setPaused(boolean paused) {
         mPaused = paused;
-
         if (mReady && mNativeSound != null) {
             if (mPaused || !shouldAppear()) {
                 mNativeSound.pause();
@@ -119,7 +118,7 @@ public abstract class VRTBaseSound extends VRTComponent implements SoundDelegate
         }
         if (mNativeSound != null) {
             mNativeSound.pause();
-            mNativeSound.destroy();
+            mNativeSound.dispose();
             mNativeSound = null;
         }
 
@@ -134,7 +133,6 @@ public abstract class VRTBaseSound extends VRTComponent implements SoundDelegate
             }
 
             mNativeSound = getNativeSound(data);
-            mNativeSound.setDelegate(this);
         } else if (mSource.hasKey(URI)) {
             Uri uri = Helper.parseUri(mSource.getString(URI), getContext());
             mNativeSound = getNativeSound(uri.toString(), Helper.isResourceUri(uri));
@@ -154,16 +152,8 @@ public abstract class VRTBaseSound extends VRTComponent implements SoundDelegate
     public void onTearDown() {
         super.onTearDown();
         if (mNativeSound != null) {
-            mNativeSound.destroy();
+            mNativeSound.dispose();
             mNativeSound = null;
-        }
-    }
-
-    @Override
-    public void onSoundReady() {
-        mReady = true;
-        if (mNativeSound != null && !mPaused) {
-            mNativeSound.play();
         }
     }
 
@@ -191,18 +181,6 @@ public abstract class VRTBaseSound extends VRTComponent implements SoundDelegate
     @Override
     public void sceneWillAppear() {
         onPropsSet();
-    }
-
-    @Override
-    public void onSoundFinish() {
-        mReactContext.getJSModule(RCTEventEmitter.class).receiveEvent(getId(),
-                ViroEvents.ON_FINISH,
-                null);
-    }
-
-    @Override
-    public void onSoundFail(String error) {
-        onError(error);
     }
 
     /**
