@@ -90,7 +90,7 @@ public class VRTScene extends VRTNode implements Scene.SceneDelegate {
     }
 
     public void setBackgroundVideoTexture(VideoTexture videoTexture) {
-        mNativeScene.setBackgroundVideoTexture(videoTexture);
+        mNativeScene.setBackgroundTexture(videoTexture);
     }
 
     public void setNativeRenderer(Renderer nativeRenderer) {
@@ -99,7 +99,7 @@ public class VRTScene extends VRTNode implements Scene.SceneDelegate {
     }
 
     public void setBackgroundImageTexture(Texture texture) {
-        mNativeScene.setBackgroundImageTexture(texture);
+        mNativeScene.setBackgroundTexture(texture);
     }
 
     public void setBackgroundRotation(float[] rotation) {
@@ -107,7 +107,7 @@ public class VRTScene extends VRTNode implements Scene.SceneDelegate {
     }
 
     public void setBackgroundCubeImageTexture(Texture texture) {
-        mNativeScene.setBackgroundCubeImageTexture(texture);
+        mNativeScene.setBackgroundCubeTexture(texture);
     }
 
     public void setBackgroundCubeWithColor(long color) {

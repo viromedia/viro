@@ -16,7 +16,7 @@ import java.lang.ref.WeakReference;
 
 public class VRTPortalScene extends VRTNode  {
     private PortalScene mPortalScene;
-    private static class PortalDelegate implements PortalScene.PortalDelegate  {
+    private static class PortalDelegate implements PortalScene.Delegate  {
 
         private WeakReference<VRTPortalScene> mPortalScene;
 
@@ -24,7 +24,7 @@ public class VRTPortalScene extends VRTNode  {
             mPortalScene = new WeakReference<VRTPortalScene>(portalScene);
         }
         @Override
-        public void onPortalEnter() {
+        public void onPortalEnter(PortalScene portal) {
             VRTPortalScene portalScene = mPortalScene.get();
             if (portalScene == null || portalScene.isTornDown()) {
                 return;
@@ -33,7 +33,7 @@ public class VRTPortalScene extends VRTNode  {
         }
 
         @Override
-        public void onPortalExit() {
+        public void onPortalExit(PortalScene portal) {
             VRTPortalScene portalScene = mPortalScene.get();
             if (portalScene == null || portalScene.isTornDown()) {
                 return;

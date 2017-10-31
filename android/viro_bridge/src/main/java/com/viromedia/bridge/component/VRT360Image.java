@@ -13,14 +13,17 @@ import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
 import com.viro.renderer.jni.Image;
+import com.viro.renderer.jni.PortalScene;
 import com.viro.renderer.jni.Texture.TextureFormat;
 import com.viro.renderer.jni.Texture;
+import com.viro.renderer.jni.Vector;
+import com.viromedia.bridge.component.node.VRTNode;
 import com.viromedia.bridge.component.node.VRTScene;
 import com.viromedia.bridge.utility.ImageDownloadListener;
 import com.viromedia.bridge.utility.ImageDownloader;
 import com.viromedia.bridge.utility.ViroEvents;
 
-public class VRT360Image extends VRTComponent {
+public class VRT360Image extends VRTNode {
     private static final float[] sDefaultRotation = {0, 0, 0};
 
     private ReadableMap mSourceMap;
@@ -56,8 +59,11 @@ public class VRT360Image extends VRTComponent {
                     (float) rotation.getDouble(1), (float) rotation.getDouble(2)};
             mRotation = rotationArr;
         }
-        if (mScene != null) {
-            mScene.setBackgroundRotation(mRotation);
+        if (getNodeJni() != null) {
+            PortalScene portal = getNodeJni().getParentPortalScene();
+            if (portal != null) {
+                portal.setBackgroundRotation(new Vector(mRotation));
+            }
         }
     }
 
@@ -101,8 +107,13 @@ public class VRT360Image extends VRTComponent {
     public void setScene(VRTScene scene) {
         super.setScene(scene);
         if (mLatestTexture != null) {
-            mScene.setBackgroundImageTexture(mLatestTexture);
-            mScene.setBackgroundRotation(mRotation);
+            if (getNodeJni() != null) {
+                PortalScene portal = getNodeJni().getParentPortalScene();
+                if (portal != null) {
+                    portal.setBackgroundTexture(mLatestTexture);
+                    portal.setBackgroundRotation(new Vector(mRotation));
+                }
+            }
         }
     }
 
@@ -157,9 +168,12 @@ public class VRT360Image extends VRTComponent {
                     mLatestImage = new Image(result, mFormat);
                     mLatestTexture = new Texture(mLatestImage, mFormat, true, false, mStereoMode);
 
-                    if (mScene != null) {
-                        mScene.setBackgroundImageTexture(mLatestTexture);
-                        mScene.setBackgroundRotation(mRotation);
+                    if (getNodeJni() != null) {
+                        PortalScene portal = getNodeJni().getParentPortalScene();
+                        if (portal != null) {
+                            portal.setBackgroundTexture(mLatestTexture);
+                            portal.setBackgroundRotation(new Vector(mRotation));
+                        }
                     }
                     imageDownloadDidFinish();
                     mDownloadListener = null;

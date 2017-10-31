@@ -10,9 +10,12 @@ import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
+import com.viro.renderer.jni.PortalScene;
 import com.viro.renderer.jni.Texture;
+import com.viro.renderer.jni.Vector;
 import com.viro.renderer.jni.ViroContext;
 import com.viro.renderer.jni.VideoTexture;
+import com.viromedia.bridge.component.node.VRTNode;
 import com.viromedia.bridge.component.node.VRTScene;
 import com.viromedia.bridge.utility.Helper;
 import com.viromedia.bridge.utility.ViroEvents;
@@ -22,7 +25,7 @@ import java.lang.ref.WeakReference;
 /**
  * Contains a VideoTexture that is set as a background video on the scene.
  */
-public class VRT360Video extends VRTComponent {
+public class VRT360Video extends VRTNode {
     private static final float[] sDefaultRotation = {0, 0, 0};
 
     private static class Video360Delegate implements VideoTexture.Delegate {
@@ -130,9 +133,12 @@ public class VRT360Video extends VRTComponent {
         setVolume(mVolume);
         setPaused(mPaused);
 
-        if (mScene != null) {
-            updateVideoTexture();
-            mScene.setBackgroundRotation(mRotation);
+        if (getNodeJni() != null) {
+            PortalScene portal = getNodeJni().getParentPortalScene();
+            if (portal != null) {
+                updateVideoTexture();
+                portal.setBackgroundRotation(new Vector(mRotation));
+            }
         }
     }
 
@@ -146,12 +152,17 @@ public class VRT360Video extends VRTComponent {
     public void setScene(VRTScene scene){
         super.setScene(scene);
         updateVideoTexture();
-        mScene.setBackgroundRotation(mRotation);
+
+        PortalScene portal = getNodeJni() != null ? getNodeJni().getParentPortalScene() : null;
+        if (portal != null) {
+            portal.setBackgroundRotation(new Vector(mRotation));
+        }
     }
 
-    private void updateVideoTexture(){
-        if (mScene != null && mVideoTextureJni != null) {
-            mScene.setBackgroundVideoTexture(mVideoTextureJni);
+    private void updateVideoTexture() {
+        PortalScene portal = getNodeJni() != null ? getNodeJni().getParentPortalScene() : null;
+        if (portal != null && mVideoTextureJni != null) {
+            portal.setBackgroundTexture(mVideoTextureJni);
         }
     }
 
@@ -219,8 +230,12 @@ public class VRT360Video extends VRTComponent {
                     (float) rotation.getDouble(1), (float) rotation.getDouble(2)};
             mRotation = rotationArr;
         }
-        if (mScene != null) {
-            mScene.setBackgroundRotation(mRotation);
+
+        if (getNodeJni() != null) {
+            PortalScene portal = getNodeJni().getParentPortalScene();
+            if (portal != null) {
+                portal.setBackgroundRotation(new Vector(mRotation));
+            }
         }
     }
 
