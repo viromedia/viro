@@ -126,7 +126,7 @@ public class VRT360Video extends VRTNode {
         // Create Texture
         mDelegate = new Video360Delegate(this);
         mVideoTextureJni = new VideoTexture(mViroContext, Uri.parse(mSource), mDelegate, Texture.StereoMode.valueFromString(mStereoMode));
-        mVideoTextureJni.setVideoDelegate(mDelegate);
+        mVideoTextureJni.setDelegate(mDelegate);
         updateVideoTexture();
         setLoop(mLoop);
         setMuted(mMuted);

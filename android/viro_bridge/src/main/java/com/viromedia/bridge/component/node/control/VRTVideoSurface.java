@@ -133,7 +133,7 @@ public class VRTVideoSurface extends VRTControl {
                 Texture.StereoMode.valueFromString(mStereoMode));
         loadVideo();
 
-        mVideoTexture.setVideoDelegate(mDelegate);
+        mVideoTexture.setDelegate(mDelegate);
     }
 
     private void loadVideo(){

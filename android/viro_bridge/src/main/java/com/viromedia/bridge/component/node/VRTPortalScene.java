@@ -44,7 +44,7 @@ public class VRTPortalScene extends VRTNode  {
 
     protected Node createNodeJni() {
         mPortalScene = new PortalScene();
-        mPortalScene.setPortalSceneDelegate(new PortalDelegate(this));
+        mPortalScene.setDelegate(new PortalDelegate(this));
         return mPortalScene;
     }
 

@@ -35,7 +35,6 @@ public class VRTScene extends VRTNode implements Scene.SceneDelegate {
     private static final String DEFAULT_MATERIAL = "transparent";
     private static final float[] DEFAULT_SIZE = {0,0,0};
 
-
     protected Scene mNativeScene;
     private Renderer mNativeRenderer;
     private VRTCamera mCamera;
