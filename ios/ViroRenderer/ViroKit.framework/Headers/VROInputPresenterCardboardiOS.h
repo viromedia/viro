@@ -21,7 +21,7 @@ public:
     
     VROInputPresenterCardboardiOS() {
         setReticle(std::make_shared<VROReticle>(nullptr));
-        getReticle()->setPointerMode(false);
+        getReticle()->setPointerFixed(false);
     }
     virtual ~VROInputPresenterCardboardiOS() {}
 

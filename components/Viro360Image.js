@@ -37,7 +37,7 @@ var Viro360Image = createReactClass({
       PropTypes.number,
     ]).isRequired,
     rotation: PropTypes.arrayOf(PropTypes.number),
-    format: PropTypes.oneOf(['RGBA8', 'RGBA4', 'RGB565']),
+    format: PropTypes.oneOf(['RGBA8', 'RGB565']),
     stereoMode:PropTypes.oneOf(['leftRight', 'rightLeft', 'topBottom', 'bottomTop', 'none']),
     /**
      * Callback triggered when we are processing the assets to be

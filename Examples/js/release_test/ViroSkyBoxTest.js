@@ -147,8 +147,6 @@ var Local360Image = require("../res/sun_2302.jpg");
    _toggleFormat() {
         var newState;
         if (this.state.format == "RGBA8"){
-            newState="RGBA4";
-        } else if (this.state.format == "RGBA4"){
             newState="RGB565";
         } else if (this.state.format == "RGB565"){
             newState="RGBA8";

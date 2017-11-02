@@ -169,7 +169,7 @@ protected:
 
         float depth = -hit.getDistance();
 
-        if (_reticle->getPointerMode()) {
+        if (!_reticle->isPointerFixed()) {
             _reticle->setPosition(hit.getLocation());
             
             float worldPerScreen = hit.getCamera().getWorldPerScreen(depth);
@@ -178,7 +178,7 @@ protected:
         }
         else {
             // Lock the Reticle's position to the center of the screen
-            // for non-pointer mode (usually Cardboard). This works because
+            // for fixed pointer mode (usually Cardboard). This works because
             // the reticle uses the HUDView matrix as its transform, which
             // cancels out the camera's view matrix
             

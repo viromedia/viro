@@ -96,7 +96,7 @@ var ViroImage = createReactClass({
     ]),
 
     mipmap: PropTypes.bool,
-    format: PropTypes.oneOf(['RGBA8', 'RGBA4', 'RGB565']),
+    format: PropTypes.oneOf(['RGBA8', 'RGB565']),
 
     ignoreEventHandling: PropTypes.bool,
     dragType: PropTypes.oneOf(["FixedDistance", "FixedToWorld"]),

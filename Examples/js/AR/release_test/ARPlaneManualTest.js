@@ -43,7 +43,7 @@ var testARScene = createReactClass({
     return {
       addPlane1 : false,
       secondPlaneFlag : 0,
-      addPlane3 : true,
+      addPlane3 : false,
       minValue : 0,
     }
   },

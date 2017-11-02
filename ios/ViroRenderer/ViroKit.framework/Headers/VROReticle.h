@@ -36,8 +36,13 @@ public:
     void setRadius(float radius);
 
     void setEnabled(bool enabled);
-    void setPointerMode(bool isPointerMode);
-    bool getPointerMode();
+
+    /*
+     If pointer is fixed, the reticle will be locked at the center of each eye. This is used for
+     VR devices that lack a pointing controller (e.g. Cardboard).
+     */
+    void setPointerFixed(bool fixed);
+    bool isPointerFixed();
 
     void animateFuse(float fuseRatio);
     void stopFuseAnimation();
@@ -45,10 +50,9 @@ public:
 private:
 
     /*
-     Set to true by controllers if the reticle can be used to point
-     (like a laser pointer), usually used for hand held controllers 
-     like Daydream. False if we wish to lock the reticle to the center 
-     of the screen, usually used for fixed controllers like cardboard.
+     Set to true by controllers if the reticle is fixed at the center
+     of each eye. Set to false if the VR platform has a hand-held controller
+     that can be used to point.
      */
     bool _isPointerFixed;
 
