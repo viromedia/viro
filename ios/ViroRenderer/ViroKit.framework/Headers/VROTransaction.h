@@ -51,6 +51,13 @@ public:
     static void begin();
 
     /*
+     Adds the given transaction to the openTransactions stack. Internal use only by the Java API.
+     Enables creating a new transaction off the rendering thread, before adding it to the animation
+     stack on the rendering thread.
+     */
+    static void add(std::shared_ptr<VROTransaction> transaction);
+
+    /*
      Pauses a VROTransaction if it hasn't yet been paused.
      */
     static void pause(std::shared_ptr<VROTransaction> transaction);
@@ -73,7 +80,7 @@ public:
     static void cancel(std::shared_ptr<VROTransaction> transaction);
 
     /*
-     Terminates a VROTransactions. Terminated transactions can no longer
+     Terminates a VROTransaction. Terminated transactions can no longer
      be paused or resumed.
      */
     static void terminate(std::shared_ptr<VROTransaction> transaction);

@@ -403,6 +403,10 @@ public:
                                    return candidate == sound;
                                }), _sounds.end());
     }
+    void removeAllSounds() {
+        passert_thread();
+        _sounds.clear();
+    }
 
 #pragma mark - Scene Graph
     

@@ -42,6 +42,7 @@ var testARScene = createReactClass({
       videoSuccess: false,
       initialized : false,
       ambientLightText: "Ambient Light",
+      displayPointCloud : false,
     }
   },
   componentDidMount: function() {
@@ -60,7 +61,8 @@ var testARScene = createReactClass({
     return (
       <ViroARScene
         onTrackingInitialized={()=>{this.setState({initialized : true})}}
-        onAmbientLightUpdate={this._onAmbientLightUpdate} >
+        onAmbientLightUpdate={this._onAmbientLightUpdate}
+        displayPointCloud={this.state.displayPointCloud} >
 
         {/* ViroARSceneNavigator tests */}
         <ViroText position={polarToCartesian([2, 0, 10])} text={"Recording? " + (this.state.isRecording ? "Yes" : "No")}
@@ -78,6 +80,9 @@ var testARScene = createReactClass({
         <ViroText position={polarToCartesian([2, 30, 0])} text={this.state.ambientLightText}
           style={styles.instructionText} transformBehaviors={["billboard"]}
           ref={component=>{this._ambientLightText = component}}/>
+        <ViroText position={polarToCartesian([2, 30, -10])} text={this.state.displayPointCloud ? "Hide Point Cloud" : "Show Point Cloud"}
+          style={styles.instructionText} transformBehaviors={["billboard"]}
+          onClick={()=>{this.setState({displayPointCloud : !this.state.displayPointCloud})}}/>
 
         {/* Release Menu */}
         <ViroText position={polarToCartesian([2, -30, 0])} text={"Next test"}

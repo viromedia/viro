@@ -12,16 +12,48 @@
 #include <memory>
 #include <vector>
 #include <set>
+#include <cstdint>
 
 class VROARCamera;
 class VROARAnchor;
 class VROMatrix4f;
-class VROVector3f;
+class VROVector4f;
 class VROViewport;
 class VROTextureSubstrate;
 class VROARHitTestResult;
 enum class VROARHitTestResultType;
 enum class VROCameraOrientation;
+
+// TODO: possible need to guard uint64_t usage with #ifdef UINT64_MAX, seems fine on iOS/Android
+class VROARPointCloud {
+public:
+    VROARPointCloud() {}
+    VROARPointCloud(std::vector<VROVector4f> points, std::vector<uint64_t> identifiers) :
+        _points(points),
+        _identifiers(identifiers) {}
+
+    ~VROARPointCloud() {}
+
+    /*
+     Retrieves the point that make up this point cloud. Note: the 4th value in the
+     vector is a "confidence" value only available on Android.
+     */
+    std::vector<VROVector4f> getPoints() {
+        return _points;
+    }
+
+    /*
+     Retrieves the identifiers corresponding to each point. Note: iOS only (it's empty
+     on Android).
+     */
+    std::vector<uint64_t> getIdentifiers() {
+        return _identifiers;
+    }
+
+private:
+    std::vector<VROVector4f> _points;
+    std::vector<uint64_t> _identifiers; // used only on iOS (Android does not provide identifiers).
+};
 
 /*
  The continual output of a VROARSession. These frames contain the current camera
@@ -81,7 +113,11 @@ public:
      scene.
      */
     virtual const std::vector<std::shared_ptr<VROARAnchor>> &getAnchors() const = 0;
-    
+
+    /*
+     Retrieves the point cloud from this frame.
+     */
+    virtual std::shared_ptr<VROARPointCloud> getPointCloud() = 0;
 };
 
 #endif /* VROARFrame_h */

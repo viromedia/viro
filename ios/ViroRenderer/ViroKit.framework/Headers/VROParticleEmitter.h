@@ -66,12 +66,17 @@ public:
      it can be configured / modified, call VROParticleEmitter::initEmitter();
      */
     VROParticleEmitter();
-    ~VROParticleEmitter();
+    virtual ~VROParticleEmitter();
 
     /*
      Called per frame to update particle states, lifetime and behavior.
      */
-    void update(const VRORenderContext &context);
+    virtual void update(const VRORenderContext &context);
+
+    /*
+     Allows for setting of the particleSurface if initEmitter has already been called.
+     */
+    void setParticleSurface(std::shared_ptr<VROSurface> particleSurface);
 
     void setRun(bool emit) {
         _requestRun = emit;
@@ -93,7 +98,7 @@ public:
         _fixToEmitter = isFixed;
     }
 
-    void setMaxParticles (int maxParticles) {
+    void setMaxParticles(int maxParticles) {
         _maxParticles = maxParticles;
     }
 
@@ -198,7 +203,7 @@ public:
                      std::shared_ptr<VROSurface> particleGeometry);
     void setDefaultValues();
 
-private:
+protected:
     /*
      A weak referenceFactor to the VRONode that positions this VROParticleEmitter.
      */
@@ -211,12 +216,14 @@ private:
      and removed from this list to encourage the recycling of particle objects).
      */
     std::vector<VROParticle> _particles;
-
+    
     /*
      Vector containing all particles that have died so that they can be reused. Particles
      in a zombie start after a certain time will be de-allocated.
      */
     std::vector<VROParticle> _zombieParticles;
+
+private:
 
 #pragma mark - Particle Emission Behaviors
     /*

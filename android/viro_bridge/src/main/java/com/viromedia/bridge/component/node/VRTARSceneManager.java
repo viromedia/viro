@@ -31,6 +31,11 @@ public class VRTARSceneManager extends VRTSceneManager<VRTARScene> {
         return new VRTARScene(getContext());
     }
 
+    @ReactProp(name="displayPointCloud", defaultBoolean = false)
+    public void setDisplayPointCloud(VRTARScene scene, boolean displayPointCloud) {
+        scene.setDisplayPointCloud(displayPointCloud);
+    }
+
     @ReactProp(name="anchorDetectionTypes")
     public void setAnchorDetectionTypes(VRTARScene scene, @Nullable ReadableArray array) {
         scene.setAnchorDetectionTypes(array);

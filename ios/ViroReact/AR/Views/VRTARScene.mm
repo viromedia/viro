@@ -88,6 +88,11 @@ static NSString *const kCameraOrientation = @"cameraOrientation";
     self.eventDelegate->setEnabledEvent(VROEventDelegate::EventAction::OnCameraARHitTest, canCameraARHitTest);
 }
 
+- (void)setDisplayPointCloud:(BOOL)displayPointCloud {
+    _displayPointCloud = displayPointCloud;
+    _vroArScene->displayPointCloud(displayPointCloud);
+}
+
 - (void)onAnchorFound:(std::shared_ptr<VROARAnchor>)anchor {
     if (self.onAnchorFoundViro) {
         self.onAnchorFoundViro(@{@"anchor" : [VRTARUtils createDictionaryFromAnchor:anchor]});

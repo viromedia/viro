@@ -16,6 +16,7 @@ var createReactClass = require('create-react-class');
 var ViroARScene = createReactClass({
   propTypes: {
     ...View.propTypes,
+    displayPointCloud: PropTypes.bool,
     ignoreEventHandling: PropTypes.bool,
     anchorDetectionTypes: PropTypes.oneOfType([
       PropTypes.arrayOf(PropTypes.string),

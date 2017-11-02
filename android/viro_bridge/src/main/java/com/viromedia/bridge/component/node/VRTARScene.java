@@ -42,6 +42,10 @@ public class VRTARScene extends VRTScene implements ARScene.ARSceneDelegate {
         return sceneControllerJni;
     }
 
+    public void setDisplayPointCloud(boolean displayPointCloud) {
+        ((ARScene) mNativeScene).displayPointCloud(displayPointCloud);
+    }
+
     public void addARPlane(ARPlane planeJni) {
         ((ARScene) mNativeScene).addARPlane(planeJni);
     }

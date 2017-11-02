@@ -23,4 +23,7 @@ class VROTexture;
 void initBlankTexture(const VRORenderContext &context);
 std::shared_ptr<VROTexture> getBlankTexture();
 
+void initPointCloudTexture();
+std::shared_ptr<VROTexture> getPointCloudTexture();
+
 #endif /* VROImageUtil_h */

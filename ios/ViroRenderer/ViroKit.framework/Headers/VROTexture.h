@@ -57,7 +57,7 @@ enum class VROMipmapMode {
     Runtime,       // Build mipmaps at texture loading time
 };
 
-enum class VROStereoMode{
+enum class VROStereoMode {
     None = 1,       // No stereo is applied, image is fully represented in the texture.
     LeftRight = 2,  // Side by side stereoscopic image, with the left image shown to the left eye.
     RightLeft = 3,  // Side by side stereoscopic image, with the right image shown to the left eye.
@@ -144,7 +144,7 @@ public:
     uint32_t getTextureId() const {
         return _textureId;
     }
-    
+
     /*
      Get the texture ready for usage now, in advance of when it's visible. If not invoked,
      the texture will be initialized when it is made visible.
@@ -213,6 +213,16 @@ public:
     }
     void setMipFilter(VROFilterMode filter) {
         _mipFilter = filter;
+    }
+
+    /*
+     Width and height (available for any 2D texture created through an image).
+     */
+    int getWidth() const {
+        return _width;
+    }
+    int getHeight() const {
+        return _height;
     }
     
 private:

@@ -20,6 +20,7 @@
 @property (nonatomic, copy, nullable) RCTDirectEventBlock onAnchorRemovedViro;
 @property (nonatomic, copy, nullable) RCTDirectEventBlock onCameraARHitTestViro;
 @property (nonatomic, assign) BOOL canCameraARHitTest;
+@property (nonatomic, assign) BOOL displayPointCloud;
 
 
 - (instancetype)initWithBridge:(RCTBridge *)bridge;
