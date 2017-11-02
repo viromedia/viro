@@ -22,6 +22,14 @@ var ViroCamera = createReactClass({
     position: PropTypes.arrayOf(PropTypes.number),
     rotation: PropTypes.arrayOf(PropTypes.number),
     active: PropTypes.bool.isRequired,
+    animation: PropTypes.shape({
+      name: PropTypes.string,
+      delay: PropTypes.number,
+      loop: PropTypes.bool,
+      onStart: PropTypes.func,
+      onFinish: PropTypes.func,
+      run: PropTypes.bool,
+    }),
   },
 
   componentDidMount() {
@@ -40,11 +48,21 @@ var ViroCamera = createReactClass({
     this._component.setNativeProps(nativeProps);
   },
 
+  _onAnimationStart: function(event: Event) {
+    this.props.animation && this.props.animation.onStart && this.props.animation.onStart();
+  },
+
+  _onAnimationFinish: function(event: Event) {
+    this.props.animation && this.props.animation.onFinish && this.props.animation.onFinish();
+  },
+
   render: function() {
     return (
       <VRTCamera
         ref={ component => {this._component = component; }}
         {...this.props}
+        onAnimationStartViro={this._onAnimationStart}
+        onAnimationFinishViro={this._onAnimationFinish}
       />
     );
   }
@@ -92,7 +110,8 @@ var VRTCamera = requireNativeComponent(
                 hasTransformDelegate:true,
                 physicsBody:true,
                 dragType: true,
-                animation:true,
+                onAnimationStartViro:true,
+                onAnimationFinishViro:true
       }
 });
 

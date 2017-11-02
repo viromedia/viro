@@ -66,12 +66,13 @@ var ViroCameraTest = createReactClass({
 
      <ViroImage source={require('./res/poi_dot.png')} position={[-1, 0, 0]} transformBehaviors={["billboard"]} onClick={this._showNext} />
 
-     <ViroAnimatedComponent
-                    animation="testLoopMove"
-                    run={true}
-                    loop={true} >
-        <ViroCamera position={[0,0,0]} active={this.state.activeCamera == 3} />
-     </ViroAnimatedComponent>
+     <ViroCamera position={[0,0,0]}
+         active={this.state.activeCamera == 3}
+         animation={{name:"testLoopMove",
+                     loop:true,
+                     run:this.state.activeCamera == 3,
+                     onStart:this._onStart,
+                     onFinish:this._onFinish}}/>
 
 
      <ViroCamera position={[this.state.mainCameraPositionX,0,0]} rotation={[0,this.state.mainCameraRotation,0]}
@@ -102,6 +103,13 @@ var ViroCameraTest = createReactClass({
      </ViroScene>
 
     );
+  },
+
+  _onStart(){
+    console.log("Animation Camera onStart();");
+  },
+  _onFinish(){
+    console.log("Animation Camera onFinish();");
   },
 
   _getCameraOrientationAsync(){
