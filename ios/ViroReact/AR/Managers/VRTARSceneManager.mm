@@ -21,6 +21,9 @@
 RCT_EXPORT_MODULE()
 
 RCT_EXPORT_VIEW_PROPERTY(displayPointCloud, BOOL)
+RCT_EXPORT_VIEW_PROPERTY(pointCloudImage, RCTImageSource)
+RCT_EXPORT_VIEW_PROPERTY(pointCloudScale, NSNumberArray)
+RCT_EXPORT_VIEW_PROPERTY(pointCloudMaxPoints, int)
 RCT_EXPORT_VIEW_PROPERTY(anchorDetectionTypes, NSArray<NSString *>)
 RCT_EXPORT_VIEW_PROPERTY(onHoverViro, RCTDirectEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onClickViro, RCTDirectEventBlock)

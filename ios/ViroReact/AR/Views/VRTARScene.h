@@ -7,9 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <React/RCTImageSource.h>
 #import "VRTScene.h"
+#import "VRTImageAsyncLoaderEventDelegate.h"
 
-@interface VRTARScene : VRTScene <VROARSceneDelegateProtocol>
+
+@interface VRTARScene : VRTScene <VROARSceneDelegateProtocol, VRTImageAsyncLoaderEventDelegate>
 
 @property (nonatomic, copy, nullable) NSArray<NSString *> *anchorDetectionTypes;
 @property (nonatomic, copy, nullable) RCTDirectEventBlock onTrackingInitializedViro;
@@ -21,7 +24,10 @@
 @property (nonatomic, copy, nullable) RCTDirectEventBlock onCameraARHitTestViro;
 @property (nonatomic, assign) BOOL canCameraARHitTest;
 @property (nonatomic, assign) BOOL displayPointCloud;
+@property (nonatomic, copy, nullable) RCTImageSource *pointCloudImage;
 
+@property (nonatomic, copy, nullable) NSArray<NSNumber *> *pointCloudScale;
+@property (nonatomic, assign) int pointCloudMaxPoints;
 
 - (instancetype)initWithBridge:(RCTBridge *)bridge;
 

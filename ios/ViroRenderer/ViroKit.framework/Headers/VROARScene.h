@@ -28,7 +28,9 @@ class VROARScene : public VROScene, public VROARComponentManagerDelegate {
 public:
     VROARScene() :
         _hasTrackingInitialized(false),
-        _displayPointCloud(false) {};
+        _displayPointCloud(false),
+        _pointCloudSurfaceScale(VROVector3f(.01, .01, 1)),
+        _pointCloudMaxPoints(500) {};
     virtual ~VROARScene() {};
     
     virtual void addNode(std::shared_ptr<VRONode> node);
@@ -36,8 +38,31 @@ public:
     void setARComponentManager(std::shared_ptr<VROARComponentManager> arComponentManager);
     void setARSession(std::shared_ptr<VROARSession> arSession);
     void setDriver(std::shared_ptr<VRODriver> driver);
-    
+
+    /*
+     Set true to display/render the point cloud particles.
+     */
     void displayPointCloud(bool display);
+
+    /*
+     Reset the point cloud surface to the default
+     */
+    void resetPointCloudSurface();
+
+    /*
+     Set the surface to use for the individual point cloud particles.
+     */
+    void setPointCloudSurface(std::shared_ptr<VROSurface> surface);
+
+    /*
+     Set the scale of the individual point cloud particles.
+     */
+    void setPointCloudSurfaceScale(VROVector3f scale);
+
+    /*
+     Sets the max number of point cloud points to display/render at any one time.
+     */
+    void setPointCloudMaxPoints(int maxPoints);
     
     void setDelegate(std::shared_ptr<VROARSceneDelegate> delegate);
     void trackingHasInitialized();
@@ -65,7 +90,12 @@ private:
     std::vector<std::shared_ptr<VROARPlaneNode>> _planes;
     std::weak_ptr<VROARSceneDelegate> _delegate;
     bool _hasTrackingInitialized;
+
+    /* Point Cloud Properties */
     bool _displayPointCloud;
+    std::shared_ptr<VROSurface> _pointCloudSurface;
+    VROVector3f _pointCloudSurfaceScale;
+    int _pointCloudMaxPoints;
 
     /*
      Creates an instance of VROPointCloudEmitter if possible.

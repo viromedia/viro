@@ -3,11 +3,16 @@
  */
 package com.viromedia.bridge.component.node;
 
+import android.graphics.Bitmap;
+import android.os.Handler;
+import android.os.Looper;
+import android.util.Log;
 import android.view.ViewParent;
 
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReadableArray;
+import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.WritableArray;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
@@ -15,12 +20,18 @@ import com.viro.renderer.ARAnchor;
 import com.viro.renderer.jni.ARPlane;
 
 import com.viro.renderer.jni.ARScene;
+import com.viro.renderer.jni.Image;
 import com.viro.renderer.jni.Scene;
 import com.viro.renderer.jni.EventDelegate;
 
+import com.viro.renderer.jni.Surface;
+import com.viro.renderer.jni.Texture;
+import com.viro.renderer.jni.Vector;
 import com.viro.renderer.jni.ViroViewARCore;
 import com.viromedia.bridge.component.VRTARSceneNavigator;
 import com.viromedia.bridge.utility.ARUtils;
+import com.viromedia.bridge.utility.ImageDownloadListener;
+import com.viromedia.bridge.utility.ImageDownloader;
 import com.viromedia.bridge.utility.ViroEvents;
 
 import java.util.ArrayList;
@@ -30,9 +41,13 @@ public class VRTARScene extends VRTScene implements ARScene.ARSceneDelegate {
     private static final String AMBIENT_LIGHT_INFO_KEY = "ambientLightInfo";
     private static final String INTENSITY_KEY = "intensity";
     private static final String COLOR_TEMPERATURE_KEY = "colorTemperature";
+    private Surface mPointCloudSurface;
+    private PointCloudImageDownloadListener mImageDownloadListener;
+    private Handler mMainHandler;
 
     public VRTARScene(ReactApplicationContext reactContext) {
         super(reactContext);
+        mMainHandler = new Handler(Looper.getMainLooper());
     }
 
     @Override
@@ -44,6 +59,38 @@ public class VRTARScene extends VRTScene implements ARScene.ARSceneDelegate {
 
     public void setDisplayPointCloud(boolean displayPointCloud) {
         ((ARScene) mNativeScene).displayPointCloud(displayPointCloud);
+    }
+
+    public void setPointCloudImage(ReadableMap pointCloudImage) {
+        // If there's another download still running, invalidate it.
+        if (mImageDownloadListener != null) {
+            mImageDownloadListener.invalidate();
+        }
+
+        if (pointCloudImage == null) {
+            ((ARScene) mNativeScene).resetPointCloudSurface();
+
+            if (mPointCloudSurface != null) {
+                mPointCloudSurface.dispose();
+                mPointCloudSurface = null;
+            }
+
+            return;
+        }
+
+        final ImageDownloader downloader = new ImageDownloader(getContext());
+        downloader.setTextureFormat(Texture.TextureFormat.RGBA8);
+
+        mImageDownloadListener = new PointCloudImageDownloadListener();
+        downloader.getImageAsync(pointCloudImage, mImageDownloadListener);
+    }
+
+    public void setPointCloudScale(Vector pointCloudScale) {
+        ((ARScene) mNativeScene).setPointCloudSurfaceScale(pointCloudScale);
+    }
+
+    public void setPointCloudMaxPoints(int maxPoints) {
+        ((ARScene) mNativeScene).setPointCloudMaxPoints(maxPoints);
     }
 
     public void addARPlane(ARPlane planeJni) {
@@ -136,5 +183,47 @@ public class VRTARScene extends VRTScene implements ARScene.ARSceneDelegate {
             getId(),
             ViroEvents.ON_ANCHOR_REMOVED,
             returnMap);
+    }
+
+    private class PointCloudImageDownloadListener implements ImageDownloadListener {
+        private boolean mIsValid = true;
+
+        public void invalidate() {
+            mIsValid = false;
+        }
+
+        @Override
+        public boolean isValid() {
+            return mIsValid;
+        }
+
+        @Override
+        public void completed(final Bitmap result) {
+            mMainHandler.post(new Runnable() {
+                @Override
+                public void run() {
+                    if (!mIsValid) {
+                        return;
+                    }
+
+                    if (mPointCloudSurface == null) {
+                        mPointCloudSurface = new Surface(1, 1);
+                    }
+
+                    Image image = new Image(result, Texture.TextureFormat.RGBA8);
+                    Texture texture = new Texture(image, Texture.TextureFormat.RGBA8, true, false, null);
+                    mPointCloudSurface.setImageTexture(texture);
+
+                    if (!isTornDown()) {
+                        ((ARScene) mNativeScene).setPointCloudSurface(mPointCloudSurface);
+                    }
+                }
+            });
+        }
+
+        @Override
+        public void failed(String error) {
+            throw new IllegalStateException("Unable to download point cloud image. Error: [" + error + "].");
+        }
     }
 }

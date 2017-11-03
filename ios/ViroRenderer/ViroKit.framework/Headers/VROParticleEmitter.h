@@ -76,7 +76,7 @@ public:
     /*
      Allows for setting of the particleSurface if initEmitter has already been called.
      */
-    void setParticleSurface(std::shared_ptr<VROSurface> particleSurface);
+    virtual void setParticleSurface(std::shared_ptr<VROSurface> particleSurface);
 
     void setRun(bool emit) {
         _requestRun = emit;
@@ -98,7 +98,7 @@ public:
         _fixToEmitter = isFixed;
     }
 
-    void setMaxParticles(int maxParticles) {
+    virtual void setMaxParticles(int maxParticles) {
         _maxParticles = maxParticles;
     }
 
@@ -223,6 +223,12 @@ protected:
      */
     std::vector<VROParticle> _zombieParticles;
 
+    /*
+     The maximum number of active particles (not including zombie ones) that this emitter
+     can have at any given moment.
+     */
+    int _maxParticles;
+
 private:
 
 #pragma mark - Particle Emission Behaviors
@@ -276,12 +282,6 @@ private:
      maintain the state of all incoming burst events.
      */
     std::vector<VROParticleBurst> _scheduledBurst;
-
-    /*
-     The maximum number of active particles (not including zombie ones) that this emitter
-     can have at any given moment.
-     */
-    int _maxParticles;
 
     /*
      The min max lifetime of emitted particles.

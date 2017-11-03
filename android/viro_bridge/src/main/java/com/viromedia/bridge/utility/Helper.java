@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 
 import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.views.imagehelper.ResourceDrawableIdHelper;
+import com.viro.renderer.jni.Vector;
 
 /**
  * Class containing few common helper methods.
@@ -26,6 +27,18 @@ public class Helper {
             result[i] = (float) value.getDouble(i);
         }
         return result;
+    }
+
+    public static Vector toVector(ReadableArray value) {
+        if (value == null) {
+            return null;
+        }
+
+        if (value.size() != 3) {
+            throw new IllegalArgumentException("Vectors require 3 values.");
+        }
+
+        return new Vector((float) value.getDouble(0), (float) value.getDouble(1), (float) value.getDouble(2));
     }
 
     /**

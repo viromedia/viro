@@ -7,6 +7,7 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 import { requireNativeComponent, findNodeHandle, View } from 'react-native';
+import resolveAssetSource from "react-native/Libraries/Image/resolveAssetSource";
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
@@ -16,7 +17,19 @@ var createReactClass = require('create-react-class');
 var ViroARScene = createReactClass({
   propTypes: {
     ...View.propTypes,
-    displayPointCloud: PropTypes.bool,
+    displayPointCloud: PropTypes.oneOfType([
+      PropTypes.shape({
+        imageSource : PropTypes.oneOfType([
+            PropTypes.shape({
+                uri: PropTypes.string,
+            }),
+            PropTypes.number
+          ]),
+        imageScale: PropTypes.arrayOf(PropTypes.number),
+        maxPoints : PropTypes.number,
+      }),
+      PropTypes.bool,
+    ]),
     ignoreEventHandling: PropTypes.bool,
     anchorDetectionTypes: PropTypes.oneOfType([
       PropTypes.arrayOf(PropTypes.string),
@@ -222,6 +235,18 @@ var ViroARScene = createReactClass({
         timeToFuse = this.props.onFuse.timeToFuse;
     }
 
+    let displayPointCloud = false;
+    let pointCloudImage = undefined;
+    let pointCloudScale = undefined;
+    let pointCloudMaxPoints = undefined;
+    // parse out displayPointCloud prop
+    if (this.props.displayPointCloud) {
+      displayPointCloud = true;
+      pointCloudImage = resolveAssetSource(this.props.displayPointCloud.imageSource);
+      pointCloudScale = this.props.displayPointCloud.imageScale;
+      pointCloudMaxPoints = this.props.displayPointCloud.maxPoints;
+    }
+
     return (
       <VRTARScene
         {...this.props}
@@ -253,6 +278,10 @@ var ViroARScene = createReactClass({
         onAnchorRemovedViro={this._onAnchorRemoved}
         timeToFuse={timeToFuse}
         anchorDetectionTypes={anchorDetectionTypes}
+        displayPointCloud={displayPointCloud}
+        pointCloudImage={pointCloudImage}
+        pointCloudScale={pointCloudScale}
+        pointCloudMaxPoints={pointCloudMaxPoints}
         />
     );
   },
@@ -294,6 +323,9 @@ var VRTARScene = requireNativeComponent(
           onAnchorRemovedViro:true,
           onCameraARHitTestViro: true,
           timeToFuse:true,
+          pointCloudImage:true,
+          pointCloudScale:true,
+          pointCloudMaxPoints:true,
       }
   }
 );

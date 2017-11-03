@@ -17,30 +17,33 @@ class VROSurface;
 class VROARSession;
 class VROBillboardConstraint;
 
+/*
+ Class that inheirits from VROParticleEmitter that uses the particle system to draw
+ PointCloud points that we get from the given VROARSession.
+
+ Only things that can really be modified are the surface, scale and # of particles
+ */
 class VROPointCloudEmitter : public VROParticleEmitter {
 public:
-    VROPointCloudEmitter(std::shared_ptr<VRODriver> driver, std::shared_ptr<VRONode> node, std::shared_ptr<VROARSession> session);
+    VROPointCloudEmitter(std::shared_ptr<VRODriver> driver,
+                         std::shared_ptr<VRONode> node,
+                         std::shared_ptr<VROARSession> session);
     virtual ~VROPointCloudEmitter() {};
 
     void setParticleScale(VROVector3f scale) {
         _particleScale = scale;
     }
 
-    void setMaxParticles(int maxParticles) {
-        _maxParticles = maxParticles;
-    }
-
-    void setParticleSurface(std::shared_ptr<VROSurface> surface);
-
     void clearParticles();
 
     void update(const VRORenderContext &context);
-    
+
+    void resetParticleSurface();
+    void setParticleSurface(std::shared_ptr<VROSurface> particleSurface);
+
 private:
     std::weak_ptr<VROARSession> _arSession;
-
     VROVector3f _particleScale;
-    int _maxParticles;
 
     /*
      This function updates the _particles array with the given pointCloudPoints by reusing particles,

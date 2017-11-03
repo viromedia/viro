@@ -33,6 +33,12 @@ var createReactClass = require('create-react-class');
 
 let polarToCartesian = ViroUtils.polarToCartesian;
 
+let pointCloudDict = {
+  imageSource: require("../../res/blue_star.png"),
+  imageScale : [.1, .1, .1],
+  maxPoints : 50
+};
+
 var testARScene = createReactClass({
   mixins: [TimerMixin],
   getInitialState: function() {
@@ -42,7 +48,7 @@ var testARScene = createReactClass({
       videoSuccess: false,
       initialized : false,
       ambientLightText: "Ambient Light",
-      displayPointCloud : false,
+      displayPointCloud : pointCloudDict,
     }
   },
   componentDidMount: function() {

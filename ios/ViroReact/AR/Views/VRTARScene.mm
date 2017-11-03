@@ -13,6 +13,8 @@
 #import "VRTARUtils.h"
 #import "VRTARSceneNavigator.h"
 #import "VRTARHitTestUtil.h"
+#import "VRTUtils.h"
+#import "VRTImageAsyncLoader.h"
 
 static NSString *const kVRTAmbientLightInfoKey = @"ambientLightInfo";
 static NSString *const kVRTIntensityKey = @"intensity";
@@ -24,11 +26,16 @@ static NSString *const kCameraOrientation = @"cameraOrientation";
 @implementation VRTARScene {
     std::shared_ptr<VROARScene> _vroArScene;
     std::shared_ptr<VROARSceneDelegateiOS> _sceneDelegate;
+
+    VRTImageAsyncLoader *_loader;
+    std::shared_ptr<VROTexture> _pointCloudSurfaceTexture;
+    std::shared_ptr<VROSurface> _pointCloudParticleSurface;
 }
 
 - (instancetype)initWithBridge:(RCTBridge *)bridge {
     self = [super initWithBridge:bridge];
     if (self) {
+        _loader = [[VRTImageAsyncLoader alloc] initWithDelegate:self];
         _sceneDelegate = std::make_shared<VROARSceneDelegateiOS>(self);
         _vroArScene->setDelegate(_sceneDelegate);
     }
@@ -93,6 +100,27 @@ static NSString *const kCameraOrientation = @"cameraOrientation";
     _vroArScene->displayPointCloud(displayPointCloud);
 }
 
+- (void)setPointCloudImage:(RCTImageSource *)pointCloudImage {
+    _pointCloudImage = pointCloudImage;
+    if (_pointCloudImage) {
+        [_loader loadImage:_pointCloudImage];
+    } else {
+        _vroArScene->resetPointCloudSurface();
+    }
+}
+
+- (void)setPointCloudScale:(NSArray<NSNumber *> *)pointCloudScale {
+    _pointCloudScale = [pointCloudScale copy];
+    float scaleValues[3];
+    populateFloatArrayFromNSArray(pointCloudScale, scaleValues, 3);
+    _vroArScene->setPointCloudSurfaceScale({scaleValues[0], scaleValues[1], scaleValues[2]});
+}
+
+- (void)setPointCloudMaxPoints:(int)pointCloudMaxPoints {
+    _pointCloudMaxPoints = pointCloudMaxPoints;
+    _vroArScene->setPointCloudMaxPoints(pointCloudMaxPoints);
+}
+
 - (void)onAnchorFound:(std::shared_ptr<VROARAnchor>)anchor {
     if (self.onAnchorFoundViro) {
         self.onAnchorFoundViro(@{@"anchor" : [VRTARUtils createDictionaryFromAnchor:anchor]});
@@ -121,6 +149,33 @@ static NSString *const kCameraOrientation = @"cameraOrientation";
         NSArray<NSNumber *> * camOrientation = [self cameraOrientation];
     self.onCameraARHitTestViro(@{kCameraHitTestResults:resultArray,kCameraOrientation:camOrientation});
     }
+}
+
+#pragma mark VRTImageAsyncLoaderEventDelegate
+- (void)imageLoaderDidStart:(VRTImageAsyncLoader *)loader {
+    // no-op
+}
+
+- (void)imageLoaderDidEnd:(VRTImageAsyncLoader *)loader success:(BOOL)success image:(UIImage *)image {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (success) {
+            _pointCloudSurfaceTexture = std::make_shared<VROTexture>(VROTextureInternalFormat::RGBA8, true,
+                                                            VROMipmapMode::Runtime,
+                                                            std::make_shared<VROImageiOS>(image, VROTextureInternalFormat::RGBA8),
+                                                            VROStereoMode::None);
+            if (!_pointCloudParticleSurface) {
+                _pointCloudParticleSurface = VROSurface::createSurface(1, 1);
+            }
+            
+            _pointCloudParticleSurface->getMaterials()[0]->getDiffuse().setTexture(_pointCloudSurfaceTexture);
+
+            if (_vroArScene) {
+                _vroArScene->setPointCloudSurface(_pointCloudParticleSurface);
+            }
+        } else {
+            perror("Viro: Error loading point cloud image resource");
+        }
+    });
 }
 
 @end
