@@ -162,6 +162,13 @@ public class VRTNode extends VRTComponent {
         mNodeJni.setEventDelegate(mEventDelegateJni);
 
         mNodeAnimation = new NodeAnimation(reactContext, this);
+
+        // Default position, rotation and scale values.
+        mPosition = new float[]{0,0,0};
+        mRotation= new float[]{0,0,0};
+        mScale= new float[]{1,1,1};
+        mRotationPivot= new float[]{0,0,0};
+        mScalePivot= new float[]{0,0,0};
     }
 
     /**

@@ -11,7 +11,6 @@ import com.viro.renderer.jni.Vector;
 
 public class VRTCamera extends VRTControl {
     protected Camera mNativeCamera;
-    private float[] mPosition;
 
     public VRTCamera(ReactApplicationContext context) {
         super(context);

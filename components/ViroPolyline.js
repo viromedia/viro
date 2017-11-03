@@ -275,7 +275,9 @@ var VRTPolyline = requireNativeComponent(
             onNativeTransformDelegateViro:true,
             hasTransformDelegate:true,
             onAnimationStartViro:true,
-            onAnimationFinishViro:true
+            onAnimationFinishViro:true,
+            scalePivot:true,
+            rotationPivot:true
           }
     }
 );
