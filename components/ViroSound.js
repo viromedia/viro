@@ -112,3 +112,4 @@ var VRTSound = requireNativeComponent(
 );
 
 module.exports = ViroSound;
+module.exports.VRTSound = VRTSound;

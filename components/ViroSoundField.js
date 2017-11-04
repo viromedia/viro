@@ -100,14 +100,7 @@ var ViroSoundField = createReactClass({
 
 });
 
-var VRTSound= requireNativeComponent(
-  'VRTSound', ViroSoundField, {
-    nativeOnly: {
-      onFinishViro: true,
-      onErrorViro: true,
-    }
-  }
-);
+var VRTSound = require('./ViroSound').VRTSound;
 
 var VRTSoundField = requireNativeComponent(
   'VRTSoundField', ViroSoundField, {

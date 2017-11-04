@@ -112,16 +112,9 @@ var ViroSpatialSound = createReactClass({
 
 });
 
-var VRTSound= requireNativeComponent(
-  'VRTSound', ViroSpatialSound, {
-    nativeOnly: {
-      onFinishViro: true,
-      onErrorViro:true,
-    }
-  }
-);
+var VRTSound = require('./ViroSound').VRTSound;
 
-var VRTSpatialSound= requireNativeComponent(
+var VRTSpatialSound = requireNativeComponent(
   'VRTSpatialSound', ViroSpatialSound, {
     nativeOnly: {
       onFinishViro: true,
