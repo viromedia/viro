@@ -78,15 +78,6 @@ var Viro3DObjectTest = createReactClass({
           />
        </ViroAnimatedComponent>
 
-       <Viro3DObject source={require('./res/bball.vrx')}
-                     position={[0, 0, -12.0]}
-                     rotation={[0, 0, 0]}
-                     scale={[0.1, 0.1, 0.1]}
-                     type="VRX"
-                     animation={{name:"Take 001", delay:0, loop:true, run:true,
-                                 onStart:this._onAnimStart, onFinish:this._onAnimEnd}}
-       />
-
        <Viro3DObject source={{"uri" : "https://s3-us-west-2.amazonaws.com/viro/heart.obj"}}
               scale={[1.8, 1.8, 1.8]}
               position={[-2, 1, 0]}
@@ -95,6 +86,7 @@ var Viro3DObjectTest = createReactClass({
 
        <ViroAnimatedComponent animation="loopRotate" run={this.state.runAnimation2} >
          <Viro3DObject source={require('./res/xwing.obj')}
+                       resources={[require("./res/star-wars-x-wing.mtl")]}
                        position={[2, -2, -5]}
                        materials={["grey"]}
                        rotation={[0,0,0]}
@@ -107,6 +99,8 @@ var Viro3DObjectTest = createReactClass({
 
        <ViroAnimatedComponent animation="loopRotate" run={this.state.runAnimation4} >
          <Viro3DObject source={require('./res/object_star_anim.vrx')}
+                       resources={[require("./res/object_star_diffuse.png"),
+                                   require("./res/object_star_specular.png")]}
                        position={[-2, -2, -5]}
                        type="VRX"
                        rotation={[0,0,0]}
@@ -115,7 +109,46 @@ var Viro3DObjectTest = createReactClass({
          />
        </ViroAnimatedComponent>
 
-       <Viro3DObject source={require('./res/male02_obj.obj')}
+        <ViroAnimatedComponent animation="loopRotate" run={true} loop={true}>
+          <Viro3DObject source={require('./res/earth_obj.obj')}
+                        resources={[require('./res/earth_jpg.jpg'),
+                                    require('./res/earth_normal.jpg')]}
+                        position={[2.0, 0.0, 5.0]}
+                        scale={[0.01, 0.01, 0.01]}
+                        materials={["earth"]}
+                        type="OBJ"
+          />
+        </ViroAnimatedComponent>
+
+       <ViroImage source={require('./res/icon_left_w.png')} position={[-2, -4, -3]} scale={[1, 1, 1]} transformBehaviors={["billboard"]} onClick={this._showPrevious} />
+       <ViroText text="Viro3DObject" position={[0, -5, -3]} transformBehaviors={["billboard"]} />
+       <ViroImage source={require('./res/icon_right_w.png')} position={[2, -4, -3]} scale={[1, 1, 1]} transformBehaviors={["billboard"]} onClick={this._showNext} />
+
+     </ViroScene>
+
+    );
+  },
+
+  /*
+   I removed the basketball because the vrx file and the jpg file have the same filename (ignoring the extension)
+   which is an issue on Android release builds because Android uses resources which doesn't actually take into
+   account the file extensions, so to Android the two files appear to be the same files
+
+         <Viro3DObject source={require('./res/bball.vrx')}
+                     position={[0, 0, -12.0]}
+                     rotation={[0, 0, 0]}
+                     resources={[require('./res/bball.jpg'),
+                                 require('./res/bball_SPEC.png'),
+                                 require('./res/bball_SPEC_NRM.png')]}
+                     scale={[0.1, 0.1, 0.1]}
+                     type="VRX"
+                     animation={{name:"Take 001", delay:0, loop:true, run:true,
+                                 onStart:this._onAnimStart, onFinish:this._onAnimEnd}}
+       />
+
+   I also removed the man because hyphens are not allowed in android resource names, so this will never run in release
+
+          <Viro3DObject source={require('./res/male02_obj.obj')}
                      resources={[require('./res/male02.mtl'),
                                  require('./res/01_-_Default1noCulling.JPG'),
                                  require('./res/male-02-1noCulling.JPG'),
@@ -126,26 +159,7 @@ var Viro3DObjectTest = createReactClass({
                      onLoadStart={this._onLoadObjStart}
                      onLoadEnd={this._onLoadObjEnd}
         />
-
-        <ViroAnimatedComponent animation="loopRotate" run={true} loop={true}>
-          <Viro3DObject source={require('./res/earth_obj.obj')}
-                        resources={[require('./res/earth_jpg.jpg'),
-                                    require('./res/earth_normal.jpg')]}
-                        position={[2.0, 0.0, 5.0]}
-                        scale={[0.01, 0.01, 0.01]}
-                        materials={["earth"]}
-                        type="OBJ"
-           />
-         </ViroAnimatedComponent>
-
-       <ViroImage source={require('./res/icon_left_w.png')} position={[-2, -4, -3]} scale={[1, 1, 1]} transformBehaviors={["billboard"]} onClick={this._showPrevious} />
-       <ViroText text="Viro3DObject" position={[0, -5, -3]} transformBehaviors={["billboard"]} />
-       <ViroImage source={require('./res/icon_right_w.png')} position={[2, -4, -3]} scale={[1, 1, 1]} transformBehaviors={["billboard"]} onClick={this._showNext} />
-
-     </ViroScene>
-
-    );
-  },
+  */
 
   _showNext() {
     this.props.sceneNavigator.replace({scene:require('./ViroCameraTest')});
