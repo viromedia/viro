@@ -339,7 +339,7 @@ var ViroSoundTest = createReactClass({
   _getSource(component) {
       var stringSource = require("../res/metronome.mp3");
       if (this.state.toggleSource == 1){
-          stringSource = {uri :"http://www.jetcityorange.com/musical-notes/G4-392.0.mp3"};
+          stringSource = {uri :"https://www.bensound.com/royalty-free-music?download=funnysong"};
       } else if (this.state.toggleSource == 2){
           stringSource = "cube_sound";
       }
