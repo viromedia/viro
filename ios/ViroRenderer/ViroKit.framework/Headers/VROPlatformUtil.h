@@ -171,6 +171,9 @@ jlong VROPlatformCallJavaLongFunction(jobject javaObject,
                                      std::string functionName,
                                      std::string methodID, ...);
 
+// Safely converts the given string with the provided jni environment.
+std::string VROPlatformGetString(jstring string, JNIEnv *env);
+
 #pragma mark - Android A/V
 
 // Create a video sink on the Java side. Returns the Surface.

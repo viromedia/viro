@@ -20,6 +20,7 @@ import com.viro.renderer.jni.ARAnchor;
 import com.viro.renderer.jni.ARDeclarativeNode;
 import com.viro.renderer.jni.ARDeclarativePlane;
 
+import com.viro.renderer.jni.ARNode;
 import com.viro.renderer.jni.ARScene;
 import com.viro.renderer.jni.Image;
 import com.viro.renderer.jni.Scene;
@@ -154,7 +155,7 @@ public class VRTARScene extends VRTScene implements ARScene.ARSceneDelegate {
     }
 
     @Override
-    public void onAnchorFound(ARAnchor arAnchor) {
+    public void onAnchorFound(ARAnchor arAnchor, ARNode node) {
         WritableMap returnMap = Arguments.createMap();
         returnMap.putMap("anchor", ARUtils.mapFromARAnchor(arAnchor));
 
@@ -165,7 +166,7 @@ public class VRTARScene extends VRTScene implements ARScene.ARSceneDelegate {
     }
 
     @Override
-    public void onAnchorUpdated(ARAnchor arAnchor) {
+    public void onAnchorUpdated(ARAnchor arAnchor, ARNode node) {
         WritableMap returnMap = Arguments.createMap();
         returnMap.putMap("anchor", ARUtils.mapFromARAnchor(arAnchor));
 
@@ -176,7 +177,7 @@ public class VRTARScene extends VRTScene implements ARScene.ARSceneDelegate {
     }
 
     @Override
-    public void onAnchorRemoved(ARAnchor arAnchor) {
+    public void onAnchorRemoved(ARAnchor arAnchor, ARNode node) {
         WritableMap returnMap = Arguments.createMap();
         returnMap.putMap("anchor", ARUtils.mapFromARAnchor(arAnchor));
 

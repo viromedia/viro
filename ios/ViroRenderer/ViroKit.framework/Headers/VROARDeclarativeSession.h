@@ -63,7 +63,6 @@ public:
                                     
 private:
     
-    std::weak_ptr<VROARScene> _scene;
     std::weak_ptr<VROARDeclarativeSessionDelegate> _delegate;
     std::shared_ptr<VROARConstraintMatcher> _constraintMatcher;
     std::vector<std::shared_ptr<VROARDeclarativeNode>> _nodes;

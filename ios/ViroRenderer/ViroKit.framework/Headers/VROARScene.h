@@ -39,7 +39,11 @@ public:
     
     void setARSession(std::shared_ptr<VROARSession> arSession);
     void setDriver(std::shared_ptr<VRODriver> driver);
-    virtual void addNode(std::shared_ptr<VRONode> node);
+
+    /*
+     Add AR nodes. These are directly added to the root node.
+     */
+    void addNode(std::shared_ptr<VRONode> node);
 
     /*
      Set true to display/render the point cloud particles.
@@ -47,7 +51,7 @@ public:
     void displayPointCloud(bool display);
 
     /*
-     Reset the point cloud surface to the default
+     Reset the point cloud surface to the default.
      */
     void resetPointCloudSurface();
 
