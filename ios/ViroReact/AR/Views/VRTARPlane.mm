@@ -51,8 +51,8 @@ static float const kARPlaneDefaultMinWidth = 0;
 }
 
 - (void)setScene:(std::shared_ptr<VROScene>)scene {
-    [self declarativeSession]->addARNode(std::dynamic_pointer_cast<VROARDeclarativePlane>(self.node));
     [super setScene:scene];
+    [self declarativeSession]->addARNode(std::dynamic_pointer_cast<VROARDeclarativePlane>(self.node));
 }
 
 - (void)setMinHeight:(float)minHeight {
