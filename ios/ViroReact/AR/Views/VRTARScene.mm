@@ -110,15 +110,23 @@ static NSString *const kCameraOrientation = @"cameraOrientation";
 }
 
 - (void)setPointCloudScale:(NSArray<NSNumber *> *)pointCloudScale {
-    _pointCloudScale = [pointCloudScale copy];
+    if (!pointCloudScale) {
+        _pointCloudScale = @[@.01f, @.01f, @.01f];
+    } else {
+        _pointCloudScale = [pointCloudScale copy];
+    }
     float scaleValues[3];
-    populateFloatArrayFromNSArray(pointCloudScale, scaleValues, 3);
+    populateFloatArrayFromNSArray(_pointCloudScale, scaleValues, 3);
     _vroArScene->setPointCloudSurfaceScale({scaleValues[0], scaleValues[1], scaleValues[2]});
 }
 
-- (void)setPointCloudMaxPoints:(int)pointCloudMaxPoints {
-    _pointCloudMaxPoints = pointCloudMaxPoints;
-    _vroArScene->setPointCloudMaxPoints(pointCloudMaxPoints);
+- (void)setPointCloudMaxPoints:(NSNumber *)pointCloudMaxPoints {
+    if (!pointCloudMaxPoints) {
+        _pointCloudMaxPoints = [NSNumber numberWithInt:500];
+    } else {
+        _pointCloudMaxPoints = pointCloudMaxPoints;
+    }
+    _vroArScene->setPointCloudMaxPoints([_pointCloudMaxPoints intValue]);
 }
 
 - (void)onAnchorFound:(std::shared_ptr<VROARAnchor>)anchor {

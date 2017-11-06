@@ -27,7 +27,7 @@
 @property (nonatomic, copy, nullable) RCTImageSource *pointCloudImage;
 
 @property (nonatomic, copy, nullable) NSArray<NSNumber *> *pointCloudScale;
-@property (nonatomic, assign) int pointCloudMaxPoints;
+@property (nonatomic, copy, nullable) NSNumber *pointCloudMaxPoints;
 
 - (instancetype)initWithBridge:(RCTBridge *)bridge;
 
