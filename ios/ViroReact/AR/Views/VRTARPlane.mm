@@ -24,16 +24,19 @@ static float const kARPlaneDefaultMinWidth = 0;
         _pauseUpdates = NO;
         _arNodeDelegate = std::make_shared<VROARNodeDelegateiOS>(self);
         
-        std::shared_ptr<VROARPlaneNode> plane = std::dynamic_pointer_cast<VROARPlaneNode>([self node]);
+        std::shared_ptr<VROARDeclarativePlane> plane = std::dynamic_pointer_cast<VROARDeclarativePlane>([self node]);
         plane->setARNodeDelegate(_arNodeDelegate);
     }
     return self;
 }
 
+- (std::shared_ptr<VROARDeclarativeSession>)declarativeSession {
+    return std::dynamic_pointer_cast<VROARScene>([self scene])->getDeclarativeSession();
+}
+
 - (void)parentDidDisappear {
     if ([self scene]) {
-        std::shared_ptr<VROARScene> arScene = std::dynamic_pointer_cast<VROARScene>([self scene]);
-        arScene->removeARPlane(std::dynamic_pointer_cast<VROARPlaneNode>(self.node));
+        [self declarativeSession]->removeARNode(std::dynamic_pointer_cast<VROARDeclarativePlane>(self.node));
     }
     [super parentDidDisappear];
 }
@@ -41,22 +44,21 @@ static float const kARPlaneDefaultMinWidth = 0;
 - (void)setAnchorId:(NSString *)anchorId {
     [super setAnchorId:anchorId];
     _shouldUpdate = true;
-    std::shared_ptr<VROARPlaneNode> plane = std::dynamic_pointer_cast<VROARPlaneNode>([self node]);
+    std::shared_ptr<VROARDeclarativePlane> plane = std::dynamic_pointer_cast<VROARDeclarativePlane>([self node]);
     if (plane) {
-        plane->setId(std::string([self.anchorId UTF8String]));
+        plane->setAnchorId(std::string([self.anchorId UTF8String]));
     }
 }
 
 - (void)setScene:(std::shared_ptr<VROScene>)scene {
-    std::shared_ptr<VROARScene> arScene = std::dynamic_pointer_cast<VROARScene>(scene);
-    arScene->addARPlane(std::dynamic_pointer_cast<VROARPlaneNode>(self.node));
+    [self declarativeSession]->addARNode(std::dynamic_pointer_cast<VROARDeclarativePlane>(self.node));
     [super setScene:scene];
 }
 
 - (void)setMinHeight:(float)minHeight {
     _minHeight = minHeight;
     _shouldUpdate = true;
-    std::shared_ptr<VROARPlaneNode> plane = std::dynamic_pointer_cast<VROARPlaneNode>([self node]);
+    std::shared_ptr<VROARDeclarativePlane> plane = std::dynamic_pointer_cast<VROARDeclarativePlane>([self node]);
     if (plane) {
         plane->setMinHeight(_minHeight);
     }
@@ -65,7 +67,7 @@ static float const kARPlaneDefaultMinWidth = 0;
 - (void)setMinWidth:(float)minWidth {
     _minWidth = minWidth;
     _shouldUpdate = true;
-    std::shared_ptr<VROARPlaneNode> plane = std::dynamic_pointer_cast<VROARPlaneNode>([self node]);
+    std::shared_ptr<VROARDeclarativePlane> plane = std::dynamic_pointer_cast<VROARDeclarativePlane>([self node]);
     if (plane) {
         plane->setMinWidth(_minWidth);
     }
@@ -73,7 +75,7 @@ static float const kARPlaneDefaultMinWidth = 0;
 
 - (void)setPauseUpdates:(BOOL)pauseUpdates {
     _pauseUpdates = pauseUpdates;
-    std::shared_ptr<VROARPlaneNode> plane = std::dynamic_pointer_cast<VROARPlaneNode>([self node]);
+    std::shared_ptr<VROARDeclarativePlane> plane = std::dynamic_pointer_cast<VROARDeclarativePlane>([self node]);
     if (plane) {
         plane->setPauseUpdates(pauseUpdates);
     }
@@ -83,14 +85,14 @@ static float const kARPlaneDefaultMinWidth = 0;
     if (_shouldUpdate) {
         std::shared_ptr<VROARScene> arScene = std::dynamic_pointer_cast<VROARScene>(self.scene);
         if (arScene) {
-            arScene->updateARPlane(std::dynamic_pointer_cast<VROARPlaneNode>(self.node));
+            [self declarativeSession]->updateARNode(std::dynamic_pointer_cast<VROARDeclarativePlane>(self.node));
             _shouldUpdate = false;
         }
     }
 }
 
 - (std::shared_ptr<VRONode>)createVroNode {
-    return std::make_shared<VROARPlaneNode>(kARPlaneDefaultMinWidth, kARPlaneDefaultMinHeight);
+    return std::make_shared<VROARDeclarativePlane>(kARPlaneDefaultMinWidth, kARPlaneDefaultMinHeight);
 }
 
 @end

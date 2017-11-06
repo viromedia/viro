@@ -157,7 +157,7 @@ public:
      Invoked whenever an anchor is detected by the AR session, or when an 
      anchor is manually added to the session via addAnchor(). The application
      can choose to add a VROARNode to associate virtual content with this
-     anchor by setting a VROARNode on the anchor..
+     anchor by setting a VROARNode on the anchor.
      */
     virtual void anchorWasDetected(std::shared_ptr<VROARAnchor> anchor) = 0;
     

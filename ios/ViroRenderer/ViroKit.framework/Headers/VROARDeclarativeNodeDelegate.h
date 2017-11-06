@@ -11,11 +11,11 @@
 
 class VROARAnchor;
 
-class VROARNodeDelegate {
+class VROARDeclarativeNodeDelegate {
 public:
     
-    VROARNodeDelegate() {}
-    virtual ~VROARNodeDelegate() {}
+    VROARDeclarativeNodeDelegate() {}
+    virtual ~VROARDeclarativeNodeDelegate() {}
 
     /*
      Notifies the delegate that the node was attached to the given anchor. The

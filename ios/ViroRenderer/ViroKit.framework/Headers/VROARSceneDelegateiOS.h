@@ -10,6 +10,7 @@
 #define VROARSceneDelegateiOS_h
 
 #import "VROARScene.h"
+#import "VROARDeclarativeSession.h"
 #import <Foundation/Foundation.h>
 
 @protocol VROARSceneDelegateProtocol <NSObject>
@@ -21,10 +22,7 @@
 - (void)onAnchorRemoved:(std::shared_ptr<VROARAnchor>)anchor;
 @end
 
-/**
- * iOS implementation of the VROARSceneDelegate
- */
-class VROARSceneDelegateiOS : public VROARSceneDelegate {
+class VROARSceneDelegateiOS : public VROARSceneDelegate, public VROARDeclarativeSessionDelegate {
 public:
     VROARSceneDelegateiOS(id<VROARSceneDelegateProtocol> delegate) :
         _delegate(delegate) {}
@@ -34,22 +32,27 @@ public:
     virtual void onTrackingInitialized() {
         [_delegate onTrackingInitialized];
     }
+    
+    virtual void anchorWasDetected(std::shared_ptr<VROARAnchor> anchor) {
+        [_delegate onAnchorFound:anchor];
+    }
+    
+    virtual void anchorWillUpdate(std::shared_ptr<VROARAnchor> anchor) {
+        
+    }
+    
+    virtual void anchorDidUpdate(std::shared_ptr<VROARAnchor> anchor) {
+         [_delegate onAnchorUpdated:anchor];
+    }
+    
+    virtual void anchorWasRemoved(std::shared_ptr<VROARAnchor> anchor) {
+        [_delegate onAnchorRemoved:anchor];
+    }
 
     virtual void onAmbientLightUpdate(float intensity, float colorTemperature) {
         [_delegate onAmbientLightUpdate:intensity colorTemperature:colorTemperature];
     }
 
-    virtual void onAnchorFound(std::shared_ptr<VROARAnchor> anchor) {
-        [_delegate onAnchorFound:anchor];
-    }
-
-    virtual void onAnchorUpdated(std::shared_ptr<VROARAnchor> anchor) {
-        [_delegate onAnchorUpdated:anchor];
-    }
-
-    virtual void onAnchorRemoved(std::shared_ptr<VROARAnchor> anchor) {
-        [_delegate onAnchorRemoved:anchor];
-    }
 private:
     __weak id<VROARSceneDelegateProtocol> _delegate;
 };

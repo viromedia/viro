@@ -7,12 +7,13 @@ import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
-import com.viro.renderer.ARAnchor;
+import com.viro.renderer.jni.ARAnchor;
+import com.viro.renderer.jni.ARDeclarativeNode;
 import com.viro.renderer.jni.ARNode;
 import com.viromedia.bridge.utility.ARUtils;
 import com.viromedia.bridge.utility.ViroEvents;
 
-public class VRTARNode extends VRTNode implements ARNode.ARNodeDelegate {
+public class VRTARNode extends VRTNode implements ARDeclarativeNode.Delegate {
 
     protected boolean mIsAnchored = false;
 

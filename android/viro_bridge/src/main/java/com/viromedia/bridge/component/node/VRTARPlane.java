@@ -6,8 +6,9 @@ package com.viromedia.bridge.component.node;
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.WritableMap;
-import com.viro.renderer.ARAnchor;
-import com.viro.renderer.jni.ARPlane;
+import com.viro.renderer.jni.ARAnchor;
+import com.viro.renderer.jni.ARDeclarativeNode;
+import com.viro.renderer.jni.ARDeclarativePlane;
 import com.viro.renderer.jni.Node;
 
 public class VRTARPlane extends VRTARNode {
@@ -22,49 +23,49 @@ public class VRTARPlane extends VRTARNode {
     }
 
     protected Node createNodeJni() {
-        ARPlane arPlaneJni = new ARPlane(DEFAULT_WIDTH, DEFAULT_HEIGHT);
-        arPlaneJni.registerARNodeDelegate(this);
+        ARDeclarativePlane arPlaneJni = new ARDeclarativePlane(DEFAULT_WIDTH, DEFAULT_HEIGHT);
+        arPlaneJni.setDelegate(this);
         return arPlaneJni;
     }
 
     public void setMinWidth(float minWidth) {
-        ((ARPlane) getNodeJni()).setMinWidth(minWidth);
+        ((ARDeclarativePlane) getNodeJni()).setMinWidth(minWidth);
         mNeedsUpdate = true;
     }
 
     public void setMinHeight(float minHeight) {
-        ((ARPlane) getNodeJni()).setMinHeight(minHeight);
+        ((ARDeclarativePlane) getNodeJni()).setMinHeight(minHeight);
         mNeedsUpdate = true;
     }
 
     public void setAnchorId(String anchorId) {
-        ((ARPlane) getNodeJni()).setAnchorId(anchorId);
+        ((ARDeclarativeNode) getNodeJni()).setAnchorId(anchorId);
         mNeedsUpdate = true;
     }
 
     public void setPauseUpdates(boolean pauseUpdates) {
-        ((ARPlane) getNodeJni()).setPauseUpdates(pauseUpdates);
+        ((ARDeclarativeNode) getNodeJni()).setPauseUpdates(pauseUpdates);
     }
 
     @Override
     public void setScene(VRTScene scene) {
         super.setScene(scene);
         if (scene != null) {
-            ((VRTARScene) scene).addARPlane((ARPlane) getNodeJni());
+            ((VRTARScene) scene).addARNode((ARDeclarativeNode) getNodeJni());
         }
     }
 
     @Override
     public void parentDidDisappear() {
         if (mScene != null && getNodeJni() != null) {
-            ((VRTARScene) mScene).removeARPlane((ARPlane) getNodeJni());
+            ((VRTARScene) mScene).removeARNode((ARDeclarativeNode) getNodeJni());
         }
     }
 
     @Override
     protected void onPropsSet() {
         if (mNeedsUpdate && mScene != null) {
-            ((VRTARScene) mScene).updateARPlane((ARPlane) getNodeJni());
+            ((VRTARScene) mScene).updateARNode((ARDeclarativeNode) getNodeJni());
             mNeedsUpdate = false;
         }
     }

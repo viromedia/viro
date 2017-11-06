@@ -11,11 +11,13 @@
 
 #include "VROSceneController.h"
 #include "VROARScene.h"
+#include "VROARDeclarativeSession.h"
 
 class VROARSceneController : public VROSceneController {
 public:
     VROARSceneController() {
-        _scene = std::make_shared<VROARScene>();
+        std::shared_ptr<VROARScene> scene = std::make_shared<VROARScene>();
+        _scene = scene;
         _scene->getRootNode()->setScene(_scene, true);
     }
     virtual ~VROARSceneController() {}
@@ -27,13 +29,17 @@ public:
     virtual void onSceneWillAppear(VRORenderContext *context, std::shared_ptr<VRODriver> driver) {
         VROSceneController::onSceneWillAppear(context, driver);
         std::shared_ptr<VROARScene> arScene = std::dynamic_pointer_cast<VROARScene>(_scene);
-        arScene->willAppear();
+        if (arScene) {
+            arScene->willAppear();
+        }
     }
     
     virtual void onSceneWillDisappear(VRORenderContext *context, std::shared_ptr<VRODriver> driver) {
         VROSceneController::onSceneWillDisappear(context, driver);
         std::shared_ptr<VROARScene> arScene = std::dynamic_pointer_cast<VROARScene>(_scene);
-        arScene->willDisappear();
+        if (arScene) {
+            arScene->willDisappear();
+        }
     }
 };
 

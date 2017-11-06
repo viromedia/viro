@@ -90,9 +90,8 @@ public:
     }
     
 private:
-
+    
     std::string _id;
-
     VROMatrix4f _transform;
 
     /*

@@ -33,11 +33,13 @@ static NSString *const kCameraOrientation = @"cameraOrientation";
 }
 
 - (instancetype)initWithBridge:(RCTBridge *)bridge {
-    self = [super initWithBridge:bridge];
+    self = [super initWithBridge:bridge]; // Invokes initSceneController
     if (self) {
         _loader = [[VRTImageAsyncLoader alloc] initWithDelegate:self];
         _sceneDelegate = std::make_shared<VROARSceneDelegateiOS>(self);
+        _vroArScene->initDeclarativeSession();
         _vroArScene->setDelegate(_sceneDelegate);
+        _vroArScene->getDeclarativeSession()->setDelegate(_sceneDelegate);
     }
     return self;
 }
@@ -51,6 +53,7 @@ static NSString *const kCameraOrientation = @"cameraOrientation";
     self.sceneController->setDelegate(self.delegate);
     
     _vroArScene = std::dynamic_pointer_cast<VROARScene>(self.sceneController->getScene());
+    _vroArScene->initDeclarativeSession();
     self.portalTraversalListener = std::make_shared<VROPortalTraversalListener>(_vroArScene);
 }
 

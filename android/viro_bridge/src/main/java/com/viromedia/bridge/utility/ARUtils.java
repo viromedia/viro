@@ -6,24 +6,26 @@ package com.viromedia.bridge.utility;
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.WritableArray;
 import com.facebook.react.bridge.WritableMap;
-import com.viro.renderer.ARAnchor;
+import com.viro.renderer.jni.ARAnchor;
 import com.viro.renderer.ARHitTestResult;
+import com.viro.renderer.jni.ARPlaneAnchor;
 
 public class ARUtils {
 
     public static WritableMap mapFromARAnchor(ARAnchor anchor) {
         WritableMap returnMap = Arguments.createMap();
         returnMap.putString("anchorId", anchor.getAnchorId());
-        returnMap.putArray("position", Arguments.makeNativeArray(anchor.getPosition()));
-        returnMap.putArray("scale", Arguments.makeNativeArray(anchor.getScale()));
-        returnMap.putArray("rotation", Arguments.makeNativeArray(anchor.getRotation()));
-        returnMap.putString("type", anchor.getType());
+        returnMap.putArray("position", Arguments.makeNativeArray(anchor.getPosition().toArray()));
+        returnMap.putArray("scale", Arguments.makeNativeArray(anchor.getScale().toArray()));
+        returnMap.putArray("rotation", Arguments.makeNativeArray(anchor.getRotation().toArray()));
+        returnMap.putString("type", anchor.getType().getStringValue());
 
-        if (anchor.getType().equals("plane")) {
-            returnMap.putArray("center", Arguments.makeNativeArray(anchor.getCenter()));
-            returnMap.putDouble("width", anchor.getExtent()[0]);
-            returnMap.putDouble("height", anchor.getExtent()[2]);
-            returnMap.putString("alignment", anchor.getAlignment());
+        if (anchor.getType() == ARAnchor.Type.PLANE) {
+            ARPlaneAnchor plane = (ARPlaneAnchor) anchor;
+            returnMap.putArray("center", Arguments.makeNativeArray(plane.getCenter().toArray()));
+            returnMap.putDouble("width", plane.getExtent().x);
+            returnMap.putDouble("height", plane.getExtent().z);
+            returnMap.putString("alignment", plane.getAlignment().getStringValue());
         }
         return returnMap;
     }

@@ -10,20 +10,20 @@
 #define VROARPlaneNode_h
 
 #include "VROARPlaneAnchor.h"
-#include "VROARNode.h"
+#include "VROARDeclarativeNode.h"
 
 /*
  This class is a nice container that associates the virtual (VRONode), the real (VROARAnchor) and
  the constraints that bind them together.
  */
-class VROARPlaneNode : public VROARNode {
+class VROARDeclarativePlane : public VROARDeclarativeNode {
 public:
-    VROARPlaneNode(float minWidth, float minHeight) :
+    VROARDeclarativePlane(float minWidth, float minHeight) :
         _minWidth(minWidth),
         _minHeight(minHeight)
     {}
     
-    virtual ~VROARPlaneNode() {}
+    virtual ~VROARDeclarativePlane() {}
     
     /*
      Returns whether or not the given VROARAnchor fulfills this plane's requirements.

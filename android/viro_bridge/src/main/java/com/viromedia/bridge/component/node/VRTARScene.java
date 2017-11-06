@@ -16,8 +16,9 @@ import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.WritableArray;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
-import com.viro.renderer.ARAnchor;
-import com.viro.renderer.jni.ARPlane;
+import com.viro.renderer.jni.ARAnchor;
+import com.viro.renderer.jni.ARDeclarativeNode;
+import com.viro.renderer.jni.ARDeclarativePlane;
 
 import com.viro.renderer.jni.ARScene;
 import com.viro.renderer.jni.Image;
@@ -52,7 +53,7 @@ public class VRTARScene extends VRTScene implements ARScene.ARSceneDelegate {
 
     @Override
     protected Scene createSceneJni() {
-        ARScene sceneControllerJni = new ARScene();
+        ARScene sceneControllerJni = new ARScene(true);
         sceneControllerJni.registerARDelegate(this);
         return sceneControllerJni;
     }
@@ -93,16 +94,16 @@ public class VRTARScene extends VRTScene implements ARScene.ARSceneDelegate {
         ((ARScene) mNativeScene).setPointCloudMaxPoints(maxPoints);
     }
 
-    public void addARPlane(ARPlane planeJni) {
-        ((ARScene) mNativeScene).addARPlane(planeJni);
+    public void addARNode(ARDeclarativeNode node) {
+        ((ARScene) mNativeScene).addARDeclarativeNode(node);
     }
 
-    public void updateARPlane(ARPlane planeJni) {
-        ((ARScene) mNativeScene).updateARPlane(planeJni);
+    public void updateARNode(ARDeclarativeNode node) {
+        ((ARScene) mNativeScene).updateARDeclarativeNode(node);
     }
 
-    public void removeARPlane(ARPlane planeJni) {
-        ((ARScene) mNativeScene).removeARPlane(planeJni);
+    public void removeARNode(ARDeclarativeNode node) {
+        ((ARScene) mNativeScene).removeARDeclarativeNode(node);
     }
 
     public void setAnchorDetectionTypes(ReadableArray types) {
