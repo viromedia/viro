@@ -84,6 +84,14 @@ var Viro3DObjectTest = createReactClass({
               type="OBJ"
               materials="heart"/>
 
+      <Viro3DObject source={require('./res/object_basketball.vrx')}
+                    position={[0, 0, -2.0]}
+                    rotation={[0, 0, 0]}
+                    resources={[require('./res/object_basketball_diffuse.png'),
+                                require('./res/object_basketball_normal.png'),
+                                require('./res/object_basketball_specular.png')]}
+                    type="VRX" />
+
        <ViroAnimatedComponent animation="loopRotate" run={this.state.runAnimation2} >
          <Viro3DObject source={require('./res/xwing.obj')}
                        resources={[require("./res/star-wars-x-wing.mtl")]}
@@ -130,23 +138,7 @@ var Viro3DObjectTest = createReactClass({
   },
 
   /*
-   I removed the basketball because the vrx file and the jpg file have the same filename (ignoring the extension)
-   which is an issue on Android release builds because Android uses resources which doesn't actually take into
-   account the file extensions, so to Android the two files appear to be the same files
-
-         <Viro3DObject source={require('./res/bball.vrx')}
-                     position={[0, 0, -12.0]}
-                     rotation={[0, 0, 0]}
-                     resources={[require('./res/bball.jpg'),
-                                 require('./res/bball_SPEC.png'),
-                                 require('./res/bball_SPEC_NRM.png')]}
-                     scale={[0.1, 0.1, 0.1]}
-                     type="VRX"
-                     animation={{name:"Take 001", delay:0, loop:true, run:true,
-                                 onStart:this._onAnimStart, onFinish:this._onAnimEnd}}
-       />
-
-   I also removed the man because hyphens are not allowed in android resource names, so this will never run in release
+   I removed the man because hyphens are not allowed in android resource names, so this will never run in release
 
           <Viro3DObject source={require('./res/male02_obj.obj')}
                      resources={[require('./res/male02.mtl'),

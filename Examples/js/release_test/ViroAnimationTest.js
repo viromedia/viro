@@ -78,10 +78,13 @@ var ViroAnimationTest = createReactClass({
      <ViroOmniLight position={[0, 0, 0]} color="#ffffff" attenuationStartDistance={40} attenuationEndDistance={50}/>
      <ViroImage source={require('./res/poi_dot.png')} position={[-1, 0, 0]} transformBehaviors={["billboard"]} onClick={this._showNext} />
 
-     <Viro3DObject source={require('./res/bball.vrx')}
+     <Viro3DObject source={require('./res/object_basketball.vrx')}
+                   resources={[require('./res/object_basketball_diffuse.png'),
+                               require('./res/object_basketball_normal.png'),
+                               require('./res/object_basketball_specular.png')]}
                    position={[-1, 6, -3]}
                    rotation={[0, 0, 0]}
-                   scale={[0.1, 0.1, 0.1]}
+                   scale={[1, 1, 1]}
                    type="VRX"
                    animation={{name:currentAnim,
                                delay:this.state.animationComponentDelay,
