@@ -4756,8 +4756,8 @@ vn -0.418653 0.882839 0.212806
 vn -0.673513 -0.123325 0.728782
 vn -0.567583 0.234870 0.789087
 vn -0.831507 0.444075 0.333689
-g mesh1.002_mesh1-geometry_male-02-1noCullingID_male-02-1noCulling.JP
-usemtl male-02-1noCullingID_male-02-1noCulling.JP
+g mesh1.002_mesh1-geometry_male_02_1noCullingID_male_02_1noCulling.JP
+usemtl male_02_1noCullingID_male_02_1noCulling.JP
 s 1
 f 1/1/1 2/2/2 3/3/3
 f 1/1/1 4/4/4 2/2/2
@@ -7991,8 +7991,8 @@ vn -0.866207 0.173376 -0.468612
 vn -0.918590 -0.033212 0.393813
 vn 0.315050 -0.001912 0.949073
 vn 0.839814 0.032596 -0.541895
-g mesh2.002_mesh2-geometry_male-02-1noCullingID_male-02-1noCulling.JP
-usemtl male-02-1noCullingID_male-02-1noCulling.JP
+g mesh2.002_mesh2-geometry_male_02_1noCullingID_male_02_1noCulling.JP
+usemtl male_02_1noCullingID_male_02_1noCulling.JP
 s 1
 f 1519/1718/1520 1520/1719/1521 1521/1720/1522
 f 1519/1718/1520 1522/1721/1523 1520/1719/1521
@@ -8342,8 +8342,8 @@ vn -0.001309 -0.999964 -0.008376
 vn -0.434828 0.791742 -0.428938
 vn 0.188596 -0.926500 -0.325620
 vn 0.188596 -0.926501 -0.325620
-g mesh3.002_mesh3-geometry_male-02-1noCullingID_male-02-1noCulling.JP
-usemtl male-02-1noCullingID_male-02-1noCulling.JP
+g mesh3.002_mesh3-geometry_male_02_1noCullingID_male_02_1noCulling.JP
+usemtl male_02_1noCullingID_male_02_1noCulling.JP
 s 1
 f 1577/1807/1590 1578/1808/1591 1579/1809/1592
 f 1578/1808/1591 1577/1807/1590 1580/1810/1593
@@ -12331,8 +12331,8 @@ vn -0.148595 -0.339030 0.928953
 vn 0.348674 -0.441084 0.826930
 vn 0.734001 -0.624317 -0.267281
 vn 0.851619 -0.523942 -0.014222
-g mesh9.002_mesh9-geometry_male-02-1noCullingID_male-02-1noCulling.JP
-usemtl male-02-1noCullingID_male-02-1noCulling.JP
+g mesh9.002_mesh9-geometry_male_02_1noCullingID_male_02_1noCulling.JP
+usemtl male_02_1noCullingID_male_02_1noCulling.JP
 s 1
 f 2315/2726/2338 2316/2727/2339 2317/2728/2340
 f 2315/2726/2338 2318/2729/2341 2316/2727/2339
@@ -12750,8 +12750,8 @@ f 2383/2807/2406 2420/2846/2443 2381/2805/2404
 f 2381/2805/2404 2414/2840/2437 2379/2803/2402
 f 2379/2803/2402 2408/2834/2431 2377/2801/2400
 f 2375/2799/2398 2377/2801/2400 2402/2828/2425
-g mesh9.002_mesh9-geometry_FrontColorNoCullingID_male-02-1noCulling.JP
-usemtl FrontColorNoCullingID_male-02-1noCulling.JP
+g mesh9.002_mesh9-geometry_FrontColorNoCullingID_male_02_1noCulling.JP
+usemtl FrontColorNoCullingID_male_02_1noCulling.JP
 f 2398/2993/2421 2405/2994/2428 2406/2995/2429
 f 2430/2996/2453 2411/2997/2434 2412/2998/2435
 f 2430/2999/2453 2412/3000/2435 2480/3001/2503
@@ -13462,8 +13462,8 @@ vn 0.587359 0.700156 -0.405896
 vn 0.322214 -0.304086 -0.896481
 vn 0.554369 -0.108127 -0.825190
 vn 0.876644 0.430097 -0.215583
-g mesh10.002_mesh10-geometry_male-02-1noCullingID_male-02-1noCulling.JP
-usemtl male-02-1noCullingID_male-02-1noCulling.JP
+g mesh10.002_mesh10-geometry_male_02_1noCullingID_male_02_1noCulling.JP
+usemtl male_02_1noCullingID_male_02_1noCulling.JP
 s 1
 f 2531/3002/2554 2532/3003/2555 2533/3004/2556
 f 2531/3005/2554 2534/3006/2557 2532/3007/2555
@@ -13882,7 +13882,7 @@ f 2662/3152/2685 2657/3147/2680 2660/3150/2683
 f 2589/3069/2612 2591/3071/2614 2588/3068/2611
 f 2587/3067/2610 2645/3133/2668 2586/3066/2609
 f 2539/3012/2562 2540/3013/2563 2542/3015/2565
-g mesh10.002_mesh10-geometry_FrontColorNoCullingID_male-02-1noCulling.JP
-usemtl FrontColorNoCullingID_male-02-1noCulling.JP
+g mesh10.002_mesh10-geometry_FrontColorNoCullingID_male_02_1noCulling.JP
+usemtl FrontColorNoCullingID_male_02_1noCulling.JP
 f 2693/3270/2716 2697/3271/2720 2635/3272/2658
 f 2669/3273/2692 2673/3274/2696 2636/3275/2659

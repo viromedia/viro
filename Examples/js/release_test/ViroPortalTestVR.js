@@ -124,9 +124,9 @@ var ViroPortalTest = createReactClass({
 
                     <Viro3DObject source={require('./res/male02_obj.obj')}
                                   resources={[require('./res/male02.mtl'),
-                                              require('./res/01_-_Default1noCulling.JPG'),
-                                              require('./res/male-02-1noCulling.JPG'),
-                                              require('./res/orig_02_-_Defaul1noCulling.JPG')]}
+                                              require('./res/01_Default1noCulling.JPG'),
+                                              require('./res/male_02_1noCulling.JPG'),
+                                              require('./res/orig_02_Defaul1noCulling.JPG')]}
                                   position={[0.5, 0, -0.5]}
                                   scale={[0.01, 0.01, 0.01]} type="OBJ"
                      />

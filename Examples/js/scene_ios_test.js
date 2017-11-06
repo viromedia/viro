@@ -48,9 +48,9 @@ var scene_ios_test = createReactClass({
           <ViroText style={styles.baseTextTwo} width={10.0} position={[0,1.5, -8]} text="Testing same text different width and length up in here. Know what I mean?" />
           <Viro3DObject source={require('./res/male02_obj.obj')}
                           resources={[require('./res/male02.mtl'),
-                                      require('./res/01_-_Default1noCulling.JPG'),
-                                      require('./res/male-02-1noCulling.JPG'),
-                                      require('./res/orig_02_-_Defaul1noCulling.JPG')]}
+                                      require('./res/01_Default1noCulling.JPG'),
+                                      require('./res/male_02_1noCulling.JPG'),
+                                      require('./res/orig_02_Defaul1noCulling.JPG')]}
                           type="OBJ"
                           position={[-0.0, -100, -10]}
                           scale={[0.1, 0.1, 0.1]}
