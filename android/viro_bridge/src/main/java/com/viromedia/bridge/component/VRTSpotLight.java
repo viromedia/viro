@@ -14,10 +14,10 @@ public class VRTSpotLight extends VRTLight {
 
     private float[] mDirection;
     private float[] mPosition = DEFAULT_POSITION;
-    private float mAttenuationStartDistance;
-    private float mAttenuationEndDistance;
-    private float mInnerAngle;
-    private float mOuterAngle;
+    private float mAttenuationStartDistance = 2.0f;
+    private float mAttenuationEndDistance = 10f;
+    private float mInnerAngle = 0f;
+    private float mOuterAngle = 45f;
 
     private Spotlight mNativeLight;
 

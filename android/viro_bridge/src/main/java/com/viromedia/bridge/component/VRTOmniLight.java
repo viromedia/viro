@@ -14,8 +14,8 @@ public class VRTOmniLight extends VRTLight {
     private static final float[] DEFAULT_POSITION = {0, 0, 0};
 
     private float[] mPosition = DEFAULT_POSITION;
-    private float mAttenuationStartDistance;
-    private float mAttenuationEndDistance;
+    private float mAttenuationStartDistance = 2f;
+    private float mAttenuationEndDistance = 10f;
 
     private OmniLight mNativeLight;
     public VRTOmniLight(Context context) {
