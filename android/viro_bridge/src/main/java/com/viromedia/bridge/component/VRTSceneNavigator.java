@@ -13,10 +13,10 @@ import android.widget.FrameLayout;
 import com.facebook.react.bridge.LifecycleEventListener;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
-import com.viro.renderer.jni.GLListener;
+import com.viro.renderer.jni.RendererStartListener;
 import com.viro.renderer.jni.ViroContext;
-import com.viro.renderer.jni.ViroGvrLayout;
-import com.viro.renderer.jni.ViroOvrView;
+import com.viro.renderer.jni.ViroViewGVR;
+import com.viro.renderer.jni.ViroViewOVR;
 import com.viro.renderer.jni.ViroView;
 import com.viromedia.bridge.ReactViroPackage;
 import com.viromedia.bridge.component.node.VRTScene;
@@ -36,7 +36,7 @@ public class VRTSceneNavigator extends FrameLayout {
 
     private static final String DAYDREAM = "daydream";
 
-    protected static class InnerGLListener implements GLListener {
+    protected static class InnerGLListener implements RendererStartListener {
 
         private WeakReference<VRTSceneNavigator> mNavigator;
 
@@ -45,7 +45,7 @@ public class VRTSceneNavigator extends FrameLayout {
         }
 
         @Override
-        public void onGlInitialized() {
+        public void onRendererStart() {
             final VRTSceneNavigator navigator = mNavigator.get();
             if (navigator == null) {
                 return;
@@ -180,12 +180,12 @@ public class VRTSceneNavigator extends FrameLayout {
     protected ViroView createViroView(ReactApplicationContext reactContext) {
         switch (mPlatform) {
             case OVR_MOBILE:
-                return new ViroOvrView(reactContext.getCurrentActivity(),
+                return new ViroViewOVR(reactContext.getCurrentActivity(),
                         new InnerGLListener(this));
             case GVR:
                 // default case is to use GVR
             default:
-                return new ViroGvrLayout(reactContext.getCurrentActivity(),
+                return new ViroViewGVR(reactContext.getCurrentActivity(),
                         new InnerGLListener(this), new OnGVRExitListener(this));
         }
     }
@@ -270,7 +270,7 @@ public class VRTSceneNavigator extends FrameLayout {
     }
 
     public void setVrModeEnabled(boolean vrModeEnabled) {
-        mViroView.setVrModeEnabled(vrModeEnabled);
+        mViroView.setVRModeEnabled(vrModeEnabled);
     }
 
     public void setHasOnExitViroCallback(boolean hasCallback) {
@@ -289,7 +289,7 @@ public class VRTSceneNavigator extends FrameLayout {
                     "at www.viromedia.com.");
         }
 
-        mViroView.validateApiKey(apiKey.trim());
+        mViroView.validateAPIKey(apiKey.trim());
     }
 
     private void notifyScenePlatformInformation() {
@@ -320,7 +320,7 @@ public class VRTSceneNavigator extends FrameLayout {
         materialManager.shouldReload();
 
         mViroView.onActivityStopped(mReactContext.getCurrentActivity());
-        mViroView.destroy();
+        mViroView.dispose();
     }
 
     private void onHostResume() {

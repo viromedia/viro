@@ -37,6 +37,7 @@ import com.viromedia.bridge.utility.ImageDownloader;
 import com.viromedia.bridge.utility.ViroEvents;
 
 import java.util.ArrayList;
+import java.util.EnumSet;
 
 public class VRTARScene extends VRTScene implements ARScene.Delegate {
 
@@ -55,7 +56,7 @@ public class VRTARScene extends VRTScene implements ARScene.Delegate {
     @Override
     protected Scene createSceneJni() {
         ARScene sceneControllerJni = new ARScene(true);
-        sceneControllerJni.registerDelegate(this);
+        sceneControllerJni.setDelegate(this);
         return sceneControllerJni;
     }
 
@@ -113,10 +114,10 @@ public class VRTARScene extends VRTScene implements ARScene.Delegate {
             VRTARSceneNavigator navigator = (VRTARSceneNavigator) parent;
             ViroViewARCore viroViewARCore = navigator.getARView();
             if (viroViewARCore != null) {
-                ArrayList<String> typesList = new ArrayList<>();
+                EnumSet<ViroViewARCore.AnchorDetectionType> typesList = EnumSet.noneOf(ViroViewARCore.AnchorDetectionType.class);
                 if (types != null) {
                     for (int i = 0; i < types.size(); i++) {
-                        typesList.add(types.getString(i));
+                        typesList.add(ViroViewARCore.AnchorDetectionType.valueFromString(types.getString(i)));
                     }
                 }
                 viroViewARCore.setAnchorDetectionTypes(typesList);
