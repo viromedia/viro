@@ -22,7 +22,7 @@ static NSString *const kVRTARHitTestScaleKey = @"scale";
     NSMutableDictionary *transformDict = [[NSMutableDictionary alloc] init];
     [transformDict setObject:[VRTARHitTestUtil arrayFromVector:result.getWorldTransform().extractTranslation()] forKey:kVRTARHitTestPositionKey];
     [transformDict setObject:[VRTARHitTestUtil arrayFromVector:result.getWorldTransform().extractScale()] forKey:kVRTARHitTestScaleKey];
-    [transformDict setObject:[VRTARHitTestUtil arrayFromVector:result.getWorldTransform().extractRotation(result.getWorldTransform().extractScale()).toEuler()] forKey:kVRTARHitTestRotationKey];
+    [transformDict setObject:[VRTARHitTestUtil rotationFromVector:result.getWorldTransform().extractRotation(result.getWorldTransform().extractScale()).toEuler()] forKey:kVRTARHitTestRotationKey];
     [resultDict setObject:transformDict forKey:kVRTARHitTestTransformKey];
     return resultDict;
 }
@@ -42,6 +42,10 @@ static NSString *const kVRTARHitTestScaleKey = @"scale";
 
 + (NSArray *)arrayFromVector:(VROVector3f)vector {
     return @[@(vector.x), @(vector.y), @(vector.z)];
+}
+
++ (NSArray *)rotationFromVector:(VROVector3f)vector {
+    return @[@(toDegrees(vector.x)), @(toDegrees(vector.y)), @(toDegrees(vector.z))];
 }
 
 @end

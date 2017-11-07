@@ -10,6 +10,7 @@ import com.viro.renderer.jni.BaseSound;
 import com.viro.renderer.jni.SoundData;
 import com.viro.renderer.jni.SoundField;
 import com.viro.renderer.jni.Vector;
+import com.viromedia.bridge.utility.Helper;
 import com.viromedia.bridge.utility.ViroEvents;
 
 public class VRTSoundField extends VRTBaseSound implements SoundField.Delegate {
@@ -33,7 +34,7 @@ public class VRTSoundField extends VRTBaseSound implements SoundField.Delegate {
             return;
         }
 
-        ((SoundField) mNativeSound).setRotation(new Vector(mRotation));
+        ((SoundField) mNativeSound).setRotation(Helper.toRadiansVector(mRotation));
     }
 
     @Override

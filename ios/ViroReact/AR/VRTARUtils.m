@@ -22,7 +22,7 @@
     
     [dict setObject:@[@(position.x), @(position.y), @(position.z)] forKey:@"position"];
     [dict setObject:@[@(scale.x), @(scale.y), @(scale.z)] forKey:@"scale"];
-    [dict setObject:@[@(rotation.x), @(rotation.y), @(rotation.z)] forKey:@"rotation"];
+    [dict setObject:@[@(toDegrees(rotation.x)), @(toDegrees(rotation.y)), @(toDegrees(rotation.z))] forKey:@"rotation"];
 
     // default type is "anchor", override below.
     [dict setObject:@"anchor" forKey:@"type"];

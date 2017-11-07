@@ -40,6 +40,7 @@ import com.viromedia.bridge.component.node.control.VRTText;
 import com.viromedia.bridge.component.node.control.VRTVideoSurface;
 import com.viromedia.bridge.module.AnimationManager;
 import com.viromedia.bridge.utility.ComponentEventDelegate;
+import com.viromedia.bridge.utility.Helper;
 import com.viromedia.bridge.utility.ViroEvents;
 import com.viromedia.bridge.utility.ViroLog;
 
@@ -451,7 +452,7 @@ public class VRTNode extends VRTComponent {
                     "[x,y,z] axis values are needed.");
         }
         mRotation = rotation;
-        mNodeJni.setRotation(new Vector(rotation));
+        mNodeJni.setRotation(Helper.toRadiansVector(rotation));
     }
 
     protected void setScale(float[] scale) {

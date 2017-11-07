@@ -102,7 +102,7 @@ public class VRTScene extends VRTNode implements Scene.SceneDelegate {
     }
 
     public void setBackgroundRotation(float[] rotation) {
-        mNativeScene.setBackgroundRotation(new Vector(rotation));
+        mNativeScene.setBackgroundRotation(Helper.toRadiansVector(rotation));
     }
 
     public void setBackgroundCubeImageTexture(Texture texture) {

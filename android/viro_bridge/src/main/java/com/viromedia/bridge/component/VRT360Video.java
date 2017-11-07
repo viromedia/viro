@@ -137,7 +137,7 @@ public class VRT360Video extends VRTNode {
             PortalScene portal = getNodeJni().getParentPortalScene();
             if (portal != null) {
                 updateVideoTexture();
-                portal.setBackgroundRotation(new Vector(mRotation));
+                portal.setBackgroundRotation(Helper.toRadiansVector(mRotation));
             }
         }
     }
@@ -155,7 +155,7 @@ public class VRT360Video extends VRTNode {
 
         PortalScene portal = getNodeJni() != null ? getNodeJni().getParentPortalScene() : null;
         if (portal != null) {
-            portal.setBackgroundRotation(new Vector(mRotation));
+            portal.setBackgroundRotation(Helper.toRadiansVector(mRotation));
         }
     }
 
@@ -234,7 +234,7 @@ public class VRT360Video extends VRTNode {
         if (getNodeJni() != null) {
             PortalScene portal = getNodeJni().getParentPortalScene();
             if (portal != null) {
-                portal.setBackgroundRotation(new Vector(mRotation));
+                portal.setBackgroundRotation(Helper.toRadiansVector(mRotation));
             }
         }
     }

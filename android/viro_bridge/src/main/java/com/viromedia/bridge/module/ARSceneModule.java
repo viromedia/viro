@@ -12,7 +12,6 @@ import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.WritableArray;
-import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.uimanager.IllegalViewOperationException;
 import com.facebook.react.uimanager.NativeViewHierarchyManager;
 import com.facebook.react.uimanager.UIBlock;
@@ -21,7 +20,6 @@ import com.viro.renderer.ARHitTestResult;
 import com.viro.renderer.jni.Renderer;
 import com.viro.renderer.jni.ViroViewARCore;
 import com.viromedia.bridge.component.VRTARSceneNavigator;
-import com.viromedia.bridge.utility.ARHitTestResultUtil;
 import com.viromedia.bridge.utility.ARUtils;
 
 

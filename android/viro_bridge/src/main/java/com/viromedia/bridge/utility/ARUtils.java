@@ -17,7 +17,8 @@ public class ARUtils {
         returnMap.putString("anchorId", anchor.getAnchorId());
         returnMap.putArray("position", Arguments.makeNativeArray(anchor.getPosition().toArray()));
         returnMap.putArray("scale", Arguments.makeNativeArray(anchor.getScale().toArray()));
-        returnMap.putArray("rotation", Arguments.makeNativeArray(anchor.getRotation().toArray()));
+        // rotation values come as radians, we need to convert to degrees
+        returnMap.putArray("rotation", arrayFromRotationArray(anchor.getRotation().toArray()));
         returnMap.putString("type", anchor.getType().getStringValue());
 
         if (anchor.getType() == ARAnchor.Type.PLANE) {
@@ -30,25 +31,39 @@ public class ARUtils {
         return returnMap;
     }
 
+    // TODO: VIRO-2170 ARHitTestResults should also use Vectors
     public static WritableMap mapFromARHitTestResult(ARHitTestResult result) {
         WritableMap returnMap = Arguments.createMap();
         returnMap.putString("type", result.getType());
         WritableMap transformMap = Arguments.createMap();
-        transformMap.putArray("position", ARUtils.arrayFromFloatArray(result.getPosition()));
-        transformMap.putArray("scale", ARUtils.arrayFromFloatArray(result.getScale()));
-        transformMap.putArray("rotation", ARUtils.arrayFromFloatArray(result.getRotation()));
+        transformMap.putArray("position", arrayFromFloatArray(result.getPosition()));
+        transformMap.putArray("scale", arrayFromFloatArray(result.getScale()));
+        // rotation values come as radians, we need to convert to degrees
+        transformMap.putArray("rotation", arrayFromRotationArray(result.getRotation()));
         returnMap.putMap("transform", transformMap);
         return returnMap;
     }
 
     /*
-   Assumes there are only 3 elements in it.
-   */
+     Assumes there are only 3 elements in it.
+     */
     private static WritableArray arrayFromFloatArray(float[] array) {
         WritableArray returnArray = Arguments.createArray();
         returnArray.pushDouble(array[0]);
         returnArray.pushDouble(array[1]);
         returnArray.pushDouble(array[2]);
+        return returnArray;
+    }
+
+    /*
+     Rotation from the renderer/jni (ViroCore) comes as radians, so we need to convert
+     to degrees for ViroReact
+     */
+    private static WritableArray arrayFromRotationArray(float[] array) {
+        WritableArray returnArray = Arguments.createArray();
+        returnArray.pushDouble(Math.toDegrees(array[0]));
+        returnArray.pushDouble(Math.toDegrees(array[1]));
+        returnArray.pushDouble(Math.toDegrees(array[2]));
         return returnArray;
     }
 }

@@ -49,9 +49,9 @@ public class CameraModule extends ReactContextBaseJavaModule {
                             array.pushDouble(posX);
                             array.pushDouble(poxY);
                             array.pushDouble(posZ);
-                            array.pushDouble(rotEulerX);
-                            array.pushDouble(rotEulerY);
-                            array.pushDouble(rotEulerZ);
+                            array.pushDouble(Math.toDegrees(rotEulerX));
+                            array.pushDouble(Math.toDegrees(rotEulerY));
+                            array.pushDouble(Math.toDegrees(rotEulerZ));
                             array.pushDouble(forwardX);
                             array.pushDouble(forwardY);
                             array.pushDouble(forwardZ);

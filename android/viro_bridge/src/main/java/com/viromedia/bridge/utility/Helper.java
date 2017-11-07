@@ -41,6 +41,11 @@ public class Helper {
         return new Vector((float) value.getDouble(0), (float) value.getDouble(1), (float) value.getDouble(2));
     }
 
+    public static Vector toRadiansVector(float[] degreesArray) {
+        return new Vector(Math.toRadians(degreesArray[0]),
+                Math.toRadians(degreesArray[1]), Math.toRadians(degreesArray[2]));
+    }
+
     /**
      * This method takes a path and creates a Uri for it. If given a normal http path,
      * it'll leave it alone, but given a resource file name (that React gives us), it'll

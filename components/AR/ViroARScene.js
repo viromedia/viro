@@ -176,16 +176,22 @@ var ViroARScene = createReactClass({
     return await NativeModules.VRTSceneModule.findCollisionsWithShapeAsync(findNodeHandle(this), from, to, shapeString, shapeParam, viroTag);
   },
 
-  async getCameraPositionAsync() {
-    return await ViroCameraModule.getCameraPosition(findNodeHandle(this));
-  },
-
   async performARHitTestWithRay(ray) {
     return await NativeModules.VRTARSceneModule.performARHitTestWithRay(findNodeHandle(this), ray);
   },
 
   async performARHitTestWithPosition(position) {
     return await NativeModules.VRTARSceneModule.performARHitTestWithPosition(findNodeHandle(this), position);
+  },
+
+  /**
+   * ##### DEPRECATION WARNING - this prop may be removed in future releases #####
+   */
+  async getCameraPositionAsync() {
+    console.warn("[Viro] ViroARScene.getCameraPositionAsync has been DEPRECATED. Please use getCameraOrientationAsync instead.");
+    var orientation = await NativeModules.VRTCameraModule.getCameraOrientation(findNodeHandle(this));
+    position = [orientation[0], orientation[1], orientation[2]];
+    return position;
   },
 
   async getCameraOrientationAsync(){

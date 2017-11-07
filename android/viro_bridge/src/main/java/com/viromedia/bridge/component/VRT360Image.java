@@ -19,6 +19,7 @@ import com.viro.renderer.jni.Texture;
 import com.viro.renderer.jni.Vector;
 import com.viromedia.bridge.component.node.VRTNode;
 import com.viromedia.bridge.component.node.VRTScene;
+import com.viromedia.bridge.utility.Helper;
 import com.viromedia.bridge.utility.ImageDownloadListener;
 import com.viromedia.bridge.utility.ImageDownloader;
 import com.viromedia.bridge.utility.ViroEvents;
@@ -62,7 +63,7 @@ public class VRT360Image extends VRTNode {
         if (getNodeJni() != null) {
             PortalScene portal = getNodeJni().getParentPortalScene();
             if (portal != null) {
-                portal.setBackgroundRotation(new Vector(mRotation));
+                portal.setBackgroundRotation(Helper.toRadiansVector(mRotation));
             }
         }
     }
@@ -111,7 +112,7 @@ public class VRT360Image extends VRTNode {
                 PortalScene portal = getNodeJni().getParentPortalScene();
                 if (portal != null) {
                     portal.setBackgroundTexture(mLatestTexture);
-                    portal.setBackgroundRotation(new Vector(mRotation));
+                    portal.setBackgroundRotation(Helper.toRadiansVector(mRotation));
                 }
             }
         }
@@ -172,7 +173,7 @@ public class VRT360Image extends VRTNode {
                         PortalScene portal = getNodeJni().getParentPortalScene();
                         if (portal != null) {
                             portal.setBackgroundTexture(mLatestTexture);
-                            portal.setBackgroundRotation(new Vector(mRotation));
+                            portal.setBackgroundRotation(Helper.toRadiansVector(mRotation));
                         }
                     }
                     imageDownloadDidFinish();

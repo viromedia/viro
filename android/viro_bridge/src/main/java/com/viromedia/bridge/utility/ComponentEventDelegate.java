@@ -215,9 +215,9 @@ public class ComponentEventDelegate implements EventDelegate.EventDelegateCallba
                     cameraOrientationArray.pushDouble(posX);
                     cameraOrientationArray.pushDouble(poxY);
                     cameraOrientationArray.pushDouble(posZ);
-                    cameraOrientationArray.pushDouble(rotEulerX);
-                    cameraOrientationArray.pushDouble(rotEulerY);
-                    cameraOrientationArray.pushDouble(rotEulerZ);
+                    cameraOrientationArray.pushDouble(Math.toDegrees(rotEulerX));
+                    cameraOrientationArray.pushDouble(Math.toDegrees(rotEulerY));
+                    cameraOrientationArray.pushDouble(Math.toDegrees(rotEulerZ));
                     cameraOrientationArray.pushDouble(forwardX);
                     cameraOrientationArray.pushDouble(forwardY);
                     cameraOrientationArray.pushDouble(forwardZ);
