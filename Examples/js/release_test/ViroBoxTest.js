@@ -119,7 +119,7 @@ var ViroBoxTest = createReactClass({
             height={2*this.state.toggleWHL}
             width={4*this.state.toggleWHL}
             length={3*this.state.toggleWHL}
-            transformBehaviors={["billboardZ"]}
+            transformBehaviors={["billboard"]}
             onSwipe={this._startAnimation4}
           />
       </ViroAnimatedComponent>
