@@ -205,8 +205,8 @@ const int kDefaultMaxParticles = 500;
 }
 
 -(void)createEmitter {
-    _emitter = std::make_shared<VROParticleEmitter>(self.driver, self.node, _particleGeometry);
-    self.scene->addParticleEmitter(_emitter);
+    _emitter = std::make_shared<VROParticleEmitter>(self.driver, _particleGeometry);
+    self.node->setParticleEmitter(_emitter);
 }
 
 -(void)removeEmitter {
@@ -214,9 +214,7 @@ const int kDefaultMaxParticles = 500;
         return;
     }
 
-    if (self.scene) {
-        self.scene->removeParticleEmitter(_emitter);
-    }
+    self.node->removeParticleEmitter();
     _particleGeometry = nullptr;
     _particleTexture = nullptr;
     _emitter = nullptr;

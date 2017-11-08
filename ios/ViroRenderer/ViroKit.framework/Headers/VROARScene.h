@@ -30,7 +30,9 @@ public:
         _hasTrackingInitialized(false),
         _displayPointCloud(false),
         _pointCloudSurfaceScale(VROVector3f(.01, .01, 1)),
-        _pointCloudMaxPoints(500) {};
+        _pointCloudMaxPoints(500) {
+            _pointCloudNode = std::make_shared<VRONode>();
+        };
     virtual ~VROARScene();
     
     void initDeclarativeSession();
@@ -91,6 +93,7 @@ private:
     std::shared_ptr<VROARDeclarativeSession> _declarativeSession;
     std::shared_ptr<VROARImperativeSession> _imperativeSession;
 
+    std::shared_ptr<VRONode> _pointCloudNode;
     std::shared_ptr<VROPointCloudEmitter> _pointCloudEmitter;
     std::weak_ptr<VROARSceneDelegate> _delegate;
     bool _hasTrackingInitialized;

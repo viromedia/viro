@@ -223,6 +223,9 @@ public:
     const std::vector<std::shared_ptr<VROShaderModifier>> &getShaderModifiers() const {
         return _shaderModifiers;
     }
+    void removeAllShaderModifiers() {
+        _shaderModifiers.clear();
+    }
     
     /*
      Make a snapshot of this material and cross-fade that snapshot out,

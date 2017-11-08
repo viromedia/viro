@@ -26,7 +26,6 @@ class VROBillboardConstraint;
 class VROPointCloudEmitter : public VROParticleEmitter {
 public:
     VROPointCloudEmitter(std::shared_ptr<VRODriver> driver,
-                         std::shared_ptr<VRONode> node,
                          std::shared_ptr<VROARSession> session);
     virtual ~VROPointCloudEmitter() {};
 
@@ -35,8 +34,7 @@ public:
     }
 
     void clearParticles();
-
-    void update(const VRORenderContext &context);
+    void update(const VRORenderContext &context, const VROMatrix4f &computedTransform);
 
     void resetParticleSurface();
     void setParticleSurface(std::shared_ptr<VROSurface> particleSurface);
@@ -50,14 +48,13 @@ private:
      resurrecting zombie particles and/or creating new ones to meet the demand. It also computes
      the boundingbox that contains all the points.
      */
-    VROBoundingBox updateParticles(std::shared_ptr<VRONode> node,
-                                   std::vector<VROVector4f> pointCloudPoints,
+    VROBoundingBox updateParticles(std::vector<VROVector4f> pointCloudPoints,
                                    const VRORenderContext &context);
 
     /*
      This function updates the UBO w/ the particles in _particles.
      */
-    void updateUBO(std::shared_ptr<VRONode> node, VROBoundingBox boundingBox);
+    void updateUBO(VROBoundingBox boundingBox);
 
     /*
      Computes the transform for the given particle with the given position, constraint

@@ -299,6 +299,7 @@ var VRTParticleEmitter = requireNativeComponent(
       onCollisionViro:true,
       animation:true,
       materials:true,
+      dragType:true,
     }
   }
 );

@@ -46,6 +46,7 @@ class VROExecutableAnimation;
 class VROTransformDelegate;
 class VROTransaction;
 class VRORenderMetadata;
+class VROParticleEmitter;
 
 extern bool kDebugSortOrder;
 extern const std::string kDefaultNodeTag;
@@ -134,6 +135,11 @@ public:
      context. This will update the _visible flag. Recurses to children.
      */
     void updateVisibility(const VRORenderContext &context);
+    
+    /*
+     Update the particle emitters attached to this node. Recurses to children.
+     */
+    void updateParticles(const VRORenderContext &context);
     
     /*
      Recursively applies transformation constraints (e.g. billboarding) to this node
@@ -344,7 +350,13 @@ public:
      since the last call to computeVisibility().
      */
     int countVisibleNodes() const;
-    
+
+#pragma mark - Particle Emitters
+
+    void setParticleEmitter(std::shared_ptr<VROParticleEmitter> emitter);
+    void removeParticleEmitter();
+    std::shared_ptr<VROParticleEmitter> getParticleEmitter() const;
+
 #pragma mark - Lights
     
     void addLight(std::shared_ptr<VROLight> light) {
@@ -421,7 +433,7 @@ public:
     /*
      Remove all children from this node.
      */
-    void clearChildren();
+    void removeAllChildren();
     
     /*
      Return the parent node. Null if this node is root or does not have a parent.
@@ -648,10 +660,11 @@ private:
     int _uniqueID;
     
     /*
-     Lights, sound, and camera.
+     Lights, sound, particles, and camera.
      */
     std::vector<std::shared_ptr<VROLight>> _lights;
     std::vector<std::shared_ptr<VROSound>> _sounds;
+    std::shared_ptr<VROParticleEmitter> _particleEmitter;
     std::shared_ptr<VRONodeCamera> _camera;
     
     /*

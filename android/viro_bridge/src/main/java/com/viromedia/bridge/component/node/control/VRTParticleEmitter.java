@@ -12,8 +12,10 @@ import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReadableMap;
 import com.viro.renderer.jni.Image;
+import com.viro.renderer.jni.Material;
 import com.viro.renderer.jni.Node;
 import com.viro.renderer.jni.ParticleEmitter;
+import com.viro.renderer.jni.Vector;
 import com.viro.renderer.jni.ViroContext;
 import com.viro.renderer.jni.Surface;
 import com.viro.renderer.jni.Texture.TextureFormat;
@@ -76,24 +78,24 @@ public class VRTParticleEmitter extends VRTControl {
 
     public VRTParticleEmitter(ReactApplicationContext reactContext) {
         super(reactContext);
-        mDefaultAlphaMod = new ParticleEmitter.ParticleModifier(new float[]{1, 0, 0});
-        mDefaultScaleMode = new ParticleEmitter.ParticleModifier(new float[]{1, 1, 1});
-        mDefaultRotMod = new ParticleEmitter.ParticleModifier(new float[]{0, 0, 0});
-        mDefaultColorMod = new ParticleEmitter.ParticleModifier(new float[]{1, 1, 1});
-        mDefaultVelocity = new ParticleEmitter.ParticleModifier(new float[]{-0.5f, 1, 0}, new float[]{0.5f, 1, 0});
-        mDefaultAccelerationMod = new ParticleEmitter.ParticleModifier(new float[]{0, 0, 0});
+        mDefaultAlphaMod = new ParticleEmitter.ParticleModifierFloatArray(new float[]{1, 0, 0});
+        mDefaultScaleMode = new ParticleEmitter.ParticleModifierFloatArray(new float[]{1, 1, 1});
+        mDefaultRotMod = new ParticleEmitter.ParticleModifierFloatArray(new float[]{0, 0, 0});
+        mDefaultColorMod = new ParticleEmitter.ParticleModifierFloatArray(new float[]{1, 1, 1});
+        mDefaultVelocity = new ParticleEmitter.ParticleModifierFloatArray(new float[]{-0.5f, 1, 0}, new float[]{0.5f, 1, 0});
+        mDefaultAccelerationMod = new ParticleEmitter.ParticleModifierFloatArray(new float[]{0, 0, 0});
         mMainHandler = new Handler(Looper.getMainLooper());
         mNativeSurface = new Surface(1,1, 0, 0, 1, 1);
     }
 
     @Override
     public void onTearDown(){
-        if (mScene != null && !mScene.isTornDown() && mNativeEmitter != null){
-            mScene.getNativeScene().removeParticleEmitter(mNativeEmitter);
+        if (mScene != null && !mScene.isTornDown() && mNativeEmitter != null && getNodeJni() != null) {
+            getNodeJni().removeParticleEmitter();
         }
 
         if (mNativeEmitter != null){
-            mNativeEmitter.destroy();
+            mNativeEmitter.dispose();
             mNativeEmitter = null;
         }
 
@@ -217,8 +219,8 @@ public class VRTParticleEmitter extends VRTControl {
 
         // Create emitter if we haven't yet done so.
         if (mNativeEmitter == null) {
-            mNativeEmitter = new ParticleEmitter(mViroContext, node, mNativeSurface);
-            mScene.getNativeScene().addParticleEmitter(mNativeEmitter);
+            mNativeEmitter = new ParticleEmitter(mViroContext, mNativeSurface);
+            node.setParticleEmitter(mNativeEmitter);
         }
 
         // Update modifiers.
@@ -297,39 +299,45 @@ public class VRTParticleEmitter extends VRTControl {
     }
 
     private void updateEmitterState(){
-        mNativeEmitter.setDelay(mDelay);
-        mNativeEmitter.setDuration(mDuration);
+        mNativeEmitter.setDelay((int) mDelay);
+        mNativeEmitter.setDuration((int) mDuration);
         mNativeEmitter.setLoop(mLoop);
-        mNativeEmitter.setRun(mRun);
+        if (mRun) {
+            mNativeEmitter.run();
+        }
+        else {
+            mNativeEmitter.pause();
+        }
         mNativeEmitter.setFixedToEmitter(mFixedToEmitter);
-
 
         if (mImage != null && mImage.hasKey("blendMode")){
             String strBlendMode = mImage.getString("blendMode");
-            if (strBlendMode == null || !mNativeEmitter.setBlendMode(strBlendMode)){
+            Material.BlendMode blendMode = Material.BlendMode.valueFromString(strBlendMode);
+            if (blendMode == null) {
                 onError("Viro: Attempted to set an invalid Blend mode!");
                 return;
             }
+            mNativeEmitter.setBlendMode(blendMode);
         } else {
-            mNativeEmitter.setBlendMode("Add");
+            mNativeEmitter.setBlendMode(Material.BlendMode.ADD);
         }
 
         if (mImage != null && mImage.hasKey("bloomThreshold")){
             float threshold = (float) mImage.getDouble("bloomThreshold");
-            mNativeEmitter.setParticleBloomThreshold(threshold);
+            mNativeEmitter.setBloomThreshold(threshold);
         } else {
-            mNativeEmitter.setParticleBloomThreshold(-1);
+            mNativeEmitter.setBloomThreshold(-1);
         }
     }
 
     private void updateSpawnModifier(){
         if (mSpawnBehavior == null){
-            mNativeEmitter.setEmissionRatePerSecond(new int[]{DEFAULT_SPAWN_RATE_SEC, DEFAULT_SPAWN_RATE_SEC});
-            mNativeEmitter.setEmissionRatePerMeter(new int[]{DEFAULT_SPAWN_RATE_METER,DEFAULT_SPAWN_RATE_METER});
-            mNativeEmitter.setParticleLifetime(new int[]{DEFAULT_PARTICLE_LIFETIME, DEFAULT_PARTICLE_LIFETIME});
+            mNativeEmitter.setEmissionRatePerSecond(DEFAULT_SPAWN_RATE_SEC, DEFAULT_SPAWN_RATE_SEC);
+            mNativeEmitter.setEmissionRatePerMeter(DEFAULT_SPAWN_RATE_METER, DEFAULT_SPAWN_RATE_METER);
+            mNativeEmitter.setParticleLifetime(DEFAULT_PARTICLE_LIFETIME, DEFAULT_PARTICLE_LIFETIME);
             mNativeEmitter.setMaxParticles(DEFAULT_MAX_PARTICLE);
-            mNativeEmitter.setParticleBursts(new ArrayList<ParticleEmitter.ParticleBursts>());
-            mNativeEmitter.setSpawnVolume("Point", null, false);
+            mNativeEmitter.setEmissionBursts(new ArrayList<ParticleEmitter.EmissionBurst>());
+            mNativeEmitter.setSpawnVolume(new ParticleEmitter.SpawnVolumePoint(new Vector(0, 0, 0)), false);
             return;
         }
 
@@ -345,9 +353,9 @@ public class VRTParticleEmitter extends VRTControl {
                 return;
             }
 
-            mNativeEmitter.setEmissionRatePerSecond(params);
+            mNativeEmitter.setEmissionRatePerSecond(params[0], params[1]);
         } else {
-            mNativeEmitter.setEmissionRatePerSecond(new int[]{DEFAULT_SPAWN_RATE_SEC, DEFAULT_SPAWN_RATE_SEC});
+            mNativeEmitter.setEmissionRatePerSecond(DEFAULT_SPAWN_RATE_SEC, DEFAULT_SPAWN_RATE_SEC);
         }
 
         if (mSpawnBehavior.hasKey("emissionRatePerMeter")){
@@ -362,9 +370,9 @@ public class VRTParticleEmitter extends VRTControl {
                 return;
             }
 
-            mNativeEmitter.setEmissionRatePerMeter(params);
+            mNativeEmitter.setEmissionRatePerMeter(params[0], params[1]);
         } else {
-            mNativeEmitter.setEmissionRatePerMeter(new int[]{DEFAULT_SPAWN_RATE_METER,DEFAULT_SPAWN_RATE_METER});
+            mNativeEmitter.setEmissionRatePerMeter(DEFAULT_SPAWN_RATE_METER, DEFAULT_SPAWN_RATE_METER);
         }
 
         if (mSpawnBehavior.hasKey("particleLifetime")){
@@ -379,9 +387,9 @@ public class VRTParticleEmitter extends VRTControl {
                 return;
             }
 
-            mNativeEmitter.setParticleLifetime(params);
+            mNativeEmitter.setParticleLifetime(params[0], params[1]);
         } else {
-            mNativeEmitter.setParticleLifetime(new int[]{DEFAULT_PARTICLE_LIFETIME, DEFAULT_PARTICLE_LIFETIME});
+            mNativeEmitter.setParticleLifetime(DEFAULT_PARTICLE_LIFETIME, DEFAULT_PARTICLE_LIFETIME);
         }
 
         if (mSpawnBehavior.hasKey("maxParticles")){
@@ -392,42 +400,43 @@ public class VRTParticleEmitter extends VRTControl {
         }
 
         // Set emission bursts values.
-        ArrayList<ParticleEmitter.ParticleBursts> bursts = new ArrayList<ParticleEmitter.ParticleBursts>();
+        ArrayList<ParticleEmitter.EmissionBurst> bursts = new ArrayList<ParticleEmitter.EmissionBurst>();
         if (mSpawnBehavior.hasKey("emissionBurst")) {
             ReadableArray burstArray = mSpawnBehavior.getArray("emissionBurst");
             for (int i = 0; i < burstArray.size(); i++) {
                 ReadableMap burstmap = burstArray.getMap(i);
 
-                String referenceFactor;
-                double valueStart;
-                double coolPeriod;
-                double min, max;
-                double cycles;
+                ParticleEmitter.Factor referenceFactor;
+                float valueStart;
+                float coolPeriod;
+                int min, max;
+                int cycles;
                 if (burstmap.hasKey("time")) {
-                    referenceFactor = "time";
-                    valueStart = burstmap.getDouble("time");
-                    coolPeriod = burstmap.getDouble("cooldownPeriod");
+                    referenceFactor = ParticleEmitter.Factor.TIME;
+                    valueStart = (float) burstmap.getDouble("time");
+                    coolPeriod = (float) burstmap.getDouble("cooldownPeriod");
                 } else if (burstmap.hasKey("distance")) {
-                    referenceFactor = "distance";
-                    valueStart = burstmap.getDouble("distance");
-                    coolPeriod = burstmap.getDouble("cooldownDistance");
+                    referenceFactor = ParticleEmitter.Factor.DISTANCE;
+                    valueStart = (float) burstmap.getDouble("distance");
+                    coolPeriod = (float) burstmap.getDouble("cooldownDistance");
                 } else {
                     onError("Invalid Burst parameters provided!");
                     return;
                 }
 
-                min = burstmap.getDouble("min");
-                max = burstmap.getDouble("max");
-                cycles = burstmap.getDouble("cycles");
+                min = burstmap.getInt("min");
+                max = burstmap.getInt("max");
+                cycles = burstmap.getInt("cycles");
 
-                ParticleEmitter.ParticleBursts burst = new ParticleEmitter.ParticleBursts(referenceFactor,
-                        valueStart, coolPeriod, min, max, cycles);
+                ParticleEmitter.EmissionBurst burst = new ParticleEmitter.EmissionBurst(referenceFactor,
+                        valueStart, min, max, cycles, coolPeriod);
                 bursts.add(burst);
             }
         }
-        mNativeEmitter.setParticleBursts(bursts);
+        mNativeEmitter.setEmissionBursts(bursts);
 
         // Set Spawn Volume values.
+        ParticleEmitter.SpawnVolume volume = new ParticleEmitter.SpawnVolumePoint(new Vector(0, 0, 0));
         if (mSpawnBehavior.hasKey("spawnVolume")) {
             ReadableMap spawnVolume = mSpawnBehavior.getMap("spawnVolume");
 
@@ -455,10 +464,31 @@ public class VRTParticleEmitter extends VRTControl {
                 return;
             }
 
-            mNativeEmitter.setSpawnVolume(stringShapeName, shapeParams, spawnOnSurface);
+            if (stringShapeName.equals("box")) {
+                if (shapeParams != null && shapeParams.length == 3) {
+                    volume = new ParticleEmitter.SpawnVolumeBox(shapeParams[0], shapeParams[1], shapeParams[2]);
+                }
+            }
+            else if (stringShapeName.equals("sphere")) {
+                if (shapeParams != null) {
+                    if (shapeParams.length == 1) {
+                        volume = new ParticleEmitter.SpawnVolumeSphere(shapeParams[0]);
+                    }
+                    else if (shapeParams.length == 3) {
+                        volume = new ParticleEmitter.SpawnVolumeEllipsoid(shapeParams[0], shapeParams[1], shapeParams[2]);
+                    }
+                }
+            }
+            else if (stringShapeName.equals("point")) {
+                if (shapeParams != null && shapeParams.length == 3) {
+                    volume = new ParticleEmitter.SpawnVolumePoint(new Vector(shapeParams[0], shapeParams[1], shapeParams[2]));
+                }
+            }
+
+            mNativeEmitter.setSpawnVolume(volume, spawnOnSurface);
         } else {
             // set point as default shape
-            mNativeEmitter.setSpawnVolume("Point", null, false);
+            mNativeEmitter.setSpawnVolume(volume, false);
         }
     }
 
@@ -475,8 +505,8 @@ public class VRTParticleEmitter extends VRTControl {
         accelerationMod = accelerationMod == null ? mDefaultAccelerationMod : accelerationMod;
 
         // Set modifiers
-        mNativeEmitter.setVelocityModifier(velocityMod);
-        mNativeEmitter.setAccelerationModifier(accelerationMod);
+        mNativeEmitter.setVelocityModifierLegacy(velocityMod);
+        mNativeEmitter.setAccelerationModifierLegacy(accelerationMod);
 
         // Update explosive impulses
         if (mParticlePhysics != null && mParticlePhysics.hasKey("explosiveImpulse")) {
@@ -508,9 +538,9 @@ public class VRTParticleEmitter extends VRTControl {
             } else {
                 reverseAccel = -1;
             }
-            mNativeEmitter.setExplosiveImpulse(explodeImpulse, explodePosition, reverseAccel);
+            mNativeEmitter.setExplosiveImpulse(explodeImpulse, new Vector(explodePosition), reverseAccel);
         } else {
-            mNativeEmitter.setExplosiveImpulse(-1, new float[]{0,0,0} ,-1);
+            mNativeEmitter.setExplosiveImpulse(-1, new Vector(0, 0 ,0), -1);
         }
     }
 
@@ -533,10 +563,10 @@ public class VRTParticleEmitter extends VRTControl {
         rotMod = rotMod == null ? mDefaultRotMod : rotMod;
         colorMod = colorMod == null ? mDefaultColorMod : colorMod;
 
-        mNativeEmitter.setOpacityModifier(opacityMod);
-        mNativeEmitter.setScaleModifier(scaleMode);
-        mNativeEmitter.setRotationModifier(rotMod);
-        mNativeEmitter.setColorModifier(colorMod);
+        mNativeEmitter.setOpacityModifierLegacy(opacityMod);
+        mNativeEmitter.setScaleModifierLegacy(scaleMode);
+        mNativeEmitter.setRotationModifierLegacy(rotMod);
+        mNativeEmitter.setColorModifierLegacy(colorMod);
     }
 
     private ParticleEmitter.ParticleModifier getModifier(ReadableMap appearanceMap,
@@ -591,8 +621,10 @@ public class VRTParticleEmitter extends VRTControl {
         }
 
         // Set the modifier on this emitter through JNI
-        String factor = map.hasKey("factor") ? map.getString("factor") : "time";
-        return new ParticleEmitter.ParticleModifier(factor, initialRange, interpolatedIntervals, interpolatedPoints);
+        ParticleEmitter.Factor factor = map.hasKey("factor") ?
+                ParticleEmitter.Factor.valueFromString(map.getString("factor")) :
+                ParticleEmitter.Factor.TIME;
+        return new ParticleEmitter.ParticleModifierFloatArray(factor, initialRange, interpolatedIntervals, interpolatedPoints);
     }
 
     private float[][] getValueArrayFromDict(ReadableMap map, String key,

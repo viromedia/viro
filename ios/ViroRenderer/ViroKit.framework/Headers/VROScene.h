@@ -19,7 +19,6 @@
 #include "VROThreadRestricted.h"
 #include "VROPhysicsWorld.h"
 #include "VROTree.h"
-#include "VROParticleEmitter.h"
 
 class VRONode;
 class VROPortal;
@@ -53,6 +52,11 @@ public:
      Update the visibility status of all nodes in the scene graph.
      */
     void updateVisibility(const VRORenderContext &context);
+    
+    /*
+     Update the particle emitters in the scene graph.
+     */
+    void updateParticles(const VRORenderContext &context);
     
     /*
      Apply transformation constraints (e.g. billboarding) to all nodes in
@@ -115,25 +119,6 @@ public:
         if (_physicsWorld != nullptr) {
             _physicsWorld->computePhysics(context);
         }
-    }
-    
-#pragma mark - Particles
-
-    /*
-     Particle Emitters are stored and computed per scene.
-     */
-    void computeParticles(const VRORenderContext &context) {
-        for (std::shared_ptr<VROParticleEmitter> emitter: _activeParticles) {
-            emitter->update(context);
-        }
-    }
-
-    void addParticleEmitter(std::shared_ptr<VROParticleEmitter> emitter) {
-        _activeParticles.push_back(emitter);
-    }
-
-    void removeParticleEmitter(std::shared_ptr<VROParticleEmitter> emitter) {
-        _activeParticles.erase(std::remove(_activeParticles.begin(), _activeParticles.end(), emitter), _activeParticles.end());
     }
     
 #pragma mark - Input
