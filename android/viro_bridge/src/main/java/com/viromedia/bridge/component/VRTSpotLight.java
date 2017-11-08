@@ -100,8 +100,9 @@ public class VRTSpotLight extends VRTLight {
         super.onPropsSet();
 
         if (mNativeLight == null) {
-            mNativeLight = new Spotlight(mColor, mIntensity, mAttenuationStartDistance, mAttenuationEndDistance,
-                    new Vector(mPosition), new Vector(mDirection), mInnerAngle, mOuterAngle);
+            mNativeLight = new Spotlight(mColor, mIntensity, mAttenuationStartDistance,
+                    mAttenuationEndDistance, new Vector(mPosition), new Vector(mDirection),
+                    (float) Math.toRadians(mInnerAngle), (float) Math.toRadians(mOuterAngle));
         } else {
             mNativeLight.setColor(mColor);
             mNativeLight.setIntensity(mIntensity);
@@ -109,8 +110,8 @@ public class VRTSpotLight extends VRTLight {
             mNativeLight.setAttenuationEndDistance(mAttenuationEndDistance);
             mNativeLight.setPosition(new Vector(mPosition));
             mNativeLight.setDirection(new Vector(mDirection));
-            mNativeLight.setInnerAngle(mInnerAngle);
-            mNativeLight.setOuterAngle(mOuterAngle);
+            mNativeLight.setInnerAngle((float) Math.toRadians(mInnerAngle));
+            mNativeLight.setOuterAngle((float) Math.toRadians(mOuterAngle));
         }
         mNativeLight.setCastsShadow(mCastsShadow);
         mNativeLight.setShadowOpacity(mShadowOpacity);

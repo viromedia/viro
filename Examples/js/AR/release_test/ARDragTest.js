@@ -42,7 +42,8 @@ var ARDragTest = createReactClass({
     return (
         <ViroARScene onClick={()=>{this.refs["planeSelector"].reset()}} >
           <ViroNode position={[0,0,-1]} onDrag={()=>{}} dragType="FixedToWorld">
-            <ViroBox position={[0,.13,0]} scale={[.2,.2,.2]} materials="blueBox"/>
+            <ViroBox position={[0,.13,0]} scale={[.2,.2,.2]} materials="blueBox"
+                onRotate={(state, factor)=>{console.log("[DragTest] rotation with factor: " + factor)}}/>
             <ViroImage rotation={[-90,0,0]} scale={[.3,.3,.3]} position={[0,.01,0]}
                 source={require('../res/dark_circle_shadow.png')} materials="doesntWriteToDepthBuffer"/>
           </ViroNode>

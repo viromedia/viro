@@ -178,11 +178,11 @@ public:
         //No-op
     }
     
-    virtual void onPinch(int source, std::shared_ptr<VRONode> node, float scale, PinchState pinchState) {
+    virtual void onPinch(int source, std::shared_ptr<VRONode> node, float scaleFactor, PinchState pinchState) {
         //No-op
     }
     
-    virtual void onRotate(int source, std::shared_ptr<VRONode> node, float rotation, RotateState rotateState) {
+    virtual void onRotate(int source, std::shared_ptr<VRONode> node, float rotationRadians, RotateState rotateState) {
         //No-op
     }
 

@@ -516,12 +516,11 @@ const double kTransformDelegateDistanceFilter = 0.01;
     }
 }
 
-- (void)onRotate:(int)source node:(std::shared_ptr<VRONode>)node rotationFactor:(float)rotation
+- (void)onRotate:(int)source node:(std::shared_ptr<VRONode>)node rotationRadians:(float)rotation
      rotateState:(VROEventDelegate::RotateState)rotateState {
     if(self.onRotateViro != nil) {
-        //convert to degrees from radians
-        
-        float degreesRotation = rotation *  180.0/ M_PI;
+        // convert to degrees from radians
+        float degreesRotation = toDegrees(rotation);
         self.onRotateViro(@{@"source": @(source), @"rotateState":@(rotateState), @"rotationFactor":@(degreesRotation)});
     }
 }

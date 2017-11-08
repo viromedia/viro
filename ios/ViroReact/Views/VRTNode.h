@@ -115,7 +115,7 @@ extern const int k2DPointsPerSpatialUnit;
 - (void) onFuse:(int)source node:(std::shared_ptr<VRONode>)node;
 - (void) onDrag:(int)source node:(std::shared_ptr<VRONode>)node posX:(float)x posY:(float)y posZ:(float)z;
 - (void) onPinch:(int)source node:(std::shared_ptr<VRONode>)node scaleFactor:(float)scale pinchState:(VROEventDelegate::PinchState)pinchState;
-- (void) onRotate:(int)source node:(std::shared_ptr<VRONode>)node rotationFactor:(float)rotation rotateState:(VROEventDelegate::RotateState)rotateState;
+- (void) onRotate:(int)source node:(std::shared_ptr<VRONode>)node rotationRadians:(float)rotationRadians rotateState:(VROEventDelegate::RotateState)rotateState;
 - (void) onCameraARHitTest:(int)source results:(std::vector<VROARHitTestResult>)results;
 
 // Override for AR nodes

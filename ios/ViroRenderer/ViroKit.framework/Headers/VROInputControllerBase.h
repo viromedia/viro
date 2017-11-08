@@ -24,7 +24,7 @@
 
 static const float ON_DRAG_DISTANCE_THRESHOLD = 0.01;
 static const float ON_PINCH_SCALE_THRESHOLD = 0.02;
-static const float ON_ROTATE_THRESHOLD = 0.02;
+static const float ON_ROTATE_THRESHOLD = 0.01; // in radians (~.5729 degrees)
 static float kSceneBackgroundDistance = 8;
 
 /*
@@ -126,7 +126,7 @@ public:
      */
     void onPinch(int source, float scaleFactor, VROEventDelegate::PinchState pinchState);
     
-    void onRotate(int source, float rotationFactor, VROEventDelegate::RotateState rotateState);
+    void onRotate(int source, float rotationRadians, VROEventDelegate::RotateState rotateState);
 
 protected:
     
@@ -201,7 +201,7 @@ protected:
     float _lastPinchScale;
     
     /*
-     Last known rotation value.
+     Last known rotation value in radians.
      */
     float _lastRotation;
 

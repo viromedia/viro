@@ -244,7 +244,7 @@ public class ComponentEventDelegate implements EventDelegate.EventDelegateCallba
     }
 
     @Override
-    public void onRotate(int source, Node target, float rotationFactor, RotateState rotateState) {
+    public void onRotate(int source, Node target, float rotationRadians, RotateState rotateState) {
         VRTComponent node = weakComponent.get();
         if (node == null){
             return;
@@ -252,7 +252,7 @@ public class ComponentEventDelegate implements EventDelegate.EventDelegateCallba
 
         WritableMap event = Arguments.createMap();
         event.putInt("source", source);
-        event.putDouble("rotationFactor", rotationFactor);
+        event.putDouble("rotationFactor", Math.toDegrees(rotationRadians));
         event.putInt("rotateState", rotateState.getTypeId());
 
         node.getReactContext().getJSModule(RCTEventEmitter.class).receiveEvent(

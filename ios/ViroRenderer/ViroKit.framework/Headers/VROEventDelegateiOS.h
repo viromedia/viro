@@ -22,7 +22,7 @@
 - (void)onFuse:(int)source node:(std::shared_ptr<VRONode>)node;
 - (void)onDrag:(int)source node:(std::shared_ptr<VRONode>)node posX:(float)x posY:(float)y posZ:(float)y;
 - (void)onPinch:(int)source node:(std::shared_ptr<VRONode>)node scaleFactor:(float)scale pinchState:(VROEventDelegate::PinchState)pinchState;
-- (void)onRotate:(int)source node:(std::shared_ptr<VRONode>)node rotationFactor:(float)rotation rotateState:(VROEventDelegate::RotateState)rotateState;
+- (void)onRotate:(int)source node:(std::shared_ptr<VRONode>)node rotationRadians:(float)rotationRadians rotateState:(VROEventDelegate::RotateState)rotateState;
 - (void)onCameraHitTest:(int)source results:(std::vector<VROARHitTestResult>) results;
 @end
 
@@ -71,8 +71,8 @@ public:
         [_delegate onPinch:source node:node scaleFactor:scale pinchState:pinchState];
     }
     
-    virtual void onRotate(int source, std::shared_ptr<VRONode> node, float rotation, RotateState rotateState) {
-        [_delegate onRotate:source node:node rotationFactor:rotation rotateState:rotateState];
+    virtual void onRotate(int source, std::shared_ptr<VRONode> node, float rotationRadians, RotateState rotateState) {
+        [_delegate onRotate:source node:node rotationRadians:rotationRadians rotateState:rotateState];
     }
 
 private:

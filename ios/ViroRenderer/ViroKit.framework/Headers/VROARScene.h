@@ -31,7 +31,7 @@ public:
         _displayPointCloud(false),
         _pointCloudSurfaceScale(VROVector3f(.01, .01, 1)),
         _pointCloudMaxPoints(500) {};
-    virtual ~VROARScene() {};
+    virtual ~VROARScene();
     
     void initDeclarativeSession();
     void initImperativeSession();
