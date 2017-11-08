@@ -7,7 +7,7 @@ import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.WritableArray;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
-import com.viro.renderer.ARHitTestResult;
+import com.viro.renderer.jni.ARHitTestResult;
 import com.viro.renderer.jni.CameraCallback;
 import com.viro.renderer.jni.EventDelegate;
 import com.viro.renderer.jni.Node;

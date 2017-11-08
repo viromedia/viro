@@ -16,8 +16,10 @@ import com.facebook.react.uimanager.IllegalViewOperationException;
 import com.facebook.react.uimanager.NativeViewHierarchyManager;
 import com.facebook.react.uimanager.UIBlock;
 import com.facebook.react.uimanager.UIManagerModule;
-import com.viro.renderer.ARHitTestResult;
+import com.viro.renderer.jni.ARHitTestCallback;
+import com.viro.renderer.jni.ARHitTestResult;
 import com.viro.renderer.jni.Renderer;
+import com.viro.renderer.jni.Vector;
 import com.viro.renderer.jni.ViroViewARCore;
 import com.viromedia.bridge.component.VRTARSceneNavigator;
 import com.viromedia.bridge.utility.ARUtils;
@@ -60,9 +62,9 @@ public class ARSceneModule extends ReactContextBaseJavaModule {
                 rayArray[1] = (float) ray.getDouble(1);
                 rayArray[2] = (float) ray.getDouble(2);
 
-                arView.performARHitTestWithRay(rayArray, new Renderer.ARHitTestCallback() {
+                arView.performARHitTestWithRay(new Vector(rayArray), new ARHitTestCallback() {
                     @Override
-                    public void onComplete(ARHitTestResult[] arHitTestResults) {
+                    public void onHitTestFinished(ARHitTestResult[] arHitTestResults) {
                         WritableArray returnArray = Arguments.createArray();
                         for (ARHitTestResult result : arHitTestResults) {
                             returnArray.pushMap(ARUtils.mapFromARHitTestResult(result));
@@ -100,9 +102,9 @@ public class ARSceneModule extends ReactContextBaseJavaModule {
                 positionArray[1] = (float) position.getDouble(1);
                 positionArray[2] = (float) position.getDouble(2);
 
-                arView.performARHitTestWithPosition(positionArray, new Renderer.ARHitTestCallback() {
+                arView.performARHitTestWithPosition(new Vector(positionArray), new ARHitTestCallback() {
                     @Override
-                    public void onComplete(ARHitTestResult[] arHitTestResults) {
+                    public void onHitTestFinished(ARHitTestResult[] arHitTestResults) {
                         WritableArray returnArray = Arguments.createArray();
                         for (ARHitTestResult result : arHitTestResults) {
                             returnArray.pushMap(ARUtils.mapFromARHitTestResult(result));

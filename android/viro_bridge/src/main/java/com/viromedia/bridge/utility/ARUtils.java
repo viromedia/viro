@@ -7,7 +7,7 @@ import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.WritableArray;
 import com.facebook.react.bridge.WritableMap;
 import com.viro.renderer.jni.ARAnchor;
-import com.viro.renderer.ARHitTestResult;
+import com.viro.renderer.jni.ARHitTestResult;
 import com.viro.renderer.jni.ARPlaneAnchor;
 
 public class ARUtils {
@@ -34,12 +34,12 @@ public class ARUtils {
     // TODO: VIRO-2170 ARHitTestResults should also use Vectors
     public static WritableMap mapFromARHitTestResult(ARHitTestResult result) {
         WritableMap returnMap = Arguments.createMap();
-        returnMap.putString("type", result.getType());
+        returnMap.putString("type", result.getType().getStringValue());
         WritableMap transformMap = Arguments.createMap();
-        transformMap.putArray("position", arrayFromFloatArray(result.getPosition()));
-        transformMap.putArray("scale", arrayFromFloatArray(result.getScale()));
+        transformMap.putArray("position", ARUtils.arrayFromFloatArray(result.getPosition().toArray()));
+        transformMap.putArray("scale", ARUtils.arrayFromFloatArray(result.getScale().toArray()));
         // rotation values come as radians, we need to convert to degrees
-        transformMap.putArray("rotation", arrayFromRotationArray(result.getRotation()));
+        transformMap.putArray("rotation", ARUtils.arrayFromRotationArray(result.getRotation().toArray()));
         returnMap.putMap("transform", transformMap);
         return returnMap;
     }
