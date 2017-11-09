@@ -16,7 +16,7 @@ import com.facebook.react.uimanager.IllegalViewOperationException;
 import com.facebook.react.uimanager.NativeViewHierarchyManager;
 import com.facebook.react.uimanager.UIBlock;
 import com.facebook.react.uimanager.UIManagerModule;
-import com.viro.core.ARHitTestCallback;
+import com.viro.core.ARHitTestListener;
 import com.viro.core.ARHitTestResult;
 import com.viro.core.Renderer;
 import com.viro.core.Vector;
@@ -62,7 +62,7 @@ public class ARSceneModule extends ReactContextBaseJavaModule {
                 rayArray[1] = (float) ray.getDouble(1);
                 rayArray[2] = (float) ray.getDouble(2);
 
-                arView.performARHitTestWithRay(new Vector(rayArray), new ARHitTestCallback() {
+                arView.performARHitTestWithRay(new Vector(rayArray), new ARHitTestListener() {
                     @Override
                     public void onHitTestFinished(ARHitTestResult[] arHitTestResults) {
                         WritableArray returnArray = Arguments.createArray();
@@ -102,7 +102,7 @@ public class ARSceneModule extends ReactContextBaseJavaModule {
                 positionArray[1] = (float) position.getDouble(1);
                 positionArray[2] = (float) position.getDouble(2);
 
-                arView.performARHitTestWithPosition(new Vector(positionArray), new ARHitTestCallback() {
+                arView.performARHitTestWithPosition(new Vector(positionArray), new ARHitTestListener() {
                     @Override
                     public void onHitTestFinished(ARHitTestResult[] arHitTestResults) {
                         WritableArray returnArray = Arguments.createArray();

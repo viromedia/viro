@@ -13,7 +13,7 @@ import com.viro.core.Vector;
 import com.viromedia.bridge.utility.Helper;
 import com.viromedia.bridge.utility.ViroEvents;
 
-public class VRTSoundField extends VRTBaseSound implements SoundField.Delegate {
+public class VRTSoundField extends VRTBaseSound implements SoundField.PlaybackListener {
 
     private static float[] DEFAULT_ROTATION = {0f,0f,0f};
 
@@ -40,14 +40,14 @@ public class VRTSoundField extends VRTBaseSound implements SoundField.Delegate {
     @Override
     protected BaseSound getNativeSound(String path, boolean local) {
         SoundField sound = new SoundField(path, mViroContext, this, local);
-        sound.setDelegate(this);
+        sound.setPlaybackListener(this);
         return sound;
     }
 
     @Override
     protected BaseSound getNativeSound(SoundData data) {
         SoundField sound = new SoundField(data, mViroContext, this);
-        sound.setDelegate(this);
+        sound.setPlaybackListener(this);
         return sound;
     }
 

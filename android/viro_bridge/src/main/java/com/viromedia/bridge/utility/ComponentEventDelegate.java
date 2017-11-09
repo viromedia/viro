@@ -8,7 +8,7 @@ import com.facebook.react.bridge.WritableArray;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
 import com.viro.core.ARHitTestResult;
-import com.viro.core.CameraCallback;
+import com.viro.core.internal.CameraCallback;
 import com.viro.core.EventDelegate;
 import com.viro.core.Node;
 import com.viro.core.ClickState;

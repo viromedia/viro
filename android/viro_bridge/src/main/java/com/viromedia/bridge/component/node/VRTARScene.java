@@ -39,7 +39,7 @@ import com.viromedia.bridge.utility.ViroEvents;
 import java.util.ArrayList;
 import java.util.EnumSet;
 
-public class VRTARScene extends VRTScene implements ARScene.Delegate {
+public class VRTARScene extends VRTScene implements ARScene.Listener {
 
     private static final String AMBIENT_LIGHT_INFO_KEY = "ambientLightInfo";
     private static final String INTENSITY_KEY = "intensity";
@@ -56,7 +56,7 @@ public class VRTARScene extends VRTScene implements ARScene.Delegate {
     @Override
     protected Scene createSceneJni() {
         ARScene sceneControllerJni = new ARScene(true);
-        sceneControllerJni.setDelegate(this);
+        sceneControllerJni.setListener(this);
         return sceneControllerJni;
     }
 

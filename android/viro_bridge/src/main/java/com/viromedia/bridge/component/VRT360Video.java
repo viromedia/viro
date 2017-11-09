@@ -28,7 +28,7 @@ import java.lang.ref.WeakReference;
 public class VRT360Video extends VRTNode {
     private static final float[] sDefaultRotation = {0, 0, 0};
 
-    private static class Video360Delegate implements VideoTexture.Delegate {
+    private static class Video360Delegate implements VideoTexture.PlaybackListener {
 
         private WeakReference<VRT360Video> mVideo;
 
@@ -97,7 +97,7 @@ public class VRT360Video extends VRTNode {
     private float[] mRotation = sDefaultRotation;
 
     private VideoTexture mVideoTextureJni = null;
-    private VideoTexture.Delegate mDelegate = null;
+    private VideoTexture.PlaybackListener mDelegate = null;
     private String mStereoMode;
 
     public VRT360Video(ReactApplicationContext reactContext) {
@@ -126,7 +126,7 @@ public class VRT360Video extends VRTNode {
         // Create Texture
         mDelegate = new Video360Delegate(this);
         mVideoTextureJni = new VideoTexture(mViroContext, Uri.parse(mSource), mDelegate, Texture.StereoMode.valueFromString(mStereoMode));
-        mVideoTextureJni.setDelegate(mDelegate);
+        mVideoTextureJni.setPlaybackListener(mDelegate);
         updateVideoTexture();
         setLoop(mLoop);
         setMuted(mMuted);

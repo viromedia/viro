@@ -12,7 +12,7 @@ import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
-import com.viro.core.CameraCallback;
+import com.viro.core.internal.CameraCallback;
 import com.viro.core.Node;
 import com.viro.core.PhysicsShape;
 import com.viro.core.PhysicsWorld;
@@ -26,7 +26,7 @@ import com.viromedia.bridge.component.node.control.VRTCamera;
 import com.viromedia.bridge.utility.Helper;
 import com.viromedia.bridge.utility.ViroEvents;
 
-public class VRTScene extends VRTNode implements Scene.SceneDelegate {
+public class VRTScene extends VRTNode implements Scene.VisibilityListener {
     private static final String TAG = VRTScene.class.getSimpleName();
     private static final String SIZE_KEY = "size";
     private static final String WALL_MATERIAL_KEY = "wallMaterial";
@@ -68,7 +68,7 @@ public class VRTScene extends VRTNode implements Scene.SceneDelegate {
      */
     protected Scene createSceneJni() {
         Scene sceneJni = new Scene();
-        sceneJni.registerDelegate(this);
+        sceneJni.setVisibilityListener(this);
         return sceneJni;
     }
 
@@ -258,13 +258,13 @@ public class VRTScene extends VRTNode implements Scene.SceneDelegate {
 
     public void findCollisionsWithRayAsync(float[] fromPos, float toPos[], boolean closest,
                                            String tag,
-                                           PhysicsWorld.HitTestCallback callback) {
+                                           PhysicsWorld.HitTestListener callback) {
         mNativeScene.getPhysicsWorld().findCollisionsWithRayAsync(new Vector(fromPos), new Vector(toPos),
                 closest, tag, callback);
     }
 
     public void findCollisionsWithShapeAsync(float[] from, float[] to, PhysicsShape shape, String tag,
-                                             PhysicsWorld.HitTestCallback callback) {
+                                             PhysicsWorld.HitTestListener callback) {
         mNativeScene.getPhysicsWorld().findCollisionsWithShapeAsync(new Vector(from), new Vector(to),
                 shape, tag, callback);
     }

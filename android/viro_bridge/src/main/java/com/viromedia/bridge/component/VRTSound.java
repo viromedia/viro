@@ -11,7 +11,7 @@ import com.viro.core.SoundData;
 import com.viro.core.Sound;
 import com.viromedia.bridge.utility.ViroEvents;
 
-public class VRTSound extends VRTBaseSound implements Sound.Delegate {
+public class VRTSound extends VRTBaseSound implements Sound.PlaybackListener {
 
     public VRTSound(ReactApplicationContext reactContext) {
         super(reactContext);
@@ -20,14 +20,14 @@ public class VRTSound extends VRTBaseSound implements Sound.Delegate {
     @Override
     protected BaseSound getNativeSound(String path, boolean local) {
         Sound sound = new Sound(path, mViroContext, this);
-        sound.setDelegate(this);
+        sound.setPlaybackListener(this);
         return sound;
     }
 
     @Override
     protected BaseSound getNativeSound(SoundData data) {
         Sound sound = new Sound(data, mViroContext, this);
-        sound.setDelegate(this);
+        sound.setPlaybackListener(this);
         return sound;
     }
 

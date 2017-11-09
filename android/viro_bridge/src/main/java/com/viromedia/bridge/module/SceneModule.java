@@ -60,7 +60,7 @@ public class SceneModule extends ReactContextBaseJavaModule {
                 String rayCastTag = tag != null ? tag : "";
                 VRTScene scene = (VRTScene) sceneView;
                 scene.findCollisionsWithRayAsync(fromPosArray, toPosArray, closest, rayCastTag,
-                        new PhysicsWorld.HitTestCallback() {
+                        new PhysicsWorld.HitTestListener() {
                             @Override
                             public void onComplete(boolean hasHit) {
                                 promise.resolve(hasHit);
@@ -115,7 +115,7 @@ public class SceneModule extends ReactContextBaseJavaModule {
                 String rayCastTag = tag != null ? tag : "";
                 VRTScene scene = (VRTScene) sceneView;
                 scene.findCollisionsWithShapeAsync(fromPosArray, toPosArray, shape, rayCastTag,
-                        new PhysicsWorld.HitTestCallback() {
+                        new PhysicsWorld.HitTestListener() {
                             @Override
                             public void onComplete(boolean hasHit) {
                                 promise.resolve(hasHit);

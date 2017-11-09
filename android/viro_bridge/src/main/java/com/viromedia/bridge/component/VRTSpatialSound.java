@@ -15,7 +15,7 @@ import com.viro.core.SpatialSound;
 import com.viro.core.Vector;
 import com.viromedia.bridge.utility.ViroEvents;
 
-public class VRTSpatialSound extends VRTBaseSound implements SpatialSound.Delegate {
+public class VRTSpatialSound extends VRTBaseSound implements SpatialSound.PlaybackListener {
 
     private static String DEFAULT_ROLLOFF_MODEL = "None";
     private static float[] DEFAULT_POSITION = {0f,0f,0f};
@@ -72,14 +72,14 @@ public class VRTSpatialSound extends VRTBaseSound implements SpatialSound.Delega
     @Override
     protected BaseSound getNativeSound(String path, boolean local) {
         SpatialSound sound = new SpatialSound(path, mViroContext, this, local);
-        sound.setDelegate(this);
+        sound.setPlaybackListener(this);
         return sound;
     }
 
     @Override
     protected BaseSound getNativeSound(SoundData data) {
         SpatialSound sound = new SpatialSound(data, mViroContext, this);
-        sound.setDelegate(this);
+        sound.setPlaybackListener(this);
         return sound;
     }
 

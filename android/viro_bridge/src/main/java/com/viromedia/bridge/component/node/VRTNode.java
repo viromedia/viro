@@ -697,9 +697,9 @@ public class VRTNode extends VRTComponent {
         }
 
         if (mPhysicsDelegate != null){
-            mNodeJni.getPhysicsBody().setPhysicsDelegate(mPhysicsDelegate);
+            mNodeJni.getPhysicsBody().setCollisionListener(mPhysicsDelegate);
         } else {
-            mNodeJni.getPhysicsBody().setPhysicsDelegate(null);
+            mNodeJni.getPhysicsBody().setCollisionListener(null);
         }
     }
 
@@ -961,9 +961,9 @@ public class VRTNode extends VRTComponent {
     private void createPhysicsBody(PhysicsBody.RigidBodyType bodyType, float mass, PhysicsShape shape){
         mNodeJni.initPhysicsBody(bodyType, mass, shape);
         if (mPhysicsDelegate != null){
-            mNodeJni.getPhysicsBody().setPhysicsDelegate(mPhysicsDelegate);
+            mNodeJni.getPhysicsBody().setCollisionListener(mPhysicsDelegate);
         } else {
-            mNodeJni.getPhysicsBody().setPhysicsDelegate(null);
+            mNodeJni.getPhysicsBody().setCollisionListener(null);
         }
 
         hasPhysicsBody = true;
@@ -971,7 +971,7 @@ public class VRTNode extends VRTComponent {
 
     private void clearPhysicsBody(){
         if (mNodeJni.getPhysicsBody() != null && mPhysicsDelegate != null) {
-            mNodeJni.getPhysicsBody().setPhysicsDelegate(null);
+            mNodeJni.getPhysicsBody().setCollisionListener(null);
         }
 
         mNodeJni.clearPhysicsBody();
@@ -1008,7 +1008,7 @@ public class VRTNode extends VRTComponent {
         mNodeJni.getPhysicsBody().setVelocity(new Vector(velocity), isConstant);
     }
 
-    protected class PhysicsBodyDelegate implements PhysicsBody.PhysicsDelegate {
+    protected class PhysicsBodyDelegate implements PhysicsBody.CollisionListener {
         private WeakReference<VRTComponent> weakComponent;
         public PhysicsBodyDelegate(VRTComponent component){
             weakComponent = new WeakReference<VRTComponent>(component);
@@ -1046,14 +1046,14 @@ public class VRTNode extends VRTComponent {
     public void setOnNativeTransformDelegate(boolean hasDelegate){
         if (hasDelegate){
             mTransformDelegate = new NodeTransformDelegate(this);
-            mNodeJni.setTransformDelegate(mTransformDelegate, TRANSFORM_DELEGATE_DISTANCE_FILTER);
+            mNodeJni.setTransformListener(mTransformDelegate, TRANSFORM_DELEGATE_DISTANCE_FILTER);
         } else {
             mTransformDelegate = null;
-            mNodeJni.removeTransformDelegate();
+            mNodeJni.removeTransformListener();
         }
     }
 
-    protected class NodeTransformDelegate implements Node.TransformDelegate{
+    protected class NodeTransformDelegate implements Node.TransformListener {
         private WeakReference<VRTComponent> weakComponent;
         public NodeTransformDelegate(VRTComponent component){
             weakComponent = new WeakReference<VRTComponent>(component);

@@ -20,7 +20,7 @@ import java.lang.ref.WeakReference;
 
 public class VRTVideoSurface extends VRTControl {
 
-    private static class VideoSurfaceDelegate implements VideoTexture.Delegate {
+    private static class VideoSurfaceDelegate implements VideoTexture.PlaybackListener {
 
         private WeakReference<VRTVideoSurface> mSurface;
 
@@ -88,7 +88,7 @@ public class VRTVideoSurface extends VRTControl {
     private String mSource;
     private Surface mSurface = null;
     private VideoTexture mVideoTexture = null;
-    private VideoTexture.Delegate mDelegate = null;
+    private VideoTexture.PlaybackListener mDelegate = null;
     private String mStereoMode;
     private boolean mGeometryNeedsUpdate = false;
 
@@ -133,7 +133,7 @@ public class VRTVideoSurface extends VRTControl {
                 Texture.StereoMode.valueFromString(mStereoMode));
         loadVideo();
 
-        mVideoTexture.setDelegate(mDelegate);
+        mVideoTexture.setPlaybackListener(mDelegate);
     }
 
     private void loadVideo(){
