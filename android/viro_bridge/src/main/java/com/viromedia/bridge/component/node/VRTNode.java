@@ -537,7 +537,7 @@ public class VRTNode extends VRTComponent {
         }
         mNodeJni.setGeometry(geometry);
         if (mMaterials != null) {
-            geometry.setMaterials(mMaterials);
+            geometry.copyAndSetMaterials(mMaterials);
         }
     }
 
@@ -558,7 +558,7 @@ public class VRTNode extends VRTComponent {
         }
         mMaterials = materials;
         if (mNodeJni.getGeometry() != null) {
-            mNodeJni.getGeometry().setMaterials(materials);
+            mNodeJni.getGeometry().copyAndSetMaterials(materials);
         }
     }
 
