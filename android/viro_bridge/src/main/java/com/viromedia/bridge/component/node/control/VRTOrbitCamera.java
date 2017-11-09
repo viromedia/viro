@@ -5,8 +5,8 @@ package com.viromedia.bridge.component.node.control;
 
 
 import com.facebook.react.bridge.ReactApplicationContext;
-import com.viro.renderer.jni.Camera;
-import com.viro.renderer.jni.Vector;
+import com.viro.core.Camera;
+import com.viro.core.Vector;
 
 public class VRTOrbitCamera extends VRTCamera {
     private float[] mFocalPoint;

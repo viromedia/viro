@@ -7,12 +7,12 @@ import android.util.Log;
 
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
-import com.viro.renderer.jni.BaseSound;
-import com.viro.renderer.jni.Node;
-import com.viro.renderer.jni.Sound;
-import com.viro.renderer.jni.SoundData;
-import com.viro.renderer.jni.SpatialSound;
-import com.viro.renderer.jni.Vector;
+import com.viro.core.internal.BaseSound;
+import com.viro.core.Node;
+import com.viro.core.Sound;
+import com.viro.core.SoundData;
+import com.viro.core.SpatialSound;
+import com.viro.core.Vector;
 import com.viromedia.bridge.utility.ViroEvents;
 
 public class VRTSpatialSound extends VRTBaseSound implements SpatialSound.Delegate {

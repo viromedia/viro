@@ -5,9 +5,9 @@ package com.viromedia.bridge.component;
 
 import android.content.Context;
 
-import com.viro.renderer.jni.Node;
-import com.viro.renderer.jni.Spotlight;
-import com.viro.renderer.jni.Vector;
+import com.viro.core.Node;
+import com.viro.core.Spotlight;
+import com.viro.core.Vector;
 
 public class VRTSpotLight extends VRTLight {
     private static final float[] DEFAULT_POSITION = {0, 0, 0};

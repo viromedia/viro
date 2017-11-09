@@ -6,10 +6,10 @@ package com.viromedia.bridge.component.node;
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.WritableMap;
-import com.viro.renderer.jni.ARAnchor;
-import com.viro.renderer.jni.ARDeclarativeNode;
-import com.viro.renderer.jni.ARDeclarativePlane;
-import com.viro.renderer.jni.Node;
+import com.viro.core.ARAnchor;
+import com.viro.core.internal.ARDeclarativeNode;
+import com.viro.core.internal.ARDeclarativePlane;
+import com.viro.core.Node;
 
 public class VRTARPlane extends VRTARNode {
 

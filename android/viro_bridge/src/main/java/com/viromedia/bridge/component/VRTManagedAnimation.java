@@ -12,7 +12,7 @@ import com.viromedia.bridge.component.node.VRTNode;
 import com.viromedia.bridge.utility.ViroEvents;
 import com.viromedia.bridge.utility.ViroLog;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
-import com.viro.renderer.jni.ExecutableAnimation;
+import com.viro.core.internal.ExecutableAnimation;
 
 import java.lang.ref.WeakReference;
 

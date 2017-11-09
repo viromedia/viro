@@ -6,7 +6,7 @@ package com.viromedia.bridge.component;
 
 import android.content.Context;
 
-import com.viro.renderer.jni.Node;
+import com.viro.core.Node;
 
 public abstract class VRTLight extends VRTComponent {
 

@@ -10,7 +10,7 @@ import com.facebook.react.bridge.WritableArray;
 import com.facebook.react.common.MapBuilder;
 import com.facebook.react.uimanager.ThemedReactContext;
 import com.facebook.react.uimanager.annotations.ReactProp;
-import com.viro.renderer.jni.Vector;
+import com.viro.core.Vector;
 import com.viromedia.bridge.utility.Helper;
 import com.viromedia.bridge.utility.ViroEvents;
 

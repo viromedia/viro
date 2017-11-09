@@ -3,9 +3,9 @@
  */
 package com.viromedia.bridge.component.node;
 
-import com.viro.renderer.jni.Geometry;
-import com.viro.renderer.jni.Material;
-import com.viro.renderer.jni.Surface;
+import com.viro.core.Geometry;
+import com.viro.core.Material;
+import com.viro.core.Surface;
 
 import java.util.List;
 

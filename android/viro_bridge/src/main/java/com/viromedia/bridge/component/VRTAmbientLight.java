@@ -5,8 +5,8 @@ package com.viromedia.bridge.component;
 
 import android.content.Context;
 
-import com.viro.renderer.jni.AmbientLight;
-import com.viro.renderer.jni.Node;
+import com.viro.core.AmbientLight;
+import com.viro.core.Node;
 
 public class VRTAmbientLight extends VRTLight {
 

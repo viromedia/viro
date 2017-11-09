@@ -5,7 +5,7 @@ package com.viromedia.bridge.component;
 
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReadableMap;
-import com.viro.renderer.jni.ViroContext;
+import com.viro.core.ViroContext;
 import com.viromedia.bridge.component.node.VRTNode;
 
 /**

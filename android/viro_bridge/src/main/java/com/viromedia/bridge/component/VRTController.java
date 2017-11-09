@@ -6,9 +6,9 @@ package com.viromedia.bridge.component;
 import android.util.Log;
 
 import com.facebook.react.bridge.ReactApplicationContext;
-import com.viro.renderer.jni.Controller;
-import com.viro.renderer.jni.EventDelegate;
-import com.viro.renderer.jni.ViroContext;
+import com.viro.core.Controller;
+import com.viro.core.EventDelegate;
+import com.viro.core.ViroContext;
 import com.viromedia.bridge.utility.ComponentEventDelegate;
 
 public class VRTController extends VRTComponent {

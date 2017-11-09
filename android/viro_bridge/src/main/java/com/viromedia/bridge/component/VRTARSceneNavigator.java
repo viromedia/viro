@@ -6,8 +6,8 @@ package com.viromedia.bridge.component;
 import android.view.View;
 
 import com.facebook.react.bridge.ReactApplicationContext;
-import com.viro.renderer.jni.ViroViewARCore;
-import com.viro.renderer.jni.ViroView;
+import com.viro.core.ViroViewARCore;
+import com.viro.core.ViroView;
 import com.viromedia.bridge.ReactViroPackage;
 import com.viromedia.bridge.component.node.VRTARScene;
 

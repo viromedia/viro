@@ -1,7 +1,7 @@
 package com.viromedia.bridge.component.node;
 
-import com.viro.renderer.jni.Portal;
-import com.viro.renderer.jni.Node;
+import com.viro.core.Portal;
+import com.viro.core.Node;
 import com.viromedia.bridge.component.node.control.VRT3DObject;
 import android.view.View;
 

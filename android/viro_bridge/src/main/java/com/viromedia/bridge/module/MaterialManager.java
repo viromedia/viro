@@ -14,10 +14,10 @@ import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.ReadableMapKeySetIterator;
 import com.facebook.react.bridge.ReadableType;
-import com.viro.renderer.jni.Image;
-import com.viro.renderer.jni.Material;
-import com.viro.renderer.jni.Texture.TextureFormat;
-import com.viro.renderer.jni.Texture;
+import com.viro.core.internal.Image;
+import com.viro.core.Material;
+import com.viro.core.Texture.TextureFormat;
+import com.viro.core.Texture;
 import com.viromedia.bridge.utility.Helper;
 import com.viromedia.bridge.utility.ImageDownloader;
 

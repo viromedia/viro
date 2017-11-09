@@ -21,10 +21,10 @@ import com.facebook.react.uimanager.IllegalViewOperationException;
 import com.facebook.react.uimanager.NativeViewHierarchyManager;
 import com.facebook.react.uimanager.UIBlock;
 import com.facebook.react.uimanager.UIManagerModule;
-import com.viro.renderer.jni.ViroMediaRecorder;
+import com.viro.core.ViroMediaRecorder;
 import com.viromedia.bridge.component.VRTARSceneNavigator;
-import com.viro.renderer.jni.ViroMediaRecorderDelegate;
-import static com.viro.renderer.jni.ViroMediaRecorderDelegate.ERROR.*;
+import com.viro.core.ViroMediaRecorderDelegate;
+import static com.viro.core.ViroMediaRecorderDelegate.ERROR.*;
 
 public class ARSceneNavigatorModule extends ReactContextBaseJavaModule {
     private static final String RECORDING_SUCESS_KEY = "success";

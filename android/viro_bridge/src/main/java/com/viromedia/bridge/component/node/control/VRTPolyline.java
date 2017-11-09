@@ -6,7 +6,7 @@ package com.viromedia.bridge.component.node.control;
 
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReadableArray;
-import com.viro.renderer.jni.Polyline;
+import com.viro.core.Polyline;
 
 public class VRTPolyline extends VRTControl {
     private Polyline mNativeLine;

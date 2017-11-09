@@ -4,7 +4,7 @@
 package com.viromedia.bridge.component.node.control;
 
 import com.facebook.react.bridge.ReactApplicationContext;
-import com.viro.renderer.jni.Sphere;
+import com.viro.core.Sphere;
 
 public class VRTSphere extends VRTControl {
     protected static final int DEFAULT_WIDTH_SEGMENT = 20;

@@ -9,10 +9,10 @@ import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
-import com.viro.renderer.jni.Texture;
-import com.viro.renderer.jni.ViroContext;
-import com.viro.renderer.jni.Surface;
-import com.viro.renderer.jni.VideoTexture;
+import com.viro.core.Texture;
+import com.viro.core.ViroContext;
+import com.viro.core.Surface;
+import com.viro.core.VideoTexture;
 import com.viromedia.bridge.utility.Helper;
 import com.viromedia.bridge.utility.ViroEvents;
 

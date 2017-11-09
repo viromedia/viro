@@ -5,9 +5,9 @@ package com.viromedia.bridge.component;
 
 import android.content.Context;
 
-import com.viro.renderer.jni.Node;
-import com.viro.renderer.jni.OmniLight;
-import com.viro.renderer.jni.Vector;
+import com.viro.core.Node;
+import com.viro.core.OmniLight;
+import com.viro.core.Vector;
 
 public class VRTOmniLight extends VRTLight {
 

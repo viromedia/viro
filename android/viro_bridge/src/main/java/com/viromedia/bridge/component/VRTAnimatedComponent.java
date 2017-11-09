@@ -6,7 +6,7 @@ package com.viromedia.bridge.component;
 import android.view.View;
 
 import com.facebook.react.bridge.ReactApplicationContext;
-import com.viro.renderer.jni.ExecutableAnimation;
+import com.viro.core.internal.ExecutableAnimation;
 import com.viromedia.bridge.component.node.VRTNode;
 import com.viromedia.bridge.module.AnimationManager;
 import com.viromedia.bridge.utility.ViroLog;

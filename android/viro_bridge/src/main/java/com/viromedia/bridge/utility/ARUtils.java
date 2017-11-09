@@ -6,9 +6,9 @@ package com.viromedia.bridge.utility;
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.WritableArray;
 import com.facebook.react.bridge.WritableMap;
-import com.viro.renderer.jni.ARAnchor;
-import com.viro.renderer.jni.ARHitTestResult;
-import com.viro.renderer.jni.ARPlaneAnchor;
+import com.viro.core.ARAnchor;
+import com.viro.core.ARHitTestResult;
+import com.viro.core.ARPlaneAnchor;
 
 public class ARUtils {
 

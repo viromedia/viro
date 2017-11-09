@@ -6,10 +6,10 @@ package com.viromedia.bridge.component;
 
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
-import com.viro.renderer.jni.BaseSound;
-import com.viro.renderer.jni.SoundData;
-import com.viro.renderer.jni.SoundField;
-import com.viro.renderer.jni.Vector;
+import com.viro.core.internal.BaseSound;
+import com.viro.core.SoundData;
+import com.viro.core.SoundField;
+import com.viro.core.Vector;
 import com.viromedia.bridge.utility.Helper;
 import com.viromedia.bridge.utility.ViroEvents;
 

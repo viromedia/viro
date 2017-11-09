@@ -6,9 +6,9 @@ package com.viromedia.bridge.component;
 
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
-import com.viro.renderer.jni.BaseSound;
-import com.viro.renderer.jni.SoundData;
-import com.viro.renderer.jni.Sound;
+import com.viro.core.internal.BaseSound;
+import com.viro.core.SoundData;
+import com.viro.core.Sound;
 import com.viromedia.bridge.utility.ViroEvents;
 
 public class VRTSound extends VRTBaseSound implements Sound.Delegate {

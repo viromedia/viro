@@ -16,11 +16,11 @@ import com.facebook.react.uimanager.IllegalViewOperationException;
 import com.facebook.react.uimanager.NativeViewHierarchyManager;
 import com.facebook.react.uimanager.UIBlock;
 import com.facebook.react.uimanager.UIManagerModule;
-import com.viro.renderer.jni.ARHitTestCallback;
-import com.viro.renderer.jni.ARHitTestResult;
-import com.viro.renderer.jni.Renderer;
-import com.viro.renderer.jni.Vector;
-import com.viro.renderer.jni.ViroViewARCore;
+import com.viro.core.ARHitTestCallback;
+import com.viro.core.ARHitTestResult;
+import com.viro.core.Renderer;
+import com.viro.core.Vector;
+import com.viro.core.ViroViewARCore;
 import com.viromedia.bridge.component.VRTARSceneNavigator;
 import com.viromedia.bridge.utility.ARUtils;
 

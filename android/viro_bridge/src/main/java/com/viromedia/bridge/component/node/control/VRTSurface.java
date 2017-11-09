@@ -5,7 +5,7 @@ package com.viromedia.bridge.component.node.control;
 
 
 import com.facebook.react.bridge.ReactApplicationContext;
-import com.viro.renderer.jni.Surface;
+import com.viro.core.Surface;
 
 public class VRTSurface extends VRTControl {
     private Surface mNativeSurface;

@@ -10,7 +10,7 @@ import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.devsupport.interfaces.DevOptionHandler;
 import com.facebook.react.devsupport.interfaces.DevSupportManager;
-import com.viro.renderer.jni.ViroView;
+import com.viro.core.ViroView;
 
 import java.lang.ref.WeakReference;
 

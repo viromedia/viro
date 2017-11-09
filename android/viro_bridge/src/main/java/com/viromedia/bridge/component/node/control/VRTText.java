@@ -6,8 +6,8 @@ package com.viromedia.bridge.component.node.control;
 import android.graphics.Color;
 
 import com.facebook.react.bridge.ReactApplicationContext;
-import com.viro.renderer.jni.ViroContext;
-import com.viro.renderer.jni.Text;
+import com.viro.core.ViroContext;
+import com.viro.core.Text;
 
 public class VRTText extends VRTControl {
     static final String DEFAULT_FONT = "Roboto";

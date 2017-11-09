@@ -10,12 +10,12 @@ import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.ReadableMapKeySetIterator;
 import com.facebook.react.bridge.ReadableType;
-import com.viro.renderer.jni.AnimationChain;
-import com.viro.renderer.jni.AnimationGroup;
-import com.viro.renderer.jni.ExecutableAnimation;
-import com.viro.renderer.jni.ExecutableAnimation.ExecutionType;
-import com.viro.renderer.jni.LazyMaterial;
-import com.viro.renderer.jni.Material;
+import com.viro.core.internal.AnimationChain;
+import com.viro.core.internal.AnimationGroup;
+import com.viro.core.internal.ExecutableAnimation;
+import com.viro.core.internal.ExecutableAnimation.ExecutionType;
+import com.viro.core.internal.LazyMaterial;
+import com.viro.core.Material;
 import com.viromedia.bridge.utility.ViroLog;
 
 import java.util.HashMap;

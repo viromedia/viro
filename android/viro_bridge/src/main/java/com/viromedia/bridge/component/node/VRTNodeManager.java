@@ -16,7 +16,7 @@ import com.facebook.react.common.MapBuilder;
 import com.facebook.react.uimanager.annotations.ReactProp;
 import com.facebook.react.uimanager.annotations.ReactPropGroup;
 import com.facebook.yoga.YogaConstants;
-import com.viro.renderer.jni.Material;
+import com.viro.core.Material;
 import com.viromedia.bridge.component.VRTViroViewGroupManager;
 import com.viromedia.bridge.module.MaterialManager;
 import com.viromedia.bridge.utility.Helper;

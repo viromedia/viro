@@ -5,9 +5,9 @@ package com.viromedia.bridge.component.node.control;
 
 
 import com.facebook.react.bridge.ReactApplicationContext;
-import com.viro.renderer.jni.Camera;
-import com.viro.renderer.jni.Node;
-import com.viro.renderer.jni.Vector;
+import com.viro.core.Camera;
+import com.viro.core.Node;
+import com.viro.core.Vector;
 
 public class VRTCamera extends VRTControl {
     protected Camera mNativeCamera;

@@ -6,7 +6,7 @@ import android.support.annotation.Nullable;
 
 import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.views.imagehelper.ResourceDrawableIdHelper;
-import com.viro.renderer.jni.Vector;
+import com.viro.core.Vector;
 
 /**
  * Class containing few common helper methods.
