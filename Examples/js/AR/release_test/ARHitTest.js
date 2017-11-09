@@ -49,10 +49,7 @@ var testARScene = createReactClass({
   },
   render: function() {
     return (
-        <ViroARScene 
-            onAnchorFound={global.onAnchorFound}
-            onAnchorRemoved={global.onAnchorRemoved}
-            ref="arscene" onClick={this.state.testWithRay ? this._onSurfaceClickCameraForward : this._onSurfaceClickUsingPosition} >
+        <ViroARScene ref="arscene" onClick={this.state.testWithRay ? this._onSurfaceClickCameraForward : this._onSurfaceClickUsingPosition} >
           <ViroText position={polarToCartesian([2, -10, 0])} text={"Mode: " + (this.state.testWithRay ? "testWithRay" : "testWithPosition")}
             style={styles.baseTextTwo} onClick={this._switchRayTestType} transformBehaviors={["billboard"]}/>
           <ViroARPlane onAnchorUpdated={this._onPlaneUpdate}>

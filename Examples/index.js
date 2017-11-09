@@ -29,10 +29,6 @@ var UNSET = "UNSET";
 var VR_NAVIGATOR_TYPE = "VR";
 var AR_NAVIGATOR_TYPE = "AR";
 
-// See ARSceneAndNavigatorTest for overridden implementation
-global.onAnchorFound = ()=>{};
-global.onAnchorRemoved = ()=>{};
-
 export default class ViroExperienceSelector extends Component {
   constructor() {
     super();

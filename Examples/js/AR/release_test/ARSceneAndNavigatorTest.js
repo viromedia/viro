@@ -39,36 +39,6 @@ let pointCloudDict = {
   maxPoints : 50
 };
 
-/* The global anchors object looks like this:
-{
-  keys : ["key1", "key2", "key3"], // keys in order of addition
-  key1 : {<ARAnchor>},
-  key2 : {<ARAnchor>},
-}
-*/
-global.onAnchorFound = (anchor)=>{
-  if (global.anchors) {
-    global.anchors.keys.push(anchor.anchorId);
-    global.anchors[anchor.anchorId] = anchor;
-  } else {
-    global.anchors = {};
-    global.anchors.keys = [anchor.anchorId];
-    global.anchors[anchor.anchorId] = anchor;
-  }
-};
-
-global.onAnchorRemoved = (anchor)=>{
-  if (global.anchors) {
-    for (var i = 0; i < global.anchors.keys.length; i++) {
-      if (anchor.anchorId == global.anchors.keys[i]) {
-        global.anchors.keys.splice(i, 1);
-        global.anchors[anchor.anchorId] = undefined;
-        return;
-      }
-    }
-  }
-}
-
 var testARScene = createReactClass({
   mixins: [TimerMixin],
   getInitialState: function() {
@@ -96,8 +66,6 @@ var testARScene = createReactClass({
   render: function() {
     return (
       <ViroARScene
-        onAnchorFound={global.onAnchorFound}
-        onAnchorRemoved={global.onAnchorRemoved}
         onTrackingInitialized={()=>{this.setState({initialized : true})}}
         onAmbientLightUpdate={this._onAmbientLightUpdate}
         displayPointCloud={this.state.displayPointCloud} >

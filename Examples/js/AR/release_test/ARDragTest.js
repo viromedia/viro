@@ -40,9 +40,7 @@ var ARDragTest = createReactClass({
   },
   render: function() {
     return (
-        <ViroARScene onAnchorFound={global.onAnchorFound}
-              onAnchorRemoved={global.onAnchorRemoved}
-              onClick={()=>{this.refs["planeSelector"].reset()}} >
+        <ViroARScene onClick={()=>{this.refs["planeSelector"].reset()}} >
           <ViroNode position={[0,0,-1]} onDrag={()=>{}} dragType="FixedToWorld">
             <ViroBox position={[0,.13,0]} scale={[.2,.2,.2]} materials="blueBox"
                 onRotate={(state, factor)=>{console.log("[DragTest] rotation with factor: " + factor)}}/>
