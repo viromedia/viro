@@ -44,7 +44,10 @@ var testARScene = createReactClass({
   },
   render: function() {
     return (
-      <ViroARScene anchorDetectionTypes={this.state.findPlanes ? "PlanesHorizontal" : "None"} >
+      <ViroARScene
+        onAnchorFound={global.onAnchorFound}
+        onAnchorRemoved={global.onAnchorRemoved}
+        anchorDetectionTypes={this.state.findPlanes ? "PlanesHorizontal" : "None"} >
         <ViroARPlaneSelector ref={"planeSelector"}
           maxPlanes={this.state.numberOfPlanes}
           onPlaneSelected={this._onPlaneSelected} >

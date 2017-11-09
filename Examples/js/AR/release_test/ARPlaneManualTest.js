@@ -36,8 +36,10 @@ let polarToCartesian = ViroUtils.polarToCartesian;
 var testARScene = createReactClass({
   mixins: [TimerMixin],
   componentWillMount() {
-    this.numAnchors = 0;
-    this.anchors = {};
+    if (!global.anchors) {
+      global.anchors = {}
+      global.anchors.keys = []
+    }
   },
   getInitialState: function() {
     return {
@@ -49,7 +51,7 @@ var testARScene = createReactClass({
   },
   render: function() {
     return (
-      <ViroARScene onAnchorFound={this._onSceneAnchorFound} >
+      <ViroARScene onAnchorFound={this._onSceneAnchorFound} onAnchorRemoved={global.onAnchorRemoved} >
 
         {this._getPlanes()}
 
@@ -91,20 +93,19 @@ var testARScene = createReactClass({
   _getThirdPlaneText() {
 
   },
-  // anchor #1 is at this.anchors[1]... and so on.
+  // anchor #1 is at global.anchors.keys[0] and so on
   _onSceneAnchorFound(anchor) {
-    this.numAnchors++;
-    this.anchors[this.numAnchors] = anchor;
+    global.onAnchorFound(anchor);
     this.setState({
       reloadFlag : !(this.state.reloadFlag)
     })
   },
   _getPlanes() {
     let planes = []
-    if(this.state.addPlane1 && this.anchors[1]) {
+    if(this.state.addPlane1 && global.anchors.keys[0]) {
       planes.push((
         <ViroARPlane
-          anchorId={this.anchors[1].anchorId}
+          anchorId={global.anchors[global.anchors.keys[0]].anchorId}
           minHeight={this.state.minValue}
           minWidth={this.state.minValue}
           key={"firstPlane"}
@@ -125,10 +126,10 @@ var testARScene = createReactClass({
       </ViroARPlane>));
     }
 
-    if (this.state.secondPlaneFlag > 0 && this.anchors[2]) {
+    if (this.state.secondPlaneFlag > 0 && global.anchors.keys[1]) {
       planes.push((
         <ViroARPlane
-          anchorId={this.state.secondPlaneFlag == 2 ? this.anchors[2].anchorId : this.anchors[1].anchorId}
+          anchorId={this.state.secondPlaneFlag == 2 ? global.anchors[global.anchors.keys[1]].anchorId : global.anchors[global.anchors.keys[0]].anchorId}
           key={"secondPlane"} >
 
           <ViroSurface
@@ -186,7 +187,7 @@ var testARScene = createReactClass({
     })
   },
   _getFoundText() {
-    return this.numAnchors == 0 ? "Plane NOT Found" : (this.numAnchors + " Planes Found");
+    return global.anchors.keys.length == 0 ? "Plane NOT Found" : (global.anchors.keys.length + " Planes Found");
   },
   _getUpdatedText() {
     if (this.state.updateMap) {

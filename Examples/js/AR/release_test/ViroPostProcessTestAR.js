@@ -81,7 +81,9 @@ var ViroPostProcesTest = createReactClass({
 
   render: function() {
     return (
-      <ViroARScene ref="scene1" postProcessEffects={postEffectTests[this.state.number]}>
+      <ViroARScene onAnchorFound={global.onAnchorFound}
+        onAnchorRemoved={global.onAnchorRemoved}
+        ref="scene1" postProcessEffects={postEffectTests[this.state.number]}>
         <ViroNode position={[0 , 0, -5]} transformBehaviors={["billboard"]}>
 
           <ViroText fontSize={35}  style={styles.centeredText}

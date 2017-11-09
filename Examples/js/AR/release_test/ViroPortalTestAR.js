@@ -58,7 +58,8 @@ var ViroPortalTest = createReactClass({
 
    render: function() {
       return (
-        <ViroARScene>
+        <ViroARScene onAnchorFound={global.onAnchorFound}
+        onAnchorRemoved={global.onAnchorRemoved} >
             <ViroOmniLight position={[0, 0, 0]} color="#ffffff" attenuationStartDistance={40} attenuationEndDistance={50}/>
             <ViroText fontSize={35}  style={styles.baseTextTwo} color="#ffffff"
               position={[0, 0, 3.5]} width={7} height ={3} maxLines={3} transformBehaviors={["billboard"]}

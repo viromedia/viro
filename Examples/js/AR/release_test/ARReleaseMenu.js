@@ -59,7 +59,7 @@ var ARReleaseMenu = createReactClass({
   },
   render: function() {
     return (
-      <ViroARScene>
+      <ViroARScene onAnchorFound={global.onAnchorFound} onAnchorRemoved={global.onAnchorRemoved} >
         <ViroText style={styles.centeredText}  position={[0, 1, -4]} width={1.5} height ={1.5}
           text={"AR Release Test Menu"} />
         {this._getText()}

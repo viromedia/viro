@@ -47,7 +47,10 @@ var testARScene = createReactClass({
   },
   render: function() {
     return (
-      <ViroARScene position={[0,0,0]} reticleEnabled={false} >
+      <ViroARScene
+          onAnchorFound={global.onAnchorFound}
+          onAnchorRemoved={global.onAnchorRemoved}
+          position={[0,0,0]} reticleEnabled={false} >
 
         {this._getPlane()}
 

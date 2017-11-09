@@ -56,7 +56,10 @@ var ARHitTestCamera = createReactClass({
   },
   render: function() {
     return (
-      <ViroARScene ref="arscene" onCameraARHitTest={this._onCameraARHitTest} >
+      <ViroARScene
+         onAnchorFound={global.onAnchorFound}
+         onAnchorRemoved={global.onAnchorRemoved}
+         ref="arscene" onCameraARHitTest={this._onCameraARHitTest} >
         <ViroAmbientLight color="#ffffff" intensity={500}/>
         {this._getModel()}
       </ViroARScene>
