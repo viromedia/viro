@@ -27,6 +27,18 @@ public class VRTSpatialSoundWrapper extends VRTNode {
         mInnerSound.setId(id);
     }
 
+    @Override
+    protected void handleAppearanceChange() {
+        super.handleAppearanceChange();
+        mInnerSound.handleAppearanceChange();
+    }
+
+    @Override
+    protected void parentDidAppear() {
+        super.parentDidAppear();
+        mInnerSound.parentDidAppear();
+    }
+
     public void setSource(ReadableMap source) {
         mInnerSound.setSource(source);
     }
