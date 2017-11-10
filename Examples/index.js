@@ -91,7 +91,7 @@ export default class ViroExperienceSelector extends Component {
   _getVRNavigator() {
     return (
       <ViroSceneNavigator {...this.state.sharedProps}
-        initialScene={{scene: InitialVRScene}} />
+        initialScene={{scene: InitialVRScene}} onExitViro={()=>{this.setState({navigatorType : UNSET})}} />
     );
   }
   _getNavigatorTypeOnPress(navigatorType) {
