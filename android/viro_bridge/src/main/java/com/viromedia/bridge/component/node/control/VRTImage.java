@@ -14,7 +14,6 @@ import com.facebook.react.uimanager.events.RCTEventEmitter;
 import com.viro.core.internal.Image;
 import com.viro.core.Material;
 import com.viro.core.Surface;
-import com.viro.core.Texture.TextureFormat;
 import com.viro.core.Texture;
 import com.viromedia.bridge.utility.ImageDownloadListener;
 import com.viromedia.bridge.utility.ImageDownloader;
@@ -49,7 +48,7 @@ public class VRTImage extends VRTControl {
     private String mResizeMode = DEFAULT_RESIZE_MODE;
     private String mImageClipMode = DEFAULT_CLIP_MODE;
     private boolean mMipmap = true;
-    private TextureFormat mFormat = TextureFormat.RGBA8;
+    private Texture.Format mFormat = Texture.Format.RGBA8;
 
     private boolean mGeometryNeedsUpdate = false;
     private boolean mIsImageSet = false;
@@ -115,7 +114,7 @@ public class VRTImage extends VRTControl {
     }
 
     public void setFormat(String format) {
-        mFormat = TextureFormat.forString(format);
+        mFormat = Texture.Format.forString(format);
         mImageNeedsDownload = true;
     }
 

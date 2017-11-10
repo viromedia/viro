@@ -82,7 +82,7 @@ public class VRTARScene extends VRTScene implements ARScene.Listener {
         }
 
         final ImageDownloader downloader = new ImageDownloader(getContext());
-        downloader.setTextureFormat(Texture.TextureFormat.RGBA8);
+        downloader.setTextureFormat(Texture.Format.RGBA8);
 
         mImageDownloadListener = new PointCloudImageDownloadListener();
         downloader.getImageAsync(pointCloudImage, mImageDownloadListener);
@@ -213,8 +213,8 @@ public class VRTARScene extends VRTScene implements ARScene.Listener {
                         mPointCloudSurface = new Surface(1, 1);
                     }
 
-                    Image image = new Image(result, Texture.TextureFormat.RGBA8);
-                    Texture texture = new Texture(image, Texture.TextureFormat.RGBA8, true, false, null);
+                    Image image = new Image(result, Texture.Format.RGBA8);
+                    Texture texture = new Texture(image, Texture.Format.RGBA8, true, false, null);
                     mPointCloudSurface.setImageTexture(texture);
 
                     if (!isTornDown()) {

@@ -18,7 +18,6 @@ import com.viro.core.ParticleEmitter;
 import com.viro.core.Vector;
 import com.viro.core.ViroContext;
 import com.viro.core.Surface;
-import com.viro.core.Texture.TextureFormat;
 import com.viro.core.Texture;
 import com.viromedia.bridge.component.node.VRTScene;
 import com.viromedia.bridge.utility.ImageDownloadListener;
@@ -290,8 +289,8 @@ public class VRTParticleEmitter extends VRTControl {
         }
 
         mImageNeedsUpdate = true;
-        mLatestImage = new Image(result, TextureFormat.RGBA8);
-        mLatestTexture = new Texture(mLatestImage, TextureFormat.RGBA8, true, false, null);
+        mLatestImage = new Image(result, Texture.Format.RGBA8);
+        mLatestTexture = new Texture(mLatestImage, Texture.Format.RGBA8, true, false, null);
 
         mImageDownloadListener.invalidate();
         mImageDownloadListener = null;

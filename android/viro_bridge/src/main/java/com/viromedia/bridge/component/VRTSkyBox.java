@@ -10,7 +10,6 @@ import com.facebook.react.bridge.ReadableMapKeySetIterator;
 import com.facebook.react.bridge.ReadableType;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
 import com.viro.core.internal.Image;
-import com.viro.core.Texture.TextureFormat;
 import com.viro.core.Texture;
 import com.viromedia.bridge.component.node.VRTScene;
 import com.viromedia.bridge.utility.ImageDownloadListener;
@@ -32,7 +31,7 @@ public class VRTSkyBox extends VRTComponent {
     private Texture mLatestTexture;
     private ImageDownloader mImageDownloader;
     private long mColor;
-    private TextureFormat mFormat = TextureFormat.RGBA8;
+    private Texture.Format mFormat = Texture.Format.RGBA8;
     private boolean mSkyboxNeedsUpdate = false;
     private boolean mUseTextureForSkybox = true;
     private HashSet<SkyboxImageDownloadListener> mDownloadListeners = new HashSet<>();
@@ -127,7 +126,7 @@ public class VRTSkyBox extends VRTComponent {
     }
 
     public void setFormat(String format) {
-        mFormat = TextureFormat.forString(format);
+        mFormat = Texture.Format.forString(format);
         mImageDownloader.setTextureFormat(mFormat);
         mSkyboxNeedsUpdate = true;
     }

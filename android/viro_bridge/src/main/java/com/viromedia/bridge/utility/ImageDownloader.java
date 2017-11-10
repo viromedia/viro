@@ -21,7 +21,7 @@ import com.facebook.imagepipeline.image.CloseableImage;
 import com.facebook.imagepipeline.request.ImageRequest;
 import com.facebook.imagepipeline.request.ImageRequestBuilder;
 import com.facebook.react.bridge.ReadableMap;
-import com.viro.core.Texture.TextureFormat;
+import com.viro.core.Texture;
 
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CountDownLatch;
@@ -154,8 +154,8 @@ public class ImageDownloader {
         dataSource.subscribe(dataSubscriber, mExecutorSupplier.forBackgroundTasks());
     }
 
-    public void setTextureFormat(TextureFormat format) {
-        if (format == TextureFormat.RGB565) {
+    public void setTextureFormat(Texture.Format format) {
+        if (format == Texture.Format.RGB565) {
             mConfig = Bitmap.Config.RGB_565;
         }
         else {

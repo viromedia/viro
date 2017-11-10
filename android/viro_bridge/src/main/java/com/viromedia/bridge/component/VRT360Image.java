@@ -14,7 +14,6 @@ import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
 import com.viro.core.internal.Image;
 import com.viro.core.PortalScene;
-import com.viro.core.Texture.TextureFormat;
 import com.viro.core.Texture;
 import com.viro.core.Vector;
 import com.viromedia.bridge.component.node.VRTNode;
@@ -32,7 +31,7 @@ public class VRT360Image extends VRTNode {
     private Image mLatestImage;
     private Texture mLatestTexture;
     private String mStereoMode;
-    private TextureFormat mFormat = TextureFormat.RGBA8;
+    private Texture.Format mFormat = Texture.Format.RGBA8;
     private Handler mMainHandler;
     private boolean mImageNeedsDownload;
     private Image360DownloadListener mDownloadListener;
@@ -119,7 +118,7 @@ public class VRT360Image extends VRTNode {
     }
 
     public void setFormat(String format) {
-        mFormat = TextureFormat.forString(format);
+        mFormat = Texture.Format.forString(format);
         mImageNeedsDownload = true;
     }
 

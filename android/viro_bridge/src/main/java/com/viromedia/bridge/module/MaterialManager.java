@@ -16,7 +16,6 @@ import com.facebook.react.bridge.ReadableMapKeySetIterator;
 import com.facebook.react.bridge.ReadableType;
 import com.viro.core.internal.Image;
 import com.viro.core.Material;
-import com.viro.core.Texture.TextureFormat;
 import com.viro.core.Texture;
 import com.viromedia.bridge.utility.Helper;
 import com.viromedia.bridge.utility.ImageDownloader;
@@ -105,13 +104,13 @@ public class MaterialManager extends ReactContextBaseJavaModule {
 
             if (materialPropertyName.endsWith("texture") || materialPropertyName.endsWith("Texture")) {
                 if (materialPropertyName.equalsIgnoreCase("reflectiveTexture")) {
-                    Texture nativeTexture = createTextureCubeMap(materialMap.getMap(materialPropertyName), TextureFormat.RGBA8);
+                    Texture nativeTexture = createTextureCubeMap(materialMap.getMap(materialPropertyName), Texture.Format.RGBA8);
                     setTextureOnMaterial(nativeMaterial, nativeTexture, materialPropertyName, materialMap);
                     continue;
                 }
 
                 String path = parseImagePath(materialMap, materialPropertyName);
-                TextureFormat format = parseImageFormat(materialMap, materialPropertyName);
+                Texture.Format format = parseImageFormat(materialMap, materialPropertyName);
                 boolean mipmap = parseImageMipmap(materialMap, materialPropertyName);
                 boolean sRGB = !materialPropertyName.startsWith("normal");
 
@@ -168,7 +167,7 @@ public class MaterialManager extends ReactContextBaseJavaModule {
         return materialWrapper;
     }
 
-    private void setImageOnMaterial(Image image, TextureFormat format, boolean sRGB, boolean mipmap,
+    private void setImageOnMaterial(Image image, Texture.Format format, boolean sRGB, boolean mipmap,
                                     Material material, String name, ReadableMap materialMap) {
         Texture nativeTexture = new Texture(image, format, sRGB, mipmap);
         setTextureOnMaterial(material, nativeTexture, name, materialMap);
@@ -208,7 +207,7 @@ public class MaterialManager extends ReactContextBaseJavaModule {
         nativeTexture.dispose();
     }
 
-    private Texture createTextureCubeMap(ReadableMap textureMap, TextureFormat format) {
+    private Texture createTextureCubeMap(ReadableMap textureMap, Texture.Format format) {
         ReadableMapKeySetIterator iter = textureMap.keySetIterator();
 
         if (!iter.hasNextKey()) {
@@ -272,11 +271,11 @@ public class MaterialManager extends ReactContextBaseJavaModule {
         return null;
     }
 
-    private TextureFormat parseImageFormat(ReadableMap map, String key) {
-        TextureFormat format = TextureFormat.RGBA8;
+    private Texture.Format parseImageFormat(ReadableMap map, String key) {
+        Texture.Format format = Texture.Format.RGBA8;
         if (map.getType(key) == ReadableType.Map) {
             if (map.getMap(key).hasKey("format")) {
-                format = TextureFormat.forString(map.getMap(key).getString("format"));
+                format = Texture.Format.forString(map.getMap(key).getString("format"));
             }
         }
         return format;
