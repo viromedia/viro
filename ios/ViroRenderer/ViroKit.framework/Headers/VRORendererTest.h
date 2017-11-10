@@ -19,7 +19,6 @@
 #include "VROVector3f.h"
 #include "VROScene.h"
 #include "VROSceneController.h"
-#include "VROPortalTraversalListener.h"
 #include "VROTexture.h"
 #include "VROLight.h"
 #include "VROARSceneController.h"

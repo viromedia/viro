@@ -206,7 +206,6 @@ public class VRTSceneNavigator extends FrameLayout {
         mSceneArray.add(index, childScene);
         childScene.setPlatformInformation(mViroView.getPlatform(), mViroView.getHeadset(),
                 mViroView.getController());
-        childScene.addPortalTraversalListener(mViroView.getRenderer());
         // Adding the scene view can occur after the prop type is set on the bridge.
         // Thus, refresh the selection of the current scene as needed.
         if (index == mSelectedSceneIndex){
@@ -257,7 +256,6 @@ public class VRTSceneNavigator extends FrameLayout {
          from the bridge, and cutting the VROScene from the scene controller.
          */
         if (view instanceof VRTScene) {
-            ((VRTScene) view).removePortalTraversalListener(mViroView.getRenderer());
             mSceneArray.remove(view);
             ((VRTScene) view).forceCascadeTearDown();
         }

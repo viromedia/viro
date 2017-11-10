@@ -72,7 +72,7 @@ public:
     std::shared_ptr<VROARSessionDelegate> getDelegate() {
         return _delegate.lock();
     }
-    void setDelegate(std::shared_ptr<VROARSessionDelegate> delegate) {
+    virtual void setDelegate(std::shared_ptr<VROARSessionDelegate> delegate) {
         _delegate = delegate;
     }
     
@@ -147,7 +147,7 @@ private:
     VROTrackingType _trackingType;
     std::shared_ptr<VROScene> _scene;
     std::weak_ptr<VROARSessionDelegate> _delegate;
-    
+
 };
 
 class VROARSessionDelegate {

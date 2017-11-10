@@ -21,7 +21,6 @@ import com.viro.core.Texture;
 import com.viro.core.Vector;
 import com.viro.core.VideoTexture;
 import com.viro.core.Renderer;
-import com.viro.core.PortalTraversalListener;
 import com.viromedia.bridge.component.node.control.VRTCamera;
 import com.viromedia.bridge.utility.Helper;
 import com.viromedia.bridge.utility.ViroEvents;
@@ -38,7 +37,6 @@ public class VRTScene extends VRTNode implements Scene.VisibilityListener {
     protected Scene mNativeScene;
     private Renderer mNativeRenderer;
     private VRTCamera mCamera;
-    private PortalTraversalListener mPortalTraversalListener;
     private float[] mSoundRoomSize = DEFAULT_SIZE;
     private String mWallMaterial;
     private String mCeilingMaterial;
@@ -58,7 +56,6 @@ public class VRTScene extends VRTNode implements Scene.VisibilityListener {
     @Override
     protected Node createNodeJni() {
         mNativeScene = createSceneJni();
-        mPortalTraversalListener = new PortalTraversalListener(mNativeScene);
         return mNativeScene.getRootNode();
     }
 
@@ -75,10 +72,6 @@ public class VRTScene extends VRTNode implements Scene.VisibilityListener {
     @Override
     public void onTearDown() {
         if (!isTornDown()) {
-            if(mPortalTraversalListener != null) {
-                mPortalTraversalListener.destroy();
-                mPortalTraversalListener = null;
-            }
             mNativeScene.dispose();
         }
         super.onTearDown();
@@ -150,18 +143,6 @@ public class VRTScene extends VRTNode implements Scene.VisibilityListener {
     private void setCameraIfPossible() {
         if (mCamera != null && mNativeRenderer != null && !isTornDown()) {
             mNativeRenderer.setPointOfView(mCamera.getNodeJni());
-        }
-    }
-
-    public void removePortalTraversalListener(Renderer rendererJni) {
-        if(rendererJni != null && mPortalTraversalListener != null) {
-            rendererJni.removeFrameListener(mPortalTraversalListener);
-        }
-    }
-
-    public void addPortalTraversalListener(Renderer rendererJni) {
-        if(rendererJni != null && mPortalTraversalListener != null) {
-            rendererJni.addFrameListener(mPortalTraversalListener);
         }
     }
 

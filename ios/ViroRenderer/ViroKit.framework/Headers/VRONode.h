@@ -246,14 +246,14 @@ public:
     }
     
     /*
-     The following are atomic, updated once per frame on the
-     rendering thread. They can be accessed safely from any thread
-     to get an up-to-date state of the transform.
+     The following are atomic, updated once per frame on the rendering thread. They can
+     be accessed safely from any thread to get an up-to-date state of the transform.
      */
-    VROMatrix4f getLastComputedTransform() const;
-    VROVector3f getLastComputedPosition() const;
-    VROVector3f getLastComputedScale() const;
-    VROQuaternion getLastComputedRotation() const;
+    VROMatrix4f   getLastWorldTransform() const;
+    VROVector3f   getLastWorldPosition() const;
+    VROVector3f   getLastLocalPosition() const;
+    VROVector3f   getLastLocalScale() const;
+    VROQuaternion getLastLocalRotation() const;
     
     /*
      Set the rotation, position, or scale. Animatable.
@@ -720,11 +720,13 @@ private:
     /*
      Because _computedTransform is computed multiple times during a single render, storing
      the last fully computed transform is necessary to retrieve a "valid" computedTransform.
+     We also store the last *local* position, scale, and rotation atomically.
      */
     std::atomic<VROMatrix4f> _lastComputedTransform;
     std::atomic<VROVector3f> _lastComputedPosition;
-    std::atomic<VROVector3f> _lastComputedScale;
-    std::atomic<VROQuaternion> _lastComputedRotation;
+    std::atomic<VROVector3f> _lastPosition;
+    std::atomic<VROVector3f> _lastScale;
+    std::atomic<VROQuaternion> _lastRotation;
 
     /*
      The transformed bounding box containing this node's geometry. The 

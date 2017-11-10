@@ -63,7 +63,6 @@ static NSArray<NSNumber *> *const kDefaultSize = @[@(0), @(0), @(0)];
     _sceneController->setDelegate(_delegate);
     
     _vroScene = std::dynamic_pointer_cast<VROScene>(self.sceneController->getScene());
-    self.portalTraversalListener = std::make_shared<VROPortalTraversalListener>(_vroScene);
 }
 
 - (std::shared_ptr<VRONode>)createVroNode {
@@ -81,20 +80,6 @@ static NSArray<NSNumber *> *const kDefaultSize = @[@(0), @(0), @(0)];
 
 - (id<VROView>)getVROView {
     return _vroView;
-}
-
-// Add portal traversal listener for this scene.
--(void)addTraversalListenerToVROView {
-    id<VROView> view = [self getVROView];
-    view.frameSynchronizer->addFrameListener(self.portalTraversalListener);
-}
-
-// Remove portal traversal listener for this AR scene.
--(void)removeTraversalListenerFromVROView {
-    if(self.portalTraversalListener) {
-        id<VROView> view  = [self getVROView];
-        view.frameSynchronizer->removeFrameListener(self.portalTraversalListener);
-    }
 }
 
 -(void)setDriver:(std::shared_ptr<VRODriver>)driver {

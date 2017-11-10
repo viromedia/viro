@@ -122,9 +122,7 @@ RCT_EXPORT_METHOD(getNodeTransform:(nonnull NSNumber *)viewTag
 
         VRTNode *node = (VRTNode *) nodeView;
         std::shared_ptr<VRONode> vroNode = [node node];
-        VROMatrix4f transform = vroNode->getLastComputedTransform();
-        
-        
+        VROMatrix4f transform = vroNode->getLastWorldTransform();
         VROVector3f position = transform.extractTranslation();
         VROVector3f scale = transform.extractScale();
         VROVector3f rotation = transform.extractRotation(scale).toEuler();

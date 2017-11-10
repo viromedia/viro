@@ -54,7 +54,6 @@ static NSString *const kCameraOrientation = @"cameraOrientation";
     
     _vroArScene = std::dynamic_pointer_cast<VROARScene>(self.sceneController->getScene());
     _vroArScene->initDeclarativeSession();
-    self.portalTraversalListener = std::make_shared<VROPortalTraversalListener>(_vroArScene);
 }
 
 - (void)setAnchorDetectionTypes:(NSArray<NSString *> *)types {
