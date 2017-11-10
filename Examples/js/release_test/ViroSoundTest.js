@@ -89,16 +89,17 @@ var ViroSoundTest = createReactClass({
       maxDistance: 10,
       minDistance: 7,
       soundRoom:1,
-      soundType:0,
+      soundType:1,
       soundDistance:-7,
-      cameraPos:0
+      cameraPos:0,
+      preloadedSound : false,
     }
   },
 
     _toggleSoundType(){
       var newSoundType = this.state.soundType + 1;
       if (newSoundType > 2){
-          newSoundType = 0;
+          newSoundType = 1;
       }
 
       this.setState({
@@ -159,10 +160,9 @@ var ViroSoundTest = createReactClass({
         text={"Source: " + stringSource} textLineBreakMode='justify' onClick={this._toggleSource}/>
 
         <ViroText style={styles.centeredText} position={[2,0, 0]} width={2} height ={2}
-                text={"Preload Sound"} textLineBreakMode='justify' onClick={this._preloadSound}/>
+                text={this.state.preloadedSound ? "Unload Sound" : "Preload Sound"}
+                textLineBreakMode='justify' onClick={this._preloadSound}/>
 
-        <ViroText style={styles.centeredText} position={[-2,-1, 0]} width={2} height ={2}
-                text={"Unload Preloaded Sound"} textLineBreakMode='justify' onClick={this._unloadSound}/>
         </ViroNode>
 
     );
@@ -269,9 +269,21 @@ var ViroSoundTest = createReactClass({
      });
   },
   _preloadSound(){
-        ViroSound.preloadSounds({
-         "cube_sound" : "https://s3-us-west-2.amazonaws.com/viro/cube_sound.wav",
-        });
+    if (this.state.preloadedSound) {
+      ViroSound.unloadSounds([
+        "cube_sound",
+      ]);
+      this.setState({
+        preloadedSound : false,
+      })
+    } else {
+      ViroSound.preloadSounds({
+        "cube_sound" : "https://s3-us-west-2.amazonaws.com/viro/cube_sound.wav",
+      });
+      this.setState({
+        preloadedSound : true,
+      })
+    }
   },
   _unloadSound(){
         ViroSound.unloadSounds([
@@ -288,16 +300,16 @@ var ViroSoundTest = createReactClass({
   },
 
   _testNormalSound(){
-    if (this.state.soundType == 1){
-        return(
-            <ViroSound
-                paused={!this.state.isPlaying}
-                muted={this.state.mute}
-                source={this._getSource()}
-                loop={this.state.looping}
-                volume={this.state.volume}
-                onFinish={this.onFinishSound}/>
-        );
+    if (this.state.soundType == 1) {
+      return(
+          <ViroSound
+              paused={!this.state.isPlaying}
+              muted={this.state.mute}
+              source={this._getSource()}
+              loop={this.state.looping}
+              volume={this.state.volume}
+              onFinish={this.onFinishSound}/>
+      );
     }
   },
 
@@ -339,7 +351,7 @@ var ViroSoundTest = createReactClass({
   _getSource(component) {
       var stringSource = require("../res/metronome.mp3");
       if (this.state.toggleSource == 1){
-          stringSource = {uri :"https://www.bensound.com/royalty-free-music?download=funnysong"};
+          stringSource = {uri :"http://incompetech.com/music/royalty-free/mp3-royaltyfree/Danger%20Storm.mp3"};
       } else if (this.state.toggleSource == 2){
           stringSource = "cube_sound";
       }
