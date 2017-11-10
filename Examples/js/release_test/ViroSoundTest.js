@@ -11,7 +11,8 @@ import {
   AppRegistry,
   StyleSheet,
   Text,
-  View
+  View,
+  Platform
 } from 'react-native';
 
 import {
@@ -302,13 +303,13 @@ var ViroSoundTest = createReactClass({
   _testNormalSound(){
     if (this.state.soundType == 1) {
       return(
-          <ViroSound
-              paused={!this.state.isPlaying}
-              muted={this.state.mute}
-              source={this._getSource()}
-              loop={this.state.looping}
-              volume={this.state.volume}
-              onFinish={this.onFinishSound}/>
+        <ViroSound
+            paused={!this.state.isPlaying}
+            muted={this.state.mute}
+            source={this._getSource()}
+            loop={this.state.looping}
+            volume={this.state.volume}
+            onFinish={this.onFinishSound}/>
       );
     }
   },
@@ -350,8 +351,12 @@ var ViroSoundTest = createReactClass({
   },
   _getSource(component) {
       var stringSource = require("../res/metronome.mp3");
-      if (this.state.toggleSource == 1){
+      if (this.state.toggleSource == 1) {
+        if (Platform.OS == 'ios' && this.state.soundType == 2) {
           stringSource = {uri :"http://incompetech.com/music/royalty-free/mp3-royaltyfree/Danger%20Storm.mp3"};
+        } else {
+          stringSource = {uri : "https://freesound.org/data/previews/176/176177_670687-lq.mp3"}
+        }
       } else if (this.state.toggleSource == 2){
           stringSource = "cube_sound";
       }
