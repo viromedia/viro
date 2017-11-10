@@ -29,6 +29,8 @@ public class VRTText extends VRTControl {
     private String mVerticalAlignment = "Top";
     private String mTextLineBreakMode = "WordWrap";
     private String mTextClipMode = "ClipToBounds";
+    private boolean mNeedsUpdate = false;
+
     public VRTText(ReactApplicationContext context) {
         super(context);
     }
@@ -44,22 +46,27 @@ public class VRTText extends VRTControl {
     }
     public void setWidth(float width) {
         mWidth = width;
+        mNeedsUpdate = true;
     }
 
     public void setHeight(float height) {
         mHeight = height;
+        mNeedsUpdate = true;
     }
 
     public void setColor(long color) {
         mColor = color;
+        mNeedsUpdate = true;
     }
 
     public void setMaxLines(int maxLines) {
         mMaxLines = maxLines;
+        mNeedsUpdate = true;
     }
 
     public void setText(String text) {
         mText = text;
+        mNeedsUpdate = true;
     }
 
     public void setFontFamilyName(String fontFamilyName) {
@@ -67,26 +74,32 @@ public class VRTText extends VRTControl {
             return;
         }
         mFontFamilyName = fontFamilyName;
+        mNeedsUpdate = true;
     }
 
     public void setSize(int size) {
         mSize = size;
+        mNeedsUpdate = true;
     }
 
     public void setHorizontalAlignment(String horizontalAlignment) {
         mHorizontalAlignment = horizontalAlignment;
+        mNeedsUpdate = true;
     }
 
     public void setVerticalAlignment(String verticalAlignment) {
         mVerticalAlignment = verticalAlignment;
+        mNeedsUpdate = true;
     }
 
     public void setTextClipMode(String textClipMode) {
         mTextClipMode = textClipMode;
+        mNeedsUpdate = true;
     }
 
     public void setTextLineBreakMode(String textLineBreakMode) {
         mTextLineBreakMode = textLineBreakMode;
+        mNeedsUpdate = true;
     }
 
     private void updateLabel() {
@@ -119,7 +132,10 @@ public class VRTText extends VRTControl {
     @Override
     public void onPropsSet() {
         super.onPropsSet();
-        updateLabel();
+        if (mNeedsUpdate) {
+            mNeedsUpdate = false;
+            updateLabel();
+        }
     }
 
     private Text.HorizontalAlignment getHorizontalAlignmentEnum(String strName) {

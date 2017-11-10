@@ -213,8 +213,6 @@ public class VRTSceneNavigator extends FrameLayout {
         }
 
         mViewAdded = true;
-        // In case gl was initialized before views were added.
-        setViroContext();
         super.addView(child, index);
     }
 
@@ -234,6 +232,7 @@ public class VRTSceneNavigator extends FrameLayout {
             return;
         }
 
+        setViroContext();
         mViroView.setScene(mSceneArray.get(mSelectedSceneIndex).getNativeScene());
         mSceneArray.get(mSelectedSceneIndex).parentDidAppear();
     }
