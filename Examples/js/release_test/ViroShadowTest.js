@@ -172,12 +172,12 @@ var ViroShadowTest = createReactClass({
 
     return (
               <ViroScene ref="scene1">
-              <ReleaseMenu position={[0 , -3, -4]} sceneNavigator={this.props.sceneNavigator}/>
+              <ReleaseMenu position={[0, -3, -4]} sceneNavigator={this.props.sceneNavigator}/>
 
                  {/* Left half of the screen, tests for collision with ray shot in scene */}
-                 <ViroNode position={[-3 , 4, -6]} transformBehaviors={["billboard"]}>
+                 <ViroNode position={[-3, 4, -6]} transformBehaviors={["billboard"]}>
                  <ViroText fontSize={35}  style={styles.centeredText} lightReceivingBitMask={0} // 0 to avoid influencing the test
-                   position={[0,0, 0]} width={6} height ={2} maxLines={2}
+                   position={[0, 0, 0]} width={6} height ={2} maxLines={2}
                    text={"Toggle Cast Shadow " + this.state.castshadowLights }
                    onClick={this.toggleProperty(1)}
                    />
@@ -187,43 +187,43 @@ var ViroShadowTest = createReactClass({
                     onClick={this.toggleProperty(2)}
                     />
                   <ViroText fontSize={35}  style={styles.centeredText} lightReceivingBitMask={0}
-                        position={[0,-2, 0]} width={6} height ={2} maxLines={2}
+                        position={[0, -2, 0]} width={6} height ={2} maxLines={2}
                         text={"Toggle Shadow Plane Mask " + this.state.shadowPlaneMask}
                         onClick={this.toggleProperty(3)}
                   />
                   <ViroText fontSize={35}  style={styles.centeredText} lightReceivingBitMask={0}
-                        position={[0,-3, 0]} width={6} height ={2} maxLines={2}
+                        position={[0, -3, 0]} width={6} height ={2} maxLines={2}
                         text={"Toggle Shadow NCP " + this.state.shadowClippingPlaneStart}
                         onClick={this.toggleProperty(4)}
                   />
                   <ViroText fontSize={35}  style={styles.centeredText} lightReceivingBitMask={0}
-                        position={[0,-4, 0]} width={6} height ={2} maxLines={2}
+                        position={[0, -4, 0]} width={6} height ={2} maxLines={2}
                         text={"Toggle Shadow Opacity " + this.state.shadowOpacity}
                         onClick={this.toggleProperty(5)}
                   />
                   <ViroText fontSize={35}  style={styles.centeredText} lightReceivingBitMask={0}
-                        position={[0,-5, 0]} width={5} height ={2} maxLines={2}
+                        position={[0, -5, 0]} width={5} height ={2} maxLines={2}
                         text={"Toggle Shadow Map Size " + this.state.shadowMapSize}
                         onClick={this.toggleProperty(6)}
                   />
                   <ViroText fontSize={35}  style={styles.centeredText} lightReceivingBitMask={0}
-                        position={[0,-6, 0]} width={6} height ={2} maxLines={2}
+                        position={[0, -6, 0]} width={6} height ={2} maxLines={2}
                         text={"Toggle Shadow Ortho Size " + this.state.shadowOrthographicSize}
                         onClick={this.toggleProperty(7)}
                   />
                   <ViroText fontSize={35}  style={styles.centeredText} lightReceivingBitMask={0}
-                        position={[0,-7, 0]} width={6} height ={2} maxLines={2}
+                        position={[0, -7, 0]} width={6} height ={2} maxLines={2}
                         text={"Toggle Shadow Bias " + this.state.shadowBias}
                         onClick={this.toggleProperty(8)}
                   />
                   <ViroText fontSize={35}  style={styles.centeredText} lightReceivingBitMask={0}
-                        position={[0,-8, 0]} width={6} height ={2} maxLines={2}
+                        position={[0, -8, 0]} width={6} height ={2} maxLines={2}
                         text={"Toggle Shadow Ortho Position X " + this.state.shadowOrthographicPositionX}
                         onClick={this.toggleProperty(9)}
                   />
                 </ViroNode>
 
-                <ViroNode position={[0,0,-5]}>
+                <ViroNode position={[0, 0, -5]}>
 
                   <ViroSpotLight
                     innerAngle={45}
@@ -231,7 +231,7 @@ var ViroShadowTest = createReactClass({
                     attenuationStartDistance={0.1}
                     attenuationEndDistance={22}
                     castsShadow={this.state.castshadowLights}
-                    direction={[1,-1,0]}
+                    direction={[1, -1, 0]}
                     position={[-3, 5, 0]}
                     color="#ff0000"
                     intensity={200}
@@ -249,7 +249,7 @@ var ViroShadowTest = createReactClass({
                     castsShadow={this.state.castshadowLights}
                     attenuationStartDistance={0.1}
                     attenuationEndDistance={22}
-                    direction={[0,-1,0]}
+                    direction={[0, -1, 0]}
                     position={[3, 5, 0]}
                     color="#00ff00"
                     intensity={200}
@@ -261,7 +261,7 @@ var ViroShadowTest = createReactClass({
                   />
                   <ViroDirectionalLight
                     castsShadow={this.state.castshadowLights}
-                    direction={[0,-1,0]}
+                    direction={[0, -1, 0]}
                     color="#00a7f4"
                     intensity={200}
                     shadowBias={this.state.shadowBias}
@@ -274,32 +274,24 @@ var ViroShadowTest = createReactClass({
                     shadowOpacity={this.state.shadowOpacity}/>
 
                 <ViroBox
-                   lightReceivingBitMask={15 | 0x10}
+                   lightReceivingBitMask={this.state.boxMask}
                    shadowCastingBitMask={this.state.boxMask}
                    position={[0, 0, 0]}
-                   scale={[0.5,0.5,0.5]}
-                   materials={["blue"]}/>
-{/*
+                   scale={[0.5, 0.5, 0.5]}
+                   materials={["white"]}/>
+
                 <ViroSurface
-                  rotation={[-90, 0, 0]}
-                  position={[0, -4.95, 0]}
-                  width={15} height={10}
-                  lightReceivingBitMask={this.state.shadowPlaneMask}
-                  materials={"shadowCatcher"}
-                  arShadowReceiver={true}
-                  ignoreEventHandling={true} />
-*/}
-                <ViroSurface
-                    lightReceivingBitMask={this.state.shadowPlaneMask | 0x10}
+                    lightReceivingBitMask={this.state.shadowPlaneMask}
                     materials={"ground"}
                     rotation={[-90, 0, 0]}
-                    position={[0,-5,0]}
-                    scale={[1,1,1]}
+                    position={[0, -5, 0]}
+                    scale={[1, 1, 1]}
                     width={15}
                     height={10} />
 
+               { /* This brightens the surface a bit and lights up the Box */ }
                 <ViroOmniLight
-                  intensity={50}
+                    intensity={50}
                     influenceBitMask={15}
                     position={[0, -2, 2]}
                     color={"#ffffff"}
@@ -329,46 +321,39 @@ var styles = StyleSheet.create({
     flex: 1,
   },
   centeredText: {
-       fontFamily: 'Arial',
-       color: '#ffffff',
-       flex: 1,
+     fontFamily: 'Arial',
+     color: '#ffffff',
+     flex: 1,
   },
-
 });
 
 ViroMaterials.createMaterials({
-  blue: {
+  white: {
+    lightingModel: "Lambert",
+    cullMode: "None",
+    shininess: 2.0,
+    diffuseColor: "#ffffff"
+  },
+  red: {
     lightingModel: "Blinn",
-
-      cullMode: "None",
-      shininess: 2.0,
-      diffuseColor: "#3399ff99"
-    },
-    red: {
-      lightingModel: "Blinn",
-
-        cullMode: "None",
-        shininess: 2.0,
-        diffuseColor: "#ff1111"
-      },
-    ground: {
-      lightingModel: "Lambert",
-//  lightingModel: ReactPropTypes.oneOf(['Phong', 'Blinn', 'Lambert', 'Constant']),
-
-        cullMode: "None",
-        shininess: 2.0,
-        diffuseColor: "#ff9999"
-      },
-    shadowCatcher: {
-      writesToDepthBuffer: false,
-    },
+    cullMode: "None",
+    shininess: 2.0,
+    diffuseColor: "#ff1111"
+  },
+  ground: {
+    lightingModel: "Lambert",
+    cullMode: "None",
+    shininess: 2.0,
+    diffuseColor: "#ff9999"
+  },
+  shadowCatcher: {
+    writesToDepthBuffer: false,
+  },
   green: {
-        cullMode: "None",
-        shininess: 2.0,
-        diffuseColor: "#33cc3399"
-
-      },
-
+    cullMode: "None",
+    shininess: 2.0,
+    diffuseColor: "#33cc3399"
+  },
  });
 
 module.exports = ViroShadowTest;
