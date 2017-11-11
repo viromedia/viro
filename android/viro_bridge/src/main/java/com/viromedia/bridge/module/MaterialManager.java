@@ -6,6 +6,7 @@ package com.viromedia.bridge.module;
 
 
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.net.Uri;
 
 import com.facebook.react.bridge.ReactApplicationContext;
@@ -54,7 +55,6 @@ public class MaterialManager extends ReactContextBaseJavaModule {
         if (mMaterialsMap.containsKey(name)) {
             return mMaterialsMap.get(name).getNativeMaterial();
         }
-
         return null;
     }
 
@@ -95,8 +95,23 @@ public class MaterialManager extends ReactContextBaseJavaModule {
     }
 
     private MaterialWrapper createMaterial(ReadableMap materialMap) {
-        final Material nativeMaterial = new Material();
-        MaterialWrapper materialWrapper = new MaterialWrapper(nativeMaterial, materialMap);
+        MaterialWrapper materialWrapper = new MaterialWrapper(materialMap);
+
+        // These defaults match those in the JNI's Material.java
+        Material.LightingModel lightingModel = Material.LightingModel.CONSTANT;
+        int diffuseColor = Color.WHITE;
+        Texture diffuseTexture = null;
+        float diffuseIntensity = 1.0f;
+        Texture specularTexture = null;
+        float shininess = 2.0f;
+        float fresnelExponent = 1.0f;
+        Texture normalMap = null;
+        Material.CullMode cullMode = Material.CullMode.BACK;
+        Material.TransparencyMode transparencyMode= Material.TransparencyMode.A_ONE;
+        Material.BlendMode blendMode = Material.BlendMode.ALPHA;
+        float bloomThreshold = 1.0f;
+        boolean writesToDepthBuffer = true;
+        boolean readsFromDepthBuffer = true;
 
         ReadableMapKeySetIterator iter = materialMap.keySetIterator();
         while(iter.hasNextKey()) {
@@ -105,7 +120,7 @@ public class MaterialManager extends ReactContextBaseJavaModule {
             if (materialPropertyName.endsWith("texture") || materialPropertyName.endsWith("Texture")) {
                 if (materialPropertyName.equalsIgnoreCase("reflectiveTexture")) {
                     Texture nativeTexture = createTextureCubeMap(materialMap.getMap(materialPropertyName), Texture.Format.RGBA8);
-                    setTextureOnMaterial(nativeMaterial, nativeTexture, materialPropertyName, materialMap);
+                    // TODO Reflective texture are unsupported currently
                     continue;
                 }
 
@@ -120,8 +135,20 @@ public class MaterialManager extends ReactContextBaseJavaModule {
                         materialWrapper.addVideoTexturePath(materialPropertyName, path);
                     } else {
                         if (mImageMap.get(materialPropertyName) != null) {
-                            setImageOnMaterial(mImageMap.get(materialPropertyName), format, sRGB, mipmap, nativeMaterial,
+                            Texture texture = parseTexture(mImageMap.get(materialPropertyName), format, sRGB, mipmap,
                                     materialPropertyName, materialMap);
+                            if (materialPropertyName.equalsIgnoreCase("diffuseTexture")) {
+                                diffuseTexture = texture;
+                            }
+                            else if (materialPropertyName.equalsIgnoreCase("specularTexture")) {
+                                specularTexture = texture;
+                            }
+                            else if (materialPropertyName.equalsIgnoreCase("normalTexture")) {
+                                normalMap = texture;
+                            }
+                            else {
+                                throw new IllegalArgumentException("Invalid texture property received: " + materialPropertyName);
+                            }
                         } else {
                             ImageDownloader downloader = new ImageDownloader(mContext);
                             downloader.setTextureFormat(format);
@@ -129,7 +156,20 @@ public class MaterialManager extends ReactContextBaseJavaModule {
                             Bitmap imageBitmap = downloader.getImageSync(uri);
                             if (imageBitmap != null) {
                                 Image nativeImage = new Image(imageBitmap, format);
-                                setImageOnMaterial(nativeImage, format, sRGB, mipmap, nativeMaterial, materialPropertyName, materialMap);
+                                Texture texture = parseTexture(nativeImage, format, sRGB, mipmap,
+                                        materialPropertyName, materialMap);
+                                if (materialPropertyName.equalsIgnoreCase("diffuseTexture")) {
+                                    diffuseTexture = texture;
+                                }
+                                else if (materialPropertyName.equalsIgnoreCase("specularTexture")) {
+                                    specularTexture = texture;
+                                }
+                                else if (materialPropertyName.equalsIgnoreCase("normalTexture")) {
+                                    normalMap = texture;
+                                }
+                                else {
+                                    throw new IllegalArgumentException("Invalid texture property received: " + materialPropertyName);
+                                }
                             }
                         }
                     }
@@ -137,44 +177,61 @@ public class MaterialManager extends ReactContextBaseJavaModule {
             } else if (materialPropertyName.endsWith("color") || materialPropertyName.endsWith("Color")) {
                 int color = materialMap.getInt(materialPropertyName);
                 if (materialPropertyName.equalsIgnoreCase("diffuseColor")) {
-                    nativeMaterial.setDiffuseColor(color);
+                    diffuseColor = color;
                 }
                 else {
                     throw new IllegalArgumentException("Invalid color property for material: " + materialPropertyName);
                 }
             } else {
                 if ("shininess".equalsIgnoreCase(materialPropertyName)) {
-                    nativeMaterial.setShininess((float)materialMap.getDouble(materialPropertyName));
+                    shininess = (float)materialMap.getDouble(materialPropertyName);
                 } else if ("fresnelExponent".equalsIgnoreCase(materialPropertyName)) {
-                    nativeMaterial.setFresnelExponent((float)materialMap.getDouble(materialPropertyName));
+                    fresnelExponent = (float)materialMap.getDouble(materialPropertyName);
                 } else if ("lightingModel".equalsIgnoreCase(materialPropertyName)) {
-                    nativeMaterial.setLightingModel(Material.LightingModel.valueFromString(materialMap.getString(materialPropertyName)));
+                    lightingModel = Material.LightingModel.valueFromString(materialMap.getString(materialPropertyName));
                 } else if ("transparencyMode".equalsIgnoreCase(materialPropertyName)) {
-                    nativeMaterial.setTransparencyMode(Material.TransparencyMode.valueFromString(materialMap.getString(materialPropertyName)));
+                    transparencyMode = Material.TransparencyMode.valueFromString(materialMap.getString(materialPropertyName));
                 } else if ("writesToDepthBuffer".equalsIgnoreCase(materialPropertyName)) {
-                    nativeMaterial.setWritesToDepthBuffer(materialMap.getBoolean(materialPropertyName));
+                    writesToDepthBuffer = materialMap.getBoolean(materialPropertyName);
                 } else if ("readsFromDepthBuffer".equalsIgnoreCase(materialPropertyName)) {
-                    nativeMaterial.setReadsFromDepthBuffer(materialMap.getBoolean(materialPropertyName));
+                    readsFromDepthBuffer = materialMap.getBoolean(materialPropertyName);
                 } else if ("cullMode".equalsIgnoreCase(materialPropertyName)) {
-                    nativeMaterial.setCullMode(Material.CullMode.valueFromString(materialMap.getString(materialPropertyName)));
+                    cullMode = Material.CullMode.valueFromString(materialMap.getString(materialPropertyName));
                 } else if ("diffuseIntensity".equalsIgnoreCase(materialPropertyName)) {
-                    nativeMaterial.setDiffuseIntensity((float)materialMap.getDouble(materialPropertyName));
+                    diffuseIntensity = (float)materialMap.getDouble(materialPropertyName);
                 } else if ("bloomThreshold".equalsIgnoreCase(materialPropertyName)) {
-                    nativeMaterial.setBloomThreshold((float)materialMap.getDouble(materialPropertyName));
+                    bloomThreshold = (float)materialMap.getDouble(materialPropertyName);
                 }
             }
+        }
+
+        Material nativeMaterial = new Material(lightingModel, diffuseColor, diffuseTexture,
+                diffuseIntensity, specularTexture, shininess, fresnelExponent, normalMap,
+                cullMode, transparencyMode, blendMode, bloomThreshold, writesToDepthBuffer,
+                readsFromDepthBuffer);
+        materialWrapper.setNativeMaterial(nativeMaterial);
+
+        // We don't need to hold a Java texture reference after assigning the texture to the material
+        if (diffuseTexture != null) {
+            diffuseTexture.dispose();
+        }
+        if (specularTexture != null) {
+            specularTexture.dispose();
+        }
+        if (normalMap != null) {
+            normalMap.dispose();
         }
         return materialWrapper;
     }
 
-    private void setImageOnMaterial(Image image, Texture.Format format, boolean sRGB, boolean mipmap,
-                                    Material material, String name, ReadableMap materialMap) {
+    private Texture parseTexture(Image image, Texture.Format format, boolean sRGB, boolean mipmap,
+                                 String name, ReadableMap materialMap) {
         Texture nativeTexture = new Texture(image, format, sRGB, mipmap);
-        setTextureOnMaterial(material, nativeTexture, name, materialMap);
+        parseTexture(nativeTexture, name, materialMap);
+        return nativeTexture;
     }
 
-    private void setTextureOnMaterial(Material nativeMaterial, Texture nativeTexture,
-                                      String materialPropertyName, ReadableMap materialMap) {
+    private void parseTexture(Texture nativeTexture, String materialPropertyName, ReadableMap materialMap) {
         if (materialMap.hasKey("wrapS")) {
             nativeTexture.setWrapS(Texture.WrapMode.valueFromString(materialMap.getString("wrapS")));
         }
@@ -190,21 +247,6 @@ public class MaterialManager extends ReactContextBaseJavaModule {
         if (materialMap.hasKey("mipFilter")) {
             nativeTexture.setMipFilter(Texture.FilterMode.valueFromString(materialMap.getString("mipFilter")));
         }
-
-        if (materialPropertyName.equalsIgnoreCase("diffuseTexture")) {
-            nativeMaterial.setDiffuseTexture(nativeTexture);
-        }
-        else if (materialPropertyName.equalsIgnoreCase("specularTexture")) {
-            nativeMaterial.setSpecularTexture(nativeTexture);
-        }
-        else if (materialPropertyName.equalsIgnoreCase("normalTexture")) {
-            nativeMaterial.setNormalMap(nativeTexture);
-        }
-        else {
-            throw new IllegalArgumentException("Invalid texture property received: " + materialPropertyName);
-        }
-        // Since we're actually done with texture at this point, destroy the JNI object.
-        nativeTexture.dispose();
     }
 
     private Texture createTextureCubeMap(ReadableMap textureMap, Texture.Format format) {
@@ -304,12 +346,12 @@ public class MaterialManager extends ReactContextBaseJavaModule {
         private final ReadableMap mMaterialSource;
         private Map<String, String> mVideoTextures;
 
-        public MaterialWrapper(Material nativeMaterial, ReadableMap source) {
+        public MaterialWrapper(ReadableMap source) {
             mVideoTextures = new HashMap<String, String>();
-            mNativeMaterial = nativeMaterial;
             mMaterialSource = source;
         }
 
+        public void setNativeMaterial(Material material) { mNativeMaterial = material; }
         public Material getNativeMaterial() {
             return mNativeMaterial;
         }
