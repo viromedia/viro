@@ -43,7 +43,7 @@ public class VRTController extends VRTComponent {
     @Override
     public void setViroContext(ViroContext context) {
         super.setViroContext(context);
-        mNativeController = new Controller(context);
+        mNativeController = context.getController();
         updateVisibility();
 
         // Create and attach callbacks.

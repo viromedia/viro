@@ -205,7 +205,7 @@ public class VRTSceneNavigator extends FrameLayout {
         VRTScene childScene = (VRTScene)child;
         mSceneArray.add(index, childScene);
         childScene.setPlatformInformation(mViroView.getPlatform(), mViroView.getHeadset(),
-                mViroView.getController());
+                mViroView.getControllerType());
         // Adding the scene view can occur after the prop type is set on the bridge.
         // Thus, refresh the selection of the current scene as needed.
         if (index == mSelectedSceneIndex){
@@ -292,7 +292,7 @@ public class VRTSceneNavigator extends FrameLayout {
     private void notifyScenePlatformInformation() {
         for (VRTScene scene: mSceneArray) {
             scene.setPlatformInformation(mViroView.getPlatform(), mViroView.getHeadset(),
-                    mViroView.getController());
+                    mViroView.getControllerType());
         }
     }
 
