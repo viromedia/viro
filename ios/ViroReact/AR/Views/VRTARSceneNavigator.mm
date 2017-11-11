@@ -140,12 +140,11 @@ static NSString *const kVRTInvalidAPIKeyMessage = @"The given API Key is either 
         return;
     }
     
-    if(_currentScene == nil) {
+    if (_currentScene == nil) {
         [_vroView setSceneController:[sceneView sceneController]];
     } else {
         [_vroView setSceneController:[sceneView sceneController] duration:1 timingFunction:VROTimingFunctionType::EaseIn];
     }
-    
     _currentScene = sceneView;
 }
 
