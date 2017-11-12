@@ -13,6 +13,8 @@ import {
   Text,
   View
 } from 'react-native';
+import { Platform } from 'react-native';
+import { PermissionsAndroid } from 'react-native';
 
 import {
   ViroARScene,
@@ -52,6 +54,10 @@ var testARScene = createReactClass({
     }
   },
   componentDidMount: function() {
+
+    if (Platform.OS === 'android'){
+      this.requestCameraPermission();
+    }
     this._intensity = 0;
     this._colorTemp = 0;
     this.setInterval(
@@ -63,6 +69,26 @@ var testARScene = createReactClass({
       500
     )
   },
+
+  async requestCameraPermission() {
+    try {
+      const granted = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
+        {
+          'title': 'READ_EXTERNAL_STORAGE',
+          'message': 'ViroTest needs access to your photos.'
+        }
+      )
+      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+        console.log("READ_EXTERNAL_STORAGE granted.")
+      } else {
+        console.log("READ_EXTERNAL_STORAGE denied.")
+      }
+    } catch (err) {
+      console.warn(err)
+    }
+  },
+
   render: function() {
     return (
       <ViroARScene
@@ -101,7 +127,8 @@ var testARScene = createReactClass({
   },
   _getVideo() {
     if (this.state.videoSuccess) {
-      return (<ViroVideo position={[0,-.6,-1.5]}
+      return (
+        <ViroVideo position={[0,-.6,-1.5]}
         scale={[.5, .5, 1]}
         onClick={()=>{this._resetVideo}}
         source={{"uri" : "file://" + this.state.video}}
@@ -116,12 +143,20 @@ var testARScene = createReactClass({
   },
   _getScreenshot() {
     if (this.state.screenshotSuccess) {
-      return (<ViroImage position={[1,-.6,-1.5]}
+      return (
+        <ViroImage
+        position={[1,-.6,-1.5]}
         scale={[.5, .5, 1]}
+        onError={this._onError}
         source={{"uri" : "file://" + this.state.screenshot}}
         transformBehaviors={["billboard"]} />)
     }
   },
+
+  _onError(error){
+      console.log("Screenshot image load error: " + error);
+  },
+
   _onAmbientLightUpdate(retDict) {
     // setting native props is too insane/quick...
     // maybe if we cast it to an int it's easier to see, for now just use timer
@@ -159,6 +194,7 @@ var testARScene = createReactClass({
               console.log("[JS] other screenshot error: " + retDict.errorCode);
             }
           }
+
           this.setState({
             screenshotSuccess : retDict.success,
             screenshot : retDict.url,
