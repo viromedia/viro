@@ -35,11 +35,6 @@ public:
     static bool isActive();
 
     /*
-     Begins a new VROTransaction unless there already is an active animation transaction.
-     */
-    static void beginImplicitAnimation();
-
-    /*
      Update the T values for all committed animation transactions.
      */
     static void update();
@@ -89,11 +84,6 @@ public:
      Commit the active VROTransaction.
      */
     static std::shared_ptr<VROTransaction> commit();
-
-    /*
-     Commit all VROTransactions.
-     */
-    static void commitAll();
 
     /*
      Set the animation duration for the active animation transaction, in seconds.
