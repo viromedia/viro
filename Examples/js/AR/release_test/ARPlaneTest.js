@@ -132,13 +132,13 @@ var testARScene = createReactClass({
     })
   },
   _getFoundText() {
-    return this.state.found ? "Plane Found" : "Plane NOT Found";
+    return "Plane Found: " + (this.state.found ? "true" : "false");
   },
   _getUpdatedText() {
     return this.state.displayMap ? ("Width: " + this.state.displayMap.width + ", Height: " + this.state.displayMap.height) : "No Updates";
   },
   _getRemovedText() {
-    return this.state.removed ? "Plane Removed" : "Plane NOT Removed";
+    return "Plane Removed: " + (this.state.removed ? "true" : "false");
   },
   /*
    We set text natively because some events update very quickly
