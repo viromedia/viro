@@ -314,10 +314,8 @@ var ViroShadowTest = createReactClass({
             });
           } else if (num == 22){
             console.log("Daniel quad bloom is : " + this.state.quadBloom);
-
-
             this.setState({
-             quadBloom:this.state.quadBloom == 1.0 ? -1.0 : 1.0
+             quadBloom:this.state.quadBloom == 0.5 ? -1.0 : 0.5
             });
           } else if (num == 23){
             this.setState({
