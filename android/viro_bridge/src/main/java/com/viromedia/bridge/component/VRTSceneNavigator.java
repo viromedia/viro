@@ -316,8 +316,11 @@ public class VRTSceneNavigator extends FrameLayout {
         MaterialManager materialManager = mReactContext.getNativeModule(MaterialManager.class);
         materialManager.shouldReload();
 
-        mViroView.onActivityStopped(mReactContext.getCurrentActivity());
-        mViroView.dispose();
+        if (mViroView != null) {
+            mViroView.onActivityStopped(mReactContext.getCurrentActivity());
+            mViroView.dispose();
+            mViroView = null;
+        }
     }
 
     private void onHostResume() {
