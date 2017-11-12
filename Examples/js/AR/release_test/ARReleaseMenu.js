@@ -45,6 +45,7 @@ var testFiles = [
   ["ARPlaneTest", require("./ARPlaneTest")],
   ["ARPlaneManualTest", require("./ARPlaneManualTest")],
   ["ARHitTest", require("./ARHitTest")],
+  ["ARHitTestCamera", require("./ARHitTestCamera")],
   ["ViroPortalTestAR", require("./ViroPortalTestAR")],
   ["ViroPostProcessTestAR", require("./ViroPostProcessTestAR")],
 ]
