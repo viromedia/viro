@@ -9,9 +9,13 @@ import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.ReadableMapKeySetIterator;
 import com.facebook.react.bridge.ReadableType;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
+import com.viro.core.Node;
+import com.viro.core.PortalScene;
 import com.viro.core.internal.Image;
 import com.viro.core.Texture;
+import com.viromedia.bridge.component.node.VRTNode;
 import com.viromedia.bridge.component.node.VRTScene;
+import com.viromedia.bridge.utility.Helper;
 import com.viromedia.bridge.utility.ImageDownloadListener;
 import com.viromedia.bridge.utility.ImageDownloader;
 import com.viromedia.bridge.utility.ViroLog;
@@ -21,7 +25,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.concurrent.CountDownLatch;
 
-public class VRTSkyBox extends VRTComponent {
+public class VRTSkyBox extends VRTNode {
     private static final long COLOR_NOT_SET = 0;
 
     private static final String TAG = ViroLog.getTag(VRTSkyBox.class);
@@ -74,9 +78,7 @@ public class VRTSkyBox extends VRTComponent {
                     }
                 }
             } else if (mColor != COLOR_NOT_SET) {
-                if (mScene != null) {
-                    mScene.setBackgroundCubeWithColor(mColor);
-                }
+                setBackgroundCubeImageColor(mColor);
             }
 
             mSkyboxNeedsUpdate = false;
@@ -119,9 +121,9 @@ public class VRTSkyBox extends VRTComponent {
     public void setScene(VRTScene scene) {
         super.setScene(scene);
         if (mLatestTexture != null) {
-            mScene.setBackgroundCubeImageTexture(mLatestTexture);
+            setBackgroundCubeImageTexture(mLatestTexture);
         } else if (mColor != COLOR_NOT_SET) {
-            mScene.setBackgroundCubeWithColor(mColor);
+            setBackgroundCubeImageColor(mColor);
         }
     }
 
@@ -140,6 +142,33 @@ public class VRTSkyBox extends VRTComponent {
 
     }
 
+    private void setBackgroundCubeImageColor(long color){
+        Node node = getNodeJni();
+        if (node == null || isTornDown()) {
+            return;
+        }
+
+        PortalScene portal = node.getParentPortalScene();
+        if (portal != null) {
+            portal.setBackgroundCubeWithColor(color);
+            portal.setBackgroundRotation(Helper.toRadiansVector(mRotation));
+        }
+    }
+
+
+    private void setBackgroundCubeImageTexture(Texture texture){
+        Node node = getNodeJni();
+        if (node == null || isTornDown()) {
+            return;
+        }
+
+        PortalScene portal = node.getParentPortalScene();
+        if (portal != null) {
+            portal.setBackgroundCubeTexture(texture);
+            portal.setBackgroundRotation(Helper.toRadiansVector(mRotation));
+        }
+    }
+
     private void imageDownloadDidFinish() {
 
         if (mLatestTexture != null) {
@@ -149,8 +178,8 @@ public class VRTSkyBox extends VRTComponent {
                 mImageMap.get("py"), mImageMap.get("ny"),
                 mImageMap.get("pz"), mImageMap.get("nz"), mFormat);
 
-        if (mScene != null && mUseTextureForSkybox) {
-            mScene.setBackgroundCubeImageTexture(mLatestTexture);
+        if (mUseTextureForSkybox) {
+            setBackgroundCubeImageTexture(mLatestTexture);
         }
         mContext.getJSModule(RCTEventEmitter.class).receiveEvent(
                 getId(),
