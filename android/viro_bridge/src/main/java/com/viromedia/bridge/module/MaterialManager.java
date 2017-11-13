@@ -109,7 +109,7 @@ public class MaterialManager extends ReactContextBaseJavaModule {
         Material.CullMode cullMode = Material.CullMode.BACK;
         Material.TransparencyMode transparencyMode= Material.TransparencyMode.A_ONE;
         Material.BlendMode blendMode = Material.BlendMode.ALPHA;
-        float bloomThreshold = 1.0f;
+        float bloomThreshold = -1.0f;
         boolean writesToDepthBuffer = true;
         boolean readsFromDepthBuffer = true;
 
