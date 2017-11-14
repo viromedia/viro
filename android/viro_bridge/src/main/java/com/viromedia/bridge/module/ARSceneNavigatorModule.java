@@ -5,6 +5,8 @@ package com.viromedia.bridge.module;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
 
@@ -22,12 +24,13 @@ import com.facebook.react.uimanager.NativeViewHierarchyManager;
 import com.facebook.react.uimanager.UIBlock;
 import com.facebook.react.uimanager.UIManagerModule;
 import com.viro.core.ViroMediaRecorder;
+import com.viro.core.ViroMediaRecorder.Error;
 import com.viromedia.bridge.component.VRTARSceneNavigator;
-import com.viro.core.ViroMediaRecorderDelegate;
-import static com.viro.core.ViroMediaRecorderDelegate.ERROR.*;
 
 public class ARSceneNavigatorModule extends ReactContextBaseJavaModule {
-    private static final String RECORDING_SUCESS_KEY = "success";
+    private static final int UNSUPPORTED_PLATFORM_ERROR = 6;
+
+    private static final String RECORDING_SUCCESS_KEY = "success";
     private static final String RECORDING_URL_KEY = "url";
     private static final String RECORDING_ERROR_KEY = "errorCode";
     private static final int PERMISSION_REQ_CODE_AUDIO = 1;
@@ -61,14 +64,14 @@ public class ARSceneNavigatorModule extends ReactContextBaseJavaModule {
                 // Grab the recorder from the ar scene view
                 final ViroMediaRecorder recorder = scene.getARView().getRecorder();
                 if (recorder == null){
-                    reactErrorDelegate.invoke(UNSUPPORTED_PLATFORM.toInt());
+                    reactErrorDelegate.invoke(UNSUPPORTED_PLATFORM_ERROR);
                     return;
                 }
 
                 // Construct an error listener callback that may be triggered during recording.
-                final ViroMediaRecorderDelegate viroErrorDelegate = new ViroMediaRecorderDelegate() {
+                final ViroMediaRecorder.RecordingErrorListener viroErrorDelegate = new ViroMediaRecorder.RecordingErrorListener() {
                     @Override
-                    public void onTaskCompleted(boolean success, ERROR error, String url) {
+                    public void onRecordingFailed(Error error) {
                         reactErrorDelegate.invoke(error.toInt());
                     }
                 };
@@ -101,20 +104,29 @@ public class ARSceneNavigatorModule extends ReactContextBaseJavaModule {
                 final ViroMediaRecorder recorder = scene.getARView().getRecorder();
                 if (recorder == null){
                     WritableMap returnMap = Arguments.createMap();
-                    returnMap.putBoolean(RECORDING_SUCESS_KEY, false);
-                    returnMap.putInt(RECORDING_ERROR_KEY, UNSUPPORTED_PLATFORM.toInt());
+                    returnMap.putBoolean(RECORDING_SUCCESS_KEY, false);
+                    returnMap.putInt(RECORDING_ERROR_KEY, UNSUPPORTED_PLATFORM_ERROR);
                     returnMap.putString(RECORDING_URL_KEY, null);
                     promise.resolve(returnMap);
                     return;
                 }
 
                 // Construct a completion delegate callback to be notified of the result of the recording.
-                final ViroMediaRecorderDelegate completionCallback = new ViroMediaRecorderDelegate() {
+                final ViroMediaRecorder.FinishListener completionCallback = new ViroMediaRecorder.FinishListener() {
                     @Override
-                    public void onTaskCompleted(boolean success, ERROR error, String url) {
+                    public void onTaskFailed(Error error) {
                         WritableMap returnMap = Arguments.createMap();
-                        returnMap.putBoolean(RECORDING_SUCESS_KEY, success);
+                        returnMap.putBoolean(RECORDING_SUCCESS_KEY, false);
                         returnMap.putInt(RECORDING_ERROR_KEY, error.toInt());
+                        returnMap.putString(RECORDING_URL_KEY, null);
+                        promise.resolve(returnMap);
+                    }
+
+                    @Override
+                    public void onTaskSucceeded(String url) {
+                        WritableMap returnMap = Arguments.createMap();
+                        returnMap.putBoolean(RECORDING_SUCCESS_KEY, true);
+                        returnMap.putInt(RECORDING_ERROR_KEY, Error.NONE.toInt());
                         returnMap.putString(RECORDING_URL_KEY, url);
                         promise.resolve(returnMap);
                     }
@@ -149,20 +161,29 @@ public class ARSceneNavigatorModule extends ReactContextBaseJavaModule {
                 final ViroMediaRecorder recorder = scene.getARView().getRecorder();
                 if (recorder == null){
                     WritableMap returnMap = Arguments.createMap();
-                    returnMap.putBoolean(RECORDING_SUCESS_KEY, false);
-                    returnMap.putInt(RECORDING_ERROR_KEY, UNSUPPORTED_PLATFORM.toInt());
+                    returnMap.putBoolean(RECORDING_SUCCESS_KEY, false);
+                    returnMap.putInt(RECORDING_ERROR_KEY, UNSUPPORTED_PLATFORM_ERROR);
                     returnMap.putString(RECORDING_URL_KEY, null);
                     promise.resolve(returnMap);
                     return;
                 }
 
                 // Construct a completion delegate callback to be notified of sceenshot results.
-                final ViroMediaRecorderDelegate callback = new ViroMediaRecorderDelegate() {
+                final ViroMediaRecorder.FinishListener callback = new ViroMediaRecorder.FinishListener() {
                     @Override
-                    public void onTaskCompleted(boolean success, ERROR error, String url) {
+                    public void onTaskFailed(Error error) {
                         WritableMap returnMap = Arguments.createMap();
-                        returnMap.putBoolean(RECORDING_SUCESS_KEY, success);
+                        returnMap.putBoolean(RECORDING_SUCCESS_KEY, false);
                         returnMap.putInt(RECORDING_ERROR_KEY, error.toInt());
+                        returnMap.putString(RECORDING_URL_KEY, null);
+                        promise.resolve(returnMap);
+                    }
+
+                    @Override
+                    public void onTaskSucceeded(String url) {
+                        WritableMap returnMap = Arguments.createMap();
+                        returnMap.putBoolean(RECORDING_SUCCESS_KEY, true);
+                        returnMap.putInt(RECORDING_ERROR_KEY, Error.NONE.toInt());
                         returnMap.putString(RECORDING_URL_KEY, url);
                         promise.resolve(returnMap);
                     }
@@ -184,10 +205,10 @@ public class ARSceneNavigatorModule extends ReactContextBaseJavaModule {
         Activity activity = mContext.getCurrentActivity();
 
         // return if we already have permissions
-        if (audioAndRecordingPerm && ViroMediaRecorder.hasAudioAndRecordingPermissions(mContext)) {
+        if (audioAndRecordingPerm && hasAudioAndRecordingPermissions(mContext)) {
             listener.onRequestPermissionsResult(0, null, null);
             return;
-        } else if (!audioAndRecordingPerm && ViroMediaRecorder.hasRecordingPermissions(mContext)) {
+        } else if (!audioAndRecordingPerm && hasRecordingPermissions(mContext)) {
             listener.onRequestPermissionsResult(0, null, null);
             return;
         }
@@ -208,5 +229,15 @@ public class ARSceneNavigatorModule extends ReactContextBaseJavaModule {
             reactActivity.requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
                     PERMISSION_REQ_CODE_STORAGE, listener);
         }
+    }
+
+    private static boolean hasAudioAndRecordingPermissions(Context context) {
+        boolean hasRecordPermissions = ContextCompat.checkSelfPermission(context, "android.permission.RECORD_AUDIO") == 0;
+        boolean hasExternalStoragePerm = ContextCompat.checkSelfPermission(context, "android.permission.WRITE_EXTERNAL_STORAGE") == 0;
+        return hasRecordPermissions && hasExternalStoragePerm;
+    }
+
+    private static boolean hasRecordingPermissions(Context context) {
+        return ContextCompat.checkSelfPermission(context, "android.permission.WRITE_EXTERNAL_STORAGE") == 0;
     }
 }
