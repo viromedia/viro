@@ -132,6 +132,16 @@
     _videoSurfaceNeedsUpdate = NO;
 }
 
+- (void)setContext:(VRORenderContext *)context {
+    [super setContext:context];
+    [self updateSurface];
+}
+
+- (void)setDriver:(std::shared_ptr<VRODriver>)driver {
+    [super setDriver:driver];
+    [self updateSurface];
+}
+
 - (void)didSetProps:(NSArray<NSString *> *)changedProps {
     [self updateSurface];
 }
