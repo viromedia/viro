@@ -83,8 +83,9 @@ export default class ViroExperienceSelector extends Component {
   }
   _getARNavigator() {
     return (
-      <View style={localStyles.outer} >
-        <ViroARSceneNavigator {...this.state.sharedProps}
+      <View style={localStyles.viroContainer} >
+        <ViroARSceneNavigator
+          {...this.state.sharedProps}
           initialScene={{scene: InitialARScene}} />
         <View style={{position: 'absolute',  left: 0, right: 0, bottom: 77, alignItems: 'center'}}>
           <TouchableHighlight style={localStyles.buttons}
@@ -115,6 +116,10 @@ export default class ViroExperienceSelector extends Component {
 }
 
 var localStyles = StyleSheet.create({
+  viroContainer : {
+    flex : 1,
+    backgroundColor: "black",
+  },
   outer : {
     flex : 1,
     flexDirection: 'row',
