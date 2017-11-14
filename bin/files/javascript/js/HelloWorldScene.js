@@ -10,21 +10,24 @@ import {
   Viro360Image,
 } from 'react-viro';
 
-var HelloWorldScene = React.createClass({
-  getInitialState() {
-    return {
+export default class HelloWorldScene extends Component {
 
-    };
-  },
-  render: function() {
+  constructor() {
+    super();
+
+    this.state = {} // Set initial state here
+  }
+
+  render() {
     return (
       <ViroScene>
         <Viro360Image source={require('./res/guadalupe_360.jpg')} />
         <ViroText text="Hello World!" width={2} height={2} position={[0, 0, -2]} style={styles.helloWorldTextStyle} />
       </ViroScene>
     );
-  },
-});
+  }
+
+}
 
 var styles = StyleSheet.create({
   helloWorldTextStyle: {
@@ -37,4 +40,3 @@ var styles = StyleSheet.create({
 });
 
 module.exports = HelloWorldScene;
-

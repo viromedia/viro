@@ -48,4 +48,3 @@ LINE_TO_ADD=$(echo $LINE_TO_ADD | sed -e 's/[]\/$*.^|[]/\\&/g')
 vsed "s/$LINE_TO_APPEND_AFTER/&"$'\\\n'"$LINE_TO_ADD/" $TARGET_FILEPATH
 
 chmod +x ./node_modules/react-viro/bin/run_ngrok.sh
-

@@ -83,15 +83,26 @@ export default class ViroExperienceSelector extends Component {
   }
   _getARNavigator() {
     return (
-      <ViroARSceneNavigator {...this.state.sharedProps}
-        initialScene={{scene: InitialARScene}} />
+      <View style={localStyles.outer} >
+        <ViroARSceneNavigator {...this.state.sharedProps}
+          initialScene={{scene: InitialARScene}} />
+        <View style={{position: 'absolute',  left: 0, right: 0, bottom: 77, alignItems: 'center'}}>
+          <TouchableHighlight style={localStyles.buttons}
+            onPress={()=>{this.setState({navigatorType : UNSET})}}
+            underlayColor={'#00000000'} >
+            <Text style={localStyles.buttonText}>Exit</Text>
+          </TouchableHighlight>
+        </View>
+      </View>
     );
   }
 
   _getVRNavigator() {
     return (
       <ViroSceneNavigator {...this.state.sharedProps}
-        initialScene={{scene: InitialVRScene}} onExitViro={()=>{this.setState({navigatorType : UNSET})}} />
+        initialScene={{scene: InitialVRScene}}
+        onExitViro={()=>{this.setState({navigatorType : UNSET})}}/>
+
     );
   }
   _getNavigatorTypeOnPress(navigatorType) {

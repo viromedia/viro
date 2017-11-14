@@ -60,7 +60,8 @@ echo "Updating settings.gradle"
 # Adding some lines to the end of the file
 TARGET_FILEPATH=$(find android -name settings.gradle)
 cat << EOF >> $TARGET_FILEPATH
-include ':react_viro', ':gvr_common', ':viro_renderer'
+include ':react_viro', ':arcore_client', ':gvr_common', ':viro_renderer'
+project(':arcore_client').projectDir = new File('../node_modules/react-viro/android/arcore_client')
 project(':gvr_common').projectDir = new File('../node_modules/react-viro/android/gvr_common')
 project(':viro_renderer').projectDir = new File('../node_modules/react-viro/android/viro_renderer')
 project(':react_viro').projectDir = new File('../node_modules/react-viro/android/react_viro')
@@ -94,9 +95,16 @@ LINE_TO_ADD="        targetSdkVersion 25"
 SEARCH_PATTERN="targetSdkVersion"
 LINE_TO_REPLACE=$(grep "$SEARCH_PATTERN" "$TARGET_FILEPATH")
 
-# Replacing dependencies by first deleting 2 lines and then inserting a few more
 vsed "s/$LINE_TO_REPLACE/$LINE_TO_ADD/g" $TARGET_FILEPATH
 
+# Enable multidexing
+LINE_TO_ADD="        multiDexEnabled true"
+SEARCH_PATTERN="targetSdkVersion"
+LINE_TO_APPEND_AFTER=$(grep "$SEARCH_PATTERN" "$TARGET_FILEPATH")
+
+vsed "s/$LINE_TO_APPEND_AFTER/&"$'\\\n'"$LINE_TO_ADD/" $TARGET_FILEPATH
+
+# Replacing dependencies by first deleting 2 lines and then inserting a few more
 SEARCH_PATTERN="dependencies {"
 LINE_NUMBER=$(grep -n "$SEARCH_PATTERN" "$TARGET_FILEPATH" | cut -d ':' -f 1)
 
@@ -106,6 +114,7 @@ vsed -e "$(($LINE_NUMBER+1)),$(($LINE_NUMBER+3))d" $TARGET_FILEPATH
 LINES_TO_ADD=("    compile fileTree(dir: 'libs', include: ['*.jar'])"
 "    compile 'com.android.support:appcompat-v7:25.0.0'"
 "    compile 'com.facebook.react:react-native:+'"
+"    compile project(':arcore_client') \/\/ remove this if AR not required"
 "    compile project(':gvr_common')"
 "    compile project(path: ':viro_renderer')"
 "    compile project(path: ':react_viro')"
@@ -154,6 +163,15 @@ echo "Updating AndroidManifest.xml"
 TARGET_FILEPATH=android/app/src/main/AndroidManifest.xml
 SEARCH_PATTERN="category.LAUNCHER"
 LINE_TO_ADD='            <category android:name="com.google.intent.category.CARDBOARD" \/>'
+LINE_TO_APPEND_TO=$(grep "$SEARCH_PATTERN" "$TARGET_FILEPATH")
+# escape the append to line
+LINE_TO_APPEND_TO=$(echo $LINE_TO_APPEND_TO | sed -e 's/[]\/$*.^|[]/\\&/g')
+
+vsed "s/$LINE_TO_APPEND_TO/&"$'\\\n'"$LINE_TO_ADD/" $TARGET_FILEPATH
+
+# add camera permissions for AR
+SEARCH_PATTERN="permission.SYSTEM_ALERT_WINDOW"
+LINE_TO_ADD='    <uses-permission android:name="android.permission.CAMERA" \/>'
 LINE_TO_APPEND_TO=$(grep "$SEARCH_PATTERN" "$TARGET_FILEPATH")
 # escape the append to line
 LINE_TO_APPEND_TO=$(echo $LINE_TO_APPEND_TO | sed -e 's/[]\/$*.^|[]/\\&/g')

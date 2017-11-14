@@ -53,6 +53,7 @@ export default class ViroSample extends Component {
     this._getARNavigator = this._getARNavigator.bind(this);
     this._getVRNavigator = this._getVRNavigator.bind(this);
     this._getExperienceButtonOnPress = this._getExperienceButtonOnPress.bind(this);
+    this._exitViro = this._exitViro.bind(this);
   }
 
   // Replace this function with the contents of _getVRNavigator() or _getARNavigator()
@@ -98,8 +99,20 @@ export default class ViroSample extends Component {
   // Returns the ViroARSceneNavigator which will start the AR experience
   _getARNavigator() {
     return (
-      <ViroARSceneNavigator {...this.state.sharedProps}
-        initialScene={{scene: InitialARScene}} />
+      <View style={localStyles.outer} >
+
+        <ViroARSceneNavigator {...this.state.sharedProps}
+          initialScene={{scene: InitialARScene}} />
+
+        {/* Add button to "exit" from AR */}
+        <View style={{position: 'absolute',  left: 0, right: 0, bottom: 77, alignItems: 'center'}}>
+          <TouchableHighlight style={localStyles.buttons}
+            onPress={this._exitViro}
+            underlayColor={'#00000000'} >
+            <Text style={localStyles.buttonText}>Exit</Text>
+          </TouchableHighlight>
+        </View>
+      </View>
     );
   }
   
@@ -107,7 +120,7 @@ export default class ViroSample extends Component {
   _getVRNavigator() {
     return (
       <ViroSceneNavigator {...this.state.sharedProps}
-        initialScene={{scene: InitialVRScene}} />
+        initialScene={{scene: InitialVRScene}} onExitViro={this._exitViro}/>
     );
   }
 
@@ -119,6 +132,13 @@ export default class ViroSample extends Component {
         navigatorType : navigatorType
       })
     }
+  }
+
+  // This function "exits" Viro by setting the navigatorType to UNSET.
+  _exitViro() {
+    this.setState({
+      navigatorType : UNSET
+    })
   }
 }
 
