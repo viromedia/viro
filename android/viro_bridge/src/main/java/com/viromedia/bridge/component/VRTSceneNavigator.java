@@ -324,7 +324,7 @@ public class VRTSceneNavigator extends FrameLayout {
     }
 
     private void onHostResume() {
-        if (mViewAdded && mGLInitialized) {
+        if (mViewAdded && mGLInitialized && mSelectedSceneIndex < mSceneArray.size()) {
             VRTScene childScene = mSceneArray.get(mSelectedSceneIndex);
             childScene.onHostResume();
         }
