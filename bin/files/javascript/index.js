@@ -106,7 +106,7 @@ export default class ViroSample extends Component {
 
         {/* Add button to "exit" from AR */}
         <View style={{position: 'absolute',  left: 0, right: 0, bottom: 20, alignItems: 'center'}}>
-          <TouchableHighlight style={localStyles.buttons}
+          <TouchableHighlight style={localStyles.exitButton}
             onPress={this._exitViro}
             underlayColor={'#00000000'} >
             <Text style={localStyles.buttonText}>Exit</Text>
