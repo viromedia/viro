@@ -234,7 +234,7 @@ var ViroShadowTest = createReactClass({
                     direction={[1, -1, 0]}
                     position={[-3, 5, 0]}
                     color="#ff0000"
-                    intensity={200}
+                    intensity={900}
                     shadowBias={this.state.shadowBias}
                     shadowMapSize={this.state.shadowMapSize}
                     influenceBitMask={lightMask1}
@@ -252,7 +252,7 @@ var ViroShadowTest = createReactClass({
                     direction={[0, -1, 0]}
                     position={[3, 5, 0]}
                     color="#00ff00"
-                    intensity={200}
+                    intensity={900}
                     shadowMapSize={this.state.shadowMapSize}
                     influenceBitMask={lightMask2}
                     shadowNearZ={this.state.shadowClippingPlaneStart}
@@ -263,7 +263,7 @@ var ViroShadowTest = createReactClass({
                     castsShadow={this.state.castshadowLights}
                     direction={[0, -1, 0]}
                     color="#00a7f4"
-                    intensity={200}
+                    intensity={900}
                     shadowBias={this.state.shadowBias}
                     shadowMapSize={this.state.shadowMapSize}
                     shadowOrthographicSize={this.state.shadowOrthographicSize}
@@ -291,7 +291,7 @@ var ViroShadowTest = createReactClass({
 
                { /* This brightens the surface a bit and lights up the Box */ }
                 <ViroOmniLight
-                    intensity={50}
+                    intensity={500}
                     influenceBitMask={15}
                     position={[0, -2, 2]}
                     color={"#ffffff"}
