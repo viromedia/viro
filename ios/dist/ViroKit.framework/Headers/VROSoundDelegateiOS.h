@@ -32,7 +32,7 @@ public:
         [_delegate soundDidFinish];
     }
 private:
-    id <VROSoundDelegate> _delegate;
+    __weak id <VROSoundDelegate> _delegate;
 
 };
 

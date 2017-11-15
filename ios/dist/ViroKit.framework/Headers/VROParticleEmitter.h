@@ -17,7 +17,6 @@ static float kAssumedParticleMass = 1;
 class VROSurface;
 class VROParticleUBO;
 class VROParticle;
-class VRONode;
 class VROTexture;
 
 /*
@@ -30,10 +29,20 @@ struct VROParticleSpawnVolume{
         Point
     };
 
+    static VROParticleSpawnVolume::Shape getModifierFactorForString(std::string strType) {
+        if (VROStringUtil::strcmpinsensitive(strType, "Box")) {
+            return VROParticleSpawnVolume::Shape::Box;
+        } else if (VROStringUtil::strcmpinsensitive(strType, "Sphere")) {
+            return VROParticleSpawnVolume::Shape::Sphere;
+        } else {
+            return VROParticleSpawnVolume::Shape::Point;
+        }
+    }
+
     Shape shape;
 
     // Vec of params to be provided for configuring the specified shape.
-    std::vector<double> shapeParams;
+    std::vector<float> shapeParams;
 
     // True if particles should be spawned on this shape's surface
     // instead of within it. Applicable for Box and Sphere shapes only.
@@ -48,14 +57,26 @@ struct VROParticleSpawnVolume{
 class VROParticleEmitter {
 public:
     VROParticleEmitter(std::shared_ptr<VRODriver> driver,
-                       std::shared_ptr<VRONode> emitterNode,
                        std::shared_ptr<VROSurface> particleGeometry);
-    ~VROParticleEmitter();
 
     /*
-     Called per frame to update particle states, lifetime and behavior.
+     Constructor that creates an uninitialized emitter. To initialize this emitter before
+     it can be configured / modified, call VROParticleEmitter::initEmitter();
      */
-    void update(const VRORenderContext &context);
+    VROParticleEmitter();
+    virtual ~VROParticleEmitter();
+
+    /*
+     Called per frame to update particle states, lifetime and behavior. The computedTransform
+     is the final transform of this emitter's parent node.
+     */
+    virtual void update(const VRORenderContext &context, const VROMatrix4f &computedTransform);
+
+    /*
+     Allows for setting of the particleSurface if initEmitter has already been called.
+     */
+    virtual void setParticleSurface(std::shared_ptr<VROSurface> particleSurface);
+    std::shared_ptr<VROGeometry> getParticleSurface() const;
 
     void setRun(bool emit) {
         _requestRun = emit;
@@ -77,7 +98,7 @@ public:
         _fixToEmitter = isFixed;
     }
 
-    void setMaxParticles (int maxParticles) {
+    virtual void setMaxParticles(int maxParticles) {
         _maxParticles = maxParticles;
     }
 
@@ -93,6 +114,9 @@ public:
         _particlesEmittedPerMeter = rate;
     }
 
+    void setBlendMode(VROBlendMode mode);
+    void setBloomThreshold(float threshold);
+
     /*
      True if we are no longer emitting particles and have completed the emission cycle.
      */
@@ -106,7 +130,7 @@ public:
     /*
      Used for constructing the behavior of how bursts of particles spawn.
      */
-    struct VROParticleBurst{
+    struct VROParticleBurst {
         // Reference factor against which to compare when deciding how to burst-spawn particles.
         VROParticleModifier::VROModifierFactor referenceFactor;
 
@@ -142,7 +166,7 @@ public:
      Parameters for configuring an initial explosive force at a given explosionPoint local
      to the emitter with a magnitude of impulseExplosion.
      */
-    void setInitialExplosion(VROVector3f explosionPoint, float impulseExplosion, float decelleration = -1){
+    void setInitialExplosion(VROVector3f explosionPoint, float impulseExplosion, float decelleration = -1) {
         _explosionCenter = explosionPoint;
         _impulseExplosionMagnitude = impulseExplosion;
         _impulseDeaccelerationExplosionPeriod = decelleration;
@@ -171,11 +195,25 @@ public:
         _accelerationModifier = mod;
     }
 
-private:
     /*
-     A weak referenceFactor to the VRONode that positions this VROParticleEmitter.
+     Initialize the emitter with default configurations and states.
      */
-    std::weak_ptr<VRONode> _particleEmitterNodeWeak;
+    void initEmitter(std::shared_ptr<VRODriver> driver,
+                     std::shared_ptr<VROSurface> particleGeometry);
+    void setDefaultValues();
+
+protected:
+
+    /*
+     The last transform computed for this emitter's parent node. Used when resetting
+     particles.
+     */
+    VROMatrix4f _lastComputedTransform;
+
+    /*
+     The geometry used to represent particles in this emitter.
+     */
+    std::shared_ptr<VROSurface> _particleGeometry;
 
     /*
      List of all particles in the scene for this emitter. This includes active particles (particles
@@ -184,12 +222,20 @@ private:
      and removed from this list to encourage the recycling of particle objects).
      */
     std::vector<VROParticle> _particles;
-
+    
     /*
      Vector containing all particles that have died so that they can be reused. Particles
      in a zombie start after a certain time will be de-allocated.
      */
     std::vector<VROParticle> _zombieParticles;
+
+    /*
+     The maximum number of active particles (not including zombie ones) that this emitter
+     can have at any given moment.
+     */
+    int _maxParticles;
+
+private:
 
 #pragma mark - Particle Emission Behaviors
     /*
@@ -244,13 +290,7 @@ private:
     std::vector<VROParticleBurst> _scheduledBurst;
 
     /*
-     The maximum number of active particles (not including zombie ones) that this emitter
-     can have at any given moment.
-     */
-    int _maxParticles;
-
-    /*
-     The min max lifetime of emitted particles.
+     The min max lifetime of emitted particles, in milliseconds.
      */
     std::pair <int, int> _particleLifeTime;
 
@@ -308,7 +348,7 @@ private:
 
     /*
      Set for determining how many particles should be emitted per distance travelled of this
-     emitter, if any.
+     emitter, if any. The pair defines a uniform distribution (min, max).
      */
     std::pair <int, int> _particlesEmittedPerMeter;
 
@@ -329,7 +369,7 @@ private:
 
     /*
      Set for determining how many particles should be emitted per second of _duration of this
-     emitter, if any.
+     emitter, if any. The pair defines a uniform distribution (min, max).
      */
     std::pair <int, int> _particlesEmittedPerSecond;
 
@@ -346,14 +386,9 @@ private:
     double _intervalSpawnedEmissionRate = 0;
 
     /*
-     Initialize the emitter with default configurations and states.
-     */
-    void initEmitter();
-
-    /*
      Updates any time / distance state that the emitter needs to determine particle behavior.
      */
-    void updateEmitter(double currentTime, std::shared_ptr<VRONode> emitterNode);
+    void updateEmitter(double currentTime, const VROMatrix4f &computedTransform);
 
     /*
      Processes any delay period left on this particle emitter's current emit cycle.
@@ -368,7 +403,7 @@ private:
      of the particle.
      */
     void updateParticles(double currentTime, const VRORenderContext &context,
-                         std::shared_ptr<VRONode> emitterNode, bool isCurrentlyDelayed);
+                         const VROMatrix4f &computedTransform, bool isCurrentlyDelayed);
     void updateParticlePhysics(double currentTime);
     void updateParticleAppearance(double currentTime);
     void updateParticlesToBeKilled(double currentTime);

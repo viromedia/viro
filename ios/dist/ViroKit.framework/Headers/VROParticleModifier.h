@@ -17,6 +17,7 @@
 #include "VROVector3f.h"
 #include "VROParticle.h"
 #include "VROMath.h"
+#include "VROStringUtil.h"
 
 /*
  VROParticleModifier contains a list of VROModifierIntervals to interpolate against with
@@ -34,6 +35,16 @@ public:
         Distance,       // Interpolate against the distanceTravelled of a particle.
         Velocity        // Interpolate against the current velocity of a particle.
     };
+
+    static VROModifierFactor getModifierFactorForString(std::string strType) {
+        if (VROStringUtil::strcmpinsensitive(strType, "Velocity")) {
+            return VROModifierFactor::Velocity;
+        } else if (VROStringUtil::strcmpinsensitive(strType, "Distance")) {
+            return VROModifierFactor::Distance;
+        } else {
+            return VROModifierFactor::Time;
+        }
+    }
 
     /*
      Interpolation points between which to animate a given initial value (most likely the

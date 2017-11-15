@@ -29,9 +29,8 @@ public:
         return _mtx[index];
     }
 
-    VROMatrix4f();
+    VROMatrix4f() noexcept;
     VROMatrix4f(const float *matrix);
-    virtual ~VROMatrix4f();
 
     void toIdentity();
     void copy(const VROMatrix4f &copy);

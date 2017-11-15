@@ -17,23 +17,22 @@
 #include "VROHitTestResult.h"
 
 class VROInputPresenterCardboardiOS : public VROInputPresenter {
-    
 public:
     
     VROInputPresenterCardboardiOS() {
         setReticle(std::make_shared<VROReticle>(nullptr));
-        getReticle()->setPointerMode(false);
+        getReticle()->setPointerFixed(true);
     }
     virtual ~VROInputPresenterCardboardiOS() {}
 
-    void onClick(int source, ClickState clickState, std::vector<float> clickedPosition) {
-        VROInputPresenter::onClick(source, clickState, clickedPosition);
-        if (clickState==ClickState::ClickUp){
+    void onClick(int source, std::shared_ptr<VRONode> node, ClickState clickState, std::vector<float> clickedPosition) {
+        VROInputPresenter::onClick(source, node, clickState, clickedPosition);
+        if (clickState == ClickState::ClickUp){
             getReticle()->trigger();
         }
     }
     
-    void onGazeHit(int source, const VROHitTestResult &hit) {
+    void onGazeHit(int source, std::shared_ptr<VRONode> node, const VROHitTestResult &hit) {
         VROInputPresenter::onReticleGazeHit(hit);
     }
 };

@@ -27,6 +27,21 @@
 class VROImage;
 enum class VROTextureInternalFormat;
 
+#pragma mark - Platform Identification
+
+enum class VROPlatformType {
+    Unknown,
+    AndroidGVR,
+    AndroidOVR,
+    AndroidARCore,
+    AndroidSceneView,
+    iOSCardboard,
+    iOSARKit
+};
+
+void VROPlatformSetType(VROPlatformType type);
+VROPlatformType VROPlatformGetType();
+
 #pragma mark - String Loading
 
 std::string VROPlatformLoadResourceAsString(std::string resource, std::string type);
@@ -95,6 +110,12 @@ void VROPlatformDispatchAsyncBackground(std::function<void()> fcn);
  Run the given function on the application UI thread, asynchronously.
  */
 void VROPlatformDispatchAsyncApplication(std::function<void()> fcn);
+
+/*
+ Flushes the task queues from calling VROPlatformDispatch* before VROPlatformUtil
+ was set up.
+ */
+void VROPlatformFlushTaskQueues();
 
 #if VRO_PLATFORM_IOS
 #import <UIKit/UIKit.h>
@@ -165,6 +186,9 @@ jlong VROPlatformCallJavaLongFunction(jobject javaObject,
                                      std::string functionName,
                                      std::string methodID, ...);
 
+// Safely converts the given string with the provided jni environment.
+std::string VROPlatformGetString(jstring string, JNIEnv *env);
+
 #pragma mark - Android A/V
 
 // Create a video sink on the Java side. Returns the Surface.
@@ -177,7 +201,7 @@ int VROPlatformGetAudioBufferSize();
 
 extern "C" {
 
-void Java_com_viro_renderer_jni_PlatformUtil_runTask(JNIEnv *env, jclass clazz, jint taskId);
+void Java_com_viro_core_internal_PlatformUtil_runTask(JNIEnv *env, jclass clazz, jint taskId);
 
 }
 

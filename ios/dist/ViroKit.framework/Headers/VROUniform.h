@@ -6,6 +6,9 @@
 //  Copyright © 2016 Viro Media. All rights reserved.
 //
 
+#ifndef VROUNIFORM_H_
+#define VROUNIFORM_H_
+
 #include <string>
 #include <memory>
 #include "VROVector3f.h"
@@ -340,4 +343,6 @@ private:
     std::shared_ptr<VROShaderModifier> _modifier;
     
 };
+
+#endif
 

@@ -18,13 +18,12 @@ class VROScene;
 class VROVector3f;
 class VRODriver;
 class VRORenderContext;
+class VROPortalTraversalListener;
 
 static float kTransitionPushDistance = 0.10;
 
 /*
- * TODO VIRO-708: Remove Scene Controller in favor of VROScene. With a
- * SceneDelegate that both ios (VROSceneDelegateiOS) and Java (VROSceneDelegateJNI)
- * Will extend from. Scene changes will then be notified through its Delegate.
+ SceneController manages transitions between Scenes and the Scene lifecyle.
  */
 class VROSceneController : public std::enable_shared_from_this<VROSceneController>{
 
@@ -45,7 +44,7 @@ public:
 
     VROSceneController() {
         _scene = std::make_shared<VROScene>();
-        
+        _scene->getRootNode()->setScene(_scene, true);
     }
     virtual ~VROSceneController() {}
 
@@ -56,143 +55,34 @@ public:
     /*
      Scene appeared delegate methods, triggered by VRORenderer.
      */
-    virtual void onSceneWillAppear(VRORenderContext *context, std::shared_ptr<VRODriver> driver) {
-        if (_sceneDelegateWeak.expired()){
-            return;
-        }
-
-        _sceneDelegateWeak.lock()->onSceneWillAppear(context, driver);
-    }
-    void onSceneDidAppear(VRORenderContext *context, std::shared_ptr<VRODriver> driver) {
-        if (_sceneDelegateWeak.expired()){
-            return;
-        }
-
-        _sceneDelegateWeak.lock()->onSceneDidAppear(context, driver);
-    }
-    virtual void onSceneWillDisappear(VRORenderContext *context, std::shared_ptr<VRODriver> driver) {
-        if (_sceneDelegateWeak.expired()){
-            return;
-        }
-
-        _sceneDelegateWeak.lock()->onSceneWillDisappear(context, driver);
-    }
-    void onSceneDidDisappear(VRORenderContext *context, std::shared_ptr<VRODriver> driver) {
-        if (_sceneDelegateWeak.expired()){
-            return;
-        }
-        
-        _sceneDelegateWeak.lock()->onSceneDidDisappear(context, driver);
-    }
+    virtual void onSceneWillAppear(VRORenderContext *context, std::shared_ptr<VRODriver> driver);
+    virtual void onSceneDidAppear(VRORenderContext *context, std::shared_ptr<VRODriver> driver);
+    virtual void onSceneWillDisappear(VRORenderContext *context, std::shared_ptr<VRODriver> driver);
+    virtual void onSceneDidDisappear(VRORenderContext *context, std::shared_ptr<VRODriver> driver);
 
     // For now, we use fade plus push for all animated scene transitions. TODO: VIRO-771
     // captures applying varying kinds of custom animations on scene transitions.
     void startIncomingTransition(float duration, VROTimingFunctionType timingFunctionType,
-                                 VRORenderContext *context) {
-        
-        VROVector3f forward = context->getCamera().getForward().scale(kTransitionPushDistance);
-        
-        // Preserve the current opacity and position of the root node. We start each node off at
-        // opacity 0 and will animate toward this preserved opacity
-        std::shared_ptr<VRONode> root = _scene->getRootNode();
-        float preservedOpacity = root->getOpacity();
-        root->setOpacity(0.0f);
-        
-        // Start each root node back 1 unit. The nodes will animate toward
-        // the camera. This also eliminates z-fighting with the outgoing scene
-        root->setPosition(root->getPosition() + forward);
-
-        std::vector<std::shared_ptr<VROGeometry>> backgrounds = _scene->getBackgrounds();
-        for (std::shared_ptr<VROGeometry> &background : backgrounds) {
-            background->getMaterials().front()->setTransparency(0.0);
-        }
-
-        // Construct and commit fade-in/pull-in animation for the scene
-        VROTransaction::begin();
-        VROTransaction::setAnimationDuration(duration);
-        VROTransaction::setTimingFunction(timingFunctionType);
-
-        root->setOpacity(preservedOpacity);
-        root->setPosition(root->getPosition() - forward);
-        
-        for (std::shared_ptr<VROGeometry> &background : backgrounds) {
-            background->getMaterials().front()->setTransparency(1.0);
-        }
-
-        // Set callback delegates
-        std::weak_ptr<VROSceneController> weakPtr = shared_from_this();
-        VROTransaction::setFinishCallback([weakPtr]() {
-            std::shared_ptr<VROSceneController> scene = weakPtr.lock();
-            if (scene) {
-                scene->setActiveTransitionAnimation(false);
-            }
-        });
-        
-        setActiveTransitionAnimation(true);
-        VROTransaction::commit();
-    }
-
+                                 VRORenderContext *context);
     void startOutgoingTransition(float duration, VROTimingFunctionType timingFunctionType,
-                                 VRORenderContext *context) {
-        
-        VROVector3f forward = context->getCamera().getForward().scale(kTransitionPushDistance);
-
-        // Preserve the current opacity of root nodes. When the scene disappears, we'll
-        // restore that opacity (so that the next time the scene appears, it will be at said
-        // previous opacity).
-        std::shared_ptr<VRONode> root = _scene->getRootNode();
-        float preservedOpacity = root->getOpacity();
-
-        // Construct and commit fade-out/push-back animation for the scene
-        VROTransaction::begin();
-        VROTransaction::setAnimationDuration(duration);
-        VROTransaction::setTimingFunction(timingFunctionType);
-
-        root->setOpacity(0.0f);
-        root->setPosition(root->getPosition() + forward);
-
-        std::vector<std::shared_ptr<VROGeometry>> backgrounds = _scene->getBackgrounds();
-        for (std::shared_ptr<VROGeometry> &background : backgrounds) {
-            background->getMaterials().front()->setTransparency(0.0);
-        }
-        
-        // At the end of the animation, restore the opacity and position of the
-        // nodes (since they are no longer visible)
-        std::weak_ptr<VROSceneController> weakPtr = shared_from_this();
-        VROTransaction::setFinishCallback([weakPtr, preservedOpacity, forward]() {
-            std::shared_ptr<VROSceneController> scene = weakPtr.lock();
-            if (scene) {
-                std::shared_ptr<VRONode> root = scene->getScene()->getRootNode();
-                root->setOpacity(preservedOpacity);
-                root->setPosition(root->getPosition() - forward);
-                
-                scene->setActiveTransitionAnimation(false);
-            }
-        });
-        
-        setActiveTransitionAnimation(true);
-        VROTransaction::commit();
-    }
+                                 VRORenderContext *context);
 
     bool hasActiveTransitionAnimation(){
         return _isTransitionAnimationActive;
     }
-
     void setActiveTransitionAnimation (bool flag){
         _isTransitionAnimationActive = flag;
     }
-
-    /*
-     Per-frame rendering delegate methods.
-     */
-    void sceneWillRender(const VRORenderContext *context) {}
     
 protected:
     
     std::shared_ptr<VROScene> _scene;
     std::weak_ptr<VROSceneControllerDelegate> _sceneDelegateWeak;
 
+private:
+    
     bool _isTransitionAnimationActive;
+    std::shared_ptr<VROPortalTraversalListener> _portalTraversalListener;
 
 };
 

@@ -12,4 +12,6 @@
 
 @interface VROViewCardboard : GVRCardboardView <GVRCardboardViewDelegate, VROView>
 
+@property (nonatomic) IBInspectable BOOL testingMode;
+
 @end

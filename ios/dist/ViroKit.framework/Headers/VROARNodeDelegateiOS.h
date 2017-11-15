@@ -9,7 +9,7 @@
 #ifndef VROARNodeDelegateiOS_h
 #define VROARNodeDelegateiOS_h
 
-#import "VROARNodeDelegate.h"
+#import "VROARDeclarativeNodeDelegate.h"
 #import <Foundation/Foundation.h>
 
 @protocol VROARNodeDelegateProtocol<NSObject>
@@ -19,10 +19,7 @@
 - (void)onARAnchorRemoved;
 @end
 
-/**
- * iOS implementation of the VROARNodeDelegate
- */
-class VROARNodeDelegateiOS : public VROARNodeDelegate {
+class VROARNodeDelegateiOS : public VROARDeclarativeNodeDelegate {
 public:
     VROARNodeDelegateiOS(id<VROARNodeDelegateProtocol> delegate) :
         _delegate(delegate) {}

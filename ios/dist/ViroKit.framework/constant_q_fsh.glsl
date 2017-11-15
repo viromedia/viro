@@ -13,7 +13,7 @@ in lowp mat3 v_tbn;
 in highp vec2 v_texcoord;
 in highp vec3 v_surface_position;
 
-out lowp vec4 frag_color;
+out highp vec4 frag_color;
 
 void main() {
     _surface.diffuse_color = material_diffuse_surface_color;

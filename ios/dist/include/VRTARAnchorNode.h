@@ -23,6 +23,9 @@
  */
 @property (nonatomic, assign) BOOL isAnchored;
 
-- (NSDictionary *)createDictionaryFromAnchor:(std::shared_ptr<VROARAnchor>) anchor;
+/*
+ The ID of the underlying anchor this should attach to
+ */
+@property (nonatomic, copy, nullable) NSString *anchorId;
 
 @end

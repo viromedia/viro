@@ -19,11 +19,9 @@ public:
     float y;
     float z;
 
-    VROVector3f();
+    VROVector3f() noexcept;
     VROVector3f(float x, float y);
     VROVector3f(float x, float y, float z);
-    VROVector3f(const VROVector3f &vector);
-    virtual ~VROVector3f();
     
     VROVector3f &operator*=(const float multiplier) {
         x *= multiplier;

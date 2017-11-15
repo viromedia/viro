@@ -37,6 +37,7 @@ enum class VROTrackingType {
  to detect. A VROARAnchor is created for each detected object.
  */
 enum class VROAnchorDetection {
+    None,
     PlanesHorizontal
 };
 
@@ -71,7 +72,7 @@ public:
     std::shared_ptr<VROARSessionDelegate> getDelegate() {
         return _delegate.lock();
     }
-    void setDelegate(std::shared_ptr<VROARSessionDelegate> delegate) {
+    virtual void setDelegate(std::shared_ptr<VROARSessionDelegate> delegate) {
         _delegate = delegate;
     }
     
@@ -146,7 +147,7 @@ private:
     VROTrackingType _trackingType;
     std::shared_ptr<VROScene> _scene;
     std::weak_ptr<VROARSessionDelegate> _delegate;
-    
+
 };
 
 class VROARSessionDelegate {
@@ -156,7 +157,7 @@ public:
      Invoked whenever an anchor is detected by the AR session, or when an 
      anchor is manually added to the session via addAnchor(). The application
      can choose to add a VROARNode to associate virtual content with this
-     anchor by setting a VROARNode on the anchor..
+     anchor by setting a VROARNode on the anchor.
      */
     virtual void anchorWasDetected(std::shared_ptr<VROARAnchor> anchor) = 0;
     

@@ -22,52 +22,29 @@ enum class VROThreadName {
 };
 
 /*
- Subclasses of VROThreadRestricted may only be accessed from
- a single thread. The thread is identified either by its VROThreadName,
- or by an exact pthread. The passert_thread() is provided to assert
- we're on the thread to which we're restricted.
+ Subclasses of VROThreadRestricted may only be accessed from a single thread,
+ identified by its VROThreadName.
+ 
+ The passert_thread() method is provided to assert we're on the thread to which
+ we're restricted.
  */
 class VROThreadRestricted {
     
 public:
 
     /*
-     Associate the given VROThread with the given pthread.
+     Associate the current thread with the given VROThreadName.
      */
-    static void setThread(VROThreadName name, pthread_t thread);
-    static void unsetThread(VROThreadName name);
+    static void setThread(VROThreadName name);
+    static void unsetThread();
+    static bool isThread(VROThreadName name);
 
     /*
-     Get the pthread with the given name. Returns ret_not_found if there is
-     no thread with the given name.
-     */
-    static pthread_t getThread(VROThreadName name, pthread_t ret_not_found);
-    
-    /*
-     Default constructor: restrict this object to the current
-     thread.
-     */
-    VROThreadRestricted();
-    
-    /*
-     Restrict this object to the provided thread.
-     */
-    VROThreadRestricted(pthread_t thread);
-
-    /*
-     Restrict this object to the thread with the given name. The
-     name must have been set to a thread via
-     setThread(VROThreadName, pthread_t).
+     Restrict this object to the thread with the given name. The name must have been set
+     to a thread via setThread(VROThreadName, pthread_t).
      */
     VROThreadRestricted(VROThreadName name);
-
     virtual ~VROThreadRestricted();
-    
-    /*
-     Set the thread to which this object is restricted. This 
-     is used when the thread is not available for the constructor.
-     */
-    void setThreadRestriction(pthread_t thread);
     
     /*
      Assert we are on the correct thread. If not, abort.
@@ -75,8 +52,7 @@ public:
     void passert_thread();
     
     /*
-     Temporarily enable or disable thread checking. When false, 
-     passert_thread() is a no-op.
+     Temporarily enable or disable thread checking. When false, passert_thread() is a no-op.
      */
     void setThreadRestrictionEnabled(bool enabled) {
         _enabled = enabled;
@@ -85,12 +61,10 @@ public:
 private:
 
     /*
-     Only one of these will be set for a given thread-restricted
-     object.
+     The name of the thread this object is restricted to.
      */
     VROThreadName _restricted_thread_name;
-    pthread_t _restricted_thread;
-    
+
     /*
      True if thread restriction checking is enabled for this object.
      When false, passert_thread is a no-op.

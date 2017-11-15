@@ -23,7 +23,7 @@
 - (void)onDrag:(int)source node:(std::shared_ptr<VRONode>)node posX:(float)x posY:(float)y posZ:(float)y;
 - (void)onPinch:(int)source node:(std::shared_ptr<VRONode>)node scaleFactor:(float)scale pinchState:(VROEventDelegate::PinchState)pinchState;
 - (void)onRotate:(int)source node:(std::shared_ptr<VRONode>)node rotationRadians:(float)rotationRadians rotateState:(VROEventDelegate::RotateState)rotateState;
-- (void)onCameraHitTest:(int)source results:(std::vector<VROARHitTestResult>) results;
+- (void)onCameraARHitTest:(int)source results:(std::vector<VROARHitTestResult>) results;
 @end
 
 /*
@@ -59,8 +59,8 @@ public:
         [_delegate onFuse:source node:node];
     }
     
-    virtual void onCameraHitTest(int source, std::vector<VROARHitTestResult> results) {
-        [_delegate onCameraHitTest:source results:results];
+    virtual void onCameraARHitTest(int source, std::vector<VROARHitTestResult> results) {
+        [_delegate onCameraARHitTest:source results:results];
     }
     
     virtual void onDrag(int source, std::shared_ptr<VRONode> node, VROVector3f position) {

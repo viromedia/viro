@@ -27,6 +27,21 @@
 class VROImage;
 enum class VROTextureInternalFormat;
 
+#pragma mark - Platform Identification
+
+enum class VROPlatformType {
+    Unknown,
+    AndroidGVR,
+    AndroidOVR,
+    AndroidARCore,
+    AndroidSceneView,
+    iOSCardboard,
+    iOSARKit
+};
+
+void VROPlatformSetType(VROPlatformType type);
+VROPlatformType VROPlatformGetType();
+
 #pragma mark - String Loading
 
 std::string VROPlatformLoadResourceAsString(std::string resource, std::string type);

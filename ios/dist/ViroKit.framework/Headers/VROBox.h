@@ -29,7 +29,6 @@ public:
 private:
     
     float _width, _height, _length;
-    
     VROBox(float width, float height, float length);
     
     void updateBox();

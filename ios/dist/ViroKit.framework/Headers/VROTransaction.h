@@ -35,11 +35,6 @@ public:
     static bool isActive();
 
     /*
-     Begins a new VROTransaction unless there already is an active animation transaction.
-     */
-    static void beginImplicitAnimation();
-
-    /*
      Update the T values for all committed animation transactions.
      */
     static void update();
@@ -49,6 +44,13 @@ public:
      transaction.
      */
     static void begin();
+
+    /*
+     Adds the given transaction to the openTransactions stack. Internal use only by the Java API.
+     Enables creating a new transaction off the rendering thread, before adding it to the animation
+     stack on the rendering thread.
+     */
+    static void add(std::shared_ptr<VROTransaction> transaction);
 
     /*
      Pauses a VROTransaction if it hasn't yet been paused.
@@ -73,7 +75,7 @@ public:
     static void cancel(std::shared_ptr<VROTransaction> transaction);
 
     /*
-     Terminates a VROTransactions. Terminated transactions can no longer
+     Terminates a VROTransaction. Terminated transactions can no longer
      be paused or resumed.
      */
     static void terminate(std::shared_ptr<VROTransaction> transaction);
@@ -82,11 +84,6 @@ public:
      Commit the active VROTransaction.
      */
     static std::shared_ptr<VROTransaction> commit();
-
-    /*
-     Commit all VROTransactions.
-     */
-    static void commitAll();
 
     /*
      Set the animation duration for the active animation transaction, in seconds.

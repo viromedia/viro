@@ -42,6 +42,11 @@ class VROARSessionDelegate;
  */
 - (std::vector<VROARHitTestResult>)performARHitTest:(VROVector3f)ray;
 
+/*
+ Returns the ARSession
+ */
+- (std::shared_ptr<VROARSession>)getARSession;
+
 // TODO VIRO-1355 Remove after event delegate integration
 @property (readwrite, nonatomic) VROViewARTapHandler tapHandler;
 

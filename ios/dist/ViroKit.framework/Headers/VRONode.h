@@ -14,6 +14,7 @@
 #include <vector>
 #include <string>
 #include <set>
+#include <atomic>
 #include <algorithm>
 #include <functional>
 #include "optional.hpp"
@@ -34,6 +35,7 @@
 
 class VROGeometry;
 class VROLight;
+class VROScene;
 class VROAction;
 class VROTexture;
 class VROPortal;
@@ -44,6 +46,7 @@ class VROExecutableAnimation;
 class VROTransformDelegate;
 class VROTransaction;
 class VRORenderMetadata;
+class VROParticleEmitter;
 
 extern bool kDebugSortOrder;
 extern const std::string kDefaultNodeTag;
@@ -102,6 +105,11 @@ public:
      are shared by reference with the copied node.
      */
     std::shared_ptr<VRONode> clone();
+
+    /*
+     Get a unique ID for this VRONode.
+     */
+    int getUniqueID() { return _uniqueID; }
     
 #pragma mark - Render Cycle
 
@@ -127,6 +135,11 @@ public:
      context. This will update the _visible flag. Recurses to children.
      */
     void updateVisibility(const VRORenderContext &context);
+    
+    /*
+     Update the particle emitters attached to this node. Recurses to children.
+     */
+    void updateParticles(const VRORenderContext &context);
     
     /*
      Recursively applies transformation constraints (e.g. billboarding) to this node
@@ -218,7 +231,6 @@ public:
     VROVector3f getComputedPosition() const;
     VROMatrix4f getComputedRotation() const;
     VROMatrix4f getComputedTransform() const;
-    VROMatrix4f getLastComputedTransform() const;
 
     VROVector3f getPosition() const {
         return _position;
@@ -232,6 +244,16 @@ public:
     VROVector3f getRotationEuler() const {
         return _euler;
     }
+    
+    /*
+     The following are atomic, updated once per frame on the rendering thread. They can
+     be accessed safely from any thread to get an up-to-date state of the transform.
+     */
+    VROMatrix4f   getLastWorldTransform() const;
+    VROVector3f   getLastWorldPosition() const;
+    VROVector3f   getLastLocalPosition() const;
+    VROVector3f   getLastLocalScale() const;
+    VROQuaternion getLastLocalRotation() const;
     
     /*
      Set the rotation, position, or scale. Animatable.
@@ -318,7 +340,7 @@ public:
      children are visible either (we use the umbrella bounding box for
      visibility tests).
      */
-    bool isVisibile() const {
+    bool isVisible() const {
         return _visible;
     }
     
@@ -328,7 +350,13 @@ public:
      since the last call to computeVisibility().
      */
     int countVisibleNodes() const;
-    
+
+#pragma mark - Particle Emitters
+
+    void setParticleEmitter(std::shared_ptr<VROParticleEmitter> emitter);
+    void removeParticleEmitter();
+    std::shared_ptr<VROParticleEmitter> getParticleEmitter() const;
+
 #pragma mark - Lights
     
     void addLight(std::shared_ptr<VROLight> light) {
@@ -387,37 +415,25 @@ public:
                                    return candidate == sound;
                                }), _sounds.end());
     }
+    void removeAllSounds() {
+        passert_thread();
+        _sounds.clear();
+    }
 
 #pragma mark - Scene Graph
     
-    void addChildNode(std::shared_ptr<VRONode> node) {
-        passert_thread();
-        passert (node);
-        
-        _subnodes.push_back(node);
-        node->_supernode = std::static_pointer_cast<VRONode>(shared_from_this());
-    }
-    void removeFromParentNode() {
-        passert_thread();
-        
-        std::shared_ptr<VRONode> supernode = _supernode.lock();
-        if (supernode) {
-            std::vector<std::shared_ptr<VRONode>> &parentSubnodes = supernode->_subnodes;
-            parentSubnodes.erase(
-                                 std::remove_if(parentSubnodes.begin(), parentSubnodes.end(),
-                                                [this](std::shared_ptr<VRONode> node) {
-                                                    return node.get() == this;
-                                                }), parentSubnodes.end());
-            _supernode.reset();
-        }
-    }
+    void addChildNode(std::shared_ptr<VRONode> node);
+    void removeFromParentNode();
     
     /*
      Return a copy of the subnode list.
      */
-    std::vector<std::shared_ptr<VRONode>> getChildNodes() const {
-        return _subnodes;
-    }
+    std::vector<std::shared_ptr<VRONode>> getChildNodes() const;
+    
+    /*
+     Remove all children from this node.
+     */
+    void removeAllChildren();
     
     /*
      Return the parent node. Null if this node is root or does not have a parent.
@@ -425,6 +441,19 @@ public:
     std::shared_ptr<VRONode> getParentNode() const {
         return _supernode.lock();
     }
+    
+    /*
+     Get the parent scene of this VRONode. If this node is not attached to the
+     scene graph, this will return null.
+     */
+    std::shared_ptr<VROScene> getScene() const {
+        return _scene.lock();
+    }
+    
+    /*
+     Set the parent scene of this node. Internal use only.
+     */
+    void setScene(std::shared_ptr<VROScene> scene, bool recursive);
     
     /*
      Returns the type of this node. Faster then dynamic_cast.
@@ -507,11 +536,10 @@ public:
 
     void setEventDelegate(std::shared_ptr<VROEventDelegate> delegate) {
         passert_thread();
-        
         _eventDelegateWeak = delegate;
     }
 
-    std::shared_ptr<VROEventDelegate> getEventDelegate(){
+    std::shared_ptr<VROEventDelegate> getEventDelegate() {
         if (_eventDelegateWeak.expired()){
             return nullptr;
         }
@@ -600,6 +628,11 @@ protected:
     std::weak_ptr<VRONode> _supernode;
     
     /*
+     The VROScene to which this node belongs.
+     */
+    std::weak_ptr<VROScene> _scene;
+    
+    /*
      The geometry in the node. Null means the node has no geometry.
      */
     std::shared_ptr<VROGeometry> _geometry;
@@ -620,12 +653,18 @@ private:
      Name for debugging.
      */
     std::string _name;
+
+    /*
+     Unique identifier.
+     */
+    int _uniqueID;
     
     /*
-     Lights, sound, and camera.
+     Lights, sound, particles, and camera.
      */
     std::vector<std::shared_ptr<VROLight>> _lights;
     std::vector<std::shared_ptr<VROSound>> _sounds;
+    std::shared_ptr<VROParticleEmitter> _particleEmitter;
     std::shared_ptr<VRONodeCamera> _camera;
     
     /*
@@ -681,8 +720,13 @@ private:
     /*
      Because _computedTransform is computed multiple times during a single render, storing
      the last fully computed transform is necessary to retrieve a "valid" computedTransform.
+     We also store the last *local* position, scale, and rotation atomically.
      */
-    VROMatrix4f _lastComputedTransform;
+    std::atomic<VROMatrix4f> _lastComputedTransform;
+    std::atomic<VROVector3f> _lastComputedPosition;
+    std::atomic<VROVector3f> _lastPosition;
+    std::atomic<VROVector3f> _lastScale;
+    std::atomic<VROQuaternion> _lastRotation;
 
     /*
      The transformed bounding box containing this node's geometry. The 
@@ -767,6 +811,7 @@ private:
      The VROTransaction representing the animation from dragging while _dragType == VRODragType::FixedToWorld.
      */
     std::shared_ptr<VROTransaction> _dragAnimation;
+    
 #pragma mark - Private
     
     /*

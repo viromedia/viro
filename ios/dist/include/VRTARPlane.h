@@ -11,9 +11,9 @@
 
 @interface VRTARPlane : VRTARAnchorNode
 
-// default min height/width is 0, we match any surface
 @property (nonatomic, assign) float minWidth;
 @property (nonatomic, assign) float minHeight;
+@property (nonatomic, assign) BOOL pauseUpdates;
 
 @property (readwrite, nonatomic) std::shared_ptr<VROARNodeDelegateiOS> arNodeDelegate;
 

@@ -12,6 +12,7 @@
 #include <stdio.h>
 #include <ft2build.h>
 #include <map>
+#include <atomic>
 #include FT_FREETYPE_H
 
 #include "VROGeometry.h"
@@ -103,22 +104,59 @@ public:
     static VROVector3f getTextSize(std::wstring text, std::shared_ptr<VROTypeface> typeface,
                                    float maxWidth, float maxHeight, VROLineBreakMode lineBreakMode,
                                    VROTextClipMode clipMode, int maxLines = 0);
-    
+
+    /*
+     Standard constructor. Update() must be invoked from the rendering thread if this constructor
+     is used.
+     */
+    VROText(std::wstring text, std::shared_ptr<VROTypeface> typeface, VROVector4f color,
+            float width, float height,
+            VROTextHorizontalAlignment horizontalAlignment, VROTextVerticalAlignment verticalAlignment,
+            VROLineBreakMode lineBreakMode, VROTextClipMode clipMode, int maxLines);
     virtual ~VROText();
+
+    /*
+     Initialize the VROText if any fields have changed. This must be invoked on the rendering
+     thread because it creates glyphs.
+     */
+    void update();
     
     /*
      Get the width and height of the text. This is not the width and height of the
      bounds used when the text was created, but the width and height of the actual
      text.
      */
-    float getWidth() const {
-        return _width;
+    float getRealizedWidth() const {
+        return _realizedWidth;
     }
-    float getHeight() const {
-        return _height;
+    float getRealizedHeight() const {
+        return _realizedHeight;
     }
+
+    void setText(std::wstring text);
+    void setTypeface(std::shared_ptr<VROTypeface> typeface);
+    void setColor(VROVector4f color);
+    void setWidth(float width);
+    void setHeight(float height);
+    void setHorizontalAlignment(VROTextHorizontalAlignment horizontalAlignment);
+    void setVerticalAlignment(VROTextVerticalAlignment verticalAlignment);
+    void setLineBreakMode(VROLineBreakMode lineBreakMode);
+    void setClipMode(VROTextClipMode clipMode);
+    void setMaxLines(int maxLines);
     
 private:
+
+    std::wstring _text;
+    std::shared_ptr<VROTypeface> _typeface;
+    VROVector4f _color;
+    float _width, _height;
+    VROTextHorizontalAlignment _horizontalAlignment;
+    VROTextVerticalAlignment _verticalAlignment;
+    VROLineBreakMode _lineBreakMode;
+    VROTextClipMode _clipMode;
+    int _maxLines;
+
+    std::atomic<float> _realizedWidth, _realizedHeight;
     
     VROText(std::vector<std::shared_ptr<VROGeometrySource>> sources,
             std::vector<std::shared_ptr<VROGeometryElement>> elements,
@@ -207,8 +245,7 @@ private:
     static bool isAnotherLineAvailable(size_t numLinesNow, float maxHeight, int maxLines,
                                        std::shared_ptr<VROTypeface> &typeface, VROTextClipMode clipMode);
     
-    float _width, _height;
-    
+
 };
 
 #endif /* VROText_h */

@@ -22,14 +22,15 @@
 class VRONode;
 class VROTexture;
 class VROGeometry;
+enum class VROResourceType;
 
 class VROOBJLoader {
     
 public:
     
     /*
-     Load the OBJ file at the given URL or file. For all dependent resources
-     (e.g. textures) found, locate them by prepending the given baseURL or baseDir.
+     Load the OBJ file at the given resource.  For all dependent resources
+     (e.g. textures) found, locate them in the parent folder of the resource.
      
      If async is true, an empty node is immediately returned while the OBJ is
      loaded in the background. Afterward, the geometry is injected into the node
@@ -37,17 +38,19 @@ public:
      
      If async is false, the callback is still executed.
      */
-    static std::shared_ptr<VRONode> loadOBJFromURL(std::string url, std::string baseURL,
-                                                   bool async = false, std::function<void(std::shared_ptr<VRONode> node, bool success)> onFinish = nullptr);
-    static std::shared_ptr<VRONode> loadOBJFromFile(std::string file, std::string baseDir,
-                                                    bool async = false, std::function<void(std::shared_ptr<VRONode> node, bool success)> onFinish = nullptr);
-    static std::shared_ptr<VRONode> loadOBJFromFileWithResources(std::string file, std::map<std::string, std::string> resourceMap,
-                                                                 bool async = false, std::function<void(std::shared_ptr<VRONode> node, bool success)> onFinish = nullptr);
+    static void loadOBJFromResource(std::string resource, VROResourceType type,
+                                    std::shared_ptr<VRONode> destination,
+                                    bool async = false, std::function<void(std::shared_ptr<VRONode> node, bool success)> onFinish = nullptr);
+    static void loadOBJFromResources(std::string resource, VROResourceType type,
+                                     std::shared_ptr<VRONode> destination,
+                                     std::map<std::string, std::string> resourceMap,
+                                     bool async = false, std::function<void(std::shared_ptr<VRONode> node, bool success)> onFinish = nullptr);
+
 private:
     
     static void injectOBJ(std::shared_ptr<VROGeometry> geometry, std::shared_ptr<VRONode> node,
                           std::function<void(std::shared_ptr<VRONode> node, bool success)> onFinish);
-    static std::shared_ptr<VROGeometry> loadOBJ(std::string file, std::string base, bool isBaseURL);
+    static std::shared_ptr<VROGeometry> loadOBJ(std::string file, std::string base, VROResourceType type);
     static std::shared_ptr<VROGeometry> loadOBJ(std::string file,
                                                 std::map<std::string, std::string> resourceMap);
 
@@ -55,7 +58,7 @@ private:
                                                    std::vector<tinyobj::shape_t> &shapes,
                                                    std::vector<tinyobj::material_t> &materials,
                                                    std::string base,
-                                                   bool isBaseURL,
+                                                   VROResourceType type,
                                                    std::map<std::string, std::string> *resourceMap = nullptr);
 };
 

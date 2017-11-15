@@ -39,6 +39,16 @@ public:
      */
     static std::shared_ptr<VROData> readKTXHeader(const uint8_t *data, uint32_t length, VROTextureFormat *outFormat,
                                                   int *outWidth, int *outHeight, std::vector<uint32_t> *outMipSizes);
+    
+    /*
+     Read a texture file with a VHD header. Read the width and height from the header then
+     strip it out and return the raw texture data, with successive mipmap levels concatenated
+     contiguously together.
+          
+     The size of each mipmap level is returned in the outMipmaps vector.
+     */
+    static std::shared_ptr<VROData> readVHDHeader(const std::string &data, VROTextureFormat *outFormat,
+                                                  int *outWidth, int *outHeight, std::vector<uint32_t> *outMipSizes);
 
     /**
      Returns the stereo mode that corresponds to the given string.

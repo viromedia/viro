@@ -21,7 +21,7 @@ class VROQuaternion {
 	public:
 
 		//! Default Constructor
-		VROQuaternion() : X(0.0f), Y(0.0f), Z(0.0f), W(1.0f) {}
+		VROQuaternion() noexcept : X(0.0f), Y(0.0f), Z(0.0f), W(1.0f) {}
 
 		//! Constructor
 		VROQuaternion(float x, float y, float z, float w) : X(x), Y(y), Z(z), W(w) { }
@@ -40,10 +40,7 @@ class VROQuaternion {
 
 		//! inequality operator
 		bool operator!=(const VROQuaternion &other) const;
-
-		//! Assignment operator
-		VROQuaternion& operator=(const VROQuaternion &other);
-
+    
 		//! Matrix assignment operator
 		VROQuaternion& operator=(const VROMatrix4f& other);
 

@@ -43,6 +43,16 @@ public:
     virtual ~VROARAnchor() {}
     
     /*
+     String representing the ID of the anchor in the underlying platform (ARKit/ARCore).
+     */
+    std::string getId() const {
+        return _id;
+    }
+    void setId(std::string id) {
+        _id = id;
+    }
+    
+    /*
      Transformation matrix encoding the position, orientation and scale of the
      anchor in world coordinates.
      */
@@ -68,7 +78,7 @@ public:
      Update the anchor's node's transforms given the data in the anchor.
      */
     void updateNodeTransform() {
-        if (_node) {
+        if (_node && !_node->shouldPauseUpdates()) {
             VROVector3f scale = getTransform().extractScale();
             VROQuaternion rotation = getTransform().extractRotation(scale);
             VROVector3f position = getTransform().extractTranslation();
@@ -81,8 +91,9 @@ public:
     
 private:
     
+    std::string _id;
     VROMatrix4f _transform;
-    
+
     /*
      The node associated with this anchor.
      */

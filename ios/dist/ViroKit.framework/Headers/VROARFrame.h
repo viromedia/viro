@@ -9,17 +9,16 @@
 #ifndef VROARFrame_h
 #define VROARFrame_h
 
+#include "VROARPointCloud.h"
+
 #include <memory>
 #include <vector>
 #include <set>
 
 class VROARCamera;
 class VROARAnchor;
-class VROMatrix4f;
-class VROVector3f;
-class VROViewport;
-class VROTextureSubstrate;
 class VROARHitTestResult;
+class VROMatrix4f;
 enum class VROARHitTestResultType;
 enum class VROCameraOrientation;
 
@@ -81,7 +80,11 @@ public:
      scene.
      */
     virtual const std::vector<std::shared_ptr<VROARAnchor>> &getAnchors() const = 0;
-    
+
+    /*
+     Retrieves the point cloud from this frame.
+     */
+    virtual std::shared_ptr<VROARPointCloud> getPointCloud() = 0;
 };
 
 #endif /* VROARFrame_h */

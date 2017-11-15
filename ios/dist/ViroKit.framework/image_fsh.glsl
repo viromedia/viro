@@ -1,7 +1,7 @@
 #version 300 es
 
 in highp vec2 v_texcoord;
-out lowp vec4 frag_color;
+out highp vec4 frag_color;
 
 #pragma image_modifier_uniforms
 

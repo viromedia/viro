@@ -23,6 +23,7 @@
 class VROFrameSynchronizer;
 class VRORenderTarget;
 class VROTexture;
+class VROInputControllerBase;
 enum class VROEyeType;
 
 /*
@@ -134,7 +135,6 @@ public:
     std::shared_ptr<VROFrameSynchronizer> getFrameSynchronizer() const {
         return _frameSynchronizer;
     }
-    
     std::shared_ptr<VROFrameScheduler> getFrameScheduler() const {
         return _frameScheduler;
     }
@@ -149,8 +149,15 @@ public:
     void setPencil(std::shared_ptr<VROPencil> pencil){
         _pencil = pencil;
     }
-    std::shared_ptr<VROPencil> getPencil() const{
+    std::shared_ptr<VROPencil> getPencil() const {
         return _pencil;
+    }
+
+    void setInputController(std::shared_ptr<VROInputControllerBase> inputController) {
+        _inputController = inputController;
+    }
+    std::shared_ptr<VROInputControllerBase> getInputController() const {
+        return _inputController;
     }
 
 private:
@@ -224,6 +231,12 @@ private:
      after having rendered the scene, mainly for representing debug information.
      */
     std::shared_ptr<VROPencil> _pencil;
+
+    /*
+     The input controller being used.
+     */
+    std::shared_ptr<VROInputControllerBase> _inputController;
+
 };
 
 #endif /* VRORenderContext_h */

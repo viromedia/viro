@@ -16,25 +16,26 @@
 #include <map>
 #include "VROVector3f.h"
 #include "VROHitTestResult.h"
-#include <limits>
 
+#include <limits>
+class VROARHitTestResult;
 static const float kOnFuseReset = std::numeric_limits<float>::max();
 
-/**
- * Class for both registering for and implementing event delegate callbacks.
+/*
+ Class for both registering for and implementing event delegate callbacks.
  */
 class VROEventDelegate {
 public:
-    /**
-     * Enum EventAction types that are supported by this delegate, used for
-     * describing InputSources from InputTypes.h. For example, an OnClick
-     * action may originate from a ViroDayDream AppButton inputSource.
-     *
-     * IMPORTANT: Enum values should match EventAction within EventDelegateJni.java
-     * as the standard format to be passed through the JNI layer.
-     * Do Not change the Enum Values!!! Simply add additional event types as need be.
+    /*
+     Enum EventAction types that are supported by this delegate, used for
+     describing InputSources from InputTypes.h. For example, an OnClick
+     action may originate from a ViroDayDream AppButton inputSource.
+     
+     IMPORTANT: Enum values should match EventAction within EventDelegateJni.java
+     as the standard format to be passed through the JNI layer.
+     Do Not change the Enum Values!!! Simply add additional event types as need be.
      */
-    enum EventAction{
+    enum EventAction {
         OnHover = 1,
         OnClick = 2,
         OnTouch = 3,
@@ -46,10 +47,11 @@ public:
         OnFuse = 9,
         OnPinch = 10,
         OnRotate = 11,
+        OnCameraARHitTest = 12,
     };
 
-    /**
-     * ClickState enum describing the OnClick Event action.
+    /*
+     ClickState enum describing the OnClick Event action.
      */
     enum ClickState {
         ClickDown = 1,
@@ -57,8 +59,8 @@ public:
         Clicked = 3
     };
 
-    /**
-     * TouchState enum describing the OnTouch Event action.
+    /*
+     TouchState enum describing the OnTouch Event action.
      */
     enum TouchState {
         TouchDown = 1,
@@ -67,9 +69,9 @@ public:
     };
     
     enum PinchState {
-      PinchStart = 1,
-      PinchMove = 2,
-      PinchEnd = 3,
+        PinchStart = 1,
+        PinchMove = 2,
+        PinchEnd = 3,
     };
     
     enum RotateState {
@@ -85,15 +87,15 @@ public:
         SwipeRight = 4
     };
 
-    /**
-     * Enum ControllerStatus types describing the availability status of the
-     * current input controller.
-     *
-     * IMPORTANT: Enum values should match EventSource within EventDelegateJni.java
-     * as the standard format to be passed through the JNI layer.
-     * Do Not change the Enum Values!!! Simply add additional event types as need be.
+    /*
+     Enum ControllerStatus types describing the availability status of the
+     current input controller.
+     
+     IMPORTANT: Enum values should match EventSource within EventDelegateJni.java
+     as the standard format to be passed through the JNI layer.
+     Do Not change the Enum Values!!! Simply add additional event types as need be.
      */
-    enum ControllerStatus{
+    enum ControllerStatus {
         Unknown = 1,
         Connecting = 2,
         Connected = 3,
@@ -102,7 +104,7 @@ public:
     };
 
     // Disable all event callbacks by default
-    VROEventDelegate(){
+    VROEventDelegate() {
         _enabledEventMap[VROEventDelegate::EventAction::OnHover] = false;
         _enabledEventMap[VROEventDelegate::EventAction::OnClick] = false;
         _enabledEventMap[VROEventDelegate::EventAction::OnTouch] = false;
@@ -114,36 +116,41 @@ public:
         _enabledEventMap[VROEventDelegate::EventAction::OnFuse] = false;
         _enabledEventMap[VROEventDelegate::EventAction::OnPinch] = false;
         _enabledEventMap[VROEventDelegate::EventAction::OnRotate] = false;
+        _enabledEventMap[VROEventDelegate::EventAction::OnCameraARHitTest] = false;
     }
 
-    /**
-     * Informs the renderer to enable / disable the triggering of
-     * specific EventSource delegate callbacks.
+    /*
+     Informs the renderer to enable / disable the triggering of
+     specific EventSource delegate callbacks.
      */
-    void setEnabledEvent(VROEventDelegate::EventAction type, bool enabled){
+    void setEnabledEvent(VROEventDelegate::EventAction type, bool enabled) {
         _enabledEventMap[type] = enabled;
     }
 
-    bool isEventEnabled(VROEventDelegate::EventAction type){
+    bool isEventEnabled(VROEventDelegate::EventAction type) {
         return _enabledEventMap[type];
     }
 
     /*
-     * Delegate events triggered by the VROInputControllerBase.
+     Delegate events triggered by the VROInputControllerBase.
      */
-    virtual void onHover(int source, bool isHovering, std::vector<float> position) {
+    virtual void onHover(int source, std::shared_ptr<VRONode> node, bool isHovering, std::vector<float> position) {
         //No-op
     }
 
-    virtual void onClick(int source, ClickState clickState, std::vector<float> position) {
+    virtual void onClick(int source, std::shared_ptr<VRONode> node, ClickState clickState, std::vector<float> position) {
         //No-op
     }
 
-    virtual void onTouch(int source, TouchState touchState, float x, float y){
+    virtual void onCameraARHitTest(int source, std::vector<VROARHitTestResult> results) {
+        // No-op
+    }
+    
+    virtual void onTouch(int source, std::shared_ptr<VRONode> node, TouchState touchState, float x, float y) {
         //No-op
     }
 
-    virtual void onMove(int source, VROVector3f rotation, VROVector3f position, VROVector3f forwardVec) {
+    virtual void onMove(int source, std::shared_ptr<VRONode> node, VROVector3f rotation, VROVector3f position, VROVector3f forwardVec) {
         //No-op
     }
 
@@ -151,31 +158,31 @@ public:
         //No-op
     }
 
-    virtual void onGazeHit(int source, const VROHitTestResult &hit) {
+    virtual void onGazeHit(int source, std::shared_ptr<VRONode> node, const VROHitTestResult &hit) {
         //No-op
     }
 
-    virtual void onSwipe(int source, SwipeState swipeState) {
+    virtual void onSwipe(int source, std::shared_ptr<VRONode> node, SwipeState swipeState) {
         //No-op
     }
 
-    virtual void onScroll(int source, float x, float y) {
+    virtual void onScroll(int source, std::shared_ptr<VRONode> node, float x, float y) {
         //No-op
     }
 
-    virtual void onDrag(int source, VROVector3f newPosition){
+    virtual void onDrag(int source, std::shared_ptr<VRONode> node, VROVector3f newPosition) {
         //No-op
     }
 
-    virtual void onFuse(int source, float timeToFuseRatio){
+    virtual void onFuse(int source, std::shared_ptr<VRONode> node, float timeToFuseRatio) {
         //No-op
     }
     
-    virtual void onPinch(int source, float scale, PinchState pinchState) {
+    virtual void onPinch(int source, std::shared_ptr<VRONode> node, float scaleFactor, PinchState pinchState) {
         //No-op
     }
     
-    virtual void onRotate(int source, float rotation, RotateState rotateState) {
+    virtual void onRotate(int source, std::shared_ptr<VRONode> node, float rotationRadians, RotateState rotateState) {
         //No-op
     }
 
@@ -187,13 +194,13 @@ public:
         return _timeToFuseDuration;
     }
 
-
 private:
+    
     std::map<VROEventDelegate::EventAction , bool> _enabledEventMap;
 
-    /**
-     * Duration used to count down from for triggering onFuse events, in milliseconds.
-     * Defaults to 2000 milliseconds.
+    /*
+     Duration used to count down from for triggering onFuse events, in milliseconds.
+     Defaults to 2000 milliseconds.
      */
     float _timeToFuseDuration = 2000;
 };

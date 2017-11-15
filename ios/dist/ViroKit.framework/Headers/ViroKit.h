@@ -145,7 +145,6 @@ FOUNDATION_EXPORT const unsigned char ViroKitVersionString[];
 #import <ViroKit/VROData.h>
 #import <ViroKit/VROGeometryUtil.h>
 #import <ViroKit/VROTextureUtil.h>
-#import <ViroKit/VROPortalTraversalListener.h>
 
 // Physics
 #import <ViroKit/VROPhysicsShape.h>
@@ -164,10 +163,16 @@ FOUNDATION_EXPORT const unsigned char ViroKitVersionString[];
 #import <ViroKit/VROARHitTestResult.h>
 #import <ViroKit/VROARScene.h>
 #import <ViroKit/VROARSceneController.h>
-#import <ViroKit/VROARPlane.h>
+#import <ViroKit/VROARDeclarativePlane.h>
+#import <ViroKit/VROARDeclarativeNode.h>
 #import <ViroKit/VROARNodeDelegateiOS.h>
 #import <ViroKit/VROARSceneDelegateiOS.h>
 #import <ViroKit/VROARShadow.h>
+#import <ViroKit/VROARDeclarativeSession.h>
+
+// Test
+#import <ViroKit/VRORendererTest.h>
+#import <ViroKit/VRORendererTestHarness.h>
 
 // OpenCV
 #import <ViroKit/VROOpenCV.h>

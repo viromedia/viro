@@ -9,9 +9,10 @@
 #define VROPhysicsBodyDelegate_h
 #include "VROPhysicsBody.h"
 #include "VROTime.h"
+
 /*
  VROPhysicsBodyDelegate contains all callbacks delegate events pertaining to
- the physicsBody that it is attached to (like collisions).
+ the VROPhysicsBody that it is attached to (like collisions).
  */
 class VROPhysicsBodyDelegate {
     /*

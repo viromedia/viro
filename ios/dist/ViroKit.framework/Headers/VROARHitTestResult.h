@@ -10,6 +10,7 @@
 #define VROARHitTestResult_h
 
 #include <stdio.h>
+#include "VROARAnchor.h"
 
 /*
  Types of hit test results:
@@ -22,8 +23,8 @@
                 may be outside the actual extent of the surface.
  EstimatedHorizontalPlane: Hit test found a plane, but one for which we have no 
                            anchor.
- Feature Pont: Hit test found a point that the AR session believes is part of a 
-               continuous surface. This surface may not be horizontal.
+ Feature Point: Hit test found a point that the AR session believes is part of a
+                continuous surface. This surface may not be horizontal.
  */
 enum class VROARHitTestResultType {
     ExistingPlaneUsingExtent,

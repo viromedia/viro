@@ -218,6 +218,14 @@ public:
         return _bloomThreshold >= 0;
     }
 
+    void setReceivesShadows(bool receivesShadows) {
+        _receivesShadows = receivesShadows;
+        updateSubstrate();
+    }
+    bool getReceivesShadows() const {
+        return _receivesShadows;
+    }
+
     void addShaderModifier(std::shared_ptr<VROShaderModifier> modifier);
     void removeShaderModifier(std::shared_ptr<VROShaderModifier> modifier);
     const std::vector<std::shared_ptr<VROShaderModifier>> &getShaderModifiers() const {
@@ -283,6 +291,7 @@ public:
         }
         return VROBlendMode::None;
     }
+
 private:
     
     uint32_t _materialId;
@@ -368,6 +377,11 @@ private:
      glow. If less than 0, bloom will be disabled. Defaults to -1.
      */
     float _bloomThreshold;
+
+    /*
+     True if this material receives shadows. Defaults to true.
+     */
+    bool _receivesShadows;
     
     /*
      Representation of this material in the underlying graphics hardware.
