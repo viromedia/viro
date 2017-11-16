@@ -23,6 +23,9 @@ import {
     ViroImage,
     ViroUtils,
 } from 'react-viro';
+
+var createReactClass = require('create-react-class');
+
 let polarToCartesian = ViroUtils.polarToCartesian;
 
 /**
@@ -40,7 +43,7 @@ var backImage = require('./res/icon_back.png');
 var LoadingSpinner = require('./custom_controls/LoadingSpinner');
 var InfoElement = require('./custom_controls/InfoElement');
 
-var OfficeTourSplashScene = React.createClass({
+var OfficeTourSplashScene = createReactClass({
     getInitialState() {
         return {
             showSceneItems:false,
@@ -80,7 +83,7 @@ var OfficeTourSplashScene = React.createClass({
                 opacity={0.0}
                 animation={{
                     name : "fadeIn",
-                    run : this.state.showSceneItems, 
+                    run : this.state.showSceneItems,
                     loop : false,
                 }} >
 

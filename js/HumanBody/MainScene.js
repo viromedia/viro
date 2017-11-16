@@ -16,7 +16,9 @@ import {
   ViroMaterials,
 } from 'react-viro';
 
-var MainScene = React.createClass({
+var createReactClass = require('create-react-class');
+
+var MainScene = createReactClass({
   getInitialState() {
     return {
 

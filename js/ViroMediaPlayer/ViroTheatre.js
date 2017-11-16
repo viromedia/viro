@@ -22,6 +22,8 @@ import {
   ViroUtils,
 } from 'react-viro';
 
+var createReactClass = require('create-react-class');
+
 /**
  * Set all the image and asset references required in this scene.
  */
@@ -37,7 +39,7 @@ var videos = [
   {uri:'https://s3-us-west-2.amazonaws.com/viro/Assets/ProductVideo.mp4'},
 ];
 
-var ViroTheatre = React.createClass({
+var ViroTheatre = createReactClass({
   getInitialState() {
     return {
       videoControlsAnimation:"fadeIn",

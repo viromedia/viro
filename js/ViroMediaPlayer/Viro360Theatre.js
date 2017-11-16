@@ -20,6 +20,7 @@ import {
   ViroAnimations,
 } from 'react-viro';
 
+var createReactClass = require('create-react-class');
 
 /**
  * Set all the image and asset references required in this scene.
@@ -35,7 +36,7 @@ var videos = [
   {uri:'https://s3-us-west-2.amazonaws.com/viro/MediaDemo360_2.mp4'}
 ];
 
-var Viro360Theatre = React.createClass({
+var Viro360Theatre = createReactClass({
   getInitialState() {
     return {
       videoControlsAnimation:"fadeIn",
@@ -82,7 +83,7 @@ var Viro360Theatre = React.createClass({
     return(
       <ViroNode position={[0,-0.8,0]} opacity={1.0}
         animation={{name : this.state.videoControlsAnimation, run : this.state.runAnimation, loop : false}} >
-        
+
         <ViroImage
           scale={[1.4, 1.2, 1]}
           position={[0, -0.27,-2.1]}
@@ -128,7 +129,7 @@ var Viro360Theatre = React.createClass({
           source={require("./res/icon_360_hover.png")}
           gazeSource={require("./res/icon_360_hover.png")}
           tapSource={require("./res/icon_360_hover.png")} />
-      
+
       </ViroNode>
     );
   },

@@ -5,8 +5,9 @@ import {StyleSheet} from 'react-native';
 import {ViroParticleEmitter} from 'react-viro';
 import PropTypes from 'prop-types';
 var ColorPropType = require('react-native').ColorPropType;
+var createReactClass = require('create-react-class');
 
-var FireworkEmitter = React.createClass({
+var FireworkEmitter = createReactClass({
   propTypes: {
     loop: PropTypes.loop,
     run: PropTypes.bool,

@@ -31,10 +31,11 @@ import {
 } from 'react-viro';
 let polarToCartesian = ViroUtils.polarToCartesian;
 
+var createReactClass = require('create-react-class');
 /**
  * Render a simple custom control that groups together a ViroSpinner and text.
  */
-var LoadingSpinner = React.createClass({
+var LoadingSpinner = createReactClass({
     render: function() {
         var spinnerPosition = polarToCartesian([0, 0, 0]);
         var textPosition = polarToCartesian([1, -25, -40]);

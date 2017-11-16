@@ -24,6 +24,7 @@ import {
     ViroText
 } from 'react-viro';
 
+var createReactClass = require('create-react-class');
 /**
  * Set all the images and assets required in this scene.
  */
@@ -31,7 +32,7 @@ var westLakeTowersScene = require('./WestLakeTowers');
 var backgroundImage = require('./res/westlake_towers.jpg');
 var weworkImage = require('./res/wework_title.png');
 
-var MainScene = React.createClass({
+var MainScene = createReactClass({
     getInitialState() {
         return {
             runShowTitleAnimation:false,
@@ -48,7 +49,7 @@ var MainScene = React.createClass({
             <ViroScene style={styles.container}>
                 <Viro360Image source={backgroundImage} onLoadEnd={this._onBackgroundPhotoLoadEnd}/>
 
-                <ViroImage 
+                <ViroImage
                     position={[0, 0, -5]} source={weworkImage} scale={[.1, .1, .1]}
                     opacity={0.0} onClick={this._onTitleClicked}
                     animation={{

@@ -11,7 +11,7 @@ To report bugs/issues with Viro platform, please file new issues on this reposit
 
 1. Follow directions on our [Quick start guide](http://docs.viromedia.com/v1.0.0/docs/quick-start) to setup dependencies for trying these sample projects with the Viro Media App.
 2. Clone the repo into your workspace with git: `git clone https://github.com/viromedia/viro.git`.
-3. Edit index.ios.js or index.android.js, depending on your test device, and replace "API_KEY_HERE" with the key emailed to you with signup.
+3. Edit App.js, depending on your test device, and replace "API_KEY_HERE" with the key emailed to you with signup.
 4. Run `npm install` from the root of this project.
 5. Run `npm start` from the root of this project.
 6. Open the Viro Media App, slide out the left panel and select "Enter Testbed".
@@ -30,7 +30,7 @@ Check out our [website](http://www.viromedia.com/).
 
 Look at our [documentation](http://docs.viromedia.com/).
 
- 
+
 
 ## Sample Code Overview
 
@@ -55,7 +55,3 @@ A scene with objects, text and animation displayed on ARKit planes detected in t
 
 ### [AR Full Sample App (iOS Only)](https://github.com/viromedia/ViroARSampleApp)
 A complete React Native w/Viro AR Sample App. Demonstrates how to place, drag, and scale objects in the real world while providing 2D UI feedback.
-
-
-
-

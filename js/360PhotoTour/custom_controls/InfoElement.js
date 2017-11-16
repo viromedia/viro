@@ -25,6 +25,7 @@ import {
  * Pull in all the images needed for this control.
  */
 var infoIconImage = require('../res/icon_info.png');
+var createReactClass = require('create-react-class');
 
 /**
  * Tags for referencing the animation component views used to execute animations on
@@ -42,7 +43,7 @@ var ICON_CARD_REF = 'iconCard';
  * @content - Reference to the require('./image') content to displayed upon clicking of the Icon Card.
  * @contentCardScale - The size of the Content Card that it should be animated to.
  */
-var InfoElement = React.createClass({
+var InfoElement = createReactClass({
     propTypes: {
         content: PropTypes.number, // Opaque type returned by require('./image.jpg')
         contentCardScale: PropTypes.arrayOf(PropTypes.number),
@@ -66,29 +67,31 @@ var InfoElement = React.createClass({
             return (
                 <ViroNode onClick={this._onCardClick} {...this.props}>
                     {/* Info Card */}
-                    <ViroAnimatedComponent animation={this.state.iconCardAnimation} run={this.state.runIconCardAnimation} loop={false}
-                                          onFinish={this._animateIconCardFinished}>
                         <ViroImage
                             transformBehaviors={["billboard"]}
                             width={1}
                             height={1}
                             opacity={1.0}
                             scale={[0.5, 0.5, 0.5]}
-                            source={infoIconImage}/>
-                    </ViroAnimatedComponent>
+                            source={infoIconImage}
+                            animation={{ name:this.state.iconCardAnimation,
+                                         run : this.state.runIconCardAnimation,
+                                         loop:false,
+                                         onFinish:this._animateIconCardFinished }}/>
 
                     {/* Content Card*/}
                     <ViroNode scale={[this.props.contentCardScale[0], this.props.contentCardScale[1], this.props.contentCardScale[2]]}
                               transformBehaviors={["billboard"]}>
-                        <ViroAnimatedComponent animation={this.state.contentCardAnimation} run={this.state.runInfoCardAnimation} loop={false}
-                                              onFinish={this._animateContentCardFinished}>
-                            <ViroImage
-                                width={1}
-                                height={1}
-                                opacity={0.0}
-                                scale={[.1,.1,.1]}
-                                source={this.props.content} />
-                        </ViroAnimatedComponent>
+                        <ViroImage
+                            width={1}
+                            height={1}
+                            opacity={0.0}
+                            scale={[.1,.1,.1]}
+                            source={this.props.content}
+                            animation={{ name:this.state.contentCardAnimation,
+                                         run : this.state.runInfoCardAnimation,
+                                         loop:false,
+                                         onFinish:this._animateContentCardFinished }}/>
                     </ViroNode>
                 </ViroNode>
         );

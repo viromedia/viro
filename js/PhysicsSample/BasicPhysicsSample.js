@@ -14,12 +14,14 @@ import {
   ViroController
 } from 'react-viro';
 
+var createReactClass = require('create-react-class');
+
 /*
  Basic Physics example demonstrating how to apply constant forces, and
  as well how to apply an impulse force, inreference to a ViroController
  in response to user actions.
  */
-var BasicPhysicsSample = React.createClass({
+var BasicPhysicsSample = createReactClass({
   getInitialState() {
     return {
       boxConstantForce:[0,0,0]

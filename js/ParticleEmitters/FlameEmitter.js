@@ -4,8 +4,9 @@ import React, { Component } from 'react';
 import {StyleSheet} from 'react-native';
 import PropTypes from 'prop-types';
 import {ViroParticleEmitter} from 'react-viro';
+var createReactClass = require('create-react-class');
 
-var FlameEmitter = React.createClass({
+var FlameEmitter = createReactClass({
   location: PropTypes.arrayOf(PropTypes.number),
 
   getInitialState() {

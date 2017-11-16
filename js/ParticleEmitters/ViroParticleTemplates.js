@@ -7,6 +7,7 @@ var SnowEmitter = require('./SnowEmitter');
 var FireworkEmitter = require('./FireworkEmitter');
 var FlameEmitter = require('./FlameEmitter');
 var SmokeEmitter = require('./SmokeEmitter');
+var createReactClass = require('create-react-class');
 
 import {
   ViroScene,
@@ -22,7 +23,7 @@ import {
  Scene with a set of particle template examples, where the user
  can iterate through each particle emitters by clicking the scene.
  */
-var ViroParticleTemplates = React.createClass({
+var ViroParticleTemplates = createReactClass({
   getInitialState() {
     return {
       currentEffect:0

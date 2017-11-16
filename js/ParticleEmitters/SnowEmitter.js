@@ -4,11 +4,12 @@ import React, { Component } from 'react';
 import {StyleSheet} from 'react-native';
 import {ViroParticleEmitter} from 'react-viro';
 import PropTypes from 'prop-types';
+var createReactClass = require('create-react-class');
 
 /*
  Basic snow emitter that "rains snow" over a given area.
  */
-var SnowEmitter = React.createClass({
+var SnowEmitter = createReactClass({
   propTypes: {
     run: PropTypes.bool,
     /*

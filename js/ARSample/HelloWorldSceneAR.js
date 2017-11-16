@@ -19,7 +19,9 @@ import {
   ViroAnimations,
 } from 'react-viro';
 
-var HelloWorldSceneAR = React.createClass({
+var createReactClass = require('create-react-class');
+
+var HelloWorldSceneAR = createReactClass({
   getInitialState() {
     return {
       text : "Initializing AR..."
@@ -71,7 +73,7 @@ var HelloWorldSceneAR = React.createClass({
               source={require('./res/emoji_smile/emoji_smile.vrx')}
               position={[0, .2, 0]}
               scale={[.2, .2, .2]}
-              type="VRX" 
+              type="VRX"
             lightReceivingBitMask={3}
             shadowCastingBitMask={2}
             transformBehaviors={['billboardY']}
@@ -137,7 +139,7 @@ var styles = StyleSheet.create({
     fontSize: 30,
     color: '#ffffff',
     textAlignVertical: 'center',
-    textAlign: 'center',  
+    textAlign: 'center',
   },
 });
 
@@ -157,4 +159,3 @@ ViroAnimations.registerAnimations({
 });
 
 module.exports = HelloWorldSceneAR;
-

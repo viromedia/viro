@@ -23,6 +23,7 @@ import {
   ViroSurface,
 } from 'react-viro';
 
+var createReactClass = require('create-react-class');
 /*
  * This function returns the correct stock status text depending on the
  * given argument.
@@ -125,7 +126,7 @@ var products = [
   }
 ]
 
-var ProductShowcase = React.createClass({
+var ProductShowcase = createReactClass({
   getInitialState() {
     return {
         hideInfoCards: false,
@@ -202,7 +203,7 @@ var ProductShowcase = React.createClass({
     var product = products[this.state.productToShow];
     var objects = [];
 
-    // a product may have multiple obj's representing it, so create a Viro3DObject component for each 
+    // a product may have multiple obj's representing it, so create a Viro3DObject component for each
     for (var i = 0; i < product.objects.length; i++) {
       objects.push((<Viro3DObject key={"model" + i} source={product.objects[i]} materials={product.materials[i]} type="OBJ"/>))
     }
@@ -276,7 +277,7 @@ var ProductShowcase = React.createClass({
    * This function returns an anonymous function that serves as the onClick listener of the
    * Nav Buttons at the bottom left/right that allow the user to switch items. The returned
    * function makes all the UI components fade out in preparation for switching the product
-   * information. It works in tandem with the _switchProduct() function. 
+   * information. It works in tandem with the _switchProduct() function.
    *
    * productIndex - the product to switch to after the fade out animation.
    */
@@ -309,7 +310,7 @@ var ProductShowcase = React.createClass({
   },
   /*
    * This function is the onClick listener for the product model.
-   * 
+   *
    * Upon clicking the model, if the info cards are visible, then we hide them and make the model scale up and rotate
    * for the user to get a better view of the model. Else, we stop the rotation, scale down and make the info cards
    * reappear.
