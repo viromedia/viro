@@ -4,8 +4,12 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/../ViroSample.iml" filepath="$PROJECT_DIR$/../ViroSample.iml" />
       <module fileurl="file://$PROJECT_DIR$/app.iml" filepath="$PROJECT_DIR$/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../../../android/arcore_client/arcore_client.iml" filepath="$PROJECT_DIR$/../../../android/arcore_client/arcore_client.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../../../android/gvr_common/gvr_common.iml" filepath="$PROJECT_DIR$/../../../android/gvr_common/gvr_common.iml" />
       <module fileurl="file://$PROJECT_DIR$/../gvr_common/gvr_common.iml" filepath="$PROJECT_DIR$/../gvr_common/gvr_common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../../../android/viro_bridge/viro_bridge.iml" filepath="$PROJECT_DIR$/../../../android/viro_bridge/viro_bridge.iml" />
       <module fileurl="file://$PROJECT_DIR$/../viro_bridge/viro_bridge.iml" filepath="$PROJECT_DIR$/../viro_bridge/viro_bridge.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../../../android/viro_renderer/viro_renderer.iml" filepath="$PROJECT_DIR$/../../../android/viro_renderer/viro_renderer.iml" />
       <module fileurl="file://$PROJECT_DIR$/../viro_renderer/viro_renderer.iml" filepath="$PROJECT_DIR$/../viro_renderer/viro_renderer.iml" />
     </modules>
   </component>

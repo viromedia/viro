@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="viro_renderer-unspecified">
     <CLASSES>
-      <root url="file://$PROJECT_DIR$/build/intermediates/exploded-aar/ViroSample/viro_renderer/unspecified/res" />
-      <root url="jar://$PROJECT_DIR$/build/intermediates/exploded-aar/ViroSample/viro_renderer/unspecified/jars/classes.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../../android/viro_bridge/build/intermediates/exploded-aar/ViroSample/viro_renderer/unspecified/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../../android/viro_bridge/build/intermediates/exploded-aar/ViroSample/viro_renderer/unspecified/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

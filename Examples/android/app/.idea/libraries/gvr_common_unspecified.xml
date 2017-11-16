@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="gvr_common-unspecified">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/build/intermediates/exploded-aar/ViroSample/gvr_common/unspecified/jars/classes.jar!/" />
-      <root url="file://$PROJECT_DIR$/build/intermediates/exploded-aar/ViroSample/gvr_common/unspecified/res" />
+      <root url="jar://$PROJECT_DIR$/../../../android/viro_bridge/build/intermediates/exploded-aar/ViroSample/gvr_common/unspecified/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../../../android/viro_bridge/build/intermediates/exploded-aar/ViroSample/gvr_common/unspecified/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
