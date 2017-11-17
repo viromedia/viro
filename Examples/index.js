@@ -22,7 +22,7 @@ import {
   ViroARSceneNavigator
 } from 'react-viro';
 
-var InitialVRScene = require('./js/release_test/ViroSkyBoxTest');
+var InitialVRScene = require('./js/release_test/ViroSoundTest');
 var InitialARScene = require('./js/AR/release_test/ARSceneAndNavigatorTest');
 
 var UNSET = "UNSET";
@@ -39,18 +39,23 @@ export default class ViroExperienceSelector extends Component {
 
     this.state = {
       navigatorType : UNSET,
-      sharedProps : sharedProps
+      sharedProps : sharedProps,
+      vrMode : UNSET
     }
     this._getSelectionButtons = this._getSelectionButtons.bind(this);
     this._getARNavigator = this._getARNavigator.bind(this);
     this._getVRNavigator = this._getVRNavigator.bind(this);
-    this._getNavigatorTypeOnPress = this._getNavigatorTypeOnPress.bind(this);
+    this._getButtonPress = this._getButtonPress.bind(this);
   }
   render() {
     if (this.state.navigatorType == UNSET) {
       return this._getSelectionButtons();
     } else if (this.state.navigatorType == VR_NAVIGATOR_TYPE) {
-      return this._getVRNavigator();
+      if (this.state.vrMode == UNSET) {
+        return this._getSelectionButtons();
+      } else {
+        return this._getVRNavigator();
+      }
     } else if (this.state.navigatorType == AR_NAVIGATOR_TYPE) {
       return this._getARNavigator();
     }
@@ -61,21 +66,25 @@ export default class ViroExperienceSelector extends Component {
         <View style={localStyles.inner} >
 
           <Text style={localStyles.titleText}>
-            Choose your desired experience:
+            {this.state.navigatorType == UNSET ? "Choose your desired experience:" : "VR Mode or 360?"}
           </Text>
 
-          <TouchableHighlight style={localStyles.buttons}
-            onPress={this._getNavigatorTypeOnPress(AR_NAVIGATOR_TYPE)}
+          <TouchableHighlight style={this.state.navigatorType == UNSET ? localStyles.buttons : localStyles.vrModeButtons}
+            onPress={this._getButtonPress(1)}
             underlayColor={'#68a0ff'} >
 
-            <Text style={localStyles.buttonText}>AR</Text>
+            <Text style={localStyles.buttonText}>
+              {this.state.navigatorType == UNSET ? "AR" : "VR"}
+            </Text>
           </TouchableHighlight>
 
-          <TouchableHighlight style={localStyles.buttons}
-            onPress={this._getNavigatorTypeOnPress(VR_NAVIGATOR_TYPE)}
+          <TouchableHighlight style={this.state.navigatorType == UNSET ? localStyles.buttons : localStyles.vrModeButtons}
+            onPress={this._getButtonPress(2)}
             underlayColor={'#68a0ff'} >
 
-            <Text style={localStyles.buttonText}>VR</Text>
+            <Text style={localStyles.buttonText}>
+              {this.state.navigatorType == UNSET ? "VR" : "360"}
+            </Text>
           </TouchableHighlight>
         </View>
       </View>
@@ -90,7 +99,7 @@ export default class ViroExperienceSelector extends Component {
 
         <View style={{position: 'absolute',  left: 0, right: 0, bottom: 20, alignItems: 'center'}}>
           <TouchableHighlight style={localStyles.exitButton}
-            onPress={()=>{this.setState({navigatorType : UNSET})}}
+            onPress={()=>{this.setState({navigatorType : UNSET, vrMode : UNSET})}}
             underlayColor={'#00000000'} >
             <Text style={localStyles.buttonText}>Exit</Text>
           </TouchableHighlight>
@@ -101,13 +110,37 @@ export default class ViroExperienceSelector extends Component {
 
   _getVRNavigator() {
     return (
-      <ViroSceneNavigator {...this.state.sharedProps}
-        initialScene={{scene: InitialVRScene}}
-        onExitViro={()=>{this.setState({navigatorType : UNSET})}}/>
+      <View style={localStyles.viroContainer} >
+        <ViroSceneNavigator {...this.state.sharedProps}
+          initialScene={{scene: InitialVRScene}}
+          vrModeEnabled={this.state.vrMode}
+          onExitViro={()=>{this.setState({navigatorType : UNSET, vrMode : UNSET})}}/>
 
+        <View style={{position: 'absolute',  left: 0, right: 0, bottom: 20, alignItems: 'center'}}>
+          <TouchableHighlight style={localStyles.exitButton}
+            onPress={()=>{this.setState({navigatorType : UNSET, vrMode : UNSET})}}
+            underlayColor={'#00000000'} >
+            <Text style={localStyles.buttonText}>Exit</Text>
+          </TouchableHighlight>
+        </View>
+      </View>
     );
   }
-  _getNavigatorTypeOnPress(navigatorType) {
+  _getButtonPress(buttonNum) {
+    if (buttonNum == 1) {
+      if (this.state.navigatorType == UNSET) {
+        return ()=>{this.setState({navigatorType : AR_NAVIGATOR_TYPE})}
+      } else {
+        return ()=>{this.setState({vrMode : true})}
+      }
+    } else {
+      if (this.state.navigatorType == UNSET) {
+        return ()=>{this.setState({navigatorType : VR_NAVIGATOR_TYPE})}
+      } else {
+        return ()=>{this.setState({vrMode : false})}
+      }
+    }
+
     return () => {
       this.setState({
         navigatorType : navigatorType
@@ -153,6 +186,18 @@ var localStyles = StyleSheet.create({
     marginTop: 10,
     marginBottom: 10,
     backgroundColor:'#68a0cf',
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: '#fff',
+  },
+  vrModeButtons : {
+    height: 80,
+    width: 150,
+    paddingTop:20,
+    paddingBottom:20,
+    marginTop: 10,
+    marginBottom: 10,
+    backgroundColor:'#1111aa',
     borderRadius: 10,
     borderWidth: 1,
     borderColor: '#fff',
