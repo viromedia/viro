@@ -384,12 +384,8 @@ var ViroSceneNavigator = createReactClass({
     return -1;
   },
 
-  _getNodeHandle: function(): any {
-    return findNodeHandle(this._component);
-  },
-
   _recenterTracking() {
-    ViroSceneNavigatorModule.recenterTracking(this._getNodeHandle());
+    ViroSceneNavigatorModule.recenterTracking(findNodeHandle(this));
   },
 
   _renderSceneStackItems: function() {

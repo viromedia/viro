@@ -80,10 +80,6 @@ var Viro360Video = createReactClass({
     stereoMode:PropTypes.oneOf(['leftRight', 'rightLeft', 'topBottom', 'bottomTop', 'none']),
   },
 
-  getNodeHandle: function(): any {
-    return findNodeHandle(this._component);
-  },
-
   _onBufferStart: function(event: Event) {
     this.props.onBufferStart && this.props.onBufferStart(event);
   },
@@ -131,11 +127,11 @@ var Viro360Video = createReactClass({
   seekToTime(timeInSeconds) {
     switch (Platform.OS) {
       case 'ios':
-        NativeModules.VRT360VideoManager.seekToTime(this.getNodeHandle(), timeInSeconds);
+        NativeModules.VRT360VideoManager.seekToTime(findNodeHandle(this), timeInSeconds);
         break;
       case 'android':
         NativeModules.UIManager.dispatchViewManagerCommand(
-            this.getNodeHandle(),
+            findNodeHandle(this),
             NativeModules.UIManager.VRT360Video.Commands.seekToTime,
             [ timeInSeconds ]);
         break;

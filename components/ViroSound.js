@@ -83,18 +83,14 @@ var ViroSound = createReactClass({
     );
   },
 
-  getNodeHandle: function(): any {
-    return findNodeHandle(this._component);
-  },
-
   seekToTime(timeInSeconds) {
     switch (Platform.OS) {
       case 'ios':
-        NativeModules.VRTSoundManager.seekToTime(this.getNodeHandle(), timeInSeconds);
+        NativeModules.VRTSoundManager.seekToTime(findNodeHandle(this), timeInSeconds);
         break;
       case 'android':
         NativeModules.UIManager.dispatchViewManagerCommand(
-            this.getNodeHandle(),
+            findNodeHandle(this),
             NativeModules.UIManager.VRTSound.Commands.seekToTime,
             [ timeInSeconds ]);
         break;

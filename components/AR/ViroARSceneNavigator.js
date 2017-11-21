@@ -359,14 +359,6 @@ var ViroARSceneNavigator = createReactClass({
     return -1;
   },
 
-  _getNodeHandle: function(): any {
-    return findNodeHandle(this._component);
-  },
-
-  _recenterTracking() {
-    ViroARSceneNavigatorModule.recenterTracking(this._getNodeHandle());
-  },
-
   /*
    Starts recording video of the Viro renderer and external audio
 

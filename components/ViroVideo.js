@@ -317,18 +317,14 @@ var ViroVideo = createReactClass({
     );
   },
 
-  getNodeHandle: function(): any {
-    return findNodeHandle(this._component);
-  },
-
   seekToTime(timeInSeconds) {
     switch (Platform.OS) {
       case 'ios':
-        NativeModules.VRTVideoSurfaceManager.seekToTime(this.getNodeHandle(), timeInSeconds);
+        NativeModules.VRTVideoSurfaceManager.seekToTime(findNodeHandle(this), timeInSeconds);
         break;
       case 'android':
         NativeModules.UIManager.dispatchViewManagerCommand(
-            this.getNodeHandle(),
+            findNodeHandle(this),
             NativeModules.UIManager.VRTVideoSurface.Commands.seekToTime,
             [ timeInSeconds ]);
         break;

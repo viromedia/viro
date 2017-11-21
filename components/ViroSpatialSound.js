@@ -94,20 +94,16 @@ var ViroSpatialSound = createReactClass({
     }
   },
 
-  getNodeHandle: function(): any {
-    return findNodeHandle(this._component);
-  },
-
   seekToTime(timeInSeconds) {
     switch (Platform.OS) {
       case 'ios':
         // TODO: VIRO-767 when we enable SpatialSound on iOS then use the VRTSpatialSoundManager one
-        NativeModules.VRTSoundManager.seekToTime(this.getNodeHandle(), timeInSeconds);
-        //NativeModules.VRTSpatialSoundManager.seekToTime(this.getNodeHandle(), timeInSeconds);
+        NativeModules.VRTSoundManager.seekToTime(findNodeHandle(this), timeInSeconds);
+        //NativeModules.VRTSpatialSoundManager.seekToTime(findNodeHandle(this), timeInSeconds);
         break;
       case 'android':
         NativeModules.UIManager.dispatchViewManagerCommand(
-            this.getNodeHandle(),
+            findNodeHandle(this),
             NativeModules.UIManager.VRTSpatialSound.Commands.seekToTime,
             [ timeInSeconds ]);
         break;
