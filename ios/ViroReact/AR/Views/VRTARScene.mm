@@ -23,6 +23,8 @@ static NSString *const kVRTColorTemperatureKey = @"colorTemperature";
 static NSString *const kCameraHitTestResults = @"hitTestResults";
 static NSString *const kCameraOrientation = @"cameraOrientation";
 
+static NSString *const kPointCloudKey = @"pointCloud";
+
 @implementation VRTARScene {
     std::shared_ptr<VROARScene> _vroArScene;
     std::shared_ptr<VROARSceneDelegateiOS> _sceneDelegate;
@@ -97,6 +99,11 @@ static NSString *const kCameraOrientation = @"cameraOrientation";
     self.eventDelegate->setEnabledEvent(VROEventDelegate::EventAction::OnCameraARHitTest, canCameraARHitTest);
 }
 
+- (void)setCanARPointCloudUpdate:(BOOL)canARPointCloudUpdate {
+    _canARPointCloudUpdate = canARPointCloudUpdate;
+    self.eventDelegate->setEnabledEvent(VROEventDelegate::EventAction::OnARPointCloudUpdate, _canARPointCloudUpdate);
+}
+
 - (void)setDisplayPointCloud:(BOOL)displayPointCloud {
     _displayPointCloud = displayPointCloud;
     _vroArScene->displayPointCloud(displayPointCloud);
@@ -149,7 +156,7 @@ static NSString *const kCameraOrientation = @"cameraOrientation";
     }
 }
 
-- (void)onCameraARHitTest:(int)source results:(std::vector<VROARHitTestResult>)results {
+- (void)onCameraARHitTest:(std::vector<VROARHitTestResult>)results {
     if(self.onCameraARHitTestViro) {
         NSMutableArray *resultArray = [[NSMutableArray alloc] initWithCapacity:results.size()];
         for (VROARHitTestResult result : results) {
@@ -158,6 +165,12 @@ static NSString *const kCameraOrientation = @"cameraOrientation";
         
         NSArray<NSNumber *> * camOrientation = [self cameraOrientation];
     self.onCameraARHitTestViro(@{kCameraHitTestResults:resultArray,kCameraOrientation:camOrientation});
+    }
+}
+
+- (void)onARPointCloudUpdate:(std::shared_ptr<VROARPointCloud>)pointCloud {
+    if (self.onARPointCloudUpdateViro) {
+        self.onARPointCloudUpdateViro(@{kPointCloudKey:[VRTARUtils createDictionaryFromARPointCloud:pointCloud]});
     }
 }
 

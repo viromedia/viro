@@ -3,12 +3,16 @@
  */
 package com.viromedia.bridge.utility;
 
+import android.util.Log;
+
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.WritableArray;
 import com.facebook.react.bridge.WritableMap;
 import com.viro.core.ARAnchor;
 import com.viro.core.ARHitTestResult;
 import com.viro.core.ARPlaneAnchor;
+import com.viro.core.ARPointCloud;
+import com.viro.core.Vector;
 
 public class ARUtils {
 
@@ -41,6 +45,22 @@ public class ARUtils {
         // rotation values come as radians, we need to convert to degrees
         transformMap.putArray("rotation", ARUtils.arrayFromRotationArray(result.getRotation().toArray()));
         returnMap.putMap("transform", transformMap);
+        return returnMap;
+    }
+
+    public static WritableMap mapFromARPointCloud(ARPointCloud pointCloud) {
+        WritableArray pointsArray = Arguments.createArray();
+        float[] points = pointCloud.getPoints();
+        for (int i = 0; i < points.length; i+=4) {
+            WritableArray point = Arguments.createArray();
+            point.pushDouble(points[i]);
+            point.pushDouble(points[i+1]);
+            point.pushDouble(points[i+2]);
+            point.pushDouble(points[i+3]);
+            pointsArray.pushArray(point);
+        }
+        WritableMap returnMap = Arguments.createMap();
+        returnMap.putArray("points", pointsArray);
         return returnMap;
     }
 

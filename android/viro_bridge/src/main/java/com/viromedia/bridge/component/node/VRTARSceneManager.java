@@ -73,6 +73,11 @@ public class VRTARSceneManager extends VRTSceneManager<VRTARScene> {
         scene.setCanCameraARHitTest(canCameraARHitTest);
     }
 
+    @ReactProp(name = "canARPointCloudUpdate", defaultBoolean = VRTNode.DEFAULT_CAN_AR_POINT_CLOUD_UPDATE)
+    public void setCanARPointCloudUpdate(VRTARScene scene, boolean canARPointCloudUpdate) {
+        scene.setCanARPointCloudUpdate(canARPointCloudUpdate);
+    }
+
     @Override
     public Map getExportedCustomDirectEventTypeConstants() {
         Map map = super.getExportedCustomDirectEventTypeConstants();
@@ -82,6 +87,7 @@ public class VRTARSceneManager extends VRTSceneManager<VRTARScene> {
         map.put(ViroEvents.ON_ANCHOR_UPDATED, MapBuilder.of("registrationName", ViroEvents.ON_ANCHOR_UPDATED));
         map.put(ViroEvents.ON_ANCHOR_REMOVED, MapBuilder.of("registrationName", ViroEvents.ON_ANCHOR_REMOVED));
         map.put(ViroEvents.ON_CAMERA_AR_HIT_TEST_VIRO, MapBuilder.of("registrationName", ViroEvents.ON_CAMERA_AR_HIT_TEST_VIRO));
+        map.put(ViroEvents.ON_AR_POINT_CLOUD_UPDATE, MapBuilder.of("registrationName", ViroEvents.ON_AR_POINT_CLOUD_UPDATE));
         return map;
     }
 

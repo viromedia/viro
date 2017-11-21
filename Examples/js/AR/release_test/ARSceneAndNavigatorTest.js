@@ -51,6 +51,7 @@ var testARScene = createReactClass({
       initialized : false,
       ambientLightText: "Ambient Light",
       displayPointCloud : pointCloudDict,
+      pointCloudPoints : 0,
     }
   },
   componentDidMount: function() {
@@ -94,7 +95,8 @@ var testARScene = createReactClass({
       <ViroARScene
         onTrackingInitialized={()=>{this.setState({initialized : true})}}
         onAmbientLightUpdate={this._onAmbientLightUpdate}
-        displayPointCloud={this.state.displayPointCloud} >
+        displayPointCloud={this.state.displayPointCloud}
+        onARPointCloudUpdate={this._onARPointCloudUpdate} >
 
         {/* ViroARSceneNavigator tests */}
         <ViroText position={polarToCartesian([2, 0, 10])} text={"Recording? " + (this.state.isRecording ? "Yes" : "No")}
@@ -112,7 +114,10 @@ var testARScene = createReactClass({
         <ViroText position={polarToCartesian([2, 30, 0])} text={this.state.ambientLightText}
           style={styles.instructionText} transformBehaviors={["billboard"]}
           ref={component=>{this._ambientLightText = component}}/>
-        <ViroText position={polarToCartesian([2, 30, -10])} text={this.state.displayPointCloud ? "Hide Point Cloud" : "Show Point Cloud"}
+        <ViroText ref={(component)=>{this.pointCloudPointsText = component}}
+          position={polarToCartesian([2, 30, -10])} text={"# of PointCloud points: " + this.state.pointCloudPoints}
+          style={styles.instructionText} transformBehaviors={["billboard"]} />
+        <ViroText position={polarToCartesian([2, 30, -20])} text={this.state.displayPointCloud ? "Hide Point Cloud" : "Show Point Cloud"}
           style={styles.instructionText} transformBehaviors={["billboard"]}
           onClick={()=>{this.setState({displayPointCloud : !this.state.displayPointCloud})}}/>
 
@@ -124,6 +129,11 @@ var testARScene = createReactClass({
           transformBehaviors={["billboard"]}/>
       </ViroARScene>
     );
+  },
+  _onARPointCloudUpdate(pointCloud) {
+    this.setState({
+      pointCloudPoints : pointCloud.points.length
+    })
   },
   _getVideo() {
     if (this.state.videoSuccess) {

@@ -3,11 +3,15 @@
  */
 package com.viromedia.bridge.utility;
 
+import android.util.Log;
+
 import com.facebook.react.bridge.Arguments;
+import com.facebook.react.bridge.ReadableMapKeySetIterator;
 import com.facebook.react.bridge.WritableArray;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
 import com.viro.core.ARHitTestResult;
+import com.viro.core.ARPointCloud;
 import com.viro.core.internal.CameraCallback;
 import com.viro.core.EventDelegate;
 import com.viro.core.Node;
@@ -195,7 +199,7 @@ public class ComponentEventDelegate implements EventDelegate.EventDelegateCallba
     }
 
     @Override
-    public void onCameraARHitTest(int source, ARHitTestResult results[]) {
+    public void onCameraARHitTest(ARHitTestResult results[]) {
 
         VRTComponent node = weakComponent.get();
 
@@ -240,6 +244,26 @@ public class ComponentEventDelegate implements EventDelegate.EventDelegateCallba
                             event);
                 }
             });
+        }
+    }
+
+    @Override
+    public void onARPointCloudUpdate(ARPointCloud arPointCloud) {
+        VRTComponent node = weakComponent.get();
+        if (node == null) {
+            return;
+        }
+
+        if (node instanceof VRTARScene) {
+            final VRTARScene arScene = (VRTARScene) node;
+
+            WritableMap event = Arguments.createMap();
+            event.putMap("pointCloud", ARUtils.mapFromARPointCloud(arPointCloud));
+
+            arScene.getReactContext().getJSModule(RCTEventEmitter.class).receiveEvent(
+                    arScene.getId(),
+                    ViroEvents.ON_AR_POINT_CLOUD_UPDATE,
+                    event);
         }
     }
 

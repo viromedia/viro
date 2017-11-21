@@ -105,6 +105,7 @@ public class VRTNode extends VRTComponent {
     protected final static boolean DEFAULT_CAN_PINCH = false;
     protected final static boolean DEFAULT_CAN_ROTATE = false;
     protected final static boolean DEFAULT_CAN_CAMERA_HIT_TEST = false;
+    protected final static boolean DEFAULT_CAN_AR_POINT_CLOUD_UPDATE = false;
     protected final static float DEFAULT_TIME_TO_FUSE_MILLIS = 1000f;
     protected final static double TRANSFORM_DELEGATE_DISTANCE_FILTER = 0.01;
 

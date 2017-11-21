@@ -46,6 +46,7 @@ var ViroARScene = createReactClass({
     onPinch: PropTypes.func,
     onRotate: PropTypes.func,
     onCameraARHitTest: PropTypes.func,
+    onARPointCloudUpdate: PropTypes.func,
     onFuse: PropTypes.oneOfType([
       PropTypes.shape({
         callback: PropTypes.func.isRequired,
@@ -123,6 +124,10 @@ var ViroARScene = createReactClass({
       }
     };
     this.props.onCameraARHitTest && this.props.onCameraARHitTest(hitTestEventObj);
+  },
+
+  _onARPointCloudUpdate: function(event: Event) {
+    this.props.onARPointCloudUpdate && this.props.onARPointCloudUpdate(event.nativeEvent.pointCloud);
   },
 
   _onDrag: function(event: Event) {
@@ -266,6 +271,7 @@ var ViroARScene = createReactClass({
         canRotate={this.props.onRotate != undefined}
         canFuse={this.props.onFuse != undefined}
         canCameraARHitTest={this.props.onCameraARHitTest != undefined}
+        canARPointCloudUpdate={this.props.onARPointCloudUpdate != undefined}
         onHoverViro={this._onHover}
         onClickViro={this._onClickState}
         onTouchViro={this._onTouch}
@@ -276,6 +282,7 @@ var ViroARScene = createReactClass({
         onRotateViro={this._onRotate}
         onFuseViro={this._onFuse}
         onCameraARHitTestViro={this._onCameraARHitTest}
+        onARPointCloudUpdateViro={this._onARPointCloudUpdate}
         onPlatformUpdateViro={this._onPlatformUpdate}
         onTrackingInitializedViro={this._onTrackingInitialized}
         onAmbientLightUpdateViro={this._onAmbientLightUpdate}
@@ -311,7 +318,8 @@ var VRTARScene = requireNativeComponent(
           canPinch: true,
           canRotate: true,
           canFuse: true,
-          canCameraARHitTest:true,
+          canCameraARHitTest: true,
+          canARPointCloudUpdate: true,
           onHoverViro: true,
           onClickViro: true,
           onTouchViro: true,
@@ -328,6 +336,7 @@ var VRTARScene = requireNativeComponent(
           onAnchorUpdatedViro: true,
           onAnchorRemovedViro:true,
           onCameraARHitTestViro: true,
+          onARPointCloudUpdateViro: true,
           timeToFuse:true,
           pointCloudImage:true,
           pointCloudScale:true,

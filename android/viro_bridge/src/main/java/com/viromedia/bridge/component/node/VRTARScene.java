@@ -129,6 +129,9 @@ public class VRTARScene extends VRTScene implements ARScene.Listener {
         mEventDelegateJni.setEventEnabled(EventDelegate.EventAction.ON_CAMERA_AR_HIT_TEST, canCameraHitTest);
     }
 
+    public void setCanARPointCloudUpdate(boolean canARPointCloudUpdate) {
+        mEventDelegateJni.setEventEnabled(EventDelegate.EventAction.ON_AR_POINT_CLOUD_UPDATE, canARPointCloudUpdate);
+    }
 
     // -- ARSceneDelegate Implementation --
 

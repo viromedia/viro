@@ -538,8 +538,12 @@ const double kTransformDelegateDistanceFilter = 0.01;
     }
 }
 
-- (void)onCameraARHitTest:(int)source results:(std::vector<VROARHitTestResult>)results {
-    //no -op base class for this event.
+- (void)onCameraARHitTest:(std::vector<VROARHitTestResult>)results {
+    //no-op base class for this event.
+}
+
+- (void)onARPointCloudUpdated:(std::shared_ptr<VROARPointCloud>)pointCloud {
+    //no-op base class for this event.
 }
 
 #pragma mark - Physics Implementations
