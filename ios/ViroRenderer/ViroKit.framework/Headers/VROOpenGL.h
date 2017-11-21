@@ -14,9 +14,11 @@
 
 #if VRO_PLATFORM_ANDROID
 
+#include <cstring>
+#include <stdlib.h>
 #include <EGL/egl.h>
-#include <GLES2/gl2ext.h>
 #include <GLES3/gl3.h>
+#include <GLES2/gl2ext.h>
 #include <GLES3/gl3ext.h>
 #include <GLES3/gl3platform.h>
 

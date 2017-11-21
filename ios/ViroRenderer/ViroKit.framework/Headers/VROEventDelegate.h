@@ -19,6 +19,8 @@
 
 #include <limits>
 class VROARHitTestResult;
+class VROARPointCloud;
+
 static const float kOnFuseReset = std::numeric_limits<float>::max();
 
 /*
@@ -48,6 +50,7 @@ public:
         OnPinch = 10,
         OnRotate = 11,
         OnCameraARHitTest = 12,
+        OnARPointCloudUpdate = 13,
     };
 
     /*
@@ -117,6 +120,7 @@ public:
         _enabledEventMap[VROEventDelegate::EventAction::OnPinch] = false;
         _enabledEventMap[VROEventDelegate::EventAction::OnRotate] = false;
         _enabledEventMap[VROEventDelegate::EventAction::OnCameraARHitTest] = false;
+        _enabledEventMap[VROEventDelegate::EventAction::OnARPointCloudUpdate] = false;
     }
 
     /*
@@ -140,10 +144,6 @@ public:
 
     virtual void onClick(int source, std::shared_ptr<VRONode> node, ClickState clickState, std::vector<float> position) {
         //No-op
-    }
-
-    virtual void onCameraARHitTest(int source, std::vector<VROARHitTestResult> results) {
-        // No-op
     }
     
     virtual void onTouch(int source, std::shared_ptr<VRONode> node, TouchState touchState, float x, float y) {
@@ -183,6 +183,14 @@ public:
     }
     
     virtual void onRotate(int source, std::shared_ptr<VRONode> node, float rotationRadians, RotateState rotateState) {
+        //No-op
+    }
+
+    virtual void onCameraARHitTest(std::vector<VROARHitTestResult> results) {
+        //No-op
+    }
+
+    virtual void onARPointCloudUpdate(std::shared_ptr<VROARPointCloud> pointCloud) {
         //No-op
     }
 
