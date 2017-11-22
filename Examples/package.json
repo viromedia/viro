@@ -5,6 +5,7 @@
   "scripts": {
     "prestart": "./node_modules/react-viro/bin/run_ngrok.sh",
     "start": "node node_modules/react-native/local-cli/cli.js start",
+    "postinstall": "./setup_react_viro.js",
     "test": "jest"
   },
   "dependencies": {
