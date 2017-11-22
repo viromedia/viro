@@ -216,7 +216,8 @@ var ViroParticleEmitter = createReactClass({
       let minColorFinal = processColor(colorModifier.initialRange[0]);
       let maxColorFinal = processColor(colorModifier.initialRange[1]);
       let modifierFinal = [];
-      for (let i = 0; i < colorModifier.interpolation.length; i ++){
+      let interpolationLength = colorModifier.interpolation != undefined ? colorModifier.interpolation.length : 0;
+      for (let i = 0; i < interpolationLength; i ++){
         let processedColor = processColor(colorModifier.interpolation[i].endValue);
         let mod = {
             interval: colorModifier.interpolation[i].interval,
@@ -244,7 +245,9 @@ var ViroParticleEmitter = createReactClass({
       let minRotFinal = [0,0,rotMod.initialRange[0] * Math.PI / 180];
       let maxRotFinal = [0,0,rotMod.initialRange[1] * Math.PI / 180];
       let modifierFinal = [];
-      for (var i = 0; i < rotMod.interpolation.length; i ++){
+
+      let interpolationLength = rotMod.interpolation != undefined ? rotMod.interpolation.length : 0;
+      for (var i = 0; i < interpolationLength; i ++){
         let processedRot = [0,0, rotMod.interpolation[i].endValue * Math.PI / 180];
         let mod = {
             interval: rotMod.interpolation[i].interval,
