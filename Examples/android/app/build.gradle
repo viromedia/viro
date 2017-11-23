@@ -87,8 +87,9 @@ def enableSeparateBuildPerCPUArchitecture = false
 def enableProguardInReleaseBuilds = false
 
 android {
+    flavorDimensions "platform"
     compileSdkVersion 25
-    buildToolsVersion "25.0.0"
+    buildToolsVersion '26.0.2'
 
     signingConfigs {
         release {
@@ -130,11 +131,13 @@ android {
     }
     productFlavors {
         gvr {
+            dimension "platform"
             resValue "string", "app_name", "ViroSample-gvr"
             applicationIdSuffix ".gvr"
             buildConfigField "String", "VR_PLATFORM", "\"GVR\""
         }
         ovr {
+            dimension "platform"
             resValue "string", "app_name", "ViroSample-ovr"
             applicationIdSuffix ".ovr"
             buildConfigField "String", "VR_PLATFORM", "\"OVR_MOBILE\""
