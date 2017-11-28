@@ -60,3 +60,8 @@ npm-debug.log
 *local.properties
 *build/
 react-viro*.tgz
+
+
+# Fastlane
+android/fastlane/report.xml
+android/fastlane/README.md
