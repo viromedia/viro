@@ -93,6 +93,9 @@
 /* Format string for label that display the viewer currently configured. (30 chars) */
 "SettingsCurrentViewerLabelFormat" = "מכשיר הצפייה הנוכחי: %1$@";
 
+/* Error message if trying to programmatically pair, when a pairing already exists. (40 chars) */
+"ViewerAlreadyPaired" = "מכשיר הצפייה כבר הותאם";
+
 /* Reported name of Cardboard viewer when no viewer configured. (40 chars) */
 "DefaultViewerName" = "ברירת מחדל";
 
@@ -125,3 +128,12 @@
 
 /* Accessibility label for the back button to take us out of 3D mode (read out loud) */
 "AccessibilityBackButton" = "חזרה למסך הקודם";
+
+/* Accessibility label for the cardboard button to go into cardboard mode (read out loud) */
+"AccessibilityCardboardButton" = "‏מצב Cardboard";
+
+/* Accessibility label for the fullscreen button to go into fullscreen mode (read out loud) */
+"AccessibilityFullscreenButton" = "מצב מסך מלא";
+
+/* Accessibility label for the information button to go to help page (read out loud) */
+"AccessibilityHelpButton" = "עזרה";

@@ -61,7 +61,7 @@
 "TroubleShootingTips" = "نصائح تحرّى الخلل وإصلاحه";
 
 /* Button label for the control that allows the user to skip the QR code step. (40 chars) */
-"SkipButtonLabel" = "تخطٍ";
+"SkipButtonLabel" = "تخطي";
 
 /* First line of the onboarding introduction. (40 chars) */
 "OnboardingIntroLine1" = "لنبدأ الإعداد";
@@ -92,6 +92,9 @@
 
 /* Format string for label that display the viewer currently configured. (30 chars) */
 "SettingsCurrentViewerLabelFormat" = "العارض الحالي: %1$@";
+
+/* Error message if trying to programmatically pair, when a pairing already exists. (40 chars) */
+"ViewerAlreadyPaired" = "تم بالفعل إقران المنظار";
 
 /* Reported name of Cardboard viewer when no viewer configured. (40 chars) */
 "DefaultViewerName" = "افتراضي";
@@ -125,3 +128,12 @@
 
 /* Accessibility label for the back button to take us out of 3D mode (read out loud) */
 "AccessibilityBackButton" = "رجوع إلى الشاشة السابقة";
+
+/* Accessibility label for the cardboard button to go into cardboard mode (read out loud) */
+"AccessibilityCardboardButton" = "‏وضع Cardboard";
+
+/* Accessibility label for the fullscreen button to go into fullscreen mode (read out loud) */
+"AccessibilityFullscreenButton" = "وضع ملء الشاشة";
+
+/* Accessibility label for the information button to go to help page (read out loud) */
+"AccessibilityHelpButton" = "مساعدة";

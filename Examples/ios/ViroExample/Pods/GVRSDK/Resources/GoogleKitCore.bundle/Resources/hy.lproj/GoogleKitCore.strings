@@ -62,10 +62,13 @@
 "GoogleKitCoreMenuButton" = "Ընտրացանկ";
 
 /* Label for a button for opening a menu of extra actions. */
+"GoogleKitCoreMoreHorizButton" = "Ավելին";
+
+/* Label for a button for opening a menu of extra actions. */
 "GoogleKitCoreMoreVertButton" = "Ավելին";
 
 /* Label for a button for information related to a person. */
-"GoogleKitCorePersonButton" = "Օգտվող";
+"GoogleKitCorePersonButton" = "Օգտատեր";
 
 /* Label for a button for refreshing the current content. */
 "GoogleKitCoreRefreshButton" = "Թարմացնել";

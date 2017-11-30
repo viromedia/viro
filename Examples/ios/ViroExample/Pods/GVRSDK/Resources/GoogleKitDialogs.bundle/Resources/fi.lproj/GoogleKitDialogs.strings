@@ -1,13 +1,4 @@
 /* Label for the close button on a dialog that needs acknowledgement. (15 chars.) */
-"AcknowledgeAction" = "OK";
-
-/* "Cancel" text label where the standard 'abort this action' button is offered. (8 chars.) */
-"CancelAction" = "Peruuta";
-
-/* Label for a button indicating an action should be attempted again. (40 chars.) */
-"TryAgainAction" = "Yritä uudelleen";
-
-/* Label for the close button on a dialog that needs acknowledgement. (15 chars.) */
 "GoogleKitDialogsAcknowledgeAction" = "OK";
 
 /* "Cancel" text label where the standard 'abort this action' button is offered. (8 chars.) */
@@ -18,3 +9,21 @@
 
 /* Word read aloud when VoiceOver is enabled before showing an alert. (No limit chars.) */
 "GoogleKitDialogsAccessibilityAlertAnnouncement" = "Ilmoitus";
+
+/* VoiceOver message for dismissing a modal view. */
+"GoogleKitDialogsDismissModalViewVoiceOverMessage" = "Hylkää";
+
+/* VoiceOver hint for dismissing a modal view. */
+"GoogleKitDialogsDismissModalViewVoiceOverHint" = "Hylkää valintaikkuna kaksoisnapauttamalla sitä.";
+
+/* VoiceOver message for dismissing an alert. */
+"GoogleKitDialogsDismissAlertVoiceOverMessage" = "Ohita ilmoitus.";
+
+/* VoiceOver hint for dismissing an alert. */
+"GoogleKitDialogsDismissAlertVoiceOverHint" = "Ohita ilmoitus kaksoisnapauttamalla.";
+
+/* VoiceOver message for dismissing a popup window. */
+"GoogleKitDialogsDismissPopupVoiceOverMessage" = "Ohita ponnahdusikkuna.";
+
+/* VoiceOver hint for dismissing a popup window. */
+"GoogleKitDialogsDismissPopupVoiceOverHint" = "Ohita ponnahdusikkuna kaksoisnapauttamalla.";

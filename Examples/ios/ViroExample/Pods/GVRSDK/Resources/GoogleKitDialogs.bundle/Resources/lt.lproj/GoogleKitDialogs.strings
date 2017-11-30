@@ -1,13 +1,4 @@
 /* Label for the close button on a dialog that needs acknowledgement. (15 chars.) */
-"AcknowledgeAction" = "Gerai";
-
-/* "Cancel" text label where the standard 'abort this action' button is offered. (8 chars.) */
-"CancelAction" = "Atšaukti";
-
-/* Label for a button indicating an action should be attempted again. (40 chars.) */
-"TryAgainAction" = "Bandykite dar kartą";
-
-/* Label for the close button on a dialog that needs acknowledgement. (15 chars.) */
 "GoogleKitDialogsAcknowledgeAction" = "Gerai";
 
 /* "Cancel" text label where the standard 'abort this action' button is offered. (8 chars.) */
@@ -18,3 +9,21 @@
 
 /* Word read aloud when VoiceOver is enabled before showing an alert. (No limit chars.) */
 "GoogleKitDialogsAccessibilityAlertAnnouncement" = "Įspėjimas";
+
+/* VoiceOver message for dismissing a modal view. */
+"GoogleKitDialogsDismissModalViewVoiceOverMessage" = "Atsisakyti";
+
+/* VoiceOver hint for dismissing a modal view. */
+"GoogleKitDialogsDismissModalViewVoiceOverHint" = "Dukart palieskite, jei norite atsisakyti dialogo lango";
+
+/* VoiceOver message for dismissing an alert. */
+"GoogleKitDialogsDismissAlertVoiceOverMessage" = "Atsisakyti įspėjimo";
+
+/* VoiceOver hint for dismissing an alert. */
+"GoogleKitDialogsDismissAlertVoiceOverHint" = "Jei norite atsisakyti įspėjimo, dukart palieskite ekraną";
+
+/* VoiceOver message for dismissing a popup window. */
+"GoogleKitDialogsDismissPopupVoiceOverMessage" = "Atsisakyti iššokančiojo lango";
+
+/* VoiceOver hint for dismissing a popup window. */
+"GoogleKitDialogsDismissPopupVoiceOverHint" = "Jei norite atsisakyti iššokančiojo lango, dukart palieskite ekraną";

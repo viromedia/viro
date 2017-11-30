@@ -1,13 +1,4 @@
 /* Label for the close button on a dialog that needs acknowledgement. (15 chars.) */
-"AcknowledgeAction" = "Oke";
-
-/* "Cancel" text label where the standard 'abort this action' button is offered. (8 chars.) */
-"CancelAction" = "Batal";
-
-/* Label for a button indicating an action should be attempted again. (40 chars.) */
-"TryAgainAction" = "Coba lagi";
-
-/* Label for the close button on a dialog that needs acknowledgement. (15 chars.) */
 "GoogleKitDialogsAcknowledgeAction" = "Oke";
 
 /* "Cancel" text label where the standard 'abort this action' button is offered. (8 chars.) */
@@ -18,3 +9,21 @@
 
 /* Word read aloud when VoiceOver is enabled before showing an alert. (No limit chars.) */
 "GoogleKitDialogsAccessibilityAlertAnnouncement" = "Lansiran";
+
+/* VoiceOver message for dismissing a modal view. */
+"GoogleKitDialogsDismissModalViewVoiceOverMessage" = "Tolak";
+
+/* VoiceOver hint for dismissing a modal view. */
+"GoogleKitDialogsDismissModalViewVoiceOverHint" = "Tap dua kali untuk menolak dialog";
+
+/* VoiceOver message for dismissing an alert. */
+"GoogleKitDialogsDismissAlertVoiceOverMessage" = "Tolak notifikasi";
+
+/* VoiceOver hint for dismissing an alert. */
+"GoogleKitDialogsDismissAlertVoiceOverHint" = "Tap dua kali untuk menolak notifikasi";
+
+/* VoiceOver message for dismissing a popup window. */
+"GoogleKitDialogsDismissPopupVoiceOverMessage" = "Tolak pop-up";
+
+/* VoiceOver hint for dismissing a popup window. */
+"GoogleKitDialogsDismissPopupVoiceOverHint" = "Tap dua kali untuk menolak jendela pop-up";

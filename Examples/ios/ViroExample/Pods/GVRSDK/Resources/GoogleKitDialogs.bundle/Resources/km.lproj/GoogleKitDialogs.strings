@@ -1,13 +1,4 @@
 /* Label for the close button on a dialog that needs acknowledgement. (15 chars.) */
-"AcknowledgeAction" = "យល់ព្រម";
-
-/* "Cancel" text label where the standard 'abort this action' button is offered. (8 chars.) */
-"CancelAction" = "បោះបង់";
-
-/* Label for a button indicating an action should be attempted again. (40 chars.) */
-"TryAgainAction" = "ព្យាយាម​ម្ដងទៀត";
-
-/* Label for the close button on a dialog that needs acknowledgement. (15 chars.) */
 "GoogleKitDialogsAcknowledgeAction" = "យល់ព្រម";
 
 /* "Cancel" text label where the standard 'abort this action' button is offered. (8 chars.) */
@@ -18,3 +9,21 @@
 
 /* Word read aloud when VoiceOver is enabled before showing an alert. (No limit chars.) */
 "GoogleKitDialogsAccessibilityAlertAnnouncement" = "ជូន​ដំណឹង";
+
+/* VoiceOver message for dismissing a modal view. */
+"GoogleKitDialogsDismissModalViewVoiceOverMessage" = "បដិសេធ";
+
+/* VoiceOver hint for dismissing a modal view. */
+"GoogleKitDialogsDismissModalViewVoiceOverHint" = "ចុចពីរដងដើម្បីបដិសេធប្រអប់បញ្ចូល";
+
+/* VoiceOver message for dismissing an alert. */
+"GoogleKitDialogsDismissAlertVoiceOverMessage" = "បដិសេធការជូនដំណឹង";
+
+/* VoiceOver hint for dismissing an alert. */
+"GoogleKitDialogsDismissAlertVoiceOverHint" = "ចុចពីរដងដើម្បីបដិសេធការជូនដំណឹង";
+
+/* VoiceOver message for dismissing a popup window. */
+"GoogleKitDialogsDismissPopupVoiceOverMessage" = "បិទផ្ទាំងលោតឡើង";
+
+/* VoiceOver hint for dismissing a popup window. */
+"GoogleKitDialogsDismissPopupVoiceOverHint" = "ចុចពីរដងដើម្បីបិទផ្ទាំងវិនដូដែលលោតឡើង";

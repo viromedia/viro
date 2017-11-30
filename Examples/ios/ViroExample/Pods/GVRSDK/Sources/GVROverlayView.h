@@ -1,13 +1,18 @@
+#import <UIKit/UIKit.h>
+
 /**
  * Defines a delegate protocol for |GVROverlayView| class. It's used to respond to the user
  * tapping various controls in the overlay view.
  */
 @protocol GVROverlayViewDelegate <NSObject>
 
+@optional
+
+/** Called when the user tapped on the GL rendering view. */
+- (void)didTapTriggerButton;
+
 /** Called when the user tapped the Back arrow button. */
 - (void)didTapBackButton;
-
-@optional
 
 /** Called when the user tapped the Cardboard icon button. */
 - (void)didTapCardboardButton;
@@ -41,5 +46,13 @@
 @interface GVROverlayView : UIView
 
 @property(nonatomic, weak) id<GVROverlayViewDelegate> delegate;
+
+@property(nonatomic) BOOL hidesAlignmentMarker;
+@property(nonatomic) BOOL hidesBackButton;
+@property(nonatomic) BOOL hidesCardboardButton;
+@property(nonatomic) BOOL hidesFullscreenButton;
+@property(nonatomic) BOOL hidesSettingsButton;
+@property(nonatomic) BOOL hidesTransitionView;
+@property(nonatomic) BOOL hidesWatermark;
 
 @end

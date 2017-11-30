@@ -165,37 +165,38 @@ static NSString *const kVRTInvalidAPIKeyMessage = @"The given API Key is either 
     [super removeFromSuperview];
     
     /*
-     * We need to always ensure that React's root view is showing when we
-     * are deallocating Viro and our renderer. This is because GVR does not
-     * perform the proper cleanup on its windows: VIRO-1067
+     We need to always ensure that React's root view is showing when we
+     are deallocating Viro and our renderer. This is because GVR does not
+     perform the proper cleanup on its windows: VIRO-1067
      */
     if (RCTIsMainQueue()){
         NSArray *windowArray = [UIApplication sharedApplication].windows;
-        
-        if (windowArray == nil || [windowArray count] == 0){
+        if (windowArray == nil || [windowArray count] == 0) {
             return;
         }
         
         /*
-         * Search the top level rootView controllers and their children to see if their views are
-         * RCTRootView. If so, then make that root view visible. This is a hack that
-         * removes GVR's frozen frame referenced in VIRO-1067 during shutdown.
+         Search the top level rootView controllers and their children to see if their views are
+         RCTRootView. If so, then make that root view visible. This is a hack that
+         removes GVR's frozen frame referenced in VIRO-1067 during shutdown.
          */
-        for (int i = 0; i < [windowArray count]; i ++){
+        for (int i = 0; i < [windowArray count]; i ++) {
             UIWindow *window = [windowArray objectAtIndex:i];
-            if (window != nil && window.rootViewController != nil ){
-                if(window.rootViewController.view != nil && [self hasRCTROOTViewInTree:window.rootViewController]) {
+            if (window != nil && window.rootViewController != nil) {
+                if (window.rootViewController.view != nil && [self hasRCTROOTViewInTree:window.rootViewController]) {
                     [window makeKeyAndVisible];
                     return;
                 }
             }
         }
         
-        //if we are still here we didn't make any window visible over GVR. Make first one with a valid
-        //rootViewController visible.
-        for (int i = 0; i < [windowArray count]; i ++){
+        /*
+         If we are still here we didn't make any window visible over GVR. Make first one with a valid
+         rootViewController visible.
+         */
+        for (int i = 0; i < [windowArray count]; i++) {
             UIWindow *window = [windowArray objectAtIndex:i];
-            if (window != nil && window.rootViewController != nil ) {
+            if (window != nil && window.rootViewController != nil) {
                 [window makeKeyAndVisible];
                 return;
             }
@@ -205,26 +206,26 @@ static NSString *const kVRTInvalidAPIKeyMessage = @"The given API Key is either 
 
 //HACK for Viro VIRO-1067 Traverse controller and subtree to look for an RCTRootView. Return true if one is found.
 -(BOOL) hasRCTROOTViewInTree:(UIViewController *)controller {
-    if([controller.view isKindOfClass:[RCTRootView class]]) {
+    if ([controller.view isKindOfClass:[RCTRootView class]]) {
         return YES;
     }
 
-    for(UIView *view in controller.view.subviews) {
+    for (UIView *view in controller.view.subviews) {
         if([view isKindOfClass:[RCTRootView class]]) {
             return YES;
         }
     }
 
-    if(controller.childViewControllers == nil) {
+    if (controller.childViewControllers == nil) {
         return NO;
     }
     
-    for(UIViewController *controllerChild in controller.childViewControllers) {
+    for (UIViewController *controllerChild in controller.childViewControllers) {
         if(controllerChild.view != nil) {
-            if([controllerChild.view isKindOfClass:[RCTRootView class]]) {
+            if ([controllerChild.view isKindOfClass:[RCTRootView class]]) {
                 return YES;
             }
-            for(UIView *view in controllerChild.view.subviews) {
+            for (UIView *view in controllerChild.view.subviews) {
                 if([view isKindOfClass:[RCTRootView class]]) {
                     return YES;
                 }
@@ -232,7 +233,7 @@ static NSString *const kVRTInvalidAPIKeyMessage = @"The given API Key is either 
         }
 
         BOOL hasRCTRootView = [self hasRCTROOTViewInTree:controllerChild];
-        if(hasRCTRootView) {
+        if (hasRCTRootView) {
             return YES;
         }
     }

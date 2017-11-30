@@ -1,13 +1,4 @@
 /* Label for the close button on a dialog that needs acknowledgement. (15 chars.) */
-"AcknowledgeAction" = "Լավ";
-
-/* "Cancel" text label where the standard 'abort this action' button is offered. (8 chars.) */
-"CancelAction" = "Չեղարկել";
-
-/* Label for a button indicating an action should be attempted again. (40 chars.) */
-"TryAgainAction" = "Փորձել նորից";
-
-/* Label for the close button on a dialog that needs acknowledgement. (15 chars.) */
 "GoogleKitDialogsAcknowledgeAction" = "Լավ";
 
 /* "Cancel" text label where the standard 'abort this action' button is offered. (8 chars.) */
@@ -18,3 +9,21 @@
 
 /* Word read aloud when VoiceOver is enabled before showing an alert. (No limit chars.) */
 "GoogleKitDialogsAccessibilityAlertAnnouncement" = "Ծանուցում";
+
+/* VoiceOver message for dismissing a modal view. */
+"GoogleKitDialogsDismissModalViewVoiceOverMessage" = "Փակել";
+
+/* VoiceOver hint for dismissing a modal view. */
+"GoogleKitDialogsDismissModalViewVoiceOverHint" = "Պատուհանը փակելու համար կրկնակի հպեք";
+
+/* VoiceOver message for dismissing an alert. */
+"GoogleKitDialogsDismissAlertVoiceOverMessage" = "Փակել ծանուցումը";
+
+/* VoiceOver hint for dismissing an alert. */
+"GoogleKitDialogsDismissAlertVoiceOverHint" = "Ծանուցումը փակելու համար կրկնակի հպեք";
+
+/* VoiceOver message for dismissing a popup window. */
+"GoogleKitDialogsDismissPopupVoiceOverMessage" = "Փակել ելնող պատուհանը";
+
+/* VoiceOver hint for dismissing a popup window. */
+"GoogleKitDialogsDismissPopupVoiceOverHint" = "Ելնող պատուհանը փակելու համար կրկնակի հպեք";

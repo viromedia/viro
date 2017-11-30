@@ -22,6 +22,13 @@ typedef NS_ENUM(int, GVRVideoType) {
    * pixels for the right eye.
    */
   kGVRVideoTypeStereoOverUnder,
+
+  /**
+   * The video contains metadata in the spherical v2 format which describes how
+   * to render it. See
+   * https://github.com/google/spatial-media/blob/master/docs/spherical-video-v2-rfc.md.
+   */
+  kGVRVideoTypeSphericalV2,
 };
 
 /**
@@ -46,14 +53,17 @@ typedef NS_ENUM(int, GVRVideoType) {
 /** Pause the video. */
 - (void)pause;
 
-/** Resume the video. */
-- (void)resume;
+/** Start or resume the video. */
+- (void)play;
 
 /** Stop the video. */
 - (void)stop;
 
 /** Get the duration of the video. */
 - (NSTimeInterval)duration;
+
+/** Gets the playable duration of the buffered video. */
+- (NSTimeInterval)playableDuration;
 
 /** Seek to the target time position of the video. */
 - (void)seekTo:(NSTimeInterval)position;

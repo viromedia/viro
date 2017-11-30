@@ -120,7 +120,24 @@ typedef NS_ENUM(NSInteger, GVRUserEvent) {
  */
 @property(nonatomic) BOOL vrModeEnabled;
 
+/** Flag to hide or show the transition view when in VR mode. */
+@property(nonatomic) BOOL hidesTransitionView;
+
 /** Drives the rendering of the cardboard view. Call this from your app's render loop. */
 - (void)render;
+
+/**
+ * Sets the Cardboard viewer parameters from a Url. This allows programmatically pairing a viewer
+ * without having the user go through the pairing flow. Calls the supplied completion handler
+ * with the result of pairing and the error if it fails.
+ *
+ * Note: The viewer parameters can be set only if no other viewer pairing exists. In other words,
+ * this only works if the user hasn't already paired a viewer for the current application.
+ *
+ * A valid viewer parameters URI can be generated from this page:
+ *     https://www.google.com/get/cardboard/viewerprofilegenerator/
+ */
++ (void)setViewerParamsFromUrl:(NSURL *)url
+                withCompletion:(void (^)(BOOL success, NSError *error))completion;
 
 @end
