@@ -52,7 +52,7 @@
 "DataSynced" = "检测到：%1$@";
 
 /* Label shown next to example QR code. (40 chars) */
-"FindSymbolOnViewer" = "在眼镜中查找此符号";
+"FindSymbolOnViewer" = "在观看器中查找此符号";
 
 /* Label shown next to skip button that allows the user to skip the QR code step. (40 chars) */
 "CanNotFindSymbol" = "找不到此符号吗？";
@@ -67,21 +67,21 @@
 "OnboardingIntroLine1" = "让我们帮您完成设置";
 
 /* Second line of the onboarding introduction. (80 chars) */
-"OnboardingIntroLine2" = "将您的手机与眼镜配对，打造最佳体验。";
+"OnboardingIntroLine2" = "将您的手机与观看器配对，打造最佳体验。";
 
 /* Label shown below the onboarding intro line to ask if they have a cardboard viewer. (40 chars) */
-"OnboardingNoViewerPrompt" = "没有 Cardboard 眼镜？";
+"OnboardingNoViewerPrompt" = "没有 Cardboard 观看器？";
 
 /* Button title shown next to the "no cardboard viewer" prompt to go get one. (15 chars) */
 "OnboardingGetCardboardButton" = "获取眼镜";
 
 /* Instruction for the user that they should now put their phone in Cardboard. This is a generic
  * instruction when the view type is not known. (50 chars) */
-"PlaceYourPhoneInCardboard" = "将您的手机放入 Cardboard 眼镜。";
+"PlaceYourPhoneInCardboard" = "将您的手机放入 Cardboard 观看器。";
 
 /* Instruction for the user that they should now put their phone in Cardboard. This is used as a
  * format string where the parameter is the view name. (50 chars) */
-"PlaceYourPhoneInViewerFormat" = "将您的手机放入 %1$@ 眼镜。";
+"PlaceYourPhoneInViewerFormat" = "将您的手机放入 %1$@ 观看器。";
 
 /* Title of settings view. (20 chars) */
 "SettingsNavTitleLabel" = "设置";
@@ -91,14 +91,17 @@
 "SettingsSyncLabel" = "与 Google Cardboard 同步";
 
 /* Format string for label that display the viewer currently configured. (30 chars) */
-"SettingsCurrentViewerLabelFormat" = "当前眼镜：%1$@";
+"SettingsCurrentViewerLabelFormat" = "当前观看器：%1$@";
+
+/* Error message if trying to programmatically pair, when a pairing already exists. (40 chars) */
+"ViewerAlreadyPaired" = "观看器已配对";
 
 /* Reported name of Cardboard viewer when no viewer configured. (40 chars) */
 "DefaultViewerName" = "默认";
 
 /* Question shown to the user if they would like to switch their Cardboard
    viewer. (40 chars) */
-"DifferentViewerQuestion" = "要使用其他眼镜吗？";
+"DifferentViewerQuestion" = "要使用其他观看器吗？";
 
 /* Button text shown with the DifferentViewerQuestion that takes the user to the
    screen to pair with a different Cardboard viewer. (15 chars) */
@@ -106,7 +109,7 @@
 
 /* Popup activity view menu text that shows the name of the currently paired viewer but also takes
    the user to the QRScan view controller when tapped. (30 chars) */
-"SwitchViewerActivityMenuTitle" = "切换眼镜：%1$@";
+"SwitchViewerActivityMenuTitle" = "切换观看器：%1$@";
 
 /* Popup activity view menu text for launching an external web browser to get help. (15 chars) */
 "HelpActivityMenuTitle" = "帮助";
@@ -115,7 +118,7 @@
 "SuccessfullyPaired" = "配对成功！";
 
 /* Dialog text shown to show user what the paired viewer is. (80 chars) */
-"ViewerConfigured" = "系统现已针对 %1$@ 眼镜完成了手机配置。";
+"ViewerConfigured" = "系统现已针对 %1$@ 观看器完成了手机配置。";
 
 /* Button label for user to confirm that they know the viewer is paired. (20 chars) */
 "OK" = "确定";
@@ -125,3 +128,12 @@
 
 /* Accessibility label for the back button to take us out of 3D mode (read out loud) */
 "AccessibilityBackButton" = "返回上一屏幕";
+
+/* Accessibility label for the cardboard button to go into cardboard mode (read out loud) */
+"AccessibilityCardboardButton" = "Cardboard 模式";
+
+/* Accessibility label for the fullscreen button to go into fullscreen mode (read out loud) */
+"AccessibilityFullscreenButton" = "全屏模式";
+
+/* Accessibility label for the information button to go to help page (read out loud) */
+"AccessibilityHelpButton" = "帮助";

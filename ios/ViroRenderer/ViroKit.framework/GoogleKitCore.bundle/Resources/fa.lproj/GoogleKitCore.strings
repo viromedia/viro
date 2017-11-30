@@ -62,6 +62,9 @@
 "GoogleKitCoreMenuButton" = "منو";
 
 /* Label for a button for opening a menu of extra actions. */
+"GoogleKitCoreMoreHorizButton" = "بیشتر";
+
+/* Label for a button for opening a menu of extra actions. */
 "GoogleKitCoreMoreVertButton" = "بیشتر";
 
 /* Label for a button for information related to a person. */

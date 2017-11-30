@@ -62,6 +62,9 @@
 "GoogleKitCoreMenuButton" = "메뉴";
 
 /* Label for a button for opening a menu of extra actions. */
+"GoogleKitCoreMoreHorizButton" = "더보기";
+
+/* Label for a button for opening a menu of extra actions. */
 "GoogleKitCoreMoreVertButton" = "더보기";
 
 /* Label for a button for information related to a person. */

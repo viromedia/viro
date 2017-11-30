@@ -62,6 +62,9 @@
 "GoogleKitCoreMenuButton" = "ម៉ឺនុយ";
 
 /* Label for a button for opening a menu of extra actions. */
+"GoogleKitCoreMoreHorizButton" = "ច្រើនទៀត";
+
+/* Label for a button for opening a menu of extra actions. */
 "GoogleKitCoreMoreVertButton" = "ច្រើន​ទៀត";
 
 /* Label for a button for information related to a person. */

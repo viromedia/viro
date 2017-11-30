@@ -93,6 +93,9 @@
 /* Format string for label that display the viewer currently configured. (30 chars) */
 "SettingsCurrentViewerLabelFormat" = "현재 뷰어: %1$@";
 
+/* Error message if trying to programmatically pair, when a pairing already exists. (40 chars) */
+"ViewerAlreadyPaired" = "뷰어가 이미 페어링되었습니다.";
+
 /* Reported name of Cardboard viewer when no viewer configured. (40 chars) */
 "DefaultViewerName" = "기본";
 
@@ -125,3 +128,12 @@
 
 /* Accessibility label for the back button to take us out of 3D mode (read out loud) */
 "AccessibilityBackButton" = "이전 화면으로 돌아가기";
+
+/* Accessibility label for the cardboard button to go into cardboard mode (read out loud) */
+"AccessibilityCardboardButton" = "Cardboard 모드";
+
+/* Accessibility label for the fullscreen button to go into fullscreen mode (read out loud) */
+"AccessibilityFullscreenButton" = "전체화면 모드";
+
+/* Accessibility label for the information button to go to help page (read out loud) */
+"AccessibilityHelpButton" = "도움말";

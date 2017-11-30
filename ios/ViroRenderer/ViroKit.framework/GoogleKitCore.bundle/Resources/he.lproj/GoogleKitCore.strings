@@ -62,13 +62,16 @@
 "GoogleKitCoreMenuButton" = "תפריט";
 
 /* Label for a button for opening a menu of extra actions. */
+"GoogleKitCoreMoreHorizButton" = "עוד";
+
+/* Label for a button for opening a menu of extra actions. */
 "GoogleKitCoreMoreVertButton" = "עוד";
 
 /* Label for a button for information related to a person. */
 "GoogleKitCorePersonButton" = "אדם";
 
 /* Label for a button for refreshing the current content. */
-"GoogleKitCoreRefreshButton" = "רענן";
+"GoogleKitCoreRefreshButton" = "רענון";
 
 /* Label for a button for replying to the author of a message. */
 "GoogleKitCoreReplyButton" = "השב";

@@ -93,6 +93,9 @@
 /* Format string for label that display the viewer currently configured. (30 chars) */
 "SettingsCurrentViewerLabelFormat" = "Vizualizatorul actual: %1$@";
 
+/* Error message if trying to programmatically pair, when a pairing already exists. (40 chars) */
+"ViewerAlreadyPaired" = "Vizualizatorul este asociat deja.";
+
 /* Reported name of Cardboard viewer when no viewer configured. (40 chars) */
 "DefaultViewerName" = "Prestabilit";
 
@@ -125,3 +128,12 @@
 
 /* Accessibility label for the back button to take us out of 3D mode (read out loud) */
 "AccessibilityBackButton" = "Înapoi la ecranul anterior";
+
+/* Accessibility label for the cardboard button to go into cardboard mode (read out loud) */
+"AccessibilityCardboardButton" = "Modul Cardboard";
+
+/* Accessibility label for the fullscreen button to go into fullscreen mode (read out loud) */
+"AccessibilityFullscreenButton" = "Mod ecran complet";
+
+/* Accessibility label for the information button to go to help page (read out loud) */
+"AccessibilityHelpButton" = "Ajutor";

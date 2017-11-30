@@ -45,7 +45,7 @@
 "InvalidQRCode" = "QR कोड अमान्य है";
 
 /* Error message shown to the user if the QR code is not a valid device profile. (60 chars) */
-"ParsingFailed" = "Url पार्स करने में त्रुटि";
+"ParsingFailed" = "Url पार्स करने में गड़बड़ी";
 
 /* Format string used as a temporary message shown after a successful device profile is set.
  * (60 chars) */
@@ -93,6 +93,9 @@
 /* Format string for label that display the viewer currently configured. (30 chars) */
 "SettingsCurrentViewerLabelFormat" = "वर्तमान व्यूअर: %1$@";
 
+/* Error message if trying to programmatically pair, when a pairing already exists. (40 chars) */
+"ViewerAlreadyPaired" = "व्यूअर पहले से युग्मित है";
+
 /* Reported name of Cardboard viewer when no viewer configured. (40 chars) */
 "DefaultViewerName" = "डिफ़ॉल्ट";
 
@@ -125,3 +128,12 @@
 
 /* Accessibility label for the back button to take us out of 3D mode (read out loud) */
 "AccessibilityBackButton" = "पिछली स्क्रीन पर वापस जाएं";
+
+/* Accessibility label for the cardboard button to go into cardboard mode (read out loud) */
+"AccessibilityCardboardButton" = "कार्डबोर्ड मोड";
+
+/* Accessibility label for the fullscreen button to go into fullscreen mode (read out loud) */
+"AccessibilityFullscreenButton" = "पूर्ण स्‍क्रीन मोड";
+
+/* Accessibility label for the information button to go to help page (read out loud) */
+"AccessibilityHelpButton" = "सहायता";

@@ -62,6 +62,9 @@
 "GoogleKitCoreMenuButton" = "Izbornik";
 
 /* Label for a button for opening a menu of extra actions. */
+"GoogleKitCoreMoreHorizButton" = "Više";
+
+/* Label for a button for opening a menu of extra actions. */
 "GoogleKitCoreMoreVertButton" = "Više";
 
 /* Label for a button for information related to a person. */

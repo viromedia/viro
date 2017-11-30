@@ -11,6 +11,7 @@
 #import "VRORenderDelegate.h"
 #import "VROQuaternion.h"
 #import "VROCamera.h"
+#import "VROViewRecorder.h"
 #import <memory>
 
 class VROSceneController;
@@ -21,27 +22,6 @@ class VROFrameSynchronizer;
 enum class VROTimingFunctionType;
 
 typedef void (^VROViewValidApiKeyBlock)(BOOL);
-
-/*
- These blocks are used for video recording and taking screenshot.
- */
-typedef void (^VROViewRecordingErrorBlock)(NSInteger errorCode);
-typedef void (^VROViewWriteMediaFinishBlock)(BOOL success, NSURL *filePath, NSInteger errorCode);
-
-static NSInteger const kVROViewErrorNone = -1;
-static NSInteger const kVROViewErrorUnknown = 0;
-static NSInteger const kVROViewErrorNoPermissions = 1;
-static NSInteger const kVROViewErrorInitialization = 2;
-static NSInteger const kVROViewErrorWriteToFile = 3;
-static NSInteger const kVROViewErrorAlreadyRunning = 4;
-static NSInteger const kVROViewErrorAlreadyStopped = 5;
-
-
-static NSString *const kVROViewTempMediaDirectory = @"viro_media";
-static NSString *const kVROViewAudioSuffix = @".m4a";
-static NSString *const kVROViewImageSuffix = @".png";
-static NSString *const kVROViewTempVideoSuffix = @"-temp.mp4";
-static NSString *const kVROViewVideoSuffix = @".mp4";
 
 @protocol VROView <NSObject>
 
