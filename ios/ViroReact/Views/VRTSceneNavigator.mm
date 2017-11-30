@@ -114,18 +114,6 @@ static NSString *const kVRTInvalidAPIKeyMessage = @"The given API Key is either 
     
 }
 
-- (void)renderViewDidChangeSize:(CGSize)size context:(VRORenderContext *)context {
-    
-}
-
-- (void)willRenderEye:(VROEyeType)eye context:(const VRORenderContext *)context {
-    
-}
-
-- (void)didRenderEye:(VROEyeType)eye context:(const VRORenderContext *)context {
-    
-}
-
 - (void)userDidRequestExitVR {
     // Notify javascript listeners (for ReactNativeJs to ViroReactJs cases)
     if (self.onExitViro != nil) {

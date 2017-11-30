@@ -101,18 +101,6 @@ static NSString *const kVRTInvalidAPIKeyMessage = @"The given API Key is either 
     
 }
 
-- (void)renderViewDidChangeSize:(CGSize)size context:(VRORenderContext *)context {
-    
-}
-
-- (void)willRenderEye:(VROEyeType)eye context:(const VRORenderContext *)context {
-    
-}
-
-- (void)didRenderEye:(VROEyeType)eye context:(const VRORenderContext *)context {
-    
-}
-
 - (void)startVideoRecording:(NSString *)fileName
            saveToCameraRoll:(BOOL)saveToCameraRoll
                     onError:(RCTResponseSenderBlock)onError {
