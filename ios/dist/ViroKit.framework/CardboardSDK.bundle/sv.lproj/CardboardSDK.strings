@@ -77,7 +77,7 @@
 
 /* Instruction for the user that they should now put their phone in Cardboard. This is a generic
  * instruction when the view type is not known. (50 chars) */
-"PlaceYourPhoneInCardboard" = "Placera telefonen i Cardboard-visaren.";
+"PlaceYourPhoneInCardboard" = "Placera telefonen i Cardboard-kikaren.";
 
 /* Instruction for the user that they should now put their phone in Cardboard. This is used as a
  * format string where the parameter is the view name. (50 chars) */
@@ -92,6 +92,9 @@
 
 /* Format string for label that display the viewer currently configured. (30 chars) */
 "SettingsCurrentViewerLabelFormat" = "Nuvarande visare: %1$@";
+
+/* Error message if trying to programmatically pair, when a pairing already exists. (40 chars) */
+"ViewerAlreadyPaired" = "Kikaren är redan kopplad";
 
 /* Reported name of Cardboard viewer when no viewer configured. (40 chars) */
 "DefaultViewerName" = "Standardinställning";
@@ -125,3 +128,12 @@
 
 /* Accessibility label for the back button to take us out of 3D mode (read out loud) */
 "AccessibilityBackButton" = "Tillbaka till föregående skärm";
+
+/* Accessibility label for the cardboard button to go into cardboard mode (read out loud) */
+"AccessibilityCardboardButton" = "Cardboard-läge";
+
+/* Accessibility label for the fullscreen button to go into fullscreen mode (read out loud) */
+"AccessibilityFullscreenButton" = "Helskärmsläge";
+
+/* Accessibility label for the information button to go to help page (read out loud) */
+"AccessibilityHelpButton" = "Hjälp";

@@ -62,6 +62,9 @@
 "GoogleKitCoreMenuButton" = "Valikko";
 
 /* Label for a button for opening a menu of extra actions. */
+"GoogleKitCoreMoreHorizButton" = "Enemmän";
+
+/* Label for a button for opening a menu of extra actions. */
 "GoogleKitCoreMoreVertButton" = "Lisää";
 
 /* Label for a button for information related to a person. */

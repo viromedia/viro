@@ -22,7 +22,10 @@
 @property (nonatomic, copy, nullable) RCTDirectEventBlock onAnchorUpdatedViro;
 @property (nonatomic, copy, nullable) RCTDirectEventBlock onAnchorRemovedViro;
 @property (nonatomic, copy, nullable) RCTDirectEventBlock onCameraARHitTestViro;
+@property (nonatomic, copy, nullable) RCTDirectEventBlock onARPointCloudUpdateViro;
+
 @property (nonatomic, assign) BOOL canCameraARHitTest;
+@property (nonatomic, assign) BOOL canARPointCloudUpdate;
 @property (nonatomic, assign) BOOL displayPointCloud;
 @property (nonatomic, copy, nullable) RCTImageSource *pointCloudImage;
 

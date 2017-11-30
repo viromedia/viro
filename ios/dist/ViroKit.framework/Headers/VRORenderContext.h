@@ -82,9 +82,6 @@ public:
     void setEnclosureViewMatrix(VROMatrix4f enclosureViewMatrix) {
         _enclosureViewMatrix = enclosureViewMatrix;
     }
-    void setHUDViewMatrix(VROMatrix4f hudViewMatrix) {
-        _hudViewMatrix = hudViewMatrix;
-    }
     void setOrthographicMatrix(VROMatrix4f orthographicMatrix) {
         _orthographicMatrix = orthographicMatrix;
     }
@@ -103,9 +100,6 @@ public:
     }
     VROMatrix4f getEnclosureViewMatrix() const {
         return _enclosureViewMatrix;
-    }
-    VROMatrix4f getHUDViewMatrix() const {
-        return _hudViewMatrix;
     }
     VROMatrix4f getOrthographicMatrix() const {
         return _orthographicMatrix;
@@ -182,13 +176,6 @@ private:
      The view matrix for camera enclosure objects (e.g. skyboxes).
      */
     VROMatrix4f _enclosureViewMatrix;
-    
-    /*
-     The view matrix for objects rendered on the HUD. This is a stereo view matrix:
-     it essentially removes head rotation and the camera, but retains the interlens
-     distance translation.
-     */
-    VROMatrix4f _hudViewMatrix;
     
     /*
      The projection matrix used for orthographically rendered geometries.

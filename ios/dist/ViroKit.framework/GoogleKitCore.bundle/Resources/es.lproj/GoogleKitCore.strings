@@ -62,6 +62,9 @@
 "GoogleKitCoreMenuButton" = "Menú";
 
 /* Label for a button for opening a menu of extra actions. */
+"GoogleKitCoreMoreHorizButton" = "Más";
+
+/* Label for a button for opening a menu of extra actions. */
 "GoogleKitCoreMoreVertButton" = "Más";
 
 /* Label for a button for information related to a person. */
@@ -86,4 +89,4 @@
 "GoogleKitCoreStarButton" = "Destacar";
 
 /* Label for a button for composing a text/SMS message. */
-"GoogleKitCoreTextSMSButton" = "Texto";
+"GoogleKitCoreTextSMSButton" = "SMS";

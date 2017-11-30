@@ -178,9 +178,15 @@ protected:
         }
         else {
             // Lock the Reticle's position to the center of the screen
-            // for fixed pointer mode (usually Cardboard). This works because
-            // the reticle uses the HUDView matrix as its transform, which
-            // cancels out the camera's view matrix
+            // for fixed pointer mode (usually Cardboard). The reticle is
+            // rendered as HUD object, with view matrix identity (e.g. it
+            // always follows the headset)
+            
+            // Set the 'depth' of the reticle to the object it is hovering
+            // over, then set the radius to compensate for that distance so
+            // that the reticle stays the same size. The depth effectively
+            // determines the difference in reticle position between the two
+            // eyes.
             
             // Only use the background depth if this is our first time
             // positioning the reticle. Otherwise we maintain the current

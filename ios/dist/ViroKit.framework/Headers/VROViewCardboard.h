@@ -7,10 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <GLKit/GLKit.h>
+#import <UIKit/UIKit.h>
 #import "VROView.h"
-#import "GVRCardboardView.h"
+#import "GVROverlayView.h"
 
-@interface VROViewCardboard : GVRCardboardView <GVRCardboardViewDelegate, VROView>
+@interface VROViewCardboard : GLKView <VROView, GVROverlayViewDelegate>
 
 @property (nonatomic) IBInspectable BOOL testingMode;
 

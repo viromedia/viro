@@ -9,6 +9,7 @@
 #define VROEventDelegateiOS_h
 #import "VROEventDelegate.h"
 #import <Foundation/Foundation.h>
+#import "VROARPointCloud.h"
 
 /*
  Protocol to be implemented by objective C controls to be
@@ -23,7 +24,8 @@
 - (void)onDrag:(int)source node:(std::shared_ptr<VRONode>)node posX:(float)x posY:(float)y posZ:(float)y;
 - (void)onPinch:(int)source node:(std::shared_ptr<VRONode>)node scaleFactor:(float)scale pinchState:(VROEventDelegate::PinchState)pinchState;
 - (void)onRotate:(int)source node:(std::shared_ptr<VRONode>)node rotationRadians:(float)rotationRadians rotateState:(VROEventDelegate::RotateState)rotateState;
-- (void)onCameraARHitTest:(int)source results:(std::vector<VROARHitTestResult>) results;
+- (void)onCameraARHitTest:(std::vector<VROARHitTestResult>) results;
+- (void)onARPointCloudUpdate:(std::shared_ptr<VROARPointCloud>) pointCloud;
 @end
 
 /*
@@ -59,8 +61,8 @@ public:
         [_delegate onFuse:source node:node];
     }
     
-    virtual void onCameraARHitTest(int source, std::vector<VROARHitTestResult> results) {
-        [_delegate onCameraARHitTest:source results:results];
+    virtual void onCameraARHitTest(std::vector<VROARHitTestResult> results) {
+        [_delegate onCameraARHitTest:results];
     }
     
     virtual void onDrag(int source, std::shared_ptr<VRONode> node, VROVector3f position) {
@@ -74,6 +76,11 @@ public:
     virtual void onRotate(int source, std::shared_ptr<VRONode> node, float rotationRadians, RotateState rotateState) {
         [_delegate onRotate:source node:node rotationRadians:rotationRadians rotateState:rotateState];
     }
+
+    virtual void onARPointCloudUpdate(std::shared_ptr<VROARPointCloud> pointCloud) {
+        [_delegate onARPointCloudUpdate:pointCloud];
+    }
+
 
 private:
   

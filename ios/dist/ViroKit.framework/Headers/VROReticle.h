@@ -72,8 +72,8 @@ private:
     /*
      Helper function to render each node in the reticle.
      */
-    void renderNode(std::shared_ptr<VRONode> node, VROMatrix4f parentTransform,
-                    const VRORenderContext &renderContext, std::shared_ptr<VRODriver> &driver);
+    void renderNode(std::shared_ptr<VRONode> node, const VRORenderContext &renderContext,
+                    std::shared_ptr<VRODriver> &driver);
 
     /*
      Nodes containing the UI components of the reticle. It can be

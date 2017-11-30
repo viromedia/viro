@@ -166,7 +166,7 @@ protected:
     /*
      Last hit result that we are performing a drag event on.
      */
-    std::shared_ptr<VRODraggedObject> _lastDraggedNode; 
+    std::shared_ptr<VRODraggedObject> _lastDraggedNode;
 
     /*
      This function is meant to be called to run the dragging logic after onMove

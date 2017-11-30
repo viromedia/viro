@@ -62,6 +62,9 @@
 "GoogleKitCoreMenuButton" = "Ponuka";
 
 /* Label for a button for opening a menu of extra actions. */
+"GoogleKitCoreMoreHorizButton" = "Ďalšie";
+
+/* Label for a button for opening a menu of extra actions. */
 "GoogleKitCoreMoreVertButton" = "Ďalšie";
 
 /* Label for a button for information related to a person. */

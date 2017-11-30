@@ -2913,7 +2913,7 @@
 		</data>
 		<key>Headers/VRORenderDelegate.h</key>
 		<data>
-		Q8mcqACAJSFfk8oHN1ITAiEsjAw=
+		kQdMYnHNOtjNZf3QclQ8JCpLtsk=
 		</data>
 		<key>Headers/VRORenderMetadata.h</key>
 		<data>
@@ -3159,6 +3159,10 @@
 		<data>
 		uC4aIwMgQg7D+sdtp1Nr3rHNFcU=
 		</data>
+		<key>Headers/VROViewRecorder.h</key>
+		<data>
+		21MBsb6gchqcO8DCQRbcQRZJfyw=
+		</data>
 		<key>Headers/VROViewport.h</key>
 		<data>
 		y8kHL/caxXvJddhDH70Z/N8uKzU=
@@ -3177,7 +3181,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		PLkm/93nlZhAW9xwuq3SM0qPFcM=
+		m4BkDHqjfoZhpfCd74YkVivoEsc=
 		</data>
 		<key>MaterialRobotoFontLoader.bundle/Roboto-Black.ttf</key>
 		<data>
@@ -8860,11 +8864,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			Q8mcqACAJSFfk8oHN1ITAiEsjAw=
+			kQdMYnHNOtjNZf3QclQ8JCpLtsk=
 			</data>
 			<key>hash2</key>
 			<data>
-			cwZebBqoani5hNQjPTYDOFsA8dvdfwkCA9UP6BcwI+I=
+			MWO5qR70G5H/gO94SneW4n0ycRau4XCrVbsx1RMyeIA=
 			</data>
 		</dict>
 		<key>Headers/VRORenderMetadata.h</key>
@@ -9536,6 +9540,17 @@
 			<key>hash2</key>
 			<data>
 			Ors0nj8ETUbi1EgcxKgNsThL9ATln6oFRTUTI9xK3jA=
+			</data>
+		</dict>
+		<key>Headers/VROViewRecorder.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			21MBsb6gchqcO8DCQRbcQRZJfyw=
+			</data>
+			<key>hash2</key>
+			<data>
+			VOAcBBiwUHEhktmvpdBEPzRVO439d2x9dCzbhf0mWMM=
 			</data>
 		</dict>
 		<key>Headers/VROViewport.h</key>

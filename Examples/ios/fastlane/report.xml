@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="fastlane.lanes">
+    
+    
+    
+      
+      <testcase classname="fastlane.lanes" name="0: Verifying required fastlane version" time="0.008064">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="1: default_platform" time="0.003319">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="2: xcodebuild -workspace ViroExample/ViroExample.xcworkspace/ -scheme React -configuration Release clean | xcpretty -c" time="2.344711">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="3: xcodebuild -workspace ViroExample/ViroExample.xcworkspace/ -scheme React -configuration Release | xcpretty -c" time="48.028936">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="4: xcodebuild -workspace ViroExample/ViroExample.xcworkspace/ -scheme ViroReact -configuration Release clean | xcpretty -c" time="2.718866">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="5: xcodebuild -workspace ViroExample/ViroExample.xcworkspace/ -scheme ViroReact -configuration Release | xcpretty -c" time="140.858107">
+        
+      </testcase>
+    
+  </testsuite>
+</testsuites>
