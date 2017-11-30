@@ -14,7 +14,7 @@
 fastlane_version "2.66.2"
 
 default_platform :ios
-
+import "../../../../ViroRenderer/ios/fastlane/Fastfile"
 platform :ios do
   before_all do
     # ENV["SLACK_URL"] = "https://hooks.slack.com/services/..."
@@ -24,6 +24,7 @@ platform :ios do
 
   desc "Build react, ViroReact frameworks"
   lane :release_react_viro_lib do
+    release_virokit_framework
     Dir.chdir("../") do
        # clean React scheme
        sh("xcodebuild -workspace ViroExample/ViroExample.xcworkspace/ -scheme React -configuration Release clean | xcpretty -c")
