@@ -4,15 +4,25 @@
 package com.viromedia.bridge.module;
 
 import android.view.View;
+
+import com.facebook.react.bridge.Arguments;
+import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.ReadableArray;
+import com.facebook.react.bridge.WritableArray;
+import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.uimanager.IllegalViewOperationException;
 import com.facebook.react.uimanager.NativeViewHierarchyManager;
 import com.facebook.react.uimanager.UIBlock;
 import com.facebook.react.uimanager.UIManagerModule;
+import com.viro.core.Matrix;
+import com.viro.core.Quaternion;
+import com.viro.core.Vector;
 import com.viromedia.bridge.component.node.VRTNode;
+
+import com.viro.core.Node;
 
 public class NodeModule extends ReactContextBaseJavaModule {
 
@@ -101,5 +111,48 @@ public class NodeModule extends ReactContextBaseJavaModule {
                 nodeControl.setVelocity(velocityArray, false);
             }
         });
+    }
+
+    @ReactMethod
+    public void getNodeTransform(final int viewTag, final Promise promise)
+     {
+         UIManagerModule uiManager = getReactApplicationContext().getNativeModule(UIManagerModule.class);
+         uiManager.addUIBlock(new UIBlock() {
+             @Override
+             public void execute(NativeViewHierarchyManager nativeViewHierarchyManager) {
+                 View viroView = nativeViewHierarchyManager.resolveView(viewTag);
+                 VRTNode nodeView = (VRTNode) viroView;
+                 if (!(viroView instanceof VRTNode)){
+                     throw new IllegalViewOperationException("Invalid view, expected VRTNode!");
+                 }
+
+                 Node nodeJNI = nodeView.getNodeJni();
+                 Matrix matrix = nodeJNI.getWorldTransformRealTime();
+                 Vector scale = matrix.extractScale();
+                 Vector position = matrix.extractTranslation();
+                 Vector rotation = matrix.extractRotation(scale).toEuler();
+
+                 WritableMap returnMap = Arguments.createMap();
+                 WritableArray writablePosArray = Arguments.createArray();
+                 writablePosArray.pushDouble(position.x);
+                 writablePosArray.pushDouble(position.y);
+                 writablePosArray.pushDouble(position.z);
+
+                 WritableArray writableRotateArray = Arguments.createArray();
+                 writableRotateArray.pushDouble(rotation.x);
+                 writableRotateArray.pushDouble(rotation.y);
+                 writableRotateArray.pushDouble(rotation.z);
+
+                 WritableArray writeableScaleArray = Arguments.createArray();
+                 writeableScaleArray.pushDouble(scale.x);
+                 writeableScaleArray.pushDouble(scale.y);
+                 writeableScaleArray.pushDouble(scale.z);
+
+                 returnMap.putArray("position", writablePosArray);
+                 returnMap.putArray("rotation", writableRotateArray);
+                 returnMap.putArray("scale", writeableScaleArray);
+                 promise.resolve(returnMap);
+            }
+         });
     }
 }
