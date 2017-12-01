@@ -51,7 +51,7 @@ static NSString *const kVRTInvalidAPIKeyMessage = @"The given API Key is either 
     return self;
 }
 
-- (void) setVrModeEnabled:(BOOL)enabled{
+- (void)setVrModeEnabled:(BOOL)enabled{
     _vrModeEnabled = enabled;
     [_vroView setVrMode:_vrModeEnabled];
 }
@@ -129,7 +129,7 @@ static NSString *const kVRTInvalidAPIKeyMessage = @"The given API Key is either 
         return;
     }
     
-    if(_currentScene == nil) {
+    if (_currentScene == nil) {
         [_vroView setSceneController:[sceneView sceneController]];
     } else {
         [_vroView setSceneController:[sceneView sceneController] duration:1 timingFunction:VROTimingFunctionType::EaseIn];
@@ -148,7 +148,7 @@ static NSString *const kVRTInvalidAPIKeyMessage = @"The given API Key is either 
     [_vroView validateApiKey:apiKey withCompletionBlock:completionBlock];
 }
 
-- (void)removeFromSuperview{
+- (void)removeFromSuperview {
     [self parentDidDisappear];
     [super removeFromSuperview];
     
@@ -171,7 +171,7 @@ static NSString *const kVRTInvalidAPIKeyMessage = @"The given API Key is either 
         for (int i = 0; i < [windowArray count]; i ++) {
             UIWindow *window = [windowArray objectAtIndex:i];
             if (window != nil && window.rootViewController != nil) {
-                if (window.rootViewController.view != nil && [self hasRCTROOTViewInTree:window.rootViewController]) {
+                if (window.rootViewController.view != nil && [self findRCTRootView:window.rootViewController] != nil) {
                     [window makeKeyAndVisible];
                     return;
                 }
@@ -192,40 +192,38 @@ static NSString *const kVRTInvalidAPIKeyMessage = @"The given API Key is either 
     }
 }
 
-//HACK for Viro VIRO-1067 Traverse controller and subtree to look for an RCTRootView. Return true if one is found.
--(BOOL) hasRCTROOTViewInTree:(UIViewController *)controller {
+// Return the RCTRootView, if any, descending from the given controller
+-(RCTRootView *) findRCTRootView:(UIViewController *)controller {
     if ([controller.view isKindOfClass:[RCTRootView class]]) {
-        return YES;
+        return (RCTRootView *)controller.view;
     }
-
     for (UIView *view in controller.view.subviews) {
         if([view isKindOfClass:[RCTRootView class]]) {
-            return YES;
+            return (RCTRootView *)view;
         }
     }
-
     if (controller.childViewControllers == nil) {
-        return NO;
+        return nil;
     }
     
     for (UIViewController *controllerChild in controller.childViewControllers) {
-        if(controllerChild.view != nil) {
+        if (controllerChild.view != nil) {
             if ([controllerChild.view isKindOfClass:[RCTRootView class]]) {
-                return YES;
+                return (RCTRootView *)controllerChild.view;
             }
             for (UIView *view in controllerChild.view.subviews) {
-                if([view isKindOfClass:[RCTRootView class]]) {
-                    return YES;
+                if ([view isKindOfClass:[RCTRootView class]]) {
+                    return (RCTRootView *)view;
                 }
             }
         }
 
-        BOOL hasRCTRootView = [self hasRCTROOTViewInTree:controllerChild];
-        if (hasRCTRootView) {
-            return YES;
+        RCTRootView *potentialRootView = [self findRCTRootView:controllerChild];
+        if (potentialRootView != nil) {
+            return potentialRootView;
         }
     }
-    return NO;
+    return nil;
 }
 
 #pragma mark RCTInvalidating methods

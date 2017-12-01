@@ -175,6 +175,7 @@
 		8D7FF77A67F625D2046F82FD /* libPods-ViroReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D00D2E18A27112F2AE615B22 /* libPods-ViroReact.a */; };
 		8F346B1B1F225559000D16B9 /* VRTManagedAnimation.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8F346B191F225559000D16B9 /* VRTManagedAnimation.mm */; };
 		8F705DE71E8B3755008BE8F8 /* VRTPerfMonitor.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8F705DE51E8B3754008BE8F8 /* VRTPerfMonitor.mm */; };
+		8F8873F41FD0CD120067CC90 /* VRTRootNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F8873F31FD0CD120067CC90 /* VRTRootNavigationController.m */; };
 		8FD1D4B91E3A484000EE2859 /* VRTCameraModule.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8FD1D4B81E3A484000EE2859 /* VRTCameraModule.mm */; };
 		8FEF00661F37ACCC006AE4B1 /* VRTPortalScene.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8FEF00641F37ACCC006AE4B1 /* VRTPortalScene.mm */; };
 		8FEF00891F37D8DC006AE4B1 /* VRTPortal.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8FEF00851F37D04F006AE4B1 /* VRTPortal.mm */; };
@@ -204,6 +205,20 @@
 			proxyType = 2;
 			remoteGlobalIDString = 4B33BA0D74E94909898237A117E85E60;
 			remoteInfo = "Pods-ViroReact";
+		};
+		8F8873F91FD0CD140067CC90 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8BDD9D9E1E09F39B00A42870 /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = DE3849FB5055CEC138B930F4D14EDCFB;
+			remoteInfo = GoogleToolboxForMac;
+		};
+		8F8873FB1FD0CD140067CC90 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8BDD9D9E1E09F39B00A42870 /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 3DD8DDEC3695314CB6F2839582F854D6;
+			remoteInfo = GTMSessionFetcher;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -606,6 +621,8 @@
 		8BDD9D9F1E09F39B00A42870 /* Products */ = {
 			isa = PBXGroup;
 			children = (
+				8F8873FA1FD0CD140067CC90 /* libGoogleToolboxForMac.a */,
+				8F8873FC1FD0CD140067CC90 /* libGTMSessionFetcher.a */,
 				8A77437B1EEF5EA20004C17A /* libOpenCV.a */,
 				8BDD9DA31E09F39B00A42870 /* libPods-ViroReact.a */,
 			);
@@ -925,6 +942,20 @@
 			remoteRef = 8BDD9DA21E09F39B00A42870 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		8F8873FA1FD0CD140067CC90 /* libGoogleToolboxForMac.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libGoogleToolboxForMac.a;
+			remoteRef = 8F8873F91FD0CD140067CC90 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		8F8873FC1FD0CD140067CC90 /* libGTMSessionFetcher.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libGTMSessionFetcher.a;
+			remoteRef = 8F8873FB1FD0CD140067CC90 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 /* End PBXReferenceProxy section */
 
 /* Begin PBXShellScriptBuildPhase section */
@@ -979,7 +1010,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "$SRCROOT/ngrok_launch.sh";
+			shellScript = $SRCROOT/ngrok_launch.sh;
 		};
 /* End PBXShellScriptBuildPhase section */
 
