@@ -25,24 +25,24 @@ static NSString *const kVRTInvalidAPIKeyMessage = @"The given API Key is either 
 
 @implementation VRTSceneNavigator {
     id <VROView> _vroView;
+    VROViewControllerGVR *_gvrController;
     NSInteger _currentStackPosition;
 }
 
 - (instancetype)initWithBridge:(RCTBridge *)bridge {
     self = [super initWithBridge:bridge];
     if (self) {
-        _vroView = [[VROViewCardboard alloc] initWithFrame:CGRectMake(0, 0,
-                                                                      [[UIScreen mainScreen] bounds].size.width,
-                                                                      [[UIScreen mainScreen] bounds].size.height)];
-        VROViewCardboard *viewCardboard = (VROViewCardboard *) _vroView;
+        _gvrController = [[VROViewControllerGVR alloc] init];
+        _vroView = (id<VROView>) _gvrController.view;
+        
+        VROViewCardboard *viewCardboard = (VROViewCardboard *) _gvrController.view;
         [viewCardboard setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
         _vroView.renderDelegate = self;
         
-        [self setFrame:CGRectMake(0, 0,
-                                  [[UIScreen mainScreen] bounds].size.width,
-                                  [[UIScreen mainScreen] bounds].size.height)];
-        [self addSubview:(UIView *)_vroView];
+        [self setFrame:[UIScreen mainScreen].bounds];
+        [self setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
         
+        [self addSubview:viewCardboard];
         self.currentViews = [[NSMutableArray alloc] init];
         _currentStackPosition = -1;
         
@@ -73,8 +73,9 @@ static NSString *const kVRTInvalidAPIKeyMessage = @"The given API Key is either 
     [sceneView setView:_vroView];
     [self.currentViews insertObject:sceneView atIndex:atIndex];
     
-    if (self.currentSceneIndex == atIndex){
+    if (self.currentSceneIndex == atIndex) {
         [self setSceneView:sceneView];
+        [(VROViewCardboard *)_vroView setPaused:NO];
     }
     [super insertReactSubview:subview atIndex:atIndex];
 }
@@ -106,7 +107,6 @@ static NSString *const kVRTInvalidAPIKeyMessage = @"The given API Key is either 
 - (UIView *)reactSuperview{
     return nil;
 }
-
 
 #pragma mark - VRORenderDelegate methods
 
