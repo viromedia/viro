@@ -1,5 +1,5 @@
 //
-//  VROViewCardboard.h
+//  VROViewGVR.h
 //  ViroRenderer
 //
 //  Created by Raj Advani on 4/28/16.
@@ -11,7 +11,7 @@
 #import <UIKit/UIKit.h>
 #import "VROView.h"
 
-@interface VROViewCardboard : GLKView <VROView>
+@interface VROViewGVR : GLKView <VROView>
 
 @property (readwrite, nonatomic) BOOL paused;
 @property (readwrite, nonatomic) IBInspectable BOOL testingMode;

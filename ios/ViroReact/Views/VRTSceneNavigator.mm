@@ -35,7 +35,7 @@ static NSString *const kVRTInvalidAPIKeyMessage = @"The given API Key is either 
         _gvrController = [[VROViewControllerGVR alloc] init];
         _vroView = (id<VROView>) _gvrController.view;
         
-        VROViewCardboard *viewCardboard = (VROViewCardboard *) _gvrController.view;
+        VROViewGVR *viewCardboard = (VROViewGVR *) _gvrController.view;
         [viewCardboard setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
         _vroView.renderDelegate = self;
         
@@ -57,7 +57,7 @@ static NSString *const kVRTInvalidAPIKeyMessage = @"The given API Key is either 
 }
 
 - (void)recenterTracking {
-    VROViewCardboard *cardboardView = _vroView;
+    VROViewGVR *cardboardView = _vroView;
     [cardboardView recenterTracking];
 }
 
@@ -75,7 +75,7 @@ static NSString *const kVRTInvalidAPIKeyMessage = @"The given API Key is either 
     
     if (self.currentSceneIndex == atIndex) {
         [self setSceneView:sceneView];
-        [(VROViewCardboard *)_vroView setPaused:NO];
+        [(VROViewGVR *)_vroView setPaused:NO];
     }
     [super insertReactSubview:subview atIndex:atIndex];
 }

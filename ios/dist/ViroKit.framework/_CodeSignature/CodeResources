@@ -3151,13 +3151,13 @@
 		<data>
 		B8K+jsf+oL6U1SSMdSbP2JuXJD8=
 		</data>
-		<key>Headers/VROViewCardboard.h</key>
-		<data>
-		eE1M/w9gJl1KCayi9InL07LFbHY=
-		</data>
 		<key>Headers/VROViewControllerGVR.h</key>
 		<data>
 		pVXs1L2ZckFjKcq5KFKi/OE70LE=
+		</data>
+		<key>Headers/VROViewGVR.h</key>
+		<data>
+		Osj7FE7uYL+3nO8gvK4VdN3JQuM=
 		</data>
 		<key>Headers/VROViewMetal.h</key>
 		<data>
@@ -3173,7 +3173,7 @@
 		</data>
 		<key>Headers/ViroKit.h</key>
 		<data>
-		wrRxyhLylGhU+P/7VDs+BDkLvSk=
+		D1HjOwMaTtDlT7mq71uH4TbIBcY=
 		</data>
 		<key>Headers/optional.hpp</key>
 		<data>
@@ -9524,17 +9524,6 @@
 			doLOmWWMMRW0qmzmwDzST3I8HBH1ol6PGgENXIGBjTs=
 			</data>
 		</dict>
-		<key>Headers/VROViewCardboard.h</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			eE1M/w9gJl1KCayi9InL07LFbHY=
-			</data>
-			<key>hash2</key>
-			<data>
-			Xs5PtBTnnRjsGu1BfdJBfvzhPsQJHnu+JrdAcHbS5tM=
-			</data>
-		</dict>
 		<key>Headers/VROViewControllerGVR.h</key>
 		<dict>
 			<key>hash</key>
@@ -9544,6 +9533,17 @@
 			<key>hash2</key>
 			<data>
 			Y/TCC+8J7HIWlStMFF0tdPmayc6jwo9/hFTB/yBn2/o=
+			</data>
+		</dict>
+		<key>Headers/VROViewGVR.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			Osj7FE7uYL+3nO8gvK4VdN3JQuM=
+			</data>
+			<key>hash2</key>
+			<data>
+			xxFUlQde9idbEoKWg1eKnSclOtx3rDKnWOVjey36rPY=
 			</data>
 		</dict>
 		<key>Headers/VROViewMetal.h</key>
@@ -9583,11 +9583,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			wrRxyhLylGhU+P/7VDs+BDkLvSk=
+			D1HjOwMaTtDlT7mq71uH4TbIBcY=
 			</data>
 			<key>hash2</key>
 			<data>
-			x3PrwFr8qjrfmagqYZj7XwyLgaBgNUCT+xS4/HbTjto=
+			H6wPjsIFu8mZFTOqH13h+962n4IOVJV/tgzjhpEGQLw=
 			</data>
 		</dict>
 		<key>Headers/optional.hpp</key>

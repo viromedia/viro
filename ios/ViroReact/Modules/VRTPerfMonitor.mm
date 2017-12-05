@@ -50,7 +50,7 @@ RCT_EXPORT_MODULE()
     [_view setDebugHUDEnabled:NO];
 }
 
-- (void)setView:(VROViewCardboard *)view {
+- (void)setView:(VROViewGVR *)view {
     _view = view;
     if (_isShowing) {
         [self show];
