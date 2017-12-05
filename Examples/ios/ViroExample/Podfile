@@ -1,4 +1,2 @@
 target 'ViroExample' do
-    pod 'GVRKit'
-    pod 'GVRAudioSDK'
 end

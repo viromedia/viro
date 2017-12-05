@@ -1,9 +1,7 @@
-FRAMEWORK_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/GVRKit/Frameworks"
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
-HEADER_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/GTMSessionFetcher" "${PODS_ROOT}/Headers/Public/GVRAudioSDK" "${PODS_ROOT}/Headers/Public/GVRKit" "${PODS_ROOT}/Headers/Public/GVRSDK" "${PODS_ROOT}/Headers/Public/GoogleToolboxForMac"
-LIBRARY_SEARCH_PATHS = $(inherited) "$PODS_CONFIGURATION_BUILD_DIR/GTMSessionFetcher" "$PODS_CONFIGURATION_BUILD_DIR/GoogleToolboxForMac" "${PODS_ROOT}/GVRAudioSDK/Libraries" "${PODS_ROOT}/GVRSDK/Libraries"
-OTHER_CFLAGS = $(inherited) -isystem "${PODS_ROOT}/Headers/Public" -isystem "${PODS_ROOT}/Headers/Public/GTMSessionFetcher" -isystem "${PODS_ROOT}/Headers/Public/GVRAudioSDK" -isystem "${PODS_ROOT}/Headers/Public/GVRKit" -isystem "${PODS_ROOT}/Headers/Public/GVRSDK" -isystem "${PODS_ROOT}/Headers/Public/GoogleToolboxForMac"
-OTHER_LDFLAGS = $(inherited) -ObjC -l"GTMSessionFetcher" -l"GVRAudioSDK" -l"GVRSDK" -l"GoogleToolboxForMac" -l"c++" -l"z" -framework "AVFoundation" -framework "AudioToolbox" -framework "CoreGraphics" -framework "CoreMedia" -framework "CoreMotion" -framework "CoreText" -framework "CoreVideo" -framework "GLKit" -framework "GVRKit" -framework "MediaPlayer" -framework "OpenGLES" -framework "QuartzCore" -framework "Security"
+HEADER_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/Headers/Public"
+OTHER_CFLAGS = $(inherited) -isystem "${PODS_ROOT}/Headers/Public"
+OTHER_LDFLAGS = $(inherited) -ObjC
 PODS_BUILD_DIR = $BUILD_DIR
 PODS_CONFIGURATION_BUILD_DIR = $PODS_BUILD_DIR/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)
 PODS_PODFILE_DIR_PATH = ${SRCROOT}/.

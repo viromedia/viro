@@ -1,1 +1,0 @@
-../../../../GVRKit/Frameworks/GVRKit.framework/Headers/GVRSceneRenderer.h

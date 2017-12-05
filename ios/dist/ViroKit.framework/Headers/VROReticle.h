@@ -61,6 +61,7 @@ private:
     float _radius;
     float _thickness;
     float _endThickness;
+    float _fuseScale;
 
     /*
      Cached x y points describing a circle with kCircleSegments, used

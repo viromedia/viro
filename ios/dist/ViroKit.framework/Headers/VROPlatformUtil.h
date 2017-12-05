@@ -209,9 +209,8 @@ void Java_com_viro_core_internal_PlatformUtil_runTask(JNIEnv *env, jclass clazz,
 
 #if VRO_PLATFORM_IOS || VRO_PLATFORM_ANDROID
 
-#include "vr/gvr/capi/include/gvr_audio.h"
-
-gvr_audio_material_type VROPlatformParseGVRAudioMaterial(std::string property);
+// Returns enum of type gvr_audio_material_type
+int VROPlatformParseGVRAudioMaterial(std::string property);
 
 #endif
 
