@@ -100,14 +100,12 @@ var ViroPortalTest = createReactClass({
                <Viro360Video
                     source={Uri360Video}
                     loop={true} />
-
-                    <Viro3DObject source={require('../res/male02_obj.obj')}
-                                  resources={[require('../res/male02.mtl'),
-                                              require('../res/01_Default1noCulling.JPG'),
-                                              require('../res/male_02_1noCulling.JPG'),
-                                              require('../res/orig_02_Defaul1noCulling.JPG')]}
-                                  position={[0.5, 0, -0.5]}
-                                  scale={[0.01, 0.01, 0.01]} type="OBJ"
+                     <Viro3DObject source={require('./res/xwing.obj')}
+                                   resources={[require("./res/star-wars-x-wing.mtl")]}
+                                   position={[0.5, 0, -0.5]}
+                                   materials={["grey"]}
+                                   rotation={[0,45,-45]}
+                                   scale={[0.2, 0.2, 0.2]} type="OBJ"
                      />
 
 
@@ -197,6 +195,11 @@ ViroMaterials.createMaterials({
     shininess : 2.0,
     lightingModel: "Blinn",
     diffuseTexture: require('../res/sun_2302.jpg'),
+  },
+  grey: {
+    shininess : 2.0,
+    lightingModel: "Blinn",
+    diffuseTexture: require('./res/grey.jpg'),
   },
 });
 

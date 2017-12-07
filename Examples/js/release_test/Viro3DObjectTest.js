@@ -137,22 +137,6 @@ var Viro3DObjectTest = createReactClass({
     );
   },
 
-  /*
-   I removed the man because hyphens are not allowed in android resource names, so this will never run in release
-
-          <Viro3DObject source={require('./res/male02_obj.obj')}
-                     resources={[require('./res/male02.mtl'),
-                                 require('./res/01_Default1noCulling.JPG'),
-                                 require('./res/male_02_1noCulling.JPG'),
-                                 require('./res/orig_02_Defaul1noCulling.JPG')]}
-                     position={[-0.0, -20, -10]}
-                     scale={[0.1, 0.1, 0.1]}
-                     type="OBJ"
-                     onLoadStart={this._onLoadObjStart}
-                     onLoadEnd={this._onLoadObjEnd}
-        />
-  */
-
   _showNext() {
     this.props.sceneNavigator.replace({scene:require('./ViroCameraTest')});
   },
