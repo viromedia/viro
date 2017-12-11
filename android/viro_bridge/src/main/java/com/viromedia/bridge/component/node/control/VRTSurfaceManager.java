@@ -44,6 +44,9 @@ public class VRTSurfaceManager extends VRTNodeManager<VRTSurface> {
     @ReactProp(name = "shadowCastingBitMask", defaultInt = 1)
     public void setShadowCastingBitMask(VRTSurface view, int bitMask) {view.setShadowCastingBitMask(bitMask); }
 
+    @ReactProp(name = "arShadowReceiver", defaultBoolean = false)
+    public void setARShadowReceiver(VRTSurface view, boolean arShadowReceiver) { view.setARShadowReceiver(arShadowReceiver); }
+
     public Map getExportedCustomDirectEventTypeConstants() {
         return MapBuilder.of(
                 ViroEvents.ON_ANIMATION_START, MapBuilder.of("registrationName", ViroEvents.ON_ANIMATION_START),

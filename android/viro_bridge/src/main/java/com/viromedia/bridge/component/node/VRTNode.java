@@ -538,6 +538,7 @@ public class VRTNode extends VRTComponent {
         }
         mNodeJni.setGeometry(geometry);
         if (mMaterials != null) {
+            setMaterials(mMaterials);
             geometry.copyAndSetMaterials(mMaterials);
         }
     }
@@ -551,6 +552,14 @@ public class VRTNode extends VRTComponent {
             mNodeAnimation.setAnimationName(null);
         }
         mNodeAnimation.updateAnimation();
+    }
+
+    /**
+     * Explicitly call setMaterials again with mMaterials. Allows children who override
+     * setMaterials to modify them.
+     */
+    protected void applyMaterials() {
+        setMaterials(mMaterials);
     }
 
     protected void setMaterials(List<Material> materials) {
