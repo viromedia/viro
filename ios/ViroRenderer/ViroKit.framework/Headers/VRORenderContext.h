@@ -18,11 +18,11 @@
 #include "VROQuaternion.h"
 #include "VROCamera.h"
 #include "VROFrameScheduler.h"
-#include "VROPencil.h"
 
 class VROFrameSynchronizer;
 class VRORenderTarget;
 class VROTexture;
+class VROPencil;
 class VROInputControllerBase;
 enum class VROEyeType;
 

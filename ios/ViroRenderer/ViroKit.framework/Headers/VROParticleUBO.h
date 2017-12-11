@@ -44,8 +44,7 @@ public:
     VROParticleUBO(std::shared_ptr<VRODriver> driver);
     virtual ~VROParticleUBO();
 
-    void bind(std::shared_ptr<VROShaderProgram> &program);
-    void unbind(std::shared_ptr<VROShaderProgram> &program);
+    void bind();
     std::vector<std::shared_ptr<VROShaderModifier>> createInstanceShaderModifier();
 
     /*
@@ -71,19 +70,13 @@ public:
      Returns a bounding box that encapsulates all _lastKnownParticles.
      */
     VROBoundingBox getInstancedBoundingBox();
+    
 private:
     /*
      Tracks the current number of allocated VROParticleUBO instances, so as to
      properly handle the allocation of uniform buffer resources.
      */
     static int sInstances;
-
-    /*
-     Binding points linking this VROParticleUBO's data uniform buffer to its corresponding
-     uniform block in our Vertex and Fragment shaders.
-     */
-    static int sUBOVertexBindingPoint;
-    static int sUBOFragmentBindingPoint;
 
     /*
      Buffer IDs representing the Uniform Buffer objects that were generated for this

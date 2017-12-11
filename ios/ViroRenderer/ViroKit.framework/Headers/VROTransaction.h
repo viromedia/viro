@@ -98,6 +98,12 @@ public:
     static void setAnimationDelay(float delaySeconds);
 
     /*
+     Set to true to make this transaction automatically loop to the beginning on finish.
+     In effect - reset _time to beginning of animation onFinish if _loop is set.
+     */
+    static void setAnimationLoop(bool loop);
+
+    /*
      Set a callback to invoke when the active transaction completes (after duration
      seconds).
      */
@@ -156,6 +162,7 @@ private:
     double _delayTimeSeconds;
     double _processedTimeWhenPaused;
     bool _paused;
+    bool _loop;
     std::unique_ptr<VROTimingFunction> _timingFunction;
 
     std::function<void()> _finishCallback;
