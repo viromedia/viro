@@ -74,6 +74,12 @@ public:
     void detachScene() {
         _scene = nullptr;
     }
+    
+    /*
+     Set the current view and projection matrices.
+     */
+    void setView(VROMatrix4f view);
+    void setProjection(VROMatrix4f projection);
 
     /*
      Get the presenter, creating it if it does not yet exist. Must be invoked on the
@@ -98,7 +104,6 @@ public:
     void registerEventDelegate(std::shared_ptr<VROEventDelegate> delegate){
         _delegates.insert(delegate);
     }
-
     void removeEventDelegate(std::shared_ptr<VROEventDelegate> delegate){
         _delegates.erase(delegate);
     }
@@ -204,6 +209,11 @@ protected:
      Last known rotation value in radians.
      */
     float _lastRotation;
+    
+    /*
+     The view and projection matrices, updated each render cycle.
+     */
+    VROMatrix4f _view, _projection;
 
     /*
      Delegates registered within the manager to be notified of events
@@ -212,7 +222,14 @@ protected:
     std::set<std::shared_ptr<VROEventDelegate>> _delegates;
     
     std::shared_ptr<VROScene> _scene;
-    
+
+    /*
+     Returns the hit test result for the closest node that was hit.
+     */
+    VROHitTestResult hitTest(const VROCamera &camera, VROVector3f origin, VROVector3f ray, bool boundsOnly);
+
+    virtual void processGazeEvent(int source);
+
 private:
     
     /*
@@ -242,18 +259,11 @@ private:
     std::shared_ptr<VRONode> _lastHoveredNode;
 
     /*
-     Returns the hit test result for the closest node that was hit.
-     */
-    VROHitTestResult hitTest(const VROCamera &camera, VROVector3f origin, VROVector3f ray, bool boundsOnly);
-
-    /*
      Returns the first node that is able to handle the event action by bubbling it up.
      If nothing is able to handle the event, nullptr is returned.
      */
     std::shared_ptr<VRONode> getNodeToHandleEvent(VROEventDelegate::EventAction action,
                                                   std::shared_ptr<VRONode> startingNode);
-
-    void processGazeEvent(int source, std::shared_ptr<VRONode> node);
 
     /*
      Current node that we are fusing on.

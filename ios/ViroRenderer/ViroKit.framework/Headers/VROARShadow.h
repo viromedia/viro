@@ -30,6 +30,7 @@ class VROARShadow {
 public:
     
     static void apply(std::shared_ptr<VROMaterial> material);
+    static void remove(std::shared_ptr<VROMaterial> material);
     
 private:
     

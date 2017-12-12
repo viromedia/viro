@@ -107,7 +107,7 @@ public:
      Set a callback to invoke when the active transaction completes (after duration
      seconds).
      */
-    static void setFinishCallback(std::function<void()> finishCallback);
+    static void setFinishCallback(std::function<void(bool terminate)> finishCallback);
 
     /*
      Set a timing function, which defines the curve of the animation (ease in, ease out,
@@ -165,7 +165,7 @@ private:
     bool _loop;
     std::unique_ptr<VROTimingFunction> _timingFunction;
 
-    std::function<void()> _finishCallback;
+    std::function<void(bool terminate)> _finishCallback;
     std::vector<std::shared_ptr<VROAnimation>> _animations;
 
 };
