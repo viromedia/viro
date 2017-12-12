@@ -1,4 +1,6 @@
 rootProject.name = 'ViroSample'
+include ':react-native-config'
+project(':react-native-config').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-config/android')
 
 include ':app', ':gvr_common', ':viro_renderer', ':viro_bridge', ':arcore_client'
 

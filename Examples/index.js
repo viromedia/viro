@@ -8,6 +8,7 @@
  */
 
 import React, { Component } from 'react';
+import Config from 'react-native-config'
 import {
   AppRegistry,
   Text,
@@ -36,11 +37,11 @@ export default class ViroExperienceSelector extends Component {
     var sharedProps = {
       apiKey:"7EEDCB99-2C3B-4681-AE17-17BC165BF792",
     }
-
+    console.log("Config.FLAVOR - " + Config.VR_PLATFORM);
     this.state = {
-      navigatorType : UNSET,
+      navigatorType : Config.VR_PLATFORM == "OVR_MOBILE" ? VR_NAVIGATOR_TYPE : UNSET,
       sharedProps : sharedProps,
-      vrMode : UNSET
+      vrMode : Config.FLAVOR == "ovr" ? true : UNSET
     }
     this._getSelectionButtons = this._getSelectionButtons.bind(this);
     this._getARNavigator = this._getARNavigator.bind(this);

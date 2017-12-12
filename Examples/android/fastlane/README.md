@@ -29,17 +29,49 @@ xcode-select --install
 </table>
 
 # Available Actions
-## iOS
-### ios release_virokit_framework
+## Android
+### android release_renderer_react_lib
 ```
-fastlane ios release_virokit_framework
+fastlane android release_renderer_react_lib
 ```
-Build ViroKit framework (release)
-### ios release_react_viro_lib
+Build react library version ViroRenderer - viro_renderer-release.aar
+
+And copy it to ../../../react-viro/android/viro_renderer/
+### android release_renderer_rendererTest
 ```
-fastlane ios release_react_viro_lib
+fastlane android release_renderer_rendererTest
 ```
-Build react, ViroReact frameworks
+Build all artifacts for rendererTest (ovr, gvr, arcore, scene)
+### android release_renderer_releaseTest
+```
+fastlane android release_renderer_releaseTest
+```
+Build all artifacts for releaseTest (ovr, gvr, arcore, scene)
+### android release_renderer_memoryTest
+```
+fastlane android release_renderer_memoryTest
+```
+Build all artifacts for memoryLeakTest (ovr, gvr, arcore, scene)
+### android release_renderer
+```
+fastlane android release_renderer
+```
+Build all artifacts for ViroRenderer (ovr, gvr, arcore, scene)
+### android renderer_aar
+```
+fastlane android renderer_aar
+```
+Build renderer
+### android gvr_release_test
+```
+fastlane android gvr_release_test
+```
+Build GVR release tests
+### android deploy
+```
+fastlane android deploy
+```
+Deploy a new version to the Google Play
 
 ----
 

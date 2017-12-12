@@ -13,41 +13,38 @@
 # Update this, if you use features of a newer version
 fastlane_version "2.66.2"
 
-default_platform :ios
-import "../../../../ViroRenderer/ios/fastlane/Fastfile"
-platform :ios do
+default_platform :android
+
+import "../../../../ViroRenderer/android/fastlane/Fastfile"
+
+platform :android do
   before_all do
     # ENV["SLACK_URL"] = "https://hooks.slack.com/services/..."
-    # cocoapods
-    # carthage
   end
-
-  desc "Build react, ViroReact frameworks"
-  lane :release_react_viro_lib do
-    Dir.chdir("../../../../ViroRenderer/ios/fastlane") do
-      release_virokit_framework
+  desc "Build renderer"
+  lane :renderer_aar do
+    Dir.chdir("../../../../ViroRenderer/android/") do
+      sh("fastlane release_renderer_react_lib")
     end
-    Dir.chdir("../") do
-       # clean React scheme
-       sh("xcodebuild -workspace ViroExample/ViroExample.xcworkspace/ -scheme React -configuration Release clean | xcpretty -c")
-       # build React scheme
-       sh("xcodebuild -workspace ViroExample/ViroExample.xcworkspace/ -scheme React -configuration Release | xcpretty -c")
+  end 
 
-       sh("xcodebuild -workspace ViroExample/ViroExample.xcworkspace/ -scheme ViroReact -configuration Release clean | xcpretty -c")
-       # build React scheme
-       sh("xcodebuild -workspace ViroExample/ViroExample.xcworkspace/ -scheme ViroReact -configuration Release | xcpretty -c")
-
-     end
-# gym doesnt seem to work with the way we are building our libs :(
-#    gym(workspace: "../ios/ViroExample/ViroExample.xcworkspace",
-#       scheme: "React",
-#        configuration: "Release",
-#        silent: true,
-#        clean:true,
-#        skip_package_ipa: true,
-#        skip_profile_detection: true)
+  desc "Build GVR release tests"
+  lane :gvr_release_test do
+    renderer_aar
+    gradle(task: "assembleGvrRelease")
   end
 
+  desc "Build OVR release tests"
+  lane :ovr_release_test do
+    renderer_aar
+    gradle(task: "assembleOvrRelease")
+  end
+
+  desc "Build GVR & OVR release tests"
+  lane :ovr_release_test do
+    renderer_aar
+    gradle(task: "assembleRelease")
+  end
 
   # You can define as many lanes as you want
 
@@ -66,7 +63,6 @@ platform :ios do
     # )
   end
 end
-
 
 # More information about multiple platforms in fastlane: https://docs.fastlane.tools/advanced/#control-configuration-by-lane-and-by-platform
 # All available actions: https://docs.fastlane.tools/actions

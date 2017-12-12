@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="fastlane.lanes">
+    
+    
+    
+      
+      <testcase classname="fastlane.lanes" name="0: Verifying required fastlane version" time="0.018825">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="1: default_platform" time="0.003474">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="2: Verifying required fastlane version" time="0.003722">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="3: default_platform" time="0.003892">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="4: Switch to android renderer_aar lane" time="0.00242">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="5: fastlane release_renderer_react_lib" time="4.562888">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="6: gradle" time="62.840749">
+        
+      </testcase>
+    
+  </testsuite>
+</testsuites>
