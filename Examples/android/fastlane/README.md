@@ -67,11 +67,16 @@ Build renderer
 fastlane android gvr_release_test
 ```
 Build GVR release tests
-### android deploy
+### android ovr_release_test
 ```
-fastlane android deploy
+fastlane android ovr_release_test
 ```
-Deploy a new version to the Google Play
+Build OVR release tests
+### android release_test
+```
+fastlane android release_test
+```
+Build GVR & OVR release tests
 
 ----
 
