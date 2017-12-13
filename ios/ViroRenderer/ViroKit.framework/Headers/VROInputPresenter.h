@@ -169,7 +169,7 @@ protected:
 
         float depth = -hit.getDistance();
 
-        if (!_reticle->isPointerFixed()) {
+        if (!_reticle->isHeadlocked()) {
             _reticle->setPosition(hit.getLocation());
             
             float worldPerScreen = hit.getCamera().getWorldPerScreen(depth);

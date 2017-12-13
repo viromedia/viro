@@ -42,7 +42,7 @@ public:
      VR devices that lack a pointing controller (e.g. Cardboard).
      */
     void setPointerFixed(bool fixed);
-    bool isPointerFixed();
+    bool isHeadlocked();
 
     void animateFuse(float fuseRatio);
     void stopFuseAnimation();
@@ -54,7 +54,7 @@ private:
      of each eye. Set to false if the VR platform has a hand-held controller
      that can be used to point.
      */
-    bool _isPointerFixed;
+    bool _isHeadlocked;
 
     bool _enabled;
     float _size;

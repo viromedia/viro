@@ -5,37 +5,37 @@
     
     
       
-      <testcase classname="fastlane.lanes" name="0: Verifying required fastlane version" time="0.009515">
+      <testcase classname="fastlane.lanes" name="0: Verifying required fastlane version" time="0.012528">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="1: default_platform" time="0.003238">
+      <testcase classname="fastlane.lanes" name="1: default_platform" time="0.003693">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="2: Verifying required fastlane version" time="0.003817">
+      <testcase classname="fastlane.lanes" name="2: Verifying required fastlane version" time="0.003469">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="3: default_platform" time="0.003735">
+      <testcase classname="fastlane.lanes" name="3: default_platform" time="0.00328">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="4: Switch to android renderer_aar lane" time="0.002174">
+      <testcase classname="fastlane.lanes" name="4: Switch to android renderer_aar lane" time="0.002588">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="5: fastlane release_renderer_react_lib" time="4.823097">
+      <testcase classname="fastlane.lanes" name="5: fastlane release_renderer_react_lib" time="34.676789">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="6: gradle" time="146.368302">
+      <testcase classname="fastlane.lanes" name="6: gradle" time="54.648269">
         
       </testcase>
     
