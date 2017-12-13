@@ -15,19 +15,18 @@
 
 @implementation RCTBridge (VRTMaterialManager)
 
-- (VRTMaterialManager *)materialManager
-{
+- (VRTMaterialManager *)materialManager {
     return [self moduleForClass:[VRTMaterialManager class]];
 }
 
 @end
 
-@interface MaterialWrapper:NSObject {
+@interface MaterialWrapper : NSObject {
     
 }
+
 - (instancetype)initWithMaterial:(std::shared_ptr<VROMaterial>) material;
 - (std::shared_ptr<VROMaterial>)getMaterial;
-
 
 @end
 
@@ -190,10 +189,9 @@ RCT_EXPORT_METHOD(setJSMaterials:(NSDictionary *)materialsDict)
     if (mipFilter != nil) {
         texture->setMipFilter([self convertFilterMode:mipFilter]);
     }
-    
 }
 
--(UIImage *)retrieveImage:(id)json {
+- (UIImage *)retrieveImage:(id)json {
     NSString *path = [self parseImagePath:json];
     
     UIImage *image = _imageDictionary[path];
@@ -217,11 +215,11 @@ RCT_EXPORT_METHOD(setJSMaterials:(NSDictionary *)materialsDict)
     std::shared_ptr<VROMaterial> vroMaterial = std::make_shared<VROMaterial>();
     MaterialWrapper *materialWrapper = [[MaterialWrapper alloc] initWithMaterial:vroMaterial];
     
-    for(id key in material) {
+    for (id key in material) {
         NSString *materialPropertyName = (NSString *)key;
         
-        if([materialPropertyName hasSuffix:@"texture"] || [materialPropertyName hasSuffix:@"Texture"]) {
-            if([materialPropertyName caseInsensitiveCompare:@"reflectiveTexture"] == NSOrderedSame) {
+        if ([materialPropertyName hasSuffix:@"texture"] || [materialPropertyName hasSuffix:@"Texture"]) {
+            if ([materialPropertyName caseInsensitiveCompare:@"reflectiveTexture"] == NSOrderedSame) {
                 std::shared_ptr<VROTexture> texture = [self createTextureCubeMap:material[key]];
                 [self loadProperties:material forTexture:texture];
                 [self setTextureForMaterial:vroMaterial texture:texture name:materialPropertyName];
@@ -230,8 +228,8 @@ RCT_EXPORT_METHOD(setJSMaterials:(NSDictionary *)materialsDict)
             }
             
             NSString *path = [self parseImagePath:material[key]];
-            if(path != nil) {
-                if([self isVideoTexture:path]) {
+            if (path != nil) {
+                if ([self isVideoTexture:path]) {
                     [materialWrapper setMaterialPropertyName:materialPropertyName forVideoTexturePath:path];
                 } else {
                     BOOL sRGB = [materialPropertyName caseInsensitiveCompare:@"diffuseTexture"] == NSOrderedSame;
@@ -242,40 +240,38 @@ RCT_EXPORT_METHOD(setJSMaterials:(NSDictionary *)materialsDict)
                 }
             }
         }
-        else if([materialPropertyName hasSuffix:@"color"] || [materialPropertyName hasSuffix:@"Color"]){
+        else if ([materialPropertyName hasSuffix:@"color"] || [materialPropertyName hasSuffix:@"Color"]){
             //We can set either an image texture or texture color not both.
             NSNumber *number = material[key];
             NSUInteger argb = [number unsignedIntegerValue];
             [self setColorForMaterial:vroMaterial color:argb name:(NSString *)materialPropertyName];
-        }else {
-            if([@"shininess" caseInsensitiveCompare:materialPropertyName] == NSOrderedSame) {
+        }
+        else {
+            if ([@"shininess" caseInsensitiveCompare:materialPropertyName] == NSOrderedSame) {
                 NSNumber *number = material[key];
                 vroMaterial->setShininess([number floatValue]);
-            }else if([@"fresnelExponent" caseInsensitiveCompare:materialPropertyName] == NSOrderedSame) {
+            } else if ([@"fresnelExponent" caseInsensitiveCompare:materialPropertyName] == NSOrderedSame) {
                 NSNumber *number =  material[key];
                 vroMaterial->setFresnelExponent([number floatValue]);
-            }else if([@"lightingModel" caseInsensitiveCompare:materialPropertyName] == NSOrderedSame) {
+            } else if ([@"lightingModel" caseInsensitiveCompare:materialPropertyName] == NSOrderedSame) {
                 VROLightingModel lightingModel = [self convertLightingModel:material[key]];
                 vroMaterial->setLightingModel(lightingModel);
-            }else if([@"transparencyMode" caseInsensitiveCompare:materialPropertyName] == NSOrderedSame) {
+            } else if ([@"transparencyMode" caseInsensitiveCompare:materialPropertyName] == NSOrderedSame) {
                 VROTransparencyMode transparencyMode = [self convertTransparencyMode:material[key]];
                 vroMaterial->setTransparencyMode(transparencyMode);
-            }else if([@"writesToDepthBuffer" caseInsensitiveCompare:materialPropertyName] == NSOrderedSame) {
+            } else if ([@"writesToDepthBuffer" caseInsensitiveCompare:materialPropertyName] == NSOrderedSame) {
                 NSNumber *booleanVal = material[key];
                 vroMaterial->setWritesToDepthBuffer([booleanVal boolValue]);
-            }else if([@"readsFromDepthBuffer" caseInsensitiveCompare:materialPropertyName] == NSOrderedSame) {
+            } else if ([@"readsFromDepthBuffer" caseInsensitiveCompare:materialPropertyName] == NSOrderedSame) {
                 NSNumber *booleanVal = material[key];
                 vroMaterial->setReadsFromDepthBuffer([booleanVal boolValue]);
-            }
-            else if ([@"diffuseIntensity" caseInsensitiveCompare:materialPropertyName] == NSOrderedSame) {
+            } else if ([@"diffuseIntensity" caseInsensitiveCompare:materialPropertyName] == NSOrderedSame) {
                 NSNumber *floatVal = material[key];
                 vroMaterial->getDiffuse().setIntensity([floatVal floatValue]);
-            }
-            else if ([@"cullMode" caseInsensitiveCompare:materialPropertyName] == NSOrderedSame) {
+            } else if ([@"cullMode" caseInsensitiveCompare:materialPropertyName] == NSOrderedSame) {
                 VROCullMode cullMode = [self convertCullMode:material[key]];
                 vroMaterial->setCullMode(cullMode);
-            }
-            else if ([@"bloomThreshold" caseInsensitiveCompare:materialPropertyName]  == NSOrderedSame){
+            } else if ([@"bloomThreshold" caseInsensitiveCompare:materialPropertyName]  == NSOrderedSame){
                 NSNumber *number =  material[key];
                 vroMaterial->setBloomThreshold([number floatValue]);
             }
@@ -295,46 +291,45 @@ RCT_EXPORT_METHOD(setJSMaterials:(NSDictionary *)materialsDict)
     CGFloat b = (color & 0xFF) / 255.0;
     
     VROVector4f vecColor(r, g, b, a);
-    if([@"diffuseColor" caseInsensitiveCompare:materialPropertyName] == NSOrderedSame){
+    if ([@"diffuseColor" caseInsensitiveCompare:materialPropertyName] == NSOrderedSame) {
         material->getDiffuse().setColor(vecColor);
-    }else if([@"specularColor" caseInsensitiveCompare:materialPropertyName] == NSOrderedSame){
+    } else if ([@"specularColor" caseInsensitiveCompare:materialPropertyName] == NSOrderedSame) {
         material->getSpecular().setColor(vecColor);
-    }else if([@"normalColor" caseInsensitiveCompare:materialPropertyName] == NSOrderedSame){
+    } else if ([@"normalColor" caseInsensitiveCompare:materialPropertyName] == NSOrderedSame) {
         material->getNormal().setColor(vecColor);
-    }else if([@"reflectiveColor" caseInsensitiveCompare:materialPropertyName] == NSOrderedSame){
+    } else if ([@"reflectiveColor" caseInsensitiveCompare:materialPropertyName] == NSOrderedSame) {
         material->getReflective().setColor(vecColor);
-    }else if([@"emissionColor" caseInsensitiveCompare:materialPropertyName] == NSOrderedSame){
+    } else if ([@"emissionColor" caseInsensitiveCompare:materialPropertyName] == NSOrderedSame) {
         material->getEmission().setColor(vecColor);
-    }else if([@"transparentColor" caseInsensitiveCompare:materialPropertyName] == NSOrderedSame){
+    } else if ([@"transparentColor" caseInsensitiveCompare:materialPropertyName] == NSOrderedSame) {
         material->getTransparent().setColor(vecColor);
-    }else if([@"multiplyColor" caseInsensitiveCompare:materialPropertyName] == NSOrderedSame){
+    } else if ([@"multiplyColor" caseInsensitiveCompare:materialPropertyName] == NSOrderedSame) {
         material->getMultiply().setColor(vecColor);
-    }else if([@"ambientOcclusionColor" caseInsensitiveCompare:materialPropertyName] == NSOrderedSame){
+    } else if ([@"ambientOcclusionColor" caseInsensitiveCompare:materialPropertyName] == NSOrderedSame) {
         material->getAmbientOcclusion().setColor(vecColor);
-    }else if([@"selfIlluminationColor" caseInsensitiveCompare:materialPropertyName] == NSOrderedSame){
+    } else if ([@"selfIlluminationColor" caseInsensitiveCompare:materialPropertyName] == NSOrderedSame) {
         material->getSelfIllumination().setColor(vecColor);
     }
-    
 }
 
 - (void)setTextureForMaterial:(std::shared_ptr<VROMaterial>)material texture:(std::shared_ptr<VROTexture>)texture name:(NSString *)materialPropertyName {
-    if([@"diffuseTexture" caseInsensitiveCompare:materialPropertyName] == NSOrderedSame){
+    if([@"diffuseTexture" caseInsensitiveCompare:materialPropertyName] == NSOrderedSame) {
         material->getDiffuse().setTexture(texture);
-    }else if([@"specularTexture" caseInsensitiveCompare:materialPropertyName] == NSOrderedSame){
+    } else if([@"specularTexture" caseInsensitiveCompare:materialPropertyName] == NSOrderedSame) {
         material->getSpecular().setTexture(texture);
-    }else if([@"normalTexture" caseInsensitiveCompare:materialPropertyName] == NSOrderedSame){
+    } else if([@"normalTexture" caseInsensitiveCompare:materialPropertyName] == NSOrderedSame) {
         material->getNormal().setTexture(texture);
-    }else if([@"reflectiveTexture" caseInsensitiveCompare:materialPropertyName] == NSOrderedSame){
+    } else if([@"reflectiveTexture" caseInsensitiveCompare:materialPropertyName] == NSOrderedSame) {
         material->getReflective().setTexture(texture);
-    }else if([@"emissionTexture" caseInsensitiveCompare:materialPropertyName] == NSOrderedSame){
+    } else if([@"emissionTexture" caseInsensitiveCompare:materialPropertyName] == NSOrderedSame) {
         material->getEmission().setTexture(texture);
-    }else if([@"transparentTexture" caseInsensitiveCompare:materialPropertyName] == NSOrderedSame){
+    } else if([@"transparentTexture" caseInsensitiveCompare:materialPropertyName] == NSOrderedSame) {
         material->getTransparent().setTexture(texture);
-    }else if([@"multiplyTexture" caseInsensitiveCompare:materialPropertyName] == NSOrderedSame){
+    } else if([@"multiplyTexture" caseInsensitiveCompare:materialPropertyName] == NSOrderedSame) {
         material->getMultiply().setTexture(texture);
-    }else if([@"ambientOcclusionTexture" caseInsensitiveCompare:materialPropertyName] == NSOrderedSame){
+    } else if([@"ambientOcclusionTexture" caseInsensitiveCompare:materialPropertyName] == NSOrderedSame) {
         material->getAmbientOcclusion().setTexture(texture);
-    }else if([@"selfIlluminationTexture" caseInsensitiveCompare:materialPropertyName] == NSOrderedSame){
+    } else if([@"selfIlluminationTexture" caseInsensitiveCompare:materialPropertyName] == NSOrderedSame) {
         material->getSelfIllumination().setTexture(texture);
     }
 }
@@ -342,13 +337,13 @@ RCT_EXPORT_METHOD(setJSMaterials:(NSDictionary *)materialsDict)
 //Convert string to propert VROLightingModel enum,
 - (VROLightingModel)convertLightingModel:(NSString *)name {
     
-    if([@"Phong" caseInsensitiveCompare:name] == NSOrderedSame){
+    if ([@"Phong" caseInsensitiveCompare:name] == NSOrderedSame) {
         return VROLightingModel::Phong;
-    }else if([@"Blinn" caseInsensitiveCompare:name] == NSOrderedSame){
+    } else if ([@"Blinn" caseInsensitiveCompare:name] == NSOrderedSame) {
         return VROLightingModel::Blinn;
-    }else if([@"Lambert" caseInsensitiveCompare:name] == NSOrderedSame){
+    } else if ([@"Lambert" caseInsensitiveCompare:name] == NSOrderedSame) {
         return VROLightingModel::Lambert;
-    }else if([@"Constant" caseInsensitiveCompare:name] == NSOrderedSame){
+    } else if ([@"Constant" caseInsensitiveCompare:name] == NSOrderedSame) {
         return VROLightingModel::Constant;
     }
     //return default if nothing else matches
@@ -485,8 +480,7 @@ RCT_EXPORT_METHOD(setJSMaterials:(NSDictionary *)materialsDict)
 // DEPRECATED: this is only in place for Beta. This needs to be
 //             replaced with asynchronous image loading.
 //             Tracked by VIRO-912
-- (UIImage *)downloadImageSync:(id)json
-{
+- (UIImage *)downloadImageSync:(id)json {
     VRTUIImageWrapper *uiImageWrapper = [RCTConvert VRTUIImageWrapper:json];
     if(uiImageWrapper != nil){
         return uiImageWrapper.image;

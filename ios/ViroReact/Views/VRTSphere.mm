@@ -20,7 +20,7 @@ static BOOL const kDefaultFacesOutward = YES;
     std::shared_ptr<VROSphere> _sphere;
 }
 
--(instancetype)initWithBridge:(RCTBridge *)bridge {
+- (instancetype)initWithBridge:(RCTBridge *)bridge {
     self = [super initWithBridge:bridge];
     if (self) {
         _widthSegmentCount = kDefaultWidthSegment;
@@ -33,7 +33,7 @@ static BOOL const kDefaultFacesOutward = YES;
     return self;
 }
 
--(void)setRadius:(float)radius {
+- (void)setRadius:(float)radius {
     if(radius <= 0) {
         RCTLogError(@"Radius must be greater than 0");
     }
@@ -41,7 +41,7 @@ static BOOL const kDefaultFacesOutward = YES;
     [self updateGeometry];
 }
 
--(void)setWidthSegmentCount:(NSUInteger)widthSegmentCount {
+- (void)setWidthSegmentCount:(NSUInteger)widthSegmentCount {
     if (widthSegmentCount <= 1) {
         RCTLogError(@"heightSegment must be greater than 1");
     }
@@ -49,7 +49,7 @@ static BOOL const kDefaultFacesOutward = YES;
     [self updateGeometry];
 }
 
--(void)setHeightSegmentCount:(NSUInteger)heightSegmentCount {
+- (void)setHeightSegmentCount:(NSUInteger)heightSegmentCount {
     if (heightSegmentCount <= 1) {
         RCTLogError(@"heightSegment must be greater than 1");
     }
@@ -57,12 +57,12 @@ static BOOL const kDefaultFacesOutward = YES;
     [self updateGeometry];
 }
 
--(void)setFacesOutward:(BOOL)facesOutward {
+- (void)setFacesOutward:(BOOL)facesOutward {
     _facesOutward = facesOutward;
     [self updateGeometry];
 }
 
--(void)updateGeometry {
+- (void)updateGeometry {
     _sphere = VROSphere::createSphere(_radius, _widthSegmentCount, _heightSegmentCount, _facesOutward);
     [self node]->setGeometry(_sphere);
     [self applyMaterials];
