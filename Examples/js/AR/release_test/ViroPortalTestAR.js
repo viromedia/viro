@@ -100,14 +100,14 @@ var ViroPortalTest = createReactClass({
                <Viro360Video
                     source={Uri360Video}
                     loop={true} />
-                     <Viro3DObject source={require('./res/xwing.obj')}
-                                   resources={[require("./res/star-wars-x-wing.mtl")]}
-                                   position={[0.5, 0, -0.5]}
-                                   materials={["grey"]}
-                                   rotation={[0,45,-45]}
-                                   scale={[0.2, 0.2, 0.2]} type="OBJ"
-                     />
 
+              <Viro3DObject source={require('../../release_test/res/earth_obj.obj')}
+                  resources={[require('../../release_test/res/earth_jpg.jpg'),
+                              require('../../release_test/res/earth_normal.jpg')]}
+                  position={[0.5, 0.0, -0.5]}
+                  scale={[0.01, 0.01, 0.01]}
+                  materials={["earth"]}
+                  type="OBJ" />
 
               <ViroText position={[-2, 0.5, -2]} text={"Release Menu"}
                       style={styles.instructionText} onClick={()=>{this.props.arSceneNavigator.replace("ARReleaseMenu", {scene: require("./ARReleaseMenu")})}}
@@ -156,6 +156,17 @@ var ViroPortalTest = createReactClass({
         </ViroARScene>
       );
    },
+   /*
+   Replace the Earth OBJ with the following once we fix the perf issue:
+
+               <Viro3DObject source={require('./res/xwing.obj')}
+                             resources={[require("./res/star-wars-x-wing.mtl")]}
+                             position={[0.5, 0, -0.5]}
+                             materials={["grey"]}
+                             rotation={[0,45,-45]}
+                             scale={[0.2, 0.2, 0.2]} type="OBJ"
+               />
+    */
 
   _onPortalEnter() {
     console.log("On Portal Enter invoked");
@@ -201,6 +212,11 @@ ViroMaterials.createMaterials({
     lightingModel: "Blinn",
     diffuseTexture: require('./res/grey.jpg'),
   },
+  earth: {
+    lightingModel: "Blinn",
+    diffuseTexture: require('../../release_test/res/earth_jpg.jpg'),
+    normalTexture: require('../../release_test/res/earth_normal.jpg'),
+  }
 });
 
 
