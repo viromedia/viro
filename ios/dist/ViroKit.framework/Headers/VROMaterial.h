@@ -228,6 +228,7 @@ public:
 
     void addShaderModifier(std::shared_ptr<VROShaderModifier> modifier);
     void removeShaderModifier(std::shared_ptr<VROShaderModifier> modifier);
+    bool hasShaderModifier(std::shared_ptr<VROShaderModifier> modifier);
     const std::vector<std::shared_ptr<VROShaderModifier>> &getShaderModifiers() const {
         return _shaderModifiers;
     }

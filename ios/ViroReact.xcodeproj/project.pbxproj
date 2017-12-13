@@ -30,11 +30,11 @@
 		8A5CDE221F68D5470093F43B /* VRTPolyline.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8AFC1C351EC1001C0000F7EB /* VRTPolyline.h */; };
 		8A5CDE231F68D5470093F43B /* VRTPortalScene.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8FEF00631F37ACCC006AE4B1 /* VRTPortalScene.h */; };
 		8A5CDE241F68D5470093F43B /* VRTPortal.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8FEF00841F37D04F006AE4B1 /* VRTPortal.h */; };
-		8A5CDE251F68D5470093F43B /* (null) in CopyFiles */ = {isa = PBXBuildFile; };
+		8A5CDE251F68D5470093F43B /* BuildFile in CopyFiles */ = {isa = PBXBuildFile; };
 		8A5CDE261F68D5470093F43B /* VRTPolylineManager.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8A56302D1EBBFF5F009E71A7 /* VRTPolylineManager.h */; };
 		8A5CDE271F68D5470093F43B /* VRTPortalSceneManager.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8FEF00821F37CAEF006AE4B1 /* VRTPortalSceneManager.h */; };
 		8A5CDE281F68D5470093F43B /* VRTPortalManager.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8FEF00871F37D0C0006AE4B1 /* VRTPortalManager.h */; };
-		8A5CDE291F68D5470093F43B /* (null) in CopyFiles */ = {isa = PBXBuildFile; };
+		8A5CDE291F68D5470093F43B /* BuildFile in CopyFiles */ = {isa = PBXBuildFile; };
 		8A5CDE2A1F68D56F0093F43B /* VRTNodeModule.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = A50A310C1ECE1E8800DEBE9B /* VRTNodeModule.h */; };
 		8A5CDE2B1F68D56F0093F43B /* VRTSceneModule.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = A5E8F0A71ED6B64D00729916 /* VRTSceneModule.h */; };
 		8A5CDE2C1F68D56F0093F43B /* VRTControllerModule.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = A533596D1E9E0169005B3EC5 /* VRTControllerModule.h */; };
@@ -222,11 +222,11 @@
 				8A5CDE221F68D5470093F43B /* VRTPolyline.h in CopyFiles */,
 				8A5CDE231F68D5470093F43B /* VRTPortalScene.h in CopyFiles */,
 				8A5CDE241F68D5470093F43B /* VRTPortal.h in CopyFiles */,
-				8A5CDE251F68D5470093F43B /* (null) in CopyFiles */,
+				8A5CDE251F68D5470093F43B /* BuildFile in CopyFiles */,
 				8A5CDE261F68D5470093F43B /* VRTPolylineManager.h in CopyFiles */,
 				8A5CDE271F68D5470093F43B /* VRTPortalSceneManager.h in CopyFiles */,
 				8A5CDE281F68D5470093F43B /* VRTPortalManager.h in CopyFiles */,
-				8A5CDE291F68D5470093F43B /* (null) in CopyFiles */,
+				8A5CDE291F68D5470093F43B /* BuildFile in CopyFiles */,
 				8A5CDE171F68D4BD0093F43B /* VRTARSceneNavigator.h in CopyFiles */,
 				8A5CDE181F68D4BD0093F43B /* VRTARAnchorNode.h in CopyFiles */,
 				8A5CDE191F68D4BD0093F43B /* VRTARPlane.h in CopyFiles */,
@@ -979,7 +979,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = $SRCROOT/ngrok_launch.sh;
+			shellScript = "$SRCROOT/ngrok_launch.sh";
 		};
 /* End PBXShellScriptBuildPhase section */
 

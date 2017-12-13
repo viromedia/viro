@@ -22,6 +22,9 @@
 #include <GLES3/gl3ext.h>
 #include <GLES3/gl3platform.h>
 
+// Avoiding glBufferSubData seems to increase stability on Adreno devices
+#define VRO_AVOID_BUFFER_SUB_DATA 1
+
 #elif VRO_PLATFORM_IOS
 
 #import <OpenGLES/EAGL.h>
@@ -30,6 +33,7 @@
 #import <OpenGLES/ES2/glext.h>
 #import <OpenGLES/ES3/gl.h>
 #import <OpenGLES/ES3/glext.h>
+#define VRO_AVOID_BUFFER_SUB_DATA 0
 
 #endif
 

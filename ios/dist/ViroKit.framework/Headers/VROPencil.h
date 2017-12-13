@@ -38,12 +38,13 @@ public:
      Renders the geometry of all lines added with VROPencil.draw(), called in VRORenderer.renderEye(),
      after the scene and reticle has been rendered.
      */
-    void render(const VRORenderContext &renderContext, std::shared_ptr<VRODriver> &driver);
+    void render(const VRORenderContext &context, std::shared_ptr<VRODriver> &driver);
 
     /*
      Clears all added lines in preparation for the next render pass.
      */
     void clear();
+
 private:
     std::vector<std::vector<VROVector3f>> _paths;
 };

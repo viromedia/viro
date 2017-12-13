@@ -47,6 +47,15 @@ class VRODriverOpenGL;
  */
 class VROShaderProgram {
 public:
+    
+    /*
+     Assign a binding point to each type of UBO.
+     */
+    static const int sLightingVertexUBOBindingPoint = 0;
+    static const int sLightingFragmentUBOBindingPoint = 1;
+    static const int sBonesUBOBindingPoint = 2;
+    static const int sParticleVertexUBOBindingPoint = 3;
+    static const int sParticleFragmentUBOBindingPoint = 4;
 
     /*
      Create a new shader program with the given source. This constructor assumes that the
@@ -142,7 +151,6 @@ public:
     bool hasParticlesVertexBlock() const {
         return _particlesVertexBlockIndex != GL_INVALID_INDEX;
     }
-
     GLuint getParticlesVertexBlockIndex() const {
         return _particlesVertexBlockIndex;
     }
@@ -150,7 +158,6 @@ public:
     bool hasParticlesFragmentBlock() const {
         return _particlesFragmentBlockIndex != GL_INVALID_INDEX;
     }
-
     GLuint getParticlesFragmentBlockIndex() const {
         return _particlesFragmentBlockIndex;
     }
