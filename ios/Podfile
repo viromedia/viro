@@ -1,4 +1,2 @@
-pod 'OpenCV', '3.2.0'
-
 target 'ViroReact' do
 end
