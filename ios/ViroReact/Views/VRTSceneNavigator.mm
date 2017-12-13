@@ -16,6 +16,7 @@
 #import <React/RCTRootView.h>
 #import <React/RCTUtils.h>
 #import "VRTPerfMonitor.h"
+#import "VRTMaterialManager.h"
 
 static NSString *const kVRTInvalidAPIKeyMessage = @"The given API Key is either missing or invalid! If you have not signed up for accessing Viro Media platform, please do so at www.viromedia.com. Otherwise, contact info@viromedia.com if you have a valid key and are encountering this error.";
 
@@ -34,6 +35,11 @@ static NSString *const kVRTInvalidAPIKeyMessage = @"The given API Key is either 
     if (self) {
         _gvrController = [[VROViewControllerGVR alloc] init];
         _vroView = (id<VROView>) _gvrController.view;
+        
+        // Load materials; must be done each time we have a new context (e.g. after
+        // the EGL context is created by the VROViewGVR
+        VRTMaterialManager *materialManager = [bridge materialManager];
+        [materialManager reloadMaterials];
         
         VROViewGVR *viewCardboard = (VROViewGVR *) _gvrController.view;
         [viewCardboard setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];

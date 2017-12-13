@@ -54,57 +54,72 @@
     return _material;
 }
 
-
 @end
 
-@implementation VRTMaterialManager{
+@implementation VRTMaterialManager {
     
-    //dictionary of images, so we only load images once.
-    NSMutableDictionary * _imageDictionary;
+    // Dictionary of images, so we only load images once
+    NSMutableDictionary *_imageDictionary;
     NSMutableDictionary *_materialDictionary;
+    
+    // This is flipped to true when an EGL context is loaded for the first time;
+    // this happens when reloadMaterials is first called. Until we have an EGL
+    // context, we do not load materials, we just store them in self.materials.
+    BOOL _eglContextLoaded;
 }
 
 @synthesize bridge = _bridge;
 
 + (std::shared_ptr<VROVideoTexture>)createVideoTexture:(NSString *)path
-renderContext:(VRORenderContext *)context
-driver:(std::shared_ptr<VRODriver>)driver {
-    
+                                         renderContext:(VRORenderContext *)context
+                                                driver:(std::shared_ptr<VRODriver>)driver {
     NSURL *videoURL = [NSURL URLWithString:path];
     std::string url = std::string([[videoURL description] UTF8String]);
     
     std::shared_ptr<VROVideoTexture> videoTexture = std::make_shared<VROVideoTextureiOS>();
     videoTexture->loadVideo(url, context->getFrameSynchronizer(), driver);
     videoTexture->prewarm();
-    
     return videoTexture;
 }
 
 RCT_EXPORT_MODULE()
 
-RCT_EXPORT_METHOD(setJSMaterials:(NSDictionary *)materialsDict)
-{
-    self.materials = materialsDict;
-    [self loadMaterials];
+// Invoked each time a new JS file with materials is loaded. Add the
+// materials found to our self.materials array, and load the materials
+// for the renderer. We add to self.materials so that we can reload all
+// materials at once if we move to a new EGL context
+RCT_EXPORT_METHOD(setJSMaterials:(NSDictionary *)materials) {
+    [self.materials addEntriesFromDictionary:materials];
+    if (_eglContextLoaded) {
+        [self loadMaterials:materials];
+    }
 }
 
-- (dispatch_queue_t)methodQueue
-{
+- (dispatch_queue_t)methodQueue {
     return dispatch_get_main_queue();
 }
 
-- (instancetype)init
-{
+- (instancetype)init {
     self = [super init];
-    _imageDictionary = [[NSMutableDictionary alloc] init];
-    _materialDictionary = [[NSMutableDictionary alloc] init];
+    if (self) {
+        _materials = [[NSMutableDictionary alloc] init];
+        _imageDictionary = [[NSMutableDictionary alloc] init];
+        _materialDictionary = [[NSMutableDictionary alloc] init];
+        _eglContextLoaded = NO;
+    }
     return self;
 }
 
-// Load material images on the main thread, blocking main thread for now.
-- (void)loadMaterials {
-    for(id key in self.materials) {
-        NSDictionary *dictionary = [self.materials objectForKey:key];
+// Reload all materials; typically used when EGL context switches
+- (void)reloadMaterials {
+    _eglContextLoaded = YES;
+    [_materialDictionary removeAllObjects];
+    [self loadMaterials:self.materials];
+}
+
+- (void)loadMaterials:(NSDictionary *)materials {
+    for (id key in materials) {
+        NSDictionary *dictionary = [materials objectForKey:key];
         MaterialWrapper *materialWrapper = [self createMaterial:dictionary];
         [_materialDictionary setObject:materialWrapper forKey:key];
     }

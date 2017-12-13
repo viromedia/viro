@@ -20,9 +20,9 @@
 - (std::shared_ptr<VROTexture>)createTextureCubeMap:(NSDictionary *)cubeMapDict;
 - (std::shared_ptr<VROTexture>)createTexture2D:(id)json sRGB:(BOOL)sRGB;
 
-@property (nonatomic, copy) NSDictionary<NSString *, NSDictionary *> *materials;
+@property (nonatomic, copy) NSMutableDictionary<NSString *, NSDictionary *> *materials;
 
-- (void)loadMaterials;
+- (void)reloadMaterials;
 - (std::shared_ptr<VROMaterial>)getMaterialByName:(NSString *)name;
 - (NSDictionary *)getVideoTexturesForMaterialName:(NSString *)name;
 
