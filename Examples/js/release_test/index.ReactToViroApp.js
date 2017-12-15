@@ -85,7 +85,7 @@ class MainVR extends Component {
         <View style={ MobileStyles.vrContainer }>
             <ViroSceneNavigator
                 style={ MobileStyles.button }
-                apiKey="7EEDCB99-2C3B-4681-AE17-17BC165BF792"
+                apiKey="API KEY GOES HERE"
                 initialScene={{
                     scene: require('./js/release_test/ViroVideoTest.js'),
                     passProps:{...this.props}}} />
