@@ -90,9 +90,7 @@ RCT_EXPORT_MODULE()
 // materials at once if we move to a new EGL context
 RCT_EXPORT_METHOD(setJSMaterials:(NSDictionary *)materials) {
     [self.materials addEntriesFromDictionary:materials];
-    if (_eglContextLoaded) {
-        [self loadMaterials:materials];
-    }
+    [self loadMaterials:materials];
 }
 
 - (dispatch_queue_t)methodQueue {
