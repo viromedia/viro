@@ -23,6 +23,8 @@ platform :android do
   end
   desc "Build renderer"
   lane :renderer_aar do
+    ensure_git_status_clean
+    git_pull
     Dir.chdir("../../../../ViroRenderer/android/") do
       sh("fastlane release_renderer_react_lib")
     end

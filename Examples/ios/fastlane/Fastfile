@@ -24,6 +24,8 @@ platform :ios do
 
   desc "Build react, ViroReact frameworks"
   lane :release_react_viro_lib do
+    ensure_git_status_clean
+    git_pull
     Dir.chdir("../../../../ViroRenderer/ios/fastlane") do
       release_virokit_framework
     end

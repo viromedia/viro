@@ -20,6 +20,8 @@ import "../../../ViroRenderer/android/fastlane/Fastfile"
 platform :android do
   before_all do
     # ENV["SLACK_URL"] = "https://hooks.slack.com/services/..."
+    ensure_git_status_clean
+    git_pull
   end
 
   desc "Remove current renderer aar, Build renderer, build bridge library aar"
