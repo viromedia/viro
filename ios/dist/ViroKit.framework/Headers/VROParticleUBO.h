@@ -72,18 +72,13 @@ public:
     VROBoundingBox getInstancedBoundingBox();
     
 private:
-    /*
-     Tracks the current number of allocated VROParticleUBO instances, so as to
-     properly handle the allocation of uniform buffer resources.
-     */
-    static int sInstances;
 
     /*
      Buffer IDs representing the Uniform Buffer objects that were generated for this
      UBO.
      */
-    static GLuint sUBOVertexBufferID;
-    static GLuint sUBOFragmentBufferID;
+    GLuint _particleVertexUBO;
+    GLuint _particleFragmentUBO;
 
     /*
      The driver that created this UBO.
