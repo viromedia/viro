@@ -23,7 +23,7 @@ import {
   ViroARSceneNavigator
 } from 'react-viro';
 
-var InitialVRScene = require('./js/release_test/ViroSoundTest');
+var InitialVRScene = require('./js/release_test/ViroSkyBoxTest');
 var InitialARScene = require('./js/AR/release_test/ARSceneAndNavigatorTest');
 
 var UNSET = "UNSET";

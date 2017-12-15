@@ -56,10 +56,12 @@ public class VRTSurface extends VRTControl {
 
     @Override
     public void setMaterials(List<Material> materials) {
-        for (Material material : materials) {
-            material.setShadowMode(mARShadowReceiver ? Material.ShadowMode.TRANSPARENT : Material.ShadowMode.NORMAL);
+        if (materials != null) {
+            for (Material material : materials) {
+                material.setShadowMode(mARShadowReceiver ? Material.ShadowMode.TRANSPARENT : Material.ShadowMode.NORMAL);
+            }
+            super.setMaterials(materials);
         }
-        super.setMaterials(materials);
     }
 
     @Override
