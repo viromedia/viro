@@ -7,13 +7,15 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import {
   AppRegistry,
     StyleSheet,
     Text,
     View,
     Navigator,
-    TouchableHighlight
+    TouchableHighlight,
+    NavigatorIOS,
 } from 'react-native';
 
 import {
@@ -22,30 +24,11 @@ import {
 
 var createReactClass = require('create-react-class');
 
-var ViroSample = createReactClass({
-  render() {
-    return (
-      <Navigator
-      	style={{ flex:1 }}
-        initialRoute={{ id: 'Main' }}
-        renderScene={ this.renderScene } />
-    );
-  },
-
-  renderScene(route, navigator) {
-      switch (route.id) {
-        case 'Main':
-          return (<Main navigator={navigator} {...route.passProps} title="Main" />);
-        case 'Main2':
-                  return (<Main2 navigator={navigator} {...route.passProps} title="Main2" />);
-
-        case 'MainVR':
-          return (<MainVR navigator={navigator} {...route.passProps} title="MainVR" />);
-      }
+class MyScene extends Component {
+  static propTypes = {
+    title: PropTypes.string.isRequired,
+    navigator: PropTypes.object.isRequired,
   }
-});
-
-var Main = createReactClass({
     render() {
         return (
           <View style={ MobileStyles.container }>
@@ -56,18 +39,17 @@ var Main = createReactClass({
             </TouchableHighlight>
           </View>
         );
-    },
+    }
 
     _navigate(){
-        this.props.navigator.push({ id: 'Main2',
-              passProps: {
-                name: "Test"
-              }
-            });
+      this.props.navigator.push({
+          component: MySceneTwo,
+          title: 'Bar That',
+        });
     }
-});
+}
 
-var Main2 = createReactClass({
+class MySceneTwo extends Component {
     render() {
         return (
           <View style={ MobileStyles.container }>
@@ -82,28 +64,28 @@ var Main2 = createReactClass({
             </TouchableHighlight>
           </View>
         );
-    },
+    }
 
     _navigate(){
-        this.props.navigator.push({ id: 'MainVR',
-              passProps: {
-                name: "Test123"
-              }
-            });
-    },
+      this.props.navigator.push({
+          component: MainVR,
+          title: 'Bar That',
+        });
+    }
+
     _navigateBack(){
         this.props.navigator.pop();
     }
-});
+};
 
-var MainVR = createReactClass({
+class MainVR extends Component {
     render() {
         console.log("Daniel MainVR props passed: " + this.props.name);
         return (
         <View style={ MobileStyles.vrContainer }>
             <ViroSceneNavigator
                 style={ MobileStyles.button }
-                apiKey="ANDROID_DOESNT_YET_NEED_A_KEY"
+                apiKey="7EEDCB99-2C3B-4681-AE17-17BC165BF792"
                 initialScene={{
                     scene: require('./js/release_test/ViroVideoTest.js'),
                     passProps:{...this.props}}} />
@@ -113,17 +95,42 @@ var MainVR = createReactClass({
                 </TouchableHighlight>
         </View>
         );
-    },
+    }
 
     _navigate(){
-            this.props.navigator.pop();
-        }
-});
+        this.props.navigator.pop();
+    }
+};
+
+export default class ViroSample extends Component {
+  render() {
+    return (
+      <NavigatorIOS
+        initialRoute={{
+          component: MyScene,
+          title: 'My Initial Scene',
+        }}
+        style={{flex: 1}}
+      />
+    )
+  }
+
+  renderScene(route, navigator) {
+      switch (route.id) {
+        case 'Main':
+          return (<Main navigator={navigator} {...route.passProps} title="Main" />);
+        case 'Main2':
+                  return (<Main2 navigator={navigator} {...route.passProps} title="Main2" />);
+
+        case 'MainVR':
+          return (<MainVR navigator={navigator} {...route.passProps} title="MainVR" />);
+      }
+  }
+}
 
 var MobileStyles = StyleSheet.create({
   vrContainer:{
-      height:200,
-      width:200
+      flex:1,
   },
   container: {
     flex: 1,
