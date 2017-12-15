@@ -10,6 +10,8 @@
 #include "RCTBundleURLProvider.h"
 #include "VRTBundleURLProvider.h"
 #include "RCTRootView.h"
+#import <Fabric/Fabric.h>
+#import <Crashlytics/Crashlytics.h>
 
 @interface AppDelegate ()
 
@@ -48,7 +50,7 @@
         self.window.rootViewController = rootViewController;
         [self.window makeKeyAndVisible];
     }
-
+    [Fabric with:@[[Crashlytics class]]];
     return YES;
 }
 

@@ -1,2 +1,4 @@
 target 'ViroExample' do
+ pod 'Fabric'
+ pod 'Crashlytics'
 end

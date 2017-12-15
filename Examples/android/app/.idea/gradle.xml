@@ -9,9 +9,11 @@
           <set>
             <option value="$PROJECT_DIR$/.." />
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/../gvr_common" />
-            <option value="$PROJECT_DIR$/../viro_bridge" />
-            <option value="$PROJECT_DIR$/../viro_renderer" />
+            <option value="$PROJECT_DIR$/../../node_modules/react-native-config/android" />
+            <option value="$PROJECT_DIR$/../../../android/arcore_client" />
+            <option value="$PROJECT_DIR$/../../../android/gvr_common" />
+            <option value="$PROJECT_DIR$/../../../android/viro_bridge" />
+            <option value="$PROJECT_DIR$/../../../android/viro_renderer" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
