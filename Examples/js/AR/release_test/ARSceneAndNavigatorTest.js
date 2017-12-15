@@ -140,7 +140,7 @@ var testARScene = createReactClass({
       return (
         <ViroVideo position={[0,-.6,-1.5]}
         scale={[.5, .5, 1]}
-        onClick={()=>{this._resetVideo}}
+        onClick={this._resetVideo}
         source={{"uri" : "file://" + this.state.video}}
         ref={component=>{this._video = component}}
         transformBehaviors={["billboard"]}/>)
