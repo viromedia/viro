@@ -23,7 +23,7 @@ import {
   ViroARSceneNavigator
 } from 'react-viro';
 
-var InitialVRScene = require('./js/release_test/ViroAnimatedComponentTest');
+var InitialVRScene = require('./js/release_test/ViroSkyBoxTest');
 var InitialARScene = require('./js/AR/release_test/ARSceneAndNavigatorTest');
 
 var UNSET = "UNSET";
@@ -98,7 +98,7 @@ export default class ViroExperienceSelector extends Component {
           {...this.state.sharedProps}
           initialScene={{scene: InitialARScene}} />
 
-        <View style={localStyles.exitContainer}>
+        <View style={{position: 'absolute',  left: 0, right: 0, bottom: 20, alignItems: 'center'}}>
           <TouchableHighlight style={localStyles.exitButton}
             onPress={()=>{this.setState({navigatorType : UNSET, vrMode : UNSET})}}
             underlayColor={'#00000000'} >
@@ -117,7 +117,7 @@ export default class ViroExperienceSelector extends Component {
           vrModeEnabled={this.state.vrMode}
           onExitViro={()=>{this.setState({navigatorType : UNSET, vrMode : UNSET})}}/>
 
-        <View style={localStyles.exitContainer}>
+        <View style={{position: 'absolute',  left: 0, right: 0, bottom: 20, alignItems: 'center'}}>
           <TouchableHighlight style={localStyles.exitButton}
             onPress={()=>{this.setState({navigatorType : UNSET, vrMode : UNSET})}}
             underlayColor={'#00000000'} >
@@ -154,7 +154,6 @@ var localStyles = StyleSheet.create({
   viroContainer : {
     flex : 1,
     backgroundColor: "black",
-    alignItems : 'center'
   },
   outer : {
     flex : 1,
@@ -203,12 +202,6 @@ var localStyles = StyleSheet.create({
     borderRadius: 10,
     borderWidth: 1,
     borderColor: '#fff',
-  },
-  exitContainer : {
-    position: 'absolute',
-    bottom: 20,
-    alignItems: 'center',
-    width: 100,
   },
   exitButton : {
     height: 50,
