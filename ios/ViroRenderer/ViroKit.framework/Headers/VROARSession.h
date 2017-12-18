@@ -42,17 +42,31 @@ enum class VROAnchorDetection {
 };
 
 /*
+ The world alignment chosen at the start of the AR Session.
+ */
+enum class VROWorldAlignment {
+    Gravity,
+    GravityAndHeading,
+    Camera
+};
+
+/*
  Manages the device camera and motion tracking for AR.
  */
 class VROARSession {
 public:
     
-    VROARSession(VROTrackingType trackingType) :
-        _trackingType(trackingType) {}
+    VROARSession(VROTrackingType trackingType, VROWorldAlignment worldAlignment) :
+        _trackingType(trackingType),
+        _worldAlignment(worldAlignment) {}
     virtual ~VROARSession() {}
     
     VROTrackingType getTrackingType() const {
         return _trackingType;
+    }
+
+    VROWorldAlignment getWorldAlignment() const {
+        return _worldAlignment;
     }
     
     /*
@@ -145,6 +159,7 @@ public:
 private:
     
     VROTrackingType _trackingType;
+    VROWorldAlignment _worldAlignment;
     std::shared_ptr<VROScene> _scene;
     std::weak_ptr<VROARSessionDelegate> _delegate;
 
