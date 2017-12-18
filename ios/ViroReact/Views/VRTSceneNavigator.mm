@@ -27,52 +27,73 @@ static NSString *const kVRTInvalidAPIKeyMessage = @"The given API Key is either 
 @implementation VRTSceneNavigator {
     id <VROView> _vroView;
     VROViewControllerGVR *_gvrController;
-    NSInteger _currentStackPosition;
+    NSString *_apiKey;
 }
 
 - (instancetype)initWithBridge:(RCTBridge *)bridge {
     self = [super initWithBridge:bridge];
     if (self) {
-        _gvrController = [[VROViewControllerGVR alloc] init];
-        _vroView = (id<VROView>) _gvrController.view;
         
-        // Load materials; must be done each time we have a new context (e.g. after
-        // the EGL context is created by the VROViewGVR
-        VRTMaterialManager *materialManager = [bridge materialManager];
-        [materialManager reloadMaterials];
-        
-        VROViewGVR *viewCardboard = (VROViewGVR *) _gvrController.view;
-        [viewCardboard setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
-        _vroView.renderDelegate = self;
-        
-        [self setFrame:[UIScreen mainScreen].bounds];
-        [self setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
-        
-        [self addSubview:viewCardboard];
-        self.currentViews = [[NSMutableArray alloc] init];
-        _currentStackPosition = -1;
-        
-        [bridge.perfMonitor setView:_vroView];
     }
     return self;
 }
 
-- (void)setVrModeEnabled:(BOOL)enabled{
+/*
+ We defer creating the VR view until either the Scene is added or
+ VR mode is set. This way we're able to disable VR mode prior to creating
+ the view, which is important because if VR mode is enabled we force
+ landscape mode, and if VR mode is not we do not.
+ 
+ Ideally we'd be able to set VR mode after the fact, but GVR bugs prevent
+ this (the double-viewport issue).
+ */
+- (void)initVRView {
+    if (_vroView != nil) {
+        return;
+    }
+    _gvrController = [[VROViewControllerGVR alloc] init];
+    _gvrController.forceLandscape = _vrModeEnabled;
+    _vroView = (id<VROView>) _gvrController.view;
+    
+    // Load materials; must be done each time we have a new context (e.g. after
+    // the EGL context is created by the VROViewGVR
+    VRTMaterialManager *materialManager = [self.bridge materialManager];
+    [materialManager reloadMaterials];
+    
+    VROViewGVR *viewCardboard = (VROViewGVR *) _gvrController.view;
+    [viewCardboard setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
+    _vroView.renderDelegate = self;
+    
+    [self setFrame:[UIScreen mainScreen].bounds];
+    [self setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
+    
+    [self addSubview:viewCardboard];
+    self.currentViews = [[NSMutableArray alloc] init];
+    [self.bridge.perfMonitor setView:_vroView];
+    
+    [self validateAPIKey];
+}
+
+- (void)setVrModeEnabled:(BOOL)enabled {
     _vrModeEnabled = enabled;
+    [self initVRView];
     [_vroView setVrMode:_vrModeEnabled];
 }
 
 - (void)recenterTracking {
+    [self initVRView];
     VROViewGVR *cardboardView = _vroView;
     [cardboardView recenterTracking];
 }
 
 - (UIView *)rootVROView {
+    [self initVRView];
     return (UIView *)_vroView;
 }
 
 //VROComponent overrides...
 - (void)insertReactSubview:(UIView *)subview atIndex:(NSInteger)atIndex {
+    [self initVRView];
     RCTAssert([subview isKindOfClass:[VRTScene class]], @"VRTSceneNavigator only accepts VRTScene subviews");
     VRTScene *sceneView = (VRTScene *)subview;
     
@@ -143,7 +164,11 @@ static NSString *const kVRTInvalidAPIKeyMessage = @"The given API Key is either 
     _currentScene = sceneView;
 }
 
-- (void)setApiKey:(NSString *)apiKey {
+- (void)validateAPIKey {
+    // Only validate if we have an API key and our view has been created
+    if (!_apiKey || !_vroView) {
+        return;
+    }
     VROViewValidApiKeyBlock completionBlock = ^(BOOL valid) {
         if (!valid) {
             RCTLogError(kVRTInvalidAPIKeyMessage);
@@ -151,7 +176,12 @@ static NSString *const kVRTInvalidAPIKeyMessage = @"The given API Key is either 
             [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:kVRTApiKeyIsInvalid object:nil]];
         }
     };
-    [_vroView validateApiKey:apiKey withCompletionBlock:completionBlock];
+    [_vroView validateApiKey:_apiKey withCompletionBlock:completionBlock];
+}
+
+- (void)setApiKey:(NSString *)apiKey {
+    _apiKey = apiKey;
+    [self validateAPIKey];
 }
 
 - (void)removeFromSuperview {
