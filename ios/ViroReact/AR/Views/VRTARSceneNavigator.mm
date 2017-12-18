@@ -75,6 +75,15 @@ static NSString *const kVRTInvalidAPIKeyMessage = @"The given API Key is either 
         [self addSubview:(UIView *)_vroView];
 
         [_bridge.perfMonitor setView:_vroView];
+
+        // reset the API key now that _vroView has been created.
+        [self setApiKey:_apiKey];
+
+        // set the scene if it was set before this view was created (not likely)
+        if (_currentScene) {
+            [_vroView setSceneController:[_currentScene sceneController]];
+        }
+
     }
 }
 
@@ -156,24 +165,30 @@ static NSString *const kVRTInvalidAPIKeyMessage = @"The given API Key is either 
     if (_currentScene == sceneView) {
         return;
     }
-    
-    if (_currentScene == nil) {
-        [_vroView setSceneController:[sceneView sceneController]];
-    } else {
-        [_vroView setSceneController:[sceneView sceneController] duration:1 timingFunction:VROTimingFunctionType::EaseIn];
+
+    if (_vroView) {
+        if (_currentScene == nil) {
+            [_vroView setSceneController:[sceneView sceneController]];
+        } else {
+            [_vroView setSceneController:[sceneView sceneController] duration:1 timingFunction:VROTimingFunctionType::EaseIn];
+        }
     }
+
     _currentScene = sceneView;
 }
 
 - (void)setApiKey:(NSString *)apiKey {
-    VROViewValidApiKeyBlock completionBlock = ^(BOOL valid) {
-        if (!valid) {
-            RCTLogError(kVRTInvalidAPIKeyMessage);
-            // fire off a notification to let the user know that the API key is invalid.
-            [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:kVRTApiKeyIsInvalid object:nil]];
-        }
-    };
-    [_vroView validateApiKey:apiKey withCompletionBlock:completionBlock];
+    _apiKey = apiKey;
+    if (_vroView) {
+        VROViewValidApiKeyBlock completionBlock = ^(BOOL valid) {
+            if (!valid) {
+                RCTLogError(kVRTInvalidAPIKeyMessage);
+                // fire off a notification to let the user know that the API key is invalid.
+                [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:kVRTApiKeyIsInvalid object:nil]];
+            }
+        };
+        [_vroView validateApiKey:apiKey withCompletionBlock:completionBlock];
+    }
 }
 
 - (void)removeFromSuperview{
