@@ -8,6 +8,7 @@ import com.facebook.react.bridge.ReactApplicationContext;
 import com.viro.core.Material;
 import com.viro.core.Surface;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class VRTSurface extends VRTControl {
@@ -56,11 +57,23 @@ public class VRTSurface extends VRTControl {
 
     @Override
     public void setMaterials(List<Material> materials) {
+        /*
+         Override to set the shadow mode in the materials.
+         */
         if (materials != null) {
             for (Material material : materials) {
                 material.setShadowMode(mARShadowReceiver ? Material.ShadowMode.TRANSPARENT : Material.ShadowMode.NORMAL);
             }
             super.setMaterials(materials);
+        }
+        /*
+         If no material was assigned to this surface, then set a default material with the correct
+         shadow mode.
+         */
+        else if (mNativeSurface.getMaterials() == null) {
+            Material material = new Material();
+            material.setShadowMode(mARShadowReceiver ? Material.ShadowMode.TRANSPARENT : Material.ShadowMode.NORMAL);
+            mNativeSurface.setMaterials(Arrays.asList(material));
         }
     }
 

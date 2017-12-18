@@ -120,7 +120,7 @@ public class VRTNode extends VRTComponent {
     protected boolean mHighAccuracyGazeEnabled = false;
 
     protected int mLightReceivingBitMask;
-    protected int mSetShadowCastingBitMask;
+    protected int mShadowCastingBitMask;
 
     protected List<Material> mMaterials;
     protected EventDelegate mEventDelegateJni;
@@ -520,7 +520,7 @@ public class VRTNode extends VRTComponent {
         if (isTornDown()) {
             return;
         }
-        mSetShadowCastingBitMask = bitMask;
+        mShadowCastingBitMask = bitMask;
         mNodeJni.setShadowCastingBitMask(bitMask);
     }
 

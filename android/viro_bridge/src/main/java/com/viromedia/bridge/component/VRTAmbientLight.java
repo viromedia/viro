@@ -40,7 +40,6 @@ public class VRTAmbientLight extends VRTLight {
         super.onPropsSet();
 
         if (mNativeLight == null) {
-
             mNativeLight = new AmbientLight(mColor, mIntensity);
         } else {
             mNativeLight.setColor(mColor);
