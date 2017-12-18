@@ -47,6 +47,7 @@ var ViroARSceneNavigator = createReactClass({
           */
         scene: PropTypes.func.isRequired,
       }).isRequired,
+      worldAlignment:PropTypes.oneOf(['Gravity', 'GravityAndHeading', 'Camera']),
   },
 
   arSceneNavigator: (undefined: ?Object),

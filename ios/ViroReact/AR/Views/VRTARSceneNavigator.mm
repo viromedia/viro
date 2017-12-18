@@ -22,36 +22,60 @@ static NSString *const kVRTInvalidAPIKeyMessage = @"The given API Key is either 
 @implementation VRTARSceneNavigator {
     id <VROView> _vroView;
     NSInteger _currentStackPosition;
+    RCTBridge *_bridge;
 }
 
 - (instancetype)initWithBridge:(RCTBridge *)bridge {
     self = [super initWithBridge:bridge];
     if (self) {
-        EAGLContext *context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES3];
-        
-        _vroView = [[VROViewAR alloc] initWithFrame:CGRectMake(0, 0,
-                                                               [[UIScreen mainScreen] bounds].size.width,
-                                                               [[UIScreen mainScreen] bounds].size.height) context:context];
-        
         // Load materials; must be done each time we have a new context (e.g. after
         // the EGL context is created by the VROViewAR
         VRTMaterialManager *materialManager = [bridge materialManager];
         [materialManager reloadMaterials];
         
+        [self setFrame:CGRectMake(0, 0,
+                                  [[UIScreen mainScreen] bounds].size.width,
+                                  [[UIScreen mainScreen] bounds].size.height)];
+        self.currentViews = [[NSMutableArray alloc] init];
+        _currentStackPosition = -1;
+
+        _bridge = bridge;
+    }
+    return self;
+}
+
+- (void)didSetProps:(NSArray<NSString *> *)changedProps {
+    // if we haven't created the VROView, then create it now that
+    // all the props have been set.
+    if (!_vroView) {
+        
+        VROWorldAlignment worldAlignment = VROWorldAlignment::Gravity;
+        if (_worldAlignment) {
+            if ([_worldAlignment caseInsensitiveCompare:@"Gravity"] == NSOrderedSame) {
+                worldAlignment = VROWorldAlignment::Gravity;
+            } else if ([_worldAlignment caseInsensitiveCompare:@"GravityAndHeading"] == NSOrderedSame) {
+                worldAlignment = VROWorldAlignment::GravityAndHeading;
+            } else if ([_worldAlignment caseInsensitiveCompare:@"Camera"] == NSOrderedSame) {
+                worldAlignment = VROWorldAlignment::Camera;
+            }
+        }
+        
+        EAGLContext *context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES3];
+
+        _vroView = [[VROViewAR alloc] initWithFrame:CGRectMake(0, 0,
+                                                               [[UIScreen mainScreen] bounds].size.width,
+                                                               [[UIScreen mainScreen] bounds].size.height)
+                                            context:context
+                                     worldAlignment:worldAlignment];
+
         VROViewAR *viewAR = (VROViewAR *) _vroView;
         [viewAR setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
         _vroView.renderDelegate = self;
         
-        [self setFrame:CGRectMake(0, 0,
-                                  [[UIScreen mainScreen] bounds].size.width,
-                                  [[UIScreen mainScreen] bounds].size.height)];
         [self addSubview:(UIView *)_vroView];
-        self.currentViews = [[NSMutableArray alloc] init];
-        _currentStackPosition = -1;
-        
-        [bridge.perfMonitor setView:_vroView];
+
+        [_bridge.perfMonitor setView:_vroView];
     }
-    return self;
 }
 
 - (UIView *)rootVROView {

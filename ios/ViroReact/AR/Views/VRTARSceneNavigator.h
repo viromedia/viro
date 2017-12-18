@@ -19,6 +19,7 @@
 @property (nonatomic, readwrite, strong) NSMutableArray<VRTScene *> *currentViews;
 @property (readwrite, nonatomic) VRTScene *currentScene;
 @property (nonatomic, copy) NSString *apiKey;
+@property (nonatomic, copy) NSString *worldAlignment;
 @property (nonatomic, copy, nullable) RCTDirectEventBlock onExitViro;
 
 - (instancetype)initWithBridge:(RCTBridge *)bridge;

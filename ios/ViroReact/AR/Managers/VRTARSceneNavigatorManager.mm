@@ -17,6 +17,7 @@ RCT_EXPORT_MODULE()
 
 RCT_EXPORT_VIEW_PROPERTY(currentSceneIndex, NSInteger)
 RCT_EXPORT_VIEW_PROPERTY(apiKey, NSString)
+RCT_EXPORT_VIEW_PROPERTY(worldAlignment, NSString)
 
 - (VRTARSceneNavigator *)view
 {

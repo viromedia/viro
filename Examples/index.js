@@ -41,7 +41,8 @@ export default class ViroExperienceSelector extends Component {
     this.state = {
       navigatorType : Config.VR_PLATFORM == "OVR_MOBILE" ? VR_NAVIGATOR_TYPE : UNSET,
       sharedProps : sharedProps,
-      vrMode : Config.FLAVOR == "ovr" ? true : UNSET
+      vrMode : Config.FLAVOR == "ovr" ? true : UNSET,
+      worldAlignment : UNSET,
     }
     this._getSelectionButtons = this._getSelectionButtons.bind(this);
     this._getARNavigator = this._getARNavigator.bind(this);
@@ -58,7 +59,11 @@ export default class ViroExperienceSelector extends Component {
         return this._getVRNavigator();
       }
     } else if (this.state.navigatorType == AR_NAVIGATOR_TYPE) {
-      return this._getARNavigator();
+      if (this.state.worldAlignment == UNSET) {
+        return this._getSelectionButtons();
+      } else {
+        return this._getARNavigator();
+      }
     }
   }
   _getSelectionButtons() {
@@ -67,7 +72,7 @@ export default class ViroExperienceSelector extends Component {
         <View style={localStyles.inner} >
 
           <Text style={localStyles.titleText}>
-            {this.state.navigatorType == UNSET ? "Choose your desired experience:" : "VR Mode or 360?"}
+            {this._getTitleText()}
           </Text>
 
           <TouchableHighlight style={this.state.navigatorType == UNSET ? localStyles.buttons : localStyles.vrModeButtons}
@@ -75,7 +80,7 @@ export default class ViroExperienceSelector extends Component {
             underlayColor={'#68a0ff'} >
 
             <Text style={localStyles.buttonText}>
-              {this.state.navigatorType == UNSET ? "AR" : "VR"}
+              {this._getButtonText(1)}
             </Text>
           </TouchableHighlight>
 
@@ -84,23 +89,46 @@ export default class ViroExperienceSelector extends Component {
             underlayColor={'#68a0ff'} >
 
             <Text style={localStyles.buttonText}>
-              {this.state.navigatorType == UNSET ? "VR" : "360"}
+              {this._getButtonText(2)}
             </Text>
           </TouchableHighlight>
         </View>
       </View>
     );
   }
+  _getTitleText() {
+    if (this.state.navigatorType == UNSET) {
+      return "Choose your desired experience:"
+    } else {
+      if (this.state.navigatorType == VR_NAVIGATOR_TYPE) {
+        return "VR Mode or 360?"
+      } else {
+        return "World Alignment? (No effect on Android)"
+      }
+    }
+  }
+  _getButtonText(buttonNum) {
+    if (this.state.navigatorType == UNSET) {
+      return (buttonNum == 1 ? "AR" : "VR");
+    } else {
+      if (this.state.navigatorType == VR_NAVIGATOR_TYPE) {
+        return (buttonNum == 1 ? "VR" : "360")
+      } else {
+        return (buttonNum == 1 ? "Gravity" : "Heading");
+      }
+    }
+  }
   _getARNavigator() {
     return (
       <View style={localStyles.viroContainer} >
         <ViroARSceneNavigator
           {...this.state.sharedProps}
-          initialScene={{scene: InitialARScene}} />
+          initialScene={{scene: InitialARScene}}
+          worldAlignment={this.state.worldAlignment} />
 
         <View style={{position: 'absolute',  left: 0, right: 0, bottom: 20, alignItems: 'center'}}>
           <TouchableHighlight style={localStyles.exitButton}
-            onPress={()=>{this.setState({navigatorType : UNSET, vrMode : UNSET})}}
+            onPress={()=>{this.setState({navigatorType : UNSET, vrMode : UNSET, worldAlignment : UNSET})}}
             underlayColor={'#00000000'} >
             <Text style={localStyles.buttonText}>Exit</Text>
           </TouchableHighlight>
@@ -132,13 +160,15 @@ export default class ViroExperienceSelector extends Component {
       if (this.state.navigatorType == UNSET) {
         return ()=>{this.setState({navigatorType : AR_NAVIGATOR_TYPE})}
       } else {
-        return ()=>{this.setState({vrMode : true})}
+        // It doesn't matter that we're changing 2 states because AR uses one and VR uses the other
+        // and both get reset upon "exit".
+        return ()=>{this.setState({vrMode : true, worldAlignment : "Gravity"})}
       }
     } else {
       if (this.state.navigatorType == UNSET) {
         return ()=>{this.setState({navigatorType : VR_NAVIGATOR_TYPE})}
       } else {
-        return ()=>{this.setState({vrMode : false})}
+        return ()=>{this.setState({vrMode : false, worldAlignment : "GravityAndHeading"})}
       }
     }
 
