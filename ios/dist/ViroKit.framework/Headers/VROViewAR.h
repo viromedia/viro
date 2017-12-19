@@ -21,6 +21,10 @@ class VROARSessionDelegate;
 
 @property (readwrite, nonatomic) BOOL suspended;
 
+- (instancetype)initWithFrame:(CGRect)frame
+                      context:(EAGLContext *)context
+               worldAlignment:(VROWorldAlignment)worldAlignment;
+
 - (void)setARSessionDelegate:(std::shared_ptr<VROARSessionDelegate>)delegate;
 
 /*

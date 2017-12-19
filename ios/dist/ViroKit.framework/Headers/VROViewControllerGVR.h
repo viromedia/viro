@@ -10,4 +10,10 @@
 
 @interface VROViewControllerGVR : UIViewController
 
+/*
+ Set this to true to force the view into landscape mode
+ when it appears.
+ */
+@property (readwrite, nonatomic) BOOL forceLandscape;
+
 @end
