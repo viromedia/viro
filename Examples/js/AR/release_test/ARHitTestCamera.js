@@ -136,12 +136,14 @@ var ARHitTestCamera = createReactClass({
             position={[0, .01, 0]}
             source={objSourcePlane}
             type = "VRX" visible={this.state.displayOnPlane}
+            resources = {[require('./res/tracking_diffuse.png')]}
           />
 
         <Viro3DObject
             position={[0, .01, 0]}
             source={objSourceNoPlaneFound}
             type = "VRX" visible={this.state.displayNothingFound}
+            resources = {[require('./res/tracking_diffuse_2.png')]}
           />
       </ViroNode>
     );
