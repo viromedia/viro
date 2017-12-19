@@ -28,6 +28,10 @@ platform :android do
     Dir.chdir("../../../../ViroRenderer/android/") do
       sh("fastlane release_renderer_react_lib")
     end
+    changelog_from_git_commits(commits_count: 5,
+                   pretty: "- (%ae) %s",
+                   date_format: "short",
+                   merge_commit_filtering: "exclude_merges")
   end 
 
   desc "Build GVR release tests"
