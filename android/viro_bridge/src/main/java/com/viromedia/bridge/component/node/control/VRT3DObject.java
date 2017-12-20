@@ -145,13 +145,16 @@ public class VRT3DObject extends VRTControl {
                 if (isTornDown()) {
                     return;
                 }
-                //object.transferToNode(getNodeJni());
                 mObjLoaded = true;
-
                 if (mMaterials != null) {
                     // set materials on the node after it's finished loading
                     setMaterials(mMaterials);
                 }
+
+                // Set the bitmasks recursively now that the tree is loaded
+                object.setLightReceivingBitMask(mLightReceivingBitMask);
+                object.setShadowCastingBitMask(mShadowCastingBitMask);
+
                 updateAnimation();
                 loadDidEnd();
             }
