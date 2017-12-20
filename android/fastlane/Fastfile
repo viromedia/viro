@@ -20,12 +20,13 @@ import "../../../ViroRenderer/android/fastlane/Fastfile"
 platform :android do
   before_all do
     # ENV["SLACK_URL"] = "https://hooks.slack.com/services/..."
-    ensure_git_status_clean
-    git_pull
   end
 
   desc "Remove current renderer aar, Build renderer, build bridge library aar"
   lane :release_react_bridge do
+    ensure_git_status_clean
+    git_pull
+    gradle(task:"clean")
     gradle(project_dir:"../../ViroRenderer/android/", task:"assembleViro_reactRelease")
     gradle(task: "viro_bridge:assemble")
     sh("cp ../viro_bridge/build/outputs/aar/viro_bridge-release.aar ../react_viro/react_viro-release.aar")
