@@ -66,3 +66,6 @@ react-viro*.tgz
 android/fastlane/report.xml
 android/fastlane/README.md
 Examples/ios/fastlane/report.xml
+Examples/ios/fastlane/README.md
+Examples/android/fastlane/report.xml
+Examples/android/fastlane/report.xml
