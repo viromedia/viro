@@ -126,7 +126,7 @@ export default class ViroExperienceSelector extends Component {
           initialScene={{scene: InitialARScene}}
           worldAlignment={this.state.worldAlignment} />
 
-        <View style={{position: 'absolute',  left: 0, right: 0, bottom: 20, alignItems: 'center'}}>
+        <View style={localStyles.exitButtonContainer}>
           <TouchableHighlight style={localStyles.exitButton}
             onPress={()=>{this.setState({navigatorType : UNSET, vrMode : UNSET, worldAlignment : UNSET})}}
             underlayColor={'#00000000'} >
@@ -145,7 +145,7 @@ export default class ViroExperienceSelector extends Component {
           vrModeEnabled={this.state.vrMode}
           onExitViro={()=>{this.setState({navigatorType : UNSET, vrMode : UNSET})}}/>
 
-        <View style={{position: 'absolute',  left: 0, right: 0, bottom: 20, alignItems: 'center'}}>
+        <View style={localStyles.exitButtonContainer}>
           <TouchableHighlight style={localStyles.exitButton}
             onPress={()=>{this.setState({navigatorType : UNSET, vrMode : UNSET})}}
             underlayColor={'#00000000'} >
@@ -232,6 +232,12 @@ var localStyles = StyleSheet.create({
     borderRadius: 10,
     borderWidth: 1,
     borderColor: '#fff',
+  },
+  exitButtonContainer : {
+    position: 'absolute',
+    bottom: 20,
+    alignItems: 'center',
+    alignSelf : 'center'
   },
   exitButton : {
     height: 50,
