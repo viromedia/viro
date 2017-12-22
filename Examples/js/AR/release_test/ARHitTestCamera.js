@@ -38,9 +38,6 @@ var createReactClass = require('create-react-class');
 
 let polarToCartesian = ViroUtils.polarToCartesian;
 
-var objSourceNoPlaneFound = require('./res/tracking_1.vrx')
-var objSourcePlane = require('./res/tracking_2.vrx')
-
 var ARHitTestCamera = createReactClass({
   mixins: [TimerMixin],
   getInitialState: function() {
@@ -134,14 +131,14 @@ var ARHitTestCamera = createReactClass({
 
         <Viro3DObject
             position={[0, .01, 0]}
-            source={objSourcePlane}
+            source={require("./res/tracking_1.vrx")}
             type = "VRX" visible={this.state.displayOnPlane}
             resources = {[require('./res/tracking_diffuse.png')]}
           />
 
         <Viro3DObject
             position={[0, .01, 0]}
-            source={objSourceNoPlaneFound}
+            source={require("./res/tracking_2.vrx")}
             type = "VRX" visible={this.state.displayNothingFound}
             resources = {[require('./res/tracking_diffuse_2.png')]}
           />
