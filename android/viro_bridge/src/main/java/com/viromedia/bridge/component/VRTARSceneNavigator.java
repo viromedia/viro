@@ -42,4 +42,9 @@ public class VRTARSceneNavigator extends VRTSceneNavigator {
     public ViroViewARCore getARView() {
         return (ViroViewARCore) mViroView;
     }
+
+    public void resetARSession() {
+        ViroViewARCore arView = getARView();
+        // No-op for now.
+    }
 }

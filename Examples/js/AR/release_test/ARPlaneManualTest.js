@@ -49,7 +49,9 @@ var testARScene = createReactClass({
   },
   render: function() {
     return (
-      <ViroARScene onAnchorFound={this._onSceneAnchorFound} >
+      <ViroARScene onAnchorFound={this._onSceneAnchorFound}
+                   onAnchorUpdated={this._onSceneAnchorUpdated}
+                   onAnchorRemoved={this._onSceneAnchorRemoved}>
 
         {this._getPlanes()}
 
@@ -70,6 +72,20 @@ var testARScene = createReactClass({
           style={styles.instructionText} transformBehaviors={["billboard"]}
           ref={component=>{this._callbackText = component}}/>
 
+        <ViroText position={polarToCartesian([2, 90, 10])} text={"Reset Tracking!"} rotation={[0, 90, 0]}
+          style={styles.instructionText} transformBehaviors={["billboard"]} onClick={this._resetStuff(true, false)}/>
+        <ViroText position={polarToCartesian([2, 90, 0])} text={"Reset Anchors!"} rotation={[0, 90, 0]}
+          style={styles.instructionText} transformBehaviors={["billboard"]} onClick={this._resetStuff(false, true)}/>
+        <ViroText position={polarToCartesian([2, 90, -10])} text={"Reset All!"} rotation={[0, 90, 0]}
+          style={styles.instructionText} transformBehaviors={["billboard"]} onClick={this._resetStuff(true, true)}/>
+
+        <ViroText position={polarToCartesian([2, -90, 10])} text={"Reset Tracking!"} rotation={[0, -90, 0]}
+          style={styles.instructionText} transformBehaviors={["billboard"]} onClick={this._resetStuff(true, false)}/>
+        <ViroText position={polarToCartesian([2, -90, 0])} text={"Reset Anchors!"} rotation={[0, -90, 0]}
+          style={styles.instructionText} transformBehaviors={["billboard"]} onClick={this._resetStuff(false, true)}/>
+        <ViroText position={polarToCartesian([2, -90, -10])} text={"Reset All!"} rotation={[0, -90, 0]}
+          style={styles.instructionText} transformBehaviors={["billboard"]} onClick={this._resetStuff(true, true)}/>
+
         {/* Release Menu */}
         <ViroText position={polarToCartesian([2, -30, 0])} text={"Next test"}
           style={styles.instructionText} onClick={this._goToNextTest} transformBehaviors={["billboard"]}/>
@@ -78,6 +94,11 @@ var testARScene = createReactClass({
           transformBehaviors={["billboard"]}/>
       </ViroARScene>
     );
+  },
+  _resetStuff(resetTracking, removeAnchors) {
+    return () => {
+      this.props.arSceneNavigator.resetARSession(resetTracking, removeAnchors);
+    }
   },
   _getSecondPlaneText() {
     if (this.state.secondPlaneFlag == 0) {
@@ -95,6 +116,26 @@ var testARScene = createReactClass({
   _onSceneAnchorFound(anchor) {
     this.numAnchors++;
     this.anchors[this.numAnchors] = anchor;
+    this.setState({
+      reloadFlag : !(this.state.reloadFlag)
+    })
+    console.log("ARPlaneManualTest - anchor found " + anchor.anchorId);
+  },
+  _onSceneAnchorUpdated(anchor) {
+    console.log("ARPlaneManualTest - anchor updated " + anchor.anchorId);
+  },
+  _onSceneAnchorRemoved(anchor) {
+    console.log("ARPlaneManualTest - anchor removed " + anchor.anchorId);
+    for(var i = 1; i <= this.numAnchors; i++) {
+      if (this.anchors[i].anchorId == anchor.anchorId) {
+        this.anchors[i] = undefined;
+        for (; i < this.numAnchors; i++) {
+          this.anchors[i] = this.anchors[i+1]
+        }
+        break;
+      }
+    }
+    this.numAnchors--;
     this.setState({
       reloadFlag : !(this.state.reloadFlag)
     })

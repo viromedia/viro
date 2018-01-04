@@ -395,7 +395,7 @@ public:
     }
     int getLightReceivingBitMask() const {
         return _lightReceivingBitMask;
-    } 
+    }
     
     void setShadowCastingBitMask(int bitMask, bool recursive = false) {
         _shadowCastingBitMask = bitMask;

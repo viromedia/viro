@@ -201,6 +201,21 @@ public class ARSceneNavigatorModule extends ReactContextBaseJavaModule {
         });
     }
 
+    @ReactMethod
+    public void resetARSession(final int sceneNavTag, final boolean resetTracking, final boolean removeAnchors) {
+        UIManagerModule uiManager = getReactApplicationContext().getNativeModule(UIManagerModule.class);
+        uiManager.addUIBlock(new UIBlock() {
+            @Override
+            public void execute(NativeViewHierarchyManager nativeViewHierarchyManager) {
+                View view = nativeViewHierarchyManager.resolveView(sceneNavTag);
+                if (view instanceof VRTARSceneNavigator) {
+                    VRTARSceneNavigator sceneNavigator = (VRTARSceneNavigator) view;
+                    sceneNavigator.resetARSession();
+                }
+            }
+        });
+    }
+
     private void checkPermissionsAndRun(PermissionListener listener, boolean audioAndRecordingPerm){
         Activity activity = mContext.getCurrentActivity();
 

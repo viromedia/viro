@@ -71,6 +71,7 @@ var ViroARSceneNavigator = createReactClass({
       startVideoRecording: this._startVideoRecording,
       stopVideoRecording: this._stopVideoRecording,
       takeScreenshot: this._takeScreenshot,
+      resetARSession: this._resetARSession,
     };
   },
   getInitialState: function(): State {
@@ -390,6 +391,16 @@ var ViroARSceneNavigator = createReactClass({
    */
   async _takeScreenshot(fileName, saveToCameraRoll) {
     return await ViroARSceneNavigatorModule.takeScreenshot(findNodeHandle(this), fileName, saveToCameraRoll);
+  },
+
+  /*
+   Resets the tracking of the AR session.
+
+   resetTracking - determines if the tracking should be reset.
+   removeAnchors - determines if the existing anchors should be removed too.
+   */
+  _resetARSession(resetTracking, removeAnchors) {
+    ViroARSceneNavigatorModule.resetARSession(findNodeHandle(this), resetTracking, removeAnchors);
   },
 
   _renderSceneStackItems: function() {

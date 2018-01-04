@@ -82,4 +82,20 @@ RCT_EXPORT_METHOD(takeScreenshot:(nonnull NSNumber *)reactTag
     }];
 }
 
+RCT_EXPORT_METHOD(resetARSession:(nonnull NSNumber *)reactTag
+                  resetTracking:(BOOL)resetTracking
+                  removeAnchors:(BOOL)removeAnchors) {
+    [self.bridge.uiManager addUIBlock:^(__unused RCTUIManager *uiManager, NSDictionary<NSNumber *, UIView *> *viewRegistry) {
+        VRTView *view = (VRTView *)viewRegistry[reactTag];
+        if (![view isKindOfClass:[VRTARSceneNavigator class]]) {
+            RCTLogError(@"Invalid view returned from registry, expecting VRTARSceneNavigator, got: %@", view);
+        } else {
+            VRTARSceneNavigator *component = (VRTARSceneNavigator *)view;
+            VROViewAR *view = (VROViewAR *)[component rootVROView];
+            view.getARSession->resetSession(resetTracking, removeAnchors);
+            NSLog(@"kirby reset! %@", removeAnchors ? @"removing!" : @"not removing!");
+        }
+    }];
+}
+
 @end
