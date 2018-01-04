@@ -33,7 +33,7 @@
         [dict setObject:@[@(planeAnchor->getCenter().x), @(planeAnchor->getCenter().y), @(planeAnchor->getCenter().z)] forKey:@"center"];
         [dict setObject:@(planeAnchor->getExtent().x) forKey:@"width"];
         [dict setObject:@(planeAnchor->getExtent().z) forKey:@"height"];
-        [dict setObject:@"horizontal" forKey:@"alignment"];
+        [dict setObject:@"Horizontal" forKey:@"alignment"]; // planeAnchors only have horizontal orientation for now.
     }
     
     return dict;
