@@ -1,2 +1,2 @@
 configurations.maybeCreate("default")
-artifacts.add("default", file('arcore_client.aar'))
+artifacts.add("default", file('core-0.91.0.aar'))
