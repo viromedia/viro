@@ -15,8 +15,6 @@
 @implementation VRTARSceneModule
 @synthesize bridge = _bridge;
 
-
-
 RCT_EXPORT_MODULE()
 
 - (dispatch_queue_t)methodQueue {
@@ -78,6 +76,34 @@ RCT_EXPORT_METHOD(performARHitTestWithPosition:(nonnull NSNumber *)viewTag
                                                              [[cameraOrientation objectAtIndex:1] floatValue],
                                                              [[cameraOrientation objectAtIndex:2] floatValue]);
                     std::vector<VROARHitTestResult> results = [view performARHitTest:(targetPosition - cameraPosition)];
+                    NSMutableArray *returnArray = [[NSMutableArray alloc] initWithCapacity:results.size()];
+                    for (VROARHitTestResult result : results) {
+                        [returnArray addObject:[VRTARHitTestUtil dictForARHitResult:result]];
+                    }
+                    resolve(returnArray);
+                }
+            }
+        }
+    }];
+}
+
+RCT_EXPORT_METHOD(performARHitTestWithPoint:(nonnull NSNumber *)viewTag
+                  x:(int)x
+                  y:(int)y
+                  resolver:(RCTPromiseResolveBlock)resolve
+                  rejecter:(RCTPromiseRejectBlock)reject) {
+    [self.bridge.uiManager addUIBlock:^(__unused RCTUIManager *uiManager, NSDictionary<NSNumber *, UIView *> *viewRegistry) {
+        UIView *sceneView = viewRegistry[viewTag];
+        if (![sceneView isKindOfClass:[VRTARScene class]]) {
+            RCTLogError(@"Invalid view returned when calling performARHitTestWithPoint: expected VRTARScene, got [%@]", sceneView);
+        } else {
+            VRTARScene *scene = (VRTARScene *)sceneView;
+            UIView *superview = [scene superview];
+            if (superview && [superview isKindOfClass:[VRTARSceneNavigator class]]) {
+                VRTARSceneNavigator *navigator = (VRTARSceneNavigator *)superview;
+                if ([navigator rootVROView]) {
+                    VROViewAR *view = (VROViewAR *)[navigator rootVROView];
+                    std::vector<VROARHitTestResult> results = [view performARHitTestWithPoint:x y:y];
                     NSMutableArray *returnArray = [[NSMutableArray alloc] initWithCapacity:results.size()];
                     for (VROARHitTestResult result : results) {
                         [returnArray addObject:[VRTARHitTestUtil dictForARHitResult:result]];

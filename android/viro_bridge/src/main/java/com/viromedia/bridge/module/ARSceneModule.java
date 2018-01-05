@@ -3,6 +3,7 @@
  */
 package com.viromedia.bridge.module;
 
+import android.graphics.Point;
 import android.view.View;
 
 import com.facebook.react.bridge.Arguments;
@@ -45,7 +46,7 @@ public class ARSceneModule extends ReactContextBaseJavaModule {
             public void execute(NativeViewHierarchyManager nativeViewHierarchyManager) {
                 View sceneView = nativeViewHierarchyManager.resolveView(viewTag);
                 if (sceneView.getParent() == null || !(sceneView.getParent() instanceof VRTARSceneNavigator)) {
-                    throw new IllegalViewOperationException("Invalid view returned when calling " +
+                    throw new IllegalViewOperationException("Invalid view returned when " +
                             "calling performARHitTestWithRay: expected ViroARSceneNavigator as parent");
                 }
 
@@ -85,7 +86,7 @@ public class ARSceneModule extends ReactContextBaseJavaModule {
             public void execute(NativeViewHierarchyManager nativeViewHierarchyManager) {
                 View sceneView = nativeViewHierarchyManager.resolveView(viewTag);
                 if (sceneView.getParent() == null || !(sceneView.getParent() instanceof VRTARSceneNavigator)) {
-                    throw new IllegalViewOperationException("Invalid view returned when calling " +
+                    throw new IllegalViewOperationException("Invalid view returned when " +
                             "calling performARHitTestWithPosition: expected ViroARSceneNavigator as parent");
                 }
 
@@ -116,4 +117,33 @@ public class ARSceneModule extends ReactContextBaseJavaModule {
         });
     }
 
+    @ReactMethod
+    public void performARHitTestWithPoint(final int viewTag, final int x, final int y,
+                                             final Promise promise) {
+        UIManagerModule uiManager = getReactApplicationContext().getNativeModule(UIManagerModule.class);
+        uiManager.addUIBlock(new UIBlock() {
+            @Override
+            public void execute(NativeViewHierarchyManager nativeViewHierarchyManager) {
+                View sceneView = nativeViewHierarchyManager.resolveView(viewTag);
+                if (sceneView.getParent() == null || !(sceneView.getParent() instanceof VRTARSceneNavigator)) {
+                    throw new IllegalViewOperationException("Invalid view returned when " +
+                            "calling performARHitTestWithPoint: expected ViroARSceneNavigator as parent");
+                }
+
+                VRTARSceneNavigator arSceneNavigator = (VRTARSceneNavigator) sceneView.getParent();
+                ViroViewARCore arView = arSceneNavigator.getARView();
+
+                arView.performARHitTest(new Point(x, y), new ARHitTestListener() {
+                    @Override
+                    public void onHitTestFinished(ARHitTestResult[] arHitTestResults) {
+                        WritableArray returnArray = Arguments.createArray();
+                        for (ARHitTestResult result : arHitTestResults) {
+                            returnArray.pushMap(ARUtils.mapFromARHitTestResult(result));
+                        }
+                        promise.resolve(returnArray);
+                    }
+                });
+            }
+        });
+    }
 }

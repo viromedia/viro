@@ -189,6 +189,10 @@ var ViroARScene = createReactClass({
     return await NativeModules.VRTARSceneModule.performARHitTestWithPosition(findNodeHandle(this), position);
   },
 
+  async performARHitTestWithPoint(x, y) {
+    return await NativeModules.VRTARSceneModule.performARHitTestWithPoint(findNodeHandle(this), x, y);
+  },
+
   /**
    * ##### DEPRECATION WARNING - this prop may be removed in future releases #####
    */

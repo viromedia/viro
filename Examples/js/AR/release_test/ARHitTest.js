@@ -49,7 +49,7 @@ var testARScene = createReactClass({
   },
   render: function() {
     return (
-        <ViroARScene ref="arscene" onClick={this.state.testWithRay ? this._onSurfaceClickCameraForward : this._onSurfaceClickUsingPosition} >
+        <ViroARScene ref="arscene" onClick={this.state.testWithRay ? this._onSurfaceClickCameraForward : this._onSurfaceClickWithPosition} >
           <ViroText position={polarToCartesian([2, -10, 0])} text={"Mode: " + (this.state.testWithRay ? "testWithRay" : "testWithPosition")}
             style={styles.baseTextTwo} onClick={this._switchRayTestType} transformBehaviors={["billboard"]}/>
           <ViroARPlane onAnchorUpdated={this._onPlaneUpdate}>
@@ -88,6 +88,21 @@ var testARScene = createReactClass({
     this.setState({
       surfaceSize : [updateDict.width, updateDict.height, 1],
       center : updateDict.center,
+    })
+  },
+  _onSurfaceClickWithPoint() {
+    this.refs["arscene"].performARHitTestWithPoint(320, 568).then((results)=>{
+      if (results.length > 0) {
+        for (var i = 0; i < results.length; i++) {
+          let result = results[i];
+          if (result.type == "ExistingPlaneUsingExtent") {
+            this.setState({
+              boxLocation : result.transform.position
+            });
+            return;
+          }
+        }
+      }
     })
   },
   _onSurfaceClickCameraForward() {
