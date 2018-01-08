@@ -385,15 +385,25 @@ public:
         return _computedLightsHash;
     }
     
-    void setLightReceivingBitMask(int bitMask) {
+    void setLightReceivingBitMask(int bitMask, bool recursive = false) {
         _lightReceivingBitMask = bitMask;
+        if (recursive) {
+            for (std::shared_ptr<VRONode> &child : _subnodes) {
+                child->setLightReceivingBitMask(bitMask, recursive);
+            }
+        }
     }
     int getLightReceivingBitMask() const {
         return _lightReceivingBitMask;
     }
     
-    void setShadowCastingBitMask(int bitMask) {
+    void setShadowCastingBitMask(int bitMask, bool recursive = false) {
         _shadowCastingBitMask = bitMask;
+        if (recursive) {
+            for (std::shared_ptr<VRONode> &child : _subnodes) {
+                child->setShadowCastingBitMask(bitMask, recursive);
+            }
+        }
     }
     int getShadowCastingBitMask() const {
         return _shadowCastingBitMask;

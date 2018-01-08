@@ -100,7 +100,13 @@ public:
      Pause the session. No new frames will be created.
      */
     virtual void pause() = 0;
-    
+
+    /*
+     Resets the VROARSession depending on the given boolean flags. If no flags
+     are set to true, then nothing will happen.
+     */
+    virtual void resetSession(bool resetTracking, bool removeAnchors) = 0;
+
     /*
      Returns true if at least one frame has been generated.
      */

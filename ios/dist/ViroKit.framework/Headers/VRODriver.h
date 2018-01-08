@@ -43,6 +43,32 @@ enum class VROCullMode;
 enum class VROBlendMode;
 
 /*
+ The type of the GPU can be used to modify rendering for compatibility with older
+ GPUs, or it can be used to gate access to advanced rendering features that only
+ work with some subset of GPUs.
+ */
+enum class VROGPUType {
+    /*
+     Covers properly functioning GPUs.
+     */
+    Normal,
+
+    /*
+     This type is used for GPUs that supposedly support OpenGL 3.0 but can't handle
+     simple 3D graphics without serious errors. This is primarily used for the Adreno 330
+     and earlier, which have issues with structs in GLSL programs. The inclusion of structs can
+     cause textures to corrupt (EGL textures gain a purple tint), and shaders to sporadically fail
+     compilation.
+
+     Since these GPUs are generally legacy and can't support AR and VR, instead of writing
+     an entirely new set of shaders to support them, we instead force these GPUs to always
+     use a simple constant shader, and modify the expand the Surface struct into separate
+     variables.
+     */
+    Adreno330OrOlder,
+};
+
+/*
  The color mode used when rendering.
 
  NonLinear: textures are sampled in RGB (gamma-corrected) space, shader operations
@@ -84,6 +110,18 @@ public:
      */
     virtual void willRenderFrame(const VRORenderContext &context) = 0;
     virtual void didRenderFrame(const VROFrameTimer &timer, const VRORenderContext &context) = 0;
+
+    /*
+     Read the GPU type, which may be necessary to support old GPUs that are not to
+     specification, or to control whether or not to use advanced features only supported
+     by a subset of GPUs.
+     */
+    virtual void readGPUType() = 0;
+
+    /*
+     Get the GPU type, after it has been read by the system.
+     */
+    virtual VROGPUType getGPUType() = 0;
     
     /*
      Read the ID of the display's framebuffer. May not be required on all

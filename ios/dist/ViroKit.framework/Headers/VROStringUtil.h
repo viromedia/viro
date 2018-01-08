@@ -40,6 +40,12 @@ public:
     static bool startsWith(const std::string &candidate, const std::string &prefix);
     static bool endsWith(const std::string& candidate, const std::string& ending);
 
+    // Replace the first instance of the 'from' in 'str' with 'to'. The input is modified.
+    static bool replace(std::string &str, const std::string &from, const std::string &to);
+
+    // Replace all instances of 'from' in 'str' with 'to'. The input is modified.
+    static void replaceAll(std::string &str, const std::string &from, const std::string &to);
+
 private:
     
 };
