@@ -13,6 +13,7 @@ phaseTwo.shell_script = "DEST=$CONFIGURATION_BUILD_DIR/$UNLOCALIZED_RESOURCES_FO
 project.targets.each do |target|
   target.build_configurations.each do |config|
     config.build_settings['ENABLE_BITCODE'] = 'NO'
+    config.build_settings['DEAD_CODE_STRIPPING'] = 'YES'
   end
 end
 

@@ -9,10 +9,9 @@ Pod::Spec.new do |s|
   s.source              = { :http => 'https://s3-us-west-2.amazonaws.com/viro-docs/ViroReact.tar.gz'}
   s.source_files        = 'dist/include'
   s.public_header_files = 'dist/include/*.h'
-  s.vendored_frameworks = 'dist/ViroKit.framework'
   s.vendored_libraries  = 'dist/lib/libViroReact.a'
   s.homepage            = 'http://viromedia.com'
-  s.license             = {:type => 'BSD'}
+  s.license             = {:type => 'Copyright', :text => "Copyright 2018 ViroMedia, Inc" }
   s.author              = 'Viro Media'
   s.requires_arc        = true
   s.platform            = :ios, '9.3'
