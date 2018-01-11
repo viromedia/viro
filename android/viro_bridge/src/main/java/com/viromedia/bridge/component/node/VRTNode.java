@@ -119,8 +119,8 @@ public class VRTNode extends VRTComponent {
     protected boolean mVisible = true; // default visible value should be true
     protected boolean mHighAccuracyGazeEnabled = false;
 
-    protected int mLightReceivingBitMask;
-    protected int mShadowCastingBitMask;
+    protected int mLightReceivingBitMask = 1;
+    protected int mShadowCastingBitMask = 1;
 
     protected List<Material> mMaterials;
     protected EventDelegate mEventDelegateJni;
