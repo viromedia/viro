@@ -47,6 +47,11 @@ class VROARSessionDelegate;
 - (std::vector<VROARHitTestResult>)performARHitTest:(VROVector3f)ray;
 
 /*
+ Performs an AR hit test with the given 2D point on the screen
+ */
+- (std::vector<VROARHitTestResult>)performARHitTestWithPoint:(int)x y:(int)y;
+
+/*
  Returns the ARSession
  */
 - (std::shared_ptr<VROARSession>)getARSession;
