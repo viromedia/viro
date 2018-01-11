@@ -20,6 +20,7 @@ import "../../../../ViroRenderer/android/fastlane/Fastfile"
 platform :android do
   before_all do
     # ENV["SLACK_URL"] = "https://hooks.slack.com/services/..."
+    gradle(task: "clean")
   end
   desc "Build renderer"
   lane :renderer_aar do
