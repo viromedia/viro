@@ -4,10 +4,13 @@
 package com.viromedia.bridge.component;
 
 import android.graphics.Bitmap;
+
+import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.ReadableMapKeySetIterator;
 import com.facebook.react.bridge.ReadableType;
+import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
 import com.viro.core.Node;
 import com.viro.core.PortalScene;
@@ -169,22 +172,27 @@ public class VRTSkyBox extends VRTNode {
         }
     }
 
-    private void imageDownloadDidFinish() {
-
+    private void imageDownloadDidFinish(boolean success) {
         if (mLatestTexture != null) {
             mLatestTexture.dispose();
         }
-        mLatestTexture = new Texture(mImageMap.get("px"), mImageMap.get("nx"),
-                mImageMap.get("py"), mImageMap.get("ny"),
-                mImageMap.get("pz"), mImageMap.get("nz"), mFormat);
 
-        if (mUseTextureForSkybox) {
-            setBackgroundCubeImageTexture(mLatestTexture);
+        if (success){
+            mLatestTexture = new Texture(mImageMap.get("px"), mImageMap.get("nx"),
+                    mImageMap.get("py"), mImageMap.get("ny"),
+                    mImageMap.get("pz"), mImageMap.get("nz"), mFormat);
+
+            if (mUseTextureForSkybox) {
+                setBackgroundCubeImageTexture(mLatestTexture);
+            }
         }
+
+        WritableMap event = Arguments.createMap();
+        event.putBoolean("success", success);
         mContext.getJSModule(RCTEventEmitter.class).receiveEvent(
                 getId(),
                 VRTSkyBoxManager.SKYBOX_LOAD_END,
-                null
+                event
         );
     }
 
@@ -225,7 +233,7 @@ public class VRTSkyBox extends VRTNode {
 
             if (mLatch.getCount() == 0) {
                 // All 6 skybox images finished downloading.
-                imageDownloadDidFinish();
+                imageDownloadDidFinish(true);
 
                 if(result != null) {
                     final int width = result.getWidth();
@@ -242,7 +250,7 @@ public class VRTSkyBox extends VRTNode {
 
         @Override
         public void failed(String error) {
-            throw new RuntimeException(error);
+            imageDownloadDidFinish(false);
         }
     }
 }
