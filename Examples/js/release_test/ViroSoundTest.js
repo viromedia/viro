@@ -161,7 +161,7 @@ var ViroSoundTest = createReactClass({
         text={"Source: " + stringSource} textLineBreakMode='justify' onClick={this._toggleSource}/>
 
         <ViroText style={styles.centeredText} position={[2,0, 0]} width={2} height ={2}
-                text={this.state.preloadedSound ? "Unload Sound" : "Preload Sound"}
+                text={this.state.preloadedSound ? "Sound is Preloaded" : "Sound is NOT Preloaded"}
                 textLineBreakMode='justify' onClick={this._preloadSound}/>
 
         </ViroNode>
