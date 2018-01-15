@@ -1,4 +1,2 @@
 target 'ViroReact' do
-  use_frameworks!
-  pod 'ViroKit', :path => './ViroRenderer/'
 end
