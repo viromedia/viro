@@ -1,4 +1,4 @@
-# Viro Platform
+# Viro React
 Viro Media is a platform for developers to rapidly build augmented reality (AR) and virtual reality (VR) experiences. Developers write in React Native, and Viro runs their code natively across all mobile VR (including Google Daydream, Samsung Gear VR, and Google Cardboard for iOS and Android) and AR (iOS ARKit) platforms. [More info here](http://docs.viromedia.com/).
 
 This project contains various sample Viro projects.
@@ -35,22 +35,22 @@ Look at our [documentation](http://docs.viromedia.com/).
 ## Sample Code Overview
 
 ### [Hello World](https://github.com/viromedia/viro/tree/master/js/HelloWorld)
-![ScreenShot](js/HelloWorld/hello_world.jpg)
+![ScreenShot](js/HelloWorld/helloworld.gif)
 A scene with a 360 photo that displays "Hello World".
 ### [360 Photo Tour](https://github.com/viromedia/viro/tree/master/js/360PhotoTour)
-![ScreenShot](js/360PhotoTour/photo_tour.jpg)
+![ScreenShot](js/360PhotoTour/360_photo_tour.gif)
 360 photo tour example that shows you how to display a 360 photo with clickable hot spots.
 ### [Human Body](https://github.com/viromedia/viro/tree/master/js/HumanBody)
-![ScreenShot](js/HumanBody/heart.jpg)
+![ScreenShot](js/HumanBody/heart_demo.gif)
 This example showcases 3d objects. Orbit around a 3d Heart to see it from different angles!
 ### [VR MediaPlayer](https://github.com/viromedia/viro/tree/master/js/ViroMediaPlayer)
-![ScreenShot](js/ViroMediaPlayer/theater.jpg)
+![ScreenShot](js/ViroMediaPlayer/movie_theater.gif)
 Learn how to display and play 2d and 360 video with interactive play controls that can play, pause and stop.
 ### [Product Showcase](https://github.com/viromedia/viro/tree/master/js/ProductShowcase)
-![ScreenShot](js/ProductShowcase/product_showcase.jpg)
+![ScreenShot](js/ProductShowcase/product_showcase.gif)
 A demonstration on how to do an interactive shopping app for TV's. Uses flexbox for UI and 3d objects with animations.
 ### [AR Sample](https://github.com/viromedia/viro/tree/master/js/ARSample)
-![ScreenShot](js/ARSample/ar_sample.jpg)
+![ScreenShot](js/ARSample/ar_sample.gif)
 A scene with objects, text and animation displayed on ARKit planes detected in the scene.
 
 ### [AR Full Sample App (iOS Only)](https://github.com/viromedia/ViroARSampleApp)
