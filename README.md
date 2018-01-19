@@ -43,19 +43,44 @@ Look at our [documentation](http://docs.viromedia.com/).
 A scene with a 360 photo that displays "Hello World".
 
 ### [360 Photo Tour](https://github.com/viromedia/viro/tree/master/js/360PhotoTour)
-![ScreenShot](js/360PhotoTour/360_photo_tour.gif)
+
+<a href="https://github.com/viromedia/viro/tree/master/js/HelloWorld">
+<img src="https://raw.githubusercontent.com/viromedia/viro/master/js/360PhotoTour/360_photo_tour.gif">
+</a>
+
 360 photo tour example that shows you how to display a 360 photo with clickable hot spots.
+
 ### [Human Body](https://github.com/viromedia/viro/tree/master/js/HumanBody)
-![ScreenShot](js/HumanBody/heart_demo.gif)
+
+<a href="https://github.com/viromedia/viro/tree/master/js/HumanBody">
+<img src="https://raw.githubusercontent.com/viromedia/viro/master/js/HumanBody/heart_demo.gif">
+</a>
+
 This example showcases 3d objects. Orbit around a 3d Heart to see it from different angles!
+
 ### [VR MediaPlayer](https://github.com/viromedia/viro/tree/master/js/ViroMediaPlayer)
-![ScreenShot](js/ViroMediaPlayer/movie_theater.gif)
+
+<a href="https://github.com/viromedia/viro/tree/master/js/ViroMediaPlayer">
+<img src="https://raw.githubusercontent.com/viromedia/viro/master/js/ViroMediaPlayer/movie_theater.gif">
+</a>
+
 Learn how to display and play 2d and 360 video with interactive play controls that can play, pause and stop.
+
 ### [Product Showcase](https://github.com/viromedia/viro/tree/master/js/ProductShowcase)
-![ScreenShot](js/ProductShowcase/product_showcase.gif)
+
+<a href="https://github.com/viromedia/viro/tree/master/js/ProductShowcase">
+<img src="https://raw.githubusercontent.com/viromedia/viro/master/js/ProductShowcase/product_showcase.gif">
+</a>
+
+Learn how to display and play 2d and 360 video with interactive play controls that can play, pause and stop.
 A demonstration on how to do an interactive shopping app for TV's. Uses flexbox for UI and 3d objects with animations.
+
 ### [AR Sample](https://github.com/viromedia/viro/tree/master/js/ARSample)
-![ScreenShot](js/ARSample/ar_sample.gif)
+
+<a href="https://github.com/viromedia/viro/tree/master/js/ARSample/ar_sample.gif">
+<img src="https://raw.githubusercontent.com/viromedia/viro/master/js/ARSample/ar_sample.gif">
+</a>
+
 A scene with objects, text and animation displayed on ARKit planes detected in the scene.
 
 ### [AR Full Sample App (iOS Only)](https://github.com/viromedia/ViroARSampleApp)
