@@ -87,6 +87,10 @@ A scene with objects, text and animation displayed on ARKit planes detected in t
 ### [AR Full Sample App](https://github.com/viromedia/ViroARSampleApp)
 A complete React Native w/Viro AR Sample App. Demonstrates how to place, drag, and scale objects in the real world while providing 2D UI feedback.
 
+<a href="https://github.com/viromedia/ViroARSampleApp">
+<img src="https://raw.githubusercontent.com/viromedia/viro/master/js/ViroARSampleApp/ar_sample_app.gif">
+</a>
+
 ## Tutorials
 
 ### [How to build an interactive AR app in 5 minutes](https://blog.viromedia.com/how-to-build-an-interactive-ar-app-in-5-mins-w-react-native-viro-ar-e420147e1612)
