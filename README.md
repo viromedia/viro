@@ -35,8 +35,13 @@ Look at our [documentation](http://docs.viromedia.com/).
 ## Sample Code Overview
 
 ### [Hello World](https://github.com/viromedia/viro/tree/master/js/HelloWorld)
-![ScreenShot](js/HelloWorld/helloworld.gif)
+
+<a href="https://github.com/viromedia/viro/tree/master/js/HelloWorld">
+<img src="https://raw.githubusercontent.com/viromedia/viro/master/js/HelloWorld/helloworld.gif">
+</a>
+
 A scene with a 360 photo that displays "Hello World".
+
 ### [360 Photo Tour](https://github.com/viromedia/viro/tree/master/js/360PhotoTour)
 ![ScreenShot](js/360PhotoTour/360_photo_tour.gif)
 360 photo tour example that shows you how to display a 360 photo with clickable hot spots.
