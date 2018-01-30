@@ -115,7 +115,7 @@ public:
     /*
       Return portalDelegate if it exists.
      */
-    std::shared_ptr<VROPortalDelegate> getPortalDelegate(){
+    std::shared_ptr<VROPortalDelegate> getPortalDelegate() {
         if (_portalDelegate.expired()){
             return nullptr;
         }
@@ -150,6 +150,18 @@ public:
      Return true if the given line segment intersects the portal geometry.
      */
     bool intersectsLineSegment(VROLineSegment segment) const;
+    
+#pragma mark - Environment Lighting
+    
+    /*
+     Set the lighting environment map for this portal.
+     */
+    void setLightingEnvironment(std::shared_ptr<VROTexture> texture);
+    
+    /*
+     Get the lighting environment map for this portal.
+     */
+    std::shared_ptr<VROTexture> getLightingEnvironment() const;
     
 #pragma mark - Backgrounds
     
@@ -248,6 +260,12 @@ private:
      node content.
      */
     std::shared_ptr<VROGeometry> _background;
+    
+    /*
+     The lighting environment for this portal. Determines the effect of image-based
+     lighting (IBL) for objects using the physically based lighting model.
+     */
+    std::shared_ptr<VROTexture> _lightingEnvironment;
     
     /*
       Portal delegate that is invoked when a portal is entered and exited.

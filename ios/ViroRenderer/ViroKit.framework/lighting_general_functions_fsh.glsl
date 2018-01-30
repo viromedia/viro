@@ -3,6 +3,8 @@
 
 #include surface_functions_fsh
 
+const highp float PI = 3.14159265359;
+
 // Grouped in 4N slots (int and float take 1N, vec3 takes 3N, vec4 takes 4N)
 struct VROLightUniforms {
     int type;
@@ -41,6 +43,7 @@ struct VROShaderLight {
     highp vec3  color;
     highp vec3  surface_to_light;
     highp float attenuation;
+    highp vec3  position;
 } _light;
 
 highp float compute_attenuation(const VROLightUniforms light,

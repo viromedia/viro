@@ -1,11 +1,15 @@
 #version 300 es
 #include lighting_general_functions_fsh
+#include pbr_fsh
 
 uniform highp vec3 camera_position;
 uniform highp vec4 material_diffuse_surface_color;
 uniform highp float material_diffuse_intensity;
 uniform lowp float material_alpha;
 uniform lowp float material_shininess;
+uniform highp float material_roughness;
+uniform highp float material_metalness;
+uniform highp float material_ao;
 
 #pragma surface_modifier_uniforms
 #pragma fragment_modifier_uniforms
@@ -24,8 +28,11 @@ void main() {
     _surface.shininess = material_shininess;
     _surface.specular_color = vec3(0.0, 0.0, 0.0);
     _surface.specular_texcoord = v_texcoord;
+    _surface.roughness = material_roughness;
+    _surface.metalness = material_metalness;
+    _surface.ao = material_ao;
     _surface.alpha = material_alpha;
-    _surface.normal = v_tbn[2];
+    _surface.normal = normalize(v_tbn[2]);
     _surface.position = v_surface_position;
     _surface.view = normalize(camera_position - _surface.position);
     
@@ -36,12 +43,13 @@ void main() {
 #pragma surface_modifier_body
   
     for (int i = 0; i < num_lights; i++) {
-        _lightingContribution.ambient  = vec3(0, 0, 0);
-        _lightingContribution.diffuse  = vec3(0, 0, 0);
-        _lightingContribution.specular = vec3(0, 0, 0);
+        _lightingContribution.ambient  = vec3(0.0);
+        _lightingContribution.diffuse  = vec3(0.0);
+        _lightingContribution.specular = vec3(0.0);
         _lightingContribution.visibility = 1.0;
         
         _light.color = lights[i].color;
+        _light.position = lights[i].position.xyz;
         _light.attenuation = compute_attenuation(lights[i], _surface.position, _light.surface_to_light);
         
 #pragma lighting_model_modifier_body

@@ -12,6 +12,8 @@
 #include <stdlib.h>
 #include <math.h>
 #include <string>
+#include "glm/glm.hpp"
+#include "glm/gtc/matrix_transform.hpp"
 
 class VROVector3f;
 class VROVector4f;
@@ -31,6 +33,7 @@ public:
 
     VROMatrix4f() noexcept;
     VROMatrix4f(const float *matrix);
+    VROMatrix4f(const glm::mat4x4 mat);
 
     void toIdentity();
     void copy(const VROMatrix4f &copy);

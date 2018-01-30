@@ -37,6 +37,7 @@ public:
      given lights are used.
      */
     virtual void updateSortKey(VROSortKey &key, const std::vector<std::shared_ptr<VROLight>> &lights,
+                               const VRORenderContext &context,
                                std::shared_ptr<VRODriver> driver) = 0;
     
     /*
@@ -50,6 +51,7 @@ public:
      */
     virtual void bindShader(int lightsHash,
                             const std::vector<std::shared_ptr<VROLight>> &lights,
+                            const VRORenderContext &context,
                             std::shared_ptr<VRODriver> &driver) = 0;
     
     /*

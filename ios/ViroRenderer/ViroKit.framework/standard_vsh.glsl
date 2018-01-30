@@ -69,7 +69,7 @@ void main() {
     v_texcoord = _geometry.texcoord;
     v_surface_position = (_transforms.model_matrix * vec4(_geometry.position, 1.0)).xyz;
 
-    vec3 n = normalize((normal_matrix * vec4(_geometry.normal,  0.0)).xyz);
+    vec3 n = normalize((normal_matrix * vec4(_geometry.normal, 0.0)).xyz);
     vec3 t = normalize((normal_matrix * vec4(_geometry.tangent.xyz, 0.0)).xyz);
     vec3 b = normalize((normal_matrix * vec4((cross(_geometry.normal, _geometry.tangent.xyz) * _geometry.tangent.w), 0.0)).xyz);
     v_tbn = mat3(t, b, n);

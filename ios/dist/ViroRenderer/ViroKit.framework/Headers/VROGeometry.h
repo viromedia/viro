@@ -137,6 +137,7 @@ public:
                         uint32_t lightsHash, const std::vector<std::shared_ptr<VROLight>> &lights,
                         float opacity, float distanceFromCamera, float zFar,
                         std::shared_ptr<VRORenderMetadata> &metadata,
+                        const VRORenderContext &context,
                         std::shared_ptr<VRODriver> &driver);
     void getSortKeys(std::vector<VROSortKey> *outKeys);
     

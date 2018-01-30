@@ -112,6 +112,13 @@ public:
         _shadowMap = shadowMap;
     }
     
+    std::shared_ptr<VROTexture> getIrradianceMap() const {
+        return _irradianceMap;
+    }
+    void setIrradianceMap(std::shared_ptr<VROTexture> irradianceMap) {
+        _irradianceMap = irradianceMap;
+    }
+    
     const VROCamera &getCamera() const {
         return _camera;
     }
@@ -212,6 +219,11 @@ private:
      The texture containing shadow maps for all lights. This is a depth texture array.
      */
     std::shared_ptr<VROTexture> _shadowMap;
+    
+    /*
+     Diffuse irradiance map used for PBR image-based lighting.
+     */
+    std::shared_ptr<VROTexture> _irradianceMap;
 
     /*
      VROPencil is used for drawing a list of VROPolylines in a separate render pass,

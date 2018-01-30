@@ -9,7 +9,7 @@ Pod::Spec.new do |s|
   s.author              = 'Viro Media'
   s.requires_arc        = true
   s.platform            = :ios, '9.3'
-  
+
   s.dependency 'GVRKit', '1.100.0'
   s.dependency 'GVRAudioSDK', '1.100.0'
   s.dependency 'AWSDynamoDB', '~> 2.6.7'

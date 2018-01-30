@@ -76,7 +76,12 @@ typedef std::function<void(VROUniform *uniform, GLuint location,
    lowp float diffuse_intensity;
  
    lowp float shininess;
+   lowp  vec3 specular_color;
    highp vec2 specular_texcoord;
+ 
+   highp float roughness;
+   highp float metalness;
+   highp float ao;
  
    lowp float alpha;
    lowp  vec3 normal;

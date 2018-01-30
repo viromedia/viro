@@ -314,8 +314,6 @@ RCT_EXPORT_METHOD(setJSMaterials:(NSDictionary *)materials) {
         material->getReflective().setColor(vecColor);
     } else if ([@"emissionColor" caseInsensitiveCompare:materialPropertyName] == NSOrderedSame) {
         material->getEmission().setColor(vecColor);
-    } else if ([@"transparentColor" caseInsensitiveCompare:materialPropertyName] == NSOrderedSame) {
-        material->getTransparent().setColor(vecColor);
     } else if ([@"multiplyColor" caseInsensitiveCompare:materialPropertyName] == NSOrderedSame) {
         material->getMultiply().setColor(vecColor);
     } else if ([@"ambientOcclusionColor" caseInsensitiveCompare:materialPropertyName] == NSOrderedSame) {
@@ -336,8 +334,6 @@ RCT_EXPORT_METHOD(setJSMaterials:(NSDictionary *)materials) {
         material->getReflective().setTexture(texture);
     } else if([@"emissionTexture" caseInsensitiveCompare:materialPropertyName] == NSOrderedSame) {
         material->getEmission().setTexture(texture);
-    } else if([@"transparentTexture" caseInsensitiveCompare:materialPropertyName] == NSOrderedSame) {
-        material->getTransparent().setTexture(texture);
     } else if([@"multiplyTexture" caseInsensitiveCompare:materialPropertyName] == NSOrderedSame) {
         material->getMultiply().setTexture(texture);
     } else if([@"ambientOcclusionTexture" caseInsensitiveCompare:materialPropertyName] == NSOrderedSame) {
