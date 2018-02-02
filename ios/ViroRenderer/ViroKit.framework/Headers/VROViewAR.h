@@ -16,12 +16,14 @@
 typedef void (^VROViewARTapHandler)(VROARHitTestResult, std::shared_ptr<VROARSession>, std::shared_ptr<VROScene>);
 
 class VROARSessionDelegate;
+class VRORendererConfiguration;
 
 @interface VROViewAR : GLKView <VROView, UIGestureRecognizerDelegate>
 
 @property (readwrite, nonatomic) BOOL suspended;
 
 - (instancetype)initWithFrame:(CGRect)frame
+                       config:(VRORendererConfiguration)config
                       context:(EAGLContext *)context
                worldAlignment:(VROWorldAlignment)worldAlignment;
 

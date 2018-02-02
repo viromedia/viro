@@ -104,10 +104,20 @@ typedef std::function<void(VROUniform *uniform, GLuint location,
      highp float visibility;
  } _lightingContribution;
  
- struct VROShaderLight {
-     lowp  vec3  color;
-     highp vec3  surface_to_light;
-     highp float attenuation;
+ struct VROLightUniforms {
+    int type;
+    highp float attenuation_start_distance;
+    highp float attenuation_end_distance;
+    highp float attenuation_falloff_exp;
+ 
+    highp vec4 position;
+    highp vec4 direction;
+ 
+    highp vec3 color;
+    highp float intensity;
+ 
+    highp float spot_inner_angle;
+    highp float spot_outer_angle;
  } _light;
 
  The Lighting Model entry point enables modifiers to define the impact of each

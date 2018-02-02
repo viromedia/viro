@@ -51,7 +51,8 @@ static NSString *const kVRTInvalidAPIKeyMessage = @"The given API Key is either 
     if (_vroView != nil) {
         return;
     }
-    _gvrController = [[VROViewControllerGVR alloc] init];
+    VRORendererConfiguration config;
+    _gvrController = [[VROViewControllerGVR alloc] initWithConfig:config];
     _gvrController.forceLandscape = _vrModeEnabled;
     _vroView = (id<VROView>) _gvrController.view;
     

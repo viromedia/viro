@@ -61,10 +61,11 @@ static NSString *const kVRTInvalidAPIKeyMessage = @"The given API Key is either 
         }
         
         EAGLContext *context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES3];
-
+        VRORendererConfiguration config;
         _vroView = [[VROViewAR alloc] initWithFrame:CGRectMake(0, 0,
                                                                [[UIScreen mainScreen] bounds].size.width,
                                                                [[UIScreen mainScreen] bounds].size.height)
+                                             config:config
                                             context:context
                                      worldAlignment:worldAlignment];
 

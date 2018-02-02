@@ -58,3 +58,66 @@ highp float geometry_smith(highp vec3 N, highp vec3 V, highp vec3 L, highp float
     
     return ggx1 * ggx2;
 }
+
+highp float smooth_distance_attenuation(highp float squared_distance, highp float inv_squared_attenuation_radius) {
+    highp float factor = squared_distance * inv_squared_attenuation_radius;
+    highp float smooth_factor = clamp(1.0f - factor * factor, 0.0, 1.0);
+    return smooth_factor * smooth_factor;
+}
+
+highp float compute_distance_attenuation(highp vec3 unnormalized_light_vector, highp float inv_squared_attenuation_radius) {
+    highp float squared_distance = dot(unnormalized_light_vector, unnormalized_light_vector);
+    highp float attenuation = 1.0 / (max(squared_distance, 0.01 * 0.01));
+    attenuation *= smooth_distance_attenuation(squared_distance, inv_squared_attenuation_radius);
+    
+    return attenuation;
+}
+
+highp float compute_attenuation_pbr(const VROLightUniforms light, highp vec3 surface_pos,
+                                    out highp vec3 L) {
+    
+    highp float attenuation = 1.0;
+    
+    // Directional light
+    if (light.type == 1) {
+        L = -normalize(light.direction.xyz);
+        
+        // For directional light luminous intensity is simply a scalar (as if we're
+        // using Lambert)
+        highp float luminous_intensity = light.intensity / (1000.0);
+        attenuation = luminous_intensity;
+    }
+    
+    // Omni Light
+    else if (light.type == 2) {
+        highp vec3 unnormalized_light_vector = light.position.xyz - surface_pos;
+        L = normalize(unnormalized_light_vector);
+        
+        // Intensity is integrated over the solid angle to get power (luminous flux)
+        // For a point light this simplifies to I = phi / (4.0 * PI). We use PI
+        // becuase we don't want spotlight intensity to differ from omni intensity
+        highp float luminous_intensity = light.intensity / PI;
+
+        highp float inverse_square_attenuation_radius = 1.0 / (light.attenuation_end_distance * light.attenuation_end_distance);
+        attenuation *= compute_distance_attenuation(unnormalized_light_vector, inverse_square_attenuation_radius);
+        attenuation *= luminous_intensity;
+    }
+    
+    // Spotlight
+    else if (light.type == 3) {
+        highp vec3 unnormalized_light_vector = light.position.xyz - surface_pos;
+        L = normalize(unnormalized_light_vector);
+        
+        // For a spotlight we use a simple equation for intensity since we don't want
+        // intensity to be stronger for smaller cones given the same power (luminous flux)
+        highp float luminous_intensity = light.intensity / PI;
+        
+        highp float inverse_square_attenuation_radius = 1.0 / (light.attenuation_end_distance * light.attenuation_end_distance);
+        attenuation *= compute_distance_attenuation(unnormalized_light_vector, inverse_square_attenuation_radius);
+        attenuation *= compute_angle_attenuation(L, light.direction.xyz, light.spot_inner_angle, light.spot_outer_angle);
+        attenuation *= luminous_intensity;
+    }
+    
+    return attenuation;
+}
+

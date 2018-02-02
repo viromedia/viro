@@ -41,7 +41,8 @@ public:
                      std::shared_ptr<VROFrameScheduler> scheduler) :
         _frame(0),
         _frameSynchronizer(synchronizer),
-        _frameScheduler(scheduler) {
+        _frameScheduler(scheduler),
+        _pbrEnabled(true) {
         
     }
     
@@ -118,6 +119,20 @@ public:
     void setIrradianceMap(std::shared_ptr<VROTexture> irradianceMap) {
         _irradianceMap = irradianceMap;
     }
+
+    std::shared_ptr<VROTexture> getPreFilteredMap() const {
+        return _prefilteredMap;
+    }
+    void setPreFilteredMap(std::shared_ptr<VROTexture> map) {
+        _prefilteredMap = map;
+    }
+
+    std::shared_ptr<VROTexture> getBRDFMap() const {
+        return _brdfMap;
+    }
+    void setBRDFMap(std::shared_ptr<VROTexture> map) {
+        _brdfMap = map;
+    }
     
     const VROCamera &getCamera() const {
         return _camera;
@@ -160,12 +175,20 @@ public:
     std::shared_ptr<VROInputControllerBase> getInputController() const {
         return _inputController;
     }
+    
+    void setPBREnabled(bool enabled) {
+        _pbrEnabled = enabled;
+    }
+    bool isPBREnabled() const {
+        return _pbrEnabled;
+    }
 
 private:
     
     int _frame;
     VROEyeType _eye;
     double _fps;
+    bool _pbrEnabled;
     
     /*
      The target to which we are currently rendering.
@@ -224,6 +247,16 @@ private:
      Diffuse irradiance map used for PBR image-based lighting.
      */
     std::shared_ptr<VROTexture> _irradianceMap;
+
+    /*
+     Prefiltered irradiance map used for PBR image-based specular lighting.
+     */
+    std::shared_ptr<VROTexture> _prefilteredMap;
+
+    /*
+     BRDF irradiance map used for PBR image-based specular lighting.
+     */
+    std::shared_ptr<VROTexture> _brdfMap;
 
     /*
      VROPencil is used for drawing a list of VROPolylines in a separate render pass,

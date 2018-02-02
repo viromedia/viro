@@ -155,7 +155,7 @@ public:
      Return true if bloom rendering is enabled. If so, materials that exceed their
      bloom threshold will glow.
      */
-    virtual bool isBloomEnabled() = 0;
+    virtual bool isBloomSupported() = 0;
     
     virtual VROGeometrySubstrate *newGeometrySubstrate(const VROGeometry &geometry) = 0;
     virtual VROMaterialSubstrate *newMaterialSubstrate(VROMaterial &material) = 0;

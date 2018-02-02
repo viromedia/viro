@@ -219,7 +219,7 @@ public:
     float getBloomThreshold() const {
         return _bloomThreshold;
     }
-    bool isBloomEnabled() const {
+    bool isBloomSupported() const {
         return _bloomThreshold >= 0;
     }
 

@@ -28,6 +28,7 @@ typedef void (^VROViewValidApiKeyBlock)(BOOL);
 @required
 
 @property (nonatomic, weak) IBOutlet id <VRORenderDelegate> renderDelegate;
+@property (readonly, nonatomic) std::shared_ptr<VRORenderer> renderer;
 @property (readwrite, nonatomic) std::shared_ptr<VROSceneController> sceneController;
 
 - (void)setSceneController:(std::shared_ptr<VROSceneController>)sceneController;
@@ -46,6 +47,11 @@ typedef void (^VROViewValidApiKeyBlock)(BOOL);
 - (void)takeScreenshot:(NSString *)fileName
       saveToCameraRoll:(BOOL)saveToCamera
  withCompletionHandler:(VROViewWriteMediaFinishBlock)completionHandler;
+
+- (BOOL)setShadowsEnabled:(BOOL)enabled;
+- (BOOL)setHDREnabled:(BOOL)enabled;
+- (BOOL)setPBREnabled:(BOOL)enabled;
+- (BOOL)setBloomEnabled:(BOOL)enabled;
 
 - (NSString *)getPlatform;
 - (NSString *)getHeadset;

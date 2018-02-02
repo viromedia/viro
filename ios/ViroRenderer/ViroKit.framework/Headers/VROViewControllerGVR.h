@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+class VRORendererConfiguration;
+
 @interface VROViewControllerGVR : UIViewController
 
 /*
@@ -15,5 +17,7 @@
  when it appears.
  */
 @property (readwrite, nonatomic) BOOL forceLandscape;
+
+- (id)initWithConfig:(VRORendererConfiguration)config;
 
 @end
