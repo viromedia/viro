@@ -35,6 +35,7 @@ var ViroPortalScene = createReactClass({
       onStart: PropTypes.func,
       onFinish: PropTypes.func,
       run: PropTypes.bool,
+      interruptible: PropTypes.bool,
     }),
     transformBehaviors: PropTypes.oneOfType([
       PropTypes.arrayOf(PropTypes.string),

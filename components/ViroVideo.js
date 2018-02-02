@@ -34,6 +34,7 @@ var ViroVideo = createReactClass({
       PropTypes.string
     ]),
     animation: PropTypes.shape({
+      interruptible: PropTypes.bool,
       name: PropTypes.string,
       delay: PropTypes.number,
       loop: PropTypes.bool,

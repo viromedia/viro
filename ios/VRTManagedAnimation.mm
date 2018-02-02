@@ -31,6 +31,7 @@ enum class VRTAnimationState {
         self.loop = false;
         self.run = false;
         self.state = VRTAnimationState::Terminated;
+        self.interruptible = NO;
     }
     return self;
 }
@@ -38,7 +39,7 @@ enum class VRTAnimationState {
 - (void)dealloc {
     // Cleanup any transactions that were paused
     if (self.executableAnimation) {
-        self.executableAnimation->terminate();
+        self.executableAnimation->terminate(true);
         self.executableAnimation.reset();
     }
 }
@@ -56,6 +57,7 @@ enum class VRTAnimationState {
         self.loop = NO;
         self.run = NO;
         self.delay = -1;
+        self.interruptible = NO;
     }
     else {
         id delayValue = [dictionary objectForKey:@"delay"];
@@ -68,6 +70,10 @@ enum class VRTAnimationState {
         
         self.loop = [[dictionary objectForKey:@"loop"] boolValue];
         self.run = [[dictionary objectForKey:@"run"] boolValue];
+        id interruptible = [dictionary objectForKey:@"interruptible"];
+        if (interruptible != nil) {
+            self.interruptible = [interruptible boolValue];
+        }
     }
 }
 
@@ -87,6 +93,13 @@ enum class VRTAnimationState {
  given delay.
  */
 - (void)playAnimation {
+    
+    //If current animation is running and is allowed to be interrupted, then terminate it.
+    if(self.state == VRTAnimationState::Running && self.interruptible == YES) {
+        self.executableAnimation->terminate(!self.interruptible);
+        self.state = VRTAnimationState::Terminated;
+    }
+    
     if (self.state == VRTAnimationState::Paused) {
         self.executableAnimation->resume();
         self.state = VRTAnimationState::Running;
@@ -100,6 +113,8 @@ enum class VRTAnimationState {
             [self performSelector:@selector(startAnimation) withObject:self afterDelay:self.delay / 1000.0];
         }
     }
+    
+    
 }
 
 - (void)pauseAnimation {

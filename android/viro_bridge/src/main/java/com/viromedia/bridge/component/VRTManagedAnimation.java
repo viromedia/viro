@@ -6,6 +6,7 @@ package com.viromedia.bridge.component;
 import android.os.Handler;
 import android.os.Looper;
 
+
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReadableMap;
 import com.viromedia.bridge.component.node.VRTNode;
@@ -29,9 +30,11 @@ public abstract class VRTManagedAnimation {
 
     private ReactApplicationContext mReactContext;
     private ExecutableAnimation mExecutableAnimation = null;
+    private ExecutableAnimation mPreviousAnimationInterrupted = null; // used to store previous played animation so it can be terminated before destroyed.
     private float mDelayInMilliseconds = 0; // milliseconds
     private boolean mLoop = false;
     private boolean mRun = false;
+    private boolean mInterruptible = false;
     private AnimationState mState = AnimationState.TERMINATED;
 
     /**
@@ -66,8 +69,13 @@ public abstract class VRTManagedAnimation {
 
     public void onTearDown() {
         if (mExecutableAnimation != null) {
-            mExecutableAnimation.terminate();
+            mExecutableAnimation.terminate(true);
             mExecutableAnimation.destroy();
+        }
+
+        if( mPreviousAnimationInterrupted != null) {
+            mPreviousAnimationInterrupted.terminate(true);
+            mPreviousAnimationInterrupted.destroy();
         }
     }
 
@@ -116,7 +124,15 @@ public abstract class VRTManagedAnimation {
         else {
             setRun(false);
         }
+
+        if(map.hasKey("interruptible")) {
+            setInterruptible(true);
+        } else {
+            setInterruptible(false);
+        }
     }
+
+    public void setInterruptible(boolean interruptible) { mInterruptible = interruptible;}
 
     public void setLoop(boolean loop) {
         mLoop = loop;
@@ -151,6 +167,24 @@ public abstract class VRTManagedAnimation {
      * a paused animation.
      */
     private void playAnimation() {
+
+        // Properly destroy a previous animation if it exists. This animation will only be non-null if it was
+        // not interrupted.
+        if(mPreviousAnimationInterrupted != null) {
+            mPreviousAnimationInterrupted.destroy();
+            mPreviousAnimationInterrupted = null;
+        }
+
+        // Terminate current animation if it allowed to be interrupted. Store current animation
+        // in mPreviousAnimationInterrupted so that terminate() can run to completion in renderer thread.
+
+        if(mState == AnimationState.RUNNING && mInterruptible == true) {
+            mExecutableAnimation.terminate(!mInterruptible);
+            mState = AnimationState.TERMINATED;
+            mPreviousAnimationInterrupted = mExecutableAnimation;
+            mExecutableAnimation = null;
+        }
+
         if (mState == AnimationState.PAUSED) {
             mExecutableAnimation.resume();
             mState = AnimationState.RUNNING;
@@ -196,7 +230,7 @@ public abstract class VRTManagedAnimation {
         }
         else if (mState == AnimationState.RUNNING || mState == AnimationState.PAUSED) {
             if (mExecutableAnimation != null) {
-                mExecutableAnimation.terminate();
+                mExecutableAnimation.terminate(true);
             }
         }
         mState = AnimationState.TERMINATED;

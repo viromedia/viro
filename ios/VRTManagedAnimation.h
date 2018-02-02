@@ -18,6 +18,7 @@ class VROExecutableAnimation;
 @property (nonatomic, assign) float delay;
 @property (nonatomic, assign) BOOL loop;
 @property (nonatomic, assign) BOOL run;
+@property (nonatomic, assign) BOOL interruptible;
 @property (nonatomic, readwrite) std::weak_ptr<VRONode> node;
 @property (nonatomic, copy) RCTDirectEventBlock onStart;
 @property (nonatomic, copy) RCTDirectEventBlock onFinish;

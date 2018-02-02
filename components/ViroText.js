@@ -42,6 +42,7 @@ var ViroText = createReactClass({
     visible: PropTypes.bool,
     style: stylePropType,
     animation: PropTypes.shape({
+      interruptible: PropTypes.bool,
       name: PropTypes.string,
       delay: PropTypes.number,
       loop: PropTypes.bool,

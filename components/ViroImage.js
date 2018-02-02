@@ -65,6 +65,7 @@ var ViroImage = createReactClass({
       onStart: PropTypes.func,
       onFinish: PropTypes.func,
       run: PropTypes.bool,
+      allowInterruptable: PropTypes.bool,
     }),
     transformBehaviors: PropTypes.oneOfType([
       PropTypes.arrayOf(PropTypes.string),
