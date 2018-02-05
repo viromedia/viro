@@ -63,6 +63,12 @@ public:
     const VROFrustum &getFrustum() const {
         return _frustum;
     }
+    VROFieldOfView getFieldOfView() const {
+        return _fov;
+    }
+    VROViewport getViewport() const {
+        return _viewport;
+    }
     void computeLookAtMatrix();
     void computeFrustum();
     

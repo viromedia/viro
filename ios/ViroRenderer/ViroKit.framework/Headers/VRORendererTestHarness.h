@@ -29,6 +29,7 @@ enum class VRORendererTestType {
     FBX,
     ARPlane,
     ARDraggableNode,
+    ARImageTracking,
     Portal,
     Shadow,
     ARShadow,

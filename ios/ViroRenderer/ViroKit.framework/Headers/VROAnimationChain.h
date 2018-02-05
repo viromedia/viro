@@ -41,7 +41,7 @@ public:
     void addAnimation(std::shared_ptr<VROExecutableAnimation> animation);
     void pause();
     void resume();
-    void terminate();
+    void terminate(bool jumpToEnd);
     
     std::string toString() const;
 

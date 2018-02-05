@@ -20,6 +20,7 @@ import com.viromedia.bridge.component.VRTSoundFieldManager;
 import com.viromedia.bridge.component.VRTSoundManager;
 import com.viromedia.bridge.component.VRTSpatialSoundManager;
 import com.viromedia.bridge.component.VRTSpotLightManager;
+import com.viromedia.bridge.component.node.VRTARImageMarkerManager;
 import com.viromedia.bridge.component.node.VRTARPlaneManager;
 import com.viromedia.bridge.component.node.VRTARSceneManager;
 import com.viromedia.bridge.component.node.VRTSceneManagerImpl;
@@ -45,6 +46,7 @@ import com.viromedia.bridge.component.node.VRTPortalManager;
 
 import com.viromedia.bridge.module.ARSceneModule;
 import com.viromedia.bridge.module.ARSceneNavigatorModule;
+import com.viromedia.bridge.module.ARTrackingTargetsModule;
 import com.viromedia.bridge.module.AnimationManager;
 import com.viromedia.bridge.module.CameraModule;
 import com.viromedia.bridge.module.ControllerModule;
@@ -87,7 +89,8 @@ public class ReactViroPackage implements ReactPackage {
                 new NodeModule(reactContext),
                 new SceneModule(reactContext),
                 new ARSceneModule(reactContext),
-                new ARSceneNavigatorModule(reactContext)
+                new ARSceneNavigatorModule(reactContext),
+                new ARTrackingTargetsModule(reactContext)
         );
     }
 
@@ -129,7 +132,8 @@ public class ReactViroPackage implements ReactPackage {
                 // AR Components
                 new VRTARSceneNavigatorManager(reactContext),
                 new VRTARSceneManager(reactContext),
-                new VRTARPlaneManager(reactContext)
+                new VRTARPlaneManager(reactContext),
+                new VRTARImageMarkerManager(reactContext)
         );
     }
 }

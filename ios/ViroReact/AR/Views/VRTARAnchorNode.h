@@ -1,5 +1,5 @@
 //
-//  VRTARNode.h
+//  VRTARAnchorNode.h
 //  ViroReact
 //
 //  Created by Andy Chu on 6/15/17.
@@ -27,5 +27,12 @@
  The ID of the underlying anchor this should attach to
  */
 @property (nonatomic, copy, nullable) NSString *anchorId;
+
+/*
+ Determines whether or not this node should respond to transform updates
+ from the underlying AR system.
+ */
+@property (nonatomic, assign) BOOL pauseUpdates;
+
 
 @end

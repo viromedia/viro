@@ -11,6 +11,10 @@
 
 #include "VROMath.h"
 
+enum class VROFieldOfViewAxis {
+    X, Y
+};
+
 /*
  Represents the field of view in each direction, in degrees.
  */

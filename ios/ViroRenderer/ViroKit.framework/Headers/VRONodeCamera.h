@@ -33,6 +33,7 @@ public:
     void setBaseRotation(VROQuaternion baseRotation);
     void setRotationType(VROCameraRotationType type);
     void setOrbitFocalPoint(VROVector3f focalPt);
+    void setFieldOfViewY(float fovy);
     
     VROVector3f getPosition() const {
         return _position;
@@ -45,6 +46,9 @@ public:
     }
     VROVector3f getOrbitFocalPoint() const {
         return _orbitFocalPt;
+    }
+    float getFieldOfView() const {
+        return _fov;
     }
     
 private:
@@ -70,6 +74,20 @@ private:
      position. Specified in the coordinate system of the parent node.
      */
     VROVector3f _orbitFocalPt;
+
+    /*
+     The field of view for this camera, along the major (larger) axis. The minor axis
+     FOV will be automatically computed from this and the viewport. If this is zero, then
+     Viro will use the default FOV for the view. This value is ignored on VR and AR
+     platforms, where the FOV is fixed by the eye settings or the camera. This value
+     is given in degrees.
+
+     Note that the major axis is the axis with the larger dimension: the X axis in landscape
+     mode, or the Y axis in portrait mode. By specifying the FOV in terms of the major axis, Viro
+     can keep the FOV consistent even upon orientation changes when the major/minor axes
+     swap.
+     */
+    float _fov;
     
 };
 

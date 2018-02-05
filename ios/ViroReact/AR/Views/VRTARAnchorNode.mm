@@ -28,6 +28,14 @@
     return [super shouldAppear] && self.isAnchored;
 }
 
+- (void)setPauseUpdates:(BOOL)pauseUpdates {
+    _pauseUpdates = pauseUpdates;
+    std::shared_ptr<VROARNode> arNode = std::dynamic_pointer_cast<VROARNode>([self node]);
+    if (arNode) {
+        arNode->setPauseUpdates(pauseUpdates);
+    }
+}
+
 #pragma mark - VROARNodeDelegateProtocol Implementation
 - (void)onARAnchorAttached:(std::shared_ptr<VROARAnchor>) anchor {
     self.isAnchored = true;

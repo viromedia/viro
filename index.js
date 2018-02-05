@@ -42,12 +42,14 @@ const ReactViro = {
   get ViroPolyline() { return require('./components/ViroPolyline'); },
   get ViroConstants() { return require('./components/ViroConstants'); },
   get ViroParticleEmitter() { return require('./components/ViroParticleEmitter'); },
+  get ViroLightingEnvironment() { return require('./components/ViroLightingEnvironment'); },  
   // AR Components
   get ViroARSceneNavigator() { return require('./components/AR/ViroARSceneNavigator'); },
   get ViroARScene() { return require('./components/AR/ViroARScene'); },
   get ViroARPlane() { return require('./components/AR/ViroARPlane'); },
   get ViroARPlaneSelector() { return require('./components/AR/ViroARPlaneSelector'); },
-  get ViroLightingEnvironment() { return require('./components/ViroLightingEnvironment'); },
+  get ViroARTrackingTargets() { return require('./components/AR/ViroARTrackingTargets'); },
+  get ViroARImageMarker() { return require('./components/AR/ViroARImageMarker'); },
 }
 
 module.exports = ReactViro;

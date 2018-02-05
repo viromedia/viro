@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		137E9D821F50E8C1008238E5 /* VRTPhotoLibraryAsyncLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 137E9D801F50E8C0008238E5 /* VRTPhotoLibraryAsyncLoader.m */; };
+		8A04D4E02023EDDF00FD5F68 /* VRTARTrackingTargetsModule.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8A04D4DF2023EDDF00FD5F68 /* VRTARTrackingTargetsModule.mm */; };
+		8A04D5182024F6B200FD5F68 /* VRTARImageMarkerManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8A04D5172024F6B200FD5F68 /* VRTARImageMarkerManager.mm */; };
+		8A04D51B2024F7AA00FD5F68 /* VRTARImageMarker.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8A04D51A2024F7AA00FD5F68 /* VRTARImageMarker.mm */; };
 		8A0524331EF0A49C00A02361 /* VRTARScene.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8A0524311EF0A49C00A02361 /* VRTARScene.mm */; };
 		8A0524391EF0A4B900A02361 /* VRTARSceneManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8A0524371EF0A4B900A02361 /* VRTARSceneManager.mm */; };
 		8A130D811E3AAEA10050D83B /* VRTSound.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8A130D801E3AAEA10050D83B /* VRTSound.mm */; };
@@ -189,7 +192,6 @@
 		A5E8F0AC1ED6B64E00729916 /* VRTSceneModule.mm in Sources */ = {isa = PBXBuildFile; fileRef = A5E8F0A81ED6B64D00729916 /* VRTSceneModule.mm */; };
 		A5F6D4011E4B0DFF00655F60 /* VRTController.mm in Sources */ = {isa = PBXBuildFile; fileRef = A5F6D4001E4B0DFF00655F60 /* VRTController.mm */; };
 		A5F6D4051E4B179700655F60 /* VRTControllerManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = A5F6D4041E4B179700655F60 /* VRTControllerManager.mm */; };
-		D99A4CE3C1E5F8353AE3B627 /* libPods-ViroReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B923A6C46A4A92CE2D48DB4D /* libPods-ViroReact.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -335,6 +337,12 @@
 /* Begin PBXFileReference section */
 		137E9D7D1F50E8C0008238E5 /* VRTPhotoLibraryAsyncLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VRTPhotoLibraryAsyncLoader.h; path = ViroReact/Utility/VRTPhotoLibraryAsyncLoader.h; sourceTree = "<group>"; };
 		137E9D801F50E8C0008238E5 /* VRTPhotoLibraryAsyncLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VRTPhotoLibraryAsyncLoader.m; path = ViroReact/Utility/VRTPhotoLibraryAsyncLoader.m; sourceTree = "<group>"; };
+		8A04D4DE2023EDDF00FD5F68 /* VRTARTrackingTargetsModule.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = VRTARTrackingTargetsModule.h; path = ViroReact/AR/Modules/VRTARTrackingTargetsModule.h; sourceTree = "<group>"; };
+		8A04D4DF2023EDDF00FD5F68 /* VRTARTrackingTargetsModule.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = VRTARTrackingTargetsModule.mm; path = ViroReact/AR/Modules/VRTARTrackingTargetsModule.mm; sourceTree = "<group>"; };
+		8A04D5162024F6B200FD5F68 /* VRTARImageMarkerManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = VRTARImageMarkerManager.h; path = ViroReact/AR/Managers/VRTARImageMarkerManager.h; sourceTree = "<group>"; };
+		8A04D5172024F6B200FD5F68 /* VRTARImageMarkerManager.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = VRTARImageMarkerManager.mm; path = ViroReact/AR/Managers/VRTARImageMarkerManager.mm; sourceTree = "<group>"; };
+		8A04D5192024F7AA00FD5F68 /* VRTARImageMarker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = VRTARImageMarker.h; path = ViroReact/AR/Views/VRTARImageMarker.h; sourceTree = "<group>"; };
+		8A04D51A2024F7AA00FD5F68 /* VRTARImageMarker.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = VRTARImageMarker.mm; path = ViroReact/AR/Views/VRTARImageMarker.mm; sourceTree = "<group>"; };
 		8A0524301EF0A49C00A02361 /* VRTARScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = VRTARScene.h; path = ViroReact/AR/Views/VRTARScene.h; sourceTree = "<group>"; };
 		8A0524311EF0A49C00A02361 /* VRTARScene.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = VRTARScene.mm; path = ViroReact/AR/Views/VRTARScene.mm; sourceTree = "<group>"; };
 		8A0524361EF0A4B900A02361 /* VRTARSceneManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = VRTARSceneManager.h; path = ViroReact/AR/Managers/VRTARSceneManager.h; sourceTree = "<group>"; };
@@ -528,9 +536,6 @@
 		A5F6D4001E4B0DFF00655F60 /* VRTController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = VRTController.mm; path = ViroReact/Views/VRTController.mm; sourceTree = "<group>"; };
 		A5F6D4031E4B179700655F60 /* VRTControllerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VRTControllerManager.h; path = ViroReact/VRTControllerManager.h; sourceTree = "<group>"; };
 		A5F6D4041E4B179700655F60 /* VRTControllerManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = VRTControllerManager.mm; path = ViroReact/VRTControllerManager.mm; sourceTree = "<group>"; };
-		A81D35054D51980438423FFB /* Pods-ViroReact.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ViroReact.release.xcconfig"; path = "Pods/Target Support Files/Pods-ViroReact/Pods-ViroReact.release.xcconfig"; sourceTree = "<group>"; };
-		B923A6C46A4A92CE2D48DB4D /* libPods-ViroReact.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ViroReact.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		D73C4F5968AA1DBB40C6B454 /* Pods-ViroReact.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ViroReact.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ViroReact/Pods-ViroReact.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -538,7 +543,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D99A4CE3C1E5F8353AE3B627 /* libPods-ViroReact.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -549,7 +553,6 @@
 			isa = PBXGroup;
 			children = (
 				8BDD9FF21E53C8AF00A42870 /* libReact.a */,
-				B923A6C46A4A92CE2D48DB4D /* libPods-ViroReact.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -571,6 +574,8 @@
 			children = (
 				8A744F5C1EEF655F00ECDBC4 /* VRTARSceneNavigatorManager.h */,
 				8A744F591EEF655F00ECDBC4 /* VRTARSceneNavigatorManager.mm */,
+				8A04D5162024F6B200FD5F68 /* VRTARImageMarkerManager.h */,
+				8A04D5172024F6B200FD5F68 /* VRTARImageMarkerManager.mm */,
 				8AEFA2221EF3175C006851B7 /* VRTARPlaneManager.h */,
 				8AEFA2231EF3175C006851B7 /* VRTARPlaneManager.mm */,
 				8A0524361EF0A4B900A02361 /* VRTARSceneManager.h */,
@@ -586,6 +591,8 @@
 				8A7743811EEF62F90004C17A /* VRTARSceneNavigator.mm */,
 				8AEFA22C1EF34487006851B7 /* VRTARAnchorNode.h */,
 				8AEFA22D1EF34487006851B7 /* VRTARAnchorNode.mm */,
+				8A04D5192024F7AA00FD5F68 /* VRTARImageMarker.h */,
+				8A04D51A2024F7AA00FD5F68 /* VRTARImageMarker.mm */,
 				8AEFA2281EF3197E006851B7 /* VRTARPlane.h */,
 				8AEFA2291EF3197E006851B7 /* VRTARPlane.mm */,
 				8A0524301EF0A49C00A02361 /* VRTARScene.h */,
@@ -601,6 +608,8 @@
 				8A35BA231F3BAA48002B069E /* VRTARSceneModule.h */,
 				8A82C12F1F27D35C00736972 /* VRTARSceneNavigatorModule.h */,
 				8A82C1301F27D35C00736972 /* VRTARSceneNavigatorModule.mm */,
+				8A04D4DE2023EDDF00FD5F68 /* VRTARTrackingTargetsModule.h */,
+				8A04D4DF2023EDDF00FD5F68 /* VRTARTrackingTargetsModule.mm */,
 			);
 			name = Modules;
 			sourceTree = "<group>";
@@ -855,8 +864,6 @@
 			isa = PBXGroup;
 			children = (
 				8BDD9D9E1E09F39B00A42870 /* Pods.xcodeproj */,
-				D73C4F5968AA1DBB40C6B454 /* Pods-ViroReact.debug.xcconfig */,
-				A81D35054D51980438423FFB /* Pods-ViroReact.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -868,11 +875,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8BE0D45D1DFA0D050032AB99 /* Build configuration list for PBXNativeTarget "ViroReact" */;
 			buildPhases = (
-				74063CA6527120DBB2F4E7A4 /* [CP] Check Pods Manifest.lock */,
 				8BE0D4501DFA0D050032AB99 /* Sources */,
 				8BE0D4511DFA0D050032AB99 /* Frameworks */,
 				8BE0D4521DFA0D050032AB99 /* CopyFiles */,
-				713F299271F49D887E056747 /* [CP] Copy Pods Resources */,
 				8BDD9E1D1E453F9000A42870 /* ShellScript */,
 				8BDDA13E1E5BEFD000A42870 /* Copy Headers to ios/dist/include */,
 				8BDDA17F1E5BFB9000A42870 /* Copy Files */,
@@ -935,46 +940,6 @@
 /* End PBXReferenceProxy section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		713F299271F49D887E056747 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-ViroReact/Pods-ViroReact-resources.sh",
-				"${PODS_ROOT}/GVRSDK/Resources/CardboardSDK.bundle",
-				"${PODS_ROOT}/GVRSDK/Resources/GoogleKitCore.bundle",
-				"${PODS_ROOT}/GVRSDK/Resources/GoogleKitDialogs.bundle",
-				"${PODS_ROOT}/GVRSDK/Resources/GoogleKitHUD.bundle",
-				"${PODS_ROOT}/GVRSDK/Resources/MaterialRobotoFontLoader.bundle",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ViroReact/Pods-ViroReact-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		74063CA6527120DBB2F4E7A4 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-ViroReact-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
 		8BDD9E1D1E453F9000A42870 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1006,6 +971,7 @@
 				8BE0D4A61DFA15880032AB99 /* VRTVideoSurfaceManager.mm in Sources */,
 				8BE0D4AA1DFA15880032AB99 /* VRTImageManager.mm in Sources */,
 				8BE0D49C1DFA15880032AB99 /* VRTAnimatedComponentManager.mm in Sources */,
+				8A04D51B2024F7AA00FD5F68 /* VRTARImageMarker.mm in Sources */,
 				8A0524391EF0A4B900A02361 /* VRTARSceneManager.mm in Sources */,
 				8AEFA2251EF3175C006851B7 /* VRTARPlaneManager.mm in Sources */,
 				8BE0D50F1DFA3D9B0032AB99 /* VRTSphere.mm in Sources */,
@@ -1017,6 +983,7 @@
 				8BE0D4F91DFA3D9B0032AB99 /* VRTAnimatedComponentShadowView.mm in Sources */,
 				8A82C1321F27D35C00736972 /* VRTARSceneNavigatorModule.mm in Sources */,
 				8BE0D5071DFA3D9B0032AB99 /* VRTNodeContainerShadowView.mm in Sources */,
+				8A04D4E02023EDDF00FD5F68 /* VRTARTrackingTargetsModule.mm in Sources */,
 				8AFC1C381EC1001C0000F7EB /* VRTPolyline.mm in Sources */,
 				8FEF008D1F38A718006AE4B1 /* VRTPortalSceneManager.mm in Sources */,
 				A5839B4E1F68B3F8009091A7 /* VRTParticleEmitter.mm in Sources */,
@@ -1066,6 +1033,7 @@
 				8BE0D4A41DFA15880032AB99 /* VRTTextManager.mm in Sources */,
 				A562D02620298E1B004DA3A5 /* VRTLightingEnvironmentManager.mm in Sources */,
 				8BE0D5021DFA3D9B0032AB99 /* VRTText.mm in Sources */,
+				8A04D5182024F6B200FD5F68 /* VRTARImageMarkerManager.mm in Sources */,
 				8BE0D5261DFA3DEA0032AB99 /* VRTTreeNode.m in Sources */,
 				8A31CFB41E2705EC00550CFE /* VRTSurface.mm in Sources */,
 				8BE0D5101DFA3D9B0032AB99 /* VRTVideoSurface.mm in Sources */,
@@ -1180,7 +1148,6 @@
 		};
 		8BE0D45E1DFA0D050032AB99 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D73C4F5968AA1DBB40C6B454 /* Pods-ViroReact.debug.xcconfig */;
 			buildSettings = {
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1201,7 +1168,6 @@
 		};
 		8BE0D45F1DFA0D050032AB99 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A81D35054D51980438423FFB /* Pods-ViroReact.release.xcconfig */;
 			buildSettings = {
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (

@@ -93,7 +93,6 @@ RCT_EXPORT_METHOD(resetARSession:(nonnull NSNumber *)reactTag
             VRTARSceneNavigator *component = (VRTARSceneNavigator *)view;
             VROViewAR *view = (VROViewAR *)[component rootVROView];
             view.getARSession->resetSession(resetTracking, removeAnchors);
-            NSLog(@"kirby reset! %@", removeAnchors ? @"removing!" : @"not removing!");
         }
     }];
 }

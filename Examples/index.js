@@ -24,7 +24,7 @@ import {
 } from 'react-viro';
 
 var InitialVRScene = require('./js/release_test/ViroSkyBoxTest');
-var InitialARScene = require('./js/AR/release_test/ARSceneAndNavigatorTest');
+var InitialARScene = require('./js/AR/release_test/ARImageMarkerTest');
 
 var UNSET = "UNSET";
 var VR_NAVIGATOR_TYPE = "VR";

@@ -30,10 +30,7 @@ public:
      */
     bool hasRequirementsFulfilled(std::shared_ptr<VROARAnchor> candidate) {
         std::shared_ptr<VROARPlaneAnchor> planeAnchor = std::dynamic_pointer_cast<VROARPlaneAnchor>(candidate);
-        if (planeAnchor) {
-            return planeAnchor && planeAnchor->getExtent().x >= _minWidth && planeAnchor->getExtent().z >= _minHeight;
-        }
-        return false;
+        return planeAnchor && planeAnchor->getExtent().x >= _minWidth && planeAnchor->getExtent().z >= _minHeight;
     }
     
     void setMinWidth(float minWidth) {
