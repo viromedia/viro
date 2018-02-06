@@ -50,7 +50,7 @@ var ViroPbrTest = createReactClass({
        <ViroLightingEnvironment source={require('./res/ibl_newport_loft.hdr')}/>
        <Viro360Image source={require('./res/ibl_newport_loft.hdr')} />
        <ReleaseMenu sceneNavigator={this.props.sceneNavigator}/>
-       <ViroNode position={[0,-2, -2]}>
+       <ViroNode position={[0,-2, 0]}>
        <ViroImage source={require('./res/poi_dot.png')} position={[0, -4, -2]} transformBehaviors={["billboard"]} onClick={this._showNext} />
           <ViroText style={styles.baseTextTwo} fontSize={this.state.fontSize}  position={[-2, -1, -2]} width={4} height ={2}
               text={"Toggle metalness: " + this.state.metalness} onClick={this._toggleMetalness}/>
