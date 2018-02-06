@@ -211,6 +211,11 @@ public class MaterialManager extends ReactContextBaseJavaModule {
                 readsFromDepthBuffer);
         materialWrapper.setNativeMaterial(nativeMaterial);
 
+        // Parse stuff
+        parsePBRProperties(PBRProperties.METALNESS, nativeMaterial, materialMap);
+        parsePBRProperties(PBRProperties.ROUGHNESS, nativeMaterial, materialMap);
+        parsePBRProperties(PBRProperties.AMBIENT_OCCLUSION, nativeMaterial, materialMap);
+
         // We don't need to hold a Java texture reference after assigning the texture to the material
         if (diffuseTexture != null) {
             diffuseTexture.dispose();
@@ -222,6 +227,39 @@ public class MaterialManager extends ReactContextBaseJavaModule {
             normalMap.dispose();
         }
         return materialWrapper;
+    }
+
+    private void parsePBRProperties(PBRProperties property, Material material, ReadableMap materialMap) {
+        String key = property.key;
+        if (!materialMap.hasKey(key)) {
+            return;
+        }
+
+        ReadableType type = materialMap.getType(key);
+        if (type == ReadableType.Number) {
+            float value = (float)materialMap.getDouble(key);
+            property.setPropertyForMaterial(material, value);
+        } else {
+            String path = parseImagePath(materialMap, key);
+            if (path == null) {
+                throw new IllegalArgumentException("Error: Unable to parse environment light map resource uri!");
+            }
+
+            Uri uri = Helper.parseUri(path, mContext);
+            ImageDownloader downloader = new ImageDownloader(mContext);
+            downloader.setTextureFormat(Texture.Format.RGB9_E5);
+
+            Bitmap imageBitmap = downloader.getImageSync(uri);
+            if (imageBitmap != null) {
+                Image nativeImage = new Image(imageBitmap, Texture.Format.RGBA8);
+                Texture texture = parseTexture(nativeImage, Texture.Format.RGBA8, false, false,
+                        key, materialMap);
+
+                property.setMapForMaterial(material, texture);
+            } else {
+                throw new IllegalArgumentException("Error: Unable to get environment light map resource!");
+            }
+        }
     }
 
     private Texture parseTexture(Image image, Texture.Format format, boolean sRGB, boolean mipmap,
@@ -335,6 +373,38 @@ public class MaterialManager extends ReactContextBaseJavaModule {
 
     private boolean isVideoTexture(String path) {
         return path.endsWith("mp4");
+    }
+
+    /**
+     * Enum properties represented within a PBR material.
+     */
+    enum PBRProperties {
+        METALNESS("metalness"),
+        ROUGHNESS("roughness"),
+        AMBIENT_OCCLUSION("ambientOcclusion");
+        final String key;
+
+        PBRProperties(String strKey){
+            key = strKey;
+        }
+
+        protected void setPropertyForMaterial(Material material, float value){
+            if (this == METALNESS){
+                material.setMetalness(value);
+            } else if (this == ROUGHNESS){
+                material.setRoughness(value);
+            }
+        }
+
+        protected void setMapForMaterial(Material material, Texture map){
+            if (this == METALNESS){
+                material.setMetalnessMap(map);
+            } else if (this == ROUGHNESS){
+                material.setRoughnessMap(map);
+            } else if (this == AMBIENT_OCCLUSION){
+                material.setAmbientOcclusionMap(map);
+            }
+        }
     }
 
     /**

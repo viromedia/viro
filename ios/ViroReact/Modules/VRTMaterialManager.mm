@@ -287,13 +287,29 @@ RCT_EXPORT_METHOD(setJSMaterials:(NSDictionary *)materials) {
             } else if ([@"bloomThreshold" caseInsensitiveCompare:materialPropertyName]  == NSOrderedSame){
                 NSNumber *number =  material[key];
                 vroMaterial->setBloomThreshold([number floatValue]);
+            } else if ([@"metalness" caseInsensitiveCompare:materialPropertyName] == NSOrderedSame){
+                [self setPbrPropertyForMaterial:vroMaterial->getMetalness() property:material[key]];
+            } else if ([@"roughness" caseInsensitiveCompare:materialPropertyName]  == NSOrderedSame){
+                [self setPbrPropertyForMaterial:vroMaterial->getRoughness() property:material[key]];
+            } else if ([@"ambientOcclusion" caseInsensitiveCompare:materialPropertyName]  == NSOrderedSame){
+                [self setPbrPropertyForMaterial:vroMaterial->getAmbientOcclusion() property:material[key]];
             }
         }
     }
     return materialWrapper;
 }
 
-- (void)setColorForMaterial:(std::shared_ptr<VROMaterial>)material
+- (void) setPbrPropertyForMaterial:(VROMaterialVisual &)materialVisual
+                       property:(id)property {
+    if ([property isKindOfClass:[NSNumber class]]){
+        materialVisual.setColor({ [property floatValue], 1.0, 1.0, 1.0 });
+    } else {
+        std::shared_ptr<VROTexture> texture = [self createTexture2D:property sRGB:false];
+        materialVisual.setTexture(texture);
+    }
+}
+
+- (void) setColorForMaterial:(std::shared_ptr<VROMaterial>)material
                       color:(NSUInteger)color
                        name:(NSString *)materialPropertyName {
     
@@ -354,6 +370,8 @@ RCT_EXPORT_METHOD(setJSMaterials:(NSDictionary *)materials) {
         return VROLightingModel::Lambert;
     } else if ([@"Constant" caseInsensitiveCompare:name] == NSOrderedSame) {
         return VROLightingModel::Constant;
+    } else if ([@"PBR" caseInsensitiveCompare:name] == NSOrderedSame) {
+        return VROLightingModel::PhysicallyBased;
     }
     //return default if nothing else matches
     return VROLightingModel::Blinn;

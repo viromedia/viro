@@ -20,7 +20,7 @@ var ColorPropType = require('react-native').ColorPropType;
 var MaterialPropTypes = {
   shininess: PropTypes.number,
   fresnelExponent: PropTypes.number,
-  lightingModel: PropTypes.oneOf(['Phong', 'Blinn', 'Lambert', 'Constant']),
+  lightingModel: PropTypes.oneOf(['Phong', 'Blinn', 'Lambert', 'Constant', 'PBR']),
   writesToDepthBuffer: PropTypes.bool,
   readsFromDepthBuffer: PropTypes.bool,
   cullMode: PropTypes.oneOf(['None', 'Back', 'Front']),
@@ -36,6 +36,9 @@ var MaterialPropTypes = {
   magnificationFilter: PropTypes.oneOf(['Nearest', 'Linear']),
   mipFilter: PropTypes.oneOf(['Nearest', 'Linear']),
   bloomThreshold: PropTypes.number,
+  metalness: PropTypes.number,
+  roughness: PropTypes.number,
+  ambientOcclusion: PropTypes.number
 };
 
 module.exports = MaterialPropTypes;
