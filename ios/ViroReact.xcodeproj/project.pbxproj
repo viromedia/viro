@@ -30,11 +30,11 @@
 		8A5CDE221F68D5470093F43B /* VRTPolyline.h in Copy Headers to ios/dist/include */ = {isa = PBXBuildFile; fileRef = 8AFC1C351EC1001C0000F7EB /* VRTPolyline.h */; };
 		8A5CDE231F68D5470093F43B /* VRTPortalScene.h in Copy Headers to ios/dist/include */ = {isa = PBXBuildFile; fileRef = 8FEF00631F37ACCC006AE4B1 /* VRTPortalScene.h */; };
 		8A5CDE241F68D5470093F43B /* VRTPortal.h in Copy Headers to ios/dist/include */ = {isa = PBXBuildFile; fileRef = 8FEF00841F37D04F006AE4B1 /* VRTPortal.h */; };
-		8A5CDE251F68D5470093F43B /* BuildFile in Copy Headers to ios/dist/include */ = {isa = PBXBuildFile; };
+		8A5CDE251F68D5470093F43B /* (null) in Copy Headers to ios/dist/include */ = {isa = PBXBuildFile; };
 		8A5CDE261F68D5470093F43B /* VRTPolylineManager.h in Copy Headers to ios/dist/include */ = {isa = PBXBuildFile; fileRef = 8A56302D1EBBFF5F009E71A7 /* VRTPolylineManager.h */; };
 		8A5CDE271F68D5470093F43B /* VRTPortalSceneManager.h in Copy Headers to ios/dist/include */ = {isa = PBXBuildFile; fileRef = 8FEF00821F37CAEF006AE4B1 /* VRTPortalSceneManager.h */; };
 		8A5CDE281F68D5470093F43B /* VRTPortalManager.h in Copy Headers to ios/dist/include */ = {isa = PBXBuildFile; fileRef = 8FEF00871F37D0C0006AE4B1 /* VRTPortalManager.h */; };
-		8A5CDE291F68D5470093F43B /* BuildFile in Copy Headers to ios/dist/include */ = {isa = PBXBuildFile; };
+		8A5CDE291F68D5470093F43B /* (null) in Copy Headers to ios/dist/include */ = {isa = PBXBuildFile; };
 		8A5CDE2A1F68D56F0093F43B /* VRTNodeModule.h in Copy Headers to ios/dist/include */ = {isa = PBXBuildFile; fileRef = A50A310C1ECE1E8800DEBE9B /* VRTNodeModule.h */; };
 		8A5CDE2B1F68D56F0093F43B /* VRTSceneModule.h in Copy Headers to ios/dist/include */ = {isa = PBXBuildFile; fileRef = A5E8F0A71ED6B64D00729916 /* VRTSceneModule.h */; };
 		8A5CDE2C1F68D56F0093F43B /* VRTControllerModule.h in Copy Headers to ios/dist/include */ = {isa = PBXBuildFile; fileRef = A533596D1E9E0169005B3EC5 /* VRTControllerModule.h */; };
@@ -181,6 +181,8 @@
 		8FEF008D1F38A718006AE4B1 /* VRTPortalSceneManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8FEF00831F37CAEF006AE4B1 /* VRTPortalSceneManager.mm */; };
 		A50A310F1ECE1E8800DEBE9B /* VRTNodeModule.mm in Sources */ = {isa = PBXBuildFile; fileRef = A50A310D1ECE1E8800DEBE9B /* VRTNodeModule.mm */; };
 		A53359701E9E0169005B3EC5 /* VRTControllerModule.mm in Sources */ = {isa = PBXBuildFile; fileRef = A533596E1E9E0169005B3EC5 /* VRTControllerModule.mm */; };
+		A562D02620298E1B004DA3A5 /* VRTLightingEnvironmentManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = A562D02520298E1B004DA3A5 /* VRTLightingEnvironmentManager.mm */; };
+		A562D02920298E2C004DA3A5 /* VRTLightingEnvironment.mm in Sources */ = {isa = PBXBuildFile; fileRef = A562D02820298E2C004DA3A5 /* VRTLightingEnvironment.mm */; };
 		A5839B4E1F68B3F8009091A7 /* VRTParticleEmitter.mm in Sources */ = {isa = PBXBuildFile; fileRef = A5839B4D1F68B3F8009091A7 /* VRTParticleEmitter.mm */; };
 		A5839B511F68B40D009091A7 /* VRTParticleEmitterManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = A5839B501F68B40D009091A7 /* VRTParticleEmitterManager.mm */; };
 		A5A937AA1E81D1FB00FE0406 /* VRTSceneNavigatorModule.mm in Sources */ = {isa = PBXBuildFile; fileRef = A5A937A81E81D1FB00FE0406 /* VRTSceneNavigatorModule.mm */; };
@@ -191,34 +193,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		8AFCC5DA2006906E00AD8B8D /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 8BDD9D9E1E09F39B00A42870 /* Pods.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = EE6001AB7E2CDEDFA6AC781BDB4E1F17;
-			remoteInfo = AWSCore;
-		};
-		8AFCC5DC2006906E00AD8B8D /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 8BDD9D9E1E09F39B00A42870 /* Pods.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 05BDDFD84F691C2C1A442C7237DB0915;
-			remoteInfo = AWSDynamoDB;
-		};
-		8AFCC5DE2006906E00AD8B8D /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 8BDD9D9E1E09F39B00A42870 /* Pods.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 28C88BA1B05625CB995072483F3E5D79;
-			remoteInfo = GoogleToolboxForMac;
-		};
-		8AFCC5E02006906E00AD8B8D /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 8BDD9D9E1E09F39B00A42870 /* Pods.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 50AD42943937C3D5FA89F701D6EE7737;
-			remoteInfo = GTMSessionFetcher;
-		};
 		8BDD9DA21E09F39B00A42870 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 8BDD9D9E1E09F39B00A42870 /* Pods.xcodeproj */;
@@ -243,11 +217,11 @@
 				8A5CDE221F68D5470093F43B /* VRTPolyline.h in Copy Headers to ios/dist/include */,
 				8A5CDE231F68D5470093F43B /* VRTPortalScene.h in Copy Headers to ios/dist/include */,
 				8A5CDE241F68D5470093F43B /* VRTPortal.h in Copy Headers to ios/dist/include */,
-				8A5CDE251F68D5470093F43B /* BuildFile in Copy Headers to ios/dist/include */,
+				8A5CDE251F68D5470093F43B /* (null) in Copy Headers to ios/dist/include */,
 				8A5CDE261F68D5470093F43B /* VRTPolylineManager.h in Copy Headers to ios/dist/include */,
 				8A5CDE271F68D5470093F43B /* VRTPortalSceneManager.h in Copy Headers to ios/dist/include */,
 				8A5CDE281F68D5470093F43B /* VRTPortalManager.h in Copy Headers to ios/dist/include */,
-				8A5CDE291F68D5470093F43B /* BuildFile in Copy Headers to ios/dist/include */,
+				8A5CDE291F68D5470093F43B /* (null) in Copy Headers to ios/dist/include */,
 				8A5CDE171F68D4BD0093F43B /* VRTARSceneNavigator.h in Copy Headers to ios/dist/include */,
 				8A5CDE181F68D4BD0093F43B /* VRTARAnchorNode.h in Copy Headers to ios/dist/include */,
 				8A5CDE191F68D4BD0093F43B /* VRTARPlane.h in Copy Headers to ios/dist/include */,
@@ -538,6 +512,10 @@
 		A50A310D1ECE1E8800DEBE9B /* VRTNodeModule.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = VRTNodeModule.mm; path = ViroReact/Modules/VRTNodeModule.mm; sourceTree = "<group>"; };
 		A533596D1E9E0169005B3EC5 /* VRTControllerModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VRTControllerModule.h; path = ViroReact/Modules/VRTControllerModule.h; sourceTree = "<group>"; };
 		A533596E1E9E0169005B3EC5 /* VRTControllerModule.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = VRTControllerModule.mm; path = ViroReact/Modules/VRTControllerModule.mm; sourceTree = "<group>"; };
+		A562D02320298E1A004DA3A5 /* VRTLightingEnvironmentManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VRTLightingEnvironmentManager.h; path = ViroReact/VRTLightingEnvironmentManager.h; sourceTree = "<group>"; };
+		A562D02520298E1B004DA3A5 /* VRTLightingEnvironmentManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = VRTLightingEnvironmentManager.mm; path = ViroReact/VRTLightingEnvironmentManager.mm; sourceTree = "<group>"; };
+		A562D02720298E2B004DA3A5 /* VRTLightingEnvironment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VRTLightingEnvironment.h; path = ViroReact/Views/VRTLightingEnvironment.h; sourceTree = "<group>"; };
+		A562D02820298E2C004DA3A5 /* VRTLightingEnvironment.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = VRTLightingEnvironment.mm; path = ViroReact/Views/VRTLightingEnvironment.mm; sourceTree = "<group>"; };
 		A5839B4C1F68B3F7009091A7 /* VRTParticleEmitter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VRTParticleEmitter.h; path = ViroReact/Views/VRTParticleEmitter.h; sourceTree = "<group>"; };
 		A5839B4D1F68B3F8009091A7 /* VRTParticleEmitter.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = VRTParticleEmitter.mm; path = ViroReact/Views/VRTParticleEmitter.mm; sourceTree = "<group>"; };
 		A5839B4F1F68B40C009091A7 /* VRTParticleEmitterManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VRTParticleEmitterManager.h; path = ViroReact/VRTParticleEmitterManager.h; sourceTree = "<group>"; };
@@ -639,11 +617,7 @@
 		8BDD9D9F1E09F39B00A42870 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8AFCC5DB2006906E00AD8B8D /* AWSCore.framework */,
-				8AFCC5DD2006906E00AD8B8D /* AWSDynamoDB.framework */,
-				8AFCC5DF2006906E00AD8B8D /* GoogleToolboxForMac.framework */,
-				8AFCC5E12006906E00AD8B8D /* GTMSessionFetcher.framework */,
-				8BDD9DA31E09F39B00A42870 /* Pods_ViroReact.framework */,
+				8BDD9DA31E09F39B00A42870 /* libPods-ViroReact.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -682,6 +656,8 @@
 				8BE0D4671DFA15880032AB99 /* ViroViewManager.h */,
 				8BE0D4681DFA15880032AB99 /* ViroViewManager.mm */,
 				8BE0D4761DFA15880032AB99 /* VROHUDManager.h */,
+				A562D02320298E1A004DA3A5 /* VRTLightingEnvironmentManager.h */,
+				A562D02520298E1B004DA3A5 /* VRTLightingEnvironmentManager.mm */,
 				8BE0D4771DFA15880032AB99 /* VROHUDManager.mm */,
 				8BDD9E191E453F3500A42870 /* VRTBundleURLProvider.h */,
 				A5F6D4031E4B179700655F60 /* VRTControllerManager.h */,
@@ -777,6 +753,8 @@
 		8BE0D4B81DFA3D8A0032AB99 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				A562D02720298E2B004DA3A5 /* VRTLightingEnvironment.h */,
+				A562D02820298E2C004DA3A5 /* VRTLightingEnvironment.mm */,
 				A5839B4C1F68B3F7009091A7 /* VRTParticleEmitter.h */,
 				A5839B4D1F68B3F8009091A7 /* VRTParticleEmitter.mm */,
 				8BE0D4B91DFA3D9B0032AB99 /* VRT3DObject.h */,
@@ -947,38 +925,10 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		8AFCC5DB2006906E00AD8B8D /* AWSCore.framework */ = {
+		8BDD9DA31E09F39B00A42870 /* libPods-ViroReact.a */ = {
 			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = AWSCore.framework;
-			remoteRef = 8AFCC5DA2006906E00AD8B8D /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		8AFCC5DD2006906E00AD8B8D /* AWSDynamoDB.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = AWSDynamoDB.framework;
-			remoteRef = 8AFCC5DC2006906E00AD8B8D /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		8AFCC5DF2006906E00AD8B8D /* GoogleToolboxForMac.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = GoogleToolboxForMac.framework;
-			remoteRef = 8AFCC5DE2006906E00AD8B8D /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		8AFCC5E12006906E00AD8B8D /* GTMSessionFetcher.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = GTMSessionFetcher.framework;
-			remoteRef = 8AFCC5E02006906E00AD8B8D /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		8BDD9DA31E09F39B00A42870 /* Pods_ViroReact.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = Pods_ViroReact.framework;
+			fileType = archive.ar;
+			path = "libPods-ViroReact.a";
 			remoteRef = 8BDD9DA21E09F39B00A42870 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
@@ -1036,7 +986,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "$SRCROOT/ngrok_launch.sh";
+			shellScript = $SRCROOT/ngrok_launch.sh;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1059,6 +1009,7 @@
 				8A0524391EF0A4B900A02361 /* VRTARSceneManager.mm in Sources */,
 				8AEFA2251EF3175C006851B7 /* VRTARPlaneManager.mm in Sources */,
 				8BE0D50F1DFA3D9B0032AB99 /* VRTSphere.mm in Sources */,
+				A562D02920298E2C004DA3A5 /* VRTLightingEnvironment.mm in Sources */,
 				8BE0D4991DFA15880032AB99 /* ViroViewManager.mm in Sources */,
 				8A130D811E3AAEA10050D83B /* VRTSound.mm in Sources */,
 				8BE0D50C1DFA3D9B0032AB99 /* VRTShadowFlexView.mm in Sources */,
@@ -1113,6 +1064,7 @@
 				8A0524331EF0A49C00A02361 /* VRTARScene.mm in Sources */,
 				8BE0D5121DFA3D9B0032AB99 /* VRTViewContainerManager.mm in Sources */,
 				8BE0D4A41DFA15880032AB99 /* VRTTextManager.mm in Sources */,
+				A562D02620298E1B004DA3A5 /* VRTLightingEnvironmentManager.mm in Sources */,
 				8BE0D5021DFA3D9B0032AB99 /* VRTText.mm in Sources */,
 				8BE0D5261DFA3DEA0032AB99 /* VRTTreeNode.m in Sources */,
 				8A31CFB41E2705EC00550CFE /* VRTSurface.mm in Sources */,
