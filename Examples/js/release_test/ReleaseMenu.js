@@ -189,7 +189,14 @@ var ReleaseMenu = createReactClass({
                  <ViroText style={styles.centeredText}  position={[0, -12, -4]} width={1.5} height ={2}
                         text={"ViroPolylineTest"}
                         onClick={() => {this.props.sceneNavigator.replace("ViroPolylineTest", {scene:require("./ViroPolylineTest"), passProps:{showMenu:true}})}}
-
+                 />
+                 <ViroText style={styles.centeredText}  position={[6, -1, -4]} width={1.5} height ={2}
+                        text={"ViroPbrTestBasic"}
+                        onClick={() => {this.props.sceneNavigator.replace("ViroPbrTestBasic", {scene:require("./ViroPbrTest"), passProps:{showMenu:true}})}}
+                 />
+                 <ViroText style={styles.centeredText}  position={[6, -2, -4]} width={1.5} height ={2}
+                        text={"ViroPbrTestSurfaces"}
+                        onClick={() => {this.props.sceneNavigator.replace("ViroPbrTestSurfaces", {scene:require("./ViroPbrTestSurfaces"), passProps:{showMenu:true}})}}
                  />
                 </ViroNode>
             </ViroScene>

@@ -36,7 +36,14 @@ var ViroPbrTest = createReactClass({
       roughness:0,
       metalness:0,
       refreshPass:true,
+      envLight:true
    };
+ },
+
+ getEnvLight(){
+   if (this.state.envLight){
+     return    ((    <ViroLightingEnvironment source={require('./res/ibl_newport_loft.hdr')}/>));
+   }
  },
 
  render: function() {
@@ -47,6 +54,7 @@ var ViroPbrTest = createReactClass({
 
    return (
     <ViroScene>
+       {this.getEnvLight()}
        <ViroLightingEnvironment source={require('./res/ibl_newport_loft.hdr')}/>
        <Viro360Image source={require('./res/ibl_newport_loft.hdr')} />
        <ReleaseMenu sceneNavigator={this.props.sceneNavigator}/>
@@ -56,8 +64,9 @@ var ViroPbrTest = createReactClass({
               text={"Toggle metalness: " + this.state.metalness} onClick={this._toggleMetalness}/>
           <ViroText style={styles.baseTextTwo} fontSize={this.state.fontSize}  position={[1, -1, -2]} width={4} height ={2}
               text={"Toggle roughness: " + this.state.roughness} onClick={this._toggleRoughness}/>
+          <ViroText style={styles.baseTextTwo} fontSize={this.state.fontSize}  position={[0, 0, -2]} width={4} height ={2}
+              text={"Toggle Environment light: " + this.state.envLight} onClick={this._toggleEnvLight}/>
               <ViroNode position={[0,0,-3 ]}>
-
               <ViroSphere
                   position={[0, 0, 0]}
                   scale={[0.5, 0.5, 0.5]}
@@ -114,6 +123,11 @@ var ViroPbrTest = createReactClass({
 
  _showNext() {
    this.props.sceneNavigator.replace({scene:require('./ViroButtonTest')});
+ },
+ _toggleEnvLight(){
+   this.setState({
+      envLight: !this.state.envLight
+   });
  },
 
  _toggleRoughness() {
