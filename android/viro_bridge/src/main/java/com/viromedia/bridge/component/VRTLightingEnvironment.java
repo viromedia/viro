@@ -45,6 +45,10 @@ public class VRTLightingEnvironment extends VRTNode {
             return;
         }
 
+        if (mDownloadListener != null){
+            mDownloadListener.invalidate();
+        }
+
         ImageDownloader downloader = new ImageDownloader(getContext());
         downloader.setTextureFormat(Texture.Format.RGB9_E5);
         imageDownloadDidStart();
@@ -133,7 +137,7 @@ public class VRTLightingEnvironment extends VRTNode {
                     if (getNodeJni() != null) {
                         PortalScene portal = getNodeJni().getParentPortalScene();
                         if (portal != null) {
-                            portal.setBackgroundTexture(mLatestTexture);
+                            portal.setLightingEnvironment(mLatestTexture);
                         }
                     }
                     imageDownloadDidFinish();

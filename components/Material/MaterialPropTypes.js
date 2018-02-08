@@ -36,9 +36,11 @@ var MaterialPropTypes = {
   magnificationFilter: PropTypes.oneOf(['Nearest', 'Linear']),
   mipFilter: PropTypes.oneOf(['Nearest', 'Linear']),
   bloomThreshold: PropTypes.number,
-  metalness: PropTypes.number,
   roughness: PropTypes.number,
-  ambientOcclusion: PropTypes.number
+  roughnessTexture: PropTypes.any,
+  metalness: PropTypes.number,
+  metalnessTexture: PropTypes.any,
+  ambientOcclusionTexture: PropTypes.any,
 };
 
 module.exports = MaterialPropTypes;

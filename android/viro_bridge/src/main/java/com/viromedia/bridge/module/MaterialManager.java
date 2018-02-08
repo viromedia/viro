@@ -117,6 +117,17 @@ public class MaterialManager extends ReactContextBaseJavaModule {
         while(iter.hasNextKey()) {
             final String materialPropertyName = iter.nextKey();
 
+            boolean isPbrProperty = false;
+            for (PBRProperties property : PBRProperties.values()){
+                if (property.key.equalsIgnoreCase(materialPropertyName)){
+                    isPbrProperty = true;
+                    break;
+                }
+            }
+            if (isPbrProperty) {
+                continue;
+            }
+
             if (materialPropertyName.endsWith("texture") || materialPropertyName.endsWith("Texture")) {
                 if (materialPropertyName.equalsIgnoreCase("reflectiveTexture")) {
                     Texture nativeTexture = createTextureCubeMap(materialMap.getMap(materialPropertyName), Texture.Format.RGBA8);
@@ -214,7 +225,7 @@ public class MaterialManager extends ReactContextBaseJavaModule {
         // Parse stuff
         parsePBRProperties(PBRProperties.METALNESS, nativeMaterial, materialMap);
         parsePBRProperties(PBRProperties.ROUGHNESS, nativeMaterial, materialMap);
-        parsePBRProperties(PBRProperties.AMBIENT_OCCLUSION, nativeMaterial, materialMap);
+        parsePBRProperties(PBRProperties.AMBIENT_OCCLUSION_TEXTURE, nativeMaterial, materialMap);
 
         // We don't need to hold a Java texture reference after assigning the texture to the material
         if (diffuseTexture != null) {
@@ -235,11 +246,7 @@ public class MaterialManager extends ReactContextBaseJavaModule {
             return;
         }
 
-        ReadableType type = materialMap.getType(key);
-        if (type == ReadableType.Number) {
-            float value = (float)materialMap.getDouble(key);
-            property.setPropertyForMaterial(material, value);
-        } else {
+        if (key.endsWith("Texture") || key.endsWith("texture")){
             String path = parseImagePath(materialMap, key);
             if (path == null) {
                 throw new IllegalArgumentException("Error: Unable to parse environment light map resource uri!");
@@ -252,13 +259,17 @@ public class MaterialManager extends ReactContextBaseJavaModule {
             Bitmap imageBitmap = downloader.getImageSync(uri);
             if (imageBitmap != null) {
                 Image nativeImage = new Image(imageBitmap, Texture.Format.RGBA8);
-                Texture texture = parseTexture(nativeImage, Texture.Format.RGBA8, false, false,
+                boolean sRGB = property == PBRProperties.AMBIENT_OCCLUSION_TEXTURE;
+                Texture texture = parseTexture(nativeImage, Texture.Format.RGBA8, sRGB, false,
                         key, materialMap);
 
                 property.setMapForMaterial(material, texture);
             } else {
                 throw new IllegalArgumentException("Error: Unable to get environment light map resource!");
             }
+        } else {
+            float value = (float)materialMap.getDouble(key);
+            property.setPropertyForMaterial(material, value);
         }
     }
 
@@ -380,8 +391,10 @@ public class MaterialManager extends ReactContextBaseJavaModule {
      */
     enum PBRProperties {
         METALNESS("metalness"),
+        METALNESS_TEXTURE("metalnessTexture"),
         ROUGHNESS("roughness"),
-        AMBIENT_OCCLUSION("ambientOcclusion");
+        ROUGHNESS_TEXTURE("roughnessTexture"),
+        AMBIENT_OCCLUSION_TEXTURE("ambientOcclusionTexture");
         final String key;
 
         PBRProperties(String strKey){
@@ -397,11 +410,11 @@ public class MaterialManager extends ReactContextBaseJavaModule {
         }
 
         protected void setMapForMaterial(Material material, Texture map){
-            if (this == METALNESS){
+            if (this == METALNESS_TEXTURE){
                 material.setMetalnessMap(map);
-            } else if (this == ROUGHNESS){
+            } else if (this == ROUGHNESS_TEXTURE){
                 material.setRoughnessMap(map);
-            } else if (this == AMBIENT_OCCLUSION){
+            } else if (this == AMBIENT_OCCLUSION_TEXTURE){
                 material.setAmbientOcclusionMap(map);
             }
         }

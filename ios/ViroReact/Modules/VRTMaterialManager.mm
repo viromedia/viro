@@ -238,14 +238,15 @@ RCT_EXPORT_METHOD(setJSMaterials:(NSDictionary *)materials) {
                 [self setTextureForMaterial:vroMaterial texture:texture name:materialPropertyName];
                 
                 continue;
-            }
+            } 
             
             NSString *path = [self parseImagePath:material[key]];
             if (path != nil) {
                 if ([self isVideoTexture:path]) {
                     [materialWrapper setMaterialPropertyName:materialPropertyName forVideoTexturePath:path];
                 } else {
-                    BOOL sRGB = [materialPropertyName caseInsensitiveCompare:@"diffuseTexture"] == NSOrderedSame;
+                    BOOL sRGB = [materialPropertyName caseInsensitiveCompare:@"diffuseTexture"] == NSOrderedSame
+                    || [materialPropertyName caseInsensitiveCompare:@"ambientOcclusionTexture"] == NSOrderedSame;
                     
                     std::shared_ptr<VROTexture> texture = [self createTexture2D:material[key] sRGB:sRGB];
                     [self loadProperties:material forTexture:texture];
@@ -288,11 +289,9 @@ RCT_EXPORT_METHOD(setJSMaterials:(NSDictionary *)materials) {
                 NSNumber *number =  material[key];
                 vroMaterial->setBloomThreshold([number floatValue]);
             } else if ([@"metalness" caseInsensitiveCompare:materialPropertyName] == NSOrderedSame){
-                [self setPbrPropertyForMaterial:vroMaterial->getMetalness() property:material[key]];
+                vroMaterial->getMetalness().setColor({ [material[key] floatValue], 1.0, 1.0, 1.0 });
             } else if ([@"roughness" caseInsensitiveCompare:materialPropertyName]  == NSOrderedSame){
-                [self setPbrPropertyForMaterial:vroMaterial->getRoughness() property:material[key]];
-            } else if ([@"ambientOcclusion" caseInsensitiveCompare:materialPropertyName]  == NSOrderedSame){
-                [self setPbrPropertyForMaterial:vroMaterial->getAmbientOcclusion() property:material[key]];
+                vroMaterial->getRoughness().setColor({ [material[key] floatValue], 1.0, 1.0, 1.0 });
             }
         }
     }
@@ -356,6 +355,12 @@ RCT_EXPORT_METHOD(setJSMaterials:(NSDictionary *)materials) {
         material->getAmbientOcclusion().setTexture(texture);
     } else if([@"selfIlluminationTexture" caseInsensitiveCompare:materialPropertyName] == NSOrderedSame) {
         material->getSelfIllumination().setTexture(texture);
+    } else if ([@"metalnessTexture" caseInsensitiveCompare:materialPropertyName] == NSOrderedSame){
+        material->getMetalness().setTexture(texture);
+    } else if ([@"roughnessTexture" caseInsensitiveCompare:materialPropertyName]  == NSOrderedSame){
+        material->getRoughness().setTexture(texture);
+    } else if ([@"ambientOcclusionTexture" caseInsensitiveCompare:materialPropertyName]  == NSOrderedSame){
+        material->getAmbientOcclusion().setTexture(texture);
     }
 }
 
