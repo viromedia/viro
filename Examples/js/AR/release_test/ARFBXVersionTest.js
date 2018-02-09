@@ -24,33 +24,37 @@ import {
   ViroSurface,
   ViroConstants,
   ViroNode,
-  Viro3DObject,
+  ViroBox,
+  ViroAmbientLight,
   ViroOmniLight,
   ViroText,
   ViroUtils,
+  Viro3DObject,
 } from 'react-viro';
 
 var createReactClass = require('create-react-class');
 
 let polarToCartesian = ViroUtils.polarToCartesian;
 
-var ARDragTest = createReactClass({
+var ARFBXVersionTest = createReactClass({
   getInitialState: function() {
     return {};
   },
   render: function() {
     return (
-        <ViroARScene onClick={()=>{this.refs["planeSelector"].reset()}} >
-          <ViroNode position={[0,0,-1]} onDrag={()=>{}} dragType="FixedToWorld">
-            <ViroBox position={[0,.13,0]} scale={[.2,.2,.2]}
-                onRotate={(state, factor)=>{console.log("[DragTest] rotation with factor: " + factor)}}/>
-            <ViroImage rotation={[-90,0,0]} scale={[.3,.3,.3]} position={[0,.01,0]}
-                source={require('../res/dark_circle_shadow.png')} materials="doesntWriteToDepthBuffer"/>
+        <ViroARScene>
+          <ViroAmbientLight color="#ffffff"/>
+          <ViroNode position={[0,0,-2]} onDrag={()=>{}} dragType="FixedToWorld">
+            <ViroText position={[1,.33,0]} text={"FBX 2018"}
+            style={styles.instructionText} transformBehaviors={["billboard"]}/>
+            <Viro3DObject position={[1,.0,-3]} scale={[.04,.04,.4]} type="VRX" source={require('./res/dragao_2018.vrx')} animation={{name:"01", delay:0, loop:true, run:true}} resources={[require('./res/dragao_map.jpg')]}  />
+
+            <ViroText position={[-1,.33,0]} text={"FBX 2014"}
+            style={styles.instructionText} transformBehaviors={["billboard"]}/>
+            <Viro3DObject position={[-1,0,0]} scale={[.2,.2,.2]} type="VRX" source={require('./res/pug_01.vrx')} animation={{name:"01", delay:0, loop:true, run:true}} resources={[require('./res/PUG_bake_otimizado.jpg')]} />
           </ViroNode>
 
-          {/* Display the planes using this, tap on scene to bring them back if you
-              accidentally tap on them.*/}
-          <ViroARPlaneSelector ref={"planeSelector"}/>
+
 
           {/* Release Menu */}
           <ViroText position={polarToCartesian([2, -30, 0])} text={"Next test"}
@@ -62,7 +66,7 @@ var ARDragTest = createReactClass({
     );
   },
   _goToNextTest() {
-    this.props.arSceneNavigator.replace("ARFBXVersionTest", {scene:require("./ARFBXVersionTest")})
+    this.props.arSceneNavigator.replace("ARPlaneSelectorTest", {scene:require("./ARPlaneSelectorTest")})
   },
 });
 
@@ -88,4 +92,4 @@ ViroMaterials.createMaterials({
   }
 });
 
-module.exports = ARDragTest;
+module.exports = ARFBXVersionTest;

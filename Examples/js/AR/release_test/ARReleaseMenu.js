@@ -41,6 +41,7 @@ var maxRows = 4
 var testFiles = [
   ["ARScene/Navigator", require("./ARSceneAndNavigatorTest")],
   ["ARDragTest", require("./ARDragTest")],
+  ["ARFBXVersionTest", require("./ARFBXVersionTest")],
   ["ARPlaneSelectorTest", require("./ARPlaneSelectorTest")],
   ["ARPlaneTest", require("./ARPlaneTest")],
   ["ARPlaneManualTest", require("./ARPlaneManualTest")],
