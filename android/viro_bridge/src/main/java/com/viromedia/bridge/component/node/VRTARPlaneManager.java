@@ -38,6 +38,11 @@ public class VRTARPlaneManager extends VRTNodeManager<VRTARPlane> {
         arPlane.setMinHeight(minHeight);
     }
 
+    @ReactProp(name="alignment")
+    public void setAlignment(VRTARPlane arPlane, String alignment) {
+        arPlane.setAlignment(alignment);
+    }
+
     @ReactProp(name="anchorId")
     public void setAnchorId(VRTARPlane arPlane, String anchorId) {
         arPlane.setAnchorId(anchorId);

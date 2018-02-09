@@ -43,11 +43,12 @@ var testARScene = createReactClass({
       updateMap : {width:0, height:0, position:[0,0,0]}, // used to update render props
       displayMap : {width:0, height:0, position:[0,0,0]}, // used to display info
       minValue : 0,
+      detectType : 0,
     }
   },
   render: function() {
     return (
-      <ViroARScene position={[0,0,0]} reticleEnabled={false} >
+      <ViroARScene position={[0,0,0]} reticleEnabled={false} anchorDetectionTypes={this._getDetectType()} >
 
         {this._getPlane()}
 
@@ -60,6 +61,9 @@ var testARScene = createReactClass({
         <ViroText position={polarToCartesian([2, 30, -20])} text={this.state.pauseUpdates ? "Resume Updates" : "Pause Updates"}
           style={styles.instructionText} transformBehaviors={["billboard"]}
           onClick={()=>{this.setState({pauseUpdates : !this.state.pauseUpdates})}}/>
+        <ViroText position={polarToCartesian([2, 30, -30])} text={"Detect Type: " + this._getDetectType()}
+          style={styles.instructionText} transformBehaviors={["billboard"]}
+          onClick={this._changeDetectType}/>
 
         <ViroText position={polarToCartesian([2, 0, 10])} text={this._getFoundText()}
           style={styles.instructionText} transformBehaviors={["billboard"]}/>
@@ -80,6 +84,20 @@ var testARScene = createReactClass({
       </ViroARScene>
     );
   },
+  _changeDetectType() {
+    this.setState({
+      detectType : (this.state.detectType == 2) ? 0 : this.state.detectType + 1
+    })
+  },
+  _getDetectType() {
+    if (this.state.detectType == 0) {
+      return "PlanesHorizontal"
+    } else if (this.state.detectType == 1) {
+      return "PlanesVertical"
+    } else {
+      return "None"
+    }
+  },
   _getPlane() {
     let planes = []
     if(this.state.addPlane) {
@@ -87,6 +105,7 @@ var testARScene = createReactClass({
         <ViroARPlane
             minHeight={this.state.minValue}
             minWidth={this.state.minValue}
+            alignment={this.state.detectType == 1 ? "Vertical" : "Horizontal"}
             pauseUpdates={this.state.pauseUpdates}
             key={this.state.useFirstPlane ? "firstPlane" : "secondPlane"}
             onClick={this._setTextNatively("onClick")}

@@ -25,7 +25,7 @@ var ARTrackingTargetsPropTypes = {
     // Opaque type returned by require('./image.jpg')
     PropTypes.number,
   ]).isRequired,
-  orientation: PropTypes.oneOf(['up', 'down', 'left', 'right']),
+  orientation: PropTypes.oneOf(['Up', 'Down', 'Left', 'Right']),
   physicalWidth: PropTypes.number,
 }
 

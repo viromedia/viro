@@ -27,6 +27,7 @@ var ViroARPlane = createReactClass({
     anchorId: PropTypes.string,
     minHeight: PropTypes.number,
     minWidth: PropTypes.number,
+    alignment: PropTypes.oneOf(["Horizontal","HorizontalUpward","HorizontalDownward","Vertical"]),
     pauseUpdates: PropTypes.bool,
     visible: PropTypes.bool,
     opacity: PropTypes.number,

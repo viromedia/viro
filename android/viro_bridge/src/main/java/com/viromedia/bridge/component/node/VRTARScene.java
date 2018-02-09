@@ -110,24 +110,16 @@ public class VRTARScene extends VRTScene implements ARScene.Listener {
 
     public void setAnchorDetectionTypes(ReadableArray types) {
         ViewParent parent = getParent();
-        if (parent instanceof VRTARSceneNavigator) {
-            VRTARSceneNavigator navigator = (VRTARSceneNavigator) parent;
-            ViroViewARCore viroViewARCore = navigator.getARView();
-            if (viroViewARCore != null) {
-                EnumSet<ViroViewARCore.AnchorDetectionType> typesList = EnumSet.noneOf(ViroViewARCore.AnchorDetectionType.class);
-                if (types != null) {
-                    for (int i = 0; i < types.size(); i++) {
-                        ViroViewARCore.AnchorDetectionType type = ViroViewARCore.AnchorDetectionType.valueFromString(types.getString(i));
-                        if (type != null) {
-                            typesList.add(type);
-                        } else {
-                            throw new IllegalArgumentException("Unknown anchorDetectionType value: " + types.getString(i));
-                        }
-                    }
+        EnumSet<ViroViewARCore.AnchorDetectionType> typesList = EnumSet.noneOf(ViroViewARCore.AnchorDetectionType.class);
+        if (types != null) {
+            for (int i = 0; i < types.size(); i++) {
+                ViroViewARCore.AnchorDetectionType type = ViroViewARCore.AnchorDetectionType.valueFromString(types.getString(i));
+                if (type != null) {
+                    typesList.add(type);
                 }
-                viroViewARCore.setAnchorDetectionTypes(typesList);
             }
         }
+        ((ARScene) mNativeScene).setAnchorDetectionTypes(typesList);
     }
 
     public void setCanCameraARHitTest(boolean canCameraHitTest){

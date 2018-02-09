@@ -32,6 +32,7 @@ static NSString *const kPointCloudKey = @"pointCloud";
     VRTImageAsyncLoader *_loader;
     std::shared_ptr<VROTexture> _pointCloudSurfaceTexture;
     std::shared_ptr<VROSurface> _pointCloudParticleSurface;
+    std::set<VROAnchorDetection> _nativeDetectionTypes;
 }
 
 - (instancetype)initWithBridge:(RCTBridge *)bridge {
@@ -42,6 +43,8 @@ static NSString *const kPointCloudKey = @"pointCloud";
         _vroArScene->initDeclarativeSession();
         _vroArScene->setDelegate(_sceneDelegate);
         _vroArScene->getDeclarativeSession()->setDelegate(_sceneDelegate);
+        _nativeDetectionTypes = { VROAnchorDetection::PlanesHorizontal }; // default detection type is horizontal plane
+        _vroArScene->setAnchorDetectionTypes(_nativeDetectionTypes);
     }
     return self;
 }
@@ -60,21 +63,22 @@ static NSString *const kPointCloudKey = @"pointCloud";
 
 - (void)setAnchorDetectionTypes:(NSArray<NSString *> *)types {
     _anchorDetectionTypes = types;
-    UIView *parent = [self superview];
-    if ([parent isKindOfClass:[VRTARSceneNavigator class]]) {
-        UIView *rootView = [((VRTARSceneNavigator *)parent) rootVROView];
-        if ([rootView isKindOfClass:[VROViewAR class]]) {
-            std::shared_ptr<VROARSession> session = [((VROViewAR *)rootView) getARSession];
-            std::set<VROAnchorDetection> detectionTypes;
-            for (NSString *type in types) {
-                if ([type caseInsensitiveCompare:@"None"] == NSOrderedSame) {
-                    detectionTypes.insert(VROAnchorDetection::None);
-                } else if([type caseInsensitiveCompare:@"PlanesHorizontal"] == NSOrderedSame) {
-                    detectionTypes.insert(VROAnchorDetection::PlanesHorizontal);
-                }
-            }
-            session->setAnchorDetection(detectionTypes);
+    
+    std::set<VROAnchorDetection> detectionTypes;
+    for (NSString *type in _anchorDetectionTypes) {
+        if ([type caseInsensitiveCompare:@"none"] == NSOrderedSame) {
+            detectionTypes.insert(VROAnchorDetection::None);
+        } else if([type caseInsensitiveCompare:@"planesHorizontal"] == NSOrderedSame) {
+            detectionTypes.insert(VROAnchorDetection::PlanesHorizontal);
+        } else if([type caseInsensitiveCompare:@"planesVertical"] == NSOrderedSame) {
+            detectionTypes.insert(VROAnchorDetection::PlanesVertical);
         }
+    }
+    
+    _nativeDetectionTypes = detectionTypes;
+
+    if (_vroArScene) {
+        _vroArScene->setAnchorDetectionTypes(detectionTypes);
     }
 }
 

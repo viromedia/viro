@@ -95,6 +95,8 @@ static NSString *const kVRTInvalidAPIKeyMessage = @"The given API Key is either 
 //VROComponent overrides...
 - (void)insertReactSubview:(UIView *)subview atIndex:(NSInteger)atIndex {
     RCTAssert([subview isKindOfClass:[VRTARScene class]], @"VRTARNavigator only accepts VRTARScene subviews");
+    [super insertReactSubview:subview atIndex:atIndex];
+    
     VRTARScene *sceneView = (VRTARScene *)subview;
     
     [sceneView setView:_vroView];
@@ -103,7 +105,6 @@ static NSString *const kVRTInvalidAPIKeyMessage = @"The given API Key is either 
     if (self.currentSceneIndex == atIndex){
         [self setSceneView:sceneView];
     }
-    [super insertReactSubview:subview atIndex:atIndex];
 }
 
 -(void)setCurrentSceneIndex:(NSInteger)index {

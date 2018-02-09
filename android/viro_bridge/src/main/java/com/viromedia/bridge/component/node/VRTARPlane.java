@@ -7,6 +7,7 @@ import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.WritableMap;
 import com.viro.core.ARAnchor;
+import com.viro.core.ARPlaneAnchor;
 import com.viro.core.internal.ARDeclarativeNode;
 import com.viro.core.internal.ARDeclarativePlane;
 import com.viro.core.Node;
@@ -15,6 +16,7 @@ public class VRTARPlane extends VRTARNode {
 
     private static final float DEFAULT_WIDTH = 0f;
     private static final float DEFAULT_HEIGHT = 0f;
+    private static final ARPlaneAnchor.Alignment DEFAULT_ALIGNMENT = ARPlaneAnchor.Alignment.HORIZONTAL;
 
     private boolean mNeedsUpdate = false;
 
@@ -23,7 +25,7 @@ public class VRTARPlane extends VRTARNode {
     }
 
     protected Node createNodeJni() {
-        ARDeclarativePlane arPlaneJni = new ARDeclarativePlane(DEFAULT_WIDTH, DEFAULT_HEIGHT);
+        ARDeclarativePlane arPlaneJni = new ARDeclarativePlane(DEFAULT_WIDTH, DEFAULT_HEIGHT, DEFAULT_ALIGNMENT);
         arPlaneJni.setDelegate(this);
         return arPlaneJni;
     }
@@ -35,6 +37,18 @@ public class VRTARPlane extends VRTARNode {
 
     public void setMinHeight(float minHeight) {
         ((ARDeclarativePlane) getNodeJni()).setMinHeight(minHeight);
+        mNeedsUpdate = true;
+    }
+
+    public void setAlignment(String alignment) {
+        if (alignment.equalsIgnoreCase("Horizontal")) {
+            ((ARDeclarativePlane) getNodeJni()).setAlignment(ARPlaneAnchor.Alignment.HORIZONTAL);
+        } else if (alignment.equalsIgnoreCase("HorizontalUpward")) {
+            ((ARDeclarativePlane) getNodeJni()).setAlignment(ARPlaneAnchor.Alignment.HORIZONTAL_UPWARD);
+        } else if (alignment.equalsIgnoreCase("HorizontalDownward")) {
+            ((ARDeclarativePlane) getNodeJni()).setAlignment(ARPlaneAnchor.Alignment.HORIZONTAL_DOWNWARD);
+        }
+
         mNeedsUpdate = true;
     }
 

@@ -10,6 +10,7 @@
 
 static float const kARPlaneDefaultMinHeight = 0;
 static float const kARPlaneDefaultMinWidth = 0;
+static VROARPlaneAlignment const kARPlaneDefaultAlignment = VROARPlaneAlignment::Horizontal;
 
 @implementation VRTARPlane {
     bool _shouldUpdate;
@@ -72,6 +73,23 @@ static float const kARPlaneDefaultMinWidth = 0;
     }
 }
 
+- (void)setAlignment:(NSString *)alignment {
+    _alignment = alignment;
+    _shouldUpdate = true;
+    std::shared_ptr<VROARDeclarativePlane> plane = std::dynamic_pointer_cast<VROARDeclarativePlane>([self node]);
+    if (plane) {
+        if ([_alignment caseInsensitiveCompare:@"Horizontal"] == NSOrderedSame) {
+            plane->setAlignment(VROARPlaneAlignment::Horizontal);
+        } else if ([_alignment caseInsensitiveCompare:@"HorizontalUpward"] == NSOrderedSame) {
+            plane->setAlignment(VROARPlaneAlignment::HorizontalUpward);
+        } else if ([_alignment caseInsensitiveCompare:@"HorizontalDownward"] == NSOrderedSame) {
+            plane->setAlignment(VROARPlaneAlignment::HorizontalDownward);
+        } else if ([_alignment caseInsensitiveCompare:@"Vertical"] == NSOrderedSame) {
+            plane->setAlignment(VROARPlaneAlignment::Vertical);
+        }
+    }
+}
+
 - (void)didSetProps:(NSArray<NSString *> *)changedProps {
     if (_shouldUpdate) {
         std::shared_ptr<VROARScene> arScene = std::dynamic_pointer_cast<VROARScene>(self.scene);
@@ -83,7 +101,7 @@ static float const kARPlaneDefaultMinWidth = 0;
 }
 
 - (std::shared_ptr<VRONode>)createVroNode {
-    return std::make_shared<VROARDeclarativePlane>(kARPlaneDefaultMinWidth, kARPlaneDefaultMinHeight);
+    return std::make_shared<VROARDeclarativePlane>(kARPlaneDefaultMinWidth, kARPlaneDefaultMinHeight, kARPlaneDefaultAlignment);
 }
 
 @end
