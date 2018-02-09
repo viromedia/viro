@@ -49,6 +49,8 @@ var testFiles = [
   ["ViroPortalTestAR", require("./ViroPortalTestAR")],
   ["ViroPostProcessTestAR", require("./ViroPostProcessTestAR")],
   ["ARImageMarkerTest", require("./ARImageMarkerTest")],
+  ["ViroPbrTestBasic", require("./ViroPbrTestAR")],
+  ["ViroPbrTestSurface", require("./ViroPbrTestSurfacesAR")],
 ]
 
 var ARReleaseMenu = createReactClass({
