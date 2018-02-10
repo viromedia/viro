@@ -24,7 +24,7 @@ import {
   ViroSurface,
   ViroConstants,
   ViroNode,
-  Viro3DObject,
+  ViroBox
   ViroOmniLight,
   ViroText,
   ViroUtils,
