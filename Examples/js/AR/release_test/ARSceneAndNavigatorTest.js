@@ -52,6 +52,7 @@ var testARScene = createReactClass({
       ambientLightText: "Ambient Light",
       displayPointCloud : pointCloudDict,
       pointCloudPoints : 0,
+      worldOriginChanged : false
     }
   },
   componentDidMount: function() {
@@ -105,6 +106,8 @@ var testARScene = createReactClass({
           style={styles.instructionText} onClick={this._takeScreenshot} transformBehaviors={["billboard"]}/>
         <ViroText position={polarToCartesian([2, 0, -10])} text={"saveToCamera? " + (this.state.saveToCamera ? "Yes" : "No")}
           style={styles.instructionText} onClick={this._flipSaveToCamera} transformBehaviors={["billboard"]}/>
+        <ViroText position={polarToCartesian([2, 0, -20])} text={"World Origin State: " + (this.state.worldOriginChanged ? "[0,0,1]" : "[0,0,0]")}
+          style={styles.instructionText} onClick={this._changeWorldOrigin} transformBehaviors={["billboard"]}/>
         {this._getVideo()}
         {this._getScreenshot()}
 
@@ -129,6 +132,15 @@ var testARScene = createReactClass({
           transformBehaviors={["billboard"]}/>
       </ViroARScene>
     );
+  },
+  _changeWorldOrigin() {
+    this.props.arSceneNavigator.setWorldOrigin({
+      position : this.state.worldOriginChanged ? [0, 0, 1] : [0, 0, -1]
+    });
+
+    this.setState({
+      worldOriginChanged : !this.state.worldOriginChanged
+    })
   },
   _onARPointCloudUpdate(pointCloud) {
     this.setState({

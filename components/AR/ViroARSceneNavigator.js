@@ -72,6 +72,7 @@ var ViroARSceneNavigator = createReactClass({
       stopVideoRecording: this._stopVideoRecording,
       takeScreenshot: this._takeScreenshot,
       resetARSession: this._resetARSession,
+      setWorldOrigin: this._setWorldOrigin,
     };
   },
   getInitialState: function(): State {
@@ -394,13 +395,26 @@ var ViroARSceneNavigator = createReactClass({
   },
 
   /*
-   Resets the tracking of the AR session.
+   [iOS Only] Resets the tracking of the AR session.
 
    resetTracking - determines if the tracking should be reset.
    removeAnchors - determines if the existing anchors should be removed too.
    */
   _resetARSession(resetTracking, removeAnchors) {
     ViroARSceneNavigatorModule.resetARSession(findNodeHandle(this), resetTracking, removeAnchors);
+  },
+
+  /*
+   [iOS/ARKit 1.5+ Only] Allows the developer to offset the current world orgin
+   by the given transformation matrix. ie. if this is called twice with the
+   position [0, 0, 1], then current world origin will be at [0, 0, 2] from its
+   initial position (it's additive, not meant to replace the existing origin)
+
+   worldOrigin - a dictionary that can contain a `position` and `rotation` key with
+                 an array containing 3 floats (note: rotation is in degrees).
+   */
+  _setWorldOrigin(worldOrigin) {
+    ViroARSceneNavigatorModule.setWorldOrigin(findNodeHandle(this), worldOrigin)
   },
 
   _renderSceneStackItems: function() {

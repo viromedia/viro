@@ -9,6 +9,7 @@
 #import <React/RCTUIManager.h>
 #import "VRTARSceneNavigatorModule.h"
 #import "VRTARSceneNavigator.h"
+#import "VRTUtils.h"
 
 @implementation VRTARSceneNavigatorModule
 @synthesize bridge = _bridge;
@@ -93,6 +94,52 @@ RCT_EXPORT_METHOD(resetARSession:(nonnull NSNumber *)reactTag
             VRTARSceneNavigator *component = (VRTARSceneNavigator *)view;
             VROViewAR *view = (VROViewAR *)[component rootVROView];
             view.getARSession->resetSession(resetTracking, removeAnchors);
+        }
+    }];
+}
+
+RCT_EXPORT_METHOD(setWorldOrigin:(nonnull NSNumber *)reactTag
+                     worldOrigin:(NSDictionary *)worldOrigin) {
+    [self.bridge.uiManager addUIBlock:^(__unused RCTUIManager *uiManager, NSDictionary<NSNumber *, UIView *> *viewRegistry) {
+        VRTView *view = (VRTView *)viewRegistry[reactTag];
+        if (![view isKindOfClass:[VRTARSceneNavigator class]]) {
+            RCTLogError(@"Invalid view returned from registry, expecting VRTARSceneNavigator, got: %@", view);
+        } else {
+            VRTARSceneNavigator *component = (VRTARSceneNavigator *)view;
+            VROViewAR *view = (VROViewAR *)[component rootVROView];
+            std::shared_ptr<VROARSession> session = [view getARSession];
+            
+            if (!session) {
+                return;
+            }
+            
+            NSArray *posArray = [worldOrigin objectForKey:@"position"];
+            NSArray *rotArray = [worldOrigin objectForKey:@"rotation"];
+            
+            VROMatrix4f originMatrix;
+            if (posArray) {
+                if ([posArray count] == 3) {
+                    float positionValues[3];
+                    populateFloatArrayFromNSArray(posArray, positionValues, 3);
+                    originMatrix.translate({positionValues[0], positionValues[1], positionValues[2]});
+                } else {
+                    RCTLogError(@"[Viro] worldOrigin position requires 3 values");
+                }
+            }
+            
+            if (rotArray) {
+                if ([rotArray count] == 3) {
+                    float rotationValues[3];
+                    populateFloatArrayFromNSArray(rotArray, rotationValues, 3);
+                    originMatrix.rotateX(toRadians(rotationValues[0]));
+                    originMatrix.rotateY(toRadians(rotationValues[1]));
+                    originMatrix.rotateZ(toRadians(rotationValues[2]));
+                } else {
+                    RCTLogError(@"[Viro] worldOrigin rotation requires 3 values");
+                }
+            }
+            
+            session->setWorldOrigin(originMatrix);
         }
     }];
 }
