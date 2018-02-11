@@ -49,9 +49,10 @@ var testFiles = [
   ["ARHitTestCamera", require("./ARHitTestCamera")],
   ["ViroPortalTestAR", require("./ViroPortalTestAR")],
   ["ViroPostProcessTestAR", require("./ViroPostProcessTestAR")],
-  ["ARImageMarkerTest", require("./ARImageMarkerTest")],
+  ["iOS - ARImageMarkerTest", require("./ARImageMarkerTest")],
   ["ViroPbrTestBasic", require("./ViroPbrTestAR")],
   ["ViroPbrTestSurface", require("./ViroPbrTestSurfacesAR")],
+  ["ARShadowTest", require("./ARShadowTest")],
 ]
 
 var ARReleaseMenu = createReactClass({
