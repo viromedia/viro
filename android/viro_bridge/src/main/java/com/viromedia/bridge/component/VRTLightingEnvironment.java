@@ -3,10 +3,10 @@
  */
 package com.viromedia.bridge.component;
 
-import android.graphics.Bitmap;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.Looper;
-
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
@@ -15,8 +15,6 @@ import com.viro.core.Texture;
 import com.viro.core.internal.Image;
 import com.viromedia.bridge.component.node.VRTNode;
 import com.viromedia.bridge.component.node.VRTScene;
-import com.viromedia.bridge.utility.ImageDownloadListener;
-import com.viromedia.bridge.utility.ImageDownloader;
 import com.viromedia.bridge.utility.ViroEvents;
 
 public class VRTLightingEnvironment extends VRTNode {
@@ -25,12 +23,15 @@ public class VRTLightingEnvironment extends VRTNode {
     private Texture mLatestTexture;
     private Handler mMainHandler;
     private boolean mImageNeedsDownload;
-    private ImageHDRDownloadListener mDownloadListener;
+    private DownloadFilesTask mImageDownloaderTask;
+    private PortalScene mTargetedPortalScene = null;
+    private boolean mHasSetScene;
 
     public VRTLightingEnvironment(ReactApplicationContext context) {
         super(context);
         mMainHandler = new Handler(Looper.getMainLooper());
         mImageNeedsDownload = false;
+        mHasSetScene = false;
     }
 
     public void setSource(ReadableMap source) {
@@ -41,29 +42,30 @@ public class VRTLightingEnvironment extends VRTNode {
     @Override
     public void onPropsSet() {
         super.onPropsSet();
-        if (!mImageNeedsDownload || mSourceMap == null) {
+        if (!mImageNeedsDownload || mSourceMap == null || !mHasSetScene) {
             return;
         }
 
-        if (mDownloadListener != null){
-            mDownloadListener.invalidate();
+        if (mImageDownloaderTask != null){
+            mImageDownloaderTask.invalidate();
         }
 
-        ImageDownloader downloader = new ImageDownloader(getContext());
-        downloader.setTextureFormat(Texture.Format.RGB9_E5);
         imageDownloadDidStart();
-
-        mDownloadListener = new ImageHDRDownloadListener();
-        downloader.getImageAsync(mSourceMap, mDownloadListener);
-
+        mImageDownloaderTask = new DownloadFilesTask();
+        mImageDownloaderTask.execute(Uri.parse(mSourceMap.getString("uri")));
         mImageNeedsDownload = false;
     }
 
     @Override
     public void onTearDown() {
+        if (getNodeJni() != null) {
+            mTargetedPortalScene.setLightingEnvironment(null);
+            mTargetedPortalScene = null;
+        }
+
         super.onTearDown();
-        if (mDownloadListener != null) {
-            mDownloadListener.invalidate();
+        if (mImageDownloaderTask != null) {
+            mImageDownloaderTask.invalidate();
         }
 
         if (mLatestImage != null) {
@@ -80,12 +82,8 @@ public class VRTLightingEnvironment extends VRTNode {
     @Override
     public void setScene(VRTScene scene) {
         super.setScene(scene);
-        if (mLatestTexture != null && getNodeJni() != null) {
-            PortalScene portal = getNodeJni().getParentPortalScene();
-            if (portal != null) {
-                portal.setBackgroundTexture(mLatestTexture);
-            }
-        }
+        mHasSetScene = true;
+        this.onPropsSet();
     }
 
     private void imageDownloadDidStart() {
@@ -104,54 +102,48 @@ public class VRTLightingEnvironment extends VRTNode {
         );
     }
 
-    private class ImageHDRDownloadListener implements ImageDownloadListener {
+    private class DownloadFilesTask extends AsyncTask<Uri, Integer, Texture> {
         private boolean mIsValid = true;
+        private String mTargetUri;
 
         public void invalidate() {
             mIsValid = false;
         }
 
-        @Override
-        public boolean isValid() {
-            return mIsValid;
+        protected Texture doInBackground(Uri... urls) {
+            mTargetUri = mSourceMap.getString("uri");
+            return Texture.loadRadianceHDRTexture(Uri.parse(mTargetUri));
         }
 
-        @Override
-        public void completed(final Bitmap result) {
-            mMainHandler.post(new Runnable() {
-                public void run() {
-                    if (!isValid()) {
-                        return;
-                    }
-                    if (mLatestImage != null) {
-                        mLatestImage.destroy();
-                    }
-
-                    if (mLatestTexture != null) {
-                        mLatestTexture.dispose();
-                    }
-
-                    mLatestImage = new Image(result, Texture.Format.RGB9_E5);
-                    mLatestTexture = new Texture(mLatestImage, Texture.Format.RGB9_E5, false, false);
-
-                    if (getNodeJni() != null) {
-                        PortalScene portal = getNodeJni().getParentPortalScene();
-                        if (portal != null) {
-                            portal.setLightingEnvironment(mLatestTexture);
-                        }
-                    }
-                    imageDownloadDidFinish();
-                    mDownloadListener = null;
-                }
-            });
-        }
-
-        @Override
-        public void failed(String error) {
-            if (!isValid()) {
+        protected void onPostExecute(Texture result) {
+            if (!mIsValid) {
                 return;
             }
-            onError(error);
+
+
+            if (result == null){
+                onError("Viro: There was an error loading hdr file: " + mTargetUri);
+            } else {
+                if (mLatestTexture != null) {
+                    mLatestTexture.dispose();
+                }
+                mLatestTexture = result;
+
+                // Set the loaded image onto the lighting environment
+                if (getNodeJni() != null) {
+                    PortalScene portal = getNodeJni().getParentPortalScene();
+                    mTargetedPortalScene = portal;
+
+                    if (portal != null) {
+                        portal.setLightingEnvironment(mLatestTexture);
+                    }
+                }
+
+                // Notify callbacks
+                imageDownloadDidFinish();
+            }
+
+            mImageDownloaderTask = null;
         }
     }
 }

@@ -19,6 +19,7 @@
 
 - (instancetype)initWithBridge:(RCTBridge *)bridge;
 - (void)updateSceneLightingEnvironment;
+- (NSString *)saveImage:(UIImage *)image withName:(NSString *)name;
 
 @end
 

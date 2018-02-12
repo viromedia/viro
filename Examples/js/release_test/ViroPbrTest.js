@@ -54,10 +54,9 @@ var ViroPbrTest = createReactClass({
 
    return (
     <ViroScene>
-       {this.getEnvLight()}
-       <ViroLightingEnvironment source={require('./res/ibl_newport_loft.hdr')}/>
-       <Viro360Image source={require('./res/ibl_newport_loft.hdr')} />
        <ReleaseMenu sceneNavigator={this.props.sceneNavigator}/>
+       <Viro360Image source={require('./res/ibl_newport_loft.hdr')} />
+       {this.getEnvLight()}
        <ViroNode position={[0,-2, 0]}>
        <ViroImage source={require('./res/poi_dot.png')} position={[0, -4, -2]} transformBehaviors={["billboard"]} onClick={this._showNext} />
           <ViroText style={styles.baseTextTwo} fontSize={this.state.fontSize}  position={[-2, -1, -2]} width={4} height ={2}
@@ -93,25 +92,25 @@ var ViroPbrTest = createReactClass({
 
               <ViroOmniLight
                   intensity={300}
-                  position={[-5, 5, 1]}
+                  position={[-10, 10, 10]}
                   color={"#FFFFFF"}
                   attenuationStartDistance={0}
                   attenuationEndDistance={20} />
              <ViroOmniLight
                   intensity={300}
-                  position={[5, -5, 1]}
+                  position={[10, -10, 10]}
                   color={"#FFFFFF"}
                   attenuationStartDistance={0}
                   attenuationEndDistance={20} />
             <ViroOmniLight
                   intensity={300}
-                  position={[5, -5, 1]}
+                  position={[10, -10, 10]}
                   color={"#FFFFFF"}
                   attenuationStartDistance={0}
                   attenuationEndDistance={20} />
              <ViroOmniLight
                   intensity={300}
-                  position={[-5, -5, 1]}
+                  position={[-10, -10, 10]}
                   color={"#FFFFFF"}
                   attenuationStartDistance={0}
                   attenuationEndDistance={20} />

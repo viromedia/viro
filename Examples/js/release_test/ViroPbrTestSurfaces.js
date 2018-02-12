@@ -42,10 +42,8 @@ var ViroPbrTestSurfaces = createReactClass({
 
  getEnvLight(){
    if (this.state.envLight){
-     console.log("Daniel get the light");
      return ((<ViroLightingEnvironment source={require('./res/ibl_newport_loft.hdr')}/>));
    }
-   console.log("Daniel NO LIGHT");
  },
 
 /*
@@ -59,7 +57,7 @@ var ViroPbrTestSurfaces = createReactClass({
 
    return (
     <ViroScene>
-       <ViroLightingEnvironment source={require('./res/ibl_newport_loft.hdr')}/>
+       {this.getEnvLight()}
        <Viro360Image source={require('./res/ibl_newport_loft.hdr')} />
        <ReleaseMenu sceneNavigator={this.props.sceneNavigator}/>
        <ViroNode position={[0,-2, 0]}>

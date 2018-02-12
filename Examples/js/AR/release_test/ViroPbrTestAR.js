@@ -80,25 +80,25 @@ var ViroPbrTest = createReactClass({
 
               <ViroOmniLight
                   intensity={300}
-                  position={[-5, 5, 1]}
+                  position={[-5, 5, 2]}
                   color={"#FFFFFF"}
                   attenuationStartDistance={0}
                   attenuationEndDistance={20} />
              <ViroOmniLight
                   intensity={300}
-                  position={[5, -5, 1]}
+                  position={[5, -5, 2]}
                   color={"#FFFFFF"}
                   attenuationStartDistance={0}
                   attenuationEndDistance={20} />
             <ViroOmniLight
                   intensity={300}
-                  position={[5, -5, 1]}
+                  position={[5, 5, 2]}
                   color={"#FFFFFF"}
                   attenuationStartDistance={0}
                   attenuationEndDistance={20} />
              <ViroOmniLight
                   intensity={300}
-                  position={[-5, -5, 1]}
+                  position={[-5, -5, 2]}
                   color={"#FFFFFF"}
                   attenuationStartDistance={0}
                   attenuationEndDistance={20} />
