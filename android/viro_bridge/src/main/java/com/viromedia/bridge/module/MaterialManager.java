@@ -12,6 +12,7 @@ import android.net.Uri;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
+import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.ReadableMapKeySetIterator;
 import com.facebook.react.bridge.ReadableType;
@@ -82,6 +83,18 @@ public class MaterialManager extends ReactContextBaseJavaModule {
     @ReactMethod
     public void setJSMaterials(ReadableMap newMaterials) {
         loadMaterials(newMaterials);
+    }
+
+    @ReactMethod
+    public void deleteMaterials(ReadableArray materials) {
+        for (int i = 0; i < materials.size(); i++) {
+            String materialName = materials.getString(i);
+            if (mMaterialsMap.containsKey(materialName)) {
+                // we need to delete the native ref before we remove the material
+                mMaterialsMap.get(materialName).getNativeMaterial().dispose();
+                mMaterialsMap.remove(materialName);
+            }
+        }
     }
 
     private void loadMaterials(ReadableMap newMaterials) {

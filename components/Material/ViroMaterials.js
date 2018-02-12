@@ -59,6 +59,17 @@ class ViroMaterials {
     }
     MaterialManager.setJSMaterials(result);
   }
+
+  /*
+   This function tells the platform to delete/release the given materials from
+   memory. This means that the given materials can no longer be referenced. Existing
+   components that have already had their materials set will continue to work.
+
+   materials - an array of material names to delete
+   */
+  static deleteMaterials(materials) {
+    MaterialManager.deleteMaterials(materials);
+  }
 }
 
 module.exports = ViroMaterials;

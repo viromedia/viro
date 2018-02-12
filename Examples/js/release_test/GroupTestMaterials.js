@@ -47,7 +47,8 @@ var TOGGLE_PAUSE ="Toggle Pause";
 var GroupTestMaterials = createReactClass({
   getInitialState() {
     return {
-        materialFlag: 1
+        materialFlag: 1,
+        createMaterials : true,
     };
   },
 
@@ -176,6 +177,9 @@ var GroupTestMaterials = createReactClass({
             <ViroText style={styles.baseTextTwo} position={[0.8 , -2, -3.5]} width={2} height ={2} fontFamily={'Arial'}
                   text={"Toggle material: " + transformText} textLineBreakMode='justify' onClick={this._toggleTransform}/>
 
+            <ViroText style={styles.baseTextTwo} position={[0.8 , -2.5, -3.5]} width={2} height ={2} fontFamily={'Arial'}
+              text={(this.state.createMaterials ? "Create" : "Delete") + " New Material"} textLineBreakMode='justify' onClick={this._createOrDeleteMaterial}/>
+
         </ViroScene>
     );
   },
@@ -192,6 +196,21 @@ var GroupTestMaterials = createReactClass({
     this.setState({
       materialFlag:newtransformflag
     });
+  },
+
+  _createOrDeleteMaterial() {
+    if (this.state.createMaterials) {
+      ViroMaterials.createMaterials({
+        testMaterialOne : {
+          diffuseTexture : require("./res/iron-rusted4-basecolor.png")
+        },
+        testMaterialTwo : {
+          diffuseTexture : require("./res/iron-rusted4-normal.png")
+        }
+      })
+    } else {
+      ViroMaterials.deleteMaterials(["testMaterialOne", "testMaterialTwo"]);
+    }
   }
 });
 

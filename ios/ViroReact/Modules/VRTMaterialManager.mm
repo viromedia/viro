@@ -93,6 +93,14 @@ RCT_EXPORT_METHOD(setJSMaterials:(NSDictionary *)materials) {
     [self loadMaterials:materials];
 }
 
+RCT_EXPORT_METHOD(deleteMaterials:(NSArray *)materials) {
+    if (_materialDictionary && materials) {
+        for (NSString *material in materials) {
+            [_materialDictionary removeObjectForKey:material];
+        }
+    }
+}
+
 - (dispatch_queue_t)methodQueue {
     return dispatch_get_main_queue();
 }
