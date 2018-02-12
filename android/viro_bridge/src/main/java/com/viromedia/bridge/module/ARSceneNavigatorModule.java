@@ -6,6 +6,7 @@ package com.viromedia.bridge.module;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
@@ -113,9 +114,10 @@ public class ARSceneNavigatorModule extends ReactContextBaseJavaModule {
                 }
 
                 // Construct a completion delegate callback to be notified of the result of the recording.
-                final ViroMediaRecorder.FinishListener completionCallback = new ViroMediaRecorder.FinishListener() {
+                final ViroMediaRecorder.VideoRecordingFinishListener completionCallback =
+                        new ViroMediaRecorder.VideoRecordingFinishListener() {
                     @Override
-                    public void onTaskFailed(Error error) {
+                    public void onError(Error error) {
                         WritableMap returnMap = Arguments.createMap();
                         returnMap.putBoolean(RECORDING_SUCCESS_KEY, false);
                         returnMap.putInt(RECORDING_ERROR_KEY, error.toInt());
@@ -124,7 +126,7 @@ public class ARSceneNavigatorModule extends ReactContextBaseJavaModule {
                     }
 
                     @Override
-                    public void onTaskSucceeded(String url) {
+                    public void onSuccess(String url) {
                         WritableMap returnMap = Arguments.createMap();
                         returnMap.putBoolean(RECORDING_SUCCESS_KEY, true);
                         returnMap.putInt(RECORDING_ERROR_KEY, Error.NONE.toInt());
@@ -170,9 +172,9 @@ public class ARSceneNavigatorModule extends ReactContextBaseJavaModule {
                 }
 
                 // Construct a completion delegate callback to be notified of sceenshot results.
-                final ViroMediaRecorder.FinishListener callback = new ViroMediaRecorder.FinishListener() {
+                final ViroMediaRecorder.ScreenshotFinishListener callback = new ViroMediaRecorder.ScreenshotFinishListener() {
                     @Override
-                    public void onTaskFailed(Error error) {
+                    public void onError(Error error) {
                         WritableMap returnMap = Arguments.createMap();
                         returnMap.putBoolean(RECORDING_SUCCESS_KEY, false);
                         returnMap.putInt(RECORDING_ERROR_KEY, error.toInt());
@@ -181,7 +183,7 @@ public class ARSceneNavigatorModule extends ReactContextBaseJavaModule {
                     }
 
                     @Override
-                    public void onTaskSucceeded(String url) {
+                    public void onSuccess(Bitmap bitmap, String url) {
                         WritableMap returnMap = Arguments.createMap();
                         returnMap.putBoolean(RECORDING_SUCCESS_KEY, true);
                         returnMap.putInt(RECORDING_ERROR_KEY, Error.NONE.toInt());
