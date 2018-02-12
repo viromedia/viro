@@ -126,7 +126,7 @@ public abstract class VRTManagedAnimation {
         }
 
         if(map.hasKey("interruptible")) {
-            setInterruptible(true);
+            setInterruptible(map.getBoolean("interruptible"));
         } else {
             setInterruptible(false);
         }

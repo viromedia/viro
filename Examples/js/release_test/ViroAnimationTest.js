@@ -58,6 +58,7 @@ var ViroAnimationTest = createReactClass({
       animationComponentDelay:0,
       animLoop:false,
       animationType:1,
+      interruptible: false,
     };
   },
 
@@ -91,7 +92,8 @@ var ViroAnimationTest = createReactClass({
                                loop:this.state.animLoop,
                                run:this.state.playAnim,
                                onStart:this._onStart,
-                               onFinish:this._onFinish}}
+                               onFinish:this._onFinish,
+                               interruptible:this.state.interruptible }}
      />
 
      <ViroButton
@@ -106,7 +108,8 @@ var ViroAnimationTest = createReactClass({
                      loop:this.state.animLoop,
                      run:this.state.playAnim,
                      onStart:this._onStart,
-                     onFinish:this._onFinish}}/>
+                     onFinish:this._onFinish,
+                     interruptible:this.state.interruptible }}/>
 
      <ViroImage width={1} height={1}
                 format="RGBA8" mipmap={true}
@@ -119,7 +122,8 @@ var ViroAnimationTest = createReactClass({
                             loop:this.state.animLoop,
                             run:this.state.playAnim,
                             onStart:this._onStart,
-                            onFinish:this._onFinish}}/>
+                            onFinish:this._onFinish,
+                            interruptible:this.state.interruptible }}/>
 
      <ViroSpinner materials={["sphere1"]}
                   position={[-1, 3, -3]}
@@ -129,7 +133,8 @@ var ViroAnimationTest = createReactClass({
                               loop:this.state.animLoop,
                               run:this.state.playAnim,
                               onStart:this._onStart,
-                              onFinish:this._onFinish}} />
+                              onFinish:this._onFinish,
+                              interruptible:this.state.interruptible}} />
 
      <ViroSurface position={[-1, 2, -3]}
                   scale={[0.5, 0.5, 0.1]}
@@ -141,7 +146,8 @@ var ViroAnimationTest = createReactClass({
                               loop:this.state.animLoop,
                               run:this.state.playAnim,
                               onStart:this._onStart,
-                              onFinish:this._onFinish}} />
+                              onFinish:this._onFinish,
+                              interruptible:this.state.interruptible}} />
 
      <ViroText fontSize={24}
                text={"Sample Text"}
@@ -151,7 +157,8 @@ var ViroAnimationTest = createReactClass({
                            loop:this.state.animLoop,
                            run:this.state.playAnim,
                            onStart:this._onStart,
-                           onFinish:this._onFinish}}/>
+                           onFinish:this._onFinish,
+                           interruptible:this.state.interruptible}}/>
 
      <ViroBox
         width={1} height={1}
@@ -162,7 +169,8 @@ var ViroAnimationTest = createReactClass({
                     loop:this.state.animLoop,
                     run:this.state.playAnim,
                     onStart:this._onStart,
-                    onFinish:this._onFinish}}
+                    onFinish:this._onFinish,
+                    interruptible:this.state.interruptible}}
       />
 
      <ViroSphere
@@ -177,10 +185,15 @@ var ViroAnimationTest = createReactClass({
                     loop:this.state.animLoop,
                     run:this.state.playAnim,
                     onStart:this._onStart,
-                    onFinish:this._onFinish}}
+                    onFinish:this._onFinish,
+                    interruptible:this.state.interruptible}}
         />
 
       <ViroNode position={[0,-3,-3]}>
+              <ViroText style={styles.baseTextTwo}  position={[-2,-1, 0]} width={2} height ={2}
+                    text={"Interruptible: "+ this.state.interruptible}
+                    onClick={this._toggleInterruptible}/>
+
                <ViroText style={styles.baseTextTwo}  position={[-2,1, 0]} width={2} height ={2}
                       text={"isPlaying: " + this.state.playAnim}
                       onClick={this._togglePlay}/>
@@ -218,6 +231,12 @@ var ViroAnimationTest = createReactClass({
   this.setState({
               playAnim:!this.state.playAnim
              });
+  },
+
+  _toggleInterruptible() {
+    this.setState({
+        interruptible: !this.state.interruptible,
+    });
   },
 
   _toggleSpeed(){
@@ -294,9 +313,9 @@ var ViroAnimationTest = createReactClass({
 });
 
 ViroAnimations.registerAnimations({
-  moveRight:{properties:{positionX:"+=3",}, duration:500, delay:0},
-  moveLeft:{properties:{positionX:"-=3",}, duration:500, delay:0},
-  loopRotate:{properties:{rotateY:"+=180"}, duration:500},
+  moveRight:{properties:{positionX:"+=3",}, duration:3000, delay:0},
+  moveLeft:{properties:{positionX:"-=3",}, duration:3000, delay:0},
+  loopRotate:{properties:{rotateY:"+=180"}, duration:3000},
   sequentialAnim:[
         ["moveRight","moveLeft"]
   ],
