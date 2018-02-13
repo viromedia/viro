@@ -128,7 +128,10 @@ public class ImageDownloader {
                             if (listener != null) {
                                 listener.completed(bitmap.copy(mConfig, true));
                             } else {
-                                mImageMap.put(latch, bitmap.copy(mConfig, true));
+                                Bitmap temp = bitmap.copy(mConfig, true);
+                                if (temp != null) {
+                                    mImageMap.put(latch, temp);
+                                }
                             }
                         }
 
