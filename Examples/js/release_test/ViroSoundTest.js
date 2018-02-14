@@ -143,26 +143,26 @@ var ViroSoundTest = createReactClass({
        <ViroNode position={[0,0,-4]}>
 
                 <ViroText style={styles.centeredText} position={[0,2, 0]} width={3} height ={2} fontSize={30}
-                        text={"Toggle SoundType: " + soundType} textLineBreakMode='justify' onClick={this._toggleSoundType}/>
+                        text={"Toggle SoundType: " + soundType} textLineBreakMode='Justify' onClick={this._toggleSoundType}/>
 
        <ViroText style={styles.centeredText} position={[-2,1, 0]} width={2} height ={2}
-        text={"isPlaying: " + this.state.isPlaying} textLineBreakMode='justify' onClick={this._togglePlay}/>
+        text={"isPlaying: " + this.state.isPlaying} textLineBreakMode='Justify' onClick={this._togglePlay}/>
 
        <ViroText style={styles.centeredText} position={[0,1, 0]} width={2} height ={2}
-        text={"Loop: " + this.state.looping} textLineBreakMode='justify' onClick={this._toggleLoop}/>
+        text={"Loop: " + this.state.looping} textLineBreakMode='Justify' onClick={this._toggleLoop}/>
 
        <ViroText style={styles.centeredText} position={[2,1, 0]} width={2} height ={2}
-        text={"Mute: " + this.state.mute} textLineBreakMode='justify' onClick={this._toggleMute}/>
+        text={"Mute: " + this.state.mute} textLineBreakMode='Justify' onClick={this._toggleMute}/>
 
        <ViroText style={styles.centeredText} position={[-2, 0, 0]} text={"Change Volume from: " + this.state.volume}
         width={2} height ={2}  onClick={this._toggleVolume} />
 
        <ViroText style={styles.centeredText} position={[0,0, 0]} width={2} height ={2}
-        text={"Source: " + stringSource} textLineBreakMode='justify' onClick={this._toggleSource}/>
+        text={"Source: " + stringSource} textLineBreakMode='Justify' onClick={this._toggleSource}/>
 
         <ViroText style={styles.centeredText} position={[2,0, 0]} width={2} height ={2}
                 text={this.state.preloadedSound ? "Sound is Preloaded" : "Sound is NOT Preloaded"}
-                textLineBreakMode='justify' onClick={this._preloadSound}/>
+                textLineBreakMode='Justify' onClick={this._preloadSound}/>
 
         </ViroNode>
 

@@ -117,7 +117,7 @@ var LeakTest1 = createReactClass({
             width={2} height={2}
             fontFamily={'Arial'}
             text={"Toggle Error State"}
-            textLineBreakMode='justify'
+            textLineBreakMode='Justify'
             onClick={this._toggleErrorState}
           />
 

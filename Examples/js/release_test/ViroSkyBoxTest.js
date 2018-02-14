@@ -94,7 +94,7 @@ var Local360Image = require("../res/sun_2302.jpg");
               pz:image}} format={this.state.format} onLoadStart={this._onLoadStart} onLoadEnd={this._onLoadEnd}/>
               {this._getTestControls()}
 
-              <ViroImage source={require('./res/poi_dot.png')} position={[-1, 0, 0]} transformBehaviors={["billboard"]} onClick={this._showNext} />
+              <ViroImage source={require('./res/poi_dot.png')} position={[-1, 0, 0]} transformBehaviors={["Billboard"]} onClick={this._showNext} />
 
             </ViroScene>
 
@@ -110,7 +110,7 @@ var Local360Image = require("../res/sun_2302.jpg");
                     onClick={this._toggleImageSource}/>
 
              <ViroText style={styles.baseTextTwo}  position={[0,0, 0]} width={2} height ={2}
-                      text={"ToggleImageColor with color: " + this.state.color} textLineBreakMode='justify'
+                      text={"ToggleImageColor with color: " + this.state.color} textLineBreakMode='Justify'
                                     onClick={this._toggleImageColor}/>
 
              <ViroText style={styles.baseTextTwo}  position={[2,0, 0]} width={2} height ={2}

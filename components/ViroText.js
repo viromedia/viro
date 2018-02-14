@@ -37,8 +37,8 @@ var ViroText = createReactClass({
     width: PropTypes.number,
     height: PropTypes.number,
     maxLines: PropTypes.number,
-    textClipMode: PropTypes.oneOf(['none', 'clipToBounds']),
-    textLineBreakMode: PropTypes.oneOf(['wordwrap','charwrap','justify','none']),
+    textClipMode: PropTypes.oneOf(['None', 'ClipToBounds']),
+    textLineBreakMode: PropTypes.oneOf(['WordWrap','CharWrap','Justify','None']),
     visible: PropTypes.bool,
     style: stylePropType,
     animation: PropTypes.shape({
@@ -77,11 +77,11 @@ var ViroText = createReactClass({
       PropTypes.func
     ]),
     physicsBody: PropTypes.shape({
-      type: PropTypes.oneOf(['dynamic','kinematic','static']).isRequired,
+      type: PropTypes.oneOf(['Dynamic','Kinematic','Static']).isRequired,
       mass: PropTypes.number,
       restitution: PropTypes.number,
       shape: PropTypes.shape({
-        type: PropTypes.oneOf(["box", "sphere", "compound"]).isRequired,
+        type: PropTypes.oneOf(["Box", "Sphere", "Compound"]).isRequired,
         params: PropTypes.arrayOf(PropTypes.number)
       }),
       friction: PropTypes.number,

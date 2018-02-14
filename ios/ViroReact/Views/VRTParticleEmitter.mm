@@ -332,9 +332,9 @@ const int kDefaultMaxParticles = 500;
         }
 
         VROParticleSpawnVolume vol;
-        if ([stringShapeName isEqualToString:@"box"]) {
+        if ([stringShapeName caseInsensitiveCompare:@"Box"] == NSOrderedSame) {
             vol.shape = VROParticleSpawnVolume::Shape::Box;
-        } else if ([stringShapeName isEqualToString:@"sphere"]) {
+        } else if ([stringShapeName caseInsensitiveCompare:@"Sphere"] == NSOrderedSame) {
             vol.shape = VROParticleSpawnVolume::Shape::Sphere;
         } else {
             RCTLogError(@"Viro: Incorrect spawn volume shape type. Must be either sphere or box.");
@@ -454,9 +454,9 @@ const int kDefaultMaxParticles = 500;
     if ([modDictionary objectForKey:@"factor"]) {
         std::string stringFactor;
         stringFactor = std::string([[modDictionary objectForKey:@"factor"] UTF8String]);
-        if (stringFactor == "distance") {
+        if (VROStringUtil::strcmpinsensitive(stringFactor, "Distance")) {
             factor = VROParticleModifier::VROModifierFactor::Distance;
-        } else if (stringFactor != "time" && intervalsDictArray && [intervalsDictArray count] > 0) {
+        } else if (!VROStringUtil::strcmpinsensitive(stringFactor, "Time") && intervalsDictArray && [intervalsDictArray count] > 0) {
             RCTLogError(@"Viro: Provided unknown interpolation factor to interpolate against!");
             return nullptr;
         }

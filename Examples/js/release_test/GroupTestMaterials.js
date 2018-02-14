@@ -175,10 +175,10 @@ var GroupTestMaterials = createReactClass({
             </ViroNode>
 
             <ViroText style={styles.baseTextTwo} position={[0.8 , -2, -3.5]} width={2} height ={2} fontFamily={'Arial'}
-                  text={"Toggle material: " + transformText} textLineBreakMode='justify' onClick={this._toggleTransform}/>
+                  text={"Toggle material: " + transformText} textLineBreakMode='Justify' onClick={this._toggleTransform}/>
 
             <ViroText style={styles.baseTextTwo} position={[0.8 , -2.5, -3.5]} width={2} height ={2} fontFamily={'Arial'}
-              text={(this.state.createMaterials ? "Create" : "Delete") + " New Material"} textLineBreakMode='justify' onClick={this._createOrDeleteMaterial}/>
+              text={(this.state.createMaterials ? "Create" : "Delete") + " New Material"} textLineBreakMode='Justify' onClick={this._createOrDeleteMaterial}/>
 
         </ViroScene>
     );

@@ -39,7 +39,7 @@ var ReleaseMenu = require("./ReleaseMenu.js");
 var PhysicsCollisionTest = createReactClass({
   getInitialState() {
     return {
-      bodyTypeRayTest:"dynamic",
+      bodyTypeRayTest:"Dynamic",
       bodyMassRayTest:1,
       dynamicStaticToggle:false,
       dynamicdynamicToggle:false,
@@ -161,13 +161,13 @@ addToConsole(stringToAdd){
   },
 
   togglePhysicsBody(){
-    var finalType = "dynamic";
+    var finalType = "Dynamic";
     var finalMass = 1;
-    if (this.state.bodyTypeRayTest === "dynamic"){
-      finalType ="static";
+    if (this.state.bodyTypeRayTest === "Dynamic"){
+      finalType ="Static";
       finalMass = 0;
-    } else if (this.state.bodyTypeRayTest === "static"){
-      finalType = "kinematic";
+    } else if (this.state.bodyTypeRayTest === "Static"){
+      finalType = "Kinematic";
       finalMass = 0;
     }
     this.setState({
@@ -183,11 +183,11 @@ addToConsole(stringToAdd){
 
                 <ViroBox
                     physicsBody={{
-                      type:'static', restitution:0.8
+                      type:'Static', restitution:0.8
                     }}
                     position={[0, -5, -10.5]}
                     scale={[1,1,1]}
-                    materials={["ground"]}
+                    materials={["Ground"]}
                     rotation={[0,0,0]}
                     height={1}
                     width={50}
@@ -198,7 +198,7 @@ addToConsole(stringToAdd){
 
                 <ViroText fontSize={25}  style={styles.centeredText} transformBehaviors={["billboard"]}
                   position={[0,3, -6]} width={10} height ={10} maxLines={20}
-                  color={'#ffffff'} textAlign={'center'}
+                  color={'#ffffff'} textAlign={'Center'}
                   ref="collisionOutput"
                   text={collisionOutput}
                 />
@@ -298,10 +298,10 @@ addToConsole(stringToAdd){
                   <ViroBox
                       position={this.state.dynamicStatePos}
                       scale={[1, 1, 1]}
-                      materials={["dynamic"]}
+                      materials={["Dynamic"]}
                       height={1} width={1} length={1}
                       physicsBody={{
-                        type:this.state.dynamicStaticToggle?'dynamic':'kinematic',
+                        type:this.state.dynamicStaticToggle?'Dynamic':'Kinematic',
                         mass:this.state.dynamicStaticToggle?1:0
                       }}
                       viroTag="DynamicBox 1"
@@ -311,10 +311,10 @@ addToConsole(stringToAdd){
                       <ViroBox
                           position={this.state.dynamicDynamicPos}
                           scale={[1, 1, 1]}
-                          materials={["dynamic"]}
+                          materials={["Dynamic"]}
                           height={1} width={1} length={1}
                           physicsBody={this.state.dynamicdynamicToggle ? {
-                            type:'dynamic',
+                            type:'Dynamic',
                             mass:1
                           }:undefined}
                           viroTag="DynamicBoxAbove 2"
@@ -325,10 +325,10 @@ addToConsole(stringToAdd){
                       <ViroBox
                           position={dynamicDynamicPosDefault2}
                           scale={[1, 1, 1]}
-                          materials={["dynamic"]}
+                          materials={["Dynamic"]}
                           height={1} width={1} length={1}
                           physicsBody={{
-                            type:'dynamic',
+                            type:'Dynamic',
                             mass:1
                           }}
                           viroTag="DynamicBoxBelow 2"
@@ -342,10 +342,10 @@ addToConsole(stringToAdd){
                       <ViroBox
                           position={this.state.kinematicDynamicPos1}
                           scale={[1, 1, 1]}
-                          materials={["kinematic"]}
+                          materials={["Kinematic"]}
                           height={1} width={1} length={1}
                           physicsBody={{
-                            type:'kinematic',
+                            type:'Kinematic',
                             mass:0
                           }}
                           viroTag="KinematicBox 3"
@@ -357,10 +357,10 @@ addToConsole(stringToAdd){
                       <ViroBox
                           position={this.state.kinematicDynamicPos2}
                           scale={[1, 1, 1]}
-                          materials={["dynamic"]}
+                          materials={["Dynamic"]}
                           height={1} width={1} length={1}
                           physicsBody={{
-                              type:'dynamic',
+                              type:'Dynamic',
                               mass:1,
                           }}
                           viroTag="DynamicBox 3"
@@ -420,26 +420,26 @@ ViroAnimations.registerAnimations({
 
 
 ViroMaterials.createMaterials({
-  static: {
+  Static: {
     shininess: 2.0,
     diffuseColor: "#ff333399"
   },
 
-  kinematic: {
+  Kinematic: {
       cullMode: "None",
       shininess: 2.0,
       diffuseColor: "#3399ff99"
 
     },
 
-  dynamic: {
+  Dynamic: {
         cullMode: "None",
         shininess: 2.0,
         diffuseColor: "#33cc3399"
 
       },
 
-  ground:{
+  Ground:{
     cullMode: "None",
     shininess: 2.0,
     diffuseColor: "#ff9999"

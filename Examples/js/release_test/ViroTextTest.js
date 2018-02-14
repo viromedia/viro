@@ -149,13 +149,13 @@ var ViroTextTest = createReactClass({
        text={"Text should be clipped to bounds ." + this.state.longText + this.state.longText} textClipMode={"clipToBounds"}/>
 
        <ViroText fontSize={this.state.fontSize} style={newStyle}  position={[2, -2, 0]} width={2} height ={2} fontFamily={'Arial'}
-        text={"TextLineBreak for a word-wrap Test!" + this.state.longText} textLineBreakMode='wordwrap'/>
+        text={"TextLineBreak for a word-wrap Test!" + this.state.longText} textLineBreakMode='WordWrap'/>
 
        <ViroText fontSize={this.state.fontSize} style={newStyle} position={[-1,-3, 0]} width={2} height ={2} fontFamily={'Arial'}
-        text={"TextLineBreak for a charWrap test!" + this.state.longText} textLineBreakMode='charwrap'/>
+        text={"TextLineBreak for a charWrap test!" + this.state.longText} textLineBreakMode='CharWrap'/>
 
        <ViroText fontSize={this.state.fontSize} style={newStyle} position={[2,-4, 0]} width={2} height ={2} fontFamily={'Arial'}
-        text={"TextLineBreak for a justify test!" + this.state.longText} textLineBreakMode='justify'/>
+        text={"TextLineBreak for a justify test!" + this.state.longText} textLineBreakMode='Justify'/>
        </ViroNode>
 
       </ViroScene>

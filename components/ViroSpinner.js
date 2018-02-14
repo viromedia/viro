@@ -60,7 +60,7 @@ var ViroSpinner = createReactClass({
      * Spinner visual type for either a light or dark theme.
      * This defaults to dark.
      */
-    type: PropTypes.oneOf(['dark','light']),
+    type: PropTypes.oneOf(['Dark','Light']),
     ignoreEventHandling: PropTypes.bool,
     dragType: PropTypes.oneOf(["FixedDistance", "FixedToWorld"]),
 
@@ -80,11 +80,11 @@ var ViroSpinner = createReactClass({
       PropTypes.func
     ]),
     physicsBody: PropTypes.shape({
-      type: PropTypes.oneOf(['dynamic','kinematic','static']).isRequired,
+      type: PropTypes.oneOf(['Dynamic','Kinematic','Static']).isRequired,
       mass: PropTypes.number,
       restitution: PropTypes.number,
       shape: PropTypes.shape({
-        type: PropTypes.oneOf(["box", "sphere", "compound"]).isRequired,
+        type: PropTypes.oneOf(["Box", "Sphere", "Compound"]).isRequired,
         params: PropTypes.arrayOf(PropTypes.number)
       }).isRequired,
       friction: PropTypes.number,
@@ -110,7 +110,7 @@ var ViroSpinner = createReactClass({
 
   getDefaultProps() {
     return {
-      type: 'dark'
+      type: 'Dark'
     };
   },
 
@@ -180,11 +180,11 @@ var ViroSpinner = createReactClass({
   },
 
   _getImage1() {
-    return this.props.type == 'light' ? ViroSpinner_1 : ViroSpinner_1_w;
+    return this.props.type.toUpperCase() == 'Light'.toUpperCase() ? ViroSpinner_1 : ViroSpinner_1_w;
   },
 
   _getImage1a() {
-    return this.props.type == 'light' ? ViroSpinner_1a : ViroSpinner_1a_w;
+    return this.props.type.toUpperCase() == 'Light'.toUpperCase() ? ViroSpinner_1a : ViroSpinner_1a_w;
   },
 });
 

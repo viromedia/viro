@@ -133,7 +133,7 @@ var GroupTestBasicPhysics = createReactClass({
 
                 <ViroBox
                     physicsBody={{
-                      type:'static',
+                      type:'Static',
                       restitution:0.4
                     }}
                     position={[0, -6, -8]}
@@ -154,7 +154,7 @@ var GroupTestBasicPhysics = createReactClass({
                       type="OBJ"
                       onDrag={this.state.toggleDraggable ? this.onDrag("Viro3DObject") : undefined}
                       physicsBody={this.state.physicsEnabled?
-                        {type:'dynamic', mass:1, enabled:true, useGravity:this.state.gravityEnabled}:undefined}
+                        {type:'Dynamic', mass:1, enabled:true, useGravity:this.state.gravityEnabled}:undefined}
                       />
 
                   <ViroBox
@@ -166,7 +166,7 @@ var GroupTestBasicPhysics = createReactClass({
                       length={1}
                       onDrag={this.state.toggleDraggable ? this.onDrag("ViroBox") : undefined}
                       physicsBody={this.state.physicsEnabled?
-                        {type:'dynamic', mass:1, enabled:true, useGravity:this.state.gravityEnabled}:undefined}
+                        {type:'Dynamic', mass:1, enabled:true, useGravity:this.state.gravityEnabled}:undefined}
                       />
 
                   <ViroButton
@@ -177,7 +177,7 @@ var GroupTestBasicPhysics = createReactClass({
                       clickSource={LocalButtonImage}
                       onDrag={this.state.toggleDraggable ? this.onDrag("ViroButton") : undefined}
                       physicsBody={this.state.physicsEnabled?
-                        { shape:{type:'box', params:[0.2,0.2,0.05]}, type:'dynamic', mass:1, enabled:true, useGravity:this.state.gravityEnabled}:undefined}
+                        { shape:{type:'Box', params:[0.2,0.2,0.05]}, type:'Dynamic', mass:1, enabled:true, useGravity:this.state.gravityEnabled}:undefined}
                       />
 
                   <ViroFlexView
@@ -188,7 +188,7 @@ var GroupTestBasicPhysics = createReactClass({
                       height={1}
                       onDrag={this.state.toggleDraggable ? this.onDrag("ViroFlexView") : undefined}
                       physicsBody={this.state.physicsEnabled?
-                        {type:'dynamic', mass:1, enabled:true, shape:{type:'box', params:[0.3,0.3,0.01]},
+                        {type:'Dynamic', mass:1, enabled:true, shape:{type:'Box', params:[0.3,0.3,0.01]},
                         useGravity:this.state.gravityEnabled}:undefined}
                       />
 
@@ -199,9 +199,9 @@ var GroupTestBasicPhysics = createReactClass({
                       scale={[0.5, 0.5, 0.1]}
                       onDrag={this.state.toggleDraggable ? this.onDrag("ViroImage") : undefined}
                       physicsBody={this.state.physicsEnabled?
-                        {type:'dynamic', mass:1, enabled:true, useGravity:this.state.gravityEnabled}:undefined}
-                      resizeMode="scaleToFill"
-                      imageClipMode="clipToBounds"
+                        {type:'Dynamic', mass:1, enabled:true, useGravity:this.state.gravityEnabled}:undefined}
+                      resizeMode="ScaleToFill"
+                      imageClipMode="ClipToBounds"
                       source={{uri: "https://upload.wikimedia.org/wikipedia/commons/7/74/Earth_poster_large.jpg"}}/>
 
                   <ViroNode
@@ -209,7 +209,7 @@ var GroupTestBasicPhysics = createReactClass({
                     scale={[0.5, 0.5, 0.1]}
                     onDrag={this.state.toggleDraggable ? this.onDrag("ViroNode") : undefined}
                     physicsBody={this.state.physicsEnabled?
-                      {type:'dynamic', mass:1, enabled:true, shape:{type:'box', params:[0.6,0.6,0.2]},
+                      {type:'Dynamic', mass:1, enabled:true, shape:{type:'box', params:[0.6,0.6,0.2]},
                        useGravity:this.state.gravityEnabled}:undefined}
 
                     rotation={[0,0,0]}>
@@ -226,14 +226,14 @@ var GroupTestBasicPhysics = createReactClass({
                       radius={1}
                       onDrag={this.state.toggleDraggable ? this.onDrag("ViroSphere") : undefined}
                       physicsBody={this.state.physicsEnabled?
-                        {type:'dynamic', mass:1, enabled:true, useGravity:this.state.gravityEnabled}:undefined}
+                        {type:'Dynamic', mass:1, enabled:true, useGravity:this.state.gravityEnabled}:undefined}
                       materials={["redColor"]}
                       />
 
                   <ViroSpinner
                     onDrag={this.state.toggleDraggable ? this.onDrag("ViroSpinner") : undefined}
                     physicsBody={this.state.physicsEnabled?
-                    {type:'dynamic', mass:1, enabled:true, shape:{type:'box', params:[0.4,0.4,0.2]}, useGravity:this.state.gravityEnabled}:undefined}
+                    {type:'Dynamic', mass:1, enabled:true, shape:{type:'Box', params:[0.4,0.4,0.2]}, useGravity:this.state.gravityEnabled}:undefined}
 
                       position={[1, 0, 0]}
                       scale={[0.3, 0.3, 0.1]}/>
@@ -241,7 +241,7 @@ var GroupTestBasicPhysics = createReactClass({
                   <ViroSurface
                     onDrag={this.state.toggleDraggable ? this.onDrag("ViroSurface") : undefined}
                     physicsBody={this.state.physicsEnabled?
-                      {type:'dynamic', mass:1, enabled:true, useGravity:this.state.gravityEnabled}:undefined}
+                      {type:'Dynamic', mass:1, enabled:true, useGravity:this.state.gravityEnabled}:undefined}
                     position={[-2, -1, 0]}
                       scale={[0.5, 0.5, 0.1]}
                       materials={["redColor"]}
@@ -251,7 +251,7 @@ var GroupTestBasicPhysics = createReactClass({
                   <ViroText
                     onDrag={this.state.toggleDraggable ? this.onDrag("ViroText") : undefined}
                     physicsBody={this.state.physicsEnabled?
-                      {type:'dynamic', mass:1, enabled:true, useGravity:this.state.gravityEnabled}:undefined}
+                      {type:'Dynamic', mass:1, enabled:true, useGravity:this.state.gravityEnabled}:undefined}
                       position={[-0.5, -1.7, 0]}
                       width={2} height ={2}
                       style={styles.baseTextTwo}
@@ -260,7 +260,7 @@ var GroupTestBasicPhysics = createReactClass({
                   <ViroVideo
                     onDrag={this.state.toggleDraggable ? this.onDrag("ViroVideo") : undefined}
                     physicsBody={this.state.physicsEnabled?
-                      {type:'dynamic', mass:1, enabled:true, useGravity:this.state.gravityEnabled}:undefined}
+                      {type:'Dynamic', mass:1, enabled:true, useGravity:this.state.gravityEnabled}:undefined}
                       position={[0 , -1,0]}
                       scale={[0.1, 0.1, 0.1]}
                       height={4} width={4}
@@ -274,7 +274,7 @@ var GroupTestBasicPhysics = createReactClass({
                         position={[3, -1, 0]}
                         onDrag={this.state.toggleDraggable ? this.onDrag("CompoundNode") : undefined}
                         physicsBody={this.state.physicsEnabled?
-                          {type:'dynamic', mass:1, enabled:true, restitution:1, shape:{type:'compound'},
+                          {type:'Dynamic', mass:1, enabled:true, restitution:1, shape:{type:'Compound'},
                            useGravity:this.state.gravityEnabled}:undefined}
                         rotation={[0,0,-90]}>
 

@@ -157,7 +157,7 @@ var LeakTest2 = createReactClass({
             width={2} height={2}
             fontFamily={'Arial'}
             text={"Pop Scene"}
-            textLineBreakMode='justify'
+            textLineBreakMode='Justify'
             onClick={this._pushNextScene}
           />
       </ViroScene>

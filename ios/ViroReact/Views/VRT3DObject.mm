@@ -127,7 +127,7 @@
     }
 
     BOOL isOBJ = NO;
-    if ([_type isEqualToString:@"OBJ"]) {
+    if ([_type caseInsensitiveCompare:@"OBJ"] == NSOrderedSame) {
         isOBJ = YES;
     }
     

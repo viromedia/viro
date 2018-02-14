@@ -91,7 +91,7 @@ var ViroParticleEmitter = createReactClass({
     particleAppearance: PropTypes.shape({
       opacity: PropTypes.shape({
         initialRange: PropTypes.arrayOf(PropTypes.number),
-        factor: PropTypes.oneOf(["time", "distance"]),
+        factor: PropTypes.oneOf(["Time", "Distance"]),
         interpolation: PropTypes.arrayOf(PropTypes.shape({
           interval: PropTypes.arrayOf(PropTypes.number),
           endValue: PropTypes.number,
@@ -99,7 +99,7 @@ var ViroParticleEmitter = createReactClass({
       }),
       scale: PropTypes.shape({
         initialRange: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)),
-        factor: PropTypes.oneOf(["time", "distance"]),
+        factor: PropTypes.oneOf(["Time", "Distance"]),
         interpolation: PropTypes.arrayOf(PropTypes.shape({
           interval: PropTypes.arrayOf(PropTypes.number),
           endValue: PropTypes.arrayOf(PropTypes.number),
@@ -108,7 +108,7 @@ var ViroParticleEmitter = createReactClass({
       // rotation is only about the Z axis
       rotation: PropTypes.shape({
         initialRange: PropTypes.arrayOf(PropTypes.number),
-        factor: PropTypes.oneOf(["time", "distance"]),
+        factor: PropTypes.oneOf(["Time", "Distance"]),
         interpolation: PropTypes.arrayOf(PropTypes.shape({
           interval: PropTypes.arrayOf(PropTypes.number),
           endValue: PropTypes.number,
@@ -116,7 +116,7 @@ var ViroParticleEmitter = createReactClass({
       }),
       color: PropTypes.shape({
         initialRange:  PropTypes.arrayOf(ColorPropType),
-        factor: PropTypes.oneOf(["time", "distance"]),
+        factor: PropTypes.oneOf(["Time", "Distance"]),
         interpolation: PropTypes.arrayOf(PropTypes.shape({
           interval: PropTypes.arrayOf(PropTypes.number),
           endValue: ColorPropType,

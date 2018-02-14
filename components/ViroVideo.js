@@ -49,7 +49,7 @@ var ViroVideo = createReactClass({
     lightReceivingBitMask : PropTypes.number,
     shadowCastingBitMask : PropTypes.number,
     onTransformUpdate: PropTypes.func,
-    stereoMode:PropTypes.oneOf(['leftRight', 'rightLeft', 'topBottom', 'bottomTop', 'none']),
+    stereoMode:PropTypes.oneOf(['LeftRight', 'RightLeft', 'TopBottom', 'BottomTop', 'None']),
     width: PropTypes.number,
     height: PropTypes.number,
     paused: PropTypes.bool,
@@ -112,11 +112,11 @@ var ViroVideo = createReactClass({
      */
     onError: PropTypes.func,
     physicsBody: PropTypes.shape({
-      type: PropTypes.oneOf(['dynamic','kinematic','static']).isRequired,
+      type: PropTypes.oneOf(['Dynamic','Kinematic','Static']).isRequired,
       mass: PropTypes.number,
       restitution: PropTypes.number,
       shape: PropTypes.shape({
-        type: PropTypes.oneOf(["box", "sphere", "compound"]).isRequired,
+        type: PropTypes.oneOf(["Box", "Sphere", "Compound"]).isRequired,
         params: PropTypes.arrayOf(PropTypes.number)
       }),
       friction: PropTypes.number,

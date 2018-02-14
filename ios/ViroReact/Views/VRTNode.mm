@@ -439,9 +439,9 @@ const double kTransformDelegateDistanceFilter = 0.01;
 }
 
 - (void)setDragType:(NSString *)dragType {
-    if ([dragType isEqualToString:@"FixedDistance"]) {
+    if ([dragType caseInsensitiveCompare:@"FixedDistance"] == NSOrderedSame) {
         _node->setDragType(VRODragType::FixedDistance);
-    } else if ([dragType isEqualToString:@"FixedToWorld"]) {
+    } else if ([dragType caseInsensitiveCompare:@"FixedToWorld"] == NSOrderedSame) {
         _node->setDragType(VRODragType::FixedToWorld);
     } else {
         RCTLogError(@"Received unknown drag type: %@", dragType);
@@ -571,7 +571,7 @@ const double kTransformDelegateDistanceFilter = 0.01;
     return body;
 }
 
-- (void)setPhysicsBody:(NSDictionary *)dictionary{
+- (void)setPhysicsBody:(NSDictionary *)dictionary {
     // If un-setting the physicsBody, clear it from the node.
     if (!dictionary){
         [self clearPhysicsBody];

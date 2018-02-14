@@ -60,8 +60,8 @@ var ViroImageTest = createReactClass({
         format:"RGBA8",
         showColorBackground:false,
         showUrlImage:false,
-        resizeMode:"scaleToFill",
-        clipMode:"clipToBounds",
+        resizeMode:"ScaleToFill",
+        clipMode:"ClipToBounds",
      };
    },
 
@@ -81,7 +81,7 @@ var ViroImageTest = createReactClass({
                scale={[6.5, 5.0, 0.1]}
                placeholderSource={placeholderImage}
                source={require("./res/stereotest.jpg")}
-               stereoMode="leftRight"
+               stereoMode="LeftRight"
                onLoadStart={this._onLoadStart} onLoadEnd={this._onLoadEnd}
                />
 
@@ -165,12 +165,12 @@ var ViroImageTest = createReactClass({
    },
    _toggleResizeMode() {
         var newMode;
-        if (this.state.resizeMode == "scaleToFit") {
-          newMode="scaleToFill";
-        } else if (this.state.resizeMode == "scaleToFill") {
-          newMode="stretchToFill";
-        } else if (this.state.resizeMode == "stretchToFill") {
-          newMode="scaleToFit";
+        if (this.state.resizeMode == "ScaleToFit") {
+          newMode="ScaleToFill";
+        } else if (this.state.resizeMode == "ScaleToFill") {
+          newMode="StretchToFill";
+        } else if (this.state.resizeMode == "StretchToFill") {
+          newMode="ScaleToFit";
         }
         this.setState({
           resizeMode:newMode
@@ -178,10 +178,10 @@ var ViroImageTest = createReactClass({
    },
    _toggleImageClipMode() {
         var mode;
-        if (this.state.clipMode == "clipToBounds") {
-          mode = "none";
-        } else if (this.state.clipMode == "none") {
-          mode = "clipToBounds";
+        if (this.state.clipMode == "ClipToBounds") {
+          mode = "None";
+        } else if (this.state.clipMode == "None") {
+          mode = "ClipToBounds";
         }
         this.setState({
           clipMode:mode

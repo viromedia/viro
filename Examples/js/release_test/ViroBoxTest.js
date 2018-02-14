@@ -126,10 +126,10 @@ var ViroBoxTest = createReactClass({
 
       <ViroImage source={require('./res/poi_dot.png')} position={[-1, 0, 0]} transformBehaviors={["billboard"]} onClick={this._showNext} />
       <ViroText fontSize={this.state.fontSize} style={styles.centeredText} position={[0,-4, -3]} width={2} height ={2} fontFamily={'Arial'}
-          text={"Toggle WHL: " + this.state.toggleWHL} textLineBreakMode='justify' onClick={this._toggleWHL}/>
+          text={"Toggle WHL: " + this.state.toggleWHL} textLineBreakMode='Justify' onClick={this._toggleWHL}/>
 
       <ViroText fontSize={this.state.fontSize} style={styles.centeredText} position={[0,-5, -3]} width={2} height ={2} fontFamily={'Arial'}
-          text={"Toggle materials" } textLineBreakMode='justify' onClick={this._toggleMaterials}/>
+          text={"Toggle materials" } textLineBreakMode='Justify' onClick={this._toggleMaterials}/>
 
      </ViroScene>
     );

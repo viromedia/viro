@@ -85,7 +85,7 @@ var ViroPolylineTest = createReactClass({
                   onClick={this._nextPoints}/>
 
         <ViroText style={styles.baseTextTwo}  position={[0, -.5, 0]} width={2} height ={2}
-                  text={"Toggle Material : " + (this.state.materials ? " white" : "red")} textLineBreakMode='justify'
+                  text={"Toggle Material : " + (this.state.materials ? " white" : "red")} textLineBreakMode='Justify'
                   onClick={this._toggleMaterial}/>
 
         <ViroText style={styles.baseTextTwo}  position={[0, -1, 0]} width={2} height ={2}

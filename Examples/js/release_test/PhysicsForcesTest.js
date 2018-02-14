@@ -29,7 +29,7 @@ var ReleaseMenu = require("./ReleaseMenu.js");
 var PhysicsRayTest = createReactClass({
   getInitialState() {
     return {
-      bodyType:"dynamic",
+      bodyType:"Dynamic",
       applyConstantVelocity:undefined,
       applyConstantForce:undefined,
       applyConstantTorque:undefined,
@@ -46,7 +46,7 @@ var PhysicsRayTest = createReactClass({
         if (tag == 0){
 
           this.setState({
-            bodyType:"kinematic",
+            bodyType:"Kinematic",
             mass:0,
             position:[0,0,-9999],
             rotation:[0,0,-9999]
@@ -55,7 +55,7 @@ var PhysicsRayTest = createReactClass({
           let that = this;
           setTimeout(function(){
             that.setState({
-              bodyType:"dynamic",
+              bodyType:"Dynamic",
               applyConstantVelocity:undefined,
               applyConstantForce:undefined,
               applyConstantTorque:undefined,
@@ -85,13 +85,13 @@ var PhysicsRayTest = createReactClass({
         } else if (tag == 6){
           this.refs["box"].applyTorqueImpulse([0,3,0]);
         } else if (tag == 7){
-          var finalType = "dynamic";
+          var finalType = "Dynamic";
           var finalMass = 1;
-          if (this.state.bodyType === "dynamic"){
-            finalType ="static";
+          if (this.state.bodyType === "Dynamic"){
+            finalType ="Static";
             finalMass = 0;
-          } else if (this.state.bodyType === "static"){
-            finalType = "kinematic";
+          } else if (this.state.bodyType === "Static"){
+            finalType = "Kinematic";
             finalMass = 0;
           }
           this.setState({
@@ -155,7 +155,7 @@ var PhysicsRayTest = createReactClass({
                 <ViroNode position={[0 , -9, -8.5]}>
                 <ViroBox
                     physicsBody={{
-                      type:'static', restitution:0.8, friction:0.5
+                      type:'Static', restitution:0.8, friction:0.5
                     }}
                     position={[0, -4, -10.5]}
                     scale={[1,1,1]}

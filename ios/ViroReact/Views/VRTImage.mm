@@ -303,10 +303,10 @@ static float const kDefaultHeight = 1;
     
     NSString *value = (NSString *)json;
     
-    if ([value caseInsensitiveCompare:@"none"] == NSOrderedSame) {
+    if ([value caseInsensitiveCompare:@"None"] == NSOrderedSame) {
         return VROImageClipMode::None;
     }
-    else if ([value caseInsensitiveCompare:@"Cliptobounds"] == NSOrderedSame) {
+    else if ([value caseInsensitiveCompare:@"ClipToBounds"] == NSOrderedSame) {
         return VROImageClipMode::ClipToBounds;
     }
     return VROImageClipMode::None;

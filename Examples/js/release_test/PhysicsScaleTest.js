@@ -125,7 +125,7 @@ var PhysicsScaleTest = createReactClass({
                       width={this.state.dimension}
                       length={this.state.dimension}
                       physicsBody={this.state.physicsEnabled?
-                        {type:'dynamic', mass:1, enabled:true, useGravity:false}:undefined}
+                        {type:'Dynamic', mass:1, enabled:true, useGravity:false}:undefined}
                       />
 
                   <ViroSphere
@@ -137,14 +137,14 @@ var PhysicsScaleTest = createReactClass({
                       radius={this.state.dimension}
                             materials={["blue"]}
                       physicsBody={this.state.physicsEnabled?
-                              {type:'dynamic', mass:1, enabled:true, useGravity:false}:undefined}
+                              {type:'Dynamic', mass:1, enabled:true, useGravity:false}:undefined}
 
                       />
 
                   <ViroSurface
                     rotation={[this.state.rotation, this.state.rotation, this.state.rotation]}
                     physicsBody={this.state.physicsEnabled?
-                      {type:'dynamic', mass:1, enabled:true, useGravity:false}:undefined}
+                      {type:'Dynamic', mass:1, enabled:true, useGravity:false}:undefined}
                     position={[this.state.trans + 2, 0, 0]}
                       scale={[this.state.scale, this.state.scale, 0.1]}
                       materials={["blue"]}

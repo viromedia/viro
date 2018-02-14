@@ -77,7 +77,7 @@ var Viro360Video = createReactClass({
      * {nativeEvent: {error}}
      */
     onError: PropTypes.func,
-    stereoMode:PropTypes.oneOf(['leftRight', 'rightLeft', 'topBottom', 'bottomTop', 'none']),
+    stereoMode:PropTypes.oneOf(['LeftRight', 'RightLeft', 'TopBottom', 'BottomTop', 'None']),
   },
 
   _onBufferStart: function(event: Event) {

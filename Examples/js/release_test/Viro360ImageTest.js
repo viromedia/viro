@@ -74,7 +74,7 @@ var Viro360ImageTest = createReactClass({
       onLoadStart={this._onBackgroundPhotoLoadStart}
       onLoadEnd={this._onBackgroundPhotoLoadEnd}
       format={this.state.format}
-      stereoMode={this.state.current360Image == Stereo360Image ? "topBottom":"none"}
+      stereoMode={this.state.current360Image == Stereo360Image ? "TopBottom":"None"}
       />
 
 

@@ -187,7 +187,7 @@ var GroupTestBasicBillboard = createReactClass({
               </ViroAnimatedComponent>
 
                 <ViroText style={styles.baseTextTwo} position={[0.8 , -2, -3.5]} width={2} height ={2} fontFamily={'Arial'}
-                      text={"Toggle billboard: " + transformText} textLineBreakMode='justify' onClick={this._toggleTransform}/>
+                      text={"Toggle billboard: " + transformText} textLineBreakMode='Justify' onClick={this._toggleTransform}/>
 
                    <ViroOmniLight
                                      position={[0, 0, 0]}

@@ -51,9 +51,9 @@ var ViroImage = createReactClass({
     opacity: PropTypes.number,
     width: PropTypes.number,
     height: PropTypes.number,
-    resizeMode: PropTypes.oneOf(['scaleToFill','scaleToFit','stretchToFill']),
-    imageClipMode: PropTypes.oneOf(['none', 'clipToBounds']),
-    stereoMode:PropTypes.oneOf(['leftRight', 'rightLeft', 'topBottom', 'bottomTop', 'none']),
+    resizeMode: PropTypes.oneOf(['ScaleToFill','ScaleToFit','StretchToFill']),
+    imageClipMode: PropTypes.oneOf(['None', 'ClipToBounds']),
+    stereoMode:PropTypes.oneOf(['LeftRight', 'RightLeft', 'TopBottom', 'BottomTop', 'None']),
     materials: PropTypes.oneOfType([
       PropTypes.arrayOf(PropTypes.string),
       PropTypes.string
@@ -143,11 +143,11 @@ var ViroImage = createReactClass({
      */
     onError: PropTypes.func,
     physicsBody: PropTypes.shape({
-      type: PropTypes.oneOf(['dynamic','kinematic','static']).isRequired,
+      type: PropTypes.oneOf(['Dynamic','Kinematic','Static']).isRequired,
       mass: PropTypes.number,
       restitution: PropTypes.number,
       shape: PropTypes.shape({
-        type: PropTypes.oneOf(["box", "sphere", "compound"]).isRequired,
+        type: PropTypes.oneOf(["Box", "Sphere", "Compound"]).isRequired,
         params: PropTypes.arrayOf(PropTypes.number)
       }),
       friction: PropTypes.number,

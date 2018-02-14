@@ -165,11 +165,11 @@ NSString *const VRTLabelReactTagAttributeName = @"ReactTagAttributeName";
     }
     
     NSString *value = (NSString *)json;
-    if( [value caseInsensitiveCompare:@"left"] == NSOrderedSame ) {
+    if( [value caseInsensitiveCompare:@"Left"] == NSOrderedSame ) {
         return VROTextHorizontalAlignment::Left;
-    } else if([value caseInsensitiveCompare:@"center"] == NSOrderedSame) {
+    } else if([value caseInsensitiveCompare:@"Center"] == NSOrderedSame) {
         return VROTextHorizontalAlignment::Center;
-    } else if([value caseInsensitiveCompare:@"right"] == NSOrderedSame) {
+    } else if([value caseInsensitiveCompare:@"Right"] == NSOrderedSame) {
         return VROTextHorizontalAlignment::Right;
     }
     
@@ -183,11 +183,11 @@ NSString *const VRTLabelReactTagAttributeName = @"ReactTagAttributeName";
     }
     
     NSString *value = (NSString *)json;
-    if([value caseInsensitiveCompare:@"top"] == NSOrderedSame) {
+    if([value caseInsensitiveCompare:@"Top"] == NSOrderedSame) {
         return VROTextVerticalAlignment::Top;
-    } else if([value caseInsensitiveCompare:@"center"] == NSOrderedSame) {
+    } else if([value caseInsensitiveCompare:@"Center"] == NSOrderedSame) {
         return VROTextVerticalAlignment::Center;
-    } else if([value caseInsensitiveCompare:@"bottom"] == NSOrderedSame) {
+    } else if([value caseInsensitiveCompare:@"Bottom"] == NSOrderedSame) {
         return VROTextVerticalAlignment::Bottom;
     }
     
@@ -201,13 +201,13 @@ NSString *const VRTLabelReactTagAttributeName = @"ReactTagAttributeName";
     }
     
     NSString *value = (NSString *)json;
-    if([value caseInsensitiveCompare:@"wordwrap"] == NSOrderedSame) {
+    if([value caseInsensitiveCompare:@"WordWrap"] == NSOrderedSame) {
         return VROLineBreakMode::WordWrap;
-    } else if([value caseInsensitiveCompare:@"charwrap"] == NSOrderedSame) {
+    } else if([value caseInsensitiveCompare:@"CharWrap"] == NSOrderedSame) {
         return VROLineBreakMode::CharWrap;
-    } else if([value caseInsensitiveCompare:@"justify"] == NSOrderedSame) {
+    } else if([value caseInsensitiveCompare:@"Justify"] == NSOrderedSame) {
         return VROLineBreakMode::Justify;
-    } else if([value caseInsensitiveCompare:@"none"] == NSOrderedSame) {
+    } else if([value caseInsensitiveCompare:@"None"] == NSOrderedSame) {
         return VROLineBreakMode::None;
     }
     return VROLineBreakMode::None;
@@ -221,10 +221,10 @@ NSString *const VRTLabelReactTagAttributeName = @"ReactTagAttributeName";
     
     NSString *value = (NSString *)json;
     
-    if ([value caseInsensitiveCompare:@"none"] == NSOrderedSame) {
+    if ([value caseInsensitiveCompare:@"None"] == NSOrderedSame) {
         return VROTextClipMode::None;
     }
-    else if ([value caseInsensitiveCompare:@"cliptobounds"] == NSOrderedSame) {
+    else if ([value caseInsensitiveCompare:@"ClipToBounds"] == NSOrderedSame) {
         return VROTextClipMode::ClipToBounds;
     }
     return VROTextClipMode::None;
