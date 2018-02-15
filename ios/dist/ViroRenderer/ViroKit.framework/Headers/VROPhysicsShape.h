@@ -14,6 +14,7 @@
 #include <vector>
 #include <string>
 #include <algorithm>
+#include "VROStringUtil.h"
 
 class VRONode;
 class btCollisionShape;
@@ -45,13 +46,15 @@ public:
      with the reason for failure.
      */
     static bool isValidShape(std::string strType, std::vector<float> params, std::string &errorMsg) {
-        if (strType != kSphereTag && strType != kBoxTag && strType != kAutoCompoundTag) {
+        if (!VROStringUtil::strcmpinsensitive(strType, kSphereTag)
+            && !VROStringUtil::strcmpinsensitive(strType, kBoxTag)
+            && !VROStringUtil::strcmpinsensitive(strType,kAutoCompoundTag)) {
             errorMsg = "Provided invalid shape of type: " + strType;
             return false;
-        } else if (strType == kSphereTag && params.size() != 1) {
+        } else if (VROStringUtil::strcmpinsensitive(strType, kSphereTag) && params.size() != 1) {
             errorMsg = "Invalid params provided for type sphere! Expected 1 parameter for radius.";
             return false;
-        } else if (strType == kBoxTag && params.size() != 3) {
+        } else if (VROStringUtil::strcmpinsensitive(strType, kBoxTag) && params.size() != 3) {
             errorMsg = "Invalid params provided for type box! Expected 3 parameter defining [x,y,z].";
             return false;
         }
@@ -59,9 +62,9 @@ public:
     }
 
     static VROPhysicsShape::VROShapeType getTypeForString(std::string strType) {
-        if (strType == kSphereTag) {
+        if (VROStringUtil::strcmpinsensitive(strType, kSphereTag)) {
             return VROPhysicsShape::VROShapeType::Sphere;
-        } else if (strType == kAutoCompoundTag) {
+        } else if (VROStringUtil::strcmpinsensitive(strType, kAutoCompoundTag)) {
             return VROPhysicsShape::VROShapeType::AutoCompound;
         }
         return VROPhysicsShape::VROShapeType::Box;

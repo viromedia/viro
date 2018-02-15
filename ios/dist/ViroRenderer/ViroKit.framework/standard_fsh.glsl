@@ -48,9 +48,7 @@ void main() {
         _lightingContribution.specular = vec3(0.0);
         _lightingContribution.visibility = 1.0;
         
-        _light.color = lights[i].color;
-        _light.position = lights[i].position.xyz;
-        _light.attenuation = compute_attenuation(lights[i], _surface.position, _light.surface_to_light);
+        VROLightUniforms _light = lights[i];
         
 #pragma lighting_model_modifier_body
         

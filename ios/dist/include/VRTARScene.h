@@ -36,8 +36,6 @@
 
 - (void)initSceneController;
 
-- (void)insertReactSubview:(UIView *)view atIndex:(NSInteger)atIndex;
-
 - (void)onCameraHitTest:(int)source results:(std::vector<VROARHitTestResult>)results;
 
 @end

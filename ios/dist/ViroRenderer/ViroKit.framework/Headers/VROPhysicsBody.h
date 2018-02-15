@@ -12,6 +12,7 @@
 #include "VROVector3f.h"
 #include "VROPhysicsShape.h"
 #include "VROLog.h"
+#include "VROStringUtil.h"
 
 class VRONode;
 class btTransform;
@@ -59,13 +60,15 @@ public:
      with the reason for failure.
      */
     static bool isValidType(std::string strType, float mass, std::string &errorMsg) {
-        if (strType != kKinematicTag && strType != kDynamicTag && strType != kStaticTag) {
+        if (!VROStringUtil::strcmpinsensitive(strType, kKinematicTag)
+            && !VROStringUtil::strcmpinsensitive(strType, kDynamicTag)
+            && !VROStringUtil::strcmpinsensitive(strType, kStaticTag)) {
             errorMsg = "Provided invalid physicsBody of type: " + strType;
             return false;
-        } else if ((strType == kKinematicTag || strType == kStaticTag) && mass !=0) {
+        } else if ((VROStringUtil::strcmpinsensitive(strType, kKinematicTag) || VROStringUtil::strcmpinsensitive(strType, kStaticTag)) && mass != 0) {
             errorMsg = "Mass must be 0 for kinematic or static bodies.";
             return false;
-        } else if (strType == kDynamicTag && mass <=0) {
+        } else if (VROStringUtil::strcmpinsensitive(strType, kDynamicTag) && mass <= 0) {
             errorMsg = "Mass must be > 0 for dynamic bodies.";
             return false;
         }
@@ -77,9 +80,9 @@ public:
      Returns a VROPhysicsBodyType for a given string.
      */
     static VROPhysicsBody::VROPhysicsBodyType getBodyTypeForString(std::string strType) {
-        if (!strType.compare(kKinematicTag)) {
+        if (VROStringUtil::strcmpinsensitive(strType, kKinematicTag)) {
             return VROPhysicsBody::VROPhysicsBodyType::Kinematic;
-        } else if (!strType.compare(kDynamicTag)) {
+        } else if (VROStringUtil::strcmpinsensitive(strType, kDynamicTag)) {
             return VROPhysicsBody::VROPhysicsBodyType::Dynamic;
         }
         return VROPhysicsBody::VROPhysicsBodyType::Static;

@@ -12,6 +12,7 @@
 #include <memory>
 #include <set>
 #include "VROLog.h"
+#include "VROMatrix4f.h"
 
 class VROARAnchor;
 class VROARFrame;
@@ -21,6 +22,7 @@ class VROScene;
 class VROARNode;
 class VRONode;
 class VROARSessionDelegate;
+class VROARImageTarget;
 enum class VROCameraOrientation; //defined in VROCameraTexture.h
 
 /*
@@ -38,7 +40,8 @@ enum class VROTrackingType {
  */
 enum class VROAnchorDetection {
     None,
-    PlanesHorizontal
+    PlanesHorizontal,
+    PlanesVertical
 };
 
 /*
@@ -51,6 +54,14 @@ enum class VROWorldAlignment {
 };
 
 /*
+ The implementation of image tracking to use.
+ */
+enum class VROImageTrackingImpl {
+    ARKit,
+    Viro // not available for devs to use yet.
+};
+
+/*
  Manages the device camera and motion tracking for AR.
  */
 class VROARSession {
@@ -58,7 +69,8 @@ public:
     
     VROARSession(VROTrackingType trackingType, VROWorldAlignment worldAlignment) :
         _trackingType(trackingType),
-        _worldAlignment(worldAlignment) {}
+        _worldAlignment(worldAlignment),
+        _imageTrackingImpl(VROImageTrackingImpl::ARKit) {}
     virtual ~VROARSession() {}
     
     VROTrackingType getTrackingType() const {
@@ -67,6 +79,10 @@ public:
 
     VROWorldAlignment getWorldAlignment() const {
         return _worldAlignment;
+    }
+    
+    VROImageTrackingImpl getImageTrackingImpl() const {
+        return _imageTrackingImpl;
     }
     
     /*
@@ -118,6 +134,18 @@ public:
     virtual void setAnchorDetection(std::set<VROAnchorDetection> types) = 0;
     
     /*
+     Adds an image target that should be tracked by this session.
+     */
+    virtual void addARImageTarget(std::shared_ptr<VROARImageTarget> target) = 0;
+
+    /*
+     Removes an image target that should no longer be tracked by this session and the
+     corresponding anchor that matched with the target. If the image target has not
+     been found yet, then the given anchor should be nullptr
+     */
+    virtual void removeARImageTarget(std::shared_ptr<VROARImageTarget> target) = 0;
+    
+    /*
      Add or remove anchors from the session. These methods are used for
      placing anchors that are *not* auto-detected. The AR session will
      not keep these anchors up to date; that is the responsibility of the
@@ -161,11 +189,17 @@ public:
      necessary adjustments.
      */
     virtual void setOrientation(VROCameraOrientation orientation) = 0;
+
+    /*
+     Sets AR world origin to the given transform.
+     */
+    virtual void setWorldOrigin(VROMatrix4f relativeTransform) = 0;
     
 private:
     
     VROTrackingType _trackingType;
     VROWorldAlignment _worldAlignment;
+    VROImageTrackingImpl _imageTrackingImpl;
     std::shared_ptr<VROScene> _scene;
     std::weak_ptr<VROARSessionDelegate> _delegate;
 

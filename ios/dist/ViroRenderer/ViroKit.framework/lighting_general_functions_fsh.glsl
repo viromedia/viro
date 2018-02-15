@@ -16,12 +16,15 @@ struct VROLightUniforms {
     highp vec4 direction;
     
     highp vec3 color;
-    highp float spot_inner_angle;
+    highp float intensity;
     
+    highp float spot_inner_angle;
     highp float spot_outer_angle;
     int shadow_map_index;
     lowp float shadow_bias;
+    
     lowp float shadow_opacity;
+    lowp float light_padding0, light_padding1, light_padding2;
 };
 
 layout (std140) uniform lighting_fragment {
@@ -39,12 +42,12 @@ struct VROLightingContribution {
     highp float visibility; // Fades light, e.g. due to shadows
 } _lightingContribution;
 
-struct VROShaderLight {
-    highp vec3  color;
-    highp vec3  surface_to_light;
-    highp float attenuation;
-    highp vec3  position;
-} _light;
+highp float compute_angle_attenuation(highp vec3 L, highp vec3 light_direction,
+                                      highp float spot_inner, highp float spot_outer) {
+    highp float theta = dot(L, normalize(-light_direction));
+    highp float epsilon = max(0.0001, spot_inner - spot_outer);
+    return clamp((theta - spot_outer) / epsilon, 0.0, 1.0);
+}
 
 highp float compute_attenuation(const VROLightUniforms light,
                                 highp vec3 surface_pos,
@@ -70,11 +73,7 @@ highp float compute_attenuation(const VROLightUniforms light,
         
         // Spot light
         if (light.type == 3) {
-            highp float light_surface_angle = acos(dot(surface_to_light, -normalize(light.direction.xyz)));
-            if (light_surface_angle > light.spot_inner_angle) {
-                highp float t = clamp((light_surface_angle - light.spot_inner_angle) / light.spot_outer_angle, 0.0, 1.0);
-                attenuation = mix(attenuation, 0.0, t);
-            }
+            attenuation *= compute_angle_attenuation(surface_to_light, light.direction.xyz, light.spot_inner_angle, light.spot_outer_angle);
         }
     }
     

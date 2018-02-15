@@ -43,7 +43,11 @@ public:
     
     void init();
     void setDelegate(std::shared_ptr<VROARDeclarativeSessionDelegate> delegate);
-    
+    void setARSession(std::shared_ptr<VROARSession> session);
+
+    void addARImageTarget(std::shared_ptr<VROARImageTarget> target);
+    void removeARImageTarget(std::shared_ptr<VROARImageTarget> target);
+                                    
     void addARNode(std::shared_ptr<VROARDeclarativeNode> plane);
     void removeARNode(std::shared_ptr<VROARDeclarativeNode> plane);
     void updateARNode(std::shared_ptr<VROARDeclarativeNode> plane);
@@ -60,12 +64,14 @@ public:
     // VROARConstraintMatcherDelegate methods
     void anchorWasAttached(std::shared_ptr<VROARAnchor> anchor);
     void anchorWasDetached(std::shared_ptr<VROARAnchor> anchor);
-                                    
+
 private:
     
+    std::weak_ptr<VROARSession> _arSession;
     std::weak_ptr<VROARDeclarativeSessionDelegate> _delegate;
     std::shared_ptr<VROARConstraintMatcher> _constraintMatcher;
     std::vector<std::shared_ptr<VROARDeclarativeNode>> _nodes;
+    std::vector<std::shared_ptr<VROARImageTarget>> _imageTargets;
     
 };
 

@@ -78,7 +78,7 @@ public:
      Terminates a VROTransaction. Terminated transactions can no longer
      be paused or resumed.
      */
-    static void terminate(std::shared_ptr<VROTransaction> transaction);
+    static void terminate(std::shared_ptr<VROTransaction> transaction, bool jumpToEnd);
 
     /*
      Commit the active VROTransaction.

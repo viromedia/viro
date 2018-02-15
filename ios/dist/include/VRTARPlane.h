@@ -13,7 +13,7 @@
 
 @property (nonatomic, assign) float minWidth;
 @property (nonatomic, assign) float minHeight;
-@property (nonatomic, assign) BOOL pauseUpdates;
+@property (nonatomic, copy, nullable) NSString *alignment;
 
 @property (readwrite, nonatomic) std::shared_ptr<VROARNodeDelegateiOS> arNodeDelegate;
 

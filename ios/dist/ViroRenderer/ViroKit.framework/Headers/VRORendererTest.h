@@ -37,6 +37,8 @@
 #include "VROText.h"
 #include "VROTextureUtil.h"
 
+class VRORenderer;
+
 class VRORendererTest {
 public:
     
@@ -47,7 +49,8 @@ public:
         return _type;
     }
     
-    virtual void build(std::shared_ptr<VROFrameSynchronizer> frameSynchronizer,
+    virtual void build(std::shared_ptr<VRORenderer> renderer,
+                       std::shared_ptr<VROFrameSynchronizer> frameSynchronizer,
                        std::shared_ptr<VRODriver> driver) = 0;
     virtual std::shared_ptr<VRONode> getPointOfView() = 0;
     virtual std::shared_ptr<VROSceneController> getSceneController() = 0;

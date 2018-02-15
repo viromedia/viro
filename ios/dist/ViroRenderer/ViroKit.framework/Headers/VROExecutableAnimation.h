@@ -36,7 +36,7 @@ public:
     
     virtual void pause() = 0;
     virtual void resume() = 0;
-    virtual void terminate() = 0;
+    virtual void terminate(bool jumpToEnd) = 0;
     
     virtual std::string toString() const = 0;
 };

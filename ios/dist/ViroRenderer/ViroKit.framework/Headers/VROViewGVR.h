@@ -11,9 +11,13 @@
 #import <UIKit/UIKit.h>
 #import "VROView.h"
 
+class VRORendererConfiguration;
+
 @interface VROViewGVR : GLKView <VROView>
 
 @property (readwrite, nonatomic) BOOL paused;
 @property (readwrite, nonatomic) IBInspectable BOOL testingMode;
+
+- (instancetype)initWithFrame:(CGRect)frame config:(VRORendererConfiguration)config;
 
 @end

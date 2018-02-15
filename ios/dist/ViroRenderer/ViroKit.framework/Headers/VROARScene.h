@@ -32,6 +32,7 @@ public:
         _pointCloudSurfaceScale(VROVector3f(.01, .01, 1)),
         _pointCloudMaxPoints(500) {
             _pointCloudNode = std::make_shared<VRONode>();
+            _detectionTypes = { VROAnchorDetection::PlanesHorizontal }; //default is horizontal
         };
     virtual ~VROARScene();
     
@@ -46,6 +47,11 @@ public:
      Add AR nodes. These are directly added to the root node.
      */
     void addNode(std::shared_ptr<VRONode> node);
+
+    /*
+     The set of anchor detection types we want to enable for this scene.
+     */
+    void setAnchorDetectionTypes(std::set<VROAnchorDetection> detectionTypes);
 
     /*
      Set true to display/render the point cloud particles.
@@ -87,6 +93,7 @@ public:
     }
     
 private:
+    std::set<VROAnchorDetection> _detectionTypes;
     
     std::weak_ptr<VROARSession> _arSession;
     std::weak_ptr<VRODriver> _driver;
