@@ -278,6 +278,9 @@ RCT_EXPORT_METHOD(deleteMaterials:(NSArray *)materials) {
             } else if ([@"lightingModel" caseInsensitiveCompare:materialPropertyName] == NSOrderedSame) {
                 VROLightingModel lightingModel = [self convertLightingModel:material[key]];
                 vroMaterial->setLightingModel(lightingModel);
+            } else if ([@"blendMode" caseInsensitiveCompare:materialPropertyName] == NSOrderedSame) {
+                VROBlendMode blendMode = [self convertBlendMode:material[key]];
+                vroMaterial->setBlendMode(blendMode);
             } else if ([@"transparencyMode" caseInsensitiveCompare:materialPropertyName] == NSOrderedSame) {
                 VROTransparencyMode transparencyMode = [self convertTransparencyMode:material[key]];
                 vroMaterial->setTransparencyMode(transparencyMode);
@@ -478,11 +481,27 @@ RCT_EXPORT_METHOD(deleteMaterials:(NSArray *)materials) {
     return mipmapMode;
 }
 
-//Convert string to property VROTransparencyMode enum,
+- (VROBlendMode)convertBlendMode:(NSString *)name {
+    if ([@"None" caseInsensitiveCompare:name] == NSOrderedSame) {
+        return VROBlendMode::None;
+    } else if([@"Alpha" caseInsensitiveCompare:name] == NSOrderedSame) {
+        return VROBlendMode::Alpha;
+    } else if([@"Add" caseInsensitiveCompare:name] == NSOrderedSame) {
+        return VROBlendMode::Add;
+    } else if([@"Subtract" caseInsensitiveCompare:name] == NSOrderedSame) {
+        return VROBlendMode::Subtract;
+    } else if([@"Multiply" caseInsensitiveCompare:name] == NSOrderedSame) {
+        return VROBlendMode::Multiply;
+    } else if([@"Screen" caseInsensitiveCompare:name] == NSOrderedSame) {
+        return VROBlendMode::Screen;
+    }
+    return VROBlendMode::None;
+}
+
 - (VROTransparencyMode)convertTransparencyMode:(NSString *)name {
-    if([@"AOne" caseInsensitiveCompare:name] == NSOrderedSame){
+    if ([@"AOne" caseInsensitiveCompare:name] == NSOrderedSame) {
         return VROTransparencyMode::AOne;
-    }else if([@"RGBZero" caseInsensitiveCompare:name] == NSOrderedSame){
+    } else if([@"RGBZero" caseInsensitiveCompare:name] == NSOrderedSame) {
         return VROTransparencyMode::RGBZero;
     }  //return default if nothing else matches
     return VROTransparencyMode::AOne;

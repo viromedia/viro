@@ -24,6 +24,7 @@ var MaterialPropTypes = {
   writesToDepthBuffer: PropTypes.bool,
   readsFromDepthBuffer: PropTypes.bool,
   cullMode: PropTypes.oneOf(['None', 'Back', 'Front']),
+  blendMode: PropTypes.oneOf(['None', 'Alpha', 'Add', 'Subtract', 'Multiply', 'Screen']),
   diffuseTexture: PropTypes.any,
   diffuseIntensity: PropTypes.number,
   specularTexture: PropTypes.any,

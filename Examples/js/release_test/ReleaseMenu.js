@@ -198,6 +198,10 @@ var ReleaseMenu = createReactClass({
                         text={"ViroPbrTestSurfaces"}
                         onClick={() => {this.props.sceneNavigator.replace("ViroPbrTestSurfaces", {scene:require("./ViroPbrTestSurfaces"), passProps:{showMenu:true}})}}
                  />
+                 <ViroText style={styles.centeredText}  position={[6, -3, -4]} width={1.5} height ={2}
+                        text={"ViroBlendModes"}
+                        onClick={() => {this.props.sceneNavigator.replace("ViroBlendModes", {scene:require("./ViroBlendingTest"), passProps:{showMenu:true}})}}
+                 />
                 </ViroNode>
             </ViroScene>
     );
