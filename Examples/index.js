@@ -43,11 +43,15 @@ export default class ViroExperienceSelector extends Component {
       sharedProps : sharedProps,
       vrMode : Config.FLAVOR == "ovr" ? true : UNSET,
       worldAlignment : UNSET,
+      autofocus : true,
+      videoQualityHigh : true
     }
     this._getSelectionButtons = this._getSelectionButtons.bind(this);
     this._getARNavigator = this._getARNavigator.bind(this);
     this._getVRNavigator = this._getVRNavigator.bind(this);
     this._getButtonPress = this._getButtonPress.bind(this);
+    this._toggleAutofocus = this._toggleAutofocus.bind(this);
+    this._toggleVideoQuality = this._toggleVideoQuality.bind(this);
   }
   render() {
     if (this.state.navigatorType == UNSET) {
@@ -124,7 +128,11 @@ export default class ViroExperienceSelector extends Component {
         <ViroARSceneNavigator
           {...this.state.sharedProps}
           initialScene={{scene: InitialARScene}}
-          worldAlignment={this.state.worldAlignment} />
+          worldAlignment={this.state.worldAlignment}
+          videoQuality={this.state.videoQualityHigh ? "High" : "Low"}
+          autofocus={this.state.autofocus}
+          viroAppProps={{ toggleAutofocus : this._toggleAutofocus,
+                          toggleVideoQuality : this._toggleVideoQuality}} />
 
         <View style={localStyles.exitButtonContainer}>
           <TouchableHighlight style={localStyles.exitButton}
@@ -177,6 +185,18 @@ export default class ViroExperienceSelector extends Component {
         navigatorType : navigatorType
       })
     }
+  }
+
+  _toggleAutofocus() {
+    this.setState({
+      autofocus : !this.state.autofocus
+    });
+  }
+
+  _toggleVideoQuality() {
+    this.setState({
+      videoQualityHigh : !this.state.videoQualityHigh
+    });
   }
 }
 

@@ -18,6 +18,8 @@ RCT_EXPORT_MODULE()
 RCT_EXPORT_VIEW_PROPERTY(currentSceneIndex, NSInteger)
 RCT_EXPORT_VIEW_PROPERTY(apiKey, NSString)
 RCT_EXPORT_VIEW_PROPERTY(worldAlignment, NSString)
+RCT_EXPORT_VIEW_PROPERTY(autofocus, BOOL)
+RCT_EXPORT_VIEW_PROPERTY(videoQuality, NSString)
 
 - (VRTARSceneNavigator *)view
 {

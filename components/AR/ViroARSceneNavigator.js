@@ -47,7 +47,11 @@ var ViroARSceneNavigator = createReactClass({
           */
         scene: PropTypes.func.isRequired,
       }).isRequired,
+
+      // iOS only props! Note: these props may change as the underlying platforms coalesce in features.
       worldAlignment:PropTypes.oneOf(['Gravity', 'GravityAndHeading', 'Camera']),
+      autofocus : PropTypes.bool,
+      videoQuality : PropTypes.oneOf(['High', 'Low']),
   },
 
   arSceneNavigator: (undefined: ?Object),

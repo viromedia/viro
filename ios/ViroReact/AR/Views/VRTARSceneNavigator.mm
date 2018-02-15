@@ -23,6 +23,7 @@ static NSString *const kVRTInvalidAPIKeyMessage = @"The given API Key is either 
     id <VROView> _vroView;
     NSInteger _currentStackPosition;
     RCTBridge *_bridge;
+    VROVideoQuality _vroVideoQuality;
 }
 
 - (instancetype)initWithBridge:(RCTBridge *)bridge {
@@ -40,9 +41,35 @@ static NSString *const kVRTInvalidAPIKeyMessage = @"The given API Key is either 
         _currentStackPosition = -1;
 
         _bridge = bridge;
+        _autofocus = YES;
+        _vroVideoQuality = VROVideoQuality::High;
     }
     return self;
 }
+
+- (void)setAutofocus:(BOOL)autofocus {
+    _autofocus = autofocus;
+    if (_vroView) {
+        VROViewAR *viewAR = (VROViewAR *) _vroView;
+        std::shared_ptr<VROARSession> arSession = [viewAR getARSession];
+        arSession->setAutofocus(_autofocus);
+    }
+}
+
+- (void)setVideoQuality:(NSString *)videoQuality {
+    _videoQuality = videoQuality;
+    if ([videoQuality caseInsensitiveCompare:@"Low"] == NSOrderedSame) {
+        _vroVideoQuality = VROVideoQuality::Low;
+    } else {
+        _vroVideoQuality = VROVideoQuality::High;
+    }
+    if (_vroView) {
+        VROViewAR *viewAR = (VROViewAR *) _vroView;
+        std::shared_ptr<VROARSession> arSession = [viewAR getARSession];
+        arSession->setVideoQuality(_vroVideoQuality);
+    }
+}
+
 
 - (void)didSetProps:(NSArray<NSString *> *)changedProps {
     // if we haven't created the VROView, then create it now that
@@ -85,6 +112,9 @@ static NSString *const kVRTInvalidAPIKeyMessage = @"The given API Key is either 
             [_vroView setSceneController:[_currentScene sceneController]];
         }
 
+        std::shared_ptr<VROARSession> arSession = [viewAR getARSession];
+        arSession->setAutofocus(_autofocus);
+        arSession->setVideoQuality(_vroVideoQuality);
     }
 }
 

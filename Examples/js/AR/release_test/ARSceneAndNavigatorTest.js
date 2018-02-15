@@ -123,6 +123,11 @@ var testARScene = createReactClass({
         <ViroText position={polarToCartesian([2, 30, -20])} text={this.state.displayPointCloud ? "Hide Point Cloud" : "Show Point Cloud"}
           style={styles.instructionText} transformBehaviors={["billboard"]}
           onClick={()=>{this.setState({displayPointCloud : !this.state.displayPointCloud})}}/>
+        <ViroText position={polarToCartesian([2, 30, -30])} text={"Toggle Autofocus/Quality"}
+          style={styles.instructionText} transformBehaviors={["billboard"]}
+          onClick={()=>{this.props.arSceneNavigator.viroAppProps.toggleAutofocus();
+                        this.props.arSceneNavigator.viroAppProps.toggleVideoQuality()}}/>
+
 
         {/* Release Menu */}
         <ViroText position={polarToCartesian([2, -30, 0])} text={"Next test"}
