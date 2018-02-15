@@ -16,6 +16,7 @@
 		8A130D811E3AAEA10050D83B /* VRTSound.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8A130D801E3AAEA10050D83B /* VRTSound.mm */; };
 		8A130D901E3BC0690050D83B /* VRTSoundManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8A130D8F1E3BC0690050D83B /* VRTSoundManager.mm */; };
 		8A130DAE1E43A8AB0050D83B /* VRTSoundModule.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8A130DAD1E43A8AB0050D83B /* VRTSoundModule.mm */; };
+		8A2161D02036558500D60008 /* ViroKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AFCC4F520056B1000AD8B8D /* ViroKit.framework */; };
 		8A2DA3C71F9438A7001FC3BA /* VRTARUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A2DA3C61F9438A7001FC3BA /* VRTARUtils.m */; };
 		8A31CFA41E27047100550CFE /* VRTSurfaceManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8A31CFA31E27047100550CFE /* VRTSurfaceManager.mm */; };
 		8A31CFB41E2705EC00550CFE /* VRTSurface.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8A31CFB31E2705EC00550CFE /* VRTSurface.mm */; };
@@ -530,6 +531,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8A2161D02036558500D60008 /* ViroKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1139,6 +1141,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/ViroRenderer",
+					"$(PROJECT_DIR)/dist/ViroRenderer",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)/../Examples/node_modules/react-native/React/**",
@@ -1159,6 +1162,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/ViroRenderer",
+					"$(PROJECT_DIR)/dist/ViroRenderer",
 				);
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				HEADER_SEARCH_PATHS = (
