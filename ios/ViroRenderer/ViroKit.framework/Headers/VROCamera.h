@@ -69,6 +69,12 @@ public:
     VROViewport getViewport() const {
         return _viewport;
     }
+    float getNCP() const {
+        return _ncp;
+    }
+    float getFCP() const {
+        return _fcp;
+    }
     void computeLookAtMatrix();
     void computeFrustum();
     
@@ -130,6 +136,11 @@ private:
      */
     VROViewport _viewport;
     VROFieldOfView _fov;
+
+    /*
+     The camera's near and far clipping planes.
+     */
+    float _ncp, _fcp;
     
     void onRotationChanged();
     

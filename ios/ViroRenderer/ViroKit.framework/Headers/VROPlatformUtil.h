@@ -186,6 +186,14 @@ jlong VROPlatformCallJavaLongFunction(jobject javaObject,
                                      std::string functionName,
                                      std::string methodID, ...);
 
+// Helper functions for setting jObject properties through JNI from C++
+void VROPlatformSetFloat(JNIEnv *env, jclass cls, jobject jObj, const char *fieldName, jfloat value);
+void VROPlatformSetString(JNIEnv *env, jclass cls, jobject jObj, const char *fieldName, std::string value);
+void VROPlatformSetInt(JNIEnv *env, jclass cls, jobject jObj, const char *fieldName, jint value);
+void VROPlatformSetBool(JNIEnv *env, jclass cls, jobject jObj, const char *fieldName, jboolean value);
+void VROPlatformSetEnumValue(JNIEnv *env, jclass cls, jobject jObj, const char *fieldName,
+                             std::string enumClassPathName, std::string enumValueStr);
+
 // Safely converts the given string with the provided jni environment.
 std::string VROPlatformGetString(jstring string, JNIEnv *env);
 

@@ -273,13 +273,14 @@ private:
     VROVector3f _direction;
     
     /*
-     Spot parameters. The inner angle is the angle from the axis of the
-     of the light cone to the surface of the light cone. It is half the
-     angle from one hard cone edge to the other.
+     Spot parameters. The inner angle is the angle from edge to edge of
+     the 'full strength' light cone. The lighting is at maximum intensity
+     within this cone, and begins to attenuate outside of it.
      
-     The outer angle is the angle from the hard edge of the cone to the
-     soft edge of the cone. If the outer angle is zero, then the entirety
-     of the cone will have full intensity.
+     The outer angle is the angle from edge to edge of the "attenuated"
+     light cone. The lighting declines in strength betewen the inner angle
+     and outer angle. Outside of the outer angle the light attenuates to
+     zero, resulting in no light.
      
      Both of these are specified in degrees.
      */

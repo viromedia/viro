@@ -39,7 +39,6 @@ public:
     }
 
 private:
-    // none
     std::weak_ptr<VROARAnchor> _anchor;
 };
 

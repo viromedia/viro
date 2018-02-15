@@ -20,18 +20,25 @@ highp float distribution_ggx(highp vec3 N, highp vec3 H, highp float roughness) 
     return nom / denom;
 }
 
-// Efficient VanDerCorpus calculation: http://holger.dammertz.org/stuff/notes_HammersleyOnHemisphere.html
-highp float radical_inverse_vdc(uint bits) {
-     bits = (bits << 16u) | (bits >> 16u);
-     bits = ((bits & 0x55555555u) << 1u) | ((bits & 0xAAAAAAAAu) >> 1u);
-     bits = ((bits & 0x33333333u) << 2u) | ((bits & 0xCCCCCCCCu) >> 2u);
-     bits = ((bits & 0x0F0F0F0Fu) << 4u) | ((bits & 0xF0F0F0F0u) >> 4u);
-     bits = ((bits & 0x00FF00FFu) << 8u) | ((bits & 0xFF00FF00u) >> 8u);
-     return float(bits) * 2.3283064365386963e-10; // / 0x100000000
+highp float vanDerCorpus(uint n, uint base) {
+    highp float invBase = 1.0 / float(base);
+    highp float denom   = 1.0;
+    highp float result  = 0.0;
+
+    for(uint i = 0u; i < 32u; ++i) {
+        if(n > 0u) {
+            denom   = mod(float(n), 2.0);
+            result += denom * invBase;
+            invBase = invBase / 2.0;
+            n       = uint(float(n) / 2.0);
+        }
+    }
+
+    return result;
 }
 
-highp vec2 hammersley(uint i, uint N) {
-    return vec2(float(i)/float(N), radical_inverse_vdc(i));
+highp vec2 hammersley_no_bitOps(uint i, uint N) {
+    return vec2(float(i)/float(N), vanDerCorpus(i, 2u));
 }
 
 highp vec3 importance_sample_ggx(highp vec2 Xi, highp vec3 N, highp float roughness) {
@@ -63,14 +70,14 @@ void main() {
     highp vec3 R = N;
     highp vec3 V = R;
 
-    const uint SAMPLE_COUNT = 1024u;
+    const uint SAMPLE_COUNT = 256u;
     highp vec3 prefilteredColor = vec3(0.0);
     highp float totalWeight = 0.0;
 
     for(uint i = 0u; i < SAMPLE_COUNT; ++i)
     {
         // generates a sample vector that's biased towards the preferred alignment direction (importance sampling).
-        highp vec2 Xi = hammersley(i, SAMPLE_COUNT);
+        highp vec2 Xi = hammersley_no_bitOps(i, SAMPLE_COUNT);
         highp vec3 H  = importance_sample_ggx(Xi, N, material_roughness);
         highp vec3 L  = normalize(2.0 * dot(V, H) * H - V);
 

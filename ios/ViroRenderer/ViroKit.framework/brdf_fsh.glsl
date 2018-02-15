@@ -72,7 +72,7 @@ highp vec2 integrate_brf(highp float nDotV, highp float roughness) {
     highp float A = 0.0;
     highp float B = 0.0;
     highp vec3 N = vec3(0.0, 0.0, 1.0);
-    const uint SAMPLE_COUNT = 1024u;
+    const uint SAMPLE_COUNT = 256u;
 
     for(uint i = 0u; i < SAMPLE_COUNT; ++i) {
         // generates a sample vector that's biased towards the
