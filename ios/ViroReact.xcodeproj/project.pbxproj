@@ -50,8 +50,6 @@
 		8AEFA22B1EF3197E006851B7 /* VRTARPlane.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8AEFA2291EF3197E006851B7 /* VRTARPlane.mm */; };
 		8AEFA22F1EF34487006851B7 /* VRTARAnchorNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8AEFA22D1EF34487006851B7 /* VRTARAnchorNode.mm */; };
 		8AFC1C381EC1001C0000F7EB /* VRTPolyline.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8AFC1C361EC1001C0000F7EB /* VRTPolyline.mm */; };
-		8AFCC4F820056B1100AD8B8D /* ViroKit.podspec in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8AFCC4F620056B1100AD8B8D /* ViroKit.podspec */; };
-		8AFCC4FB20056B7100AD8B8D /* ViroKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8AFCC4F520056B1000AD8B8D /* ViroKit.framework */; };
 		8B78C9891F9DE61A00967DF1 /* VRTARHitTestUtil.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8B78C9881F9DE61A00967DF1 /* VRTARHitTestUtil.mm */; };
 		8BCF287C1E8090A900F0DD62 /* VRTUIImageWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BCF287A1E8090A900F0DD62 /* VRTUIImageWrapper.m */; };
 		8BDD9DD71E2EDC5200A42870 /* VRTCameraManager.h in Sources */ = {isa = PBXBuildFile; fileRef = 8BE0D4861DFA15880032AB99 /* VRTCameraManager.h */; };
@@ -312,17 +310,6 @@
 			name = "Copy Files";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		8BDDA2101E5CF0B000A42870 /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "${SRCROOT}/dist/ViroRenderer";
-			dstSubfolderSpec = 0;
-			files = (
-				8AFCC4FB20056B7100AD8B8D /* ViroKit.framework in CopyFiles */,
-				8AFCC4F820056B1100AD8B8D /* ViroKit.podspec in CopyFiles */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		8BE0D4521DFA0D050032AB99 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -377,8 +364,8 @@
 		8AEFA22D1EF34487006851B7 /* VRTARAnchorNode.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = VRTARAnchorNode.mm; path = ViroReact/AR/Views/VRTARAnchorNode.mm; sourceTree = "<group>"; };
 		8AFC1C351EC1001C0000F7EB /* VRTPolyline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VRTPolyline.h; path = ViroReact/Views/VRTPolyline.h; sourceTree = "<group>"; };
 		8AFC1C361EC1001C0000F7EB /* VRTPolyline.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = VRTPolyline.mm; path = ViroReact/Views/VRTPolyline.mm; sourceTree = "<group>"; };
-		8AFCC4F520056B1000AD8B8D /* ViroKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ViroKit.framework; path = ViroRenderer/ViroKit.framework; sourceTree = "<group>"; };
-		8AFCC4F620056B1100AD8B8D /* ViroKit.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; name = ViroKit.podspec; path = ViroRenderer/ViroKit.podspec; sourceTree = "<group>"; };
+		8AFCC4F520056B1000AD8B8D /* ViroKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ViroKit.framework; path = dist/ViroRenderer/ViroKit.framework; sourceTree = "<group>"; };
+		8AFCC4F620056B1100AD8B8D /* ViroKit.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; name = ViroKit.podspec; path = dist/ViroRenderer/ViroKit.podspec; sourceTree = "<group>"; };
 		8B78C9851F9DE61900967DF1 /* VRTARHitTestUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VRTARHitTestUtil.h; path = ViroReact/Utility/VRTARHitTestUtil.h; sourceTree = "<group>"; };
 		8B78C9881F9DE61A00967DF1 /* VRTARHitTestUtil.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = VRTARHitTestUtil.mm; path = ViroReact/Utility/VRTARHitTestUtil.mm; sourceTree = "<group>"; };
 		8BCF287A1E8090A900F0DD62 /* VRTUIImageWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VRTUIImageWrapper.m; path = ViroReact/Utility/VRTUIImageWrapper.m; sourceTree = "<group>"; };
@@ -881,7 +868,6 @@
 				8BDD9E1D1E453F9000A42870 /* ShellScript */,
 				8BDDA13E1E5BEFD000A42870 /* Copy Headers to ios/dist/include */,
 				8BDDA17F1E5BFB9000A42870 /* Copy Files */,
-				8BDDA2101E5CF0B000A42870 /* CopyFiles */,
 			);
 			buildRules = (
 			);

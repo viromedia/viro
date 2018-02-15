@@ -54,6 +54,14 @@ enum class VROWorldAlignment {
 };
 
 /*
+ The video quality that the ARSession should *attempt* to use.
+ */
+enum class VROVideoQuality {
+    Low,
+    High
+};
+
+/*
  The implementation of image tracking to use.
  */
 enum class VROImageTrackingImpl {
@@ -194,6 +202,16 @@ public:
      Sets AR world origin to the given transform.
      */
     virtual void setWorldOrigin(VROMatrix4f relativeTransform) = 0;
+    
+    /*
+     Sets whether or not to enable autofocus.
+     */
+    virtual void setAutofocus(bool enabled) = 0;
+    
+    /*
+     Sets the video quality to use.
+     */
+    virtual void setVideoQuality(VROVideoQuality quality) = 0;
     
 private:
     

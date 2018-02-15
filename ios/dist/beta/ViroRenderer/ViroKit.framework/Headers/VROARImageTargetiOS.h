@@ -26,15 +26,19 @@ public:
         return _sourceImage;
     }
 
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 110300
     ARReferenceImage *getARReferenceImage();
+#endif
 private:
     UIImage *_sourceImage;
     VROImageOrientation _orientation;
     float _physicalWidth;
     
     VROImageTrackingImpl _currentImpl;
-    
+
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 110300
     ARReferenceImage *_referenceImage;
+#endif
 };
 
 
