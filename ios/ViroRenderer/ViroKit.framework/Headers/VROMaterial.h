@@ -33,7 +33,6 @@ enum class VROBlendMode {
     Multiply,   // Note: Unimplemented mode
     Subtract,   // Note: Unimplemented mode
     Screen,     // Note: Unimplemented mode
-    Replace     // Note: Unimplemented mode
 };
 
 enum class VROTransparencyMode {
@@ -289,12 +288,18 @@ public:
      VROBlendMode::None is returned.
      */
     static VROBlendMode getBlendModeFromString(std::string strType) {
-        if (VROStringUtil::strcmpinsensitive(strType, "Alpha")){
+        if (VROStringUtil::strcmpinsensitive(strType, "Alpha")) {
             return VROBlendMode::Alpha;
-        } else if (VROStringUtil::strcmpinsensitive(strType, "Add")){
+        } else if (VROStringUtil::strcmpinsensitive(strType, "Add")) {
             return VROBlendMode::Add;
-        } else if (VROStringUtil::strcmpinsensitive(strType, "Multiply")){
+        } else if (VROStringUtil::strcmpinsensitive(strType, "Multiply")) {
             return VROBlendMode::Multiply;
+        } else if (VROStringUtil::strcmpinsensitive(strType, "Subtract")) {
+            return VROBlendMode::Subtract;
+        } else if (VROStringUtil::strcmpinsensitive(strType, "Screen")) {
+            return VROBlendMode::Screen;
+        } else if (VROStringUtil::strcmpinsensitive(strType, "None")) {
+            return VROBlendMode::None;
         }
         return VROBlendMode::None;
     }
