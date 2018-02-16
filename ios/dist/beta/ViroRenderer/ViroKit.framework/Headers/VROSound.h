@@ -14,6 +14,7 @@
 #include <string>
 #include "VROSoundDelegateInternal.h"
 #include "VROQuaternion.h"
+#include "VROModelIOUtil.h"
 
 enum class VROSoundType {
     Normal,

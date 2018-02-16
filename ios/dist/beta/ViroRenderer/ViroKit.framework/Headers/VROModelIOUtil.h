@@ -51,7 +51,8 @@ public:
 
      This performs no action on local files.
      */
-    static std::string processResource(std::string resource, VROResourceType type, bool *isTemp);
+    static std::string processResource(std::string resource, VROResourceType type, bool *isTemp,
+                                       bool *success);
     static std::map<std::string, std::string> processResourceMap(const std::map<std::string, std::string> &resourceMap,
                                                                  VROResourceType type);
     

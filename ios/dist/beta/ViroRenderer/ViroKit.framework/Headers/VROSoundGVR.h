@@ -15,6 +15,7 @@
 #include "VROSound.h"
 #include "VROSoundData.h"
 #include "VROSoundDataDelegate.h"
+#include "VROModelIOUtil.h"
 
 namespace gvr {
     class AudioApi;
@@ -28,21 +29,18 @@ public:
      Note: we should use the static factory create methods rather than the constructors, because
      they automatically call the init function (vs having to call it manually ourselves)
      */
-    static std::shared_ptr<VROSoundGVR> create(std::string path,
+    static std::shared_ptr<VROSoundGVR> create(std::string resource, VROResourceType resourceType,
                                                std::shared_ptr<gvr::AudioApi> gvrAudio,
-                                               VROSoundType type,
-                                               bool isLocalFile);
-
+                                               VROSoundType type);
     static std::shared_ptr<VROSoundGVR> create(std::shared_ptr<VROSoundData> data,
                                                std::shared_ptr<gvr::AudioApi> gvrAudio,
                                                VROSoundType type);
 
-    VROSoundGVR(std::string path, std::shared_ptr<gvr::AudioApi> gvrAudio,
-                VROSoundType type, bool isLocalFile);
-
+    VROSoundGVR(std::string resource, VROResourceType resourceType, std::shared_ptr<gvr::AudioApi> gvrAudio,
+                VROSoundType type);
     VROSoundGVR(std::shared_ptr<VROSoundData> data, std::shared_ptr<gvr::AudioApi> gvrAudio,
                 VROSoundType type);
-
+    
     virtual ~VROSoundGVR();
     
     virtual void play();
@@ -68,7 +66,7 @@ public:
     void dataError(std::string error);
 
 private:
-
+    
     /*
      Private methods
      */

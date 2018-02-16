@@ -50,10 +50,11 @@ std::string VROPlatformLoadFileAsString(std::string path);
 #pragma mark - Network and File Utilities
 
 /*
- Copy the given resource into a temp file. Currently used for sound & obj in Android.
- TODO: VIRO-767 for iOS sound.
+ Copy the given bundled resource (e.g., asset on Android, bundled resource on iOS)
+ to a location on the filesystem where it can be accessed through a local path.
+ isTemp is set to true if the file had to be copied to a temporary file.
  */
-std::string VROPlatformCopyResourceToFile(std::string asset);
+std::string VROPlatformCopyResourceToFile(std::string asset, bool *isTemp);
 
 /*
  This function is used exclusively by Android (iOS is no-op) because it makes a few assumptions:
@@ -65,7 +66,7 @@ std::string VROPlatformFindValueInResourceMap(std::string key, std::map<std::str
 
 /*
  Load the given URL to a file, and return the path to the file. If the file
- is temporary and must be deleted after its processed, temp will be set to true.
+ is temporary and must be deleted after it's processed, temp will be set to true.
  If the download fails, success will be set to false.
  */
 std::string VROPlatformDownloadURLToFile(std::string url, bool *temp, bool *success);
