@@ -4,6 +4,7 @@
 package com.viromedia.bridge.component.node.control;
 
 import com.facebook.react.bridge.ReactApplicationContext;
+import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.common.MapBuilder;
 import com.facebook.react.uimanager.ThemedReactContext;
 import com.facebook.react.uimanager.annotations.ReactProp;
@@ -36,6 +37,24 @@ public class VRTSurfaceManager extends VRTNodeManager<VRTSurface> {
     @ReactProp(name = "height", defaultFloat = 1)
     public void setHeight(VRTSurface view, float height) {
         view.setHeight(height);
+    }
+
+    @ReactProp(name = "uvCoordinates")
+    public void setUVCoordinates(VRTSurface view, ReadableArray coordinates) {
+        float u0 = 0; float v0 = 0; float u1 = 1; float v1 = 1;
+
+        if (coordinates == null) {
+            // do-nothing
+        } else if (coordinates.size() != 4) {
+            throw new IllegalArgumentException("[ViroSurface] Expected 4 uv coordinates, got " + coordinates.size());
+        } else { // not null && has 4 elements
+            u0 = (float) coordinates.getDouble(0);
+            v0 = (float) coordinates.getDouble(1);
+            u1 = (float) coordinates.getDouble(2);
+            v1 = (float) coordinates.getDouble(3);
+        }
+
+        view.setUVCoordinates(u0, v0, u1, v1);
     }
 
     @ReactProp(name = "lightReceivingBitMask", defaultInt = 1)

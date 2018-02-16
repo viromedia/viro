@@ -55,10 +55,11 @@ var createReactClass = require('create-react-class');
 
    getInitialState() {
      return {
-        spinnerType:'dark',
+        spinnerType:'Dark',
         fontSize:10,
         newWidth:1,
-        newHeight:1
+        newHeight:1,
+        mirrored : false,
      };
    },
 
@@ -86,14 +87,17 @@ var createReactClass = require('create-react-class');
                   <ViroSurface
                       position={[-1, 1, 0]}
                       scale={[0.5, 0.5, 0.1]}
-                      materials={["redColor"]}
+                      uvCoordinates={[0,0,2,2]}
+                      materials={this.state.mirrored ? "grid_mirrored" : "grid"}
                       width={this.state.newWidth}
                       height={this.state.newHeight} />
 
                  <ViroText style={styles.baseTextTwo} fontSize={this.state.fontSize}  position={[-2, 0, 0]} width={4} height ={2}
                                 text={"Toggle Height / Width" + this.state.newHeight} onClick={this._toggleWidthHeight}/>
-                            <ViroText style={styles.baseTextTwo} fontSize={this.state.fontSize}  position={[0, 0, 0]} width={4} height ={2}
+                 <ViroText style={styles.baseTextTwo} fontSize={this.state.fontSize}  position={[0, 0, 0]} width={4} height ={2}
                                 text={"Toggle Spinner theme: " + this.state.spinnerType} onClick={this._toggleSpinner}/>
+                 <ViroText style={styles.baseTextTwo} fontSize={this.state.fontSize}  position={[2, 0, 0]} width={4} height ={2}
+                                text={"Toggle Grid Mirror: " + this.state.mirrored} onClick={this._toggleMirror}/>
 
          </ViroNode>
       </ViroScene>
@@ -106,11 +110,17 @@ var createReactClass = require('create-react-class');
    },
 
    _toggleSpinner(){
-        var newSpinnerType = this.state.spinnerType == "dark" ? "light" : "dark";
+        var newSpinnerType = this.state.spinnerType == "Dark" ? "Light" : "Dark";
         this.setState({
                     spinnerType:newSpinnerType
                    });
    },
+
+  _toggleMirror() {
+    this.setState({
+      mirrored : !this.state.mirrored
+    })
+  },
 
    _toggleWidthHeight(){
         var height = this.state.newHeight + 1;
@@ -154,8 +164,8 @@ var styles = StyleSheet.create({
 });
 ViroMaterials.createMaterials({
   redColor: {
-  fresnelExponent: .5,
-   shininess: 2.0,
+    fresnelExponent: .5,
+    shininess: 2.0,
     diffuseColor: "#ff0000"
   },
   blue: {
@@ -164,8 +174,18 @@ ViroMaterials.createMaterials({
       diffuseColor: "#0000ff"
     },
   heart: {
-      lightingModel: "Phong",
-      diffuseTexture: require('../res/heart_d.jpg'),
-    },
+    lightingModel: "Phong",
+    diffuseTexture: require('../res/heart_d.jpg'),
+  },
+  grid: {
+    diffuseTexture: require('./res/grid_bg.jpg'),
+    wrapS: "Repeat",
+    wrapT: "Repeat"
+  },
+  grid_mirrored: {
+    diffuseTexture: require('./res/grid_bg.jpg'),
+    wrapS: "Mirror",
+    wrapT: "Mirror"
+  }
  });
  module.exports = ViroSurfaceFlexViewTest;

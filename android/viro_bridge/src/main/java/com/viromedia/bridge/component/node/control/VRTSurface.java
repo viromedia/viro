@@ -15,6 +15,10 @@ public class VRTSurface extends VRTControl {
     private Surface mNativeSurface;
     private float mWidth = 1;
     private float mHeight = 1;
+    private float mU0 = 0;
+    private float mV0 = 0;
+    private float mU1 = 1;
+    private float mV1 = 1;
     private boolean mGeometryNeedsUpdate = false;
     private boolean mARShadowReceiver = false;
 
@@ -32,6 +36,14 @@ public class VRTSurface extends VRTControl {
         mGeometryNeedsUpdate = true;
     }
 
+    public void setUVCoordinates(float u0, float v0, float u1, float v1) {
+        mU0 = u0;
+        mV0 = v0;
+        mU1 = u1;
+        mV1 = v1;
+        mGeometryNeedsUpdate = true;
+    }
+
     public void setARShadowReceiver(boolean arShadowReceiver) {
         mARShadowReceiver = arShadowReceiver;
     }
@@ -44,12 +56,12 @@ public class VRTSurface extends VRTControl {
 
     public void updateSurface() {
         if (mNativeSurface == null) {
-            mNativeSurface = new Surface(mWidth, mHeight, 0, 0, 1, 1);
+            mNativeSurface = new Surface(mWidth, mHeight, mU0, mV0, mU1, mV1);
         }
         else if (mGeometryNeedsUpdate) {
             // make sure we release the old surface before we let it go.
             mNativeSurface.dispose();
-            mNativeSurface = new Surface(mWidth, mHeight, 0, 0, 1, 1);
+            mNativeSurface = new Surface(mWidth, mHeight, mU0, mV0, mU1, mV1);
         }
         setGeometry(mNativeSurface);
         applyMaterials();

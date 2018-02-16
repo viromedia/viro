@@ -75,7 +75,6 @@ public class VRTImageManager extends VRTNodeManager<VRTImage> {
     @ReactProp(name = "shadowCastingBitMask", defaultInt = 1)
     public void setShadowCastingBitMask(VRTImage view, int bitMask) {view.setShadowCastingBitMask(bitMask); }
 
-
     @Override
     public Map getExportedCustomDirectEventTypeConstants() {
         return MapBuilder.of(

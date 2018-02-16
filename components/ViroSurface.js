@@ -36,6 +36,7 @@ var ViroSurface = createReactClass({
     opacity: PropTypes.number,
     width: PropTypes.number,
     height: PropTypes.number,
+    uvCoordinates : PropTypes.arrayOf(PropTypes.number),
     materials: PropTypes.oneOfType([
       PropTypes.arrayOf(PropTypes.string),
       PropTypes.string

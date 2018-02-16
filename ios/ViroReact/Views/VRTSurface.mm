@@ -8,6 +8,7 @@
 #import <ViroKit/ViroKit.h>
 #import <React/RCTLog.h>
 #import "VRTSurface.h"
+#import "VRTUtils.h"
 
 
 static float const kDefaultWidth = 1;
@@ -16,6 +17,7 @@ static float const kDefaultHeight = 1;
 @implementation VRTSurface {
     std::shared_ptr<VROSurface> _surface;
     BOOL _surfaceNeedsUpdate;
+    float _uvCoordinateArr[4];
 }
 
 - (instancetype)initWithBridge:(RCTBridge *)bridge {
@@ -27,6 +29,7 @@ static float const kDefaultHeight = 1;
         _arShadowReceiver = NO;
         [self node]->setGeometry(_surface);
         _surfaceNeedsUpdate = NO;
+        _uvCoordinateArr[0] = 0; _uvCoordinateArr[1] = 0; _uvCoordinateArr[2] = 1; _uvCoordinateArr[3] = 1;
     }
     return self;
 }
@@ -47,13 +50,27 @@ static float const kDefaultHeight = 1;
     _surfaceNeedsUpdate = YES;
 }
 
+- (void)setUvCoordinates:(NSArray<NSNumber *> *)uvCoordinates {
+    if (!uvCoordinates) {
+        _uvCoordinateArr[0] = 0;
+        _uvCoordinateArr[1] = 0;
+        _uvCoordinateArr[2] = 1;
+        _uvCoordinateArr[3] = 1;
+    } else if ([uvCoordinates count] != 4) {
+        RCTLogError(@"[ViroSurface] Expected 4 numbers, only got %lu", [uvCoordinates count]);
+    } else {
+        populateFloatArrayFromNSArray(uvCoordinates, _uvCoordinateArr, 4);
+    }
+    _surfaceNeedsUpdate = YES;
+}
+
 - (void)setARShadowReceiver:(BOOL)arShadowReceiver {
     _arShadowReceiver = arShadowReceiver;
     [self applyMaterials];
 }
 
 - (void)updateGeometry {
-    _surface = VROSurface::createSurface([self width], [self height]);
+    _surface = VROSurface::createSurface([self width], [self height], _uvCoordinateArr[0], _uvCoordinateArr[1], _uvCoordinateArr[2], _uvCoordinateArr[3]);
     [self node]->setGeometry(_surface);
     [self applyMaterials];
 }
