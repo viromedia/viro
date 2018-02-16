@@ -1,7 +1,7 @@
 PODS:
-  - AWSCore (2.6.7)
-  - AWSDynamoDB (2.6.7):
-    - AWSCore (= 2.6.7)
+  - AWSCore (2.6.10)
+  - AWSDynamoDB (2.6.10):
+    - AWSCore (= 2.6.10)
   - Crashlytics (3.9.3):
     - Fabric (~> 1.7.2)
   - Fabric (1.7.2)
@@ -23,15 +23,15 @@ PODS:
 DEPENDENCIES:
   - Crashlytics (= 3.9.3)
   - Fabric (= 1.7.2)
-  - ViroKit (from `../../../ios/ViroRenderer`)
+  - ViroKit (from `../../../ios/dist/ViroRenderer`)
 
 EXTERNAL SOURCES:
   ViroKit:
-    :path: ../../../ios/ViroRenderer
+    :path: ../../../ios/dist/ViroRenderer
 
 SPEC CHECKSUMS:
-  AWSCore: a5ff5fb202342b922eb9036af9ecc3bc28a032eb
-  AWSDynamoDB: ea3631a84c0c4a19ef4cb4ec32d3348d3ae9d47c
+  AWSCore: 5bb072a6b5b185f43ddbd239d6554d2f8a285ad2
+  AWSDynamoDB: 46c7d83862a8375fb824796dc60b04f9273c5d3f
   Crashlytics: dbb07d01876c171c5ccbdf7826410380189e452c
   Fabric: 9cd6a848efcf1b8b07497e0b6a2e7d336353ba15
   GoogleToolboxForMac: 2b2596cbb7186865e98cadf2b1e262d851c2b168
@@ -41,6 +41,6 @@ SPEC CHECKSUMS:
   GVRSDK: 403614f923a700994ffdac0c7697543e8408a631
   ViroKit: 1b49cbfeb0ea7e4079de401eec558c6c1a7af3a5
 
-PODFILE CHECKSUM: 2a0920c6dfcbd019819a9c91dd4297e7f1ac0931
+PODFILE CHECKSUM: b9ee0a019f9456614a35d1825baeb2863171c4f8
 
 COCOAPODS: 1.3.1

@@ -3,7 +3,7 @@ target 'ViroExample' do
   # we've got a dependency on ViroKit rather than ViroReact because we want to build ViroReact
   # each time we build ViroExample vs having to build ViroReact, run `npm pack` then `npm install`
   # and then building ViroExample.
-  pod 'ViroKit', :path => '../../../ios/ViroRenderer'
+  pod 'ViroKit', :path => '../../../ios/dist/ViroRenderer'
   pod 'Fabric', '1.7.2'
   pod 'Crashlytics', '3.9.3'
 end

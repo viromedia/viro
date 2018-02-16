@@ -223,6 +223,7 @@
 
 /* Begin PBXFileReference section */
 		06D7246F15472C51E7D45313 /* Pods-ViroExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ViroExample.release.xcconfig"; path = "Pods/Target Support Files/Pods-ViroExample/Pods-ViroExample.release.xcconfig"; sourceTree = "<group>"; };
+		8A2161D220365D5200D60008 /* ViroKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ViroKit.framework; path = ../../../ios/dist/ViroRenderer/ViroKit.framework; sourceTree = "<group>"; };
 		8BDB54AE1DFFEE7300179AEF /* libRCTImage.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libRCTImage.a; path = "../../node_modules/react-native/Libraries/Image/build/Debug-iphoneos/libRCTImage.a"; sourceTree = "<group>"; };
 		8BDB54B01DFFEE7E00179AEF /* libRCTNetwork.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libRCTNetwork.a; path = "../../node_modules/react-native/Libraries/Network/build/Debug-iphoneos/libRCTNetwork.a"; sourceTree = "<group>"; };
 		8BDB54B21DFFEE8900179AEF /* libRCTText.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libRCTText.a; path = "../../node_modules/react-native/Libraries/Text/build/Debug-iphoneos/libRCTText.a"; sourceTree = "<group>"; };
@@ -450,6 +451,7 @@
 		CF64CBEF23D2243D4B4889B5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8A2161D220365D5200D60008 /* ViroKit.framework */,
 				8BDB54B61DFFEE9600179AEF /* libRCTWebSocket.a */,
 				8BDB54B41DFFEE8F00179AEF /* libRCTActionSheet.a */,
 				8BDB54B21DFFEE8900179AEF /* libRCTText.a */,
@@ -858,7 +860,7 @@
 				"${BUILT_PRODUCTS_DIR}/AWSDynamoDB/AWSDynamoDB.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
-				"${PODS_ROOT}/../../../../ios/ViroRenderer/ViroKit.framework",
+				"${PODS_ROOT}/../../../../ios/dist/ViroRenderer/ViroKit.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -1047,7 +1049,7 @@
 				DEVELOPMENT_TEAM = ***REMOVED***;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
-					"$(SRCROOT)/../../../ios/ViroRenderer/**",
+					"$(SRCROOT)/../../../ios/dist/ViroRenderer/**",
 					"$(inherited)",
 				);
 				HEADER_SEARCH_PATHS = (
@@ -1076,7 +1078,7 @@
 				DEVELOPMENT_TEAM = ***REMOVED***;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
-					"$(SRCROOT)/../../../ios/ViroRenderer/**",
+					"$(SRCROOT)/../../../ios/dist/ViroRenderer/**",
 					"$(inherited)",
 				);
 				HEADER_SEARCH_PATHS = (
