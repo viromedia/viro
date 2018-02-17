@@ -12,6 +12,7 @@
 
 @property (nonatomic, assign) float width;
 @property (nonatomic, assign) float height;
+@property (nonatomic, copy, nullable) NSArray<NSNumber *> *uvCoordinates;
 @property (nonatomic, assign) BOOL arShadowReceiver;
 
 -(instancetype)initWithBridge:(RCTBridge *)bridge;
