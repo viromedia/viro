@@ -34,6 +34,7 @@ import {
   ViroSurface,
   ViroSkyBox,
   ViroSpatialSound,
+  ViroSoundField,
   ViroSound,ViroText,
 } from 'react-viro';
 
@@ -55,19 +56,6 @@ var stateTwo = {
   showSurface: false,
 }
 
-var soundRoom = {
-  size: [15, 2, 3],
-  wallMaterial: "CURTAIN_HEAVY",
-  floorMaterial: "CURTAIN_HEAVY",
-  ceilingMaterial: "CURTAIN_HEAVY"
-}
-
-var soundRoom1 = {
-  size: [15, 2, 3],
-  wallMaterial: "transparent",
-  floorMaterial: "transparent",
-  ceilingMaterial: "transparent"
-}
 var ReleaseMenu = require("./ReleaseMenu.js");
 
 /*
@@ -99,51 +87,52 @@ var ViroSoundTest = createReactClass({
 
     _toggleSoundType(){
       var newSoundType = this.state.soundType + 1;
-      if (newSoundType > 2){
+      if (newSoundType > 3) {
           newSoundType = 1;
       }
 
       this.setState({
-            soundType:newSoundType
-       });
+          soundType:newSoundType
+      });
     },
 
   render: function() {
     return (
-      <ViroScene reticleEnabled={true} onClick={this._onClick} soundRoom={this.state.soundRoom == 1 ? soundRoom : soundRoom1} >
+      <ViroScene reticleEnabled={true} onClick={this._onClick} soundRoom={this._getSoundRoomMaterial()} >
         <ReleaseMenu sceneNavigator={this.props.sceneNavigator}/>
         <ViroCamera position={[0, 0, this.state.cameraPos]} active={true}/>
         <ViroImage source={require('./res/poi_dot.png')} position={[-1, 0, 0]} transformBehaviors={["billboard"]} onClick={this._showNext} />
 
-
-        <ViroSkyBox color="#ff69b4" />
+        <ViroSkyBox color="#DD4792" />
         {this._getSoundControls()}
-
         {this._testNormalSound()}
         {this._testSpatialSound()}
+        {this._testSoundField()}
       </ViroScene>
     );
   },
   _getSoundControls(){
     var stringSource = "local";
-    if (this.state.toggleSource == 1){
+    if (this.state.toggleSource == 1) {
         stringSource = "remote uri";
-    } else if (this.state.toggleSource == 2){
+    } else if (this.state.toggleSource == 2) {
         stringSource = "preloaded";
     }
 
     var soundType="NONE";
-    if (this.state.soundType == 1){
+    if (this.state.soundType == 1) {
         soundType = "Normal Sound";
-    } else if (this.state.soundType == 2){
+    } else if (this.state.soundType == 2) {
         soundType = "Spatial Sound";
+    } else if (this.state.soundType == 3) {
+        soundType = "Sound Field";
     }
 
     return(
        <ViroNode position={[0,0,-4]}>
 
-                <ViroText style={styles.centeredText} position={[0,2, 0]} width={3} height ={2} fontSize={30}
-                        text={"Toggle SoundType: " + soundType} textLineBreakMode='Justify' onClick={this._toggleSoundType}/>
+       <ViroText style={styles.centeredText} position={[0,2, 0]} width={3} height ={2} fontSize={30}
+                 text={"Toggle SoundType: " + soundType} textLineBreakMode='Justify' onClick={this._toggleSoundType}/>
 
        <ViroText style={styles.centeredText} position={[-2,1, 0]} width={2} height ={2}
         text={"isPlaying: " + this.state.isPlaying} textLineBreakMode='Justify' onClick={this._togglePlay}/>
@@ -169,12 +158,90 @@ var ViroSoundTest = createReactClass({
     );
 
   },
+
   _showNext() {
     this.props.sceneNavigator.replace({scene:require('./ViroLightTest')});
   },
 
-  _getSpatialControls(){
-     var room = this.state.soundRoom == 1 ? "Curtain Heavy" : "Transparent Room";
+  _getSoundRoom() {
+    if (this.state.soundRoom == 0) {
+      return "transparent";
+    }
+    else if (this.state.soundRoom == 1) {
+      return "acoustic_ceiling_tiles";
+    }
+    else if (this.state.soundRoom == 2) {
+      return "brick_bare";
+    }
+    else if (this.state.soundRoom == 3) {
+      return "brick_painted";
+    }
+    else if (this.state.soundRoom == 4) {
+      return "concrete_block_coarse";
+    }
+    else if (this.state.soundRoom == 5) {
+      return "concrete_block_painted";
+    }
+    else if (this.state.soundRoom == 6) {
+      return "curtain_heavy";
+    }
+    else if (this.state.soundRoom == 7) {
+      return "glass_thin";
+    }
+    else if (this.state.soundRoom == 8) {
+      return "glass_thick";
+    }
+    else if (this.state.soundRoom == 9) {
+      return "linoleum_on_concrete";
+    }
+    else if (this.state.soundRoom == 10) {
+      return "marble";
+    }
+    else if (this.state.soundRoom == 11) {
+      return "grass";
+    }
+    else if (this.state.soundRoom == 12) {
+      return "metal";
+    }
+    else if (this.state.soundRoom == 13) {
+      return "parquet_on_concrete";
+    }
+    else if (this.state.soundRoom == 14) {
+      return "plaster_rough";
+    }
+    else if (this.state.soundRoom == 15) {
+      return "plaster_smooth";
+    }
+    else if (this.state.soundRoom == 16) {
+      return "plywood_panel";
+    }
+    else if (this.state.soundRoom == 17) {
+      return "polished_concrete_or_tile";
+    }
+    else if (this.state.soundRoom == 18) {
+      return "sheet_rock";
+    }
+    else if (this.state.soundRoom == 19) {
+      return "water_or_ice_surface";
+    }
+    else if (this.state.soundRoom == 20) {
+      return "wood_ceiling";
+    }
+    else if (this.state.soundRoom == 21) {
+      return "wood_panel";
+    }
+  },
+
+  _getSoundRoomMaterial() {
+    return {
+      size: [15, 2, 3],
+      wallMaterial: this._getSoundRoom(),
+      floorMaterial: this._getSoundRoom(),
+      ceilingMaterial: this._getSoundRoom(),
+    }
+  },
+
+  _getSpatialControls() {
     return(
         <ViroNode position={[0,0,-4]}>
          <ViroText style={styles.centeredText}  position={[-2, -3, 0]} width={1.5} height={2}
@@ -188,14 +255,21 @@ var ViroSoundTest = createReactClass({
         <ViroText style={styles.centeredText} position={[0, -5, 0]} width={1.5} height={2}
                text={"Toggle Camera Z: " + this.state.cameraPos}
                onClick={this._toggleCameraPosition}/>
-
-         <ViroText style={styles.centeredText} position={[2, -3, 0]} width={1.5} height ={2}
-                text={"Toggle room materials: " + room}  onClick={this._toggleRoomMaterial}/>
         </ViroNode>
         );
   },
 
-    _toggleSoundDistance(){
+  _getSoundFieldControls() {
+    var room = this._getSoundRoom();
+    return(
+        <ViroNode position={[0,0,-4]}>
+         <ViroText style={styles.centeredText} position={[0, -3, 0]} width={1.5} height ={2}
+                text={"Toggle Room: " + room}  onClick={this._toggleRoomMaterial}/>
+        </ViroNode>
+        );
+  },
+
+    _toggleSoundDistance() {
         var newsoundDistance = this.state.soundDistance - 1;
 
         if (newsoundDistance < -13){
@@ -208,7 +282,7 @@ var ViroSoundTest = createReactClass({
 
       },
 
-      _toggleCameraPosition(){
+      _toggleCameraPosition() {
           var newCameraDistance = this.state.cameraPos + 1;
           if (newCameraDistance > 3){
               newCameraDistance = -3;
@@ -219,7 +293,7 @@ var ViroSoundTest = createReactClass({
           });
         },
 
-    _toggleAttenuationDistance(){
+    _toggleAttenuationDistance() {
         var newMax = this.state.maxDistance + 1;
         var newMin = this.state.minDistance + 1;
 
@@ -232,23 +306,22 @@ var ViroSoundTest = createReactClass({
         }
 
         this.setState({
-                  maxDistance:newMax,
-                  minDistance:newMin
-             });
-
+            maxDistance:newMax,
+            minDistance:newMin
+        });
       },
 
-  _togglePlay(){
+  _togglePlay() {
     this.setState({
           isPlaying:!this.state.isPlaying
      });
   },
-  _toggleLoop(){
+  _toggleLoop() {
     this.setState({
           looping:!this.state.looping
      });
   },
-  _toggleMute(){
+  _toggleMute() {
     this.setState({
           mute:!this.state.mute
      });
@@ -259,7 +332,7 @@ var ViroSoundTest = createReactClass({
         volume: Math.random(),
       });
   },
-  _toggleSource(){
+  _toggleSource() {
     var newToggleSource = this.state.toggleSource + 1;
     if (newToggleSource > 2){
         newToggleSource = 0;
@@ -269,7 +342,7 @@ var ViroSoundTest = createReactClass({
           toggleSource:newToggleSource
      });
   },
-  _preloadSound(){
+  _preloadSound() {
     if (this.state.preloadedSound) {
       ViroSound.unloadSounds([
         "cube_sound",
@@ -293,14 +366,13 @@ var ViroSoundTest = createReactClass({
   },
 
   _toggleRoomMaterial(){
-    var newRoomMateralFlag = this.state.soundRoom == 1 ? 0 : 1;
-
+    var newRoomMateralFlag = (this.state.soundRoom + 1) % 22;
     this.setState({
-              soundRoom:newRoomMateralFlag
-         });
+        soundRoom:newRoomMateralFlag
+    });
   },
 
-  _testNormalSound(){
+  _testNormalSound() {
     if (this.state.soundType == 1) {
       return(
         <ViroSound
@@ -314,9 +386,8 @@ var ViroSoundTest = createReactClass({
     }
   },
 
-
-  _testSpatialSound(){
-    if (this.state.soundType == 2){
+  _testSpatialSound() {
+    if (this.state.soundType == 2) {
         return(
                <ViroNode>
                     {this._getSpatialControls()}
@@ -336,6 +407,23 @@ var ViroSoundTest = createReactClass({
     }
   },
 
+  _testSoundField() {
+    if (this.state.soundType == 3) {
+        return(
+          <ViroNode>
+            {this._getSoundFieldControls()}
+            <ViroSoundField
+                paused={!this.state.isPlaying}
+                muted={this.state.mute}
+                source={this._getSource()}
+                loop={this.state.looping}
+                volume={this.state.volume}
+                onFinish={this.onFinishSound}/>
+          </ViroNode>
+        );
+    }
+  },
+
   _getSurface(component) {
     if (this.state.showSurface) {
       return (<ViroSurface style={{flex:1}} materials={"redColor"} />)
@@ -349,32 +437,33 @@ var ViroSoundTest = createReactClass({
       return (<ViroSpatialSound source={{uri : "http://www.jetcityorange.com/musical-notes/G4-392.0.mp3"}} loop={true} position={this.state.position} />);
     }
   },
+
   _getSource(component) {
-      var stringSource = require("../res/metronome.mp3");
-      if (this.state.toggleSource == 1) {
-        if (Platform.OS == 'ios' && this.state.soundType == 2) {
-          stringSource = {uri :"http://incompetech.com/music/royalty-free/mp3-royaltyfree/Danger%20Storm.mp3"};
-        } else {
-          stringSource = {uri : "https://freesound.org/data/previews/176/176177_670687-lq.mp3"}
-        }
-      } else if (this.state.toggleSource == 2){
-          stringSource = "cube_sound";
+      // Ambsonic sound field
+      if (this.state.soundType == 3) {
+        return require("./res/thelin.wav");
       }
-      return stringSource;
-/*
-    if (this.state.state == 1) {
-      return require("./res/metronome.mp3");
-    } else {
-      return "cube_sound";
-    }*/
+      else {
+        var stringSource = require("../res/metronome.mp3");
+        if (this.state.toggleSource == 1) {
+          if (Platform.OS == 'ios' && this.state.soundType == 2) {
+            stringSource = {uri : "http://incompetech.com/music/royalty-free/mp3-royaltyfree/Danger%20Storm.mp3"};
+          } else {
+            stringSource = {uri : "https://freesound.org/data/previews/176/176177_670687-lq.mp3"}
+          }
+        } else if (this.state.toggleSource == 2) {
+            stringSource = "cube_sound";
+        }
+        return stringSource;
+      }
   },
 
-  onFinishSound(){
+  onFinishSound() {
     console.log("ViroSoundTest OnFinished playing normal sound");
   },
 
 
-  onFinishSpatial(){
+  onFinishSpatial() {
     console.log("ViroSoundTest OnFinished playing Spatial sound");
   },
   /*

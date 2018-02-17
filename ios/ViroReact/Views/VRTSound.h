@@ -20,7 +20,7 @@
 @property (nonatomic, assign) BOOL loop;
 @property (nonatomic, copy) NSArray<NSNumber *> *rotation;
 @property (nonatomic, copy) NSArray<NSNumber *> *position;
-@property (nonatomic, assign) VROSoundRolloffModel rolloffModel;
+@property (nonatomic, assign) NSString *rolloffModel;
 @property (nonatomic, assign) float minDistance;
 @property (nonatomic, assign) float maxDistance;
 @property (nonatomic, copy, nullable) RCTDirectEventBlock onFinishViro;
@@ -30,7 +30,7 @@
 
 - (void)resetSound;
 - (void)getSoundForName:(NSString *)name;
-- (void)createSoundWithPath:(NSString *)path local:(BOOL)local;
+- (void)createSoundWithPath:(NSString *)path resourceType:(VROResourceType)resourceType;
 // This function should reset all the props on the underlying native Sound object.
 - (void)setNativeProps;
 - (void)seekToTime:(NSInteger)time;
@@ -63,7 +63,7 @@
 @property (nonatomic, assign) BOOL muted;
 @property (nonatomic, assign) BOOL loop;
 @property (nonatomic, copy) NSArray<NSNumber *> *position;
-@property (nonatomic, assign) VROSoundRolloffModel rolloffModel;
+@property (nonatomic, assign) NSString *rolloffModel;
 @property (nonatomic, assign) float minDistance;
 @property (nonatomic, assign) float maxDistance;
 @property (nonatomic, copy, nullable) RCTDirectEventBlock onFinishViro;

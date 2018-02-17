@@ -3,6 +3,7 @@
  */
 package com.viromedia.bridge.component;
 
+import android.net.Uri;
 import android.util.Log;
 
 import com.facebook.react.bridge.ReactApplicationContext;
@@ -70,8 +71,8 @@ public class VRTSpatialSound extends VRTBaseSound implements SpatialSound.Playba
     }
 
     @Override
-    protected BaseSound getNativeSound(String path, boolean local) {
-        SpatialSound sound = new SpatialSound(path, mViroContext, this, local);
+    protected BaseSound getNativeSound(String path) {
+        SpatialSound sound = new SpatialSound(mViroContext, Uri.parse(path), this);
         sound.setPlaybackListener(this);
         return sound;
     }

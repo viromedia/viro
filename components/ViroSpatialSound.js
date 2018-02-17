@@ -73,33 +73,19 @@ var ViroSpatialSound = createReactClass({
     nativeProps.onFinishViro = this._onFinish;
     nativeProps.ref = component => {this._component = component; };
 
-    // TODO: VIRO-767 remove platform check
-    if (Platform.OS === 'ios') {
-      return (
-        <VRTSound {...nativeProps} />
-      );
-    } else {
-      return (
-        <VRTSpatialSound {...nativeProps} />
-      );
-    }
+    return (
+      <VRTSpatialSound {...nativeProps} />
+    );
   },
 
   async getTransformAsync() {
-    if (Platform.OS == 'ios') {
-      // TODO: VIRO-767 remove error once SpatialSound/gvr sound is enabled on iOS
-      return new Error("getTransformAsync not supported for \"SpatialSounds\" on iOS.");
-    } else {
       return await NativeModules.VRTNodeModule.getNodeTransform(findNodeHandle(this));
-    }
   },
 
   seekToTime(timeInSeconds) {
     switch (Platform.OS) {
       case 'ios':
-        // TODO: VIRO-767 when we enable SpatialSound on iOS then use the VRTSpatialSoundManager one
-        NativeModules.VRTSoundManager.seekToTime(findNodeHandle(this), timeInSeconds);
-        //NativeModules.VRTSpatialSoundManager.seekToTime(findNodeHandle(this), timeInSeconds);
+        NativeModules.VRTSpatialSoundManager.seekToTime(findNodeHandle(this), timeInSeconds);
         break;
       case 'android':
         NativeModules.UIManager.dispatchViewManagerCommand(

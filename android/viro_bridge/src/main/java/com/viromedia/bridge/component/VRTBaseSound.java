@@ -131,11 +131,10 @@ public abstract class VRTBaseSound extends VRTComponent {
                 throw new JSApplicationCausedNativeException("Unknown Sound source with name: ["
                         + mSource.getString(NAME) + "]");
             }
-
             mNativeSound = getNativeSound(data);
         } else if (mSource.hasKey(URI)) {
             Uri uri = Helper.parseUri(mSource.getString(URI), getContext());
-            mNativeSound = getNativeSound(uri.toString(), Helper.isResourceUri(uri));
+            mNativeSound = getNativeSound(uri.toString());
         } else {
             throw new IllegalArgumentException("Unknown sound source.");
         }
@@ -187,10 +186,9 @@ public abstract class VRTBaseSound extends VRTComponent {
      * Child classes should implement this method to return their own type of native Sound object
      *
      * @param path - path/url to the sound file
-     * @param local - whether or not the file is local
      * @return the native sound object
      */
-    protected abstract BaseSound getNativeSound(String path, boolean local);
+    protected abstract BaseSound getNativeSound(String path);
 
     protected abstract BaseSound getNativeSound(SoundData data);
 }

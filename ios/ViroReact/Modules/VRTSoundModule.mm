@@ -26,7 +26,7 @@ RCT_EXPORT_METHOD(preloadSounds:(NSDictionary *)soundDict) {
         NSString *valueString = (NSString *)[soundDict objectForKey:key];
         std::string cValueString = std::string([valueString UTF8String]);
         std::string cKeyString = std::string([((NSString *) key) UTF8String]);
-        std::shared_ptr<VROSoundDataGVR> data = VROSoundDataGVR::create(cValueString, false);
+        std::shared_ptr<VROSoundDataGVR> data = VROSoundDataGVR::create(cValueString, VROResourceType::URL);
         _preloadedSounds[cKeyString] = data;
     }
 }

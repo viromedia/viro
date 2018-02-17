@@ -84,6 +84,7 @@ RCT_EXPORT_VIEW_PROPERTY(loop, BOOL)
 RCT_EXPORT_VIEW_PROPERTY(position, NSNumberArray)
 RCT_EXPORT_VIEW_PROPERTY(minDistance, float)
 RCT_EXPORT_VIEW_PROPERTY(maxDistance, float)
+RCT_EXPORT_VIEW_PROPERTY(rolloffModel, NSString)
 RCT_EXPORT_VIEW_PROPERTY(onFinishViro, RCTDirectEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(onErrorViro, RCTDirectEventBlock)
 

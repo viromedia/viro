@@ -4,6 +4,8 @@
 package com.viromedia.bridge.component;
 
 
+import android.net.Uri;
+
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
 import com.viro.core.internal.BaseSound;
@@ -18,8 +20,8 @@ public class VRTSound extends VRTBaseSound implements Sound.PlaybackListener {
     }
 
     @Override
-    protected BaseSound getNativeSound(String path, boolean local) {
-        Sound sound = new Sound(path, mViroContext, this);
+    protected BaseSound getNativeSound(String path) {
+        Sound sound = new Sound(mViroContext, Uri.parse(path), this);
         sound.setPlaybackListener(this);
         return sound;
     }

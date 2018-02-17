@@ -34,7 +34,7 @@ static NSString *const kWebPrefix = @"http";
         _muted = NO;
         _loop = NO;
         _volume = 1;
-        _rolloffModel = VROSoundRolloffModel::None;
+        _rolloffModel = @"None";
         _minDistance = 0;
         _maxDistance = 10;
         _shouldReset = YES;
@@ -94,32 +94,37 @@ static NSString *const kWebPrefix = @"http";
     }
 }
 
-- (void)setRolloffModel:(NSString *)rolloffModel {
+- (VROSoundRolloffModel)parseRolloffModel:(NSString *)rolloffModel {
     if ([rolloffModel caseInsensitiveCompare:@"None"] == NSOrderedSame) {
-        _rolloffModel = VROSoundRolloffModel::None;
+        return VROSoundRolloffModel::None;
     } else if ([rolloffModel caseInsensitiveCompare:@"Linear"] == NSOrderedSame) {
-        _rolloffModel = VROSoundRolloffModel::Linear;
+        return VROSoundRolloffModel::Linear;
     } else if ([rolloffModel caseInsensitiveCompare:@"Logarithmic"] == NSOrderedSame) {
-        _rolloffModel = VROSoundRolloffModel::Logarithmic;
+        return VROSoundRolloffModel::Logarithmic;
     } else {
         RCTLogError(@"Unknown rolloff model: %@", rolloffModel);
+        return VROSoundRolloffModel::None;
     }
+}
+
+- (void)setRolloffModel:(NSString *)rolloffModel {
+    _rolloffModel = rolloffModel;
     if (_sound) {
-        _sound->setDistanceRolloffModel(_rolloffModel, _minDistance, _maxDistance);
+        _sound->setDistanceRolloffModel([self parseRolloffModel:_rolloffModel], _minDistance, _maxDistance);
     }
 }
 
 - (void)setMinDistance:(float)minDistance {
     _minDistance = minDistance;
     if (_sound) {
-        _sound->setDistanceRolloffModel(_rolloffModel, _minDistance, _maxDistance);
+        _sound->setDistanceRolloffModel([self parseRolloffModel:_rolloffModel], _minDistance, _maxDistance);
     }
 }
 
 - (void)setMaxDistance:(float)maxDistance {
     _maxDistance = maxDistance;
     if (_sound) {
-        _sound->setDistanceRolloffModel(_rolloffModel, _minDistance, _maxDistance);
+        _sound->setDistanceRolloffModel([self parseRolloffModel:_rolloffModel], _minDistance, _maxDistance);
     }
 }
 
@@ -153,11 +158,11 @@ static NSString *const kWebPrefix = @"http";
     } else if([_source objectForKey:kUriKey]) {
         NSString *uri = [_source objectForKey:kUriKey];
         if ([uri hasPrefix:kLocalPrefix]) {
-            [self createSoundWithPath:uri local:true];
+            [self createSoundWithPath:uri resourceType:VROResourceType::LocalFile];
         } else if ([uri hasPrefix:kWebPrefix]) {
-            [self createSoundWithPath:uri local:false];
+            [self createSoundWithPath:uri resourceType:VROResourceType::URL];
         } else {
-            [self createSoundWithPath:uri local:true];
+            [self createSoundWithPath:uri resourceType:VROResourceType::LocalFile];
         }
     } else {
         RCTLogError(@"Unknown sound source type. %@", _source);
@@ -166,12 +171,12 @@ static NSString *const kWebPrefix = @"http";
     [self setNativeProps];
 }
 
-- (void)createSoundWithPath:(NSString *)path local:(BOOL)local {
+- (void)createSoundWithPath:(NSString *)path resourceType:(VROResourceType)resourceType {
     if (_sound) {
         _sound->pause();
     }
     
-    _sound = self.driver->newSound(std::string([path UTF8String]), self.soundType, local);
+    _sound = self.driver->newSound(std::string([path UTF8String]), resourceType, self.soundType);
     _sound->setDelegate(std::make_shared<VROSoundDelegateiOS>(self));
 }
 
@@ -202,12 +207,13 @@ static NSString *const kWebPrefix = @"http";
         _sound->setRotation({[_rotation[0] floatValue],
             [_rotation[1] floatValue],
             [_rotation[2] floatValue]});
-        _sound->setDistanceRolloffModel(_rolloffModel, _minDistance, _maxDistance);
+        _sound->setDistanceRolloffModel([self parseRolloffModel:_rolloffModel], _minDistance, _maxDistance);
     }
 }
 
 - (void)soundIsReady {
     _ready = YES;
+    [self setNativeProps];
     [self setPaused:self.paused];
 }
 
@@ -297,12 +303,12 @@ static NSString *const kWebPrefix = @"http";
 }
 
 // Override
-- (void)createSoundWithPath:(NSString *)path local:(BOOL)local {
+- (void)createSoundWithPath:(NSString *)path resourceType:(VROResourceType)resourceType {
     if (_player) {
         _player->pause();
     }
     
-    _player = self.driver->newAudioPlayer(std::string([path UTF8String]), local);
+    _player = self.driver->newAudioPlayer(std::string([path UTF8String]), resourceType != VROResourceType::URL);
     _player->setDelegate(std::make_shared<VROSoundDelegateiOS>(self));
     _player->setup();
 }
@@ -357,6 +363,7 @@ static NSString *const kWebPrefix = @"http";
 @end
 
 #pragma mark - Spatial Sound
+
 @interface VRTSpatialSound ()
 
 @property (readwrite, nonatomic) std::shared_ptr<VRONode> parentNode;
@@ -376,13 +383,11 @@ static NSString *const kWebPrefix = @"http";
 - (void)resetSound {
     std::shared_ptr<VROSound> oldNativeSound = self.sound;
     BOOL shouldReset = self.shouldReset;
-    
     [super resetSound];
     
     if (shouldReset && oldNativeSound) {
         _parentNode->removeSound(oldNativeSound);
     }
-    
     if (shouldReset && self.sound) {
         _parentNode->addSound(self.sound);
     }
@@ -391,6 +396,7 @@ static NSString *const kWebPrefix = @"http";
 @end
 
 #pragma mark - Spatial Sound Wrapper
+
 @interface VRTSpatialSoundWrapper ()
 
 @property (readwrite, nonatomic) VRTSpatialSound *innerSound;
@@ -402,7 +408,7 @@ static NSString *const kWebPrefix = @"http";
 - (instancetype)initWithBridge:(RCTBridge *)bridge {
     self = [super initWithBridge:bridge];
     if (self) {
-        _innerSound = [[VRTSpatialSound alloc] initWithBridge:bridge];
+        _innerSound = [[VRTSpatialSound alloc] initWithBridge:bridge node:self.node];
     }
     return self;
 }
@@ -435,7 +441,7 @@ static NSString *const kWebPrefix = @"http";
     [_innerSound setPosition:position];
 }
 
-- (void)setRolloffModel:(VROSoundRolloffModel)rolloffModel {
+- (void)setRolloffModel:(NSString *)rolloffModel {
     [_innerSound setRolloffModel:rolloffModel];
 }
 

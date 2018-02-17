@@ -69,15 +69,9 @@ var ViroSoundField = createReactClass({
     nativeProps.onFinishViro = this._onFinish;
     nativeProps.ref = component => {this._component = component; };
 
-    if (Platform.OS === 'ios') {
-      return (
-        <VRTSound {...nativeProps} />
-      );
-    } else {
-      return (
-        <VRTSoundField {...nativeProps} />
-      );
-    }
+    return (
+      <VRTSoundField {...nativeProps} />
+    );
   },
 
   seekToTime(timeInSeconds) {

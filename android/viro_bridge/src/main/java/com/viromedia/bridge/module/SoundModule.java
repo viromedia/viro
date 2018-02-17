@@ -38,7 +38,7 @@ public class SoundModule extends ReactContextBaseJavaModule {
         ReadableMapKeySetIterator iter = soundMap.keySetIterator();
         while(iter.hasNextKey()) {
             String key = iter.nextKey();
-            SoundData nativeSoundData = new SoundData(soundMap.getString(key), false);
+            SoundData nativeSoundData = new SoundData(soundMap.getString(key));
             mSoundDataMap.put(key, nativeSoundData);
         }
     }
