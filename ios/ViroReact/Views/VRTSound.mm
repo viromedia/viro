@@ -417,6 +417,10 @@ static NSString *const kWebPrefix = @"http";
     [_innerSound setDriver:driver];
 }
 
+- (void)setParentHasAppeared:(BOOL)parentHasAppeared {
+    [_innerSound setParentHasAppeared:parentHasAppeared];
+}
+
 - (void)setSource:(NSDictionary *)source {
     [_innerSound setSource:source];
 }

@@ -51,9 +51,10 @@ typedef NS_ENUM(NSInteger, ViroConstraintType) {
 - (BOOL)shouldAppear;
 
 // Methods invoked by parent views to let child views whether or not they
-// will appear based on the parent's properties (ie. if parent is visible
+// did appear based on the parent's properties (ie. if parent is visible
 // and within the scene graph, but the child may not show up if itself is
-// not visible).
+// not visible). Children override these methods to perform actions based
+// on the view appearing or disappearing.
 - (void)parentDidAppear;
 - (void)parentDidDisappear;
 
