@@ -40,6 +40,13 @@ static NSArray<NSNumber *> *const kDefaultSize = @[@(0), @(0), @(0)];
     NSString *_wallMaterial;
     NSString *_ceilingMaterial;
     NSString *_floorMaterial;
+    
+    /*
+     This BOOL ensures we only set the sound room when necessary, because doing so
+     activates GVR, and in current GVR versions this can cause issues with video
+     recording, until VIRO-2944 is resolved.
+     */
+    BOOL _soundRoomSet;
 }
 
 - (instancetype)initWithBridge:(RCTBridge *)bridge  {
@@ -51,6 +58,8 @@ static NSArray<NSNumber *> *const kDefaultSize = @[@(0), @(0), @(0)];
     _wallMaterial = kDefaultMaterial;
     _ceilingMaterial = kDefaultMaterial;
     _floorMaterial = kDefaultMaterial;
+    _soundRoomSet = NO;
+    
     return self;
 }
 
@@ -84,10 +93,12 @@ static NSArray<NSNumber *> *const kDefaultSize = @[@(0), @(0), @(0)];
 
 -(void)setDriver:(std::shared_ptr<VRODriver>)driver {
     [super setDriver:driver];
-    self.driver->setSoundRoom([[_size objectAtIndex:0] floatValue],
-                              [[_size objectAtIndex:1] floatValue],
-                              [[_size objectAtIndex:2] floatValue],
-                              [_wallMaterial UTF8String], [_ceilingMaterial UTF8String], [_floorMaterial UTF8String]);
+    if (_soundRoomSet) {
+        self.driver->setSoundRoom([[_size objectAtIndex:0] floatValue],
+                                  [[_size objectAtIndex:1] floatValue],
+                                  [[_size objectAtIndex:2] floatValue],
+                                  [_wallMaterial UTF8String], [_ceilingMaterial UTF8String], [_floorMaterial UTF8String]);
+    }
 }
 
 - (std::shared_ptr<VROSceneController>)sceneController {
@@ -100,11 +111,13 @@ static NSArray<NSNumber *> *const kDefaultSize = @[@(0), @(0), @(0)];
 
 - (void)setSoundRoom:(NSDictionary *)soundRoom {
     if (soundRoom) {
+        _soundRoomSet = YES;
         _size = [soundRoom objectForKey:kSizeKey] ? [soundRoom objectForKey:kSizeKey] : kDefaultSize;
         _wallMaterial = [soundRoom objectForKey:kWallMaterialKey] ? [soundRoom objectForKey:kWallMaterialKey] : kDefaultMaterial;
         _ceilingMaterial = [soundRoom objectForKey:kCeilingMaterialKey] ? [soundRoom objectForKey:kCeilingMaterialKey] : kCeilingMaterialKey;
         _floorMaterial = [soundRoom objectForKey:kFloorMaterialKey] ? [soundRoom objectForKey:kFloorMaterialKey] : kFloorMaterialKey;
     } else {
+        _soundRoomSet = NO;
         _size = kDefaultSize;
         _wallMaterial = kDefaultMaterial;
         _ceilingMaterial = kDefaultMaterial;
