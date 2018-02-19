@@ -9,8 +9,6 @@
 #import <React/RCTUtils.h>
 #import "VRTUtils.h"
 #import "VRTLightingEnvironment.h"
-#import "VRTImageAsyncLoader.h"
-#import "VRTPhotoLibraryAsyncLoader.h"
 
 @interface RCTImageSource (Viro)
 @property (nonatomic, assign) BOOL packagerAsset;
@@ -20,8 +18,7 @@
     std::shared_ptr<VROTexture> _environmentalLightTexture;
     BOOL _enviromentalLightTextureApplied;
     BOOL _textureNeedsDownload;
-    VRTImageAsyncLoader *_imageAsyncLoader;
-    VRTPhotoLibraryAsyncLoader *_assetLoader;
+    VRTHDRImageAsyncLoader *_imageHdrAsyncLoader;
     std::shared_ptr<VROPortal> _targetedPortal;
 }
 
@@ -35,10 +32,9 @@
         _targetedPortal = nullptr;
         _enviromentalLightTextureApplied = NO;
         _textureNeedsDownload = NO;
-        _imageAsyncLoader = [[VRTImageAsyncLoader alloc] initWithDelegate:self];
-        _assetLoader = [[VRTPhotoLibraryAsyncLoader alloc] initWithDelegate:self];
+        _imageHdrAsyncLoader = [[VRTHDRImageAsyncLoader alloc] initWithDelegate:self];
     }
-    
+
     return self;
 }
 
@@ -60,12 +56,12 @@
 - (void)didSetProps:(NSArray<NSString *> *)changedProps {
     if (_textureNeedsDownload && _source) {
         _enviromentalLightTextureApplied = NO;
-        if (_source) {
-            if([_assetLoader canLoadImageURL:_source.request.URL]) {
-                [_assetLoader loadImage:_source];
-            } else {
-                [_imageAsyncLoader cancel];
-                [_imageAsyncLoader loadImage:_source];
+        if (_source && [_imageHdrAsyncLoader isHdrSource:_source]) {
+            [_imageHdrAsyncLoader cancel];
+            [_imageHdrAsyncLoader loadHdrImage:_source];
+        } else {
+            if (self.onErrorViro) {
+                self.onErrorViro(@{ @"error": @"Lighting Environment Image source is not of type hdr!" });
             }
         }
         _textureNeedsDownload = NO;
@@ -94,27 +90,18 @@
 }
 
 #pragma mark - VRTAsyncLoaderEventDelegate
-- (void)imageLoaderDidStart:(VRTImageAsyncLoader *)loader {
+- (void)hdrImageLoaderDidStart:(VRTHDRImageAsyncLoader *)loader {
     if(self.onLoadStartViro) {
         self.onLoadStartViro(nil);
     }
 }
 
-- (void)imageLoaderDidEnd:(VRTImageAsyncLoader *)loader success:(BOOL)success image:(UIImage *)image {
-    // Persist the in-memory UIImage data onto a temporary file to be processed by renderer.
-    NSString *filePath = [self saveImageTempFile:image withName:@"temp_ibl_image.hdr"];
-
-    // Process and generate a radiance hdr texture from the downloaded image file.
-    std::string filePathStr = std::string([filePath UTF8String]);
-    _environmentalLightTexture = VROHDRLoader::loadRadianceHDRTexture(filePathStr);
-    [[NSFileManager defaultManager] removeItemAtPath:filePath error: nil];
-    if (_environmentalLightTexture == nullptr){
-        success = false;
-    }
-    
+- (void)hdrImageLoaderDidEnd:(VRTHDRImageAsyncLoader *)loader hdrTexture:(std::shared_ptr<VROTexture>)texture {
     // Update the lighting environment with the radiance hdr texture, if possible, and trigger callbacks.
     dispatch_async(dispatch_get_main_queue(), ^{
-        if(success && image) {
+        _environmentalLightTexture = texture;
+        BOOL success = texture != nullptr;
+        if(success) {
             [self updateSceneLightingEnvironment];
         }
         
@@ -122,20 +109,9 @@
             self.onLoadEndViro(@{@"success":@(success)});
         }
         
-        if ((!success || !image) && self.onErrorViro) {
+        if (!success && self.onErrorViro) {
             self.onErrorViro(@{ @"error": @"Image failed to load" });
         }
     });
 }
-
-// Saves the image data in memory to a temporary file with the given file name
-- (NSString *)saveImageTempFile:(UIImage *)image withName:(NSString *)name {
-    NSData *hdrData = UIImagePNGRepresentation(image);
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsPath = [paths objectAtIndex:0];
-    NSString *filePath = [documentsPath stringByAppendingPathComponent:name];
-    [hdrData writeToFile:filePath atomically:YES];
-    return filePath;
-}
-
 @end

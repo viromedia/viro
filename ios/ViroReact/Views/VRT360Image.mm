@@ -25,6 +25,7 @@
     BOOL _imageNeedsDownload;
     VRTImageAsyncLoader *_imageAsyncLoader;
     VRTPhotoLibraryAsyncLoader *_assetLoader;
+    VRTHDRImageAsyncLoader *_hdrLoader;
     NSString *_stereoMode;
 }
 
@@ -41,8 +42,8 @@
         _format = VROTextureInternalFormat::RGBA8;
         _imageAsyncLoader = [[VRTImageAsyncLoader alloc] initWithDelegate:self];
         _assetLoader = [[VRTPhotoLibraryAsyncLoader alloc] initWithDelegate:self];
+        _hdrLoader= [[VRTHDRImageAsyncLoader alloc] initWithDelegate:self];
     }
-    
     return self;
 }
 
@@ -83,7 +84,9 @@
     if (_imageNeedsDownload && _source) {
         _sphereTextureAddedToScene = NO;
         if (_source) {
-            if([_assetLoader canLoadImageURL:_source.request.URL]) {
+            if ([_hdrLoader isHdrSource:_source]){
+                [_hdrLoader loadHdrImage:_source];
+            } else if([_assetLoader canLoadImageURL:_source.request.URL]) {
                 [_assetLoader loadImage:_source];
             } else {
                 [_imageAsyncLoader loadImage:_source];
@@ -137,6 +140,29 @@
             self.onLoadEndViro(@{@"success":@(success)});
         }
         if ((!success || !image) && self.onErrorViro) {
+            self.onErrorViro(@{ @"error": @"Image failed to load" });
+        }
+    });
+}
+
+- (void)hdrImageLoaderDidStart:(VRTHDRImageAsyncLoader *)loader {
+    if(self.onLoadStartViro) {
+        self.onLoadStartViro(nil);
+    }
+}
+
+- (void)hdrImageLoaderDidEnd:(VRTHDRImageAsyncLoader *)loader hdrTexture:(std::shared_ptr<VROTexture>)texture {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        BOOL success = texture != nullptr;
+        if(success) {
+            _sphereTexture = texture;
+            [self updateSceneWithSphereTexture];
+        }
+
+        if(self.onLoadEndViro) {
+            self.onLoadEndViro(@{@"success":@(success)});
+        }
+        if ((!success) && self.onErrorViro) {
             self.onErrorViro(@{ @"error": @"Image failed to load" });
         }
     });

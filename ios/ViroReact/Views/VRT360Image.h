@@ -10,8 +10,9 @@
 #import <React/RCTImageSource.h>
 #import "VRTControl.h"
 #import "VRTImageAsyncLoaderEventDelegate.h"
+#import "VRTHDRImageAsyncLoader.h"
 
-@interface VRT360Image : VRTControl<VRTImageAsyncLoaderEventDelegate>
+@interface VRT360Image : VRTControl<VRTImageAsyncLoaderEventDelegate, VRTHDRImageAsyncLoaderEventDelegate>
 
 @property (nonatomic, copy) RCTImageSource *source;
 @property (nonatomic, copy) RCTDirectEventBlock onLoadStartViro;

@@ -8,9 +8,9 @@
 #import <Foundation/Foundation.h>
 #import <React/RCTImageSource.h>
 #import "VRTControl.h"
-#import "VRTImageAsyncLoaderEventDelegate.h"
+#import "VRTHDRImageAsyncLoader.h"
 
-@interface VRTLightingEnvironment : VRTControl<VRTImageAsyncLoaderEventDelegate>
+@interface VRTLightingEnvironment : VRTControl<VRTHDRImageAsyncLoaderEventDelegate>
 
 @property (nonatomic, copy) RCTImageSource *source;
 @property (nonatomic, copy) RCTDirectEventBlock onLoadStartViro;
@@ -19,7 +19,6 @@
 
 - (instancetype)initWithBridge:(RCTBridge *)bridge;
 - (void)updateSceneLightingEnvironment;
-- (NSString *)saveImage:(UIImage *)image withName:(NSString *)name;
 
 @end
 

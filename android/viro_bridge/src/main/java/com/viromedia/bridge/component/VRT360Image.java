@@ -3,7 +3,7 @@
  */
 package com.viromedia.bridge.component;
 
-
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Handler;
 import android.os.Looper;
@@ -15,9 +15,9 @@ import com.facebook.react.uimanager.events.RCTEventEmitter;
 import com.viro.core.internal.Image;
 import com.viro.core.PortalScene;
 import com.viro.core.Texture;
-import com.viro.core.Vector;
 import com.viromedia.bridge.component.node.VRTNode;
 import com.viromedia.bridge.component.node.VRTScene;
+import com.viromedia.bridge.utility.HdrImageDownloader;
 import com.viromedia.bridge.utility.Helper;
 import com.viromedia.bridge.utility.ImageDownloadListener;
 import com.viromedia.bridge.utility.ImageDownloader;
@@ -34,7 +34,8 @@ public class VRT360Image extends VRTNode {
     private Texture.Format mFormat = Texture.Format.RGBA8;
     private Handler mMainHandler;
     private boolean mImageNeedsDownload;
-    private Image360DownloadListener mDownloadListener;
+    private HDRImageDownloadListener mHDRDownloadListener;
+    private Image360DownloadListener mImageDownloadListener;
 
     public VRT360Image(ReactApplicationContext context) {
         super(context);
@@ -70,17 +71,23 @@ public class VRT360Image extends VRTNode {
     @Override
     public void onPropsSet() {
         super.onPropsSet();
-        if (!mImageNeedsDownload || mSourceMap == null) {
+        if (!mImageNeedsDownload || mSourceMap == null || mScene == null) {
             return;
         }
 
-        ImageDownloader downloader = new ImageDownloader(getContext());
-        downloader.setTextureFormat(mFormat);
-
         imageDownloadDidStart();
+        invalidateImageDownloadListeners();
 
-        mDownloadListener = new Image360DownloadListener();
-        downloader.getImageAsync(mSourceMap, mDownloadListener);
+        final Context context = getContext();
+        if (HdrImageDownloader.isHDRReadableMap(mSourceMap, context)){
+            mHDRDownloadListener = new HDRImageDownloadListener();
+            HdrImageDownloader.getHdrTextureAsync(mSourceMap, mHDRDownloadListener, context);
+        } else {
+            ImageDownloader downloader = new ImageDownloader(context);
+            downloader.setTextureFormat(mFormat);
+            mImageDownloadListener = new Image360DownloadListener();
+            downloader.getImageAsync(mSourceMap, mImageDownloadListener);
+        }
 
         mImageNeedsDownload = false;
     }
@@ -88,9 +95,7 @@ public class VRT360Image extends VRTNode {
     @Override
     public void onTearDown() {
         super.onTearDown();
-        if (mDownloadListener != null) {
-            mDownloadListener.invalidate();
-        }
+        invalidateImageDownloadListeners();
 
         if (mLatestImage != null) {
             mLatestImage.destroy();
@@ -103,18 +108,22 @@ public class VRT360Image extends VRTNode {
         }
     }
 
+    private void invalidateImageDownloadListeners(){
+        if (mImageDownloadListener != null) {
+            mImageDownloadListener.invalidate();
+            mImageDownloadListener = null;
+        }
+
+        if (mHDRDownloadListener != null){
+            mHDRDownloadListener.invalidate();
+            mHDRDownloadListener = null;
+        }
+    }
+
     @Override
     public void setScene(VRTScene scene) {
         super.setScene(scene);
-        if (mLatestTexture != null) {
-            if (getNodeJni() != null) {
-                PortalScene portal = getNodeJni().getParentPortalScene();
-                if (portal != null) {
-                    portal.setBackgroundTexture(mLatestTexture);
-                    portal.setBackgroundRotation(Helper.toRadiansVector(mRotation));
-                }
-            }
-        }
+        this.onPropsSet();
     }
 
     public void setFormat(String format) {
@@ -157,6 +166,7 @@ public class VRT360Image extends VRTNode {
                     if (!isValid()) {
                         return;
                     }
+
                     if (mLatestImage != null) {
                         mLatestImage.destroy();
                     }
@@ -166,17 +176,10 @@ public class VRT360Image extends VRTNode {
                     }
 
                     mLatestImage = new Image(result, mFormat);
-                    mLatestTexture = new Texture(mLatestImage, mFormat, true, false, mStereoMode);
+                    setBackgroundTexture(new Texture(mLatestImage, mFormat,true, false, mStereoMode));
 
-                    if (getNodeJni() != null) {
-                        PortalScene portal = getNodeJni().getParentPortalScene();
-                        if (portal != null) {
-                            portal.setBackgroundTexture(mLatestTexture);
-                            portal.setBackgroundRotation(Helper.toRadiansVector(mRotation));
-                        }
-                    }
                     imageDownloadDidFinish();
-                    mDownloadListener = null;
+                    mImageDownloadListener = null;
                 }
             });
         }
@@ -187,6 +190,53 @@ public class VRT360Image extends VRTNode {
                 return;
             }
             onError(error);
+        }
+    }
+
+    private void setBackgroundTexture(Texture texture){
+        mLatestTexture = texture;
+
+        if (getNodeJni() != null) {
+            PortalScene portal = getNodeJni().getParentPortalScene();
+            if (portal != null) {
+                portal.setBackgroundTexture(mLatestTexture);
+                portal.setBackgroundRotation(Helper.toRadiansVector(mRotation));
+            }
+        }
+    }
+
+    private class HDRImageDownloadListener implements HdrImageDownloader.DownloadListener {
+        private boolean mIsValid = true;
+        public void invalidate() {
+            mIsValid = false;
+        }
+
+        @Override
+        public boolean isValid() {
+            return mIsValid;
+        }
+
+        @Override
+        public void completed(Texture result) {
+            if (result == null){
+                onError("Viro: Error loading hdr file.");
+                return;
+            } else {
+                if (mLatestImage != null) {
+                    mLatestImage.destroy();
+                    mLatestImage = null;
+                }
+
+                if (mLatestTexture != null) {
+                    mLatestTexture.dispose();
+                    mLatestTexture = null;
+                }
+
+                setBackgroundTexture(result);
+                imageDownloadDidFinish();
+            }
+
+            mImageDownloadListener = null;
         }
     }
 }

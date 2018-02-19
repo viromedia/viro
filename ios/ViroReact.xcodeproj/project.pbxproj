@@ -183,6 +183,8 @@
 		8FEF008D1F38A718006AE4B1 /* VRTPortalSceneManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8FEF00831F37CAEF006AE4B1 /* VRTPortalSceneManager.mm */; };
 		A50A310F1ECE1E8800DEBE9B /* VRTNodeModule.mm in Sources */ = {isa = PBXBuildFile; fileRef = A50A310D1ECE1E8800DEBE9B /* VRTNodeModule.mm */; };
 		A53359701E9E0169005B3EC5 /* VRTControllerModule.mm in Sources */ = {isa = PBXBuildFile; fileRef = A533596E1E9E0169005B3EC5 /* VRTControllerModule.mm */; };
+		A53F00D1203DE44D00415D86 /* VRTHDRImageAsyncLoader.mm in Sources */ = {isa = PBXBuildFile; fileRef = A53F00D0203DE44D00415D86 /* VRTHDRImageAsyncLoader.mm */; };
+		A53F00D2203DE46300415D86 /* VRTHDRImageAsyncLoader.h in Copy Headers to ios/dist/include */ = {isa = PBXBuildFile; fileRef = A53F00CE203DE44D00415D86 /* VRTHDRImageAsyncLoader.h */; };
 		A562D02620298E1B004DA3A5 /* VRTLightingEnvironmentManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = A562D02520298E1B004DA3A5 /* VRTLightingEnvironmentManager.mm */; };
 		A562D02920298E2C004DA3A5 /* VRTLightingEnvironment.mm in Sources */ = {isa = PBXBuildFile; fileRef = A562D02820298E2C004DA3A5 /* VRTLightingEnvironment.mm */; };
 		A5839B4E1F68B3F8009091A7 /* VRTParticleEmitter.mm in Sources */ = {isa = PBXBuildFile; fileRef = A5839B4D1F68B3F8009091A7 /* VRTParticleEmitter.mm */; };
@@ -210,6 +212,7 @@
 			dstPath = "${SRCROOT}/dist/include";
 			dstSubfolderSpec = 0;
 			files = (
+				A53F00D2203DE46300415D86 /* VRTHDRImageAsyncLoader.h in Copy Headers to ios/dist/include */,
 				8A5CDE2A1F68D56F0093F43B /* VRTNodeModule.h in Copy Headers to ios/dist/include */,
 				8A5CDE2B1F68D56F0093F43B /* VRTSceneModule.h in Copy Headers to ios/dist/include */,
 				8A5CDE2C1F68D56F0093F43B /* VRTControllerModule.h in Copy Headers to ios/dist/include */,
@@ -508,6 +511,8 @@
 		A50A310D1ECE1E8800DEBE9B /* VRTNodeModule.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = VRTNodeModule.mm; path = ViroReact/Modules/VRTNodeModule.mm; sourceTree = "<group>"; };
 		A533596D1E9E0169005B3EC5 /* VRTControllerModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VRTControllerModule.h; path = ViroReact/Modules/VRTControllerModule.h; sourceTree = "<group>"; };
 		A533596E1E9E0169005B3EC5 /* VRTControllerModule.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = VRTControllerModule.mm; path = ViroReact/Modules/VRTControllerModule.mm; sourceTree = "<group>"; };
+		A53F00CE203DE44D00415D86 /* VRTHDRImageAsyncLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VRTHDRImageAsyncLoader.h; path = ViroReact/Utility/VRTHDRImageAsyncLoader.h; sourceTree = "<group>"; };
+		A53F00D0203DE44D00415D86 /* VRTHDRImageAsyncLoader.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = VRTHDRImageAsyncLoader.mm; path = ViroReact/Utility/VRTHDRImageAsyncLoader.mm; sourceTree = "<group>"; };
 		A562D02320298E1A004DA3A5 /* VRTLightingEnvironmentManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VRTLightingEnvironmentManager.h; path = ViroReact/VRTLightingEnvironmentManager.h; sourceTree = "<group>"; };
 		A562D02520298E1B004DA3A5 /* VRTLightingEnvironmentManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = VRTLightingEnvironmentManager.mm; path = ViroReact/VRTLightingEnvironmentManager.mm; sourceTree = "<group>"; };
 		A562D02720298E2B004DA3A5 /* VRTLightingEnvironment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VRTLightingEnvironment.h; path = ViroReact/Views/VRTLightingEnvironment.h; sourceTree = "<group>"; };
@@ -830,6 +835,8 @@
 		8BE0D51C1DFA3DDA0032AB99 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				A53F00CE203DE44D00415D86 /* VRTHDRImageAsyncLoader.h */,
+				A53F00D0203DE44D00415D86 /* VRTHDRImageAsyncLoader.mm */,
 				8B78C9851F9DE61900967DF1 /* VRTARHitTestUtil.h */,
 				8B78C9881F9DE61A00967DF1 /* VRTARHitTestUtil.mm */,
 				137E9D7D1F50E8C0008238E5 /* VRTPhotoLibraryAsyncLoader.h */,
@@ -973,6 +980,7 @@
 				8BE0D5071DFA3D9B0032AB99 /* VRTNodeContainerShadowView.mm in Sources */,
 				8A04D4E02023EDDF00FD5F68 /* VRTARTrackingTargetsModule.mm in Sources */,
 				8AFC1C381EC1001C0000F7EB /* VRTPolyline.mm in Sources */,
+				A53F00D1203DE44D00415D86 /* VRTHDRImageAsyncLoader.mm in Sources */,
 				8FEF008D1F38A718006AE4B1 /* VRTPortalSceneManager.mm in Sources */,
 				A5839B4E1F68B3F8009091A7 /* VRTParticleEmitter.mm in Sources */,
 				8BCF287C1E8090A900F0DD62 /* VRTUIImageWrapper.m in Sources */,

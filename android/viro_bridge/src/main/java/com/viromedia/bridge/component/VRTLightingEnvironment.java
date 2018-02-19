@@ -3,10 +3,6 @@
  */
 package com.viromedia.bridge.component;
 
-import android.net.Uri;
-import android.os.AsyncTask;
-import android.os.Handler;
-import android.os.Looper;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
@@ -15,21 +11,20 @@ import com.viro.core.Texture;
 import com.viro.core.internal.Image;
 import com.viromedia.bridge.component.node.VRTNode;
 import com.viromedia.bridge.component.node.VRTScene;
+import com.viromedia.bridge.utility.HdrImageDownloader;
 import com.viromedia.bridge.utility.ViroEvents;
 
 public class VRTLightingEnvironment extends VRTNode {
     private ReadableMap mSourceMap;
     private Image mLatestImage;
     private Texture mLatestTexture;
-    private Handler mMainHandler;
     private boolean mImageNeedsDownload;
-    private DownloadFilesTask mImageDownloaderTask;
+    private IBLImageDownloadListener mHdrImageDownloadListener;
     private PortalScene mTargetedPortalScene = null;
     private boolean mHasSetScene;
 
     public VRTLightingEnvironment(ReactApplicationContext context) {
         super(context);
-        mMainHandler = new Handler(Looper.getMainLooper());
         mImageNeedsDownload = false;
         mHasSetScene = false;
     }
@@ -46,26 +41,28 @@ public class VRTLightingEnvironment extends VRTNode {
             return;
         }
 
-        if (mImageDownloaderTask != null){
-            mImageDownloaderTask.invalidate();
+        if (mHdrImageDownloadListener != null){
+            mHdrImageDownloadListener.invalidate();
         }
 
         imageDownloadDidStart();
-        mImageDownloaderTask = new DownloadFilesTask();
-        mImageDownloaderTask.execute(Uri.parse(mSourceMap.getString("uri")));
+
+        mHdrImageDownloadListener = new IBLImageDownloadListener();
+        HdrImageDownloader.getHdrTextureAsync(mSourceMap, mHdrImageDownloadListener, getContext());
         mImageNeedsDownload = false;
     }
 
     @Override
     public void onTearDown() {
-        if (getNodeJni() != null) {
+        if (mTargetedPortalScene != null) {
             mTargetedPortalScene.setLightingEnvironment(null);
             mTargetedPortalScene = null;
         }
 
         super.onTearDown();
-        if (mImageDownloaderTask != null) {
-            mImageDownloaderTask.invalidate();
+        if (mHdrImageDownloadListener != null) {
+            mHdrImageDownloadListener.invalidate();
+            mHdrImageDownloadListener = null;
         }
 
         if (mLatestImage != null) {
@@ -102,27 +99,22 @@ public class VRTLightingEnvironment extends VRTNode {
         );
     }
 
-    private class DownloadFilesTask extends AsyncTask<Uri, Integer, Texture> {
+    private class IBLImageDownloadListener implements HdrImageDownloader.DownloadListener {
         private boolean mIsValid = true;
-        private String mTargetUri;
-
         public void invalidate() {
             mIsValid = false;
         }
 
-        protected Texture doInBackground(Uri... urls) {
-            mTargetUri = mSourceMap.getString("uri");
-            return Texture.loadRadianceHDRTexture(Uri.parse(mTargetUri));
+        @Override
+        public boolean isValid() {
+            return mIsValid;
         }
 
-        protected void onPostExecute(Texture result) {
-            if (!mIsValid) {
-                return;
-            }
-
-
+        @Override
+        public void completed(Texture result) {
             if (result == null){
-                onError("Viro: There was an error loading hdr file: " + mTargetUri);
+                onError("Viro: Error loading hdr file.");
+                return;
             } else {
                 if (mLatestTexture != null) {
                     mLatestTexture.dispose();
@@ -143,7 +135,7 @@ public class VRTLightingEnvironment extends VRTNode {
                 imageDownloadDidFinish();
             }
 
-            mImageDownloaderTask = null;
+            mHdrImageDownloadListener = null;
         }
     }
 }
