@@ -56,6 +56,7 @@ import com.viromedia.bridge.module.SceneModule;
 import com.viromedia.bridge.module.SceneNavigatorModule;
 import com.viromedia.bridge.module.PerfMonitor;
 import com.viromedia.bridge.module.SoundModule;
+import com.viromedia.bridge.module.VRTImageModule;
 
 import java.util.Arrays;
 import java.util.List;
@@ -88,6 +89,7 @@ public class ReactViroPackage implements ReactPackage {
                 new ControllerModule(reactContext),
                 new NodeModule(reactContext),
                 new SceneModule(reactContext),
+                new VRTImageModule(reactContext),
                 new ARSceneModule(reactContext),
                 new ARSceneNavigatorModule(reactContext),
                 new ARTrackingTargetsModule(reactContext)

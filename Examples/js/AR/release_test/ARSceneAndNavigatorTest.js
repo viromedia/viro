@@ -108,6 +108,10 @@ var testARScene = createReactClass({
           style={styles.instructionText} onClick={this._flipSaveToCamera} transformBehaviors={["billboard"]}/>
         <ViroText position={polarToCartesian([2, 0, -20])} text={"World Origin State: " + (this.state.worldOriginChanged ? "[0,0,1]" : "[0,0,0]")}
           style={styles.instructionText} onClick={this._changeWorldOrigin} transformBehaviors={["billboard"]}/>
+        <ViroText position={polarToCartesian([2, 0, -30])} text={"Evict Image From Cache (Android)"}
+          style={styles.instructionText} onClick={this._evictFromCache} transformBehaviors={["billboard"]}/>
+        
+
         {this._getVideo()}
         {this._getScreenshot()}
 
@@ -137,6 +141,11 @@ var testARScene = createReactClass({
           transformBehaviors={["billboard"]}/>
       </ViroARScene>
     );
+  },
+  _evictFromCache() {
+    if (this.state.screenshot != undefined) {
+      ViroImage.evictFromCache({uri : "file://" + this.state.screenshot});
+    }
   },
   _changeWorldOrigin() {
     this.props.arSceneNavigator.setWorldOrigin({

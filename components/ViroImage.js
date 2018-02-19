@@ -18,6 +18,7 @@ var NativeModules = require('react-native').NativeModules;
 var createReactClass = require('create-react-class');
 import PropTypes from 'prop-types';
 var StyleSheet = require('react-native/Libraries/StyleSheet/StyleSheet');
+var ViroImageModule = NativeModules.VRTImageModule;
 
 var ViroPropTypes = require('./Styles/ViroPropTypes');
 var StyleSheetPropType = require('react-native/Libraries/StyleSheet/StyleSheetPropType');
@@ -395,5 +396,17 @@ var VRTImage = requireNativeComponent(
           }
   }
 );
+
+
+// Used to evict a given imageSource from the cache. This is Android-only
+// because the Fresco (RN's Image caching library) caches images by their
+// uri's. If you replace 1 image with another, then the first image will
+// be cached if they have the same imageSource.
+ViroImage.evictFromCache = (imageSource) => {
+  if (Platform.OS == 'android') {
+    var image = resolveAssetSource(imageSource);
+    ViroImageModule.evictFromCache(image);
+  }
+},
 
 module.exports = ViroImage;

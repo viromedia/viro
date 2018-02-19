@@ -38,6 +38,18 @@ public class ImageDownloader {
     private final DefaultExecutorSupplier mExecutorSupplier;
     private Bitmap.Config mConfig = Bitmap.Config.ARGB_8888;
 
+    public static void evictFromCache(ReadableMap map, Context context) {
+        if (!map.hasKey(URI_KEY)) {
+            throw new IllegalArgumentException("Unable to find \"uri\" key in evictFromCache(map)");
+        }
+        evictFromCache(Helper.parseUri(map.getString(URI_KEY), context));
+    }
+
+    public static void evictFromCache(Uri uri) {
+        ImagePipeline pipeline = Fresco.getImagePipeline();
+        pipeline.evictFromCache(uri);
+    }
+
     public ImageDownloader(Context context) {
         mContext = context;
         mImageMap = new ConcurrentHashMap<>();
