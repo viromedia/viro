@@ -45,6 +45,10 @@
     _light->setIntensity(intensity);
 }
 
+- (void)setTemperature:(float)temperature {
+    _light->setTemperature(temperature);
+}
+
 - (void)setInfluenceBitMask:(int)bitMask {
     _light->setInfluenceBitMask(bitMask);
 }

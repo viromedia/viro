@@ -29,6 +29,7 @@ var ViroAmbientLight = createReactClass({
     ...View.propTypes,
     color: ColorPropType,
     intensity: PropTypes.number,
+    temperature: PropTypes.number,
     influenceBitMask: PropTypes.number,
   },
 

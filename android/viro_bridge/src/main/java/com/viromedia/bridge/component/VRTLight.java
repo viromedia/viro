@@ -12,6 +12,7 @@ public abstract class VRTLight extends VRTComponent {
 
     protected int mColor;
     protected float mIntensity = 1000.0f; // default intensity is 1000 lumens (same as renderer)
+    protected float mTemperature = 6500f; // default temperature is 6500
 
     protected boolean mCastsShadow = false;
     protected float mShadowOpacity = 1.0f;
@@ -37,6 +38,10 @@ public abstract class VRTLight extends VRTComponent {
 
     public void setIntensity(float intensity) {
         this.mIntensity = intensity;
+    }
+
+    public void setTemperature(float temperature) {
+        this.mTemperature = temperature;
     }
 
     public void setCastsShadow(boolean castsShadow) {

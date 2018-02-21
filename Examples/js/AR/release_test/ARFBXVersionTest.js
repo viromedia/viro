@@ -12,7 +12,8 @@ import {
   AppRegistry,
   StyleSheet,
   Text,
-  View
+  View,
+  Platform
 } from 'react-native';
 
 import {
@@ -32,18 +33,42 @@ import {
   Viro3DObject,
 } from 'react-viro';
 
+import TimerMixin from 'react-timer-mixin';
+
 var createReactClass = require('create-react-class');
 
 let polarToCartesian = ViroUtils.polarToCartesian;
 
+var setLightValuesFast = true;
+
 var ARFBXVersionTest = createReactClass({
+  mixins: [TimerMixin],
   getInitialState: function() {
-    return {};
+    return {
+      intensity : 1000,
+      colorTemp : 6500
+    };
+  },
+  componentDidMount: function() {
+    this._intensity = 1000;
+    this._colorTemp = 6500;
+    if (!setLightValuesFast) {
+      // Only set the intensity and temp twice a second!
+      this.setInterval(
+        ()=>{
+          this.setState({
+            intensity : this._intensity,
+            colorTemp : this._colorTemp
+          })
+        },
+        500
+      )
+    }
   },
   render: function() {
     return (
-        <ViroARScene>
-          <ViroAmbientLight color="#ffffff"/>
+        <ViroARScene onAmbientLightUpdate={this._onAmbientLightUpdate}>
+          <ViroAmbientLight color="#ffffff" intensity={this.state.intensity} temperature={this.state.colorTemp}/>
           <ViroNode position={[0,0,-2]} onDrag={()=>{}} dragType="FixedToWorld">
             <ViroText position={[1,.33,0]} text={"FBX 2018"}
             style={styles.instructionText} transformBehaviors={["billboard"]}/>
@@ -64,6 +89,22 @@ var ARFBXVersionTest = createReactClass({
             transformBehaviors={["billboard"]}/>
         </ViroARScene>
     );
+  },
+  _onAmbientLightUpdate(retDict) {
+
+    if (Platform.OS == 'android') {
+      return;
+    }
+
+    if (!setLightValuesFast) {
+      this._intensity = retDict.intensity;
+      this._colorTemp = retDict.colorTemperature;
+    } else {
+      this.setState({
+        intensity : retDict.intensity,
+        colorTemp : retDict.colorTemperature
+      })
+    }
   },
   _goToNextTest() {
     this.props.arSceneNavigator.replace("ARPlaneSelectorTest", {scene:require("./ARPlaneSelectorTest")})

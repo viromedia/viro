@@ -28,6 +28,7 @@ var ViroOmniLight = createReactClass({
     position: PropTypes.arrayOf(PropTypes.number),
     color: ColorPropType,
     intensity: PropTypes.number,
+    temperature: PropTypes.number,
     influenceBitMask: PropTypes.number,
     attenuationStartDistance: PropTypes.number,
     attenuationEndDistance: PropTypes.number,

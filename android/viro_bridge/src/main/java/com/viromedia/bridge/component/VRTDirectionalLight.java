@@ -61,6 +61,7 @@ public class VRTDirectionalLight extends VRTLight {
             mNativeLight.setDirection(new Vector(mDirection));
         }
 
+        mNativeLight.setTemperature(mTemperature);
         mNativeLight.setCastsShadow(mCastsShadow);
         mNativeLight.setShadowOpacity(mShadowOpacity);
         if (mShadowOrthographicPosition != null) {

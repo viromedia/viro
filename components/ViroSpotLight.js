@@ -28,6 +28,7 @@ var ViroSpotLight = createReactClass({
     position: PropTypes.arrayOf(PropTypes.number),
     color: ColorPropType,
     intensity: PropTypes.number,
+    temperature: PropTypes.number,
     direction: PropTypes.arrayOf(PropTypes.number).isRequired,
     attenuationStartDistance: PropTypes.number,
     attenuationEndDistance: PropTypes.number,

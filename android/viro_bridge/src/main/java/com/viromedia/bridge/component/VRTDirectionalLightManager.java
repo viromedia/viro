@@ -44,6 +44,11 @@ public class VRTDirectionalLightManager extends VRTViroViewGroupManager<VRTDirec
         directionalLight.setIntensity(intensity);
     }
 
+    @ReactProp(name = "temperature", defaultFloat = 6500f)
+    public void setTemperature(VRTAmbientLight ambientLight, float temperature) {
+        ambientLight.setTemperature(temperature);
+    }
+
     @ReactProp(name = "direction")
     public void setDirection(VRTDirectionalLight directionalLight, ReadableArray direction) {
         directionalLight.setDirection(Helper.toFloatArray(direction));

@@ -27,6 +27,7 @@ var ViroDirectionalLight = createReactClass({
     ...View.propTypes,
     color: ColorPropType,
     intensity: PropTypes.number,
+    temperature: PropTypes.number,
     direction: PropTypes.arrayOf(PropTypes.number).isRequired,
     influenceBitMask: PropTypes.number,
 

@@ -44,6 +44,11 @@ public class VRTSpotLightManager extends VRTViroViewGroupManager<VRTSpotLight> {
         spotLight.setIntensity(intensity);
     }
 
+    @ReactProp(name = "temperature", defaultFloat = 6500f)
+    public void setTemperature(VRTAmbientLight ambientLight, float temperature) {
+        ambientLight.setTemperature(temperature);
+    }
+
     @ReactProp(name = "direction")
     public void setDirection(VRTSpotLight spotLight, ReadableArray direction) {
         spotLight.setDirection(Helper.toFloatArray(direction));

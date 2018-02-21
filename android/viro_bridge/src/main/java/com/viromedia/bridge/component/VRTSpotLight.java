@@ -113,6 +113,8 @@ public class VRTSpotLight extends VRTLight {
             mNativeLight.setInnerAngle((float) Math.toRadians(mInnerAngle));
             mNativeLight.setOuterAngle((float) Math.toRadians(mOuterAngle));
         }
+
+        mNativeLight.setTemperature(mTemperature);
         mNativeLight.setCastsShadow(mCastsShadow);
         mNativeLight.setShadowOpacity(mShadowOpacity);
         mNativeLight.setShadowMapSize(mShadowMapSize);

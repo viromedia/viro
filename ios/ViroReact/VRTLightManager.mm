@@ -81,6 +81,7 @@ RCT_EXPORT_MODULE()
 
 RCT_EXPORT_VIEW_PROPERTY(color, UIColor)
 RCT_EXPORT_VIEW_PROPERTY(intensity, float)
+RCT_EXPORT_VIEW_PROPERTY(temperature, float)
 RCT_EXPORT_VIEW_PROPERTY(influenceBitMask, int)
 
 - (VRTView *)view

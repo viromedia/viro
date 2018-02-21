@@ -43,9 +43,10 @@ public class VRTAmbientLight extends VRTLight {
             mNativeLight = new AmbientLight(mColor, mIntensity);
         } else {
             mNativeLight.setColor(mColor);
-            mNativeLight.setIntensity(mIntensity);
+            mNativeLight.setTemperature(mTemperature);
         }
 
+        mNativeLight.setIntensity(mIntensity);
         mNativeLight.setInfluenceBitMask(mInfluenceBitMask);
     }
 }

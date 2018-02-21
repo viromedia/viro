@@ -43,6 +43,11 @@ public class VRTOmniLightManager extends VRTViroViewGroupManager<VRTOmniLight> {
         omniLight.setIntensity(intensity);
     }
 
+    @ReactProp(name = "temperature", defaultFloat = 6500f)
+    public void setTemperature(VRTAmbientLight ambientLight, float temperature) {
+        ambientLight.setTemperature(temperature);
+    }
+
     @ReactProp(name = "position")
     public void setPosition(VRTOmniLight omniLight, ReadableArray position) {
         omniLight.setPosition(Helper.toFloatArray(position));

@@ -80,6 +80,8 @@ public class VRTOmniLight extends VRTLight {
             mNativeLight.setAttenuationEndDistance(mAttenuationEndDistance);
             mNativeLight.setPosition(new Vector(mPosition));
         }
+
+        mNativeLight.setTemperature(mTemperature);
         mNativeLight.setInfluenceBitMask(mInfluenceBitMask);
     }
 

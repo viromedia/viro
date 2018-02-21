@@ -42,6 +42,11 @@ public class VRTAmbientLightManager extends VRTViroViewGroupManager<VRTAmbientLi
         ambientLight.setIntensity(intensity);
     }
 
+    @ReactProp(name = "temperature", defaultFloat = 6500f)
+    public void setTemperature(VRTAmbientLight ambientLight, float temperature) {
+        ambientLight.setTemperature(temperature);
+    }
+
     @ReactProp(name = "influenceBitMask")
     public void setInfluenceBitMask(VRTAmbientLight ambientLight, int bitMask) {
         ambientLight.setInfluenceBitMask(bitMask);
