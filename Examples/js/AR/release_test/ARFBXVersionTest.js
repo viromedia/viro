@@ -68,7 +68,7 @@ var ARFBXVersionTest = createReactClass({
   render: function() {
     return (
         <ViroARScene onAmbientLightUpdate={this._onAmbientLightUpdate}>
-          <ViroAmbientLight color="#ffffff" intensity={this.state.intensity} temperature={this.state.colorTemp}/>
+          <ViroAmbientLight color="#ffffff" intensity={this.state.intensity} temperature={Platform.OS == 'android' ? 6500 : this.state.colorTemp}/>
           <ViroNode position={[0,0,-2]} onDrag={()=>{}} dragType="FixedToWorld">
             <ViroText position={[1,.33,0]} text={"FBX 2018"}
             style={styles.instructionText} transformBehaviors={["billboard"]}/>
@@ -91,11 +91,6 @@ var ARFBXVersionTest = createReactClass({
     );
   },
   _onAmbientLightUpdate(retDict) {
-
-    if (Platform.OS == 'android') {
-      return;
-    }
-
     if (!setLightValuesFast) {
       this._intensity = retDict.intensity;
       this._colorTemp = retDict.colorTemperature;
