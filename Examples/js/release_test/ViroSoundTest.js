@@ -446,13 +446,9 @@ var ViroSoundTest = createReactClass({
       else {
         var stringSource = require("../res/metronome.mp3");
         if (this.state.toggleSource == 1) {
-          if (Platform.OS == 'ios' && this.state.soundType == 2) {
-            stringSource = {uri : "http://incompetech.com/music/royalty-free/mp3-royaltyfree/Danger%20Storm.mp3"};
-          } else {
-            stringSource = {uri : "https://freesound.org/data/previews/176/176177_670687-lq.mp3"}
-          }
+          stringSource = {uri : "https://freesound.org/data/previews/176/176177_670687-lq.mp3"}
         } else if (this.state.toggleSource == 2) {
-            stringSource = "cube_sound";
+          stringSource = "cube_sound";
         }
         return stringSource;
       }
