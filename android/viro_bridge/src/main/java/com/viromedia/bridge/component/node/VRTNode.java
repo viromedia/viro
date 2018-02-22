@@ -738,13 +738,13 @@ public class VRTNode extends VRTComponent {
         }
 
         PhysicsBody.RigidBodyType rigidBodyType;
-        if (bodyTypeProp.equals("dynamic")) {
+        if (bodyTypeProp.equalsIgnoreCase("Dynamic")) {
             rigidBodyType = PhysicsBody.RigidBodyType.DYNAMIC;
         }
-        else if (bodyTypeProp.equalsIgnoreCase("static")) {
+        else if (bodyTypeProp.equalsIgnoreCase("Static")) {
             rigidBodyType = PhysicsBody.RigidBodyType.STATIC;
         }
-        else if (bodyTypeProp.equalsIgnoreCase("kinematic")) {
+        else if (bodyTypeProp.equalsIgnoreCase("Kinematic")) {
             rigidBodyType = PhysicsBody.RigidBodyType.KINEMATIC;
         }
         else {
