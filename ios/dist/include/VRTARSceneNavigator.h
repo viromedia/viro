@@ -21,6 +21,8 @@
 @property (nonatomic, copy) NSString *apiKey;
 @property (nonatomic, copy) NSString *worldAlignment;
 @property (nonatomic, copy, nullable) RCTDirectEventBlock onExitViro;
+@property (nonatomic, assign) BOOL autofocus;
+@property (nonatomic, copy) NSString *videoQuality;
 
 - (instancetype)initWithBridge:(RCTBridge *)bridge;
 - (void)insertReactSubview:(UIView *)subview atIndex:(NSInteger)atIndex;
