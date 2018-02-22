@@ -84,7 +84,7 @@
     if (_imageNeedsDownload && _source) {
         _sphereTextureAddedToScene = NO;
         if (_source) {
-            if ([_hdrLoader isHdrSource:_source]){
+            if (self.isHdr){
                 [_hdrLoader loadHdrImage:_source];
             } else if([_assetLoader canLoadImageURL:_source.request.URL]) {
                 [_assetLoader loadImage:_source];

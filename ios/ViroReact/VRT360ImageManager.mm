@@ -21,6 +21,7 @@ RCT_EXPORT_VIEW_PROPERTY(onErrorViro, RCTDirectEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(rotation, NSNumberArray)
 RCT_EXPORT_VIEW_PROPERTY(format, VROTextureInternalFormat)
 RCT_EXPORT_VIEW_PROPERTY(stereoMode, NSString)
+RCT_EXPORT_VIEW_PROPERTY(isHdr, BOOL)
 
 - (VRT360Image *)view
 {

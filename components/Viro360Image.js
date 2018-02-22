@@ -64,7 +64,7 @@ var Viro360Image = createReactClass({
      * {nativeEvent: {error}}
      */
     onError: PropTypes.func,
-
+    isHdr: PropTypes.bool,
   },
 
   _onLoadStart: function(event: Event) {

@@ -20,21 +20,13 @@ public class HdrImageDownloader {
     private static final String URI_KEY = "uri";
     private static final String HDR_KEY = ".hdr";
 
-    public static boolean isHDR(Uri uri) {
-         return !(uri == null || uri.getPath() == null || !uri.getPath().toLowerCase().endsWith(HDR_KEY));
-    }
-
-    public static boolean isHDRReadableMap(ReadableMap map, Context context) {
+    public static void getHdrTextureAsync(ReadableMap map, DownloadListener listener, Context context) {
         if (!map.hasKey(URI_KEY)) {
-            return false;
+            throw new IllegalArgumentException("Missing HDR uri file path.");
         }
 
-        return isHDR(Helper.parseUri(map.getString(URI_KEY), context));
-    }
-
-    public static void getHdrTextureAsync(ReadableMap map, DownloadListener listener, Context context) {
-        boolean isHDR = isHDRReadableMap(map, context);
-        if (!isHDR) {
+        Uri hdrUri = Helper.parseUri(map.getString(URI_KEY), context);
+        if (hdrUri == null || hdrUri.getPath() == null ) {
             throw new IllegalArgumentException("Invalid HDR uri file path provided.");
         }
 

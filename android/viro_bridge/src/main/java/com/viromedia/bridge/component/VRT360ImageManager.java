@@ -46,6 +46,9 @@ public class VRT360ImageManager extends VRTViroViewGroupManager<VRT360Image> {
     @ReactProp(name = "stereoMode")
     public void setStereoMode(VRT360Image view, String mode) { view.setStereoMode(mode); }
 
+    @ReactProp(name = "isHdr", defaultBoolean = false)
+    public void setIsHdr(VRT360Image view, boolean hdr) { view.setIsHdr(hdr); }
+
     @Override
     public Map getExportedCustomDirectEventTypeConstants() {
         return MapBuilder.of(

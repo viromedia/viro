@@ -36,15 +36,21 @@ public class VRT360Image extends VRTNode {
     private boolean mImageNeedsDownload;
     private HDRImageDownloadListener mHDRDownloadListener;
     private Image360DownloadListener mImageDownloadListener;
+    private boolean mIsHdr;
 
     public VRT360Image(ReactApplicationContext context) {
         super(context);
         mMainHandler = new Handler(Looper.getMainLooper());
         mImageNeedsDownload = false;
+        mIsHdr = false;
     }
 
     public void setStereoMode(String mode){
         mStereoMode = mode;
+    }
+
+    public void setIsHdr(boolean hdr){
+        mIsHdr = hdr;
     }
 
     public void setSource(ReadableMap source) {
@@ -79,7 +85,7 @@ public class VRT360Image extends VRTNode {
         invalidateImageDownloadListeners();
 
         final Context context = getContext();
-        if (HdrImageDownloader.isHDRReadableMap(mSourceMap, context)){
+        if (mIsHdr){
             mHDRDownloadListener = new HDRImageDownloadListener();
             HdrImageDownloader.getHdrTextureAsync(mSourceMap, mHDRDownloadListener, context);
         } else {
