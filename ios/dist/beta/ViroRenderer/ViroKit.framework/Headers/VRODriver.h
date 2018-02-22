@@ -111,6 +111,12 @@ public:
      */
     virtual void willRenderFrame(const VRORenderContext &context) = 0;
     virtual void didRenderFrame(const VROFrameTimer &timer, const VRORenderContext &context) = 0;
+    
+    /*
+     Invoked when the renderer is paused and resumed.
+     */
+    virtual void pause() = 0;
+    virtual void resume() = 0;
 
     /*
      Read the GPU type, which may be necessary to support old GPUs that are not to
