@@ -98,7 +98,7 @@ public:
      index of the geometry element.
      */
     uintptr_t node;
-    uint32_t elementIndex;
+    uint8_t elementIndex;
     
 };
 

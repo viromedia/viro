@@ -34,11 +34,11 @@
 		8A5CDE221F68D5470093F43B /* VRTPolyline.h in Copy Headers to ios/dist/include */ = {isa = PBXBuildFile; fileRef = 8AFC1C351EC1001C0000F7EB /* VRTPolyline.h */; };
 		8A5CDE231F68D5470093F43B /* VRTPortalScene.h in Copy Headers to ios/dist/include */ = {isa = PBXBuildFile; fileRef = 8FEF00631F37ACCC006AE4B1 /* VRTPortalScene.h */; };
 		8A5CDE241F68D5470093F43B /* VRTPortal.h in Copy Headers to ios/dist/include */ = {isa = PBXBuildFile; fileRef = 8FEF00841F37D04F006AE4B1 /* VRTPortal.h */; };
-		8A5CDE251F68D5470093F43B /* BuildFile in Copy Headers to ios/dist/include */ = {isa = PBXBuildFile; };
+		8A5CDE251F68D5470093F43B /* (null) in Copy Headers to ios/dist/include */ = {isa = PBXBuildFile; };
 		8A5CDE261F68D5470093F43B /* VRTPolylineManager.h in Copy Headers to ios/dist/include */ = {isa = PBXBuildFile; fileRef = 8A56302D1EBBFF5F009E71A7 /* VRTPolylineManager.h */; };
 		8A5CDE271F68D5470093F43B /* VRTPortalSceneManager.h in Copy Headers to ios/dist/include */ = {isa = PBXBuildFile; fileRef = 8FEF00821F37CAEF006AE4B1 /* VRTPortalSceneManager.h */; };
 		8A5CDE281F68D5470093F43B /* VRTPortalManager.h in Copy Headers to ios/dist/include */ = {isa = PBXBuildFile; fileRef = 8FEF00871F37D0C0006AE4B1 /* VRTPortalManager.h */; };
-		8A5CDE291F68D5470093F43B /* BuildFile in Copy Headers to ios/dist/include */ = {isa = PBXBuildFile; };
+		8A5CDE291F68D5470093F43B /* (null) in Copy Headers to ios/dist/include */ = {isa = PBXBuildFile; };
 		8A5CDE2A1F68D56F0093F43B /* VRTNodeModule.h in Copy Headers to ios/dist/include */ = {isa = PBXBuildFile; fileRef = A50A310C1ECE1E8800DEBE9B /* VRTNodeModule.h */; };
 		8A5CDE2B1F68D56F0093F43B /* VRTSceneModule.h in Copy Headers to ios/dist/include */ = {isa = PBXBuildFile; fileRef = A5E8F0A71ED6B64D00729916 /* VRTSceneModule.h */; };
 		8A5CDE2C1F68D56F0093F43B /* VRTControllerModule.h in Copy Headers to ios/dist/include */ = {isa = PBXBuildFile; fileRef = A533596D1E9E0169005B3EC5 /* VRTControllerModule.h */; };
@@ -193,7 +193,6 @@
 		A5E8F0AC1ED6B64E00729916 /* VRTSceneModule.mm in Sources */ = {isa = PBXBuildFile; fileRef = A5E8F0A81ED6B64D00729916 /* VRTSceneModule.mm */; };
 		A5F6D4011E4B0DFF00655F60 /* VRTController.mm in Sources */ = {isa = PBXBuildFile; fileRef = A5F6D4001E4B0DFF00655F60 /* VRTController.mm */; };
 		A5F6D4051E4B179700655F60 /* VRTControllerManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = A5F6D4041E4B179700655F60 /* VRTControllerManager.mm */; };
-		D6D9D6C3E86D71CC1F6B8773 /* libPods-ViroReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BC76C8B4DFB9EF6B89DBEBD /* libPods-ViroReact.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -222,11 +221,11 @@
 				8A5CDE221F68D5470093F43B /* VRTPolyline.h in Copy Headers to ios/dist/include */,
 				8A5CDE231F68D5470093F43B /* VRTPortalScene.h in Copy Headers to ios/dist/include */,
 				8A5CDE241F68D5470093F43B /* VRTPortal.h in Copy Headers to ios/dist/include */,
-				8A5CDE251F68D5470093F43B /* BuildFile in Copy Headers to ios/dist/include */,
+				8A5CDE251F68D5470093F43B /* (null) in Copy Headers to ios/dist/include */,
 				8A5CDE261F68D5470093F43B /* VRTPolylineManager.h in Copy Headers to ios/dist/include */,
 				8A5CDE271F68D5470093F43B /* VRTPortalSceneManager.h in Copy Headers to ios/dist/include */,
 				8A5CDE281F68D5470093F43B /* VRTPortalManager.h in Copy Headers to ios/dist/include */,
-				8A5CDE291F68D5470093F43B /* BuildFile in Copy Headers to ios/dist/include */,
+				8A5CDE291F68D5470093F43B /* (null) in Copy Headers to ios/dist/include */,
 				8A5CDE171F68D4BD0093F43B /* VRTARSceneNavigator.h in Copy Headers to ios/dist/include */,
 				8A5CDE181F68D4BD0093F43B /* VRTARAnchorNode.h in Copy Headers to ios/dist/include */,
 				8A5CDE191F68D4BD0093F43B /* VRTARPlane.h in Copy Headers to ios/dist/include */,
@@ -327,11 +326,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		0D4843E3F564981E8DA4F3EE /* Pods-ViroReact.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ViroReact.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ViroReact/Pods-ViroReact.debug.xcconfig"; sourceTree = "<group>"; };
 		137E9D7D1F50E8C0008238E5 /* VRTPhotoLibraryAsyncLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VRTPhotoLibraryAsyncLoader.h; path = ViroReact/Utility/VRTPhotoLibraryAsyncLoader.h; sourceTree = "<group>"; };
 		137E9D801F50E8C0008238E5 /* VRTPhotoLibraryAsyncLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VRTPhotoLibraryAsyncLoader.m; path = ViroReact/Utility/VRTPhotoLibraryAsyncLoader.m; sourceTree = "<group>"; };
-		2BC76C8B4DFB9EF6B89DBEBD /* libPods-ViroReact.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ViroReact.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		4032E10597D56890C3340C20 /* Pods-ViroReact.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ViroReact.release.xcconfig"; path = "Pods/Target Support Files/Pods-ViroReact/Pods-ViroReact.release.xcconfig"; sourceTree = "<group>"; };
 		8A04D4DE2023EDDF00FD5F68 /* VRTARTrackingTargetsModule.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = VRTARTrackingTargetsModule.h; path = ViroReact/AR/Modules/VRTARTrackingTargetsModule.h; sourceTree = "<group>"; };
 		8A04D4DF2023EDDF00FD5F68 /* VRTARTrackingTargetsModule.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = VRTARTrackingTargetsModule.mm; path = ViroReact/AR/Modules/VRTARTrackingTargetsModule.mm; sourceTree = "<group>"; };
 		8A04D5162024F6B200FD5F68 /* VRTARImageMarkerManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = VRTARImageMarkerManager.h; path = ViroReact/AR/Managers/VRTARImageMarkerManager.h; sourceTree = "<group>"; };
@@ -541,7 +537,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				8A2161D02036558500D60008 /* ViroKit.framework in Frameworks */,
-				D6D9D6C3E86D71CC1F6B8773 /* libPods-ViroReact.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -552,7 +547,6 @@
 			isa = PBXGroup;
 			children = (
 				8BDD9FF21E53C8AF00A42870 /* libReact.a */,
-				2BC76C8B4DFB9EF6B89DBEBD /* libPods-ViroReact.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -866,8 +860,6 @@
 			isa = PBXGroup;
 			children = (
 				8BDD9D9E1E09F39B00A42870 /* Pods.xcodeproj */,
-				0D4843E3F564981E8DA4F3EE /* Pods-ViroReact.debug.xcconfig */,
-				4032E10597D56890C3340C20 /* Pods-ViroReact.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -879,14 +871,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8BE0D45D1DFA0D050032AB99 /* Build configuration list for PBXNativeTarget "ViroReact" */;
 			buildPhases = (
-				F399B8685AB82ADC19FC4D06 /* [CP] Check Pods Manifest.lock */,
 				8BE0D4501DFA0D050032AB99 /* Sources */,
 				8BE0D4511DFA0D050032AB99 /* Frameworks */,
 				8BE0D4521DFA0D050032AB99 /* CopyFiles */,
 				8BDD9E1D1E453F9000A42870 /* ShellScript */,
 				8BDDA13E1E5BEFD000A42870 /* Copy Headers to ios/dist/include */,
 				8BDDA17F1E5BFB9000A42870 /* Copy Files */,
-				1478A575E8B5998E91CB4E77 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -945,21 +935,6 @@
 /* End PBXReferenceProxy section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		1478A575E8B5998E91CB4E77 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ViroReact/Pods-ViroReact-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		8BDD9E1D1E453F9000A42870 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -971,25 +946,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "$SRCROOT/ngrok_launch.sh";
-		};
-		F399B8685AB82ADC19FC4D06 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-ViroReact-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
+			shellScript = $SRCROOT/ngrok_launch.sh;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1187,7 +1144,6 @@
 		};
 		8BE0D45E1DFA0D050032AB99 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0D4843E3F564981E8DA4F3EE /* Pods-ViroReact.debug.xcconfig */;
 			buildSettings = {
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1208,7 +1164,6 @@
 		};
 		8BE0D45F1DFA0D050032AB99 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4032E10597D56890C3340C20 /* Pods-ViroReact.release.xcconfig */;
 			buildSettings = {
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (

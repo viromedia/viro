@@ -79,7 +79,7 @@ private:
     bool _ready = false;
     bool _paused = false;
     std::shared_ptr<VROSoundData> _data;
-    std::weak_ptr<gvr::AudioApi> _gvrAudio;
+    std::shared_ptr<gvr::AudioApi> _gvrAudio;
     
     int32_t _audioId = -1; // (type is gvr::AudioSourceId)
     int _gvrRolloffType; // type is gvr_audio_distance_rolloff_type
