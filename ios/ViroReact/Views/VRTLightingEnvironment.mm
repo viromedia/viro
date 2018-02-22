@@ -83,7 +83,7 @@
 }
 
 - (void)handleAppearanceChange {
-    if (![self shouldAppear]) {
+    if (![self shouldAppear] && _targetedPortal) {
         _targetedPortal->setLightingEnvironment(nullptr);
     }
     [super handleAppearanceChange];
