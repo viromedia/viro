@@ -54,7 +54,7 @@ public class VRTLightingEnvironment extends VRTNode {
 
     @Override
     public void onTearDown() {
-        if (mTargetedPortalScene != null) {
+        if (mTargetedPortalScene != null && mTargetedPortalScene.getNativeRef() != 0L) {
             mTargetedPortalScene.setLightingEnvironment(null);
             mTargetedPortalScene = null;
         }
