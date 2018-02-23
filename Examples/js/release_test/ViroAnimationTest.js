@@ -313,9 +313,9 @@ var ViroAnimationTest = createReactClass({
 });
 
 ViroAnimations.registerAnimations({
-  moveRight:{properties:{positionX:"+=3",}, duration:3000, delay:0},
-  moveLeft:{properties:{positionX:"-=3",}, duration:3000, delay:0},
-  loopRotate:{properties:{rotateY:"+=180"}, duration:3000},
+  moveRight:{properties:{positionX:"+=3",}, duration:500, delay:0},
+  moveLeft:{properties:{positionX:"-=3",}, duration:500, delay:0},
+  loopRotate:{properties:{rotateY:"+=180"}, duration:500},
   sequentialAnim:[
         ["moveRight","moveLeft"]
   ],
