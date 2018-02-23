@@ -249,11 +249,12 @@ public:
      The following are atomic, updated once per frame on the rendering thread. They can
      be accessed safely from any thread to get an up-to-date state of the transform.
      */
-    VROMatrix4f   getLastWorldTransform() const;
-    VROVector3f   getLastWorldPosition() const;
-    VROVector3f   getLastLocalPosition() const;
-    VROVector3f   getLastLocalScale() const;
-    VROQuaternion getLastLocalRotation() const;
+    VROMatrix4f    getLastWorldTransform() const;
+    VROVector3f    getLastWorldPosition() const;
+    VROVector3f    getLastLocalPosition() const;
+    VROVector3f    getLastLocalScale() const;
+    VROQuaternion  getLastLocalRotation() const;
+    VROBoundingBox getLastUmbrellaBoundingBox() const;
     
     /*
      Set the rotation, position, or scale. Animatable.
@@ -737,6 +738,7 @@ private:
     std::atomic<VROVector3f> _lastPosition;
     std::atomic<VROVector3f> _lastScale;
     std::atomic<VROQuaternion> _lastRotation;
+    std::atomic<VROBoundingBox> _lastUmbrellaBoundingBox;
 
     /*
      The transformed bounding box containing this node's geometry. The 

@@ -33,10 +33,8 @@ public:
     /*
      Constructors.
      */
-    VROBoundingBox();
-    VROBoundingBox(const VROBoundingBox &copy);
+    VROBoundingBox() noexcept;
     VROBoundingBox(float left, float right, float bottom, float top, float zmin, float zmax);
-    ~VROBoundingBox();
 
     /*
      Ray intersection. The intersection result will be stored in *intPt. If there are multiple intersection
