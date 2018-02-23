@@ -254,7 +254,7 @@ public:
     VROVector3f    getLastLocalPosition() const;
     VROVector3f    getLastLocalScale() const;
     VROQuaternion  getLastLocalRotation() const;
-    VROBoundingBox getLastBoundingBox() const;
+    VROBoundingBox getLastUmbrellaBoundingBox() const;
     
     /*
      Set the rotation, position, or scale. Animatable.
@@ -738,7 +738,7 @@ private:
     std::atomic<VROVector3f> _lastPosition;
     std::atomic<VROVector3f> _lastScale;
     std::atomic<VROQuaternion> _lastRotation;
-    std::atomic<VROBoundingBox> _lastBoundingBox;
+    std::atomic<VROBoundingBox> _lastUmbrellaBoundingBox;
 
     /*
      The transformed bounding box containing this node's geometry. The 
