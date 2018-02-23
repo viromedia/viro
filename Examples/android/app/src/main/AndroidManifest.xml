@@ -36,6 +36,7 @@
             android:name="io.fabric.ApiKey"
             android:value="***REMOVED***"
             />
+        <meta-data android:name="com.google.ar.core" android:value="optional" />
     </application>
     <uses-permission android:name="android.permission.INTERNET" />
 </manifest>

@@ -13,7 +13,6 @@ import android.widget.FrameLayout;
 import com.facebook.react.bridge.LifecycleEventListener;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
-import com.viro.core.RendererStartListener;
 import com.viro.core.ViroContext;
 import com.viro.core.ViroViewGVR;
 import com.viro.core.ViroViewOVR;
@@ -36,16 +35,16 @@ public class VRTSceneNavigator extends FrameLayout {
 
     private static final String DAYDREAM = "daydream";
 
-    protected static class InnerGLListener implements RendererStartListener {
+    private static class StartupListenerGVR implements ViroViewGVR.StartupListener {
 
         private WeakReference<VRTSceneNavigator> mNavigator;
 
-        public InnerGLListener(VRTSceneNavigator navigator) {
+        public StartupListenerGVR(VRTSceneNavigator navigator) {
             mNavigator = new WeakReference<VRTSceneNavigator>(navigator);
         }
 
         @Override
-        public void onRendererStart() {
+        public void onSuccess() {
             final VRTSceneNavigator navigator = mNavigator.get();
             if (navigator == null) {
                 return;
@@ -59,6 +58,42 @@ public class VRTSceneNavigator extends FrameLayout {
                     navigator.setViroContext();
                 }
             });
+        }
+
+        @Override
+        public void onFailure(ViroViewGVR.StartupError startupError, String s) {
+
+        }
+    }
+
+    private static class StartupListenerOVR implements ViroViewOVR.StartupListener {
+
+        private WeakReference<VRTSceneNavigator> mNavigator;
+
+        public StartupListenerOVR(VRTSceneNavigator navigator) {
+            mNavigator = new WeakReference<VRTSceneNavigator>(navigator);
+        }
+
+        @Override
+        public void onSuccess() {
+            final VRTSceneNavigator navigator = mNavigator.get();
+            if (navigator == null) {
+                return;
+            }
+
+            navigator.mGLInitialized = true;
+            (new Handler(Looper.getMainLooper())).post(new Runnable() {
+                @Override
+                public void run() {
+                    navigator.mGLInitialized = true;
+                    navigator.setViroContext();
+                }
+            });
+        }
+
+        @Override
+        public void onFailure(ViroViewOVR.StartupError startupError, String s) {
+
         }
     }
 
@@ -134,7 +169,7 @@ public class VRTSceneNavigator extends FrameLayout {
     private final ReactApplicationContext mReactContext;
 
     private boolean mViewAdded = false;
-    private boolean mGLInitialized = false;
+    protected boolean mGLInitialized = false;
 
     private boolean mHasOnExitViroCallback = false;
 
@@ -181,12 +216,12 @@ public class VRTSceneNavigator extends FrameLayout {
         switch (mPlatform) {
             case OVR_MOBILE:
                 return new ViroViewOVR(reactContext.getCurrentActivity(),
-                        new InnerGLListener(this));
+                        new StartupListenerOVR(this));
             case GVR:
                 // default case is to use GVR
             default:
                 return new ViroViewGVR(reactContext.getCurrentActivity(),
-                        new InnerGLListener(this), new OnGVRExitListener(this));
+                        new StartupListenerGVR(this), new OnGVRExitListener(this));
         }
     }
 
@@ -216,7 +251,7 @@ public class VRTSceneNavigator extends FrameLayout {
         super.addView(child, index);
     }
 
-    private void setViroContext() {
+    protected void setViroContext() {
         if (mViewAdded && mGLInitialized && mSelectedSceneIndex < mSceneArray.size()) {
             VRTScene childScene = mSceneArray.get(mSelectedSceneIndex);
             childScene.setViroContext(mViroContext);
