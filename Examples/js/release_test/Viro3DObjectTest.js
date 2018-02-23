@@ -39,6 +39,8 @@ import {
   Viro3DObject,
 } from 'react-viro';
 
+import TimerMixin from 'react-timer-mixin';
+
 var createReactClass = require('create-react-class');
 
 let polarToCartesian = ViroUtils.polarToCartesian;
@@ -46,6 +48,7 @@ var ReleaseMenu = require("./ReleaseMenu.js");
 
 
 var Viro3DObjectTest = createReactClass({
+  mixins: [TimerMixin],
 
   getInitialState() {
     return {
@@ -67,14 +70,15 @@ var Viro3DObjectTest = createReactClass({
                  onClick={this._showNext} />
 
        <ViroAnimatedComponent animation="loopRotate" run={this.state.runAnimation1} >
-         <Viro3DObject source={require('./res/destroyer.obj')}
+         <Viro3DObject ref={(obj)=>{this.destroyer = obj}}
+                       source={require('./res/destroyer.obj')}
                        position={[0, 5, 0]}
                        materials={["grey"]}
                        rotation={[0, 45, 0]}
                        scale={[.1, .1, .1]}
                        type="OBJ"
                        onHover={this._startAnimation1}
-                       onLoadEnd={this._startAnimation4}
+                       onLoadEnd={this._getDestroyerBounds}
           />
        </ViroAnimatedComponent>
 
@@ -84,13 +88,15 @@ var Viro3DObjectTest = createReactClass({
               type="OBJ"
               materials="heart"/>
 
-      <Viro3DObject source={require('./res/object_basketball.vrx')}
+      <Viro3DObject ref={(obj)=>{this.ball = obj}}
+                    source={require('./res/object_basketball.vrx')}
                     position={[0, 0, -2.0]}
                     rotation={[0, 0, 0]}
                     resources={[require('./res/object_basketball_diffuse.png'),
                                 require('./res/object_basketball_normal.png'),
                                 require('./res/object_basketball_specular.png')]}
-                    type="VRX" />
+                    type="VRX"
+                    onLoadEnd={this._getBallBounds} />
 
        <ViroAnimatedComponent animation="loopRotate" run={this.state.runAnimation2} >
          <Viro3DObject source={require('./res/xwing.obj')}
@@ -117,16 +123,22 @@ var Viro3DObjectTest = createReactClass({
          />
        </ViroAnimatedComponent>
 
-        <ViroAnimatedComponent animation="loopRotate" run={true} loop={true}>
-          <Viro3DObject source={require('./res/earth_obj.obj')}
-                        resources={[require('./res/earth_jpg.jpg'),
-                                    require('./res/earth_normal.jpg')]}
-                        position={[2.0, 0.0, 5.0]}
-                        scale={[0.01, 0.01, 0.01]}
-                        materials={["earth"]}
-                        type="OBJ"
-          />
-        </ViroAnimatedComponent>
+        <Viro3DObject ref={(obj)=>{this.earth = obj}}
+                      source={require('./res/earth_obj.obj')}
+                      resources={[require('./res/earth_jpg.jpg'),
+                                  require('./res/earth_normal.jpg')]}
+                      position={[2.0, 0.0, 5.0]}
+                      scale={[0.01, 0.01, 0.01]}
+                      materials={["earth"]}
+                      type="OBJ"
+                      onLoadEnd={this._getEarthBounds}
+        />
+
+        <ViroText position={[.7,0,-2]} text={this._getBallBoundingBoxText()}
+          style={styles.elementText} onClick={this._startStopRecording} transformBehaviors={["billboard"]}/>
+
+        <ViroText position={[-.7,0,-2]} text={this._getEarthBoundingBoxText()}
+          style={styles.elementText} onClick={this._startStopRecording} transformBehaviors={["billboard"]}/>
 
        <ViroImage source={require('./res/icon_left_w.png')} position={[-2, -4, -3]} scale={[1, 1, 1]} transformBehaviors={["billboard"]} onClick={this._showPrevious} />
        <ViroText text="Viro3DObject" position={[0, -5, -3]} transformBehaviors={["billboard"]} />
@@ -135,6 +147,44 @@ var Viro3DObjectTest = createReactClass({
      </ViroScene>
 
     );
+  },
+
+  _getBallBoundingBoxText() {
+    if (this.state.boundingBox == undefined) {
+      return "Loading basketball..."
+    } else {
+      let boundingBox = this.state.boundingBox;
+      return "Basketball Bounds: " + boundingBox.minX + ", " + boundingBox.maxX +", " + boundingBox.minY + ", " + boundingBox.maxY + ", " + boundingBox.minZ + ", " + boundingBox.maxZ;
+    }
+  },
+
+  _getEarthBoundingBoxText() {
+    if (this.state.earthBoundingBox == undefined) {
+      return "Loading earth..."
+    } else {
+      let boundingBox = this.state.earthBoundingBox;
+      return "Earth bounds: " + boundingBox.minX.toFixed(2) + ", " + boundingBox.maxX.toFixed(2) + ", " + boundingBox.minY.toFixed(2) + ", " + boundingBox.maxY.toFixed(2) + ", " + boundingBox.minZ.toFixed(2) + ", " + boundingBox.maxZ.toFixed(2);
+    }
+  },
+
+  _getBallBounds() {
+    this.ball.getBoundingBoxAsync().then((retMap)=>{
+      let boundingBox = retMap.boundingBox;
+      console.log("3dobjtest ball boundingBox is: " + boundingBox.minX + ", " + boundingBox.maxX +", " + boundingBox.minY + ", " + boundingBox.maxY + ", " + boundingBox.minZ + ", " + boundingBox.maxZ);
+      this.setState({
+        boundingBox : retMap.boundingBox
+      })
+    })
+  },
+
+  _getEarthBounds() {
+    this.earth.getBoundingBoxAsync().then((retMap)=>{
+      let boundingBox = retMap.boundingBox;
+      console.log("3dobjtest earth boundingBox is: " + boundingBox.minX + ", " + boundingBox.maxX +", " + boundingBox.minY + ", " + boundingBox.maxY + ", " + boundingBox.minZ + ", " + boundingBox.maxZ);
+      this.setState({
+        earthBoundingBox : retMap.boundingBox
+      })
+    })
   },
 
   _showNext() {
@@ -202,7 +252,7 @@ var styles = StyleSheet.create({
   },
   elementText: {
     fontFamily: 'HelveticaNeue-Medium',
-    fontSize: 30,
+    fontSize: 10,
     color: '#ffffff',
     textAlign: 'center',
   },

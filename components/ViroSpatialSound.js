@@ -82,6 +82,10 @@ var ViroSpatialSound = createReactClass({
       return await NativeModules.VRTNodeModule.getNodeTransform(findNodeHandle(this));
   },
 
+  async getBoundingBoxAsync() {
+    return await NativeModules.VRTNodeModule.getBoundingBox(findNodeHandle(this));
+  },
+
   seekToTime(timeInSeconds) {
     switch (Platform.OS) {
       case 'ios':

@@ -138,6 +138,10 @@ var ViroSpinner = createReactClass({
     return await this._component.getTransformAsync();
   },
 
+  async getBoundingBoxAsync() {
+    return await this._component.getBoundingBoxAsync();
+  },
+
   render: function() {
     // Since transformBehaviors can be either a string or an array, convert the string to a 1-element array.
     let transformBehaviors = typeof this.props.transformBehaviors === 'string' ?

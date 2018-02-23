@@ -135,4 +135,32 @@ RCT_EXPORT_METHOD(getNodeTransform:(nonnull NSNumber *)viewTag
     }];
 }
 
+RCT_EXPORT_METHOD(getBoundingBox:(nonnull NSNumber *)viewTag
+                  resolve:(RCTPromiseResolveBlock)resolve
+                  reject:(RCTPromiseRejectBlock)reject) {
+    [self.bridge.uiManager addUIBlock:^(__unused RCTUIManager *uiManager, NSDictionary<NSNumber *, UIView *> *viewRegistry) {
+        UIView *nodeView = viewRegistry[viewTag];
+        
+        if (![nodeView isKindOfClass:[VRTNode class]]) {
+            RCTLogError(@"Invalid view, expected VRTNode, got [%@]", nodeView);
+            return;
+        }
+        
+        VRTNode *node = (VRTNode *) nodeView;
+        std::shared_ptr<VRONode> vroNode = [node node];
+        VROBoundingBox boundingBox = vroNode->getLastUmbrellaBoundingBox();
+        
+        resolve(@{
+                  @"boundingBox" : @{
+                          @"minX" : @(boundingBox.getMinX()),
+                          @"maxX" : @(boundingBox.getMaxX()),
+                          @"minY" : @(boundingBox.getMinY()),
+                          @"maxY" : @(boundingBox.getMaxY()),
+                          @"minZ" : @(boundingBox.getMinZ()),
+                          @"maxZ" : @(boundingBox.getMaxZ())
+                          }
+                  });
+    }];
+}
+
 @end

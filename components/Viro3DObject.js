@@ -244,6 +244,10 @@ var Viro3DObject = createReactClass({
     return await NativeModules.VRTNodeModule.getNodeTransform(findNodeHandle(this));
   },
 
+  async getBoundingBoxAsync() {
+    return await NativeModules.VRTNodeModule.getBoundingBox(findNodeHandle(this));
+  },
+
   render: function() {
     var modelsrc = resolveAssetSource(this.props.source);
     var resources = null;

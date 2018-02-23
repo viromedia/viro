@@ -170,6 +170,10 @@ var ViroSurface = createReactClass({
     return await NativeModules.VRTNodeModule.getNodeTransform(findNodeHandle(this));
   },
 
+  async getBoundingBoxAsync() {
+    return await NativeModules.VRTNodeModule.getBoundingBox(findNodeHandle(this));
+  },
+
   setNativeProps: function(nativeProps) {
     this._component.setNativeProps(nativeProps);
   },

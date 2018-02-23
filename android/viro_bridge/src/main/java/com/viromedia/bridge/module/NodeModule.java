@@ -11,12 +11,14 @@ import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.ReadableArray;
+import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.WritableArray;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.uimanager.IllegalViewOperationException;
 import com.facebook.react.uimanager.NativeViewHierarchyManager;
 import com.facebook.react.uimanager.UIBlock;
 import com.facebook.react.uimanager.UIManagerModule;
+import com.viro.core.BoundingBox;
 import com.viro.core.Matrix;
 import com.viro.core.Quaternion;
 import com.viro.core.Vector;
@@ -154,5 +156,35 @@ public class NodeModule extends ReactContextBaseJavaModule {
                  promise.resolve(returnMap);
             }
          });
+    }
+
+    @ReactMethod
+    public void getBoundingBox(final int viewTag, final Promise promise)
+    {
+        UIManagerModule uiManager = getReactApplicationContext().getNativeModule(UIManagerModule.class);
+        uiManager.addUIBlock(new UIBlock() {
+            @Override
+            public void execute(NativeViewHierarchyManager nativeViewHierarchyManager) {
+                View viroView = nativeViewHierarchyManager.resolveView(viewTag);
+                VRTNode nodeView = (VRTNode) viroView;
+                if (!(viroView instanceof VRTNode)){
+                    throw new IllegalViewOperationException("Invalid view, expected VRTNode!");
+                }
+
+                Node nodeJNI = nodeView.getNodeJni();
+                BoundingBox box = nodeJNI.getBoundingBox();
+
+                WritableMap returnMap = Arguments.createMap();
+                WritableMap boundingBoxMap = Arguments.createMap();
+                boundingBoxMap.putDouble("minX", box.minX);
+                boundingBoxMap.putDouble("maxX", box.maxX);
+                boundingBoxMap.putDouble("minY", box.minY);
+                boundingBoxMap.putDouble("maxY", box.maxY);
+                boundingBoxMap.putDouble("minZ", box.minZ);
+                boundingBoxMap.putDouble("maxZ", box.maxZ);
+                returnMap.putMap("boundingBox", boundingBoxMap);
+                promise.resolve(returnMap);
+            }
+        });
     }
 }

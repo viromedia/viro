@@ -151,6 +151,10 @@ var ViroParticleEmitter = createReactClass({
     return await NativeModules.VRTNodeModule.getNodeTransform(findNodeHandle(this));
   },
 
+  async getBoundingBoxAsync() {
+    return await NativeModules.VRTNodeModule.getBoundingBox(findNodeHandle(this));
+  },
+
   // Called from native on the event a positional change has occured
   // for the underlying control within the renderer.
   _onNativeTransformUpdate: function(event: Event){

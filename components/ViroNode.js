@@ -155,6 +155,10 @@ var ViroNode = createReactClass({
     return await NativeModules.VRTNodeModule.getNodeTransform(findNodeHandle(this));
   },
 
+  async getBoundingBoxAsync() {
+    return await NativeModules.VRTNodeModule.getBoundingBox(findNodeHandle(this));
+  },
+
   applyImpulse: function(force, position) {
     NativeModules.VRTNodeModule.applyImpulse(findNodeHandle(this), force, position);
   },

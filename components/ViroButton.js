@@ -190,6 +190,10 @@ var BTN_TYPE_CLICKED = 'clicked';
     return await this._component.getTransformAsync();
   },
 
+  async getBoundingBoxAsync() {
+    return await this._component.getBoundingBoxAsync();
+  },
+
   getInitialState: function() {
     return {buttonType: BTN_TYPE_NORMAL};
   },

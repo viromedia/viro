@@ -178,6 +178,10 @@ var ViroSphere = createReactClass({
     return await NativeModules.VRTNodeModule.getNodeTransform(findNodeHandle(this));
   },
 
+  async getBoundingBoxAsync() {
+    return await NativeModules.VRTNodeModule.getBoundingBox(findNodeHandle(this));
+  },
+
   applyImpulse: function(force, atPosition) {
     NativeModules.VRTNodeModule.applyImpulse(findNodeHandle(this), force, atPosition);
   },
