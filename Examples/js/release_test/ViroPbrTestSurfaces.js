@@ -58,7 +58,7 @@ var ViroPbrTestSurfaces = createReactClass({
    return (
     <ViroScene>
        {this.getEnvLight()}
-       <Viro360Image source={require('./res/ibl_newport_loft.hdr')} />
+       <Viro360Image source={require('./res/ibl_newport_loft.hdr')} isHdr={true} />
        <ReleaseMenu sceneNavigator={this.props.sceneNavigator}/>
        <ViroNode position={[0,-2, 0]}>
        <ViroImage source={require('./res/poi_dot.png')} position={[0, -4, -2]} transformBehaviors={["billboard"]} onClick={this._showNext} />
