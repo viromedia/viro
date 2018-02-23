@@ -291,42 +291,39 @@ public class VRTImage extends VRTControl {
         float aspectRatio = (float) mBitmapWidth / (float) mBitmapHeight;
         float targetAspectRatio = mWidth / mHeight;
 
-        switch (mResizeMode) {
-            case "scaleToFit":
-                if (targetAspectRatio <= aspectRatio) { // target is taller than content
-                    mScaledWidth = mWidth;
-                    mScaledHeight = mScaledWidth / aspectRatio;
-                } else { // target is wider than content
-                    mScaledHeight = mHeight;
-                    mScaledWidth = mScaledHeight * aspectRatio;
-                }
-                break;
-            case "scaleToFill":
-                if (targetAspectRatio <= aspectRatio) { // target is taller than content
-                    mScaledHeight = mHeight;
-                    mScaledWidth = mScaledHeight * aspectRatio;
-                } else { // target is wider than content
-                    mScaledWidth = mWidth;
-                    mScaledHeight = mScaledWidth / aspectRatio;
-                }
-                // If clipMode is set to clipToBounds, we need to calculate u,v values so that the
-                // image clips/crops to the image view bounds
-                if (mImageClipMode.equalsIgnoreCase("clipToBounds")) {
-                    float clipWidth = Math.abs(mScaledWidth - mWidth) / mScaledWidth;
-                    float clipHeight = Math.abs(mScaledHeight - mHeight)/ mScaledHeight;
-                    mU0 = clipWidth / 2;
-                    mV0 = clipHeight / 2;
-                    mU1 = 1 - clipWidth / 2;
-                    mV1 = 1 - clipHeight / 2;
-                }
-                break;
-            default: // And stretchToFill
+        if (mResizeMode != null && mResizeMode.equalsIgnoreCase("scaleToFit")) {
+            if (targetAspectRatio <= aspectRatio) { // target is taller than content
                 mScaledWidth = mWidth;
+                mScaledHeight = mScaledWidth / aspectRatio;
+            } else { // target is wider than content
                 mScaledHeight = mHeight;
-                mU0 = 0;
-                mV0 = 0;
-                mU1 = 1;
-                mV1 = 1;
+                mScaledWidth = mScaledHeight * aspectRatio;
+            }
+        } else if(mResizeMode != null && mResizeMode.equalsIgnoreCase("scaleToFill")) {
+            if (targetAspectRatio <= aspectRatio) { // target is taller than content
+                mScaledHeight = mHeight;
+                mScaledWidth = mScaledHeight * aspectRatio;
+            } else { // target is wider than content
+                mScaledWidth = mWidth;
+                mScaledHeight = mScaledWidth / aspectRatio;
+            }
+            // If clipMode is set to clipToBounds, we need to calculate u,v values so that the
+            // image clips/crops to the image view bounds
+            if (mImageClipMode.equalsIgnoreCase("clipToBounds")) {
+                float clipWidth = Math.abs(mScaledWidth - mWidth) / mScaledWidth;
+                float clipHeight = Math.abs(mScaledHeight - mHeight)/ mScaledHeight;
+                mU0 = clipWidth / 2;
+                mV0 = clipHeight / 2;
+                mU1 = 1 - clipWidth / 2;
+                mV1 = 1 - clipHeight / 2;
+            }
+        } else {
+            mScaledWidth = mWidth;
+            mScaledHeight = mHeight;
+            mU0 = 0;
+            mV0 = 0;
+            mU1 = 1;
+            mV1 = 1;
         }
     }
 
