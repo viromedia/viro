@@ -27,11 +27,11 @@ import com.facebook.react.uimanager.UIBlock;
 import com.facebook.react.uimanager.UIManagerModule;
 import com.viro.core.ViroMediaRecorder;
 import com.viro.core.ViroMediaRecorder.Error;
+import com.viro.core.ViroViewARCore;
 import com.viromedia.bridge.component.VRTARSceneNavigator;
 
 public class ARSceneNavigatorModule extends ReactContextBaseJavaModule {
     private static final int UNSUPPORTED_PLATFORM_ERROR = 6;
-
     private static final String RECORDING_SUCCESS_KEY = "success";
     private static final String RECORDING_URL_KEY = "url";
     private static final String RECORDING_ERROR_KEY = "errorCode";
@@ -222,6 +222,12 @@ public class ARSceneNavigatorModule extends ReactContextBaseJavaModule {
     @ReactMethod
     public void setWorldOrigin(final int sceneNavTag, final ReadableMap worldOrigin) {
         // no-op
+    }
+
+    @ReactMethod()
+    public void isARSupportedOnDevice(final Callback successCallback) {
+        Boolean compatibility = ViroViewARCore.isDeviceCompatible(getReactApplicationContext());
+        successCallback.invoke(compatibility);
     }
 
     private void checkPermissionsAndRun(PermissionListener listener, boolean audioAndRecordingPerm){

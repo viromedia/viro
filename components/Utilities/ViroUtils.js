@@ -56,3 +56,25 @@ export function polarToCartesianActual(polarcoords) {
     cartesianCoords.push(z);
     return cartesianCoords;
 };
+
+import {Platform, NativeModules} from 'react-native';
+export function isARSupportedOnDevice(notSupportedCallback, supportedCallback) {
+    if (Platform.OS == 'ios') {
+        NativeModules.VRTARUtils.isARSupported((error, result) => {
+            if (result.isARSupported == true) {
+                {supportedCallback()}
+            } else {
+                {notSupportedCallback()}
+            }
+        });
+    } else {
+        NativeModules.VRTARSceneNavigatorModule.isARSupportedOnDevice((result) =>{
+            if (result == true) {
+                {supportedCallback()}
+            } else {
+                {notSupportedCallback()}
+            }
+        }); 
+    }
+
+};

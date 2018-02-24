@@ -53,7 +53,7 @@ public class VRTARSceneNavigator extends VRTSceneNavigator {
         @Override
         public void onFailure(ViroViewARCore.StartupError error, String errorMessage) {
             Log.e("Viro", "onRendererFailed [error: " + error + "], message [" + errorMessage + "]");
-            // TODO VIRO-2906 Response to ARCore errors on bridge
+            // No-op
         }
     }
 

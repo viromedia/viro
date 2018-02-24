@@ -16,11 +16,13 @@ import {
   StyleSheet,
   PixelRatio,
   TouchableHighlight,
+  NativeModules,
 } from 'react-native';
 
 import {
   ViroSceneNavigator,
-  ViroARSceneNavigator
+  ViroARSceneNavigator,
+  ViroUtils,
 } from 'react-viro';
 
 var InitialVRScene = require('./js/release_test/ViroSkyBoxTest');
@@ -29,7 +31,7 @@ var InitialARScene = require('./js/AR/release_test/ARSceneAndNavigatorTest');
 var UNSET = "UNSET";
 var VR_NAVIGATOR_TYPE = "VR";
 var AR_NAVIGATOR_TYPE = "AR";
-
+var isARSupportedOnDevice = ViroUtils.isARSupportedOnDevice;
 export default class ViroExperienceSelector extends Component {
   constructor() {
     super();
@@ -52,6 +54,17 @@ export default class ViroExperienceSelector extends Component {
     this._getButtonPress = this._getButtonPress.bind(this);
     this._toggleAutofocus = this._toggleAutofocus.bind(this);
     this._toggleVideoQuality = this._toggleVideoQuality.bind(this);
+    this._handleARSupported = this._handleARSupported.bind(this);
+    this._handleARNotSupported = this._handleARNotSupported.bind(this);
+  }
+  componentWillMount() {
+    isARSupportedOnDevice(this._handleARNotSupported,this._handleARSupported);
+  }
+  _handleARSupported() {
+    console.log("AR supported");
+  }
+  _handleARNotSupported() {
+    console.log("AR not supported");
   }
   render() {
     if (this.state.navigatorType == UNSET) {

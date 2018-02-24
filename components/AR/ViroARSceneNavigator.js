@@ -76,7 +76,7 @@ var ViroARSceneNavigator = createReactClass({
       stopVideoRecording: this._stopVideoRecording,
       takeScreenshot: this._takeScreenshot,
       resetARSession: this._resetARSession,
-      setWorldOrigin: this._setWorldOrigin,
+      setWorldOrigin: this._setWorldOrigin
     };
   },
   getInitialState: function(): State {
