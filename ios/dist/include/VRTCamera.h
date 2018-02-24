@@ -19,6 +19,7 @@
 
 - (void)setPosition:(NSArray<NSNumber *> *)position;
 
+@property (nonatomic, assign) float fieldOfView;
 @property (nonatomic, copy) NSArray<NSNumber *> *position;
 @property (readonly, nonatomic) std::shared_ptr<VRONodeCamera> nodeCamera;
 
