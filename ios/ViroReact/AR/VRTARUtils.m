@@ -9,6 +9,15 @@
 
 @implementation VRTARUtils
 
+RCT_EXPORT_MODULE();
+
+RCT_EXPORT_METHOD(isARSupported:(RCTResponseSenderBlock)callback)
+{
+  bool result = [VROViewAR isARSupported];
+  NSDictionary *props = @{@"isARSupported" : @(result)};
+  callback(@[[NSNull null], props]);
+}
+
 + (NSDictionary *)createDictionaryFromAnchor:(std::shared_ptr<VROARAnchor>) anchor {
     
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];

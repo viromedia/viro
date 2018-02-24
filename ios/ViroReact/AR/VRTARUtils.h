@@ -7,8 +7,9 @@
 
 #import <Foundation/Foundation.h>
 #import <ViroKit/ViroKit.h>
+#import <React/RCTBridgeModule.h>
 
-@interface VRTARUtils : NSObject
+@interface VRTARUtils : NSObject<RCTBridgeModule>
 
 + (NSDictionary *)createDictionaryFromAnchor:(std::shared_ptr<VROARAnchor>) anchor;
 
