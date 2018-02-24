@@ -67,7 +67,9 @@ var ViroCameraTest = createReactClass({
 
      <ViroImage source={require('./res/poi_dot.png')} position={[-1, 0, 0]} transformBehaviors={["billboard"]} onClick={this._showNext} />
 
-     <ViroCamera position={[0,0,0]}
+     <ViroCamera
+         fieldOfView={this.state.fov}
+         position={[0,0,0]}
          active={this.state.activeCamera == 3}
          animation={{name:"testLoopMove",
                      loop:true,
@@ -82,7 +84,10 @@ var ViroCameraTest = createReactClass({
       fieldOfView={this.state.fov}
       active={this.state.activeCamera == 1} />
 
-     <ViroOrbitCamera position={[0,0,0]} active={this.state.activeCamera == 2}
+     <ViroOrbitCamera
+        fieldOfView={this.state.fov}
+        position={[0,0,0]}
+        active={this.state.activeCamera == 2}
         focalPoint={[1, 1, -4]}/>
 
      <ViroBox
@@ -105,7 +110,7 @@ var ViroCameraTest = createReactClass({
         <ViroText style={styles.centeredText} position={[0, -2.5, -4]} text={"Get Camera Orientation Async: " + this.state.cameraOrienationString}
                 width={4} height ={4}  onClick={this._getCameraOrientationAsync} />
 
-        <ViroText style={styles.centeredText} position={[0, -3.5, -4]} text={"Toggle Fov on Camera 1: " + this.state.fov}
+        <ViroText style={styles.centeredText} position={[0, -3.5, -4]} text={"Toggle Fov on Camera: " + this.state.fov}
                 width={4} height ={4}  onClick={this._toggleFov} />
      </ViroScene>
 

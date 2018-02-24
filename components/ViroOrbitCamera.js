@@ -31,6 +31,7 @@ var ViroOrbitCamera = createReactClass({
       run: PropTypes.bool,
       interruptible: PropTypes.bool,
     }),
+    fieldOfView: PropTypes.number,
 
   },
 

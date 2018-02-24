@@ -38,4 +38,10 @@ public class VRTOrbitCameraManager extends VRTNodeManager<VRTOrbitCamera> {
                 (float) focalPoint.getDouble(2)};
         camera.setFocalPoint(focalPointArray);
     }
+
+    @ReactProp(name = "fieldOfView", defaultFloat = VRTCamera.DEFAULT_FOV)
+    public void setFieldOfView(VRTCamera camera, float fov) {
+        camera.setFieldOfView(fov);
+    }
+
 }
