@@ -10,6 +10,8 @@ import com.viro.core.Node;
 import com.viro.core.Vector;
 
 public class VRTCamera extends VRTControl {
+    protected static final float DEFAULT_FOV = 60;
+    private float mFieldOfView = DEFAULT_FOV;
     protected Camera mNativeCamera;
 
     public VRTCamera(ReactApplicationContext context) {
@@ -43,6 +45,10 @@ public class VRTCamera extends VRTControl {
         return mPosition;
     }
 
+    public void setFieldOfView(float fov){
+        mFieldOfView = fov;
+    }
+
     public Camera.RotationType getRotationType() {
         return Camera.RotationType.STANDARD;
     }
@@ -56,6 +62,7 @@ public class VRTCamera extends VRTControl {
         }
         mNativeCamera.setPosition(new Vector(mPosition));
         mNativeCamera.setRotationType(getRotationType());
+        mNativeCamera.setFieldOfView(mFieldOfView);
         addToNode(getNodeJni());
     }
 }

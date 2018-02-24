@@ -36,6 +36,10 @@ static NSArray *const kDefaultCameraPosition  = @[@0, @0, @0];
     self.nodeCamera->setPosition({values[0], values[1], values[2]});
 }
 
+- (void)setFieldOfView:(float)fov {
+    self.nodeCamera->setFieldOfViewY(fov);
+}
+
 - (VROCameraRotationType)rotationType {
     return VROCameraRotationType::Standard;
 }

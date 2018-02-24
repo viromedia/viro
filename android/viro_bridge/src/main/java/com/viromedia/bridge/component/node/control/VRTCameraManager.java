@@ -33,4 +33,9 @@ public class VRTCameraManager extends VRTNodeManager<VRTCamera> {
         camera.setPosition(posArray);
     }
 
+    @ReactProp(name = "fieldOfView", defaultFloat = VRTCamera.DEFAULT_FOV)
+    public void setFieldOfView(VRTCamera camera, float fov) {
+        camera.setFieldOfView(fov);
+    }
+
 }

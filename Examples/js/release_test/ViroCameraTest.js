@@ -53,7 +53,8 @@ var ViroCameraTest = createReactClass({
         mainCameraPositionX: 0,
         mainCameraRotation:0,
         activeCamera:1,
-        cameraOrienationString:""
+        cameraOrienationString:"",
+        fov: 60
     };
   },
 
@@ -75,8 +76,11 @@ var ViroCameraTest = createReactClass({
                      onFinish:this._onFinish}}/>
 
 
-     <ViroCamera position={[this.state.mainCameraPositionX,0,0]} rotation={[0,this.state.mainCameraRotation,0]}
-        active={this.state.activeCamera == 1} />
+     <ViroCamera
+      position={[this.state.mainCameraPositionX,0,0]}
+      rotation={[0,this.state.mainCameraRotation,0]}
+      fieldOfView={this.state.fov}
+      active={this.state.activeCamera == 1} />
 
      <ViroOrbitCamera position={[0,0,0]} active={this.state.activeCamera == 2}
         focalPoint={[1, 1, -4]}/>
@@ -100,6 +104,9 @@ var ViroCameraTest = createReactClass({
 
         <ViroText style={styles.centeredText} position={[0, -2.5, -4]} text={"Get Camera Orientation Async: " + this.state.cameraOrienationString}
                 width={4} height ={4}  onClick={this._getCameraOrientationAsync} />
+
+        <ViroText style={styles.centeredText} position={[0, -3.5, -4]} text={"Toggle Fov on Camera 1: " + this.state.fov}
+                width={4} height ={4}  onClick={this._toggleFov} />
      </ViroScene>
 
     );
@@ -158,6 +165,16 @@ var ViroCameraTest = createReactClass({
          this.setState({
                 mainCameraRotation:newCameraRot
                });
+  },
+  _toggleFov(){
+    var newFov = this.state.fov + 10;
+    if (newFov > 120){
+        newFov = 60;
+    }
+
+    this.setState({
+        fov:newFov
+    });
   }
 
 
