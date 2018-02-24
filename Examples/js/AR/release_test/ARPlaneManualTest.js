@@ -166,7 +166,9 @@ var testARScene = createReactClass({
       </ViroARPlane>));
     }
 
-    if (this.state.secondPlaneFlag > 0 && this.anchors[2]) {
+    // Show the 2nd plane if the it's to use the 1st plane ID and 1 plane has been found
+    // OR if it should use the 2nd plane ID and a 2nd plane has been found.
+    if ((this.state.secondPlaneFlag == 1 && this.anchors[1]) || (this.state.secondPlaneFlag == 2 && this.anchors[2])) {
       planes.push((
         <ViroARPlane
           anchorId={this.state.secondPlaneFlag == 2 ? this.anchors[2].anchorId : this.anchors[1].anchorId}
