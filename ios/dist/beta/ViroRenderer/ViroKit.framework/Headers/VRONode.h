@@ -147,7 +147,13 @@ public:
      */
     void applyConstraints(const VRORenderContext &context, VROMatrix4f parentTransform,
                           bool parentUpdated);
-  
+
+    /*
+     Recursively sets the atomic properties computed during a render pass. Should be
+     called after the computation occurs.
+     */
+    void setAtomicRenderProperties();
+    
     /*
      Update the position of each light in this node, and add to the outLights vector.
      Recurses down the tree.
@@ -205,6 +211,12 @@ public:
     void renderSilhouettes(std::shared_ptr<VROMaterial> &material, VROSilhouetteMode mode,
                            std::function<bool(const VRONode&)> filter,
                            const VRORenderContext &context, std::shared_ptr<VRODriver> &driver);
+    
+    /*
+     This function recomputes this node's transform before recomputing its umbrella bounding box
+     using its parent's last computed transform.
+     */
+    void recomputeUmbrellaBoundingBox();
     
 #pragma mark - Geometry
     

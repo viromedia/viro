@@ -137,9 +137,10 @@ public:
     virtual bool isReady() const = 0;
     
     /*
-     Set what anchors will be auto-detected by the AR session.
+     Set what anchors will be auto-detected by the AR session. Returns true if successful (e.g.
+     if the device supports these forms of anchor detection).
      */
-    virtual void setAnchorDetection(std::set<VROAnchorDetection> types) = 0;
+    virtual bool setAnchorDetection(std::set<VROAnchorDetection> types) = 0;
     
     /*
      Adds an image target that should be tracked by this session.

@@ -65,6 +65,12 @@ public:
     void applyConstraints(const VRORenderContext &context);
     
     /*
+     Notifies the root node that it the render properties have settled and
+     that it should set them now.
+     */
+    void setAtomicRenderProperties();
+    
+    /*
      Update the sort keys for all nodes in this scene.
      */
     void updateSortKeys(std::shared_ptr<VRORenderMetadata> &metadata,
