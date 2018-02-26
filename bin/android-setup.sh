@@ -178,6 +178,13 @@ LINE_TO_APPEND_TO=$(echo $LINE_TO_APPEND_TO | sed -e 's/[]\/$*.^|[]/\\&/g')
 
 vsed "s/$LINE_TO_APPEND_TO/&"$'\\\n'"$LINE_TO_ADD/" $TARGET_FILEPATH
 
+# add optional ARCore meta-data tag
+SEARCH_PATTERN="devsupport.DevSettingsActivity"
+LINE_TO_ADD='      <meta-data android:name="com.google.ar.core" android:value="optional" \/>'
+LINE_TO_APPEND_TO=$(grep "$SEARCH_PATTERN" "$TARGET_FILEPATH")
+LINE_TO_APPEND_TO=$(echo $LINE_TO_APPEND_TO | sed -e 's/[]\/$*.^|[]/\\&/g')
+vsed "s/$LINE_TO_APPEND_TO/&"$'\\\n'"$LINE_TO_ADD/" $TARGET_FILEPATH
+
 
 
 echo "Copying over OVR's additional manifest"
