@@ -392,7 +392,7 @@ var ViroSoundTest = createReactClass({
                <ViroNode>
                     {this._getSpatialControls()}
                     <ViroSpatialSound
-                        rolloffModel="linear"
+                        rolloffModel="logarithmic"
                         paused={!this.state.isPlaying}
                         muted={this.state.mute}
                         minDistance={this.state.minDistance}
