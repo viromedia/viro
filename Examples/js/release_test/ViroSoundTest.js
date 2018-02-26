@@ -270,7 +270,7 @@ var ViroSoundTest = createReactClass({
   },
 
     _toggleSoundDistance() {
-        var newsoundDistance = this.state.soundDistance - 1;
+        var newsoundDistance = this.state.soundDistance - 0.2;
 
         if (newsoundDistance < -13){
             newsoundDistance = -7;

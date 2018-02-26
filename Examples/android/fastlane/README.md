@@ -57,6 +57,11 @@ Build all artifacts for memoryLeakTest (ovr, gvr, arcore, scene)
 fastlane android release_renderer
 ```
 Build all artifacts for ViroRenderer (ovr, gvr, arcore, scene)
+### android run_releasetest
+```
+fastlane android run_releasetest
+```
+
 ### android renderer_aar
 ```
 fastlane android renderer_aar
