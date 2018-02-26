@@ -30,7 +30,7 @@ public class MaterialManager extends ReactContextBaseJavaModule {
 
     // TODO: figure out a good place to load the libraries.
     static {
-        System.loadLibrary("native-lib");
+        System.loadLibrary("viro_react");
     }
 
     private final ReactApplicationContext mContext;
