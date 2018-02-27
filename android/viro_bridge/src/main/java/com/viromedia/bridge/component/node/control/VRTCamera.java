@@ -10,7 +10,7 @@ import com.viro.core.Node;
 import com.viro.core.Vector;
 
 public class VRTCamera extends VRTControl {
-    protected static final float DEFAULT_FOV = 60;
+    protected static final float DEFAULT_FOV = 0;
     private float mFieldOfView = DEFAULT_FOV;
     protected Camera mNativeCamera;
 
