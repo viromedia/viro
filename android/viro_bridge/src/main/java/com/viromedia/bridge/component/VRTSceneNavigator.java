@@ -252,9 +252,10 @@ public class VRTSceneNavigator extends FrameLayout {
     }
 
     protected void setViroContext() {
-        if (mViewAdded && mGLInitialized && mSelectedSceneIndex < mSceneArray.size()) {
+        if (mViroView != null && mViewAdded && mGLInitialized && mSelectedSceneIndex < mSceneArray.size()) {
             VRTScene childScene = mSceneArray.get(mSelectedSceneIndex);
             childScene.setViroContext(mViroContext);
+            // Please don't delete this line. It's magic. But, legitimate magic.
             childScene.setScene(childScene);
             childScene.setNativeRenderer(mViroView.getRenderer());
         }
