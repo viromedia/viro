@@ -36,6 +36,7 @@ var ViroARPlaneSelector = createReactClass({
     maxPlanes: PropTypes.number,
     minHeight: PropTypes.number,
     minWidth: PropTypes.number,
+    alignment: PropTypes.oneOf(["Horizontal","HorizontalUpward","HorizontalDownward","Vertical"]),
     visible: PropTypes.bool,
     opacity: PropTypes.number,
     ignoreEventHandling: PropTypes.bool,
@@ -93,6 +94,7 @@ var ViroARPlaneSelector = createReactClass({
           <ViroARPlane key={_planePrefix + i}
             minWidth={this.props.minWidth}
             minHeight = {this.props.minHeight}
+            alignment = {this.props.alignment}
             onAnchorUpdated={this._onARPlaneUpdated(i)} >
             <ViroSurface materials={"ViroARPlaneSelector_Translucent"}
               onClick={this._getOnClickSurface(i)}
