@@ -172,7 +172,8 @@ public class VRT3DObject extends VRTControl {
         boolean isVRX = mType == ObjectType.VRX;
 
         // if the source is from resources, then pass in the resources it depends on (if any)
-        if (mSource.getScheme().equals("res")) {
+        String scheme = mSource.getScheme();
+        if (scheme != null && scheme.equals("res")) {
             Map<String, String> resourceMap = null;
             if (mResources != null) {
                 resourceMap = new HashMap<>();

@@ -6,6 +6,7 @@
 //
 
 #import <React/RCTUIManager.h>
+#import <React/RCTUIManagerUtils.h>
 #import "VRTScene.h"
 #import "VRTSceneModule.h"
 

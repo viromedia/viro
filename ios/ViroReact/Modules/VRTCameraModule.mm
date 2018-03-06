@@ -9,6 +9,7 @@
 #import <React/RCTUIManager.h>
 #import "VRTCameraModule.h"
 #import "VRTScene.h"
+#import <React/RCTUIManagerUtils.h>
 
 @implementation VRTCameraModule
 

@@ -9,6 +9,7 @@
 #import "VRTPerfMonitor.h"
 #import <React/RCTDevMenu.h>
 #import <React/RCTUIManager.h>
+#import <React/RCTUIManagerUtils.h>
 
 @implementation VRTPerfMonitor {
     

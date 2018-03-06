@@ -9,6 +9,7 @@
 #import <React/RCTUIManager.h>
 #import "VRTARSceneNavigatorModule.h"
 #import "VRTARSceneNavigator.h"
+#import <React/RCTUIManagerUtils.h>
 #import "VRTUtils.h"
 
 @implementation VRTARSceneNavigatorModule

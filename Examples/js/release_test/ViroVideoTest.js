@@ -76,7 +76,7 @@ var ViroVideoTest = createReactClass({
       return (
         <ViroVideo ref={VIDEO_REF}  width={1.7} height={0.95} position={[0, 1, -2.9]} scale={[1, 1, 1]} paused={this.state.videoPaused}
           source={this.state.uriVideo} transformBehavior={["billboard"]} onBufferStart={this._onBufferStart} onBufferEnd={this._onBufferEnd}
-          stereoMode={this.state.uriVideo == localVideoStereo ? "leftRight":"none"}
+          stereoMode={this.state.uriVideo == localVideoStereo ? "LeftRight":"None"}
           loop={this.state.loopVideo} muted={this.state.muteVideo} volume={this.state.volume}
           onFinish={this._onVideoFinished} onUpdateTime={this._onUpdateTime}/>
       );

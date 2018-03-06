@@ -75,7 +75,7 @@ var Viro360VideoTest = createReactClass({
           rotation={[0, this.state.rotationY,0]}  width={1.7} height={0.95} position={[0, 1, -2.9]} scale={[1, 1, 1]} paused={this.state.videoPaused}
           source={this.state.get360Video} transformBehavior={["billboard"]}
           loop={this.state.loopVideo} muted={this.state.muteVideo} volume={this.state.volume}
-          stereoMode={this.state.get360Video == Local360StereoVideo ? "topBottom":"none"}
+          stereoMode={this.state.get360Video == Local360StereoVideo ? "TopBottom":"None"}
           onFinish={this._onVideoFinished} onUpdateTime={this._onUpdateTime}/>
 
           <ViroImage source={require('./res/poi_dot.png')} position={[-1, 0, 0]} transformBehaviors={["billboard"]} onClick={this._showNext} />

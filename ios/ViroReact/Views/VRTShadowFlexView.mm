@@ -20,7 +20,7 @@
     self = [super init];
     if (self) {
         if ([[RCTI18nUtil sharedInstance] isRTL]) {
-            YGNodeStyleSetDirection(self.cssNode, YGDirectionRTL);
+            YGNodeStyleSetDirection(self.yogaNode, YGDirectionRTL);
         }
     }
     return self;
@@ -33,14 +33,14 @@
         case RCTRootViewSizeFlexibilityNone:
             break;
         case RCTRootViewSizeFlexibilityWidth:
-            YGNodeStyleSetWidth(self.cssNode, YGUndefined);
+            YGNodeStyleSetWidth(self.yogaNode, YGUndefined);
             break;
         case RCTRootViewSizeFlexibilityHeight:
-            YGNodeStyleSetHeight(self.cssNode, YGUndefined);
+            YGNodeStyleSetHeight(self.yogaNode, YGUndefined);
             break;
         case RCTRootViewSizeFlexibilityWidthAndHeight:
-            YGNodeStyleSetWidth(self.cssNode, YGUndefined);
-            YGNodeStyleSetHeight(self.cssNode, YGUndefined);
+            YGNodeStyleSetWidth(self.yogaNode, YGUndefined);
+            YGNodeStyleSetHeight(self.yogaNode, YGUndefined);
             break;
     }
 }

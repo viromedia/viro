@@ -14,7 +14,8 @@ Examples/android/app/.idea
 *.iml
 
 # Android
-Examples/android/.idea
+android/.idea
+Examples/android/app/.idea
 Examples/android/.gradle
 Examples/android/local.properties
 .idea

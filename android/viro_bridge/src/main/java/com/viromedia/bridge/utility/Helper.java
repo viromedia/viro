@@ -5,7 +5,6 @@ import android.net.Uri;
 import android.support.annotation.Nullable;
 
 import com.facebook.react.bridge.ReadableArray;
-import com.facebook.react.views.imagehelper.ResourceDrawableIdHelper;
 import com.viro.core.Vector;
 
 /**
@@ -56,17 +55,43 @@ public class Helper {
         if (path == null) {
             return null;
         }
-
         Uri tempUri = Uri.parse(path);
         // if the scheme is null, then it's a local resource
-        return tempUri.getScheme() == null ? computeLocalUri(path, context) : tempUri;
+        return tempUri.getScheme() == null ? getResourceUri(context, path) : tempUri;
     }
 
-    public static boolean isResourceUri(Uri uri) {
-        return uri.getScheme().equals(RESOURCE_SCHEME);
+    private static Uri getResourceUri(Context context, @javax.annotation.Nullable String name) {
+        int resId = getResourceId(context, name);
+        return resId > 0 ? new Uri.Builder()
+                .scheme(RESOURCE_SCHEME)
+                .path(String.valueOf(resId))
+                .build() : Uri.EMPTY;
     }
 
-    private static Uri computeLocalUri(String path, Context context) {
-        return ResourceDrawableIdHelper.getInstance().getResourceDrawableUri(context, path);
+    private static int getResourceId(Context context, @javax.annotation.Nullable String name) {
+        if (name == null || name.isEmpty()) {
+            return 0;
+        }
+        name = name.toLowerCase().replace("-", "_");
+
+        // name could be a resource id.
+        try {
+            return Integer.parseInt(name);
+        } catch (NumberFormatException e) {
+            // Do nothing.
+        }
+
+        int id = context.getResources().getIdentifier(
+                name,
+                "drawable",
+                context.getPackageName());
+        // Found the given resource name in drawable resource
+        if (id > 0) return id;
+
+        // Check if the resource name exists in raw resources
+        return context.getResources().getIdentifier(
+                name,
+                "raw",
+                context.getPackageName());
     }
 }

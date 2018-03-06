@@ -8,7 +8,7 @@
 #import <React/RCTUIManager.h>
 #import "VRTNodeModule.h"
 #import "VRTNode.h"
-
+#import <React/RCTUIManagerUtils.h>
 @implementation VRTNodeModule
 
 @synthesize bridge = _bridge;
