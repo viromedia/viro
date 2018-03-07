@@ -31,7 +31,7 @@ Check out our [website](http://www.viromedia.com/).
 
 Look at our [documentation](http://docs.viromedia.com/).
 
-Join our Slack group [here](https://join.slack.com/t/virodevelopers/shared_invite/enQtMzExNTgyNjkwMjU2LWM2OGNmYTI4NjI5OWI5NDc4ZGMwNTJjNGUzNDZjYjU0YjVmNjcxNjZkZjU3ZGM1YmY5ZGEwY2I1MzNlZDIyNGY).
+Join our Slack group [here](https://join.slack.com/t/virodevelopers/shared_invite/enQtMzI3MzgwNDM2NDM5LTBiOTRkMDg0Zjc0ODIyYTAxZDczYzFmODJhMDUxZjVhOTk0NGVhMjNlZTY0ZjkxNjMzZGEyNDNlYzc4ZTkzNzQ).
 
 
 ## Sample Code Overview
