@@ -43,6 +43,14 @@ RCT_EXPORT_METHOD(isARSupported:(RCTResponseSenderBlock)callback)
         [dict setObject:@(planeAnchor->getExtent().x) forKey:@"width"];
         [dict setObject:@(planeAnchor->getExtent().z) forKey:@"height"];
         
+        // Set polygon vertices points
+        std::vector<VROVector3f> points = planeAnchor->getBoundaryVertices();
+        NSMutableArray *pointsArray = [[NSMutableArray alloc] initWithCapacity:points.size()];
+        for (VROVector3f point : points) {
+            [pointsArray addObject:@[@(point.x), @(point.y), @(point.z)]];
+        }
+        [dict setObject:pointsArray forKey:@"vertices"];
+
         switch (planeAnchor->getAlignment()) {
             case VROARPlaneAlignment::Vertical:
                 [dict setObject:@"Vertical" forKey:@"alignment"];

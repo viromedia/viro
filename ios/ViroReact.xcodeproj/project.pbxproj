@@ -190,6 +190,9 @@
 		A5839B4E1F68B3F8009091A7 /* VRTParticleEmitter.mm in Sources */ = {isa = PBXBuildFile; fileRef = A5839B4D1F68B3F8009091A7 /* VRTParticleEmitter.mm */; };
 		A5839B511F68B40D009091A7 /* VRTParticleEmitterManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = A5839B501F68B40D009091A7 /* VRTParticleEmitterManager.mm */; };
 		A5A937AA1E81D1FB00FE0406 /* VRTSceneNavigatorModule.mm in Sources */ = {isa = PBXBuildFile; fileRef = A5A937A81E81D1FB00FE0406 /* VRTSceneNavigatorModule.mm */; };
+		A5B4AEFA2050B44B0006D970 /* VRTPolygon.mm in Sources */ = {isa = PBXBuildFile; fileRef = A5B4AEF72050B44B0006D970 /* VRTPolygon.mm */; };
+		A5B4AEFD2050B4610006D970 /* VRTPolygonManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = A5B4AEFB2050B4600006D970 /* VRTPolygonManager.mm */; };
+		A5B4AF002050B4FC0006D970 /* VRTPolygonManager.h in Copy Headers to ios/dist/include */ = {isa = PBXBuildFile; fileRef = A5B4AEFF2050B4F00006D970 /* VRTPolygonManager.h */; };
 		A5E8F0AC1ED6B64E00729916 /* VRTSceneModule.mm in Sources */ = {isa = PBXBuildFile; fileRef = A5E8F0A81ED6B64D00729916 /* VRTSceneModule.mm */; };
 		A5F6D4011E4B0DFF00655F60 /* VRTController.mm in Sources */ = {isa = PBXBuildFile; fileRef = A5F6D4001E4B0DFF00655F60 /* VRTController.mm */; };
 		A5F6D4051E4B179700655F60 /* VRTControllerManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = A5F6D4041E4B179700655F60 /* VRTControllerManager.mm */; };
@@ -212,6 +215,7 @@
 			dstPath = "${SRCROOT}/dist/include";
 			dstSubfolderSpec = 0;
 			files = (
+				A5B4AF002050B4FC0006D970 /* VRTPolygonManager.h in Copy Headers to ios/dist/include */,
 				A53F00D2203DE46300415D86 /* VRTHDRImageAsyncLoader.h in Copy Headers to ios/dist/include */,
 				8A5CDE2A1F68D56F0093F43B /* VRTNodeModule.h in Copy Headers to ios/dist/include */,
 				8A5CDE2B1F68D56F0093F43B /* VRTSceneModule.h in Copy Headers to ios/dist/include */,
@@ -523,6 +527,10 @@
 		A5839B501F68B40D009091A7 /* VRTParticleEmitterManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = VRTParticleEmitterManager.mm; path = ViroReact/VRTParticleEmitterManager.mm; sourceTree = "<group>"; };
 		A5A937A71E81D1FB00FE0406 /* VRTSceneNavigatorModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VRTSceneNavigatorModule.h; path = ViroReact/Modules/VRTSceneNavigatorModule.h; sourceTree = "<group>"; };
 		A5A937A81E81D1FB00FE0406 /* VRTSceneNavigatorModule.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = VRTSceneNavigatorModule.mm; path = ViroReact/Modules/VRTSceneNavigatorModule.mm; sourceTree = "<group>"; };
+		A5B4AEF72050B44B0006D970 /* VRTPolygon.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = VRTPolygon.mm; path = ViroReact/Views/VRTPolygon.mm; sourceTree = "<group>"; };
+		A5B4AEF92050B44B0006D970 /* VRTPolygon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VRTPolygon.h; path = ViroReact/Views/VRTPolygon.h; sourceTree = "<group>"; };
+		A5B4AEFB2050B4600006D970 /* VRTPolygonManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = VRTPolygonManager.mm; path = ViroReact/VRTPolygonManager.mm; sourceTree = "<group>"; };
+		A5B4AEFF2050B4F00006D970 /* VRTPolygonManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VRTPolygonManager.h; path = ViroReact/VRTPolygonManager.h; sourceTree = "<group>"; };
 		A5E8F0A71ED6B64D00729916 /* VRTSceneModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VRTSceneModule.h; path = ViroReact/Modules/VRTSceneModule.h; sourceTree = "<group>"; };
 		A5E8F0A81ED6B64D00729916 /* VRTSceneModule.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = VRTSceneModule.mm; path = ViroReact/Modules/VRTSceneModule.mm; sourceTree = "<group>"; };
 		A5F6D3FF1E4B0DFF00655F60 /* VRTController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VRTController.h; path = ViroReact/Views/VRTController.h; sourceTree = "<group>"; };
@@ -658,6 +666,8 @@
 				8BE0D4B81DFA3D8A0032AB99 /* Views */,
 				8BE0D4671DFA15880032AB99 /* ViroViewManager.h */,
 				8BE0D4681DFA15880032AB99 /* ViroViewManager.mm */,
+				A5B4AEFF2050B4F00006D970 /* VRTPolygonManager.h */,
+				A5B4AEFB2050B4600006D970 /* VRTPolygonManager.mm */,
 				8BE0D4761DFA15880032AB99 /* VROHUDManager.h */,
 				A562D02320298E1A004DA3A5 /* VRTLightingEnvironmentManager.h */,
 				A562D02520298E1B004DA3A5 /* VRTLightingEnvironmentManager.mm */,
@@ -756,6 +766,8 @@
 		8BE0D4B81DFA3D8A0032AB99 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				A5B4AEF92050B44B0006D970 /* VRTPolygon.h */,
+				A5B4AEF72050B44B0006D970 /* VRTPolygon.mm */,
 				A562D02720298E2B004DA3A5 /* VRTLightingEnvironment.h */,
 				A562D02820298E2C004DA3A5 /* VRTLightingEnvironment.mm */,
 				A5839B4C1F68B3F7009091A7 /* VRTParticleEmitter.h */,
@@ -962,6 +974,7 @@
 				8BE0D4A11DFA15880032AB99 /* VRTLightManager.mm in Sources */,
 				8BE0D50A1DFA3D9B0032AB99 /* VRTSceneNavigator.mm in Sources */,
 				8BE0D4F81DFA3D9B0032AB99 /* VRTAnimatedComponent.mm in Sources */,
+				A5B4AEFD2050B4610006D970 /* VRTPolygonManager.mm in Sources */,
 				8A744F5D1EEF655F00ECDBC4 /* VRTARSceneNavigatorManager.mm in Sources */,
 				8BE0D4A61DFA15880032AB99 /* VRTVideoSurfaceManager.mm in Sources */,
 				8BE0D4AA1DFA15880032AB99 /* VRTImageManager.mm in Sources */,
@@ -992,6 +1005,7 @@
 				8BE0D4A71DFA15880032AB99 /* VRT3DObjectManager.mm in Sources */,
 				8BE0D51B1DFA3DB20032AB99 /* VRTMaterialManager.mm in Sources */,
 				8F346B1B1F225559000D16B9 /* VRTManagedAnimation.mm in Sources */,
+				A5B4AEFA2050B44B0006D970 /* VRTPolygon.mm in Sources */,
 				A50A310F1ECE1E8800DEBE9B /* VRTNodeModule.mm in Sources */,
 				8BDD9E1B1E453F3500A42870 /* VRTBundleURLProvider.mm in Sources */,
 				8BE0D4AE1DFA15880032AB99 /* VRTSphereManager.mm in Sources */,

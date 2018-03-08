@@ -3,8 +3,6 @@
  */
 package com.viromedia.bridge.utility;
 
-import android.util.Log;
-
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.WritableArray;
 import com.facebook.react.bridge.WritableMap;
@@ -31,6 +29,12 @@ public class ARUtils {
             returnMap.putDouble("width", plane.getExtent().x);
             returnMap.putDouble("height", plane.getExtent().z);
             returnMap.putString("alignment", plane.getAlignment().getStringValue());
+
+            WritableArray polygonPointsArray = Arguments.createArray();
+            for (Vector point : plane.getBoundaryVertices()){
+                polygonPointsArray.pushArray(arrayFromVector(point));
+            }
+            returnMap.putArray("vertices", polygonPointsArray);
         }
         return returnMap;
     }
@@ -84,6 +88,14 @@ public class ARUtils {
         returnArray.pushDouble(Math.toDegrees(array[0]));
         returnArray.pushDouble(Math.toDegrees(array[1]));
         returnArray.pushDouble(Math.toDegrees(array[2]));
+        return returnArray;
+    }
+
+    private static WritableArray arrayFromVector(Vector vector) {
+        WritableArray returnArray = Arguments.createArray();
+        returnArray.pushDouble(vector.x);
+        returnArray.pushDouble(vector.y);
+        returnArray.pushDouble(vector.z);
         return returnArray;
     }
 }

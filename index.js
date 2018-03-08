@@ -33,6 +33,7 @@ const ReactViro = {
   get ViroUtils() { return require('./components/Utilities/ViroUtils'); },
   get ViroText() { return require('./components/ViroText'); },
   get ViroSurface() { return require('./components/ViroSurface'); },
+  get ViroPolygon(){ return require('./components/ViroPolygon'); },
   get ViroButton() { return require('./components/ViroButton'); },
   get ViroSound() { return require('./components/ViroSound'); },
   get ViroSoundField() { return require('./components/ViroSoundField'); },
@@ -42,7 +43,7 @@ const ReactViro = {
   get ViroPolyline() { return require('./components/ViroPolyline'); },
   get ViroConstants() { return require('./components/ViroConstants'); },
   get ViroParticleEmitter() { return require('./components/ViroParticleEmitter'); },
-  get ViroLightingEnvironment() { return require('./components/ViroLightingEnvironment'); },  
+  get ViroLightingEnvironment() { return require('./components/ViroLightingEnvironment'); },
   // AR Components
   get ViroARSceneNavigator() { return require('./components/AR/ViroARSceneNavigator'); },
   get ViroARScene() { return require('./components/AR/ViroARScene'); },
