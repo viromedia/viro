@@ -24,6 +24,7 @@ class VROTexture;
 class VROGeometry;
 class VROSkinner;
 class VROSkeleton;
+class VROTaskQueue;
 class VROSkeletalAnimation;
 class VROKeyframeAnimation;
 
@@ -45,40 +46,47 @@ public:
      For all dependent resources (e.g. textures) found, locate them in the
      parent folder of the resource.
      
-     If async is true, the FBX is loaded in the background. Afterward, the
-     geometry and child-nodes are injected into the node on the main (rendering)
-     thread, and the given callback is invoked.
-     
-     If async is false, the callback is still executed.
+     The FBX is loaded in the background. Afterward, the geometry and child-nodes
+     are injected into the node on the main (rendering) thread, and the given
+     callback is invoked.
      */
     static void loadFBXFromResource(std::string file, VROResourceType type, std::shared_ptr<VRONode> destination,
-                                    bool async = false, std::function<void(std::shared_ptr<VRONode> node, bool success)> onFinish = nullptr);
+                                    std::function<void(std::shared_ptr<VRONode> node, bool success)> onFinish = nullptr);
     static void loadFBXFromResources(std::string file, VROResourceType type, std::shared_ptr<VRONode> destination,
                                      std::map<std::string, std::string> resourceMap,
-                                     bool async = false, std::function<void(std::shared_ptr<VRONode> node, bool success)> onFinish = nullptr);
+                                     std::function<void(std::shared_ptr<VRONode> node, bool success)> onFinish = nullptr);
 
 private:
     
     static void injectFBX(std::shared_ptr<VRONode> fbxNode, std::shared_ptr<VRONode> node,
                           std::function<void(std::shared_ptr<VRONode> node, bool success)> onFinish);
     
+    static void readFBXProtobufAsync(std::string resource, VROResourceType type, std::shared_ptr<VRONode> node,
+                                     std::string path, bool isTemp, bool loadingTexturesFromResourceMap,
+                                     std::map<std::string, std::string> resourceMap,
+                                     std::function<void(std::shared_ptr<VRONode> node, bool success)> onFinish);
+    
     /*
      Load the FBX subgraph for the given file. The top-level node returned here is a dummy; all the
      data is stored in its children.
      */
-    static std::shared_ptr<VRONode> loadFBX(std::string file, std::string base, VROResourceType type,
-                                            const std::map<std::string, std::string> *resourceMap);
+    static std::shared_ptr<VRONode> loadFBX(viro::Node &node_pb, std::string base, VROResourceType type,
+                                            const std::map<std::string, std::string> *resourceMap,
+                                            std::map<std::string, std::shared_ptr<VROTexture>> *textureCache,
+                                            std::shared_ptr<VROTaskQueue> taskQueue);
     
     static std::shared_ptr<VRONode> loadFBXNode(const viro::Node &node_pb,
                                                 std::shared_ptr<VROSkeleton> skeleton,
                                                 std::string base, VROResourceType type,
                                                 const std::map<std::string, std::string> *resourceMap,
-                                                std::map<std::string, std::shared_ptr<VROTexture>> &textureCache);
+                                                std::map<std::string, std::shared_ptr<VROTexture>> &textureCache,
+                                                std::shared_ptr<VROTaskQueue> taskQueue);
     
     static std::shared_ptr<VROGeometry> loadFBXGeometry(const viro::Node_Geometry &geo_pb,
                                                         std::string base, VROResourceType type,
                                                         const std::map<std::string, std::string> *resourceMap,
-                                                        std::map<std::string, std::shared_ptr<VROTexture>> &textureCache);
+                                                        std::map<std::string, std::shared_ptr<VROTexture>> &textureCache,
+                                                        std::shared_ptr<VROTaskQueue> taskQueue);
     
     static std::shared_ptr<VROSkeleton> loadFBXSkeleton(const viro::Node_Skeleton &skeleton_pb);
     static std::unique_ptr<VROSkinner> loadFBXSkinner(const viro::Node_Geometry_Skin &skin_pb,

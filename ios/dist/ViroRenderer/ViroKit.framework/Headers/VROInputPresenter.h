@@ -73,7 +73,11 @@ public:
     virtual void onMove(int source, std::shared_ptr<VRONode> node,
                         VROVector3f rotation, VROVector3f position, VROVector3f forwardVec) {
         passert_thread();
+        
+#if VRO_PLATFORM_IOS || VRO_PLATFORM_ANDROID
         _lastKnownForward.store(forwardVec);
+#endif
+        
         std::shared_ptr<VROEventDelegate> delegate = getDelegate();
         if (delegate != nullptr && delegate->isEventEnabled(VROEventDelegate::EventAction::OnMove)){
             delegate->onMove(source, node, rotation, position, forwardVec);
@@ -154,7 +158,9 @@ public:
     }
 
     void updateLastKnownForward(VROVector3f forward) {
+#if VRO_PLATFORM_IOS || VRO_PLATFORM_ANDROID
         _lastKnownForward.store(forward);
+#endif
     }
 
 protected:

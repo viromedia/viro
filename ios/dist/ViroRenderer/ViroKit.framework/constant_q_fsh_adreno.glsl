@@ -1,5 +1,5 @@
 #version 300 es
-#include constant_functions_fsh
+#include constant_functions_fsh_adreno
 
 uniform lowp vec4 material_diffuse_surface_color;
 uniform lowp float material_diffuse_intensity;

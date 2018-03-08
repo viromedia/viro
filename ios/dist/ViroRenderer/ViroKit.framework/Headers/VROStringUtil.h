@@ -16,7 +16,8 @@
 class VROStringUtil {
     
 public:
-    
+
+    static std::string toString64(uint64_t i);
     static std::string toString(int i);
     static std::string toString(double n, int precision);
     static std::wstring toWString(int i);

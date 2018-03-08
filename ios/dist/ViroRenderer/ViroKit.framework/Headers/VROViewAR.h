@@ -13,9 +13,6 @@
 #import "VROARHitTestResult.h"
 #include <ARKit/ARKit.h>
 
-// TODO VIRO-1355 Remove after event delegate integration
-typedef void (^VROViewARTapHandler)(VROARHitTestResult, std::shared_ptr<VROARSession>, std::shared_ptr<VROScene>);
-
 class VROARSessionDelegate;
 class VRORendererConfiguration;
 
@@ -59,9 +56,9 @@ class VRORendererConfiguration;
  */
 - (std::shared_ptr<VROARSession>)getARSession;
 
+/*
+ Returns true if AR is supported by this device.
+ */
 + (BOOL)isARSupported;
-
-// TODO VIRO-1355 Remove after event delegate integration
-@property (readwrite, nonatomic) VROViewARTapHandler tapHandler;
 
 @end

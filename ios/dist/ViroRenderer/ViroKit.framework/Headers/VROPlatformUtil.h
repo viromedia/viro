@@ -36,7 +36,8 @@ enum class VROPlatformType {
     AndroidARCore,
     AndroidSceneView,
     iOSCardboard,
-    iOSARKit
+    iOSARKit,
+    iOSSceneView,
 };
 
 void VROPlatformSetType(VROPlatformType type);
@@ -65,11 +66,22 @@ std::string VROPlatformCopyResourceToFile(std::string asset, bool *isTemp);
 std::string VROPlatformFindValueInResourceMap(std::string key, std::map<std::string, std::string> resourceMap);
 
 /*
- Load the given URL to a file, and return the path to the file. If the file
- is temporary and must be deleted after it's processed, temp will be set to true.
+ Load the given URL to a file in a blocking fashion, and return the path to the file.
+ If the file is temporary and must be deleted after it's processed, temp will be set to true.
  If the download fails, success will be set to false.
  */
 std::string VROPlatformDownloadURLToFile(std::string url, bool *temp, bool *success);
+
+/*
+ Load the given URL to a file asynchronously, and invoke the given callbacks on success
+ or failure. The success callback returns the path to the file, and, if the file
+ is temporary and must be deleted after it's processed, will return true for the temp
+ boolean.
+ If the download fails, the onFailure() callback will be invoked.
+ */
+void VROPlatformDownloadURLToFileAsync(std::string url,
+                                       std::function<void(std::string, bool)> onSuccess,
+                                       std::function<void()> onFailure);
 void VROPlatformDeleteFile(std::string filename);
 
 /*

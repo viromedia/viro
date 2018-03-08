@@ -41,18 +41,33 @@ public:
      only be used for color (diffuse) textures, and not for textures that are *already* linear
      (e.g. specular, normal, etc.).
      */
-    static std::shared_ptr<VROTexture> loadTexture(const std::string &name, std::string &base, VROResourceType type, bool sRGB,
-                                                   const std::map<std::string, std::string> *resourceMap,
-                                                   std::map<std::string, std::shared_ptr<VROTexture>> &cache);
+    static void loadTextureAsync(const std::string &name, const std::string &base, VROResourceType type, bool sRGB,
+                                 const std::map<std::string, std::string> *resourceMap,
+                                 std::map<std::string, std::shared_ptr<VROTexture>> &textureCache,
+                                 std::function<void(std::shared_ptr<VROTexture> texture)> onFinished);
 
+    /*
+     Retrieve the given resource, returning the path to it on the local filesystem.
+     The isTemp flag is set to true if the flag is temporary and should be deleted
+     after use. The success flag is set to false on failure.
+     */
+    static std::string retrieveResource(std::string resource, VROResourceType type,
+                                        bool *isTemp, bool *success);
+    
+    /*
+     Retrieve the given resource asynchronously from the rendering thread. Invoke the given callback
+     on success or failure. The callback will be invoked on the rendering thread.
+     */
+    static void retrieveResourceAsync(std::string resource, VROResourceType type,
+                                      std::function<void(std::string, bool)> onSuccess,
+                                      std::function<void()> onFailure);
+    
     /*
      Copy the resource or map of resources into a location where they can be loaded by the model
      loader, and return the new paths.
-
+     
      This performs no action on local files.
      */
-    static std::string processResource(std::string resource, VROResourceType type, bool *isTemp,
-                                       bool *success);
     static std::map<std::string, std::string> processResourceMap(const std::map<std::string, std::string> &resourceMap,
                                                                  VROResourceType type);
     

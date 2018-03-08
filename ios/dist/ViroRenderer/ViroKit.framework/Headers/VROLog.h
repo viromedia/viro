@@ -41,20 +41,8 @@
 // These are #defines instead of const char [] so they can be used more easily in perr() and pfatal().
 // http://en.wikipedia.org/wiki/ANSI_escape_code
 
-// --------
-// special
 #define ANSINoColor "\e[0m" // reset / normal
 #define ANSIBold "\e[1m" // bold
-
-// NOTE: the following uses 0 (reset) and 1 (bold) for intensities,
-// which is used by BOTH foreground and background,
-// and 0 will reset BOTH the foreground and background,
-// thus this doesn't work: ANSIBackBlue ANSICyan
-// since the "0" in Cyan is a reset, which resets the background.
-
-// --------
-// foreground
-// light colors
 #define ANSIBlack "\e[0;30m"
 #define ANSIRed "\e[0;31m"
 #define ANSIGreen "\e[0;32m"
@@ -64,7 +52,6 @@
 #define ANSIMagenta "\e[0;35m"
 #define ANSICyan "\e[0;36m"
 #define ANSILightGray "\e[0;37m"
-// bright colors
 #define ANSIDarkGray "\e[1;30m"
 #define ANSILightRed "\e[1;31m"
 #define ANSILightGreen "\e[1;32m"
@@ -73,12 +60,7 @@
 #define ANSILightMagenta "\e[1;35m"
 #define ANSILightCyan "\e[1;36m"
 #define ANSIWhite "\e[1;37m"
-// default text color
 #define ANSIDefault "\e[1;39m"
-
-// --------
-// background
-// light colors
 #define ANSIBackBlack "\e[0;40m"
 #define ANSIBackRed "\e[0;41m"
 #define ANSIBackGreen "\e[0;42m"
@@ -87,7 +69,6 @@
 #define ANSIBackMagenta "\e[0;45m"
 #define ANSIBackCyan "\e[0;46m"
 #define ANSIBackLightGray "\e[0;47m"
-// bright colors
 #define ANSIBackDarkGray "\e[1;40m"
 #define ANSIBackLightRed "\e[1;41m"
 #define ANSIBackLightGreen "\e[1;42m"
@@ -96,7 +77,6 @@
 #define ANSIBackLightMagenta "\e[1;45m"
 #define ANSIBackLightCyan "\e[1;46m"
 #define ANSIBackWhite "\e[1;47m"
-// default background color
 #define ANSIBackDefault "\e[1;49m"
 
 #elif VRO_PLATFORM_IOS
@@ -436,11 +416,119 @@ do { \
 
 /////////////////////////////////////////////////////////////////////////////////
 //
+//  WASM: Logging
+//
+/////////////////////////////////////////////////////////////////////////////////
+#pragma mark -
+#pragma mark WASM Logging
+
+#if VRO_PLATFORM_WASM
+
+#include <cstdarg>
+#include <cstdio>
+#include "assert.h"
+
+#define ANSINoColor "\e[0m" // reset / normal
+#define ANSIBlack "\e[0;30m"
+#define ANSIRed "\e[0;31m"
+#define ANSIGreen "\e[0;32m"
+#define ANSIBrown "\e[0;33m"
+#define ANSIDarkYellow "\e[0;33m"
+#define ANSIBlue "\e[0;34m"
+#define ANSIMagenta "\e[0;35m"
+#define ANSICyan "\e[0;36m"
+#define ANSILightGray "\e[0;37m"
+#define ANSIDarkGray "\e[1;30m"
+#define ANSILightRed "\e[1;31m"
+#define ANSILightGreen "\e[1;32m"
+#define ANSIYellow "\e[1;33m"
+#define ANSILightBlue "\e[1;34m"
+#define ANSILightMagenta "\e[1;35m"
+#define ANSILightCyan "\e[1;36m"
+#define ANSIWhite "\e[1;37m"
+#define ANSIDefault "\e[1;39m"
+#define ANSIBackBlack "\e[0;40m"
+#define ANSIBackRed "\e[0;41m"
+#define ANSIBackGreen "\e[0;42m"
+#define ANSIBackBrown "\e[0;43m"
+#define ANSIBackBlue "\e[0;44m"
+#define ANSIBackMagenta "\e[0;45m"
+#define ANSIBackCyan "\e[0;46m"
+#define ANSIBackLightGray "\e[0;47m"
+#define ANSIBackDarkGray "\e[1;40m"
+#define ANSIBackLightRed "\e[1;41m"
+#define ANSIBackLightGreen "\e[1;42m"
+#define ANSIBackYellow "\e[1;43m"
+#define ANSIBackLightBlue "\e[1;44m"
+#define ANSIBackLightMagenta "\e[1;45m"
+#define ANSIBackLightCyan "\e[1;46m"
+#define ANSIBackWhite "\e[1;47m"
+#define ANSIBackDefault "\e[1;49m"
+
+#define passert(condition) (assert(condition))
+
+#define cpverbose(tag, ...) ((void)0)
+#define cpdebug(tag, ...) ((void)0)
+#define pverbose(message,...) ((void)0)
+
+#define pdebug(message,...) \
+do { \
+\
+} while (0)
+
+#define pinfo(message,...) \
+do { \
+printf(#message"\n", ##__VA_ARGS__); \
+} while (0)
+
+#define pwarn(message,...) \
+do { \
+printf(#message"\n", ##__VA_ARGS__); \
+} while (0)
+
+#define perr(message,...) \
+do { \
+printf("Error: "#message"\n", ##__VA_ARGS__); \
+} while (0)
+
+#define pfatal(message,...) \
+do { \
+printf("Fatal Error: "#message"\n", ##__VA_ARGS__); \
+} while (0)
+
+#define pgllabel(message,...) \
+do { \
+char str[1024]; \
+sprintf(str, #message, ##__VA_ARGS__); \
+ \
+} while (0)
+
+#define pglpush(message,...) \
+do { \
+char str[1024]; \
+sprintf(str, #message, ##__VA_ARGS__); \
+ \
+} while (0)
+
+#define pglpop() \
+do { \
+ \
+} while (0)
+
+#define cpinfo(tag, ...) \
+do { \
+\
+} while (0)
+
+#endif
+
+/////////////////////////////////////////////////////////////////////////////////
+//
 //  Common: Logging
 //
 /////////////////////////////////////////////////////////////////////////////////
 #pragma mark -
-#pragma mark Common (Android & iOS) Logging
+#pragma mark Common Logging
 
 // --------------------------------
 // variables:

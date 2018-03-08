@@ -163,10 +163,10 @@
     };
     
     if (isOBJ) {
-        VROOBJLoader::loadOBJFromResource(url, VROResourceType::URL, self.node, true, onFinish);
+        VROOBJLoader::loadOBJFromResource(url, VROResourceType::URL, self.node, onFinish);
     }
     else {
-        VROFBXLoader::loadFBXFromResource(url, VROResourceType::URL, self.node, true, onFinish);
+        VROFBXLoader::loadFBXFromResource(url, VROResourceType::URL, self.node, onFinish);
     }
     _sourceChanged = NO;
 }

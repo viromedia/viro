@@ -23,6 +23,7 @@ FOUNDATION_EXPORT const unsigned char ViroKitVersionString[];
 #import <ViroKit/VROViewMetal.h>
 #import <ViroKit/VROViewControllerGVR.h>
 #import <ViroKit/VROViewGVR.h>
+#import <ViroKit/VROViewScene.h>
 #import <ViroKit/VRORendererConfiguration.h>
 #import <ViroKit/VRORenderDelegate.h>
 #import <ViroKit/VRORenderContext.h>
@@ -148,6 +149,7 @@ FOUNDATION_EXPORT const unsigned char ViroKitVersionString[];
 #import <ViroKit/VROData.h>
 #import <ViroKit/VROGeometryUtil.h>
 #import <ViroKit/VROTextureUtil.h>
+#import <ViroKit/VROTaskQueue.h>
 
 // Physics
 #import <ViroKit/VROPhysicsShape.h>
