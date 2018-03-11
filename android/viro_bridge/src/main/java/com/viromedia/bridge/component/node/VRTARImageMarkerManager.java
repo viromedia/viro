@@ -25,12 +25,12 @@ public class VRTARImageMarkerManager extends VRTNodeManager<VRTARImageMarker> {
 
     @ReactProp(name="pauseUpdates", defaultBoolean = false)
     public void setPauseUdpates(VRTARImageMarker arImageMarker, boolean pauseUpdates) {
-        // no-op
+        arImageMarker.setPauseUpdates(pauseUpdates);
     }
 
     @ReactProp(name="target")
     public void setTarget(VRTARImageMarker arImageMarker, String targetName) {
-        // no-op
+        arImageMarker.setTarget(targetName);
     }
 
 }

@@ -26,6 +26,10 @@ public class VRTARNode extends VRTNode implements ARDeclarativeNode.Delegate {
         return super.shouldAppear() && mIsAnchored;
     }
 
+    public void setPauseUpdates(boolean pauseUpdates) {
+        ((ARDeclarativeNode) getNodeJni()).setPauseUpdates(pauseUpdates);
+    }
+
     // -- ARNodeDelegate implementation --
 
     @Override
