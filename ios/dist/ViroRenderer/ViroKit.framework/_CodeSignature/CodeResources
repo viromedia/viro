@@ -2529,7 +2529,7 @@
 		</data>
 		<key>Headers/VROARPlaneAnchor.h</key>
 		<data>
-		QBNyxXGAeIJlF6eIgejrF1Elvj8=
+		PT2WzFulVJ8umxgGjw3/+4fU6Eo=
 		</data>
 		<key>Headers/VROARPointCloud.h</key>
 		<data>
@@ -2537,7 +2537,7 @@
 		</data>
 		<key>Headers/VROARScene.h</key>
 		<data>
-		e01JPykGie+zakcz+YLx/Bfof8A=
+		Ejt/2+slyLy7j0rRg1odVov1S+A=
 		</data>
 		<key>Headers/VROARSceneController.h</key>
 		<data>
@@ -2667,6 +2667,10 @@
 		<data>
 		zJFUNBMXGRTbNQs+gqgckeToZtI=
 		</data>
+		<key>Headers/VROFixedParticleEmitter.h</key>
+		<data>
+		htCXa2ZkznV65aYkKhCEODbWezg=
+		</data>
 		<key>Headers/VROFrameListener.h</key>
 		<data>
 		q4LQPNIram50U4fqLXskmyEtLBc=
@@ -2729,7 +2733,7 @@
 		</data>
 		<key>Headers/VROImageUtil.h</key>
 		<data>
-		sADNEsSCRXEElt7jzHId5acunE0=
+		cJ/YsidxZaU3wDOjF18efeAxTMY=
 		</data>
 		<key>Headers/VROImageiOS.h</key>
 		<data>
@@ -2785,7 +2789,7 @@
 		</data>
 		<key>Headers/VROMaterialVisual.h</key>
 		<data>
-		kNQ4O/pCCU09RrllLBddT4Alm9w=
+		ZkbjLSX/zfX+yvJZ9YHfqNC9vt0=
 		</data>
 		<key>Headers/VROMath.h</key>
 		<data>
@@ -2821,7 +2825,7 @@
 		</data>
 		<key>Headers/VROParticleEmitter.h</key>
 		<data>
-		YzQUpXqF6506gNzJbK7r2EY6o8I=
+		JBIJ7WOCTAEGPCiZNS0oAglFuJA=
 		</data>
 		<key>Headers/VROParticleModifier.h</key>
 		<data>
@@ -2871,9 +2875,9 @@
 		<data>
 		Pq7VoZU4S9EJzOSmBzgdlp3R++s=
 		</data>
-		<key>Headers/VROPointCloudEmitter.h</key>
+		<key>Headers/VROPolygon.h</key>
 		<data>
-		bIpos8dr3HvFWMzP/u4GLJwnKOQ=
+		Sa5cKdbshGVwwlrbZVLXBCF3TH0=
 		</data>
 		<key>Headers/VROPolyline.h</key>
 		<data>
@@ -2949,7 +2953,7 @@
 		</data>
 		<key>Headers/VROScene.h</key>
 		<data>
-		c8v4Oedqhj4YWYTtEMNmtrPbaq0=
+		MwFEMtb6nO/NPcN1U/hjwV1Xzk4=
 		</data>
 		<key>Headers/VROSceneController.h</key>
 		<data>
@@ -3021,7 +3025,7 @@
 		</data>
 		<key>Headers/VROStringUtil.h</key>
 		<data>
-		i8jtsjdM0fuvXfPoi/I3HogeveU=
+		ko1myv7DjndziXOH0cpmxPb7Mm4=
 		</data>
 		<key>Headers/VROSurface.h</key>
 		<data>
@@ -3033,7 +3037,7 @@
 		</data>
 		<key>Headers/VROText.h</key>
 		<data>
-		v4A9PnGhhre8q37Xq4+znpm+nSw=
+		H/RssI2eo5uEZW6urEGC6BnbbLU=
 		</data>
 		<key>Headers/VROTexture.h</key>
 		<data>
@@ -3113,7 +3117,7 @@
 		</data>
 		<key>Headers/VROTypeface.h</key>
 		<data>
-		dHGrsRCElyE1Z0JzJKgU5iL3PuA=
+		z61YKPcDeXX0QKitf5QzJlPy/3w=
 		</data>
 		<key>Headers/VROUniform.h</key>
 		<data>
@@ -3161,7 +3165,7 @@
 		</data>
 		<key>Headers/VROViewAR.h</key>
 		<data>
-		K+niH8MsARfYUCyNysQahDqasrE=
+		hm1sxKcm0ghVIqxhWe5N3HNm0eE=
 		</data>
 		<key>Headers/VROViewControllerGVR.h</key>
 		<data>
@@ -3189,7 +3193,7 @@
 		</data>
 		<key>Headers/ViroKit.h</key>
 		<data>
-		qgFvlijlr/wcJresUsj7CrsCcaY=
+		07eKM5Zr8rwmJUXEZGDuqHkuKZo=
 		</data>
 		<key>Headers/glm/CMakeLists.txt</key>
 		<data>
@@ -3237,7 +3241,7 @@
 		</data>
 		<key>Headers/glm/detail/func_common_simd.inl</key>
 		<data>
-		5tuucfXRH5NWVlbglRr75+3lG5c=
+		WCsNiTRwglLGkF+/3o95YKTD0+Q=
 		</data>
 		<key>Headers/glm/detail/func_exponential.hpp</key>
 		<data>
@@ -4229,7 +4233,7 @@
 		</data>
 		<key>Headers/tiny_obj_loader.h</key>
 		<data>
-		Gk/+nyexqZzcoVmr2zugP+D5e04=
+		Lhp924KsXJQ82YgbmlFk8yx4fG8=
 		</data>
 		<key>Info.plist</key>
 		<data>
@@ -4287,6 +4291,10 @@
 		<data>
 		AmzopnVptSbPjzszrX2UEkL+YhI=
 		</data>
+		<key>VROPolygon.h</key>
+		<data>
+		Sa5cKdbshGVwwlrbZVLXBCF3TH0=
+		</data>
 		<key>blank.png</key>
 		<data>
 		2zF/fVHZCklks1GlonZyXK2nLXA=
@@ -4301,7 +4309,7 @@
 		</data>
 		<key>constant_fsh.glsl</key>
 		<data>
-		PqGfZNBGVIZyjfnXm42ar22hkvQ=
+		ylqGEZKqVa9UooV7nsQGyBZ1Tkc=
 		</data>
 		<key>constant_fsh_adreno.glsl</key>
 		<data>
@@ -4309,11 +4317,11 @@
 		</data>
 		<key>constant_functions_fsh.glsl</key>
 		<data>
-		p3ZUBxi6JtbuoS5DB3s+KJZdoOs=
+		uyo/s+xZ5T5LN+wNQLTzAL9HuHs=
 		</data>
 		<key>constant_functions_fsh_adreno.glsl</key>
 		<data>
-		aKOprrvU0A9n2BOfW/78sZFzVIM=
+		avXrPSjSjDIK5hzwdnvM2II7kKA=
 		</data>
 		<key>constant_q_fsh.glsl</key>
 		<data>
@@ -4353,7 +4361,7 @@
 		</data>
 		<key>lighting_general_functions_fsh.glsl</key>
 		<data>
-		JJXk9fu1HwsOdASPRZJOfaPUi0c=
+		TDdj7gFYX496o9Wai/r17qhysBQ=
 		</data>
 		<key>particles_fsh.glsl</key>
 		<data>
@@ -4389,7 +4397,7 @@
 		</data>
 		<key>standard_vsh.glsl</key>
 		<data>
-		DDb6LT6lZWvfb29PlEW9ZxxXKDA=
+		6V1sAHnMrhO/XuiYroZV4fSxMRQ=
 		</data>
 		<key>standard_vsh_adreno.glsl</key>
 		<data>
@@ -8916,11 +8924,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			QBNyxXGAeIJlF6eIgejrF1Elvj8=
+			PT2WzFulVJ8umxgGjw3/+4fU6Eo=
 			</data>
 			<key>hash2</key>
 			<data>
-			SMZbtxiBgG4Y6FiasClK/uHLI1juBE7zNy478qTpkog=
+			gJHGUag39sqodwtyZqs9GclI2dzFJ1aHaTbd4wOjHU0=
 			</data>
 		</dict>
 		<key>Headers/VROARPointCloud.h</key>
@@ -8938,11 +8946,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			e01JPykGie+zakcz+YLx/Bfof8A=
+			Ejt/2+slyLy7j0rRg1odVov1S+A=
 			</data>
 			<key>hash2</key>
 			<data>
-			EbJh6ZbQz4lonh0VJJYavW3ap0ZViMGtQinP7I4em/w=
+			pQ/zyw/6Zs7t8TdGMpAw3xmpmPRQZ1PWURVlKdzs9YY=
 			</data>
 		</dict>
 		<key>Headers/VROARSceneController.h</key>
@@ -9297,6 +9305,17 @@
 			wCbiOW96m4q55dTwBikx361U3tWn1QpR6j7mHpZv+Bk=
 			</data>
 		</dict>
+		<key>Headers/VROFixedParticleEmitter.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			htCXa2ZkznV65aYkKhCEODbWezg=
+			</data>
+			<key>hash2</key>
+			<data>
+			yIrG13SNyee1qpY323AWP/xJ0z76/fOBPzd4jV+JCf0=
+			</data>
+		</dict>
 		<key>Headers/VROFrameListener.h</key>
 		<dict>
 			<key>hash</key>
@@ -9466,11 +9485,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			sADNEsSCRXEElt7jzHId5acunE0=
+			cJ/YsidxZaU3wDOjF18efeAxTMY=
 			</data>
 			<key>hash2</key>
 			<data>
-			Jq9OLSbq5NYaxWNG+Tn6/eBVJWNq4Hu6dHCpToYNiZE=
+			G0mM0wZh6g14PeD+KBBMIYk3dqS8tEfMDyqWHz3vaRQ=
 			</data>
 		</dict>
 		<key>Headers/VROImageiOS.h</key>
@@ -9620,11 +9639,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			kNQ4O/pCCU09RrllLBddT4Alm9w=
+			ZkbjLSX/zfX+yvJZ9YHfqNC9vt0=
 			</data>
 			<key>hash2</key>
 			<data>
-			bXdfwrhLImLGnucBF0gLIZCAxckhgGNqigHSNhq/MLQ=
+			G/Uj18EOo1O001ua3Qx6hsvKsF2uix2PcN+1YP8Coxs=
 			</data>
 		</dict>
 		<key>Headers/VROMath.h</key>
@@ -9719,11 +9738,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			YzQUpXqF6506gNzJbK7r2EY6o8I=
+			JBIJ7WOCTAEGPCiZNS0oAglFuJA=
 			</data>
 			<key>hash2</key>
 			<data>
-			YB1L87bU1QtgrpemXG/qmYdxezklNFlqTVAoECxDYCE=
+			eJoQG77X7uGGLWE4NiPNSjjXGM4B/3J5rXqLxULyEos=
 			</data>
 		</dict>
 		<key>Headers/VROParticleModifier.h</key>
@@ -9858,15 +9877,15 @@
 			EuCr8bM4yj6Hs6BNYFf1Jq8TqLXOpBBxN5M7iFV3nmU=
 			</data>
 		</dict>
-		<key>Headers/VROPointCloudEmitter.h</key>
+		<key>Headers/VROPolygon.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			bIpos8dr3HvFWMzP/u4GLJwnKOQ=
+			Sa5cKdbshGVwwlrbZVLXBCF3TH0=
 			</data>
 			<key>hash2</key>
 			<data>
-			CtRMe8HrgqQWvwD1K3jt8dXYYOnxBC/5BYbjmC7/GVg=
+			bLrun5+tPbgW4IAq+QM+2wKm9vWM/uIcpkUlOjzshsA=
 			</data>
 		</dict>
 		<key>Headers/VROPolyline.h</key>
@@ -10071,11 +10090,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			c8v4Oedqhj4YWYTtEMNmtrPbaq0=
+			MwFEMtb6nO/NPcN1U/hjwV1Xzk4=
 			</data>
 			<key>hash2</key>
 			<data>
-			/EwbfCeOUduaUGmoGP7FMwtvQejxR+wlZex9zKzFf4g=
+			XFx5ZH3CbJaQMXAgF/jCRCw4kacGZ78CcvX0/KKdwec=
 			</data>
 		</dict>
 		<key>Headers/VROSceneController.h</key>
@@ -10269,11 +10288,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			i8jtsjdM0fuvXfPoi/I3HogeveU=
+			ko1myv7DjndziXOH0cpmxPb7Mm4=
 			</data>
 			<key>hash2</key>
 			<data>
-			bOdckHVee75vCH+ogI7BKveYjme/z6MXvADTQRphZ7w=
+			ktakefC5i4EQR6VeJ8Z61qvJlLBl/2sNVsFdyxk3q+k=
 			</data>
 		</dict>
 		<key>Headers/VROSurface.h</key>
@@ -10302,11 +10321,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			v4A9PnGhhre8q37Xq4+znpm+nSw=
+			H/RssI2eo5uEZW6urEGC6BnbbLU=
 			</data>
 			<key>hash2</key>
 			<data>
-			ONvkKsoTJUXnp83k8kKkuhjQ89awVx1dyc/UbRKvdvk=
+			0SmBQgnCFSijbV75/QAb91Sf5woS6K/x+HQpi9AMPgg=
 			</data>
 		</dict>
 		<key>Headers/VROTexture.h</key>
@@ -10522,11 +10541,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			dHGrsRCElyE1Z0JzJKgU5iL3PuA=
+			z61YKPcDeXX0QKitf5QzJlPy/3w=
 			</data>
 			<key>hash2</key>
 			<data>
-			GsfJudokSFn9C7tYGzQzp30PB/4zTxThlNjPWnEVPys=
+			JX98ZFQfoYtA14oct30r0BzcS9DqKx3FxmpWWPD7aC0=
 			</data>
 		</dict>
 		<key>Headers/VROUniform.h</key>
@@ -10654,11 +10673,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			K+niH8MsARfYUCyNysQahDqasrE=
+			hm1sxKcm0ghVIqxhWe5N3HNm0eE=
 			</data>
 			<key>hash2</key>
 			<data>
-			aMTptn+ekFu9yTjys1RuydZI0OuiYDLgB1ppR77aXzY=
+			N0wmtpC7jkumZNIqSWf/NgZzmnugPQ7RebwQAQ4yWuY=
 			</data>
 		</dict>
 		<key>Headers/VROViewControllerGVR.h</key>
@@ -10731,11 +10750,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			qgFvlijlr/wcJresUsj7CrsCcaY=
+			07eKM5Zr8rwmJUXEZGDuqHkuKZo=
 			</data>
 			<key>hash2</key>
 			<data>
-			5gvW/Lbp2JsjbzNZvLW1/d7+Kd9sKq0SCyDi1FAPrto=
+			LAtjEC4qzp7KeuDdq3cTUIGI26r+pyw2x/ns/J6Pj3Y=
 			</data>
 		</dict>
 		<key>Headers/glm/CMakeLists.txt</key>
@@ -10863,11 +10882,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			5tuucfXRH5NWVlbglRr75+3lG5c=
+			WCsNiTRwglLGkF+/3o95YKTD0+Q=
 			</data>
 			<key>hash2</key>
 			<data>
-			wS5NdWXZuRz7U2WHs74rzNv1V+u2fcbqgbx6mtqF+Ts=
+			mJEFmJbqaf26yfbbD0D2BlxtIy6sS5rGiYTTwS+TtG0=
 			</data>
 		</dict>
 		<key>Headers/glm/detail/func_exponential.hpp</key>
@@ -13591,11 +13610,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			Gk/+nyexqZzcoVmr2zugP+D5e04=
+			Lhp924KsXJQ82YgbmlFk8yx4fG8=
 			</data>
 			<key>hash2</key>
 			<data>
-			ybdmnneChr/xb6M0FwwOvoor7LFFEaVrD7lCvmmbeD4=
+			F0mIVYT8UHg5DS/kBkzFCx2pRwGNyJjG5TCYamOQPak=
 			</data>
 		</dict>
 		<key>MaterialRobotoFontLoader.bundle/Roboto-Black.ttf</key>
@@ -13741,6 +13760,17 @@
 			nOyhpldSW7+nqKHqws00g3g/rmSxfzyE3z7AiIQu8lQ=
 			</data>
 		</dict>
+		<key>VROPolygon.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			Sa5cKdbshGVwwlrbZVLXBCF3TH0=
+			</data>
+			<key>hash2</key>
+			<data>
+			bLrun5+tPbgW4IAq+QM+2wKm9vWM/uIcpkUlOjzshsA=
+			</data>
+		</dict>
 		<key>blank.png</key>
 		<dict>
 			<key>hash</key>
@@ -13778,11 +13808,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			PqGfZNBGVIZyjfnXm42ar22hkvQ=
+			ylqGEZKqVa9UooV7nsQGyBZ1Tkc=
 			</data>
 			<key>hash2</key>
 			<data>
-			9TaPeEIT9bLoyl4NuGsEttq/RbPjwKzHnQobjsS04oc=
+			JwqNlthm5kqVOpOUGF1D3E+xz3SCo0YONrjl0V9PFo0=
 			</data>
 		</dict>
 		<key>constant_fsh_adreno.glsl</key>
@@ -13800,22 +13830,22 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			p3ZUBxi6JtbuoS5DB3s+KJZdoOs=
+			uyo/s+xZ5T5LN+wNQLTzAL9HuHs=
 			</data>
 			<key>hash2</key>
 			<data>
-			Ubn+80TlkZyPKHitbV3iq0o8KKxSo36a5DsVlhNUVGg=
+			WldJGS6nLy/fuM//hpOXOaBMMcq43Pp9eBXJoEv+Yh4=
 			</data>
 		</dict>
 		<key>constant_functions_fsh_adreno.glsl</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			aKOprrvU0A9n2BOfW/78sZFzVIM=
+			avXrPSjSjDIK5hzwdnvM2II7kKA=
 			</data>
 			<key>hash2</key>
 			<data>
-			c0wuCjNUQ3yiDExaZW/8wgapt+oyXHUF10le3mTjGhk=
+			Bo4itINWr3xxLvlnECsLkqiEnLi7ECDr/vtPxmef3SY=
 			</data>
 		</dict>
 		<key>constant_q_fsh.glsl</key>
@@ -13921,11 +13951,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			JJXk9fu1HwsOdASPRZJOfaPUi0c=
+			TDdj7gFYX496o9Wai/r17qhysBQ=
 			</data>
 			<key>hash2</key>
 			<data>
-			5PTWyaGeZ2cEfejaieVE9nizqvubSUoPSfp6rIzjI2M=
+			oOvJhrEhq6lYFxAFyURorbp0Da1DdSGhspHqhWZsIlQ=
 			</data>
 		</dict>
 		<key>particles_fsh.glsl</key>
@@ -14020,11 +14050,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			DDb6LT6lZWvfb29PlEW9ZxxXKDA=
+			6V1sAHnMrhO/XuiYroZV4fSxMRQ=
 			</data>
 			<key>hash2</key>
 			<data>
-			GJZGlUG3AaLfYZXEEVf5hbJ1bj+Ru2c+ib95CZAbdNk=
+			53GhTHpKNUnkghA//vllGr2pghH0V+3qjH3RDZq97DY=
 			</data>
 		</dict>
 		<key>standard_vsh_adreno.glsl</key>

@@ -13,8 +13,6 @@
 #include <string>
 #include <memory>
 #include <map>
-#include <ft2build.h>
-#include FT_FREETYPE_H
 #include "VROLog.h"
 #include "VROAllocationTracker.h"
 
@@ -24,31 +22,14 @@ class VROTypeface {
     
 public:
     
-    VROTypeface(std::string name, int size) :
-        _name(name),
-        _size(size) {
-    
-        if (FT_Init_FreeType(&_ft)) {
-            pabort("Could not initialize freetype library");
-        }
-            
-        ALLOCATION_TRACKER_ADD(Typefaces, 1);
-    }
-    
-    virtual ~VROTypeface() {
-        FT_Done_Face(_face);
-        FT_Done_FreeType(_ft);
-        
-        ALLOCATION_TRACKER_SUB(Typefaces, 1);
-    }
+    VROTypeface(std::string name, int size);
+    virtual ~VROTypeface();
     
     std::string getName() const {
         return _name;
     }
     
-    void loadFace() {
-        _face = loadFace(_name, _size, _ft);
-    }
+    void loadFace();
     
     /*
      Get the glyph for the given character. If forRendering is true, then the
@@ -56,46 +37,26 @@ public:
      Glyphs are cached when they are retrieved for the first time (if
      forRendering is true), so that future retrievals are faster.
      */
-    std::shared_ptr<VROGlyph> getGlyph(FT_ULong charCode, bool forRendering) {
-        auto kv = _glyphCache.find(charCode);
-        if (kv != _glyphCache.end()) {
-            return kv->second;
-        }
-        
-        std::shared_ptr<VROGlyph> glyph = loadGlyph(charCode, forRendering);
-        if (forRendering) {
-            _glyphCache[charCode] = glyph;
-        }
-        return glyph;
-    }
+    std::shared_ptr<VROGlyph> getGlyph(unsigned long charCode, bool forRendering);
     
     /*
      Preload the glyphs in the given string, caching them with this typeface.
      */
-    void preloadGlyphs(std::string chars) {
-        for (std::string::const_iterator c = chars.begin(); c != chars.end(); ++c) {
-            getGlyph(*c, true);
-        }
-    }
+    void preloadGlyphs(std::string chars);
     
-    float getLineHeight() const {
-        return _face->size->metrics.height >> 6;
-    }
+    virtual float getLineHeight() const = 0;
     
 protected:
     
-    virtual FT_Face loadFace(std::string name, int size, FT_Library ft) = 0;
-    virtual std::shared_ptr<VROGlyph> loadGlyph(FT_ULong charCode, bool forRendering) = 0;
+    virtual void loadFace(std::string name, int size) = 0;
+    virtual std::shared_ptr<VROGlyph> loadGlyph(unsigned long charCode, bool forRendering) = 0;
     
     std::string _name;
     int _size;
     
-    FT_Library _ft;
-    FT_Face _face;
-    
 private:
     
-    std::map<FT_ULong, std::shared_ptr<VROGlyph>> _glyphCache;
+    std::map<unsigned long, std::shared_ptr<VROGlyph>> _glyphCache;
     
 };
 

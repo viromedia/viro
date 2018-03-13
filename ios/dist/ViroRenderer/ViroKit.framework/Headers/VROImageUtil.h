@@ -19,9 +19,10 @@
 
 class VRORenderContext;
 class VROTexture;
+enum class VROTextureType;
 
 void initBlankTexture(const VRORenderContext &context);
-std::shared_ptr<VROTexture> getBlankTexture();
+std::shared_ptr<VROTexture> getBlankTexture(VROTextureType type);
 
 void initPointCloudTexture();
 std::shared_ptr<VROTexture> getPointCloudTexture();

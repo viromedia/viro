@@ -1,6 +1,5 @@
 #version 300 es
 #include constant_functions_fsh
-#include particles_fsh
 
 uniform highp vec4 material_diffuse_surface_color;
 uniform highp float material_diffuse_intensity;

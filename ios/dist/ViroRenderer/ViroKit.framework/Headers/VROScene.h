@@ -56,7 +56,7 @@ public:
     /*
      Update the particle emitters in the scene graph.
      */
-    void updateParticles(const VRORenderContext &context);
+    virtual void updateParticles(const VRORenderContext &context);
     
     /*
      Apply transformation constraints (e.g. billboarding) to all nodes in

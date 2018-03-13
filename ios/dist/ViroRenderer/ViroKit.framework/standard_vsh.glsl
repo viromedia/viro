@@ -47,9 +47,6 @@ out vec2 v_texcoord;
 out vec3 v_surface_position;
 flat out int v_instance_id;
 
-#include skinning_vsh
-#include particles_vsh
-
 void main() {
     _geometry.position = position;
     _geometry.normal = normal;

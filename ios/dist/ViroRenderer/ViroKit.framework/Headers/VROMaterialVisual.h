@@ -76,7 +76,7 @@ public:
             return _contentsTexture;
         }
         else {
-            return getBlankTexture();
+            return getBlankTexture(VROTextureType::None);
         }
     }
     

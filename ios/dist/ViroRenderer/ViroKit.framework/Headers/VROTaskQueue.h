@@ -48,7 +48,7 @@ public:
      *rendering thread* when all tasks have executed.
      
      Must be invoked on the rendering thread.
-     */ 
+     */
     void processTasksAsync(std::function<void()> onFinished);
     
     /*

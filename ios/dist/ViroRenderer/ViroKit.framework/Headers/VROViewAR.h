@@ -11,7 +11,6 @@
 #import "VROView.h"
 #import "VROARSession.h"
 #import "VROARHitTestResult.h"
-#include <ARKit/ARKit.h>
 
 class VROARSessionDelegate;
 class VRORendererConfiguration;

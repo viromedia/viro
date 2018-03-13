@@ -201,7 +201,7 @@ public:
     void initEmitter(std::shared_ptr<VRODriver> driver,
                      std::shared_ptr<VROSurface> particleGeometry);
     void setDefaultValues();
-
+    void initParticleUBO(std::shared_ptr<VROSurface> geom, std::shared_ptr<VRODriver> driver);
 protected:
 
     /*

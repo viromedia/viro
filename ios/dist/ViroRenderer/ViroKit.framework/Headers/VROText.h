@@ -10,10 +10,8 @@
 #define VROText_h
 
 #include <stdio.h>
-#include <ft2build.h>
 #include <map>
 #include <atomic>
-#include FT_FREETYPE_H
 
 #include "VROGeometry.h"
 #include "VROShapeUtils.h"
@@ -186,7 +184,7 @@ private:
      pairs.
      */
     static void buildGeometry(std::vector<VROShapeVertexLayout> &var,
-                              std::map<FT_ULong, std::pair<std::shared_ptr<VROMaterial>, std::vector<int>>> &materialMap,
+                              std::map<unsigned long, std::pair<std::shared_ptr<VROMaterial>, std::vector<int>>> &materialMap,
                               std::vector<std::shared_ptr<VROGeometrySource>> &sources,
                               std::vector<std::shared_ptr<VROGeometryElement>> &elements,
                               std::vector<std::shared_ptr<VROMaterial>> &materials);
@@ -215,15 +213,15 @@ private:
     static std::vector<VROTextLine> wrapByWords(std::wstring &text, float maxWidth, float maxHeight, int maxLines,
                                                 std::shared_ptr<VROTypeface> &typeface,
                                                 VROTextClipMode clipMode,
-                                                std::map<FT_ULong, std::shared_ptr<VROGlyph>> &glyphMap);
+                                                std::map<unsigned long, std::shared_ptr<VROGlyph>> &glyphMap);
     static std::vector<VROTextLine> wrapByChars(std::wstring &text, float maxWidth, float maxHeight, int maxLines,
                                                 std::shared_ptr<VROTypeface> &typeface,
                                                 VROTextClipMode clipMode,
-                                                std::map<FT_ULong, std::shared_ptr<VROGlyph>> &glyphMap);
+                                                std::map<unsigned long, std::shared_ptr<VROGlyph>> &glyphMap);
     static std::vector<VROTextLine> wrapByNewlines(std::wstring &text, float maxWidth, float maxHeight, int maxLines,
                                                    std::shared_ptr<VROTypeface> &typeface,
                                                    VROTextClipMode clipMode,
-                                                   std::map<FT_ULong, std::shared_ptr<VROGlyph>> &glyphMap);
+                                                   std::map<unsigned long, std::shared_ptr<VROGlyph>> &glyphMap);
     
     /*
      Justification routine. Considerably more complex than the greedy algorithms above. Note that
@@ -234,13 +232,13 @@ private:
     static std::vector<VROTextLine> justify(std::wstring &text, float maxWidth, float maxHeight, int maxLines,
                                             std::shared_ptr<VROTypeface> &typeface,
                                             VROTextClipMode clipMode,
-                                            std::map<FT_ULong, std::shared_ptr<VROGlyph>> &glyphMap);
+                                            std::map<unsigned long, std::shared_ptr<VROGlyph>> &glyphMap);
     
     /*
      Helpers for wrapping/clipping.
      */
     static std::vector<std::wstring> divideIntoParagraphs(std::wstring &text);
-    static float getLengthOfWord(const std::wstring &word, std::map<FT_ULong, std::shared_ptr<VROGlyph>> &glyphMap);
+    static float getLengthOfWord(const std::wstring &word, std::map<unsigned long, std::shared_ptr<VROGlyph>> &glyphMap);
 
     static bool isAnotherLineAvailable(size_t numLinesNow, float maxHeight, int maxLines,
                                        std::shared_ptr<VROTypeface> &typeface, VROTextClipMode clipMode);

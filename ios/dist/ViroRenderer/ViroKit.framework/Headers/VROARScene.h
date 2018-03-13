@@ -16,7 +16,7 @@
 class VROARAnchor;
 class VROARDeclarativeSession;
 class VROARImperativeSession;
-class VROPointCloudEmitter;
+class VROFixedParticleEmitter;
 
 class VROARSceneDelegate {
 public:
@@ -32,6 +32,7 @@ public:
         _pointCloudSurfaceScale(VROVector3f(.01, .01, 1)),
         _pointCloudMaxPoints(500) {
             _pointCloudNode = std::make_shared<VRONode>();
+            _pointCloudEmitter = nullptr;
             _detectionTypes = { VROAnchorDetection::PlanesHorizontal }; //default is horizontal
         };
     virtual ~VROARScene();
@@ -57,6 +58,12 @@ public:
      Set true to display/render the point cloud particles.
      */
     void displayPointCloud(bool display);
+
+    /*
+     Update our point cloud particles with the latest positional data received from the last
+     ar frame.
+     */
+    void updatePointCloud();
 
     /*
      Reset the point cloud surface to the default.
@@ -91,7 +98,8 @@ public:
     std::shared_ptr<VROARImperativeSession> getImperativeSession() {
         return _imperativeSession;
     }
-    
+
+    void updateParticles(const VRORenderContext &context);
 private:
     std::set<VROAnchorDetection> _detectionTypes;
     
@@ -101,20 +109,20 @@ private:
     std::shared_ptr<VROARImperativeSession> _imperativeSession;
 
     std::shared_ptr<VRONode> _pointCloudNode;
-    std::shared_ptr<VROPointCloudEmitter> _pointCloudEmitter;
+    std::shared_ptr<VROFixedParticleEmitter> _pointCloudEmitter;
     std::weak_ptr<VROARSceneDelegate> _delegate;
     bool _hasTrackingInitialized;
 
     /* Point Cloud Properties */
     bool _displayPointCloud;
-    std::shared_ptr<VROSurface> _pointCloudSurface;
+    std::shared_ptr<VROSurface> _pointCloudSurface = nullptr;
     VROVector3f _pointCloudSurfaceScale;
     int _pointCloudMaxPoints;
 
     /*
-     Creates an instance of VROPointCloudEmitter if possible.
+     Creates an instance of VROFixedParticleEmitter representing the point cloud, if possible.
      */
-    std::shared_ptr<VROPointCloudEmitter> createPointCloudEmitter();
+    void initPointCloudEmitter();
 };
 
 #endif /* VROARScene_h */

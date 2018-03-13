@@ -60,6 +60,14 @@ public:
     void setExtent(VROVector3f extent) {
         _extent = extent;
     }
+
+    void setBoundaryVertices(std::vector<VROVector3f> points) {
+        _boundaryVertices = points;
+    }
+
+    std::vector<VROVector3f> getBoundaryVertices() {
+        return  _boundaryVertices;
+    }
     
 private:
     
@@ -78,7 +86,11 @@ private:
      The width and length of the detected plane.
      */
     VROVector3f _extent;
-    
+
+    /*
+     A vector of points representing the vertex boundaries of this plane, if any.
+     */
+    std::vector<VROVector3f> _boundaryVertices;
 };
 
 #endif /* VROARPlaneAnchor_h */
