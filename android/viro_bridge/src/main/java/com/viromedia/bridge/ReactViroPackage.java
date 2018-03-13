@@ -8,6 +8,7 @@ import com.facebook.react.bridge.NativeModule;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.uimanager.ViewManager;
 
+import com.viromedia.bridge.component.VRT3DSceneNavigatorManager;
 import com.viromedia.bridge.component.VRTAnimatedComponentManager;
 import com.viromedia.bridge.component.VRTControllerManager;
 import com.viromedia.bridge.component.VRT360ImageManager;
@@ -58,6 +59,7 @@ import com.viromedia.bridge.module.SceneModule;
 import com.viromedia.bridge.module.SceneNavigatorModule;
 import com.viromedia.bridge.module.PerfMonitor;
 import com.viromedia.bridge.module.SoundModule;
+import com.viromedia.bridge.module.VRT3DSceneNavigatorModule;
 import com.viromedia.bridge.module.VRTImageModule;
 
 import java.util.Arrays;
@@ -94,7 +96,8 @@ public class ReactViroPackage implements ReactPackage {
                 new VRTImageModule(reactContext),
                 new ARSceneModule(reactContext),
                 new ARSceneNavigatorModule(reactContext),
-                new ARTrackingTargetsModule(reactContext)
+                new ARTrackingTargetsModule(reactContext),
+                new VRT3DSceneNavigatorModule(reactContext)
         );
     }
 
@@ -103,6 +106,7 @@ public class ReactViroPackage implements ReactPackage {
         return Arrays.<ViewManager>asList(
                 new VRTSceneNavigatorManager(reactContext, mViroPlatform),
                 new VRTSceneManagerImpl(reactContext),
+                new VRT3DSceneNavigatorManager(reactContext, mViroPlatform),
                 new VRTBoxManager(reactContext),
                 new VRTVideoSurfaceManager(reactContext),
                 new VRT360VideoManager(reactContext),

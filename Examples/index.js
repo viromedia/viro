@@ -22,8 +22,12 @@ import {
 import {
   ViroSceneNavigator,
   ViroARSceneNavigator,
+  Viro3DSceneNavigator,
+  ViroVRSceneNavigator,
   ViroUtils,
 } from 'react-viro';
+
+import renderIf from './js/release_test/renderIf';
 
 var InitialVRScene = require('./js/release_test/ViroSkyBoxTest');
 var InitialARScene = require('./js/AR/release_test/ARSceneAndNavigatorTest');
@@ -31,6 +35,9 @@ var InitialARScene = require('./js/AR/release_test/ARSceneAndNavigatorTest');
 var UNSET = "UNSET";
 var VR_NAVIGATOR_TYPE = "VR";
 var AR_NAVIGATOR_TYPE = "AR";
+var SCENE_NAVIGATOR_TYPE = "3D Scene";
+var VR_DEPRECATED_TYPE = "VR (deprecated)";
+
 var isARSupportedOnDevice = ViroUtils.isARSupportedOnDevice;
 export default class ViroExperienceSelector extends Component {
   constructor() {
@@ -46,16 +53,20 @@ export default class ViroExperienceSelector extends Component {
       vrMode : Config.FLAVOR == "ovr" ? true : UNSET,
       worldAlignment : UNSET,
       autofocus : true,
-      videoQualityHigh : true
+      videoQualityHigh : true,
+      initial3DScene : UNSET,
     }
     this._getSelectionButtons = this._getSelectionButtons.bind(this);
     this._getARNavigator = this._getARNavigator.bind(this);
     this._getVRNavigator = this._getVRNavigator.bind(this);
+    this._get3DSceneNavigator = this._get3DSceneNavigator.bind(this);
     this._getButtonPress = this._getButtonPress.bind(this);
     this._toggleAutofocus = this._toggleAutofocus.bind(this);
     this._toggleVideoQuality = this._toggleVideoQuality.bind(this);
     this._handleARSupported = this._handleARSupported.bind(this);
     this._handleARNotSupported = this._handleARNotSupported.bind(this);
+    this._getInitialSelectionButtons = this._getInitialSelectionButtons.bind(this);
+    this._getSceneSelectionButtons = this._getSceneSelectionButtons.bind(this);
   }
   componentWillMount() {
     isARSupportedOnDevice(this._handleARNotSupported,this._handleARSupported);
@@ -68,8 +79,8 @@ export default class ViroExperienceSelector extends Component {
   }
   render() {
     if (this.state.navigatorType == UNSET) {
-      return this._getSelectionButtons();
-    } else if (this.state.navigatorType == VR_NAVIGATOR_TYPE) {
+      return this._getSceneSelectionButtons();
+    } else if (this.state.navigatorType == VR_NAVIGATOR_TYPE || this.state.navigatorType == VR_DEPRECATED_TYPE ) {
       if (this.state.vrMode == UNSET) {
         return this._getSelectionButtons();
       } else {
@@ -81,7 +92,109 @@ export default class ViroExperienceSelector extends Component {
       } else {
         return this._getARNavigator();
       }
-    }
+    } else if (this.state.navigatorType == SCENE_NAVIGATOR_TYPE ) {
+      if (this.state.initial3DScene == UNSET) {
+        return this._getInitialSelectionButtons();
+      } else {
+        return this._get3DSceneNavigator();
+      }
+    } 
+  }
+    _getSceneSelectionButtons() {
+    return (
+      <View style={localStyles.outer} >
+        <View style={localStyles.inner} >
+
+          <Text style={localStyles.titleText}>
+            {this._getTitleText()}
+          </Text>
+
+          <TouchableHighlight style={this.state.navigatorType == UNSET ? localStyles.buttons : localStyles.vrModeButtons}
+            onPress={this._getButtonPress(1)}
+            underlayColor={'#68a0ff'} >
+
+            <Text style={localStyles.buttonText}>
+              {this._getButtonText(1)}
+            </Text>
+          </TouchableHighlight>
+
+          <TouchableHighlight style={this.state.navigatorType == UNSET ? localStyles.buttons : localStyles.vrModeButtons}
+            onPress={this._getButtonPress(2)}
+            underlayColor={'#68a0ff'} >
+
+            <Text style={localStyles.buttonText}>
+              {this._getButtonText(2)}
+            </Text>
+          </TouchableHighlight>
+
+          <TouchableHighlight style={this.state.navigatorType == UNSET ? localStyles.buttons : localStyles.vrModeButtons}
+            onPress={this._getButtonPress(3)}
+            underlayColor={'#68a0ff'} >
+
+            <Text style={localStyles.buttonText}>
+              {this._getButtonText(3)}
+            </Text>
+          </TouchableHighlight>
+
+          <TouchableHighlight style={this.state.navigatorType == UNSET ? localStyles.buttons : localStyles.vrModeButtons}
+            onPress={this._getButtonPress(4)}
+            underlayColor={'#68a0ff'} >
+
+            <Text style={localStyles.buttonText}>
+              {this._getButtonText(4)}
+            </Text>
+          </TouchableHighlight>
+        </View>
+      </View>
+    );
+  }
+  _getInitialSelectionButtons() {
+    return (
+      <View style={localStyles.outer} >
+        <View style={localStyles.inner} >
+
+          <Text style={localStyles.titleText}>
+            {this._getTitleText()}
+          </Text>
+
+          <TouchableHighlight style={this.state.navigatorType == UNSET ? localStyles.buttons : localStyles.vrModeButtons}
+            onPress={()=>{this.setState({initial3DScene : require('./js/release_test/GroupTestBasicEvents')})}}
+            underlayColor={'#68a0ff'} >
+
+            <Text style={localStyles.buttonText}>
+              {this._getButtonText(1)}
+            </Text>
+          </TouchableHighlight>
+
+          <TouchableHighlight style={this.state.navigatorType == UNSET ? localStyles.buttons : localStyles.vrModeButtons}
+            onPress={()=>{this.setState({initial3DScene : require('./js/release_test/GroupTestDragEvents')})}}
+            underlayColor={'#68a0ff'} >
+
+            <Text style={localStyles.buttonText}>
+              {this._getButtonText(2)}
+            </Text>
+          </TouchableHighlight>
+
+          <TouchableHighlight style={this.state.navigatorType == UNSET ? localStyles.buttons : localStyles.vrModeButtons}
+            onPress={()=>{this.setState({initial3DScene : require('./js/release_test/ViroVideoTest')})}}
+            underlayColor={'#68a0ff'} >
+
+            <Text style={localStyles.buttonText}>
+              {this._getButtonText(3)}
+            </Text>
+          </TouchableHighlight>
+
+          <TouchableHighlight style={this.state.navigatorType == UNSET ? localStyles.buttons : localStyles.vrModeButtons}
+            onPress={()=>{this.setState({initial3DScene : require('./js/release_test/ViroSoundTest')})}}
+            underlayColor={'#68a0ff'} >
+
+            <Text style={localStyles.buttonText}>
+              {this._getButtonText(4)}
+            </Text>
+          </TouchableHighlight>
+        </View>
+      </View>
+    );
   }
   _getSelectionButtons() {
     return (
@@ -119,18 +232,41 @@ export default class ViroExperienceSelector extends Component {
     } else {
       if (this.state.navigatorType == VR_NAVIGATOR_TYPE) {
         return "VR Mode or 360?"
+      } else if (this.state.navigatorType == SCENE_NAVIGATOR_TYPE) {
+        return "Scene View Spot Check Options:"
       } else {
         return "World Alignment? (No effect on Android)"
       }
+      
     }
   }
   _getButtonText(buttonNum) {
     if (this.state.navigatorType == UNSET) {
-      return (buttonNum == 1 ? "AR" : "VR");
+      switch (buttonNum) {
+        case 1:
+         return AR_NAVIGATOR_TYPE;
+        case 2:
+          return VR_NAVIGATOR_TYPE;
+        case 3:
+          return SCENE_NAVIGATOR_TYPE;
+        case 4:
+          return VR_DEPRECATED_TYPE;
+      }
     } else {
-      if (this.state.navigatorType == VR_NAVIGATOR_TYPE) {
+      if (this.state.navigatorType == VR_NAVIGATOR_TYPE || this.state.navigatorType == VR_DEPRECATED_TYPE) {
         return (buttonNum == 1 ? "VR" : "360")
-      } else {
+      } else if (this.state.navigatorType == SCENE_NAVIGATOR_TYPE) {
+        switch (buttonNum) {
+          case 1:
+            return "Basic Events";
+          case 2:
+            return "Drag Events";
+          case 3: 
+            return "Videos";
+          case 4:
+            return "Sounds";
+        }
+      }else {
         return (buttonNum == 1 ? "Gravity" : "Heading");
       }
     }
@@ -161,10 +297,16 @@ export default class ViroExperienceSelector extends Component {
   _getVRNavigator() {
     return (
       <View style={localStyles.viroContainer} >
-        <ViroSceneNavigator {...this.state.sharedProps}
-          initialScene={{scene: InitialVRScene}}
-          vrModeEnabled={this.state.vrMode}
-          onExitViro={()=>{this.setState({navigatorType : UNSET, vrMode : UNSET})}}/>
+        {renderIf(this.state.navigatorType == VR_NAVIGATOR_TYPE,
+          <ViroVRSceneNavigator {...this.state.sharedProps}
+            initialScene={{scene: InitialVRScene}}
+            vrModeEnabled={this.state.vrMode}
+            onExitViro={()=>{this.setState({navigatorType : UNSET, vrMode : UNSET})}}/>)}
+        {renderIf(this.state.navigatorType == VR_DEPRECATED_TYPE,
+          <ViroSceneNavigator {...this.state.sharedProps}
+            initialScene={{scene: InitialVRScene}}
+            vrModeEnabled={this.state.vrMode}
+            onExitViro={()=>{this.setState({navigatorType : UNSET, vrMode : UNSET})}}/>)}
 
         <View style={localStyles.exitButtonContainer}>
           <TouchableHighlight style={localStyles.exitButton}
@@ -176,6 +318,26 @@ export default class ViroExperienceSelector extends Component {
       </View>
     );
   }
+
+  _get3DSceneNavigator() {
+    return (
+      <View style={localStyles.viroContainer} >
+        <Viro3DSceneNavigator
+          {...this.state.sharedProps}
+          initialScene={{scene: this.state.initial3DScene == UNSET ? InitialVRScene : this.state.initial3DScene}}
+          onExitViro={()=>{this.setState({navigatorType : UNSET, vrMode : UNSET, initial3DScene: UNSET})}}/>
+
+        <View style={localStyles.exitButtonContainer}>
+          <TouchableHighlight style={localStyles.exitButton}
+            onPress={()=>{this.setState({navigatorType : UNSET, vrMode : UNSET, worldAlignment : UNSET, initial3DScene: UNSET})}}
+            underlayColor={'#00000000'} >
+            <Text style={localStyles.buttonText}>Exit</Text>
+          </TouchableHighlight>
+        </View>
+      </View>
+    );
+  }
+
   _getButtonPress(buttonNum) {
     if (buttonNum == 1) {
       if (this.state.navigatorType == UNSET) {
@@ -185,9 +347,19 @@ export default class ViroExperienceSelector extends Component {
         // and both get reset upon "exit".
         return ()=>{this.setState({vrMode : true, worldAlignment : "Gravity"})}
       }
-    } else {
+    } else if (buttonNum == 2) {
       if (this.state.navigatorType == UNSET) {
         return ()=>{this.setState({navigatorType : VR_NAVIGATOR_TYPE})}
+      } else {
+        return ()=>{this.setState({vrMode : false, worldAlignment : "GravityAndHeading"})}
+      }
+    } else if (buttonNum == 3) {
+      if (this.state.navigatorType == UNSET) {
+        return ()=>{this.setState({navigatorType : SCENE_NAVIGATOR_TYPE})}
+      }
+    } else if (buttonNum == 4) {
+      if (this.state.navigatorType == UNSET) {
+        return ()=>{this.setState({navigatorType : VR_DEPRECATED_TYPE})}
       } else {
         return ()=>{this.setState({vrMode : false, worldAlignment : "GravityAndHeading"})}
       }

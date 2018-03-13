@@ -66,6 +66,12 @@ var Local360Image = require("../res/sun_2302.jpg");
      if (this.state.showColorBackground){
       return (
             <ViroScene>
+            <ViroOrbitCamera
+                fieldOfView={90}
+                position={[0,0,0]}
+                active={true}
+                focalPoint={[0, 0, -1]}/>
+
             <ReleaseMenu sceneNavigator={this.props.sceneNavigator}/>
 
              <ViroSkyBox
