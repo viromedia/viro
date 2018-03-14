@@ -198,6 +198,37 @@ const double kTransformDelegateDistanceFilter = 0.01;
     [self node]->setTag(nodeTag);
 }
 
+- (void)setContext:(VRORenderContext *)context {
+    [super setContext:context];
+    [self updateVideoTextures];
+}
+
+- (void)setDriver:(std::shared_ptr<VRODriver>)driver {
+    [super setDriver:driver];
+    [self updateVideoTextures];
+}
+
+- (void)updateVideoTextures {
+    if(self.driver != nil && self.context != nil) {
+        VRTMaterialManager *materialManager = [self.bridge moduleForClass:[VRTMaterialManager class]];
+        std::vector<std::shared_ptr<VROMaterial>>::iterator it;
+        if(self.node->getGeometry() == NULL) {
+            return;
+        }
+        std::vector<std::shared_ptr<VROMaterial>> materialsVec = self.node->getGeometry()->getMaterials();
+
+        for(it = materialsVec.begin(); it != materialsVec.end(); it++) {
+            std::string name = it->get()->getName();
+            NSString *materialNameNSString = [NSString stringWithCString:name.c_str()
+                                                                encoding:NSASCIIStringEncoding];
+            BOOL isVideoMaterial = [materialManager isVideoMaterial:materialNameNSString];
+            if(isVideoMaterial) {
+                [materialManager loadVideoTextureForMaterial:materialNameNSString driver:self.driver context:self.context];
+            }
+        }
+    }
+}
+
 #pragma mark - Transforms
 
 - (void)setPosition:(NSArray<NSNumber *> *)position {
@@ -322,10 +353,11 @@ const double kTransformDelegateDistanceFilter = 0.01;
         
         // Always copy materials from the material manager, as they may be
         // modified by animations, etc. and we don't want these changes to
-        // propagate to the reference material held by theo material manager
+        // propagate to the reference material held by the material manager
         tempMaterials.push_back(std::make_shared<VROMaterial>(material));
     }
     geometry->setMaterials(tempMaterials);
+    [self updateVideoTextures];
 }
 
 #pragma mark - Animation

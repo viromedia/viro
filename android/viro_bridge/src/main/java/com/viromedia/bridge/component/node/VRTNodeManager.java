@@ -3,6 +3,8 @@
  */
 package com.viromedia.bridge.component.node;
 
+import android.provider.MediaStore;
+
 import com.facebook.react.bridge.Dynamic;
 import com.facebook.react.bridge.DynamicFromMap;
 import com.facebook.react.bridge.JavaOnlyMap;
@@ -17,8 +19,10 @@ import com.facebook.react.uimanager.annotations.ReactProp;
 import com.facebook.react.uimanager.annotations.ReactPropGroup;
 import com.facebook.yoga.YogaConstants;
 import com.viro.core.Material;
+import com.viro.core.VideoTexture;
 import com.viromedia.bridge.component.VRTViroViewGroupManager;
 import com.viromedia.bridge.module.MaterialManager;
+import com.viromedia.bridge.module.MaterialManager.MaterialWrapper;
 import com.viromedia.bridge.utility.Helper;
 import com.viromedia.bridge.utility.ViroEvents;
 import com.viromedia.bridge.utility.ViroLog;
@@ -146,9 +150,20 @@ public abstract class VRTNodeManager<T extends VRTNode> extends VRTViroViewGroup
         if (materials != null) {
             for (int i = 0; i < materials.size(); i++) {
                 Material nativeMaterial = materialManager.getMaterial(materials.getString(i));
+                if (materialManager.isVideoMaterial(materials.getString(i))) {
+                    if (!(nativeMaterial.getDiffuseTexture() instanceof VideoTexture)) {
+                        // Recreate the material with the proper context.
+                        MaterialWrapper materialWrapper = materialManager.getMaterialWrapper(materials.getString(i));
+                        VideoTexture videoTexture = new VideoTexture(view.getViroContext(), materialWrapper.getVideoTextureURI());
+                        materialWrapper.recreate(videoTexture);
+                        nativeMaterial = materialWrapper.getNativeMaterial();
+                    }
+                }
+
                 if (nativeMaterial == null) {
                     throw new IllegalArgumentException("Material [" + materials.getString(i) + "] not found. Did you create it?");
                 }
+
                 nativeMaterials.add(nativeMaterial);
             }
         }

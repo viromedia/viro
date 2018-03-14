@@ -21,6 +21,30 @@
 
 @end
 
+#pragma mark WeakMaterialChangeListenerContainer
+@interface WeakMaterialChangeListenerContainer : NSObject
+
+@property (nonatomic, weak) id listener;
+
+- (id)initWithListener: (id)listener;
+
+@end
+
+@implementation WeakMaterialChangeListenerContainer
+
+@synthesize listener = _listener;
+
+- (instancetype)initWithListener: (id)listener;
+{
+    if ((self = [super init])) {
+        _listener = listener;
+    }
+    return self;
+}
+
+@end
+
+#pragma mark MaterialWrapper
 @interface MaterialWrapper : NSObject {
     
 }
@@ -42,7 +66,7 @@
     return self;
 }
 
-- (void)setMaterialPropertyName:(NSString *)materialPropertyName forVideoTexturePath:(NSString *)path {
+- (void)setVideoTexturePathForMaterialProp:(NSString *)materialPropertyName path:(NSString *)path {
     [_videoTextures setObject:path forKey:materialPropertyName];
 }
 
@@ -61,6 +85,7 @@
     // Dictionary of images, so we only load images once
     NSMutableDictionary *_imageDictionary;
     NSMutableDictionary *_materialDictionary;
+    NSMutableDictionary *_materialChangeListeners;
     
     // This is flipped to true when an EGL context is loaded for the first time;
     // this happens when reloadMaterials is first called. Until we have an EGL
@@ -111,6 +136,7 @@ RCT_EXPORT_METHOD(deleteMaterials:(NSArray *)materials) {
         _materials = [[NSMutableDictionary alloc] init];
         _imageDictionary = [[NSMutableDictionary alloc] init];
         _materialDictionary = [[NSMutableDictionary alloc] init];
+        _materialChangeListeners = [[NSMutableDictionary alloc] init];
         _eglContextLoaded = NO;
     }
     return self;
@@ -126,7 +152,7 @@ RCT_EXPORT_METHOD(deleteMaterials:(NSArray *)materials) {
 - (void)loadMaterials:(NSDictionary *)materials {
     for (id key in materials) {
         NSDictionary *dictionary = [materials objectForKey:key];
-        MaterialWrapper *materialWrapper = [self createMaterial:dictionary];
+        MaterialWrapper *materialWrapper = [self createMaterial:dictionary name:key];
         [_materialDictionary setObject:materialWrapper forKey:key];
     }
 }
@@ -232,26 +258,29 @@ RCT_EXPORT_METHOD(deleteMaterials:(NSArray *)materials) {
     return image;
 }
 
-- (MaterialWrapper *)createMaterial:(NSDictionary *)material {
+- (MaterialWrapper *)createMaterial:(NSDictionary *)material name:(NSString *)materialName {
     std::shared_ptr<VROMaterial> vroMaterial = std::make_shared<VROMaterial>();
+    vroMaterial->setName([materialName cStringUsingEncoding:NSASCIIStringEncoding]);
     MaterialWrapper *materialWrapper = [[MaterialWrapper alloc] initWithMaterial:vroMaterial];
-    
+
     for (id key in material) {
         NSString *materialPropertyName = (NSString *)key;
-        
         if ([materialPropertyName hasSuffix:@"texture"] || [materialPropertyName hasSuffix:@"Texture"]) {
             if ([materialPropertyName caseInsensitiveCompare:@"reflectiveTexture"] == NSOrderedSame) {
                 std::shared_ptr<VROTexture> texture = [self createTextureCubeMap:material[key]];
                 [self loadProperties:material forTexture:texture];
                 [self setTextureForMaterial:vroMaterial texture:texture name:materialPropertyName];
-                
                 continue;
             } 
             
             NSString *path = [self parseImagePath:material[key]];
             if (path != nil) {
                 if ([self isVideoTexture:path]) {
-                    [materialWrapper setMaterialPropertyName:materialPropertyName forVideoTexturePath:path];
+                     std::shared_ptr<VROVideoTextureiOS> texture = std::make_shared<VROVideoTextureiOS>(VROStereoMode::None);
+                    NSLog(@"Create material for video texture: %p for mat name: %@", texture.get(), materialName);
+                    [materialWrapper setVideoTexturePathForMaterialProp:materialPropertyName path:path];
+                    [self setTextureForMaterial:vroMaterial texture:texture name:materialPropertyName];
+                    [self loadProperties:material forTexture:texture];
                 } else {
                     BOOL sRGB = [materialPropertyName caseInsensitiveCompare:@"diffuseTexture"] == NSOrderedSame
                     || [materialPropertyName caseInsensitiveCompare:@"ambientOcclusionTexture"] == NSOrderedSame;
@@ -421,7 +450,7 @@ RCT_EXPORT_METHOD(deleteMaterials:(NSArray *)materials) {
 }
 
 - (BOOL)isVideoTexture:(NSString *)path {
-    if([path hasSuffix:@"mp4"]){
+    if ([path containsString:@".mp4"]) {
         return true;
     }
     return false;
@@ -528,12 +557,51 @@ RCT_EXPORT_METHOD(deleteMaterials:(NSArray *)materials) {
     return nil;
 }
 
+- (void)loadVideoTextureForMaterial:(NSString *)materialName driver:(std::shared_ptr<VRODriver>)driver context:(VRORenderContext *)context
+{
+    MaterialWrapper *materialWrapper = _materialDictionary[materialName];
+    NSDictionary *videoTextureDict = [materialWrapper getVideoTextures];
+    if ([videoTextureDict count] == 0) {
+        NSLog(@"Warning: VRTMaterialManager: No video textures found for mat name: %@", materialName);
+        return;
+    }
+    
+    std::shared_ptr<VROMaterial> material = [materialWrapper getMaterial];
+    std::shared_ptr<VROTexture> texture = material->getDiffuse().getTexture();
+    std::shared_ptr<VROVideoTexture> videoTexture = std::dynamic_pointer_cast<VROVideoTextureiOS>(texture);
+        RCTImageSource *imageSource = [RCTConvert RCTImageSource:videoTextureDict[@"diffuseTexture"]];
+        NSURL *videoURL = imageSource.request.URL;
+        std::string url = std::string([[videoURL description] UTF8String]);
+        videoTexture->loadVideo(url, context->getFrameSynchronizer(), driver);
+        NSLog(@"VRTMaterialManager: Updating video texture, %p for mat name: %@", videoTexture.get(), materialName);
+        // update video texture listeners.
+        WeakMaterialChangeListenerContainer *weakMaterialChangeListener = _materialChangeListeners[materialName];
+    if (weakMaterialChangeListener != nil && weakMaterialChangeListener.listener != nil) {
+       id<VRTMaterialChangedDelegate> delegate =   (id<VRTMaterialChangedDelegate>)weakMaterialChangeListener.listener;
+        [delegate videoMaterialDidChange:materialName];
+    }
+}
+
 - (NSDictionary *)getVideoTexturesForMaterialName:(NSString *)name {
     MaterialWrapper *materialWrapper = _materialDictionary[name];
-    if(materialWrapper != nil){
+    if (materialWrapper != nil && ([[materialWrapper getVideoTextures] count] > 0) ){
         return [materialWrapper getVideoTextures];
     }
     return nil;
+}
+
+
+- (BOOL)isVideoMaterial:(NSString *)materialName {
+    MaterialWrapper *materialWrapper = _materialDictionary[materialName];
+    if(materialWrapper != nil && ([[materialWrapper getVideoTextures] count] > 0) ){
+        return YES;
+    }
+    return NO;
+}
+
+- (void)addMaterialChangedListener:(NSString *)name listener:(id<VRTMaterialChangedDelegate>)listener {
+    WeakMaterialChangeListenerContainer *weakListener = [[WeakMaterialChangeListenerContainer alloc] initWithListener:listener];
+    [_materialChangeListeners setObject:weakListener forKey:name];
 }
 
 // DEPRECATED: this is only in place for Beta. This needs to be

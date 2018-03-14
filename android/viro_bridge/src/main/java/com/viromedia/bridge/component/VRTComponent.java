@@ -60,6 +60,8 @@ public class VRTComponent extends ReactViewGroup {
         return mReactContext;
     }
 
+    public ViroContext getViroContext() { return mViroContext; }
+
     public void setViroContext(ViroContext context){
         mViroContext = context;
 
@@ -78,7 +80,7 @@ public class VRTComponent extends ReactViewGroup {
         // Update our child views with the context as well.
         for (int i = getChildCount() - 1; i >= 0; i--) {
             final View child = getChildAt(i);
-            if (child instanceof VRTComponent){
+            if (child instanceof VRTComponent) {
                 ((VRTComponent)child).setScene(scene);
             }
         }

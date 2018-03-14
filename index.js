@@ -11,6 +11,7 @@ const ReactViro = {
   get ViroScene() { return require('./components/ViroScene'); },
   get ViroBox() { return require('./components/ViroBox'); },
   get ViroMaterials() { return require('./components/Material/ViroMaterials'); },
+  get ViroMaterialVideo() { return require('./components/ViroMaterialVideo'); },
   get ViroVideo() { return require('./components/ViroVideo'); },
   get Viro360Video() {return require ('./components/Viro360Video'); },
   get ViroNode() { return require('./components/ViroNode'); },

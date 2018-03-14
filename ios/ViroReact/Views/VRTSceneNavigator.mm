@@ -17,6 +17,7 @@
 #import <React/RCTUtils.h>
 #import "VRTPerfMonitor.h"
 #import "VRTMaterialManager.h"
+#import "VRTMaterialVideo.h"
 
 static NSString *const kVRTInvalidAPIKeyMessage = @"The given API Key is either missing or invalid! If you have not signed up for accessing Viro Media platform, please do so at www.viromedia.com. Otherwise, contact info@viromedia.com if you have a valid key and are encountering this error.";
 
@@ -45,11 +46,12 @@ static NSString *const kVRTInvalidAPIKeyMessage = @"The given API Key is either 
  landscape mode, and if VR mode is not we do not.
  
  Ideally we'd be able to set VR mode after the fact, but GVR bugs prevent
- this (the double-viewport issue).
+ this (the double-viewport issue). Return YES if we created a new _vroView, NO if
+ one already exists and the method was a no-op.
  */
-- (void)initVRView {
+- (BOOL)initVRView {
     if (_vroView != nil) {
-        return;
+        return NO;
     }
     VRORendererConfiguration config;
     _gvrController = [[VROViewControllerGVR alloc] initWithConfig:config];
@@ -60,7 +62,6 @@ static NSString *const kVRTInvalidAPIKeyMessage = @"The given API Key is either 
     // the EGL context is created by the VROViewGVR
     VRTMaterialManager *materialManager = [self.bridge materialManager];
     [materialManager reloadMaterials];
-    
     VROViewGVR *viewCardboard = (VROViewGVR *) _gvrController.view;
     [viewCardboard setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
     _vroView.renderDelegate = self;
@@ -73,6 +74,7 @@ static NSString *const kVRTInvalidAPIKeyMessage = @"The given API Key is either 
     [self.bridge.perfMonitor setView:_vroView];
     
     [self validateAPIKey];
+    return YES;
 }
 
 - (void)setVrModeEnabled:(BOOL)enabled {
@@ -94,9 +96,13 @@ static NSString *const kVRTInvalidAPIKeyMessage = @"The given API Key is either 
 
 //VROComponent overrides...
 - (void)insertReactSubview:(UIView *)subview atIndex:(NSInteger)atIndex {
-    [self initVRView];
     RCTAssert([subview isKindOfClass:[VRTScene class]], @"VRTSceneNavigator only accepts VRTScene subviews");
     VRTScene *sceneView = (VRTScene *)subview;
+    BOOL isVRViewInit = [self initVRView];
+    //if initVRView ran then re apply materials.
+    if (isVRViewInit == YES) {
+        [self applyMaterialsToSceneChildren:sceneView];
+    }
     
     [sceneView setView:_vroView];
     [self.currentViews insertObject:sceneView atIndex:atIndex];
@@ -163,6 +169,22 @@ static NSString *const kVRTInvalidAPIKeyMessage = @"The given API Key is either 
         [_vroView setSceneController:[sceneView sceneController] duration:1 timingFunction:VROTimingFunctionType::EaseIn];
     }
     _currentScene = sceneView;
+}
+
+// recursively traverse down the scene tree to apply materials. This is invoked after reloaded materials from initVRView() to ensure components are applying the latest reloaded materials.
+- (void)applyMaterialsToSceneChildren:(VRTView *)view {
+    NSArray *children = [view reactSubviews];
+    if (children != nil && children.count > 0) {
+        for (VRTView *childView in children) {
+            if ([childView respondsToSelector:@selector(applyMaterials)]) {
+                if ([childView isKindOfClass:[VRTNode class]]) {
+                    VRTNode *node = (VRTNode *)childView;
+                    [node applyMaterials];
+                }
+            }
+            [self applyMaterialsToSceneChildren:childView];
+        }
+    }
 }
 
 - (void)validateAPIKey {

@@ -16,12 +16,15 @@ import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.ReadableMapKeySetIterator;
 import com.facebook.react.bridge.ReadableType;
+import com.viro.core.VideoTexture;
 import com.viro.core.internal.Image;
 import com.viro.core.Material;
 import com.viro.core.Texture;
+import com.viromedia.bridge.component.VRTMaterialVideo;
 import com.viromedia.bridge.utility.Helper;
 import com.viromedia.bridge.utility.ImageDownloader;
 
+import java.lang.ref.WeakReference;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -35,6 +38,7 @@ public class MaterialManager extends ReactContextBaseJavaModule {
 
     private final ReactApplicationContext mContext;
     private Map<String, MaterialWrapper> mMaterialsMap;
+    private Map<String, WeakReference<MaterialChangeListener>> mMaterialChangeListeners;
     private Map<String, Image> mImageMap;
     private boolean mShouldReload = false;
 
@@ -43,6 +47,7 @@ public class MaterialManager extends ReactContextBaseJavaModule {
         mContext = reactContext;
         mMaterialsMap = new HashMap<String, MaterialWrapper>();
         mImageMap = new HashMap<String, Image>();
+        mMaterialChangeListeners = new HashMap<String, WeakReference<MaterialChangeListener>>();
     }
 
     @Override
@@ -52,11 +57,27 @@ public class MaterialManager extends ReactContextBaseJavaModule {
 
     public Material getMaterial(String name) {
         reloadMaterials();
-
         if (mMaterialsMap.containsKey(name)) {
             return mMaterialsMap.get(name).getNativeMaterial();
         }
         return null;
+    }
+
+    public MaterialWrapper getMaterialWrapper(String name) {
+        reloadMaterials();
+        if (mMaterialsMap.containsKey(name)) {
+            return mMaterialsMap.get(name);
+        }
+        return null;
+    }
+
+    public boolean isVideoMaterial(String name) {
+        if (mMaterialsMap.containsKey(name)) {
+            if (mMaterialsMap.get(name).hasVideoTextures()) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -78,6 +99,10 @@ public class MaterialManager extends ReactContextBaseJavaModule {
             }
             mShouldReload = false;
         }
+    }
+
+    public void setMaterialChangeListener(String name, MaterialChangeListener listener) {
+        mMaterialChangeListeners.put(name, new WeakReference<MaterialChangeListener>(listener));
     }
 
     @ReactMethod
@@ -102,13 +127,17 @@ public class MaterialManager extends ReactContextBaseJavaModule {
         while (iter.hasNextKey()) {
             String key = iter.nextKey();
             ReadableMap material = newMaterials.getMap(key);
-            MaterialWrapper materialWrapper = createMaterial(material);
+            MaterialWrapper materialWrapper = createMaterial(key, material);
             mMaterialsMap.put(key, materialWrapper);
         }
     }
 
-    private MaterialWrapper createMaterial(ReadableMap materialMap) {
-        MaterialWrapper materialWrapper = new MaterialWrapper(materialMap);
+    private MaterialWrapper createMaterial(String materialName, ReadableMap materialMap) {
+        return createMaterial(materialName, materialMap, null);
+    }
+
+    private MaterialWrapper createMaterial(String materialName, ReadableMap materialMap, VideoTexture videoTexture) {
+        MaterialWrapper materialWrapper = new MaterialWrapper(materialName, materialMap);
 
         // These defaults match those in the JNI's Material.java
         Material.LightingModel lightingModel = Material.LightingModel.CONSTANT;
@@ -156,7 +185,8 @@ public class MaterialManager extends ReactContextBaseJavaModule {
                 Uri uri = Helper.parseUri(path, mContext);
                 if (path != null) {
                     if (isVideoTexture(path)) {
-                        materialWrapper.addVideoTexturePath(materialPropertyName, path);
+                        materialWrapper.addVideoTexturePath(materialPropertyName, uri);
+                        diffuseTexture = videoTexture;
                     } else {
                         if (mImageMap.get(materialPropertyName) != null) {
                             Texture texture = parseTexture(mImageMap.get(materialPropertyName), format, sRGB, mipmap,
@@ -242,8 +272,9 @@ public class MaterialManager extends ReactContextBaseJavaModule {
         parsePBRProperties(PBRProperties.ROUGHNESS, nativeMaterial, materialMap);
         parsePBRProperties(PBRProperties.AMBIENT_OCCLUSION_TEXTURE, nativeMaterial, materialMap);
 
-        // We don't need to hold a Java texture reference after assigning the texture to the material
-        if (diffuseTexture != null) {
+        // We don't need to hold a Java texture reference after assigning the texture to the material.
+        // Make an exception for the videoTexture as we use the nativeref to play,pause, loop the video.
+        if (diffuseTexture != null && videoTexture == null) {
             diffuseTexture.dispose();
         }
         if (specularTexture != null) {
@@ -398,7 +429,7 @@ public class MaterialManager extends ReactContextBaseJavaModule {
     }
 
     private boolean isVideoTexture(String path) {
-        return path.endsWith("mp4");
+        return path.contains("mp4");
     }
 
     /**
@@ -435,18 +466,25 @@ public class MaterialManager extends ReactContextBaseJavaModule {
         }
     }
 
+    public interface MaterialChangeListener {
+        // invoked when the diffuse video texture changed of the given material.
+        public void onVideoTextureChanged(String materialName);
+    }
+
     /**
      * MaterialWrapper Class
      */
-    private class MaterialWrapper {
+    public class MaterialWrapper {
+        private String mMaterialName;
         private Material mNativeMaterial;
         // the source map that specified this material.
         private final ReadableMap mMaterialSource;
-        private Map<String, String> mVideoTextures;
+        private Map<String, Uri> mVideoTextures;
 
-        public MaterialWrapper(ReadableMap source) {
-            mVideoTextures = new HashMap<String, String>();
+        public MaterialWrapper(String materialName, ReadableMap source) {
+            mVideoTextures = new HashMap<String, Uri>();
             mMaterialSource = source;
+            mMaterialName = materialName;
         }
 
         public void setNativeMaterial(Material material) { mNativeMaterial = material; }
@@ -454,13 +492,43 @@ public class MaterialManager extends ReactContextBaseJavaModule {
             return mNativeMaterial;
         }
 
-        public void addVideoTexturePath(String name, String videoTexturePath) {
-            mVideoTextures.put(name, videoTexturePath);
+        public void addVideoTexturePath(String name, Uri videoUri) {
+            mVideoTextures.put(name, videoUri);
+        }
+
+        public boolean hasVideoTextures() {
+            if(!mVideoTextures.isEmpty()) {
+                return true;
+            }
+            return false;
+        }
+
+        /**
+         * Get the URI for the diffuse video texture. Return null if this material is not
+         * a video material.
+         * @return URI of video texture if this a video material. Null otherwise.
+         */
+        public Uri getVideoTextureURI(){
+            return mVideoTextures.get("diffuseTexture");
+        }
+
+        public void recreate(VideoTexture videoTexture) {
+            if (mMaterialSource != null) {
+                MaterialWrapper other = createMaterial(mMaterialName, mMaterialSource, videoTexture);
+                mNativeMaterial.dispose();
+                mNativeMaterial = other.mNativeMaterial;
+                mVideoTextures = other.mVideoTextures;
+                if (mMaterialChangeListeners.get(mMaterialName) != null &&
+                        mMaterialChangeListeners.get(mMaterialName).get() != null) {
+                    MaterialChangeListener listener = mMaterialChangeListeners.get(mMaterialName).get();
+                    listener.onVideoTextureChanged(mMaterialName);
+                }
+            }
         }
 
         public void recreate() {
             if (mMaterialSource != null) {
-                MaterialWrapper other = createMaterial(mMaterialSource);
+                MaterialWrapper other = createMaterial(mMaterialName, mMaterialSource);
                 mNativeMaterial.dispose();
                 mNativeMaterial = other.mNativeMaterial;
                 mVideoTextures = other.mVideoTextures;
