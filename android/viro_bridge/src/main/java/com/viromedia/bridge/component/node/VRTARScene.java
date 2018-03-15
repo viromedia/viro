@@ -6,19 +6,16 @@ package com.viromedia.bridge.component.node;
 import android.graphics.Bitmap;
 import android.os.Handler;
 import android.os.Looper;
-import android.util.Log;
 import android.view.ViewParent;
 
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReadableMap;
-import com.facebook.react.bridge.WritableArray;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
 import com.viro.core.ARAnchor;
 import com.viro.core.internal.ARDeclarativeNode;
-import com.viro.core.internal.ARDeclarativePlane;
 
 import com.viro.core.ARNode;
 import com.viro.core.ARScene;
@@ -30,13 +27,11 @@ import com.viro.core.Surface;
 import com.viro.core.Texture;
 import com.viro.core.Vector;
 import com.viro.core.ViroViewARCore;
-import com.viromedia.bridge.component.VRTARSceneNavigator;
 import com.viromedia.bridge.utility.ARUtils;
 import com.viromedia.bridge.utility.ImageDownloadListener;
 import com.viromedia.bridge.utility.ImageDownloader;
 import com.viromedia.bridge.utility.ViroEvents;
 
-import java.util.ArrayList;
 import java.util.EnumSet;
 
 public class VRTARScene extends VRTScene implements ARScene.Listener {
@@ -133,11 +128,20 @@ public class VRTARScene extends VRTScene implements ARScene.Listener {
     // -- ARSceneDelegate Implementation --
 
     @Override
-    public void onTrackingInitialized() {
+    public void onTrackingUpdated(ARScene.TrackingState state, ARScene.TrackingStateReason reason) {
+        WritableMap returnMap = Arguments.createMap();
+        returnMap.putInt("state", state.getId());
+        returnMap.putInt("reason", reason.getId());
+
         mReactContext.getJSModule(RCTEventEmitter.class).receiveEvent(
                 getId(),
-                ViroEvents.ON_TRACKING_INITIALIZED,
-                null);
+                ViroEvents.ON_TRACKING_UPDATED,
+                returnMap);
+    }
+
+    @Override
+    public void onTrackingInitialized() {
+        //No-op
     }
 
     @Override

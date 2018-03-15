@@ -52,7 +52,8 @@ var testARScene = createReactClass({
       ambientLightText: "Ambient Light",
       displayPointCloud : pointCloudDict,
       pointCloudPoints : 0,
-      worldOriginChanged : false
+      worldOriginChanged : false,
+      trackingState :""
     }
   },
   componentDidMount: function() {
@@ -91,15 +92,39 @@ var testARScene = createReactClass({
     }
   },
 
+  _onTrackingUpdated(state, reason) {
+    var strState = "NONE";
+    if (state == ViroConstants.TRACKING_NORMAL){
+      strState="Normal";
+    } else if (state == ViroConstants.TRACKING_LIMITED){
+      strState="Limited";
+    }
+
+    var strReason = "NONE";
+    if (reason == ViroConstants.TRACKING_REASON_EXCESSIVE_MOTION){
+      strReason="Excessive Motion";
+    } else if (reason == ViroConstants.TRACKING_REASON_INSUFFICIENT_FEATURES){
+      strReason="Insufficent Features";
+    }
+
+    var trackingTag = "Tracking state: " + strState + " reason: " + strReason;
+    this.setState({
+      trackingState : trackingTag,
+    });
+  },
+
   render: function() {
     return (
       <ViroARScene
         onTrackingInitialized={()=>{this.setState({initialized : true})}}
         onAmbientLightUpdate={this._onAmbientLightUpdate}
         displayPointCloud={this.state.displayPointCloud}
+        onTrackingUpdated={this._onTrackingUpdated}
         onARPointCloudUpdate={this._onARPointCloudUpdate} >
 
         {/* ViroARSceneNavigator tests */}
+        <ViroText position={polarToCartesian([2, 0, 20])} text={this.state.trackingState}
+          style={styles.instructionText} onClick={this._startStopRecording} transformBehaviors={["billboard"]}/>
         <ViroText position={polarToCartesian([2, 0, 10])} text={"Recording? " + (this.state.isRecording ? "Yes" : "No")}
           style={styles.instructionText} onClick={this._startStopRecording} transformBehaviors={["billboard"]}/>
         <ViroText position={polarToCartesian([2, 0, 0])} text={"Take Screenshot"}
@@ -110,7 +135,6 @@ var testARScene = createReactClass({
           style={styles.instructionText} onClick={this._changeWorldOrigin} transformBehaviors={["billboard"]}/>
         <ViroText position={polarToCartesian([2, 0, -30])} text={"Evict Image From Cache (Android)"}
           style={styles.instructionText} onClick={this._evictFromCache} transformBehaviors={["billboard"]}/>
-        
 
         {this._getVideo()}
         {this._getScreenshot()}

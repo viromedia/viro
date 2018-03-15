@@ -23,6 +23,9 @@ static NSString *const kVRTColorTemperatureKey = @"colorTemperature";
 static NSString *const kCameraHitTestResults = @"hitTestResults";
 static NSString *const kCameraOrientation = @"cameraOrientation";
 
+static NSString *const kVRTTrackingState = @"state";
+static NSString *const kVRTTrackingStateReason = @"reason";
+
 static NSString *const kPointCloudKey = @"pointCloud";
 
 @implementation VRTARScene {
@@ -84,9 +87,10 @@ static NSString *const kPointCloudKey = @"pointCloud";
 
 #pragma mark VROARSceneDelegateProtocol Implementation
 
-- (void)onTrackingInitialized {
-    if (self.onTrackingInitializedViro) {
-        self.onTrackingInitializedViro(@{});
+- (void)onTrackingUpdated:(VROARTrackingState)state withReason:(VROARTrackingStateReason)reason {
+    if (self.onTrackingUpdatedViro) {
+        self.onTrackingUpdatedViro(@{kVRTTrackingState : @((int)state),
+                                     kVRTTrackingStateReason : @((int)reason)});
     }
 }
 

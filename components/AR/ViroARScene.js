@@ -13,6 +13,7 @@ import PropTypes from 'prop-types';
 
 var NativeModules = require('react-native').NativeModules;
 var createReactClass = require('create-react-class');
+var ViroConstants = require('../ViroConstants');
 
 var ViroARScene = createReactClass({
   propTypes: {
@@ -54,7 +55,7 @@ var ViroARScene = createReactClass({
       }),
       PropTypes.func
     ]),
-    onTrackingInitialized: PropTypes.func,
+    onTrackingUpdated: PropTypes.func,
     onPlatformUpdate: PropTypes.func,
     onAmbientLightUpdate: PropTypes.func,
     onAnchorFound: PropTypes.func,
@@ -75,6 +76,11 @@ var ViroARScene = createReactClass({
       drawBounds: PropTypes.bool,
     }),
     postProcessEffects: PropTypes.arrayOf(PropTypes.string),
+
+    /**
+     * ##### DEPRECATION WARNING - this prop may be removed in future releases #####
+     */
+    onTrackingInitialized: PropTypes.func,
   },
 
   _onHover: function(event: Event) {
@@ -148,6 +154,28 @@ var ViroARScene = createReactClass({
     this.props.onPlatformUpdate && this.props.onPlatformUpdate(event.nativeEvent.platformInfoViro);
   },
 
+  // TODO VIRO-3172: Remove in favor of deprecating onTrackingInitialized
+  componentDidMount :function(){
+    this.onTrackingFirstInitialized = false;
+  },
+
+  _onTrackingUpdated: function(event: Event){
+    if (this.props.onTrackingUpdated){
+      this.props.onTrackingUpdated(event.nativeEvent.state, event.nativeEvent.reason);
+    }
+
+    // TODO VIRO-3172: Remove in favor of deprecating onTrackingInitialized
+    if (event.nativeEvent.state == ViroConstants.TRACKING_NORMAL && !this.onTrackingFirstInitialized) {
+      this.onTrackingFirstInitialized = true;
+      if (this.props.onTrackingInitialized){
+        this.props.onTrackingInitialized();
+      }
+    }
+  },
+
+  /**
+   * ##### DEPRECATION WARNING - this prop may be removed in future releases #####
+   */
   _onTrackingInitialized: function(event: Event) {
     this.props.onTrackingInitialized && this.props.onTrackingInitialized();
   },
@@ -262,6 +290,10 @@ var ViroARScene = createReactClass({
       pointCloudMaxPoints = this.props.displayPointCloud.maxPoints;
     }
 
+    if (this.props.onTrackingInitialized){
+      console.warn("[Viro] ViroARScene.onTrackingInitialized() has been DEPRECATED. Please use onTrackingUpdated() instead.");
+    }
+
     return (
       <VRTARScene
         {...this.props}
@@ -288,7 +320,7 @@ var ViroARScene = createReactClass({
         onCameraARHitTestViro={this._onCameraARHitTest}
         onARPointCloudUpdateViro={this._onARPointCloudUpdate}
         onPlatformUpdateViro={this._onPlatformUpdate}
-        onTrackingInitializedViro={this._onTrackingInitialized}
+        onTrackingUpdatedViro={this._onTrackingUpdated}
         onAmbientLightUpdateViro={this._onAmbientLightUpdate}
         onAnchorFoundViro={this._onAnchorFound}
         onAnchorUpdatedViro={this._onAnchorUpdated}
@@ -335,6 +367,7 @@ var VRTARScene = requireNativeComponent(
           onFuseViro:true,
           onPlatformUpdateViro: true,
           onTrackingInitializedViro: true,
+          onTrackingUpdatedViro:true,
           onAmbientLightUpdateViro: true,
           onAnchorFoundViro: true,
           onAnchorUpdatedViro: true,

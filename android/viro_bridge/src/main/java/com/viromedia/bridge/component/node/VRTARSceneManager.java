@@ -6,7 +6,6 @@ package com.viromedia.bridge.component.node;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReadableMap;
-import com.facebook.react.bridge.WritableArray;
 import com.facebook.react.common.MapBuilder;
 import com.facebook.react.uimanager.ThemedReactContext;
 import com.facebook.react.uimanager.annotations.ReactProp;
@@ -82,7 +81,7 @@ public class VRTARSceneManager extends VRTSceneManager<VRTARScene> {
     public Map getExportedCustomDirectEventTypeConstants() {
         Map map = super.getExportedCustomDirectEventTypeConstants();
         map.put(ViroEvents.ON_AMBIENT_LIGHT_UPDATE, MapBuilder.of("registrationName", ViroEvents.ON_AMBIENT_LIGHT_UPDATE));
-        map.put(ViroEvents.ON_TRACKING_INITIALIZED, MapBuilder.of("registrationName", ViroEvents.ON_TRACKING_INITIALIZED));
+        map.put(ViroEvents.ON_TRACKING_UPDATED, MapBuilder.of("registrationName", ViroEvents.ON_TRACKING_UPDATED));
         map.put(ViroEvents.ON_ANCHOR_FOUND, MapBuilder.of("registrationName", ViroEvents.ON_ANCHOR_FOUND));
         map.put(ViroEvents.ON_ANCHOR_UPDATED, MapBuilder.of("registrationName", ViroEvents.ON_ANCHOR_UPDATED));
         map.put(ViroEvents.ON_ANCHOR_REMOVED, MapBuilder.of("registrationName", ViroEvents.ON_ANCHOR_REMOVED));
