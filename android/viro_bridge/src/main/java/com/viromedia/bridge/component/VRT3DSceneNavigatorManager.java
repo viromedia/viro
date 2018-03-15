@@ -1,5 +1,5 @@
 /**
- * Copyright © 2016 Viro Media. All rights reserved.
+ * Copyright © 2018 Viro Media. All rights reserved.
  */
 package com.viromedia.bridge.component;
 
