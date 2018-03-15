@@ -43,6 +43,9 @@ enum class VROTextureFormat {
 // Texture formats for storage on the GPU
 // (e.g. we can load an RGBA8 texture and store it as RGBA4 to
 //       preserve GPU memory)
+// Note we do not include RGB8 here because RGB8 internal formats
+// in sRGB cannot automatically generate mipmaps. As a result, all
+// RGBA8 formats will be converted to RGB8 internal formats.
 enum class VROTextureInternalFormat {
     RGBA8,
     RGBA4,
@@ -102,12 +105,12 @@ public:
     /*
      Create a new VROTexture from a VROImage.
      */
-    VROTexture(VROTextureInternalFormat internalFormat, bool sRGB,
+    VROTexture(bool sRGB,
                VROMipmapMode mipmapMode,
                std::shared_ptr<VROImage> image,
                VROStereoMode stereoMode = VROStereoMode::None);
 
-    VROTexture(VROTextureInternalFormat internalFormat, bool sRGB,
+    VROTexture(bool sRGB,
                std::vector<std::shared_ptr<VROImage>> &images,
                VROStereoMode stereoMode = VROStereoMode::None);
     

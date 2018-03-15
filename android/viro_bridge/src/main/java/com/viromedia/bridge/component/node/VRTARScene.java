@@ -214,7 +214,7 @@ public class VRTARScene extends VRTScene implements ARScene.Listener {
                     }
 
                     Image image = new Image(result, Texture.Format.RGBA8);
-                    Texture texture = new Texture(image, Texture.Format.RGBA8, true, false, null);
+                    Texture texture = new Texture(image, true, false, null);
                     mPointCloudSurface.setImageTexture(texture);
 
                     if (!isTornDown()) {

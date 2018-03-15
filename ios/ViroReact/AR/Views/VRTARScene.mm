@@ -186,10 +186,10 @@ static NSString *const kPointCloudKey = @"pointCloud";
 - (void)imageLoaderDidEnd:(VRTImageAsyncLoader *)loader success:(BOOL)success image:(UIImage *)image {
     dispatch_async(dispatch_get_main_queue(), ^{
         if (success) {
-            _pointCloudSurfaceTexture = std::make_shared<VROTexture>(VROTextureInternalFormat::RGBA8, true,
-                                                            VROMipmapMode::Runtime,
-                                                            std::make_shared<VROImageiOS>(image, VROTextureInternalFormat::RGBA8),
-                                                            VROStereoMode::None);
+            _pointCloudSurfaceTexture = std::make_shared<VROTexture>(true,
+                                                                     VROMipmapMode::Runtime,
+                                                                     std::make_shared<VROImageiOS>(image, VROTextureInternalFormat::RGBA8),
+                                                                     VROStereoMode::None);
             if (!_pointCloudParticleSurface) {
                 _pointCloudParticleSurface = VROSurface::createSurface(1, 1);
             }

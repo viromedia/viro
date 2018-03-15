@@ -17,7 +17,6 @@ enum class VROARPlaneAlignment {
     HorizontalUpward = 0x11,
     HorizontalDownward = 0x101,
     Vertical = 0x10,
-    NonHorizontal = 0x0
 };
 
 /*

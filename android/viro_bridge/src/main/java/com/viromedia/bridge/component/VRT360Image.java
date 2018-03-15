@@ -182,7 +182,7 @@ public class VRT360Image extends VRTNode {
                     }
 
                     mLatestImage = new Image(result, mFormat);
-                    setBackgroundTexture(new Texture(mLatestImage, mFormat,true, false, mStereoMode));
+                    setBackgroundTexture(new Texture(mLatestImage, true, false, mStereoMode));
 
                     imageDownloadDidFinish();
                     mImageDownloadListener = null;

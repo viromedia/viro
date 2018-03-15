@@ -162,7 +162,7 @@ RCT_EXPORT_METHOD(deleteMaterials:(NSArray *)materials) {
     VROTextureInternalFormat format = [self parseImageFormat:json];
     VROMipmapMode mipmap = [self parseImageMipmapMode:json];
     
-    return std::make_shared<VROTexture>(format, sRGB, mipmap,
+    return std::make_shared<VROTexture>(sRGB, mipmap,
                                         std::make_shared<VROImageiOS>(image, format));
 }
 
@@ -208,7 +208,7 @@ RCT_EXPORT_METHOD(deleteMaterials:(NSArray *)materials) {
         std::make_shared<VROImageiOS>(cubeMapImages[@"nz"], format)
     };
     
-    return std::make_shared<VROTexture>(format, true, cubeImages);
+    return std::make_shared<VROTexture>(true, cubeImages);
 }
 
 - (void)loadProperties:(NSDictionary *)properties forTexture:(std::shared_ptr<VROTexture>)texture {

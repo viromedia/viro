@@ -2529,7 +2529,7 @@
 		</data>
 		<key>Headers/VROARPlaneAnchor.h</key>
 		<data>
-		PT2WzFulVJ8umxgGjw3/+4fU6Eo=
+		263SvHOsbBOL+igRo5VN/+X49TM=
 		</data>
 		<key>Headers/VROARPointCloud.h</key>
 		<data>
@@ -2729,7 +2729,7 @@
 		</data>
 		<key>Headers/VROImage.h</key>
 		<data>
-		G3y2SK+UwpOfzYCLKthDnn5cDUE=
+		E5k58YEB2kRFWCXIRKLd0ROGt1s=
 		</data>
 		<key>Headers/VROImageUtil.h</key>
 		<data>
@@ -2737,7 +2737,7 @@
 		</data>
 		<key>Headers/VROImageiOS.h</key>
 		<data>
-		/iTW6EF20lwAvd49crN7NNP59dw=
+		8+fQSIHYRmima/W808RBhG/dSwk=
 		</data>
 		<key>Headers/VROInputControllerBase.h</key>
 		<data>
@@ -3041,7 +3041,7 @@
 		</data>
 		<key>Headers/VROTexture.h</key>
 		<data>
-		YZMFhy4F51bs8iIAyVb/zYz8mTY=
+		/P1HGLbWaYeZ+WomZuBzwHfeQuI=
 		</data>
 		<key>Headers/VROTextureUtil.h</key>
 		<data>
@@ -4233,7 +4233,7 @@
 		</data>
 		<key>Headers/tiny_obj_loader.h</key>
 		<data>
-		Lhp924KsXJQ82YgbmlFk8yx4fG8=
+		Gu14cLpwdAs3N141WLzjhG1P8jg=
 		</data>
 		<key>Info.plist</key>
 		<data>
@@ -4309,7 +4309,7 @@
 		</data>
 		<key>constant_fsh.glsl</key>
 		<data>
-		ylqGEZKqVa9UooV7nsQGyBZ1Tkc=
+		IYOObRJJrAMb1t40JaHVn488GBc=
 		</data>
 		<key>constant_fsh_adreno.glsl</key>
 		<data>
@@ -4397,7 +4397,7 @@
 		</data>
 		<key>standard_vsh.glsl</key>
 		<data>
-		6V1sAHnMrhO/XuiYroZV4fSxMRQ=
+		PPMgmuRSpoeqPPMET54ySBes+Iw=
 		</data>
 		<key>standard_vsh_adreno.glsl</key>
 		<data>
@@ -8924,11 +8924,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			PT2WzFulVJ8umxgGjw3/+4fU6Eo=
+			263SvHOsbBOL+igRo5VN/+X49TM=
 			</data>
 			<key>hash2</key>
 			<data>
-			gJHGUag39sqodwtyZqs9GclI2dzFJ1aHaTbd4wOjHU0=
+			Y+BK6Lvng0YKdfJwzglJa3GBUfj2szlHnZaNTcWcSyI=
 			</data>
 		</dict>
 		<key>Headers/VROARPointCloud.h</key>
@@ -9474,11 +9474,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			G3y2SK+UwpOfzYCLKthDnn5cDUE=
+			E5k58YEB2kRFWCXIRKLd0ROGt1s=
 			</data>
 			<key>hash2</key>
 			<data>
-			CrXsG1quRxE3Mx++0+GieLi6kVsT34kdOecu6sWIVWw=
+			T0hl0H8d/CMygsSKR2h6dnKh3ghE5OF3JnmTib3YanQ=
 			</data>
 		</dict>
 		<key>Headers/VROImageUtil.h</key>
@@ -9496,11 +9496,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			/iTW6EF20lwAvd49crN7NNP59dw=
+			8+fQSIHYRmima/W808RBhG/dSwk=
 			</data>
 			<key>hash2</key>
 			<data>
-			fTnfENsZJTDtlg+FEcKmXiGfJos9NgZoQ+KTwSDNvdM=
+			9VZ6uKe7WRY03vYAUXQh67hMe4Y45vcixUuyBBcSZ5U=
 			</data>
 		</dict>
 		<key>Headers/VROInputControllerBase.h</key>
@@ -10332,11 +10332,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			YZMFhy4F51bs8iIAyVb/zYz8mTY=
+			/P1HGLbWaYeZ+WomZuBzwHfeQuI=
 			</data>
 			<key>hash2</key>
 			<data>
-			7lVNH1abFm2Q9ptJgrh+HvUtvLx1lo4Mi1JXTvnesUM=
+			3mCoEX7fNlYQopOb7L0bSCfGwDAoVxEV+suGnuo1jQU=
 			</data>
 		</dict>
 		<key>Headers/VROTextureUtil.h</key>
@@ -13610,11 +13610,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			Lhp924KsXJQ82YgbmlFk8yx4fG8=
+			Gu14cLpwdAs3N141WLzjhG1P8jg=
 			</data>
 			<key>hash2</key>
 			<data>
-			F0mIVYT8UHg5DS/kBkzFCx2pRwGNyJjG5TCYamOQPak=
+			FMCX/sG+R7kvyxzyoPhxz147lt1LgNuzF5+0zfvmU5o=
 			</data>
 		</dict>
 		<key>MaterialRobotoFontLoader.bundle/Roboto-Black.ttf</key>
@@ -13808,11 +13808,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			ylqGEZKqVa9UooV7nsQGyBZ1Tkc=
+			IYOObRJJrAMb1t40JaHVn488GBc=
 			</data>
 			<key>hash2</key>
 			<data>
-			JwqNlthm5kqVOpOUGF1D3E+xz3SCo0YONrjl0V9PFo0=
+			FKFROucvW7LkZDj4Hts/AKrvC17tKbjIiuh8ULo1W+w=
 			</data>
 		</dict>
 		<key>constant_fsh_adreno.glsl</key>
@@ -14050,11 +14050,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			6V1sAHnMrhO/XuiYroZV4fSxMRQ=
+			PPMgmuRSpoeqPPMET54ySBes+Iw=
 			</data>
 			<key>hash2</key>
 			<data>
-			53GhTHpKNUnkghA//vllGr2pghH0V+3qjH3RDZq97DY=
+			aonKt0p4SIRVLQ6ASTRBnqDke8/oQWvrIudGI7dutfA=
 			</data>
 		</dict>
 		<key>standard_vsh_adreno.glsl</key>

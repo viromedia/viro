@@ -626,10 +626,10 @@ const int kDefaultMaxParticles = 500;
 - (void)imageLoaderDidEnd:(VRTImageAsyncLoader *)loader success:(BOOL)success image:(UIImage *)image {
     dispatch_async(dispatch_get_main_queue(), ^{
         if (success){
-            _particleTexture = std::make_shared<VROTexture>(VROTextureInternalFormat::RGBA8, true,
-                                                                               VROMipmapMode::Runtime,
-                                                                               std::make_shared<VROImageiOS>(image, VROTextureInternalFormat::RGBA8),
-                                                                               VROStereoMode::None);
+            _particleTexture = std::make_shared<VROTexture>(true,
+                                                            VROMipmapMode::Runtime,
+                                                            std::make_shared<VROImageiOS>(image, VROTextureInternalFormat::RGBA8),
+                                                            VROStereoMode::None);
             _needsImageUpdate = true;
             [self updateEmitter];
         } else {

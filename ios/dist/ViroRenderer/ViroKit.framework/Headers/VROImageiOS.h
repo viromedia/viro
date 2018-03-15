@@ -17,9 +17,8 @@ class VROImageiOS : public VROImage {
 public:
     
     /*
-     Construct a new VROImage from the given UIImage. The data will 
-     be extracted from the UIImage into a format compatible with the
-     given target internal format.
+     Construct a new VROImage from the given UIImage. The data will be extracted
+     from the UIImage into a format compatible with the given target internal format.
      */
     VROImageiOS(UIImage *image, VROTextureInternalFormat format);
     virtual ~VROImageiOS();

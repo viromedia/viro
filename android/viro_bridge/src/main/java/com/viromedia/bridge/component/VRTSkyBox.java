@@ -180,7 +180,7 @@ public class VRTSkyBox extends VRTNode {
         if (success){
             mLatestTexture = new Texture(mImageMap.get("px"), mImageMap.get("nx"),
                     mImageMap.get("py"), mImageMap.get("ny"),
-                    mImageMap.get("pz"), mImageMap.get("nz"), mFormat);
+                    mImageMap.get("pz"), mImageMap.get("nz"));
 
             if (mUseTextureForSkybox) {
                 setBackgroundCubeImageTexture(mLatestTexture);

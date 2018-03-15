@@ -138,7 +138,7 @@ static float const kDefaultHeight = 1;
         // diffuse color to transparent
         if (_source && !_texture && self.node && self.node->getGeometry()) {
             if (_placeholderSource) {
-                std::shared_ptr<VROTexture> placeholderTexture = std::make_shared<VROTexture>(VROTextureInternalFormat::RGBA8, true,
+                std::shared_ptr<VROTexture> placeholderTexture = std::make_shared<VROTexture>(true,
                                                                                               VROMipmapMode::Runtime,
                                                                                               std::make_shared<VROImageiOS>(_placeholderSource.image,
                                                                                                                             VROTextureInternalFormat::RGBA8));
@@ -181,7 +181,7 @@ static float const kDefaultHeight = 1;
                 mode = VROTextureUtil::getStereoModeForString(std::string([self.stereoMode UTF8String]));
             }
             
-            _texture = std::make_shared<VROTexture>(self.format, true,
+            _texture = std::make_shared<VROTexture>(true,
                                                     self.mipmap ? VROMipmapMode::Runtime : VROMipmapMode::None,
                                                     std::make_shared<VROImageiOS>(image, self.format),
                                                     mode);

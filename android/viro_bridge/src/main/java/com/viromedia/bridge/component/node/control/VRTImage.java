@@ -264,7 +264,7 @@ public class VRTImage extends VRTControl {
         }
 
         mLatestImage = new Image(image, mFormat);
-        mLatestImageTexture = new Texture(mLatestImage, mFormat, true, mMipmap, mStereoMode);
+        mLatestImageTexture = new Texture(mLatestImage, true, mMipmap, mStereoMode);
         mNativeSurface.setImageTexture(mLatestImageTexture);
     }
 

@@ -189,7 +189,7 @@ public class MaterialManager extends ReactContextBaseJavaModule {
                         diffuseTexture = videoTexture;
                     } else {
                         if (mImageMap.get(materialPropertyName) != null) {
-                            Texture texture = parseTexture(mImageMap.get(materialPropertyName), format, sRGB, mipmap,
+                            Texture texture = parseTexture(mImageMap.get(materialPropertyName), sRGB, mipmap,
                                     materialPropertyName, materialMap);
                             if (materialPropertyName.equalsIgnoreCase("diffuseTexture")) {
                                 diffuseTexture = texture;
@@ -210,7 +210,7 @@ public class MaterialManager extends ReactContextBaseJavaModule {
                             Bitmap imageBitmap = downloader.getImageSync(uri);
                             if (imageBitmap != null) {
                                 Image nativeImage = new Image(imageBitmap, format);
-                                Texture texture = parseTexture(nativeImage, format, sRGB, mipmap,
+                                Texture texture = parseTexture(nativeImage, sRGB, mipmap,
                                         materialPropertyName, materialMap);
                                 if (materialPropertyName.equalsIgnoreCase("diffuseTexture")) {
                                     diffuseTexture = texture;
@@ -306,7 +306,7 @@ public class MaterialManager extends ReactContextBaseJavaModule {
             if (imageBitmap != null) {
                 Image nativeImage = new Image(imageBitmap, Texture.Format.RGBA8);
                 boolean sRGB = property == PBRProperties.AMBIENT_OCCLUSION_TEXTURE;
-                Texture texture = parseTexture(nativeImage, Texture.Format.RGBA8, sRGB, false,
+                Texture texture = parseTexture(nativeImage, sRGB, false,
                         key, materialMap);
 
                 property.setMapForMaterial(material, texture);
@@ -319,9 +319,9 @@ public class MaterialManager extends ReactContextBaseJavaModule {
         }
     }
 
-    private Texture parseTexture(Image image, Texture.Format format, boolean sRGB, boolean mipmap,
+    private Texture parseTexture(Image image, boolean sRGB, boolean mipmap,
                                  String name, ReadableMap materialMap) {
-        Texture nativeTexture = new Texture(image, format, sRGB, mipmap);
+        Texture nativeTexture = new Texture(image, sRGB, mipmap);
         parseTexture(nativeTexture, name, materialMap);
         return nativeTexture;
     }
@@ -390,7 +390,7 @@ public class MaterialManager extends ReactContextBaseJavaModule {
         // create and return a Texture w/ all 6 sides.
         return new Texture(cubeMapImages.get("px"), cubeMapImages.get("nx"),
                               cubeMapImages.get("py"), cubeMapImages.get("ny"),
-                              cubeMapImages.get("pz"), cubeMapImages.get("nz"), format);
+                              cubeMapImages.get("pz"), cubeMapImages.get("nz"));
     }
 
     private String parseImagePath(ReadableMap map, String key) {

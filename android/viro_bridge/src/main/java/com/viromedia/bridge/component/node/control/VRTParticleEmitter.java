@@ -290,7 +290,7 @@ public class VRTParticleEmitter extends VRTControl {
 
         mImageNeedsUpdate = true;
         mLatestImage = new Image(result, Texture.Format.RGBA8);
-        mLatestTexture = new Texture(mLatestImage, Texture.Format.RGBA8, true, false, null);
+        mLatestTexture = new Texture(mLatestImage, true, false, null);
 
         mImageDownloadListener.invalidate();
         mImageDownloadListener = null;

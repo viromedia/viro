@@ -715,39 +715,6 @@ namespace tinyobj {
         return vi;
     }
     
-    // Parse raw triples: i, i/j/k, i//k, i/j
-    static vertex_index parseRawTriple(const char **token) {
-        vertex_index vi(static_cast<int>(0));  // 0 is an invalid index in OBJ
-        
-        vi.v_idx = atoi((*token));
-        (*token) += strcspn((*token), "/ \t\r");
-        if ((*token)[0] != '/') {
-            return vi;
-        }
-        (*token)++;
-        
-        // i//k
-        if ((*token)[0] == '/') {
-            (*token)++;
-            vi.vn_idx = atoi((*token));
-            (*token) += strcspn((*token), "/ \t\r");
-            return vi;
-        }
-        
-        // i/j/k or i/j
-        vi.vt_idx = atoi((*token));
-        (*token) += strcspn((*token), "/ \t\r");
-        if ((*token)[0] != '/') {
-            return vi;
-        }
-        
-        // i/j/k
-        (*token)++;  // skip '/'
-        vi.vn_idx = atoi((*token));
-        (*token) += strcspn((*token), "/ \t\r");
-        return vi;
-    }
-    
     static bool ParseTextureNameAndOption(std::string *texname,
                                           texture_option_t *texopt,
                                           const char *linebuf, const bool is_bump) {

@@ -154,7 +154,7 @@
                     std::make_shared<VROImageiOS>(nz, self.format)
                 };
                 
-                _cubeTexture = std::make_shared<VROTexture>(self.format, true, cubeImages);
+                _cubeTexture = std::make_shared<VROTexture>(true, cubeImages);
                 [self updateSceneWithSkybox];
                 
                 [self.downloadedImages removeAllObjects];

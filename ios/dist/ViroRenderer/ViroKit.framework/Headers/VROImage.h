@@ -35,17 +35,38 @@ public:
      */
     virtual unsigned char *getData(size_t *length) = 0;
     
+    /*
+     Lock and unlock should be invoked before and after getData(). For most
+     image implementations this isn't necessary, but it is for others.
+     */
+    virtual void lock() {}
+    virtual void unlock() {}
+    
+    /*
+     Get the format of the source image data.
+     */
     VROTextureFormat getFormat() {
         return _format;
+    }
+    
+    /*
+     Get the format of the data we converted the source into.
+     */
+    VROTextureInternalFormat getInternalFormat() {
+        return _internalFormat;
     }
     
 protected:
     
     /*
-     The format of the data returned by getData.
+     The format of the source image data.
      */
     VROTextureFormat _format;
     
+    /*
+     The format of the data returned by getData().
+     */
+    VROTextureInternalFormat _internalFormat;
     
 };
 
