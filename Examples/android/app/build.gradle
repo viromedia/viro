@@ -111,6 +111,10 @@ android {
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
+
+        // This is required because react-native does not support arm64-v8a, so we have to
+        // force all libs to use armeabi-v7a
+        // Tracking here: https://github.com/facebook/react-native/issues/2814
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
