@@ -95,7 +95,7 @@ var styles = StyleSheet.create({
          textAlign: 'center',
     },
     chineseFontAndroid: {
-         fontFamily: 'Roboto',
+         fontFamily: 'NotoSansCJK-Regular',
          color: '#FFFFFF',
          flex: 1,
          textAlignVertical: 'center',
@@ -110,7 +110,7 @@ var styles = StyleSheet.create({
          textAlign: 'center',
     },
     koreanFontAndroid: {
-         fontFamily: 'Apple SD Gothic Neo',
+         fontFamily: 'NotoSansCJK-Regular',
          color: '#FFFFFF',
          flex: 1,
          textAlignVertical: 'center',
@@ -125,7 +125,7 @@ var styles = StyleSheet.create({
          textAlign: 'center',
     },
     japaneseFontAndroid: {
-         fontFamily: 'Heiti TC',
+         fontFamily: 'NotoSansCJK-Regular',
          color: '#FFFFFF',
          flex: 1,
          textAlignVertical: 'center',
@@ -140,7 +140,7 @@ var styles = StyleSheet.create({
          textAlign: 'center',
     },
     hindiFontAndroid: {
-         fontFamily: 'Devanagari Sangam MN',
+         fontFamily: 'NotoSansDevanagari-Regular',
          color: '#FFFFFF',
          flex: 1,
          textAlignVertical: 'center',
@@ -155,7 +155,7 @@ var styles = StyleSheet.create({
          textAlign: 'center',
     },
     arabicFontAndroid: {
-         fontFamily: 'Geeza Pro',
+         fontFamily: 'NotoNaskhArabic-Regular',
          color: '#FFFFFF',
          flex: 1,
          textAlignVertical: 'center',
