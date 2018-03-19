@@ -42,6 +42,8 @@ enum class VROFace;
 enum class VROCullMode;
 enum class VROBlendMode;
 enum class VROResourceType;
+enum class VROFontStyle;
+enum class VROFontWeight;
 
 /*
  The type of the GPU can be used to modify rendering for compatibility with older
@@ -183,7 +185,7 @@ public:
     virtual std::shared_ptr<VROSound> newSound(std::string resource, VROResourceType resourceType, VROSoundType type) = 0;
     virtual std::shared_ptr<VROAudioPlayer> newAudioPlayer(std::shared_ptr<VROSoundData> data) = 0;
     virtual std::shared_ptr<VROAudioPlayer> newAudioPlayer(std::string path, bool isLocal) = 0;
-    virtual std::shared_ptr<VROTypeface> newTypeface(std::string typeface, int size) = 0;
+    virtual std::shared_ptr<VROTypeface> newTypeface(std::string typeface, int size, VROFontStyle style, VROFontWeight weight) = 0;
     virtual void setSoundRoom(float sizeX, float sizeY, float sizeZ, std::string wallMaterial,
                               std::string ceilingMaterial, std::string floorMaterial) = 0;
     virtual void setBlendingMode(VROBlendMode mode) = 0;

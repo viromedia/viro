@@ -65,6 +65,16 @@ public class VRTTextManager extends VRTNodeManager<VRTText> {
         text.setSize(size);
     }
 
+    @ReactProp(name = "fontStyle")
+    public void setFontStyle(VRTText text, String fontStyle) {
+        text.setFontStyle(fontStyle);
+    }
+
+    @ReactProp(name = "fontWeight")
+    public void setFontWeight(VRTText text, String fontWeight) {
+        text.setFontWeight(fontWeight);
+    }
+
     @ReactProp(name = "maxLines", defaultInt = VRTText.DEFAULT_MAX_LINES)
     public void setMaxLines(VRTText text, int maxLines) {
         text.setMaxLines(maxLines);

@@ -13,7 +13,6 @@
 #import "VRTUtils.h"
 #import "VRTFlexView.h"
 
-
 NSString *const VRTLabelReactTagAttributeName = @"ReactTagAttributeName";
 
 @implementation VRTText {
@@ -38,6 +37,8 @@ NSString *const VRTLabelReactTagAttributeName = @"ReactTagAttributeName";
         _fontSize = 18;
         _defaultFont = [VRTText defaultFont];
         _maxLines = 0;
+        _fontWeight = VROFontWeight::Regular;
+        _fontStyle = VROFontStyle::Normal;
         _textClipMode = VROTextClipMode::ClipToBounds;
         _textLineBreakMode = VROLineBreakMode::WordWrap;
         _textAlign = VROTextHorizontalAlignment::Left;
@@ -77,6 +78,16 @@ NSString *const VRTLabelReactTagAttributeName = @"ReactTagAttributeName";
     _textNeedsUpdate = YES;
 }
 
+- (void)setFontWeight:(VROFontWeight)fontWeight {
+    _fontWeight = fontWeight;
+    _textNeedsUpdate = YES;
+}
+
+- (void)setFontStyle:(VROFontStyle)fontStyle {
+    _fontStyle = fontStyle;
+    _textNeedsUpdate = YES;
+}
+
 - (void)setMaxLines:(NSUInteger)maxLines {
     _maxLines = maxLines;
     _textNeedsUpdate = YES;
@@ -110,31 +121,30 @@ NSString *const VRTLabelReactTagAttributeName = @"ReactTagAttributeName";
 }
 
 - (void)updateLabel {
-    NSString *fontFam = ([self.fontFamily length]) ? self.fontFamily: _defaultFont;
+    NSString *fontFamilyNS = ([self.fontFamily length]) ? self.fontFamily: _defaultFont;
     
-    std::string fontFamily = std::string([fontFam UTF8String]);
+    std::string fontFamily = std::string([fontFamilyNS UTF8String]);
     int fontSize = (int)self.fontSize;
+    std::shared_ptr<VROTypeface> typeface = self.driver->newTypeface(fontFamily, fontSize, self.fontStyle, self.fontWeight);
     
-    std::shared_ptr<VROTypeface> typeFace = self.driver->newTypeface(fontFamily, fontSize);
-    
-    if(_text != nil && [_text length] !=0) {
+    if (_text != nil && [_text length] != 0) {
         NSStringEncoding encoding = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingUTF32LE);
         NSData *textData = [_text dataUsingEncoding:encoding];
 
         std::wstring text = std::wstring((wchar_t *) [textData bytes], [textData length] / sizeof(wchar_t));
         VROVector4f colorVector(1.0f, 1.0f, 1.0f, 1.0f);
 
-        if(self.color != nil) {
+        if (self.color != nil) {
             CGFloat red,green,blue, alpha;
             [self.color getRed:&red green:&green blue:&blue alpha:&alpha];
             colorVector.set(red, green, blue, alpha);
         }
-        _vroText = VROText::createText(text, typeFace, colorVector, _width, _height,
+        _vroText = VROText::createText(text, typeface, colorVector, _width, _height,
                                        self.textAlign, self.textAlignVertical,
                                        self.textLineBreakMode, self.textClipMode, (int) self.maxLines);
 
         [self node]->setGeometry(_vroText);
-    }else {
+    } else {
         [self node]->setGeometry(nil);
     }
 }
@@ -160,25 +170,24 @@ NSString *const VRTLabelReactTagAttributeName = @"ReactTagAttributeName";
 @implementation RCTConvert (VRTText)
 + (VROTextHorizontalAlignment)VROTextHorizontalAlignment:(id)json {
     if (![json isKindOfClass:[NSString class]]) {
-        RCTLogError(@"Error setting string. String required, received: %@", json);
+        RCTLogError(@"Error setting horizontal alignment: string required, received: %@", json);
         return VROTextHorizontalAlignment::Left;
     }
     
     NSString *value = (NSString *)json;
-    if( [value caseInsensitiveCompare:@"Left"] == NSOrderedSame ) {
+    if ([value caseInsensitiveCompare:@"Left"] == NSOrderedSame ) {
         return VROTextHorizontalAlignment::Left;
     } else if([value caseInsensitiveCompare:@"Center"] == NSOrderedSame) {
         return VROTextHorizontalAlignment::Center;
     } else if([value caseInsensitiveCompare:@"Right"] == NSOrderedSame) {
         return VROTextHorizontalAlignment::Right;
     }
-    
     return VROTextHorizontalAlignment::Left;
 }
 
 + (VROTextVerticalAlignment)VROTextVerticalAlignment:(id)json {
     if (![json isKindOfClass:[NSString class]]) {
-        RCTLogError(@"Error setting string. String required, received: %@", json);
+        RCTLogError(@"Error setting vertical alignment: string required, received: %@", json);
         return VROTextVerticalAlignment::Top;
     }
     
@@ -190,13 +199,12 @@ NSString *const VRTLabelReactTagAttributeName = @"ReactTagAttributeName";
     } else if([value caseInsensitiveCompare:@"Bottom"] == NSOrderedSame) {
         return VROTextVerticalAlignment::Bottom;
     }
-    
     return VROTextVerticalAlignment::Top;
 }
 
-+(VROLineBreakMode)VROLineBreakMode:(id)json {
++ (VROLineBreakMode)VROLineBreakMode:(id)json {
     if (![json isKindOfClass:[NSString class]]) {
-        RCTLogError(@"Error setting string. String required, received: %@", json);
+        RCTLogError(@"Error setting line break mode: string required, received: %@", json);
         return VROLineBreakMode::None;
     }
     
@@ -213,14 +221,13 @@ NSString *const VRTLabelReactTagAttributeName = @"ReactTagAttributeName";
     return VROLineBreakMode::None;
 }
 
-+(VROTextClipMode)VROTextClipMode:(id)json {
++ (VROTextClipMode)VROTextClipMode:(id)json {
     if (![json isKindOfClass:[NSString class]]) {
-        RCTLogError(@"Error setting string. String required, received: %@", json);
+        RCTLogError(@"Error setting text clip mode: string required, received: %@", json);
         return VROTextClipMode::None;
     }
     
     NSString *value = (NSString *)json;
-    
     if ([value caseInsensitiveCompare:@"None"] == NSOrderedSame) {
         return VROTextClipMode::None;
     }
@@ -228,6 +235,60 @@ NSString *const VRTLabelReactTagAttributeName = @"ReactTagAttributeName";
         return VROTextClipMode::ClipToBounds;
     }
     return VROTextClipMode::None;
+}
+
++ (VROFontStyle)VROFontStyle:(id)json {
+    if (![json isKindOfClass:[NSString class]]) {
+        RCTLogError(@"Error setting font style: string required, received: %@", json);
+        return VROFontStyle::Normal;
+    }
+    
+    NSString *fontStyle = (NSString *)json;
+    if (fontStyle == nil || fontStyle.length == 0) {
+        return VROFontStyle::Normal;
+    } else if ([@"italic" caseInsensitiveCompare:fontStyle] == 0) {
+        return VROFontStyle::Italic;
+    } else {
+        NSLog(@"Unrecognized font style [%@]", fontStyle);
+        return VROFontStyle::Normal;
+    }
+}
+
++ (VROFontWeight)VROFontWeight:(id)json {
+    if (![json isKindOfClass:[NSString class]]) {
+        RCTLogError(@"Error setting font weight: string required, received: %@", json);
+        return VROFontWeight::Regular;
+    }
+    
+    NSString *fontWeight = (NSString *)json;
+    if (fontWeight == nil || fontWeight.length == 0) {
+        return VROFontWeight::Regular;
+    } else if ([@"bold" caseInsensitiveCompare:fontWeight] == 0) {
+        return VROFontWeight::Bold;
+    } else if ([@"normal" caseInsensitiveCompare:fontWeight] == 0) {
+        return VROFontWeight::Regular;
+    } else if ([@"100" caseInsensitiveCompare:fontWeight] == 0) {
+        return VROFontWeight::UltraLight;
+    } else if ([@"200" caseInsensitiveCompare:fontWeight] == 0) {
+        return VROFontWeight::Thin;
+    } else if ([@"300" caseInsensitiveCompare:fontWeight] == 0) {
+        return VROFontWeight::Light;
+    } else if ([@"400" caseInsensitiveCompare:fontWeight] == 0) {
+        return VROFontWeight::Regular;
+    } else if ([@"500" caseInsensitiveCompare:fontWeight] == 0) {
+        return VROFontWeight::Medium;
+    } else if ([@"600" caseInsensitiveCompare:fontWeight] == 0) {
+        return VROFontWeight::Semibold;
+    } else if ([@"700" caseInsensitiveCompare:fontWeight] == 0) {
+        return VROFontWeight::Bold;
+    } else if ([@"800" caseInsensitiveCompare:fontWeight] == 0) {
+        return VROFontWeight::Heavy;
+    } else if ([@"900" caseInsensitiveCompare:fontWeight] == 0) {
+        return VROFontWeight::ExtraBlack;
+    } else {
+        NSLog(@"Unrecognized font weight [%@]", fontWeight);
+        return VROFontWeight::Regular;
+    }
 }
 
 @end

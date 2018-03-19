@@ -22,6 +22,8 @@ var ViroTextStylePropTypes =  Object.assign(Object.create(ViroStylePropTypes), {
   color: ColorPropType,
   fontFamily: PropTypes.string,
   fontSize: PropTypes.number,
+  fontStyle: PropTypes.oneOf(['normal', 'italic']),
+  fontWeight: PropTypes.oneOf(['normal', 'bold', '100', '200', '300', '400', '500', '600', '700', '800', '900']),
 
   /**
    * Specifies text alignment.

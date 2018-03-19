@@ -90,6 +90,13 @@ void VROPlatformDeleteFile(std::string filename);
  */
 void *VROPlatformLoadFile(std::string filename, int *outLength);
 
+/*
+ Find the path and index (within the font collection) for the font that most nearly
+ matches the given typeface, style, and weight. If the index is -1, then no suitable
+ font was found.
+ */
+std::pair<std::string, int> VROPlatformFindFont(std::string typeface, bool isItalic, int weight);
+
 #pragma mark - Image Loading
 
 // Returns empty shared_ptr on failure

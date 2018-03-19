@@ -19,6 +19,8 @@
 @property (nonatomic, strong) UIColor *color;
 @property (nonatomic, copy) NSString *fontFamily;
 @property (nonatomic, assign) CGFloat fontSize;
+@property (nonatomic, assign) VROFontWeight fontWeight;
+@property (nonatomic, assign) VROFontStyle fontStyle;
 @property (nonatomic, assign) NSUInteger maxLines;
 @property (nonatomic, assign) VROTextHorizontalAlignment textAlign;
 @property (nonatomic, assign) VROTextVerticalAlignment textAlignVertical;
@@ -35,5 +37,7 @@
 + (VROTextVerticalAlignment)VROTextVerticalAlignment:(id)json;
 + (VROLineBreakMode)VROLineBreakMode:(id)json;
 + (VROTextClipMode)VROTextClipMode:(id)json;
++ (VROFontStyle)VROFontStyle:(id)json;
++ (VROFontWeight)VROFontWeight:(id)json;
 
 @end

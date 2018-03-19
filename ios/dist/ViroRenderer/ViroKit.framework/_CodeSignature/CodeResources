@@ -2493,7 +2493,7 @@
 		</data>
 		<key>Headers/VROARDeclarativePlane.h</key>
 		<data>
-		urOatkezJk6PgUkgyXTqQbFpFYI=
+		rayF21vcG9+drT2El6xVhuTjj5M=
 		</data>
 		<key>Headers/VROARDeclarativeSession.h</key>
 		<data>
@@ -2645,7 +2645,7 @@
 		</data>
 		<key>Headers/VRODriver.h</key>
 		<data>
-		pLrefOmgNXb+TCkXgB/UEUYiPno=
+		A13Dh2zIG6HHPDsDRSx/nwdk/s4=
 		</data>
 		<key>Headers/VROEventDelegate.h</key>
 		<data>
@@ -2873,7 +2873,7 @@
 		</data>
 		<key>Headers/VROPlatformUtil.h</key>
 		<data>
-		Pq7VoZU4S9EJzOSmBzgdlp3R++s=
+		x3ssyZ27ye6fHQLnNc+w4y7JERs=
 		</data>
 		<key>Headers/VROPolygon.h</key>
 		<data>
@@ -3117,7 +3117,7 @@
 		</data>
 		<key>Headers/VROTypeface.h</key>
 		<data>
-		z61YKPcDeXX0QKitf5QzJlPy/3w=
+		Le60NA5peW6kZKTWrK6U9JFm+68=
 		</data>
 		<key>Headers/VROUniform.h</key>
 		<data>
@@ -8825,11 +8825,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			urOatkezJk6PgUkgyXTqQbFpFYI=
+			rayF21vcG9+drT2El6xVhuTjj5M=
 			</data>
 			<key>hash2</key>
 			<data>
-			BeV1smx/Uy0bSFyHJUD8rdkeX2F1lWaJ0J+bv0QzB2U=
+			XO2VBjxXCRuyd6orcniuUE3IP3UUFnc/Zn/h2JmGQBA=
 			</data>
 		</dict>
 		<key>Headers/VROARDeclarativeSession.h</key>
@@ -9243,11 +9243,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			pLrefOmgNXb+TCkXgB/UEUYiPno=
+			A13Dh2zIG6HHPDsDRSx/nwdk/s4=
 			</data>
 			<key>hash2</key>
 			<data>
-			wP8jH1FycmWlZuVX7OKX8GxG9b1gB1L3kmJUKsH5ups=
+			Hc7+hKtwA8BU69Mu4VyzK4QzQLCzqIwT+dNZ1oWsCeI=
 			</data>
 		</dict>
 		<key>Headers/VROEventDelegate.h</key>
@@ -9870,11 +9870,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			Pq7VoZU4S9EJzOSmBzgdlp3R++s=
+			x3ssyZ27ye6fHQLnNc+w4y7JERs=
 			</data>
 			<key>hash2</key>
 			<data>
-			EuCr8bM4yj6Hs6BNYFf1Jq8TqLXOpBBxN5M7iFV3nmU=
+			QE9KBr5/aetKr1pjOpQY9xLJrZgXjCcd2LKMxfSnYnE=
 			</data>
 		</dict>
 		<key>Headers/VROPolygon.h</key>
@@ -10541,11 +10541,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			z61YKPcDeXX0QKitf5QzJlPy/3w=
+			Le60NA5peW6kZKTWrK6U9JFm+68=
 			</data>
 			<key>hash2</key>
 			<data>
-			JX98ZFQfoYtA14oct30r0BzcS9DqKx3FxmpWWPD7aC0=
+			1i/cWxHtNdA6+IBgKQcLNqOkqYRzysmvy8pad2NHfqA=
 			</data>
 		</dict>
 		<key>Headers/VROUniform.h</key>

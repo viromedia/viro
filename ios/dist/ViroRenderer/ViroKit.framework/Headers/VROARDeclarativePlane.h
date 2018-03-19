@@ -80,6 +80,8 @@ public:
                     && _alignment != VROARPlaneAlignment::HorizontalDownward) {
                     return false;
                 }
+            default:
+                break;
         }
 #endif
         

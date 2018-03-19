@@ -16,6 +16,8 @@ public class VRTText extends VRTControl {
     static final long DEFAULT_COLOR = Color.WHITE;
     static final int DEFAULT_MAX_LINES = 0;
     static final int DEFAULT_FONT_SIZE = 14;
+    static final Text.FontStyle DEFAULT_FONT_STYLE = Text.FontStyle.Normal;
+    static final Text.FontWeight DEFAULT_FONT_WEIGHT = Text.FontWeight.Regular;
 
     private Text mNativeText = null;
     private long mColor = DEFAULT_COLOR;
@@ -24,6 +26,8 @@ public class VRTText extends VRTControl {
     private float mHeight = DEFAULT_HEIGHT;
     private String mText;
     private String mFontFamilyName = DEFAULT_FONT;
+    private Text.FontStyle mFontStyle = DEFAULT_FONT_STYLE;
+    private Text.FontWeight mFontWeight = DEFAULT_FONT_WEIGHT;
     private int mSize = DEFAULT_FONT_SIZE;
     private String mHorizontalAlignment = "Left";
     private String mVerticalAlignment = "Top";
@@ -82,6 +86,16 @@ public class VRTText extends VRTControl {
         mNeedsUpdate = true;
     }
 
+    public void setFontStyle(String style) {
+        mFontStyle = getFontStyleEnum(style);
+        mNeedsUpdate = true;
+    }
+
+    public void setFontWeight(String weight) {
+        mFontWeight = getFontWeightEnum(weight);
+        mNeedsUpdate = true;
+    }
+
     public void setHorizontalAlignment(String horizontalAlignment) {
         mHorizontalAlignment = horizontalAlignment;
         mNeedsUpdate = true;
@@ -113,7 +127,9 @@ public class VRTText extends VRTControl {
         }
 
         // Create text
-        mNativeText = new Text(mViroContext, mText, mFontFamilyName, mSize, mColor, mWidth, mHeight,
+        mNativeText = new Text(mViroContext, mText,
+                mFontFamilyName, mSize, mFontStyle, mFontWeight,
+                mColor, mWidth, mHeight,
                 getHorizontalAlignmentEnum(mHorizontalAlignment),
                 getVerticalAlignmentEnum(mVerticalAlignment),
                 getLineBreakModeEnum(mTextLineBreakMode),
@@ -135,6 +151,44 @@ public class VRTText extends VRTControl {
         if (mNeedsUpdate) {
             mNeedsUpdate = false;
             updateLabel();
+        }
+    }
+
+    private Text.FontStyle getFontStyleEnum(String strName) {
+        if (strName.equalsIgnoreCase("Normal")) {
+            return Text.FontStyle.Normal;
+        } else if (strName.equalsIgnoreCase("Italic")) {
+            return Text.FontStyle.Italic;
+        } else {
+            return Text.FontStyle.Normal;
+        }
+    }
+
+    private Text.FontWeight getFontWeightEnum(String strName) {
+        if (strName.equalsIgnoreCase("Normal")) {
+            return Text.FontWeight.Regular;
+        } else if (strName.equalsIgnoreCase("Bold")) {
+            return Text.FontWeight.Bold;
+        } else if (strName.equalsIgnoreCase("100")) {
+            return Text.FontWeight.UltraLight;
+        } else if (strName.equalsIgnoreCase("200")) {
+            return Text.FontWeight.Thin;
+        } else if (strName.equalsIgnoreCase("300")) {
+            return Text.FontWeight.Light;
+        } else if (strName.equalsIgnoreCase("400")) {
+            return Text.FontWeight.Regular;
+        } else if (strName.equalsIgnoreCase("500")) {
+            return Text.FontWeight.Medium;
+        } else if (strName.equalsIgnoreCase("600")) {
+            return Text.FontWeight.Semibold;
+        } else if (strName.equalsIgnoreCase("700")) {
+            return Text.FontWeight.Bold;
+        } else if (strName.equalsIgnoreCase("800")) {
+            return Text.FontWeight.Heavy;
+        } else if (strName.equalsIgnoreCase("900")) {
+            return Text.FontWeight.ExtraBlack;
+        } else {
+            return Text.FontWeight.Regular;
         }
     }
 
