@@ -66,7 +66,7 @@ var testARScene = createReactClass({
         <ViroSurface
             ref={component=>{this._surface = component}}
             rotation={[-90, 0, 0]}
-            position={[0,-0.01,0]}
+            position={[0,-0.0001,0]}
             scale={[1,1,1]}
             materials={"red_plane"}/>
 
@@ -106,7 +106,6 @@ var testARScene = createReactClass({
       polygonPoint.push(point);
     }
 
-//this.setState({polygonPoint:polygonPoint})
     this._polySurface.setNativeProps({"vertices" : polygonPoint});
     this._surface.setNativeProps({"scale" : [updateMap.width, updateMap.height, 1]});
 
