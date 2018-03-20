@@ -290,7 +290,7 @@ var ViroARScene = createReactClass({
       pointCloudMaxPoints = this.props.displayPointCloud.maxPoints;
     }
 
-    if (this.props.onTrackingInitialized){
+    if (this.props.onTrackingInitialized && !this.onTrackingFirstInitialized){
       console.warn("[Viro] ViroARScene.onTrackingInitialized() has been DEPRECATED. Please use onTrackingUpdated() instead.");
     }
 

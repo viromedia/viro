@@ -53,6 +53,7 @@ var testFiles = [
   ["ViroPbrTestBasic", require("./ViroPbrTestAR")],
   ["ViroPbrTestSurface", require("./ViroPbrTestSurfacesAR")],
   ["ARShadowTest", require("./ARShadowTest")],
+  ["ARPolygonPlaneTest", require("./ARPolygonPlaneTest")]
 ]
 
 var ARReleaseMenu = createReactClass({

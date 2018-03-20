@@ -28,7 +28,8 @@ import {
   Viro3DObject,
   ViroButton,
   ViroSpinner,
-  ViroDirectionalLight
+  ViroDirectionalLight,
+  ViroPolygon
 } from 'react-viro';
 
 var createReactClass = require('create-react-class');
@@ -45,11 +46,11 @@ var LocalButtonImage = require("./res/icon_live.jpg");
 
 var ReleaseMenu = require("./ReleaseMenu.js");
 
-var TEST_COMPONENT_NUM = 11;
+var TEST_COMPONENT_NUM = 12;
 
 var GroupTestBasicProps = createReactClass({
   getInitialState() {
-    var offsetArray = [11];
+    var offsetArray = [12];
     var i;
     for ( i = 0; i < TEST_COMPONENT_NUM ; i ++ ){
         var offset ={
@@ -182,6 +183,15 @@ Note: Re-enable opacity for text once VIRO-885 is fixed
                       height={4} width={4}
                       onClick={this._elementClick(9)}
                       source={{"uri":"https://s3-us-west-2.amazonaws.com/viro/Climber1Top.mp4"}} />
+
+                  <ViroPolygon
+                      vertices={[[-1.0,1.0], [0.0,1.75],  [1.5,1.5] , [2.0, -1.0],[-1.5,-1.5] ]}
+                      visible={this.state.offsetData[11].isVisible} opacity={this.state.offsetData[11].opacity}
+                      position={[1.0+ this.state.offsetData[11].translate , -1,0]}
+                      scale={[0.1 * this.state.offsetData[11].scale * 2.5, 0.1 * this.state.offsetData[11].scale * 2.5, 0.1 * 2.5]}
+                      rotation={[0,this.state.offsetData[11].rotate,0]}
+                      onClick={this._elementClick(11)}
+                      materials={"blue_plane"}/>
 
                  <ViroText
                       position={[-1.5 , -2, 0]}
@@ -355,6 +365,10 @@ ViroMaterials.createMaterials({
   heart: {
       lightingModel: "Constant",
       diffuseTexture: require('../res/heart_d.jpg'),
+    },
+    blue_plane: {
+      lightingModel: "Constant",
+      diffuseColor: "#0000ff50"
     },
  });
 

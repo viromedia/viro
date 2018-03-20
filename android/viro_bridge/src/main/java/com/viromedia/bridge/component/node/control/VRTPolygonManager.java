@@ -44,13 +44,16 @@ public class VRTPolygonManager extends VRTNodeManager<VRTPolygon> {
                 throw new IllegalArgumentException("[ViroPolygon] Invalid Polygon vertex boundary list provided!");
             }
 
-            if (vertices.size() > 2){
+            if (vecArray.size() > 2){
                 Log.w("Viro","[ViroPolygon] Polygon only supports xy coordinates! " +
                         "But a set of 3 points had been provided!");
+
             }
 
             vecVertices.add(new Vector(vecArray.getDouble(0), vecArray.getDouble(1),0));
         }
+
+
         view.setVertices(vecVertices);
     }
 

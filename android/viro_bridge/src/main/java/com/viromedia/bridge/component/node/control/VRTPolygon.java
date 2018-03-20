@@ -35,6 +35,7 @@ public class VRTPolygon extends VRTControl {
 
     public void setVertices(List<Vector> coords){
         mVertices = coords;
+        mGeometryNeedsUpdate = true;
     }
 
     public void setARShadowReceiver(boolean arShadowReceiver) {
