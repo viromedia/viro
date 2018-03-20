@@ -35,7 +35,7 @@ NSString *const VRTLabelReactTagAttributeName = @"ReactTagAttributeName";
         _height = 1.0;
         _ratio = 1.0;
         _fontSize = 18;
-        _defaultFont = [VRTText defaultFont];
+        _defaultFont = @"";
         _maxLines = 0;
         _fontWeight = VROFontWeight::Regular;
         _fontStyle = VROFontStyle::Normal;
@@ -153,16 +153,6 @@ NSString *const VRTLabelReactTagAttributeName = @"ReactTagAttributeName";
 - (void)sceneWillAppear {
     [super sceneWillAppear];
     [self updateLabel];
-}
-
-// Static function to get default font.
-+ (NSString *)defaultFont {
-    static NSString *defaultFontFamily;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        defaultFontFamily = [UIFont systemFontOfSize:14].familyName;
-    });
-    return defaultFontFamily;
 }
 
 @end
