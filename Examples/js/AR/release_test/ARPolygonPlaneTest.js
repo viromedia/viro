@@ -25,6 +25,7 @@ import {
   ViroVideo,
   ViroText,
   ViroUtils,
+  ViroBox,
   ViroPolygon
 } from 'react-viro';
 
@@ -70,6 +71,12 @@ var testARScene = createReactClass({
             scale={[1,1,1]}
             materials={"red_plane"}/>
 
+      <ViroBox
+      ref={component=>{this._box = component}}
+
+      position={[0,-0.0001,0]}
+      scale={[0.05,0.05,0.05]}
+          />
 
       </ViroARPlane>
 
@@ -106,10 +113,54 @@ var testARScene = createReactClass({
       polygonPoint.push(point);
     }
 
-    this._polySurface.setNativeProps({"vertices" : polygonPoint});
-    this._surface.setNativeProps({"scale" : [updateMap.width, updateMap.height, 1]});
+    this.debugSurfacesAndPlanes(updateMap);
 
+    var centeroffset = [updateMap.center[0], updateMap.center[1] - 0.001, updateMap.center[2]];
+    this._polySurface.setNativeProps({"position" :centeroffset});
+    this._polySurface.setNativeProps({"vertices" : polygonPoint});
+
+    this._surface.setNativeProps({"position" : updateMap.center});
+    this._surface.setNativeProps({"width" : updateMap.width});
+    this._surface.setNativeProps({"height" : updateMap.height});
   },
+
+  debugSurfacesAndPlanes(updateMap){
+
+        var minX = 999999;
+        var minY = 999999;
+        var maxX = -999999;
+        var maxY = -999999;
+        for (i = 0; i < updateMap.vertices.length; i ++){
+          var x = updateMap.vertices[i][0];
+          var y = updateMap.vertices[i][2];
+
+          if (x < minX){
+            minX = x;
+          }
+          if (x > maxX){
+            maxX = x;
+          }
+
+          if (y < minY){
+            minY = y;
+          }
+          if (y > maxY){
+            maxY = y;
+          }
+        }
+
+        var mapMinX = updateMap.center[0] - (updateMap.width/2);
+        var mapMinY = updateMap.center[2] - (updateMap.height/2);
+
+        var mapMaxX = updateMap.center[0] +(updateMap.width/2);
+        var mapMaxY = updateMap.center[2] + (updateMap.height/2);
+        // console.log("Viro Surface width/height : " + mapMinX + " , " + mapMinY + " || " + mapMaxX + " , " + mapMaxY  );
+        // console.log("Viro  Polygon width/height : " + (maxX - minX) + " , " + (maxY - minY) + "," + (mapMaxX - mapMinX) + " , " + (mapMaxY - mapMinY)  );
+
+        console.log("Viro center is : " + updateMap.center[0]+ ", " + updateMap.center[1] +", " + updateMap.center[2]);
+        console.log("Viro position is : " + updateMap.position[0] +", " + updateMap.position[1] +", " + updateMap.position[2]);
+  },
+
   _goToNextTest() {
     this.props.arSceneNavigator.replace("ARPlaneManualTest", {scene:require("./ARPlaneManualTest")})
   },
@@ -129,7 +180,8 @@ var styles = StyleSheet.create({
 ViroMaterials.createMaterials({
   blue_plane: {
     lightingModel: "Constant",
-    diffuseColor: "#0000ff50"
+    diffuseColor: "#0000ff50",
+    cullMode:'None'
   },
   red_plane: {
     lightingModel: "Constant",
