@@ -31,7 +31,7 @@ public class ARUtils {
             returnMap.putString("alignment", plane.getAlignment().getStringValue());
 
             WritableArray polygonPointsArray = Arguments.createArray();
-            for (Vector point : plane.getBoundaryVertices()){
+            for (Vector point : plane.getVertices()){
                 polygonPointsArray.pushArray(arrayFromVector(point));
             }
             returnMap.putArray("vertices", polygonPointsArray);
