@@ -141,6 +141,12 @@ public abstract class VRTNodeManager<T extends VRTNode> extends VRTViroViewGroup
         view.setAnimation(map);
     }
 
+    @ReactProp(name = "ignoreEventHandling", defaultBoolean = VRTNode.DEFAULT_IGNORE_EVENT_HANDLING)
+    public void setIgnoreEventHandling(VRTNode view, boolean ignore) {
+        view.setIgnoreEventHandling(ignore);
+    }
+
+
     @ReactProp(name = "materials")
     public void setMaterials(VRTNode view, @Nullable ReadableArray materials) {
         // get material manager

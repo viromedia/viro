@@ -154,6 +154,7 @@ public class VRT3DObject extends VRTControl {
                 // Set the bitmasks recursively now that the tree is loaded
                 object.setLightReceivingBitMask(mLightReceivingBitMask);
                 object.setShadowCastingBitMask(mShadowCastingBitMask);
+                object.setIgnoreEventHandling(mIgnoreEventHandling);
 
                 updateAnimation();
                 loadDidEnd();

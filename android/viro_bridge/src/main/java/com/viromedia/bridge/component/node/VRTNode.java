@@ -108,6 +108,7 @@ public class VRTNode extends VRTComponent {
     protected final static boolean DEFAULT_CAN_AR_POINT_CLOUD_UPDATE = false;
     protected final static float DEFAULT_TIME_TO_FUSE_MILLIS = 1000f;
     protected final static double TRANSFORM_DELEGATE_DISTANCE_FILTER = 0.01;
+    protected final static boolean DEFAULT_IGNORE_EVENT_HANDLING = false;
 
     private Node mNodeJni;
     protected float[] mPosition;
@@ -118,6 +119,7 @@ public class VRTNode extends VRTComponent {
     protected float mOpacity = 1.0f;
     protected boolean mVisible = true; // default visible value should be true
     protected boolean mHighAccuracyGazeEnabled = false;
+    protected boolean mIgnoreEventHandling = false;
 
     protected int mLightReceivingBitMask = 1;
     protected int mShadowCastingBitMask = 1;
@@ -552,6 +554,11 @@ public class VRTNode extends VRTComponent {
             mNodeAnimation.setAnimationName(null);
         }
         mNodeAnimation.updateAnimation();
+    }
+
+    public void setIgnoreEventHandling(boolean ignore){
+        mIgnoreEventHandling = ignore;
+        mNodeJni.setIgnoreEventHandling(ignore);
     }
 
     /**
