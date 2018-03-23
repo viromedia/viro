@@ -575,6 +575,10 @@ public:
 
     void setIgnoreEventHandling(bool canHandle) {
         _ignoreEventHandling = canHandle;
+
+        for (std::shared_ptr<VRONode> childNode : getChildNodes()){
+            childNode->setIgnoreEventHandling(canHandle);
+        }
     }
 
     bool getIgnoreEventHandling() const {

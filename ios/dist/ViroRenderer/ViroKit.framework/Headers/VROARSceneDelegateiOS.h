@@ -15,7 +15,7 @@
 
 @protocol VROARSceneDelegateProtocol <NSObject>
 @required
-- (void)onTrackingInitialized;
+- (void)onTrackingUpdated:(VROARTrackingState)state withReason:(VROARTrackingStateReason)reason;
 - (void)onAmbientLightUpdate:(float)intensity colorTemperature:(float)colorTemperature;
 - (void)onAnchorFound:(std::shared_ptr<VROARAnchor>)anchor;
 - (void)onAnchorUpdated:(std::shared_ptr<VROARAnchor>)anchor;
@@ -29,8 +29,8 @@ public:
     
     virtual ~VROARSceneDelegateiOS() {}
 
-    virtual void onTrackingInitialized() {
-        [_delegate onTrackingInitialized];
+    virtual void onTrackingUpdated(VROARTrackingState state, VROARTrackingStateReason reason){
+        [_delegate onTrackingUpdated:state withReason:reason];
     }
     
     virtual void anchorWasDetected(std::shared_ptr<VROARAnchor> anchor) {

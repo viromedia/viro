@@ -125,7 +125,7 @@ NSString *const VRTLabelReactTagAttributeName = @"ReactTagAttributeName";
     
     std::string fontFamily = std::string([fontFamilyNS UTF8String]);
     int fontSize = (int)self.fontSize;
-    std::shared_ptr<VROTypeface> typeface = self.driver->newTypeface(fontFamily, fontSize, self.fontStyle, self.fontWeight);
+    std::shared_ptr<VROTypefaceCollection> typeface = self.driver->newTypefaceCollection(fontFamily, fontSize, self.fontStyle, self.fontWeight);
     
     if (_text != nil && [_text length] != 0) {
         NSStringEncoding encoding = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingUTF32LE);

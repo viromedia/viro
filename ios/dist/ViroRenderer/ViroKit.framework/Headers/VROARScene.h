@@ -12,6 +12,7 @@
 #include <vector>
 #include "VROARSession.h"
 #include "VROScene.h"
+#include "VROARCamera.h"
 
 class VROARAnchor;
 class VROARDeclarativeSession;
@@ -20,14 +21,15 @@ class VROFixedParticleEmitter;
 
 class VROARSceneDelegate {
 public:
-    virtual void onTrackingInitialized() = 0;
+    virtual void onTrackingUpdated(VROARTrackingState state, VROARTrackingStateReason reason) = 0;
     virtual void onAmbientLightUpdate(float ambientLightIntensity, float colorTemperature) = 0;
 };
 
 class VROARScene : public VROScene {
 public:
     VROARScene() :
-        _hasTrackingInitialized(false),
+        _currentTrackingState(VROARTrackingState::Unavailable),
+        _currentTrackingStateReason(VROARTrackingStateReason::None),
         _displayPointCloud(false),
         _pointCloudSurfaceScale(VROVector3f(.01, .01, 1)),
         _pointCloudMaxPoints(500) {
@@ -86,7 +88,7 @@ public:
     void setPointCloudMaxPoints(int maxPoints);
     
     void setDelegate(std::shared_ptr<VROARSceneDelegate> delegate);
-    void trackingHasInitialized();
+    void setTrackingState(VROARTrackingState state, VROARTrackingStateReason reason, bool force);
     void updateAmbientLight(float intensity, float colorTemperature);
     
     void willAppear();
@@ -111,7 +113,14 @@ private:
     std::shared_ptr<VRONode> _pointCloudNode;
     std::shared_ptr<VROFixedParticleEmitter> _pointCloudEmitter;
     std::weak_ptr<VROARSceneDelegate> _delegate;
-    bool _hasTrackingInitialized;
+
+    /*
+     * Tracking states that have been read from ARCore/ARKit cameras.
+     * Usually, this flips between Unavailable and Normal as the activity
+     * enters paused and resume states.
+     */
+    VROARTrackingState _currentTrackingState;
+    VROARTrackingStateReason _currentTrackingStateReason;
 
     /* Point Cloud Properties */
     bool _displayPointCloud;

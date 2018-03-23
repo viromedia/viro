@@ -17,18 +17,18 @@ class VROVector3f;
 class VROFieldOfView;
 
 enum class VROARTrackingState {
-    Unavailable,
-    Limited,
-    Normal,
+    Unavailable = 1,
+    Limited = 2,
+    Normal = 3
 };
 
 /*
  Provides reasons for why we are in Limited tracking state.
  */
 enum class VROARTrackingStateReason {
-    None,
-    ExcessiveMotion,
-    InsufficientFeatures
+    None = 1,
+    ExcessiveMotion = 2,
+    InsufficientFeatures = 3
 };
 
 /*
@@ -47,7 +47,7 @@ public:
      */
     virtual VROARTrackingState getTrackingState() const = 0;
     virtual VROARTrackingStateReason getLimitedTrackingStateReason() const = 0;
-    
+
     /*
      Get the position and rotation of the user in world space. These values
      are derived from the AR camera's extrinsic matrix, acquired via visual and

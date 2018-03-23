@@ -20,6 +20,7 @@
 class VROMaterial;
 class VROTexture;
 class VROGlyph;
+class VROTypefaceCollection;
 
 enum class VROTextHorizontalAlignment {
     Left,
@@ -67,16 +68,20 @@ class VROText : public VROGeometry {
 public:
     
     /*
-     Create a text object for displaying the given string with the given typeface,
-     constrained to the bounds defined by the provided width and height, and aligned
-     according to the given alignment parameters and linebreak mode. 
+     Create a text object for displaying the given string with the typefaces in the
+     given collection, constrained to the bounds defined by the provided width and height,
+     and aligned according to the given alignment parameters and linebreak mode.
      
      The clip mode determines whether the text is clipped to the given bounds.
      
      The maxLines parameter, if set, caps the number of lines; when zero, there is no
      limit to the number of lines generated.
+     
+     The typeface to use for each character will be chosen from among the typeface collection.
      */
-    static std::shared_ptr<VROText> createText(std::wstring text, std::shared_ptr<VROTypeface> typeface, VROVector4f color,
+    static std::shared_ptr<VROText> createText(std::wstring text,
+                                               std::shared_ptr<VROTypefaceCollection> typefaces,
+                                               VROVector4f color,
                                                float width, float height,
                                                VROTextHorizontalAlignment horizontalAlignment, VROTextVerticalAlignment verticalAlignment,
                                                VROLineBreakMode lineBreakMode, VROTextClipMode clipMode, int maxLines = 0);
@@ -86,20 +91,25 @@ public:
      The box is centered at the parent node's position, and the text is aligned within the
      box according to the given alignment.
      */
-    static std::shared_ptr<VROText> createSingleLineText(std::wstring text, std::shared_ptr<VROTypeface> typeface, VROVector4f color,
+    static std::shared_ptr<VROText> createSingleLineText(std::wstring text,
+                                                         std::shared_ptr<VROTypefaceCollection> typefaces,
+                                                         VROVector4f color,
                                                          float width, VROTextHorizontalAlignment alignment, VROTextClipMode clipMode);
 
     /*
      Helper method to create a centered single-line text. The text will be centered (vertically
      and horizontally) about the parent node's position.
      */
-    static std::shared_ptr<VROText> createSingleLineText(std::wstring text, std::shared_ptr<VROTypeface> typeface, VROVector4f color);
+    static std::shared_ptr<VROText> createSingleLineText(std::wstring text,
+                                                         std::shared_ptr<VROTypefaceCollection> typefaces,
+                                                         VROVector4f color);
     
     /*
      Return the width and height of a text object displaying the given string, with the
-     given typeface.
+     given typeface collection.
      */
-    static VROVector3f getTextSize(std::wstring text, std::shared_ptr<VROTypeface> typeface,
+    static VROVector3f getTextSize(std::wstring text,
+                                   std::shared_ptr<VROTypefaceCollection> typefaces,
                                    float maxWidth, float maxHeight, VROLineBreakMode lineBreakMode,
                                    VROTextClipMode clipMode, int maxLines = 0);
 
@@ -107,7 +117,8 @@ public:
      Standard constructor. Update() must be invoked from the rendering thread if this constructor
      is used.
      */
-    VROText(std::wstring text, std::shared_ptr<VROTypeface> typeface, VROVector4f color,
+    VROText(std::wstring text, std::shared_ptr<VROTypefaceCollection> typefaces,
+            VROVector4f color,
             float width, float height,
             VROTextHorizontalAlignment horizontalAlignment, VROTextVerticalAlignment verticalAlignment,
             VROLineBreakMode lineBreakMode, VROTextClipMode clipMode, int maxLines);
@@ -132,7 +143,7 @@ public:
     }
 
     void setText(std::wstring text);
-    void setTypeface(std::shared_ptr<VROTypeface> typeface);
+    void setTypefaceCollection(std::shared_ptr<VROTypefaceCollection> typefaces);
     void setColor(VROVector4f color);
     void setWidth(float width);
     void setHeight(float height);
@@ -145,7 +156,7 @@ public:
 private:
 
     std::wstring _text;
-    std::shared_ptr<VROTypeface> _typeface;
+    std::shared_ptr<VROTypefaceCollection> _typefaces;
     VROVector4f _color;
     float _width, _height;
     VROTextHorizontalAlignment _horizontalAlignment;
@@ -165,7 +176,7 @@ private:
     {}
     
     static void buildText(std::wstring &text,
-                          std::shared_ptr<VROTypeface> &typeface,
+                          std::shared_ptr<VROTypefaceCollection> &typefaces,
                           VROVector4f color,
                           float width,
                           float height,
@@ -184,7 +195,7 @@ private:
      pairs.
      */
     static void buildGeometry(std::vector<VROShapeVertexLayout> &var,
-                              std::map<unsigned long, std::pair<std::shared_ptr<VROMaterial>, std::vector<int>>> &materialMap,
+                              std::map<uint32_t, std::pair<std::shared_ptr<VROMaterial>, std::vector<int>>> &materialMap,
                               std::vector<std::shared_ptr<VROGeometrySource>> &sources,
                               std::vector<std::shared_ptr<VROGeometryElement>> &elements,
                               std::vector<std::shared_ptr<VROMaterial>> &materials);
@@ -210,18 +221,18 @@ private:
      clip text vertically (horizontal edges are implicitly taken care of by the wrapping
      function). When char/word wrapping is off, we also have to clip text horizontally.
      */
-    static std::vector<VROTextLine> wrapByWords(std::wstring &text, float maxWidth, float maxHeight, int maxLines,
-                                                std::shared_ptr<VROTypeface> &typeface,
+    static std::vector<VROTextLine> wrapByWords(std::wstring &text,
+                                                float maxWidth, float maxHeight, int maxLines, float lineHeight,
                                                 VROTextClipMode clipMode,
-                                                std::map<unsigned long, std::shared_ptr<VROGlyph>> &glyphMap);
-    static std::vector<VROTextLine> wrapByChars(std::wstring &text, float maxWidth, float maxHeight, int maxLines,
-                                                std::shared_ptr<VROTypeface> &typeface,
+                                                std::map<uint32_t, std::shared_ptr<VROGlyph>> &glyphMap);
+    static std::vector<VROTextLine> wrapByChars(std::wstring &text,
+                                                float maxWidth, float maxHeight, int maxLines, float lineHeight,
                                                 VROTextClipMode clipMode,
-                                                std::map<unsigned long, std::shared_ptr<VROGlyph>> &glyphMap);
-    static std::vector<VROTextLine> wrapByNewlines(std::wstring &text, float maxWidth, float maxHeight, int maxLines,
-                                                   std::shared_ptr<VROTypeface> &typeface,
+                                                std::map<uint32_t, std::shared_ptr<VROGlyph>> &glyphMap);
+    static std::vector<VROTextLine> wrapByNewlines(std::wstring &text,
+                                                   float maxWidth, float maxHeight, int maxLines, float lineHeight,
                                                    VROTextClipMode clipMode,
-                                                   std::map<unsigned long, std::shared_ptr<VROGlyph>> &glyphMap);
+                                                   std::map<uint32_t, std::shared_ptr<VROGlyph>> &glyphMap);
     
     /*
      Justification routine. Considerably more complex than the greedy algorithms above. Note that
@@ -229,19 +240,19 @@ private:
      it can be used with left, right, and centered horizontal alignment. To achieve traditional 
      justified text as seen in newspapers, use it with VROTextHorizontalAlignment::Left.
      */
-    static std::vector<VROTextLine> justify(std::wstring &text, float maxWidth, float maxHeight, int maxLines,
-                                            std::shared_ptr<VROTypeface> &typeface,
+    static std::vector<VROTextLine> justify(std::wstring &text,
+                                            float maxWidth, float maxHeight, int maxLines, float lineHeight,
                                             VROTextClipMode clipMode,
-                                            std::map<unsigned long, std::shared_ptr<VROGlyph>> &glyphMap);
+                                            std::map<uint32_t, std::shared_ptr<VROGlyph>> &glyphMap);
     
     /*
      Helpers for wrapping/clipping.
      */
     static std::vector<std::wstring> divideIntoParagraphs(std::wstring &text);
-    static float getLengthOfWord(const std::wstring &word, std::map<unsigned long, std::shared_ptr<VROGlyph>> &glyphMap);
+    static float getLengthOfWord(const std::wstring &word, std::map<uint32_t, std::shared_ptr<VROGlyph>> &glyphMap);
 
     static bool isAnotherLineAvailable(size_t numLinesNow, float maxHeight, int maxLines,
-                                       std::shared_ptr<VROTypeface> &typeface, VROTextClipMode clipMode);
+                                       float lineHeight, VROTextClipMode clipMode);
     
 
 };

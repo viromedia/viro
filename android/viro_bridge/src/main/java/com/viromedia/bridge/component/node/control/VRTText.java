@@ -127,13 +127,19 @@ public class VRTText extends VRTControl {
         }
 
         // Create text
-        mNativeText = new Text(mViroContext, mText,
-                mFontFamilyName, mSize, mFontStyle, mFontWeight,
-                mColor, mWidth, mHeight,
-                getHorizontalAlignmentEnum(mHorizontalAlignment),
-                getVerticalAlignmentEnum(mVerticalAlignment),
-                getLineBreakModeEnum(mTextLineBreakMode),
-                getTextClipModeEnum(mTextClipMode), mMaxLines);
+        mNativeText = new Text.TextBuilder().viroContext(mViroContext)
+                .textString(mText)
+                .fontFamilyName(mFontFamilyName)
+                .fontSize(mSize)
+                .fontStyle(mFontStyle)
+                .fontWeight(mFontWeight)
+                .color(mColor)
+                .width(mWidth).height(mHeight)
+                .horizontalAlignment(getHorizontalAlignmentEnum(mHorizontalAlignment))
+                .verticalAlignment(getVerticalAlignmentEnum(mVerticalAlignment))
+                .lineBreakMode(getLineBreakModeEnum(mTextLineBreakMode))
+                .clipMode(getTextClipModeEnum(mTextClipMode))
+                .maxLines(mMaxLines).build();
 
         // Add geometry
         getNodeJni().setGeometry(mNativeText);

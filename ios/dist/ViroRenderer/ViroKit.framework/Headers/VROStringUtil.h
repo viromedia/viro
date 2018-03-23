@@ -26,12 +26,15 @@ public:
     static int   toInt(std::string s);
     static float toFloat(std::string s);
     
-    static std::vector<std::string> split(const std::string &s,
-                                          const std::string &delimiters,
-                                          bool emptiesOk);
+    static std::vector<std::string>  split(const std::string &s,
+                                           const std::string &delimiters,
+                                           bool emptiesOk);
     static std::vector<std::wstring> split(const std::wstring &s,
                                            const std::wstring &delimiters,
                                            bool emptiesOk);
+    
+    // Trim the whitespace at the front and back of the string, and return the result.
+    static std::string trim(std::string s);
 
     // Simple string compare, not unicode safe (since there are multiple ways of representing some
     // characters and this function does a character-by-character comparison.
