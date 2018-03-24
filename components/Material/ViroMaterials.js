@@ -39,11 +39,15 @@ class ViroMaterials {
           }
           else if (materialDict[materialProperty].hasOwnProperty('source')){
             var source = resolveAssetSource(materialDict[materialProperty]['source']);
+            console.log("Material:");
+            console.log(source);
             resultMaterial[materialProperty] = materialDict[materialProperty];
             resultMaterial[materialProperty]['source'] = source;
           }
           else {
             var source = resolveAssetSource(materialDict[materialProperty]);
+            console.log("Material:");
+            console.log(source);
             resultMaterial[materialProperty] = source;
           }
         }else if(materialProperty.endsWith('color') || materialProperty.endsWith('Color')) {
