@@ -102,7 +102,6 @@ public:
     }
 
     void updateParticles(const VRORenderContext &context);
-    
 private:
     std::set<VROAnchorDetection> _detectionTypes;
     
@@ -116,16 +115,14 @@ private:
     std::weak_ptr<VROARSceneDelegate> _delegate;
 
     /*
-     Tracking states that have been read from AR cameras. Usually, this flips between Unavailable
-     and Normal as the activity enters paused and resumed states, or between Limited and Normal
-     amid changing environmetal conditions.
+     * Tracking states that have been read from ARCore/ARKit cameras.
+     * Usually, this flips between Unavailable and Normal as the activity
+     * enters paused and resume states.
      */
     VROARTrackingState _currentTrackingState;
     VROARTrackingStateReason _currentTrackingStateReason;
 
-    /*
-     Point cloud properties.
-     */
+    /* Point Cloud Properties */
     bool _displayPointCloud;
     std::shared_ptr<VROSurface> _pointCloudSurface = nullptr;
     VROVector3f _pointCloudSurfaceScale;
