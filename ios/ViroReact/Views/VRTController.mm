@@ -56,8 +56,13 @@
         return;
     }
 
-    _presenter->getReticle()->setEnabled(_reticleEnabled);
-    _presenter->getRootNode()->setHidden(!_controllerEnabled);
+    if(_presenter->getReticle() != nullptr) {
+        _presenter->getReticle()->setEnabled(_reticleEnabled);
+    }
+
+    if(_presenter->getRootNode() != nullptr) {
+        _presenter->getRootNode()->setHidden(!_controllerEnabled);
+    }
 }
 
 - (void)didSetProps:(NSArray<NSString *> *)changedProps {
