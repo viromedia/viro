@@ -165,7 +165,9 @@ var ViroARScene = createReactClass({
     }
 
     // TODO VIRO-3172: Remove in favor of deprecating onTrackingInitialized
-    if (event.nativeEvent.state == ViroConstants.TRACKING_NORMAL && !this.onTrackingFirstInitialized) {
+    if ((event.nativeEvent.state == ViroConstants.TRACKING_LIMITED ||
+         event.nativeEvent.state == ViroConstants.TRACKING_NORMAL) &&
+         !this.onTrackingFirstInitialized) {
       this.onTrackingFirstInitialized = true;
       if (this.props.onTrackingInitialized){
         this.props.onTrackingInitialized();

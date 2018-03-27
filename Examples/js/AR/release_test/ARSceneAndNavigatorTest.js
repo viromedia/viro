@@ -107,7 +107,7 @@ var testARScene = createReactClass({
       strReason="Insufficent Features";
     }
 
-    var trackingTag = "Tracking state: " + strState + " reason: " + strReason;
+    var trackingTag = "Tracking state: " + strState + "\nReason: " + strReason;
     this.setState({
       trackingState : trackingTag,
     });
@@ -295,7 +295,7 @@ var styles = StyleSheet.create({
   instructionText: {
       fontFamily: 'Arial',
       fontSize: 10,
-      color: '#cccccc',
+      color: '#AAAAAA',
       flex: 1,
       textAlignVertical: 'center',
       textAlign: 'center',
