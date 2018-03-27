@@ -64,6 +64,10 @@ public:
         return _weight;
     }
     
+    /*
+     Load the face data from the underlying font system. This must be invoked
+     before loading any other data.
+     */
     void loadFace();
     
     /*
@@ -89,11 +93,14 @@ public:
      */
     void preloadGlyphs(std::string chars);
     
+    /*
+     Get the line height of this typeface.
+     */
     virtual float getLineHeight() const = 0;
     
 protected:
     
-    virtual void loadFace(std::string name, int size) = 0;
+    virtual FT_FaceRec_ *loadFTFace() = 0;
     virtual std::shared_ptr<VROGlyph> loadGlyph(uint32_t charCode, uint32_t variantSelector,
                                                 bool forRendering) = 0;
     
@@ -110,16 +117,16 @@ protected:
      */
     std::pair<std::string, std::string> getLanguages(FT_FaceRec_* face);
     
-    /*
-     Compute the charmap coverage of this typeface.
-     */
-    void computeCoverage(FT_FaceRec_* face);
-    
 private:
     
     VROSparseBitSet _coverage;
     std::vector<std::unique_ptr<VROSparseBitSet>> _variationCoverage;
     std::map<std::string, std::shared_ptr<VROGlyph>> _glyphCache;
+    
+    /*
+     Compute the charmap coverage of this typeface.
+     */
+    void computeCoverage(FT_FaceRec_* face);
     
 };
 

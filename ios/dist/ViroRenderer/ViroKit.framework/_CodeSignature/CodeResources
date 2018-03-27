@@ -2537,7 +2537,7 @@
 		</data>
 		<key>Headers/VROARScene.h</key>
 		<data>
-		6Qx4H3ONP4xUkT37Tmka1W7YTJw=
+		q8O5Jv38DgQP/8Skx8iXxKGI1PM=
 		</data>
 		<key>Headers/VROARSceneController.h</key>
 		<data>
@@ -2777,7 +2777,7 @@
 		</data>
 		<key>Headers/VROMaterial.h</key>
 		<data>
-		hPSagp5pgFc8z0SHHIKoxDRgvqs=
+		bbrTJYXdLPCwe3s9HhEyDSJdI90=
 		</data>
 		<key>Headers/VROMaterialAnimation.h</key>
 		<data>
@@ -2921,7 +2921,7 @@
 		</data>
 		<key>Headers/VRORenderContext.h</key>
 		<data>
-		P8AbSIEx7ZzOYkiEBWIbSDCJR20=
+		5vmbzZuVNWXxFbXDrVfmVc8KJ/U=
 		</data>
 		<key>Headers/VRORenderDelegate.h</key>
 		<data>
@@ -3041,7 +3041,7 @@
 		</data>
 		<key>Headers/VROText.h</key>
 		<data>
-		tSNsbQOyMg4WF3DT4owvijJVLXI=
+		dA+6ZZ5JkHx2UkEoP8B7yKUOxjA=
 		</data>
 		<key>Headers/VROTexture.h</key>
 		<data>
@@ -3121,7 +3121,11 @@
 		</data>
 		<key>Headers/VROTypeface.h</key>
 		<data>
-		r78iDBxshMtQ+0aJy2ScZ7Z4G2s=
+		j56Qo8YuXmgtS42bR8OtGOK9XUY=
+		</data>
+		<key>Headers/VROTypefaceCollection.h</key>
+		<data>
+		ywLXZpoaqh5TfUGeUv2afcg750w=
 		</data>
 		<key>Headers/VROUniform.h</key>
 		<data>
@@ -3197,7 +3201,7 @@
 		</data>
 		<key>Headers/ViroKit.h</key>
 		<data>
-		07eKM5Zr8rwmJUXEZGDuqHkuKZo=
+		fkOmErYm6Lo3cOW/HokF/p1HuwY=
 		</data>
 		<key>Headers/glm/CMakeLists.txt</key>
 		<data>
@@ -8950,11 +8954,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			6Qx4H3ONP4xUkT37Tmka1W7YTJw=
+			q8O5Jv38DgQP/8Skx8iXxKGI1PM=
 			</data>
 			<key>hash2</key>
 			<data>
-			q9QYlrWXmpx76GaWwsecPL1ApolAeTxF/1jX3HU5+Dw=
+			24vHP6WGhbxUbJUsK7pNvAZKfwjMSh45r8CJAmgzQSA=
 			</data>
 		</dict>
 		<key>Headers/VROARSceneController.h</key>
@@ -9610,11 +9614,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			hPSagp5pgFc8z0SHHIKoxDRgvqs=
+			bbrTJYXdLPCwe3s9HhEyDSJdI90=
 			</data>
 			<key>hash2</key>
 			<data>
-			vg0zHKAYDGNbUHET09ihfWu4skMbkMLcWGDfBkS+XzY=
+			XpHpC/WfgP8G2/3yY9vV+Rdjkt559SpvXqWYjxLq0vg=
 			</data>
 		</dict>
 		<key>Headers/VROMaterialAnimation.h</key>
@@ -10006,11 +10010,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			P8AbSIEx7ZzOYkiEBWIbSDCJR20=
+			5vmbzZuVNWXxFbXDrVfmVc8KJ/U=
 			</data>
 			<key>hash2</key>
 			<data>
-			NijG2HXr23g/c61kXzlkjzmtOuezsgeDhOM0PMhkaFg=
+			Sj836+I37Z/3XtXbKHXrjS7AKhXYmXwsYc4JbLgwJOU=
 			</data>
 		</dict>
 		<key>Headers/VRORenderDelegate.h</key>
@@ -10336,11 +10340,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			tSNsbQOyMg4WF3DT4owvijJVLXI=
+			dA+6ZZ5JkHx2UkEoP8B7yKUOxjA=
 			</data>
 			<key>hash2</key>
 			<data>
-			HvdSAK1L6a0TCW9WI6Fi05QtmJS42Z5Lm1G2VVJmXYw=
+			9fDd+dY3ullTshS+W6vptTeHEFl25UNr4BjluSau2VA=
 			</data>
 		</dict>
 		<key>Headers/VROTexture.h</key>
@@ -10556,11 +10560,22 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			r78iDBxshMtQ+0aJy2ScZ7Z4G2s=
+			j56Qo8YuXmgtS42bR8OtGOK9XUY=
 			</data>
 			<key>hash2</key>
 			<data>
-			rIIijti9INzsSlkjwjWBoIXjD+8GWLZb0wgJGshiH+o=
+			NVZGAW7pNvXEjm1fg698R8PtQzsEgVpNgauAcIQoe70=
+			</data>
+		</dict>
+		<key>Headers/VROTypefaceCollection.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			ywLXZpoaqh5TfUGeUv2afcg750w=
+			</data>
+			<key>hash2</key>
+			<data>
+			bSl70AWS5yvofUDfhadhlDL/rddK/gJD3uFRHxCUf7Q=
 			</data>
 		</dict>
 		<key>Headers/VROUniform.h</key>
@@ -10765,11 +10780,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			07eKM5Zr8rwmJUXEZGDuqHkuKZo=
+			fkOmErYm6Lo3cOW/HokF/p1HuwY=
 			</data>
 			<key>hash2</key>
 			<data>
-			LAtjEC4qzp7KeuDdq3cTUIGI26r+pyw2x/ns/J6Pj3Y=
+			c468ZAwLepMyHJ/BjhtFlu3tPNeI7WhlmKPsbpoExmo=
 			</data>
 		</dict>
 		<key>Headers/glm/CMakeLists.txt</key>

@@ -120,10 +120,10 @@ public:
         _irradianceMap = irradianceMap;
     }
 
-    std::shared_ptr<VROTexture> getPreFilteredMap() const {
+    std::shared_ptr<VROTexture> getPrefilteredMap() const {
         return _prefilteredMap;
     }
-    void setPreFilteredMap(std::shared_ptr<VROTexture> map) {
+    void setPrefilteredMap(std::shared_ptr<VROTexture> map) {
         _prefilteredMap = map;
     }
 

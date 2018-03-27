@@ -30,9 +30,10 @@ enum class VROBlendMode {
     None,
     Alpha,
     Add,
-    Multiply,   // Note: Unimplemented mode
-    Subtract,   // Note: Unimplemented mode
-    Screen,     // Note: Unimplemented mode
+    Multiply,
+    Subtract,
+    Screen,
+    PremultiplyAlpha,
 };
 
 enum class VROTransparencyMode {

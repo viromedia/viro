@@ -80,11 +80,13 @@ public:
      The typeface to use for each character will be chosen from among the typeface collection.
      */
     static std::shared_ptr<VROText> createText(std::wstring text,
-                                               std::shared_ptr<VROTypefaceCollection> typefaces,
+                                               std::string typefaceNames,
+                                               int fontSize, VROFontStyle fontStyle, VROFontWeight fontWeight,
                                                VROVector4f color,
                                                float width, float height,
                                                VROTextHorizontalAlignment horizontalAlignment, VROTextVerticalAlignment verticalAlignment,
-                                               VROLineBreakMode lineBreakMode, VROTextClipMode clipMode, int maxLines = 0);
+                                               VROLineBreakMode lineBreakMode, VROTextClipMode clipMode, int maxLines,
+                                               std::shared_ptr<VRODriver> driver);
     
     /*
      Helper method to create a single-line text in a horizontal box of the given width.
@@ -92,17 +94,21 @@ public:
      box according to the given alignment.
      */
     static std::shared_ptr<VROText> createSingleLineText(std::wstring text,
-                                                         std::shared_ptr<VROTypefaceCollection> typefaces,
+                                                         std::string typefaceNames,
+                                                         int fontSize, VROFontStyle fontStyle, VROFontWeight fontWeight,
                                                          VROVector4f color,
-                                                         float width, VROTextHorizontalAlignment alignment, VROTextClipMode clipMode);
+                                                         float width, VROTextHorizontalAlignment alignment, VROTextClipMode clipMode,
+                                                         std::shared_ptr<VRODriver> driver);
 
     /*
      Helper method to create a centered single-line text. The text will be centered (vertically
      and horizontally) about the parent node's position.
      */
     static std::shared_ptr<VROText> createSingleLineText(std::wstring text,
-                                                         std::shared_ptr<VROTypefaceCollection> typefaces,
-                                                         VROVector4f color);
+                                                         std::string typefaceNames,
+                                                         int fontSize, VROFontStyle fontStyle, VROFontWeight fontWeight,
+                                                         VROVector4f color,
+                                                         std::shared_ptr<VRODriver> driver);
     
     /*
      Return the width and height of a text object displaying the given string, with the
@@ -111,17 +117,20 @@ public:
     static VROVector3f getTextSize(std::wstring text,
                                    std::shared_ptr<VROTypefaceCollection> typefaces,
                                    float maxWidth, float maxHeight, VROLineBreakMode lineBreakMode,
-                                   VROTextClipMode clipMode, int maxLines = 0);
+                                   VROTextClipMode clipMode, int maxLines);
 
     /*
      Standard constructor. Update() must be invoked from the rendering thread if this constructor
      is used.
      */
-    VROText(std::wstring text, std::shared_ptr<VROTypefaceCollection> typefaces,
+    VROText(std::wstring text,
+            std::string typefaceNames,
+            int fontSize, VROFontStyle fontStyle, VROFontWeight fontWeight,
             VROVector4f color,
             float width, float height,
             VROTextHorizontalAlignment horizontalAlignment, VROTextVerticalAlignment verticalAlignment,
-            VROLineBreakMode lineBreakMode, VROTextClipMode clipMode, int maxLines);
+            VROLineBreakMode lineBreakMode, VROTextClipMode clipMode, int maxLines,
+            std::shared_ptr<VRODriver> driver);
     virtual ~VROText();
 
     /*
@@ -129,6 +138,14 @@ public:
      thread because it creates glyphs.
      */
     void update();
+
+    /*
+     Return the typeface collection used by this text. This is only valid after update() has
+     been called.
+     */
+    std::shared_ptr<VROTypefaceCollection> getTypefaceCollection() {
+        return _typefaceCollection;
+    }
     
     /*
      Get the width and height of the text. This is not the width and height of the
@@ -143,7 +160,7 @@ public:
     }
 
     void setText(std::wstring text);
-    void setTypefaceCollection(std::shared_ptr<VROTypefaceCollection> typefaces);
+    void setTypefaces(std::string typefaces, int size, VROFontStyle style, VROFontWeight weight);
     void setColor(VROVector4f color);
     void setWidth(float width);
     void setHeight(float height);
@@ -156,7 +173,11 @@ public:
 private:
 
     std::wstring _text;
-    std::shared_ptr<VROTypefaceCollection> _typefaces;
+    std::shared_ptr<VROTypefaceCollection> _typefaceCollection;
+    std::string _typefaceNames;
+    int _size;
+    VROFontStyle _fontStyle;
+    VROFontWeight _fontWeight;
     VROVector4f _color;
     float _width, _height;
     VROTextHorizontalAlignment _horizontalAlignment;
@@ -164,6 +185,7 @@ private:
     VROLineBreakMode _lineBreakMode;
     VROTextClipMode _clipMode;
     int _maxLines;
+    std::weak_ptr<VRODriver> _driver;
 
     std::atomic<float> _realizedWidth, _realizedHeight;
     
