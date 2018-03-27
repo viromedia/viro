@@ -52,7 +52,7 @@ var ViroCameraTest = createReactClass({
     return {
         mainCameraPositionX: 0,
         mainCameraRotation:0,
-        activeCamera:2,
+        activeCamera:1,
         cameraOrienationString:"",
         fov: 60
     };
@@ -88,7 +88,7 @@ var ViroCameraTest = createReactClass({
         fieldOfView={this.state.fov}
         position={[0,0,0]}
         active={this.state.activeCamera == 2}
-        focalPoint={[0, 0, -4]}/>
+        focalPoint={[1, 1, -4]}/>
 
      <ViroBox
         position={[1, 1, -4]}
