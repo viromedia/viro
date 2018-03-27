@@ -123,44 +123,44 @@ var testARScene = createReactClass({
         onARPointCloudUpdate={this._onARPointCloudUpdate} >
 
         {/* ViroARSceneNavigator tests */}
-        <ViroText position={polarToCartesian([2, 0, 20])} text={this.state.trackingState}
+        <ViroText position={polarToCartesian([6, 0, 20])} text={this.state.trackingState}
           style={styles.instructionText} onClick={this._startStopRecording} transformBehaviors={["billboard"]}/>
-        <ViroText position={polarToCartesian([2, 0, 10])} text={"Recording? " + (this.state.isRecording ? "Yes" : "No")}
+        <ViroText position={polarToCartesian([6, 0, 10])} text={"Recording? " + (this.state.isRecording ? "Yes" : "No")}
           style={styles.instructionText} onClick={this._startStopRecording} transformBehaviors={["billboard"]}/>
-        <ViroText position={polarToCartesian([2, 0, 0])} text={"Take Screenshot"}
+        <ViroText position={polarToCartesian([6, 0, 0])} text={"Take Screenshot"}
           style={styles.instructionText} onClick={this._takeScreenshot} transformBehaviors={["billboard"]}/>
-        <ViroText position={polarToCartesian([2, 0, -10])} text={"saveToCamera? " + (this.state.saveToCamera ? "Yes" : "No")}
+        <ViroText position={polarToCartesian([6, 0, -10])} text={"saveToCamera? " + (this.state.saveToCamera ? "Yes" : "No")}
           style={styles.instructionText} onClick={this._flipSaveToCamera} transformBehaviors={["billboard"]}/>
-        <ViroText position={polarToCartesian([2, 0, -20])} text={"World Origin State: " + (this.state.worldOriginChanged ? "[0,0,1]" : "[0,0,0]")}
+        <ViroText position={polarToCartesian([6, 0, -20])} text={"World Origin State: " + (this.state.worldOriginChanged ? "[0,0,1]" : "[0,0,0]")}
           style={styles.instructionText} onClick={this._changeWorldOrigin} transformBehaviors={["billboard"]}/>
-        <ViroText position={polarToCartesian([2, 0, -30])} text={"Evict Image From Cache (Android)"}
+        <ViroText position={polarToCartesian([6, 0, -30])} text={"Evict Image From Cache (Android)"}
           style={styles.instructionText} onClick={this._evictFromCache} transformBehaviors={["billboard"]}/>
 
         {this._getVideo()}
         {this._getScreenshot()}
 
         {/* ViroARScene tests */}
-        <ViroText position={polarToCartesian([2, 30, 10])} text={"initialized? " + (this.state.initialized ? "Yes" : "No")}
+        <ViroText position={polarToCartesian([6, 30, 10])} text={"Initialized? " + (this.state.initialized ? "Yes" : "No")}
           style={styles.instructionText} transformBehaviors={["billboard"]}/>
-        <ViroText position={polarToCartesian([2, 30, 0])} text={this.state.ambientLightText}
+        <ViroText position={polarToCartesian([6, 30, 0])} text={this.state.ambientLightText}
           style={styles.instructionText} transformBehaviors={["billboard"]}
           ref={component=>{this._ambientLightText = component}}/>
         <ViroText ref={(component)=>{this.pointCloudPointsText = component}}
-          position={polarToCartesian([2, 30, -10])} text={"# of PointCloud points: " + this.state.pointCloudPoints}
+          position={polarToCartesian([6, 30, -10])} text={"# of PointCloud points: " + this.state.pointCloudPoints}
           style={styles.instructionText} transformBehaviors={["billboard"]} />
-        <ViroText position={polarToCartesian([2, 30, -20])} text={this.state.displayPointCloud ? "Hide Point Cloud" : "Show Point Cloud"}
+        <ViroText position={polarToCartesian([6, 30, -20])} text={this.state.displayPointCloud ? "Hide Point Cloud" : "Show Point Cloud"}
           style={styles.instructionText} transformBehaviors={["billboard"]}
           onClick={()=>{this.setState({displayPointCloud : !this.state.displayPointCloud})}}/>
-        <ViroText position={polarToCartesian([2, 30, -30])} text={"Toggle Autofocus/Quality"}
+        <ViroText position={polarToCartesian([6, 30, -30])} text={"Toggle Autofocus/Quality"}
           style={styles.instructionText} transformBehaviors={["billboard"]}
           onClick={()=>{this.props.arSceneNavigator.viroAppProps.toggleAutofocus();
                         this.props.arSceneNavigator.viroAppProps.toggleVideoQuality()}}/>
 
 
         {/* Release Menu */}
-        <ViroText position={polarToCartesian([2, -30, 0])} text={"Next test"}
+        <ViroText position={polarToCartesian([6, -30, 0])} text={"Next test"}
           style={styles.instructionText} onClick={this._goToNextTest} transformBehaviors={["billboard"]}/>
-        <ViroText position={polarToCartesian([2, -30, -15])} text={"Release Menu"}
+        <ViroText position={polarToCartesian([6, -30, -15])} text={"Release Menu"}
           style={styles.instructionText} onClick={()=>{this.props.arSceneNavigator.replace("ARReleaseMenu", {scene: require("./ARReleaseMenu")})}}
           transformBehaviors={["billboard"]}/>
       </ViroARScene>
@@ -294,9 +294,9 @@ var testARScene = createReactClass({
 var styles = StyleSheet.create({
   instructionText: {
       fontFamily: 'Arial',
-      fontSize: 10,
+      fontSize: 25,
       color: '#AAAAAA',
-      flex: 1,
+      width: 2,
       textAlignVertical: 'center',
       textAlign: 'center',
   },

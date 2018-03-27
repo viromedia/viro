@@ -51,30 +51,30 @@ var ARImageMarkerTest = createReactClass({
         {this._getImageMarker()}
 
 
-        <ViroText position={polarToCartesian([2, 0, 10])} text={"Image Marker: " + (this.state.showImageMarker ? "Visible" : "Not Visible")}
+        <ViroText position={polarToCartesian([6, 0, 10])} text={"Image Marker: " + (this.state.showImageMarker ? "Visible" : "Not Visible")}
           style={styles.instructionText} onClick={this._toggleShowImageMarker} transformBehaviors={["billboard"]}/>
-        <ViroText position={polarToCartesian([2, 0, 0])} text={"Switch Target, current: " + this.state.target}
+        <ViroText position={polarToCartesian([6, 0, 0])} text={"Switch Target, current: " + this.state.target}
           style={styles.instructionText} onClick={this._toggleTarget} transformBehaviors={["billboard"]}/>
-        <ViroText position={polarToCartesian([2, 0, -10])} text={"Pause Updates: " + (this.state.pauseUpdates ? "Yes" : "No")}
+        <ViroText position={polarToCartesian([6, 0, -10])} text={"Pause Updates: " + (this.state.pauseUpdates ? "Yes" : "No")}
           style={styles.instructionText} onClick={this._flipSaveToCamera} transformBehaviors={["billboard"]}/>
 
-        {/* ViroARScene tests 
-        <ViroText position={polarToCartesian([2, 30, 10])} text={"initialized? " + (this.state.initialized ? "Yes" : "No")}
+        {/* ViroARScene tests
+        <ViroText position={polarToCartesian([6, 30, 10])} text={"initialized? " + (this.state.initialized ? "Yes" : "No")}
           style={styles.instructionText} transformBehaviors={["billboard"]}/>
-        <ViroText position={polarToCartesian([2, 30, 0])} text={this.state.ambientLightText}
+        <ViroText position={polarToCartesian([6, 30, 0])} text={this.state.ambientLightText}
           style={styles.instructionText} transformBehaviors={["billboard"]}
           ref={component=>{this._ambientLightText = component}}/>
         <ViroText ref={(component)=>{this.pointCloudPointsText = component}}
-          position={polarToCartesian([2, 30, -10])} text={"# of PointCloud points: " + this.state.pointCloudPoints}
+          position={polarToCartesian([6, 30, -10])} text={"# of PointCloud points: " + this.state.pointCloudPoints}
           style={styles.instructionText} transformBehaviors={["billboard"]} />
-        <ViroText position={polarToCartesian([2, 30, -20])} text={this.state.displayPointCloud ? "Hide Point Cloud" : "Show Point Cloud"}
+        <ViroText position={polarToCartesian([6, 30, -20])} text={this.state.displayPointCloud ? "Hide Point Cloud" : "Show Point Cloud"}
           style={styles.instructionText} transformBehaviors={["billboard"]}
           onClick={()=>{this.setState({displayPointCloud : !this.state.displayPointCloud})}}/>*/}
 
         {/* Release Menu */}
-        <ViroText position={polarToCartesian([2, -30, 0])} text={"Next test"}
+        <ViroText position={polarToCartesian([6, -30, 0])} text={"Next test"}
           style={styles.instructionText} onClick={this._goToNextTest} transformBehaviors={["billboard"]}/>
-        <ViroText position={polarToCartesian([2, -30, -15])} text={"Release Menu"}
+        <ViroText position={polarToCartesian([6, -30, -15])} text={"Release Menu"}
           style={styles.instructionText} onClick={()=>{this.props.arSceneNavigator.replace("ARReleaseMenu", {scene: require("./ARReleaseMenu")})}}
           transformBehaviors={["billboard"]}/>
 
@@ -105,14 +105,15 @@ var ARImageMarkerTest = createReactClass({
     })
   },
   _goToNextTest() {
-    this.props.arSceneNavigator.replace("ARSceneAndNavigatorTest", {scene:require("./ARSceneAndNavigatorTest")})    
+    this.props.arSceneNavigator.replace("ARSceneAndNavigatorTest", {scene:require("./ARSceneAndNavigatorTest")})
   },
 });
 
 var styles = StyleSheet.create({
   instructionText: {
       fontFamily: 'Arial',
-      fontSize: 10,
+      fontSize: 25,
+      width: 2, 
       color: '#cccccc',
       flex: 1,
       textAlignVertical: 'center',

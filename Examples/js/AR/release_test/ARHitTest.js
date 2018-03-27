@@ -50,7 +50,7 @@ var testARScene = createReactClass({
   render: function() {
     return (
         <ViroARScene ref="arscene" onClick={this.state.testWithRay ? this._onSurfaceClickCameraForward : this._onSurfaceClickUsingPosition} >
-          <ViroText position={polarToCartesian([2, -10, 0])} text={"Mode: " + (this.state.testWithRay ? "testWithRay" : "testWithPosition")}
+          <ViroText position={polarToCartesian([6, -10, 0])} text={"Mode: " + (this.state.testWithRay ? "testWithRay" : "testWithPosition")}
             style={styles.baseTextTwo} onClick={this._switchRayTestType} transformBehaviors={["billboard"]}/>
           <ViroARPlane onAnchorUpdated={this._onPlaneUpdate}>
             <ViroSurface materials={"transparent"} position={this.state.center} scale={this.state.surfaceSize}
@@ -59,9 +59,9 @@ var testARScene = createReactClass({
           {this._getBox()}
 
           {/* Release Menu */}
-          <ViroText position={polarToCartesian([2, -30, 0])} text={"Next test"}
+          <ViroText position={polarToCartesian([6, -30, 0])} text={"Next test"}
             style={styles.instructionText} onClick={this._goToNextTest} transformBehaviors={["billboard"]}/>
-          <ViroText position={polarToCartesian([2, -30, -15])} text={"Release Menu"}
+          <ViroText position={polarToCartesian([6, -30, -15])} text={"Release Menu"}
             style={styles.instructionText} onClick={()=>{this.props.arSceneNavigator.replace("ARReleaseMenu", {scene: require("./ARReleaseMenu")})}}
             transformBehaviors={["billboard"]}/>
         </ViroARScene>
@@ -150,7 +150,8 @@ ViroMaterials.createMaterials({
 var styles = StyleSheet.create({
   instructionText: {
       fontFamily: 'Arial',
-      fontSize: 10,
+      fontSize: 25,
+      width: 2,
       color: '#cccccc',
       flex: 1,
       textAlignVertical: 'center',

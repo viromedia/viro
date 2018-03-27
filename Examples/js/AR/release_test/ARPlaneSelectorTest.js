@@ -56,19 +56,19 @@ var testARScene = createReactClass({
             onClick={this._onClick} />
         </ViroARPlaneSelector>
 
-        <ViroText position={polarToCartesian([2, 0, 10])} text={"State: " + this.state.selectedState}
+        <ViroText position={polarToCartesian([6, 0, 10])} text={"State: " + this.state.selectedState}
           style={styles.instructionText} transformBehaviors={["billboard"]}/>
-        <ViroText position={polarToCartesian([2, 0, 0])} text={"MaxPlanes: " + this.state.numberOfPlanes}
+        <ViroText position={polarToCartesian([6, 0, 0])} text={"MaxPlanes: " + this.state.numberOfPlanes}
           style={styles.instructionText} transformBehaviors={["billboard"]} onClick={this._numPlanesTextClick}/>
-        <ViroText position={polarToCartesian([2, 0, -10])}
+        <ViroText position={polarToCartesian([6, 0, -10])}
           text={this.state.findPlanes ? "Disable Plane Finding"  : "Enable Plane Finding"}
           onClick={()=>{this.setState({findPlanes : !this.state.findPlanes})}}
           style={styles.instructionText} transformBehaviors={["billboard"]}/>
 
         {/* Release Menu */}
-        <ViroText position={polarToCartesian([2, -30, 0])} text={"Next test"}
+        <ViroText position={polarToCartesian([6, -30, 0])} text={"Next test"}
           style={styles.instructionText} onClick={this._goToNextTest} transformBehaviors={["billboard"]}/>
-        <ViroText position={polarToCartesian([2, -30, -15])} text={"Release Menu"}
+        <ViroText position={polarToCartesian([6, -30, -15])} text={"Release Menu"}
           style={styles.instructionText} onClick={()=>{this.props.arSceneNavigator.replace("ARReleaseMenu", {scene: require("./ARReleaseMenu")})}}
           transformBehaviors={["billboard"]}/>
       </ViroARScene>
@@ -104,7 +104,8 @@ var testARScene = createReactClass({
 var styles = StyleSheet.create({
   instructionText: {
       fontFamily: 'Arial',
-      fontSize: 10,
+      fontSize: 25,
+      width: 2,
       color: '#cccccc',
       flex: 1,
       textAlignVertical: 'center',

@@ -167,7 +167,8 @@ ViroMaterials.createMaterials({
 var styles = StyleSheet.create({
   instructionText: {
       fontFamily: 'Arial',
-      fontSize: 10,
+      fontSize: 25,
+      width: 2,
       color: '#cccccc',
       flex: 1,
       textAlignVertical: 'center',

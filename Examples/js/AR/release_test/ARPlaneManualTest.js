@@ -55,41 +55,41 @@ var testARScene = createReactClass({
 
         {this._getPlanes()}
 
-        <ViroText position={polarToCartesian([2, 30, 10])} text={!this.state.addPlane1 ? "Add 1st Plane" : "Remove 1st Plane"}
+        <ViroText position={polarToCartesian([6, 30, 10])} text={!this.state.addPlane1 ? "Add 1st Plane" : "Remove 1st Plane"}
           style={styles.instructionText} transformBehaviors={["billboard"]} onClick={this._toggleFirstPlane}/>
-        <ViroText position={polarToCartesian([2, 30, 0])} text={this._getSecondPlaneText()}
+        <ViroText position={polarToCartesian([6, 30, 0])} text={this._getSecondPlaneText()}
           style={styles.instructionText} transformBehaviors={["billboard"]} onClick={this._toggleSecondPlane}/>
-        <ViroText position={polarToCartesian([2, 30, -10])} text={!this.state.addPlane3 ? "Add Default Green Plane" : "Remove Default Green Plane"}
+        <ViroText position={polarToCartesian([6, 30, -10])} text={!this.state.addPlane3 ? "Add Default Green Plane" : "Remove Default Green Plane"}
           style={styles.instructionText} transformBehaviors={["billboard"]} onClick={this._toggleThirdPlane}/>
 
-        <ViroText position={polarToCartesian([2, 0, 10])} text={this._getFoundText()}
+        <ViroText position={polarToCartesian([6, 0, 10])} text={this._getFoundText()}
           style={styles.instructionText} transformBehaviors={["billboard"]}/>
-        <ViroText position={polarToCartesian([2, 0, 0])} text={this._getUpdatedText()}
+        <ViroText position={polarToCartesian([6, 0, 0])} text={this._getUpdatedText()}
           style={styles.instructionText} transformBehaviors={["billboard"]}/>
-        <ViroText position={polarToCartesian([2, 0, -10])} text={this._getRemovedText()}
+        <ViroText position={polarToCartesian([6, 0, -10])} text={this._getRemovedText()}
           style={styles.instructionText} transformBehaviors={["billboard"]}/>
-        <ViroText position={polarToCartesian([2, 0, -20])} text={"No Callback"}
+        <ViroText position={polarToCartesian([6, 0, -20])} text={"No Callback"}
           style={styles.instructionText} transformBehaviors={["billboard"]}
           ref={component=>{this._callbackText = component}}/>
 
-        <ViroText position={polarToCartesian([2, 90, 10])} text={"Reset Tracking!"} rotation={[0, 90, 0]}
+        <ViroText position={polarToCartesian([6, 90, 10])} text={"Reset Tracking!"} rotation={[0, 90, 0]}
           style={styles.instructionText} transformBehaviors={["billboard"]} onClick={this._resetStuff(true, false)}/>
-        <ViroText position={polarToCartesian([2, 90, 0])} text={"Reset Anchors!"} rotation={[0, 90, 0]}
+        <ViroText position={polarToCartesian([6, 90, 0])} text={"Reset Anchors!"} rotation={[0, 90, 0]}
           style={styles.instructionText} transformBehaviors={["billboard"]} onClick={this._resetStuff(false, true)}/>
-        <ViroText position={polarToCartesian([2, 90, -10])} text={"Reset All!"} rotation={[0, 90, 0]}
+        <ViroText position={polarToCartesian([6, 90, -10])} text={"Reset All!"} rotation={[0, 90, 0]}
           style={styles.instructionText} transformBehaviors={["billboard"]} onClick={this._resetStuff(true, true)}/>
 
-        <ViroText position={polarToCartesian([2, -90, 10])} text={"Reset Tracking!"} rotation={[0, -90, 0]}
+        <ViroText position={polarToCartesian([6, -90, 10])} text={"Reset Tracking!"} rotation={[0, -90, 0]}
           style={styles.instructionText} transformBehaviors={["billboard"]} onClick={this._resetStuff(true, false)}/>
-        <ViroText position={polarToCartesian([2, -90, 0])} text={"Reset Anchors!"} rotation={[0, -90, 0]}
+        <ViroText position={polarToCartesian([6, -90, 0])} text={"Reset Anchors!"} rotation={[0, -90, 0]}
           style={styles.instructionText} transformBehaviors={["billboard"]} onClick={this._resetStuff(false, true)}/>
-        <ViroText position={polarToCartesian([2, -90, -10])} text={"Reset All!"} rotation={[0, -90, 0]}
+        <ViroText position={polarToCartesian([6, -90, -10])} text={"Reset All!"} rotation={[0, -90, 0]}
           style={styles.instructionText} transformBehaviors={["billboard"]} onClick={this._resetStuff(true, true)}/>
 
         {/* Release Menu */}
-        <ViroText position={polarToCartesian([2, -30, 0])} text={"Next test"}
+        <ViroText position={polarToCartesian([6, -30, 0])} text={"Next test"}
           style={styles.instructionText} onClick={this._goToNextTest} transformBehaviors={["billboard"]}/>
-        <ViroText position={polarToCartesian([2, -30, -15])} text={"Release Menu"}
+        <ViroText position={polarToCartesian([6, -30, -15])} text={"Release Menu"}
           style={styles.instructionText} onClick={()=>{this.props.arSceneNavigator.replace("ARReleaseMenu", {scene: require("./ARReleaseMenu")})}}
           transformBehaviors={["billboard"]}/>
       </ViroARScene>
@@ -257,7 +257,8 @@ var testARScene = createReactClass({
 var styles = StyleSheet.create({
   instructionText: {
       fontFamily: 'Arial',
-      fontSize: 10,
+      fontSize: 25,
+      width: 2,
       color: '#cccccc',
       flex: 1,
       textAlignVertical: 'center',

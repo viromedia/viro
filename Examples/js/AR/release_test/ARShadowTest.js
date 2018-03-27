@@ -299,9 +299,9 @@ var ARShadowTest = createReactClass({
         </ViroNode>
 
         {/* Release Menu */}
-        <ViroText position={polarToCartesian([2, 30, 0])} text={"Next test"}
+        <ViroText position={polarToCartesian([6, 30, 0])} text={"Next test"}
           style={styles.instructionText} onClick={this._goToNextTest} transformBehaviors={["billboard"]}/>
-        <ViroText position={polarToCartesian([2, 30, -15])} text={"Release Menu"}
+        <ViroText position={polarToCartesian([6, 30, -15])} text={"Release Menu"}
           style={styles.instructionText} onClick={()=>{this.props.arSceneNavigator.replace("ARReleaseMenu", {scene: require("./ARReleaseMenu")})}}
           transformBehaviors={["billboard"]}/>
 

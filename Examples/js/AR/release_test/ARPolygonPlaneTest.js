@@ -80,12 +80,12 @@ var testARScene = createReactClass({
 
       </ViroARPlane>
 
-      <ViroText position={polarToCartesian([2, 50, 20])} text={"Detect Type: " + this._getDetectType()}
+      <ViroText position={polarToCartesian([6, 50, 20])} text={"Detect Type: " + this._getDetectType()}
         style={styles.instructionText} transformBehaviors={["billboard"]}
         onClick={this._changeDetectType}/>
 
       {/* Release Menu */}
-      <ViroText position={polarToCartesian([2, -30, 25])} text={"Release Menu"}
+      <ViroText position={polarToCartesian([6, -30, 25])} text={"Release Menu"}
         style={styles.instructionText} onClick={()=>{this.props.arSceneNavigator.replace("ARReleaseMenu", {scene: require("./ARReleaseMenu")})}}
         transformBehaviors={["billboard"]}/>
     </ViroARScene>);
@@ -169,7 +169,8 @@ var testARScene = createReactClass({
 var styles = StyleSheet.create({
   instructionText: {
       fontFamily: 'Arial',
-      fontSize: 10,
+      fontSize: 25,
+      width: 2,
       color: '#cccccc',
       flex: 1,
       textAlignVertical: 'center',
