@@ -116,7 +116,7 @@ var ViroMaterialVideo = createReactClass({
       case 'android':
         NativeModules.UIManager.dispatchViewManagerCommand(
             findNodeHandle(this),
-            NativeModules.UIManager.VRTMaterialVideoManager.Commands.seekToTime,
+            NativeModules.UIManager.VRTMaterialVideo.Commands.seekToTime,
             [ timeInSeconds ]);
         break;
     }

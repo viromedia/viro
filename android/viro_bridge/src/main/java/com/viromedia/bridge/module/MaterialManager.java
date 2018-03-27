@@ -8,6 +8,7 @@ package com.viromedia.bridge.module;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
+import android.util.Log;
 
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
@@ -178,13 +179,14 @@ public class MaterialManager extends ReactContextBaseJavaModule {
                 }
 
                 String path = parseImagePath(materialMap, materialPropertyName);
+                String type = parseAssetType(materialMap, materialPropertyName);
                 Texture.Format format = parseImageFormat(materialMap, materialPropertyName);
                 boolean mipmap = parseImageMipmap(materialMap, materialPropertyName);
                 boolean sRGB = !materialPropertyName.startsWith("normal");
 
                 Uri uri = Helper.parseUri(path, mContext);
                 if (path != null) {
-                    if (isVideoTexture(path)) {
+                    if (isVideoTexture(path, type)) {
                         materialWrapper.addVideoTexturePath(materialPropertyName, uri);
                         diffuseTexture = videoTexture;
                     } else {
@@ -393,6 +395,16 @@ public class MaterialManager extends ReactContextBaseJavaModule {
                               cubeMapImages.get("pz"), cubeMapImages.get("nz"));
     }
 
+    private String parseAssetType(ReadableMap map, String key) {
+        if ((map.getType(key) == ReadableType.Map) && map.getMap(key).hasKey("type")) {
+            String type = map.getMap(key).getString("type");
+            if (type != null && !type.equalsIgnoreCase("unknown")) {
+                return type;
+            }
+        }
+        return null;
+    }
+
     private String parseImagePath(ReadableMap map, String key) {
         if (map.getType(key) == ReadableType.String) {
             return map.getString(key);
@@ -428,8 +440,16 @@ public class MaterialManager extends ReactContextBaseJavaModule {
         return mipmap;
     }
 
-    private boolean isVideoTexture(String path) {
-        return path.contains("mp4");
+    private boolean isVideoTexture(String path, String type) {
+        if (path.contains(("mp4"))) {
+            return path.contains("mp4");
+        }
+
+        if (type != null && type.contains("mp4")) {
+            return true;
+        }
+
+        return false;
     }
 
     /**

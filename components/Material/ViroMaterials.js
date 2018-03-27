@@ -11,6 +11,8 @@
  */
 
 import resolveAssetSource from "react-native/Libraries/Image/resolveAssetSource";
+import assetRegistry from "react-native/Libraries/Image/AssetRegistry"
+
 var MaterialManager = require('react-native').NativeModules.VRTMaterialManager;
 var MaterialPropTypes = require('./MaterialPropTypes');
 var MaterialValidation = require('./MaterialValidation');
@@ -39,15 +41,20 @@ class ViroMaterials {
           }
           else if (materialDict[materialProperty].hasOwnProperty('source')){
             var source = resolveAssetSource(materialDict[materialProperty]['source']);
-            console.log("Material:");
-            console.log(source);
             resultMaterial[materialProperty] = materialDict[materialProperty];
             resultMaterial[materialProperty]['source'] = source;
           }
           else {
+            var assetType="unknown";
+            if (typeof materialDict[materialProperty] !== 'object' ) {
+              var asset = assetRegistry.getAssetByID(materialDict[materialProperty]);
+              if (asset) {
+                assetType = asset.type;
+              }
+            }
+
             var source = resolveAssetSource(materialDict[materialProperty]);
-            console.log("Material:");
-            console.log(source);
+            source["type"] = assetType;
             resultMaterial[materialProperty] = source;
           }
         }else if(materialProperty.endsWith('color') || materialProperty.endsWith('Color')) {
