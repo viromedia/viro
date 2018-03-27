@@ -57,10 +57,6 @@ var testARScene = createReactClass({
     }
   },
   componentDidMount: function() {
-
-    if (Platform.OS === 'android'){
-      this.requestCameraPermission();
-    }
     this._intensity = 0;
     this._colorTemp = 0;
     this.setInterval(
@@ -71,26 +67,7 @@ var testARScene = createReactClass({
       },
       500
     )
-  },
-
-  async requestCameraPermission() {
-    try {
-      const granted = await PermissionsAndroid.request(
-        PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
-        {
-          'title': 'READ_EXTERNAL_STORAGE',
-          'message': 'ViroTest needs access to your photos.'
-        }
-      )
-      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-        console.log("READ_EXTERNAL_STORAGE granted.")
-      } else {
-        console.log("READ_EXTERNAL_STORAGE denied.")
-      }
-    } catch (err) {
-      console.warn(err)
-    }
-  },
+  }, 
 
   _onTrackingUpdated(state, reason) {
     var strState = "NONE";
