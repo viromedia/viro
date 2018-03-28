@@ -33,7 +33,7 @@ import {
   ViroUtils,
   ViroText,
   ViroAnimations,
-  ViroSurface,
+  ViroQuad,
   ViroSpinner,
   ViroSkyBox,
   ViroSphere,
@@ -136,7 +136,7 @@ var ViroAnimationTest = createReactClass({
                               onFinish:this._onFinish,
                               interruptible:this.state.interruptible}} />
 
-     <ViroSurface position={[-1, 2, -3]}
+     <ViroQuad position={[-1, 2, -3]}
                   scale={[0.5, 0.5, 0.1]}
                   materials={["sphere1"]}
                   width={1}

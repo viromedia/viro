@@ -23,7 +23,7 @@ import {
   ViroFlexView,
   ViroUtils,
   ViroText,
-  ViroSurface,
+  ViroQuad,
   ViroSkyBox,
   ViroSphere,
   Viro3DObject,
@@ -238,8 +238,8 @@ var GroupTestBasicPhysics = createReactClass({
                       position={[1, 0, 0]}
                       scale={[0.3, 0.3, 0.1]}/>
 
-                  <ViroSurface
-                    onDrag={this.state.toggleDraggable ? this.onDrag("ViroSurface") : undefined}
+                  <ViroQuad
+                    onDrag={this.state.toggleDraggable ? this.onDrag("ViroQuad") : undefined}
                     physicsBody={this.state.physicsEnabled?
                       {type:'Dynamic', mass:1, enabled:true, useGravity:this.state.gravityEnabled}:undefined}
                     position={[-2, -1, 0]}

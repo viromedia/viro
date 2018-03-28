@@ -23,7 +23,7 @@ import {
   ViroFlexView,
   ViroUtils,
   ViroText,
-  ViroSurface,
+  ViroQuad,
   ViroSkyBox,
   ViroSphere,
   Viro3DObject,
@@ -124,7 +124,7 @@ var LeakTest2 = createReactClass({
                 scale={[0.3, 0.3, 0.1]}
               />
 
-              <ViroSurface
+              <ViroQuad
                 position={[-2, -1, 0]}
                 scale={[0.5, 0.5, 0.1]}
                 materials={[newMaterial]}

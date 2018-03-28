@@ -31,7 +31,7 @@ import {
   ViroUtils,
   ViroAnimations,
   ViroAnimatedComponent,
-  ViroSurface,
+  ViroQuad,
   ViroSkyBox,
   ViroSpatialSound,
   ViroSoundField,
@@ -426,7 +426,7 @@ var ViroSoundTest = createReactClass({
 
   _getSurface(component) {
     if (this.state.showSurface) {
-      return (<ViroSurface style={{flex:1}} materials={"redColor"} />)
+      return (<ViroQuad style={{flex:1}} materials={"redColor"} />)
     }
   },
 

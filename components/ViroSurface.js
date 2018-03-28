@@ -207,6 +207,7 @@ var ViroSurface = createReactClass({
   },
 
   render: function() {
+    console.warn("<ViroSurface> has been DEPRECATED. Please use <ViroQuad> instead.");
 
     if (this.props.material) {
       console.error('The <ViroSurface> component takes a `materials` property rather than `material`.');

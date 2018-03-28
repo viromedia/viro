@@ -27,7 +27,7 @@ import {
   ViroSkyBox,
   Viro360Video,
   ViroText,
-  ViroSurface
+  ViroQuad
 } from 'react-viro';
 
 import TimerMixin from 'react-timer-mixin';

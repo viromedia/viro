@@ -20,7 +20,7 @@ import {
   ViroMaterials,
   ViroImage,
   ViroARPlaneSelector,
-  ViroSurface,
+  ViroQuad,
   ViroConstants,
   ViroVideo,
   ViroText,
@@ -117,7 +117,7 @@ var testARScene = createReactClass({
             onAnchorUpdated={this._onAnchorUpdated}
             onAnchorRemoved={this._onAnchorRemoved} >
 
-          <ViroSurface
+          <ViroQuad
             position={this.state.updateMap.center}
             rotation={[-90, 0, 0]}
             scale={[this.state.updateMap.width, this.state.updateMap.height, 1]}

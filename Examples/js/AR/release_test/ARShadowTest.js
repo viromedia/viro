@@ -34,7 +34,7 @@ import {
   ViroText,
   ViroAnimations,
   ViroAnimatedComponent,
-  ViroSurface,
+  ViroQuad,
   ViroSkyBox,
   ViroPortal,
   ViroPortalFrame,
@@ -279,7 +279,7 @@ var ARShadowTest = createReactClass({
              scale={[0.5, 0.5, 0.5]}
              materials={["white"]}/>
 
-          <ViroSurface
+          <ViroQuad
               lightReceivingBitMask={this.state.shadowPlaneMask}
               materials={"ground"}
               rotation={[-90, 0, 0]}

@@ -20,7 +20,7 @@ import {
   ViroMaterials,
   ViroImage,
   ViroARPlaneSelector,
-  ViroSurface,
+  ViroQuad,
   ViroConstants,
   ViroVideo,
   ViroText,
@@ -158,7 +158,7 @@ var testARScene = createReactClass({
           onAnchorUpdated={this._onAnchorUpdated}
           onAnchorRemoved={this._onAnchorRemoved} >
 
-        <ViroSurface
+        <ViroQuad
           rotation={[-90, 0, 0]}
           scale={[.5,.5,1]}
           materials={"blue_plane"}/>
@@ -174,7 +174,7 @@ var testARScene = createReactClass({
           anchorId={this.state.secondPlaneFlag == 2 ? this.anchors[2].anchorId : this.anchors[1].anchorId}
           key={"secondPlane"} >
 
-          <ViroSurface
+          <ViroQuad
             rotation={[-90, 0, 0]}
             scale={[.5,.5,1]}
             materials={"red_plane"}/>
@@ -187,7 +187,7 @@ var testARScene = createReactClass({
         <ViroARPlane
           key={"thirdPlane"} >
 
-          <ViroSurface
+          <ViroQuad
             rotation={[-90, 0, 0]}
             scale={[.5,.5,1]}
             materials={"green_plane"}/>

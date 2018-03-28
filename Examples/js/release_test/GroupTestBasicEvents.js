@@ -23,7 +23,7 @@ import {
   ViroFlexView,
   ViroUtils,
   ViroText,
-  ViroSurface,
+  ViroQuad,
   ViroSkyBox,
   ViroSphere,
   Viro3DObject,
@@ -252,19 +252,19 @@ var GroupTestBasicEvents = createReactClass({
                       onScroll={this.onScroll("ViroSpinner")}
                       onSwipe={this.onSwipe("ViroSpinner")}/>
 
-                  <ViroSurface
+                  <ViroQuad
                       position={[-2, -1, 0]}
                       scale={[0.5, 0.5, 0.1]}
                       materials={["redColor"]}
                       width={1}
                       height={1}
-                         onHover={this.onHover("ViroSurface")}
-                         onClick={this.onClick("ViroSurface")}
-                         onFuse={{callback:this.onFuse("ViroSurface"), timeToFuse:1000}}
-                         onClickState={this.onClickState("ViroSurface")}
-                         onTouch={this.onTouch("ViroSurface")}
-                         onScroll={this.onScroll("ViroSurface")}
-                         onSwipe={this.onSwipe("ViroSurface")}/>
+                         onHover={this.onHover("ViroQuad")}
+                         onClick={this.onClick("ViroQuad")}
+                         onFuse={{callback:this.onFuse("ViroQuad"), timeToFuse:1000}}
+                         onClickState={this.onClickState("ViroQuad")}
+                         onTouch={this.onTouch("ViroQuad")}
+                         onScroll={this.onScroll("ViroQuad")}
+                         onSwipe={this.onSwipe("ViroQuad")}/>
 
                   <ViroText
                       position={[-1, -1, 0]}

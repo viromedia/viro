@@ -36,7 +36,7 @@ import {
    ViroButton,
    ViroAnimations,
    ViroAnimatedComponent,
-   ViroSurface,
+   ViroQuad,
    ViroSkyBox,
    ViroPortal,
    ViroPortalFrame,
@@ -225,7 +225,7 @@ var ViroShadowGroupTest = createReactClass({
                     shadowOpacity={this.state.shadowOpacity}
                   />
 
-                  <ViroSurface
+                  <ViroQuad
                      lightReceivingBitMask={allLights}
                       materials={"ground"}
                       rotation={[0, 0, 0]}
@@ -366,7 +366,7 @@ var ViroShadowGroupTest = createReactClass({
                          run={this.state.runAnimation}
                          loop={true} >
 
-                  <ViroSurface
+                  <ViroQuad
                       lightReceivingBitMask={allLights}
                       shadowCastingBitMask={allLights}
                       position={[-2, -1, 0]}

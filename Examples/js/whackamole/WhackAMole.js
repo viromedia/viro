@@ -13,7 +13,7 @@ import {
   ViroFlexView,
   ViroMaterials,
   ViroUtils,
-  ViroSurface,
+  ViroQuad,
   ViroSound,
   ViroSpatialSound,
   ViroAnimations, 
@@ -149,7 +149,7 @@ var WhackAMole = createReactClass({
     }
     return (
       <ViroAnimatedComponent key={index} animation={name} run={this.state.runAnimations} loop={true} >
-        <ViroSurface position={position} materials={material}
+        <ViroQuad position={position} materials={material}
             transformBehaviors={"billboard"} width={1} height={1} onClick={onClick} onHover={onHover} />
       </ViroAnimatedComponent>
     );

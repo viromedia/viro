@@ -19,7 +19,7 @@ var createReactClass = require('create-react-class');
 
 var ViroMaterials = require('../Material/ViroMaterials');
 var ViroARPlane = require('./ViroARPlane');
-var ViroSurface = require('../ViroSurface');
+var ViroQuad = require('../ViroQuad');
 var ViroNode = require('../ViroNode');
 
 var _maxPlanes = 15;
@@ -96,7 +96,7 @@ var ViroARPlaneSelector = createReactClass({
             minHeight = {this.props.minHeight}
             alignment = {this.props.alignment}
             onAnchorUpdated={this._onARPlaneUpdated(i)} >
-            <ViroSurface materials={"ViroARPlaneSelector_Translucent"}
+            <ViroQuad materials={"ViroARPlaneSelector_Translucent"}
               onClick={this._getOnClickSurface(i)}
               position={surfacePosition}
               width={surfaceWidth} height={surfaceHeight}

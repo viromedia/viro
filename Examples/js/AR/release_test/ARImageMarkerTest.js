@@ -20,7 +20,7 @@ import {
   ViroARPlane,
   ViroImage,
   ViroARPlaneSelector,
-  ViroSurface,
+  ViroQuad,
   ViroConstants,
   ViroNode,
   ViroBox,
@@ -113,7 +113,7 @@ var styles = StyleSheet.create({
   instructionText: {
       fontFamily: 'Arial',
       fontSize: 25,
-      width: 2, 
+      width: 2,
       color: '#cccccc',
       flex: 1,
       textAlignVertical: 'center',

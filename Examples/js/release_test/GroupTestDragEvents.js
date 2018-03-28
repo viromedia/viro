@@ -23,7 +23,7 @@ import {
   ViroFlexView,
   ViroUtils,
   ViroText,
-  ViroSurface,
+  ViroQuad,
   ViroSkyBox,
   ViroSphere,
   Viro3DObject,
@@ -160,13 +160,13 @@ onDrag(objectTag){return (dragtoPos, source) => {
                       scale={[0.3, 0.3, 0.1]}
                       onDrag={this.onDrag("ViroSpinner")}/>
 
-                  <ViroSurface
+                  <ViroQuad
                       position={[-2, -1, 0]}
                       scale={[0.5, 0.5, 0.1]}
                       materials={["redColor"]}
                       width={1}
                       height={1}
-                         onDrag={this.onDrag("ViroSurface")}/>
+                         onDrag={this.onDrag("ViroQuad")}/>
 
                   <ViroText
                       position={[-1, -1, 0]}

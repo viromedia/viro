@@ -85,8 +85,8 @@ var ReleaseMenu = createReactClass({
                          onClick={() => {this.props.sceneNavigator.replace("ViroButtonTest", {scene:require("./ViroButtonTest"), passProps:{showMenu:true}})}} />
 
                    <ViroText style={styles.centeredText}  position={[0, -2, -4]} width={1.5} height={2}
-                         text={"ViroSurfaceFlexViewTest"}
-                         onClick={() => {this.props.sceneNavigator.replace("ViroSurfaceFlexViewTest", {scene:require("./ViroSurfaceFlexViewTest"), passProps:{showMenu:true}})}} />
+                         text={"ViroQuadFlexViewTest"}
+                         onClick={() => {this.props.sceneNavigator.replace("ViroQuadFlexViewTest", {scene:require("./ViroQuadFlexViewTest"), passProps:{showMenu:true}})}} />
 
                    <ViroText style={styles.centeredText}  position={[0, -3, -4]} width={1.5} height={2}
                          text={"ViroImageTest"}

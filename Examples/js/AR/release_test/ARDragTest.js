@@ -21,7 +21,7 @@ import {
   ViroMaterials,
   ViroImage,
   ViroARPlaneSelector,
-  ViroSurface,
+  ViroQuad,
   ViroConstants,
   ViroNode,
   ViroBox,

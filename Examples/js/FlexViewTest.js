@@ -34,7 +34,7 @@ import {
   ViroUtils,
   ViroAnimations,
   ViroAnimatedComponent,
-  ViroSurface,
+  ViroQuad,
   ViroSkyBox,
 } from 'react-viro';
 
@@ -58,7 +58,7 @@ var FlexViewTest = createReactClass({
 
         <ViroFlexView style={styles.containerVertical} position={polarToCartesian([2, 0, 30])} width={3} height={2}>
           <ViroFlexView style={styles.containerInner} >
-            <ViroSurface style={{flex:1}} materials={["redColor"]} />
+            <ViroQuad style={{flex:1}} materials={["redColor"]} />
             <ViroImage style={{flex:1}} source={{uri: "http://wiki.magicc.org/images/c/ce/MAGICC_logo_small.jpg"}}
               onLoadStart={this._onLoadStart("Image")} onLoadEnd={this._onLoadEnd("Image")} />
           </ViroFlexView>

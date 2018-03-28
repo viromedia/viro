@@ -22,7 +22,7 @@ import {
   ViroFlexView,
   ViroUtils,
   ViroText,
-  ViroSurface,
+  ViroQuad,
   ViroSphere,
   ViroOmniLight,
   ViroAnimations,
@@ -141,7 +141,7 @@ var PhysicsScaleTest = createReactClass({
 
                       />
 
-                  <ViroSurface
+                  <ViroQuad
                     rotation={[this.state.rotation, this.state.rotation, this.state.rotation]}
                     physicsBody={this.state.physicsEnabled?
                       {type:'Dynamic', mass:1, enabled:true, useGravity:false}:undefined}

@@ -27,7 +27,7 @@ import {
   ViroSkyBox,
   Viro360Video,
   ViroText,
-  ViroSurface,
+  ViroQuad,
   ViroSphere
 } from 'react-viro';
 

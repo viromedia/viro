@@ -29,7 +29,7 @@ import {
   ViroText,
   Viro3DObject,
   ViroDirectionalLight,
-  ViroSurface
+  ViroQuad
 } from 'react-viro';
 
 import TimerMixin from 'react-timer-mixin';
@@ -50,7 +50,7 @@ var testARScene = createReactClass({
           <ViroDirectionalLight color="#ffffff" direction={[0,0,-1]} />
           {this._showObj()}
           <ViroARPlane minHeight={0} maxHeight={0} onAnchorFound={()=>{console.log("ARPlane component 2 found!")}} >
-            <ViroSurface rotation={[-90,0,0]} materials={"red"} opacity={.5}
+            <ViroQuad rotation={[-90,0,0]} materials={"red"} opacity={.5}
               onClick={this._pushNextScene} />
           </ViroARPlane>
         </ViroARScene>
@@ -80,7 +80,7 @@ var testARScene = createReactClass({
     if (this.state.showObj) {
       return (
         <ViroARPlane minHeight={0} maxHeight={0} onAnchorFound={()=>{console.log("ARPlane component 1 found!")}} >
-          <ViroSurface rotation={[-90,0,0]} materials={"blue"} opacity={.5} />
+          <ViroQuad rotation={[-90,0,0]} materials={"blue"} opacity={.5} />
           <Viro3DObject source={require('./res/aliengirl.obj')} scale={[.005,.005,.005]}
                   materials={["aliengirl"]} type="OBJ"
                   onClick={()=>{this.setState({showObj : false})}} />

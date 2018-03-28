@@ -20,7 +20,7 @@ import {
   ViroMaterials,
   ViroImage,
   ViroARPlaneSelector,
-  ViroSurface,
+  ViroQuad,
   ViroConstants,
   ViroVideo,
 } from 'react-viro';
@@ -43,8 +43,8 @@ var testARScene = createReactClass({
   render: function() {
     return (
         <ViroARScene position={[0,0,0]} reticleEnabled={false} >
-          <ViroSurface scale={[.5,.5,.5]} visible={!this.state.success} materials={"green"} position={[0, .5, -1]} onClick={this._startRecording}/>
-          <ViroSurface scale={[.5,.5,.5]} visible={!this.state.success} materials={"red"} position={[.5, .5, -1]} onClick={this._stopRecording}/>
+          <ViroQuad scale={[.5,.5,.5]} visible={!this.state.success} materials={"green"} position={[0, .5, -1]} onClick={this._startRecording}/>
+          <ViroQuad scale={[.5,.5,.5]} visible={!this.state.success} materials={"red"} position={[.5, .5, -1]} onClick={this._stopRecording}/>
           <ViroARPlaneSelector ref={"planeSelector"}
             maxPlanes={2}
             onPlaneSelected={()=>{console.log("plane was selected")}} >

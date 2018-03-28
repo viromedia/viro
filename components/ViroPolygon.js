@@ -208,7 +208,7 @@ var ViroPolygon = createReactClass({
   render: function() {
 
     if (this.props.material) {
-      console.error('The <ViroSurface> component takes a `materials` property rather than `material`.');
+      console.error('The <ViroPolygon> component takes a `materials` property rather than `material`.');
     }
 
     // Since materials and transformBehaviors can be either a string or an array, convert the string to a 1-element array.

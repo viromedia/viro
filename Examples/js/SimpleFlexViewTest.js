@@ -30,7 +30,7 @@ import {
   ViroUtils,
   ViroAnimations,
   ViroAnimatedComponent,
-  ViroSurface,
+  ViroQuad,
   ViroSkyBox,
   ViroSpatialSound,
 } from 'react-viro';
@@ -122,7 +122,7 @@ var FlexViewTest = createReactClass({
   },
   _getSurface(component) {
     if (this.state.showSurface) {
-      return (<ViroSurface style={{flex:1}} materials={"redColor"} />)
+      return (<ViroQuad style={{flex:1}} materials={"redColor"} />)
     }
   },
   _getSoundSource(component) {

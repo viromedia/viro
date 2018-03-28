@@ -22,7 +22,7 @@ import {
   ViroMaterials,
   ViroImage,
   ViroARPlaneSelector,
-  ViroSurface,
+  ViroQuad,
   ViroConstants,
   ViroVideo,
   ViroText,

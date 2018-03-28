@@ -19,7 +19,7 @@ import {
   ViroNode,
   ViroUtils,
   ViroText,
-  ViroSurface,
+  ViroQuad,
   ViroOmniLight,
 } from 'react-viro';
 

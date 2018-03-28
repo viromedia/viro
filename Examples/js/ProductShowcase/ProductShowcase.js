@@ -21,7 +21,7 @@ import {
   ViroAnimations,
   ViroBox,
   ViroButton,
-  ViroSurface,
+  ViroQuad,
 } from 'react-viro';
 
 var createReactClass = require('create-react-class');

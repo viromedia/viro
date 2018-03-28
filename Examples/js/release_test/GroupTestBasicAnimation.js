@@ -23,7 +23,7 @@ import {
   ViroFlexView,
   ViroUtils,
   ViroText,
-  ViroSurface,
+  ViroQuad,
   ViroSkyBox,
   ViroSphere,
   Viro3DObject,
@@ -191,7 +191,7 @@ var GroupTestBasicAnimation = createReactClass({
                          run={this.state.runAnimation}
                          loop={this.state.willLoop} >
 
-                  <ViroSurface
+                  <ViroQuad
                       position={[-2, -1, 0]}
                       scale={[0.5, 0.5, 0.1]}
                       materials={["redColor"]}

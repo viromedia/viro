@@ -23,7 +23,7 @@ import {
   ViroFlexView,
   ViroUtils,
   ViroText,
-  ViroSurface,
+  ViroQuad,
   ViroSkyBox,
   ViroSphere,
   Viro3DObject,
@@ -55,7 +55,7 @@ var ViroBlendingTest = createReactClass({
             <ReleaseMenu sceneNavigator={this.props.sceneNavigator}/>
 
             <ViroNode position={[0.8, 0, -3.5]} >
-                <ViroSurface position={[-3, 0, -0.1]} scale={[1.0, 1.0, 1.0]}
+                <ViroQuad position={[-3, 0, -0.1]} scale={[1.0, 1.0, 1.0]}
                              materials="surfaceNone"
                              width={0.7}
                              height={0.7} />
@@ -66,7 +66,7 @@ var ViroBlendingTest = createReactClass({
                             radius={1}
                             materials="blendNone"/>
 
-                <ViroSurface position={[-2, 0, -0.1]} scale={[1.0, 1.0, 1.0]}
+                <ViroQuad position={[-2, 0, -0.1]} scale={[1.0, 1.0, 1.0]}
                              materials="surfaceAlpha"
                              width={0.7}
                              height={0.7} />
@@ -77,7 +77,7 @@ var ViroBlendingTest = createReactClass({
                             radius={1}
                             materials="blendAlpha"/>
 
-                <ViroSurface position={[-1, 0, -0.1]} scale={[1.0, 1.0, 1.0]}
+                <ViroQuad position={[-1, 0, -0.1]} scale={[1.0, 1.0, 1.0]}
                              materials="surfaceAdd"
                              width={0.7}
                              height={0.7} />
@@ -88,7 +88,7 @@ var ViroBlendingTest = createReactClass({
                             radius={1}
                             materials="blendAdd"/>
 
-                <ViroSurface position={[0, 0, -0.1]} scale={[1.0, 1.0, 1.0]}
+                <ViroQuad position={[0, 0, -0.1]} scale={[1.0, 1.0, 1.0]}
                              materials="surfaceSubtract"
                              width={0.7}
                              height={0.7} />
@@ -99,7 +99,7 @@ var ViroBlendingTest = createReactClass({
                             radius={1}
                             materials="blendSubtract"/>
 
-                <ViroSurface position={[1, 0, -0.1]} scale={[1.0, 1.0, 1.0]}
+                <ViroQuad position={[1, 0, -0.1]} scale={[1.0, 1.0, 1.0]}
                              materials="surfaceMultiply"
                              width={0.7}
                              height={0.7} />
@@ -110,7 +110,7 @@ var ViroBlendingTest = createReactClass({
                             radius={1}
                             materials="blendMultiply"/>
 
-                <ViroSurface position={[2, 0, -0.1]} scale={[1.0, 1.0, 1.0]}
+                <ViroQuad position={[2, 0, -0.1]} scale={[1.0, 1.0, 1.0]}
                              materials="surfaceScreen"
                              width={0.7}
                              height={0.7} />

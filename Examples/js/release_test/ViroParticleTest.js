@@ -36,7 +36,7 @@ import {
    ViroAnimations,
    ViroParticleEmitter,
    ViroAnimatedComponent,
-   ViroSurface,
+   ViroQuad,
    ViroSkyBox,
    ViroPortal,
    ViroPortalFrame,

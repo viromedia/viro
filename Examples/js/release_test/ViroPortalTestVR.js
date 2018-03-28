@@ -34,7 +34,7 @@
    ViroText,
    ViroAnimations,
    ViroAnimatedComponent,
-   ViroSurface,
+   ViroQuad,
    ViroSkyBox,
    ViroPortalScene,
    ViroPortal,

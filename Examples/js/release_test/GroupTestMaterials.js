@@ -23,7 +23,7 @@ import {
   ViroFlexView,
   ViroUtils,
   ViroText,
-  ViroSurface,
+  ViroQuad,
   ViroSkyBox,
   ViroSphere,
   Viro3DObject,
@@ -162,7 +162,7 @@ var GroupTestMaterials = createReactClass({
                              position={[1, 0, 0]}
                             scale={[0.3, 0.3, 0.1]}/>
 
-                <ViroSurface position={[-2, -1, 0]} scale={[0.5, 0.5, 0.1]}
+                <ViroQuad position={[-2, -1, 0]} scale={[0.5, 0.5, 0.1]}
                              materials={[newMaterial]}
                              width={1}
                              height={1}/>

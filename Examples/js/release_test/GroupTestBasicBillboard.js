@@ -23,7 +23,7 @@ import {
   ViroFlexView,
   ViroUtils,
   ViroText,
-  ViroSurface,
+  ViroQuad,
   ViroSkyBox,
   ViroSphere,
   Viro3DObject,
@@ -161,7 +161,7 @@ var GroupTestBasicBillboard = createReactClass({
                       position={[0 , -1,0]}
                       scale={[0.3, 0.3, 0.1]}/>
 
-                  <ViroSurface
+                  <ViroQuad
                   transformBehaviors={newTransformBehaviors}
                       position={[-2, -1, 0]}
                       scale={[0.5, 0.5, 0.1]}

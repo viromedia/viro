@@ -21,7 +21,7 @@ import {
   ViroAnimations,
   ViroAnimatedComponent,
   ViroSkyBox,
-  ViroSurface,
+  ViroQuad,
   Viro3DObject,
   ViroUtils,
   ViroDirectionalLight,

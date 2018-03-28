@@ -37,7 +37,7 @@
    ViroText,
    ViroAnimations,
    ViroAnimatedComponent,
-   ViroSurface,
+   ViroQuad,
    ViroSkyBox,
    ViroSphere,
    Viro3DObject,
@@ -113,7 +113,7 @@ var ViroButtonTest = createReactClass({
    },
 
    _showNext() {
-      this.props.sceneNavigator.replace({scene:require('./ViroSurfaceFlexViewTest')});
+      this.props.sceneNavigator.replace({scene:require('./ViroQuadFlexViewTest')});
    },
 
    _onHover(source, isHovering){

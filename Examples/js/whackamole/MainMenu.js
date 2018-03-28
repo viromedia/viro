@@ -13,7 +13,7 @@ import {
   ViroFlexView,
   ViroMaterials,
   ViroUtils,
-  ViroSurface,
+  ViroQuad,
   ViroSound,
   ViroSpatialSound,
   ViroAnimations, 

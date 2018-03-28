@@ -28,7 +28,7 @@ import {
   ViroSkyBox,
   Viro360Video,
   ViroText,
-  ViroSurface
+  ViroQuad
 } from 'react-viro';
 
 import TimerMixin from 'react-timer-mixin';
@@ -53,7 +53,7 @@ var testARScene = createReactClass({
           <ViroText position={polarToCartesian([6, -10, 0])} text={"Mode: " + (this.state.testWithRay ? "testWithRay" : "testWithPosition")}
             style={styles.baseTextTwo} onClick={this._switchRayTestType} transformBehaviors={["billboard"]}/>
           <ViroARPlane onAnchorUpdated={this._onPlaneUpdate}>
-            <ViroSurface materials={"transparent"} position={this.state.center} scale={this.state.surfaceSize}
+            <ViroQuad materials={"transparent"} position={this.state.center} scale={this.state.surfaceSize}
              rotation={[-90, 0, 0]} />
           </ViroARPlane>
           {this._getBox()}

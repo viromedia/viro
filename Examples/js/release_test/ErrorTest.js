@@ -26,7 +26,7 @@ import {
   ViroSound,
   ViroSoundField,
   ViroSpatialSound,
-  ViroSurface,
+  ViroQuad,
   ViroSkyBox,
   Viro3DObject,
   ViroButton,

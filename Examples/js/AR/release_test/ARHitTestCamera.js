@@ -28,7 +28,7 @@ import {
   Viro3DObject,
   Viro360Video,
   ViroText,
-  ViroSurface,
+  ViroQuad,
   ViroAmbientLight,
 } from 'react-viro';
 

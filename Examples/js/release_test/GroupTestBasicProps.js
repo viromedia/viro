@@ -22,7 +22,7 @@ import {
   ViroFlexView,
   ViroUtils,
   ViroText,
-  ViroSurface,
+  ViroQuad,
   ViroSkyBox,
   ViroSphere,
   Viro3DObject,
@@ -152,7 +152,7 @@ var GroupTestBasicProps = createReactClass({
                       rotation={[0,this.state.offsetData[6].rotate,0]}
                       onClick={this._elementClick(6)} visible={this.state.offsetData[6].isVisible}/>
 
-                  <ViroSurface
+                  <ViroQuad
                       position={[-2 + this.state.offsetData[7].translate, -1, 0]} opacity={this.state.offsetData[7].opacity}
                       scale={[0.5* this.state.offsetData[7].scale, 0.5 * this.state.offsetData[7].scale, 0.1]}
                       rotation={[0,this.state.offsetData[7].rotate,0]}

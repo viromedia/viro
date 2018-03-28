@@ -28,7 +28,7 @@ import {
   ViroSkyBox,
   Viro360Video,
   ViroText,
-  ViroSurface
+  ViroQuad
 } from 'react-viro';
 
 import TimerMixin from 'react-timer-mixin';
@@ -49,7 +49,7 @@ var testARScene = createReactClass({
     return (
         <ViroARScene ref="arscene" >
           <ViroARPlane onAnchorUpdated={this._onPlaneUpdate}>
-            <ViroSurface materials={"transparent"} scale={this.state.surfaceSize} position={this.state.center}
+            <ViroQuad materials={"transparent"} scale={this.state.surfaceSize} position={this.state.center}
              rotation={[-90, 0, 0]} onClick={this._onSurfaceClickUsingPosition}/>
           </ViroARPlane>
           {this._getBox()}

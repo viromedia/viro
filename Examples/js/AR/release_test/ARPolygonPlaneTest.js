@@ -20,7 +20,7 @@ import {
   ViroMaterials,
   ViroImage,
   ViroARPlaneSelector,
-  ViroSurface,
+  ViroQuad,
   ViroConstants,
   ViroVideo,
   ViroText,
@@ -64,7 +64,7 @@ var testARScene = createReactClass({
           vertices={[[0,0], [0,0], [0,0]]}
           materials={"blue_plane"}/>
 
-        <ViroSurface
+        <ViroQuad
             ref={component=>{this._surface = component}}
             rotation={[-90, 0, 0]}
             position={[0,-0.0001,0]}

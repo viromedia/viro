@@ -23,7 +23,7 @@
    ViroText,
    ViroAnimations,
    ViroAnimatedComponent,
-   ViroSurface,
+   ViroQuad,
    ViroSphere,
    Viro3DObject,
    ViroQuadEmitter,
