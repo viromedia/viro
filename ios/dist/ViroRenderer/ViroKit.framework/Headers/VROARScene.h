@@ -102,7 +102,13 @@ public:
     }
 
     void updateParticles(const VRORenderContext &context);
+    
 private:
+    /*
+     The anchors that we should detect in this scene. This is the *ground truth* setting for
+     this variable. It is stored here so that it can be pushed into the VROARSession when that
+     is injected into the scene.
+     */
     std::set<VROAnchorDetection> _detectionTypes;
     
     std::weak_ptr<VROARSession> _arSession;
@@ -115,14 +121,16 @@ private:
     std::weak_ptr<VROARSceneDelegate> _delegate;
 
     /*
-     * Tracking states that have been read from ARCore/ARKit cameras.
-     * Usually, this flips between Unavailable and Normal as the activity
-     * enters paused and resume states.
+     Tracking states that have been read from AR cameras. Usually, this flips between Unavailable
+     and Normal as the activity enters paused and resumed states, or between Limited and Normal
+     amid changing environmental conditions.
      */
     VROARTrackingState _currentTrackingState;
     VROARTrackingStateReason _currentTrackingStateReason;
 
-    /* Point Cloud Properties */
+    /*
+     Point cloud properties.
+     */
     bool _displayPointCloud;
     std::shared_ptr<VROSurface> _pointCloudSurface = nullptr;
     VROVector3f _pointCloudSurfaceScale;

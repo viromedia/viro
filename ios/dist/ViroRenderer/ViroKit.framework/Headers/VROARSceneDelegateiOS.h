@@ -29,7 +29,7 @@ public:
     
     virtual ~VROARSceneDelegateiOS() {}
 
-    virtual void onTrackingUpdated(VROARTrackingState state, VROARTrackingStateReason reason){
+    virtual void onTrackingUpdated(VROARTrackingState state, VROARTrackingStateReason reason) {
         [_delegate onTrackingUpdated:state withReason:reason];
     }
     

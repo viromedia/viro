@@ -189,6 +189,11 @@ public:
         return _transformedPosition;
     }
     
+    void setTransformedDirection(VROVector3f direction);
+    VROVector3f getTransformedDirection() const {
+        return _transformedDirection;
+    }
+    
 #pragma mark - Shadow Implementation
 
     int getShadowMapIndex() const {
@@ -288,10 +293,11 @@ private:
     float _spotOuterAngle;
     
     /*
-     Internal. The position of the light after all its supernode
+     Internal. The position and direction of the light after all its supernode
      transforms have been applied.
      */
     VROVector3f _transformedPosition;
+    VROVector3f _transformedDirection;
     
     /*
      Weak refs to all UBOs that use this light. Needed so that when this

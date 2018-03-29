@@ -48,6 +48,12 @@ public:
      */
     void fitToModelView(const float *view, const float *projection,
                         const float bufferSides, const float bufferNear, const float bufferFar);
+    
+    /*
+     Makes the far clipping plane infinity. This is useful if we want to compute intersections
+     without taking the FCP into account (e.g. if we want an auto-adjusting FCP).
+     */
+    void removeFCP();
 
     /*
      Intersection testing (automatically chooses best method).
