@@ -435,7 +435,7 @@ var styles = StyleSheet.create({
 });
 
 var VRTVRSceneNavigator = requireNativeComponent(
-    'VRTSceneNavigator', ViroVRSceneNavigator, {
+    'VRTVRSceneNavigator', ViroVRSceneNavigator, {
         nativeOnly: { currentSceneIndex:true, onExitViro:true, hasOnExitViroCallback:true }
     }
 );

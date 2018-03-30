@@ -25,7 +25,9 @@ type Scene = {
 
 var mathRandomOffset = 0;
 
+
 /**
+ * ##### DEPRECATION WARNING - ViroSceneNavigator may be removed in future releases. Use ViroVRSceneNavigator instead #####
  * ViroSceneNavigator is used to transition between multiple scenes.
  */
 var ViroSceneNavigator = createReactClass({
@@ -402,6 +404,7 @@ var ViroSceneNavigator = createReactClass({
   },
 
   render: function() {
+    console.warn("<ViroSceneNavigator> has been DEPRECATED. Please use <ViroVRSceneNavigator> instead.");
     var items = this._renderSceneStackItems();
 
     // update the sceneNavigator with the latest given props on every render

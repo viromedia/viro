@@ -7,7 +7,7 @@
 
 const ReactViro = {
   // Components
-  get ViroSceneNavigator() { return require('./components/ViroSceneNavigator'); },
+  get ViroSceneNavigator() { return require('./components/ViroSceneNavigator');},
   get ViroScene() { return require('./components/ViroScene'); },
   get ViroBox() { return require('./components/ViroBox'); },
   get ViroMaterials() { return require('./components/Material/ViroMaterials'); },
@@ -47,7 +47,7 @@ const ReactViro = {
   get ViroParticleEmitter() { return require('./components/ViroParticleEmitter'); },
   get ViroLightingEnvironment() { return require('./components/ViroLightingEnvironment'); },
   get Viro3DSceneNavigator() { return require('./components/Viro3DSceneNavigator'); },
-  get ViroVRSceneNavigator() { return require('./components/ViroSceneNavigator'); },
+  get ViroVRSceneNavigator() { return require('./components/ViroVRSceneNavigator'); },
   // AR Components
   get ViroARSceneNavigator() { return require('./components/AR/ViroARSceneNavigator'); },
   get ViroARScene() { return require('./components/AR/ViroARScene'); },

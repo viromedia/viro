@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		133FE28B206EE35300FB6F34 /* VRTVRSceneNavigatorManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 133FE28A206EE35300FB6F34 /* VRTVRSceneNavigatorManager.mm */; };
+		133FE28E206EE4FD00FB6F34 /* VRTVRSceneNavigator.mm in Sources */ = {isa = PBXBuildFile; fileRef = 133FE28D206EE4FD00FB6F34 /* VRTVRSceneNavigator.mm */; };
 		137E9D821F50E8C1008238E5 /* VRTPhotoLibraryAsyncLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 137E9D801F50E8C0008238E5 /* VRTPhotoLibraryAsyncLoader.m */; };
 		13F6302D205761B100A74EFC /* VRT3DSceneNavigatorModule.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13F6302C205761B100A74EFC /* VRT3DSceneNavigatorModule.mm */; };
 		13F63033205762CB00A74EFC /* VRT3DSceneNavigatorManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13F63032205762CB00A74EFC /* VRT3DSceneNavigatorManager.mm */; };
@@ -365,6 +367,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		133FE284206EE2FC00FB6F34 /* VRTVRSceneNavigatorManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VRTVRSceneNavigatorManager.h; sourceTree = "<group>"; };
+		133FE28A206EE35300FB6F34 /* VRTVRSceneNavigatorManager.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = VRTVRSceneNavigatorManager.mm; sourceTree = "<group>"; };
+		133FE28C206EE4A500FB6F34 /* VRTVRSceneNavigator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VRTVRSceneNavigator.h; sourceTree = "<group>"; };
+		133FE28D206EE4FD00FB6F34 /* VRTVRSceneNavigator.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = VRTVRSceneNavigator.mm; sourceTree = "<group>"; };
 		137E9D7D1F50E8C0008238E5 /* VRTPhotoLibraryAsyncLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VRTPhotoLibraryAsyncLoader.h; path = ViroReact/Utility/VRTPhotoLibraryAsyncLoader.h; sourceTree = "<group>"; };
 		137E9D801F50E8C0008238E5 /* VRTPhotoLibraryAsyncLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VRTPhotoLibraryAsyncLoader.m; path = ViroReact/Utility/VRTPhotoLibraryAsyncLoader.m; sourceTree = "<group>"; };
 		13F6301E2057616000A74EFC /* VRT3DSceneNavigatorModule.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VRT3DSceneNavigatorModule.h; sourceTree = "<group>"; };
@@ -763,6 +769,8 @@
 				8BE0D47B1DFA15880032AB99 /* VRTSceneManager.mm */,
 				8BE0D47C1DFA15880032AB99 /* VRTSceneNavigatorManager.h */,
 				8BE0D47D1DFA15880032AB99 /* VRTSceneNavigatorManager.mm */,
+				133FE284206EE2FC00FB6F34 /* VRTVRSceneNavigatorManager.h */,
+				133FE28A206EE35300FB6F34 /* VRTVRSceneNavigatorManager.mm */,
 				13F63031205762AE00A74EFC /* VRT3DSceneNavigatorManager.h */,
 				13F63032205762CB00A74EFC /* VRT3DSceneNavigatorManager.mm */,
 				8BE0D4931DFA15880032AB99 /* VRTSkyboxManager.h */,
@@ -878,6 +886,8 @@
 				8BE0D4E21DFA3D9B0032AB99 /* VRTScene.mm */,
 				8BE0D4E31DFA3D9B0032AB99 /* VRTSceneNavigator.h */,
 				8BE0D4E41DFA3D9B0032AB99 /* VRTSceneNavigator.mm */,
+				133FE28C206EE4A500FB6F34 /* VRTVRSceneNavigator.h */,
+				133FE28D206EE4FD00FB6F34 /* VRTVRSceneNavigator.mm */,
 				13F630342057642500A74EFC /* VRT3DSceneNavigator.h */,
 				13F630352057644D00A74EFC /* VRT3DSceneNavigator.mm */,
 				8BE0D4E51DFA3D9B0032AB99 /* VRTSceneShadowView.h */,
@@ -1071,6 +1081,7 @@
 				8BE0D4AA1DFA15880032AB99 /* VRTImageManager.mm in Sources */,
 				8BE0D49C1DFA15880032AB99 /* VRTAnimatedComponentManager.mm in Sources */,
 				8A04D51B2024F7AA00FD5F68 /* VRTARImageMarker.mm in Sources */,
+				133FE28E206EE4FD00FB6F34 /* VRTVRSceneNavigator.mm in Sources */,
 				8A0524391EF0A4B900A02361 /* VRTARSceneManager.mm in Sources */,
 				8AEFA2251EF3175C006851B7 /* VRTARPlaneManager.mm in Sources */,
 				8BE0D50F1DFA3D9B0032AB99 /* VRTSphere.mm in Sources */,
@@ -1123,6 +1134,7 @@
 				8BE0D4A91DFA15880032AB99 /* VRTFlexViewManager.mm in Sources */,
 				8BE0D5251DFA3DEA0032AB99 /* VRTImageAsyncLoader.m in Sources */,
 				8FD1D4B91E3A484000EE2859 /* VRTCameraModule.mm in Sources */,
+				133FE28B206EE35300FB6F34 /* VRTVRSceneNavigatorManager.mm in Sources */,
 				8BE0D4F71DFA3D9B0032AB99 /* VRT360Video.mm in Sources */,
 				8A2DA3C71F9438A7001FC3BA /* VRTARUtils.m in Sources */,
 				8BE0D5091DFA3D9B0032AB99 /* VRTScene.mm in Sources */,
