@@ -9,6 +9,7 @@ import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.ReadableMapKeySetIterator;
+import com.facebook.react.bridge.ReadableType;
 import com.viro.core.SoundData;
 
 import java.util.HashMap;
@@ -38,7 +39,18 @@ public class SoundModule extends ReactContextBaseJavaModule {
         ReadableMapKeySetIterator iter = soundMap.keySetIterator();
         while(iter.hasNextKey()) {
             String key = iter.nextKey();
-            SoundData nativeSoundData = new SoundData(soundMap.getString(key));
+            ReadableType keyType = soundMap.getType(key);
+
+            String path;
+            if (keyType == ReadableType.String){
+                path = soundMap.getString(key);
+            } else if (keyType == ReadableType.Map && soundMap.getMap(key).hasKey("uri")){
+                path = soundMap.getMap(key).getString("uri");
+            } else {
+                throw new IllegalArgumentException("Invalid preloaded sound path received.");
+            }
+
+            SoundData nativeSoundData = new SoundData(path);
             mSoundDataMap.put(key, nativeSoundData);
         }
     }
