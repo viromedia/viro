@@ -79,6 +79,21 @@ LINE_TO_REPLACE=$(grep "$SEARCH_PATTERN" "$TARGET_FILEPATH")
 
 vsed "s/$LINE_TO_REPLACE/$LINE_TO_ADD/g" $TARGET_FILEPATH
 
+LINES_TO_ADD=("        maven {"
+"            url 'https:\/\/maven.google.com\/'"
+"        }")
+SEARCH_PATTERN="mavenLocal"
+LINE_TO_APPEND_AFTER=$(grep "$SEARCH_PATTERN" "$TARGET_FILEPATH")
+LINE_TO_APPEND_AFTER=$(echo $LINE_TO_APPEND_AFTER | sed -e 's/[]\/$*.^|[]/\\&/g')
+INDEX=$((${#LINES_TO_ADD[@]}-1))
+while [ $INDEX -ge 0 ];
+do
+  vsed "s/$LINE_TO_APPEND_AFTER/&"$'\\\n'"${LINES_TO_ADD[$INDEX]}/" $TARGET_FILEPATH
+  INDEX=$(($INDEX-1))
+done
+
+
+
 
 
 echo "Updating App's build.gradle"

@@ -18,7 +18,7 @@ import {
 } from 'react-native';
 
 import {
-  ViroSceneNavigator,
+  ViroVRSceneNavigator,
   ViroARSceneNavigator
 } from 'react-viro';
 
@@ -107,7 +107,7 @@ export default class ViroSample extends Component {
   // Returns the ViroSceneNavigator which will start the VR experience
   _getVRNavigator() {
     return (
-      <ViroSceneNavigator {...this.state.sharedProps}
+      <ViroVRSceneNavigator {...this.state.sharedProps}
         initialScene={{scene: InitialVRScene}} onExitViro={this._exitViro}/>
     );
   }
