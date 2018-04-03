@@ -3,6 +3,8 @@
  */
 package com.viromedia.bridge.module;
 
+import com.facebook.react.bridge.Arguments;
+import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
@@ -10,8 +12,8 @@ import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.ReadableMapKeySetIterator;
 import com.facebook.react.bridge.ReadableType;
+import com.facebook.react.bridge.WritableMap;
 import com.viro.core.SoundData;
-
 import java.util.HashMap;
 
 public class SoundModule extends ReactContextBaseJavaModule {
@@ -35,12 +37,11 @@ public class SoundModule extends ReactContextBaseJavaModule {
      * @param soundMap a map of String keys to String url's.
      */
     @ReactMethod
-    public void preloadSounds(ReadableMap soundMap) {
+    public void preloadSounds(final ReadableMap soundMap, final Promise onSoundPreloadedCallback) {
         ReadableMapKeySetIterator iter = soundMap.keySetIterator();
         while(iter.hasNextKey()) {
-            String key = iter.nextKey();
+            final String key = iter.nextKey();
             ReadableType keyType = soundMap.getType(key);
-
             String path;
             if (keyType == ReadableType.String){
                 path = soundMap.getString(key);
@@ -50,8 +51,31 @@ public class SoundModule extends ReactContextBaseJavaModule {
                 throw new IllegalArgumentException("Invalid preloaded sound path received.");
             }
 
-            SoundData nativeSoundData = new SoundData(path);
-            mSoundDataMap.put(key, nativeSoundData);
+            // If a promise is provided, create SoundDataInitCallback to notify
+            // the javascript layer of when the data has completed preloading.
+            SoundData.SoundDataInitializeCallback callback = null;
+            if (onSoundPreloadedCallback != null) {
+                callback = new SoundData.SoundDataInitializeCallback() {
+                    @Override
+                    public void onDataIsReady() {
+                        WritableMap returnMap = Arguments.createMap();
+                        returnMap.putString("key", key);
+                        returnMap.putBoolean("result",true);
+                        returnMap.putString("msg","");
+                        onSoundPreloadedCallback.resolve(returnMap);
+                    }
+
+                    @Override
+                    public void onDataError(String errorMsg) {
+                        WritableMap returnMap = Arguments.createMap();
+                        returnMap.putString("key", key);
+                        returnMap.putBoolean("result",false);
+                        returnMap.putString("msg", errorMsg);
+                        onSoundPreloadedCallback.resolve(returnMap);
+                    }
+                };
+            }
+            mSoundDataMap.put(key, new SoundData(path, callback));
         }
     }
 
