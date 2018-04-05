@@ -22,9 +22,16 @@ var SoundModule = NativeModules.VRTSoundModule;
 
 var ViroSound = createReactClass({
   statics: {
-    preloadSounds: function(soundMap:{[key:string]: string}) {
-      SoundModule.preloadSounds(soundMap);
+    preloadSounds: async function(soundMap:{[key:string]: string}) {
+      var results = {};
+      for (var index in soundMap) {
+        const response = await SoundModule.preloadSounds({[index]:soundMap[index]});
+        results[response.key] = {result:response.result, msg:response.msg};
+      }
+
+      return results;
     },
+
     unloadSounds: function(soundKeys: [string]) {
       SoundModule.unloadSounds(soundKeys);
     }
