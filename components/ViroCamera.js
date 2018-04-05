@@ -113,7 +113,8 @@ var VRTCamera = requireNativeComponent(
                 physicsBody:true,
                 dragType: true,
                 onAnimationStartViro:true,
-                onAnimationFinishViro:true
+                onAnimationFinishViro:true,
+                ignoreEventHandling:true
       }
 });
 
