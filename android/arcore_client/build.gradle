@@ -1,2 +1,2 @@
 configurations.maybeCreate("default")
-artifacts.add("default", file('core-1.0.0.aar'))
+artifacts.add("default", file('core-1.1.0.aar'))
