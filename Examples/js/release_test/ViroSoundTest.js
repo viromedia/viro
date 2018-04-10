@@ -103,7 +103,7 @@ var ViroSoundTest = createReactClass({
         <ViroCamera position={[0, 0, this.state.cameraPos]} active={true}/>
         <ViroImage source={require('./res/poi_dot.png')} position={[-1, 0, 0]} transformBehaviors={["billboard"]} onClick={this._showNext} />
 
-        <ViroSkyBox color="#DD4792" />
+        <ViroSkyBox color="#AA1460" />
         {this._getSoundControls()}
         {this._testNormalSound()}
         {this._testSpatialSound()}
@@ -131,25 +131,25 @@ var ViroSoundTest = createReactClass({
     return(
        <ViroNode position={[0,0,-4]}>
 
-       <ViroText style={styles.centeredText} position={[0,2, 0]} width={3} height ={2} fontSize={30}
+       <ViroText style={styles.centeredText} position={[0, 2, 0]} width={3} height ={2} fontSize={30}
                  text={"Toggle SoundType: " + soundType} textLineBreakMode='Justify' onClick={this._toggleSoundType}/>
 
-       <ViroText style={styles.centeredText} position={[-2,1, 0]} width={2} height ={2}
+       <ViroText style={styles.centeredText} position={[-2, 1, 0]} width={2} height ={2}
         text={"isPlaying: " + this.state.isPlaying} textLineBreakMode='Justify' onClick={this._togglePlay}/>
 
-       <ViroText style={styles.centeredText} position={[0,1, 0]} width={2} height ={2}
+       <ViroText style={styles.centeredText} position={[0, 1, 0]} width={2} height ={2}
         text={"Loop: " + this.state.looping} textLineBreakMode='Justify' onClick={this._toggleLoop}/>
 
-       <ViroText style={styles.centeredText} position={[2,1, 0]} width={2} height ={2}
+       <ViroText style={styles.centeredText} position={[2, 1, 0]} width={2} height ={2}
         text={"Mute: " + this.state.mute} textLineBreakMode='Justify' onClick={this._toggleMute}/>
 
        <ViroText style={styles.centeredText} position={[-2, 0, 0]} text={"Change Volume from: " + this.state.volume}
         width={2} height ={2}  onClick={this._toggleVolume} />
 
-       <ViroText style={styles.centeredText} position={[0,0, 0]} width={2} height ={2}
+       <ViroText style={styles.centeredText} position={[0, 0, 0]} width={2} height ={2}
         text={"Source: " + stringSource} textLineBreakMode='Justify' onClick={this._toggleSource}/>
 
-        <ViroText style={styles.centeredText} position={[2,0, 0]} width={2} height ={2}
+        <ViroText style={styles.centeredText} position={[2, 0, 0]} width={2} height ={2}
                 text={this.state.preloadedSound ? "Sound is Preloaded" : "Sound is NOT Preloaded"}
                 textLineBreakMode='Justify' onClick={this._preloadSound}/>
 
@@ -244,15 +244,15 @@ var ViroSoundTest = createReactClass({
   _getSpatialControls() {
     return(
         <ViroNode position={[0,0,-4]}>
-         <ViroText style={styles.centeredText}  position={[-2, -3, 0]} width={1.5} height={2}
+         <ViroText style={styles.centeredText}  position={[-2, -1.25, 0]} width={1.5} height={2}
                 text={"Toggle Atenuation distance: " + this.state.minDistance + " - " + this.state.maxDistance}
                 onClick={this._toggleAttenuationDistance}/>
 
-         <ViroText style={styles.centeredText}  position={[0,-3, 0]} width={1.5} height={2}
+         <ViroText style={styles.centeredText}  position={[0, -2, 0]} width={1.5} height={2}
                 text={"Toggle Sound Z: " + this.state.soundDistance}
                 onClick={this._toggleSoundDistance}/>
 
-        <ViroText style={styles.centeredText} position={[0, -5, 0]} width={1.5} height={2}
+        <ViroText style={styles.centeredText} position={[0, -2.75, 0]} width={1.5} height={2}
                text={"Toggle Camera Z: " + this.state.cameraPos}
                onClick={this._toggleCameraPosition}/>
         </ViroNode>
