@@ -10,9 +10,12 @@
 #define VROCameraTextureiOS_h
 
 #include "VROCameraTexture.h"
-#include "VROTrackingHelper.h"
 #import <UIKit/UIKit.h>
 #import <AVFoundation/AVFoundation.h>
+
+#if ENABLE_OPENCV
+#include "VROTrackingHelper.h"
+#endif // ENABLE_OPENCV
 
 @class VROCameraCaptureDelegate;
 @class VROCameraOrientationListener;
