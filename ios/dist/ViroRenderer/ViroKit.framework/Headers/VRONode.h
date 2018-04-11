@@ -49,6 +49,7 @@ class VRORenderMetadata;
 class VROParticleEmitter;
 
 extern bool kDebugSortOrder;
+extern int  kDebugSortOrderFrameFrequency;
 extern const std::string kDefaultNodeTag;
 
 enum class VRONodeType {

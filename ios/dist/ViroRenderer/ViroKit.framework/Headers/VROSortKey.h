@@ -26,10 +26,10 @@ public:
 
     bool operator< (const VROSortKey& r) const {
         /*
-         The std::tie operation perform the sort for us, in order of increasing important.
-         We generally sort by rendering order and distance to camera, then by batch switching
-         concerns (shader, textures, light, material), and finally by tie-breakers (node, 
-         element index).
+         The std::tie operation perform the sort for us, in order of increasing importance.
+         We generally sort by rendering order, opacity (opaque objects first), and
+         distance to camera, then by batch switching concerns (shader, textures, light,
+         material), and finally by tie-breakers (node,  element index).
          
          For hierarchies, note that the distance from camera for all objects in a hierarchy
          is set to the distance from camera of the parent. This way distance from camera becomes
@@ -37,8 +37,8 @@ public:
          depth only. Note we do not sort by hierarchy ID because it is ok to interleave objects
          of different hierarchies within the render order.
          */
-        return std::tie(renderingOrder, distanceFromCamera, hierarchyDepth, incoming, shader, textures, lights, material, node, elementIndex) <
-               std::tie(r.renderingOrder, r.distanceFromCamera, r.hierarchyDepth, r.incoming, r.shader, r.textures, r.lights, r.material, r.node, r.elementIndex);
+        return std::tie(renderingOrder, transparent, distanceFromCamera, hierarchyDepth, incoming, shader, textures, lights, material, node, elementIndex) <
+               std::tie(r.renderingOrder, r.transparent, r.distanceFromCamera, r.hierarchyDepth, r.incoming, r.shader, r.textures, r.lights, r.material, r.node, r.elementIndex);
     }
             
     /*
@@ -65,13 +65,20 @@ public:
      are in the same hierarchy. 0 indicates we are not in a hierarchy.
      */
     uint32_t hierarchyId;
+
+    /*
+     True if the object is (full or semi) transparent. Opaque objects are
+     rendered first, so that they appear correctly when transparent objects are rendered
+     in front of them.
+     */
+    bool transparent;
     
     /*
      Distance fom camera for objects is next (back to front).
      This value is set to (zFar - distance from the camera).
      
      When sorted, this results in back to front rendering of
-     objects, ensuring correct rendering of translucent objects.
+     objects, ensuring correct rendering of transparent objects.
      */
     float distanceFromCamera;
 

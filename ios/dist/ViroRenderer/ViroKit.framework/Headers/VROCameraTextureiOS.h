@@ -10,7 +10,7 @@
 #define VROCameraTextureiOS_h
 
 #include "VROCameraTexture.h"
-// #include "VROTrackingHelper.h"
+#include "VROTrackingHelper.h"
 #import <UIKit/UIKit.h>
 #import <AVFoundation/AVFoundation.h>
 
@@ -61,8 +61,6 @@ private:
  Delegate for capturing video from cameras.
  */
 @interface VROCameraCaptureDelegate : NSObject <AVCaptureVideoDataOutputSampleBufferDelegate>
-
-// @property (nonatomic, strong) VROTrackingHelper* trackingHelper;
 
 - (id)initWithCameraTexture:(std::shared_ptr<VROCameraTextureiOS>)texture
                       cache:(std::shared_ptr<VROVideoTextureCache>)cache

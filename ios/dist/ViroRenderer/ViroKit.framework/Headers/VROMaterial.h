@@ -285,6 +285,12 @@ public:
                        std::shared_ptr<VRODriver> &driver);
 
     /*
+     Return true if this material has an alpha channel associated with its diffuse color or
+     texture.
+     */
+    bool hasDiffuseAlpha() const;
+
+    /*
      Returns a VROBlendMode for the given string. If no matching blend modes were found,
      VROBlendMode::None is returned.
      */

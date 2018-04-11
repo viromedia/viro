@@ -12,6 +12,10 @@
 #include <memory>
 #include "VROARSession.h"
 
+#if ENABLE_OPENCV
+#include <opencv2/core/mat.hpp>
+#endif /* ENABLE_OPENCV */
+
 /*
  The orientation of the given target image.
  */
@@ -25,10 +29,18 @@ enum class VROImageOrientation {
 class VROARImageTarget {
 public:
     
-    VROARImageTarget() {}
+    VROARImageTarget(VROImageOrientation orientation, float physicalWidth) :
+        _orientation(orientation),
+        _physicalWidth(physicalWidth) {}
+
     virtual ~VROARImageTarget() {}
-    
-    virtual void initWithTrackingImpl(VROImageTrackingImpl impl) = 0;
+
+    /*
+     We need this function because the creation of the ImageTarget may
+     not know what the tracking impl type is. This is called by the
+     ARSession/ARTrackingSession.
+     */
+    virtual void initWithTrackingImpl(VROImageTrackingImpl impl) {};
 
     void setAnchor(std::shared_ptr<VROARAnchor> anchor) {
         _anchor = anchor;
@@ -38,8 +50,33 @@ public:
         return _anchor.lock();
     }
 
+    VROImageOrientation getOrientation() {
+        return _orientation;
+    }
+
+    float getPhysicalWidth() {
+        return _physicalWidth;
+    }
+
+#if ENABLE_OPENCV
+    cv::Mat getTargetMat() {
+        return _targetMat;
+    }
+
+    void setTargetMat(cv::Mat targetMat) {
+        _targetMat = targetMat;
+    }
+#endif /* ENABLE_OPENCV */
+
 private:
     std::weak_ptr<VROARAnchor> _anchor;
+    VROImageOrientation _orientation;
+    float _physicalWidth;
+
+
+#if ENABLE_OPENCV
+    cv::Mat _targetMat;
+#endif /* ENABLE_OPENCV */
 };
 
 #endif /* VROARImageTarget_h */

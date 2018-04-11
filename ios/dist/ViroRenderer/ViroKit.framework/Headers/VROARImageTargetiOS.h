@@ -31,8 +31,6 @@ public:
 #endif
 private:
     UIImage *_sourceImage;
-    VROImageOrientation _orientation;
-    float _physicalWidth;
     
     VROImageTrackingImpl _currentImpl;
 

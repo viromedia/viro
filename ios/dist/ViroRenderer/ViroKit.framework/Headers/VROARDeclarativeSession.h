@@ -43,8 +43,9 @@ public:
     
     void init();
     void setDelegate(std::shared_ptr<VROARDeclarativeSessionDelegate> delegate);
-    void setARSession(std::shared_ptr<VROARSession> session);
 
+    // TODO: the following 3 functions are also in VROARImperativeSession
+    void setARSession(std::shared_ptr<VROARSession> session);
     void addARImageTarget(std::shared_ptr<VROARImageTarget> target);
     void removeARImageTarget(std::shared_ptr<VROARImageTarget> target);
                                     

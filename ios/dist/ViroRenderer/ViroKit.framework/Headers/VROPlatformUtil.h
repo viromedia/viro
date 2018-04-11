@@ -10,6 +10,7 @@
 #define VROPlatformUtil_h
 
 #include "VRODefines.h"
+#include "VROTexture.h"
 #include <string>
 #include <memory>
 #include <functional>
@@ -97,6 +98,15 @@ void *VROPlatformLoadFile(std::string filename, int *outLength);
  */
 std::pair<std::string, int> VROPlatformFindFont(std::string typeface, bool isItalic, int weight);
 
+#pragma mark - Device Information
+
+/*
+ Returns the device's model name
+ */
+std::string VROPlatformGetDeviceModel();
+
+std::string VROPlatformGetCacheDirectory();
+
 #pragma mark - Image Loading
 
 // Returns empty shared_ptr on failure
@@ -104,14 +114,19 @@ std::shared_ptr<VROImage> VROPlatformLoadImageFromFile(std::string filename, VRO
 
 #if VRO_PLATFORM_ANDROID
 std::shared_ptr<VROImage> VROPlatformLoadImageFromAsset(std::string asset, VROTextureInternalFormat format);
+
+// These methods return null on error (e.g. if file or asset is not found).
 jobject VROPlatformLoadBitmapFromAsset(std::string resource, VROTextureInternalFormat format);
 jobject VROPlatformLoadBitmapFromFile(std::string path, VROTextureInternalFormat format);
 
 // Note the returned buffer *must* be freed by the caller!
-void *VROPlatformConvertBitmap(jobject jbitmap, int *bitmapLength, int *width, int *height);
+void *VROPlatformConvertBitmap(jobject jbitmap, int *bitmapLength, int *width, int *height, bool *hasAlpha);
 
 // Test function to save RGBA8 data as PNG files
 void VROPlatformSaveRGBAImage(void *data, int length, int width, int height, std::string path);
+
+// Returns a best guess of the VROTextureFormat based on the given bitmap's info
+VROTextureFormat VROPlatformGetBitmapFormat(jobject jbitmap);
 
 #endif
 
@@ -183,7 +198,6 @@ std::map<std::string, std::string> VROPlatformConvertFromJavaMap(jobject javaMap
  */
 std::map<std::string, std::string> VROPlatformCopyObjResourcesToFile(jobject resourceMap);
 
-
 #pragma mark - JNI Utilities
 
 // Get the class loader from the given object
@@ -219,6 +233,13 @@ void VROPlatformSetEnumValue(JNIEnv *env, jclass cls, jobject jObj, const char *
 
 // Safely converts the given string with the provided jni environment.
 std::string VROPlatformGetString(jstring string, JNIEnv *env);
+
+#pragma mark - Android Image Tracking Debugging
+/*
+ This function calls setImageOnTrackingImageView on ViroViewARCore in order to debug
+ Image Tracking/Detection
+ */
+void VROPlatformSetTrackingImageView(std::string filepath);
 
 #pragma mark - Android A/V
 

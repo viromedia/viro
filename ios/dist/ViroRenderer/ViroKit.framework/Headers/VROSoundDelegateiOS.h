@@ -36,5 +36,24 @@ private:
 
 };
 
+class VROSoundDataDelegateiOS : public VROSoundDataDelegate {
+public:
+    VROSoundDataDelegateiOS(std::function<void(bool success, std::string msg)> callback){
+        _callback = callback;
+    }
+    virtual ~VROSoundDataDelegateiOS() {}
 
+    void dataIsReady() {
+        std::string emptyString;
+        _callback(true, emptyString);
+    }
+
+    void dataError(std::string error) {
+        _callback(false, error);
+    }
+
+private:
+    std::function<void(bool success, std::string msg)> _callback;
+    
+};
 #endif /* VROSoundDelegateiOS_h */

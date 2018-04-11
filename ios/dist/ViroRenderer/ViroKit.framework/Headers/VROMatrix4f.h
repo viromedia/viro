@@ -50,6 +50,7 @@ public:
     void rotateY(float angleRad);
     void rotateZ(float angleRad);
     void rotate(float angleRad, const VROVector3f &origin, const VROVector3f &dir);
+    void rotate(const VROQuaternion &rotation);
     void setRotationCenter(const VROVector3f &center, const VROVector3f &translation);
 
     /*

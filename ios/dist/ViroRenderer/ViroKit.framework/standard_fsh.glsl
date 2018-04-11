@@ -28,7 +28,7 @@ void main() {
     _surface.shininess = material_shininess;
     _surface.specular_color = vec3(0.0, 0.0, 0.0);
     _surface.specular_texcoord = v_texcoord;
-    _surface.roughness = material_roughness;
+    _surface.roughness = max(material_roughness, 0.04); // Clamp to avoid potential divide by 0
     _surface.metalness = material_metalness;
     _surface.ao = material_ao;
     _surface.alpha = material_alpha;

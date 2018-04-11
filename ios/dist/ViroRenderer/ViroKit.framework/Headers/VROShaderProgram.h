@@ -60,11 +60,14 @@ public:
     /*
      Create a new shader program with the given source. This constructor assumes that the
      shader code is bundled with the application.
+     
+     The attributes integer is a bit-mask of VROShaderMask attributes, indicating what
+     vertex attributes should be supported by this shader.
      */
     VROShaderProgram(std::string vertexShader, std::string fragmentShader,
                      const std::vector<std::string> &samplers,
                      const std::vector<std::shared_ptr<VROShaderModifier>> &modifiers,
-                     const std::vector<VROGeometrySourceSemantic> attributes,
+                     int attributes,
                      std::shared_ptr<VRODriverOpenGL> driver);
     
     uint32_t getShaderId() const {
@@ -208,7 +211,7 @@ private:
     GLuint _particlesFragmentBlockIndex;
 
     /*
-     The attributes supported by this shader, as defined by the VROShader enum above.
+     The attributes supported by this shader, as defined by the VROShaderMask enum.
      */
     int _attributes;
 
@@ -286,6 +289,12 @@ private:
      includes into the shader.
      */
     void inflateIncludes(std::string &source) const;
+    
+    /*
+     Inject the given code into the shader at the first occurence of the given directive.
+     This replaces the directive (e.g. '#inject vertex_assignments') with the given source.
+     */
+    void inject(const std::string &directive, const std::string &code, std::string &source) const;
     
     /*
      Inflate the shader modifiers into the shader source.

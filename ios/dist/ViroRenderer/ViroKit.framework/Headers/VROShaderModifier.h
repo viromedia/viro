@@ -208,6 +208,17 @@ public:
     }
     
     /*
+     Vertex attributes required by the modifier must be set. This is a bitmask of
+     VROShaderMask values.
+     */
+    void setAttributes(int attributes) {
+        _attributes = attributes;
+    }
+    int getAttributes() const {
+        return _attributes;
+    }
+    
+    /*
      Add a string of text and what it should be replaced with. This will perform
      a find and replace on the modified shader.
      */
@@ -267,6 +278,12 @@ private:
     
     int _shaderModifierId;
     std::string _name;
+    
+    /*
+     VROShaderMask indicating any additional vertex attributes this modifier requires. See
+     VROShaderProgram.h for values.
+     */
+    int _attributes;
     
     /*
      The new uniforms this shader modifier will add. Single string containing
