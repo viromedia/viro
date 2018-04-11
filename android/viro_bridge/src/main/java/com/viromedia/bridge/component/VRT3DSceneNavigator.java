@@ -281,7 +281,7 @@ public class VRT3DSceneNavigator extends FrameLayout {
                     "at www.viromedia.com.");
         }
 
-        mViroView.validateAPIKey(apiKey.trim());
+        mViroView.validateAPIKey(apiKey.trim(), "3DScene", "none");
     }
 
     private void notifyScenePlatformInformation() {
