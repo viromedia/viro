@@ -57,6 +57,7 @@ Figment/ios/ngrokendpoint.txt
 Examples/node_modules
 Figment/node_modules
 npm-debug.log
+Examples/package-lock.json
 
 *.DS_Store
 *local.properties
