@@ -135,29 +135,33 @@
     for (std::shared_ptr<VRONode> child : self.node->getChildNodes()) {
         child->removeFromParentNode();
     }
-    
+    __weak VRT3DObject *weakSelf = self;
     std::function<void(std::shared_ptr<VRONode> node, bool success)> onFinish =
-    [self](std::shared_ptr<VRONode> node, bool success) {
+    [weakSelf](std::shared_ptr<VRONode> node, bool success) {
         if (success) {
-            if (self.materials) {
-                [self applyMaterials];
+            if (weakSelf && weakSelf.materials) {
+                [weakSelf applyMaterials];
             }
-            [self updateAnimation];
+
+            if (weakSelf) {
+                [weakSelf updateAnimation];
+            }
         }
 
         /*
          Once the object is loaded, set the lighting bit masks recursively
          down the tree to the internal FBX nodes.
          */
-        node->setLightReceivingBitMask([self lightReceivingBitMask], true);
-        node->setShadowCastingBitMask([self shadowCastingBitMask], true);
+        node->setLightReceivingBitMask([weakSelf lightReceivingBitMask], true);
+        node->setShadowCastingBitMask([weakSelf shadowCastingBitMask], true);
         
-        if (self.onLoadEndViro) {
-            self.onLoadEndViro(nil);
+        if (weakSelf && weakSelf.onLoadEndViro) {
+            weakSelf.onLoadEndViro(nil);
         }
+
         if (!success) {
-            if (self.onErrorViro) {
-                self.onErrorViro(@{ @"error": @"model failed to load" });
+            if (weakSelf && weakSelf.onErrorViro) {
+                weakSelf.onErrorViro(@{ @"error": @"model failed to load" });
             }
         }
     };
