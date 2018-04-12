@@ -76,7 +76,7 @@ public class VRTARImageMarker extends VRTARNode {
                         } else {
                             // remove old ARImageTarget and update the ARNode
                             if (oldTarget != null) {
-                                arScene.removeARImageTargetDeclarative(newTarget);
+                                arScene.removeARImageTargetDeclarative(oldTarget);
                             }
                             arScene.updateARDeclarativeNode(imageNode);
                         }
