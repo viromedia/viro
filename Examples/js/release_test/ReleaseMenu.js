@@ -214,6 +214,10 @@ var ReleaseMenu = createReactClass({
                           text={"ViroMaterialVideoTest"}
                           onClick={() => {this.props.sceneNavigator.replace("ViroMaterialVideoTest", {scene:require("./ViroMaterialVideoTest"), passProps:{showMenu:true}})}}
                    />
+                   <ViroText style={styles.centeredText}  position={[6, -7, -4]} width={1.5} height={2}
+                          text={"ViroHierarchyTest"}
+                          onClick={() => {this.props.sceneNavigator.replace("ViroHierarchyTest", {scene:require("./ViroHierarchyTest"), passProps:{showMenu:true}})}}
+                   />
                 </ViroNode>
             </ViroScene>
     );
