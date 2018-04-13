@@ -46,7 +46,7 @@ var CameraRollTest = React.createClass({
       photos: undefined,
     }
   },
-  componentWillMount() {
+  componentDidMount() {
     console.log("[CameraRollTest]: componentWillMount");
     CameraRoll.getPhotos({
       first: 20,

@@ -35,7 +35,7 @@ let polarToCartesian = ViroUtils.polarToCartesian;
 
 var testARScene = createReactClass({
   mixins: [TimerMixin],
-  componentWillMount() {
+  componentDidMount() {
     this.numAnchors = 0;
     this.anchors = {};
   },

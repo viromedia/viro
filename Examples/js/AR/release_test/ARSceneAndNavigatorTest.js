@@ -73,8 +73,10 @@ var testARScene = createReactClass({
     var strState = "NONE";
     if (state == ViroConstants.TRACKING_NORMAL){
       strState="Normal";
+      this.setState({initialized : true});
     } else if (state == ViroConstants.TRACKING_LIMITED){
       strState="Limited";
+      this.setState({initialized : false})
     }
 
     var strReason = "NONE";
@@ -93,7 +95,6 @@ var testARScene = createReactClass({
   render: function() {
     return (
       <ViroARScene
-        onTrackingInitialized={()=>{this.setState({initialized : true})}}
         onAmbientLightUpdate={this._onAmbientLightUpdate}
         displayPointCloud={this.state.displayPointCloud}
         onTrackingUpdated={this._onTrackingUpdated}
