@@ -26,7 +26,7 @@ public class VRTSkyBoxManager extends VRTViroViewGroupManager<VRTSkyBox> {
 
     @Override
     protected VRTSkyBox createViewInstance(ThemedReactContext reactContext) {
-        return new VRTSkyBox(getContext());
+        return new VRTSkyBox(reactContext);
     }
 
     @ReactProp(name = "source")

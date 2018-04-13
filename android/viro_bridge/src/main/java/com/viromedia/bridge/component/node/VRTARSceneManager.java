@@ -30,7 +30,7 @@ public class VRTARSceneManager extends VRTSceneManager<VRTARScene> {
 
     @Override
     protected VRTARScene createViewInstance(ThemedReactContext reactContext) {
-        return new VRTARScene(getContext());
+        return new VRTARScene(reactContext);
     }
 
     @ReactProp(name="displayPointCloud", defaultBoolean = false)
