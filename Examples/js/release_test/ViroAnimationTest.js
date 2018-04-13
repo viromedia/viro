@@ -98,7 +98,7 @@ var ViroAnimationTest = createReactClass({
 
      <ViroButton
          position={[-1, 5, -3]}
-         materials={["sphere1"]}
+         materials={["sphere1_waikiki"]}
          scale={[0.8, 0.8, 1.0]}
          source={LocalButtonImage}
          hoverSource={LocalButtonImage}
@@ -114,7 +114,7 @@ var ViroAnimationTest = createReactClass({
      <ViroImage width={1} height={1}
                 format="RGBA8" mipmap={true}
                 position={[-1, 4, -3]}
-                materials={["sphere1"]}
+                materials={["sphere1_waikiki"]}
                 scale={[0.5, 0.5, 0.1]}
                 source={{uri: "https://upload.wikimedia.org/wikipedia/commons/7/74/Earth_poster_large.jpg"}}
                 animation={{name:currentAnim,
@@ -125,7 +125,7 @@ var ViroAnimationTest = createReactClass({
                             onFinish:this._onFinish,
                             interruptible:this.state.interruptible }}/>
 
-     <ViroSpinner materials={["sphere1"]}
+     <ViroSpinner materials={["sphere1_waikiki"]}
                   position={[-1, 3, -3]}
                   scale={[0.9, 0.9, 0.3]}
                   animation={{name:currentAnim,
@@ -138,7 +138,7 @@ var ViroAnimationTest = createReactClass({
 
      <ViroQuad position={[-1, 2, -3]}
                   scale={[0.5, 0.5, 0.1]}
-                  materials={["sphere1"]}
+                  materials={["sphere1_waikiki"]}
                   width={1}
                   height={1}
                   animation={{name:currentAnim,
@@ -163,7 +163,7 @@ var ViroAnimationTest = createReactClass({
      <ViroBox
         width={1} height={1}
         position={[-1, 0, -3]}
-        materials={["sphere1"]}
+        materials={["sphere1_waikiki"]}
         animation={{name:currentAnim,
                     delay:this.state.animationComponentDelay,
                     loop:this.state.animLoop,
@@ -178,7 +178,7 @@ var ViroAnimationTest = createReactClass({
         widthSegmentCount={20}
         radius={.5}
         position={[-1, -1, -3]}
-        materials={["sphere1"]}
+        materials={["sphere1_waikiki"]}
         facesOutward={false}
         animation={{name:currentAnim,
                     delay:this.state.animationComponentDelay,
@@ -348,7 +348,7 @@ var styles = StyleSheet.create({
 
 ViroMaterials.createMaterials({
 
-   sphere1: {
+   sphere1_waikiki: {
      shininess : 2.0,
      lightingModel: "Blinn",
      diffuseTexture: require('./res/360_waikiki.jpg'),
