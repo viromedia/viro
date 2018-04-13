@@ -179,7 +179,7 @@ const double kTransformDelegateDistanceFilter = 0.01;
 - (void)handleAppearanceChange {
     std::shared_ptr<VROPhysicsBody> body = self.node->getPhysicsBody();
     if (body) {
-        body->setIsSimulated([self shouldAppear]);
+        body->setIsSimulated([self shouldAppear] && body->getIsSimulated());
     }
     [self node]->setHidden(![self shouldAppear]);
     [super handleAppearanceChange];

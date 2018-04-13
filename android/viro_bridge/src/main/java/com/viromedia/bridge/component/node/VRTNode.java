@@ -300,7 +300,8 @@ public class VRTNode extends VRTComponent {
     protected void handleAppearanceChange() {
         if (mNodeJni != null) {
             if (mNodeJni.getPhysicsBody() != null) {
-                mNodeJni.getPhysicsBody().setEnabled(shouldAppear());
+                boolean enabled = mNodeJni.getPhysicsBody().isEnabled();
+                mNodeJni.getPhysicsBody().setEnabled(shouldAppear() && enabled);
             }
             mNodeJni.setVisible(shouldAppear());
         }
