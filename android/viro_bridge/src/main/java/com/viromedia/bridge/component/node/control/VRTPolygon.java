@@ -3,7 +3,7 @@
  */
 package com.viromedia.bridge.component.node.control;
 
-import com.facebook.react.bridge.ReactApplicationContext;
+import com.facebook.react.bridge.ReactContext;
 import com.viro.core.Material;
 import com.viro.core.Polygon;
 import com.viro.core.Vector;
@@ -21,7 +21,7 @@ public class VRTPolygon extends VRTControl {
     private boolean mARShadowReceiver = false;
     private List<Vector> mVertices = new ArrayList<>();
 
-    public VRTPolygon(ReactApplicationContext reactContext) {
+    public VRTPolygon(ReactContext reactContext) {
         super(reactContext);
     }
 

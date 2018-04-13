@@ -7,7 +7,8 @@ import android.os.Handler;
 import android.os.Looper;
 
 
-import com.facebook.react.bridge.ReactApplicationContext;
+import com.facebook.react.bridge.ReactContext;
+import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.ReadableMap;
 import com.viromedia.bridge.component.node.VRTNode;
 import com.viromedia.bridge.utility.ViroEvents;
@@ -28,7 +29,7 @@ public abstract class VRTManagedAnimation {
         SCHEDULED, RUNNING, PAUSED, TERMINATED
     }
 
-    private ReactApplicationContext mReactContext;
+    private ReactContext mReactContext;
     private ExecutableAnimation mExecutableAnimation = null;
     private ExecutableAnimation mPreviousAnimationInterrupted = null; // used to store previous played animation so it can be terminated before destroyed.
     private float mDelayInMilliseconds = 0; // milliseconds
@@ -62,7 +63,7 @@ public abstract class VRTManagedAnimation {
         }
     };
 
-    public VRTManagedAnimation(ReactApplicationContext context, VRTComponent parent) {
+    public VRTManagedAnimation(ReactContext context, VRTComponent parent) {
         mReactContext = context;
         mParentComponent = parent;
     }

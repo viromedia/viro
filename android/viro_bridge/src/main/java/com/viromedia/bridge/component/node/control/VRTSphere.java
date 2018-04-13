@@ -3,7 +3,7 @@
  */
 package com.viromedia.bridge.component.node.control;
 
-import com.facebook.react.bridge.ReactApplicationContext;
+import com.facebook.react.bridge.ReactContext;
 import com.viro.core.Sphere;
 
 public class VRTSphere extends VRTControl {
@@ -18,7 +18,7 @@ public class VRTSphere extends VRTControl {
     private int mHeightSegmentCount = DEFAULT_HEIGHT_SEGMENT;
     private float mRadius = DEFAULT_RADIUS;
 
-    public VRTSphere(ReactApplicationContext reactContext) {
+    public VRTSphere(ReactContext reactContext) {
         super(reactContext);
     }
 

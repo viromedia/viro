@@ -9,7 +9,7 @@ import android.os.Looper;
 import android.view.ViewParent;
 
 import com.facebook.react.bridge.Arguments;
-import com.facebook.react.bridge.ReactApplicationContext;
+import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.WritableMap;
@@ -43,7 +43,7 @@ public class VRTARScene extends VRTScene implements ARScene.Listener {
     private PointCloudImageDownloadListener mImageDownloadListener;
     private Handler mMainHandler;
 
-    public VRTARScene(ReactApplicationContext reactContext) {
+    public VRTARScene(ReactContext reactContext) {
         super(reactContext);
         mMainHandler = new Handler(Looper.getMainLooper());
     }

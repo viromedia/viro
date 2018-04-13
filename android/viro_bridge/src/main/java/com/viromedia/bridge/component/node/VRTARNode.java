@@ -4,7 +4,7 @@
 package com.viromedia.bridge.component.node;
 
 import com.facebook.react.bridge.Arguments;
-import com.facebook.react.bridge.ReactApplicationContext;
+import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
 import com.viro.core.ARAnchor;
@@ -17,7 +17,7 @@ public class VRTARNode extends VRTNode implements ARDeclarativeNode.Delegate {
 
     protected boolean mIsAnchored = false;
 
-    public VRTARNode(ReactApplicationContext context) {
+    public VRTARNode(ReactContext context) {
         super(context);
     }
 

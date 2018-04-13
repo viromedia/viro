@@ -3,7 +3,7 @@
  */
 package com.viromedia.bridge.component;
 
-import com.facebook.react.bridge.ReactApplicationContext;
+import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.ReadableMap;
 import com.viro.core.ViroContext;
 import com.viromedia.bridge.component.node.VRTNode;
@@ -16,7 +16,7 @@ public class VRTSpatialSoundWrapper extends VRTNode {
 
     private final VRTSpatialSound mInnerSound;
 
-    public VRTSpatialSoundWrapper(ReactApplicationContext reactContext) {
+    public VRTSpatialSoundWrapper(ReactContext reactContext) {
         super(reactContext);
         mInnerSound = new VRTSpatialSound(reactContext, getNodeJni());
     }

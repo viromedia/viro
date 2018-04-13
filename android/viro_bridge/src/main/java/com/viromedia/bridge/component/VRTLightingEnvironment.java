@@ -3,7 +3,7 @@
  */
 package com.viromedia.bridge.component;
 
-import com.facebook.react.bridge.ReactApplicationContext;
+import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
 import com.viro.core.PortalScene;
@@ -23,7 +23,7 @@ public class VRTLightingEnvironment extends VRTNode {
     private PortalScene mTargetedPortalScene = null;
     private boolean mHasSetScene;
 
-    public VRTLightingEnvironment(ReactApplicationContext context) {
+    public VRTLightingEnvironment(ReactContext context) {
         super(context);
         mImageNeedsDownload = false;
         mHasSetScene = false;

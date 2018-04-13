@@ -28,7 +28,7 @@ public class VRTPolygonManager extends VRTNodeManager<VRTPolygon> {
 
     @Override
     protected VRTPolygon createViewInstance(ThemedReactContext reactContext) {
-        return new VRTPolygon(getContext());
+        return new VRTPolygon(reactContext);
     }
 
     @ReactProp(name = "vertices")

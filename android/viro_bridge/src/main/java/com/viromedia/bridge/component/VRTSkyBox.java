@@ -6,7 +6,7 @@ package com.viromedia.bridge.component;
 import android.graphics.Bitmap;
 
 import com.facebook.react.bridge.Arguments;
-import com.facebook.react.bridge.ReactApplicationContext;
+import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.ReadableMapKeySetIterator;
 import com.facebook.react.bridge.ReadableType;
@@ -32,7 +32,7 @@ public class VRTSkyBox extends VRTNode {
     private static final long COLOR_NOT_SET = 0;
 
     private static final String TAG = ViroLog.getTag(VRTSkyBox.class);
-    private final ReactApplicationContext mContext;
+    private final ReactContext mContext;
     private ReadableMap mSourceMap;
     private Map<String, Image> mImageMap = new HashMap<>();
     private Texture mLatestTexture;
@@ -43,7 +43,7 @@ public class VRTSkyBox extends VRTNode {
     private boolean mUseTextureForSkybox = true;
     private HashSet<SkyboxImageDownloadListener> mDownloadListeners = new HashSet<>();
 
-    public VRTSkyBox(ReactApplicationContext context) {
+    public VRTSkyBox(ReactContext context) {
         super(context);
         mContext = context;
         mImageDownloader = new ImageDownloader(getContext());

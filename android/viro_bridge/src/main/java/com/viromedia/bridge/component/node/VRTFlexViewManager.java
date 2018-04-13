@@ -22,7 +22,7 @@ public class VRTFlexViewManager extends VRTNodeManager<VRTFlexView> {
 
     @Override
     protected VRTFlexView createViewInstance(ThemedReactContext reactContext) {
-        return new VRTFlexView(getContext());
+        return new VRTFlexView(reactContext);
     }
 
     @ReactProp(name = "width", defaultFloat = 1)

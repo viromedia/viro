@@ -25,7 +25,7 @@ public class VRTARPlaneManager extends VRTNodeManager<VRTARPlane> {
 
     @Override
     protected VRTARPlane createViewInstance(ThemedReactContext reactContext) {
-        return new VRTARPlane(getContext());
+        return new VRTARPlane(reactContext);
     }
 
     @ReactProp(name="minWidth", defaultFloat = 0f)

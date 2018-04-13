@@ -26,7 +26,7 @@ public class VRTParticleEmitterManager extends VRTNodeManager<VRTParticleEmitter
 
     @Override
     protected VRTParticleEmitter createViewInstance(ThemedReactContext reactContext) {
-        return new VRTParticleEmitter(getContext());
+        return new VRTParticleEmitter(reactContext);
     }
 
     @ReactProp(name = "duration", defaultFloat = VRTParticleEmitter.DEFAULT_DURATION)

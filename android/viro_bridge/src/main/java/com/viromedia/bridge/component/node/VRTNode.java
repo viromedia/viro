@@ -9,7 +9,7 @@ import android.view.View;
 
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.JSApplicationCausedNativeException;
-import com.facebook.react.bridge.ReactApplicationContext;
+import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.ReadableType;
@@ -63,7 +63,7 @@ public class VRTNode extends VRTComponent {
         protected String mAnimationName;
         private AnimationManager mAnimationManager;
 
-        public NodeAnimation(ReactApplicationContext context, VRTNode parent) {
+        public NodeAnimation(ReactContext context, VRTNode parent) {
             super(context, parent);
             super.setNode(parent);
             mAnimationManager = context.getNativeModule(AnimationManager.class);
@@ -150,12 +150,12 @@ public class VRTNode extends VRTComponent {
     private ReadableMap mPhysicsMap = null;
     private PhysicsBodyDelegate mPhysicsDelegate;
 
-    public VRTNode(ReactApplicationContext reactContext) {
+    public VRTNode(ReactContext reactContext) {
         this(reactContext.getBaseContext(), null, -1, -1, reactContext);
     }
 
     public VRTNode(Context context, AttributeSet attrs, int defStyleAttr,
-                   int defStyleRes, ReactApplicationContext reactContext) {
+                   int defStyleRes, ReactContext reactContext) {
         super(context, attrs, defStyleAttr, defStyleRes, reactContext);
         mNodeJni = createNodeJni();
 

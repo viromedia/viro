@@ -5,14 +5,14 @@ import com.viro.core.Node;
 import com.viromedia.bridge.component.node.control.VRT3DObject;
 import android.view.View;
 
-import com.facebook.react.bridge.ReactApplicationContext;
+import com.facebook.react.bridge.ReactContext;
 /**
  * Copyright © 2017 Viro Media. All rights reserved.
  */
 
 public class VRTPortal extends VRTNode {
 
-    public VRTPortal(ReactApplicationContext context) {
+    public VRTPortal(ReactContext context) {
         super(context);
     }
 

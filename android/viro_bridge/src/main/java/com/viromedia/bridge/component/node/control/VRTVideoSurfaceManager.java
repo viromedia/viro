@@ -34,7 +34,7 @@ public class VRTVideoSurfaceManager extends VRTNodeManager<VRTVideoSurface> {
 
     @Override
     protected VRTVideoSurface createViewInstance(ThemedReactContext reactContext) {
-        VRTVideoSurface video =  new VRTVideoSurface(getContext());
+        VRTVideoSurface video =  new VRTVideoSurface(reactContext);
         return video;
     }
 

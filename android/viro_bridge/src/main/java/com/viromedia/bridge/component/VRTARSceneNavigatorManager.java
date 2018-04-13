@@ -25,7 +25,7 @@ public class VRTARSceneNavigatorManager extends VRTViroViewGroupManager<VRTARSce
 
     @Override
     protected VRTARSceneNavigator createViewInstance(ThemedReactContext reactContext) {
-        return new VRTARSceneNavigator(getContext());
+        return new VRTARSceneNavigator(reactContext);
     }
 
     @ReactProp(name = "currentSceneIndex")

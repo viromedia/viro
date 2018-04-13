@@ -6,7 +6,7 @@ package com.viromedia.bridge.component.node.control;
 import android.net.Uri;
 
 import com.facebook.react.bridge.Arguments;
-import com.facebook.react.bridge.ReactApplicationContext;
+import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
 import com.viro.core.Texture;
@@ -92,7 +92,7 @@ public class VRTVideoSurface extends VRTControl {
     private String mStereoMode;
     private boolean mGeometryNeedsUpdate = false;
 
-    public VRTVideoSurface(ReactApplicationContext reactContext) {
+    public VRTVideoSurface(ReactContext reactContext) {
         super(reactContext);
     }
 

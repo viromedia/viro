@@ -23,7 +23,7 @@ public class VRTSceneManagerImpl extends VRTSceneManager<VRTScene> {
 
     @Override
     protected VRTScene createViewInstance(ThemedReactContext reactContext) {
-        return new VRTScene(getContext());
+        return new VRTScene(reactContext);
     }
 
 }

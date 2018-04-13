@@ -25,7 +25,7 @@ public class VRTMaterialVideoManager extends VRTViroViewGroupManager<VRTMaterial
 
     @Override
     protected VRTMaterialVideo createViewInstance(ThemedReactContext reactContext) {
-        return new VRTMaterialVideo(getContext());
+        return new VRTMaterialVideo(reactContext);
     }
     @Override
     public String getName() {

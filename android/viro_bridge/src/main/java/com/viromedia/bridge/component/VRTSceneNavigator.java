@@ -11,7 +11,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 
 import com.facebook.react.bridge.LifecycleEventListener;
-import com.facebook.react.bridge.ReactApplicationContext;
+import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
 import com.viro.core.ViroContext;
 import com.viro.core.ViroViewGVR;
@@ -166,14 +166,14 @@ public class VRTSceneNavigator extends FrameLayout {
      */
     private ViroContext mViroContext;
 
-    private final ReactApplicationContext mReactContext;
+    private final ReactContext mReactContext;
 
     private boolean mViewAdded = false;
     protected boolean mGLInitialized = false;
 
     private boolean mHasOnExitViroCallback = false;
 
-    public VRTSceneNavigator(ReactApplicationContext reactContext,
+    public VRTSceneNavigator(ReactContext reactContext,
                              ReactViroPackage.ViroPlatform platform) {
         super(reactContext.getBaseContext(), null, -1);
         mPlatform = platform;
@@ -212,7 +212,7 @@ public class VRTSceneNavigator extends FrameLayout {
         materialManager.reloadMaterials();
     }
 
-    protected ViroView createViroView(ReactApplicationContext reactContext) {
+    protected ViroView createViroView(ReactContext reactContext) {
         switch (mPlatform) {
             case OVR_MOBILE:
                 return new ViroViewOVR(reactContext.getCurrentActivity(),

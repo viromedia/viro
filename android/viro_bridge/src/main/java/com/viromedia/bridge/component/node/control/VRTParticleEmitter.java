@@ -8,7 +8,7 @@ import android.graphics.Color;
 import android.os.Handler;
 import android.os.Looper;
 
-import com.facebook.react.bridge.ReactApplicationContext;
+import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReadableMap;
 import com.viro.core.internal.Image;
@@ -75,7 +75,7 @@ public class VRTParticleEmitter extends VRTControl {
     private ParticleEmitter.ParticleModifier mDefaultVelocity;
     private ParticleEmitter.ParticleModifier mDefaultAccelerationMod;
 
-    public VRTParticleEmitter(ReactApplicationContext reactContext) {
+    public VRTParticleEmitter(ReactContext reactContext) {
         super(reactContext);
         mDefaultAlphaMod = new ParticleEmitter.ParticleModifierFloatArray(new float[]{1, 0, 0});
         mDefaultScaleMode = new ParticleEmitter.ParticleModifierFloatArray(new float[]{1, 1, 1});

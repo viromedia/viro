@@ -8,7 +8,7 @@ import android.graphics.Bitmap;
 import android.os.Handler;
 import android.os.Looper;
 
-import com.facebook.react.bridge.ReactApplicationContext;
+import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
@@ -38,7 +38,7 @@ public class VRT360Image extends VRTNode {
     private Image360DownloadListener mImageDownloadListener;
     private boolean mIsHdr;
 
-    public VRT360Image(ReactApplicationContext context) {
+    public VRT360Image(ReactContext context) {
         super(context);
         mMainHandler = new Handler(Looper.getMainLooper());
         mImageNeedsDownload = false;

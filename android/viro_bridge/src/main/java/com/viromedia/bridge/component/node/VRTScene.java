@@ -7,7 +7,7 @@ import android.view.View;
 
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.JSApplicationCausedNativeException;
-import com.facebook.react.bridge.ReactApplicationContext;
+import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.WritableMap;
@@ -47,7 +47,7 @@ public class VRTScene extends VRTNode implements Scene.VisibilityListener {
     private String mHeadset;
     private String mController;
 
-    public VRTScene(ReactApplicationContext reactContext) {
+    public VRTScene(ReactContext reactContext) {
         super(reactContext);
         mVisible = true; // Scenes are always visible!
         mParentHasAppeared = true;

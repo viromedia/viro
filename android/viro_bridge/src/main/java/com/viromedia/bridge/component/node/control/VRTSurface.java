@@ -4,7 +4,7 @@
 package com.viromedia.bridge.component.node.control;
 
 
-import com.facebook.react.bridge.ReactApplicationContext;
+import com.facebook.react.bridge.ReactContext;
 import com.viro.core.Material;
 import com.viro.core.Surface;
 
@@ -22,7 +22,7 @@ public class VRTSurface extends VRTControl {
     private boolean mGeometryNeedsUpdate = false;
     private boolean mARShadowReceiver = false;
 
-    public VRTSurface(ReactApplicationContext reactContext) {
+    public VRTSurface(ReactContext reactContext) {
         super(reactContext);
     }
 

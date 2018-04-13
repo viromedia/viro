@@ -5,7 +5,7 @@ package com.viromedia.bridge.component;
 
 import android.view.View;
 
-import com.facebook.react.bridge.ReactApplicationContext;
+import com.facebook.react.bridge.ReactContext;
 import com.viro.core.internal.ExecutableAnimation;
 import com.viromedia.bridge.component.node.VRTNode;
 import com.viromedia.bridge.module.AnimationManager;
@@ -19,7 +19,7 @@ public class VRTAnimatedComponent extends VRTComponent {
         private String mAnimationName;
         private AnimationManager mAnimationManager;
 
-        public AnimatedComponentAnimation(ReactApplicationContext context, VRTComponent parent) {
+        public AnimatedComponentAnimation(ReactContext context, VRTComponent parent) {
             super(context, parent);
             mAnimationManager = context.getNativeModule(AnimationManager.class);
         }
@@ -44,7 +44,7 @@ public class VRTAnimatedComponent extends VRTComponent {
     private AnimationManager mAnimationManager = null;
     private VRTNode mChildNode = null;
 
-    public VRTAnimatedComponent(ReactApplicationContext context) {
+    public VRTAnimatedComponent(ReactContext context) {
         super(context);
         mManagedAnimation = new AnimatedComponentAnimation(context, this);
         mAnimationManager = context.getNativeModule(AnimationManager.class);

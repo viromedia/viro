@@ -34,7 +34,7 @@ public class VRTSceneNavigatorManager extends VRTViroViewGroupManager<VRTSceneNa
 
     @Override
     protected VRTSceneNavigator createViewInstance(ThemedReactContext reactContext) {
-        return new VRTSceneNavigator(getContext(), mPlatform);
+        return new VRTSceneNavigator(reactContext, mPlatform);
     }
 
     @ReactProp(name = "vrModeEnabled", defaultBoolean = true)

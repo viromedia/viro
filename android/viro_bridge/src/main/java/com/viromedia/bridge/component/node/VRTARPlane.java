@@ -4,7 +4,7 @@
 package com.viromedia.bridge.component.node;
 
 import com.facebook.react.bridge.Arguments;
-import com.facebook.react.bridge.ReactApplicationContext;
+import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.WritableMap;
 import com.viro.core.ARAnchor;
 import com.viro.core.ARPlaneAnchor;
@@ -20,7 +20,7 @@ public class VRTARPlane extends VRTARNode {
 
     private boolean mNeedsUpdate = false;
 
-    public VRTARPlane(ReactApplicationContext context) {
+    public VRTARPlane(ReactContext context) {
         super(context);
     }
 

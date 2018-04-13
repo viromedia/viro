@@ -34,7 +34,7 @@ public class VRT3DSceneNavigatorManager extends VRTViroViewGroupManager<VRT3DSce
 
     @Override
     protected VRT3DSceneNavigator createViewInstance(ThemedReactContext reactContext) {
-        return new VRT3DSceneNavigator(getContext(), mPlatform);
+        return new VRT3DSceneNavigator(reactContext, mPlatform);
     }
 
     @ReactProp(name = "debug", defaultBoolean = false)

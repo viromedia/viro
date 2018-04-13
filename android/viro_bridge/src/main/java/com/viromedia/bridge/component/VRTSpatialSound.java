@@ -6,7 +6,7 @@ package com.viromedia.bridge.component;
 import android.net.Uri;
 import android.util.Log;
 
-import com.facebook.react.bridge.ReactApplicationContext;
+import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
 import com.viro.core.internal.BaseSound;
 import com.viro.core.Node;
@@ -28,7 +28,7 @@ public class VRTSpatialSound extends VRTBaseSound implements SpatialSound.Playba
     protected float mMinDistance = 0f;
     protected float mMaxDistance = 10f;
 
-    public VRTSpatialSound(ReactApplicationContext reactContext, Node parentNode) {
+    public VRTSpatialSound(ReactContext reactContext, Node parentNode) {
         super(reactContext);
         mParentNode = parentNode;
     }

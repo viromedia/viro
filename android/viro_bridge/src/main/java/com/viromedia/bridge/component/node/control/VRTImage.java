@@ -8,7 +8,7 @@ import android.graphics.Bitmap;
 import android.os.Handler;
 import android.os.Looper;
 
-import com.facebook.react.bridge.ReactApplicationContext;
+import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
 import com.viro.core.internal.Image;
@@ -61,7 +61,7 @@ public class VRTImage extends VRTControl {
 
     private Handler mMainHandler;
 
-    public VRTImage(ReactApplicationContext context) {
+    public VRTImage(ReactContext context) {
         super(context);
         mDefaultMaterial = new Material();
         mMainHandler = new Handler(Looper.getMainLooper());

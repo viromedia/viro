@@ -25,7 +25,7 @@ public class VRTLightingEnvironmentManager extends VRTViroViewGroupManager<VRTLi
 
     @Override
     protected VRTLightingEnvironment createViewInstance(ThemedReactContext reactContext) {
-        return new VRTLightingEnvironment(getContext());
+        return new VRTLightingEnvironment(reactContext);
     }
 
     @ReactProp(name = "source")

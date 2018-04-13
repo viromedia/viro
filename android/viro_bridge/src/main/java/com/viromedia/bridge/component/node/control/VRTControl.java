@@ -7,7 +7,8 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.facebook.react.bridge.ReactApplicationContext;
+import com.facebook.react.bridge.ReactContext;
+import com.facebook.react.bridge.ReactContext;
 import com.viromedia.bridge.component.node.VRTNode;
 
 /**
@@ -16,12 +17,12 @@ import com.viromedia.bridge.component.node.VRTNode;
  */
 public class VRTControl extends VRTNode {
 
-    public VRTControl(ReactApplicationContext reactContext) {
+    public VRTControl(ReactContext reactContext) {
         this(reactContext.getBaseContext(), null, -1, -1, reactContext);
     }
 
     public VRTControl(Context context, AttributeSet attrs, int defStyleAttr,
-                      int defStyleRes, ReactApplicationContext reactContext) {
+                      int defStyleRes, ReactContext reactContext) {
         super(context, attrs, defStyleAttr, defStyleRes, reactContext);
     }
 

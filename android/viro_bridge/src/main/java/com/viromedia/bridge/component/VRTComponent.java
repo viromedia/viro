@@ -8,10 +8,10 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import com.facebook.react.bridge.Arguments;
+import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
 import com.facebook.react.views.view.ReactViewGroup;
-import com.facebook.react.bridge.ReactApplicationContext;
 import com.viro.core.ViroContext;
 import com.viromedia.bridge.component.node.VRTScene;
 import com.viromedia.bridge.utility.ViroEvents;
@@ -23,7 +23,7 @@ public class VRTComponent extends ReactViewGroup {
 
     private static String TAG = VRTComponent.class.getSimpleName();
     protected ViroContext mViroContext = null;
-    protected ReactApplicationContext mReactContext = null;
+    protected ReactContext mReactContext = null;
     protected VRTScene mScene = null;
     /*
      True/False depending on whether or not the parent view has appeared.
@@ -42,7 +42,7 @@ public class VRTComponent extends ReactViewGroup {
     private boolean mDropped = false;
     private boolean mDetached = false;
 
-    public VRTComponent(ReactApplicationContext reactContext) {
+    public VRTComponent(ReactContext reactContext) {
         this(reactContext.getBaseContext(), null, -1, -1, reactContext);
     }
 
@@ -51,12 +51,12 @@ public class VRTComponent extends ReactViewGroup {
     }
 
     public VRTComponent(Context context, AttributeSet attrs, int defStyleAttr,
-                        int defStyleRes, ReactApplicationContext reactContext) {
+                        int defStyleRes, ReactContext reactContext) {
         super(context);
         mReactContext = reactContext;
     }
 
-    public ReactApplicationContext getReactContext(){
+    public ReactContext getReactContext(){
         return mReactContext;
     }
 

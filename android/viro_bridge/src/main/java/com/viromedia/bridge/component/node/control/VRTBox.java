@@ -4,13 +4,13 @@
 package com.viromedia.bridge.component.node.control;
 
 
-import com.facebook.react.bridge.ReactApplicationContext;
+import com.facebook.react.bridge.ReactContext;
 import com.viro.core.Box;
 
 public class VRTBox extends VRTControl {
     private Box mNativeBox;
 
-    public VRTBox(ReactApplicationContext reactContext) {
+    public VRTBox(ReactContext reactContext) {
         super(reactContext);
         mNativeBox = new Box(1, 1, 1);
         setGeometry(mNativeBox);

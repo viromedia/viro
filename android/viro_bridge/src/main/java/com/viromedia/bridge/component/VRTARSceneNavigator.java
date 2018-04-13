@@ -9,7 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-import com.facebook.react.bridge.ReactApplicationContext;
+import com.facebook.react.bridge.ReactContext;
 import com.viro.core.ViroViewARCore;
 import com.viro.core.ViroView;
 import com.viromedia.bridge.ReactViroPackage;
@@ -57,7 +57,7 @@ public class VRTARSceneNavigator extends VRTSceneNavigator {
         }
     }
 
-    public VRTARSceneNavigator(ReactApplicationContext context) {
+    public VRTARSceneNavigator(ReactContext context) {
         super(context, ReactViroPackage.ViroPlatform.AR);
         mRotationListener = new DisplayRotationListener(context) {
             @Override
@@ -75,7 +75,7 @@ public class VRTARSceneNavigator extends VRTSceneNavigator {
      Override the parent method to use the ViroARView.
      */
     @Override
-    protected ViroView createViroView(ReactApplicationContext reactContext) {
+    protected ViroView createViroView(ReactContext reactContext) {
         return new ViroViewARCore(reactContext.getCurrentActivity(),
                 new StartupListenerARCore(this));
     }

@@ -23,7 +23,7 @@ public class VRTCameraManager extends VRTNodeManager<VRTCamera> {
 
     @Override
     protected VRTCamera createViewInstance(ThemedReactContext reactContext) {
-        return new VRTCamera(getContext());
+        return new VRTCamera(reactContext);
     }
 
     @ReactProp(name = "position")

@@ -24,7 +24,7 @@ public class VRTAnimatedComponentManager extends VRTViroViewGroupManager<VRTAnim
 
     @Override
     protected VRTAnimatedComponent createViewInstance(ThemedReactContext reactContext) {
-        return new VRTAnimatedComponent(getContext());
+        return new VRTAnimatedComponent(reactContext);
     }
 
     @ReactProp(name = "animation")

@@ -30,7 +30,7 @@ public class VRTBoxManager extends VRTNodeManager<VRTBox> {
 
     @Override
     protected VRTBox createViewInstance(ThemedReactContext reactContext) {
-        return new VRTBox(getContext());
+        return new VRTBox(reactContext);
     }
 
     @ReactProp(name = "width", defaultFloat = 1.0f)

@@ -30,7 +30,7 @@ public class VRTSphereManager extends VRTNodeManager<VRTSphere> {
 
     @Override
     protected VRTSphere createViewInstance(ThemedReactContext reactContext) {
-        return new VRTSphere(getContext());
+        return new VRTSphere(reactContext);
     }
 
     @ReactProp(name = "facesOutward", defaultBoolean = VRTSphere.DEFAULT_FACES_OUTWARD)

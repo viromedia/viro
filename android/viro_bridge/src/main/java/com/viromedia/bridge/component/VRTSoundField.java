@@ -6,7 +6,7 @@ package com.viromedia.bridge.component;
 
 import android.net.Uri;
 
-import com.facebook.react.bridge.ReactApplicationContext;
+import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
 import com.viro.core.internal.BaseSound;
 import com.viro.core.SoundData;
@@ -21,7 +21,7 @@ public class VRTSoundField extends VRTBaseSound implements SoundField.PlaybackLi
 
     protected float[] mRotation = DEFAULT_ROTATION;
 
-    public VRTSoundField(ReactApplicationContext reactContext) {
+    public VRTSoundField(ReactContext reactContext) {
         super(reactContext);
     }
 

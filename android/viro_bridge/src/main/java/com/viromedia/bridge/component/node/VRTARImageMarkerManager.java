@@ -20,7 +20,7 @@ public class VRTARImageMarkerManager extends VRTNodeManager<VRTARImageMarker> {
 
     @Override
     protected VRTARImageMarker createViewInstance(ThemedReactContext reactContext) {
-        return new VRTARImageMarker(getContext());
+        return new VRTARImageMarker(reactContext);
     }
 
     @ReactProp(name="pauseUpdates", defaultBoolean = false)

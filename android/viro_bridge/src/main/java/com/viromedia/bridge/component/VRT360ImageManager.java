@@ -27,7 +27,7 @@ public class VRT360ImageManager extends VRTViroViewGroupManager<VRT360Image> {
 
     @Override
     protected VRT360Image createViewInstance(ThemedReactContext reactContext) {
-        return new VRT360Image(getContext());
+        return new VRT360Image(reactContext);
     }
 
     @ReactProp(name = "source")

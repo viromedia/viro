@@ -11,7 +11,7 @@ import java.util.List;
 
 import android.graphics.Color;
 
-import com.facebook.react.bridge.ReactApplicationContext;
+import com.facebook.react.bridge.ReactContext;
 
 public class VRTFlexView extends VRTNode {
     private static final String DIFFUSE_COLOR_NAME  = "diffuseColor";
@@ -26,7 +26,7 @@ public class VRTFlexView extends VRTNode {
     private Surface mNativeSurface;
     private Material mNativeColorMaterial;
 
-    public VRTFlexView(ReactApplicationContext context) {
+    public VRTFlexView(ReactContext context) {
         super(context);
         mDefaultMaterial = new Material();
         mDefaultMaterial.setDiffuseColor(Color.TRANSPARENT);

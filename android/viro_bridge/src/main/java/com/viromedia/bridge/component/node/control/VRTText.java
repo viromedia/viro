@@ -5,7 +5,8 @@ package com.viromedia.bridge.component.node.control;
 
 import android.graphics.Color;
 
-import com.facebook.react.bridge.ReactApplicationContext;
+import com.facebook.react.bridge.ReactContext;
+import com.facebook.react.bridge.ReactContext;
 import com.viro.core.ViroContext;
 import com.viro.core.Text;
 
@@ -35,7 +36,7 @@ public class VRTText extends VRTControl {
     private String mTextClipMode = "ClipToBounds";
     private boolean mNeedsUpdate = false;
 
-    public VRTText(ReactApplicationContext context) {
+    public VRTText(ReactContext context) {
         super(context);
     }
 

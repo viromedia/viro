@@ -16,7 +16,7 @@ public class VRTPortalManager extends VRTNodeManager<VRTPortal> {
 
     @Override
     protected VRTPortal createViewInstance(ThemedReactContext reactContext) {
-        return new VRTPortal(getContext());
+        return new VRTPortal(reactContext);
     }
 
     @Override

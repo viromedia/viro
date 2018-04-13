@@ -22,7 +22,7 @@ public class VRTOrbitCameraManager extends VRTNodeManager<VRTOrbitCamera> {
 
     @Override
     protected VRTOrbitCamera createViewInstance(ThemedReactContext reactContext) {
-        return new VRTOrbitCamera(getContext());
+        return new VRTOrbitCamera(reactContext);
     }
 
     @ReactProp(name = "position")

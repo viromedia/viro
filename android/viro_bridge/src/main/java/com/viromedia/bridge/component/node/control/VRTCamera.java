@@ -4,7 +4,7 @@
 package com.viromedia.bridge.component.node.control;
 
 
-import com.facebook.react.bridge.ReactApplicationContext;
+import com.facebook.react.bridge.ReactContext;
 import com.viro.core.Camera;
 import com.viro.core.Node;
 import com.viro.core.Vector;
@@ -14,7 +14,7 @@ public class VRTCamera extends VRTControl {
     private float mFieldOfView = DEFAULT_FOV;
     protected Camera mNativeCamera;
 
-    public VRTCamera(ReactApplicationContext context) {
+    public VRTCamera(ReactContext context) {
         super(context);
     }
 

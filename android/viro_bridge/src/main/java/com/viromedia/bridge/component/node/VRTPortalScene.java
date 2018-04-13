@@ -2,7 +2,7 @@ package com.viromedia.bridge.component.node;
 
 import android.view.View;
 
-import com.facebook.react.bridge.ReactApplicationContext;
+import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
 import com.viro.core.Node;
 import com.viro.core.Portal;
@@ -75,7 +75,7 @@ public class VRTPortalScene extends VRTNode  {
                 null);
     }
 
-    public VRTPortalScene(ReactApplicationContext context) {
+    public VRTPortalScene(ReactContext context) {
         super(context);
     }
 

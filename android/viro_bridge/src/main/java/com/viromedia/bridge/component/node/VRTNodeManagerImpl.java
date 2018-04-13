@@ -22,6 +22,6 @@ public class VRTNodeManagerImpl extends VRTNodeManager<VRTNode> {
 
     @Override
     protected VRTNode createViewInstance(ThemedReactContext reactContext) {
-        return new VRTNode(getContext());
+        return new VRTNode(reactContext);
     }
 }

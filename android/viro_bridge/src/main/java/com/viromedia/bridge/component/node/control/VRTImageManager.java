@@ -27,7 +27,7 @@ public class VRTImageManager extends VRTNodeManager<VRTImage> {
 
     @Override
     protected VRTImage createViewInstance(ThemedReactContext reactContext) {
-        return new VRTImage(getContext());
+        return new VRTImage(reactContext);
     }
 
     @ReactProp(name = "source")

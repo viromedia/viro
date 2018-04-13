@@ -37,7 +37,7 @@ public class VRT3DObjectManager extends VRTNodeManager<VRT3DObject> {
 
     @Override
     protected VRT3DObject createViewInstance(ThemedReactContext reactContext) {
-        return new VRT3DObject(getContext());
+        return new VRT3DObject(reactContext);
     }
 
     @ReactProp(name = "source")

@@ -32,7 +32,7 @@ public class VRT360VideoManager extends VRTViroViewGroupManager<VRT360Video> {
 
     @Override
     protected VRT360Video createViewInstance(ThemedReactContext reactContext) {
-        VRT360Video video =  new VRT360Video(getContext());
+        VRT360Video video =  new VRT360Video(reactContext);
         return video;
     }
 

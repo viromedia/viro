@@ -31,7 +31,7 @@ public class VRTSpatialSoundManager extends VRTViroViewGroupManager<VRTSpatialSo
 
     @Override
     public VRTSpatialSoundWrapper createViewInstance(ThemedReactContext reactContext) {
-        return new VRTSpatialSoundWrapper(getContext());
+        return new VRTSpatialSoundWrapper(reactContext);
     }
 
     @ReactProp(name = "source")

@@ -26,7 +26,7 @@ public class VRTPolylineManager extends VRTNodeManager<VRTPolyline> {
 
     @Override
     protected VRTPolyline createViewInstance(ThemedReactContext reactContext) {
-        return new VRTPolyline(getContext());
+        return new VRTPolyline(reactContext);
     }
 
     @ReactProp(name = "points")

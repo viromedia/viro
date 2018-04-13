@@ -26,7 +26,7 @@ public class VRTSurfaceManager extends VRTNodeManager<VRTSurface> {
 
     @Override
     protected VRTSurface createViewInstance(ThemedReactContext reactContext) {
-        return new VRTSurface(getContext());
+        return new VRTSurface(reactContext);
     }
 
     @ReactProp(name = "width", defaultFloat = 1)

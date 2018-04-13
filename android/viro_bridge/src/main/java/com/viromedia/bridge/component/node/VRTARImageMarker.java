@@ -3,7 +3,7 @@
  */
 package com.viromedia.bridge.component.node;
 
-import com.facebook.react.bridge.ReactApplicationContext;
+import com.facebook.react.bridge.ReactContext;
 import com.viro.core.ARImageTarget;
 import com.viro.core.ARScene;
 import com.viro.core.Node;
@@ -16,7 +16,7 @@ public class VRTARImageMarker extends VRTARNode {
     private boolean mShouldUpdate = false;
     private boolean mNeedsAddToScene = true;
 
-    public VRTARImageMarker(ReactApplicationContext context) {
+    public VRTARImageMarker(ReactContext context) {
         super(context);
     }
 

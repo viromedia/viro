@@ -24,7 +24,7 @@ public class VRTControllerManager extends VRTViroViewGroupManager<VRTController>
 
     @Override
     public VRTController createViewInstance(ThemedReactContext reactContext) {
-        return new VRTController(getContext());
+        return new VRTController(reactContext);
     }
 
     @ReactProp(name = "reticleVisibility", defaultBoolean = VRTController.DEFAULT_RETICLE_VISIBILITY)

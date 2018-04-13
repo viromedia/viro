@@ -31,7 +31,7 @@ public class VRTSoundFieldManager extends VRTViroViewGroupManager<VRTSoundField>
 
     @Override
     public VRTSoundField createViewInstance(ThemedReactContext reactContext) {
-        return new VRTSoundField(getContext());
+        return new VRTSoundField(reactContext);
     }
 
     @ReactProp(name = "source")

@@ -29,7 +29,7 @@ public class VRTSoundManager extends VRTViroViewGroupManager<VRTSound> {
 
     @Override
     public VRTSound createViewInstance(ThemedReactContext reactContext) {
-        return new VRTSound(getContext());
+        return new VRTSound(reactContext);
     }
 
     @ReactProp(name = "source")

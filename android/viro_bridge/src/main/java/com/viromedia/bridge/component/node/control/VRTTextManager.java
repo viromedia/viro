@@ -28,7 +28,7 @@ public class VRTTextManager extends VRTNodeManager<VRTText> {
 
     @Override
     protected VRTText createViewInstance(ThemedReactContext reactContext) {
-        return new VRTText(getContext());
+        return new VRTText(reactContext);
     }
 
     @ReactProp(name = "width", defaultFloat = VRTText.DEFAULT_WIDTH)

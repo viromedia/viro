@@ -4,7 +4,7 @@
 package com.viromedia.bridge.component.node.control;
 
 
-import com.facebook.react.bridge.ReactApplicationContext;
+import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.ReadableArray;
 import com.viro.core.Polyline;
 
@@ -14,7 +14,7 @@ public class VRTPolyline extends VRTControl {
     private float[][] mPoints;
     private float mThickness = 0.1f; // default thickness of line is 0.1f
 
-    public VRTPolyline(ReactApplicationContext reactContext)  {
+    public VRTPolyline(ReactContext reactContext)  {
         super(reactContext);
     }
 

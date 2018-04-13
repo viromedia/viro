@@ -7,7 +7,7 @@ import android.net.Uri;
 import android.util.Log;
 
 import com.facebook.react.bridge.JSApplicationCausedNativeException;
-import com.facebook.react.bridge.ReactApplicationContext;
+import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
 import com.viro.core.internal.BaseSound;
@@ -34,7 +34,7 @@ public abstract class VRTBaseSound extends VRTComponent {
     protected boolean mShouldResetSound = false;
     protected boolean mReady = false;
 
-    public VRTBaseSound(ReactApplicationContext reactContext) {
+    public VRTBaseSound(ReactContext reactContext) {
         super(reactContext.getBaseContext(), null, -1, -1, reactContext);
     }
 

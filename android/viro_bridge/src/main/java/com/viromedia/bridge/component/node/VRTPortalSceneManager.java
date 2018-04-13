@@ -26,7 +26,7 @@ public class VRTPortalSceneManager extends VRTNodeManager<VRTPortalScene> {
 
     @Override
     protected VRTPortalScene createViewInstance(ThemedReactContext reactContext) {
-        return new VRTPortalScene(getContext());
+        return new VRTPortalScene(reactContext);
     }
 
     @ReactProp(name = "passable")

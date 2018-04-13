@@ -1,7 +1,7 @@
 package com.viromedia.bridge.component;
 
 import com.facebook.react.bridge.Arguments;
-import com.facebook.react.bridge.ReactApplicationContext;
+import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
 import com.viro.core.Material;
@@ -86,7 +86,7 @@ public class VRTMaterialVideo extends VRTComponent implements MaterialManager.Ma
         }
     }
 
-    public VRTMaterialVideo(ReactApplicationContext reactContext) {
+    public VRTMaterialVideo(ReactContext reactContext) {
         super(reactContext.getBaseContext(), null, -1, -1, reactContext);
     }
 

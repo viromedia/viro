@@ -5,7 +5,7 @@ package com.viromedia.bridge.component.node.control;
 
 import android.net.Uri;
 
-import com.facebook.react.bridge.ReactApplicationContext;
+import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
 import com.viro.core.AsyncObject3DListener;
@@ -32,7 +32,7 @@ public class VRT3DObject extends VRTControl {
     private static class Object3dAnimation extends NodeAnimation {
         private Node mNode;
 
-        public Object3dAnimation(ReactApplicationContext context, VRT3DObject parent) {
+        public Object3dAnimation(ReactContext context, VRT3DObject parent) {
             super(context, parent);
             mNode = parent.getNodeJni();
         }
@@ -64,7 +64,7 @@ public class VRT3DObject extends VRTControl {
     private boolean mSourceChanged = false;
     private ObjectType mType;
 
-    public VRT3DObject(ReactApplicationContext reactContext) {
+    public VRT3DObject(ReactContext reactContext) {
         super(reactContext);
         mNodeAnimation = new Object3dAnimation(reactContext, this);
         mNodeAnimation.setNode(this);

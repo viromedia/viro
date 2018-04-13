@@ -6,7 +6,7 @@ package com.viromedia.bridge.component;
 import android.net.Uri;
 
 import com.facebook.react.bridge.Arguments;
-import com.facebook.react.bridge.ReactApplicationContext;
+import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
@@ -100,7 +100,7 @@ public class VRT360Video extends VRTNode {
     private VideoTexture.PlaybackListener mDelegate = null;
     private String mStereoMode;
 
-    public VRT360Video(ReactApplicationContext reactContext) {
+    public VRT360Video(ReactContext reactContext) {
         super(reactContext);
     }
 
