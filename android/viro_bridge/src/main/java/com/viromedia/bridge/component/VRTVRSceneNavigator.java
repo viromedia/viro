@@ -322,9 +322,7 @@ public class VRTVRSceneNavigator extends FrameLayout {
                     "at www.viromedia.com.");
         }
 
-        mViroView.validateAPIKey(apiKey.trim(),
-                mPlatform == ReactViroPackage.ViroPlatform.AR ? "AR" : "VR",
-                mPlatform == ReactViroPackage.ViroPlatform.AR ? "arcore" : mViroView.getHeadset());    }
+        mViroView.validateAPIKey(apiKey.trim());    }
 
     private void notifyScenePlatformInformation() {
         for (VRTScene scene: mSceneArray) {
