@@ -55,7 +55,7 @@ var ViroARSceneNavigator = createReactClass({
   },
 
   arSceneNavigator: (undefined: ?Object),
-
+  sceneNavigator: (undefined: ?Object),
   getDefaultProps: function() {
     return {
       // Make sure viroAppProps aren't null to save us having to always check
@@ -67,6 +67,18 @@ var ViroARSceneNavigator = createReactClass({
     // Precompute a pack of callbacks that's frequently generated and passed to
     // instances.
     this.arSceneNavigator = {
+      push: this.push,
+      pop: this.pop,
+      popN: this.popN,
+      jump: this.jump,
+      replace: this.replace,
+      startVideoRecording: this._startVideoRecording,
+      stopVideoRecording: this._stopVideoRecording,
+      takeScreenshot: this._takeScreenshot,
+      resetARSession: this._resetARSession,
+      setWorldOrigin: this._setWorldOrigin
+    };
+    this.sceneNavigator = {
       push: this.push,
       pop: this.pop,
       popN: this.popN,
@@ -429,6 +441,7 @@ var ViroARSceneNavigator = createReactClass({
           var Component = sceneDictionary[scene].sceneClass.scene;
           var props = sceneDictionary[scene].sceneClass.passProps;
           views.push((<Component key={'scene' + i} arSceneNavigator={this.arSceneNavigator} {...props}/>));
+          views.push((<Component key={'scene' + i} sceneNavigator={this.sceneNavigator} {...props}/>));
           i++;
       }
       return views;
@@ -439,11 +452,14 @@ var ViroARSceneNavigator = createReactClass({
 
     // update the arSceneNavigator with the latest given props on every render
     this.arSceneNavigator.viroAppProps = this.props.viroAppProps;
+    this.sceneNavigator.viroAppProps = this.props.viroAppProps;
+
     // If the user simply passes us the props from the root React component,
     // then we'll have an extra 'rootTag' key which React automatically includes
     // so remove it.
     delete this.arSceneNavigator.viroAppProps.rootTag;
-
+    delete this.sceneNavigator.viroAppProps.rootTag;
+    
     return (
       <VRTARSceneNavigator
         ref={ component => {this._component = component; }}
