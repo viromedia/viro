@@ -44,7 +44,10 @@ var createReactClass = require('create-react-class');
 
 var FlexViewTest = createReactClass({
   getInitialState: function() {
-    return {addLight: false};
+    return {
+      addLight: false,
+      flexState : true,
+    };
   },
   render: function() {
     return (
@@ -56,9 +59,10 @@ var FlexViewTest = createReactClass({
 
         <ViroVideo source={{uri: "https://s3.amazonaws.com/viro.video/Climber2Top.mp4"}} position={[0,-1, -1]} />
 
-        <ViroFlexView style={styles.containerVertical} position={polarToCartesian([2, 0, 30])} width={3} height={2}>
+        <ViroFlexView style={styles.containerVertical} position={polarToCartesian([2, 0, 30])} width={3} height={2}
+          onClick={()=>{this.setState({flexState : !this.state.flexState})}}>
           <ViroFlexView style={styles.containerInner} >
-            <ViroQuad style={{flex:1}} materials={["redColor"]} />
+            <ViroQuad style={this.state.flexState ? {flex:1} : {flex : 2}} materials={["redColor"]} />
             <ViroImage style={{flex:1}} source={{uri: "http://wiki.magicc.org/images/c/ce/MAGICC_logo_small.jpg"}}
               onLoadStart={this._onLoadStart("Image")} onLoadEnd={this._onLoadEnd("Image")} />
           </ViroFlexView>

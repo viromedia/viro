@@ -59,7 +59,7 @@
     }
     
     [self reCalcBounds];
-    if((self.materials || _flexBackgroundColor) && _flexViewNeedsUpdate) {
+    if((self.materials || _backgroundColor) && _flexViewNeedsUpdate) {
         // Change the surface only if we need to.
         [self createSurface];
     }
@@ -72,8 +72,8 @@
     [super setMaterials:materials];
 }
 
-- (void)setFlexBackgroundColor:(UIColor *)backgroundColor {
-    _flexBackgroundColor = backgroundColor;
+- (void)setBackgroundColor:(UIColor *)backgroundColor {
+    _backgroundColor = backgroundColor;
     _flexViewNeedsUpdate = YES;
 }
 
@@ -117,9 +117,9 @@
     self.node->setGeometry(surface);
     [self applyMaterials];
     
-    if (_flexBackgroundColor) {
+    if (_backgroundColor) {
         CGFloat red,green,blue, alpha;
-        [_flexBackgroundColor getRed:&red green:&green blue:&blue alpha:&alpha];
+        [_backgroundColor getRed:&red green:&green blue:&blue alpha:&alpha];
         VROVector4f color(red, green, blue, alpha);
         
         surface->getMaterials().front()->getDiffuse().setColor(color);

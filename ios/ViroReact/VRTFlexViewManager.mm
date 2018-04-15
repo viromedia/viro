@@ -40,7 +40,7 @@ RCT_EXPORT_VIEW_PROPERTY(canPinch, BOOL)
 RCT_EXPORT_VIEW_PROPERTY(canRotate, BOOL)
 RCT_EXPORT_VIEW_PROPERTY(transformBehaviors, NSArray<NSString *>)
 RCT_EXPORT_VIEW_PROPERTY(visible, BOOL)
-RCT_REMAP_VIEW_PROPERTY(backgroundColor, flexBackgroundColor, UIColor) //backgroundColor is reserved
+RCT_EXPORT_VIEW_PROPERTY(backgroundColor, UIColor)
 RCT_EXPORT_VIEW_PROPERTY(physicsBody, NSDictionary)
 RCT_EXPORT_VIEW_PROPERTY(onCollisionViro, RCTDirectEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(canCollide, BOOL)

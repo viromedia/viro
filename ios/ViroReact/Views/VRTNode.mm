@@ -24,6 +24,8 @@
 #import "VRTMaterialManager.h"
 #import "VRTManagedAnimation.h"
 #import "VRTAnimationManager.h"
+#import "VRTSurface.h"
+#import "VRTVideoSurface.h"
 
 const int k2DPointsPerSpatialUnit = 1000;
 const double kTransformDelegateDistanceFilter = 0.01;
@@ -388,6 +390,14 @@ const double kTransformDelegateDistanceFilter = 0.01;
     self.position2DFlex = position;
     self.centerPoint2DFlex = CGPointMake(bounds.size.width/2, bounds.size.height/2);
     self.bounds2DFlex = bounds;
+
+    // Since this function is called after didSetProps, we can't rely on that to call
+    // recalcLayout. Also, it looks like this method is called in a random order on the
+    // views in the scene, so we need to post calls to recalcLayout to the main thread
+    // to ensure all the views have their frame set before calculating the layouts
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self recalcLayout];
+    });
 }
 
 -(CGPoint)fudgeFlexboxScaleX:(float)width3d  Y:(float)height3d {
@@ -395,6 +405,127 @@ const double kTransformDelegateDistanceFilter = 0.01;
 }
 
 - (BOOL)isRootFlexboxView {
+    return NO;
+}
+
+// Recalculates the layout based on flexview porps
+- (void)recalcLayout {
+    // Root flexbox views don't need to run this block.
+    if([self isRootFlexboxView]) {
+        return;
+    }
+    
+    // Check if this view is in a flexbox container, if not then return
+    if(![self isWithinFlexBoxContainer]) {
+        return;
+    }
+
+    VRTNode *realSuperview;
+    
+    // Find superview, skipping over animated components.
+    if (self.superview && [self.superview isKindOfClass:[VRTNode class]]) {
+        realSuperview = (VRTNode *)self.superview;
+    } else if(self.superview && [self.superview isKindOfClass:[VRTAnimatedComponent class]]) {
+        if([self.superview.superview isKindOfClass:[VRTNode class]]) {
+            realSuperview = (VRTNode *) self.superview.superview;
+        }
+    }
+    
+    if(!realSuperview) {
+        return;
+    }
+    
+    // Avoid crashes due to nan coords
+    if (isnan(self.position2DFlex.x) || isnan(self.position2DFlex.y) ||
+        isnan(self.bounds2DFlex.origin.x) || isnan(self.bounds2DFlex.origin.y) ||
+        isnan(self.bounds2DFlex.size.width) || isnan(self.bounds2DFlex.size.height)) {
+        RCTLogError(@"Invalid layout for (%@)%@. position: %@. bounds: %@",
+                    self.reactTag, self, NSStringFromCGPoint(self.position2DFlex), NSStringFromCGRect(self.bounds2DFlex));
+        return;
+    }
+    
+    // The 2d center of the superview, ie if the parent has a width and height of 5000 points, this is: 2500,2500.
+    CGPoint centerPointParent2d = [realSuperview centerPoint2DFlex];
+    
+    // The 2d bounds, width and height of parent.
+    CGRect boundsParent2d = [realSuperview bounds2DFlex];
+    
+    // Flip y because our y increases as it goes 'up', instead of increasing downward with mobile.
+    CGFloat transformedY = boundsParent2d.size.height - self.position2DFlex.y;
+    
+    // Transform by subtracting from center of superview.
+    CGFloat transformedX = self.position2DFlex.x - centerPointParent2d.x;
+    transformedY = transformedY - centerPointParent2d.y;
+    
+    // Multiply by height and width of parent to get correct position
+    transformedX /= k2DPointsPerSpatialUnit;
+    transformedY /= k2DPointsPerSpatialUnit;
+    
+    // Always place the children of views .01 meters in front of the parent. This helps with z-fighting and ensures that the child is always in front of the parent for hit detection
+    float zIncrementToAvoidZFighting = .01;
+    [self node]->setPosition({(float)transformedX, (float)transformedY, zIncrementToAvoidZFighting});
+    
+    // Since VRTFlexView containers are actual size using width and height, set child components to appopriate width/height. If components don't have width/height attrib, use scale for now.
+    if([self isKindOfClass:[VRTImage class]]) {
+        VRTImage *image = (VRTImage *)self;
+        //NSLog(@"Flex image position(%f, %f), size:(%f, %f)", transformedX, transformedY,node.bounds2DFlex.size.width/ k2DPointsPerSpatialUnit, node.bounds2DFlex.size.height/ k2DPointsPerSpatialUnit );
+        [image setWidth:self.bounds2DFlex.size.width/ k2DPointsPerSpatialUnit];
+        [image setHeight:self.bounds2DFlex.size.height/ k2DPointsPerSpatialUnit];
+        [image didSetProps:nil];
+    } else if([self isKindOfClass:[VRTFlexView class]]) {
+        VRTFlexView *flexview = (VRTFlexView *)self;
+        //NSLog(@"Flex view position(%f, %f), size(%f, %f)", transformedX, transformedY,node.bounds2DFlex.size.width/ k2DPointsPerSpatialUnit,  node.bounds2DFlex.size.height/ k2DPointsPerSpatialUnit);
+        [flexview setWidth:self.bounds2DFlex.size.width/ k2DPointsPerSpatialUnit];
+        [flexview setHeight:self.bounds2DFlex.size.height/ k2DPointsPerSpatialUnit];
+        [flexview didSetProps:nil];
+    }
+    else if([self isKindOfClass:[VRTSurface class]]) {
+        VRTSurface *surface = (VRTSurface *)self;
+        //NSLog(@"Flex surface position(%f, %f), size:(%f, %f)", transformedX, transformedY,node.bounds2DFlex.size.width/ k2DPointsPerSpatialUnit, node.bounds2DFlex.size.height/ k2DPointsPerSpatialUnit );
+        [surface setWidth:self.bounds2DFlex.size.width/ k2DPointsPerSpatialUnit];
+        [surface setHeight:self.bounds2DFlex.size.height/ k2DPointsPerSpatialUnit];
+        [surface didSetProps:nil];
+    }
+    else if([self isKindOfClass:[VRTVideoSurface class]]) {
+        VRTVideoSurface *surface = (VRTVideoSurface *)self;
+        //NSLog(@"Video surface position(%f, %f), size:(%f, %f)", transformedX, transformedY,node.bounds2DFlex.size.width/ k2DPointsPerSpatialUnit, node.bounds2DFlex.size.height/ k2DPointsPerSpatialUnit );
+        [surface setWidth:self.bounds2DFlex.size.width/ k2DPointsPerSpatialUnit];
+        [surface setHeight:self.bounds2DFlex.size.height/ k2DPointsPerSpatialUnit];
+        [surface didSetProps:nil];
+    }
+    else if([self isKindOfClass:[VRTText class]]) {
+        VRTText *text = (VRTText *)self;
+        [text setWidth:self.bounds2DFlex.size.width/ k2DPointsPerSpatialUnit];
+        [text setHeight:self.bounds2DFlex.size.height/ k2DPointsPerSpatialUnit];
+        [text didSetProps:nil];
+    }
+    else {
+        //VA: TODO, VIRO-742 if we want flex for componenents that don't have width and height property then uncomment below line.
+        //[self node]->setScale({(float)scale.x, (float)scale.y, 1.0});
+    }
+}
+
+
+// Traverse up the view hierachy to see if the node is under a rootflexview. Return true if it is, false otherwise.
+- (BOOL)isWithinFlexBoxContainer {
+    if([self isRootFlexboxView]) {
+        return YES;
+    }
+    
+    VRTNode *superview = ([self.superview isKindOfClass:[VRTAnimatedComponent class]]) ? self.superview.superview : (VRTNode *)self.superview;
+    while(superview) {
+        
+        if([superview isKindOfClass:[VRTNode class]]) {
+            if([superview isRootFlexboxView]) {
+                return YES;
+            }
+        }
+        superview = superview.superview;
+        //skip checking animated component superview, ignore it when it comes to flexbox
+        if([superview isKindOfClass:[VRTAnimatedComponent class]]){
+            superview = superview.superview;
+        }
+    }
     return NO;
 }
 

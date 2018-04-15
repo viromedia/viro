@@ -123,8 +123,6 @@ RCT_EXPORT_VIEW_PROPERTY(transformBehaviors, NSArray<NSString *>)
 
 #pragma mark - ShadowView properties
 
-RCT_EXPORT_SHADOW_PROPERTY(backgroundColor, UIColor)
-
 RCT_EXPORT_SHADOW_PROPERTY(top, YGValue)
 RCT_EXPORT_SHADOW_PROPERTY(right, YGValue)
 RCT_EXPORT_SHADOW_PROPERTY(bottom, YGValue)
