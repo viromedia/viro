@@ -17,10 +17,12 @@ import com.viromedia.bridge.utility.ViroEvents;
 import com.viromedia.bridge.utility.Helper;
 import com.viromedia.bridge.utility.ViroLog;
 
+import java.lang.ref.WeakReference;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import android.util.Log;
 
 public class VRT3DObject extends VRTControl {
     private static final String TAG = ViroLog.getTag(VRT3DObject.class);
@@ -33,7 +35,7 @@ public class VRT3DObject extends VRTControl {
         private Node mNode;
 
         public Object3dAnimation(ReactContext context, VRT3DObject parent) {
-            super(context, parent);
+           super(context, parent);
             mNode = parent.getNodeJni();
         }
 
@@ -60,7 +62,7 @@ public class VRT3DObject extends VRTControl {
 
     private Uri mSource;
     private List<String> mResources = null;
-    private boolean mObjLoaded = false;
+    protected boolean mObjLoaded = false;
     private boolean mSourceChanged = false;
     private ObjectType mType;
 
@@ -139,13 +141,20 @@ public class VRT3DObject extends VRTControl {
 
         loadDidStart();
 
+        final WeakReference<VRT3DObject> weakVRTRef = new WeakReference<VRT3DObject>(this);
         AsyncObject3DListener listener = new AsyncObject3DListener() {
             @Override
             public void onObject3DLoaded(Object3D object, Object3D.Type type) {
                 if (isTornDown()) {
                     return;
                 }
-                mObjLoaded = true;
+
+                VRT3DObject vrt3DObject = weakVRTRef.get();
+                if (vrt3DObject  == null) {
+                    return;
+                }
+
+                vrt3DObject.mObjLoaded = true;
                 if (mMaterials != null) {
                     // set materials on the node after it's finished loading
                     setMaterials(mMaterials);
@@ -156,8 +165,8 @@ public class VRT3DObject extends VRTControl {
                 object.setShadowCastingBitMask(mShadowCastingBitMask);
                 object.setIgnoreEventHandling(mIgnoreEventHandling);
 
-                updateAnimation();
-                loadDidEnd();
+                vrt3DObject.updateAnimation();
+                vrt3DObject.loadDidEnd();
             }
 
             @Override
@@ -165,7 +174,10 @@ public class VRT3DObject extends VRTControl {
                 if (isTornDown()) {
                     return;
                 }
-                onError(error);
+                VRT3DObject vrt3dObject = weakVRTRef.get();
+                if (vrt3dObject != null) {
+                    onError(error);
+                }
             }
         };
 
@@ -204,7 +216,7 @@ public class VRT3DObject extends VRTControl {
         );
     }
 
-    private void loadDidEnd() {
+    public void loadDidEnd() {
         mReactContext.getJSModule(RCTEventEmitter.class).receiveEvent(
                 getId(),
                 ViroEvents.ON_LOAD_END,
@@ -212,7 +224,7 @@ public class VRT3DObject extends VRTControl {
         );
     }
 
-    private void updateAnimation() {
+    public void updateAnimation() {
         /*
          If no animation name was specified, then use the first keyframe animation,
          if available.
@@ -226,4 +238,5 @@ public class VRT3DObject extends VRTControl {
 
         mNodeAnimation.updateAnimation();
     }
+
 }

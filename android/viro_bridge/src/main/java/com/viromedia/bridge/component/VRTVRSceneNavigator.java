@@ -322,7 +322,8 @@ public class VRTVRSceneNavigator extends FrameLayout {
                     "at www.viromedia.com.");
         }
 
-        mViroView.validateAPIKey(apiKey.trim());    }
+        mViroView.validateAPIKey(apiKey.trim());
+    }
 
     private void notifyScenePlatformInformation() {
         for (VRTScene scene: mSceneArray) {

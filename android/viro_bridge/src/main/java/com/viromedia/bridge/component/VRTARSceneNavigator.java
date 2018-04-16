@@ -36,6 +36,8 @@ public class VRTARSceneNavigator extends VRTSceneNavigator {
         @Override
         public void onSuccess() {
             final VRTSceneNavigator navigator = mNavigator.get();
+            final WeakReference<VRTSceneNavigator> navigatorWeakReference  = new WeakReference<VRTSceneNavigator>(navigator);
+
             if (navigator == null) {
                 return;
             }
@@ -44,8 +46,11 @@ public class VRTARSceneNavigator extends VRTSceneNavigator {
             (new Handler(Looper.getMainLooper())).post(new Runnable() {
                 @Override
                 public void run() {
-                    navigator.mGLInitialized = true;
-                    navigator.setViroContext();
+                    VRTSceneNavigator nav = navigatorWeakReference.get();
+                    if (nav != null) {
+                        nav.mGLInitialized = true;
+                        nav.setViroContext();
+                    }
                 }
             });
         }
@@ -59,12 +64,16 @@ public class VRTARSceneNavigator extends VRTSceneNavigator {
 
     public VRTARSceneNavigator(ReactContext context) {
         super(context, ReactViroPackage.ViroPlatform.AR);
+        final  WeakReference<VRTARSceneNavigator> weakSceneARRef = new WeakReference<VRTARSceneNavigator>(this);
         mRotationListener = new DisplayRotationListener(context) {
             @Override
             public void onDisplayRotationChanged(int rotation) {
-                ViroViewARCore view = getARView();
-                if (view != null) {
-                    view.setCameraRotation(rotation);
+                VRTARSceneNavigator navigator = weakSceneARRef.get();
+                if (navigator != null) {
+                    ViroViewARCore view = navigator.getARView();
+                    if (view != null) {
+                        view.setCameraRotation(rotation);
+                    }
                 }
             }
         };
@@ -97,5 +106,13 @@ public class VRTARSceneNavigator extends VRTSceneNavigator {
     public void resetARSession() {
         ViroViewARCore arView = getARView();
         // No-op for now.
+    }
+
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        if (mRotationListener != null) {
+            mRotationListener.disable();
+        }
     }
 }

@@ -46,6 +46,7 @@ public class VRTSceneNavigator extends FrameLayout {
         @Override
         public void onSuccess() {
             final VRTSceneNavigator navigator = mNavigator.get();
+            final WeakReference<VRTSceneNavigator> navigatorWeakReference  = new WeakReference<VRTSceneNavigator>(navigator);
             if (navigator == null) {
                 return;
             }
@@ -54,8 +55,11 @@ public class VRTSceneNavigator extends FrameLayout {
             (new Handler(Looper.getMainLooper())).post(new Runnable() {
                 @Override
                 public void run() {
-                    navigator.mGLInitialized = true;
-                    navigator.setViroContext();
+                    final VRTSceneNavigator sceneNav = navigatorWeakReference.get();
+                    if(sceneNav != null) {
+                        sceneNav.mGLInitialized = true;
+                        sceneNav.setViroContext();
+                    }
                 }
             });
         }
@@ -321,7 +325,6 @@ public class VRTSceneNavigator extends FrameLayout {
                     " If you have not signed up for accessing Viro Media platform, please do so " +
                     "at www.viromedia.com.");
         }
-
 
         mViroView.validateAPIKey(apiKey.trim());
     }
