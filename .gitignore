@@ -58,6 +58,7 @@ Examples/node_modules
 Figment/node_modules
 npm-debug.log
 Examples/package-lock.json
+Examples/yarn.lock
 
 *.DS_Store
 *local.properties
