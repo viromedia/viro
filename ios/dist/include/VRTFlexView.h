@@ -15,7 +15,7 @@
 
 @property (nonatomic, assign) float width;
 @property (nonatomic, assign) float height;
-@property (nonatomic, strong) UIColor *flexBackgroundColor;
+@property (nonatomic, strong) UIColor *backgroundColor;
 
 - (instancetype)initWithBridge:(RCTBridge *)bridge;
 

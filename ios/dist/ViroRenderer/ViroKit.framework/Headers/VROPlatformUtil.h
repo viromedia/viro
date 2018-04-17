@@ -105,6 +105,11 @@ std::pair<std::string, int> VROPlatformFindFont(std::string typeface, bool isIta
  */
 std::string VROPlatformGetDeviceModel();
 
+/*
+ Returns the device's brand
+ */
+std::string VROPlatformGetDeviceBrand();
+
 std::string VROPlatformGetCacheDirectory();
 
 #pragma mark - Image Loading

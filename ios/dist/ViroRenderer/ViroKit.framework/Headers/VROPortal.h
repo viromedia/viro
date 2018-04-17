@@ -287,6 +287,14 @@ private:
      tree. Needed to ensure culling is off on portal frames.
      */
     void deactivateCulling(std::shared_ptr<VRONode> node);
+
+    /*
+     Write the hierarchy parent represented by the given sort key to the depth buffer
+     (only).
+     */
+    void writeHierarchyParentToDepthBuffer(VROSortKey &hierarchyParent,
+                                           const VRORenderContext &context,
+                                           std::shared_ptr<VRODriver> &driver);
     
 };
 

@@ -222,7 +222,7 @@ public:
 #pragma mark - Geometry
     
     void setGeometry(std::shared_ptr<VROGeometry> geometry) {
-        passert_thread();
+        passert_thread(__func__);
         _geometry = geometry;
     }
     std::shared_ptr<VROGeometry> getGeometry() const {
@@ -232,7 +232,7 @@ public:
 #pragma mark - Camera
     
     void setCamera(std::shared_ptr<VRONodeCamera> camera) {
-        passert_thread();
+        passert_thread(__func__);
         _camera = camera;
     }
     const std::shared_ptr<VRONodeCamera> &getCamera() const {
@@ -374,11 +374,11 @@ public:
 #pragma mark - Lights
     
     void addLight(std::shared_ptr<VROLight> light) {
-        passert_thread();
+        passert_thread(__func__);
         _lights.push_back(light);
     }
     void removeLight(std::shared_ptr<VROLight> light) {
-        passert_thread();
+        passert_thread(__func__);
         _lights.erase(
                       std::remove_if(_lights.begin(), _lights.end(),
                                      [light](std::shared_ptr<VROLight> candidate) {
@@ -386,7 +386,7 @@ public:
                                      }), _lights.end());
     }
     void removeAllLights() {
-        passert_thread();
+        passert_thread(__func__);
         _lights.clear();
     }
     std::vector<std::shared_ptr<VROLight>> &getLights() {
@@ -426,13 +426,13 @@ public:
 #pragma mark - Sounds
     
     void addSound(std::shared_ptr<VROSound> sound) {
-        passert_thread();
+        passert_thread(__func__);
         if (sound->getType() == VROSoundType::Spatial) {
             _sounds.push_back(sound);
         }
     }
     void removeSound(std::shared_ptr<VROSound> sound) {
-        passert_thread();
+        passert_thread(__func__);
         _sounds.erase(
                 std::remove_if(_sounds.begin(), _sounds.end(),
                                [sound](std::shared_ptr<VROSound> candidate) {
@@ -440,7 +440,7 @@ public:
                                }), _sounds.end());
     }
     void removeAllSounds() {
-        passert_thread();
+        passert_thread(__func__);
         _sounds.clear();
     }
 
@@ -559,7 +559,7 @@ public:
     }
 
     void setEventDelegate(std::shared_ptr<VROEventDelegate> delegate) {
-        passert_thread();
+        passert_thread(__func__);
         _eventDelegateWeak = delegate;
     }
 
@@ -821,8 +821,11 @@ private:
     
     /*
      True indicates that this node's descendants (children, grand-children, and so on)
-     should be rendered by order of their scene graph depth. Useful when rendering
-     2D layouts like flexbox views. Defaults to false.
+     should be rendered by order of their scene graph depth, with depth reading disabled.
+     Useful when rendering 2D layouts like flexbox views, where the parent components and
+     their children have depths so close together that reverting to the painter's algorithm
+     instead of depth testing produces better results (minimal z-fighting). Defaults to
+     false.
      */
     bool _hierarchicalRendering;
 

@@ -44,7 +44,7 @@ public:
     }
 
     virtual void onHover(int source, std::shared_ptr<VRONode> node, bool isHovering, std::vector<float> position) {
-        passert_thread();
+        passert_thread(__func__);
         
         std::shared_ptr<VROEventDelegate> delegate = getDelegate();
         if (delegate != nullptr && delegate->isEventEnabled(VROEventDelegate::EventAction::OnHover)){
@@ -53,7 +53,7 @@ public:
     }
 
     virtual void onClick(int source, std::shared_ptr<VRONode> node, ClickState clickState, std::vector<float> position) {
-        passert_thread();
+        passert_thread(__func__);
         
         std::shared_ptr<VROEventDelegate> delegate = getDelegate();
         if (delegate != nullptr && delegate->isEventEnabled(VROEventDelegate::EventAction::OnClick)){
@@ -62,7 +62,7 @@ public:
     }
 
     virtual void onTouch(int source, std::shared_ptr<VRONode> node, TouchState state, float x, float y){
-        passert_thread();
+        passert_thread(__func__);
         
         std::shared_ptr<VROEventDelegate> delegate = getDelegate();
         if (delegate != nullptr && delegate->isEventEnabled(VROEventDelegate::EventAction::OnTouch)){
@@ -72,8 +72,8 @@ public:
 
     virtual void onMove(int source, std::shared_ptr<VRONode> node,
                         VROVector3f rotation, VROVector3f position, VROVector3f forwardVec) {
-        passert_thread();
-        
+        passert_thread(__func__);
+
 #if VRO_PLATFORM_IOS || VRO_PLATFORM_ANDROID
         _lastKnownForward.store(forwardVec);
 #endif
@@ -85,8 +85,8 @@ public:
     }
 
     virtual void onControllerStatus(int source, ControllerStatus status) {
-        passert_thread();
-        
+        passert_thread(__func__);
+
         std::shared_ptr<VROEventDelegate> delegate = getDelegate();
         if (delegate != nullptr && delegate->isEventEnabled(VROEventDelegate::EventAction::OnControllerStatus)){
             delegate->onControllerStatus(source, status);
@@ -94,8 +94,8 @@ public:
     }
 
     virtual void onSwipe(int source, std::shared_ptr<VRONode> node, SwipeState swipeState) {
-        passert_thread();
-        
+        passert_thread(__func__);
+
         std::shared_ptr<VROEventDelegate> delegate = getDelegate();
         if (delegate != nullptr && delegate->isEventEnabled(VROEventDelegate::EventAction::OnSwipe)){
             delegate->onSwipe(source, node, swipeState);
@@ -103,7 +103,7 @@ public:
     }
 
     virtual void onScroll(int source, std::shared_ptr<VRONode> node, float x, float y) {
-        passert_thread();
+        passert_thread(__func__);
         
         std::shared_ptr<VROEventDelegate> delegate = getDelegate();
         if (delegate != nullptr && delegate->isEventEnabled(VROEventDelegate::EventAction::OnScroll)){
@@ -116,7 +116,7 @@ public:
     }
 
     virtual void onDrag(int source, std::shared_ptr<VRONode> node, VROVector3f newPosition) {
-        passert_thread();
+        passert_thread(__func__);
         
         std::shared_ptr<VROEventDelegate> delegate = getDelegate();
         if (delegate != nullptr && delegate->isEventEnabled(VROEventDelegate::EventAction::OnDrag)){
@@ -125,7 +125,7 @@ public:
     }
 
     virtual void onFuse(int source, std::shared_ptr<VRONode> node, float timeToFuseRatio) {
-        passert_thread();
+        passert_thread(__func__);
         if (_reticle == nullptr) {
             return;
         }
@@ -168,7 +168,7 @@ protected:
     std::shared_ptr<VRONode> _rootNode;
 
     void onReticleGazeHit(const VROHitTestResult &hit) {
-        passert_thread();
+        passert_thread(__func__);
         if (_reticle == nullptr) {
             return;
         }

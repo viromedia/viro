@@ -45,11 +45,11 @@ public:
      */
     VROThreadRestricted(VROThreadName name);
     virtual ~VROThreadRestricted();
-    
+
     /*
      Assert we are on the correct thread. If not, abort.
      */
-    void passert_thread();
+    void passert_thread(std::string method);
     
     /*
      Temporarily enable or disable thread checking. When false, passert_thread() is a no-op.

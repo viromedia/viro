@@ -17,6 +17,7 @@
 #include "VROTrackingHelper.h"
 #endif // ENABLE_OPENCV
 
+
 @class VROCameraCaptureDelegate;
 @class VROCameraOrientationListener;
 class VROVideoTextureCache;

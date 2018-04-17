@@ -12,6 +12,8 @@
 #include <stdio.h>
 #include <tuple>
 
+static const int kMaxHierarchyId = 100;
+
 /*
  Sort keys are used to quickly sort geometry elements into optimal batch rendering order,
  to limit state changes on the GPU. They consist of a large byte[] that can be sorted
@@ -34,11 +36,20 @@ public:
          For hierarchies, note that the distance from camera for all objects in a hierarchy
          is set to the distance from camera of the parent. This way distance from camera becomes
          irrelevant within a hierarchy, so that within each hierarchy we can sort by hierarchy
-         depth only. Note we do not sort by hierarchy ID because it is ok to interleave objects
-         of different hierarchies within the render order.
+         depth only. We also sort by hierarchy ID because we want the entirely of a hierarchy to
+         appear continuously in the sort order; this is essential for the deferred depth-write
+         rendering to work (see VROPortal::renderContents).
+
+         Note that because hierarchies appear before transparency in the sort order (they must,
+         otherwise the hierarchies would not be continuous in the sort order), this means
+         hierarchies will not *always* work with transparency. We make hierarchies render first,
+         so that they will appear behind other transparent objects. But *transparent* hierarchies
+         will not display opaque objects behind them. This is a known limitation with this system.
+         Before attempting to fix, look through the git history of this file (it has been tried
+         before).
          */
-        return std::tie(renderingOrder, transparent, distanceFromCamera, hierarchyDepth, incoming, shader, textures, lights, material, node, elementIndex) <
-               std::tie(r.renderingOrder, r.transparent, r.distanceFromCamera, r.hierarchyDepth, r.incoming, r.shader, r.textures, r.lights, r.material, r.node, r.elementIndex);
+        return std::tie(renderingOrder, hierarchyId, hierarchyDepth, transparent, distanceFromCamera, incoming, shader, textures, lights, material, node, elementIndex) <
+               std::tie(r.renderingOrder, r.hierarchyId, r.hierarchyDepth, r.transparent, r.distanceFromCamera, r.incoming, r.shader, r.textures, r.lights, r.material, r.node, r.elementIndex);
     }
             
     /*
@@ -50,7 +61,7 @@ public:
      The depth of the node in its hierarchy. This is normally set
      to zero. If any of the node's parents is set to hierarchical 
      rendering, then this is set to the node's depth in the hierarchy,
-     with 0 being the depth of the first hierarhical parent, 1 being
+     with 0 being the depth of the first hierarchical parent, 1 being
      the depth after, etc.
      
      This ensures that when a hierarchial node is rendered, all 
@@ -62,7 +73,9 @@ public:
     /*
      The ID of the hierarchy this node resides in. When comparing two
      nodes, we only include graph depth in the sort if the two nodes
-     are in the same hierarchy. 0 indicates we are not in a hierarchy.
+     are in the same hierarchy. In order to make hierarchies render prior
+     to other objects, this value is inverted: it is set to kMaxHierarchyId - hierarchyId.
+     Therefore, a hierarchyId of kMaxHierarchyId indicates no hierarchy.
      */
     uint32_t hierarchyId;
 
