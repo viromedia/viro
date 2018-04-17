@@ -145,6 +145,7 @@ public class VRTNode extends VRTComponent {
 
     // True if this node initialized and contains a physics body.
     private boolean hasPhysicsBody = false;
+    private boolean mPhysicsEnabled = true;
 
     // Last known set physics properties for this node.
     private ReadableMap mPhysicsMap = null;
@@ -300,8 +301,7 @@ public class VRTNode extends VRTComponent {
     protected void handleAppearanceChange() {
         if (mNodeJni != null) {
             if (mNodeJni.getPhysicsBody() != null) {
-                boolean enabled = mNodeJni.getPhysicsBody().isEnabled();
-                mNodeJni.getPhysicsBody().setEnabled(shouldAppear() && enabled);
+                mNodeJni.getPhysicsBody().setEnabled(shouldAppear() && mPhysicsEnabled);
             }
             mNodeJni.setVisible(shouldAppear());
         }
@@ -849,8 +849,11 @@ public class VRTNode extends VRTComponent {
         }
 
         if (map.hasKey("enabled")) {
-            mNodeJni.getPhysicsBody().setEnabled(map.getBoolean("enabled"));
+            mPhysicsEnabled = map.getBoolean("enabled");
+        } else {
+            mPhysicsEnabled = true;
         }
+        mNodeJni.getPhysicsBody().setEnabled(shouldAppear() && mPhysicsEnabled);
 
         if (map.hasKey("useGravity")) {
             String bodyType = map.getString("type");

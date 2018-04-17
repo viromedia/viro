@@ -80,6 +80,7 @@ const double kTransformDelegateDistanceFilter = 0.01;
         // Create and attach event delegate
         _eventDelegate = std::make_shared<VROEventDelegateiOS>(self);
         _node->setEventDelegate(_eventDelegate);
+        _physicsEnabled = true;
     }
     
     return self;
@@ -181,7 +182,7 @@ const double kTransformDelegateDistanceFilter = 0.01;
 - (void)handleAppearanceChange {
     std::shared_ptr<VROPhysicsBody> body = self.node->getPhysicsBody();
     if (body) {
-        body->setIsSimulated([self shouldAppear] && body->getIsSimulated());
+        body->setIsSimulated([self shouldAppear] && self.physicsEnabled);
     }
     [self node]->setHidden(![self shouldAppear]);
     [super handleAppearanceChange];
@@ -818,8 +819,6 @@ const double kTransformDelegateDistanceFilter = 0.01;
             body->setPhysicsShape(propPhysicsShape);
         }
     }
-    
-    body->setIsSimulated([self shouldAppear]);
     return true;
 }
 
@@ -862,10 +861,12 @@ const double kTransformDelegateDistanceFilter = 0.01;
     }
     
     if ([dictionary objectForKey:@"enabled"]) {
-        bool enabled = [[dictionary objectForKey:@"enabled"] boolValue];
-        body->setIsSimulated(enabled);
+        self.physicsEnabled = [[dictionary objectForKey:@"enabled"] boolValue];
+    } else {
+        self.physicsEnabled = YES;
     }
-    
+    body->setIsSimulated([self shouldAppear] && self.physicsEnabled);
+
     if ([dictionary objectForKey:@"useGravity"]) {
         bool useGravity = [[dictionary objectForKey:@"useGravity"] boolValue];
         VROPhysicsBody::VROPhysicsBodyType propBodyType

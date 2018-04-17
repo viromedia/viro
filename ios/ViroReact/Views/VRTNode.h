@@ -95,6 +95,7 @@ extern const int k2DPointsPerSpatialUnit;
 - (void)clearPhysicsBody;
 + (std::shared_ptr<VROPhysicsShape>)getPhysicsShape:(NSString *)stringShapeName params:(NSArray *)shapeParams;
 @property (nonatomic, assign) BOOL canCollide;
+@property (nonatomic, assign) BOOL physicsEnabled;
 
 // Used for Flexbox enabled components, no-op for non flexbox related components.
 @property(nonatomic) CGPoint position2DFlex;
