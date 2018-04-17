@@ -68,7 +68,7 @@ export default class ViroExperienceSelector extends Component {
     this._getInitialSelectionButtons = this._getInitialSelectionButtons.bind(this);
     this._getSceneSelectionButtons = this._getSceneSelectionButtons.bind(this);
   }
-  componentWillMount() {
+  componentDidMount() {
     isARSupportedOnDevice(this._handleARNotSupported,this._handleARSupported);
   }
   _handleARSupported() {

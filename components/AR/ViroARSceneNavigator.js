@@ -440,8 +440,7 @@ var ViroARSceneNavigator = createReactClass({
       for (var scene in sceneDictionary){
           var Component = sceneDictionary[scene].sceneClass.scene;
           var props = sceneDictionary[scene].sceneClass.passProps;
-          views.push((<Component key={'scene' + i} arSceneNavigator={this.arSceneNavigator} {...props}/>));
-          views.push((<Component key={'scene' + i} sceneNavigator={this.sceneNavigator} {...props}/>));
+          views.push((<Component key={'scene' + i} sceneNavigator={this.sceneNavigator} {...props} arSceneNavigator={this.arSceneNavigator} {...props}/>));
           i++;
       }
       return views;
