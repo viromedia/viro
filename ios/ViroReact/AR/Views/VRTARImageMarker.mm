@@ -73,26 +73,29 @@
     if (promise) {
         __weak VRTARImageMarker *weakSelf = self;
         VRTARTargetPromiseCompletion completion = ^(NSString *targetName, std::shared_ptr<VROARImageTarget> target) {
-            __strong VRTARImageMarker *strongSelf = weakSelf;
-            // make sure the VRTARImageMarker is still around and the target hasn't changed since we created the block.
-            if (strongSelf && [targetName isEqualToString:strongSelf.target] && target) {
-                std::shared_ptr<VROARDeclarativeImageNode> imageNode = std::dynamic_pointer_cast<VROARDeclarativeImageNode>(strongSelf.node);
-                std::shared_ptr<VROARImageTarget> oldTarget = imageNode->getImageTarget();
-                imageNode->setImageTarget(target);
-                std::shared_ptr<VROARScene> arScene = std::dynamic_pointer_cast<VROARScene>(strongSelf.scene);
-                if (arScene) {
-                    if (needsAddToScene) {
-                        // add the ARNode
-                        [strongSelf declarativeSession]->addARNode(imageNode);
-                    } else {
-                        // remove the old ARImageTarget and update the ARNode
-                        [strongSelf declarativeSession]->removeARImageTarget(oldTarget);
-                        [strongSelf declarativeSession]->updateARNode(imageNode);
+            // the callback should be posted on the main thread.
+            dispatch_async(dispatch_get_main_queue(), ^{
+                __strong VRTARImageMarker *strongSelf = weakSelf;
+                // make sure the VRTARImageMarker is still around and the target hasn't changed since we created the block.
+                if (strongSelf && [targetName isEqualToString:strongSelf.target] && target) {
+                    std::shared_ptr<VROARDeclarativeImageNode> imageNode = std::dynamic_pointer_cast<VROARDeclarativeImageNode>(strongSelf.node);
+                    std::shared_ptr<VROARImageTarget> oldTarget = imageNode->getImageTarget();
+                    imageNode->setImageTarget(target);
+                    std::shared_ptr<VROARScene> arScene = std::dynamic_pointer_cast<VROARScene>(strongSelf.scene);
+                    if (arScene) {
+                        if (needsAddToScene) {
+                            // add the ARNode
+                            [strongSelf declarativeSession]->addARNode(imageNode);
+                        } else {
+                            // remove the old ARImageTarget and update the ARNode
+                            [strongSelf declarativeSession]->removeARImageTarget(oldTarget);
+                            [strongSelf declarativeSession]->updateARNode(imageNode);
+                        }
+                        // always add the new ARImageTarget
+                        [strongSelf declarativeSession]->addARImageTarget(target);
                     }
-                    // always add the new ARImageTarget
-                    [strongSelf declarativeSession]->addARImageTarget(target);
                 }
-            }
+            });
         };
         [promise wait:completion];
     } else {
