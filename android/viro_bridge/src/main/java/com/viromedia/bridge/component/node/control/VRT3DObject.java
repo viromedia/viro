@@ -32,23 +32,27 @@ public class VRT3DObject extends VRTControl {
     }
 
     private static class Object3dAnimation extends NodeAnimation {
-        private Node mNode;
+        private WeakReference<Node> mNodeWeak;
 
         public Object3dAnimation(ReactContext context, VRT3DObject parent) {
            super(context, parent);
-            mNode = parent.getNodeJni();
+            mNodeWeak =  new WeakReference<Node>(parent.getNodeJni());
         }
 
         @Override
         public ExecutableAnimation loadAnimation() {
-            Set<String> animationKeys = mNode.getAnimationKeys();
-            if (animationKeys.isEmpty()) {
+            Set<String> animationKeys = null;
+            if (mNodeWeak.get() != null) {
+                animationKeys =  mNodeWeak.get().getAnimationKeys();
+            }
+
+            if (mNodeWeak == null || animationKeys.isEmpty()) {
                 return super.loadAnimation();
             }
 
             if (mAnimationName != null) {
-                if (animationKeys.contains(mAnimationName)) {
-                    return new ExecutableAnimation(mNode, mAnimationName);
+                if (animationKeys.contains(mAnimationName) && mNodeWeak.get() != null) {
+                    return new ExecutableAnimation(mNodeWeak.get(), mAnimationName);
                 }
                 else {
                     return super.loadAnimation();
