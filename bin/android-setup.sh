@@ -25,7 +25,7 @@ isosx() {
 
 vsed() {
   if isosx; then
-    sed -i '' "$@"
+    /usr/bin/sed -i '' "$@"
   else
     sed -i "$@"
   fi
@@ -84,7 +84,7 @@ LINES_TO_ADD=("        maven {"
 "        }")
 SEARCH_PATTERN="mavenLocal"
 LINE_TO_APPEND_AFTER=$(grep "$SEARCH_PATTERN" "$TARGET_FILEPATH")
-LINE_TO_APPEND_AFTER=$(echo $LINE_TO_APPEND_AFTER | sed -e 's/[]\/$*.^|[]/\\&/g')
+LINE_TO_APPEND_AFTER=$(echo $LINE_TO_APPEND_AFTER | vsed -e 's/[]\/$*.^|[]/\\&/g')
 INDEX=$((${#LINES_TO_ADD[@]}-1))
 while [ $INDEX -ge 0 ];
 do
@@ -180,7 +180,7 @@ SEARCH_PATTERN="category.LAUNCHER"
 LINE_TO_ADD='            <category android:name="com.google.intent.category.CARDBOARD" \/>'
 LINE_TO_APPEND_TO=$(grep "$SEARCH_PATTERN" "$TARGET_FILEPATH")
 # escape the append to line
-LINE_TO_APPEND_TO=$(echo $LINE_TO_APPEND_TO | sed -e 's/[]\/$*.^|[]/\\&/g')
+LINE_TO_APPEND_TO=$(echo $LINE_TO_APPEND_TO | vsed -e 's/[]\/$*.^|[]/\\&/g')
 
 vsed "s/$LINE_TO_APPEND_TO/&"$'\\\n'"$LINE_TO_ADD/" $TARGET_FILEPATH
 
@@ -189,7 +189,7 @@ SEARCH_PATTERN="permission.SYSTEM_ALERT_WINDOW"
 LINE_TO_ADD='    <uses-permission android:name="android.permission.CAMERA" \/>'
 LINE_TO_APPEND_TO=$(grep "$SEARCH_PATTERN" "$TARGET_FILEPATH")
 # escape the append to line
-LINE_TO_APPEND_TO=$(echo $LINE_TO_APPEND_TO | sed -e 's/[]\/$*.^|[]/\\&/g')
+LINE_TO_APPEND_TO=$(echo $LINE_TO_APPEND_TO | vsed -e 's/[]\/$*.^|[]/\\&/g')
 
 vsed "s/$LINE_TO_APPEND_TO/&"$'\\\n'"$LINE_TO_ADD/" $TARGET_FILEPATH
 
@@ -197,7 +197,7 @@ vsed "s/$LINE_TO_APPEND_TO/&"$'\\\n'"$LINE_TO_ADD/" $TARGET_FILEPATH
 SEARCH_PATTERN="devsupport.DevSettingsActivity"
 LINE_TO_ADD='      <meta-data android:name="com.google.ar.core" android:value="optional" \/>'
 LINE_TO_APPEND_TO=$(grep "$SEARCH_PATTERN" "$TARGET_FILEPATH")
-LINE_TO_APPEND_TO=$(echo $LINE_TO_APPEND_TO | sed -e 's/[]\/$*.^|[]/\\&/g')
+LINE_TO_APPEND_TO=$(echo $LINE_TO_APPEND_TO | vsed -e 's/[]\/$*.^|[]/\\&/g')
 vsed "s/$LINE_TO_APPEND_TO/&"$'\\\n'"$LINE_TO_ADD/" $TARGET_FILEPATH
 
 
