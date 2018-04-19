@@ -79,11 +79,27 @@ A demonstration on how to do an interactive shopping app for TV's. Uses flexbox 
 
 ### [AR Sample](https://github.com/viromedia/viro/tree/master/js/ARSample)
 
-<a href="https://github.com/viromedia/viro/tree/master/js/ARSample/ar_sample.gif">
+<a href="https://github.com/viromedia/viro/tree/master/js/ARSample">
 <img src="https://raw.githubusercontent.com/viromedia/viro/master/js/ARSample/ar_sample.gif">
 </a>
 
 A scene with objects, text and animation displayed on ARKit planes detected in the scene.
+
+### [AR Car Marker Demo](https://github.com/viromedia/viro/tree/master/js/ARCarDemo)
+
+<a href="https://github.com/viromedia/viro/tree/master/js/ARCarDemo">
+<img src="https://raw.githubusercontent.com/viromedia/viro/master/js/ARCarDemo/viro_car_marker_demo.gif">
+</a>
+
+An ARScene that looks for this [image](https://github.com/viromedia/viro/tree/master/js/ARCarDemo/res/logo.png) and adds a model of a car with the ability to change its colors.
+
+### [AR Poster Demo](https://github.com/viromedia/viro/tree/master/js/ARPosterDemo)
+
+<a href="https://github.com/viromedia/viro/tree/master/js/ARPosterDemo">
+<img src="https://raw.githubusercontent.com/viromedia/viro/master/js/ARPosterDemo/viro_black_panther_marker_demo.gif">
+</a>
+
+An ARScene that searches for this vertical [marker](https://github.com/viromedia/viro/tree/master/js/ARPosterDemo/res/blackpanther.jpg) and renders Black Panther jumping out of the marker.
 
 ### [AR Full Sample App](https://github.com/viromedia/ViroARSampleApp)
 A complete React Native w/Viro AR Sample App. Demonstrates how to place, drag, and scale objects in the real world while providing 2D UI feedback.

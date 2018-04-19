@@ -39,6 +39,8 @@ var vrScenes = {
 var arScenes = {
   'ARSimpleSample': require('./js/ARSample/HelloWorldSceneAR.js'),
   'ARPhysicsSample': require('./js/ARPhysicsSample/BasicPhysicsSample.js'),
+  'ARCarDemo' : require('./js/ARCarDemo/ARCarDemo.js'),
+  'ARPosterDemo' : require('./js/ARPosterDemo/ARPosterDemo.js'),
 }
 
 var showARScene = false;
