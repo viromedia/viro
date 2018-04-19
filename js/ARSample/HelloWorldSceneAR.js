@@ -14,9 +14,10 @@ import {
   ViroSpotLight,
   ViroARPlane,
   ViroARPlaneSelector,
-  ViroSurface,
+  ViroQuad,
   ViroNode,
   ViroAnimations,
+  ViroConstants
 } from 'react-viro';
 
 var createReactClass = require('create-react-class');
@@ -24,12 +25,13 @@ var createReactClass = require('create-react-class');
 var HelloWorldSceneAR = createReactClass({
   getInitialState() {
     return {
-      text : "Initializing AR..."
+      hasARInitialized : false,
+      text : "Initializing AR...",
     };
   },
   render: function() {
     return (
-      <ViroARScene onTrackingInitialized={()=>{this.setState({text : "Hello World!"})}}>
+      <ViroARScene onTrackingUpdated={this._onTrackingUpdated}>
 
         {/* Text to show whether or not the AR system has initialized yet, see ViroARScene's onTrackingInitialized*/}
         <ViroText text={this.state.text} scale={[.5, .5, .5]} position={[0, 0, -1]} style={styles.helloWorldTextStyle} />
@@ -81,7 +83,7 @@ var HelloWorldSceneAR = createReactClass({
                        require('./res/emoji_smile/emoji_smile_specular.png'),
                        require('./res/emoji_smile/emoji_smile_normal.png')]}/>
 
-          <ViroSurface
+          <ViroQuad
             rotation={[-90,0,0]}
             width={.5} height={.5}
             arShadowReceiver={true}
@@ -120,7 +122,7 @@ var HelloWorldSceneAR = createReactClass({
             resources={[require('./res/object_soccerball/object_soccer_ball_diffuse.png'),
                        require('./res/object_soccerball/object_soccer_ball_normal.png'),
                        require('./res/object_soccerball/object_soccer_ball_specular.png')]}/>
-          <ViroSurface
+          <ViroQuad
             rotation={[-90,0,0]}
             width={.5} height={.5}
             arShadowReceiver={true}
@@ -131,6 +133,16 @@ var HelloWorldSceneAR = createReactClass({
       </ViroARScene>
     );
   },
+  _onTrackingUpdated(state, reason) {
+    // if the state changes to "TRACKING_NORMAL" for the first time, then
+    // that means the AR session has initialized!
+    if (!this.state.hasARInitialized && state == ViroConstants.TRACKING_NORMAL) {
+      this.setState({
+        hasARInitialized : true,
+        text : "Hello World!"
+      });
+    }
+  }
 });
 
 var styles = StyleSheet.create({

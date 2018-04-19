@@ -40,7 +40,7 @@ var FlameEmitter = createReactClass({
           particleAppearance={{
             opacity:{
               initialRange:[0.2, 0.2],
-              factor:"time",
+              factor:"Time",
               interpolation:[
                 {endValue:0.2, interval:[0,200]},
                 {endValue:0.0, interval:[200,500]},
@@ -48,7 +48,7 @@ var FlameEmitter = createReactClass({
             },
             scale:{
               initialRange:[[1,1,1], [1,1,1]],
-              factor:"time",
+              factor:"Time",
               interpolation:[
                 {endValue:[0,0,0], interval:[150,500]},
               ]

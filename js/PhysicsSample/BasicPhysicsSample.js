@@ -64,7 +64,7 @@ var BasicPhysicsSample = createReactClass({
       <ViroController ref={this._setControllerNodeRef} />
        <ViroBox
            physicsBody={{
-             type:'static'
+             type:'Static'
            }}
            position={[0, -2, -3]}
            materials={["ground"]}
@@ -79,7 +79,7 @@ var BasicPhysicsSample = createReactClass({
          position={[0, 6, -3]}
          materials={'box'}
          physicsBody={{
-           type:'dynamic',
+           type:'Dynamic',
            mass: 2,
            force:{value:this.state.boxConstantForce}
          }}

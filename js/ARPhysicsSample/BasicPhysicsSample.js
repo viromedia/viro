@@ -9,7 +9,7 @@ import {
   Viro360Image,
   ViroMaterials,
   ViroBox,
-  ViroSurface,
+  ViroQuad,
   Viro3DObject,
   ViroOmniLight,
   ViroController,
@@ -112,10 +112,10 @@ var BasicARPhysicsSample = createReactClass({
         {/* Render cube object in the scene, if any.*/}
         {this._renderCubes()}
 
-        {/* Surface representing the ground. */}
-        <ViroSurface position={[0,0,0]} scale={[6.0, 8.0, 1.0]} rotation={[-90, 0, 0]} physicsBody={{ type:'Static', restitution:0.75 }}
-                             onClickState={this.state.controllerConfig == CONTROLLER_PULL ? this.onItemPullForce("Surface") : undefined}
-                             ref={(component)=>{this.floorSurface = component}} onCollision={this._onFloorCollide} materials={'ground'}/>
+        {/* Quad representing the ground. */}
+        <ViroQuad position={[0,0,0]} scale={[6.0, 8.0, 1.0]} rotation={[-90, 0, 0]} physicsBody={{ type:'Static', restitution:0.75 }}
+          onClickState={this.state.controllerConfig == CONTROLLER_PULL ? this.onItemPullForce("Surface") : undefined}
+          ref={(component)=>{this.floorSurface = component}} onCollision={this._onFloorCollide} materials={'ground'}/>
       </ViroNode>
     );
   },

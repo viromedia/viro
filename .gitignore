@@ -7,3 +7,4 @@ ios/Pods/
 ios/ViroCodeSamples.xcworkspace/xcuserdata/
 ios/ViroCodeSamples.xcodeproj/xcuserdata/
 ngrok.log
+package-lock.json

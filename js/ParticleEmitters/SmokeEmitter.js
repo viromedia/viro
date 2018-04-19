@@ -36,7 +36,7 @@ var BasicSmokeEmitter = createReactClass({
           particleAppearance={{
             scale:{
               initialRange:[[1,1,1], [1,1,1]],
-              factor:"time",
+              factor:"Time",
               interpolation:[
                 {endValue:[2,2,2], interval:[0,500]},
                 {endValue:[3,3,3], interval:[0,1500]},
@@ -45,7 +45,7 @@ var BasicSmokeEmitter = createReactClass({
 
             opacity:{
               initialRange:[0.0, 0.0],
-              factor:"time",
+              factor:"Time",
               interpolation:[
                 {endValue:0.4, interval:[0,200]},
                 {endValue:0.0, interval:[900,1500]}

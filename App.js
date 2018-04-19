@@ -16,7 +16,7 @@ import {
 } from 'react-native';
 
 import {
-  ViroSceneNavigator,
+  ViroVRSceneNavigator,
   ViroARSceneNavigator,
 } from 'react-viro';
 
@@ -28,18 +28,17 @@ var createReactClass = require('create-react-class');
 var apiKey = "YOUR_API_KEY_HERE";
 
 var vrScenes = {
-    '360 Photo Tour': require('./js/360PhotoTour/MainScene'),
-    'Hello World': require('./js/HelloWorld/HelloWorldScene'),
-    'Human Body': require('./js/HumanBody/MainScene'),
+    '360PhotoTour': require('./js/360PhotoTour/MainScene'),
+    'HumanBody': require('./js/HumanBody/MainScene'),
     'ProductShowcase': require('./js/ProductShowcase/ProductShowcase'),
-    'Viro Media Player': require('./js/ViroMediaPlayer/ViroTheatre'),
-    'Particle Emitters': require('./js/ParticleEmitters/ViroParticleTemplates'),
-    'Physics Sample': require('./js/PhysicsSample/BasicPhysicsSample'),
+    'ViroMediaPlayer': require('./js/ViroMediaPlayer/ViroTheatre'),
+    'ParticleEmitters': require('./js/ParticleEmitters/ViroParticleTemplates'),
+    'PhysicsSample': require('./js/PhysicsSample/BasicPhysicsSample'),
 }
 
 var arScenes = {
-  'AR Sample': require('./js/ARSample/HelloWorldSceneAR.js'),
-  'AR Physics Sample': require('./js/ARPhysicsSample/BasicPhysicsSample.js'),
+  'ARSimpleSample': require('./js/ARSample/HelloWorldSceneAR.js'),
+  'ARPhysicsSample': require('./js/ARPhysicsSample/BasicPhysicsSample.js'),
 }
 
 var showARScene = false;
@@ -51,15 +50,15 @@ var ViroCodeSamplesSceneNavigator = createReactClass({
       return (
         <ViroARSceneNavigator
           initialScene={{
-            scene: arScenes['AR Sample'],
+            scene: arScenes['ARSimpleSample'],
           }}
           apiKey={apiKey} />
         );
     } else {
       return (
-        <ViroSceneNavigator
+        <ViroVRSceneNavigator
           initialScene={{
-            scene: vrScenes['360 Photo Tour'],
+            scene: vrScenes['360PhotoTour'],
           }}
           apiKey={apiKey} />
       );

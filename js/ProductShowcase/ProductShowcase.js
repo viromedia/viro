@@ -148,7 +148,7 @@ var ProductShowcase = createReactClass({
 
         <Viro360Image source={require('./res/interior_viro.jpg')} />
 
-        <ViroDirectionalLight color="#ffffff" direction={[0, 0, -1.0]} />
+        <ViroDirectionalLight color="#aaaaaa" direction={[0, 0, -1.0]} />
 
         {/* Outer animation block used to fade in/out components when switching between products */}
         <ViroNode animation={{ name : this.state.globalAnimation, run : this.state.runGlobalAnimation, loop : false, onFinish : this.state.onFinishGlobal }}>
@@ -269,7 +269,7 @@ var ProductShowcase = createReactClass({
         transformBehaviors="billboard" animation={{ name : this.state.mainAnimation, run : this.state.runAnimation, loop : false }} >
         <ViroImage source={products[index].previewImage} width={2.8} height={.7}/>
         <ViroText text={products[index].productTitleText} width={2} height={.7} style={styles.navButtonText}
-            textClipMode="clipToBounds" position={[forward ? .1 : -.1, 0, .05]} />
+            textClipMode="ClipToBounds" position={[forward ? .1 : -.1, 0, .05]} />
       </ViroNode>
     );
   },

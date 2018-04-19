@@ -81,7 +81,7 @@ var SnowEmitter = createReactClass({
         particleAppearance={{
           opacity:{
             initialRange:[0, 0],
-            factor:"time",
+            factor:"Time",
             interpolation:[
               {endValue:1.0, interval:[0,500]},
               {endValue:0.0, interval:[4000,5000]}
@@ -89,14 +89,14 @@ var SnowEmitter = createReactClass({
           },
           rotation:{
             initialRange:[0, 360],
-            factor:"time",
+            factor:"Time",
             interpolation:[
               {endValue:1080, interval:[0,5000]},
             ]
           },
           scale:{
             initialRange:[[5,5,5], [10,10,10]],
-            factor:"time",
+            factor:"Time",
             interpolation:[
               {endValue:[6,6,6], interval:[0,1000]},
               {endValue:[10,10,10], interval:[3000,5000]},
