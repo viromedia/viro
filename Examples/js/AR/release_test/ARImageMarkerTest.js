@@ -54,7 +54,6 @@ var ARImageMarkerTest = createReactClass({
         {/* Image Marker component*/}
         {this._getImageMarker()}
 
-
         <ViroText position={polarToCartesian([6, 20, 10])} text={"Image Marker: " + (this.state.showImageMarker ? "Visible" : "Not Visible")}
           style={styles.instructionText} onClick={this._toggleShowImageMarker} transformBehaviors={["billboard"]}/>
         <ViroText position={polarToCartesian([6, 20, 0])} text={"Switch Target, current: " + this.state.target}
@@ -72,7 +71,7 @@ var ARImageMarkerTest = createReactClass({
             onAnchorFound={()=>{console.log("ARImageMarkerTest found marker!")}}
             onAnchorUpdated={()=>{console.log("ARImageMarkerTest updated marker!")}}
             onAnchorRemoved={()=>{console.log("ARImageMarkerTest removed marker!")}} >
-          <ViroBox scale={[newTargets[target].physicalWidth, .01, newTargets[target].height]} />
+          <ViroBox scale={[newTargets[target].physicalWidth, .1, newTargets[target].height]} position={[0, .05, 0]}/>
         </ViroARImageMarker>
 
         {/* Release Menu */}
