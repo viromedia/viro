@@ -37,18 +37,30 @@ public class MaterialManager extends ReactContextBaseJavaModule {
         System.loadLibrary("viro_renderer");
     }
 
+    // TODO: make the following non-static!
+    /*
+     The following two static Maps and the clearMaterials function are a result of VIRO-3474, which
+     is caused by a React Native bug, if/when they fix it, we need to revert the maps back to instance
+     variables.
+     */
+    private static Map<String, MaterialWrapper> sMaterialsMap;
+    private static Map<String, Image> sImageMap;
+    private static Map<String, WeakReference<MaterialChangeListener>> sMaterialChangeListeners;
+    public void clearMaterials() {
+        sMaterialsMap = new HashMap<>();
+        sImageMap = new HashMap<>();
+        sMaterialChangeListeners = new HashMap<>();
+    }
+
     private final ReactApplicationContext mContext;
-    private Map<String, MaterialWrapper> mMaterialsMap;
-    private Map<String, WeakReference<MaterialChangeListener>> mMaterialChangeListeners;
-    private Map<String, Image> mImageMap;
     private boolean mShouldReload = false;
 
     public MaterialManager(ReactApplicationContext reactContext) {
         super(reactContext);
         mContext = reactContext;
-        mMaterialsMap = new HashMap<String, MaterialWrapper>();
-        mImageMap = new HashMap<String, Image>();
-        mMaterialChangeListeners = new HashMap<String, WeakReference<MaterialChangeListener>>();
+        sMaterialsMap = new HashMap<String, MaterialWrapper>();
+        sImageMap = new HashMap<String, Image>();
+        sMaterialChangeListeners = new HashMap<String, WeakReference<MaterialChangeListener>>();
     }
 
     @Override
@@ -58,23 +70,23 @@ public class MaterialManager extends ReactContextBaseJavaModule {
 
     public Material getMaterial(String name) {
         reloadMaterials();
-        if (mMaterialsMap.containsKey(name)) {
-            return mMaterialsMap.get(name).getNativeMaterial();
+        if (sMaterialsMap.containsKey(name)) {
+            return sMaterialsMap.get(name).getNativeMaterial();
         }
         return null;
     }
 
     public MaterialWrapper getMaterialWrapper(String name) {
         reloadMaterials();
-        if (mMaterialsMap.containsKey(name)) {
-            return mMaterialsMap.get(name);
+        if (sMaterialsMap.containsKey(name)) {
+            return sMaterialsMap.get(name);
         }
         return null;
     }
 
     public boolean isVideoMaterial(String name) {
-        if (mMaterialsMap.containsKey(name)) {
-            if (mMaterialsMap.get(name).hasVideoTextures()) {
+        if (sMaterialsMap.containsKey(name)) {
+            if (sMaterialsMap.get(name).hasVideoTextures()) {
                 return true;
             }
         }
@@ -94,8 +106,8 @@ public class MaterialManager extends ReactContextBaseJavaModule {
      */
     public void reloadMaterials() {
         if (mShouldReload) {
-            for (String key : mMaterialsMap.keySet()) {
-                MaterialWrapper material = mMaterialsMap.get(key);
+            for (String key : sMaterialsMap.keySet()) {
+                MaterialWrapper material = sMaterialsMap.get(key);
                 material.recreate();
             }
             mShouldReload = false;
@@ -103,7 +115,7 @@ public class MaterialManager extends ReactContextBaseJavaModule {
     }
 
     public void setMaterialChangeListener(String name, MaterialChangeListener listener) {
-        mMaterialChangeListeners.put(name, new WeakReference<MaterialChangeListener>(listener));
+        sMaterialChangeListeners.put(name, new WeakReference<MaterialChangeListener>(listener));
     }
 
     @ReactMethod
@@ -115,10 +127,10 @@ public class MaterialManager extends ReactContextBaseJavaModule {
     public void deleteMaterials(ReadableArray materials) {
         for (int i = 0; i < materials.size(); i++) {
             String materialName = materials.getString(i);
-            if (mMaterialsMap.containsKey(materialName)) {
+            if (sMaterialsMap.containsKey(materialName)) {
                 // we need to delete the native ref before we remove the material
-                mMaterialsMap.get(materialName).getNativeMaterial().dispose();
-                mMaterialsMap.remove(materialName);
+                sMaterialsMap.get(materialName).getNativeMaterial().dispose();
+                sMaterialsMap.remove(materialName);
             }
         }
     }
@@ -129,7 +141,7 @@ public class MaterialManager extends ReactContextBaseJavaModule {
             String key = iter.nextKey();
             ReadableMap material = newMaterials.getMap(key);
             MaterialWrapper materialWrapper = createMaterial(key, material);
-            mMaterialsMap.put(key, materialWrapper);
+            sMaterialsMap.put(key, materialWrapper);
         }
     }
 
@@ -190,8 +202,8 @@ public class MaterialManager extends ReactContextBaseJavaModule {
                         materialWrapper.addVideoTexturePath(materialPropertyName, uri);
                         diffuseTexture = videoTexture;
                     } else {
-                        if (mImageMap.get(materialPropertyName) != null) {
-                            Texture texture = parseTexture(mImageMap.get(materialPropertyName), sRGB, mipmap,
+                        if (sImageMap.get(materialPropertyName) != null) {
+                            Texture texture = parseTexture(sImageMap.get(materialPropertyName), sRGB, mipmap,
                                     materialPropertyName, materialMap);
                             if (materialPropertyName.equalsIgnoreCase("diffuseTexture")) {
                                 diffuseTexture = texture;
@@ -359,8 +371,8 @@ public class MaterialManager extends ReactContextBaseJavaModule {
         // create an image for each texture
         while (iter.hasNextKey()) {
             final String key = iter.nextKey();
-            if (mImageMap.get(key) != null) {
-                cubeMapImages.put(key, mImageMap.get(key));
+            if (sImageMap.get(key) != null) {
+                cubeMapImages.put(key, sImageMap.get(key));
             } else {
                 ImageDownloader downloader = new ImageDownloader(mContext);
                 downloader.setTextureFormat(format);
@@ -538,9 +550,9 @@ public class MaterialManager extends ReactContextBaseJavaModule {
                 mNativeMaterial.dispose();
                 mNativeMaterial = other.mNativeMaterial;
                 mVideoTextures = other.mVideoTextures;
-                if (mMaterialChangeListeners.get(mMaterialName) != null &&
-                        mMaterialChangeListeners.get(mMaterialName).get() != null) {
-                    MaterialChangeListener listener = mMaterialChangeListeners.get(mMaterialName).get();
+                if (sMaterialChangeListeners.get(mMaterialName) != null &&
+                        sMaterialChangeListeners.get(mMaterialName).get() != null) {
+                    MaterialChangeListener listener = sMaterialChangeListeners.get(mMaterialName).get();
                     listener.onVideoTextureChanged(mMaterialName);
                 }
             }

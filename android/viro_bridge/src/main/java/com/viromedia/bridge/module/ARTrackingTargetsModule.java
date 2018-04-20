@@ -8,7 +8,6 @@ import android.graphics.Bitmap;
 import android.os.Handler;
 import android.util.Log;
 
-import com.amazonaws.mobileconnectors.s3.transfermanager.Download;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
@@ -115,7 +114,13 @@ public class ARTrackingTargetsModule extends ReactContextBaseJavaModule {
 
     }
 
-    private final HashMap<String, ARTargetPromise> mPromiseMap = new HashMap<>();
+    /*
+     TODO: change this back to non-static. Required for VIRO-3474.
+     */
+    private static HashMap<String, ARTargetPromise> sPromiseMap = new HashMap<>();
+    public void clearTargets() {
+        sPromiseMap = new HashMap<>();
+    }
 
     public ARTrackingTargetsModule(ReactApplicationContext reactContext) {
         super(reactContext);
@@ -162,16 +167,16 @@ public class ARTrackingTargetsModule extends ReactContextBaseJavaModule {
             ARTargetPromise promise = new ARTargetPromise(key, source, orientation, physicalWidth);
             promise.fetch(getReactApplicationContext());
 
-            mPromiseMap.put(key, promise);
+            sPromiseMap.put(key, promise);
         }
     }
 
     @ReactMethod
     public void deleteTarget(final String targetName) {
-        mPromiseMap.remove(targetName);
+        sPromiseMap.remove(targetName);
     }
 
     public ARTargetPromise getARTargetPromise(String targetName) {
-        return mPromiseMap.get(targetName);
+        return sPromiseMap.get(targetName);
     }
 }

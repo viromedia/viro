@@ -49,12 +49,19 @@ public class AnimationManager extends ReactContextBaseJavaModule {
         }
     }
 
-    private final HashMap<String, ExecutableAnimation> mParsedAnimations;
+    /*
+     TODO: change this back to non-static. Required for VIRO-3474.
+     */
+    private static HashMap<String, ExecutableAnimation> sParsedAnimations;
+    public void clearAnimations() {
+        sParsedAnimations = new HashMap<>();
+    }
+
     private ReadableMap mRawAnimations;
 
     public AnimationManager(ReactApplicationContext context) {
         super(context);
-        mParsedAnimations = new HashMap<>();
+        sParsedAnimations = new HashMap<>();
     }
 
     @Override
@@ -69,7 +76,7 @@ public class AnimationManager extends ReactContextBaseJavaModule {
     }
 
     public ExecutableAnimation getAnimation(String name) {
-        return mParsedAnimations.get(name);
+        return sParsedAnimations.get(name);
     }
 
     private void parseAnimations() {
@@ -77,7 +84,7 @@ public class AnimationManager extends ReactContextBaseJavaModule {
         while(iter.hasNextKey()) {
             String animationName = iter.nextKey();
             ExecutableAnimation animation = parseAnimationObjectHelper(animationName, ExecutionType.PARALLEL);
-            mParsedAnimations.put(animationName, animation);
+            sParsedAnimations.put(animationName, animation);
             ViroLog.debug(TAG, "Parsed animation: [" + animationName + "]");
         }
     }
