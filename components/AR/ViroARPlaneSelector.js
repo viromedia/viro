@@ -69,7 +69,7 @@ var ViroARPlaneSelector = createReactClass({
   getInitialState: function() {
     return {
       selectedSurface : -1,
-      arPlaneSizes : []
+      foundARPlanes : []
     }
   },
 
@@ -86,10 +86,10 @@ var ViroARPlaneSelector = createReactClass({
       let arPlanes = [];
       let numPlanes = this.props.maxPlanes || _maxPlanes;
       for (var i = 0; i < numPlanes; i++) {
-        let arPlaneSize = this.state.arPlaneSizes[i];
-        let surfaceWidth = arPlaneSize ? arPlaneSize.width : 0;
-        let surfaceHeight = arPlaneSize ? arPlaneSize.height : 0;
-        let surfacePosition = arPlaneSize ? arPlaneSize.center : [0,0,0];
+        let foundARPlane = this.state.foundARPlanes[i];
+        let surfaceWidth = foundARPlane ? foundARPlane.width : 0;
+        let surfaceHeight = foundARPlane ? foundARPlane.height : 0;
+        let surfacePosition = foundARPlane ? foundARPlane.center : [0,0,0];
         arPlanes.push((
           <ViroARPlane key={_planePrefix + i}
             minWidth={this.props.minWidth}
@@ -117,21 +117,21 @@ var ViroARPlaneSelector = createReactClass({
   _getOnClickSurface(index) {
     return ()=>{
       this.setState({selectedSurface : index});
-      this._onPlaneSelected();
+      this._onPlaneSelected(this.state.foundARPlanes[index]);
     }
   },
 
   _onARPlaneUpdated(index) {
     return (updateMap)=>{
-      this.state.arPlaneSizes[index] = updateMap;
+      this.state.foundARPlanes[index] = updateMap;
       this.setState({
         arPlaneSizes : this.state.arPlaneSizes
       })
     }
   },
 
-  _onPlaneSelected() {
-    this.props.onPlaneSelected && this.props.onPlaneSelected();
+  _onPlaneSelected(updateMap) {
+    this.props.onPlaneSelected && this.props.onPlaneSelected(updateMap);
   },
 
   /*
