@@ -16,15 +16,13 @@ import React, { Component } from 'react';
 import {StyleSheet} from 'react-native';
 
 import {
-    ViroScene,
-    Viro360Image,
-    ViroAnimations,
-    ViroNode,
-    ViroImage,
-    ViroUtils,
+  ViroScene,
+  Viro360Image,
+  ViroAnimations,
+  ViroNode,
+  ViroImage,
+  ViroUtils,
 } from 'react-viro';
-
-var createReactClass = require('create-react-class');
 
 let polarToCartesian = ViroUtils.polarToCartesian;
 
@@ -43,82 +41,90 @@ var backImage = require('./res/icon_back.png');
 var LoadingSpinner = require('./custom_controls/LoadingSpinner');
 var InfoElement = require('./custom_controls/InfoElement');
 
-var OfficeTourSplashScene = createReactClass({
-    getInitialState() {
-        return {
-            showSceneItems:false,
-        };
-    },
+export default class OfficeTourSplashScene extends Component {
+  constructor() {
+    super();
+
+    // set initial state
+    this.state = {
+      showSceneItems : false,
+    }
+
+    // bind `this` to functions
+    this._getInfoControls = this._getInfoControls.bind(this);
+    this._onBackClick = this._onBackClick.bind(this);
+    this._onBackgroundPhotoLoadEnd = this._onBackgroundPhotoLoadEnd.bind(this);
+  }
 
     /**
      * Renders a scene with a 360 Photo background that contains a few toggleable Info UI Elements
      * featuring iconic items like the SLUT, monorail and statue.
      */
-    render: function() {
-        return (
-            <ViroScene style={styles.container}>
-                <Viro360Image source={backgroundImage} onLoadEnd={this._onBackgroundPhotoLoadEnd}/>
+  render() {
+    return (
+      <ViroScene style={styles.container}>
+        <Viro360Image source={backgroundImage} onLoadEnd={this._onBackgroundPhotoLoadEnd}/>
 
-                {
-                    /*
-                     * Display a spinner icon while the background image is being loaded.
-                     * Once loaded, hide spinner and show the Info UI Elements.
-                     */
-                }
-                <LoadingSpinner visible={!this.state.showSceneItems} position={[0, 0, -5]}/>
+        {
+          /*
+           * Display a spinner icon while the background image is being loaded.
+           * Once loaded, hide spinner and show the Info UI Elements.
+           */
+        }
+        <LoadingSpinner visible={!this.state.showSceneItems} position={[0, 0, -5]}/>
 
-                {this._getInfoControls()}
+        {this._getInfoControls()}
 
-            </ViroScene>
-        );
-    },
+      </ViroScene>
+    );
+ }
 
-    /**
-     * Displays a set of InfoElement controls representing several POI locations
-     * within this scene, and as well as a back button at the bottom of the scene.
-     */
-    _getInfoControls(){
-        return(
-            <ViroNode
-                opacity={0.0}
-                animation={{
-                    name : "fadeIn",
-                    run : this.state.showSceneItems,
-                    loop : false,
-                }} >
+  /**
+   * Displays a set of InfoElement controls representing several POI locations
+   * within this scene, and as well as a back button at the bottom of the scene.
+   */
+  _getInfoControls() {
+    return (
+      <ViroNode
+        opacity={0.0}
+        animation={{
+          name : "fadeIn",
+          run : this.state.showSceneItems,
+          loop : false,
+        }} >
 
-                <InfoElement content={slutWindowCard} contentCardScale={[3.67,4,1]} position={polarToCartesian([-5, 0, 0])}/>
-                <InfoElement content={monorailInfoCard} contentCardScale={[3.67,4,1]} position={polarToCartesian([-5, 77, -10])}/>
-                <InfoElement content={statueWindowCard} contentCardScale={[4,3.95,2]} position={polarToCartesian([-5, 277, 0])}/>
-                <ViroImage
-                    scale={[1, 1, 1]}
-                    position={[0, -3.5, 0]}
-                    rotation={[-90, 0, 0]}
-                    source={backImage}
-                    onClick={this._onBackClick}/>
-            </ViroNode>
-        );
-    },
+        <InfoElement content={slutWindowCard} contentCardScale={[3.67,4,1]} position={polarToCartesian([-5, 0, 0])}/>
+        <InfoElement content={monorailInfoCard} contentCardScale={[3.67,4,1]} position={polarToCartesian([-5, 77, -10])}/>
+        <InfoElement content={statueWindowCard} contentCardScale={[4,3.95,2]} position={polarToCartesian([-5, 277, 0])}/>
+        <ViroImage
+          scale={[1, 1, 1]}
+          position={[0, -3.5, 0]}
+          rotation={[-90, 0, 0]}
+          source={backImage}
+          onClick={this._onBackClick}/>
+      </ViroNode>
+    );
+  }
 
-    /**
-     * Callback function for when image has finished loading in the Viro360Photo.
-     * We then animate the main info elements into the scene through the
-     * setting of state showSceneItems.
-     */
-    _onBackgroundPhotoLoadEnd(){
-        this.setState({
-            showSceneItems:true
-        });
-    },
+  /**
+   * Callback function for when image has finished loading in the Viro360Photo.
+   * We then animate the main info elements into the scene through the
+   * setting of state showSceneItems.
+   */
+  _onBackgroundPhotoLoadEnd() {
+    this.setState({
+      showSceneItems:true
+    });
+  }
 
-    /**
-     * Callback function for when the user taps on back button located at the
-     * bottom of the scene. This pops the current scene to the previous one.
-     */
-    _onBackClick(){
-        this.props.sceneNavigator.pop();
-    },
-});
+  /**
+   * Callback function for when the user taps on back button located at the
+   * bottom of the scene. This pops the current scene to the previous one.
+   */
+  _onBackClick(){
+    this.props.sceneNavigator.pop();
+  }
+}
 
 /**
  * Declare all custom flex box styles here to be reference by the

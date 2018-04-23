@@ -16,51 +16,53 @@ import {StyleSheet} from 'react-native';
 import PropTypes from 'prop-types';
 
 import {
-    ViroScene,
-    ViroLight,
-    Viro360Image,
-    ViroImageCard,
-    Materials,
-    ViroAnimations,
-    ViroAnimatedComponent,
-    ViroNode,
-    ViroSpinner,
-    ViroText,
-    ViroSphere,
-    ViroUtils,
+  ViroScene,
+  ViroLight,
+  Viro360Image,
+  ViroImageCard,
+  ViroAnimations,
+  ViroAnimatedComponent,
+  ViroNode,
+  ViroSpinner,
+  ViroText,
+  ViroSphere,
+  ViroUtils,
 } from 'react-viro';
 let polarToCartesian = ViroUtils.polarToCartesian;
 
-var createReactClass = require('create-react-class');
 /**
  * Render a simple custom control that groups together a ViroSpinner and text.
  */
-var LoadingSpinner = createReactClass({
-    render: function() {
-        var spinnerPosition = polarToCartesian([0, 0, 0]);
-        var textPosition = polarToCartesian([1, -25, -40]);
-        return (
-            <ViroNode {...this.props}>
+export default class LoadingSpinner extends Component {
+  constructor() {
+    super();
+  }
+
+  render() {
+    var spinnerPosition = polarToCartesian([0, 0, 0]);
+    var textPosition = polarToCartesian([1, -25, -40]);
+    return (
+      <ViroNode {...this.props}>
                 {/* NOTE: Additional layer of ViroNode is placed to get around a temporary billboarding bug */}
                 <ViroNode position={polarToCartesian([0, 0, 0])} transformBehaviors={["billboard"]}>
-                    <ViroSpinner position={spinnerPosition} scale={[.7,.7,.1]} spinnerType='dark' />
-                    <ViroText style={styles.spinnerTextStyle} position={textPosition} text="Loading ...." />
+                  <ViroSpinner position={spinnerPosition} scale={[.7,.7,.1]} spinnerType='dark' />
+                  <ViroText style={styles.spinnerTextStyle} position={textPosition} text="Loading ...." />
                 </ViroNode>
-            </ViroNode>
-        );
-    },
-});
+      </ViroNode>
+    );
+  }
+}
 
 /**
  * Declare the spinner's text font family, size and color in terms of
  * a spinnerTextStyle.
  */
 var styles = StyleSheet.create({
-    spinnerTextStyle: {
-        fontFamily: 'HelveticaNeue-Medium',
-        fontSize: 70,
-        color: '#FFFFFF',
-    },
+  spinnerTextStyle: {
+    fontFamily: 'HelveticaNeue-Medium',
+    fontSize: 70,
+    color: '#FFFFFF',
+  },
 });
 
 module.exports = LoadingSpinner;

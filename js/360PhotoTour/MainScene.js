@@ -16,15 +16,14 @@ import React, { Component } from 'react';
 import {StyleSheet} from 'react-native';
 
 import {
-    ViroScene,
-    Viro360Image,
-    ViroImage,
-    ViroAnimations,
-    ViroNode,
-    ViroText
+  ViroScene,
+  Viro360Image,
+  ViroImage,
+  ViroAnimations,
+  ViroNode,
+  ViroText
 } from 'react-viro';
 
-var createReactClass = require('create-react-class');
 /**
  * Set all the images and assets required in this scene.
  */
@@ -32,55 +31,61 @@ var westLakeTowersScene = require('./WestLakeTowers');
 var backgroundImage = require('./res/westlake_towers.jpg');
 var weworkImage = require('./res/wework_title.png');
 
-var MainScene = createReactClass({
-    getInitialState() {
-        return {
-            runShowTitleAnimation:false,
-        };
-    },
+export default class MainScene extends Component {
+  constructor() {
+    super();
 
-    /**
-     * Renders a scene with a 360 Photo background that contains a single WeWork ViroImage. This
-     * image will be faded/scaled in with the "showTitleAnimation" when the scene first appears. Clicking on
-     * the WeWork ViroImage will launch the user into the next scene (WestLakeTowers).
-     */
-    render: function() {
-        return (
-            <ViroScene style={styles.container}>
-                <Viro360Image source={backgroundImage} onLoadEnd={this._onBackgroundPhotoLoadEnd}/>
+    // set initial state
+    this.state = {
+      runShowTitleAnimation : false,
+    }
 
-                <ViroImage
-                    position={[0, 0, -5]} source={weworkImage} scale={[.1, .1, .1]}
-                    opacity={0.0} onClick={this._onTitleClicked}
-                    animation={{
-                        name : "showTitleAnimation",
-                        run : this.state.runShowTitleAnimation,
-                        loop : false,
-                    }} />
+    // bind `this` to functions
+    this._onBackgroundPhotoLoadEnd = this._onBackgroundPhotoLoadEnd.bind(this);
+    this._onTitleClicked = this._onTitleClicked.bind(this);
+  }
 
-            </ViroScene>
-        );
-    },
+  /**
+   * Renders a scene with a 360 Photo background that contains a single WeWork ViroImage. This
+   * image will be faded/scaled in with the "showTitleAnimation" when the scene first appears. Clicking on
+   * the WeWork ViroImage will launch the user into the next scene (WestLakeTowers).
+   */
+  render() {
+    return (
+      <ViroScene style={styles.container}>
+        <Viro360Image source={backgroundImage} onLoadEnd={this._onBackgroundPhotoLoadEnd}/>
 
-    /**
-     * Callback function for when image has finished loading in the Viro360Photo.
-     * We then animate the WeWork ViroImage into the scene through the
-     * setting of state runShowTitleAnimation.
-     */
-    _onBackgroundPhotoLoadEnd(){
-        this.setState({
-            runShowTitleAnimation:true
-        });
-    },
+        <ViroImage
+          position={[0, 0, -5]} source={weworkImage} scale={[.1, .1, .1]}
+          opacity={0.0} onClick={this._onTitleClicked}
+          animation={{
+            name : "showTitleAnimation",
+            run : this.state.runShowTitleAnimation,
+            loop : false,
+          }} />
+      </ViroScene>
+    );
+  }
 
-    /**
-     * Callback function for when the user taps on the WeWork ViroImage
-     * where we navigate into the second scene.
-     */
-    _onTitleClicked(){
-        this.props.sceneNavigator.push({scene:westLakeTowersScene});
-    },
-});
+  /**
+   * Callback function for when image has finished loading in the Viro360Photo.
+   * We then animate the WeWork ViroImage into the scene through the
+   * setting of state runShowTitleAnimation.
+   */
+  _onBackgroundPhotoLoadEnd() {
+      this.setState({
+          runShowTitleAnimation:true
+      });
+  }
+
+  /**
+   * Callback function for when the user taps on the WeWork ViroImage
+   * where we navigate into the second scene.
+   */
+  _onTitleClicked() {
+      this.props.sceneNavigator.push({scene:westLakeTowersScene});
+  }
+}
 
 /**
  * Declare all custom flex box styles here to be reference by the
