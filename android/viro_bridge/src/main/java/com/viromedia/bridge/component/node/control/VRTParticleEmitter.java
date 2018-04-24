@@ -413,19 +413,19 @@ public class VRTParticleEmitter extends VRTControl {
                 if (burstmap.hasKey("time")) {
                     referenceFactor = ParticleEmitter.Factor.TIME;
                     valueStart = (float) burstmap.getDouble("time");
-                    coolPeriod = (float) burstmap.getDouble("cooldownPeriod");
+                    coolPeriod = (float) (burstmap.hasKey("cooldownPeriod") ? burstmap.getDouble("cooldownPeriod") : 0);
                 } else if (burstmap.hasKey("distance")) {
                     referenceFactor = ParticleEmitter.Factor.DISTANCE;
                     valueStart = (float) burstmap.getDouble("distance");
-                    coolPeriod = (float) burstmap.getDouble("cooldownDistance");
+                    coolPeriod = (float) (burstmap.hasKey("cooldownDistance") ? burstmap.getDouble("cooldownDistance") : 0);
                 } else {
                     onError("Invalid Burst parameters provided!");
                     return;
                 }
 
-                min = burstmap.getInt("min");
-                max = burstmap.getInt("max");
-                cycles = burstmap.getInt("cycles");
+                min = burstmap.hasKey("min") ? burstmap.getInt("min") : 0;
+                max = burstmap.hasKey("max") ? burstmap.getInt("max") : 0;
+                cycles = burstmap.hasKey("cycles") ? burstmap.getInt("cycles") : 0;
 
                 ParticleEmitter.EmissionBurst burst = new ParticleEmitter.EmissionBurst(referenceFactor,
                         valueStart, min, max, cycles, coolPeriod);
