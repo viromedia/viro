@@ -105,11 +105,6 @@ RCT_EXPORT_MODULE()
              ];
 }
 
-- (NSDictionary *)constantsToExport
-{
-    return nil;
-}
-
 -(BOOL)isRootFlexBoxPanel {
     return NO;
 }
