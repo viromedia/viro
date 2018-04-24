@@ -21,22 +21,23 @@ import java.lang.ref.WeakReference;
 /**
  * ARSceneNavigator manages the various AR scenes that a Viro App can navigate between.
  */
-public class VRTARSceneNavigator extends VRTSceneNavigator {
+public class VRTARSceneNavigator extends VRT3DSceneNavigator {
 
     private DisplayRotationListener mRotationListener;
 
     private static class StartupListenerARCore implements ViroViewARCore.StartupListener {
 
-        private WeakReference<VRTSceneNavigator> mNavigator;
+        private WeakReference<VRTARSceneNavigator> mNavigator;
 
-        public StartupListenerARCore(VRTSceneNavigator navigator) {
-            mNavigator = new WeakReference<VRTSceneNavigator>(navigator);
+        public StartupListenerARCore(VRTARSceneNavigator navigator) {
+            mNavigator = new WeakReference<VRTARSceneNavigator>(navigator);
         }
 
         @Override
         public void onSuccess() {
-            final VRTSceneNavigator navigator = mNavigator.get();
-            final WeakReference<VRTSceneNavigator> navigatorWeakReference  = new WeakReference<VRTSceneNavigator>(navigator);
+            final VRTARSceneNavigator navigator = mNavigator.get();
+            final WeakReference<VRTARSceneNavigator> navigatorWeakReference =
+                    new WeakReference<VRTARSceneNavigator>(navigator);
 
             if (navigator == null) {
                 return;
@@ -46,7 +47,7 @@ public class VRTARSceneNavigator extends VRTSceneNavigator {
             (new Handler(Looper.getMainLooper())).post(new Runnable() {
                 @Override
                 public void run() {
-                    VRTSceneNavigator nav = navigatorWeakReference.get();
+                    VRTARSceneNavigator nav = navigatorWeakReference.get();
                     if (nav != null) {
                         nav.mGLInitialized = true;
                         nav.setViroContext();

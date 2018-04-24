@@ -14,10 +14,10 @@ import com.viromedia.bridge.utility.ViroEvents;
 import java.util.Map;
 
 /**
- * SceneNavigatorManager for building a {@link VRTSceneNavigator}
+ * SceneNavigatorManager for building a {@link VRTVRSceneNavigator}
  * corresponding to the ViroSceneNavigator.js control.
  */
-public class VRTVRSceneNavigatorManager extends VRTViroViewGroupManager<VRTSceneNavigator> {
+public class VRTVRSceneNavigatorManager extends VRTViroViewGroupManager<VRTVRSceneNavigator> {
 
     private final ReactViroPackage.ViroPlatform mPlatform;
 
@@ -33,40 +33,40 @@ public class VRTVRSceneNavigatorManager extends VRTViroViewGroupManager<VRTScene
     }
 
     @Override
-    protected VRTSceneNavigator createViewInstance(ThemedReactContext reactContext) {
-        return new VRTSceneNavigator(reactContext, mPlatform);
+    protected VRTVRSceneNavigator createViewInstance(ThemedReactContext reactContext) {
+        return new VRTVRSceneNavigator(reactContext, mPlatform);
     }
 
     @ReactProp(name = "vrModeEnabled", defaultBoolean = true)
-    public void setVrModeEnabled(VRTSceneNavigator navigator, boolean vrModeEnabled) {
+    public void setVrModeEnabled(VRTVRSceneNavigator navigator, boolean vrModeEnabled) {
         navigator.setVrModeEnabled(vrModeEnabled);
     }
 
     @ReactProp(name = "debug", defaultBoolean = false)
-    public void setDebug(VRTSceneNavigator navigator, boolean debug) {
+    public void setDebug(VRTVRSceneNavigator navigator, boolean debug) {
         navigator.setDebug(debug);
     }
 
     @ReactProp(name = "currentSceneIndex")
-    public void setCurrentSceneIndex(VRTSceneNavigator view, int selectedIndex) {
+    public void setCurrentSceneIndex(VRTVRSceneNavigator view, int selectedIndex) {
         view.setCurrentSceneIndex(selectedIndex);
     }
 
     @ReactProp(name = "apiKey")
-    public void setApiKey(VRTSceneNavigator view, String apiKey) {
+    public void setApiKey(VRTVRSceneNavigator view, String apiKey) {
         view.setApiKey(apiKey);
     }
 
     @Override
-    protected void onAfterUpdateTransaction(VRTSceneNavigator view) {
+    protected void onAfterUpdateTransaction(VRTVRSceneNavigator view) {
         super.onAfterUpdateTransaction(view);
-        if (view instanceof VRTSceneNavigator) {
-            ((VRTSceneNavigator) view).onPropsSet();
+        if (view instanceof VRTVRSceneNavigator) {
+            ((VRTVRSceneNavigator) view).onPropsSet();
         }
     }
 
     @ReactProp(name = "hasOnExitViroCallback", defaultBoolean = false)
-    public void setHasOnExitViroCallback(VRTSceneNavigator navigator, boolean hasOnExitViroCallback) {
+    public void setHasOnExitViroCallback(VRTVRSceneNavigator navigator, boolean hasOnExitViroCallback) {
         navigator.setHasOnExitViroCallback(hasOnExitViroCallback);
     }
 

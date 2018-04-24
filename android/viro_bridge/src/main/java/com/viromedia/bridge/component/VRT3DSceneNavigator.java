@@ -46,6 +46,9 @@ public class VRT3DSceneNavigator extends FrameLayout {
         @Override
         public void onSuccess() {
             final VRT3DSceneNavigator navigator = mNavigator.get();
+            final WeakReference<VRT3DSceneNavigator> navigatorWeakReference =
+                    new WeakReference<VRT3DSceneNavigator>(navigator);
+
             if (navigator == null) {
                 return;
             }
@@ -54,8 +57,9 @@ public class VRT3DSceneNavigator extends FrameLayout {
             (new Handler(Looper.getMainLooper())).post(new Runnable() {
                 @Override
                 public void run() {
-                    navigator.mGLInitialized = true;
-                    navigator.setViroContext();
+                    final VRT3DSceneNavigator sceneNav = navigatorWeakReference.get();
+                    sceneNav.mGLInitialized = true;
+                    sceneNav.setViroContext();
                 }
             });
         }
@@ -123,7 +127,7 @@ public class VRT3DSceneNavigator extends FrameLayout {
     /**
      * The platform that the developer has requested.
      */
-    private final ReactViroPackage.ViroPlatform mPlatform;
+    protected final ReactViroPackage.ViroPlatform mPlatform;
 
     /**
      * This SceneNavigator's LifecycleEventListener to register for React LifecycleEvents.
@@ -136,7 +140,7 @@ public class VRT3DSceneNavigator extends FrameLayout {
      */
     private ViroContext mViroContext;
 
-    private final ReactContext mReactContext;
+    protected final ReactContext mReactContext;
 
     private boolean mViewAdded = false;
     protected boolean mGLInitialized = false;

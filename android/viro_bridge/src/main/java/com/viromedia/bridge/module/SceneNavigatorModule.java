@@ -10,7 +10,7 @@ import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.uimanager.NativeViewHierarchyManager;
 import com.facebook.react.uimanager.UIBlock;
 import com.facebook.react.uimanager.UIManagerModule;
-import com.viromedia.bridge.component.VRTSceneNavigator;
+import com.viromedia.bridge.component.VRTVRSceneNavigator;
 
 public class SceneNavigatorModule extends ReactContextBaseJavaModule {
 
@@ -30,8 +30,8 @@ public class SceneNavigatorModule extends ReactContextBaseJavaModule {
             @Override
             public void execute(NativeViewHierarchyManager nativeViewHierarchyManager) {
                 View sceneView = nativeViewHierarchyManager.resolveView(sceneNavTag);
-                if (sceneView instanceof VRTSceneNavigator) {
-                    VRTSceneNavigator scene = (VRTSceneNavigator) sceneView;
+                if (sceneView instanceof VRTVRSceneNavigator) {
+                    VRTVRSceneNavigator scene = (VRTVRSceneNavigator) sceneView;
                     scene.userDidRequestExitVR();
                 }
             }
@@ -45,8 +45,8 @@ public class SceneNavigatorModule extends ReactContextBaseJavaModule {
             @Override
             public void execute(NativeViewHierarchyManager nativeViewHierarchyManager) {
                 View view = nativeViewHierarchyManager.resolveView(sceneNavTag);
-                if (view instanceof VRTSceneNavigator) {
-                    VRTSceneNavigator sceneNavigator = (VRTSceneNavigator) view;
+                if (view instanceof VRTVRSceneNavigator) {
+                    VRTVRSceneNavigator sceneNavigator = (VRTVRSceneNavigator) view;
                     sceneNavigator.recenterTracking();
                 }
             }
