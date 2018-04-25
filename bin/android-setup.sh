@@ -152,6 +152,10 @@ done
 # Adding buildTypes by inserting it before a line
 SEARCH_PATTERN="buildTypes {"
 LINES_TO_PREPEND=("    productFlavors {"
+"        ar {"
+"            resValue 'string', 'app_name', '$VIRO_PROJECT_NAME-ar'"
+"            buildConfigField 'String', 'VR_PLATFORM', '\"GVR\"' //default to GVR"
+"        }"
 "        gvr {"
 "            resValue 'string', 'app_name', '$VIRO_PROJECT_NAME-gvr'"
 "            buildConfigField 'String', 'VR_PLATFORM', '\"GVR\"'"
