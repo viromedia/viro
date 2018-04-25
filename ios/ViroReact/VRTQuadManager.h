@@ -9,5 +9,5 @@
 #import <Foundation/Foundation.h>
 #import "ViroViewManager.h"
 
-@interface VRTSurfaceManager : ViroViewManager
+@interface VRTQuadManager : ViroViewManager
 @end

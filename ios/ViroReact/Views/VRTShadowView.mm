@@ -24,7 +24,7 @@
 #import "VRTAnimatedComponent.h"
 #import "VRTImage.h"
 #import "VRTFlexView.h"
-#import "VRTSurface.h"
+#import "VRTQuad.h"
 #import "VRTText.h"
 #import "VRTVideoSurface.h"
 

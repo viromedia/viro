@@ -24,7 +24,7 @@
 #import "VRTMaterialManager.h"
 #import "VRTManagedAnimation.h"
 #import "VRTAnimationManager.h"
-#import "VRTSurface.h"
+#import "VRTQuad.h"
 #import "VRTVideoSurface.h"
 
 const int k2DPointsPerSpatialUnit = 1000;
@@ -480,8 +480,8 @@ const double kTransformDelegateDistanceFilter = 0.01;
         [flexview setHeight:self.bounds2DFlex.size.height/ k2DPointsPerSpatialUnit];
         [flexview didSetProps:nil];
     }
-    else if([self isKindOfClass:[VRTSurface class]]) {
-        VRTSurface *surface = (VRTSurface *)self;
+    else if([self isKindOfClass:[VRTQuad class]]) {
+        VRTQuad *surface = (VRTQuad *)self;
         //NSLog(@"Flex surface position(%f, %f), size:(%f, %f)", transformedX, transformedY,node.bounds2DFlex.size.width/ k2DPointsPerSpatialUnit, node.bounds2DFlex.size.height/ k2DPointsPerSpatialUnit );
         [surface setWidth:self.bounds2DFlex.size.width/ k2DPointsPerSpatialUnit];
         [surface setHeight:self.bounds2DFlex.size.height/ k2DPointsPerSpatialUnit];

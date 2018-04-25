@@ -1,5 +1,5 @@
 //
-//  VRTSurface.mm
+//  VRTQuad.mm
 //  ViroReact
 //
 //  Created by Andy Chu on 1/11/17.
@@ -7,14 +7,14 @@
 //
 #import <ViroKit/ViroKit.h>
 #import <React/RCTLog.h>
-#import "VRTSurface.h"
+#import "VRTQuad.h"
 #import "VRTUtils.h"
 
 
 static float const kDefaultWidth = 1;
 static float const kDefaultHeight = 1;
 
-@implementation VRTSurface {
+@implementation VRTQuad {
     std::shared_ptr<VROSurface> _surface;
     BOOL _surfaceNeedsUpdate;
     float _uvCoordinateArr[4];

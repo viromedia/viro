@@ -13,34 +13,34 @@ import com.viromedia.bridge.utility.ViroEvents;
 
 import java.util.Map;
 
-public class VRTSurfaceManager extends VRTNodeManager<VRTSurface> {
+public class VRTQuadManager extends VRTNodeManager<VRTQuad> {
 
-    public VRTSurfaceManager(ReactApplicationContext context) {
+    public VRTQuadManager(ReactApplicationContext context) {
         super(context);
     }
 
     @Override
     public String getName() {
-        return "VRTSurface";
+        return "VRTQuad";
     }
 
     @Override
-    protected VRTSurface createViewInstance(ThemedReactContext reactContext) {
-        return new VRTSurface(reactContext);
+    protected VRTQuad createViewInstance(ThemedReactContext reactContext) {
+        return new VRTQuad(reactContext);
     }
 
     @ReactProp(name = "width", defaultFloat = 1)
-    public void setWidth(VRTSurface view, float width) {
+    public void setWidth(VRTQuad view, float width) {
         view.setWidth(width);
     }
 
     @ReactProp(name = "height", defaultFloat = 1)
-    public void setHeight(VRTSurface view, float height) {
+    public void setHeight(VRTQuad view, float height) {
         view.setHeight(height);
     }
 
     @ReactProp(name = "uvCoordinates")
-    public void setUVCoordinates(VRTSurface view, ReadableArray coordinates) {
+    public void setUVCoordinates(VRTQuad view, ReadableArray coordinates) {
         float u0 = 0; float v0 = 0; float u1 = 1; float v1 = 1;
 
         if (coordinates == null) {
@@ -58,13 +58,13 @@ public class VRTSurfaceManager extends VRTNodeManager<VRTSurface> {
     }
 
     @ReactProp(name = "lightReceivingBitMask", defaultInt = 1)
-    public void setLightReceivingBitMask(VRTSurface view, int bitMask) {view.setLightReceivingBitMask(bitMask); }
+    public void setLightReceivingBitMask(VRTQuad view, int bitMask) {view.setLightReceivingBitMask(bitMask); }
 
     @ReactProp(name = "shadowCastingBitMask", defaultInt = 1)
-    public void setShadowCastingBitMask(VRTSurface view, int bitMask) {view.setShadowCastingBitMask(bitMask); }
+    public void setShadowCastingBitMask(VRTQuad view, int bitMask) {view.setShadowCastingBitMask(bitMask); }
 
     @ReactProp(name = "arShadowReceiver", defaultBoolean = false)
-    public void setARShadowReceiver(VRTSurface view, boolean arShadowReceiver) { view.setARShadowReceiver(arShadowReceiver); }
+    public void setARShadowReceiver(VRTQuad view, boolean arShadowReceiver) { view.setARShadowReceiver(arShadowReceiver); }
 
     public Map getExportedCustomDirectEventTypeConstants() {
         return MapBuilder.of(

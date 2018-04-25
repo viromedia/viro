@@ -10,7 +10,7 @@
 #import <React/RCTConvert.h>
 #import "VRTParticleEmitter.h"
 #import "VRTImageAsyncLoader.h"
-#import "VRTSurface.h"
+#import "VRTQuad.h"
 
 const int kDefaultSpawnRatePerSec = 10;
 const int kDefaultSpawnRatePerMeter = 0;

@@ -35,7 +35,7 @@ import com.viromedia.bridge.component.VRTComponent;
 import com.viromedia.bridge.component.VRTLight;
 import com.viromedia.bridge.component.VRTManagedAnimation;
 import com.viromedia.bridge.component.node.control.VRTImage;
-import com.viromedia.bridge.component.node.control.VRTSurface;
+import com.viromedia.bridge.component.node.control.VRTQuad;
 import com.viromedia.bridge.component.node.control.VRTText;
 import com.viromedia.bridge.component.node.control.VRTVideoSurface;
 import com.viromedia.bridge.module.AnimationManager;
@@ -410,8 +410,8 @@ public class VRTNode extends VRTComponent {
             videoSurface.setWidth(width3d);
             videoSurface.setHeight(height3d);
             videoSurface.onPropsSet();
-        } else if (this instanceof VRTSurface) {
-            VRTSurface surface = (VRTSurface) this;
+        } else if (this instanceof VRTQuad) {
+            VRTQuad surface = (VRTQuad) this;
             surface.setWidth(width3d);
             surface.setHeight(height3d);
             surface.updateSurface();

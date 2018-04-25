@@ -265,7 +265,7 @@ var ViroSurface = createReactClass({
 });
 
 var VRTSurface = requireNativeComponent(
-  'VRTSurface', ViroSurface, {
+  'VRTQuad', ViroSurface, {
     nativeOnly: {
             canHover: true,
             canClick: true,

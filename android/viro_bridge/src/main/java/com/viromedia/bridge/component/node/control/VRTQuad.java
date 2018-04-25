@@ -6,13 +6,13 @@ package com.viromedia.bridge.component.node.control;
 
 import com.facebook.react.bridge.ReactContext;
 import com.viro.core.Material;
-import com.viro.core.Surface;
+import com.viro.core.Quad;
 
 import java.util.Arrays;
 import java.util.List;
 
-public class VRTSurface extends VRTControl {
-    private Surface mNativeSurface;
+public class VRTQuad extends VRTControl {
+    private Quad mNativeQuad;
     private float mWidth = 1;
     private float mHeight = 1;
     private float mU0 = 0;
@@ -22,7 +22,7 @@ public class VRTSurface extends VRTControl {
     private boolean mGeometryNeedsUpdate = false;
     private boolean mARShadowReceiver = false;
 
-    public VRTSurface(ReactContext reactContext) {
+    public VRTQuad(ReactContext reactContext) {
         super(reactContext);
     }
 
@@ -55,15 +55,15 @@ public class VRTSurface extends VRTControl {
     }
 
     public void updateSurface() {
-        if (mNativeSurface == null) {
-            mNativeSurface = new Surface(mWidth, mHeight, mU0, mV0, mU1, mV1);
+        if (mNativeQuad == null) {
+            mNativeQuad = new Quad(mWidth, mHeight, mU0, mV0, mU1, mV1);
         }
         else if (mGeometryNeedsUpdate) {
             // make sure we release the old surface before we let it go.
-            mNativeSurface.dispose();
-            mNativeSurface = new Surface(mWidth, mHeight, mU0, mV0, mU1, mV1);
+            mNativeQuad.dispose();
+            mNativeQuad = new Quad(mWidth, mHeight, mU0, mV0, mU1, mV1);
         }
-        setGeometry(mNativeSurface);
+        setGeometry(mNativeQuad);
         applyMaterials();
     }
 
@@ -82,19 +82,19 @@ public class VRTSurface extends VRTControl {
          If no material was assigned to this surface, then set a default material with the correct
          shadow mode.
          */
-        else if (mNativeSurface.getMaterials() == null) {
+        else if (mNativeQuad.getMaterials() == null) {
             Material material = new Material();
             material.setShadowMode(mARShadowReceiver ? Material.ShadowMode.TRANSPARENT : Material.ShadowMode.NORMAL);
-            mNativeSurface.setMaterials(Arrays.asList(material));
+            mNativeQuad.setMaterials(Arrays.asList(material));
         }
     }
 
     @Override
     public void onTearDown() {
         super.onTearDown();
-        if (mNativeSurface != null) {
-            mNativeSurface.dispose();
-            mNativeSurface = null;
+        if (mNativeQuad != null) {
+            mNativeQuad.dispose();
+            mNativeQuad = null;
         }
     }
 }

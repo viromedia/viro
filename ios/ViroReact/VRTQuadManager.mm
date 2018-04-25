@@ -6,10 +6,10 @@
 //  Copyright © 2017 Viro Media. All rights reserved.
 //
 
-#import "VRTSurfaceManager.h"
-#import "VRTSurface.h"
+#import "VRTQuadManager.h"
+#import "VRTQuad.h"
 
-@implementation VRTSurfaceManager
+@implementation VRTQuadManager
 
 RCT_EXPORT_MODULE()
 
@@ -54,7 +54,7 @@ RCT_EXPORT_VIEW_PROPERTY(dragType, NSString)
 
 - (VRTView *)view
 {
-    return [[VRTSurface alloc] initWithBridge:self.bridge];
+    return [[VRTQuad alloc] initWithBridge:self.bridge];
 }
 
 

@@ -1,5 +1,5 @@
 //
-//  VRTSurface.h
+//  VRTQuad.h
 //  ViroReact
 //
 //  Created by Andy Chu on 1/11/17.
@@ -8,7 +8,7 @@
 
 #import "VRTControl.h"
 
-@interface VRTSurface : VRTControl
+@interface VRTQuad : VRTControl
 
 @property (nonatomic, assign) float width;
 @property (nonatomic, assign) float height;
