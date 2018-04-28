@@ -1,10 +1,5 @@
 pipeline {
-  agent {
-    node {
-      label 'react-viro'
-    }
-
-  }
+  agent any
   stages {
     stage('Code Checkout') {
       steps {
@@ -12,5 +7,10 @@ pipeline {
         sh 'https://github.com/viromedia/react-viro.git'
       }
     }
+  }
+  environment {
+    LC_ALL = 'en_US.UTF-8'
+    LANG = 'en_US.UTF-8'
+    ANDROID_HOME = '/Users/Shared/Jenkins/Library/Android/sdk'
   }
 }
