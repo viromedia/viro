@@ -1,10 +1,10 @@
 pipeline {
   agent any
   stages {
-    stage('Code Checkout') {
+    stage('') {
       steps {
-        sh 'https://github.com/viromedia/ViroRenderer.git'
-        sh 'https://github.com/viromedia/react-viro.git'
+        sh '''cd Examples/android
+./gradlew assembleGvrRelease'''
       }
     }
   }
