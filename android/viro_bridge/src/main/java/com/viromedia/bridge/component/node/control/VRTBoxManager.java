@@ -59,9 +59,4 @@ public class VRTBoxManager extends VRTNodeManager<VRTBox> {
     @ReactProp(name = "shadowCastingBitMask", defaultInt = 1)
     public void setShadowCastingBitMask(VRTBox box, int bitMask) {box.setShadowCastingBitMask(bitMask); }
 
-    public Map getExportedCustomDirectEventTypeConstants() {
-        return MapBuilder.of(
-                ViroEvents.ON_ANIMATION_START, MapBuilder.of("registrationName", ViroEvents.ON_ANIMATION_START),
-                ViroEvents.ON_ANIMATION_FINISH, MapBuilder.of("registrationName", ViroEvents.ON_ANIMATION_FINISH));
-    }
 }

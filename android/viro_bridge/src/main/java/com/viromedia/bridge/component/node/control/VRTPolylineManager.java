@@ -39,9 +39,4 @@ public class VRTPolylineManager extends VRTNodeManager<VRTPolyline> {
         polyline.setThickness(thickness);
     }
 
-    public Map getExportedCustomDirectEventTypeConstants() {
-        return MapBuilder.of(
-                ViroEvents.ON_ANIMATION_START, MapBuilder.of("registrationName", ViroEvents.ON_ANIMATION_START),
-                ViroEvents.ON_ANIMATION_FINISH, MapBuilder.of("registrationName", ViroEvents.ON_ANIMATION_FINISH));
-    }
 }

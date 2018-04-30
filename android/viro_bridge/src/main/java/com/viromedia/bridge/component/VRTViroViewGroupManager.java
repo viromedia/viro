@@ -8,9 +8,12 @@ import android.view.ViewGroup;
 
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReadableArray;
+import com.facebook.react.common.MapBuilder;
 import com.facebook.react.uimanager.LayoutShadowNode;
 import com.facebook.react.uimanager.ViewGroupManager;
 import com.facebook.react.uimanager.annotations.ReactProp;
+
+import java.util.Map;
 
 import javax.annotation.Nullable;
 
@@ -72,5 +75,11 @@ public abstract class VRTViroViewGroupManager<T extends ViewGroup>
         if (view instanceof VRTComponent) {
             ((VRTComponent) view).onPropsSet();
         }
+    }
+
+    @Override
+    public Map getExportedCustomDirectEventTypeConstants() {
+        Map events = MapBuilder.builder().build();
+        return events;
     }
 }

@@ -67,7 +67,11 @@ public class VRT3DSceneNavigatorManager extends VRTViroViewGroupManager<VRT3DSce
 
     @Override
     public Map getExportedCustomDirectEventTypeConstants() {
-        return MapBuilder.of(
-                ViroEvents.ON_EXIT_VIRO, MapBuilder.of("registrationName", ViroEvents.ON_EXIT_VIRO));
+
+        Map events = super.getExportedCustomDirectEventTypeConstants();
+
+        events.put(ViroEvents.ON_EXIT_VIRO, MapBuilder.of("registrationName", ViroEvents.ON_EXIT_VIRO));
+
+        return events;
     }
 }

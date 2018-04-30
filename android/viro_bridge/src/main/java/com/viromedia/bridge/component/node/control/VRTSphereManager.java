@@ -64,9 +64,4 @@ public class VRTSphereManager extends VRTNodeManager<VRTSphere> {
     @ReactProp(name = "shadowCastingBitMask", defaultInt = 1)
     public void setShadowCastingBitMask(VRTSphere sphere, int bitMask) {sphere.setShadowCastingBitMask(bitMask); }
 
-    public Map getExportedCustomDirectEventTypeConstants() {
-        return MapBuilder.of(
-                ViroEvents.ON_ANIMATION_START, MapBuilder.of("registrationName", ViroEvents.ON_ANIMATION_START),
-                ViroEvents.ON_ANIMATION_FINISH, MapBuilder.of("registrationName", ViroEvents.ON_ANIMATION_FINISH));
-    }
 }

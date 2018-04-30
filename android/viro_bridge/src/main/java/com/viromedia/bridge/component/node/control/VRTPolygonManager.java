@@ -84,9 +84,4 @@ public class VRTPolygonManager extends VRTNodeManager<VRTPolygon> {
     @ReactProp(name = "arShadowReceiver", defaultBoolean = false)
     public void setARShadowReceiver(VRTPolygon view, boolean arShadowReceiver) { view.setARShadowReceiver(arShadowReceiver); }
 
-    public Map getExportedCustomDirectEventTypeConstants() {
-        return MapBuilder.of(
-                ViroEvents.ON_ANIMATION_START, MapBuilder.of("registrationName", ViroEvents.ON_ANIMATION_START),
-                ViroEvents.ON_ANIMATION_FINISH, MapBuilder.of("registrationName", ViroEvents.ON_ANIMATION_FINISH));
-    }
 }

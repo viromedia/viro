@@ -49,16 +49,18 @@ public class VRTARPlaneManager extends VRTNodeManager<VRTARPlane> {
     }
 
     @ReactProp(name="pauseUpdates", defaultBoolean = false)
-    public void setPauseUdpates(VRTARPlane arPlane, boolean pauseUpdates) {
+    public void setPauseUpdates(VRTARPlane arPlane, boolean pauseUpdates) {
         arPlane.setPauseUpdates(pauseUpdates);
     }
 
     @Override
     public Map getExportedCustomDirectEventTypeConstants() {
-        Map map = super.getExportedCustomDirectEventTypeConstants();
-        map.put(ViroEvents.ON_ANCHOR_FOUND, MapBuilder.of("registrationName", ViroEvents.ON_ANCHOR_FOUND));
-        map.put(ViroEvents.ON_ANCHOR_UPDATED, MapBuilder.of("registrationName", ViroEvents.ON_ANCHOR_UPDATED));
-        map.put(ViroEvents.ON_ANCHOR_REMOVED, MapBuilder.of("registrationName", ViroEvents.ON_ANCHOR_REMOVED));
-        return map;
+        Map events = super.getExportedCustomDirectEventTypeConstants();
+
+        events.put(ViroEvents.ON_ANCHOR_FOUND, MapBuilder.of("registrationName", ViroEvents.ON_ANCHOR_FOUND));
+        events.put(ViroEvents.ON_ANCHOR_UPDATED, MapBuilder.of("registrationName", ViroEvents.ON_ANCHOR_UPDATED));
+        events.put(ViroEvents.ON_ANCHOR_REMOVED, MapBuilder.of("registrationName", ViroEvents.ON_ANCHOR_REMOVED));
+
+        return events;
     }
 }

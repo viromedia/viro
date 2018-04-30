@@ -57,8 +57,7 @@ public class VRTMaterialVideoManager extends VRTViroViewGroupManager<VRTMaterial
 
 
     @Override
-    public @Nullable
-    Map getExportedCustomDirectEventTypeConstants() {
+    public Map getExportedCustomDirectEventTypeConstants() {
         return MapBuilder.of(
                 ViroEvents.ON_BUFFER_START, MapBuilder.of("registrationName", ViroEvents.ON_BUFFER_START),
                 ViroEvents.ON_BUFFER_END, MapBuilder.of("registrationName", ViroEvents.ON_BUFFER_END),

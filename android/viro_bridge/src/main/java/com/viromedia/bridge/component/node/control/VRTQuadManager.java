@@ -66,9 +66,4 @@ public class VRTQuadManager extends VRTNodeManager<VRTQuad> {
     @ReactProp(name = "arShadowReceiver", defaultBoolean = false)
     public void setARShadowReceiver(VRTQuad view, boolean arShadowReceiver) { view.setARShadowReceiver(arShadowReceiver); }
 
-    public Map getExportedCustomDirectEventTypeConstants() {
-        return MapBuilder.of(
-                ViroEvents.ON_ANIMATION_START, MapBuilder.of("registrationName", ViroEvents.ON_ANIMATION_START),
-                ViroEvents.ON_ANIMATION_FINISH, MapBuilder.of("registrationName", ViroEvents.ON_ANIMATION_FINISH));
-    }
 }
