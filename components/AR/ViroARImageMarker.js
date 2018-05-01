@@ -14,6 +14,7 @@
 import { requireNativeComponent, View, StyleSheet, findNodeHandle, Platform } from 'react-native';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { checkMisnamedProps } from '../Utilities/ViroProps';
 
 var createReactClass = require('create-react-class');
 
@@ -135,6 +136,10 @@ var ViroARImageMarker = createReactClass({
   },
 
   render: function() {
+
+    // Uncomment this line to check for misnamed props
+    //checkMisnamedProps("ViroARImageMarker", this.props);
+
     let timeToFuse = undefined;
     if (this.props.onFuse != undefined && typeof this.props.onFuse === 'object'){
         timeToFuse = this.props.onFuse.timeToFuse;

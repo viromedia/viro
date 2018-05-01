@@ -16,6 +16,7 @@ import resolveAssetSource from "react-native/Libraries/Image/resolveAssetSource"
 import React from 'react';
 
 import PropTypes from 'prop-types';
+import { checkMisnamedProps } from './Utilities/ViroProps';
 var NativeModules = require('react-native').NativeModules;
 var createReactClass = require('create-react-class');
 
@@ -59,6 +60,7 @@ var ViroSpatialSound = createReactClass({
   },
 
   render: function() {
+    checkMisnamedProps("ViroSpatialSound", this.props);
 
     var soundSrc = this.props.source;
     if (typeof soundSrc === 'number') {

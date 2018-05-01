@@ -15,6 +15,7 @@ import { requireNativeComponent, View, StyleSheet, Platform } from 'react-native
 import React from 'react';
 import PropTypes from 'prop-types';
 var createReactClass = require('create-react-class');
+import { checkMisnamedProps } from './Utilities/ViroProps';
 
 /**
  * Used to render a ViroAnimatedComponent
@@ -43,6 +44,11 @@ var ViroAnimatedComponent = createReactClass({
   },
 
   render: function() {
+    console.warn("<ViroAnimatedComponent> is deprecated, please use each component's 'animation' property");
+
+    // Uncomment this line to check for misnamed props
+    //checkMisnamedProps("ViroAnimatedComponent", this.props);
+
     let nativeProps = Object.assign({}, this.props);
     nativeProps.onAnimationFinishViro = this._onFinish;
     nativeProps.onAnimationStartViro = this._onStart;

@@ -14,6 +14,7 @@ import { requireNativeComponent, View, StyleSheet } from 'react-native';
 import React, { Component } from 'react';
 import resolveAssetSource from "react-native/Libraries/Image/resolveAssetSource";
 import PropTypes from 'prop-types';
+import { checkMisnamedProps } from './Utilities/ViroProps';
 
 var ViroPropTypes = require('./Styles/ViroPropTypes');
 var createReactClass = require('create-react-class');
@@ -199,15 +200,7 @@ var BTN_TYPE_CLICKED = 'clicked';
   },
 
   render: function() {
-    if (this.props.material) {
-      console.error('The <ViroButton> component takes a `materials` property rather than `material`.');
-    }
-    if (this.props.gazeSource) {
-      console.warn("[Viro] ViroButton.gazeSource has been DEPRECATED. Please use hoverSource instead.");
-    }
-    if (this.props.tapSource) {
-      console.warn("[Viro] ViroButton.tapSource has been DEPRECATED. Please use clickSource instead.");
-    }
+    checkMisnamedProps("ViroButton", this.props);
 
     // We default to showing the button if it's undefined
     if (this.props.visible === undefined) {

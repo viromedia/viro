@@ -10,6 +10,7 @@ import { requireNativeComponent, findNodeHandle, View } from 'react-native';
 import resolveAssetSource from "react-native/Libraries/Image/resolveAssetSource";
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { checkMisnamedProps } from '../Utilities/ViroProps';
 
 var NativeModules = require('react-native').NativeModules;
 var createReactClass = require('create-react-class');
@@ -271,6 +272,10 @@ var ViroARScene = createReactClass({
   },
 
   render: function() {
+
+    // Uncomment this line to check for misnamed props
+    //checkMisnamedProps("ViroARScene", this.props);
+
     // Since anchorDetectionTypes can be either a string or an array, convert the string to a 1-element array.
     let anchorDetectionTypes = typeof this.props.anchorDetectionTypes === 'string' ?
         new Array(this.props.anchorDetectionTypes) : this.props.anchorDetectionTypes;

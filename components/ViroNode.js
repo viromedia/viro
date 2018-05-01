@@ -16,6 +16,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 var NativeModules = require('react-native').NativeModules;
 var createReactClass = require('create-react-class');
+import { checkMisnamedProps } from './Utilities/ViroProps';
 
 /**
  * Absolute container for Viro Controls
@@ -192,6 +193,9 @@ var ViroNode = createReactClass({
   },
 
   render: function() {
+
+    checkMisnamedProps("ViroNode", this.props);
+
     // Since transformBehaviors can be either a string or an array, convert the string to a 1-element array.
     let transformBehaviors = typeof this.props.transformBehaviors === 'string' ?
         new Array(this.props.transformBehaviors) : this.props.transformBehaviors;

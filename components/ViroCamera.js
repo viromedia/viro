@@ -15,6 +15,7 @@ import { requireNativeComponent, View, StyleSheet } from 'react-native';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 var createReactClass = require('create-react-class');
+import { checkMisnamedProps } from './Utilities/ViroProps';
 
 var ViroCamera = createReactClass({
   propTypes: {
@@ -59,6 +60,9 @@ var ViroCamera = createReactClass({
   },
 
   render: function() {
+    // Uncomment this to check props
+    //checkMisnamedProps("ViroCamera", this.props);
+
     return (
       <VRTCamera
         ref={ component => {this._component = component; }}

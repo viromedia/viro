@@ -18,6 +18,7 @@ var NativeModules = require('react-native').NativeModules;
 var createReactClass = require('create-react-class');
 import PropTypes from 'prop-types';
 var ColorPropType = require('react-native').ColorPropType;
+import { checkMisnamedProps } from './Utilities/ViroProps';
 
 /**
  * Used to render a ViroOmniLight
@@ -39,6 +40,9 @@ var ViroOmniLight = createReactClass({
   },
 
   render: function() {
+    // Uncomment this line to check for misnamed props
+    //checkMisnamedProps("ViroOmniLight", this.props);
+
       let nativeProps = Object.assign({}, this.props);
       nativeProps.style=[this.props.style];
       nativeProps.color=this.props.color;

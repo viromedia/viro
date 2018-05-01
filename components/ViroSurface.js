@@ -16,6 +16,7 @@ import React from 'react';
 var NativeModules = require('react-native').NativeModules;
 var createReactClass = require('create-react-class');
 import PropTypes from 'prop-types';
+import { checkMisnamedProps } from './Utilities/ViroProps';
 var StyleSheet = require('react-native/Libraries/StyleSheet/StyleSheet');
 
 var ViroPropTypes = require('./Styles/ViroPropTypes');
@@ -209,9 +210,7 @@ var ViroSurface = createReactClass({
   render: function() {
     console.warn("<ViroSurface> has been DEPRECATED. Please use <ViroQuad> instead.");
 
-    if (this.props.material) {
-      console.error('The <ViroSurface> component takes a `materials` property rather than `material`.');
-    }
+    checkMisnamedProps("ViroSurface", this.props);
 
     // Since materials and transformBehaviors can be either a string or an array, convert the string to a 1-element array.
     let materials = typeof this.props.materials === 'string' ? new Array(this.props.materials) : this.props.materials;

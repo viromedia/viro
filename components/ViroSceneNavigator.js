@@ -14,6 +14,7 @@
 var NativeModules = require('react-native').NativeModules;
 var createReactClass = require('create-react-class');
 import PropTypes from 'prop-types';
+import { checkMisnamedProps } from './Utilities/ViroProps';
 var ViroSceneNavigatorModule = require('react-native').NativeModules.VRTSceneNavigatorModule;
 import { requireNativeComponent, View, StyleSheet, findNodeHandle } from 'react-native';
 import React, { Component } from 'react';
@@ -404,6 +405,9 @@ var ViroSceneNavigator = createReactClass({
   },
 
   render: function() {
+    // Uncomment this line to check for misnamed props
+    //checkMisnamedProps("ViroSceneNavigator", this.props);
+
     console.warn("<ViroSceneNavigator> has been DEPRECATED. Please use <ViroVRSceneNavigator> instead.");
     var items = this._renderSceneStackItems();
 

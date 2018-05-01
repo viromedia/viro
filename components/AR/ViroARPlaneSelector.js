@@ -14,6 +14,7 @@
 import { requireNativeComponent, View, StyleSheet, findNodeHandle } from 'react-native';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { checkMisnamedProps } from '../Utilities/ViroProps';
 
 var createReactClass = require('create-react-class');
 
@@ -74,6 +75,9 @@ var ViroARPlaneSelector = createReactClass({
   },
 
   render: function() {
+    // Uncomment this line to check for misnamed props
+    //checkMisnamedProps("ViroARPlaneSelector", this.props);
+
     return (
       <ViroNode>
         {this._getARPlanes()}

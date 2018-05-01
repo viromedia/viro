@@ -13,6 +13,7 @@
 
 import { requireNativeComponent, View, findNodeHandle } from 'react-native';
 import React from 'react';
+import { checkMisnamedProps } from './Utilities/ViroProps';
 var NativeModules = require('react-native').NativeModules;
 var createReactClass = require('create-react-class');
 import PropTypes from 'prop-types';
@@ -207,9 +208,7 @@ var ViroPolygon = createReactClass({
 
   render: function() {
 
-    if (this.props.material) {
-      console.error('The <ViroPolygon> component takes a `materials` property rather than `material`.');
-    }
+    checkMisnamedProps("ViroPolygon", this.props);
 
     // Since materials and transformBehaviors can be either a string or an array, convert the string to a 1-element array.
     let materials = typeof this.props.materials === 'string' ? new Array(this.props.materials) : this.props.materials;

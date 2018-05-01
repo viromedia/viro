@@ -17,6 +17,7 @@ var NativeModules = require('react-native').NativeModules;
 var createReactClass = require('create-react-class');
 import PropTypes from 'prop-types';
 
+import { checkMisnamedProps } from './Utilities/ViroProps';
 import resolveAssetSource from "react-native/Libraries/Image/resolveAssetSource";
 
 /**
@@ -249,6 +250,9 @@ var Viro3DObject = createReactClass({
   },
 
   render: function() {
+
+    checkMisnamedProps("Viro3DObject", this.props);
+
     var modelsrc = resolveAssetSource(this.props.source);
     var resources = null;
     if (this.props.resources != undefined) {
@@ -256,18 +260,10 @@ var Viro3DObject = createReactClass({
         return resolveAssetSource(resource)
       });
     }
-    let onGaze = this.props.onGaze ? this._onGaze : undefined;
     // Since materials and transformBehaviors can be either a string or an array, convert the string to a 1-element array.
     let materials = typeof this.props.materials === 'string' ? new Array(this.props.materials) : this.props.materials;
     let transformBehaviors = typeof this.props.transformBehaviors === 'string' ?
         new Array(this.props.transformBehaviors) : this.props.transformBehaviors;
-    if (this.props.src) {
-      console.error('The <Viro3DObject> component takes a `source` property rather than `src`.');
-    }
-
-    if (this.props.material) {
-      console.error('The <Viro3DObject> component takes a `materials` property rather than `material`.');
-    }
 
     let timeToFuse = undefined;
     if (this.props.onFuse != undefined && typeof this.props.onFuse === 'object'){

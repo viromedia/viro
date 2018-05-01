@@ -14,6 +14,7 @@
 import { requireNativeComponent, View, findNodeHandle } from 'react-native';
 import React from 'react';
 import resolveAssetSource from "react-native/Libraries/Image/resolveAssetSource";
+import { checkMisnamedProps } from './Utilities/ViroProps';
 var NativeModules = require('react-native').NativeModules;
 var createReactClass = require('create-react-class');
 import PropTypes from 'prop-types';
@@ -195,6 +196,9 @@ var ViroParticleEmitter = createReactClass({
   },
 
   render: function() {
+
+    checkMisnamedProps("ViroParticleEmitter", this.props);
+
     let image = {...this.props.image}
     if (image.source != undefined) {
       image.source = resolveAssetSource(image.source);

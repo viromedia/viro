@@ -15,6 +15,7 @@ import { requireNativeComponent, View, StyleSheet } from 'react-native';
 import React, { Component } from 'react';
 import resolveAssetSource from "react-native/Libraries/Image/resolveAssetSource";
 import PropTypes from 'prop-types';
+import { checkMisnamedProps } from './Utilities/ViroProps';
 
 var createReactClass = require('create-react-class');
 
@@ -84,18 +85,10 @@ var Viro360Image = createReactClass({
   },
 
   render: function() {
+
+    checkMisnamedProps("Viro360Image", this.props)
+
     var imgsrc = resolveAssetSource(this.props.source);
-    if (this.props.src) {
-      console.error('The <Viro360Image> component takes a `source` property rather than `src`.');
-    }
-
-    if (this.props.onGaze) {
-      console.error('The <Viro360Image> component does not take on an `onGaze` property. Pass the `onGaze` prop to <ViroScene> instead.');
-    }
-
-    if (this.props.onTap) {
-      console.error('The <Viro360Image> component does not take on an `onTap` property. Pass the `onTap` prop to <ViroScene> instead.');
-    }
 
     // Create native props object.
     let nativeProps = Object.assign({}, this.props);

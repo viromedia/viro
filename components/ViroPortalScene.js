@@ -14,6 +14,7 @@
 import { requireNativeComponent, View, StyleSheet, findNodeHandle } from 'react-native';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { checkMisnamedProps } from './Utilities/ViroProps';
 var NativeModules = require('react-native').NativeModules;
 var createReactClass = require('create-react-class');
 
@@ -160,6 +161,8 @@ var ViroPortalScene = createReactClass({
   },
 
   render: function() {
+    checkMisnamedProps("ViroPortalScene", this.props);
+
     // Since transformBehaviors can be either a string or an array, convert the string to a 1-element array.
     let transformBehaviors = typeof this.props.transformBehaviors === 'string' ?
         new Array(this.props.transformBehaviors) : this.props.transformBehaviors;

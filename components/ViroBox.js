@@ -12,6 +12,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 var NativeModules = require('react-native').NativeModules;
 var createReactClass = require('create-react-class');
+import { checkMisnamedProps } from './Utilities/ViroProps';
 
 var ViroBox = createReactClass({
   propTypes: {
@@ -207,13 +208,13 @@ var ViroBox = createReactClass({
   },
 
   render: function() {
+
+    checkMisnamedProps("ViroBox", this.props);
+
     // Since materials and transformBehaviors can be either a string or an array, convert the string to a 1-element array.
     let materials = typeof this.props.materials === 'string' ? new Array(this.props.materials) : this.props.materials;
     let transformBehaviors = typeof this.props.transformBehaviors === 'string' ?
         new Array(this.props.transformBehaviors) : this.props.transformBehaviors;
-    if (this.props.material) {
-      console.error('The <ViroBox> component takes a `materials` property rather than `material`.');
-    }
 
     if(materials) {
       if(materials.length!=1 && materials.length!=6) {

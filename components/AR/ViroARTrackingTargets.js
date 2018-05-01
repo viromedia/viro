@@ -15,7 +15,6 @@ import resolveAssetSource from "react-native/Libraries/Image/resolveAssetSource"
 var ARTrackingTargetsModule = require('react-native').NativeModules.VRTARTrackingTargetsModule;
 import PropTypes from 'prop-types';
 
-
 // Currently only used for reference purposes (we manually validate)
 var ARTrackingTargetsPropTypes = {
   source: PropTypes.oneOfType([

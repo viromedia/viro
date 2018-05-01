@@ -18,10 +18,10 @@ import normalizeColor from "react-native/Libraries/StyleSheet/normalizeColor"
 var NativeModules = require('react-native').NativeModules;
 var createReactClass = require('create-react-class');
 
+import { checkMisnamedProps } from './Utilities/ViroProps';
 import PropTypes from 'prop-types';
 var CubeMapPropType = require('./Material/CubeMapPropType');
 var ColorPropType = require('react-native').ColorPropType;
-
 
 /**
  * Used to render a skybox as a scene background.
@@ -71,17 +71,8 @@ var ViroSkybox = createReactClass({
   },
 
   render: function() {
-    if (this.props.src) {
-      console.error('The <ViroSkybox> component takes a `source` property rather than `src`.');
-    }
 
-    if (this.props.onGaze) {
-      console.error('The <Viro360Photo> component does not take on an `onGaze` property. Pass the `onGaze` prop to <ViroScene> instead.');
-    }
-
-    if (this.props.onTap) {
-      console.error('The <Viro360Photo> component does not take on an `onTap` property. Pass the `onTap` prop to <ViroScene> instead.');
-    }
+    checkMisnamedProps("ViroSkyBox", this.props);
 
     // Create and set the native props.
     var skyboxDict = {};

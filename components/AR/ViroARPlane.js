@@ -14,6 +14,7 @@
 import { requireNativeComponent, View, StyleSheet, findNodeHandle } from 'react-native';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { checkMisnamedProps } from '../Utilities/ViroProps';
 
 var NativeModules = require('react-native').NativeModules;
 var createReactClass = require('create-react-class');
@@ -138,6 +139,8 @@ var ViroARPlane = createReactClass({
   },
 
   render: function() {
+    // Uncomment this line to check for misnamed props
+    //checkMisnamedProps("ViroARPlane", this.props);
 
     let timeToFuse = undefined;
     if (this.props.onFuse != undefined && typeof this.props.onFuse === 'object'){

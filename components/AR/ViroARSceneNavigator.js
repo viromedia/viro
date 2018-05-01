@@ -15,6 +15,7 @@
 import { requireNativeComponent, View, StyleSheet, findNodeHandle, Platform, Text } from 'react-native';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { checkMisnamedProps } from '../Utilities/ViroProps';
 
 var NativeModules = require('react-native').NativeModules;
 var createReactClass = require('create-react-class');
@@ -447,6 +448,10 @@ var ViroARSceneNavigator = createReactClass({
   },
 
   render: function() {
+
+    // Uncomment this line to check for misnamed props
+    //checkMisnamedProps("ViroARSceneNavigator", this.props);
+
     var items = this._renderSceneStackItems();
 
     // update the arSceneNavigator with the latest given props on every render

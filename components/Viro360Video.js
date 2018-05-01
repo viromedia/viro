@@ -21,6 +21,7 @@ import {
 import React, { Component } from 'react';
 import resolveAssetSource from "react-native/Libraries/Image/resolveAssetSource";
 
+import { checkMisnamedProps } from './Utilities/ViroProps';
 import PropTypes from 'prop-types';
 var NativeModules = require('react-native').NativeModules;
 var createReactClass = require('create-react-class');
@@ -105,9 +106,8 @@ var Viro360Video = createReactClass({
   },
 
   render: function() {
-    if (this.props.src) {
-      console.error('The <Viro360Video> component takes a `source` property rather than `src`.');
-    }
+
+    checkMisnamedProps("Viro360Video", this.props);
 
     var vidsrc = resolveAssetSource(this.props.source);
 

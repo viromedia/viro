@@ -14,6 +14,8 @@
 import { requireNativeComponent, View, Platform, findNodeHandle } from 'react-native';
 import resolveAssetSource from "react-native/Libraries/Image/resolveAssetSource";
 import React from 'react';
+import { checkMisnamedProps } from './Utilities/ViroProps';
+
 var NativeModules = require('react-native').NativeModules;
 var createReactClass = require('create-react-class');
 import PropTypes from 'prop-types';
@@ -284,16 +286,11 @@ var ViroImage = createReactClass({
   },
 
   render: function() {
+    checkMisnamedProps("ViroImage", this.props);
+
     var defaultPlaceholder = require('./Resources/viro_blank.png');
     var imgsrc = resolveAssetSource(this.props.source);
     var placeholderSrc;
-    if (this.props.src) {
-      console.error('The <ViroImage> component takes a `source` property rather than `src`.');
-    }
-
-    if (this.props.material) {
-      console.error('The <ViroImage> component takes a `materials` property rather than `material`.');
-    }
 
     if (this.props.placeholderSource) {
       placeholderSrc = resolveAssetSource(this.props.placeholderSource);

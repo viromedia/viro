@@ -17,6 +17,7 @@ import PropTypes from 'prop-types';
 var ViroSceneNavigatorModule = require('react-native').NativeModules.VRTSceneNavigatorModule;
 import { requireNativeComponent, View, StyleSheet, findNodeHandle } from 'react-native';
 import React, { Component } from 'react';
+import { checkMisnamedProps } from './Utilities/ViroProps';
 
 type Scene = {
   scene: Function;
@@ -403,6 +404,9 @@ var ViroVRSceneNavigator = createReactClass({
 
   render: function() {
     var items = this._renderSceneStackItems();
+
+    // Uncomment this line to check for misnamed props
+    //checkMisnamedProps("ViroVRSceneNavigator", this.props)
 
     // update the sceneNavigator with the latest given props on every render
     this.sceneNavigator.viroAppProps = this.props.viroAppProps;

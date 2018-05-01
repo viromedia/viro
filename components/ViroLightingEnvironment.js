@@ -16,6 +16,7 @@ import React, { Component } from 'react';
 import resolveAssetSource from "react-native/Libraries/Image/resolveAssetSource";
 import PropTypes from 'prop-types';
 var createReactClass = require('create-react-class');
+import { checkMisnamedProps } from './Utilities/ViroProps';
 
 var ViroLightingEnvironment = createReactClass({
   propTypes: {
@@ -77,10 +78,9 @@ var ViroLightingEnvironment = createReactClass({
   },
 
   render: function() {
+    checkMisnamedProps("ViroLightingEnvironment", this.props);
+
     var imgsrc = resolveAssetSource(this.props.source);
-    if (this.props.src) {
-      console.error('The <ViroLightingEnvironment> component takes a `source` property rather than `src`.');
-    }
 
     // Create native props object.
     let nativeProps = Object.assign({}, this.props);

@@ -16,6 +16,7 @@ import React, { Component } from 'react';
 var NativeModules = require('react-native').NativeModules;
 var createReactClass = require('create-react-class');
 import PropTypes from 'prop-types';
+import { checkMisnamedProps } from './Utilities/ViroProps';
 var StyleSheet = require('react-native/Libraries/StyleSheet/StyleSheet');
 var ColorPropType = require('react-native').ColorPropType;
 var StyleSheetPropType = require('react-native/Libraries/StyleSheet/StyleSheetPropType');
@@ -204,7 +205,8 @@ var ViroText = createReactClass({
   },
 
   render: function() {
-    let onGaze = this.props.onGaze ? this._onGaze : undefined;
+    checkMisnamedProps("ViroText", this.props);
+
     // Since materials and transformBehaviors can be either a string or an array, convert the string to a 1-element array.
     let transformBehaviors = typeof this.props.transformBehaviors === 'string' ?
         new Array(this.props.transformBehaviors) : this.props.transformBehaviors;

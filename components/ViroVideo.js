@@ -18,6 +18,7 @@ import React, { Component } from 'react';
 var NativeModules = require('react-native').NativeModules;
 var createReactClass = require('create-react-class');
 import PropTypes from 'prop-types';
+import { checkMisnamedProps } from './Utilities/ViroProps';
 
 var ViroVideo = createReactClass({
   propTypes: {
@@ -260,13 +261,7 @@ var ViroVideo = createReactClass({
   },
 
   render: function() {
-    if (this.props.src) {
-      console.error('The <ViroVideo> component takes a `source` property rather than `src`.');
-    }
-
-    if (this.props.material) {
-      console.error('The <ViroVideo> component takes a `materials` property rather than `material`.');
-    }
+    checkMisnamedProps("ViroVideo", this.props);
 
     var source = resolveAssetSource(this.props.source);
     // Since materials and transformBehaviors can be either a string or an array, convert the string to a 1-element array.

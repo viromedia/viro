@@ -10,6 +10,7 @@
 import { requireNativeComponent, View, findNodeHandle } from 'react-native';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { checkMisnamedProps } from './Utilities/ViroProps';
 var NativeModules = require('react-native').NativeModules;
 var createReactClass = require('create-react-class');
 
@@ -203,14 +204,12 @@ var ViroPolyline = createReactClass({
   },
 
   render: function() {
+    checkMisnamedProps("ViroPolyline", this.props);
+
     // Since materials and transformBehaviors can be either a string or an array, convert the string to a 1-element array.
     let materials = typeof this.props.materials === 'string' ? new Array(this.props.materials) : this.props.materials;
     let transformBehaviors = typeof this.props.transformBehaviors === 'string' ?
         new Array(this.props.transformBehaviors) : this.props.transformBehaviors;
-
-    if (this.props.material) {
-      console.error('The <ViroPolyline> component takes a `materials` property rather than `material`.');
-    }
 
     let timeToFuse = undefined;
     if (this.props.onFuse != undefined && typeof this.props.onFuse === 'object'){

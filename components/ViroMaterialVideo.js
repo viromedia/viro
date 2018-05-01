@@ -18,6 +18,7 @@ import React, { Component } from 'react';
 var NativeModules = require('react-native').NativeModules;
 var createReactClass = require('create-react-class');
 import PropTypes from 'prop-types';
+import { checkMisnamedProps } from './Utilities/ViroProps';
 
 var ViroMaterialVideo = createReactClass({
   propTypes: {
@@ -86,11 +87,7 @@ var ViroMaterialVideo = createReactClass({
   },
 
   render: function() {
-
-    if (this.props.materials) {
-      console.error('The <ViroMaterialVideo> component takes a `material` property rather than `material`.');
-    }
-
+    checkMisnamedProps("ViroMaterialVideo", this.props);
 
     // Since materials and transformBehaviors can be either a string or an array, convert the string to a 1-element array.
     //let materials = typeof this.props.materials === 'string' ? new Array(this.props.materials) : this.props.materials;

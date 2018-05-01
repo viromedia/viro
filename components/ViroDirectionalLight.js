@@ -18,6 +18,7 @@ var NativeModules = require('react-native').NativeModules;
 var createReactClass = require('create-react-class');
 import PropTypes from 'prop-types';
 var ColorPropType = require('react-native').ColorPropType;
+import { checkMisnamedProps } from './Utilities/ViroProps';
 
 /**
  * Used to render a ViroDirectionalLight
@@ -47,14 +48,17 @@ var ViroDirectionalLight = createReactClass({
   },
 
   render: function() {
-      let nativeProps = Object.assign({}, this.props);
-      nativeProps.style=[this.props.style];
-      nativeProps.color = this.props.color;
-      nativeProps.ref = component => {this._component = component; };
+    // Uncomment this line to check for misnamed props
+    //checkMisnamedProps("ViroDirectionalLight", this.props);
 
-      return (
-        <VRTDirectionalLight {...nativeProps} />
-      );
+    let nativeProps = Object.assign({}, this.props);
+    nativeProps.style=[this.props.style];
+    nativeProps.color = this.props.color;
+    nativeProps.ref = component => {this._component = component; };
+
+    return (
+      <VRTDirectionalLight {...nativeProps} />
+    );
   }
 });
 
