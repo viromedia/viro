@@ -22,6 +22,17 @@ platform :android do
     # ENV["SLACK_URL"] = "https://hooks.slack.com/services/..."
   end
 
+  lane :gradle_clean_bridge do
+    gradle(task: "clean")
+  end
+  
+  lane :release_react_bridge_jenkins do
+    sh("rm ../viro_renderer/viro_renderer-release.aar")
+    sh("cp /tmp/viro_react_lib/viro_renderer-release.aar ../viro_renderer/")
+    gradle(task: "viro_bridge:assemble")
+    sh("cp ../viro_bridge/build/outputs/aar/viro_bridge-release.aar ../react_viro/react_viro-release.aar")
+  end
+
   desc "Remove current renderer aar, Build renderer, build bridge library aar"
   lane :release_react_bridge do
     ensure_git_status_clean

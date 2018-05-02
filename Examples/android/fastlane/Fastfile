@@ -20,7 +20,6 @@ import "../../../../ViroRenderer/android/fastlane/Fastfile"
 platform :android do
   before_all do
     # ENV["SLACK_URL"] = "https://hooks.slack.com/services/..."
-    gradle(task: "clean")
   end
   desc "Build renderer"
   lane :renderer_aar do
@@ -34,6 +33,19 @@ platform :android do
                    date_format: "short",
                    merge_commit_filtering: "exclude_merges")
   end 
+  
+  lane :examples_gradle_clean do
+    gradle(task: "clean")
+    Dir.chdir("../") do
+      sh("rm -rf node_modules ; npm install")
+    end
+  end
+  lane :npm_pack do
+    Dir.chdir("../../../") do
+      sh("rm -rf react-viro-*.tgz")
+      sh("npm pack") 
+   end
+  end
 
   desc "Build GVR release tests"
   lane :gvr_release_test do
