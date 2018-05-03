@@ -15,8 +15,6 @@ fastlane_version "2.66.2"
 
 default_platform :android
 
-import "../../../../ViroRenderer/android/fastlane/Fastfile"
-
 platform :android do
   before_all do
     # ENV["SLACK_URL"] = "https://hooks.slack.com/services/..."
