@@ -33,7 +33,6 @@ platform :android do
   end 
   
   lane :examples_gradle_clean do
-    gradle(task: "clean")
     Dir.chdir("../") do
       sh("rm -rf node_modules ; npm install")
     end
