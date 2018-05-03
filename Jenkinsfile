@@ -7,6 +7,12 @@ pipeline {
 fastlane gradle_clean_bridge'''
       }
     }
+    stage('examples_clean') {
+      steps {
+        sh '''cd Examples/android
+fastlane examples_gradle_clean'''
+      }
+    }
     stage('viroreact_lib') {
       steps {
         sh '''cd android
@@ -16,7 +22,6 @@ fastlane release_react_bridge_jenkins'''
     stage('npm_pack') {
       steps {
         sh '''cd Examples/android
-fastlane examples_gradle_clean
 fastlane npm_pack'''
       }
     }
