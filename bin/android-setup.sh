@@ -31,7 +31,6 @@ vsed() {
   fi
 }
 
-
 echo 'Editing MainApplication.java'
 
 LINE_TO_ADD="          new ReactViroPackage(ReactViroPackage.ViroPlatform.valueOf(BuildConfig.VR_PLATFORM))"
@@ -154,7 +153,7 @@ SEARCH_PATTERN="buildTypes {"
 LINES_TO_PREPEND=("    productFlavors {"
 "        ar {"
 "            resValue 'string', 'app_name', '$VIRO_PROJECT_NAME-ar'"
-"            buildConfigField 'String', 'VR_PLATFORM', '\"GVR\"' //default to GVR"
+"            buildConfigField 'String', 'VR_PLATFORM', '\"GVR\"' \\/\\/default to GVR"
 "        }"
 "        gvr {"
 "            resValue 'string', 'app_name', '$VIRO_PROJECT_NAME-gvr'"
@@ -204,6 +203,13 @@ LINE_TO_APPEND_TO=$(grep "$SEARCH_PATTERN" "$TARGET_FILEPATH")
 LINE_TO_APPEND_TO=$(echo $LINE_TO_APPEND_TO | sed -e 's/[]\/$*.^|[]/\\&/g')
 vsed "s/$LINE_TO_APPEND_TO/&"$'\\\n'"$LINE_TO_ADD/" $TARGET_FILEPATH
 
+# add "uiMode" to android:configChanges
+#        android:configChanges="keyboard|keyboardHidden|orientation|screenSize|uiMode"
+LINE_TO_ADD='        android:configChanges="keyboard|keyboardHidden|orientation|screenSize|uiMode"'
+SEARCH_PATTERN="android:configChanges"
+LINE_TO_REPLACE=$(grep "$SEARCH_PATTERN" "$TARGET_FILEPATH")
+
+vsed "s/$LINE_TO_REPLACE/$LINE_TO_ADD/g" $TARGET_FILEPATH
 
 echo "Copying over OVR's additional manifest"
 
