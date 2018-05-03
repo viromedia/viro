@@ -43,8 +43,10 @@ var ViroCamera = createReactClass({
     this.context.cameraWillUnmount(this);
   },
 
-  componentWillReceiveProps(nextProps) {
-    this.context.cameraWillReceiveProps(this, nextProps);
+  componentDidUpdate(prevProps, prevState) {
+    if(prevProps.active != this.props.active) {
+      this.context.cameraDidUpdate(this, this.props.active);
+    }
   },
 
   setNativeProps: function(nativeProps) {
@@ -71,13 +73,13 @@ var ViroCamera = createReactClass({
         onAnimationFinishViro={this._onAnimationFinish}
       />
     );
-  }
+  },
 });
 
 ViroCamera.contextTypes = {
   cameraDidMount: PropTypes.func,
   cameraWillUnmount: PropTypes.func,
-  cameraWillReceiveProps: PropTypes.func,
+  cameraDidUpdate: PropTypes.func,
 };
 
 var VRTCamera = requireNativeComponent(

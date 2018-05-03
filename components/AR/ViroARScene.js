@@ -260,8 +260,8 @@ var ViroARScene = createReactClass({
           ViroCameraModule.removeSceneCamera(findNodeHandle(this), findNodeHandle(camera));
         }
       }.bind(this),
-      cameraWillReceiveProps: function(camera, nextProps) {
-        if (nextProps.active) {
+      cameraDidUpdate: function(camera, active) {
+        if (active) {
           ViroCameraModule.setSceneCamera(findNodeHandle(this), findNodeHandle(camera));
         }
         else {
@@ -346,7 +346,7 @@ var ViroARScene = createReactClass({
 ViroARScene.childContextTypes = {
   cameraDidMount: PropTypes.func,
   cameraWillUnmount: PropTypes.func,
-  cameraWillReceiveProps: PropTypes.func,
+  cameraDidUpdate: PropTypes.func,
 };
 
 var VRTARScene = requireNativeComponent(

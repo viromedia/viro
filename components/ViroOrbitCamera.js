@@ -44,8 +44,10 @@ var ViroOrbitCamera = createReactClass({
     this.context.cameraWillUnmount(this);
   },
 
-  componentWillReceiveProps(nextProps) {
-    this.context.cameraWillReceiveProps(this, nextProps);
+  componentDidUpdate(prevProps, prevState) {
+    if(prevProps.active != this.props.active) {
+      this.context.cameraDidUpdate(this, this.props.active);
+    }
   },
 
   setNativeProps: function(nativeProps) {
@@ -62,13 +64,13 @@ var ViroOrbitCamera = createReactClass({
         {...this.props}
       />
     );
-  }
+  },
 });
 
 ViroOrbitCamera.contextTypes = {
   cameraDidMount: PropTypes.func,
   cameraWillUnmount: PropTypes.func,
-  cameraWillReceiveProps: PropTypes.func,
+  cameraDidUpdate: PropTypes.func,
 };
 
 var VRTOrbitCamera = requireNativeComponent(

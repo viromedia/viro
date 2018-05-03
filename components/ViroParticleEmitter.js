@@ -169,18 +169,6 @@ var ViroParticleEmitter = createReactClass({
     });
   },
 
-  // Set the propsPositionState on the native control if the
-  // nextProps.position state differs from the nativePositionState that
-  // reflects this control's current vroNode position.
-  componentWillReceiveProps(nextProps){
-    if(nextProps.position != this.state.nativePositionState){
-      var newPosition = [nextProps.position[0], nextProps.position[1], nextProps.position[2], Math.random()];
-      this.setState({
-        propsPositionState:newPosition
-      });
-    }
-  },
-
   // Ignore all changes in native position state as it is only required to
   // keep track of the latest position prop set on this control.
   shouldComponentUpdate: function(nextProps, nextState) {
@@ -277,7 +265,22 @@ var ViroParticleEmitter = createReactClass({
     return (
       <VRTParticleEmitter {...nativeProps} />
     );
-  }
+  },
+
+  // Set the propsPositionState on the native control if the
+  // nextProps.position state differs from the nativePositionState that
+  // reflects this control's current vroNode position.
+  statics: {
+    getDerivedStateFromProps(nextProps, prevState) {
+      if (nextProps.position != prevState.nativePositionState) {
+        var newPosition = [nextProps.position[0], nextProps.position[1], nextProps.position[2], Math.random()];
+        return {
+          propsPositionState:newPosition
+        };
+      }
+      return {};
+    }
+  },
 });
 
 var VRTParticleEmitter = requireNativeComponent(
