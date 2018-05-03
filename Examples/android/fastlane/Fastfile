@@ -46,13 +46,11 @@ platform :android do
 
   desc "Build GVR release tests"
   lane :gvr_release_test do
-    renderer_aar
     gradle(task: "assembleGvrRelease")
   end
 
   desc "Build OVR release tests"
   lane :ovr_release_test do
-    renderer_aar
     gradle(task: "assembleOvrRelease")
   end
 
