@@ -25,6 +25,14 @@ fastlane release_react_bridge_jenkins'''
 fastlane npm_pack'''
       }
     }
+    stage('release_tests (gvr+ovr)') {
+      steps {
+        sh '''cd Examples/android/
+fastlane gvr_release_test
+fastlane ovr_release_test
+'''
+      }
+    }
   }
   environment {
     LC_ALL = 'en_US.UTF-8'
