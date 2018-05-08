@@ -49,7 +49,7 @@ RCT_EXPORT_VIEW_PROPERTY(shadowCastingBitMask, int)
 RCT_EXPORT_VIEW_PROPERTY(arShadowReceiver, BOOL)
 RCT_EXPORT_VIEW_PROPERTY(ignoreEventHandling, BOOL)
 RCT_EXPORT_VIEW_PROPERTY(dragType, NSString)
-
+RCT_EXPORT_VIEW_PROPERTY(dragPlane, NSDictionary)
 - (VRTView *)view
 {
     return [[VRTPolygon alloc] initWithBridge:self.bridge];

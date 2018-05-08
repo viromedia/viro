@@ -136,6 +136,11 @@ public abstract class VRTNodeManager<T extends VRTNode> extends VRTViroViewGroup
         view.setDragType(dragType);
     }
 
+    @ReactProp(name = "dragPlane")
+    public void setDragPlane(VRTNode view, ReadableMap dragPlane) {
+        view.setDragPlane(dragPlane);
+    }
+
     @ReactProp(name = "animation")
     public void setAnimation(VRTNode view, @android.support.annotation.Nullable ReadableMap map) {
         view.setAnimation(map);

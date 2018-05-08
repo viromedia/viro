@@ -119,7 +119,12 @@ var BTN_TYPE_CLICKED = 'clicked';
   	height: PropTypes.number,
   	width: PropTypes.number,
     style: stylePropType,
-    dragType: PropTypes.oneOf(["FixedDistance", "FixedToWorld"]),
+    dragType: PropTypes.oneOf(["FixedDistance", "FixedToWorld", "FixedToPlane"]),
+    dragPlane: PropTypes.shape({
+      planePoint : PropTypes.arrayOf(PropTypes.number),
+      planeNormal : PropTypes.arrayOf(PropTypes.number),
+      maxDistance : PropTypes.number
+    }),
 
     ignoreEventHandling: PropTypes.bool,
     onHover: PropTypes.func,

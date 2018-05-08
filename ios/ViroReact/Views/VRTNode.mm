@@ -607,8 +607,29 @@ const double kTransformDelegateDistanceFilter = 0.01;
         _node->setDragType(VRODragType::FixedDistance);
     } else if ([dragType caseInsensitiveCompare:@"FixedToWorld"] == NSOrderedSame) {
         _node->setDragType(VRODragType::FixedToWorld);
+    } else if ([dragType caseInsensitiveCompare:@"FixedToPlane"] == NSOrderedSame) {
+        _node->setDragType(VRODragType::FixedToPlane);
     } else {
         RCTLogError(@"Received unknown drag type: %@", dragType);
+    }
+}
+
+- (void)setDragPlane:(NSDictionary *)dict {
+    NSArray *planePoint = [dict objectForKey:@"planePoint"];
+    NSArray *planeNormal = [dict objectForKey:@"planeNormal"];
+    if (planePoint && planeNormal) {
+        [self node]->setDragPlanePoint({[[planePoint objectAtIndex:0] floatValue],
+                                        [[planePoint objectAtIndex:1] floatValue],
+                                        [[planePoint objectAtIndex:2] floatValue]});
+
+        [self node]->setDragPlaneNormal({[[planeNormal objectAtIndex:0] floatValue],
+                                         [[planeNormal objectAtIndex:1] floatValue],
+                                         [[planeNormal objectAtIndex:2] floatValue]});
+    }
+
+    NSNumber *maxDistance = [dict objectForKey:@"maxDistance"];
+    if (maxDistance) {
+        [self node]->setDragMaxDistance([maxDistance floatValue]);
     }
 }
 

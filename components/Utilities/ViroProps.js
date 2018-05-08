@@ -53,6 +53,16 @@ export function checkMisnamedProps(component, props) {
     return true;
   }
 
+  if (props.dragPlane) {
+    if (!props.dragPlane.planePoint) {
+      console.warn('The <' + component + '> component with `dragPlane` property requires a `planePoint`.')
+      return true;
+    } else if (!props.dragPlane.planeNormal) {
+      console.warn('The <' + component + '> component with `dragPlane` property requires a `planeNormal`.')
+      return true;
+    }
+  }
+
   if (upperCaseComponent === 'ViroSkyBox'.toUpperCase()
       || upperCaseComponent === 'Viro360Image'.toUpperCase()
       || upperCaseComponent === 'Viro360Video'.toUpperCase()) {

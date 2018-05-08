@@ -43,7 +43,7 @@ RCT_EXPORT_VIEW_PROPERTY(physicsWorld, NSDictionary)
 RCT_EXPORT_VIEW_PROPERTY(postProcessEffects, NSArray<NSString *>)
 RCT_EXPORT_VIEW_PROPERTY(ignoreEventHandling, BOOL)
 RCT_EXPORT_VIEW_PROPERTY(dragType, NSString)
-
+RCT_EXPORT_VIEW_PROPERTY(dragPlane, NSDictionary)
 - (VRTView *)view
 {
     return [[VRTScene alloc] initWithBridge:self.bridge];

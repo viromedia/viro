@@ -678,16 +678,32 @@ public class VRTNode extends VRTComponent {
             return;
         }
 
-        Node.DragType type = Node.DragType.FIXED_DISTANCE;
-        if (dragType.equalsIgnoreCase("FixedToWorld")) {
-            type = Node.DragType.FIXED_TO_WORLD;
-        }
-        mNodeJni.setDragType(type);
+        mNodeJni.setDragType(Node.DragType.valueFromString(dragType));
     }
 
-    public void setPhysicsBody(ReadableMap map){
+    public void setDragPlane(ReadableMap map) {
+        if (isTornDown()) {
+            return;
+        }
+
+        if (map.hasKey("planePoint") && map.hasKey("planeNormal")) {
+            ReadableArray planePointArr = map.getArray("planePoint");
+            ReadableArray planeNormalArr = map.getArray("planeNormal");
+            mNodeJni.setDragPlanePoint(new Vector(
+                    planePointArr.getDouble(0), planePointArr.getDouble(1), planePointArr.getDouble(2)));
+            mNodeJni.setDragPlaneNormal(new Vector(
+                    planeNormalArr.getDouble(0), planeNormalArr.getDouble(1), planeNormalArr.getDouble(2)));
+        }
+
+        if (map.hasKey("maxDistance")) {
+            mNodeJni.setDragMaxDistance((float) map.getDouble("maxDistance"));
+        }
+
+    }
+
+    public void setPhysicsBody(ReadableMap map) {
         // If un-setting the physicsBody, clear it from the node.
-        if (map == null){
+        if (map == null) {
             clearPhysicsBody();
             mPhysicsMap = map;
             return;

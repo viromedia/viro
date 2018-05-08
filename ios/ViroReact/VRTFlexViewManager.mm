@@ -51,7 +51,7 @@ RCT_EXPORT_VIEW_PROPERTY(lightReceivingBitMask, int)
 RCT_EXPORT_VIEW_PROPERTY(shadowCastingBitMask, int)
 RCT_EXPORT_VIEW_PROPERTY(ignoreEventHandling, BOOL)
 RCT_EXPORT_VIEW_PROPERTY(dragType, NSString)
-
+RCT_EXPORT_VIEW_PROPERTY(dragPlane, NSDictionary)
 - (VRTFlexView *)view
 {
     return [[VRTFlexView alloc] initWithBridge:self.bridge];
