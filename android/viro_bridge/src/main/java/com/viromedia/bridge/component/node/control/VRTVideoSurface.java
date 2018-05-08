@@ -127,6 +127,9 @@ public class VRTVideoSurface extends VRTControl {
         // Create Texture
         mSurface = new Surface(mWidth, mHeight, 0, 0, 1, 1);
         getNodeJni().setGeometry(mSurface);
+        if (mMaterials != null) {
+            applyMaterials();
+        }
         mDelegate = new VideoSurfaceDelegate(this);
 
         mVideoTexture = new VideoTexture(mViroContext, Uri.parse(mSource), mDelegate,

@@ -19,6 +19,7 @@ import {
   Viro360Photo,
   Viro360Video,
   ViroImage,
+  ViroMaterials,
 } from 'react-viro';
 
 var createReactClass = require('create-react-class');
@@ -26,6 +27,7 @@ var VIDEO_REF = "videoref";
 let polarToCartesian = ViroUtils.polarToCartesian;
 
 var localVideo = require("./res/Titan_Touchdown.mp4");
+var chromeVideo = require("./res/alphachica.mp4");
 var localVideoStereo = require("./res/stereoVid.mp4");
 var uriSource = {uri:'https://s3.amazonaws.com/viro.video/Climber1Bottom.mp4'};
 var ReleaseMenu = require("./ReleaseMenu.js");
@@ -78,7 +80,7 @@ var ViroVideoTest = createReactClass({
           source={this.state.uriVideo} transformBehavior={["billboard"]} onBufferStart={this._onBufferStart} onBufferEnd={this._onBufferEnd}
           stereoMode={this.state.uriVideo == localVideoStereo ? "LeftRight":"None"}
           loop={this.state.loopVideo} muted={this.state.muteVideo} volume={this.state.volume}
-          onFinish={this._onVideoFinished} onUpdateTime={this._onUpdateTime}/>
+          onFinish={this._onVideoFinished} onUpdateTime={this._onUpdateTime} materials={["chromeKeyedVideo"]} />
       );
   },
   _onBufferStart() {
@@ -97,15 +99,17 @@ var ViroVideoTest = createReactClass({
     var newVideoSource;
     if (this.state.uriVideo == uriSource) {
       newVideoSource = localVideo;
-    } else if (this.state.uriVideo == localVideo){
+    } else if (this.state.uriVideo == localVideo) {
       newVideoSource = localVideoStereo;
+    } else if (this.state.uriVideo == localVideoStereo) {
+        newVideoSource = chromeVideo;
     } else {
       newVideoSource = uriSource;
     }
 
     this.setState({
       uriVideo: newVideoSource,
-    })
+    });
   },
   _getMuteText() {
     return this.state.muteVideo ? "IsMute: True" : "IsMute: False";
@@ -153,6 +157,16 @@ var ViroVideoTest = createReactClass({
 });
 
 var shouldResetToHalfSecond = false;
+
+ViroMaterials.createMaterials({
+  chromeKeyedVideo : {
+    chromeKeyFilteringColor: "#00ff00"
+  },
+  normalVideo: {
+    lightingModel: "Constant",
+  },
+});
+
 
 var styles = StyleSheet.create({
   baseTextTwo: {

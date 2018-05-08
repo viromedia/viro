@@ -13,6 +13,7 @@
 @implementation VRTVideoSurfaceManager
 RCT_EXPORT_MODULE()
 
+RCT_EXPORT_VIEW_PROPERTY(materials, NSArray<NSString *>)
 RCT_EXPORT_VIEW_PROPERTY(source, NSDictionary)
 RCT_EXPORT_VIEW_PROPERTY(position, NSNumberArray)
 RCT_EXPORT_VIEW_PROPERTY(rotation, NSNumberArray)
