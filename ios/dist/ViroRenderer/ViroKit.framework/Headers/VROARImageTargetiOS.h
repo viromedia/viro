@@ -17,7 +17,6 @@
 class VROARImageTargetiOS : public VROARImageTarget {
 public:
     VROARImageTargetiOS(UIImage *sourceImage, VROImageOrientation orientation, float physicalWidth);
-
     virtual ~VROARImageTargetiOS();
 
     void initWithTrackingImpl(VROImageTrackingImpl impl);

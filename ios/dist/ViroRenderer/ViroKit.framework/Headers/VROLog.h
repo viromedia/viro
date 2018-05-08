@@ -7,19 +7,7 @@
 //
 
 #include "VRODefines.h"
-
 #pragma once
-//// Test debug defines
-//#ifdef NDEBUG
-//#pragma message "NDEBUG is #defined."
-//#else
-//#pragma message "NDEBUG is not #defined."
-//#endif
-
-#undef PASSERT_INNERLOOPS_ENABLED // Do not define, unless you want passert_innerloop() asserts
-// to run, which are passert_msg() calls that are made inside inner loops, which would slow down
-// the app massively if on.  Used for debugging those particular loops only, and left off to not slow
-// the app down for other developers.
 
 /////////////////////////////////////////////////////////////////////////////////
 //
@@ -79,7 +67,7 @@
 #define ANSIBackWhite "\e[1;47m"
 #define ANSIBackDefault "\e[1;49m"
 
-#elif VRO_PLATFORM_IOS
+#elif VRO_PLATFORM_IOS || VRO_PLATFORM_MACOS
 
 #include "VROOpenGL.h" // For pglpush and pglpop implementations
 
@@ -150,58 +138,16 @@
 // 3. it also allows local variables to not interfere with ones on the outside.
 // https://www.securecoding.cert.org/confluence/display/seccode/PRE10-C.+Wrap+multistatement+macros+in+a+do-while+loop
 
-#if NDEBUG
-    // Release build
-    #define pverbose(...) ((void)0)
-    #define cpverbose(tag, ...) ((void)0)
-    #define pdebug(...) ((void)0)
-    #define cpdebug(tag, ...) ((void)0)
-#else
-    // Debug build
-
-    // verbose:
-    #define pverbose(...) \
-        do { \
-            __android_log_print(ANDROID_LOG_VERBOSE, LOG_TAG, __VA_ARGS__); \
-        } while (0)
-
-    #define cpverbose(tag, ...) \
-        do { \
-            __android_log_print(ANDROID_LOG_VERBOSE, tag, __VA_ARGS__); \
-        } while (0)
-
-    // debug:
-    #define pdebug(...) \
-        do { \
-            __android_log_print(ANDROID_LOG_DEBUG, LOG_TAG, __VA_ARGS__); \
-        } while (0)
-
-    #define cpdebug(tag, ...) \
-        do { \
-            __android_log_print(ANDROID_LOG_DEBUG, tag, __VA_ARGS__); \
-        } while (0)
-#endif
-
 // info:
 #define pinfo(...) \
     do { \
         __android_log_print(ANDROID_LOG_INFO, LOG_TAG, __VA_ARGS__); \
     } while (0)
 
-#define cpinfo(tag, ...) \
-    do { \
-        __android_log_print(ANDROID_LOG_INFO, tag, __VA_ARGS__); \
-    } while (0)
-
 // warn:
 #define pwarn(...) \
     do { \
         __android_log_print(ANDROID_LOG_WARN, LOG_TAG, __VA_ARGS__); \
-    } while (0)
-
-#define cpwarn(tag, ...) \
-    do { \
-        __android_log_print(ANDROID_LOG_WARN, tag, __VA_ARGS__); \
     } while (0)
 
 // error:
@@ -213,27 +159,10 @@
                 ##__VA_ARGS__); \
     } while (0)
 
-#define cperr(tag, message, ...) \
-    do { \
-        __android_log_print(ANDROID_LOG_ERROR, tag, \
-                ANSILightRed "ERROR: [%s: %s(), line %d]%s\n%sERROR: %s%s" message ANSINoColor, \
-                __FILE__, __FUNCTION__, __LINE__, ANSINoColor, ANSILightRed, ANSINoColor, ANSIYellow, \
-                ##__VA_ARGS__); \
-    } while (0)
-
 // fatal:
 #define pfatal(message, ...) \
     do { \
         __android_log_print(ANDROID_LOG_FATAL, LOG_TAG, \
-                ANSILightRed "FATAL ERROR: [%s:%d]%s\n%sFATAL ERROR: %s%s" message ANSINoColor, \
-                __FILE__, __LINE__, ANSINoColor, ANSILightRed, ANSINoColor, ANSIYellow, \
-                ##__VA_ARGS__); \
-        abort(); \
-    } while (0)
-
-#define cpfatal(tag, message, ...) \
-    do { \
-        __android_log_print(ANDROID_LOG_FATAL, tag, \
                 ANSILightRed "FATAL ERROR: [%s:%d]%s\n%sFATAL ERROR: %s%s" message ANSINoColor, \
                 __FILE__, __LINE__, ANSINoColor, ANSILightRed, ANSINoColor, ANSIYellow, \
                 ##__VA_ARGS__); \
@@ -258,43 +187,6 @@
         }                                                           \
     } while (0)
 
-#if VRO_THREADPOOL_LOG
-    #define pthreadpool(message,...) \
-    do { \
-    __android_log_print(ANDROID_LOG_VERBOSE, threadPoolName.c_str(), "%s%s(): "#message" %s", ANSILightMagenta, __FUNCTION__, ##__VA_ARGS__, ANSINoColor); \
-    } while (0)
-
-    #define pthreadtask(message,...) \
-    do { \
-    __android_log_print(ANDROID_LOG_VERBOSE, threadIdentifier.c_str(), "    %s%s(): "#message" %s", ANSILightCyan, __FUNCTION__, ##__VA_ARGS__, ANSINoColor); \
-    } while (0)
-
-    #define pthreadtaskexe(message,...) \
-    do { \
-    __android_log_print(ANDROID_LOG_VERBOSE, threadIdentifier.c_str(), "      %s%s(): "#message" %s", ANSILightBlue, __FUNCTION__, ##__VA_ARGS__, ANSINoColor); \
-    } while(0)
-
-    #define pthreadtaskerror(message,...) \
-    do { \
-    __android_log_print(ANDROID_LOG_VERBOSE, threadIdentifier.c_str(), "      %s%s(): "#message" %s", ANSIRed, __FUNCTION__, ##__VA_ARGS__, ANSINoColor); \
-    } while(0)
-#else
-    #define pthreadpool(message,...) ((void)0)
-    #define pthreadtask(message,...) ((void)0)
-    #define pthreadtaskexe(message,...) ((void)0)
-    #define pthreadtaskerror(message,...) ((void)0)
-#endif
-
-#define VERBOSE_LOGGING 0 // turn this on during development as needed
-
-#if NDEBUG
-    // Release build
-    #define DEBUG_LOGGING 0
-#else
-    // Debug build
-    #define DEBUG_LOGGING 1
-#endif
-
 static inline int
 toLevel(const char* value) {
     switch (value[0]) {
@@ -317,7 +209,7 @@ toLevel(const char* value) {
         logLevel != ANDROID_LOG_SILENT && level >= logLevel;    \
     })
 
-#elif VRO_PLATFORM_IOS
+#elif VRO_PLATFORM_IOS || VRO_PLATFORM_MACOS
 
 /////////////////////////////////////////////////////////////////////////////////
 //
@@ -331,9 +223,6 @@ toLevel(const char* value) {
 #include <Foundation/Foundation.h>
 
 #define passert(condition) (assert(condition))
-
-#define cpverbose(tag, ...) ((void)0)
-#define cpdebug(tag, ...) ((void)0)
 #define pverbose(message,...) ((void)0)
 
 #define pdebug(message,...) \
@@ -407,11 +296,6 @@ do { \
 glPopGroupMarkerEXT(); \
 } while (0)
 
-#define cpinfo(tag, ...) \
-do { \
-\
-} while (0)
-
 #endif
 
 /////////////////////////////////////////////////////////////////////////////////
@@ -466,9 +350,6 @@ do { \
 #define ANSIBackDefault "\e[1;49m"
 
 #define passert(condition) (assert(condition))
-
-#define cpverbose(tag, ...) ((void)0)
-#define cpdebug(tag, ...) ((void)0)
 #define pverbose(message,...) ((void)0)
 
 #define pdebug(message,...) \
@@ -515,11 +396,6 @@ do { \
  \
 } while (0)
 
-#define cpinfo(tag, ...) \
-do { \
-\
-} while (0)
-
 #endif
 
 /////////////////////////////////////////////////////////////////////////////////
@@ -530,152 +406,6 @@ do { \
 #pragma mark -
 #pragma mark Common Logging
 
-// --------------------------------
-// variables:
-#define pStringifyBool(boolExpression) ((boolExpression) ? "true" : "false")
-#define pStringifyNull(stringExpression) ((stringExpression) ? stringExpression : "null")
-#define pbool(b) pinfo("%s%s()%s: "#b" = %s%s%s.", ANSILightMagenta, __FUNCTION__, ANSINoColor, ANSILightBlue, pStringifyBool(b), ANSINoColor);
-#define pboolean(b) pbool(b);
-#define pbyte(b) pinfo("%s%s()%s: "#b" = %s%d = 0x%02X = %d%d%d%d%d%d%d%d%s.", \
-        ANSILightMagenta, __FUNCTION__, ANSINoColor, ANSILightBlue, b, b, \
-        static_cast<int>((b&(1<<7))!=0), \
-        static_cast<int>((b&(1<<6))!=0), \
-        static_cast<int>((b&(1<<5))!=0), \
-        static_cast<int>((b&(1<<4))!=0), \
-        static_cast<int>((b&(1<<3))!=0), \
-        static_cast<int>((b&(1<<2))!=0), \
-        static_cast<int>((b&(1<<1))!=0), \
-        static_cast<int>((b&(1<<0))!=0), ANSINoColor)
-#define pint(i) pinfo("%s%s()%s: "#i" = %s%d%s.", ANSILightMagenta, __FUNCTION__, ANSINoColor, ANSILightBlue, i, ANSINoColor)
-#define puint(i) pinfo("%s%s()%s: "#i" = %s%u%s.", ANSILightMagenta, __FUNCTION__, ANSINoColor, ANSILightBlue, i, ANSINoColor)
-#define pbits(bitfield) pinfo("%s%s()%s: "#bitfield \
-        " = %s%d = 0x%08X = %d%d%d%d%d%d%d%d-%d%d%d%d%d%d%d%d-%d%d%d%d%d%d%d%d-%d%d%d%d%d%d%d%d%s.", \
-        ANSILightMagenta, __FUNCTION__, ANSINoColor, ANSILightBlue, bitfield, bitfield, \
-        static_cast<int>((bitfield&(1<<31))!=0), \
-        static_cast<int>((bitfield&(1<<30))!=0), \
-        static_cast<int>((bitfield&(1<<29))!=0), \
-        static_cast<int>((bitfield&(1<<28))!=0), \
-        static_cast<int>((bitfield&(1<<27))!=0), \
-        static_cast<int>((bitfield&(1<<26))!=0), \
-        static_cast<int>((bitfield&(1<<25))!=0), \
-        static_cast<int>((bitfield&(1<<24))!=0), \
-        static_cast<int>((bitfield&(1<<23))!=0), \
-        static_cast<int>((bitfield&(1<<22))!=0), \
-        static_cast<int>((bitfield&(1<<21))!=0), \
-        static_cast<int>((bitfield&(1<<20))!=0), \
-        static_cast<int>((bitfield&(1<<19))!=0), \
-        static_cast<int>((bitfield&(1<<18))!=0), \
-        static_cast<int>((bitfield&(1<<17))!=0), \
-        static_cast<int>((bitfield&(1<<16))!=0), \
-        static_cast<int>((bitfield&(1<<15))!=0), \
-        static_cast<int>((bitfield&(1<<14))!=0), \
-        static_cast<int>((bitfield&(1<<13))!=0), \
-        static_cast<int>((bitfield&(1<<12))!=0), \
-        static_cast<int>((bitfield&(1<<11))!=0), \
-        static_cast<int>((bitfield&(1<<10))!=0), \
-        static_cast<int>((bitfield&(1<<9))!=0), \
-        static_cast<int>((bitfield&(1<<8))!=0), \
-        static_cast<int>((bitfield&(1<<7))!=0), \
-        static_cast<int>((bitfield&(1<<6))!=0), \
-        static_cast<int>((bitfield&(1<<5))!=0), \
-        static_cast<int>((bitfield&(1<<4))!=0), \
-        static_cast<int>((bitfield&(1<<3))!=0), \
-        static_cast<int>((bitfield&(1<<2))!=0), \
-        static_cast<int>((bitfield&(1<<1))!=0), \
-        static_cast<int>((bitfield&(1<<0))!=0), ANSINoColor)
-#define pfloat(f) pinfo("%s%s()%s: "#f" = %s%f%s.", ANSILightMagenta, __FUNCTION__, ANSINoColor, ANSILightBlue, f, ANSINoColor)
-#define pdouble(d) pinfo("%s%s()%s: "#d" = %s%f%s.", ANSILightMagenta, __FUNCTION__, ANSINoColor, ANSILightBlue, d, ANSINoColor)
-#define ppointer(p) pinfo("%s%s()%s: "#p" = %s%p%s", ANSILightMagenta, __FUNCTION__, ANSINoColor, ANSILightBlue, (void*)p, ANSINoColor)
-// Note: cannot use pptr(), as it is used in boost.
-
-// --------------------------------
-// complex types or combos:
-#define pxy(x,y) pinfo("%s%s()%s: ("#x", "#y") = (%s%f, %f%s).", ANSILightMagenta, __FUNCTION__, ANSINoColor, ANSILightBlue, x, y, ANSINoColor)
-#define pintxy(x,y) pinfo("%s%s()%s: ("#x", "#y") = (%s%d, %d%s).", ANSILightMagenta, __FUNCTION__, ANSINoColor, ANSILightBlue, x, y, ANSINoColor)
-
-/*
- Logs an init array.
- 13 characters per float = 11 for "+1000111222", 2 for ", ".
- Note the length of the arary is +1, so that snprintf() has
- room to write the NULL terminater, though we adjust it
- for the last index anyway.
- */
-#define pintarray(pIntArray, size) \
-    do \
-    { \
-        int const numCharsPerInt = 13; \
-        char str[size * numCharsPerInt + 1]; \
-        for (int i=0; i<size; i++) snprintf(&str[i * numCharsPerInt], numCharsPerInt + 1, "%11d, ", pIntArray[i]); \
-        str[size * numCharsPerInt - 2] = '\0'; \
-        pinfo("%s%s()%s: "#pIntArray"[%d] = %s{%s}%s", \
-                ANSILightMagenta, __FUNCTION__, ANSINoColor, size, \
-                ANSILightBlue, str, ANSINoColor); \
-    } while (0)
-
-/*
- Logs a float array.
- 8 characters per float = 6 for "+9.999", 2 for ", ".
- Note the length of the arary is +1, so that snprintf() has
- room to write the NULL terminater, though we adjust it
- for the last index anyway.
- */
-#define pfloatarray(pFloatArray, size) \
-    do \
-    { \
-        int const numCharsPerFloat = 8; \
-        char str[size * numCharsPerFloat + 1]; \
-        for (int i=0; i<size; i++) snprintf(&str[i * numCharsPerFloat], numCharsPerFloat + 1, "%6.3f, ", pFloatArray[i]); \
-        str[size * numCharsPerFloat - 2] = '\0'; \
-        pinfo("%s%s()%s: "#pFloatArray"[%d] = %s{%s}%s", \
-                ANSILightMagenta, __FUNCTION__, ANSINoColor, size, \
-                ANSILightBlue, str, ANSINoColor); \
-    } while (0)
-
-/*
- Logs a VROVector3f.
- */
-#define pvec3(vec) \
-    do \
-    { \
-        pinfo("%s%s()%s: "#vec" = %s%s%s", \
-                ANSILightMagenta, __FUNCTION__, ANSINoColor, \
-                ANSILightBlue, (vec).toString().c_str(), ANSINoColor); \
-    } while (0)
-
-/*
- Logs a pointer to VROVector3f.
- */
-#define ppvec3(pVec) \
-    do \
-    { \
-        pinfo("%s%s()%s: *"#pVec" = %s%s%s", \
-                ANSILightMagenta, __FUNCTION__, ANSINoColor, \
-                ANSILightBlue, pVec->toString().c_str(), ANSINoColor); \
-    } while (0)
-
-/*
- Logs a 4X4 matrix.
- */
-#define pmatrix(m) \
-    do \
-    { \
-        pinfo("%s%s()%s: "#m"[] =", ANSILightMagenta, __FUNCTION__, ANSINoColor); \
-        pinfo("%s[%6.3f, %6.3f, %6.3f, %6.3f,%s", ANSILightBlue, m[0], m[4], m[8], m[12], ANSINoColor); \
-        pinfo("%s %6.3f, %6.3f, %6.3f, %6.3f,%s", ANSILightBlue, m[1], m[5], m[9], m[13], ANSINoColor); \
-        pinfo("%s %6.3f, %6.3f, %6.3f, %6.3f,%s", ANSILightBlue, m[2], m[6], m[10], m[14], ANSINoColor); \
-        pinfo("%s %6.3f, %6.3f, %6.3f, %6.3f]%s", ANSILightBlue, m[3], m[7], m[11], m[15], ANSINoColor); \
-    } while (0)
-
-/*
- Logs a VROBoundingBox.
- */
-#define pbb(bb) \
-    do \
-    { \
-        pinfo("%s%s()%s: "#bb" = %s%s%s", \
-                ANSILightMagenta, __FUNCTION__, ANSINoColor, \
-                ANSILightBlue, (bb).toString().c_str(), ANSINoColor); \
-    } while (0)
 
 // --------------------------------
 // markers
@@ -685,7 +415,6 @@ do { \
         ANSILightBlue, __LINE__, ANSINoColor)
 #define pcr() pinfo(" ")
 #define pline() pline1()
-#define cpline(tag) cpinfo(tag, "----------------------------------------------------------------")
 #define pline1() pinfo("----------------------------------------------------------------")
 #define pline2() pinfo("================================================================")
 #define predline() pinfo("%s################################################################%s", ANSILightRed, ANSINoColor);
@@ -722,14 +451,6 @@ do { \
         pinfo("%s%s(): %sLine %d.%s", ANSILightMagenta, __FUNCTION__, ANSILightGreen, __LINE__, ANSINoColor); \
     } while (0)
 
-#if VRO_SECURITY_LOG
-#define psecurityinfo(message,...) pinfo("Viro-Security:: "#message, ##__VA_ARGS__)
-#define psecurityerr(message,...) perr("Viro-Security:: "#message, ##__VA_ARGS__)
-#else
-#define psecurityinfo(message,...) ((void)0)
-#define psecurityerr(message,...) ((void)0)
-#endif
-
 /////////////////////////////////////////////////////////////////////////////////
 //
 //  Common: Stack Trace
@@ -758,9 +479,8 @@ void pstack();
 #pragma mark Common: Abort
 
 /*
- Abort the program.
- Print out a stacktrace; then cause a SEG fault to halt execution.
- SEG fault will be at 0xdecafbad.
+ Abort the program, printing out a stacktrace then creating a SEG fault to halt.
+ The SEG fault will be 0xdecafbad.
  */
 #define pabort(...) _pabort(__FILE__, __LINE__, __func__, ## __VA_ARGS__)
 
@@ -776,54 +496,8 @@ void _pabort(const char* file, int line, const char *func, const char *fmt, ...)
 #pragma mark -
 #pragma mark Common: Assert with Message
 
-/*
- Abort the program if 'condition' is false.
- Print out a stacktrace and formatted message; then cause a SEG fault to halt execution.
- SEG fault will be at 0xdecafbad.
- */
 # define passert_msg(condition, ...)                                    \
     do {                                                                \
         if (! (condition))                                    \
             _pabort(__FILE__, __LINE__, __func__, ## __VA_ARGS__);      \
     } while (false)
-
-/*
- Only defined, *even in DEBUG builds*, if the follow is #defined: PASSERT_INNERLOOPS
- */
-#if (PASSERT_INNERLOOPS_ENABLED && !NDEBUG)
-    // Debug build with inner loop assert enabled.
-    /*
-     Defined for Debug mode, and if we want inner loop assertions.
-     */
-# define passert_innerloop(condition, ...)                              \
-    do {                                                                \
-        if (! (condition))                                    \
-            _pabort(__FILE__, __LINE__, __func__, ## __VA_ARGS__); \
-    } while (false)
-
-#else
-    /*
-     Prevent any code generation.
-     */
-# define passert_innerloop(...) ((void)(0))
-#endif
-
-/*
- Dev only passert_msg.  Asserts using this will not run in release builds.
- Meant for cases where in development we want to abort, but in production we
- want to continue (and there is code to handle that case).
- */
-#if !NDEBUG
-# define passert_msg_dev(condition, ...)                                \
-    do {                                                                \
-        if (! (condition))                                    \
-            _pabort(__FILE__, __LINE__, __func__, ## __VA_ARGS__);      \
-    } while (false)
-
-
-#else
-    /*
-     Prevent any code generation.
-     */
-# define passert_msg_dev(...) ((void)(0))
-#endif

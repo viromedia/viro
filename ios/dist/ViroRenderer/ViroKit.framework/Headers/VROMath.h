@@ -126,6 +126,12 @@ float VROMathNormalizeAnglePI(float rad);
 float VROMathAngleDistance(float radA, float radB);
 
 /*
+ Convert the given color from sRGB to linear space.
+ */
+VROVector3f VROMathConvertSRGBToLinearColor(VROVector3f sRGB);
+VROVector4f VROMathConvertSRGBToLinearColor(VROVector4f sRGB);
+
+/*
  Normalize the angles in the given vector between [0, 2PI].
  */
 VROVector3f VROMathNormalizeAngles2PI(VROVector3f vector);

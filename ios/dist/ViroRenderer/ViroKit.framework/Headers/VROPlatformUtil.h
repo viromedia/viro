@@ -11,6 +11,7 @@
 
 #include "VRODefines.h"
 #include "VROTexture.h"
+#include "VROLog.h"
 #include <string>
 #include <memory>
 #include <functional>
@@ -160,8 +161,8 @@ void VROPlatformDispatchAsyncApplication(std::function<void()> fcn);
  */
 void VROPlatformFlushTaskQueues();
 
-#if VRO_PLATFORM_IOS
-#import <UIKit/UIKit.h>
+#if VRO_PLATFORM_IOS || VRO_PLATFORM_MACOS
+#import <Foundation/Foundation.h>
 
 NSURLSessionDataTask *VROPlatformDownloadDataWithURL(NSURL *url, void (^completionBlock)(NSData *data, NSError *error));
 
@@ -172,14 +173,8 @@ NSURLSessionDataTask *VROPlatformDownloadDataWithURL(NSURL *url, void (^completi
 #if VRO_PLATFORM_ANDROID
 
 void VROPlatformSetEnv(JNIEnv *env, jobject appContext, jobject assetManager, jobject platformUtil);
-
-// This function was added because VROPlatformConvertBitmap can be called before the renderer
-// is created and as a result, activity and assetManager hasn't been set yet. We should think
-// about how to do this better.
-void VROPlatformSetEnv(JNIEnv *env);
 void VROPlatformReleaseEnv();
 
-JNIEnv *VROPlatformGetJNIEnv();
 jobject VROPlatformGetJavaAppContext();
 jobject VROPlatformGetJavaAssetManager();
 AAssetManager *VROPlatformGetAssetManager();
@@ -189,12 +184,6 @@ AAssetManager *VROPlatformGetAssetManager();
 // for testing purposes only. Not needed in prod because assets are not used
 // in prod.
 std::string VROPlatformCopyAssetToFile(std::string asset);
-
-/**
- * This function takes a Java Map (java.util.Map) w/ String key and values and returns
- * a C++ std::map w/ std::string key and values.
- */
-std::map<std::string, std::string> VROPlatformConvertFromJavaMap(jobject javaMap);
 
 /**
  * This function takes a java map of filename -> resource location and copies the resources
@@ -214,32 +203,8 @@ jobject VROPlatformGetClassLoader(JNIEnv *jni, jobject jcontext);
 // (i.e. threads created using pthread_create).
 jclass VROPlatformFindClass(JNIEnv *jni, jobject javaObject, const char *className);
 
-// Calls a java function from native through JNI on the given jObject with the given
-// functionName, methodID and desired java function parameters.
-//
-// Example: VROPlatformCallJavaFunction(jObj,
-//                                      "onHover",
-//                                      "(Z)V",
-//                                      isGazing);
-void VROPlatformCallJavaFunction(jobject javaObject,
-                                 std::string functionName,
-                                 std::string methodID, ...);
-jlong VROPlatformCallJavaLongFunction(jobject javaObject,
-                                     std::string functionName,
-                                     std::string methodID, ...);
-
-// Helper functions for setting jObject properties through JNI from C++
-void VROPlatformSetFloat(JNIEnv *env, jclass cls, jobject jObj, const char *fieldName, jfloat value);
-void VROPlatformSetString(JNIEnv *env, jclass cls, jobject jObj, const char *fieldName, std::string value);
-void VROPlatformSetInt(JNIEnv *env, jclass cls, jobject jObj, const char *fieldName, jint value);
-void VROPlatformSetBool(JNIEnv *env, jclass cls, jobject jObj, const char *fieldName, jboolean value);
-void VROPlatformSetEnumValue(JNIEnv *env, jclass cls, jobject jObj, const char *fieldName,
-                             std::string enumClassPathName, std::string enumValueStr);
-
-// Safely converts the given string with the provided jni environment.
-std::string VROPlatformGetString(jstring string, JNIEnv *env);
-
 #pragma mark - Android Image Tracking Debugging
+
 /*
  This function calls setImageOnTrackingImageView on ViroViewARCore in order to debug
  Image Tracking/Detection
@@ -263,6 +228,153 @@ void Java_com_viro_core_internal_PlatformUtil_runTask(JNIEnv *env, jclass clazz,
 }
 
 #endif
+
+#pragma mark - C API (Android + WebAssembly)
+
+#if VRO_PLATFORM_ANDROID || VRO_PLATFORM_WASM
+
+#include VRO_C_INCLUDE
+
+// This function was added because VROPlatformConvertBitmap can be called before the renderer
+// is created and as a result, activity and assetManager hasn't been set yet. We should think
+// about how to do this better.
+void VROPlatformSetEnv(VRO_ENV env);
+
+// Get the host platform environment
+VRO_ENV VROPlatformGetJNIEnv();
+
+// Helper functions for setting host object properties through from C++
+void VROPlatformSetFloat(VRO_ENV env, VRO_OBJECT obj, const char *fieldName, VRO_FLOAT value);
+void VROPlatformSetString(VRO_ENV env, VRO_OBJECT obj, const char *fieldName, std::string value);
+void VROPlatformSetInt(VRO_ENV env, VRO_OBJECT obj, const char *fieldName, VRO_INT value);
+void VROPlatformSetBool(VRO_ENV env, VRO_OBJECT obj, const char *fieldName, VRO_BOOL value);
+void VROPlatformSetEnumValue(VRO_ENV env, VRO_OBJECT obj, const char *fieldName,
+                             std::string enumClassPathName, std::string enumValueStr);
+void VROPlatformSetObject(VRO_ENV env, VRO_OBJECT obj, const char *fieldName,
+                          const char *fieldType, VRO_OBJECT object);
+
+// This function takes a host object Map (Java: java.util.Map) with string keys and values,
+// and returns a C++ std::map w/ std::string key and values.
+std::map<std::string, std::string> VROPlatformConvertFromJavaMap(VRO_OBJECT javaMap);
+
+#if VRO_PLATFORM_ANDROID
+
+template<typename... Args>
+void VROPlatformCallHostFunction(jobject javaObject,
+                                 std::string methodName,
+                                 std::string methodSig,
+                                 Args... args) {
+    JNIEnv *env = VROPlatformGetJNIEnv();
+    env->ExceptionClear();
+
+    jclass viroClass = env->GetObjectClass(javaObject);
+    if (viroClass == nullptr) {
+        perr("Unable to find class for making java calls [function %s, method %s]",
+             methodName.c_str(), methodSig.c_str());
+        return;
+    }
+
+    jmethodID method = env->GetMethodID(viroClass, methodName.c_str(), methodSig.c_str());
+    if (method == nullptr) {
+        perr("Unable to find method %s callback.", methodName.c_str());
+        return;
+    }
+
+    env->CallVoidMethod(javaObject, method, std::forward<Args>(args)...);
+    if (env->ExceptionOccurred()) {
+        perr("Exception occurred when calling %s.", methodName.c_str());
+        env->ExceptionDescribe();
+        std::string errorString = "A java exception has been thrown when calling " + methodName;
+        throw std::runtime_error(errorString.c_str());
+    }
+
+    env->DeleteLocalRef(viroClass);
+}
+
+template<typename... Args>
+jlong VROPlatformCallHostLongFunction(jobject javaObject,
+                                      std::string methodName,
+                                      std::string methodSig,
+                                      Args... args) {
+    JNIEnv *env = VROPlatformGetJNIEnv();
+    env->ExceptionClear();
+
+    jclass viroClass = env->GetObjectClass(javaObject);
+    if (viroClass == nullptr) {
+        perr("Unable to find class for making java calls [function %s, method %s]",
+             methodName.c_str(), methodSig.c_str());
+        return 0;
+    }
+
+    jmethodID method = env->GetMethodID(viroClass, methodName.c_str(), methodSig.c_str());
+    if (method == nullptr) {
+        perr("Unable to find method %s callback.", methodName.c_str());
+        return 0;
+    }
+
+    jlong result = env->CallLongMethod(javaObject, method, std::forward<Args>(args)...);
+    if (env->ExceptionOccurred()) {
+        perr("Exception occurred when calling %s.", methodName.c_str());
+        env->ExceptionDescribe();
+        std::string errorString = "A java exception has been thrown when calling " + methodName;
+        throw std::runtime_error(errorString.c_str());
+    }
+
+    env->DeleteLocalRef(viroClass);
+    return result;
+}
+
+template<typename... Args>
+VRO_OBJECT VROPlatformConstructHostObject(std::string className,
+                                          std::string constructorSig,
+                                          Args... args) {
+    JNIEnv *env = VROPlatformGetJNIEnv();
+    env->ExceptionClear();
+
+    jclass cls = env->FindClass(className.c_str());
+    jmethodID constructor = env->GetMethodID(cls, "<init>", constructorSig.c_str());
+
+    jobject object = env->NewObject(cls, constructor, std::forward<Args>(args)...);
+    if (env->ExceptionOccurred()) {
+        perr("Exception occurred when calling constructor %s", constructorSig.c_str());
+        env->ExceptionDescribe();
+
+        std::string errorString = "A java exception has been thrown when calling constructor " + constructorSig;
+        throw std::runtime_error(errorString.c_str());
+    }
+
+    env->DeleteLocalRef(cls);
+    return object;
+}
+
+#else
+
+template<typename... Args>
+void VROPlatformCallHostFunction(VRO_OBJECT object,
+                                 std::string methodName,
+                                 std::string methodSig,
+                                 Args... args) {
+    object.call<void>(methodName.c_str(), std::forward<Args>(args)...);
+}
+
+template<typename... Args>
+VRO_LONG VROPlatformCallHostLongFunction(VRO_OBJECT object,
+                                         std::string methodName,
+                                         std::string methodSig,
+                                         Args... args) {
+    return object.call<VRO_LONG>(methodName.c_str(), std::forward<Args>(args)...);
+}
+
+template<typename... Args>
+VRO_OBJECT VROPlatformConstructHostObject(std::string className,
+                                          std::string constructorSig,
+                                          Args... args) {
+    // TODO wasm
+    return VRO_OBJECT_NULL;
+}
+
+#endif // WASM
+#endif // ANDROID || WASM
 
 #if VRO_PLATFORM_IOS || VRO_PLATFORM_ANDROID
 

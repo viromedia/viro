@@ -35,6 +35,16 @@
 #import <OpenGLES/ES3/glext.h>
 #define VRO_AVOID_BUFFER_SUB_DATA 0
 
+#elif VRO_PLATFORM_MACOS
+
+#include <OpenGL/gl3.h>
+#include <OpenGL/gl3ext.h>
+#define GL_INVALID_INDEX 0xFFFFFFFFu
+#define GL_COMPRESSED_SRGB8_ALPHA8_ETC2_EAC 0xdecafbad
+#define GL_COMPRESSED_RGBA_ASTC_4x4_KHR 0xdecafbad
+#define GL_COMPRESSED_SRGB8_ALPHA8_ASTC_4x4_KHR 0xdecafbad
+#define GL_FRAMEBUFFER_INCOMPLETE_DIMENSIONS 0xdecafbad
+
 #elif VRO_PLATFORM_WASM
 
 #include <GLES3/gl3.h>

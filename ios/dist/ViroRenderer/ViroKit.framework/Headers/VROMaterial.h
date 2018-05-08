@@ -154,7 +154,10 @@ public:
     float getFresnelExponent() const {
         return _fresnelExponent;
     }
-    
+
+    /*
+     Transparency.
+     */
     void setTransparency(float transparency);
     float getTransparency() const {
         return _transparency;
@@ -166,7 +169,10 @@ public:
     VROTransparencyMode getTransparencyMode() const {
         return _transparencyMode;
     }
-    
+
+    /*
+     Lighting models.
+     */
     void setLightingModel(VROLightingModel model) {
         _lightingModel = model;
     }
@@ -184,7 +190,10 @@ public:
     bool isLitPerPixel() const {
         return _litPerPixel;
     }
-    
+
+    /*
+     Blend modes.
+     */
     VROBlendMode getBlendMode() const {
         return _blendMode;
     }
@@ -192,6 +201,9 @@ public:
         _blendMode = mode;
     }
 
+    /*
+     Depth writes.
+     */
     bool getWritesToDepthBuffer() const {
         return _writesToDepthBuffer;
     }
@@ -207,7 +219,10 @@ public:
         _readsFromDepthBuffer = readsFromDepthBuffer;
         updateSubstrate();
     }
-    
+
+    /*
+     Bloom.
+     */
     void setBloomThreshold(float threshold) {
         bool needsSubstrateUpdate = (_bloomThreshold >= 0 && threshold < 0) || (_bloomThreshold < 0 && threshold >= 0);
         _bloomThreshold = threshold;
@@ -223,6 +238,9 @@ public:
         return _bloomThreshold >= 0;
     }
 
+    /*
+     Shadows.
+     */
     void setReceivesShadows(bool receivesShadows) {
         _receivesShadows = receivesShadows;
         updateSubstrate();
@@ -231,6 +249,30 @@ public:
         return _receivesShadows;
     }
 
+    void setCastsShadows(bool castsShadows) {
+        _castsShadows = castsShadows;
+        updateSubstrate();
+    }
+    bool getCastsShadows() const {
+        return _castsShadows;
+    }
+
+    /*
+     Chroma-key filtering.
+     */
+    void setChromaKeyFilteringEnabled(bool enabled);
+    bool isChromaKeyFilteringEnabled() const {
+        return _chromaKeyFilteringEnabled;
+    }
+
+    void setChromaKeyFilteringColor(VROVector3f color);
+    VROVector3f getChromaKeyFilteringColor() const {
+        return _chromaKeyFilteringColor;
+    }
+
+    /*
+     Shader modifiers.
+     */
     void addShaderModifier(std::shared_ptr<VROShaderModifier> modifier);
     void removeShaderModifier(std::shared_ptr<VROShaderModifier> modifier);
     bool hasShaderModifier(std::shared_ptr<VROShaderModifier> modifier);
@@ -415,6 +457,21 @@ private:
      True if this material receives shadows. Defaults to true.
      */
     bool _receivesShadows;
+
+    /*
+     True if surfaces using this material cast shadows. Note: due to a technical limitation,
+     geometries either cast shadows as a whole (across all materials) or not at all. If
+     _castsShadows is false for at least one material in a Node, then no materials in that
+     Node will cast shadows.
+     */
+    bool _castsShadows;
+
+    /*
+     The chroma key filter to be applied to this material. If enabled, all pixels with color 'near'
+     the chromaKeyFilteringColor will become transparent. This is useful for rendering videos with alpha.
+    */
+    bool _chromaKeyFilteringEnabled;
+    VROVector3f _chromaKeyFilteringColor;
     
     /*
      Representation of this material in the underlying graphics hardware.

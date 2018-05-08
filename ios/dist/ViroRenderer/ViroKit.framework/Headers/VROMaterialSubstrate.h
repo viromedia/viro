@@ -59,7 +59,7 @@ public:
      These properties should be node and geometry independent. The shader
      should always be bound first (via bindShader()).
      */
-    virtual void bindProperties() = 0;
+    virtual void bindProperties(std::shared_ptr<VRODriver> &driver) = 0;
     
     /*
      Bind the properties of the given geometry to the active rendering context.

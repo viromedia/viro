@@ -65,6 +65,7 @@ enum class VROSilhouetteMode {
 
 enum class VRODragType {
     FixedDistance,  // Drags objects with a fixed distance to camera/controller/etc.
+    FixedToPlane,   // Drags object along a given plane (point + normal)
     FixedToWorld,   // Currently available to AR only. Attempts to drag object w.r.t. the real world.
 };
 
@@ -615,6 +616,30 @@ public:
         return _dragType;
     }
 
+    void setDragPlanePoint(VROVector3f point) {
+        _dragPlanePoint = point;
+    }
+
+    VROVector3f getDragPlanePoint() {
+        return _dragPlanePoint;
+    }
+
+    void setDragPlaneNormal(VROVector3f normal) {
+        _dragPlaneNormal = normal;
+    }
+
+    VROVector3f getDragPlaneNormal() {
+        return _dragPlaneNormal;
+    }
+
+    void setDragMaxDistance(float maxDistance) {
+        _dragMaxDistance = maxDistance;
+    }
+
+    float getDragMaxDistance() {
+        return _dragMaxDistance;
+    }
+
     bool isAnimatingDrag() {
         return _isAnimatingDrag;
     }
@@ -833,7 +858,23 @@ private:
      The drag type to use for this VRONode.
      */
     VRODragType _dragType;
-    
+
+    /*
+     The point in 3D space on the plane to "drag"
+     */
+    VROVector3f _dragPlanePoint;
+
+    /*
+     The normal of the plane to "drag" along
+     */
+    VROVector3f _dragPlaneNormal;
+
+    /*
+     The max distance from the controller the user is allowed to drag an item (threshold behavior
+     depends on the _dragType selected).
+     */
+    float _dragMaxDistance;
+
     /*
      Whether or not a drag is still being animated (used only if _dragType == VRODragType::FixedToWorld
      */

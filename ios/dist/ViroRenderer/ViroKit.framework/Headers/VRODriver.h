@@ -69,6 +69,12 @@ enum class VROGPUType {
      variables.
      */
     Adreno330OrOlder,
+
+    /*
+     This type covers Mali GPUs, which fail to report that they've provisioned an sRGB framebuffer
+     even when they have. We therefore disable software gamma correction on these devices.
+     */
+    Mali
 };
 
 /*

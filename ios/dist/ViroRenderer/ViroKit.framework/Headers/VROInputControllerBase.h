@@ -178,7 +178,17 @@ protected:
      deals with other events, etc. This allows for the dragging logic to be overridden.
      */
     virtual void processDragging(int source);
-    
+
+    /*
+     This function returns the next drag position for drag type FixedDistance
+     */
+    VROVector3f getDragPositionFixedDistance();
+
+    /*
+     This function returns the next drag position for drag type FixedToPlane
+     */
+    VROVector3f getDragPositionFixedToPlane();
+
     /*
      Last result that was returned from the hit test.
      */

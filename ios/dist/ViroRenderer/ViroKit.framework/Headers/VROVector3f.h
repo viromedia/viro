@@ -78,6 +78,11 @@ public:
                            const VROVector3f &origin, VROVector3f *intPt) const;
 
     /*
+     Projects this point (in world coordinates) onto the given plane defined by the given point & normal
+     */
+    bool projectOnPlane(const VROVector3f &point, const VROVector3f &normal, VROVector3f *projPoint);
+
+    /*
      Copy operations.
      */
     void set(const VROVector3f &value);
