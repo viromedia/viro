@@ -69,11 +69,9 @@ static NSString *const kPointCloudKey = @"pointCloud";
     
     std::set<VROAnchorDetection> detectionTypes;
     for (NSString *type in _anchorDetectionTypes) {
-        if ([type caseInsensitiveCompare:@"none"] == NSOrderedSame) {
-            detectionTypes.insert(VROAnchorDetection::None);
-        } else if([type caseInsensitiveCompare:@"planesHorizontal"] == NSOrderedSame) {
+        if ([type caseInsensitiveCompare:@"planesHorizontal"] == NSOrderedSame) {
             detectionTypes.insert(VROAnchorDetection::PlanesHorizontal);
-        } else if([type caseInsensitiveCompare:@"planesVertical"] == NSOrderedSame) {
+        } else if ([type caseInsensitiveCompare:@"planesVertical"] == NSOrderedSame) {
             detectionTypes.insert(VROAnchorDetection::PlanesVertical);
         }
     }
