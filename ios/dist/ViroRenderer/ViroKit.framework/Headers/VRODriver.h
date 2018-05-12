@@ -101,6 +101,27 @@ enum class VROColorRenderingMode {
 };
 
 /*
+ Operations to perform when unbinding a previous bound render target.
+ 
+ None: Nothing is done to the previously bound target.
+ 
+ Invalidate: Invalidate the previous target, which tells the driver it does not need
+             to copy the contents of the target back into shared memory. Invalidating
+             the previous target will make the rendered contents of the previous target
+             inaccessible (discarding their contents), so blitColor and blitStencil will
+             no longer work. However, it will not impact color attachments that were
+             rendered to a texture.
+ 
+ CopyStencilAndInvalidate: Copy the stencil buffer from the previously bound target to
+                           the new target, then invalidate the previously bound target.
+ */
+enum class VRORenderTargetUnbindOp {
+    None,
+    Invalidate,
+    CopyStencilAndInvalidate,
+};
+
+/*
  The driver is used to interface with the rendering subsystem (OpenGL,
  Metal, etc.).
  */
@@ -119,6 +140,13 @@ public:
      */
     virtual void willRenderFrame(const VRORenderContext &context) = 0;
     virtual void didRenderFrame(const VROFrameTimer &timer, const VRORenderContext &context) = 0;
+    
+    /*
+     Provides the driver an opportunity to reset state between rendering
+     different eyes within a frame.
+     */
+    virtual void willRenderEye(const VRORenderContext &context) = 0;
+    virtual void didRenderEye(const VRORenderContext &context) = 0;
     
     /*
      Invoked when the renderer is paused and resumed.
@@ -157,8 +185,19 @@ public:
     virtual void setColorWritingEnabled(bool enabled) = 0;
     virtual void bindShader(std::shared_ptr<VROShaderProgram> program) = 0;
     virtual void unbindShader() = 0;
-    virtual void bindRenderTarget(std::shared_ptr<VRORenderTarget> target) = 0;
+    
+    /*
+     Bind the given render target, and perform the given operation when unbinding
+     the previous target.
+     */
+    virtual void bindRenderTarget(std::shared_ptr<VRORenderTarget> target, VRORenderTargetUnbindOp unbindOp) = 0;
     virtual void unbindRenderTarget() = 0;
+    
+    /*
+     Get the render target that is currently bound. Returns nullptr if no
+     target is bound.
+     */
+    virtual std::shared_ptr<VRORenderTarget> getRenderTarget() = 0;
     
     /*
      Indicates how we handle linear rendering and gamma-correction for this device

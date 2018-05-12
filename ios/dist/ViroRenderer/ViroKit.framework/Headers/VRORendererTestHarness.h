@@ -42,6 +42,7 @@ enum class VRORendererTestType {
     DiffuseIrradiance,
     PhotometricLight,
     RendererSettings,
+    ToneMapping,
     NumTests,
 };
 

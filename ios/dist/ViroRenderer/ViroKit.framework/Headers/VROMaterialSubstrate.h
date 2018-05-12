@@ -49,7 +49,7 @@ public:
      The shader used is a function both of the underlying material properties
      and of the desired lighting configuration.
      */
-    virtual void bindShader(int lightsHash,
+    virtual bool bindShader(int lightsHash,
                             const std::vector<std::shared_ptr<VROLight>> &lights,
                             const VRORenderContext &context,
                             std::shared_ptr<VRODriver> &driver) = 0;

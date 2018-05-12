@@ -39,7 +39,6 @@ enum class VROTrackingType {
  to detect. A VROARAnchor is created for each detected object.
  */
 enum class VROAnchorDetection {
-    None,
     PlanesHorizontal,
     PlanesVertical
 };
@@ -65,8 +64,14 @@ enum class VROVideoQuality {
  The implementation of image tracking to use.
  */
 enum class VROImageTrackingImpl {
+    ARCore,
     ARKit,
-    Viro // not available for devs to use yet.
+    Viro
+};
+
+enum class VROCloudAnchorProvider {
+    None,
+    ARCore,
 };
 
 /*
@@ -77,8 +82,15 @@ public:
     
     VROARSession(VROTrackingType trackingType, VROWorldAlignment worldAlignment) :
         _trackingType(trackingType),
-        _worldAlignment(worldAlignment),
-        _imageTrackingImpl(VROImageTrackingImpl::ARKit) {}
+        _worldAlignment(worldAlignment) {
+#if ENABLE_OPENCV
+        _imageTrackingImpl = VROImageTrackingImpl::Viro;
+#elif VRO_PLATFORM_IOS
+        _imageTrackingImpl = VROImageTrackingImpl::ARKit;
+#elif VRO_PLATFORM_ANDROID
+        _imageTrackingImpl = VROImageTrackingImpl::ARCore;
+#endif
+    }
     virtual ~VROARSession() {}
     
     VROTrackingType getTrackingType() const {
@@ -141,6 +153,11 @@ public:
      if the device supports these forms of anchor detection).
      */
     virtual bool setAnchorDetection(std::set<VROAnchorDetection> types) = 0;
+
+    /*
+     Set the provider to use for hosting and resolving cloud anchors.
+     */
+    virtual void setCloudAnchorProvider(VROCloudAnchorProvider provider) = 0;
     
     /*
      Adds an image target that should be tracked by this session.

@@ -68,12 +68,14 @@ public:
      that we should perform all post-processing effects. The *final* output of
      post processing should be rendered into the given target.
 
-     Return true if anything was written to the destination. False if there was
-     no post-processing done.
+     Return the render target that contains the final result. Note this will always
+     be one of the passed-in render targets (source if no post-processing was required,
+     or one of targetA or targetB if there were any post-processing steps).
      */
-    bool handlePostProcessing(std::shared_ptr<VRORenderTarget> source,
-                              std::shared_ptr<VRORenderTarget> destination,
-                              std::shared_ptr<VRODriver> driver);
+    std::shared_ptr<VRORenderTarget> handlePostProcessing(std::shared_ptr<VRORenderTarget> source,
+                                                          std::shared_ptr<VRORenderTarget> targetA,
+                                                          std::shared_ptr<VRORenderTarget> targetB,
+                                                          std::shared_ptr<VRODriver> driver);
 
     static VROPostProcessEffect getEffectForString(std::string strEffect){
         VROStringUtil::toLowerCase(strEffect);
@@ -102,14 +104,15 @@ public:
     }
 private:
 
-    void renderEffects(std::shared_ptr<VRORenderTarget> input,
-                       std::shared_ptr<VRORenderTarget> output,
-                       std::shared_ptr<VRODriver> driver);
+    std::shared_ptr<VRORenderTarget> renderEffects(std::shared_ptr<VRORenderTarget> input,
+                                                   std::shared_ptr<VRORenderTarget> targetA,
+                                                   std::shared_ptr<VRORenderTarget> targetB,
+                                                   std::shared_ptr<VRODriver> driver);
 
     /*
      Shader programs cached by their VROPostProcessEffect types.
      */
-    std::vector<std::pair<VROPostProcessEffect,std::shared_ptr<VROImagePostProcess>>> _cachedPrograms;
+    std::vector<std::pair<VROPostProcessEffect, std::shared_ptr<VROImagePostProcess>>> _cachedPrograms;
 
     /*
      Below is a list of post-process specific functions that builds, caches and returns post process

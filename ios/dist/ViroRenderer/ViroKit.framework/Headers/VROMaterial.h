@@ -107,8 +107,10 @@ public:
      Lights are passed into bindShader because the shader used by a material
      is a function both of that material's properties and of the desired lighting
      configuration.
+     
+     Returns false if the shader could not be bound.
      */
-    void bindShader(int lightsHash,
+    bool bindShader(int lightsHash,
                     const std::vector<std::shared_ptr<VROLight>> &lights,
                     const VRORenderContext &context,
                     std::shared_ptr<VRODriver> &driver);
@@ -268,6 +270,14 @@ public:
     void setChromaKeyFilteringColor(VROVector3f color);
     VROVector3f getChromaKeyFilteringColor() const {
         return _chromaKeyFilteringColor;
+    }
+    
+    /*
+     Tone-mapping settings.
+     */
+    void setNeedsToneMapping(bool needsToneMapping);
+    bool needsToneMapping() const {
+        return _needsToneMapping;
     }
 
     /*
@@ -472,6 +482,20 @@ private:
     */
     bool _chromaKeyFilteringEnabled;
     VROVector3f _chromaKeyFilteringColor;
+    
+    /*
+     If true, then surfaces of this material are need to be tone-mapped when rendering in HDR.
+     Tone-mapping is the process of reducing a surface's color values from HDR to LDR (0,1).
+     Because tone-mapping will distort, saturate, or desaturate colors, it's sometimes useful
+     to set some materials to not be tone-mapped: instead, these materials' colors will be
+     linearly mapped from HDR to LDR. This is most useful when rendering text (which does not
+     respond to light) or LDR backgrounds (which already contain accurate lighting
+     information). You should not set this to false for any material that responds to light,
+     especially in PBR.
+    
+     Defaults to true.
+     */
+    bool _needsToneMapping;
     
     /*
      Representation of this material in the underlying graphics hardware.
