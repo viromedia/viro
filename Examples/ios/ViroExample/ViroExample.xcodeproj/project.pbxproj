@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		136B0AE920AA2F9A00391021 /* libViroReact_for_release_tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 136B0AE820AA2D2900391021 /* libViroReact_for_release_tests.a */; };
+		136B0AEA20AA2FB800391021 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BDD9D8D1E09EBFF00A42870 /* libReact.a */; };
 		490C9A7EEFBA520AB6A3A746 /* Pods_ViroExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9963AEFBC35CAFD7D48A8D1B /* Pods_ViroExample.framework */; };
 		8B3C3ADF1F3CDEAB001C03C9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8BE0D4241DF9DCFE0032AB99 /* Assets.xcassets */; };
 		8BDB54AF1DFFEE7300179AEF /* libRCTImage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BDB54AE1DFFEE7300179AEF /* libRCTImage.a */; };
@@ -14,8 +16,6 @@
 		8BDB54B31DFFEE8900179AEF /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BDB54B21DFFEE8900179AEF /* libRCTText.a */; };
 		8BDB54B51DFFEE8F00179AEF /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BDB54B41DFFEE8F00179AEF /* libRCTActionSheet.a */; };
 		8BDB54B71DFFEE9600179AEF /* libRCTWebSocket.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BDB54B61DFFEE9600179AEF /* libRCTWebSocket.a */; };
-		8BDDA0321E565ED600A42870 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BDD9D8D1E09EBFF00A42870 /* libReact.a */; };
-		8BDDA0FC1E5BBDEA00A42870 /* libViroReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BDD9D9D1E09F38900A42870 /* libViroReact.a */; };
 		8BE0D41A1DF9DCFE0032AB99 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BE0D4191DF9DCFE0032AB99 /* main.m */; };
 		8BE0D41D1DF9DCFE0032AB99 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BE0D41C1DF9DCFE0032AB99 /* AppDelegate.m */; };
 		8BE0D4281DF9DCFE0032AB99 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8BE0D4261DF9DCFE0032AB99 /* LaunchScreen.storyboard */; };
@@ -51,6 +51,13 @@
 			proxyType = 2;
 			remoteGlobalIDString = 9936F32F1F5F2E5B0010BF04;
 			remoteInfo = "privatedata-tvOS";
+		};
+		136B0AE720AA2D2900391021 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8BDD9D981E09F38900A42870 /* ViroReact.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 136B0AD820AA2CA300391021;
+			remoteInfo = ViroReact_for_release_tests;
 		};
 		8ABC82CC1F54F7CC00217AB8 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -288,8 +295,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8BDDA0321E565ED600A42870 /* libReact.a in Frameworks */,
-				8BDDA0FC1E5BBDEA00A42870 /* libViroReact.a in Frameworks */,
+				136B0AEA20AA2FB800391021 /* libReact.a in Frameworks */,
+				136B0AE920AA2F9A00391021 /* libViroReact_for_release_tests.a in Frameworks */,
 				8BDB54AF1DFFEE7300179AEF /* libRCTImage.a in Frameworks */,
 				8BDB54B11DFFEE7E00179AEF /* libRCTNetwork.a in Frameworks */,
 				8BDB54B31DFFEE8900179AEF /* libRCTText.a in Frameworks */,
@@ -412,6 +419,7 @@
 			isa = PBXGroup;
 			children = (
 				8BDD9D9D1E09F38900A42870 /* libViroReact.a */,
+				136B0AE820AA2D2900391021 /* libViroReact_for_release_tests.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -656,6 +664,13 @@
 			fileType = archive.ar;
 			path = "libprivatedata-tvOS.a";
 			remoteRef = 1358E52720A951DC00940D57 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		136B0AE820AA2D2900391021 /* libViroReact_for_release_tests.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libViroReact_for_release_tests.a;
+			remoteRef = 136B0AE720AA2D2900391021 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		8ABC82CD1F54F7CC00217AB8 /* libthird-party.a */ = {
