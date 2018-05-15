@@ -17,8 +17,8 @@
 #import "VRTImageAsyncLoader.h"
 
 static NSString *const kVRTAmbientLightInfoKey = @"ambientLightInfo";
-static NSString *const kVRTIntensityKey = @"intensity";
-static NSString *const kVRTColorTemperatureKey = @"colorTemperature";
+static NSString *const kVRTAmbientIntensityKey = @"intensity";
+static NSString *const kVRTAmbientColorKey = @"color";
 
 static NSString *const kCameraHitTestResults = @"hitTestResults";
 static NSString *const kCameraOrientation = @"cameraOrientation";
@@ -92,10 +92,14 @@ static NSString *const kPointCloudKey = @"pointCloud";
     }
 }
 
-- (void)onAmbientLightUpdate:(float)intensity colorTemperature:(float)colorTemperature {
+- (void)onAmbientLightUpdate:(float)intensity color:(VROVector3f)color {
     if (self.onAmbientLightUpdateViro) {
-        self.onAmbientLightUpdateViro(@{kVRTAmbientLightInfoKey: @{ kVRTIntensityKey : @(intensity),
-                                                                    kVRTColorTemperatureKey : @(colorTemperature)
+        NSString *lightColor = [NSString stringWithFormat:@"#%02x%02x%02x",
+                                (int) MIN(255, MAX(0, color.x * 255)),
+                                (int) MIN(255, MAX(0, color.y * 255)),
+                                (int) MIN(255, MAX(0, color.z * 255))];
+        self.onAmbientLightUpdateViro(@{kVRTAmbientLightInfoKey: @{ kVRTAmbientIntensityKey : @(intensity),
+                                                                    kVRTAmbientColorKey : lightColor
                                                                     }});
     }
 }

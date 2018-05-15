@@ -45,20 +45,20 @@ var ARFBXVersionTest = createReactClass({
   mixins: [TimerMixin],
   getInitialState: function() {
     return {
-      intensity : 1000,
-      colorTemp : 6500
+      ambientIntensity : 1000,
+      ambientColor : 6500
     };
   },
   componentDidMount: function() {
-    this._intensity = 1000;
-    this._colorTemp = 6500;
+    this._ambientIntensity = 1000;
+    this._ambientColor = 6500;
     if (!setLightValuesFast) {
       // Only set the intensity and temp twice a second!
       this.setInterval(
         ()=>{
           this.setState({
-            intensity : this._intensity,
-            colorTemp : this._colorTemp
+            ambientIntensity : this._ambientIntensity,
+            ambientColor : this._ambientColor
           })
         },
         500
@@ -68,7 +68,7 @@ var ARFBXVersionTest = createReactClass({
   render: function() {
     return (
         <ViroARScene onAmbientLightUpdate={this._onAmbientLightUpdate}>
-          <ViroAmbientLight color="#ffffff" intensity={this.state.intensity} temperature={Platform.OS == 'android' ? 6500 : this.state.colorTemp}/>
+          <ViroAmbientLight color="#ffffff" intensity={this.state.ambientIntensity} color={this.state.ambientColor} />
           <ViroNode position={[0,0,-2]} onDrag={()=>{}} dragType="FixedToWorld">
             <ViroText position={[1,.33,0]} text={"FBX 2018"}
             style={styles.instructionText} transformBehaviors={["billboard"]}/>
@@ -92,12 +92,12 @@ var ARFBXVersionTest = createReactClass({
   },
   _onAmbientLightUpdate(retDict) {
     if (!setLightValuesFast) {
-      this._intensity = retDict.intensity;
-      this._colorTemp = retDict.colorTemperature;
+      this._ambientIntensity = retDict.intensity;
+      this._ambientColor = retDict.color;
     } else {
       this.setState({
-        intensity : retDict.intensity,
-        colorTemp : retDict.colorTemperature
+        ambientIntensity : retDict.intensity,
+        ambientColor : retDict.color
       })
     }
   },

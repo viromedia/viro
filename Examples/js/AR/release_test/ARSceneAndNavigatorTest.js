@@ -57,17 +57,17 @@ var testARScene = createReactClass({
     }
   },
   componentDidMount: function() {
-    this._intensity = 0;
-    this._colorTemp = 0;
+    this._ambientIntensity = 0;
+    this._ambientColor = "#FFFFFF";
     this.setInterval(
       ()=>{
         this.setState({
-          ambientLightText : "Intensity: " + this._intensity + ", ColorTemp: " + this._colorTemp
+          ambientLightText : "Intensity: " + this._ambientIntensity + "\nColor: " + this._ambientColor
         })
       },
       500
     )
-  }, 
+  },
 
   _onTrackingUpdated(state, reason) {
     var strState = "NONE";
@@ -121,15 +121,15 @@ var testARScene = createReactClass({
         <ViroText position={polarToCartesian([6, 30, 10])} text={"Initialized? " + (this.state.initialized ? "Yes" : "No")}
           style={styles.instructionText} transformBehaviors={["billboard"]}/>
         <ViroText position={polarToCartesian([6, 30, 0])} text={this.state.ambientLightText}
-          style={styles.instructionText} transformBehaviors={["billboard"]}
+          style={styles.ambientLightText} transformBehaviors={["billboard"]}
           ref={component=>{this._ambientLightText = component}}/>
         <ViroText ref={(component)=>{this.pointCloudPointsText = component}}
-          position={polarToCartesian([6, 30, -10])} text={"# of PointCloud points: " + this.state.pointCloudPoints}
+          position={polarToCartesian([6, 30, -20])} text={"# of PointCloud points: " + this.state.pointCloudPoints}
           style={styles.instructionText} transformBehaviors={["billboard"]} />
-        <ViroText position={polarToCartesian([6, 30, -20])} text={this.state.displayPointCloud ? "Hide Point Cloud" : "Show Point Cloud"}
+        <ViroText position={polarToCartesian([6, 30, -30])} text={this.state.displayPointCloud ? "Hide Point Cloud" : "Show Point Cloud"}
           style={styles.instructionText} transformBehaviors={["billboard"]}
           onClick={()=>{this.setState({displayPointCloud : !this.state.displayPointCloud})}}/>
-        <ViroText position={polarToCartesian([6, 30, -30])} text={"Toggle Autofocus/Quality"}
+        <ViroText position={polarToCartesian([6, 30, -40])} text={"Toggle Autofocus/Quality"}
           style={styles.instructionText} transformBehaviors={["billboard"]}
           onClick={()=>{this.props.arSceneNavigator.viroAppProps.toggleAutofocus();
                         this.props.arSceneNavigator.viroAppProps.toggleVideoQuality()}}/>
@@ -198,10 +198,10 @@ var testARScene = createReactClass({
   _onAmbientLightUpdate(retDict) {
     // setting native props is too insane/quick...
     // maybe if we cast it to an int it's easier to see, for now just use timer
-    //this._ambientLightText.setNativeProps({"text" : "Intensity: " + retDict.intensity + ", ColorTemp: " + retDict.colorTemperature})
-    this._intensity = retDict.intensity;
-    this._colorTemp = retDict.colorTemperature;
+    this._ambientIntensity = retDict.intensity;
+    this._ambientColor = retDict.color;
   },
+
   _startStopRecording() {
     this.setState({
       isRecording : !this.state.isRecording,
@@ -275,6 +275,15 @@ var styles = StyleSheet.create({
       fontSize: 25,
       color: '#AAAAAA',
       width: 2,
+      textAlignVertical: 'center',
+      textAlign: 'center',
+  },
+  ambientLightText: {
+      fontFamily: 'Arial',
+      fontSize: 25,
+      color: '#AAAAAA',
+      width: 3.5,
+      height: 3,
       textAlignVertical: 'center',
       textAlign: 'center',
   },

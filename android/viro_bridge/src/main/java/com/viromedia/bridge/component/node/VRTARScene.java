@@ -36,9 +36,16 @@ import java.util.EnumSet;
 
 public class VRTARScene extends VRTScene implements ARScene.Listener {
 
+    // ARCore color corrections are generally returned in the range 0.5 to 1.5; since they
+    // go above 1.0, they are not compatible with with hexadecimal color representations
+    // used in React. To compensate for this, rebalance the color corrections by multiplying
+    // by this factor. Since doing this will reduce the intensity of the light, we also have
+    // to then multiply the estimated intensity by the *inverse* of this factor.
+    private static float kLightEstimateIntensityRebalance = 0.5f;
+
     private static final String AMBIENT_LIGHT_INFO_KEY = "ambientLightInfo";
-    private static final String INTENSITY_KEY = "intensity";
-    private static final String COLOR_TEMPERATURE_KEY = "colorTemperature";
+    private static final String AMBIENT_INTENSITY_KEY = "intensity";
+    private static final String AMBIENT_COLOR_KEY = "color";
     private Surface mPointCloudSurface;
     private PointCloudImageDownloadListener mImageDownloadListener;
     private Handler mMainHandler;
@@ -145,10 +152,23 @@ public class VRTARScene extends VRTScene implements ARScene.Listener {
     }
 
     @Override
-    public void onAmbientLightUpdate(float lightIntensity, float colorTemperature) {
+    public void onAmbientLightUpdate(float intensity, Vector color) {
+        // Multiply by the inverse of the rebalancing factor to compensate for the
+        // brightness reduction caused by rebalancing color correction.
+        float lightIntensity = intensity * 1.0f / kLightEstimateIntensityRebalance;
+
+        // ARCore returns light values in gamma space in the range 0.5 to 1.5. First convert
+        // to linear color, then rebalance so the values do not breach 1.0. The brightness is
+        // diminished but this is compensated by multiplying estimated intensity by the inverse
+        // of the rebalance constant (above).
+        String lightColor = String.format("#%02x%02x%02x",
+                (int) Math.min(255, Math.max(0, color.x * kLightEstimateIntensityRebalance * 255)),
+                (int) Math.min(255, Math.max(0, color.y * kLightEstimateIntensityRebalance * 255)),
+                (int) Math.min(255, Math.max(0, color.z * kLightEstimateIntensityRebalance * 255)));
+
         WritableMap lightInfoMap = Arguments.createMap();
-        lightInfoMap.putDouble(INTENSITY_KEY, (double) lightIntensity);
-        lightInfoMap.putDouble(COLOR_TEMPERATURE_KEY, (double) colorTemperature);
+        lightInfoMap.putDouble(AMBIENT_INTENSITY_KEY, (double) lightIntensity);
+        lightInfoMap.putString(AMBIENT_COLOR_KEY, lightColor);
 
         WritableMap event = Arguments.createMap();
         event.putMap(AMBIENT_LIGHT_INFO_KEY, lightInfoMap);
