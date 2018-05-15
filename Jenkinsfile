@@ -7,10 +7,10 @@ pipeline {
 fastlane gradle_clean_bridge'''
       }
     }
-    stage('examples_clean') {
+    stage('node_modules (clean install)') {
       steps {
-        sh '''cd Examples/android
-fastlane examples_gradle_clean'''
+        sh '''cd Examples
+rm -rf node_modules ; npm install'''
       }
     }
     stage('viroreact (iOS)') {
