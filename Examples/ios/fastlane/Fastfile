@@ -24,6 +24,7 @@ platform :ios do
   desc "Build react, ViroReact frameworks"
   lane :release_react_viro_lib do
     Dir.chdir("../") do
+      sh("cp -r /tmp/react_viro_kit/ViroKit.framework/ ../../ios/dist/ViroRenderer/ViroKit.framework/")
        # clean React scheme
        sh("xcodebuild -workspace ViroExample/ViroExample.xcworkspace/ -scheme React -configuration Release clean | xcpretty -c")
        sh("xcodebuild -workspace ViroExample/ViroExample.xcworkspace/ -scheme ViroReact -configuration Release clean | xcpretty -c")
@@ -56,8 +57,9 @@ platform :ios do
   end
 
   lane :test do
-    pilot(username: "manish@viromedia.com",
-          ipa: "./build/ViroExample.ipa")
+    Dir.chdir("../") do
+      sh("cp -r /tmp/react_viro_kit/ViroKit.framework/ ../../ios/dist/ViroRenderer/ViroKit.framework/")
+    end
   end
 end
 # More information about multiple platforms in fastlane: https://docs.fastlane.tools/advanced/#control-configuration-by-lane-and-by-platform
