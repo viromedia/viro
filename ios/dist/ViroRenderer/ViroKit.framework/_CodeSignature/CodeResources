@@ -2637,7 +2637,7 @@
 		</data>
 		<key>Headers/VROData.h</key>
 		<data>
-		zcTGpLNAc8jaC/y/sk7ngCQqYOI=
+		052GzQpj1SZOZG5zH/Jzee0svLE=
 		</data>
 		<key>Headers/VRODefines.h</key>
 		<data>
@@ -2699,6 +2699,10 @@
 		<data>
 		BwN4AVC8DeoUFXi4W7DA4MDjeBs=
 		</data>
+		<key>Headers/VROGLTFLoader.h</key>
+		<data>
+		I1nxudZiOYlaunwJrn7thGQ4hDY=
+		</data>
 		<key>Headers/VROGeometry.h</key>
 		<data>
 		uiQjqpxlEQfwMR+zjNtU0MB8zrU=
@@ -2709,7 +2713,7 @@
 		</data>
 		<key>Headers/VROGeometrySource.h</key>
 		<data>
-		BLiqnEGwXrYdJVSZc+AyGuvbZuA=
+		vsugI3upjXNz20eP8bXpeUJWwc8=
 		</data>
 		<key>Headers/VROGeometryUtil.h</key>
 		<data>
@@ -2873,7 +2877,7 @@
 		</data>
 		<key>Headers/VROPlatformUtil.h</key>
 		<data>
-		sJ0lSUIGJOz6cAf7rkdEqPwgpos=
+		kLFz4/FQy+BcWA7QKtU8VRiVG+o=
 		</data>
 		<key>Headers/VROPolygon.h</key>
 		<data>
@@ -3205,7 +3209,7 @@
 		</data>
 		<key>Headers/ViroKit.h</key>
 		<data>
-		SWYml8ZZaMEG3ml55wGNdFObGac=
+		LUky4bLsh2B20/bOCujlcUFxoTM=
 		</data>
 		<key>Headers/glm/CMakeLists.txt</key>
 		<data>
@@ -4249,7 +4253,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		exrajlfDWn5F3tVTx0Ok9JN1K+E=
+		cG5TBruG3+iVxThHFZyvFTSZe98=
 		</data>
 		<key>MaterialRobotoFontLoader.bundle/Roboto-Black.ttf</key>
 		<data>
@@ -9233,11 +9237,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			zcTGpLNAc8jaC/y/sk7ngCQqYOI=
+			052GzQpj1SZOZG5zH/Jzee0svLE=
 			</data>
 			<key>hash2</key>
 			<data>
-			edkA4PTKVTu/iBUJAtXgatBzZORz6d3d8d01aEgosNI=
+			l9XAuQrJzTAJJ8Mw4c13aWkwuZ6fnprvTYfHabX1VHw=
 			</data>
 		</dict>
 		<key>Headers/VRODefines.h</key>
@@ -9405,6 +9409,17 @@
 			25TfF3hfkBNcQccJReOsX1kmEl3lYUvQU0QN23kljAw=
 			</data>
 		</dict>
+		<key>Headers/VROGLTFLoader.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			I1nxudZiOYlaunwJrn7thGQ4hDY=
+			</data>
+			<key>hash2</key>
+			<data>
+			eGCHrmdkF82nvoa2FhUBTn9PXeeRmi1h6TYwzDph54k=
+			</data>
+		</dict>
 		<key>Headers/VROGeometry.h</key>
 		<dict>
 			<key>hash</key>
@@ -9431,11 +9446,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			BLiqnEGwXrYdJVSZc+AyGuvbZuA=
+			vsugI3upjXNz20eP8bXpeUJWwc8=
 			</data>
 			<key>hash2</key>
 			<data>
-			p7bEHDhe9kpnnePq8ATZkB1HeQN9A5KrGsnx7FC/C1k=
+			KLQntr/99q0knPC7Nec/02ocLxAMiXtGdB3uwd5Xowc=
 			</data>
 		</dict>
 		<key>Headers/VROGeometryUtil.h</key>
@@ -9882,11 +9897,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			sJ0lSUIGJOz6cAf7rkdEqPwgpos=
+			kLFz4/FQy+BcWA7QKtU8VRiVG+o=
 			</data>
 			<key>hash2</key>
 			<data>
-			zlUgqBYLb6jlcY5b0jKobhIYcLjRL0WLVFgnd0evCtw=
+			9g0SYpb1+WANF2BR0tAe/ZtDai4SXrzfIzWOfnGRPUI=
 			</data>
 		</dict>
 		<key>Headers/VROPolygon.h</key>
@@ -10795,11 +10810,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			SWYml8ZZaMEG3ml55wGNdFObGac=
+			LUky4bLsh2B20/bOCujlcUFxoTM=
 			</data>
 			<key>hash2</key>
 			<data>
-			9w//ouPgQVS1yRMyemb0z6CP6ZV/2dNl10Ct6Rencuw=
+			PBhHZdNJAO7mVRTkWoW439KddBEhbeY1ckIXQFdw+Jg=
 			</data>
 		</dict>
 		<key>Headers/glm/CMakeLists.txt</key>

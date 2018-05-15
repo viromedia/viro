@@ -39,7 +39,7 @@ var Viro3DObject = createReactClass({
       PropTypes.arrayOf(PropTypes.string),
       PropTypes.string
     ]),
-    type: PropTypes.oneOf(['OBJ', 'VRX']).isRequired,
+    type: PropTypes.oneOf(['OBJ', 'VRX', 'GLTF', 'GLB']).isRequired,
     opacity: PropTypes.number,
     ignoreEventHandling: PropTypes.bool,
     dragType: PropTypes.oneOf(["FixedDistance", "FixedToWorld", "FixedToPlane"]),
@@ -77,7 +77,7 @@ var Viro3DObject = createReactClass({
       onStart: PropTypes.func,
       onFinish: PropTypes.func,
       run: PropTypes.bool,
-      interruptible: PropTypes.bool, 
+      interruptible: PropTypes.bool,
     }),
     visible: PropTypes.bool,
 

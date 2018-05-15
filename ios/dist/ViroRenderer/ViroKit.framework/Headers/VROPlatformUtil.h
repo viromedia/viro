@@ -117,6 +117,8 @@ std::string VROPlatformGetCacheDirectory();
 
 // Returns empty shared_ptr on failure
 std::shared_ptr<VROImage> VROPlatformLoadImageFromFile(std::string filename, VROTextureInternalFormat format);
+std::shared_ptr<VROImage> VROPlatformLoadImageWithBufferedData(std::vector<unsigned char> rawData,
+                                                               VROTextureInternalFormat format);
 
 #if VRO_PLATFORM_ANDROID
 std::shared_ptr<VROImage> VROPlatformLoadImageFromAsset(std::string asset, VROTextureInternalFormat format);

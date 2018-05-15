@@ -28,10 +28,6 @@ import android.util.Log;
 public class VRT3DObject extends VRTControl {
     private static final String TAG = ViroLog.getTag(VRT3DObject.class);
 
-    private enum ObjectType {
-        OBJ, VRX
-    }
-
     private static class Object3dAnimation extends NodeAnimation {
         private WeakReference<Node> mNodeWeak;
 
@@ -69,7 +65,7 @@ public class VRT3DObject extends VRTControl {
     private List<String> mResources = null;
     protected boolean mObjLoaded = false;
     private boolean mSourceChanged = false;
-    private ObjectType mType;
+    private Object3D.Type mType;
 
     public VRT3DObject(ReactContext reactContext) {
         super(reactContext);
@@ -95,11 +91,11 @@ public class VRT3DObject extends VRTControl {
     }
 
     public void setType(String type) {
-        try {
-            mType = ObjectType.valueOf(type.toUpperCase());
-        } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException("String [" + type + "] is not a valid object type.");
+        if (type == null || type.isEmpty()) {
+            throw new IllegalArgumentException("Missing required prop [type] for Viro3DObject");
         }
+
+        mType = Object3D.Type.fromString(type);
     }
 
     public void setSource(String source) {
@@ -192,8 +188,6 @@ public class VRT3DObject extends VRTControl {
             }
         };
 
-        boolean isVRX = mType == ObjectType.VRX;
-
         // if the source is from resources, then pass in the resources it depends on (if any)
         String scheme = mSource.getScheme();
         if (scheme != null && scheme.equals("res")) {
@@ -208,13 +202,11 @@ public class VRT3DObject extends VRTControl {
 
             // When in release mode, the objects are packaged as resources so we use the
             // resource constructor
-            getObject3D().loadModel(mViroContext, mSource.toString(), isVRX ? Object3D.Type.FBX : Object3D.Type.OBJ,
-                    listener, resourceMap);
+            getObject3D().loadModel(mViroContext, mSource.toString(), mType, listener, resourceMap);
         } else {
             // When in debug mode (not release), the objects are loaded as URLs so we use
             // the URL constructor
-            getObject3D().loadModel(mViroContext, mSource, isVRX ? Object3D.Type.FBX : Object3D.Type.OBJ,
-                    listener);
+            getObject3D().loadModel(mViroContext, mSource, mType, listener);
         }
         mSourceChanged = false;
     }

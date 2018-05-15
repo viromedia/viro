@@ -38,13 +38,13 @@ public:
      Copy.
      */
     VROData(void *data, int dataLength, VRODataOwnership ownership = VRODataOwnership::Copy);
-    
+
     /*
-     Construct a new VROData, copying the bytes into this object.
-     (allows for const data input).
+     Construct a new VROData, copying a dataLength's worth of bytes, starting
+     at a byteOffset into the given data (allows for const data input).
      */
-    VROData(const void *data, int dataLength);
-    
+    VROData(const void *data, int dataLength, int byteOffset = 0);
+
     ~VROData();
     
     void *const getData() {

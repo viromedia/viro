@@ -135,11 +135,6 @@
         RCTLogError(@"`type` property not set on Viro3DObject.");
         return;
     }
-
-    BOOL isOBJ = NO;
-    if ([_type caseInsensitiveCompare:@"OBJ"] == NSOrderedSame) {
-        isOBJ = YES;
-    }
     
     // Clear all child nodes of this control before loading our 3D models
     for (std::shared_ptr<VRONode> child : self.node->getChildNodes()) {
@@ -175,16 +170,20 @@
             }
         }
     };
-    
-    if (isOBJ) {
+
+    if ([_type caseInsensitiveCompare:@"OBJ"] == NSOrderedSame) {
         VROOBJLoader::loadOBJFromResource(url, VROResourceType::URL, self.node, self.driver, onFinish);
-    }
-    else {
+    } else if ([_type caseInsensitiveCompare:@"FBX"] == NSOrderedSame) {
         VROFBXLoader::loadFBXFromResource(url, VROResourceType::URL, self.node, self.driver, onFinish);
+    } else if ([_type caseInsensitiveCompare:@"GLTF"] == NSOrderedSame) {
+        VROGLTFLoader::loadGLTFFromResource(url, {},  VROResourceType::URL, self.node, false, self.driver, onFinish);
+    } else if ([_type caseInsensitiveCompare:@"GLB"] == NSOrderedSame) {
+        VROGLTFLoader::loadGLTFFromResource(url, {},  VROResourceType::URL, self.node, true, self.driver, onFinish);
+    } else {
+        self.onErrorViro(@{ @"error": @"model failed to load" });
     }
     _sourceChanged = NO;
 }
-
 /*
  Set the bit masks recursively for 3D objects because they may have internal
  (FBX) nodes.

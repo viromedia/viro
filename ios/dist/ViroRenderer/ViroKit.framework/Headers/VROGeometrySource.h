@@ -14,6 +14,7 @@
 #include <functional>
 #include "VROData.h"
 #include "VROBoundingBox.h"
+#include "VROGeometryElement.h"
 
 enum class VROGeometrySourceSemantic {
     Vertex,
@@ -91,6 +92,12 @@ public:
     bool isFloatComponents() const {
         return _floatComponents;
     }
+    void setGeometryElementIndex(int i) {
+        _geoElementIndex = i;
+    }
+    int getGeometryElementIndex() {
+        return _geoElementIndex;
+    }
     
     /*
      Read through all the vertices in this data source and invoke the provided
@@ -152,7 +159,14 @@ private:
      The number of bytes from one vertex in the data to the next.
      */
     int _dataStride;
-    
+
+    /*
+     The index of the VROGeometryElement that is related to this VROGeometrySource contained within
+     the vec of elements in source's VROGeometry. If there is no unique relationship (if the bounded
+     geometry elements require all bounded sources), then _geoElementIndex is is -1.
+     Note: This is an optional field.
+     */
+    int _geoElementIndex = -1;
 };
 
 #endif /* VROGeometrySource_h */
