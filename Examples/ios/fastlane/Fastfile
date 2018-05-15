@@ -14,7 +14,6 @@
 fastlane_version "2.66.2"
 
 default_platform :ios
-import "../../../../ViroRenderer/ios/fastlane/Fastfile"
 platform :ios do
   before_all do
     # ENV["SLACK_URL"] = "https://hooks.slack.com/services/..."
@@ -24,11 +23,6 @@ platform :ios do
 
   desc "Build react, ViroReact frameworks"
   lane :release_react_viro_lib do
-    ensure_git_status_clean
-    git_pull
-    Dir.chdir("../../../../ViroRenderer/ios/fastlane") do
-      release_virokit_framework
-    end
     Dir.chdir("../") do
        # clean React scheme
        sh("xcodebuild -workspace ViroExample/ViroExample.xcworkspace/ -scheme React -configuration Release clean | xcpretty -c")
@@ -40,38 +34,32 @@ platform :ios do
        # build ViroReact scheme
        sh("xcodebuild -workspace ViroExample/ViroExample.xcworkspace/ -scheme ViroReact -configuration Release | xcpretty -c")
 
-       sh("xcodebuild -workspace ViroExample/ViroExample.xcworkspace/ -scheme ViroExample -configuration Release | xcpretty -c")
      end
-# gym doesnt seem to work with the way we are building our libs :(
-#    gym(workspace: "../ios/ViroExample/ViroExample.xcworkspace",
-#       scheme: "React",
-#        configuration: "Release",
-#        silent: true,
-#        clean:true,
-#        skip_package_ipa: true,
-#        skip_profile_detection: true)
   end
 
-
-  # You can define as many lanes as you want
-
-  after_all do |lane|
-    # This block is called, only if the executed lane was successful
-
-    # slack(
-    #   message: "Successfully deployed new App Update."
-    # )
+  lane :jenkins_release_tests do
+      increment_build_number(
+        build_number: latest_testflight_build_number + 1,
+        xcodeproj: "./ViroExample/ViroExample.xcodeproj"
+      )
+      cert
+      sigh(force: true)
+      gym(scheme: "ViroExample",
+                workspace: "./ViroExample/ViroExample.xcworkspace",
+                configuration: "Release",
+                clean: true,
+                output_directory: "./build",
+                output_name: "ViroExample.ipa") 
+       pilot(username: "manish@viromedia.com",
+             ipa: "./build/ViroExample.ipa",
+             skip_waiting_for_build_processing: true)
   end
 
-  error do |lane, exception|
-    # slack(
-    #   message: exception.message,
-    #   success: false
-    # )
+  lane :test do
+    pilot(username: "manish@viromedia.com",
+          ipa: "./build/ViroExample.ipa")
   end
 end
-
-
 # More information about multiple platforms in fastlane: https://docs.fastlane.tools/advanced/#control-configuration-by-lane-and-by-platform
 # All available actions: https://docs.fastlane.tools/actions
 
