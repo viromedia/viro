@@ -60,6 +60,4 @@ class VRORendererConfiguration;
  */
 + (BOOL)isARSupported;
 
-- (void)handleOutputTextTap:(UITapGestureRecognizer *)recognizer;
-
 @end

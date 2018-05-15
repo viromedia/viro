@@ -11,9 +11,13 @@
 #import <AVFoundation/AVFoundation.h>
 #import <Photos/Photos.h>
 #import <memory>
+#import "VRORenderToTextureDelegate.h"
 
 class VRODriver;
 class VRORenderer;
+class VROTexture;
+class VRORenderTarget;
+@class VROViewRecorder;
 
 typedef void (^VROViewRecordingErrorBlock)(NSInteger errorCode);
 typedef void (^VROViewWriteMediaFinishBlock)(BOOL success, NSURL *filePath, NSInteger errorCode);
@@ -32,6 +36,24 @@ static NSString *const kVROViewImageSuffix = @".png";
 static NSString *const kVROViewTempVideoSuffix = @"-temp.mp4";
 static NSString *const kVROViewVideoSuffix = @".mp4";
 
+class VROViewRecorderRTTDelegate : public VRORenderToTextureDelegate {
+public:
+    VROViewRecorderRTTDelegate(VROViewRecorder *recorder,
+                               std::shared_ptr<VROTexture> texture,
+                               std::shared_ptr<VRORenderer> renderer,
+                               std::shared_ptr<VRODriver> driver);
+    virtual ~VROViewRecorderRTTDelegate() {}
+    
+    void didRenderFrame(std::shared_ptr<VRORenderTarget> target,
+                        std::shared_ptr<VRODriver> driver);
+    
+private:
+    __weak VROViewRecorder *_recorder;
+    std::shared_ptr<VROTexture> _texture;
+    std::weak_ptr<VRORenderer> _renderer;
+    std::shared_ptr<VRORenderTarget> _renderToTextureTarget;
+};
+
 /*
  Video recording and screenshot implementation for a GLKView.
  */
@@ -49,5 +71,6 @@ static NSString *const kVROViewVideoSuffix = @".mp4";
 - (void)takeScreenshot:(NSString *)fileName
       saveToCameraRoll:(BOOL)saveToCamera
  withCompletionHandler:(VROViewWriteMediaFinishBlock)completionHandler;
+- (void)lockPixelBuffer;
 
 @end

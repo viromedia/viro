@@ -41,6 +41,19 @@ class VROLight : public VROAnimatable {
     
 public:
     
+    /*
+     Derive the RGB color (hue) from the given temperature in Kelvin.
+     */
+    static VROVector3f deriveRGBFromTemperature(float temperature);
+    
+    /*
+     Convert the given RGB color from gamma space to linear space.
+     */
+    static VROVector3f convertGammaToLinear(VROVector3f color);
+    
+    /*
+     Generate a hashcode from the given vector of lights.
+     */
     static uint32_t hashLights(const std::vector<std::shared_ptr<VROLight>> &lights);
     
     VROLight(VROLightType type);
@@ -367,11 +380,6 @@ private:
      */
     VROMatrix4f _shadowViewMatrix;
     VROMatrix4f _shadowProjectionMatrix;
-    
-    /*
-     Derive the RGB color (hue) from the given temperature in Kelvin.
-     */
-    VROVector3f deriveRGBFromTemperature(float temperature);
     
 };
 

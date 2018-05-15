@@ -234,6 +234,8 @@ public:
     virtual void setSoundRoom(float sizeX, float sizeY, float sizeZ, std::string wallMaterial,
                               std::string ceilingMaterial, std::string floorMaterial) = 0;
     virtual void setBlendingMode(VROBlendMode mode) = 0;
+    
+    virtual void *getGraphicsContext() = 0;
 };
 
 #endif /* VRODriver_hpp */

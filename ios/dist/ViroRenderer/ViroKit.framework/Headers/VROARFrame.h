@@ -14,6 +14,7 @@
 #include <memory>
 #include <vector>
 #include <set>
+#include "VROVector3f.h"
 
 class VROARCamera;
 class VROARAnchor;
@@ -71,9 +72,9 @@ public:
     virtual float getAmbientLightIntensity() const = 0;
 
     /*
-     Return the estimate color temperature of ambient light in the physical scene.
+     Return the estimated color of ambient light in the physical scene, in linear RGB space.
      */
-    virtual float getAmbientLightColorTemperature() const = 0;
+    virtual VROVector3f getAmbientLightColor() const = 0;
 
     /*
      Get all the anchors representing tracked positions and objects in the

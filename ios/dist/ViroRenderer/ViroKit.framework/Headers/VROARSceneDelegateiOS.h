@@ -16,7 +16,7 @@
 @protocol VROARSceneDelegateProtocol <NSObject>
 @required
 - (void)onTrackingUpdated:(VROARTrackingState)state withReason:(VROARTrackingStateReason)reason;
-- (void)onAmbientLightUpdate:(float)intensity colorTemperature:(float)colorTemperature;
+- (void)onAmbientLightUpdate:(float)intensity color:(VROVector3f)color;
 - (void)onAnchorFound:(std::shared_ptr<VROARAnchor>)anchor;
 - (void)onAnchorUpdated:(std::shared_ptr<VROARAnchor>)anchor;
 - (void)onAnchorRemoved:(std::shared_ptr<VROARAnchor>)anchor;
@@ -38,7 +38,7 @@ public:
     }
     
     virtual void anchorWillUpdate(std::shared_ptr<VROARAnchor> anchor) {
-        
+         
     }
     
     virtual void anchorDidUpdate(std::shared_ptr<VROARAnchor> anchor) {
@@ -49,8 +49,8 @@ public:
         [_delegate onAnchorRemoved:anchor];
     }
 
-    virtual void onAmbientLightUpdate(float intensity, float colorTemperature) {
-        [_delegate onAmbientLightUpdate:intensity colorTemperature:colorTemperature];
+    virtual void onAmbientLightUpdate(float intensity, VROVector3f color) {
+        [_delegate onAmbientLightUpdate:intensity color:color];
     }
 
 private:
