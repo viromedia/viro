@@ -14,6 +14,8 @@
 #include <memory>
 
 class VROTexture;
+class VRONode;
+class VRODriver;
 
 /*
  The type of file within which the model is stored. On Android, use URL with file:///android-asset/
@@ -70,6 +72,11 @@ public:
      */
     static std::map<std::string, std::string> processResourceMap(const std::map<std::string, std::string> &resourceMap,
                                                                  VROResourceType type);
+
+    /*
+     Recursively hydrate all geometries and textures in that descend from the given node.
+     */
+    static void hydrateNodes(std::shared_ptr<VRONode> node, std::shared_ptr<VRODriver> &driver);
     
 };
 

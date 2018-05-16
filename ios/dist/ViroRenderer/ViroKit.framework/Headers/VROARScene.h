@@ -33,6 +33,8 @@ public:
         _displayPointCloud(false),
         _pointCloudSurfaceScale(VROVector3f(.01, .01, 1)),
         _pointCloudMaxPoints(500) {
+            _ambientLightIntensity.store(1000),
+            _ambientLightColor.store({ 1.0, 1.0, 1.0 }),
             _pointCloudNode = std::make_shared<VRONode>();
             _pointCloudEmitter = nullptr;
             _detectionTypes = { VROAnchorDetection::PlanesHorizontal }; //default is horizontal
@@ -89,6 +91,12 @@ public:
     
     void setDelegate(std::shared_ptr<VROARSceneDelegate> delegate);
     void setTrackingState(VROARTrackingState state, VROARTrackingStateReason reason, bool force);
+
+    /*
+     Get the ambient light estimate of the scene.
+     */
+    float getAmbientLightIntensity() const { return _ambientLightIntensity.load(); }
+    VROVector3f getAmbientLightColor() const { return _ambientLightColor.load(); }
     
     /*
      Update the ambient light estimate of the scene. Intensity is reported in
@@ -129,8 +137,8 @@ private:
     /*
      Ambient light estimation. The intensity is in lumens and the color is in linear space.
      */
-    float _ambientLightIntensity;
-    VROVector3f _ambientLightColor;
+    std::atomic<float> _ambientLightIntensity;
+    std::atomic<VROVector3f> _ambientLightColor;
 
     /*
      Tracking states that have been read from AR cameras. Usually, this flips between Unavailable

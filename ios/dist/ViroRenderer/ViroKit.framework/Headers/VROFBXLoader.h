@@ -50,20 +50,27 @@ public:
      are injected into the node on the main (rendering) thread, and the given
      callback is invoked.
      */
-    static void loadFBXFromResource(std::string file, VROResourceType type, std::shared_ptr<VRONode> destination,
+    static void loadFBXFromResource(std::string file, VROResourceType type,
+                                    std::shared_ptr<VRONode> destination,
+                                    std::shared_ptr<VRODriver> driver,
                                     std::function<void(std::shared_ptr<VRONode> node, bool success)> onFinish = nullptr);
-    static void loadFBXFromResources(std::string file, VROResourceType type, std::shared_ptr<VRONode> destination,
+    static void loadFBXFromResources(std::string file, VROResourceType type,
+                                     std::shared_ptr<VRONode> destination,
                                      std::map<std::string, std::string> resourceMap,
+                                     std::shared_ptr<VRODriver> driver,
                                      std::function<void(std::shared_ptr<VRONode> node, bool success)> onFinish = nullptr);
 
 private:
     
-    static void injectFBX(std::shared_ptr<VRONode> fbxNode, std::shared_ptr<VRONode> node,
+    static void injectFBX(std::shared_ptr<VRONode> fbxNode,
+                          std::shared_ptr<VRONode> node,
+                          std::shared_ptr<VRODriver> driver,
                           std::function<void(std::shared_ptr<VRONode> node, bool success)> onFinish);
     
     static void readFBXProtobufAsync(std::string resource, VROResourceType type, std::shared_ptr<VRONode> node,
                                      std::string path, bool isTemp, bool loadingTexturesFromResourceMap,
                                      std::map<std::string, std::string> resourceMap,
+                                     std::shared_ptr<VRODriver> driver,
                                      std::function<void(std::shared_ptr<VRONode> node, bool success)> onFinish);
     
     /*

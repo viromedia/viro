@@ -38,19 +38,24 @@ public:
      */
     static void loadOBJFromResource(std::string resource, VROResourceType type,
                                     std::shared_ptr<VRONode> destination,
+                                    std::shared_ptr<VRODriver> driver,
                                     std::function<void(std::shared_ptr<VRONode> node, bool success)> onFinish = nullptr);
     static void loadOBJFromResources(std::string resource, VROResourceType type,
                                      std::shared_ptr<VRONode> destination,
                                      std::map<std::string, std::string> resourceMap,
+                                     std::shared_ptr<VRODriver> driver,
                                      std::function<void(std::shared_ptr<VRONode> node, bool success)> onFinish = nullptr);
 
 private:
     
-    static void injectOBJ(std::shared_ptr<VROGeometry> geometry, std::shared_ptr<VRONode> node,
+    static void injectOBJ(std::shared_ptr<VROGeometry> geometry,
+                          std::shared_ptr<VRONode> node,
+                          std::shared_ptr<VRODriver> driver,
                           std::function<void(std::shared_ptr<VRONode> node, bool success)> onFinish);
     static void readOBJFileAsync(std::string resource, VROResourceType type, std::shared_ptr<VRONode> node,
                                  std::string path, bool isTemp, bool loadingTexturesFromResourceMap,
                                  std::map<std::string, std::string> resourceMap,
+                                 std::shared_ptr<VRODriver> driver,
                                  std::function<void(std::shared_ptr<VRONode> node, bool success)> onFinish);
 
     static std::shared_ptr<VROGeometry> processOBJ(tinyobj::attrib_t &attrib,

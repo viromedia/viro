@@ -68,6 +68,11 @@
     return self;
 }
 
+- (void)setDriver:(std::shared_ptr<VRODriver>)driver {
+    [super setDriver:driver];
+    [self didSetProps:nil];
+}
+
 - (void)setSource:(NSDictionary *)source {
     _source = source;
     _sourceChanged = YES;
@@ -100,6 +105,11 @@
             [self didSetProps:changedProps];
         });
         
+        return;
+    }
+    
+    // Wait until we have the driver
+    if (!self.driver) {
         return;
     }
     
@@ -167,10 +177,10 @@
     };
     
     if (isOBJ) {
-        VROOBJLoader::loadOBJFromResource(url, VROResourceType::URL, self.node, onFinish);
+        VROOBJLoader::loadOBJFromResource(url, VROResourceType::URL, self.node, self.driver, onFinish);
     }
     else {
-        VROFBXLoader::loadFBXFromResource(url, VROResourceType::URL, self.node, onFinish);
+        VROFBXLoader::loadFBXFromResource(url, VROResourceType::URL, self.node, self.driver, onFinish);
     }
     _sourceChanged = NO;
 }

@@ -67,6 +67,12 @@ public:
     
     VROMaterial();
     virtual ~VROMaterial();
+
+    /*
+     Hydrate the material substrate and all textures. If this is not called, these resources
+     will be automatically hydrated during the render-cycle.
+     */
+    void prewarm(std::shared_ptr<VRODriver> driver);
     
     /*
      Delete any rendering resources. Invoked prior to destruction, on the

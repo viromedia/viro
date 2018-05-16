@@ -38,7 +38,7 @@ static float kSceneBackgroundDistance = 8;
  */
 class VROInputControllerBase {
 public:
-    VROInputControllerBase();
+    VROInputControllerBase(std::shared_ptr<VRODriver> driver);
     virtual ~VROInputControllerBase(){}
     
     /*
@@ -86,8 +86,9 @@ public:
      rendering thread.
      */
     std::shared_ptr<VROInputPresenter> getPresenter() {
-        if (!_controllerPresenter) {
-            _controllerPresenter = createPresenter();
+        std::shared_ptr<VRODriver> driver = _driver.lock();
+        if (!_controllerPresenter && driver) {
+            _controllerPresenter = createPresenter(driver);
             registerEventDelegate(_controllerPresenter);
         }
         return _controllerPresenter;
@@ -135,7 +136,7 @@ public:
 
 protected:
     
-    virtual std::shared_ptr<VROInputPresenter> createPresenter(){
+    virtual std::shared_ptr<VROInputPresenter> createPresenter(std::shared_ptr<VRODriver> driver) {
         perror("Error: Derived class should create a presenter for BaseInputController to consume!");
         return nullptr;
     }
@@ -299,6 +300,12 @@ private:
      True if we have already notified delegates about the onFuse event.
      */
     bool _haveNotifiedOnFuseTriggered;
+
+    /*
+     Weak pointer to the driver.
+     */
+    std::weak_ptr<VRODriver> _driver;
+
     void processOnFuseEvent(int source, std::shared_ptr<VRONode> node);
     void notifyOnFuseEvent(int source, float timeToFuseRatio);
 };
