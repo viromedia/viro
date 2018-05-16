@@ -361,7 +361,7 @@ RCT_EXPORT_METHOD(deleteMaterials:(NSArray *)materials) {
     VROVector4f vecColor(r, g, b, a);
     if ([@"diffuseColor" caseInsensitiveCompare:materialPropertyName] == NSOrderedSame) {
         material->getDiffuse().setColor(vecColor);
-    } else if([@"chromeKeyFilteringColor" caseInsensitiveCompare:materialPropertyName] == NSOrderedSame) {
+    } else if([@"chromaKeyFilteringColor" caseInsensitiveCompare:materialPropertyName] == NSOrderedSame) {
         VROVector3f vecColorRGB(r, g, b);
         material->setChromaKeyFilteringColor(vecColorRGB);
         material->setChromaKeyFilteringEnabled(true);

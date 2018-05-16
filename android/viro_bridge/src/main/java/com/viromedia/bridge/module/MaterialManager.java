@@ -155,8 +155,8 @@ public class MaterialManager extends ReactContextBaseJavaModule {
         // These defaults match those in the JNI's Material.java
         Material.LightingModel lightingModel = Material.LightingModel.CONSTANT;
         int diffuseColor = Color.WHITE;
-        int chromeKeyFilteringColor = Color.WHITE;
-        boolean chromeFilteringEnabled = false;
+        int chromaKeyFilteringColor = Color.WHITE;
+        boolean chromaFilteringEnabled = false;
         Texture diffuseTexture = null;
         float diffuseIntensity = 1.0f;
         Texture specularTexture = null;
@@ -249,9 +249,9 @@ public class MaterialManager extends ReactContextBaseJavaModule {
                 if (materialPropertyName.equalsIgnoreCase("diffuseColor")) {
                     diffuseColor = color;
                 }
-                else if(materialPropertyName.equalsIgnoreCase("chromeKeyFilteringColor")) {
-                    chromeKeyFilteringColor = color;
-                    chromeFilteringEnabled = true;
+                else if(materialPropertyName.equalsIgnoreCase("chromaKeyFilteringColor")) {
+                    chromaKeyFilteringColor = color;
+                    chromaFilteringEnabled = true;
                 }
                 else {
                     throw new IllegalArgumentException("Invalid color property for material: " + materialPropertyName);
@@ -287,9 +287,9 @@ public class MaterialManager extends ReactContextBaseJavaModule {
                 readsFromDepthBuffer);
 
                 nativeMaterial.setName(materialName);
-        if (chromeFilteringEnabled) {
-            nativeMaterial.setChromaKeyFilteringEnabled(chromeFilteringEnabled);
-            nativeMaterial.setChromaKeyFilteringColor(chromeKeyFilteringColor);
+        if (chromaFilteringEnabled) {
+            nativeMaterial.setChromaKeyFilteringEnabled(chromaFilteringEnabled);
+            nativeMaterial.setChromaKeyFilteringColor(chromaKeyFilteringColor);
         }
 
         materialWrapper.setNativeMaterial(nativeMaterial);

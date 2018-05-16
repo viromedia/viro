@@ -87,7 +87,7 @@ var ViroMaterialVideo = createReactClass({
   },
 
   render: function() {
-    checkMisnamedProps("ViroMaterialVideo", this.props);
+    
 
     // Since materials and transformBehaviors can be either a string or an array, convert the string to a 1-element array.
     //let materials = typeof this.props.materials === 'string' ? new Array(this.props.materials) : this.props.materials;

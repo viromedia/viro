@@ -31,7 +31,7 @@ var MaterialPropTypes = {
   normalTexture: PropTypes.any,
   reflectiveTexture: CubeMapPropType,
   diffuseColor: ColorPropType,
-  chromeKeyFilteringColor: ColorPropType,
+  chromaKeyFilteringColor: ColorPropType,
   wrapS: PropTypes.oneOf(['Clamp', 'Repeat', 'Mirror']),
   wrapT: PropTypes.oneOf(['Clamp', 'Repeat', 'Mirror']),
   minificationFilter: PropTypes.oneOf(['Nearest', 'Linear']),
