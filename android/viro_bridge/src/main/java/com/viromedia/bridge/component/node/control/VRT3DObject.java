@@ -9,6 +9,7 @@ import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
 import com.viro.core.AsyncObject3DListener;
+import com.viro.core.ViroContext;
 import com.viro.core.internal.ExecutableAnimation;
 import com.viro.core.Material;
 import com.viro.core.Node;
@@ -127,8 +128,14 @@ public class VRT3DObject extends VRTControl {
     }
 
     @Override
+    public void setViroContext(ViroContext context) {
+        super.setViroContext(context);
+        onPropsSet();
+    }
+
+    @Override
     protected void onPropsSet() {
-        if (mSource == null || !mSourceChanged) {
+        if (mViroContext == null || mSource == null || !mSourceChanged) {
             return;
         }
 
@@ -201,12 +208,12 @@ public class VRT3DObject extends VRTControl {
 
             // When in release mode, the objects are packaged as resources so we use the
             // resource constructor
-            getObject3D().loadModel(mSource.toString(), isVRX ? Object3D.Type.FBX : Object3D.Type.OBJ,
+            getObject3D().loadModel(mViroContext, mSource.toString(), isVRX ? Object3D.Type.FBX : Object3D.Type.OBJ,
                     listener, resourceMap);
         } else {
             // When in debug mode (not release), the objects are loaded as URLs so we use
             // the URL constructor
-            getObject3D().loadModel(mSource, isVRX ? Object3D.Type.FBX : Object3D.Type.OBJ,
+            getObject3D().loadModel(mViroContext, mSource, isVRX ? Object3D.Type.FBX : Object3D.Type.OBJ,
                     listener);
         }
         mSourceChanged = false;
