@@ -23,6 +23,8 @@ import com.viro.core.Geometry;
 import com.viro.core.EventDelegate;
 import com.viro.core.Material;
 import com.viro.core.Node;
+import com.viro.core.VideoTexture;
+import com.viro.core.ViroContext;
 import com.viro.core.internal.ExecutableAnimation;
 import com.viro.core.PhysicsBody;
 import com.viro.core.PhysicsShape;
@@ -39,6 +41,7 @@ import com.viromedia.bridge.component.node.control.VRTQuad;
 import com.viromedia.bridge.component.node.control.VRTText;
 import com.viromedia.bridge.component.node.control.VRTVideoSurface;
 import com.viromedia.bridge.module.AnimationManager;
+import com.viromedia.bridge.module.MaterialManager;
 import com.viromedia.bridge.utility.ComponentEventDelegate;
 import com.viromedia.bridge.utility.Helper;
 import com.viromedia.bridge.utility.ViroEvents;
@@ -577,6 +580,40 @@ public class VRTNode extends VRTComponent {
         mMaterials = materials;
         if (mNodeJni.getGeometry() != null) {
             mNodeJni.getGeometry().copyAndSetMaterials(materials);
+        }
+    }
+
+    public void setViroContext(ViroContext context) {
+        super.setViroContext(context);
+        // CCheck if this material has video materials. Reset the materials if we do.
+        if (mMaterials != null) {
+            boolean materialsChanged = false;
+            ArrayList<Material> nativeMaterials = new ArrayList<>();
+            MaterialManager materialManager = getReactContext().getNativeModule(MaterialManager.class);
+            for (int i = 0; i < mMaterials.size(); i++) {
+                String materialName = mMaterials.get(i).getName();
+                Material nativeMaterial = materialManager.getMaterial(materialName);
+                if (materialManager.isVideoMaterial(materialName)) {
+                    if (!(nativeMaterial.getDiffuseTexture() instanceof VideoTexture)) {
+                        // Recreate the material with the proper context.
+                            MaterialManager.MaterialWrapper materialWrapper = materialManager.getMaterialWrapper(materialName);
+                            VideoTexture videoTexture = new VideoTexture(context, materialWrapper.getVideoTextureURI());
+                            materialWrapper.recreate(videoTexture);
+                            nativeMaterial = materialWrapper.getNativeMaterial();
+                            materialsChanged = true;
+                    }
+                }
+
+                if (nativeMaterial == null) {
+                    throw new IllegalArgumentException("Material [" + materialName + "] not found. Did you create it?");
+                }
+
+                nativeMaterials.add(nativeMaterial);
+            }
+
+            if (materialsChanged) {
+                setMaterials(nativeMaterials);
+            }
         }
     }
 

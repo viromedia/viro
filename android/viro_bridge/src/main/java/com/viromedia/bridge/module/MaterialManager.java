@@ -286,6 +286,7 @@ public class MaterialManager extends ReactContextBaseJavaModule {
                 cullMode, transparencyMode, blendMode, bloomThreshold, writesToDepthBuffer,
                 readsFromDepthBuffer);
 
+                nativeMaterial.setName(materialName);
         if (chromeFilteringEnabled) {
             nativeMaterial.setChromaKeyFilteringEnabled(chromeFilteringEnabled);
             nativeMaterial.setChromaKeyFilteringColor(chromeKeyFilteringColor);

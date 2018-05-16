@@ -62,7 +62,7 @@ public class VRTComponent extends ReactViewGroup {
 
     public ViroContext getViroContext() { return mViroContext; }
 
-    public void setViroContext(ViroContext context){
+    public void setViroContext(ViroContext context) {
         mViroContext = context;
 
         // Update our child views with the scene as well.

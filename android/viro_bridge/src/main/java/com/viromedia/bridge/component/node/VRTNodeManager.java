@@ -164,10 +164,12 @@ public abstract class VRTNodeManager<T extends VRTNode> extends VRTViroViewGroup
                 if (materialManager.isVideoMaterial(materials.getString(i))) {
                     if (!(nativeMaterial.getDiffuseTexture() instanceof VideoTexture)) {
                         // Recreate the material with the proper context.
-                        MaterialWrapper materialWrapper = materialManager.getMaterialWrapper(materials.getString(i));
-                        VideoTexture videoTexture = new VideoTexture(view.getViroContext(), materialWrapper.getVideoTextureURI());
-                        materialWrapper.recreate(videoTexture);
-                        nativeMaterial = materialWrapper.getNativeMaterial();
+                        if (view.getViroContext() != null) {
+                            MaterialWrapper materialWrapper = materialManager.getMaterialWrapper(materials.getString(i));
+                            VideoTexture videoTexture = new VideoTexture(view.getViroContext(), materialWrapper.getVideoTextureURI());
+                            materialWrapper.recreate(videoTexture);
+                            nativeMaterial = materialWrapper.getNativeMaterial();
+                        }
                     }
                 }
 
