@@ -23,9 +23,20 @@ DEPENDENCIES:
   - Fabric (= 1.7.2)
   - ViroKit (from `../../../ios/dist/ViroRenderer`)
 
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - AWSCore
+    - AWSDynamoDB
+    - Crashlytics
+    - Fabric
+    - GoogleToolboxForMac
+    - GTMSessionFetcher
+    - GVRAudioSDK
+    - GVRSDK
+
 EXTERNAL SOURCES:
   ViroKit:
-    :path: ../../../ios/dist/ViroRenderer
+    :path: "../../../ios/dist/ViroRenderer"
 
 SPEC CHECKSUMS:
   AWSCore: d0d6e4f6831754aaf98058d2306a016ae71510fe
@@ -36,8 +47,8 @@ SPEC CHECKSUMS:
   GTMSessionFetcher: 6aacd0ab48ddf0c3633ab2642d792abfcad1b08a
   GVRAudioSDK: 302f0a8f190d855868ea07f246ce4f9b44c392ae
   GVRSDK: 0cb9d0ce06a84d698e61e3db9509766022dcf815
-  ViroKit: 759e65a21a70c26d75890507e218b99ce4ce99d0
+  ViroKit: 9631f301ef6a3f56116b23d6aac5d5c2307aa368
 
 PODFILE CHECKSUM: b9ee0a019f9456614a35d1825baeb2863171c4f8
 
-COCOAPODS: 1.3.1
+COCOAPODS: 1.5.2
