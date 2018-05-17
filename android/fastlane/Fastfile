@@ -56,16 +56,47 @@ platform :android do
      slack(
            message: ":white_check_mark: Build Pipeline successfully completed and artifacts uploaded to S3.",
            success: true,
-           slack_url: "https://hooks.slack.com/services/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",
+           slack_url: "***REMOVED***",
            payload: {
              "Build Date" => Time.new.to_s,
            },
            attachment_properties: {
               fields: [{
-              title: "Last Commit",
-              value: "My Value",
-              short: true
-    }]
+                 title: "Last Commit (ViroRenderer/master)",
+                 value: "gibberish test",
+                 short: true
+              },
+              {
+                 title: "Last Commit (react-viro/master)",
+                 value: "more gibberish test",
+                 short: true
+              },
+              {
+                 title: "Virocore AAR",
+                 value: "Download URL #{url_virocore}",
+                 short: false
+              },
+{
+                 title: "ViroReact NPM TGZ",
+                 value: "Download URL #{url_tgz}",
+                 short: false
+              },
+{
+                 title: "ViroReact GVR Release Test (android)",
+                 value: "Download URL #{url_gvr_apk}",
+                 short: false
+              },
+{
+                 title: "ViroReact OVR Release Test",
+                 value: "Download URL #{url_ovr_apk}",
+                 short: false
+              },
+{
+                 title: "ViroReact GVR Release Test (ios)",
+                 value: ":up: testflight :flying_saucer:",
+                 short: false
+              }
+               ]
   }
        )
     end
