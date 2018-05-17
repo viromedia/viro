@@ -45,11 +45,29 @@ platform :android do
     end
   end 
   
-  lane :upload_builds do
+  lane :upload_builds_and_slack do
     Dir.chdir("/tmp/s3_artifacts") do
      timestamp=Time.now.strftime('%Y-%m-%d_%H-%M-%S')
      sh("aws s3 sync . s3://viro-builds/#{timestamp}/")
-     url=sh("aws s3 presign s3://viro-builds/#{timestamp}/ --expires-in 86400")
+     url_virocore=sh("aws s3 presign s3://viro-builds/#{timestamp}/virocore-release-v_1_6_0.aar --expires-in 86400")
+     url_tgz=sh("aws s3 presign s3://viro-builds/#{timestamp}/react-viro-2.6.1.tgz --expires-in 86400")
+     url_gvr_apk=sh("aws s3 presign s3://viro-builds/#{timestamp}/app-gvr-release.apk --expires-in 86400")
+     url_ovr_apk=sh("aws s3 presign s3://viro-builds/#{timestamp}/app-ovr-release.apk --expires-in 86400")
+     slack(
+           message: ":white_check_mark: Build Pipeline successfully completed and artifacts uploaded to S3.",
+           success: true,
+           slack_url: "https://hooks.slack.com/services/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",
+           payload: {
+             "Build Date" => Time.new.to_s,
+           },
+           attachment_properties: {
+              fields: [{
+              title: "Last Commit",
+              value: "My Value",
+              short: true
+    }]
+  }
+       )
     end
   end  
   after_all do |lane|
