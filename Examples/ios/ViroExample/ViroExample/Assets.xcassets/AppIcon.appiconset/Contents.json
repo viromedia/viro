@@ -48,7 +48,7 @@
     {
       "size" : "60x60",
       "idiom" : "iphone",
-      "filename" : "app_icon_figment_1024-60@2x.png",
+      "filename" : "viro_rt_icon_1024-60@2x.png",
       "scale" : "2x"
     },
     {
@@ -109,25 +109,25 @@
     {
       "size" : "76x76",
       "idiom" : "ipad",
-      "filename" : "app_icon_figment_1024-76.png",
+      "filename" : "viro_rt_icon_1024-76.png",
       "scale" : "1x"
     },
     {
       "size" : "76x76",
       "idiom" : "ipad",
-      "filename" : "app_icon_figment_1024-76@2x.png",
+      "filename" : "viro_rt_icon_76.png",
       "scale" : "2x"
     },
     {
       "size" : "83.5x83.5",
       "idiom" : "ipad",
-      "filename" : "app_icon_figment_1024-83.5@2x.png",
+      "filename" : "viro_rt_icon_1024-83.5@2x.png",
       "scale" : "2x"
     },
     {
       "size" : "1024x1024",
       "idiom" : "ios-marketing",
-      "filename" : "app_icon_figment_1024.png",
+      "filename" : "viro_rt_icon_1024.png",
       "scale" : "1x"
     }
   ],
