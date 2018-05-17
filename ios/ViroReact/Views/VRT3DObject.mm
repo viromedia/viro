@@ -157,8 +157,10 @@
          Once the object is loaded, set the lighting bit masks recursively
          down the tree to the internal FBX nodes.
          */
-        node->setLightReceivingBitMask([weakSelf lightReceivingBitMask], true);
-        node->setShadowCastingBitMask([weakSelf shadowCastingBitMask], true);
+        if (node != nullptr) {
+            node->setLightReceivingBitMask([weakSelf lightReceivingBitMask], true);
+            node->setShadowCastingBitMask([weakSelf shadowCastingBitMask], true);
+        }
         
         if (weakSelf && weakSelf.onLoadEndViro) {
             weakSelf.onLoadEndViro(nil);
