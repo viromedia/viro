@@ -1,7 +1,7 @@
 pipeline {
   agent any
   stages {
-/*    stage('clean') {
+    stage('clean') {
       steps {
         sh '''cd android
 fastlane gradle_clean_bridge'''
@@ -13,7 +13,6 @@ fastlane gradle_clean_bridge'''
 rm -rf node_modules ; npm install'''
       }
     }
-*/
 /*    stage('viroreact (iOS)') {
       steps {
         sh '''cd Examples/ios
@@ -21,7 +20,7 @@ fastlane release_react_viro_lib'''
       }
     }
 */
-/*    stage('viroreact (android)') {
+    stage('viroreact (android)') {
       steps {
         sh '''cd android
 fastlane release_react_bridge_jenkins'''
@@ -33,7 +32,6 @@ fastlane release_react_bridge_jenkins'''
 fastlane npm_pack'''
       }
     }
-*/
 /*    stage('release_tests (iOS)') {
       steps {
         sh '''cd Examples/ios
