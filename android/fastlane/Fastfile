@@ -13,6 +13,7 @@
 # Update this, if you use features of a newer version
 fastlane_version "2.66.2"
 
+require 'Fileutils.rb'
 default_platform :android
 
 platform :android do
@@ -44,6 +45,13 @@ platform :android do
     end
   end 
   
+  lane :upload_builds do
+    Dir.chdir("/tmp/s3_artifacts") do
+     timestamp=Time.now.strftime('%Y-%m-%d_%H-%M-%S')
+     sh("aws s3 sync . s3://viro-builds/#{timestamp}/")
+     url=sh("aws s3 presign s3://viro-builds/#{timestamp}/ --expires-in 86400")
+    end
+  end  
   after_all do |lane|
     # This block is called, only if the executed lane was successful
 
