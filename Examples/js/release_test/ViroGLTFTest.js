@@ -200,7 +200,7 @@ var Viro3DObjectTest = createReactClass({
                       onError={this._loaded("Avocado", false)}
                       onLoadEnd={this._loaded("Avocado", true)}
                       />
-        <Viro3DObject source={require('./res/gltf/FlightHelmet.gltf')}
+        <Viro3DObject source={require('./res/gltf/FlightHelmet_gltf.gltf')}
                       resources={[require('./res/gltf/FlightHelmet.bin'),
                                   require('./res/gltf/FlightHelmet_baseColor.png'),
                                   require('./res/gltf/FlightHelmet_occlusionRoughnessMetallic.png'),
@@ -249,7 +249,7 @@ var Viro3DObjectTest = createReactClass({
                       onError={this._loaded("DamagedHelmet.glb", false)}
                       onLoadEnd={this._loaded("DamagedHelmet.glb", true)}
                       />
-        <Viro3DObject source={require('./res/gltf/Suzanne.gltf')}
+        <Viro3DObject source={require('./res/gltf/Suzanne_gltf.gltf')}
                       resources={[require('./res/gltf/Suzanne.bin'),
                                   require('./res/gltf/Suzanne_BaseColor.png'),
                                   require('./res/gltf/Suzanne_MetallicRoughness.png')]}
