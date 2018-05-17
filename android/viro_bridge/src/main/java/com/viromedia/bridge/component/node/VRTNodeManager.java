@@ -42,6 +42,7 @@ public abstract class VRTNodeManager<T extends VRTNode> extends VRTViroViewGroup
     private static final String WIDTH_NAME = "width";
     private static final String HEIGHT_NAME = "height";
     private static final String PADDING_NAME = "padding";
+    private static final float[] DEFAULT_ZERO_VEC = new float[]{0,0,0};
 
     public VRTNodeManager(ReactApplicationContext context) {
         super(context);
@@ -49,27 +50,27 @@ public abstract class VRTNodeManager<T extends VRTNode> extends VRTViroViewGroup
 
     @ReactProp(name = "position")
     public void setPosition(T view, ReadableArray position) {
-        view.setPosition(Helper.toFloatArray(position));
+        view.setPosition(Helper.toFloatArray(position, DEFAULT_ZERO_VEC));
     }
 
     @ReactProp(name = "rotation")
     public void setRotation(VRTNode view, ReadableArray rotation) {
-        view.setRotation(Helper.toFloatArray(rotation));
+        view.setRotation(Helper.toFloatArray(rotation, DEFAULT_ZERO_VEC));
     }
 
     @ReactProp(name = "scale")
     public void setScale(VRTNode view, ReadableArray scale) {
-        view.setScale(Helper.toFloatArray(scale));
+        view.setScale(Helper.toFloatArray(scale, new float[]{1,1,1}));
     }
 
     @ReactProp(name = "rotationPivot")
     public void setRotationPivot(VRTNode view, ReadableArray scale) {
-        view.setRotationPivot(Helper.toFloatArray(scale));
+        view.setRotationPivot(Helper.toFloatArray(scale, DEFAULT_ZERO_VEC));
     }
 
     @ReactProp(name = "scalePivot")
     public void setScalePivot(VRTNode view, ReadableArray scale) {
-        view.setScalePivot(Helper.toFloatArray(scale));
+        view.setScalePivot(Helper.toFloatArray(scale, DEFAULT_ZERO_VEC));
     }
 
     @ReactProp(name = "opacity", defaultFloat = 1f)

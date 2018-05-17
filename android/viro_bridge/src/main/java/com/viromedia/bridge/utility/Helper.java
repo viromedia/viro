@@ -16,6 +16,15 @@ public class Helper {
 
     private static final String RESOURCE_SCHEME = "res";
 
+    public static float[] toFloatArray(@Nullable ReadableArray value, float[] defaultValue) {
+        float[] parsedValue = toFloatArray(value);
+        if (parsedValue == null){
+            return defaultValue;
+        }
+
+        return parsedValue;
+    }
+
     public static @Nullable float[] toFloatArray(@Nullable ReadableArray value) {
         if (value == null){
             return null;
