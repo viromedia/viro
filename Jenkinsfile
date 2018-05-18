@@ -38,6 +38,12 @@ fastlane npm_pack'''
 fastlane jenkins_release_tests'''
       }
     }
+    stage('upload_to_testflight') {
+      steps {
+        sh '''cd Examples/ios
+fastlane jenkins_upload_release_tests_testflight'''
+      }
+    }
 */
     stage('release_tests (android)(gvr+ovr)') {
       steps {
