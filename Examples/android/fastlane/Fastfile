@@ -17,12 +17,28 @@ default_platform :android
 
 platform :android do
   before_all do
-    # ENV["SLACK_URL"] = "https://hooks.slack.com/services/..."
+    ENV["SLACK_URL"] = "***REMOVED***"
+    BUILD_INTERMEDIATES = "/var/tmp/build_intermediates/"
+    GIT_REPO_BRANCH = "react-viro/master"
   end
+
+    def on_error(exception)
+       slack(
+           message: ":thunder_cloud_and_rain: Build Pipeline failed!",
+           success: false,
+           default_payloads: [], #Pass an empty array to suppress all the default payloads.
+           payload: {
+            "Git Repository:" =>  "react-viro/master",
+            "Fastlane Lane:" => ENV["FASTLANE_LANE_NAME"],
+            "Detailed Logs:" => "<https://virobuilds.ngrok.io/blue/organizations/jenkins/react-viro/activity/|ViroRenderer Pipeline>",
+            "Exception:" => "```#{exception}```"
+           },
+           use_webhook_configured_username_and_icon: true
+       )
+  end
+
   desc "Build renderer"
   lane :renderer_aar do
-    ensure_git_status_clean
-    git_pull
     Dir.chdir("../../../../ViroRenderer/android/") do
       sh("fastlane release_renderer_react_lib")
     end
@@ -39,19 +55,32 @@ platform :android do
   end
   lane :npm_pack do
     Dir.chdir("../../../") do
-      sh("rm -rf react-viro-*.tgz")
-      sh("npm pack") 
+      begin
+        sh("rm -rf react-viro-*.tgz")
+        sh("npm pack")
+        sh("cp react-viro-*.tgz #{BUILD_INTERMEDIATES}s3_artifacts/")
+      rescue => exception
+           on_error(exception)
+      end
    end
   end
 
   desc "Build GVR release tests"
   lane :gvr_release_test do
-    gradle(task: "assembleGvrRelease")
+    begin
+      gradle(task: "assembleGvrRelease")
+      sh("cp ../app/build/outputs/apk/gvr/release/app-gvr-release.apk #{BUILD_INTERMEDIATES}s3_artifacts/app-gvr-release.apk")
+    rescue => exception
+           on_error(exception)
+    end
   end
 
   desc "Build OVR release tests"
   lane :ovr_release_test do
-    gradle(task: "assembleOvrRelease")
+    begin
+      gradle(task: "assembleOvrRelease")
+      sh("cp ../app/build/outputs/apk/ovr/release/app-ovr-release.apk #{BUILD_INTERMEDIATES}s3_artifacts/app-ovr-release.apk")
+    end
   end
 
   desc "Build GVR & OVR release tests"

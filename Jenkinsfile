@@ -51,6 +51,12 @@ fastlane jenkins_upload_release_tests_testflight'''
         fastlane ovr_release_test'''
       }
     }
+    stage('upload_to_s3_slack') {
+      steps {
+        sh '''cd android/
+        fastlane upload_builds_and_slack'''
+      }
+    }
   }
   environment {
     LC_ALL = 'en_US.UTF-8'
