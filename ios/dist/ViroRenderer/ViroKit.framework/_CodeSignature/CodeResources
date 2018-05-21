@@ -2469,7 +2469,7 @@
 		</dict>
 		<key>Headers/VROARAnchor.h</key>
 		<data>
-		Hqs8f2j7/0QPDzWA7sQlkHnmyuo=
+		ETIEcy16lunG4s/47wM5mpjfRtE=
 		</data>
 		<key>Headers/VROARCamera.h</key>
 		<data>
@@ -2505,7 +2505,7 @@
 		</data>
 		<key>Headers/VROARHitTestResult.h</key>
 		<data>
-		3eeNTZ7hqCo91AE1HmKZ5HJ2DQk=
+		DyFuIFvhYayXagSe55I/YY6Wuig=
 		</data>
 		<key>Headers/VROARImageAnchor.h</key>
 		<data>
@@ -4253,7 +4253,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		cG5TBruG3+iVxThHFZyvFTSZe98=
+		exrajlfDWn5F3tVTx0Ok9JN1K+E=
 		</data>
 		<key>MaterialRobotoFontLoader.bundle/Roboto-Black.ttf</key>
 		<data>
@@ -8775,11 +8775,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			Hqs8f2j7/0QPDzWA7sQlkHnmyuo=
+			ETIEcy16lunG4s/47wM5mpjfRtE=
 			</data>
 			<key>hash2</key>
 			<data>
-			GROXHQDZMPmMFqLAyR5EG2e9XKZTkrYHIRWL1E+K0S8=
+			aoNgFLzlfTPJ6ZyxcULqhFqZOVc0uZfPwpwEFHtnOhg=
 			</data>
 		</dict>
 		<key>Headers/VROARCamera.h</key>
@@ -8874,11 +8874,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			3eeNTZ7hqCo91AE1HmKZ5HJ2DQk=
+			DyFuIFvhYayXagSe55I/YY6Wuig=
 			</data>
 			<key>hash2</key>
 			<data>
-			tUF/VNxoCzrCsowY77ETu9i84XNzexW2M16FuW6FcWw=
+			8jToBzcj5Ybt7ma/V5oIdO7mS2PVEKhwb5a0RmkBngw=
 			</data>
 		</dict>
 		<key>Headers/VROARImageAnchor.h</key>
