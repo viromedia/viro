@@ -21,6 +21,7 @@ platform :android do
     ENV["SLACK_URL"] = "***REMOVED***"
     BUILD_INTERMEDIATES = "/var/tmp/build_intermediates/"
     GIT_REPO_BRANCH = "react-viro/master"
+    S3_BASE_URL = "https://s3-us-west-2.amazonaws.com/viro-builds/"
   end
 
   def on_error(exception)
@@ -31,7 +32,7 @@ platform :android do
            payload: {
             "Git Repository:" =>  "ViroRenderer/master",
             "Fastlane Lane:" => ENV["FASTLANE_LANE_NAME"],
-            "Detailed Logs:" => "<https://virobuilds.ngrok.io/blue/organizations/jenkins/ViroRenderer/activity|ViroRenderer Pipeline>",
+            "Detailed Logs:" => "<https://virobuilds.ngrok.io/blue/organizations/jenkins/react-viro/activity/|ViroRenderer Pipeline>",
             "Exception:" => "```#{exception}```"
            },
            use_webhook_configured_username_and_icon: true
@@ -74,14 +75,15 @@ platform :android do
      gvr_test_filename="app-gvr-release.apk"
      ovr_test_filename="app-ovr-release.apk"
      git_log_filename="git_log.txt"
-     sh("aws s3 sync . s3://viro-builds/#{timestamp}/")
-     url_virocore = sh("aws s3 presign s3://viro-builds/#{timestamp}/#{virocore_filename} --expires-in 86400")
-     url_tgz = sh("aws s3 presign s3://viro-builds/#{timestamp}/#{viroreact_filename} --expires-in 86400")
-     url_gvr_apk = sh("aws s3 presign s3://viro-builds/#{timestamp}/#{gvr_test_filename} --expires-in 86400")
-     url_ovr_apk = sh("aws s3 presign s3://viro-builds/#{timestamp}/#{ovr_test_filename} --expires-in 86400")
-     url_gitlog = sh("aws s3 presign s3://viro-builds/#{timestamp}/#{git_log_filename} --expires-in 86400")
+     sh("aws s3 sync . #{S3_BASE_URL}#{timestamp}/")
+     url_virocore = sh("aws s3 presign #{S3_BASE_URL}#{timestamp}/#{virocore_filename} --expires-in 86400")
+     url_tgz = sh("aws s3 presign #{S3_BASE_URL}#{timestamp}/#{viroreact_filename} --expires-in 86400")
+     url_gvr_apk = sh("aws s3 presign #{S3_BASE_URL}#{timestamp}/#{gvr_test_filename} --expires-in 86400")
+     url_ovr_apk = sh("aws s3 presign #{S3_BASE_URL}#{timestamp}/#{ovr_test_filename} --expires-in 86400")
+     url_gitlog = sh("aws s3 presign #{S3_BASE_URL}#{timestamp}/#{git_log_filename} --expires-in 86400")
      git_log_contents=File.read("#{git_log_filename}")
      slack(
+           use_webhook_configured_username_and_icon: true,
            message: ":white_check_mark: Build Pipeline successfully completed and artifacts uploaded to S3.",
            success: true,
            payload: {
@@ -93,7 +95,7 @@ platform :android do
               fields: [
               {
                  title: "Virocore AAR",
-                 value: "#{url_virocore}",
+                 value: "<#{url_virocore}|#{virocore_filename}>",
                  short: true
               },
               {
