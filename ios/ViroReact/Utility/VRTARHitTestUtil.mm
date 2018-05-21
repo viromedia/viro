@@ -16,13 +16,18 @@ static NSString *const kVRTARHitTestPositionKey = @"position";
 static NSString *const kVRTARHitTestRotationKey = @"rotation";
 static NSString *const kVRTARHitTestScaleKey = @"scale";
 
-+(NSDictionary *)dictForARHitResult:(VROARHitTestResult)result {
++ (NSDictionary *)dictForARHitResult:(std::shared_ptr<VROARHitTestResult> &)result {
     NSMutableDictionary *resultDict = [[NSMutableDictionary alloc] init];
-    [resultDict setObject:[VRTARHitTestUtil stringForResultType:result.getType()] forKey:kVRTARHitTestTypeKey];
+    [resultDict setObject:[VRTARHitTestUtil stringForResultType:result->getType()] forKey:kVRTARHitTestTypeKey];
+    
+    VROMatrix4f worldTransform = result->getWorldTransform();
+    VROVector3f scale = worldTransform.extractScale();
+    
     NSMutableDictionary *transformDict = [[NSMutableDictionary alloc] init];
-    [transformDict setObject:[VRTARHitTestUtil arrayFromVector:result.getWorldTransform().extractTranslation()] forKey:kVRTARHitTestPositionKey];
-    [transformDict setObject:[VRTARHitTestUtil arrayFromVector:result.getWorldTransform().extractScale()] forKey:kVRTARHitTestScaleKey];
-    [transformDict setObject:[VRTARHitTestUtil rotationFromVector:result.getWorldTransform().extractRotation(result.getWorldTransform().extractScale()).toEuler()] forKey:kVRTARHitTestRotationKey];
+    [transformDict setObject:[VRTARHitTestUtil arrayFromVector:worldTransform.extractTranslation()] forKey:kVRTARHitTestPositionKey];
+    [transformDict setObject:[VRTARHitTestUtil arrayFromVector:scale] forKey:kVRTARHitTestScaleKey];
+    [transformDict setObject:[VRTARHitTestUtil rotationFromVector:worldTransform.extractRotation(scale).toEuler()]
+                      forKey:kVRTARHitTestRotationKey];
     [resultDict setObject:transformDict forKey:kVRTARHitTestTransformKey];
     return resultDict;
 }

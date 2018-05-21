@@ -11,6 +11,8 @@
 #import <ViroKit/ViroKit.h>
 
 @interface VRTARHitTestUtil : NSObject
-    +(NSDictionary *)dictForARHitResult:(VROARHitTestResult)result;
+
++ (NSDictionary *)dictForARHitResult:(std::shared_ptr<VROARHitTestResult> &)result;
+
 @end
 #endif /* VRTARHitTestUtil_h */

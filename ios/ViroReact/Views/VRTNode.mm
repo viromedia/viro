@@ -723,7 +723,7 @@ const double kTransformDelegateDistanceFilter = 0.01;
     }
 }
 
-- (void)onCameraARHitTest:(std::vector<VROARHitTestResult>)results {
+- (void)onCameraARHitTest:(std::vector<std::shared_ptr<VROARHitTestResult>>)results {
     //no-op base class for this event.
 }
 

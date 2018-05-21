@@ -166,10 +166,10 @@ static NSString *const kPointCloudKey = @"pointCloud";
     }
 }
 
-- (void)onCameraARHitTest:(std::vector<VROARHitTestResult>)results {
+- (void)onCameraARHitTest:(std::vector<std::shared_ptr<VROARHitTestResult>>)results {
     if(self.onCameraARHitTestViro) {
         NSMutableArray *resultArray = [[NSMutableArray alloc] initWithCapacity:results.size()];
-        for (VROARHitTestResult result : results) {
+        for (std::shared_ptr<VROARHitTestResult> &result : results) {
             [resultArray addObject:[VRTARHitTestUtil dictForARHitResult:result]];
         }
         
