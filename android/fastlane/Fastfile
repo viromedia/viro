@@ -18,86 +18,111 @@ default_platform :android
 
 platform :android do
   before_all do
-    # ENV["SLACK_URL"] = "https://hooks.slack.com/services/..."
+    ENV["SLACK_URL"] = "***REMOVED***"
+    BUILD_INTERMEDIATES = "/var/tmp/build_intermediates/"
+    GIT_REPO_BRANCH = "react-viro/master"
+  end
+
+  def on_error(exception)
+       slack(
+           message: ":thunder_cloud_and_rain: Build Pipeline failed!",
+           success: false,
+           default_payloads: [], #Pass an empty array to suppress all the default payloads.
+           payload: {
+            "Git Repository:" =>  "ViroRenderer/master",
+            "Fastlane Lane:" => ENV["FASTLANE_LANE_NAME"],
+            "Detailed Logs:" => "<https://virobuilds.ngrok.io/blue/organizations/jenkins/ViroRenderer/activity|ViroRenderer Pipeline>",
+            "Exception:" => "```#{exception}```"
+           },
+           use_webhook_configured_username_and_icon: true
+       )
+  end
+
+  lane :save_git_log do
+    begin
+      sh("echo \"\n\nreact-viro/master\n\" >> #{BUILD_INTERMEDIATES}s3_artifacts/git_log.txt")
+      sh("git log master --no-walk >> #{BUILD_INTERMEDIATES}s3_artifacts/git_log.txt")
+    rescue => exception
+           on_error(exception)
+    end
   end
 
   lane :gradle_clean_bridge do
-    gradle(task: "clean")
+    begin
+      gradle(task: "clean")
+      sh("rm ../viro_renderer/viro_renderer-release.aar") # just to make sure
+    rescue => exception
+           on_error(exception)
+    end
   end
   
-  lane :release_react_bridge_jenkins do
-    sh("rm ../viro_renderer/viro_renderer-release.aar")
-    sh("cp /tmp/viro_react_lib/viro_renderer-release.aar ../viro_renderer/")
-    gradle(task: "viro_bridge:assemble")
-    sh("cp ../viro_bridge/build/outputs/aar/viro_bridge-release.aar ../react_viro/react_viro-release.aar")
-  end
-
-  desc "Remove current renderer aar, Build renderer, build bridge library aar"
-  lane :release_react_bridge do
-    ensure_git_status_clean
-    git_pull
-    gradle(task:"clean")
-    gradle(project_dir:"../../ViroRenderer/android/", task:"assembleViro_reactRelease")
-    gradle(task: "viro_bridge:assemble")
-    sh("cp ../viro_bridge/build/outputs/aar/viro_bridge-release.aar ../react_viro/react_viro-release.aar")
-    Dir.chdir("../../") do
-      sh("npm pack")
+  lane :react_viro_bridge_aar do
+    begin
+      sh("cp #{BUILD_INTERMEDIATES}viroreact_aar/viro_renderer-release.aar ../viro_renderer/")
+      gradle(task: "viro_bridge:assemble")
+      sh("cp ../viro_bridge/build/outputs/aar/viro_bridge-release.aar ../react_viro/react_viro-release.aar")
+    rescue => exception
+           on_error(exception)
     end
-  end 
+  end
   
   lane :upload_builds_and_slack do
-    Dir.chdir("/tmp/s3_artifacts") do
+    Dir.chdir("#{BUILD_INTERMEDIATES}s3_artifacts") do
      timestamp=Time.now.strftime('%Y-%m-%d_%H-%M-%S')
+     virocore_filename=sh("virocore-release-v_1_6_0.aar")
+     viroreact_filename=sh("react-viro-2.6.1.tgz")
+     gvr_test_filename="app-gvr-release.apk"
+     ovr_test_filename="app-ovr-release.apk"
+     git_log_filename="git_log.txt"
      sh("aws s3 sync . s3://viro-builds/#{timestamp}/")
-     url_virocore=sh("aws s3 presign s3://viro-builds/#{timestamp}/virocore-release-v_1_6_0.aar --expires-in 86400")
-     url_tgz=sh("aws s3 presign s3://viro-builds/#{timestamp}/react-viro-2.6.1.tgz --expires-in 86400")
-     url_gvr_apk=sh("aws s3 presign s3://viro-builds/#{timestamp}/app-gvr-release.apk --expires-in 86400")
-     url_ovr_apk=sh("aws s3 presign s3://viro-builds/#{timestamp}/app-ovr-release.apk --expires-in 86400")
+     url_virocore = sh("aws s3 presign s3://viro-builds/#{timestamp}/#{virocore_filename} --expires-in 86400")
+     url_tgz = sh("aws s3 presign s3://viro-builds/#{timestamp}/#{viroreact_filename} --expires-in 86400")
+     url_gvr_apk = sh("aws s3 presign s3://viro-builds/#{timestamp}/#{gvr_test_filename} --expires-in 86400")
+     url_ovr_apk = sh("aws s3 presign s3://viro-builds/#{timestamp}/#{ovr_test_filename} --expires-in 86400")
+     url_gitlog = sh("aws s3 presign s3://viro-builds/#{timestamp}/#{git_log_filename} --expires-in 86400")
+     git_log_contents=File.read("#{git_log_filename}")
      slack(
            message: ":white_check_mark: Build Pipeline successfully completed and artifacts uploaded to S3.",
            success: true,
-           slack_url: "***REMOVED***",
            payload: {
              "Build Date" => Time.new.to_s,
+             "Built Commits" => "```#{git_log_contents}```",
            },
+           default_payloads: [],
            attachment_properties: {
-              fields: [{
-                 title: "Last Commit (ViroRenderer/master)",
-                 value: "gibberish test",
-                 short: true
-              },
-              {
-                 title: "Last Commit (react-viro/master)",
-                 value: "more gibberish test",
-                 short: true
-              },
+              fields: [
               {
                  title: "Virocore AAR",
-                 value: "Download URL #{url_virocore}",
-                 short: false
+                 value: "#{url_virocore}",
+                 short: true
               },
-{
+              {
                  title: "ViroReact NPM TGZ",
-                 value: "Download URL #{url_tgz}",
-                 short: false
+                 value: "URL #{url_tgz}",
+                 short: true
               },
-{
+              {
                  title: "ViroReact GVR Release Test (android)",
-                 value: "Download URL #{url_gvr_apk}",
-                 short: false
+                 value: "#{url_gvr_apk}",
+                 short: true
               },
-{
+              {
                  title: "ViroReact OVR Release Test",
-                 value: "Download URL #{url_ovr_apk}",
-                 short: false
+                 value: "#{url_ovr_apk}",
+                 short: true
               },
-{
+              {
                  title: "ViroReact GVR Release Test (ios)",
-                 value: ":up: testflight :flying_saucer:",
-                 short: false
+                 value: "Uploaded to :rocket:",
+                 short: true
+              },
+              {
+                title: "Git Log",
+                value: "#{url_gitlog}",
+                short: true
               }
-               ]
-  }
+           ],
+          }
        )
     end
   end  

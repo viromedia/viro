@@ -1,35 +1,34 @@
 pipeline {
   agent any
   stages {
-    stage('clean') {
+    stage('initial_setup') {
       steps {
         sh '''cd android
-fastlane gradle_clean_bridge'''
+        fastlane gradle_clean_bridge'''
       }
     }
     stage('node_modules (clean install)') {
       steps {
         sh '''cd Examples
-rm -rf node_modules ; npm install'''
+        rm -rf node_modules ; npm install'''
       }
     }
-/*    stage('viroreact (iOS)') {
-      steps {
-        sh '''cd Examples/ios
-fastlane release_react_viro_lib'''
-      }
-    }
-*/
     stage('viroreact (android)') {
       steps {
         sh '''cd android
-fastlane release_react_bridge_jenkins'''
+        fastlane react_viro_bridge_aar'''
+      }
+    }
+    stage('viroreact (iOS)') {
+      steps {
+        sh '''cd Examples/ios
+        fastlane release_react_viro_lib'''
       }
     }
     stage('npm_pack') {
       steps {
         sh '''cd Examples/android
-fastlane npm_pack'''
+        fastlane npm_pack'''
       }
     }
 /*    stage('release_tests (iOS)') {
@@ -48,9 +47,8 @@ fastlane jenkins_upload_release_tests_testflight'''
     stage('release_tests (android)(gvr+ovr)') {
       steps {
         sh '''cd Examples/android/
-fastlane gvr_release_test
-fastlane ovr_release_test
-'''
+        fastlane gvr_release_test
+        fastlane ovr_release_test'''
       }
     }
   }
