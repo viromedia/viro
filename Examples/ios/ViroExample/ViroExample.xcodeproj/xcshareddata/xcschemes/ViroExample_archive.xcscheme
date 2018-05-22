@@ -14,9 +14,37 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "8BE0D4141DF9DCFE0032AB99"
-               BuildableName = "ViroExample.app"
-               BlueprintName = "ViroExample"
+               BlueprintIdentifier = "83CBBA2D1A601D0E00E9B192"
+               BuildableName = "libReact.a"
+               BlueprintName = "React"
+               ReferencedContainer = "container:../../node_modules/react-native/React/React.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "13424C7220B425AC00C690CC"
+               BuildableName = "libViroReact_release_tests.a"
+               BlueprintName = "ViroReact_release_tests"
+               ReferencedContainer = "container:../../../ios/ViroReact.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "13424D4620B4269E00C690CC"
+               BuildableName = "ViroExample_archive.app"
+               BlueprintName = "ViroExample_archive"
                ReferencedContainer = "container:ViroExample.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -32,9 +60,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "8BE0D4141DF9DCFE0032AB99"
-            BuildableName = "ViroExample.app"
-            BlueprintName = "ViroExample"
+            BlueprintIdentifier = "13424D4620B4269E00C690CC"
+            BuildableName = "ViroExample_archive.app"
+            BlueprintName = "ViroExample_archive"
             ReferencedContainer = "container:ViroExample.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -55,9 +83,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "8BE0D4141DF9DCFE0032AB99"
-            BuildableName = "ViroExample.app"
-            BlueprintName = "ViroExample"
+            BlueprintIdentifier = "13424D4620B4269E00C690CC"
+            BuildableName = "ViroExample_archive.app"
+            BlueprintName = "ViroExample_archive"
             ReferencedContainer = "container:ViroExample.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -74,9 +102,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "8BE0D4141DF9DCFE0032AB99"
-            BuildableName = "ViroExample.app"
-            BlueprintName = "ViroExample"
+            BlueprintIdentifier = "13424D4620B4269E00C690CC"
+            BuildableName = "ViroExample_archive.app"
+            BlueprintName = "ViroExample_archive"
             ReferencedContainer = "container:ViroExample.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

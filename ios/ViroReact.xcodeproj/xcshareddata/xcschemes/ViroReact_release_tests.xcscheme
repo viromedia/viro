@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "E82CFC8420AEBF630091154F"
-               BuildableName = "libViroReact_for_release_tests.a"
-               BlueprintName = "ViroReact_for_release_tests"
+               BlueprintIdentifier = "13424C7220B425AC00C690CC"
+               BuildableName = "libViroReact_release_tests.a"
+               BlueprintName = "ViroReact_release_tests"
                ReferencedContainer = "container:ViroReact.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -33,7 +33,7 @@
       </AdditionalOptions>
    </TestAction>
    <LaunchAction
-      buildConfiguration = "Debug"
+      buildConfiguration = "Release"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       launchStyle = "0"
@@ -45,9 +45,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "E82CFC8420AEBF630091154F"
-            BuildableName = "libViroReact_for_release_tests.a"
-            BlueprintName = "ViroReact_for_release_tests"
+            BlueprintIdentifier = "13424C7220B425AC00C690CC"
+            BuildableName = "libViroReact_release_tests.a"
+            BlueprintName = "ViroReact_release_tests"
             ReferencedContainer = "container:ViroReact.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -63,9 +63,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "E82CFC8420AEBF630091154F"
-            BuildableName = "libViroReact_for_release_tests.a"
-            BlueprintName = "ViroReact_for_release_tests"
+            BlueprintIdentifier = "13424C7220B425AC00C690CC"
+            BuildableName = "libViroReact_release_tests.a"
+            BlueprintName = "ViroReact_release_tests"
             ReferencedContainer = "container:ViroReact.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

@@ -7,7 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		136B0AE920AA2F9A00391021 /* libViroReact_for_release_tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 136B0AE820AA2D2900391021 /* libViroReact_for_release_tests.a */; };
+		13424C7120B424DD00C690CC /* libViroReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BDD9D9D1E09F38900A42870 /* libViroReact.a */; };
+		13424D4920B4269E00C690CC /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BE0D41C1DF9DCFE0032AB99 /* AppDelegate.m */; };
+		13424D4A20B4269E00C690CC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BE0D4191DF9DCFE0032AB99 /* main.m */; };
+		13424D4C20B4269E00C690CC /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BDD9D8D1E09EBFF00A42870 /* libReact.a */; };
+		13424D4E20B4269E00C690CC /* libRCTImage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BDB54AE1DFFEE7300179AEF /* libRCTImage.a */; };
+		13424D4F20B4269E00C690CC /* libRCTNetwork.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BDB54B01DFFEE7E00179AEF /* libRCTNetwork.a */; };
+		13424D5020B4269E00C690CC /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BDB54B21DFFEE8900179AEF /* libRCTText.a */; };
+		13424D5120B4269E00C690CC /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BDB54B41DFFEE8F00179AEF /* libRCTActionSheet.a */; };
+		13424D5220B4269E00C690CC /* libRCTWebSocket.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BDB54B61DFFEE9600179AEF /* libRCTWebSocket.a */; };
+		13424D5320B4269E00C690CC /* Pods_ViroExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9963AEFBC35CAFD7D48A8D1B /* Pods_ViroExample.framework */; };
+		13424D5520B4269E00C690CC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8BE0D4241DF9DCFE0032AB99 /* Assets.xcassets */; };
+		13424D5620B4269E00C690CC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8BE0D4261DF9DCFE0032AB99 /* LaunchScreen.storyboard */; };
+		13424D6520B426DE00C690CC /* libViroReact_release_tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 13424D6320B4269F00C690CC /* libViroReact_release_tests.a */; };
 		136B0AEA20AA2FB800391021 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BDD9D8D1E09EBFF00A42870 /* libReact.a */; };
 		490C9A7EEFBA520AB6A3A746 /* Pods_ViroExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9963AEFBC35CAFD7D48A8D1B /* Pods_ViroExample.framework */; };
 		8B3C3ADF1F3CDEAB001C03C9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8BE0D4241DF9DCFE0032AB99 /* Assets.xcassets */; };
@@ -24,6 +36,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		13424D6220B4269F00C690CC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8BDD9D981E09F38900A42870 /* ViroReact.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 13424D4520B425AC00C690CC;
+			remoteInfo = ViroReact_release_tests;
+		};
 		1358E52120A951DC00940D57 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 8BDD9D871E09EBFF00A42870 /* React.xcodeproj */;
@@ -51,13 +70,6 @@
 			proxyType = 2;
 			remoteGlobalIDString = 9936F32F1F5F2E5B0010BF04;
 			remoteInfo = "privatedata-tvOS";
-		};
-		136B0AE720AA2D2900391021 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 8BDD9D981E09F38900A42870 /* ViroReact.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 136B0AD820AA2CA300391021;
-			remoteInfo = ViroReact_for_release_tests;
 		};
 		8ABC82CC1F54F7CC00217AB8 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -244,6 +256,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		13424D5720B4269E00C690CC /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8BE0D52C1DFA44EB0032AB99 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -258,6 +280,8 @@
 
 /* Begin PBXFileReference section */
 		06D7246F15472C51E7D45313 /* Pods-ViroExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ViroExample.release.xcconfig"; path = "Pods/Target Support Files/Pods-ViroExample/Pods-ViroExample.release.xcconfig"; sourceTree = "<group>"; };
+		13424D6020B4269E00C690CC /* ViroExample_archive.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ViroExample_archive.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		13424D6420B4269F00C690CC /* ViroExample copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "ViroExample copy-Info.plist"; path = "/Users/manish/workspace/react-viro/Examples/ios/ViroExample/ViroExample copy-Info.plist"; sourceTree = "<absolute>"; };
 		8A2161D220365D5200D60008 /* ViroKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ViroKit.framework; path = ../../../ios/dist/ViroRenderer/ViroKit.framework; sourceTree = "<group>"; };
 		8BDB54AE1DFFEE7300179AEF /* libRCTImage.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libRCTImage.a; path = "../../node_modules/react-native/Libraries/Image/build/Debug-iphoneos/libRCTImage.a"; sourceTree = "<group>"; };
 		8BDB54B01DFFEE7E00179AEF /* libRCTNetwork.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libRCTNetwork.a; path = "../../node_modules/react-native/Libraries/Network/build/Debug-iphoneos/libRCTNetwork.a"; sourceTree = "<group>"; };
@@ -291,12 +315,27 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		13424D4B20B4269E00C690CC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				13424D4C20B4269E00C690CC /* libReact.a in Frameworks */,
+				13424D6520B426DE00C690CC /* libViroReact_release_tests.a in Frameworks */,
+				13424D4E20B4269E00C690CC /* libRCTImage.a in Frameworks */,
+				13424D4F20B4269E00C690CC /* libRCTNetwork.a in Frameworks */,
+				13424D5020B4269E00C690CC /* libRCTText.a in Frameworks */,
+				13424D5120B4269E00C690CC /* libRCTActionSheet.a in Frameworks */,
+				13424D5220B4269E00C690CC /* libRCTWebSocket.a in Frameworks */,
+				13424D5320B4269E00C690CC /* Pods_ViroExample.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8BE0D4121DF9DCFE0032AB99 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				136B0AEA20AA2FB800391021 /* libReact.a in Frameworks */,
-				136B0AE920AA2F9A00391021 /* libViroReact_for_release_tests.a in Frameworks */,
+				13424C7120B424DD00C690CC /* libViroReact.a in Frameworks */,
 				8BDB54AF1DFFEE7300179AEF /* libRCTImage.a in Frameworks */,
 				8BDB54B11DFFEE7E00179AEF /* libRCTNetwork.a in Frameworks */,
 				8BDB54B31DFFEE8900179AEF /* libRCTText.a in Frameworks */,
@@ -419,7 +458,7 @@
 			isa = PBXGroup;
 			children = (
 				8BDD9D9D1E09F38900A42870 /* libViroReact.a */,
-				136B0AE820AA2D2900391021 /* libViroReact_for_release_tests.a */,
+				13424D6320B4269F00C690CC /* libViroReact_release_tests.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -436,6 +475,7 @@
 				8BE0D4161DF9DCFE0032AB99 /* Products */,
 				3342BD660E91F1677147DD77 /* Pods */,
 				CF64CBEF23D2243D4B4889B5 /* Frameworks */,
+				13424D6420B4269F00C690CC /* ViroExample copy-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -445,6 +485,7 @@
 				8BE0D4151DF9DCFE0032AB99 /* ViroExample.app */,
 				8BE0D42E1DF9DCFE0032AB99 /* ViroExampleTests.xctest */,
 				8BE0D4391DF9DCFE0032AB99 /* ViroExampleUITests.xctest */,
+				13424D6020B4269E00C690CC /* ViroExample_archive.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -505,6 +546,30 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		13424D4620B4269E00C690CC /* ViroExample_archive */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 13424D5D20B4269E00C690CC /* Build configuration list for PBXNativeTarget "ViroExample_archive" */;
+			buildPhases = (
+				13424D4720B4269E00C690CC /* [CP] Check Pods Manifest.lock */,
+				13424D4820B4269E00C690CC /* Sources */,
+				13424D4B20B4269E00C690CC /* Frameworks */,
+				13424D5420B4269E00C690CC /* Resources */,
+				13424D5720B4269E00C690CC /* Embed Frameworks */,
+				13424D5820B4269E00C690CC /* ShellScript */,
+				13424D5920B4269E00C690CC /* [CP] Embed Pods Frameworks */,
+				13424D5A20B4269E00C690CC /* [CP] Copy Pods Resources */,
+				13424D5B20B4269E00C690CC /* Copy Ngrok Address to Build */,
+				13424D5C20B4269E00C690CC /* Run Fabric */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ViroExample_archive;
+			productName = ViroExample;
+			productReference = 13424D6020B4269E00C690CC /* ViroExample_archive.app */;
+			productType = "com.apple.product-type.application";
+		};
 		8BE0D4141DF9DCFE0032AB99 /* ViroExample */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8BE0D4421DF9DCFE0032AB99 /* Build configuration list for PBXNativeTarget "ViroExample" */;
@@ -631,6 +696,7 @@
 			projectRoot = "";
 			targets = (
 				8BE0D4141DF9DCFE0032AB99 /* ViroExample */,
+				13424D4620B4269E00C690CC /* ViroExample_archive */,
 				8BE0D42D1DF9DCFE0032AB99 /* ViroExampleTests */,
 				8BE0D4381DF9DCFE0032AB99 /* ViroExampleUITests */,
 			);
@@ -638,6 +704,13 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		13424D6320B4269F00C690CC /* libViroReact_release_tests.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libViroReact_release_tests.a;
+			remoteRef = 13424D6220B4269F00C690CC /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		1358E52220A951DC00940D57 /* libjsinspector.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -664,13 +737,6 @@
 			fileType = archive.ar;
 			path = "libprivatedata-tvOS.a";
 			remoteRef = 1358E52720A951DC00940D57 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		136B0AE820AA2D2900391021 /* libViroReact_for_release_tests.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libViroReact_for_release_tests.a;
-			remoteRef = 136B0AE720AA2D2900391021 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		8ABC82CD1F54F7CC00217AB8 /* libthird-party.a */ = {
@@ -844,6 +910,15 @@
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
+		13424D5420B4269E00C690CC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				13424D5520B4269E00C690CC /* Assets.xcassets in Resources */,
+				13424D5620B4269E00C690CC /* LaunchScreen.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8BE0D4131DF9DCFE0032AB99 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -871,6 +946,113 @@
 
 /* Begin PBXShellScriptBuildPhase section */
 		130DA2AE1FE35CD30067CF79 /* Run Fabric */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Run Fabric";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Fabric/run\" ***REMOVED*** 612ac0e8e7b883f1e327833bf5978d6cf57e42522375633c7b597364120b7015";
+		};
+		13424D4720B4269E00C690CC /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ViroExample-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		13424D5820B4269E00C690CC /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export NODE_BINARY=node\n\n$SRCROOT/../../node_modules/react-native/scripts/react-native-xcode.sh $SRCROOT/../../index.js";
+		};
+		13424D5920B4269E00C690CC /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-ViroExample/Pods-ViroExample-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/AWSCore/AWSCore.framework",
+				"${BUILT_PRODUCTS_DIR}/AWSDynamoDB/AWSDynamoDB.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${PODS_ROOT}/../../../../ios/dist/ViroRenderer/ViroKit.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSCore.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSDynamoDB.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ViroKit.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ViroExample/Pods-ViroExample-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		13424D5A20B4269E00C690CC /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-ViroExample/Pods-ViroExample-resources.sh",
+				"${PODS_ROOT}/GVRSDK/Resources/CardboardSDK.bundle",
+				"${PODS_ROOT}/GVRSDK/Resources/GoogleKitCore.bundle",
+				"${PODS_ROOT}/GVRSDK/Resources/GoogleKitDialogs.bundle",
+				"${PODS_ROOT}/GVRSDK/Resources/GoogleKitHUD.bundle",
+				"${PODS_ROOT}/GVRSDK/Resources/MaterialRobotoFontLoader.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ViroExample/Pods-ViroExample-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		13424D5B20B4269E00C690CC /* Copy Ngrok Address to Build */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Ngrok Address to Build";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\nDEST=$CONFIGURATION_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH\nendpointfile=\"ngrokendpoint.txt\"\n\nif [[ -e \"$SRCROOT/../../../ios/$endpointfile\" ]]; then\necho \"Ngrok endpoint file found, copying over...\"\n\ncp \"$SRCROOT/../../../ios/$endpointfile\" \"$DEST/$endpointfile\"\nbreak;\nfi";
+		};
+		13424D5C20B4269E00C690CC /* Run Fabric */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -980,6 +1162,15 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		13424D4820B4269E00C690CC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				13424D4920B4269E00C690CC /* AppDelegate.m in Sources */,
+				13424D4A20B4269E00C690CC /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8BE0D4111DF9DCFE0032AB99 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1032,6 +1223,69 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		13424D5E20B4269E00C690CC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A5EDB411D854AE0107065CAA /* Pods-ViroExample.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CURRENT_PROJECT_VERSION = 8;
+				DEVELOPMENT_TEAM = ***REMOVED***;
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SRCROOT)/../../../ios/dist/ViroRenderer/**",
+					"$(inherited)",
+				);
+				HEADER_SEARCH_PATHS = (
+					"../../node_modules/react-native/React/**",
+					"../../../ios/**",
+				);
+				INFOPLIST_FILE = "ViroExample copy-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-lc++",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.viro.ViroExample;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = NO;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Debug;
+		};
+		13424D5F20B4269E00C690CC /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 06D7246F15472C51E7D45313 /* Pods-ViroExample.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CURRENT_PROJECT_VERSION = 8;
+				DEVELOPMENT_TEAM = ***REMOVED***;
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SRCROOT)/../../../ios/dist/ViroRenderer/**",
+					"$(inherited)",
+				);
+				HEADER_SEARCH_PATHS = (
+					"../../node_modules/react-native/React/**",
+					"../../../ios/**",
+				);
+				INFOPLIST_FILE = "ViroExample copy-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-lc++",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.viro.ViroExample;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = NO;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Release;
+		};
 		8BE0D4401DF9DCFE0032AB99 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1208,6 +1462,7 @@
 		8BE0D4491DF9DCFE0032AB99 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				DEVELOPMENT_TEAM = ***REMOVED***;
 				INFOPLIST_FILE = ViroExampleUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = viro.ViroExampleUITests;
@@ -1219,6 +1474,7 @@
 		8BE0D44A1DF9DCFE0032AB99 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				DEVELOPMENT_TEAM = ***REMOVED***;
 				INFOPLIST_FILE = ViroExampleUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = viro.ViroExampleUITests;
@@ -1230,6 +1486,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		13424D5D20B4269E00C690CC /* Build configuration list for PBXNativeTarget "ViroExample_archive" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				13424D5E20B4269E00C690CC /* Debug */,
+				13424D5F20B4269E00C690CC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		8BE0D4101DF9DCFE0032AB99 /* Build configuration list for PBXProject "ViroExample" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
