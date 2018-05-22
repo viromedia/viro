@@ -14,6 +14,7 @@
 fastlane_version "2.66.2"
 
 require 'Fileutils.rb'
+
 default_platform :android
 
 platform :android do
@@ -30,7 +31,7 @@ platform :android do
            success: false,
            default_payloads: [], #Pass an empty array to suppress all the default payloads.
            payload: {
-            "Git Repository:" =>  "ViroRenderer/master",
+            "Git Repository:" =>  "react-viro/master",
             "Fastlane Lane:" => ENV["FASTLANE_LANE_NAME"],
             "Detailed Logs:" => "<https://virobuilds.ngrok.io/blue/organizations/jenkins/react-viro/activity/|react-viro Pipeline>",
             "Exception:" => "```#{exception}```"
