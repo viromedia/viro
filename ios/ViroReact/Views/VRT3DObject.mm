@@ -99,6 +99,7 @@
 }
 
 - (void)didSetProps:(NSArray<NSString *> *)changedProps {
+    NSLog(@"Did set props for VRT3DObject got invoked!!");
     if (![NSThread isMainThread]) {
         RCTLogWarn(@"Calling [RCTConvert didSetProps:] on a background thread is not recommended");
         dispatch_sync(dispatch_get_main_queue(), ^{
@@ -175,7 +176,7 @@
 
     if ([_type caseInsensitiveCompare:@"OBJ"] == NSOrderedSame) {
         VROOBJLoader::loadOBJFromResource(url, VROResourceType::URL, self.node, self.driver, onFinish);
-    } else if ([_type caseInsensitiveCompare:@"FBX"] == NSOrderedSame) {
+    } else if ([_type caseInsensitiveCompare:@"VRX"] == NSOrderedSame) {
         VROFBXLoader::loadFBXFromResource(url, VROResourceType::URL, self.node, self.driver, onFinish);
     } else if ([_type caseInsensitiveCompare:@"GLTF"] == NSOrderedSame) {
         VROGLTFLoader::loadGLTFFromResource(url, {},  VROResourceType::URL, self.node, false, self.driver, onFinish);
