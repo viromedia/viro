@@ -56,7 +56,7 @@ var Viro3DObjectTest = createReactClass({
     return {
       modelSet:-1,
       title:"Click to start view Model Set!",
-      output:"",
+      output:" ",
     };
   },
 
@@ -167,22 +167,32 @@ var Viro3DObjectTest = createReactClass({
       views.push((
         <ViroNode  position={[0, -0.5, -1.75]} >
           <Viro3DObject source={require('./res/gltf/2CylinderEngine.glb')}
-                        position={[-0.75, 0.0 , 0.0]}
+                        position={[0, 0.0 , 0.0]}
                         rotation={[45,45,0]}
                         scale={[0.001,0.001,0.001]}
                         type="GLB"
                         onError={this._loaded("Engine", false)}
                         onLoadEnd={this._loaded("Engine", true)}
                         />
+        </ViroNode>
+      ));
+    } else if (modelSet == 3){
+      views.push((
+        <ViroNode  position={[0, -0.5, -1.75]} >
           <Viro3DObject source={require('./res/gltf/Buggy.glb')}
-                        position={[-0.1, 0, 0.0]}
+                        position={[0, 0, 0.0]}
                         scale={[0.005,0.005,0.005]}
                         type="GLB"
                         onError={this._loaded("Buggy", false)}
                         onLoadEnd={this._loaded("Buggy", true)}
                         />
+        </ViroNode>
+      ));
+    } else if (modelSet == 4){
+      views.push((
+        <ViroNode  position={[0, -0.5, -1.75]} >
           <Viro3DObject source={require('./res/gltf/CesiumMilkTruck.glb')}
-                        position={[0.85, 0, 0.0]}
+                        position={[0, 0, 0.0]}
                         scale={[0.15,0.15,0.15]}
                         type="GLB"
                         onError={this._loaded("Truck", false)}
@@ -190,16 +200,21 @@ var Viro3DObjectTest = createReactClass({
                          />
         </ViroNode>
       ));
-    } else if (modelSet == 3){
+    } else if (modelSet == 5){
       views.push((
       <ViroNode  position={[0, -0.5, -1.75]} >
         <Viro3DObject source={require('./res/gltf/Avocado.glb')}
-                      position={[-0.75, -0.20 , 0.0]}
+                      position={[0, -0.20 , 0.0]}
                       scale={[10,10,10]}
                       type="GLB"
                       onError={this._loaded("Avocado", false)}
                       onLoadEnd={this._loaded("Avocado", true)}
                       />
+      </ViroNode>
+      ));
+    } else if (modelSet == 6){
+      views.push((
+      <ViroNode  position={[0, -0.5, -1.75]} >
         <Viro3DObject source={require('./res/gltf/FlightHelmet_gltf.gltf')}
                       resources={[require('./res/gltf/FlightHelmet.bin'),
                                   require('./res/gltf/FlightHelmet_baseColor.png'),
@@ -223,8 +238,13 @@ var Viro3DObjectTest = createReactClass({
                       onError={this._loaded("FlightHelmet", false)}
                       onLoadEnd={this._loaded("FlightHelmet", true)}
                        />
+      </ViroNode>
+      ));
+    } else if (modelSet == 7){
+      views.push((
+      <ViroNode  position={[0, -0.5, -1.75]} >
        <Viro3DObject source={require('./res/gltf/Corset.glb')}
-                    position={[0.85, -.2, 0.0]}
+                    position={[0, -.2, 0.0]}
                     scale={[18,18,18]}
                     type="GLB"
                     onError={this._loaded("Corset", false)}
@@ -232,7 +252,7 @@ var Viro3DObjectTest = createReactClass({
                        />
       </ViroNode>
       ));
-    } else if (modelSet == 4){
+    } else if (modelSet == 8){
       views.push((
       <ViroNode  position={[0, -0.5, -1.75]} >
         <Viro3DObject source={require('./res/gltf/BoomBox.glb')}
@@ -261,7 +281,7 @@ var Viro3DObjectTest = createReactClass({
                        />
       </ViroNode>
         ));
-    } else if (modelSet == 5){
+    } else if (modelSet == 9){
       views.push((
       <ViroNode  position={[0, -0.5, -1.75]} >
         <Viro3DObject source={require('./res/gltf/BadVersion.gltf')}
@@ -291,7 +311,7 @@ var Viro3DObjectTest = createReactClass({
 
   _onSceneClick(){
     var modelSet = this.state.modelSet + 1;
-    if (modelSet > 5){
+    if (modelSet > 9){
       modelSet = -1;
     }
 
@@ -300,16 +320,16 @@ var Viro3DObjectTest = createReactClass({
       title = "Basic GLTF Geometry:";
     } else if (modelSet == 1){
       title = "GLTF Model File Types:";
-    } else if (modelSet == 2){
+    } else if (modelSet == 2 || modelSet == 3 || modelSet == 4){
       title = "Complex Geometry Models:";
-    } else if (modelSet == 3){
+    } else if (modelSet == 5 || modelSet == 6 || modelSet == 7){
       title = "GTLF with PBR textures:";
-    } else if (modelSet == 4){
+    } else if (modelSet == 8){
       title = "Very reflective pbr textures:";
-    } else if (modelSet == 5){
+    } else if (modelSet == 9){
       title = "Test Invalid Models \n(Should fail gracefully)";
     }
-    this.setState({modelSet:modelSet, title:title, output:""});
+    this.setState({modelSet:modelSet, title:title, output:"->"});
   },
 
   _loaded(objectTag, success){
