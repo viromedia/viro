@@ -143,11 +143,11 @@ var ViroPortalTest = createReactClass({
                  <Viro3DObject source={require('../res/portal_ring.obj')}
                                position={[0, 0, 0]}
                                rotation={[0, 0, 0]}
-                               scale={[0.04, 0.18, 0.08]}
+                               scale={[0.18, 0.18, 0.08]}
                                materials={["ring"]}  type="OBJ" />
                </ViroPortal>
 
-               <ViroSkyBox color="#66b7f9" />
+               <ViroSkyBox color="#FF0000" />
                <ViroAnimatedComponent animation="boxSpin" run={true} loop={true}>
                  <ViroBox width={0.25} height={0.25} position={[-1.5, 0, -2]}/>
                </ViroAnimatedComponent>
