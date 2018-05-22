@@ -4,6 +4,7 @@ pipeline {
     stage('initial_setup') {
       steps {
         sh '''cd android
+        fastlane save_git_log
         fastlane gradle_clean_bridge'''
       }
     }
