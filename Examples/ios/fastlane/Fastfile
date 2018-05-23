@@ -71,7 +71,7 @@ platform :ios do
       )
       cert
       sigh(force: true)
-      gym(scheme: "ViroExample",
+      gym(scheme: "ViroExample_archive",
                 workspace: "./ViroExample/ViroExample.xcworkspace",
                 configuration: "Release",
                 clean: true,

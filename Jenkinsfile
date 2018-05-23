@@ -32,7 +32,7 @@ pipeline {
         fastlane npm_pack'''
       }
     }
-/*    stage('release_tests (iOS)') {
+    stage('release_tests (iOS)') {
       steps {
         sh '''cd Examples/ios
 fastlane jenkins_release_tests'''
@@ -44,7 +44,6 @@ fastlane jenkins_release_tests'''
 fastlane jenkins_upload_release_tests_testflight'''
       }
     }
-*/
     stage('release_tests (android)(gvr+ovr)') {
       steps {
         sh '''cd Examples/android/

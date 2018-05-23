@@ -1,5 +1,7 @@
-target 'ViroExample' do
-  use_frameworks!
+
+use_frameworks!
+
+def required_pods
   # we've got a dependency on ViroKit rather than ViroReact because we want to build ViroReact
   # each time we build ViroExample vs having to build ViroReact, run `npm pack` then `npm install`
   # and then building ViroExample.
@@ -8,3 +10,10 @@ target 'ViroExample' do
   pod 'Crashlytics', '3.9.3'
 end
 
+target 'ViroExample' do
+  required_pods
+end
+
+target 'ViroExample_archive' do
+  required_pods
+end
