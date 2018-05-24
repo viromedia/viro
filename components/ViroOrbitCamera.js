@@ -112,7 +112,6 @@ var VRTOrbitCamera = requireNativeComponent(
       dragPlane:true,
       animation:true,
       ignoreEventHandling: true,
-      dragPlane:true,
     }
 });
 
