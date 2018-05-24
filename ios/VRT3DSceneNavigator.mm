@@ -66,8 +66,9 @@ static NSString *const kVRTInvalidAPIKeyMessage = @"The given API Key is either 
     // reset the API key now that _vroView has been created.
     [self setApiKey:_apiKey];
 
-    // set the scene if it was set before this view was created (not likely)
+    // set the scene if it was set before this view was created
     if (_currentScene) {
+      [_currentScene setView:_vroView];
       [_vroView setSceneController:[_currentScene sceneController]];
     }
   }
