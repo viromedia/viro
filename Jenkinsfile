@@ -26,10 +26,11 @@ pipeline {
         fastlane release_react_viro_lib'''
       }
     }
-    stage('npm_pack') {
+    stage('prepare_release') {
       steps {
-        sh '''cd Examples/android
-        fastlane npm_pack'''
+        sh '''rm -rf react-viro-*.tgz
+        ./prepare_release.sh
+        cp react-viro-*.tgz /var/tmp/build_intermediates/s3_artifacts/'''
       }
     }
 /*    stage('release_tests (iOS)') {

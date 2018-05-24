@@ -61,8 +61,6 @@ platform :android do
   lane :react_viro_bridge_aar do
     begin
       sh("cp #{BUILD_INTERMEDIATES}viroreact_aar/viro_renderer-release.aar ../viro_renderer/")
-      gradle(task: "viro_bridge:assemble")
-      sh("cp ../viro_bridge/build/outputs/aar/viro_bridge-release.aar ../react_viro/react_viro-release.aar")
     rescue => exception
            on_error(exception)
     end
