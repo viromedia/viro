@@ -314,6 +314,7 @@ var VRTParticleEmitter = requireNativeComponent(
       animation:true,
       materials:true,
       dragType:true,
+      dragPlane: true,
       ignoreEventHandling: true,
     }
   }
