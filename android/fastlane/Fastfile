@@ -69,8 +69,8 @@ platform :android do
   lane :upload_builds_and_slack do
     Dir.chdir("#{BUILD_INTERMEDIATES}s3_artifacts") do
      timestamp=Time.now.strftime('%Y-%m-%d_%H-%M-%S')
-     virocore_filename="virocore-release-v_1_7_0.aar"
-     viroreact_filename="react-viro-2.7.0.tgz"
+     virocore_filename="virocore-release-v_1_7_1.aar"
+     viroreact_filename="react-viro-2.7.1.tgz"
      gvr_test_filename="app-gvr-release.apk"
      ovr_test_filename="app-ovr-release.apk"
      git_log_filename="git_log.txt"
