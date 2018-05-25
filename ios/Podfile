@@ -1,2 +1,5 @@
 target 'ViroReact' do
 end
+
+target 'ViroReact_release_tests' do
+end

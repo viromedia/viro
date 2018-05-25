@@ -28,7 +28,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "13424C7220B425AC00C690CC"
+               BlueprintIdentifier = "131E1DFA20B89A560075D8E0"
                BuildableName = "libViroReact_release_tests.a"
                BlueprintName = "ViroReact_release_tests"
                ReferencedContainer = "container:../../../ios/ViroReact.xcodeproj">
