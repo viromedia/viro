@@ -16,7 +16,6 @@ fastlane_version "2.66.2"
 default_platform :ios
 platform :ios do
   before_all do
-    ENV["SLACK_URL"] = "***REMOVED***"
     BUILD_INTERMEDIATES = "/var/tmp/build_intermediates/"
     # ENV["SLACK_URL"] = "https://hooks.slack.com/services/..."
     # cocoapods

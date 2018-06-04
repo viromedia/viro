@@ -19,7 +19,6 @@ default_platform :android
 
 platform :android do
   before_all do
-    ENV["SLACK_URL"] = "***REMOVED***"
     BUILD_INTERMEDIATES = "/var/tmp/build_intermediates/"
     GIT_REPO_BRANCH = "react-viro/master"
     S3_BASE_URL = "https://s3-us-west-2.amazonaws.com/viro-builds/"

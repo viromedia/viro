@@ -17,7 +17,6 @@ default_platform :android
 
 platform :android do
   before_all do
-    ENV["SLACK_URL"] = "***REMOVED***"
     BUILD_INTERMEDIATES = "/var/tmp/build_intermediates/"
     GIT_REPO_BRANCH = "react-viro/master"
   end
