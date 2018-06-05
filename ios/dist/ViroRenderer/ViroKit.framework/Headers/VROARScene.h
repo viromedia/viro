@@ -106,7 +106,10 @@ public:
     
     void willAppear();
     void willDisappear();
-    
+
+    std::shared_ptr<VROARSession> getARSession() {
+        return _arSession.lock();
+    }
     std::shared_ptr<VROARDeclarativeSession> getDeclarativeSession() {
         return _declarativeSession;
     }

@@ -33,7 +33,7 @@
  VROARAnchor is subclassed by specific anchor types; planes, image targets, 
  etc.
  */
-class VROARAnchor {
+class VROARAnchor : public std::enable_shared_from_this<VROARAnchor> {
 public:
     
     /*
@@ -72,6 +72,14 @@ public:
     void setARNode(std::shared_ptr<VROARNode> node) {
         _node = node;
         updateNodeTransform();
+    }
+
+    /*
+     Get the anchor that's associated with the real-world object. On ARKit this is simply this
+     anchor itself; while on ARCore the anchors have attached 'trackable' anchors.
+     */
+    virtual std::shared_ptr<VROARAnchor> getAnchorForTrackable() {
+        return shared_from_this();
     }
     
     /*

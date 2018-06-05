@@ -30,7 +30,7 @@ public:
      Returns whether or not the given VROARAnchor fulfills this plane's requirements.
      */
     bool hasRequirementsFulfilled(std::shared_ptr<VROARAnchor> candidate) {
-        std::shared_ptr<VROARPlaneAnchor> planeAnchor = std::dynamic_pointer_cast<VROARPlaneAnchor>(candidate);
+        std::shared_ptr<VROARPlaneAnchor> planeAnchor = std::dynamic_pointer_cast<VROARPlaneAnchor>(candidate->getAnchorForTrackable());
         if (!planeAnchor) {
             return false;
         }

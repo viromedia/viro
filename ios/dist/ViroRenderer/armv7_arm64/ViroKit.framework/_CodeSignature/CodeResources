@@ -4,6 +4,14 @@
 <dict>
 	<key>files</key>
 	<dict>
+		<key>ARCoreResources.bundle/Info.plist</key>
+		<data>
+		peQ5J0A430GYep1abJXqVXs+9qQ=
+		</data>
+		<key>ARCoreResources.bundle/Resources</key>
+		<data>
+		3+ND31KI5cEFcMqHupb0iUj4orA=
+		</data>
 		<key>CardboardSDK.bundle/Info.plist</key>
 		<data>
 		7IAIK8tPbyUbblavMdwkgwa4oeY=
@@ -2469,7 +2477,7 @@
 		</dict>
 		<key>Headers/VROARAnchor.h</key>
 		<data>
-		ETIEcy16lunG4s/47wM5mpjfRtE=
+		4xY5vC5sTaOc2fHmA4AeFHaJI2s=
 		</data>
 		<key>Headers/VROARCamera.h</key>
 		<data>
@@ -2481,7 +2489,7 @@
 		</data>
 		<key>Headers/VROARDeclarativeImageNode.h</key>
 		<data>
-		hioRvARvA4NsUrYcMwIS3GATF9U=
+		eaMA+ElL3R89A86mtjT0UjzsBS0=
 		</data>
 		<key>Headers/VROARDeclarativeNode.h</key>
 		<data>
@@ -2493,7 +2501,7 @@
 		</data>
 		<key>Headers/VROARDeclarativePlane.h</key>
 		<data>
-		rayF21vcG9+drT2El6xVhuTjj5M=
+		WxGHNY9wpIQE9gEdzGmaaRFxBDE=
 		</data>
 		<key>Headers/VROARDeclarativeSession.h</key>
 		<data>
@@ -2537,7 +2545,7 @@
 		</data>
 		<key>Headers/VROARScene.h</key>
 		<data>
-		zFvA4uoGDjLILKg0pAJ7y6e7+cQ=
+		/mRyORdncJ4kMyp4KWpB+tfXF/I=
 		</data>
 		<key>Headers/VROARSceneController.h</key>
 		<data>
@@ -2549,7 +2557,7 @@
 		</data>
 		<key>Headers/VROARSession.h</key>
 		<data>
-		p/nEDdC4YnnPyQjfF3IvM1dKyok=
+		H4w6YgrBR7KnC/pctssq8kZ/46g=
 		</data>
 		<key>Headers/VROARShadow.h</key>
 		<data>
@@ -4430,6 +4438,28 @@
 	</dict>
 	<key>files2</key>
 	<dict>
+		<key>ARCoreResources.bundle/Info.plist</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			peQ5J0A430GYep1abJXqVXs+9qQ=
+			</data>
+			<key>hash2</key>
+			<data>
+			Jbe8RIWSbkF+B7xcq20So2OZfNRJEDwJ5lB1WImhJfo=
+			</data>
+		</dict>
+		<key>ARCoreResources.bundle/Resources</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			3+ND31KI5cEFcMqHupb0iUj4orA=
+			</data>
+			<key>hash2</key>
+			<data>
+			/olQC78GgAYukqR4pn4JArCNtDwPtbkmDEfS3myAl00=
+			</data>
+		</dict>
 		<key>CardboardSDK.bundle/Info.plist</key>
 		<dict>
 			<key>hash</key>
@@ -8775,11 +8805,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			ETIEcy16lunG4s/47wM5mpjfRtE=
+			4xY5vC5sTaOc2fHmA4AeFHaJI2s=
 			</data>
 			<key>hash2</key>
 			<data>
-			aoNgFLzlfTPJ6ZyxcULqhFqZOVc0uZfPwpwEFHtnOhg=
+			k3RxWYHXTBWzfKqzojI7VkvmHt+7xgwnFLkDAzJBnys=
 			</data>
 		</dict>
 		<key>Headers/VROARCamera.h</key>
@@ -8808,11 +8838,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			hioRvARvA4NsUrYcMwIS3GATF9U=
+			eaMA+ElL3R89A86mtjT0UjzsBS0=
 			</data>
 			<key>hash2</key>
 			<data>
-			p4Vi+5UA8u+hK5LA4zit70oDTqsM9TIRjjlKGn8nIH0=
+			842A9CqzoVi2Lvrqkt/itdtQ/sWWEyEZeb4V3MSNrtE=
 			</data>
 		</dict>
 		<key>Headers/VROARDeclarativeNode.h</key>
@@ -8841,11 +8871,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			rayF21vcG9+drT2El6xVhuTjj5M=
+			WxGHNY9wpIQE9gEdzGmaaRFxBDE=
 			</data>
 			<key>hash2</key>
 			<data>
-			XO2VBjxXCRuyd6orcniuUE3IP3UUFnc/Zn/h2JmGQBA=
+			c+dqH39MKFZ3OncPERm5xnqXOolAbkMGa5+7qBU5YSU=
 			</data>
 		</dict>
 		<key>Headers/VROARDeclarativeSession.h</key>
@@ -8962,11 +8992,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			zFvA4uoGDjLILKg0pAJ7y6e7+cQ=
+			/mRyORdncJ4kMyp4KWpB+tfXF/I=
 			</data>
 			<key>hash2</key>
 			<data>
-			vYCb8cYR1NA9Ihh1Lf4opeCjEduASpaPknD/CV9sUxY=
+			q2OvJCyTH9eYMRd0788oO0y4QeR8/5n3lsx6YGhrEh8=
 			</data>
 		</dict>
 		<key>Headers/VROARSceneController.h</key>
@@ -8995,11 +9025,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			p/nEDdC4YnnPyQjfF3IvM1dKyok=
+			H4w6YgrBR7KnC/pctssq8kZ/46g=
 			</data>
 			<key>hash2</key>
 			<data>
-			S3Vi9KrxQ0lE+qJdNtxkU3cj5qKRwbWq+p4yAFhnUlo=
+			/Szyq3xsB+fgeOJ14KblhJBD4Y+fw1I91upMM86jf7M=
 			</data>
 		</dict>
 		<key>Headers/VROARShadow.h</key>

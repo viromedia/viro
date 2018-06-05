@@ -23,7 +23,7 @@ public:
      Returns whether or not the given VROARAnchor fulfills this image marker's requirements.
      */
     bool hasRequirementsFulfilled(std::shared_ptr<VROARAnchor> candidate) {
-        std::shared_ptr<VROARImageAnchor> imageAnchor = std::dynamic_pointer_cast<VROARImageAnchor>(candidate);
+        std::shared_ptr<VROARImageAnchor> imageAnchor = std::dynamic_pointer_cast<VROARImageAnchor>(candidate->getAnchorForTrackable());
         // a VROARImageAnchor matches an VROAR*ImageNode if they share the same VROImageTarget
         return imageAnchor && _imageTarget == imageAnchor->getImageTarget();
     }

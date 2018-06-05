@@ -188,21 +188,20 @@ public:
 
     /*
      Host an anchor on the cloud anchor provider we're using. Hosting an anchor is an
-     asynchronous process that will eventually return an anchor ID to the
+     asynchronous process that will eventually return the hosted anchor to the
      given callback.
      */
-    virtual void hostAnchor(std::shared_ptr<VROARAnchor> anchor,
-                            std::function<void(std::string anchorId)> onSuccess,
-                            std::function<void(std::string error)> onFailure) = 0;
+    virtual void hostCloudAnchor(std::shared_ptr<VROARAnchor> anchor,
+                                 std::function<void(std::shared_ptr<VROARAnchor>)> onSuccess,
+                                 std::function<void(std::string error)> onFailure) = 0;
     
     /*
-     Resolve an anchor with the given ID from the cloud anchor. This is an
-     asynchronous process. If found, the anchor will be returned in the given
-     callback.
+     Resolve an anchor with the given cloud identifier. This is an asynchronous process. If found,
+     the anchor will be returned in the given callback.
      */
-    virtual void resolveAnchor(std::string anchorId,
-                               std::function<void(std::shared_ptr<VROARAnchor> anchor)> onSuccess,
-                               std::function<void(std::string error)> onFailure) = 0;
+    virtual void resolveCloudAnchor(std::string cloudAnchorId,
+                                    std::function<void(std::shared_ptr<VROARAnchor> anchor)> onSuccess,
+                                    std::function<void(std::string error)> onFailure) = 0;
     
     /*
      Invoke each rendering frame. Updates the AR session with the latest
