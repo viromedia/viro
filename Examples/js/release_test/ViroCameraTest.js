@@ -52,6 +52,7 @@ var ViroCameraTest = createReactClass({
     return {
         mainCameraPositionX: 0,
         mainCameraRotation:0,
+        mainCameraParentRotation:0,
         activeCamera:1,
         cameraOrienationString:"",
         fov: 60
@@ -62,9 +63,7 @@ var ViroCameraTest = createReactClass({
     return (
      <ViroScene onClick={this._toggleCamera} ref="cameraScene">
      <ReleaseMenu sceneNavigator={this.props.sceneNavigator}/>
-
      <ViroOmniLight position={[0, 0, 0]} color="#ffffff" attenuationStartDistance={40} attenuationEndDistance={50}/>
-
      <ViroImage source={require('./res/poi_dot.png')} position={[-1, 0, 0]} transformBehaviors={["billboard"]} onClick={this._showNext} />
 
      <ViroCamera
@@ -78,11 +77,13 @@ var ViroCameraTest = createReactClass({
                      onFinish:this._onFinish}}/>
 
 
-     <ViroCamera
-      position={[this.state.mainCameraPositionX,0,0]}
-      rotation={[0,this.state.mainCameraRotation,0]}
-      fieldOfView={this.state.fov}
-      active={this.state.activeCamera == 1} />
+     <ViroNode rotation={[0, -this.state.mainCameraParentRotation, 0]}>
+         <ViroCamera
+          position={[this.state.mainCameraPositionX, 0, 0]}
+          rotation={[0, this.state.mainCameraRotation, 0]}
+          fieldOfView={this.state.fov}
+          active={this.state.activeCamera == 1} />
+     </ViroNode>
 
      <ViroOrbitCamera
         fieldOfView={this.state.fov}
@@ -99,19 +100,22 @@ var ViroCameraTest = createReactClass({
         length={1} />
 
         <ViroText style={styles.centeredText} position={[-2, -1, -4]} text={"ToggleCamera type: " + this.state.activeCamera}
-                width={2} height ={2}  onClick={this._toggleCamera} />
+                width={2} height={2}  onClick={this._toggleCamera} />
 
         <ViroText style={styles.centeredText} position={[0, -1, -4]} text={"Toggle Camera Type 1 positionX: " + this.state.mainCameraPositionX}
-                width={1.5} height ={2}  onClick={this._toggleCameraPosiion} />
+                width={1.5} height={2}  onClick={this._toggleCameraPosition} />
 
         <ViroText style={styles.centeredText} position={[2, -1, -4]} text={"Toggle Camera Type 1 rotationY: " + this.state.mainCameraRotation}
-                width={1.5} height ={2}  onClick={this._toggleCameraRotation} />
+                width={1.5} height={2}  onClick={this._toggleCameraRotation} />
+
+        <ViroText style={styles.centeredText} position={[4, -1, -4]} text={"Toggle Camera Type 1 parent rotationY: " + this.state.mainCameraParentRotation}
+                width={1.5} height={2}  onClick={this._toggleCameraParentRotation} />
 
         <ViroText style={styles.centeredText} position={[0, -2.5, -4]} text={"Get Camera Orientation Async: " + this.state.cameraOrienationString}
-                width={4} height ={4}  onClick={this._getCameraOrientationAsync} />
+                width={4} height={4}  onClick={this._getCameraOrientationAsync} />
 
         <ViroText style={styles.centeredText} position={[0, -3.5, -4]} text={"Toggle Fov on Camera: " + this.state.fov}
-                width={4} height ={4}  onClick={this._toggleFov} />
+                width={4} height={4}  onClick={this._toggleFov} />
      </ViroScene>
 
     );
@@ -139,52 +143,55 @@ var ViroCameraTest = createReactClass({
   },
 
   _toggleCamera(){
-  console.log("Daniel _toggleCamera");
-        var newCamera = this.state.activeCamera + 1;
-        if (newCamera > 3){
-            newCamera = 1;
-        }
-
-         this.setState({
-                activeCamera:newCamera
-               });
+      var newCamera = this.state.activeCamera + 1;
+      if (newCamera > 3) {
+          newCamera = 1;
+      }
+      this.setState({
+         activeCamera:newCamera
+      });
   },
 
-  _toggleCameraPosiion(){console.log("Daniel _toggleCameraOnePoistion");
-        var newCameraX = this.state.mainCameraPositionX + 0.5;
-        if (newCameraX > 3){
-            newCameraX = 1;
-        }
-
-         this.setState({
-                mainCameraPositionX:newCameraX
-               });
+  _toggleCameraPosition() {
+      var newCameraX = this.state.mainCameraPositionX + 0.5;
+      if (newCameraX > 3) {
+          newCameraX = 1;
+      }
+      this.setState({
+          mainCameraPositionX:newCameraX
+      });
   },
 
-  _toggleCameraRotation(){console.log("Daniel _toggleCameraOneRotation");
-        var newCameraRot = this.state.mainCameraRotation + 10;
-        if (newCameraRot > 360){
-            newCameraRot = 0;
-        }
-
-         this.setState({
-                mainCameraRotation:newCameraRot
-               });
+  _toggleCameraRotation() {
+      var newCameraRot = this.state.mainCameraRotation + 10;
+      if (newCameraRot > 360) {
+          newCameraRot = 0;
+      }
+      this.setState({
+          mainCameraRotation:newCameraRot
+      });
   },
-  _toggleFov(){
-    var newFov = this.state.fov + 10;
-    if (newFov > 120){
-        newFov = 60;
-    }
 
-    this.setState({
-        fov:newFov
-    });
+  _toggleCameraParentRotation() {
+      var newCameraRot = this.state.mainCameraParentRotation + 10;
+      if (newCameraRot > 360) {
+          newCameraRot = 0;
+      }
+      this.setState({
+          mainCameraParentRotation:newCameraRot
+      });
+  },
+
+  _toggleFov() {
+      var newFov = this.state.fov + 10;
+      if (newFov > 120){
+          newFov = 60;
+      }
+      this.setState({
+          fov:newFov
+      });
   }
-
-
 });
-
 
 var styles = StyleSheet.create({
   centeredText: {
@@ -198,9 +205,9 @@ var styles = StyleSheet.create({
 
 ViroMaterials.createMaterials({
   redColor: {
-  fresnelExponent: .5,
-   shininess: 2.0,
-    diffuseColor: "#ff0000"
+      fresnelExponent: .5,
+      shininess: 2.0,
+      diffuseColor: "#ff0000"
   },
   blue: {
       shininess: 2.0,
@@ -211,9 +218,7 @@ ViroMaterials.createMaterials({
       lightingModel: "Phong",
       diffuseTexture: require('../res/heart_d.jpg'),
     },
- });
-
-
+});
 
 ViroAnimations.registerAnimations({
     moveRight:{properties:{positionX:"+=2"}, duration: 2000, easing:"Linear"},
@@ -221,7 +226,6 @@ ViroAnimations.registerAnimations({
     testLoopMove:[
         ["moveRight", "moveLeft"]
     ],
-
 });
 
 
