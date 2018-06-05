@@ -46,7 +46,7 @@ public:
     /*
      Compute the transforms, recursively, for all nodes in this scene.
      */
-    void computeTransforms(const VRORenderContext &context);
+    void computeTransforms();
 
     /*
      Update the visibility status of all nodes in the scene graph.

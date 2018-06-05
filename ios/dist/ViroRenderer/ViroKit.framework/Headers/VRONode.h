@@ -254,7 +254,7 @@ public:
     }
 
     /*
-     The following are atomic, updated once per TODO frame on the rendering thread. They can
+     The following are atomic, updated once per frame on the rendering thread. They can
      be accessed safely from any thread to get an up-to-date state of the transform.
      */
     VROMatrix4f    getLastWorldTransform() const;
