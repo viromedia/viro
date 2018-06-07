@@ -111,7 +111,6 @@ public class VRTARScene extends VRTScene implements ARScene.Listener {
     }
 
     public void setAnchorDetectionTypes(ReadableArray types) {
-        ViewParent parent = getParent();
         EnumSet<ViroViewARCore.AnchorDetectionType> typesList = EnumSet.noneOf(ViroViewARCore.AnchorDetectionType.class);
         if (types != null) {
             for (int i = 0; i < types.size(); i++) {

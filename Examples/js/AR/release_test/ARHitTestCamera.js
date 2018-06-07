@@ -38,6 +38,8 @@ var createReactClass = require('create-react-class');
 
 let polarToCartesian = ViroUtils.polarToCartesian;
 
+var count = 0;
+
 var ARHitTestCamera = createReactClass({
   mixins: [TimerMixin],
   getInitialState: function() {
@@ -49,19 +51,25 @@ var ARHitTestCamera = createReactClass({
       displayOnPlane: false,
       displayNothingFound: false,
       planeReticleLocation: [0,0,0],
+      onCameraTransformCallback : undefined,
+      cameraTransformString : "",
     }
   },
   render: function() {
     return (
-      <ViroARScene ref="arscene" onCameraARHitTest={this._onCameraARHitTest} >
+      <ViroARScene ref="arscene" onCameraARHitTest={this._onCameraARHitTest}
+        onCameraTransformUpdate={this.state.onCameraTransformCallback} >
+
         <ViroAmbientLight color="#ffffff" intensity={500}/>
         {this._getModel()}
+
+        <ViroText style={styles.instructionText} position={[0, 0, -4]} text={"Toggle Camera Transform Callback: " + this.state.cameraTransformString}
+            width={4} height ={4}  onClick={this._toggleCameraUpdates}  transformBehaviors={["billboard"]} />
       </ViroARScene>
     );
   },
 
   _onCameraARHitTest(results) {
-      console.log("_onCameraARHitTest invoked!");
       if(results.hitTestResults.length > 0) {
         for (var i = 0; i < results.hitTestResults.length; i++) {
           let result = results.hitTestResults[i];
@@ -142,6 +150,7 @@ var ARHitTestCamera = createReactClass({
             type = "VRX" visible={this.state.displayNothingFound}
             resources = {[require('./res/tracking_diffuse_2.png')]}
           />
+
       </ViroNode>
     );
     return modelArray;
@@ -153,6 +162,23 @@ var ARHitTestCamera = createReactClass({
       } else {
           return null;
       }
+  },
+  _toggleCameraUpdates() {
+    this.setState({
+      onCameraTransformCallback : this._onCameraTransformUpdate
+    })
+  },
+  _onCameraTransformUpdate(cameraTransform) {
+    count++;
+    if (count % 20 == 0) {
+      var cameraTransformStr = "Position: " + cameraTransform.cameraTransform.position + ", rotation: " + cameraTransform.cameraTransform.rotation + ", forward: " + cameraTransform.cameraTransform.forward + ", up: " + cameraTransform.cameraTransform.up;
+      this.setState({
+        cameraTransformString : cameraTransformStr
+      })
+    }
+    if (count == 999999999) {
+      count = 0;
+    }
   },
 });
 

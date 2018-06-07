@@ -54,6 +54,7 @@ var ViroARScene = createReactClass({
     onRotate: PropTypes.func,
     onCameraARHitTest: PropTypes.func,
     onARPointCloudUpdate: PropTypes.func,
+    onCameraTransformUpdate: PropTypes.func,
     onFuse: PropTypes.oneOfType([
       PropTypes.shape({
         callback: PropTypes.func.isRequired,
@@ -140,6 +141,18 @@ var ViroARScene = createReactClass({
 
   _onARPointCloudUpdate: function(event: Event) {
     this.props.onARPointCloudUpdate && this.props.onARPointCloudUpdate(event.nativeEvent.pointCloud);
+  },
+
+  _onCameraTransformUpdate: function(event: Event) {
+    var cameraTransform = {
+      cameraTransform: {
+        position: [event.nativeEvent.cameraTransform[0], event.nativeEvent.cameraTransform[1], event.nativeEvent.cameraTransform[2]],
+        rotation: [event.nativeEvent.cameraTransform[3], event.nativeEvent.cameraTransform[4], event.nativeEvent.cameraTransform[5]],
+        forward: [event.nativeEvent.cameraTransform[6], event.nativeEvent.cameraTransform[7], event.nativeEvent.cameraTransform[8]],
+        up: [event.nativeEvent.cameraTransform[9], event.nativeEvent.cameraTransform[10], event.nativeEvent.cameraTransform[11]]
+      }
+    };
+    this.props.onCameraTransformUpdate && this.props.onCameraTransformUpdate(cameraTransform);
   },
 
   _onDrag: function(event: Event) {
@@ -320,6 +333,7 @@ var ViroARScene = createReactClass({
         canFuse={this.props.onFuse != undefined}
         canCameraARHitTest={this.props.onCameraARHitTest != undefined}
         canARPointCloudUpdate={this.props.onARPointCloudUpdate != undefined}
+        canCameraTransformUpdate={this.props.onCameraTransformUpdate != undefined}
         onHoverViro={this._onHover}
         onClickViro={this._onClickState}
         onTouchViro={this._onTouch}
@@ -331,6 +345,7 @@ var ViroARScene = createReactClass({
         onFuseViro={this._onFuse}
         onCameraARHitTestViro={this._onCameraARHitTest}
         onARPointCloudUpdateViro={this._onARPointCloudUpdate}
+        onCameraTransformUpdateViro={this._onCameraTransformUpdate}
         onPlatformUpdateViro={this._onPlatformUpdate}
         onTrackingUpdatedViro={this._onTrackingUpdated}
         onAmbientLightUpdateViro={this._onAmbientLightUpdate}
@@ -368,6 +383,7 @@ var VRTARScene = requireNativeComponent(
           canFuse: true,
           canCameraARHitTest: true,
           canARPointCloudUpdate: true,
+          canCameraTransformUpdate: true,
           onHoverViro: true,
           onClickViro: true,
           onTouchViro: true,
@@ -386,6 +402,7 @@ var VRTARScene = requireNativeComponent(
           onAnchorRemovedViro:true,
           onCameraARHitTestViro: true,
           onARPointCloudUpdateViro: true,
+          onCameraTransformUpdateViro: true,
           timeToFuse:true,
           pointCloudImage:true,
           pointCloudScale:true,

@@ -42,5 +42,6 @@ public class ViroEvents {
     public static final String ON_PORTAL_EXIT = "onPortalExitViro";
     public static final String ON_CAMERA_AR_HIT_TEST_VIRO = "onCameraARHitTestViro";
     public static final String ON_AR_POINT_CLOUD_UPDATE = "onARPointCloudUpdateViro";
+    public static final String ON_CAMERA_TRANSFORM_UPDATE = "onCameraTransformUpdateViro";
 
 }

@@ -34,6 +34,7 @@ var ViroScene = createReactClass({
     onPinch: PropTypes.func,
     onRotate: PropTypes.func,
     onPlatformUpdate: PropTypes.func,
+    onCameraTransformUpdate: PropTypes.func,
     ignoreEventHandling: PropTypes.bool,
     dragType: PropTypes.oneOf(["FixedDistance", "FixedToWorld", "FixedToPlane"]),
     dragPlane: PropTypes.shape({
@@ -118,6 +119,18 @@ var ViroScene = createReactClass({
     this.props.onPlatformUpdate && this.props.onPlatformUpdate(event.nativeEvent.platformInfoViro);
   },
 
+  _onCameraTransformUpdate: function(event: Event) {
+    var cameraTransform = {
+      cameraTransform: {
+        position: [event.nativeEvent.cameraTransform[0], event.nativeEvent.cameraTransform[1], event.nativeEvent.cameraTransform[2]],
+        rotation: [event.nativeEvent.cameraTransform[3], event.nativeEvent.cameraTransform[4], event.nativeEvent.cameraTransform[5]],
+        forward: [event.nativeEvent.cameraTransform[6], event.nativeEvent.cameraTransform[7], event.nativeEvent.cameraTransform[8]],
+        up: [event.nativeEvent.cameraTransform[9], event.nativeEvent.cameraTransform[10], event.nativeEvent.cameraTransform[11]]
+      }
+    };
+    this.props.onCameraTransformUpdate && this.props.onCameraTransformUpdate(cameraTransform);
+  },
+
   async findCollisionsWithRayAsync(from, to, closest, viroTag) {
     return await NativeModules.VRTSceneModule.findCollisionsWithRayAsync(findNodeHandle(this), from, to, closest, viroTag);
   },
@@ -191,6 +204,7 @@ var ViroScene = createReactClass({
         canDrag={this.props.onDrag != undefined}
         canPinch={this.props.onPinch != undefined}
         canRotate={this.props.onRotate != undefined}
+        canCameraTransformUpdate={this.props.onCameraTransformUpdate != undefined}
         onHoverViro={this._onHover}
         onClickViro={this._onClickState}
         onTouchViro={this._onTouch}
@@ -201,6 +215,7 @@ var ViroScene = createReactClass({
         onRotateViro={this._onRotate}
         onPinchViro={this._onPinch}
         onPlatformUpdateViro={this._onPlatformUpdate}
+        onCameraTransformUpdateViro={this._onCameraTransformUpdate}
         timeToFuse={timeToFuse}
         />
     );
@@ -226,6 +241,7 @@ var VRTScene = requireNativeComponent(
           canRotate: true,
           canFuse: true,
           canCollide: true,
+          canCameraTransformUpdate: true,
           onHoverViro: true,
           onClickViro: true,
           onTouchViro: true,
@@ -235,6 +251,7 @@ var VRTScene = requireNativeComponent(
           onPinchViro:true,
           onRotateViro:true,
           onPlatformUpdateViro: true,
+          onCameraTransformUpdateViro: true,
           onFuseViro:true,
           timeToFuse:true,
           physicsBody:true,

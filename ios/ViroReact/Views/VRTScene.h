@@ -19,6 +19,8 @@
 @property (nonatomic, readwrite) std::shared_ptr<VROSceneControllerDelegateiOS> delegate;
 @property (nonatomic, readwrite) std::shared_ptr<VROSceneController> sceneController;
 @property (nonatomic, copy, nullable) NSArray<NSString *> *postProcessEffects;
+@property (nonatomic, copy, nullable) RCTDirectEventBlock onCameraTransformUpdateViro;
+@property (nonatomic, assign) BOOL canCameraTransformUpdate;
 
 - (instancetype)initWithBridge:(RCTBridge *)bridge;
 - (void) initSceneController;

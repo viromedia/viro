@@ -54,6 +54,11 @@ public abstract class VRTSceneManager<T extends VRTScene> extends VRTViroViewGro
         scene.setPostProcessEffects(effects);
     }
 
+    @ReactProp(name = "canCameraTransformUpdate", defaultBoolean = VRTNode.DEFAULT_CAN_CAMERA_TRANSFORM_UPDATE)
+    public void setCanCameraTransformUpdate(VRTScene scene, boolean canCameraTransformUpdate) {
+        scene.setCanCameraTransformUpdate(canCameraTransformUpdate);
+    }
+
     @Override
     public Map getExportedCustomDirectEventTypeConstants() {
         Map map = MapBuilder.of(ViroEvents.ON_FUSE, MapBuilder.of("registrationName", ViroEvents.ON_FUSE));
@@ -63,6 +68,7 @@ public abstract class VRTSceneManager<T extends VRTScene> extends VRTViroViewGro
         map.put(ViroEvents.ON_SCROLL, MapBuilder.of("registrationName", ViroEvents.ON_SCROLL));
         map.put(ViroEvents.ON_COLLIDED, MapBuilder.of("registrationName", ViroEvents.ON_COLLIDED));
         map.put(ViroEvents.ON_PLATFORM_UPDATE, MapBuilder.of("registrationName", ViroEvents.ON_PLATFORM_UPDATE));
+        map.put(ViroEvents.ON_CAMERA_TRANSFORM_UPDATE, MapBuilder.of("registrationName", ViroEvents.ON_CAMERA_TRANSFORM_UPDATE));
         return map;
     }
 

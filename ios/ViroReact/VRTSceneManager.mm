@@ -44,6 +44,9 @@ RCT_EXPORT_VIEW_PROPERTY(postProcessEffects, NSArray<NSString *>)
 RCT_EXPORT_VIEW_PROPERTY(ignoreEventHandling, BOOL)
 RCT_EXPORT_VIEW_PROPERTY(dragType, NSString)
 RCT_EXPORT_VIEW_PROPERTY(dragPlane, NSDictionary)
+RCT_EXPORT_VIEW_PROPERTY(canCameraTransformUpdate, BOOL)
+RCT_EXPORT_VIEW_PROPERTY(onCameraTransformUpdateViro, RCTDirectEventBlock)
+
 - (VRTView *)view
 {
     return [[VRTScene alloc] initWithBridge:self.bridge];

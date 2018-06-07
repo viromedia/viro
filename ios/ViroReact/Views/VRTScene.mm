@@ -30,6 +30,8 @@ static NSString *const kWallMaterialKey = @"wallMaterial";
 static NSString *const kCeilingMaterialKey = @"ceilingMaterial";
 static NSString *const kFloorMaterialKey = @"floorMaterial";
 static NSString *const kDefaultMaterial = @"transparent";
+static NSString *const kCameraTransform = @"cameraTransform";
+
 static NSArray<NSNumber *> *const kDefaultSize = @[@(0), @(0), @(0)];
 
 @implementation VRTScene {
@@ -178,6 +180,16 @@ static NSArray<NSNumber *> *const kDefaultSize = @[@(0), @(0), @(0)];
     [super removeReactSubview:subview];
 }
 
+#pragma mark - VROEventDelegateiOS implementation
+
+- (void)onCameraTransformUpdate:(VROVector3f)position rotation:(VROVector3f)rotation forward:(VROVector3f)forward up:(VROVector3f)up {
+    if (self.onCameraTransformUpdateViro) {
+        NSArray<NSNumber *> * camTransform = [self cameraOrientation];
+        self.onCameraTransformUpdateViro(@{kCameraTransform:camTransform});
+
+    }
+}
+
 #pragma mark - Property setter overrides
 
 /*
@@ -239,7 +251,7 @@ static NSArray<NSNumber *> *const kDefaultSize = @[@(0), @(0), @(0)];
     NSArray *gravity = [dictionary objectForKey:@"gravity"];
     if (gravity != nil){
         if ([gravity count] !=3){
-            RCTLogError(@"Insufficient paramters provided for gravity, expected: [x, y, z]!");
+            RCTLogError(@"Insufficient parameters provided for gravity, expected: [x, y, z]!");
         } else {
             VROVector3f gravity3f = VROVector3f([[gravity objectAtIndex:0] floatValue],
                                                 [[gravity objectAtIndex:1] floatValue],
@@ -260,6 +272,11 @@ static NSArray<NSNumber *> *const kDefaultSize = @[@(0), @(0), @(0)];
         strEffects.push_back(strEffect);
     }
     self.scene->setPostProcessingEffects(strEffects);
+}
+
+- (void)setCanCameraTransformUpdate:(BOOL)canCameraTransformUpdate {
+    _canCameraTransformUpdate = canCameraTransformUpdate;
+    self.eventDelegate->setEnabledEvent(VROEventDelegate::EventAction::OnCameraTransformUpdate, canCameraTransformUpdate);
 }
 
 /**

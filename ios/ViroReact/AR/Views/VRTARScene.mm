@@ -174,7 +174,7 @@ static NSString *const kPointCloudKey = @"pointCloud";
         }
         
         NSArray<NSNumber *> * camOrientation = [self cameraOrientation];
-    self.onCameraARHitTestViro(@{kCameraHitTestResults:resultArray,kCameraOrientation:camOrientation});
+        self.onCameraARHitTestViro(@{kCameraHitTestResults:resultArray,kCameraOrientation:camOrientation});
     }
 }
 

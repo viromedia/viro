@@ -12,6 +12,7 @@ import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
+import com.viro.core.EventDelegate;
 import com.viro.core.internal.CameraCallback;
 import com.viro.core.Node;
 import com.viro.core.PhysicsShape;
@@ -133,6 +134,10 @@ public class VRTScene extends VRTNode implements Scene.VisibilityListener {
         if (!mNativeScene.setEffects(nativeEffects)){
             onError("Viro: Attempted to set an invalid effect!");
         }
+    }
+
+    public void setCanCameraTransformUpdate(boolean canCameraTransformUpdate) {
+        mEventDelegateJni.setEventEnabled(EventDelegate.EventAction.ON_CAMERA_TRANSFORM_UPDATE, canCameraTransformUpdate);
     }
 
     @Override

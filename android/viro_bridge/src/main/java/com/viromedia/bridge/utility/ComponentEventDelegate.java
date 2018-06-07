@@ -3,10 +3,7 @@
  */
 package com.viromedia.bridge.utility;
 
-import android.util.Log;
-
 import com.facebook.react.bridge.Arguments;
-import com.facebook.react.bridge.ReadableMapKeySetIterator;
 import com.facebook.react.bridge.WritableArray;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
@@ -299,5 +296,44 @@ public class ComponentEventDelegate implements EventDelegate.EventDelegateCallba
                 node.getId(),
                 ViroEvents.ON_CONTROLLER_STATUS,
                 event);
+    }
+
+    @Override
+    public void onCameraTransformUpdate(float posX, float poxY, float posZ,
+                                        float rotEulerX, float rotEulerY, float rotEulerZ,
+                                        float forwardX, float forwardY, float forwardZ,
+                                        float upX, float upY, float upZ) {
+        VRTComponent node = weakComponent.get();
+        if (node == null) {
+            return;
+        }
+
+        // This applies to all scenes (AR and non-AR)
+        if (node instanceof VRTScene) {
+            final VRTScene scene = (VRTScene) node;
+
+            WritableMap event = Arguments.createMap();
+
+            WritableArray cameraTransformArray = Arguments.createArray();
+            cameraTransformArray.pushDouble(posX);
+            cameraTransformArray.pushDouble(poxY);
+            cameraTransformArray.pushDouble(posZ);
+            cameraTransformArray.pushDouble(Math.toDegrees(rotEulerX));
+            cameraTransformArray.pushDouble(Math.toDegrees(rotEulerY));
+            cameraTransformArray.pushDouble(Math.toDegrees(rotEulerZ));
+            cameraTransformArray.pushDouble(forwardX);
+            cameraTransformArray.pushDouble(forwardY);
+            cameraTransformArray.pushDouble(forwardZ);
+            cameraTransformArray.pushDouble(upX);
+            cameraTransformArray.pushDouble(upY);
+            cameraTransformArray.pushDouble(upZ);
+
+            event.putArray("cameraTransform", cameraTransformArray);
+
+            scene.getReactContext().getJSModule(RCTEventEmitter.class).receiveEvent(
+                    scene.getId(),
+                    ViroEvents.ON_CAMERA_TRANSFORM_UPDATE,
+                    event);
+        }
     }
 }

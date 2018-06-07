@@ -42,6 +42,8 @@ import {
 let polarToCartesian = ViroUtils.polarToCartesian;
 var createReactClass = require('create-react-class');
 
+var count = 0;
+
 // **This test has not been done.  This is placeholder for scene and navigation arrows**
 
 var ReleaseMenu = require("./ReleaseMenu.js");
@@ -55,13 +57,16 @@ var ViroCameraTest = createReactClass({
         mainCameraParentRotation:0,
         activeCamera:1,
         cameraOrienationString:"",
-        fov: 60
+        fov: 60,
+        onCameraTransformCallback : undefined,
+        cameraTransformString : "",
     };
   },
 
   render: function() {
     return (
-     <ViroScene onClick={this._toggleCamera} ref="cameraScene">
+     <ViroScene onClick={this._toggleCamera} ref="cameraScene" 
+              onCameraTransformUpdate={this.state.onCameraTransformCallback}>
      <ReleaseMenu sceneNavigator={this.props.sceneNavigator}/>
      <ViroOmniLight position={[0, 0, 0]} color="#ffffff" attenuationStartDistance={40} attenuationEndDistance={50}/>
      <ViroImage source={require('./res/poi_dot.png')} position={[-1, 0, 0]} transformBehaviors={["billboard"]} onClick={this._showNext} />
@@ -111,11 +116,15 @@ var ViroCameraTest = createReactClass({
         <ViroText style={styles.centeredText} position={[4, -1, -4]} text={"Toggle Camera Type 1 parent rotationY: " + this.state.mainCameraParentRotation}
                 width={1.5} height={2}  onClick={this._toggleCameraParentRotation} />
 
-        <ViroText style={styles.centeredText} position={[0, -2.5, -4]} text={"Get Camera Orientation Async: " + this.state.cameraOrienationString}
+        <ViroText style={styles.centeredText} position={[0, -2.3, -4]} text={"Get Camera Orientation Async: " + this.state.cameraOrienationString}
                 width={4} height={4}  onClick={this._getCameraOrientationAsync} />
 
-        <ViroText style={styles.centeredText} position={[0, -3.5, -4]} text={"Toggle Fov on Camera: " + this.state.fov}
+        <ViroText style={styles.centeredText} position={[0, -3.3, -4]} text={"Toggle Fov on Camera: " + this.state.fov}
                 width={4} height={4}  onClick={this._toggleFov} />
+
+        <ViroText style={styles.centeredText} position={[0, -4.5, -4]} text={"Toggle Camera Transform Callback: " + this.state.cameraTransformString}
+            width={4} height={4}  onClick={this._toggleCameraUpdates}  />
+
      </ViroScene>
 
     );
@@ -190,7 +199,26 @@ var ViroCameraTest = createReactClass({
       this.setState({
           fov:newFov
       });
-  }
+  },
+
+  _toggleCameraUpdates() {
+    this.setState({
+      onCameraTransformCallback : this._onCameraTransformUpdate
+    })
+  },
+
+  _onCameraTransformUpdate(cameraTransform) {
+    count++;
+    if (count % 20 == 0) {
+      var cameraTransformStr = "Position: " + cameraTransform.cameraTransform.position + ", rotation: " + cameraTransform.cameraTransform.rotation + ", forward: " + cameraTransform.cameraTransform.forward + ", up: " + cameraTransform.cameraTransform.up;
+      this.setState({
+        cameraTransformString : cameraTransformStr
+      })
+    }
+    if (count == 999999999) {
+      count = 0;
+    }
+  },
 });
 
 var styles = StyleSheet.create({
