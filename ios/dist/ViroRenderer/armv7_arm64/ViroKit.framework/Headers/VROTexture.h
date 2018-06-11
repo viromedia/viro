@@ -52,6 +52,7 @@ enum class VROTextureInternalFormat {
     RGB565,
     YCBCR,
     RGB9_E5,
+    RG8,
 };
 
 enum class VROMipmapMode {
@@ -99,6 +100,7 @@ public:
      Create a new VROTexture with the given underlying substrate.
      */
     VROTexture(VROTextureType type,
+               VROTextureInternalFormat internalFormat,
                std::unique_ptr<VROTextureSubstrate> substrate,
                VROStereoMode stereoMode = VROStereoMode::None);
     

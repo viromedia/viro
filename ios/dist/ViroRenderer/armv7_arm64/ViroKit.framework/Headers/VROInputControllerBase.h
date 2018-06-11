@@ -134,6 +134,11 @@ public:
     
     void onRotate(int source, float rotationRadians, VROEventDelegate::RotateState rotateState);
 
+    /*
+     Function that attempts to notify a delegate on the Scene of the current camera transform.
+     */
+    void notifyCameraTransform(const VROCamera &camera);
+
 protected:
     
     virtual std::shared_ptr<VROInputPresenter> createPresenter(std::shared_ptr<VRODriver> driver) {

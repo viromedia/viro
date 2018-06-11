@@ -4,14 +4,6 @@
 <dict>
 	<key>files</key>
 	<dict>
-		<key>ARCoreResources.bundle/Info.plist</key>
-		<data>
-		peQ5J0A430GYep1abJXqVXs+9qQ=
-		</data>
-		<key>ARCoreResources.bundle/Resources</key>
-		<data>
-		3+ND31KI5cEFcMqHupb0iUj4orA=
-		</data>
 		<key>CardboardSDK.bundle/Info.plist</key>
 		<data>
 		7IAIK8tPbyUbblavMdwkgwa4oeY=
@@ -4261,7 +4253,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		exrajlfDWn5F3tVTx0Ok9JN1K+E=
+		knLk6jC6p4V8qHSaNb8hTlFT9bE=
 		</data>
 		<key>MaterialRobotoFontLoader.bundle/Roboto-Black.ttf</key>
 		<data>
@@ -4355,10 +4347,6 @@
 		<data>
 		7lJeE/schuGEYzeWF5GzBjaMv8Q=
 		</data>
-		<key>default.metallib</key>
-		<data>
-		6jWau4sp/s9f3tiQEhshCVnFq+I=
-		</data>
 		<key>equirect_to_cube_fsh.glsl</key>
 		<data>
 		Cvg9P003xAGMA9KQNbMykn4rKt4=
@@ -4438,28 +4426,6 @@
 	</dict>
 	<key>files2</key>
 	<dict>
-		<key>ARCoreResources.bundle/Info.plist</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			peQ5J0A430GYep1abJXqVXs+9qQ=
-			</data>
-			<key>hash2</key>
-			<data>
-			Jbe8RIWSbkF+B7xcq20So2OZfNRJEDwJ5lB1WImhJfo=
-			</data>
-		</dict>
-		<key>ARCoreResources.bundle/Resources</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			3+ND31KI5cEFcMqHupb0iUj4orA=
-			</data>
-			<key>hash2</key>
-			<data>
-			/olQC78GgAYukqR4pn4JArCNtDwPtbkmDEfS3myAl00=
-			</data>
-		</dict>
 		<key>CardboardSDK.bundle/Info.plist</key>
 		<dict>
 			<key>hash</key>
@@ -13958,17 +13924,6 @@
 			<key>hash2</key>
 			<data>
 			76819zNKPaKIdNPkwc4QUO2+M4V5kWwGKGehwA4pgMc=
-			</data>
-		</dict>
-		<key>default.metallib</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			6jWau4sp/s9f3tiQEhshCVnFq+I=
-			</data>
-			<key>hash2</key>
-			<data>
-			nPzelr3u67Eu+kyj5JDZON0FMgUBoGafuEIBTD9Rs84=
 			</data>
 		</dict>
 		<key>equirect_to_cube_fsh.glsl</key>

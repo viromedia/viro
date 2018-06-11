@@ -134,6 +134,11 @@ public:
     
     void onRotate(int source, float rotationRadians, VROEventDelegate::RotateState rotateState);
 
+    /*
+     Function that attempts to notify a delegate on the Scene of the current camera transform.
+     */
+    void notifyCameraTransform(const VROCamera &camera);
+
 protected:
     
     virtual std::shared_ptr<VROInputPresenter> createPresenter(std::shared_ptr<VRODriver> driver) {
@@ -165,6 +170,7 @@ protected:
         std::shared_ptr<VRONode> _draggedNode;
         VROVector3f _originalHitLocation;
         VROVector3f _originalDraggedNodePosition;
+        VROQuaternion _originalDraggedNodeRotation;
         VROVector3f _forwardOffset;
         float _draggedDistanceFromController;
     };

@@ -51,6 +51,7 @@ public:
         OnRotate = 11,
         OnCameraARHitTest = 12,
         OnARPointCloudUpdate = 13,
+        OnCameraTransformUpdate = 14,
     };
 
     /*
@@ -121,6 +122,7 @@ public:
         _enabledEventMap[VROEventDelegate::EventAction::OnRotate] = false;
         _enabledEventMap[VROEventDelegate::EventAction::OnCameraARHitTest] = false;
         _enabledEventMap[VROEventDelegate::EventAction::OnARPointCloudUpdate] = false;
+        _enabledEventMap[VROEventDelegate::EventAction::OnCameraTransformUpdate] = false;
     }
 
     /*
@@ -191,6 +193,10 @@ public:
     }
 
     virtual void onARPointCloudUpdate(std::shared_ptr<VROARPointCloud> pointCloud) {
+        //No-op
+    }
+
+    virtual void onCameraTransformUpdate(VROVector3f position, VROVector3f rotation, VROVector3f forward, VROVector3f up) {
         //No-op
     }
 
