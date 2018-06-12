@@ -37,13 +37,13 @@ pipeline {
         cp react-viro-*.tgz /var/tmp/build_intermediates/s3_artifacts/'''
       }
     }
-/*    stage('release_tests (iOS)') {
+    stage('release_tests (iOS)') {
       steps {
         sh '''cd Examples/ios
 fastlane jenkins_release_tests'''
       }
     }
-    stage('upload_to_testflight') {
+/*    stage('upload_to_testflight') {
       steps {
         sh '''cd Examples/ios
 fastlane jenkins_upload_release_tests_testflight'''

@@ -40,12 +40,13 @@ platform :ios do
   desc "Build react, ViroReact frameworks"
   lane :release_react_viro_lib do
     begin
-      Dir.chdir("../ViroExample/") do
-        cocoapods
-      end
       
       Dir.chdir("../") do
         sh("cp -r /var/tmp/build_intermediates/react_viro_kit/ViroRenderer/ ../../ios/dist/ViroRenderer/")
+
+        Dir.chdir("ViroExample/") do
+          sh("rm -rf Pods ; pod install")
+        end
          
 
          # build React scheme -iphoneSimulator
@@ -66,7 +67,7 @@ platform :ios do
   lane :release_react_viro_static_lib do
     begin
       
-      Dir.chdir("../ViroExample") do
+      Dir.chdir("../") do
          
          # build ViroReact_static_lib scheme -iphoneSimulator
          sh("xcodebuild -workspace ViroExample/ViroExample.xcworkspace/ -scheme ViroReact_static_lib -configuration Release -sdk iphonesimulator -arch x86_64| xcpretty -c")
@@ -80,7 +81,7 @@ platform :ios do
   end
 
   lane :release_react_viro_lib_clean do
-    Dir.chdir("../ViroExample") do
+    Dir.chdir("../") do
       # clean all schemes
          sh("xcodebuild -workspace ViroExample/ViroExample.xcworkspace/ -scheme React -configuration Release clean | xcpretty -c")
          sh("xcodebuild -workspace ViroExample/ViroExample.xcworkspace/ -scheme ViroReact -configuration Release clean | xcpretty -c")
