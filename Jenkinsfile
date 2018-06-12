@@ -5,7 +5,9 @@ pipeline {
       steps {
         sh '''cd android
         fastlane save_git_log
-        fastlane gradle_clean_bridge'''
+        fastlane gradle_clean_bridge
+        cd ../ios
+        fastlane install_pods'''
       }
     }
     stage('node_modules (clean install)') {
@@ -23,7 +25,9 @@ pipeline {
     stage('viroreact (iOS)') {
       steps {
         sh '''cd Examples/ios
-        fastlane release_react_viro_lib'''
+        fastlane release_react_viro_lib_clean
+        fastlane release_react_viro_lib
+        fastlane release_react_viro_static_lib'''
       }
     }
     stage('prepare_release') {

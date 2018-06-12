@@ -41,17 +41,12 @@ platform :ios do
   lane :release_react_viro_lib do
     begin
       Dir.chdir("../ViroExample/") do
-        sh("pod install")
+        cocoapods
       end
-
+      
       Dir.chdir("../") do
         sh("cp -r /var/tmp/build_intermediates/react_viro_kit/ViroRenderer/ ../../ios/dist/ViroRenderer/")
-         # clean React scheme
-         sh("xcodebuild -workspace ViroExample/ViroExample.xcworkspace/ -scheme React -configuration Release clean | xcpretty -c")
-         sh("xcodebuild -workspace ViroExample/ViroExample.xcworkspace/ -scheme ViroReact -configuration Release clean | xcpretty -c")
-         sh("xcodebuild -workspace ViroExample/ViroExample.xcworkspace/ -scheme ViroExample -configuration Release clean | xcpretty -c")
-         sh("xcodebuild -workspace ViroExample/ViroExample.xcworkspace/ -scheme ViroReact -configuration Release -sdk iphonesimulator -arch x86_64 clean | xcpretty -c")
-         sh("xcodebuild -workspace ViroExample/ViroExample.xcworkspace/ -scheme ViroExample -configuration Release -sdk iphonesimulator -arch x86_64 clean | xcpretty -c")
+         
 
          # build React scheme -iphoneSimulator
          sh("xcodebuild -workspace ViroExample/ViroExample.xcworkspace/ -scheme React -configuration Release -sdk iphonesimulator -arch x86_64| xcpretty -c")
@@ -65,6 +60,32 @@ platform :ios do
        end
      rescue => exception
            on_error(exception)
+    end
+  end
+
+  lane :release_react_viro_static_lib do
+    begin
+      
+      Dir.chdir("../ViroExample") do
+         
+         # build ViroReact_static_lib scheme -iphoneSimulator
+         sh("xcodebuild -workspace ViroExample/ViroExample.xcworkspace/ -scheme ViroReact_static_lib -configuration Release -sdk iphonesimulator -arch x86_64| xcpretty -c")
+         # build ViroReact scheme -iphoneOS
+         sh("xcodebuild -workspace ViroExample/ViroExample.xcworkspace/ -scheme ViroReact_static_lib -configuration Release -sdk iphoneos| xcpretty -c")
+
+       end
+     rescue => exception
+           on_error(exception)
+    end
+  end
+
+  lane :release_react_viro_lib_clean do
+    Dir.chdir("../ViroExample") do
+      # clean all schemes
+         sh("xcodebuild -workspace ViroExample/ViroExample.xcworkspace/ -scheme React -configuration Release clean | xcpretty -c")
+         sh("xcodebuild -workspace ViroExample/ViroExample.xcworkspace/ -scheme ViroReact -configuration Release clean | xcpretty -c")
+         sh("xcodebuild -workspace ViroExample/ViroExample.xcworkspace/ -scheme ViroReact_static_lib -configuration Release clean | xcpretty -c")
+         sh("xcodebuild -workspace ViroExample/ViroExample.xcworkspace/ -scheme ViroExample -configuration Release clean | xcpretty -c")
     end
   end
 
