@@ -114,6 +114,7 @@
 		131E1E6520B89A560075D8E0 /* VRT3DSceneNavigatorManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13F63032205762CB00A74EFC /* VRT3DSceneNavigatorManager.mm */; };
 		131E1E6620B89A560075D8E0 /* VRTControl.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8BE0D4CA1DFA3D9B0032AB99 /* VRTControl.mm */; };
 		131E1E6820B89A560075D8E0 /* ViroKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AFCC4F520056B1000AD8B8D /* ViroKit.framework */; };
+		13244E7420CF3FC800DF612B /* libViroReact_static_lib.a in Copy Files */ = {isa = PBXBuildFile; fileRef = 1385B29C20CA091C00C3B6CE /* libViroReact_static_lib.a */; };
 		133FE28B206EE35300FB6F34 /* VRTVRSceneNavigatorManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 133FE28A206EE35300FB6F34 /* VRTVRSceneNavigatorManager.mm */; };
 		133FE28E206EE4FD00FB6F34 /* VRTVRSceneNavigator.mm in Sources */ = {isa = PBXBuildFile; fileRef = 133FE28D206EE4FD00FB6F34 /* VRTVRSceneNavigator.mm */; };
 		137E9D821F50E8C1008238E5 /* VRTPhotoLibraryAsyncLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 137E9D801F50E8C0008238E5 /* VRTPhotoLibraryAsyncLoader.m */; };
@@ -312,7 +313,6 @@
 		1385B29320CA091C00C3B6CE /* VRTUtils.h in Copy Headers to ios/dist/include */ = {isa = PBXBuildFile; fileRef = 8BE0D4801DFA15880032AB99 /* VRTUtils.h */; };
 		1385B29420CA091C00C3B6CE /* VRTVideoSurfaceManager.h in Copy Headers to ios/dist/include */ = {isa = PBXBuildFile; fileRef = 8BE0D4821DFA15880032AB99 /* VRTVideoSurfaceManager.h */; };
 		1385B29520CA091C00C3B6CE /* VRTViewContainerManager.h in Copy Headers to ios/dist/include */ = {isa = PBXBuildFile; fileRef = 8BE0D4F31DFA3D9B0032AB99 /* VRTViewContainerManager.h */; };
-		1385B29720CA091C00C3B6CE /* libViroReact.a in Copy Files */ = {isa = PBXBuildFile; fileRef = 8BE0D4541DFA0D050032AB99 /* libViroReact.a */; };
 		1385B2A320CA099F00C3B6CE /* ViroKit_static_lib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1385B2A220CA099F00C3B6CE /* ViroKit_static_lib.framework */; };
 		13F6302D205761B100A74EFC /* VRT3DSceneNavigatorModule.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13F6302C205761B100A74EFC /* VRT3DSceneNavigatorModule.mm */; };
 		13F63033205762CB00A74EFC /* VRT3DSceneNavigatorManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13F63032205762CB00A74EFC /* VRT3DSceneNavigatorManager.mm */; };
@@ -649,10 +649,10 @@
 		1385B29620CA091C00C3B6CE /* Copy Files */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "${SRCROOT}/dist/lib";
+			dstPath = "${SRCROOT}/dist/static_lib";
 			dstSubfolderSpec = 0;
 			files = (
-				1385B29720CA091C00C3B6CE /* libViroReact.a in Copy Files */,
+				13244E7420CF3FC800DF612B /* libViroReact_static_lib.a in Copy Files */,
 			);
 			name = "Copy Files";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1603,7 +1603,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "VIROREACT_DIST_PATH=${SRCROOT}/dist/\nVIRO_DEVICE_LIBRARY=$VIROREACT_DIST_PATH/armv7_arm64\nVIRO_SIMULATOR_LIBRARY=$VIROREACT_DIST_PATH/x86_64\n\n# Copy the static library (device or simulator) to dist folder\nif [ ${PLATFORM_NAME} = \"iphonesimulator\" ]; then\nmkdir -p $VIRO_SIMULATOR_LIBRARY\ncp -r $TARGET_BUILD_DIR/libViroReact_static_lib.a $VIRO_SIMULATOR_LIBRARY\nelse\nmkdir -p $VIRO_DEVICE_LIBRARY\ncp -r $TARGET_BUILD_DIR/libViroReact_static_lib.a $VIRO_DEVICE_LIBRARY\nfi\n\n# If both the device and simulator frameworks now exist, create the Universal framework\nif [ -f $VIRO_DEVICE_LIBRARY/libViroReact_static_lib.a ] && [ -f $VIRO_SIMULATOR_LIBRARY/libViroReact_static_lib.a ]; then\nlipo $VIRO_SIMULATOR_LIBRARY/libViroReact_static_lib.a $VIRO_DEVICE_LIBRARY/libViroReact_static_lib.a -create -output $VIROREACT_DIST_PATH/lib/libViroReact_static_lib.a\nfi";
+			shellScript = "VIROREACT_DIST_PATH=${SRCROOT}/dist/static_lib\nmkdir -p $VIROREACT_DIST_PATH\nVIRO_DEVICE_LIBRARY=$VIROREACT_DIST_PATH/armv7_arm64\nVIRO_SIMULATOR_LIBRARY=$VIROREACT_DIST_PATH/x86_64\n\n# Copy (and rename) the static library (device or simulator) to dist folder\nif [ ${PLATFORM_NAME} = \"iphonesimulator\" ]; then\nmkdir -p $VIRO_SIMULATOR_LIBRARY\ncp -r $TARGET_BUILD_DIR/libViroReact_static_lib.a $VIRO_SIMULATOR_LIBRARY/libViroReact.a\nelse\nmkdir -p $VIRO_DEVICE_LIBRARY\ncp -r $TARGET_BUILD_DIR/libViroReact_static_lib.a $VIRO_DEVICE_LIBRARY/libViroReact.a\nfi\n\n# Rename libViroReact_static_lib.a to libViroReact.a for lipo to be able to find it later\nmv $VIROREACT_DIST_PATH/libViroReact_static_lib.a $VIROREACT_DIST_PATH/libViroReact.a\n\n# If both the device and simulator frameworks now exist, create the Universal framework\nif [ -f $VIRO_DEVICE_LIBRARY/libViroReact.a ] && [ -f $VIRO_SIMULATOR_LIBRARY/libViroReact.a ]; then\nlipo $VIRO_SIMULATOR_LIBRARY/libViroReact.a $VIRO_DEVICE_LIBRARY/libViroReact.a -create -output $VIROREACT_DIST_PATH/libViroReact.a\nfi\n\n# Copy (and rename) over the podspec\ncp -r $PROJECT_DIR/ViroReact_static_lib.podspec $VIROREACT_DIST_PATH/ViroReact.podspec";
 		};
 		13A6EC6F20B76B5200873F9B /* Lipo static library */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -2057,6 +2057,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SYMROOT = build/static_lib;
 			};
 			name = Debug;
 		};
@@ -2080,6 +2081,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SYMROOT = build/static_lib;
 			};
 			name = Release;
 		};

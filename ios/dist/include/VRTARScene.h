@@ -35,7 +35,6 @@
 - (instancetype)initWithBridge:(RCTBridge *)bridge;
 
 - (void)initSceneController;
-
-- (void)onCameraHitTest:(int)source results:(std::vector<VROARHitTestResult>)results;
+- (void)onCameraHitTest:(int)source results:(std::vector<std::shared_ptr<VROARHitTestResult>>)results;
 
 @end
