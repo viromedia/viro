@@ -43,23 +43,22 @@ pipeline {
 fastlane jenkins_release_tests'''
       }
     }
-/*    stage('upload_to_testflight') {
-      steps {
-        sh '''cd Examples/ios
-fastlane jenkins_upload_release_tests_testflight'''
-      }
-    }*/
-    stage('release_tests (android)(gvr+ovr)') {
+    stage('release_tests(android)(gvr+ovr)') {
       steps {
         sh '''cd Examples/android/
         fastlane gvr_release_test
         fastlane ovr_release_test'''
       }
     }
-    stage('upload_to_s3_slack') {
+    stage('start viro-media-app') {
+      steps {
+        build(job: 'viro-media-app/master', propagate: true, wait: true)
+      }
+    }
+    stage('upload_to_s3_slack ') {
       steps {
         sh '''cd android/
-        fastlane upload_builds_and_slack'''
+fastlane upload_builds_and_slack'''
       }
     }
   }
