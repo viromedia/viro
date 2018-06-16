@@ -35,7 +35,7 @@ const ReactViro = {
   get ViroProps() { return require('./components/Utilities/ViroProps'); },
   get ViroText() { return require('./components/ViroText'); },
   get ViroSurface() { return require('./components/ViroSurface'); },
-  get ViroQuad() { return require('./components/ViroQuad'); },  
+  get ViroQuad() { return require('./components/ViroQuad'); },
   get ViroPolygon(){ return require('./components/ViroPolygon'); },
   get ViroButton() { return require('./components/ViroButton'); },
   get ViroSound() { return require('./components/ViroSound'); },
@@ -56,6 +56,7 @@ const ReactViro = {
   get ViroARPlaneSelector() { return require('./components/AR/ViroARPlaneSelector'); },
   get ViroARTrackingTargets() { return require('./components/AR/ViroARTrackingTargets'); },
   get ViroARImageMarker() { return require('./components/AR/ViroARImageMarker'); },
+  get ViroARCamera() { return require('./components/AR/ViroARCamera'); },
 }
 
 module.exports = ReactViro;

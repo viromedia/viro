@@ -96,6 +96,9 @@ const double kTransformDelegateDistanceFilter = 0.01;
     if ([child isKindOfClass:[VRTLight class]]) {
         VRTLight *light = (VRTLight *)child;
         self.node->addLight([light light]);
+    } else if ([child isKindOfClass:[VRTCamera class]]) {
+        VRTCamera *cameraView = (VRTCamera *)child;
+        self.node->addChildNode(cameraView.nodeRootTransformCamera);
     } else if ([child isKindOfClass:[VRTPortal class]]) {
         // Ignore, this is only handled by VRTPortal
     } else if ([child isKindOfClass:[VRTNode class]]) {
@@ -138,6 +141,10 @@ const double kTransformDelegateDistanceFilter = 0.01;
     if ([vroView isKindOfClass:[VRTLight class]]) {
         VRTLight *light = (VRTLight *)vroView;
         self.node->removeLight([light light]);
+    }
+    else if ([vroView isKindOfClass:[VRTCamera class]]) {
+        VRTCamera *cameraView = (VRTCamera *)vroView;
+        cameraView.nodeRootTransformCamera->removeFromParentNode();
     }
     else if ([vroView isKindOfClass:[VRTPortal class]]) {
         // Ignore, this is only handled by VRTPortal

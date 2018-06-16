@@ -151,8 +151,8 @@ static NSArray<NSNumber *> *const kDefaultSize = @[@(0), @(0), @(0)];
         return;
     }
     
-    [_vroView setPointOfView:_camera.node];
-    NSLog(@"Set camera with rotation type %d", _camera.node->getCamera()->getRotationType());
+    [_vroView setPointOfView:_camera.nodeRootTransformCamera];
+    NSLog(@"Set camera with rotation type %d", _camera.nodeRootTransformCamera->getCamera()->getRotationType());
 }
 
 - (void)setCamera:(VRTCamera *)camera {

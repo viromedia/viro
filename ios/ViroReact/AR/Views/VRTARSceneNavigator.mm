@@ -75,7 +75,6 @@ static NSString *const kVRTInvalidAPIKeyMessage = @"The given API Key is either 
     // if we haven't created the VROView, then create it now that
     // all the props have been set.
     if (!_vroView) {
-        
         VROWorldAlignment worldAlignment = VROWorldAlignment::Gravity;
         if (_worldAlignment) {
             if ([_worldAlignment caseInsensitiveCompare:@"Gravity"] == NSOrderedSame) {
@@ -95,6 +94,10 @@ static NSString *const kVRTInvalidAPIKeyMessage = @"The given API Key is either 
                                              config:config
                                             context:context
                                      worldAlignment:worldAlignment];
+
+        if (_currentScene != nil) {
+            [_currentScene setView:_vroView];
+        }
 
         VROViewAR *viewAR = (VROViewAR *) _vroView;
         [viewAR setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];

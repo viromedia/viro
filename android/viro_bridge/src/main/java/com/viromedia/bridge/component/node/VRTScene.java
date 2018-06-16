@@ -147,7 +147,7 @@ public class VRTScene extends VRTNode implements Scene.VisibilityListener {
 
     private void setCameraIfPossible() {
         if (mCamera != null && mNativeRenderer != null && !isTornDown()) {
-            mNativeRenderer.setPointOfView(mCamera.getNodeJni());
+            mNativeRenderer.setPointOfView(mCamera.getNodeRootTransformCamera().getNodeJni());
         }
     }
 

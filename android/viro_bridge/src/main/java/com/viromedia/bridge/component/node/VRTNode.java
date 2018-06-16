@@ -36,6 +36,7 @@ import com.viromedia.bridge.component.VRTAnimatedComponent;
 import com.viromedia.bridge.component.VRTComponent;
 import com.viromedia.bridge.component.VRTLight;
 import com.viromedia.bridge.component.VRTManagedAnimation;
+import com.viromedia.bridge.component.node.control.VRTCamera;
 import com.viromedia.bridge.component.node.control.VRTImage;
 import com.viromedia.bridge.component.node.control.VRTQuad;
 import com.viromedia.bridge.component.node.control.VRTText;
@@ -211,6 +212,10 @@ public class VRTNode extends VRTComponent {
         if (!isTornDown()) {
             if (child instanceof VRTLight) {
                 ((VRTLight) child).addToNode(mNodeJni);
+
+            } else if (child instanceof VRTCamera) {
+                final VRTCamera cameraView = (VRTCamera)child;
+                mNodeJni.addChildNode(cameraView.getNodeRootTransformCamera().getNodeJni());
             } else if (child instanceof VRTNode) {
                 final VRTNode childNode = (VRTNode) child;
                 mNodeJni.addChildNode(childNode.mNodeJni);
@@ -246,6 +251,9 @@ public class VRTNode extends VRTComponent {
             View child = getChildAt(index);
             if (child instanceof VRTLight) {
                 ((VRTLight) child).removeFromNode(mNodeJni);
+            } else if (child instanceof VRTCamera) {
+                final VRTCamera childNode = (VRTCamera) child;
+                childNode.getNodeRootTransformCamera().getNodeJni().removeFromParentNode();
             } else if (child instanceof VRTNode) {
                 final VRTNode childNode = (VRTNode) child;
                 childNode.mNodeJni.removeFromParentNode();

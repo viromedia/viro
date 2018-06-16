@@ -15,6 +15,7 @@
 
 enum class VROCameraRotationType;
 
+class VRONode;
 /*
  Node cameras are attached to nodes, and derive their base position and rotation
  from said parent node. The "active" node camera each frame becomes the 
@@ -34,6 +35,14 @@ public:
     void setRotationType(VROCameraRotationType type);
     void setOrbitFocalPoint(VROVector3f focalPt);
     void setFieldOfViewY(float fovy);
+    void setRefNodeToCopyRotation(std::shared_ptr<VRONode> node);
+    
+    /*
+     Return the ref node.
+     */
+    std::shared_ptr<VRONode> getRefNodeToCopyRotation() const {
+        return _refNodeToCopyCameraRotation.lock();
+    }
     
     VROVector3f getPosition() const {
         return _position;
@@ -88,6 +97,11 @@ private:
      swap.
      */
     float _fov;
+    
+    /*
+     Can be null. Reference node that is used to store the head rotation of the camera in a VRONode.
+     */
+    std::weak_ptr<VRONode> _refNodeToCopyCameraRotation;
     
 };
 

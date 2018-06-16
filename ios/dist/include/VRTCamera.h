@@ -8,10 +8,10 @@
 
 #import <Foundation/Foundation.h>
 #import <React/RCTBridge.h>
-#import "VRTControl.h"
+#import "VRTNode.h"
 
 
-@interface VRTCamera : VRTControl
+@interface VRTCamera : VRTNode
 
 - (instancetype)initWithBridge:(RCTBridge *)bridge;
 
@@ -22,5 +22,6 @@
 @property (nonatomic, assign) float fieldOfView;
 @property (nonatomic, copy) NSArray<NSNumber *> *position;
 @property (readonly, nonatomic) std::shared_ptr<VRONodeCamera> nodeCamera;
+@property (readonly, nonatomic) std::shared_ptr<VRONode> nodeRootTransformCamera;
 
 @end

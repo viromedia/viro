@@ -270,20 +270,20 @@ var ViroARScene = createReactClass({
     return {
       cameraDidMount: function(camera) {
         if (camera.props.active) {
-          ViroCameraModule.setSceneCamera(findNodeHandle(this), findNodeHandle(camera));
+          NativeModules.VRTCameraModule.setSceneCamera(findNodeHandle(this), findNodeHandle(camera));
         }
       }.bind(this),
       cameraWillUnmount: function(camera) {
         if (camera.props.active) {
-          ViroCameraModule.removeSceneCamera(findNodeHandle(this), findNodeHandle(camera));
+          NativeModules.VRTCameraModule.removeSceneCamera(findNodeHandle(this), findNodeHandle(camera));
         }
       }.bind(this),
       cameraDidUpdate: function(camera, active) {
         if (active) {
-          ViroCameraModule.setSceneCamera(findNodeHandle(this), findNodeHandle(camera));
+          NativeModules.VRTCameraModule.setSceneCamera(findNodeHandle(this), findNodeHandle(camera));
         }
         else {
-          ViroCameraModule.removeSceneCamera(findNodeHandle(this), findNodeHandle(camera));
+          NativeModules.VRTCameraModule.removeSceneCamera(findNodeHandle(this), findNodeHandle(camera));
         }
       }.bind(this),
     };

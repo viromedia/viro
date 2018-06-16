@@ -4,14 +4,6 @@
 <dict>
 	<key>files</key>
 	<dict>
-		<key>ARCoreResources.bundle/Info.plist</key>
-		<data>
-		peQ5J0A430GYep1abJXqVXs+9qQ=
-		</data>
-		<key>ARCoreResources.bundle/Resources</key>
-		<data>
-		3+ND31KI5cEFcMqHupb0iUj4orA=
-		</data>
 		<key>CardboardSDK.bundle/Info.plist</key>
 		<data>
 		7IAIK8tPbyUbblavMdwkgwa4oeY=
@@ -2657,11 +2649,11 @@
 		</data>
 		<key>Headers/VROEventDelegate.h</key>
 		<data>
-		iBF//sS1pOxvxqJVfk9nA3KAhU0=
+		Pmd/k3mniAFcHLnW19sXGp0OVlw=
 		</data>
 		<key>Headers/VROEventDelegateiOS.h</key>
 		<data>
-		dtG9G4gALxABBqcQyWSw9SOEt1c=
+		BbRB4+RKLR6v21GnHpNzofbgMYc=
 		</data>
 		<key>Headers/VROExecutableAnimation.h</key>
 		<data>
@@ -2753,7 +2745,7 @@
 		</data>
 		<key>Headers/VROInputControllerBase.h</key>
 		<data>
-		sh8UYLj5H4Z7OuRu5v5moTfxLW0=
+		7VjumBNcmWtBlsTKOXj8AxakyDE=
 		</data>
 		<key>Headers/VROInputControllerCardboardiOS.h</key>
 		<data>
@@ -2821,7 +2813,7 @@
 		</data>
 		<key>Headers/VRONodeCamera.h</key>
 		<data>
-		LFUEGp68bgdfIRGLj0vMYbqAaFY=
+		zrumn67vGzWb0+6fmatzg2iXt4w=
 		</data>
 		<key>Headers/VROOBJLoader.h</key>
 		<data>
@@ -3061,7 +3053,7 @@
 		</data>
 		<key>Headers/VROTexture.h</key>
 		<data>
-		/P1HGLbWaYeZ+WomZuBzwHfeQuI=
+		6vMQCq3M+BN/K+6Ucz7jSgRYlqA=
 		</data>
 		<key>Headers/VROTextureUtil.h</key>
 		<data>
@@ -4261,7 +4253,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		exrajlfDWn5F3tVTx0Ok9JN1K+E=
+		2CmpD7EfFKIMMQPL0sh31kQRBH8=
 		</data>
 		<key>MaterialRobotoFontLoader.bundle/Roboto-Black.ttf</key>
 		<data>
@@ -4438,28 +4430,6 @@
 	</dict>
 	<key>files2</key>
 	<dict>
-		<key>ARCoreResources.bundle/Info.plist</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			peQ5J0A430GYep1abJXqVXs+9qQ=
-			</data>
-			<key>hash2</key>
-			<data>
-			Jbe8RIWSbkF+B7xcq20So2OZfNRJEDwJ5lB1WImhJfo=
-			</data>
-		</dict>
-		<key>ARCoreResources.bundle/Resources</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			3+ND31KI5cEFcMqHupb0iUj4orA=
-			</data>
-			<key>hash2</key>
-			<data>
-			/olQC78GgAYukqR4pn4JArCNtDwPtbkmDEfS3myAl00=
-			</data>
-		</dict>
 		<key>CardboardSDK.bundle/Info.plist</key>
 		<dict>
 			<key>hash</key>
@@ -9300,22 +9270,22 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			iBF//sS1pOxvxqJVfk9nA3KAhU0=
+			Pmd/k3mniAFcHLnW19sXGp0OVlw=
 			</data>
 			<key>hash2</key>
 			<data>
-			9re6xfF3dVpJjoF2SF2sxfgqBmop4n2DsOhgbQIPUyI=
+			UdS7CCRMLhpppFCx6lxL/2Ezabc0zLwbs6q4x9vXPDM=
 			</data>
 		</dict>
 		<key>Headers/VROEventDelegateiOS.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			dtG9G4gALxABBqcQyWSw9SOEt1c=
+			BbRB4+RKLR6v21GnHpNzofbgMYc=
 			</data>
 			<key>hash2</key>
 			<data>
-			JTCzUk9EdaX4Ur8g/cvyd4lf5CPedcEEYMwQHDF4wLA=
+			yWHAyS78Z80LVcxXajQGPepf3uGT/cpZNA90dZUXO3g=
 			</data>
 		</dict>
 		<key>Headers/VROExecutableAnimation.h</key>
@@ -9564,11 +9534,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			sh8UYLj5H4Z7OuRu5v5moTfxLW0=
+			7VjumBNcmWtBlsTKOXj8AxakyDE=
 			</data>
 			<key>hash2</key>
 			<data>
-			5eN7folvfQWRf3tMZnaCgx1EFDI8fPD0DsheAQnUEvg=
+			ARB+jNn/dvt/6A58cAUTdeAf4cPZhIrVyW41SjWbPu4=
 			</data>
 		</dict>
 		<key>Headers/VROInputControllerCardboardiOS.h</key>
@@ -9751,11 +9721,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			LFUEGp68bgdfIRGLj0vMYbqAaFY=
+			zrumn67vGzWb0+6fmatzg2iXt4w=
 			</data>
 			<key>hash2</key>
 			<data>
-			8H3p3W1/XdzqfNEjZjME8sw3J8TuyrmQPIX+H0O6h0Y=
+			RyhnZ7JOGcdAaDOnyPT8mpnpy0y4iJw35WdTHbT7K5o=
 			</data>
 		</dict>
 		<key>Headers/VROOBJLoader.h</key>
@@ -10411,11 +10381,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			/P1HGLbWaYeZ+WomZuBzwHfeQuI=
+			6vMQCq3M+BN/K+6Ucz7jSgRYlqA=
 			</data>
 			<key>hash2</key>
 			<data>
-			3mCoEX7fNlYQopOb7L0bSCfGwDAoVxEV+suGnuo1jQU=
+			PNptK8O6v67QztrJdQyXvfS2be+ynzqqOUoyF/FbX9o=
 			</data>
 		</dict>
 		<key>Headers/VROTextureUtil.h</key>
