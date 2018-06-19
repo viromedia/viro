@@ -224,7 +224,11 @@ var ReleaseMenu = createReactClass({
                    />
                    <ViroText style={styles.centeredText}  position={[6, -9, -4]} width={1.5} height={2}
                           text={"ViroCameraHUDTest"}
-                          onClick={() => {this.props.sceneNavigator.replace("ViroGLTFTest", {scene:require("./ViroGLTFTest"), passProps:{showMenu:true}})}}
+                          onClick={() => {this.props.sceneNavigator.replace("ViroCameraHUDTest", {scene:require("./ViroCameraHUDTest"), passProps:{showMenu:true}})}}
+                   />
+                   <ViroText style={styles.centeredText}  position={[6, -10, -4]} width={1.5} height={2}
+                          text={"ViroChromaKeyTest"}
+                          onClick={() => {this.props.sceneNavigator.replace("ViroChromaKeyTest", {scene:require("./ViroChromaKeyTest"), passProps:{showMenu:true}})}}
                    />
 
                 </ViroNode>
