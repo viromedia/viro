@@ -98,6 +98,7 @@ static float const kDefaultHeight = 1;
     _imageClipMode = imageClipMode;
     _geometryNeedsUpdate = YES;
 }
+
 - (void)updateSurface {
     float imageSurfaceWidth;
     float imageSurfaceHeight;

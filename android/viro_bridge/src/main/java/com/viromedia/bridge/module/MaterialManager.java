@@ -155,7 +155,7 @@ public class MaterialManager extends ReactContextBaseJavaModule {
         // These defaults match those in the JNI's Material.java
         Material.LightingModel lightingModel = Material.LightingModel.CONSTANT;
         int diffuseColor = Color.WHITE;
-        int chromaKeyFilteringColor = Color.WHITE;
+        int chromaKeyFilteringColor = Color.GREEN;
         boolean chromaFilteringEnabled = false;
         Texture diffuseTexture = null;
         float diffuseIntensity = 1.0f;

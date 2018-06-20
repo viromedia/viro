@@ -62,11 +62,14 @@ var ViroChromaKeyTest = createReactClass({
     return (
       <ViroScene>
         <ReleaseMenu sceneNavigator={this.props.sceneNavigator}/>
-        <ViroOmniLight position={[0, 0, 0]} color="#ffffff"
-                       attenuationStartDistance={40} attenuationEndDistance={50} />
         <ViroImage source={require('./res/tvbars.jpg')} position={[0, 0, -1]}
                    materials={[chromaKeyMaterial]}
                    transformBehaviors={["billboard"]} />
+        <ViroVideo width={1.7} height={0.95}
+                   position={[0, -5, -2.9]} scale={[2, 2, 2]} paused={false}
+                   source={require("./res/alphachica.mp4")} transformBehaviors={["billboard"]}
+                   loop={true} muted={false} volume={1.0}
+                   materials={[chromaKeyMaterial]} />
         <ViroImage source={require('./res/poi_dot.png')} position={[-1, 0, 0]} transformBehaviors={["billboard"]} onClick={this._showNext} />
         <ViroText position={[0, -1, -1]} text={this._getToggleText()}
                   style={styles.baseTextTwo} onClick={this._toggleFilter} />
@@ -115,7 +118,7 @@ ViroMaterials.createMaterials({
     shininess: 2.0,
   },
   whiteFilter: {
-    chromaKeyFilteringColor: "#000000"
+    chromaKeyFilteringColor: "#FFFFFF"
   },
   yellowFilter: {
     chromaKeyFilteringColor: "#FFFF00"

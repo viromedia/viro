@@ -93,6 +93,15 @@
     _stereoMode = mode;
 }
 
+// Override applyMaterials so we can set our video
+- (void)applyMaterials {
+    [super applyMaterials];
+    
+    if (_videoTexture && self.node->getGeometry()) {
+        self.node->getGeometry()->getMaterials().front()->getDiffuse().setTexture(_videoTexture);
+    }
+}
+
 - (void)updateSurface {
     if (!_videoSurfaceNeedsUpdate || !self.context || !self.driver) {
         return;
@@ -118,9 +127,7 @@
    
     [self node]->setGeometry(_surface);
     [self applyMaterials];
-    _surface->getMaterials().front()->getDiffuse().setTexture(_videoTexture);
-    std::shared_ptr<VROMaterial> material = _surface->getMaterials().front();
-    
+        
     _videoTexture->setVolume(self.volume);
     _videoTexture->setMuted(self.muted);
     _videoTexture->setLoop(self.loop);
@@ -129,8 +136,6 @@
     // set paused again (let the internal logic run).
     [self setPaused:_paused];
 
-    
-    
     // set that we did in fact update the surface
     _videoSurfaceNeedsUpdate = NO;
 }

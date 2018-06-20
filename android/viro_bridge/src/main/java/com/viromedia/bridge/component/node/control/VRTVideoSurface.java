@@ -9,6 +9,7 @@ import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
+import com.viro.core.Material;
 import com.viro.core.Texture;
 import com.viro.core.ViroContext;
 import com.viro.core.Surface;
@@ -17,6 +18,7 @@ import com.viromedia.bridge.utility.Helper;
 import com.viromedia.bridge.utility.ViroEvents;
 
 import java.lang.ref.WeakReference;
+import java.util.List;
 
 public class VRTVideoSurface extends VRTControl {
 
@@ -137,6 +139,14 @@ public class VRTVideoSurface extends VRTControl {
         loadVideo();
 
         mVideoTexture.setPlaybackListener(mDelegate);
+    }
+
+    @Override
+    protected void setMaterials(List<Material> materials) {
+        super.setMaterials(materials);
+        if (mVideoTexture != null && mSurface != null) {
+            mSurface.setVideoTexture(mVideoTexture);
+        }
     }
 
     private void loadVideo(){
