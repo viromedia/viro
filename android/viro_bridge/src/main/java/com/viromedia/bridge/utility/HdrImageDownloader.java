@@ -53,8 +53,8 @@ public class HdrImageDownloader {
 
             // Do a sanity check.
             Uri uri = uriArray[0];
-            if (uri == null || uri.getPath() == null || !uri.getPath().toLowerCase().endsWith(".hdr")) {
-                Log.e(TAG,"Invalid HDR uri file path provided.");
+            if (uri == null || uri.getPath() == null) {
+                Log.e(TAG,"Invalid HDR uri file path provided when executing download hdr task!");
                 return null;
             }
 
