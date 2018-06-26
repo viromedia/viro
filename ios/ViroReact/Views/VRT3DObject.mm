@@ -99,7 +99,6 @@
 }
 
 - (void)didSetProps:(NSArray<NSString *> *)changedProps {
-    NSLog(@"Did set props for VRT3DObject got invoked!!");
     if (![NSThread isMainThread]) {
         RCTLogWarn(@"Calling [RCTConvert didSetProps:] on a background thread is not recommended");
         dispatch_sync(dispatch_get_main_queue(), ^{
@@ -187,6 +186,7 @@
     }
     _sourceChanged = NO;
 }
+
 /*
  Set the bit masks recursively for 3D objects because they may have internal
  (FBX) nodes.
