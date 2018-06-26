@@ -47,6 +47,8 @@ public class VRTARPlane extends VRTARNode {
             ((ARDeclarativePlane) getNodeJni()).setAlignment(ARPlaneAnchor.Alignment.HORIZONTAL_UPWARD);
         } else if (alignment.equalsIgnoreCase("HorizontalDownward")) {
             ((ARDeclarativePlane) getNodeJni()).setAlignment(ARPlaneAnchor.Alignment.HORIZONTAL_DOWNWARD);
+        } else if (alignment.equalsIgnoreCase("Vertical")) {
+            ((ARDeclarativePlane) getNodeJni()).setAlignment(ARPlaneAnchor.Alignment.VERTICAL);
         }
 
         mNeedsUpdate = true;
