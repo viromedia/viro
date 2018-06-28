@@ -74,9 +74,9 @@ var ViroCameraHUDTest = createReactClass({
                      onStart:this._onStart,
                      onFinish:this._onFinish}}>
               <ViroBox position={[0, 0, -5]} materials={"blueColor"} />
-              <Viro3DObject source={require('./res/gltf/Buggy.glb')}
+              <Viro3DObject source={require('./res/gltf/DuckGlb.glb')}
                             position={[0, .5, -3]}
-                            scale={[0.005,0.005,0.005]}
+                            scale={[0.5,0.5,0.5]}
                             type="GLB"
                             />
       </ViroCamera>
