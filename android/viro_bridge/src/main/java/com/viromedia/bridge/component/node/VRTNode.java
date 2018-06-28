@@ -560,12 +560,13 @@ public class VRTNode extends VRTComponent {
 
     public void setAnimation(ReadableMap animation) {
         mNodeAnimation.parseFromMap(animation);
-        if (animation.hasKey("name")) {
+
+        if (animation != null && animation.hasKey("name")) {
             mNodeAnimation.setAnimationName(animation.getString("name"));
-        }
-        else {
+        } else {
             mNodeAnimation.setAnimationName(null);
         }
+
         mNodeAnimation.updateAnimation();
     }
 

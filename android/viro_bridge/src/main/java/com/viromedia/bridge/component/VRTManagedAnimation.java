@@ -105,28 +105,28 @@ public abstract class VRTManagedAnimation {
     }
 
     public void parseFromMap(ReadableMap map) {
-        if (map.hasKey("delay")) {
+        if (map != null && map.hasKey("delay")) {
             setDelay((float) map.getDouble("delay"));
         }
         else {
             setDelay(-1);
         }
 
-        if (map.hasKey("loop")) {
+        if (map != null && map.hasKey("loop")) {
             setLoop(map.getBoolean("loop"));
         }
         else {
             setLoop(false);
         }
 
-        if (map.hasKey("run")) {
+        if (map != null && map.hasKey("run")) {
             setRun(map.getBoolean("run"));
         }
         else {
             setRun(false);
         }
 
-        if(map.hasKey("interruptible")) {
+        if(map != null && map.hasKey("interruptible")) {
             setInterruptible(map.getBoolean("interruptible"));
         } else {
             setInterruptible(false);
