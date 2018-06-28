@@ -177,7 +177,7 @@ var Viro3DObjectTest = createReactClass({
         </ViroNode>
       ));
     } else if (modelSet == 3){
-      views.push((
+      /*views.push((
         <ViroNode  position={[0, -0.5, -1.75]} >
           <Viro3DObject source={require('./res/gltf/Buggy.glb')}
                         position={[0, 0, 0.0]}
@@ -186,6 +186,17 @@ var Viro3DObjectTest = createReactClass({
                         onError={this._loaded("Buggy", false)}
                         onLoadEnd={this._loaded("Buggy", true)}
                         />
+        </ViroNode>
+      ));*/
+      views.push((
+        <ViroNode  position={[0, -0.5, -1.75]} >
+          <Viro3DObject source={require('./res/gltf/CesiumMilkTruck.glb')}
+                        position={[0, 0, 0.0]}
+                        scale={[0.15,0.15,0.15]}
+                        type="GLB"
+                        onError={this._loaded("Truck", false)}
+                        onLoadEnd={this._loaded("Truck", true)}
+                         />
         </ViroNode>
       ));
     } else if (modelSet == 4){
