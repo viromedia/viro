@@ -66,13 +66,12 @@ var ViroPortalTest = createReactClass({
    render: function() {
       return (
         <ViroScene>
-             <ViroAnimatedComponent
-                            animation="sequentialAnimPortal"
-                            run={true}
-                            loop={true} >
-                <ViroCamera position={[0,0,0]} active={true} />
 
-             </ViroAnimatedComponent>
+                <ViroCamera position={[0,0,0]} active={true} animation={{name:"sequentialAnimPortal",
+                            loop:true,
+                            run:true }} />
+
+
              <ReleaseMenu position={[-0.5 , 0, -0.5]} sceneNavigator={this.props.sceneNavigator}/>
 
             <ViroOmniLight position={[0, 0, 0]} color="#ffffff" attenuationStartDistance={40} attenuationEndDistance={50}/>
