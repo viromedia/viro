@@ -4,8 +4,12 @@
 package com.viromedia.bridge.component.node;
 
 import android.content.Context;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
+import android.view.ViewParent;
 
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.JSApplicationCausedNativeException;
@@ -19,6 +23,9 @@ import com.facebook.react.uimanager.IllegalViewOperationException;
 import com.facebook.react.uimanager.PixelUtil;
 
 import com.facebook.react.uimanager.events.RCTEventEmitter;
+import com.google.ar.core.Anchor;
+import com.viro.core.ARNode;
+import com.viro.core.ARScene;
 import com.viro.core.Geometry;
 import com.viro.core.EventDelegate;
 import com.viro.core.Material;
@@ -32,6 +39,7 @@ import com.viro.core.PhysicsShapeAutoCompound;
 import com.viro.core.PhysicsShapeBox;
 import com.viro.core.PhysicsShapeSphere;
 import com.viro.core.Vector;
+import com.viromedia.bridge.component.VRT3DSceneNavigator;
 import com.viromedia.bridge.component.VRTAnimatedComponent;
 import com.viromedia.bridge.component.VRTComponent;
 import com.viromedia.bridge.component.VRTLight;
@@ -60,7 +68,131 @@ import static com.viromedia.bridge.component.node.VRTNodeManager.s2DUnitPer3DUni
  * Node is inherited by any component which is represented by a VRONode in native
  */
 public class VRTNode extends VRTComponent {
-    private static final String TAG = ViroLog.getTag(VRTNode.class);
+    private static final String TAG = "Viro";
+    private static final boolean DEBUG_ANCHORING = false;
+
+    /**
+     * If an anchored node is moved to a position less than this value away from the
+     * anchor's position, then the VRONode will simply be moved. If the node is moved
+     * further than this value, then we'll detach the existing anchor and attempt to
+     * re-anchor the node.
+     */
+    private static final float REANCHOR_DISTANCE = 3.5f;
+
+    /*
+     * The amount of time to wait before attempting to anchor a Node again after an anchor
+     * failure.
+     */
+    private static final long ANCHOR_DELAY_MS = 1000;
+
+    /**
+     * The maximum number of attempts to make when anchoring a Node.
+     */
+    private static final int MAX_ANCHORING_ATTEMPTS = 3;
+
+    private static final class AnchorAttempt {
+
+        private int mAttempt;
+        private Vector mPosition;
+        private WeakReference<VRTNode> mNode;
+        private Handler mHandler;
+        private boolean mCanceled = false;
+
+        public AnchorAttempt(VRTNode node, Vector position) {
+            mNode = new WeakReference<VRTNode>(node);
+            mAttempt = 0;
+            mPosition = position;
+            mHandler = new Handler(Looper.getMainLooper());
+        }
+
+        public void makeAttempt() {
+            VRTNode node = mNode.get();
+            if (node == null) {
+                return;
+            }
+            if (mCanceled) {
+                if (DEBUG_ANCHORING) {
+                    Log.w(TAG, "Anchor attempt canceled for " + node + "");
+                }
+                return;
+            }
+            if (mAttempt >= MAX_ANCHORING_ATTEMPTS) {
+                if (DEBUG_ANCHORING) {
+                    Log.w(TAG, "Failed to anchor node " + node + ": will float node without an anchor");
+                }
+                return;
+            }
+            boolean success = anchorNode(node, mPosition);
+            ++mAttempt;
+
+            if (!success) {
+                // On failure, try again after a delay
+                mHandler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        makeAttempt();
+                    }
+                }, ANCHOR_DELAY_MS);
+            } else {
+                // On success, remove the anchor attempt from the node
+                node.mAnchorAttempt = null;
+            }
+        }
+
+        /**
+         * Anchor this node by creating an anchored node at the given position, then parenting this
+         * node with the anchor and setting this node to the origin. Note that this node's current
+         * position is ignored. If anchoring fails, then the node is simply set to the position, and
+         * we try again later.
+         *
+         * @param position The position at which to anchor the node.
+         * @return True if anchoring succeeded.
+         */
+        private boolean anchorNode(final VRTNode node, final Vector position) {
+            if (DEBUG_ANCHORING) {
+                Log.i(TAG, "Anchoring node " + node + " [attempt " + mAttempt + "]");
+            }
+
+            final ARScene scene = (ARScene) ((VRTARScene) node.getParent()).getNativeScene();
+            if (node.mViroContext == null) {
+                if (DEBUG_ANCHORING) {
+                    Log.i(TAG, "   Delaying anchoring: ViroContext is null");
+                }
+                return false;
+            }
+
+            node.mAnchor = scene.createAnchoredNode(position);
+
+            if (node.mAnchor != null) {
+                if (DEBUG_ANCHORING) {
+                    Log.i(TAG, "Anchor created successfully at position " + position + ", repositioning Node to origin");
+                }
+
+                node.mNodeJni.removeFromParentNode();
+                scene.getRootNode().addChildNode(node.mAnchor);
+                node.mAnchor.addChildNode(node.mNodeJni);
+                node.mNodeJni.setPosition(new Vector(0, 0, 0));
+
+                return true;
+            } else {
+                // Anchor failed: simply set the node to the position and try again later
+                if (DEBUG_ANCHORING) {
+                    Log.i(TAG, "Failed to anchor node at " + position + " -- trying again later");
+                }
+                node.mNodeJni.setPosition(position);
+
+                return false;
+            }
+        }
+
+        public void setPosition(Vector position) {
+            mPosition = position;
+        }
+
+        public void cancel() {
+            mCanceled = true;
+        }
+    }
 
     public static class NodeAnimation extends VRTManagedAnimation {
 
@@ -116,6 +248,8 @@ public class VRTNode extends VRTComponent {
     protected final static boolean DEFAULT_IGNORE_EVENT_HANDLING = false;
 
     private Node mNodeJni;
+    private ARNode mAnchor;
+    private AnchorAttempt mAnchorAttempt;
     protected float[] mPosition;
     protected float[] mRotation;
     protected float[] mScale;
@@ -305,6 +439,56 @@ public class VRTNode extends VRTComponent {
     }
 
     @Override
+    public void onTreeUpdate() {
+        super.onTreeUpdate();
+
+        /*
+         If this node is an anchor itself (e.g. a plane), then don't parent it with an anchor, as it's
+         already tracked by ARCore.
+         */
+        if (mNodeJni == null || mNodeJni instanceof ARNode) {
+            return;
+        }
+
+        /*
+         If there is already an anchoring attempt in process, cancel it.
+         */
+        if (mAnchorAttempt != null) {
+            mAnchorAttempt.cancel();
+        }
+
+        /*
+         If this node is at the root of an ARScene, then we will try to create an anchor for the
+         VRONode and make the VRONode a child of the anchor. This ensures ARCore stability.
+         */
+        ViewParent parent = getParent();
+        if (parent instanceof VRTARScene) {
+            if (mAnchor == null) {
+                mAnchorAttempt = new AnchorAttempt(this, new Vector(mPosition));
+                mAnchorAttempt.makeAttempt();
+            }
+        }
+
+        /*
+         If this node *was* an anchor but now has a different parent, remove the intermediate
+         anchor.
+         */
+        else if (mAnchor != null) {
+            if (parent == null || !(parent instanceof VRTARScene)) {
+                if (DEBUG_ANCHORING) {
+                    Log.i(TAG, "Anchored node " + this + " is being removed or repurposed, detaching anchor");
+                }
+                mAnchor.detach();
+
+                // The Node may already be torn down
+                if (mNodeJni != null) {
+                    mNodeJni.setPosition(new Vector(mPosition));
+                }
+            }
+        }
+    }
+
+    @Override
     public boolean shouldAppear() {
         return super.shouldAppear() && mVisible;
     }
@@ -456,7 +640,37 @@ public class VRTNode extends VRTComponent {
         }
 
         mPosition = position;
-        mNodeJni.setPosition(new Vector(position));
+        Vector vPosition = new Vector(position);
+
+        /*
+         If this is an anchored node and it's moved, determine if we need to re-anchor the
+         node or if we can just move the node. If we just move the node, we have to take into
+         the account the anchor's position (e.g. set the Node position to the new position
+         minus the anchor's position in order to get the correct aggregate position).
+         */
+        if (mAnchor != null) {
+            if (DEBUG_ANCHORING) {
+                Log.i(TAG, "Repositioning anchor " + this + " to " + vPosition + " from " + mAnchor.getPositionRealtime());
+            }
+            if (vPosition.distance(mAnchor.getPositionRealtime()) > REANCHOR_DISTANCE) {
+                if (DEBUG_ANCHORING) {
+                    Log.i(TAG, "   Reposition distance greater than REANCHOR_DISTANCE: re-anchoring Node");
+                }
+                if (mAnchorAttempt != null) {
+                    mAnchorAttempt.cancel();
+                }
+                mAnchorAttempt = new AnchorAttempt(this, vPosition);
+                mAnchorAttempt.makeAttempt();
+            } else {
+                if (DEBUG_ANCHORING) {
+                    Log.i(TAG, "   Reposition distance less than REANCHOR_DISTANCE: moving node relative to anchor");
+                }
+                Vector nodePosition = vPosition.subtract(mAnchor.getPositionRealtime());
+                mNodeJni.setPosition(nodePosition);
+            }
+        } else {
+            mNodeJni.setPosition(vPosition);
+        }
     }
 
     protected void setRotation(float[] rotation) {
