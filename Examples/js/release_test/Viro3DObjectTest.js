@@ -13,6 +13,7 @@ import {
 } from 'react-native';
 
 import {
+  ViroAnimatedComponent,
   ViroSceneNavigator,
   ViroScene,
   ViroBox,
@@ -32,7 +33,6 @@ import {
   ViroUtils,
   ViroText,
   ViroAnimations,
-  ViroAnimatedComponent,
   ViroQuad,
   ViroSkyBox,
   ViroSphere,
@@ -69,7 +69,7 @@ var Viro3DObjectTest = createReactClass({
       <ViroImage source={require('./res/poi_dot.png')} position={[-1, 0, 0]} transformBehaviors={["billboard"]}
                  onClick={this._showNext} />
 
-       <ViroAnimatedComponent animation="loopRotate" run={this.state.runAnimation1} >
+
          <Viro3DObject ref={(obj)=>{this.destroyer = obj}}
                        source={require('./res/destroyer.obj')}
                        position={[0, 5, 0]}
@@ -79,8 +79,10 @@ var Viro3DObjectTest = createReactClass({
                        type="OBJ"
                        onHover={this._startAnimation1}
                        onLoadEnd={this._getDestroyerBounds}
+                       animation={{name:"loopRotate",
+                                   run:this.state.runAnimation1 }}
           />
-       </ViroAnimatedComponent>
+
 
        <Viro3DObject source={{"uri" : "https://s3-us-west-2.amazonaws.com/viro/heart.obj"}}
               scale={[1.8, 1.8, 1.8]}
@@ -98,7 +100,6 @@ var Viro3DObjectTest = createReactClass({
                     type="VRX"
                     onLoadEnd={this._getBallBounds} />
 
-       <ViroAnimatedComponent animation="loopRotate" run={this.state.runAnimation2} >
          <Viro3DObject source={require('./res/xwing.obj')}
                        resources={[require("./res/star-wars-x-wing.mtl")]}
                        position={[2, -2, -5]}
@@ -108,8 +109,9 @@ var Viro3DObjectTest = createReactClass({
                        type="OBJ"
                        onClick={this._startAnimation2}
                        onLoadStart={this._startAnimation3}
+                       animation={{name:"loopRotate",
+                                   run:this.state.runAnimation2 }}
          />
-       </ViroAnimatedComponent>
 
        <ViroAnimatedComponent animation="loopRotate" run={this.state.runAnimation4} >
          <Viro3DObject source={require('./res/object_star_anim.vrx')}

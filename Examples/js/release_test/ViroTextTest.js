@@ -34,7 +34,6 @@ import {
   ViroUtils,
   ViroText,
   ViroAnimations,
-  ViroAnimatedComponent,
   ViroQuad,
   ViroSkyBox,
 } from 'react-viro';

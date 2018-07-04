@@ -13,7 +13,6 @@ import {
 } from 'react-native';
 
 import {
-  ViroAnimatedComponent,
   ViroScene,
   ViroBox,
   ViroMaterials,
@@ -86,13 +85,9 @@ var GroupTestBasicBillboard = createReactClass({
 
                 <ViroImage source={require('./res/poi_dot.png')} position={[-1, 0, 0]} transformBehaviors={["billboard"]} onClick={this._showNext} />
 
-
-                            <ViroAnimatedComponent
-                                animation="testLoopMove"
-                                run={true}
-                                loop={true} >
-
-                <ViroNode position={[0.8, 0, -3.5]} >
+                <ViroNode position={[0.8, 0, -3.5]}  animation={{name:"testLoopMove",
+                              loop:true,
+                              run:true }} >
 
 
                     <Viro3DObject source={require('./res/xwing.obj')}
@@ -184,7 +179,6 @@ var GroupTestBasicBillboard = createReactClass({
                       source={{"uri":"https://s3-us-west-2.amazonaws.com/viro/Climber1Top.mp4"}} />
 
                 </ViroNode>
-              </ViroAnimatedComponent>
 
                 <ViroText style={styles.baseTextTwo} position={[0.8 , -2, -3.5]} width={2} height ={2} fontFamily={'Arial'}
                       text={"Toggle billboard: " + transformText} textLineBreakMode='Justify' onClick={this._toggleTransform}/>

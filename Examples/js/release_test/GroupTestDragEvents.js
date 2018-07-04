@@ -13,7 +13,6 @@ import {
 } from 'react-native';
 
 import {
-  ViroAnimatedComponent,
   ViroScene,
   ViroBox,
   ViroMaterials,

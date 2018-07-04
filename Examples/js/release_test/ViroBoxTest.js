@@ -32,7 +32,6 @@ import {
   ViroUtils,
   ViroText,
   ViroAnimations,
-  ViroAnimatedComponent,
   ViroQuad,
   ViroSkyBox,
   ViroSphere,
@@ -67,8 +66,7 @@ var ViroBoxTest = createReactClass({
 
       <ViroImage source={require('./res/poi_dot.png')} position={[-1, 0, 0]} transformBehaviors={["billboard"]} onClick={this._showNext} />
 
-      <ViroAnimatedComponent animation="loopRotate" run={this.state.runAnimation1} loop={true}>
-         <ViroBox
+        <ViroBox
             position={[-2, 2, -4]}
             scale={[1,1,1]}
             materials={this.state.currentMaterials}
@@ -80,9 +78,7 @@ var ViroBoxTest = createReactClass({
             transformBehaviors={["billboard"]}
             onHover={this._startAnimation1}
           />
-      </ViroAnimatedComponent>
 
-      <ViroAnimatedComponent animation="loopRotate" run={this.state.runAnimation2} loop={true}>
         <ViroBox
             position={[2, 2, -4]}
             scale={[1,1,1]}
@@ -93,10 +89,11 @@ var ViroBoxTest = createReactClass({
             length={1*this.state.toggleWHL}
             transformBehaviors={["billboardX"]}
             onClick={this._startAnimation2}
+            animation={{name:"loopRotate",
+                        loop:true,
+                        run:this.state.runAnimation2 }}
         />
-      </ViroAnimatedComponent>
 
-      <ViroAnimatedComponent animation="loopRotate" run={this.state.runAnimation3} loop={true}>
         <ViroBox
             position={[-3, -3, -4]}
             scale={[2,2,2]}
@@ -107,11 +104,12 @@ var ViroBoxTest = createReactClass({
             length={1*this.state.toggleWHL}
             transformBehaviors={["billboardY"]}
             onScroll={this._startAnimation3}
+            animation={{name:"loopRotate",
+                        loop:true,
+                        run:this.state.runAnimation3 }}
         />
-      </ViroAnimatedComponent>
 
-      <ViroAnimatedComponent animation="loopRotate" run={this.state.runAnimation4} loop={true}>
-        <ViroBox
+        <ViroBox ref="box"
             position={[2, -1.3, -4]}
             scale={[1,1,1]}
             materials={this.state.currentMaterials}
@@ -121,8 +119,10 @@ var ViroBoxTest = createReactClass({
             length={3*this.state.toggleWHL}
             transformBehaviors={["billboard"]}
             onSwipe={this._startAnimation4}
+            animation={{name:"loopRotate",
+                        loop:true,
+                        run:this.state.runAnimation4 }}
           />
-      </ViroAnimatedComponent>
 
       <ViroImage source={require('./res/poi_dot.png')} position={[-1, 0, 0]} transformBehaviors={["billboard"]} onClick={this._showNext} />
       <ViroText fontSize={this.state.fontSize} style={styles.centeredText} position={[0,-4, -3]} width={2} height ={2} fontFamily={'Arial'}

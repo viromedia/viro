@@ -84,13 +84,11 @@ var ViroPivotTest = createReactClass({
         <ViroOmniLight position={[0, 0, 0]} color="#ffffff" attenuationStartDistance={40} attenuationEndDistance={50}/>
         <ViroImage source={require('./res/poi_dot.png')} position={[-1, 0, 0]} transformBehaviors={["billboard"]} onClick={this._showNext} />
 
-        <ViroAnimatedComponent animation={"scaleAndRotate"} delay={0} run={true} loop={true}>
           <ViroBox width={2} height={2} length={2}
                    position={[0, 0, -6]}
                    rotationPivot={rotationPivot}
                    scalePivot={scalePivot}
-                   materials={["boxMaterial"]} />
-        </ViroAnimatedComponent>
+                   materials={["boxMaterial"]} animation={{name:"scaleAndRotate", delay:0, loop:true, run:true}} />
 
         <ViroNode position={[0,-4,-3]}>
           <ViroText style={styles.baseTextTwo} position={[-2, 1, 0]} width={2} height={2}

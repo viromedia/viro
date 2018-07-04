@@ -33,7 +33,6 @@
    ViroUtils,
    ViroText,
    ViroAnimations,
-   ViroAnimatedComponent,
    ViroQuad,
    ViroSkyBox,
    ViroPortalScene,
@@ -72,9 +71,7 @@ var ViroPortalTest = createReactClass({
 
                <ViroSkyBox color="#098765" />
 
-               <ViroAnimatedComponent animation="parallelAnim" run={true} loop={true}>
-                 <ViroBox width={0.25} height={0.25} position={[-1.5, 0, -2]}/>
-               </ViroAnimatedComponent>
+                <ViroBox width={0.25} height={0.25} position={[-1.5, 0, -2]} animation={{name:"parallelAnim", loop:true, run:true}} />
             </ViroPortalScene>
         </ViroARScene>
       );

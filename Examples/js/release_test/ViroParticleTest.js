@@ -501,12 +501,7 @@ var ViroShadowTest = createReactClass({
 
                 <ViroSkyBox color="#ff0000" />
 
-                <ViroAnimatedComponent
-                    animation={"sequentialAnimParticle"}
-                    run={this.state.runAnimation}
-                    loop={true}>
-
-                  <ViroNode position={[0,-2,-4]}>
+                  <ViroNode position={[0,-2,-4]}  animation={{name:"sequentialAnimParticle", loop:true, run:this.state.runAnimation}}>
                     <ViroParticleEmitter
                         delay={this.state.delay}
                         position={[0,0,0]}
@@ -557,11 +552,6 @@ var ViroShadowTest = createReactClass({
                         }}
                       />
                   </ViroNode>
-                  </ViroAnimatedComponent>
-
-
-
-
             </ViroScene>
 
     );

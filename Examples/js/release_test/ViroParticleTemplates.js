@@ -22,7 +22,6 @@
    ViroUtils,
    ViroText,
    ViroAnimations,
-   ViroAnimatedComponent,
    ViroQuad,
    ViroSphere,
    Viro3DObject,

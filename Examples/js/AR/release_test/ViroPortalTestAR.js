@@ -33,7 +33,6 @@
    ViroUtils,
    ViroText,
    ViroAnimations,
-   ViroAnimatedComponent,
    ViroQuad,
    ViroSkyBox,
    ViroPortal,
@@ -75,10 +74,9 @@ var ViroPortalTest = createReactClass({
                </ViroPortal>
 
                <ViroSkyBox color="#66b7f9" />
-
-               <ViroAnimatedComponent animation="boxSpin" run={true} loop={true}>
-                 <ViroBox width={0.25} height={0.25} position={[0, 0, -2]}/>
-               </ViroAnimatedComponent>
+                 <ViroBox width={0.25} height={0.25} position={[0, 0, -2]}
+                          animation={{name:"boxSpin", loop:true, run:true}}
+                  />
             </ViroPortalScene>
 
             <ViroText position={[-2, 0, 0]} text={"Release Menu"}
@@ -112,9 +110,8 @@ var ViroPortalTest = createReactClass({
               <ViroText position={[-2, 0.5, -2]} text={"Release Menu"}
                       style={styles.instructionText} onClick={()=>{this.props.arSceneNavigator.replace("ARReleaseMenu", {scene: require("./ARReleaseMenu")})}}
                       transformBehaviors={["billboard"]}/>
-               <ViroAnimatedComponent animation="boxSpin" run={true} loop={true}>
-                 <ViroBox width={0.25} height={0.25} position={[-1.5, 0, -2]}/>
-               </ViroAnimatedComponent>
+                 <ViroBox width={0.25} height={0.25} position={[-1.5, 0, -2]}
+                    animation={{name:"boxSpin", loop:true, run:true}} />
 
               <ViroPortalScene position={[0, 0, -portalDistance*2 + offsetTorwardsCamera]} scale={[1, 1, 1]} passable={true}>
                  <ViroPortal>
@@ -128,9 +125,9 @@ var ViroPortalTest = createReactClass({
                  <ViroText position={[-2, 0.5, -2]} text={"Release Menu"}
                           style={styles.instructionText} onClick={()=>{this.props.arSceneNavigator.replace("ARReleaseMenu", {scene: require("./ARReleaseMenu")})}}
                           transformBehaviors={["billboard"]}/>
-                 <ViroAnimatedComponent animation="boxSpin" run={true} loop={true}>
-                   <ViroBox width={0.125} height={0.125} position={[-0.75, 0, -1]} materials={["box1"]}/>
-                 </ViroAnimatedComponent>
+
+                  <ViroBox width={0.125} height={0.125} position={[-0.75, 0, -1]} materials={["box1"]}
+                      animation={{name:"boxSpin", loop:true, run:true}} />
 
               </ViroPortalScene>
             </ViroPortalScene>
@@ -148,9 +145,9 @@ var ViroPortalTest = createReactClass({
                </ViroPortal>
 
                <ViroSkyBox color="#FF0000" />
-               <ViroAnimatedComponent animation="boxSpin" run={true} loop={true}>
-                 <ViroBox width={0.25} height={0.25} position={[-1.5, 0, -2]}/>
-               </ViroAnimatedComponent>
+
+                 <ViroBox width={0.25} height={0.25} position={[-1.5, 0, -2]}
+                      animation={{name:"boxSpin", loop:true, run:true}}/>
             </ViroPortalScene>
 
         </ViroARScene>

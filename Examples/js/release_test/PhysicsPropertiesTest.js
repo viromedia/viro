@@ -22,7 +22,6 @@ import {
   ViroQuad,
   ViroOmniLight,
   ViroAnimations,
-  ViroAnimatedComponent
 } from 'react-viro';
 
 var createReactClass = require('create-react-class');

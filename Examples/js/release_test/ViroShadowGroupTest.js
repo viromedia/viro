@@ -35,7 +35,6 @@ import {
    ViroText,
    ViroButton,
    ViroAnimations,
-   ViroAnimatedComponent,
    ViroQuad,
    ViroSkyBox,
    ViroPortal,
@@ -237,10 +236,7 @@ var ViroShadowGroupTest = createReactClass({
                 <ViroNode position={[-2 , 0, -2.5]}>
 
 
-                <ViroAnimatedComponent
-                                    animation="testLoopMove"
-                                    run={this.state.runAnimation}
-                                    loop={true} >
+
 
                   <ViroBox
                   lightReceivingBitMask={allLights}
@@ -253,13 +249,8 @@ var ViroShadowGroupTest = createReactClass({
                       width={1}
                       length={1}
                       visible={this.state.isVisible}
-                       onClick={this._elementClick(0)}/>
-
-                 </ViroAnimatedComponent>
-                 <ViroAnimatedComponent
-                         animation="testLoopScale"
-                         run={this.state.runAnimation}
-                         loop={true} >
+                      onClick={this._elementClick(0)}
+                      animation={{name:"testLoopMove",  loop:true, run:this.state.runAnimation}}  />
 
                   <ViroButton
                       lightReceivingBitMask={allLights}
@@ -271,13 +262,9 @@ var ViroShadowGroupTest = createReactClass({
                       clickSource={LocalButtonImage}
                       visible={this.state.isVisible}
                       onClick={this._elementClick(1)}
+                      animation={{name:"testLoopScale",  loop:true, run:this.state.runAnimation}}
                       />
 
-                </ViroAnimatedComponent>
-                 <ViroAnimatedComponent
-                         animation="testLoopMove"
-                         run={this.state.runAnimation}
-                         loop={true} >
 
                   <ViroFlexView
                       lightReceivingBitMask={allLights}
@@ -288,13 +275,10 @@ var ViroShadowGroupTest = createReactClass({
                       width={3}
                       height={2}
                       visible={this.state.isVisible}
-                      onClick={this._elementClick(2)} />
+                      onClick={this._elementClick(2)}
+                      animation={{name:"testLoopMove",  loop:true, run:this.state.runAnimation}}
+                  />
 
-                </ViroAnimatedComponent>
-                 <ViroAnimatedComponent
-                         animation="testLoopRotate"
-                         run={this.state.runAnimation}
-                         loop={true} >
 
                   <ViroImage
                       lightReceivingBitMask={allLights}
@@ -306,13 +290,9 @@ var ViroShadowGroupTest = createReactClass({
                       onClick={this._elementClick(3)}
                       visible={this.state.isVisible}
                       source={{uri: "https://upload.wikimedia.org/wikipedia/commons/7/74/Earth_poster_large.jpg"}}
+                      animation={{name:"testLoopRotate",  loop:true, run:this.state.runAnimation}}
                       />
 
-                </ViroAnimatedComponent>
-                 <ViroAnimatedComponent
-                         animation="testLoopMove"
-                         run={this.state.runAnimation}
-                         loop={true} >
 
                   <ViroNode
                     position={[-1, 0, 0]}
@@ -324,14 +304,11 @@ var ViroShadowGroupTest = createReactClass({
                         shadowCastingBitMask={allLights}
                         style={styles.baseTextTwo}
                         visible={this.state.isVisible}
-                        text="This is a text in a ViroNode" />
+                        text="This is a text in a ViroNode"
+                        animation={{name:"testLoopMove",  loop:true, run:this.state.runAnimation}}
+                      />
                   </ViroNode>
 
-                </ViroAnimatedComponent>
-                 <ViroAnimatedComponent
-                         animation="testLoopScale"
-                         run={this.state.runAnimation}
-                         loop={true} >
 
                   <ViroSphere
                       lightReceivingBitMask={allLights}
@@ -344,27 +321,17 @@ var ViroShadowGroupTest = createReactClass({
                       onClick={this._elementClick(5)}
                       materials={["redColor"]}
                       visible={this.state.isVisible}
+                      animation={{name:"testLoopScale",  loop:true, run:this.state.runAnimation}}
                       />
-
-                </ViroAnimatedComponent>
-                 <ViroAnimatedComponent
-                         animation="testLoopMove"
-                         run={this.state.runAnimation}
-                         loop={true} >
 
                   <ViroSpinner
                       lightReceivingBitMask={allLights}
                       shadowCastingBitMask={allLights}
                       position={[1, 0, 0]}
                       scale={[0.3, 0.3, 0.1]}
-                      onClick={this._elementClick(6)}/>
+                      onClick={this._elementClick(6)}
+                      animation={{name:"testLoopMove",  loop:true, run:this.state.runAnimation}}/>
 
-                </ViroAnimatedComponent>
-
-                 <ViroAnimatedComponent
-                         animation="testLoopRotate"
-                         run={this.state.runAnimation}
-                         loop={true} >
 
                   <ViroQuad
                       lightReceivingBitMask={allLights}
@@ -375,13 +342,10 @@ var ViroShadowGroupTest = createReactClass({
                       width={1}
                       onClick={this._elementClick(7)}
                       visible={this.state.isVisible}
-                      height={1}/>
+                      height={1}
+                      animation={{name:"testLoopRotate",  loop:true, run:this.state.runAnimation}}
+                  />
 
-                </ViroAnimatedComponent>
-                 <ViroAnimatedComponent
-                         animation="testLoopMove"
-                         run={this.state.runAnimation}
-                         loop={true} >
 
                   <ViroText
                       lightReceivingBitMask={allLights}
@@ -391,13 +355,10 @@ var ViroShadowGroupTest = createReactClass({
                       style={styles.baseTextTwo}
                       visible={this.state.isVisible}
                       onClick={this._elementClick(8)}
-                      text="This is a Viro Text"/>
+                      text="This is a Viro Text"
+                      animation={{name:"testLoopMove",  loop:true, run:this.state.runAnimation}}
+                  />
 
-                </ViroAnimatedComponent>
-                 <ViroAnimatedComponent
-                         animation="testLoopScale"
-                         run={this.state.runAnimation}
-                         loop={true} >
 
                   <ViroVideo
                       lightReceivingBitMask={allLights}
@@ -407,19 +368,17 @@ var ViroShadowGroupTest = createReactClass({
                       height={4} width={4}
                       visible={this.state.isVisible}
                       onClick={this._elementClick(9)}
+                      animation={{name:"testLoopScale",  loop:true, run:this.state.runAnimation}}
                       source={{"uri":"https://s3-us-west-2.amazonaws.com/viro/Climber1Top.mp4"}} />
 
-                </ViroAnimatedComponent>
-                <ViroAnimatedComponent
-                        animation="testLoopRotate"
-                        run={this.state.runAnimation}
-                        loop={true} >
-                        <Viro3DObject source={{"uri" : "https://s3-us-west-2.amazonaws.com/viro/heart.obj"}}
+
+                  <Viro3DObject source={{"uri" : "https://s3-us-west-2.amazonaws.com/viro/heart.obj"}}
                                scale={[1.8, 1.8, 1.8]}
                                position={[-2, 1, .2]}
                                type="OBJ"
-                               materials="heart"/>
-               </ViroAnimatedComponent>
+                               materials="heart"
+                               animation={{name:"testLoopRotate",  loop:true, run:this.state.runAnimation}}
+                    />
 
                 </ViroNode>
             </ViroScene>

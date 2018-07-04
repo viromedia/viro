@@ -13,7 +13,6 @@ import {
 } from 'react-native';
 
 import {
-  ViroAnimatedComponent,
   ViroScene,
   ViroBox,
   ViroMaterials,
@@ -70,23 +69,18 @@ var GroupTestBasicAnimation = createReactClass({
             <ViroImage source={require('./res/poi_dot.png')} position={[-1, 0, 0]} transformBehaviors={["billboard"]} onClick={this._showNext} />
 
                 <ViroNode position={[0.8 , 0, -3.5]}>
-                <ViroAnimatedComponent
-                    animation="testLoopRotate"
-                    run={this.state.runAnimation}
-                    loop={this.state.willLoop} >
 
-                    <Viro3DObject source={require('../res/heart.obj')}
+                  <Viro3DObject source={require('../res/heart.obj')}
                               scale={[1.8, 1.8, 1.8]}
                               position={[-3.2, 2.5, -4.5]}
                               materials={["heart"]}
                               type="OBJ"
-                              onClick={this._elementClick(10)} />
+                              onClick={this._elementClick(10)}
+                              animation={{name:"testLoopRotate",
+                                          loop:this.state.willLoop,
+                                          run:this.state.runAnimation }} />
 
-                 </ViroAnimatedComponent>
-                <ViroAnimatedComponent
-                                    animation="testLoopMove"
-                                    run={this.state.runAnimation}
-                                    loop={this.state.willLoop} >
+
 
                   <ViroBox
                       position={[-1, 1, 0]}
@@ -96,13 +90,10 @@ var GroupTestBasicAnimation = createReactClass({
                       height={1}
                       width={1}
                       length={1}
-                       onClick={this._elementClick(0)}/>
-
-                 </ViroAnimatedComponent>
-                 <ViroAnimatedComponent
-                         animation="testLoopScale"
-                         run={this.state.runAnimation}
-                         loop={this.state.willLoop} >
+                       onClick={this._elementClick(0)}
+                       animation={{name:"testLoopMove",
+                                   loop:this.state.willLoop,
+                                   run:this.state.runAnimation }}/>
 
                   <ViroButton
                       position={[0, 1, 0]}
@@ -111,13 +102,10 @@ var GroupTestBasicAnimation = createReactClass({
                       hoverSource={LocalButtonImage}
                       clickSource={LocalButtonImage}
                       onClick={this._elementClick(1)}
+                      animation={{name:"testLoopScale",
+                                  loop:this.state.willLoop,
+                                  run:this.state.runAnimation }}
                       />
-
-                </ViroAnimatedComponent>
-                 <ViroAnimatedComponent
-                         animation="testLoopOpacity"
-                         run={this.state.runAnimation}
-                         loop={this.state.willLoop} >
 
                   <ViroFlexView
                       position={[1, 1, 0]}
@@ -125,13 +113,11 @@ var GroupTestBasicAnimation = createReactClass({
                       materials={["redColor"]}
                       width={3}
                       height={2}
-                      onClick={this._elementClick(2)} />
+                      onClick={this._elementClick(2)}
+                      animation={{name:"testLoopOpacity",
+                                  loop:this.state.willLoop,
+                                  run:this.state.runAnimation }}/>
 
-                </ViroAnimatedComponent>
-                 <ViroAnimatedComponent
-                         animation="testLoopRotate"
-                         run={this.state.runAnimation}
-                         loop={this.state.willLoop} >
 
                   <ViroImage
                       width={1} height={1}
@@ -139,30 +125,25 @@ var GroupTestBasicAnimation = createReactClass({
                       position={[-2, 0, 0]}
                       scale={[0.5, 0.5, 0.1]}
                       onClick={this._elementClick(3)}
+                      animation={{name:"testLoopRotate",
+                                  loop:this.state.willLoop,
+                                  run:this.state.runAnimation }}
                       source={{uri: "https://upload.wikimedia.org/wikipedia/commons/7/74/Earth_poster_large.jpg"}}
                       />
 
-                </ViroAnimatedComponent>
-                 <ViroAnimatedComponent
-                         animation="testLoopMove"
-                         run={this.state.runAnimation}
-                         loop={this.state.willLoop} >
 
                   <ViroNode
                     position={[-1, 0, 0]}
                     scale={[0.5, 0.5, 0.1]}
                     onClick={this._elementClick(4)}
-                    rotation={[0,0,0]}>
+                    rotation={[0,0,0]}
+                          animation={{name:"testLoopMove",
+                                      loop:this.state.willLoop,
+                                      run:this.state.runAnimation }}>
                     <ViroText
                         style={styles.baseTextTwo}
                         text="This is a text in a ViroNode" />
                   </ViroNode>
-
-                </ViroAnimatedComponent>
-                 <ViroAnimatedComponent
-                         animation="testLoopScale"
-                         run={this.state.runAnimation}
-                         loop={this.state.willLoop} >
 
                   <ViroSphere
                       position={[0, 0, 0]}
@@ -172,24 +153,21 @@ var GroupTestBasicAnimation = createReactClass({
                       radius={1}
                       onClick={this._elementClick(5)}
                       materials={["redColor"]}
+                      animation={{name:"testLoopScale",
+                                  loop:this.state.willLoop,
+                                  run:this.state.runAnimation }}
                       />
 
-                </ViroAnimatedComponent>
-                 <ViroAnimatedComponent
-                         animation="testLoopOpacity"
-                         run={this.state.runAnimation}
-                         loop={this.state.willLoop} >
+
 
                   <ViroSpinner
                       position={[1, 0, 0]}
                       scale={[0.3, 0.3, 0.1]}
-                      onClick={this._elementClick(6)}/>
+                      onClick={this._elementClick(6)}
+                      animation={{name:"testLoopOpacity",
+                                  loop:this.state.willLoop,
+                                  run:this.state.runAnimation }}/>
 
-                </ViroAnimatedComponent>
-                 <ViroAnimatedComponent
-                         animation="testLoopRotate"
-                         run={this.state.runAnimation}
-                         loop={this.state.willLoop} >
 
                   <ViroQuad
                       position={[-2, -1, 0]}
@@ -197,35 +175,32 @@ var GroupTestBasicAnimation = createReactClass({
                       materials={["redColor"]}
                       width={1}
                       onClick={this._elementClick(7)}
-                      height={1}/>
+                      height={1}
+                      animation={{name:"testLoopRotate",
+                                  loop:this.state.willLoop,
+                                  run:this.state.runAnimation }}/>
 
-                </ViroAnimatedComponent>
-                 <ViroAnimatedComponent
-                         animation="testLoopMove"
-                         run={this.state.runAnimation}
-                         loop={this.state.willLoop} >
 
                   <ViroText
                       position={[-1, -1, 0]}
                       scale={[0.5 , 0.5, 0.1]}
                       style={styles.baseTextTwo}
                       onClick={this._elementClick(8)}
-                      text="This is a Viro Text"/>
+                      text="This is a Viro Text"
+                      animation={{name:"testLoopMove",
+                                  loop:this.state.willLoop,
+                                  run:this.state.runAnimation }}/>
 
-                </ViroAnimatedComponent>
-                 <ViroAnimatedComponent
-                         animation="testLoopScale"
-                         run={this.state.runAnimation}
-                         loop={this.state.willLoop} >
 
                   <ViroVideo
                       position={[0 , -1,0]}
                       scale={[0.1, 0.1, 0.1]}
                       height={4} width={4}
                       onClick={this._elementClick(9)}
-                      source={{"uri":"https://s3-us-west-2.amazonaws.com/viro/Climber1Top.mp4"}} />
-
-                </ViroAnimatedComponent>
+                      source={{"uri":"https://s3-us-west-2.amazonaws.com/viro/Climber1Top.mp4"}}
+                      animation={{name:"testLoopScale",
+                                  loop:this.state.willLoop,
+                                  run:this.state.runAnimation }}/>
 
                  <ViroText
                       visible={this.state.isPlayVisible}

@@ -30,7 +30,6 @@ import {
   ViroFlexView,
   ViroUtils,
   ViroAnimations,
-  ViroAnimatedComponent,
   ViroQuad,
   ViroSkyBox,
   ViroSpatialSound,

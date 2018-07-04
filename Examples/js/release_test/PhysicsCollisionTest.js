@@ -22,7 +22,6 @@ import {
   ViroQuad,
   ViroOmniLight,
   ViroAnimations,
-  ViroAnimatedComponent
 } from 'react-viro';
 
 var createReactClass = require('create-react-class');
@@ -335,10 +334,6 @@ addToConsole(stringToAdd){
                           onCollision={this.onCollide}
                       />
 
-                      <ViroAnimatedComponent
-                          animation="loopMoveSmall"
-                          run={this.state.kinematicDynamicToggle} >
-
                       <ViroBox
                           position={this.state.kinematicDynamicPos1}
                           scale={[1, 1, 1]}
@@ -350,9 +345,9 @@ addToConsole(stringToAdd){
                           }}
                           viroTag="KinematicBox 3"
                           onCollision={this.onCollide}
+                          animation={{name:"loopMoveSmall",
+                                      run:this.state.kinematicDynamicToggle }}
                           />
-
-                      </ViroAnimatedComponent>
 
                       <ViroBox
                           position={this.state.kinematicDynamicPos2}

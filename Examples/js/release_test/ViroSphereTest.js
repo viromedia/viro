@@ -35,7 +35,6 @@
    ViroUtils,
    ViroText,
    ViroAnimations,
-   ViroAnimatedComponent,
    ViroQuad,
    ViroSkyBox,
    ViroSphere,
