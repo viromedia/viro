@@ -280,7 +280,7 @@ var ARShadowTest = createReactClass({
 
           <ViroQuad
               lightReceivingBitMask={this.state.shadowPlaneMask}
-              materials={"ground"}
+              arShadowReceiver={true}
               rotation={[-90, 0, 0]}
               position={[0, -5, 0]}
               scale={[1, 1, 1]}
@@ -348,12 +348,6 @@ ViroMaterials.createMaterials({
     cullMode: "None",
     shininess: 2.0,
     diffuseColor: "#ff1111"
-  },
-  ground: {
-    lightingModel: "Lambert",
-    cullMode: "None",
-    shininess: 2.0,
-    diffuseColor: "#ff9999"
   },
   shadowCatcher: {
     writesToDepthBuffer: false,
