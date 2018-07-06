@@ -49,6 +49,11 @@
     
 }
 
+- (void)setClosed:(BOOL)closed {
+    _closed = closed;
+     _didSetGeometry = NO;
+}
+
 - (void)didSetProps:(NSArray<NSString *> *)changedProps {
     if (!_didSetGeometry) {
         std::vector<VROVector3f> nativePoints;
@@ -58,6 +63,16 @@
             if ([pointArray count] < 3) {
                 RCTLogError(@"Polyline points should have at least 3 coordinates.");
             }
+            VROVector3f nativePoint = VROVector3f([[pointArray objectAtIndex:0] floatValue], [[pointArray objectAtIndex:1] floatValue], [[pointArray objectAtIndex:2] floatValue]);
+            nativePoints.push_back(nativePoint);
+        }
+
+        if (self.closed) {
+            NSArray *pointArray = [_points objectAtIndex:0];
+            if ([pointArray count] < 3) {
+                RCTLogError(@"Polyline points should have at least 3 coordinates.");
+            }
+
             VROVector3f nativePoint = VROVector3f([[pointArray objectAtIndex:0] floatValue], [[pointArray objectAtIndex:1] floatValue], [[pointArray objectAtIndex:2] floatValue]);
             nativePoints.push_back(nativePoint);
         }

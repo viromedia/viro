@@ -13,6 +13,8 @@ public class VRTPolyline extends VRTControl {
     private boolean mDidSetGeometry = false;
     private float[][] mPoints;
     private float mThickness = 0.1f; // default thickness of line is 0.1f
+    private boolean mClosed = false;
+    private ReadableArray mRawPoints;
 
     public VRTPolyline(ReactContext reactContext)  {
         super(reactContext);
@@ -27,12 +29,23 @@ public class VRTPolyline extends VRTControl {
     }
 
     public void setPoints(ReadableArray points) {
-        if (points.size() == 0) {
+        mRawPoints = points;
+        mDidSetGeometry = false;
+    }
+
+    private float[][] processPoints() {
+        if (mRawPoints.size() == 0) {
             throw new IllegalArgumentException("Polyline should consist of at least 1 point");
         }
-        float[][] pointsArray = new float[points.size()][3];
-        for (int i = 0; i < points.size(); i++) {
-            ReadableArray point = points.getArray(i);
+
+        int pointSize = mRawPoints.size();
+        if (mClosed) {
+            pointSize+=1;
+        }
+
+        float[][] pointsArray = new float[pointSize][3];
+        for (int i = 0; i < mRawPoints.size(); i++) {
+            ReadableArray point = mRawPoints.getArray(i);
             if (point.size() < 3) {
                 throw new IllegalArgumentException("Polyline points should have at least 3 coordinates");
             }
@@ -40,8 +53,16 @@ public class VRTPolyline extends VRTControl {
                 pointsArray[i][j] = (float) point.getDouble(j);
             }
         }
-        mPoints = pointsArray;
-        mDidSetGeometry = false;
+
+        // Add a closing point to the end if closed prop set.
+        if (mClosed) {
+            ReadableArray point = mRawPoints.getArray(0);
+            pointsArray[mRawPoints.size()][0] = (float)point.getDouble(0);
+            pointsArray[mRawPoints.size()][1] = (float)point.getDouble(1);
+            pointsArray[mRawPoints.size()][2] = (float)point.getDouble(2);
+        }
+
+        return pointsArray;
     }
 
     public void setThickness(float thickness) {
@@ -54,10 +75,16 @@ public class VRTPolyline extends VRTControl {
         }
     }
 
+    public void setClosed(boolean closed) {
+        mClosed = closed;
+        mDidSetGeometry = false;
+    }
+
     @Override
     public void onPropsSet() {
         super.onPropsSet();
-        if (!mDidSetGeometry && mPoints != null) {
+        if (!mDidSetGeometry && mRawPoints != null) {
+            mPoints = processPoints();
             if (mNativeLine != null) {
                 mNativeLine.dispose();
             }

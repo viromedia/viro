@@ -34,6 +34,11 @@ public class VRTPolylineManager extends VRTNodeManager<VRTPolyline> {
         polyline.setPoints(points);
     }
 
+    @ReactProp(name = "closed", defaultBoolean = false)
+    public void setClosed(VRTPolyline polyline, boolean closed) {
+        polyline.setClosed(closed);
+    }
+
     @ReactProp(name = "thickness", defaultFloat = 0.1f)
     public void setThickness(VRTPolyline polyline, float thickness) {
         polyline.setThickness(thickness);

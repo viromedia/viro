@@ -22,6 +22,7 @@ var ViroPolyline = createReactClass({
     position: PropTypes.arrayOf(PropTypes.number),
     rotation: PropTypes.arrayOf(PropTypes.number),
     scale: PropTypes.arrayOf(PropTypes.number),
+    closed: PropTypes.bool,
     opacity: PropTypes.number,
     visible: PropTypes.bool,
     animation: PropTypes.shape({
@@ -252,7 +253,7 @@ var ViroPolyline = createReactClass({
             onCollisionViro={this._onCollision}
             onAnimationStartViro={this._onAnimationStart}
             onAnimationFinishViro={this._onAnimationFinish}
-            timeToFuse={timeToFuse}/>
+            timeToFuse={timeToFuse} />
     );
   }
 });

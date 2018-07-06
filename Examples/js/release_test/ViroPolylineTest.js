@@ -57,6 +57,7 @@ var ViroPolylineTest = createReactClass({
   getInitialState() {
     return {
       materials:false,
+      closed: false,
       pointSet:0,
       thickness: .05,
       orbit : false,
@@ -69,7 +70,7 @@ var ViroPolylineTest = createReactClass({
         <ViroCamera position={[0, 0, 0]} active={!this.state.orbit}/>
         <ViroOrbitCamera focalPoint={[0, -.25, -2]} active={this.state.orbit}/>
         <ReleaseMenu sceneNavigator={this.props.sceneNavigator}/>
-        <ViroPolyline position={[0,0,-2]} points={this._getPoints()} thickness={this.state.thickness}
+        <ViroPolyline position={[0,0,-2]} points={this._getPoints()} closed={this.state.closed} thickness={this.state.thickness}
           materials={this.state.materials ? "white" : "red"} onClick={()=>{this.setState({orbit : !this.state.orbit})}}/>
         {this._getTestControls()}
       </ViroScene>
@@ -90,6 +91,10 @@ var ViroPolylineTest = createReactClass({
         <ViroText style={styles.baseTextTwo}  position={[0, -1, 0]} width={2} height ={2}
                   text={"Toggle Thickness: " + this.state.thickness}
                   onClick={this._toggleThickness}/>
+
+        <ViroText style={styles.baseTextTwo}  position={[2.1, -1, 0]} width={2} height ={2}
+                  text={"Toggle Closed: " + this.state.closed}
+                  onClick={this._toggleClosed}/>
       </ViroNode>
     );
   },
@@ -120,6 +125,11 @@ var ViroPolylineTest = createReactClass({
     })
   },
 
+  _toggleClosed() {
+    this.setState({
+      closed: !this.state.closed,
+    });
+  },
   _onLoadStart() {
     console.log("ViroSkyBoxtest: _onLoadStart");
   },

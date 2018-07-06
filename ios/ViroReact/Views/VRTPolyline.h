@@ -14,6 +14,7 @@
 
 @property (nonatomic, copy) NSArray<NSArray<NSNumber *> *> *points;
 @property (nonatomic, assign) float thickness;
+@property (nonatomic, assign) BOOL closed;
 
 -(instancetype)initWithBridge:(RCTBridge *)bridge;
 
