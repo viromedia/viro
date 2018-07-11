@@ -1,0 +1,102 @@
+[
+    {
+        "outputFile": "/Users/manish/workspace/viro/android/app/build/intermediates/incremental/mergeGvrDebugResources/merged.dir/values-ms/values-ms.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 2,
+                    "startColumn": 4,
+                    "startOffset": 55,
+                    "endColumn": 49,
+                    "endOffset": 100
+                },
+                "from": {
+                    "file": "/Users/manish/workspace/viro/android/app/build/intermediates/exploded-aar/ViroSample/arcore_client/unspecified/res/values-ms/values.xml",
+                    "position": {
+                        "startLine": 4,
+                        "startColumn": 0,
+                        "startOffset": 190,
+                        "endColumn": 45,
+                        "endOffset": 235
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 3,
+                    "startColumn": 4,
+                    "startOffset": 105,
+                    "endColumn": 54,
+                    "endOffset": 155
+                },
+                "from": {
+                    "file": "/Users/manish/workspace/viro/android/app/build/intermediates/exploded-aar/ViroSample/arcore_client/unspecified/res/values-ms/values.xml",
+                    "position": {
+                        "startLine": 5,
+                        "startColumn": 0,
+                        "startOffset": 236,
+                        "endColumn": 50,
+                        "endOffset": 286
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 4,
+                    "startColumn": 4,
+                    "startOffset": 160,
+                    "endColumn": 101,
+                    "endOffset": 257
+                },
+                "from": {
+                    "file": "/Users/manish/workspace/viro/android/app/build/intermediates/exploded-aar/ViroSample/arcore_client/unspecified/res/values-ms/values.xml",
+                    "position": {
+                        "startLine": 6,
+                        "startColumn": 0,
+                        "startOffset": 287,
+                        "endColumn": 97,
+                        "endOffset": 384
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 5,
+                    "startColumn": 4,
+                    "startOffset": 262,
+                    "endColumn": 101,
+                    "endOffset": 359
+                },
+                "from": {
+                    "file": "/Users/manish/workspace/viro/android/app/build/intermediates/exploded-aar/ViroSample/arcore_client/unspecified/res/values-ms/values.xml",
+                    "position": {
+                        "startLine": 7,
+                        "startColumn": 0,
+                        "startOffset": 385,
+                        "endColumn": 97,
+                        "endOffset": 482
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 6,
+                    "startColumn": 4,
+                    "startOffset": 364,
+                    "endColumn": 64,
+                    "endOffset": 424
+                },
+                "from": {
+                    "file": "/Users/manish/workspace/viro/android/app/build/intermediates/exploded-aar/ViroSample/arcore_client/unspecified/res/values-ms/values.xml",
+                    "position": {
+                        "startLine": 8,
+                        "startColumn": 0,
+                        "startOffset": 483,
+                        "endColumn": 60,
+                        "endOffset": 543
+                    }
+                }
+            }
+        ]
+    }
+]

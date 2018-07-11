@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="exo_controls_fastforward_description">"Перамотка ўперад"</string>
+    <string name="exo_controls_next_description">"Наступны трэк"</string>
+    <string name="exo_controls_pause_description">"Прыпыніць"</string>
+    <string name="exo_controls_play_description">"Прайграць"</string>
+    <string name="exo_controls_previous_description">"Папярэдні трэк"</string>
+    <string name="exo_controls_repeat_all_description">"Паўтарыць усё"</string>
+    <string name="exo_controls_repeat_off_description">"Паўтараць ні"</string>
+    <string name="exo_controls_repeat_one_description">"Паўтарыць адзін"</string>
+    <string name="exo_controls_rewind_description">"Перамотка назад"</string>
+    <string name="exo_controls_shuffle_description">"Перамяшаць"</string>
+    <string name="exo_controls_stop_description">"Спыніць"</string>
+</resources>

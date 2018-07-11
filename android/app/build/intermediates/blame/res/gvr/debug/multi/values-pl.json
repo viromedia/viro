@@ -1,0 +1,1128 @@
+[
+    {
+        "outputFile": "/Users/manish/workspace/viro/android/app/build/intermediates/incremental/mergeGvrDebugResources/merged.dir/values-pl/values-pl.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 2,
+                    "startColumn": 4,
+                    "startOffset": 105,
+                    "endColumn": 50,
+                    "endOffset": 151
+                },
+                "from": {
+                    "file": "/Users/manish/workspace/viro/android/app/build/intermediates/exploded-aar/ViroSample/arcore_client/unspecified/res/values-pl/values.xml",
+                    "position": {
+                        "startLine": 4,
+                        "startColumn": 0,
+                        "startOffset": 190,
+                        "endColumn": 46,
+                        "endOffset": 236
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 3,
+                    "startColumn": 4,
+                    "startOffset": 156,
+                    "endColumn": 51,
+                    "endOffset": 203
+                },
+                "from": {
+                    "file": "/Users/manish/workspace/viro/android/app/build/intermediates/exploded-aar/ViroSample/arcore_client/unspecified/res/values-pl/values.xml",
+                    "position": {
+                        "startLine": 5,
+                        "startColumn": 0,
+                        "startOffset": 237,
+                        "endColumn": 47,
+                        "endOffset": 284
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 4,
+                    "startColumn": 4,
+                    "startOffset": 208,
+                    "endColumn": 94,
+                    "endOffset": 298
+                },
+                "from": {
+                    "file": "/Users/manish/workspace/viro/android/app/build/intermediates/exploded-aar/ViroSample/arcore_client/unspecified/res/values-pl/values.xml",
+                    "position": {
+                        "startLine": 6,
+                        "startColumn": 0,
+                        "startOffset": 285,
+                        "endColumn": 90,
+                        "endOffset": 375
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 5,
+                    "startColumn": 4,
+                    "startOffset": 303,
+                    "endColumn": 96,
+                    "endOffset": 395
+                },
+                "from": {
+                    "file": "/Users/manish/workspace/viro/android/app/build/intermediates/exploded-aar/ViroSample/arcore_client/unspecified/res/values-pl/values.xml",
+                    "position": {
+                        "startLine": 7,
+                        "startColumn": 0,
+                        "startOffset": 376,
+                        "endColumn": 92,
+                        "endOffset": 468
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 6,
+                    "startColumn": 4,
+                    "startOffset": 400,
+                    "endColumn": 65,
+                    "endOffset": 461
+                },
+                "from": {
+                    "file": "/Users/manish/workspace/viro/android/app/build/intermediates/exploded-aar/ViroSample/arcore_client/unspecified/res/values-pl/values.xml",
+                    "position": {
+                        "startLine": 8,
+                        "startColumn": 0,
+                        "startOffset": 469,
+                        "endColumn": 61,
+                        "endOffset": 530
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 7,
+                    "startColumn": 4,
+                    "startOffset": 466,
+                    "endColumn": 115,
+                    "endOffset": 577
+                },
+                "from": {
+                    "file": "/Users/manish/workspace/viro/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/values-pl/values-pl.xml",
+                    "position": {
+                        "startLine": 2,
+                        "startColumn": 4,
+                        "startOffset": 55,
+                        "endColumn": 115,
+                        "endOffset": 166
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 8,
+                    "startColumn": 4,
+                    "startOffset": 582,
+                    "endColumn": 107,
+                    "endOffset": 685
+                },
+                "from": {
+                    "file": "/Users/manish/workspace/viro/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/values-pl/values-pl.xml",
+                    "position": {
+                        "startLine": 3,
+                        "startColumn": 4,
+                        "startOffset": 171,
+                        "endColumn": 107,
+                        "endOffset": 274
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 9,
+                    "startColumn": 4,
+                    "startOffset": 690,
+                    "endColumn": 122,
+                    "endOffset": 808
+                },
+                "from": {
+                    "file": "/Users/manish/workspace/viro/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/values-pl/values-pl.xml",
+                    "position": {
+                        "startLine": 4,
+                        "startColumn": 4,
+                        "startOffset": 279,
+                        "endColumn": 122,
+                        "endOffset": 397
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 10,
+                    "startColumn": 4,
+                    "startOffset": 813,
+                    "endColumn": 101,
+                    "endOffset": 910
+                },
+                "from": {
+                    "file": "/Users/manish/workspace/viro/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/values-pl/values-pl.xml",
+                    "position": {
+                        "startLine": 5,
+                        "startColumn": 4,
+                        "startOffset": 402,
+                        "endColumn": 101,
+                        "endOffset": 499
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 11,
+                    "startColumn": 4,
+                    "startOffset": 915,
+                    "endColumn": 107,
+                    "endOffset": 1018
+                },
+                "from": {
+                    "file": "/Users/manish/workspace/viro/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/values-pl/values-pl.xml",
+                    "position": {
+                        "startLine": 6,
+                        "startColumn": 4,
+                        "startOffset": 504,
+                        "endColumn": 107,
+                        "endOffset": 607
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 12,
+                    "startColumn": 4,
+                    "startOffset": 1023,
+                    "endColumn": 85,
+                    "endOffset": 1104
+                },
+                "from": {
+                    "file": "/Users/manish/workspace/viro/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/values-pl/values-pl.xml",
+                    "position": {
+                        "startLine": 7,
+                        "startColumn": 4,
+                        "startOffset": 612,
+                        "endColumn": 85,
+                        "endOffset": 693
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 13,
+                    "startColumn": 4,
+                    "startOffset": 1109,
+                    "endColumn": 108,
+                    "endOffset": 1213
+                },
+                "from": {
+                    "file": "/Users/manish/workspace/viro/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/values-pl/values-pl.xml",
+                    "position": {
+                        "startLine": 8,
+                        "startColumn": 4,
+                        "startOffset": 698,
+                        "endColumn": 108,
+                        "endOffset": 802
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 14,
+                    "startColumn": 4,
+                    "startOffset": 1218,
+                    "endColumn": 118,
+                    "endOffset": 1332
+                },
+                "from": {
+                    "file": "/Users/manish/workspace/viro/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/values-pl/values-pl.xml",
+                    "position": {
+                        "startLine": 9,
+                        "startColumn": 4,
+                        "startOffset": 807,
+                        "endColumn": 118,
+                        "endOffset": 921
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 15,
+                    "startColumn": 4,
+                    "startOffset": 1337,
+                    "endColumn": 77,
+                    "endOffset": 1410
+                },
+                "from": {
+                    "file": "/Users/manish/workspace/viro/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/values-pl/values-pl.xml",
+                    "position": {
+                        "startLine": 10,
+                        "startColumn": 4,
+                        "startOffset": 926,
+                        "endColumn": 77,
+                        "endOffset": 999
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 16,
+                    "startColumn": 4,
+                    "startOffset": 1415,
+                    "endColumn": 76,
+                    "endOffset": 1487
+                },
+                "from": {
+                    "file": "/Users/manish/workspace/viro/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/values-pl/values-pl.xml",
+                    "position": {
+                        "startLine": 11,
+                        "startColumn": 4,
+                        "startOffset": 1004,
+                        "endColumn": 76,
+                        "endOffset": 1076
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 17,
+                    "startColumn": 4,
+                    "startOffset": 1492,
+                    "endColumn": 81,
+                    "endOffset": 1569
+                },
+                "from": {
+                    "file": "/Users/manish/workspace/viro/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/values-pl/values-pl.xml",
+                    "position": {
+                        "startLine": 12,
+                        "startColumn": 4,
+                        "startOffset": 1081,
+                        "endColumn": 81,
+                        "endOffset": 1158
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 18,
+                    "startColumn": 4,
+                    "startOffset": 1574,
+                    "endColumn": 108,
+                    "endOffset": 1678
+                },
+                "from": {
+                    "file": "/Users/manish/workspace/viro/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/values-pl/values-pl.xml",
+                    "position": {
+                        "startLine": 13,
+                        "startColumn": 4,
+                        "startOffset": 1163,
+                        "endColumn": 108,
+                        "endOffset": 1267
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 19,
+                    "startColumn": 4,
+                    "startOffset": 1683,
+                    "endColumn": 108,
+                    "endOffset": 1787
+                },
+                "from": {
+                    "file": "/Users/manish/workspace/viro/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/values-pl/values-pl.xml",
+                    "position": {
+                        "startLine": 14,
+                        "startColumn": 4,
+                        "startOffset": 1272,
+                        "endColumn": 108,
+                        "endOffset": 1376
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 20,
+                    "startColumn": 4,
+                    "startOffset": 1792,
+                    "endColumn": 98,
+                    "endOffset": 1886
+                },
+                "from": {
+                    "file": "/Users/manish/workspace/viro/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/values-pl/values-pl.xml",
+                    "position": {
+                        "startLine": 15,
+                        "startColumn": 4,
+                        "startOffset": 1381,
+                        "endColumn": 98,
+                        "endOffset": 1475
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 21,
+                    "startColumn": 4,
+                    "startOffset": 1891,
+                    "endColumn": 108,
+                    "endOffset": 1995
+                },
+                "from": {
+                    "file": "/Users/manish/workspace/viro/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/values-pl/values-pl.xml",
+                    "position": {
+                        "startLine": 16,
+                        "startColumn": 4,
+                        "startOffset": 1480,
+                        "endColumn": 108,
+                        "endOffset": 1584
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 22,
+                    "startColumn": 4,
+                    "startOffset": 2000,
+                    "endColumn": 110,
+                    "endOffset": 2106
+                },
+                "from": {
+                    "file": "/Users/manish/workspace/viro/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/values-pl/values-pl.xml",
+                    "position": {
+                        "startLine": 17,
+                        "startColumn": 4,
+                        "startOffset": 1589,
+                        "endColumn": 110,
+                        "endOffset": 1695
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 23,
+                    "startColumn": 4,
+                    "startOffset": 2111,
+                    "endColumn": 107,
+                    "endOffset": 2214
+                },
+                "from": {
+                    "file": "/Users/manish/workspace/viro/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/values-pl/values-pl.xml",
+                    "position": {
+                        "startLine": 18,
+                        "startColumn": 4,
+                        "startOffset": 1700,
+                        "endColumn": 107,
+                        "endOffset": 1803
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 24,
+                    "startColumn": 4,
+                    "startOffset": 2219,
+                    "endColumn": 122,
+                    "endOffset": 2337
+                },
+                "from": {
+                    "file": "/Users/manish/workspace/viro/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/values-pl/values-pl.xml",
+                    "position": {
+                        "startLine": 19,
+                        "startColumn": 4,
+                        "startOffset": 1808,
+                        "endColumn": 122,
+                        "endOffset": 1926
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 25,
+                    "startColumn": 4,
+                    "startOffset": 2342,
+                    "endColumn": 95,
+                    "endOffset": 2433
+                },
+                "from": {
+                    "file": "/Users/manish/workspace/viro/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/values-pl/values-pl.xml",
+                    "position": {
+                        "startLine": 20,
+                        "startColumn": 4,
+                        "startOffset": 1931,
+                        "endColumn": 95,
+                        "endOffset": 2022
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 26,
+                    "startColumn": 4,
+                    "startOffset": 2438,
+                    "endColumn": 95,
+                    "endOffset": 2529
+                },
+                "from": {
+                    "file": "/Users/manish/workspace/viro/android/app/build/intermediates/exploded-aar/ViroSample/gvr_common/unspecified/res/values-pl/values.xml",
+                    "position": {
+                        "startLine": 4,
+                        "startColumn": 0,
+                        "startOffset": 226,
+                        "endColumn": 91,
+                        "endOffset": 317
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 27,
+                    "startColumn": 4,
+                    "startOffset": 2534,
+                    "endColumn": 78,
+                    "endOffset": 2608
+                },
+                "from": {
+                    "file": "/Users/manish/workspace/viro/android/app/build/intermediates/exploded-aar/ViroSample/gvr_common/unspecified/res/values-pl/values.xml",
+                    "position": {
+                        "startLine": 5,
+                        "startColumn": 0,
+                        "startOffset": 318,
+                        "endColumn": 74,
+                        "endOffset": 392
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 28,
+                    "startColumn": 4,
+                    "startOffset": 2613,
+                    "endColumn": 81,
+                    "endOffset": 2690
+                },
+                "from": {
+                    "file": "/Users/manish/workspace/viro/android/app/build/intermediates/exploded-aar/ViroSample/gvr_common/unspecified/res/values-pl/values.xml",
+                    "position": {
+                        "startLine": 6,
+                        "startColumn": 0,
+                        "startOffset": 393,
+                        "endColumn": 77,
+                        "endOffset": 470
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 29,
+                    "startColumn": 4,
+                    "startOffset": 2695,
+                    "endColumn": 110,
+                    "endOffset": 2801
+                },
+                "from": {
+                    "file": "/Users/manish/workspace/viro/android/app/build/intermediates/exploded-aar/ViroSample/gvr_common/unspecified/res/values-pl/values.xml",
+                    "position": {
+                        "startLine": 7,
+                        "startColumn": 0,
+                        "startOffset": 471,
+                        "endColumn": 106,
+                        "endOffset": 577
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 30,
+                    "startColumn": 4,
+                    "startOffset": 2806,
+                    "endColumn": 191,
+                    "endOffset": 2993
+                },
+                "from": {
+                    "file": "/Users/manish/workspace/viro/android/app/build/intermediates/exploded-aar/ViroSample/gvr_common/unspecified/res/values-pl/values.xml",
+                    "position": {
+                        "startLine": 8,
+                        "startColumn": 0,
+                        "startOffset": 578,
+                        "endColumn": 187,
+                        "endOffset": 765
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 31,
+                    "startColumn": 4,
+                    "startOffset": 2998,
+                    "endColumn": 138,
+                    "endOffset": 3132
+                },
+                "from": {
+                    "file": "/Users/manish/workspace/viro/android/app/build/intermediates/exploded-aar/ViroSample/gvr_common/unspecified/res/values-pl/values.xml",
+                    "position": {
+                        "startLine": 9,
+                        "startColumn": 0,
+                        "startOffset": 766,
+                        "endColumn": 134,
+                        "endOffset": 900
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 32,
+                    "startColumn": 4,
+                    "startOffset": 3137,
+                    "endColumn": 83,
+                    "endOffset": 3216
+                },
+                "from": {
+                    "file": "/Users/manish/workspace/viro/android/app/build/intermediates/exploded-aar/ViroSample/gvr_common/unspecified/res/values-pl/values.xml",
+                    "position": {
+                        "startLine": 10,
+                        "startColumn": 0,
+                        "startOffset": 901,
+                        "endColumn": 79,
+                        "endOffset": 980
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 33,
+                    "startColumn": 4,
+                    "startOffset": 3221,
+                    "endColumn": 107,
+                    "endOffset": 3324
+                },
+                "from": {
+                    "file": "/Users/manish/workspace/viro/android/app/build/intermediates/exploded-aar/ViroSample/gvr_common/unspecified/res/values-pl/values.xml",
+                    "position": {
+                        "startLine": 11,
+                        "startColumn": 0,
+                        "startOffset": 981,
+                        "endColumn": 103,
+                        "endOffset": 1084
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 34,
+                    "startColumn": 4,
+                    "startOffset": 3329,
+                    "endColumn": 112,
+                    "endOffset": 3437
+                },
+                "from": {
+                    "file": "/Users/manish/workspace/viro/android/app/build/intermediates/exploded-aar/ViroSample/gvr_common/unspecified/res/values-pl/values.xml",
+                    "position": {
+                        "startLine": 12,
+                        "startColumn": 0,
+                        "startOffset": 1085,
+                        "endColumn": 108,
+                        "endOffset": 1193
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 35,
+                    "startColumn": 4,
+                    "startOffset": 3442,
+                    "endColumn": 112,
+                    "endOffset": 3550
+                },
+                "from": {
+                    "file": "/Users/manish/workspace/viro/android/app/build/intermediates/exploded-aar/ViroSample/gvr_common/unspecified/res/values-pl/values.xml",
+                    "position": {
+                        "startLine": 13,
+                        "startColumn": 0,
+                        "startOffset": 1194,
+                        "endColumn": 108,
+                        "endOffset": 1302
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 36,
+                    "startColumn": 4,
+                    "startOffset": 3555,
+                    "endColumn": 89,
+                    "endOffset": 3640
+                },
+                "from": {
+                    "file": "/Users/manish/workspace/viro/android/app/build/intermediates/exploded-aar/ViroSample/gvr_common/unspecified/res/values-pl/values.xml",
+                    "position": {
+                        "startLine": 14,
+                        "startColumn": 0,
+                        "startOffset": 1303,
+                        "endColumn": 85,
+                        "endOffset": 1388
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 37,
+                    "startColumn": 4,
+                    "startOffset": 3645,
+                    "endColumn": 215,
+                    "endOffset": 3856
+                },
+                "from": {
+                    "file": "/Users/manish/workspace/viro/android/app/build/intermediates/exploded-aar/ViroSample/gvr_common/unspecified/res/values-pl/values.xml",
+                    "position": {
+                        "startLine": 15,
+                        "startColumn": 0,
+                        "startOffset": 1389,
+                        "endColumn": 211,
+                        "endOffset": 1600
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 38,
+                    "startColumn": 4,
+                    "startOffset": 3861,
+                    "endColumn": 203,
+                    "endOffset": 4060
+                },
+                "from": {
+                    "file": "/Users/manish/workspace/viro/android/app/build/intermediates/exploded-aar/ViroSample/gvr_common/unspecified/res/values-pl/values.xml",
+                    "position": {
+                        "startLine": 16,
+                        "startColumn": 0,
+                        "startOffset": 1601,
+                        "endColumn": 199,
+                        "endOffset": 1800
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 39,
+                    "startColumn": 4,
+                    "startOffset": 4065,
+                    "endColumn": 112,
+                    "endOffset": 4173
+                },
+                "from": {
+                    "file": "/Users/manish/workspace/viro/android/app/build/intermediates/exploded-aar/com.google.android.exoplayer/exoplayer-ui/2.7.1/res/values-pl/values-pl.xml",
+                    "position": {
+                        "startLine": 2,
+                        "startColumn": 4,
+                        "startOffset": 55,
+                        "endColumn": 112,
+                        "endOffset": 163
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 40,
+                    "startColumn": 4,
+                    "startOffset": 4178,
+                    "endColumn": 102,
+                    "endOffset": 4276
+                },
+                "from": {
+                    "file": "/Users/manish/workspace/viro/android/app/build/intermediates/exploded-aar/com.google.android.exoplayer/exoplayer-ui/2.7.1/res/values-pl/values-pl.xml",
+                    "position": {
+                        "startLine": 3,
+                        "startColumn": 4,
+                        "startOffset": 168,
+                        "endColumn": 102,
+                        "endOffset": 266
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 41,
+                    "startColumn": 4,
+                    "startOffset": 4281,
+                    "endColumn": 98,
+                    "endOffset": 4375
+                },
+                "from": {
+                    "file": "/Users/manish/workspace/viro/android/app/build/intermediates/exploded-aar/com.google.android.exoplayer/exoplayer-ui/2.7.1/res/values-pl/values-pl.xml",
+                    "position": {
+                        "startLine": 4,
+                        "startColumn": 4,
+                        "startOffset": 271,
+                        "endColumn": 98,
+                        "endOffset": 365
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 42,
+                    "startColumn": 4,
+                    "startOffset": 4380,
+                    "endColumn": 95,
+                    "endOffset": 4471
+                },
+                "from": {
+                    "file": "/Users/manish/workspace/viro/android/app/build/intermediates/exploded-aar/com.google.android.exoplayer/exoplayer-ui/2.7.1/res/values-pl/values-pl.xml",
+                    "position": {
+                        "startLine": 5,
+                        "startColumn": 4,
+                        "startOffset": 370,
+                        "endColumn": 95,
+                        "endOffset": 461
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 43,
+                    "startColumn": 4,
+                    "startOffset": 4476,
+                    "endColumn": 107,
+                    "endOffset": 4579
+                },
+                "from": {
+                    "file": "/Users/manish/workspace/viro/android/app/build/intermediates/exploded-aar/com.google.android.exoplayer/exoplayer-ui/2.7.1/res/values-pl/values-pl.xml",
+                    "position": {
+                        "startLine": 6,
+                        "startColumn": 4,
+                        "startOffset": 466,
+                        "endColumn": 107,
+                        "endOffset": 569
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 44,
+                    "startColumn": 4,
+                    "startOffset": 4584,
+                    "endColumn": 111,
+                    "endOffset": 4691
+                },
+                "from": {
+                    "file": "/Users/manish/workspace/viro/android/app/build/intermediates/exploded-aar/com.google.android.exoplayer/exoplayer-ui/2.7.1/res/values-pl/values-pl.xml",
+                    "position": {
+                        "startLine": 7,
+                        "startColumn": 4,
+                        "startOffset": 574,
+                        "endColumn": 111,
+                        "endOffset": 681
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 45,
+                    "startColumn": 4,
+                    "startOffset": 4696,
+                    "endColumn": 107,
+                    "endOffset": 4799
+                },
+                "from": {
+                    "file": "/Users/manish/workspace/viro/android/app/build/intermediates/exploded-aar/com.google.android.exoplayer/exoplayer-ui/2.7.1/res/values-pl/values-pl.xml",
+                    "position": {
+                        "startLine": 8,
+                        "startColumn": 4,
+                        "startOffset": 686,
+                        "endColumn": 107,
+                        "endOffset": 789
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 46,
+                    "startColumn": 4,
+                    "startOffset": 4804,
+                    "endColumn": 106,
+                    "endOffset": 4906
+                },
+                "from": {
+                    "file": "/Users/manish/workspace/viro/android/app/build/intermediates/exploded-aar/com.google.android.exoplayer/exoplayer-ui/2.7.1/res/values-pl/values-pl.xml",
+                    "position": {
+                        "startLine": 9,
+                        "startColumn": 4,
+                        "startOffset": 794,
+                        "endColumn": 106,
+                        "endOffset": 896
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 47,
+                    "startColumn": 4,
+                    "startOffset": 4911,
+                    "endColumn": 105,
+                    "endOffset": 5012
+                },
+                "from": {
+                    "file": "/Users/manish/workspace/viro/android/app/build/intermediates/exploded-aar/com.google.android.exoplayer/exoplayer-ui/2.7.1/res/values-pl/values-pl.xml",
+                    "position": {
+                        "startLine": 10,
+                        "startColumn": 4,
+                        "startOffset": 901,
+                        "endColumn": 105,
+                        "endOffset": 1002
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 48,
+                    "startColumn": 4,
+                    "startOffset": 5017,
+                    "endColumn": 109,
+                    "endOffset": 5122
+                },
+                "from": {
+                    "file": "/Users/manish/workspace/viro/android/app/build/intermediates/exploded-aar/com.google.android.exoplayer/exoplayer-ui/2.7.1/res/values-pl/values-pl.xml",
+                    "position": {
+                        "startLine": 11,
+                        "startColumn": 4,
+                        "startOffset": 1007,
+                        "endColumn": 109,
+                        "endOffset": 1112
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 49,
+                    "startColumn": 4,
+                    "startOffset": 5127,
+                    "endColumn": 96,
+                    "endOffset": 5219
+                },
+                "from": {
+                    "file": "/Users/manish/workspace/viro/android/app/build/intermediates/exploded-aar/com.google.android.exoplayer/exoplayer-ui/2.7.1/res/values-pl/values-pl.xml",
+                    "position": {
+                        "startLine": 12,
+                        "startColumn": 4,
+                        "startOffset": 1117,
+                        "endColumn": 96,
+                        "endOffset": 1209
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 50,
+                    "startColumn": 4,
+                    "startOffset": 5224,
+                    "endColumn": 98,
+                    "endOffset": 5318
+                },
+                "from": {
+                    "file": "/Users/manish/workspace/viro/android/app/build/intermediates/exploded-aar/ViroSample/gvr_common/unspecified/res/values-pl/values.xml",
+                    "position": {
+                        "startLine": 17,
+                        "startColumn": 0,
+                        "startOffset": 1801,
+                        "endColumn": 94,
+                        "endOffset": 1895
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 51,
+                    "startColumn": 4,
+                    "startOffset": 5323,
+                    "endColumn": 110,
+                    "endOffset": 5429
+                },
+                "from": {
+                    "file": "/Users/manish/workspace/viro/android/app/build/intermediates/exploded-aar/ViroSample/gvr_common/unspecified/res/values-pl/values.xml",
+                    "position": {
+                        "startLine": 18,
+                        "startColumn": 0,
+                        "startOffset": 1896,
+                        "endColumn": 106,
+                        "endOffset": 2002
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 52,
+                    "startColumn": 4,
+                    "startOffset": 5434,
+                    "endColumn": 123,
+                    "endOffset": 5553
+                },
+                "from": {
+                    "file": "/Users/manish/workspace/viro/android/app/build/intermediates/exploded-aar/ViroSample/gvr_common/unspecified/res/values-pl/values.xml",
+                    "position": {
+                        "startLine": 19,
+                        "startColumn": 0,
+                        "startOffset": 2003,
+                        "endColumn": 119,
+                        "endOffset": 2122
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 53,
+                    "startColumn": 4,
+                    "startOffset": 5558,
+                    "endColumn": 131,
+                    "endOffset": 5685
+                },
+                "from": {
+                    "file": "/Users/manish/workspace/viro/android/app/build/intermediates/exploded-aar/ViroSample/gvr_common/unspecified/res/values-pl/values.xml",
+                    "position": {
+                        "startLine": 20,
+                        "startColumn": 0,
+                        "startOffset": 2123,
+                        "endColumn": 127,
+                        "endOffset": 2250
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 54,
+                    "startColumn": 4,
+                    "startOffset": 5690,
+                    "endColumn": 154,
+                    "endOffset": 5840
+                },
+                "from": {
+                    "file": "/Users/manish/workspace/viro/android/app/build/intermediates/exploded-aar/ViroSample/gvr_common/unspecified/res/values-pl/values.xml",
+                    "position": {
+                        "startLine": 21,
+                        "startColumn": 0,
+                        "startOffset": 2251,
+                        "endColumn": 154,
+                        "endOffset": 2405
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 55,
+                    "startColumn": 4,
+                    "startOffset": 5845,
+                    "endColumn": 81,
+                    "endOffset": 5922
+                },
+                "from": {
+                    "file": "/Users/manish/workspace/viro/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/values-pl/values-pl.xml",
+                    "position": {
+                        "startLine": 21,
+                        "startColumn": 4,
+                        "startOffset": 2027,
+                        "endColumn": 81,
+                        "endOffset": 2104
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 56,
+                    "startColumn": 4,
+                    "startOffset": 5927,
+                    "endColumn": 104,
+                    "endOffset": 6027
+                },
+                "from": {
+                    "file": "/Users/manish/workspace/viro/android/app/build/intermediates/exploded-aar/ViroSample/gvr_common/unspecified/res/values-pl/values.xml",
+                    "position": {
+                        "startLine": 22,
+                        "startColumn": 0,
+                        "startOffset": 2406,
+                        "endColumn": 100,
+                        "endOffset": 2506
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 57,
+                    "startColumn": 4,
+                    "startOffset": 6032,
+                    "endColumn": 80,
+                    "endOffset": 6108
+                },
+                "from": {
+                    "file": "/Users/manish/workspace/viro/android/app/build/intermediates/exploded-aar/ViroSample/gvr_common/unspecified/res/values-pl/values.xml",
+                    "position": {
+                        "startLine": 23,
+                        "startColumn": 0,
+                        "startOffset": 2507,
+                        "endColumn": 76,
+                        "endOffset": 2583
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 58,
+                    "startColumn": 4,
+                    "startOffset": 6113,
+                    "endColumn": 100,
+                    "endOffset": 6209
+                },
+                "from": {
+                    "file": "/Users/manish/workspace/viro/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/values-pl/values-pl.xml",
+                    "position": {
+                        "startLine": 22,
+                        "startColumn": 4,
+                        "startOffset": 2109,
+                        "endColumn": 100,
+                        "endOffset": 2205
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 59,
+                    "startColumn": 4,
+                    "startOffset": 6214,
+                    "endColumn": 87,
+                    "endOffset": 6297
+                },
+                "from": {
+                    "file": "/Users/manish/workspace/viro/android/app/build/intermediates/exploded-aar/ViroSample/gvr_common/unspecified/res/values-pl/values.xml",
+                    "position": {
+                        "startLine": 24,
+                        "startColumn": 0,
+                        "startOffset": 2584,
+                        "endColumn": 83,
+                        "endOffset": 2667
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 60,
+                    "startColumn": 4,
+                    "startOffset": 6302,
+                    "endColumn": 94,
+                    "endOffset": 6392
+                },
+                "from": {
+                    "file": "/Users/manish/workspace/viro/android/app/build/intermediates/exploded-aar/ViroSample/gvr_common/unspecified/res/values-pl/values.xml",
+                    "position": {
+                        "startLine": 25,
+                        "startColumn": 0,
+                        "startOffset": 2668,
+                        "endColumn": 90,
+                        "endOffset": 2758
+                    }
+                }
+            }
+        ]
+    }
+]

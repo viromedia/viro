@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent">
+
+    <!-- UiLayer layout when portrait support is enabled.
+         See corresponding file in layout/ui_layer_with_portrait_support.xml
+
+         Since this is the layout for landscape mode, this should correspond to the default layout
+         at layout/ui_layout.xml used when portrait support is disabled.
+    -->
+    <include layout="@layout/back_button" android:id="@+id/ui_back_button"/>
+
+    <RelativeLayout
+      android:id="@+id/ui_alignment_marker"
+      android:layout_width="@dimen/alignment_marker_thickness"
+      android:layout_height="@dimen/alignment_marker_height"
+      android:layout_centerHorizontal="true"
+      android:layout_alignParentBottom="true"
+      android:background="@color/alignment_marker_color">
+    </RelativeLayout>
+
+    <include layout="@layout/settings_button" android:id="@+id/ui_settings_button"/>
+
+</RelativeLayout>

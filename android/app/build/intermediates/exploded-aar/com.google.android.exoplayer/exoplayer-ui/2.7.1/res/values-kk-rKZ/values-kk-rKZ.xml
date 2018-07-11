@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="exo_controls_fastforward_description">"Жылдам алға айналдыру"</string>
+    <string name="exo_controls_next_description">"Келесі трек"</string>
+    <string name="exo_controls_pause_description">"Кідірту"</string>
+    <string name="exo_controls_play_description">"Ойнату"</string>
+    <string name="exo_controls_previous_description">"Алдыңғы трек"</string>
+    <string name="exo_controls_repeat_all_description">"Барлығын қайталау"</string>
+    <string name="exo_controls_repeat_off_description">"Ешқайсысын қайталамау"</string>
+    <string name="exo_controls_repeat_one_description">"Біреуін қайталау"</string>
+    <string name="exo_controls_rewind_description">"Кері айналдыру"</string>
+    <string name="exo_controls_shuffle_description">"Кездейсоқ ретпен ойнату"</string>
+    <string name="exo_controls_stop_description">"Тоқтату"</string>
+</resources>

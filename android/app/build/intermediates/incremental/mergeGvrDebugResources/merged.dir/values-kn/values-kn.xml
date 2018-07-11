@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="__arcore_cancel">ರದ್ದು</string>
+    <string name="__arcore_continue">ಮುಂದುವರಿಸಿ</string>
+    <string name="__arcore_install_app">ಈ ಅಪ್ಲಿಕೇಶನ್‌ಗೆ ARCore ನ ಇತ್ತೀಚಿನ ಆವೃತ್ತಿಯ ಅಗತ್ಯವಿದೆ.</string>
+    <string name="__arcore_install_feature">ಈ ಅಪ್ಲಿಕೇಶನ್‌ಗೆ ARCore ನ ಇತ್ತೀಚಿನ ಆವೃತ್ತಿಯ ಅಗತ್ಯವಿದೆ.</string>
+    <string name="__arcore_installing">ARCore ಇನ್‌ಸ್ಟಾಲ್ ಮಾಡಲಾಗುತ್ತಿದೆ…</string>
+</resources>

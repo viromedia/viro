@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:ns1="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="__arcore_cancel">Peruuta</string>
+    <string name="__arcore_continue">Jatka</string>
+    <string name="__arcore_install_app">Tämän sovelluksen käyttöön vaaditaan ARCoren uusin versio.</string>
+    <string name="__arcore_install_feature">Tämän ominaisuuden käyttöön vaaditaan ARCoren uusin versio.</string>
+    <string name="__arcore_installing">Asennetaan ARCorea…</string>
+    <string msgid="4600421777120114993" name="abc_action_bar_home_description">"Siirry etusivulle"</string>
+    <string msgid="1397052879051804371" name="abc_action_bar_home_description_format">"%1$s, %2$s"</string>
+    <string msgid="6623331958280229229" name="abc_action_bar_home_subtitle_description_format">"%1$s, %2$s, %3$s"</string>
+    <string msgid="1594238315039666878" name="abc_action_bar_up_description">"Siirry ylös"</string>
+    <string msgid="3588849162933574182" name="abc_action_menu_overflow_description">"Lisää"</string>
+    <string msgid="4076576682505996667" name="abc_action_mode_done">"Valmis"</string>
+    <string msgid="7468859129482906941" name="abc_activity_chooser_view_see_all">"Näytä kaikki"</string>
+    <string msgid="2031811694353399454" name="abc_activitychooserview_choose_application">"Valitse sovellus"</string>
+    <string msgid="121134116657445385" name="abc_capital_off">"POIS KÄYTÖSTÄ"</string>
+    <string msgid="3405795526292276155" name="abc_capital_on">"KÄYTÖSSÄ"</string>
+    <string msgid="7723749260725869598" name="abc_search_hint">"Haku…"</string>
+    <string msgid="3691816814315814921" name="abc_searchview_description_clear">"Tyhjennä kysely"</string>
+    <string msgid="2550479030709304392" name="abc_searchview_description_query">"Hakulauseke"</string>
+    <string msgid="8264924765203268293" name="abc_searchview_description_search">"Haku"</string>
+    <string msgid="8928215447528550784" name="abc_searchview_description_submit">"Lähetä kysely"</string>
+    <string msgid="893419373245838918" name="abc_searchview_description_voice">"Puhehaku"</string>
+    <string msgid="3421042268587513524" name="abc_shareactionprovider_share_with">"Jakaminen:"</string>
+    <string msgid="7165123711973476752" name="abc_shareactionprovider_share_with_application">"Jakaminen: %s"</string>
+    <string msgid="1603543279005712093" name="abc_toolbar_collapse_description">"Kutista"</string>
+    <string msgid="233061162317617848" name="back_button_content_description">"takaisin"</string>
+    <string msgid="2401572676578172896" name="cancel_button">"Peruuta"</string>
+    <string msgid="2482357845034618478" name="dialog_button_got_it">"SELVÄ"</string>
+    <string msgid="4505853433204459373" name="dialog_button_open_help_center">"AVAA OHJEKESKUS"</string>
+    <string msgid="4028688231551615655" name="dialog_message_incompatible_phone">"Puhelimen on oltava yhteensopiva Daydreamin kanssa. Lisätietoja on Daydreamin ohjekeskuksessa."</string>
+    <string msgid="3560856374975640601" name="dialog_message_no_cardboard">"Lataa Cardboard-sovellus lasien asetusten määrittämistä varten."</string>
+    <string msgid="7887077605817014784" name="dialog_title">"Määritä"</string>
+    <string msgid="4515090705573059650" name="dialog_title_incompatible_phone">"Puhelin ei ole yhteensopiva"</string>
+    <string msgid="2594928940370730859" name="dialog_title_vr_core_not_enabled">"Asetukset vaaditaan"</string>
+    <string msgid="6322165810291059770" name="dialog_title_vr_core_not_installed">"Sovellus on asennettava"</string>
+    <string msgid="455961049302726493" name="dialog_title_warning">"Varoitus"</string>
+    <string msgid="1966424794507569244" name="dialog_vr_core_not_enabled">"Tämä sovellus ei ehkä toimi oikein, jos Googlen VR-palvelut eivät ole käytössä. Ota ne käyttöön puhelimen Asetukset-osiossa ennen jatkamista."</string>
+    <string msgid="7122144659930752678" name="dialog_vr_core_not_installed">"Tämä sovellus ei ehkä toimi oikein ilman Googlen VR-palveluita. Asenna Googlen VR-palvelut Play Kaupasta ennen jatkamista."</string>
+    <string msgid="2382411136909255532" name="exo_controls_fastforward_description">"Kelaa eteenpäin"</string>
+    <string msgid="7044845014191647105" name="exo_controls_next_description">"Seuraava kappale"</string>
+    <string msgid="7924816224515798262" name="exo_controls_pause_description">"Keskeytä"</string>
+    <string msgid="2326300949114396072" name="exo_controls_play_description">"Toista"</string>
+    <string msgid="4729846277375475426" name="exo_controls_previous_description">"Edellinen kappale"</string>
+    <string msgid="8909385102773547833" name="exo_controls_repeat_all_description">"Toista kaikki uudelleen"</string>
+    <string msgid="2273550552389469729" name="exo_controls_repeat_off_description">"Ei uudelleentoistoa"</string>
+    <string msgid="475266640141093764" name="exo_controls_repeat_one_description">"Toista yksi uudelleen"</string>
+    <string msgid="5799450167394904608" name="exo_controls_rewind_description">"Kelaa taaksepäin"</string>
+    <string msgid="1374364424026734323" name="exo_controls_shuffle_description">"Satunnaistoisto"</string>
+    <string msgid="121453720915069922" name="exo_controls_stop_description">"Lopeta"</string>
+    <string msgid="6145412853379876634" name="go_to_playstore_button">"Siirry Play Kauppaan"</string>
+    <string msgid="6878752668266068283" name="go_to_vr_listeners_settings_button">"Siirry asetuksiin"</string>
+    <string msgid="5324772199357788720" name="no_browser_text">"Ei verkkosivuston avaamiseen sopivaa selainta"</string>
+    <string msgid="2306297166333705530" name="place_your_phone_into_cardboard">"Aseta puhelin Cardboard-laseihin."</string>
+    <string msgid="5433369525545709510" name="place_your_viewer_into_viewer_format">"Aseta puhelin laseihin (<ns1:g id="VIEWER_NAME">%s</ns1:g>)."</string>
+    <string msgid="146198913615257606" name="search_menu_title">"Haku"</string>
+    <string msgid="3719682527828378500" name="settings_button_content_description">"asetukset"</string>
+    <string msgid="20964482303479393" name="setup_button">"Aloita määritys"</string>
+    <string msgid="2869576371154716097" name="status_bar_notification_info_overflow">"999+"</string>
+    <string msgid="7856245902137004584" name="switch_viewer_action">"Vaihda"</string>
+    <string msgid="816514297101696447" name="switch_viewer_prompt">"Vaihdetaanko lasit?"</string>
+</resources>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:ns1="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="__arcore_cancel">अभी नहीं</string>
+    <string name="__arcore_continue">जारी रखें</string>
+    <string name="__arcore_install_app">इस ऐप्लिकेशन के लिए ARCore का नवीनतम वर्शन चाहिए.</string>
+    <string name="__arcore_install_feature">इस सुविधा के लिए ARCore का नवीनतम वर्शन चाहिए.</string>
+    <string name="__arcore_installing">ARCore इंस्टॉल किया जा रहा है…</string>
+    <string msgid="4600421777120114993" name="abc_action_bar_home_description">"मुख्यपृष्ठ पर नेविगेट करें"</string>
+    <string msgid="1397052879051804371" name="abc_action_bar_home_description_format">"%1$s, %2$s"</string>
+    <string msgid="6623331958280229229" name="abc_action_bar_home_subtitle_description_format">"%1$s, %2$s, %3$s"</string>
+    <string msgid="1594238315039666878" name="abc_action_bar_up_description">"ऊपर नेविगेट करें"</string>
+    <string msgid="3588849162933574182" name="abc_action_menu_overflow_description">"अधिक विकल्प"</string>
+    <string msgid="4076576682505996667" name="abc_action_mode_done">"पूर्ण"</string>
+    <string msgid="7468859129482906941" name="abc_activity_chooser_view_see_all">"सभी देखें"</string>
+    <string msgid="2031811694353399454" name="abc_activitychooserview_choose_application">"कोई एप्‍लिकेशन चुनें"</string>
+    <string msgid="121134116657445385" name="abc_capital_off">"बंद"</string>
+    <string msgid="3405795526292276155" name="abc_capital_on">"चालू"</string>
+    <string msgid="7723749260725869598" name="abc_search_hint">"खोजा जा रहा है…"</string>
+    <string msgid="3691816814315814921" name="abc_searchview_description_clear">"क्‍वेरी साफ़ करें"</string>
+    <string msgid="2550479030709304392" name="abc_searchview_description_query">"खोज क्वेरी"</string>
+    <string msgid="8264924765203268293" name="abc_searchview_description_search">"खोजें"</string>
+    <string msgid="8928215447528550784" name="abc_searchview_description_submit">"क्वेरी सबमिट करें"</string>
+    <string msgid="893419373245838918" name="abc_searchview_description_voice">"ध्वनि खोज"</string>
+    <string msgid="3421042268587513524" name="abc_shareactionprovider_share_with">"इसके द्वारा साझा करें"</string>
+    <string msgid="7165123711973476752" name="abc_shareactionprovider_share_with_application">"%s के साथ साझा करें"</string>
+    <string msgid="1603543279005712093" name="abc_toolbar_collapse_description">"संक्षिप्त करें"</string>
+    <string msgid="233061162317617848" name="back_button_content_description">"वापस जाएं"</string>
+    <string msgid="2401572676578172896" name="cancel_button">"रहने दें"</string>
+    <string msgid="2482357845034618478" name="dialog_button_got_it">"समझ लिया"</string>
+    <string msgid="4505853433204459373" name="dialog_button_open_help_center">"सहायता केंद्र खोलें"</string>
+    <string msgid="4028688231551615655" name="dialog_message_incompatible_phone">"तिलिस्म के लिए तैयार फ़ोन चाहिए. अधिक जानकारी के लिए तिलिस्म सहायता केंद्र पर जाएं."</string>
+    <string msgid="3560856374975640601" name="dialog_message_no_cardboard">"अपना व्यूअर कॉन्फ़िगर करने के लिए कार्डबोर्ड ऐप्लिकेशन पाएं."</string>
+    <string msgid="7887077605817014784" name="dialog_title">"कॉन्फ़िगर करें"</string>
+    <string msgid="4515090705573059650" name="dialog_title_incompatible_phone">"असंगत फ़ोन"</string>
+    <string msgid="2594928940370730859" name="dialog_title_vr_core_not_enabled">"सेटअप आवश्यक है"</string>
+    <string msgid="6322165810291059770" name="dialog_title_vr_core_not_installed">"इंस्टॉल करना होगा"</string>
+    <string msgid="455961049302726493" name="dialog_title_warning">"चेतावनी"</string>
+    <string msgid="1966424794507569244" name="dialog_vr_core_not_enabled">"Google VR सेवाएं सक्षम किए बिना यह ऐप्लिकेशन संभवतः ठीक से काम न करे. जारी रखने से पहले कृपया इसे फ़ोन सेटिंग में सक्षम करें."</string>
+    <string msgid="7122144659930752678" name="dialog_vr_core_not_installed">"Google VR सेवाओं के बिना यह ऐप्लिकेशन संभवतः ठीक से काम न करे. जारी रखने से पहले कृपया Play स्टोर से Google VR सेवाएं इंस्टॉल करें."</string>
+    <string msgid="2382411136909255532" name="exo_controls_fastforward_description">"तेज़ी से आगे बढ़ाएं"</string>
+    <string msgid="7044845014191647105" name="exo_controls_next_description">"अगला ट्रैक"</string>
+    <string msgid="7924816224515798262" name="exo_controls_pause_description">"रोकें"</string>
+    <string msgid="2326300949114396072" name="exo_controls_play_description">"चलाएं"</string>
+    <string msgid="4729846277375475426" name="exo_controls_previous_description">"पिछला ट्रैक"</string>
+    <string msgid="8909385102773547833" name="exo_controls_repeat_all_description">"सभी को दोहराएं"</string>
+    <string msgid="2273550552389469729" name="exo_controls_repeat_off_description">"किसी को न दोहराएं"</string>
+    <string msgid="475266640141093764" name="exo_controls_repeat_one_description">"एक को दोहराएं"</string>
+    <string msgid="5799450167394904608" name="exo_controls_rewind_description">"पीछे ले जाएं"</string>
+    <string msgid="1374364424026734323" name="exo_controls_shuffle_description">"शफ़ल करें"</string>
+    <string msgid="121453720915069922" name="exo_controls_stop_description">"बंद करें"</string>
+    <string msgid="6145412853379876634" name="go_to_playstore_button">"Play स्टोर पर जाएं"</string>
+    <string msgid="6878752668266068283" name="go_to_vr_listeners_settings_button">"सेटिंग पर जाएं"</string>
+    <string msgid="5324772199357788720" name="no_browser_text">"वेबसाइट खोलने के लिए कोई ब्राउज़र नहीं"</string>
+    <string msgid="2306297166333705530" name="place_your_phone_into_cardboard">"अपने फ़ोन को अपने कार्डबोर्ड व्यूअर में रखें"</string>
+    <string msgid="5433369525545709510" name="place_your_viewer_into_viewer_format">"अपने फ़ोन को अपने <ns1:g id="VIEWER_NAME">%s</ns1:g> व्यूअर में रखें"</string>
+    <string msgid="146198913615257606" name="search_menu_title">"खोज"</string>
+    <string msgid="3719682527828378500" name="settings_button_content_description">"सेटिंग"</string>
+    <string msgid="20964482303479393" name="setup_button">"सेट करें"</string>
+    <string msgid="2869576371154716097" name="status_bar_notification_info_overflow">"999+"</string>
+    <string msgid="7856245902137004584" name="switch_viewer_action">"बदलें"</string>
+    <string msgid="816514297101696447" name="switch_viewer_prompt">"दूसरा व्यूअर उपयोग कर रहे हैं?"</string>
+</resources>

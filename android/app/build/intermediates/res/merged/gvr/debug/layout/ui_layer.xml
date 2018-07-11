@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent">
+
+    <!-- Default UiLayer layout that assumes landscape orientation !-->
+    <!-- LINT.IfChange -->
+    <!-- The ui and settings button holders are 84dp. This is twice the size -->
+    <!-- of the button itself after padding (24dp image, 9dp padding twice). -->
+    <FrameLayout
+      android:id="@+id/ui_back_button_holder"
+      android:layout_alignParentStart="true"
+      android:layout_alignParentTop="true"
+      android:layout_width="84dp"
+      android:layout_height="84dp">
+      <ImageButton
+        style="@style/UiButton"
+        android:id="@+id/ui_back_button"
+        android:contentDescription="@string/back_button_content_description"
+        android:src="@drawable/quantum_ic_close_white_24"
+        android:layout_gravity="start|top"/>
+    </FrameLayout>
+
+    <RelativeLayout
+      android:id="@+id/ui_alignment_marker"
+      android:layout_width="@dimen/alignment_marker_thickness"
+      android:layout_height="@dimen/alignment_marker_height"
+      android:layout_centerHorizontal="true"
+      android:layout_alignParentBottom="true"
+      android:background="@color/alignment_marker_color">
+    </RelativeLayout>
+
+    <FrameLayout
+      android:id="@+id/ui_settings_button_holder"
+      android:layout_alignParentEnd="true"
+      android:layout_alignParentTop="true"
+      android:layout_width="84dp"
+      android:layout_height="84dp">
+      <ImageButton
+        style="@style/UiButton"
+        android:id="@+id/ui_settings_button"
+        android:contentDescription="@string/settings_button_content_description"
+        android:src="@drawable/quantum_ic_settings_white_24"
+        android:layout_gravity="end|top"/>
+    </FrameLayout>
+
+    <!-- LINT.ThenChange(//depot/google3/java/com/google/vr/vrcore/compositor/res/layout/ui_layer_compositor.xml) -->
+
+</RelativeLayout>

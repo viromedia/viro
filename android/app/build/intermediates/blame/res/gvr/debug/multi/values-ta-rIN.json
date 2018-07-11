@@ -1,0 +1,615 @@
+[
+    {
+        "outputFile": "/Users/manish/workspace/viro/android/app/build/intermediates/incremental/mergeGvrDebugResources/merged.dir/values-ta-rIN/values-ta-rIN.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 2,
+                    "startColumn": 4,
+                    "startOffset": 55,
+                    "endColumn": 113,
+                    "endOffset": 164
+                },
+                "from": {
+                    "file": "/Users/manish/workspace/viro/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/values-ta-rIN/values-ta-rIN.xml",
+                    "position": {
+                        "startLine": 2,
+                        "startColumn": 4,
+                        "startOffset": 55,
+                        "endColumn": 113,
+                        "endOffset": 164
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 3,
+                    "startColumn": 4,
+                    "startOffset": 169,
+                    "endColumn": 107,
+                    "endOffset": 272
+                },
+                "from": {
+                    "file": "/Users/manish/workspace/viro/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/values-ta-rIN/values-ta-rIN.xml",
+                    "position": {
+                        "startLine": 3,
+                        "startColumn": 4,
+                        "startOffset": 169,
+                        "endColumn": 107,
+                        "endOffset": 272
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 4,
+                    "startColumn": 4,
+                    "startOffset": 277,
+                    "endColumn": 122,
+                    "endOffset": 395
+                },
+                "from": {
+                    "file": "/Users/manish/workspace/viro/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/values-ta-rIN/values-ta-rIN.xml",
+                    "position": {
+                        "startLine": 4,
+                        "startColumn": 4,
+                        "startOffset": 277,
+                        "endColumn": 122,
+                        "endOffset": 395
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 5,
+                    "startColumn": 4,
+                    "startOffset": 400,
+                    "endColumn": 104,
+                    "endOffset": 500
+                },
+                "from": {
+                    "file": "/Users/manish/workspace/viro/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/values-ta-rIN/values-ta-rIN.xml",
+                    "position": {
+                        "startLine": 5,
+                        "startColumn": 4,
+                        "startOffset": 400,
+                        "endColumn": 104,
+                        "endOffset": 500
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 6,
+                    "startColumn": 4,
+                    "startOffset": 505,
+                    "endColumn": 114,
+                    "endOffset": 615
+                },
+                "from": {
+                    "file": "/Users/manish/workspace/viro/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/values-ta-rIN/values-ta-rIN.xml",
+                    "position": {
+                        "startLine": 6,
+                        "startColumn": 4,
+                        "startOffset": 505,
+                        "endColumn": 114,
+                        "endOffset": 615
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 7,
+                    "startColumn": 4,
+                    "startOffset": 620,
+                    "endColumn": 88,
+                    "endOffset": 704
+                },
+                "from": {
+                    "file": "/Users/manish/workspace/viro/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/values-ta-rIN/values-ta-rIN.xml",
+                    "position": {
+                        "startLine": 7,
+                        "startColumn": 4,
+                        "startOffset": 620,
+                        "endColumn": 88,
+                        "endOffset": 704
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 8,
+                    "startColumn": 4,
+                    "startOffset": 709,
+                    "endColumn": 106,
+                    "endOffset": 811
+                },
+                "from": {
+                    "file": "/Users/manish/workspace/viro/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/values-ta-rIN/values-ta-rIN.xml",
+                    "position": {
+                        "startLine": 8,
+                        "startColumn": 4,
+                        "startOffset": 709,
+                        "endColumn": 106,
+                        "endOffset": 811
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 9,
+                    "startColumn": 4,
+                    "startOffset": 816,
+                    "endColumn": 125,
+                    "endOffset": 937
+                },
+                "from": {
+                    "file": "/Users/manish/workspace/viro/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/values-ta-rIN/values-ta-rIN.xml",
+                    "position": {
+                        "startLine": 9,
+                        "startColumn": 4,
+                        "startOffset": 816,
+                        "endColumn": 125,
+                        "endOffset": 937
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 10,
+                    "startColumn": 4,
+                    "startOffset": 942,
+                    "endColumn": 80,
+                    "endOffset": 1018
+                },
+                "from": {
+                    "file": "/Users/manish/workspace/viro/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/values-ta-rIN/values-ta-rIN.xml",
+                    "position": {
+                        "startLine": 10,
+                        "startColumn": 4,
+                        "startOffset": 942,
+                        "endColumn": 80,
+                        "endOffset": 1018
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 11,
+                    "startColumn": 4,
+                    "startOffset": 1023,
+                    "endColumn": 79,
+                    "endOffset": 1098
+                },
+                "from": {
+                    "file": "/Users/manish/workspace/viro/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/values-ta-rIN/values-ta-rIN.xml",
+                    "position": {
+                        "startLine": 11,
+                        "startColumn": 4,
+                        "startOffset": 1023,
+                        "endColumn": 79,
+                        "endOffset": 1098
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 12,
+                    "startColumn": 4,
+                    "startOffset": 1103,
+                    "endColumn": 81,
+                    "endOffset": 1180
+                },
+                "from": {
+                    "file": "/Users/manish/workspace/viro/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/values-ta-rIN/values-ta-rIN.xml",
+                    "position": {
+                        "startLine": 12,
+                        "startColumn": 4,
+                        "startOffset": 1103,
+                        "endColumn": 81,
+                        "endOffset": 1180
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 13,
+                    "startColumn": 4,
+                    "startOffset": 1185,
+                    "endColumn": 101,
+                    "endOffset": 1282
+                },
+                "from": {
+                    "file": "/Users/manish/workspace/viro/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/values-ta-rIN/values-ta-rIN.xml",
+                    "position": {
+                        "startLine": 13,
+                        "startColumn": 4,
+                        "startOffset": 1185,
+                        "endColumn": 101,
+                        "endOffset": 1282
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 14,
+                    "startColumn": 4,
+                    "startOffset": 1287,
+                    "endColumn": 103,
+                    "endOffset": 1386
+                },
+                "from": {
+                    "file": "/Users/manish/workspace/viro/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/values-ta-rIN/values-ta-rIN.xml",
+                    "position": {
+                        "startLine": 14,
+                        "startColumn": 4,
+                        "startOffset": 1287,
+                        "endColumn": 103,
+                        "endOffset": 1386
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 15,
+                    "startColumn": 4,
+                    "startOffset": 1391,
+                    "endColumn": 96,
+                    "endOffset": 1483
+                },
+                "from": {
+                    "file": "/Users/manish/workspace/viro/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/values-ta-rIN/values-ta-rIN.xml",
+                    "position": {
+                        "startLine": 15,
+                        "startColumn": 4,
+                        "startOffset": 1391,
+                        "endColumn": 96,
+                        "endOffset": 1483
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 16,
+                    "startColumn": 4,
+                    "startOffset": 1488,
+                    "endColumn": 109,
+                    "endOffset": 1593
+                },
+                "from": {
+                    "file": "/Users/manish/workspace/viro/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/values-ta-rIN/values-ta-rIN.xml",
+                    "position": {
+                        "startLine": 16,
+                        "startColumn": 4,
+                        "startOffset": 1488,
+                        "endColumn": 109,
+                        "endOffset": 1593
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 17,
+                    "startColumn": 4,
+                    "startOffset": 1598,
+                    "endColumn": 101,
+                    "endOffset": 1695
+                },
+                "from": {
+                    "file": "/Users/manish/workspace/viro/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/values-ta-rIN/values-ta-rIN.xml",
+                    "position": {
+                        "startLine": 17,
+                        "startColumn": 4,
+                        "startOffset": 1598,
+                        "endColumn": 101,
+                        "endOffset": 1695
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 18,
+                    "startColumn": 4,
+                    "startOffset": 1700,
+                    "endColumn": 106,
+                    "endOffset": 1802
+                },
+                "from": {
+                    "file": "/Users/manish/workspace/viro/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/values-ta-rIN/values-ta-rIN.xml",
+                    "position": {
+                        "startLine": 18,
+                        "startColumn": 4,
+                        "startOffset": 1700,
+                        "endColumn": 106,
+                        "endOffset": 1802
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 19,
+                    "startColumn": 4,
+                    "startOffset": 1807,
+                    "endColumn": 118,
+                    "endOffset": 1921
+                },
+                "from": {
+                    "file": "/Users/manish/workspace/viro/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/values-ta-rIN/values-ta-rIN.xml",
+                    "position": {
+                        "startLine": 19,
+                        "startColumn": 4,
+                        "startOffset": 1807,
+                        "endColumn": 118,
+                        "endOffset": 1921
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 20,
+                    "startColumn": 4,
+                    "startOffset": 1926,
+                    "endColumn": 99,
+                    "endOffset": 2021
+                },
+                "from": {
+                    "file": "/Users/manish/workspace/viro/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/values-ta-rIN/values-ta-rIN.xml",
+                    "position": {
+                        "startLine": 20,
+                        "startColumn": 4,
+                        "startOffset": 1926,
+                        "endColumn": 99,
+                        "endOffset": 2021
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 21,
+                    "startColumn": 4,
+                    "startOffset": 2026,
+                    "endColumn": 82,
+                    "endOffset": 2104
+                },
+                "from": {
+                    "file": "/Users/manish/workspace/viro/android/app/build/intermediates/exploded-aar/com.google.android.exoplayer/exoplayer-ui/2.7.1/res/values-ta-rIN/values-ta-rIN.xml",
+                    "position": {
+                        "startLine": 2,
+                        "startColumn": 4,
+                        "startOffset": 55,
+                        "endColumn": 82,
+                        "endOffset": 133
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 22,
+                    "startColumn": 4,
+                    "startOffset": 2109,
+                    "endColumn": 73,
+                    "endOffset": 2178
+                },
+                "from": {
+                    "file": "/Users/manish/workspace/viro/android/app/build/intermediates/exploded-aar/com.google.android.exoplayer/exoplayer-ui/2.7.1/res/values-ta-rIN/values-ta-rIN.xml",
+                    "position": {
+                        "startLine": 3,
+                        "startColumn": 4,
+                        "startOffset": 138,
+                        "endColumn": 73,
+                        "endOffset": 207
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 23,
+                    "startColumn": 4,
+                    "startOffset": 2183,
+                    "endColumn": 72,
+                    "endOffset": 2251
+                },
+                "from": {
+                    "file": "/Users/manish/workspace/viro/android/app/build/intermediates/exploded-aar/com.google.android.exoplayer/exoplayer-ui/2.7.1/res/values-ta-rIN/values-ta-rIN.xml",
+                    "position": {
+                        "startLine": 4,
+                        "startColumn": 4,
+                        "startOffset": 212,
+                        "endColumn": 72,
+                        "endOffset": 280
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 24,
+                    "startColumn": 4,
+                    "startOffset": 2256,
+                    "endColumn": 66,
+                    "endOffset": 2318
+                },
+                "from": {
+                    "file": "/Users/manish/workspace/viro/android/app/build/intermediates/exploded-aar/com.google.android.exoplayer/exoplayer-ui/2.7.1/res/values-ta-rIN/values-ta-rIN.xml",
+                    "position": {
+                        "startLine": 5,
+                        "startColumn": 4,
+                        "startOffset": 285,
+                        "endColumn": 66,
+                        "endOffset": 347
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 25,
+                    "startColumn": 4,
+                    "startOffset": 2323,
+                    "endColumn": 78,
+                    "endOffset": 2397
+                },
+                "from": {
+                    "file": "/Users/manish/workspace/viro/android/app/build/intermediates/exploded-aar/com.google.android.exoplayer/exoplayer-ui/2.7.1/res/values-ta-rIN/values-ta-rIN.xml",
+                    "position": {
+                        "startLine": 6,
+                        "startColumn": 4,
+                        "startOffset": 352,
+                        "endColumn": 78,
+                        "endOffset": 426
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 26,
+                    "startColumn": 4,
+                    "startOffset": 2402,
+                    "endColumn": 93,
+                    "endOffset": 2491
+                },
+                "from": {
+                    "file": "/Users/manish/workspace/viro/android/app/build/intermediates/exploded-aar/com.google.android.exoplayer/exoplayer-ui/2.7.1/res/values-ta-rIN/values-ta-rIN.xml",
+                    "position": {
+                        "startLine": 7,
+                        "startColumn": 4,
+                        "startOffset": 431,
+                        "endColumn": 93,
+                        "endOffset": 520
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 27,
+                    "startColumn": 4,
+                    "startOffset": 2496,
+                    "endColumn": 91,
+                    "endOffset": 2583
+                },
+                "from": {
+                    "file": "/Users/manish/workspace/viro/android/app/build/intermediates/exploded-aar/com.google.android.exoplayer/exoplayer-ui/2.7.1/res/values-ta-rIN/values-ta-rIN.xml",
+                    "position": {
+                        "startLine": 8,
+                        "startColumn": 4,
+                        "startOffset": 525,
+                        "endColumn": 91,
+                        "endOffset": 612
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 28,
+                    "startColumn": 4,
+                    "startOffset": 2588,
+                    "endColumn": 95,
+                    "endOffset": 2679
+                },
+                "from": {
+                    "file": "/Users/manish/workspace/viro/android/app/build/intermediates/exploded-aar/com.google.android.exoplayer/exoplayer-ui/2.7.1/res/values-ta-rIN/values-ta-rIN.xml",
+                    "position": {
+                        "startLine": 9,
+                        "startColumn": 4,
+                        "startOffset": 617,
+                        "endColumn": 95,
+                        "endOffset": 708
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 29,
+                    "startColumn": 4,
+                    "startOffset": 2684,
+                    "endColumn": 77,
+                    "endOffset": 2757
+                },
+                "from": {
+                    "file": "/Users/manish/workspace/viro/android/app/build/intermediates/exploded-aar/com.google.android.exoplayer/exoplayer-ui/2.7.1/res/values-ta-rIN/values-ta-rIN.xml",
+                    "position": {
+                        "startLine": 10,
+                        "startColumn": 4,
+                        "startOffset": 713,
+                        "endColumn": 77,
+                        "endOffset": 786
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 30,
+                    "startColumn": 4,
+                    "startOffset": 2762,
+                    "endColumn": 67,
+                    "endOffset": 2825
+                },
+                "from": {
+                    "file": "/Users/manish/workspace/viro/android/app/build/intermediates/exploded-aar/com.google.android.exoplayer/exoplayer-ui/2.7.1/res/values-ta-rIN/values-ta-rIN.xml",
+                    "position": {
+                        "startLine": 11,
+                        "startColumn": 4,
+                        "startOffset": 791,
+                        "endColumn": 67,
+                        "endOffset": 854
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 31,
+                    "startColumn": 4,
+                    "startOffset": 2830,
+                    "endColumn": 68,
+                    "endOffset": 2894
+                },
+                "from": {
+                    "file": "/Users/manish/workspace/viro/android/app/build/intermediates/exploded-aar/com.google.android.exoplayer/exoplayer-ui/2.7.1/res/values-ta-rIN/values-ta-rIN.xml",
+                    "position": {
+                        "startLine": 12,
+                        "startColumn": 4,
+                        "startOffset": 859,
+                        "endColumn": 68,
+                        "endOffset": 923
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 32,
+                    "startColumn": 4,
+                    "startOffset": 2899,
+                    "endColumn": 79,
+                    "endOffset": 2974
+                },
+                "from": {
+                    "file": "/Users/manish/workspace/viro/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/values-ta-rIN/values-ta-rIN.xml",
+                    "position": {
+                        "startLine": 21,
+                        "startColumn": 4,
+                        "startOffset": 2026,
+                        "endColumn": 79,
+                        "endOffset": 2101
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 33,
+                    "startColumn": 4,
+                    "startOffset": 2979,
+                    "endColumn": 100,
+                    "endOffset": 3075
+                },
+                "from": {
+                    "file": "/Users/manish/workspace/viro/android/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.0.0/res/values-ta-rIN/values-ta-rIN.xml",
+                    "position": {
+                        "startLine": 22,
+                        "startColumn": 4,
+                        "startOffset": 2106,
+                        "endColumn": 100,
+                        "endOffset": 2202
+                    }
+                }
+            }
+        ]
+    }
+]

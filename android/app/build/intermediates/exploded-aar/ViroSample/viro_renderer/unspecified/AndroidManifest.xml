@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.viro.renderer"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="21"
+        android:targetSdkVersion="25" />
+
+    <uses-feature
+        android:glEsVersion="0x00030000"
+        android:required="true" />
+
+    <!-- Required for vibration feedback when the trigger action is performed. -->
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <!-- Required to read the paired viewer's distortion parameters. -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <!-- Required for Recording -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+
+    <!-- Required to detect viewer insertion. -->
+    <uses-permission android:name="android.permission.NFC" />
+    <!-- Required to load remote content -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <!-- Make accelerometer and gyroscope hard requirements for good head tracking. -->
+    <uses-feature
+        android:name="android.hardware.sensor.accelerometer"
+        android:required="true" />
+    <uses-feature
+        android:name="android.hardware.sensor.gyroscope"
+        android:required="true" />
+
+    <!-- Indicates use of Android's VR-mode, available only on Android N+. -->
+    <uses-feature
+        android:name="android.software.vr.mode"
+        android:required="false" />
+    <!-- Indicates use of VR features that are available only on Daydream-ready devices. -->
+    <uses-feature
+        android:name="android.hardware.vr.high_performance"
+        android:required="false" />
+
+</manifest>

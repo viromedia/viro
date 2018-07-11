@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="__arcore_cancel">ຍົກເລີກ</string>
+    <string name="__arcore_continue">ສືບຕໍ່</string>
+    <string name="__arcore_install_app">ແອັບພລິເຄຊັນນີ້ຕ້ອງໃຊ້ ARCore ເວີຊັນຫຼ້າສຸດ.</string>
+    <string name="__arcore_install_feature">ຄຸນສົມບັດນີ້ຕ້ອງໃຊ້ ARCore ເວີຊັນຫຼ້າສຸດ.</string>
+    <string name="__arcore_installing">ກຳລັງຕິດຕັ້ງ ARCore…</string>
+</resources>

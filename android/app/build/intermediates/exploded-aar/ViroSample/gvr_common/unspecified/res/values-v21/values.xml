@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding='utf-8' standalone='no'?>
+<resources>
+<!-- vr/gvr/platform/common/android/res/values-v21/style.xml -->
+<eat-comment/>
+<style name="GvrDialogTheme" parent="@android:style/Theme.Material.Light.Dialog">
+</style>
+</resources>

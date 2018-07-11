@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding='utf-8' standalone='no'?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+<!-- vr/gvr/platform/common/android/res/values/colors.xml -->
+<eat-comment/>
+<color name="alignment_marker_color">#b4b4b4</color>
+<color name="white_transparent">#4cFFFFFF</color>
+<!-- vr/gvr/platform/common/android/res/values/dimens.xml -->
+<eat-comment/>
+<dimen name="alignment_marker_height">24mm</dimen>
+<dimen name="alignment_marker_thickness">2dip</dimen>
+<dimen name="transition_bottom_bar_height">112dip</dimen>
+<!-- vr/gvr/platform/common/android/res/values/strings.xml -->
+<eat-comment/>
+<string name="back_button_content_description" description=" Accessibility description for the back button displayed in the top corner of the VR application to go back to the previous screen. [CHAR LIMIT=50]">
+    back
+  </string>
+<string name="cancel_button" description=" Short text shown in a button in the dialog box that shows up to help users configure their Cardboard experience. By clicking on this button, the user will cancel the setup flow and return to their previous activity. [CHAR LIMIT=20]">
+      Cancel
+    </string>
+<string name="dialog_button_got_it" description=" Button text when the user is prompted with an action but can refuse that action. This communicates that the user has understood the dialog but wishes to take no further action, similar to CANCEL. [CHAR LIMIT=30]">
+    GOT IT
+  </string>
+<string name="dialog_button_open_help_center" description=" Button text when the user is prompted to open the Daydream Help Center. [CHAR LIMIT=40]">
+    OPEN HELP CENTER
+  </string>
+<string name="dialog_message_incompatible_phone" description=" Text shown in a dialog telling the user that their phone is not a Daydream-compatible phone, also directing them to the Daydream Help Center website. [CHAR LIMIT=200]">
+    A Daydream-ready phone is required. Visit the Daydream Help Center for more information.
+  </string>
+<string name="dialog_message_no_cardboard" description=" Text shown inside the dialog box that shows up to help users configure their Cardboard experience. This string is displayed when the user doesn't have the cardboard app installed. [CHAR LIMIT=200]">
+      Get the Cardboard app in order to configure your viewer.
+    </string>
+<string name="dialog_title" description=" Short text for the title of the dialog box that shows up to help users configure their Cardboard experience. [CHAR LIMIT=30]">
+      Configure
+    </string>
+<string name="dialog_title_incompatible_phone" description=" Short title text for the dialog telling the user that their phone is incompatible. [CHAR LIMIT=30]">
+    Incompatible phone
+  </string>
+<string name="dialog_title_vr_core_not_enabled" description=" Short title text for the dialog telling the user that additional setup is required (for VrCore). [CHAR LIMIT = 30]">
+    Setup required
+  </string>
+<string name="dialog_title_vr_core_not_installed" description=" Short title text for the dialog telling the user that installation is required (for VrCore). [CHAR LIMIT = 30]">
+    Install required
+  </string>
+<string name="dialog_title_warning" description="Title of warning dialogs shown to user. [CHAR LIMIT=25]">
+    Warning
+  </string>
+<string name="dialog_vr_core_not_enabled" description="Dialog to show before redirecting user to VrListenerService Settings. [CHAR LIMIT=250]">
+    This application may not work properly without enabling Google VR Services, please enable this
+    in phone Settings before continuing.
+  </string>
+<string name="dialog_vr_core_not_installed" description="Dialog to show before redirecting user to download VrCore. [CHAR LIMIT=250]">
+    This application may not work properly without Google VR Services.  Please install
+    Google VR Services from the Play Store before continuing.
+  </string>
+<string name="go_to_playstore_button" description=" Short text shown in a button in the dialog box that shows up to help users configure their Cardboard experience. By clicking on this button, the user goes to the Cardboard app page on Playstore. [CHAR LIMIT=30]">
+      Go to the Play Store
+    </string>
+<string name="go_to_vr_listeners_settings_button" description="Short text shown in a button in the dialog box that allows users to open Settings         for Google VR Services. [CHAR LIMIT=30]">
+    Go to Settings
+  </string>
+<string name="gvr_vr_mode_component" translatable="false" description="Google VR component name used for enabling VR mode">com.google.vr.vrcore/com.google.vr.vrcore.common.VrCoreListenerService</string>
+<string name="no_browser_text" description=" Error message displayed as a Toast when Android could not find a browser to open a website. [CHAR LIMIT=50]">
+      No browser to open website
+    </string>
+<string name="place_your_phone_into_cardboard" description=" Message asking the user to place their phone into Cardboard. This is a generic message used in the absence of knowing the current viewer. [CHAR LIMIT=50]">
+      Place your phone into your Cardboard viewer
+    </string>
+<string name="place_your_viewer_into_viewer_format" description=" Message format asking the user to place their phone into the Cardboard compatible viewer that is currently configured. [CHAR LIMIT=50]">
+      Place your phone into your <xliff:g id="viewer_name" example="Cardboard I/O 2015">%s</xliff:g> viewer
+    </string>
+<string name="settings_button_content_description" description=" Accessibility description for the settings button displayed at the bottom of a VR application. [CHAR LIMIT=50]">
+    settings
+  </string>
+<string name="setup_button" description=" Short text shown in a button in the dialog box that shows up to help users configure their Cardboard experience. By clicking on this button, the user is taken to the Cardboard app to setup their Cardboard viewer. [CHAR LIMIT=30]">
+      Setup
+    </string>
+<string name="switch_viewer_action" description=" Text which when pressed, takes the user to the view that allows them to switch their Cardboard compatible viewer. [CHAR LIMIT=10]">
+      Switch
+    </string>
+<string name="switch_viewer_prompt" description=" Prompt asking if the user wants to switch their Cardboard compatible viewer. [CHAR LIMIT=45]">
+      Using a different viewer?
+    </string>
+<!-- vr/gvr/platform/common/android/res/values/style.xml -->
+<eat-comment/>
+<style name="GvrDialogTheme" parent="@android:style/Theme.Holo.Light.Dialog">
+<item name="android:windowBackground">@android:color/transparent</item>
+</style>
+<!-- vr/gvr/platform/common/android/res/values/vr_activity_style.xml -->
+<eat-comment/>
+<style name="NoSystemUI" parent="VrActivityTheme">
+</style>
+<!-- vr/gvr/platform/common/android/res/values/style.xml -->
+<eat-comment/>
+<style name="UiButton">
+<item name="android:layout_width">wrap_content</item>
+<item name="android:background">@drawable/rippleable</item>
+<item name="android:layout_height">wrap_content</item>
+<item name="android:padding">9dip</item>
+</style>
+<!-- vr/gvr/platform/common/android/res/values/vr_activity_style.xml -->
+<eat-comment/>
+<style name="VrActivityTheme" parent="@android:style/Theme.Black.NoTitleBar">
+<item name="android:windowFullscreen">true</item>
+<item name="android:windowAnimationStyle">@null</item>
+<item name="android:windowActionBar">false</item>
+<item name="android:windowDisablePreview">true</item>
+<item name="android:windowContentOverlay">@null</item>
+</style>
+</resources>

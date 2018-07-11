@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding='utf-8' standalone='no'?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+<!-- blaze-out/k8-opt/genfiles/vr/gvr/platform/common/android/res/values-ro/strings.xml -->
+<eat-comment/>
+<string name="back_button_content_description" msgid="233061162317617848">"înapoi"</string>
+<string name="cancel_button" msgid="2401572676578172896">"Anulați"</string>
+<string name="dialog_button_got_it" msgid="2482357845034618478">"AM ÎNȚELES"</string>
+<string name="dialog_button_open_help_center" msgid="4505853433204459373">"DESCHIDEȚI CENTRUL DE AJUTOR"</string>
+<string name="dialog_message_incompatible_phone" msgid="4028688231551615655">"Este necesar un telefon compatibil cu Daydream. Accesați centrul de ajutor Daydream pentru a obține mai multe informații."</string>
+<string name="dialog_message_no_cardboard" msgid="3560856374975640601">"Descărcați aplicația Cardboard pentru a vă configura vizualizatorul."</string>
+<string name="dialog_title" msgid="7887077605817014784">"Configurați"</string>
+<string name="dialog_title_incompatible_phone" msgid="4515090705573059650">"Telefon incompatibil"</string>
+<string name="dialog_title_vr_core_not_enabled" msgid="2594928940370730859">"Este necesară configurarea"</string>
+<string name="dialog_title_vr_core_not_installed" msgid="6322165810291059770">"Este necesară instalarea"</string>
+<string name="dialog_title_warning" msgid="455961049302726493">"Avertisment"</string>
+<string name="dialog_vr_core_not_enabled" msgid="1966424794507569244">"E posibil ca această aplicație să nu funcționeze corespunzător dacă nu activați Serviciile RV de la Google. Activați-le din setările telefonului înainte de a continua."</string>
+<string name="dialog_vr_core_not_installed" msgid="7122144659930752678">"E posibil ca această aplicație să nu funcționeze corespunzător fără Serviciile RV de la Google. Instalați Serviciile RV de la Google din Magazinul Play înainte de a continua."</string>
+<string name="go_to_playstore_button" msgid="6145412853379876634">"Accesați Magazinul Play"</string>
+<string name="go_to_vr_listeners_settings_button" msgid="6878752668266068283">"Accesați Setări"</string>
+<string name="no_browser_text" msgid="5324772199357788720">"Niciun browser pentru a deschide site-ul"</string>
+<string name="place_your_phone_into_cardboard" msgid="2306297166333705530">"Puneți telefonul în vizualizatorul Cardboard"</string>
+<string name="place_your_viewer_into_viewer_format" msgid="5433369525545709510">"Puneți telefonul în vizualizatorul <xliff:g id="VIEWER_NAME">%s</xliff:g>."</string>
+<string name="settings_button_content_description" msgid="3719682527828378500">"setări"</string>
+<string name="setup_button" msgid="20964482303479393">"Configurați"</string>
+<string name="switch_viewer_action" msgid="7856245902137004584">"Comutați"</string>
+<string name="switch_viewer_prompt" msgid="816514297101696447">"Folosiți alt vizualizator?"</string>
+</resources>

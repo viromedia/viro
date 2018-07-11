@@ -18,6 +18,24 @@ To report bugs/issues with Viro platform, please file new issues on this reposit
 7. Type the entire ngrok URL output (xxxxxx.ngrok.io) at the top of the terminal into the text field and hit 'GO'
 8. You should now be in the application! Enjoy!
 
+## Instructions for running sample code as a stand alone project (with no Testbed app):
+Tried the samples through our Testbed app and now want to try deploying sample code to your device as standalone apps? These quick steps below should get you started:
+1. Follow steps 1 - 4 from above (instructions for using with Testbed app)
+2. For Android, make sure you have downloaded and installed Android Studio from [here](https://developer.android.com/studio/install) to get required SDK and platform-tools for building android apps
+    Make sure you have the required environment variables set - `$ANDROID_HOME`, and added `platform-tools` to `$PATH` variable. If not,
+    ```
+    export ANDROID_HOME=/YOUR_PATH_TO/Android/sdk
+    export PATH=$ANDROID_HOME/platform-tools:$PATH
+    export PATH=$ANDROID_HOME/tools:$PATH
+    ```
+    Build and launch android app by executing the following from the root of the project
+    ```
+    react-native run-android --variant=gvrDebug
+    ```
+3. For iOS, in Xcode open `ViroSample.xcworkspace` in `ios/` directory.
+    Select the right "Team" for `ViroSample` and `ViroSampleTest` target under `General -> Signing`
+    Hit play to build and launch the app on your iOS device
+    
 ## Changing Between Samples
 
 1. Open App.js in a text editor.

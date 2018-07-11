@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:ns1="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="__arcore_cancel">取消</string>
+    <string name="__arcore_continue">继续</string>
+    <string name="__arcore_install_app">您必须安装最新版本的 ARCore 才能使用此应用。</string>
+    <string name="__arcore_install_feature">您必须安装最新版本的 ARCore 才能使用此功能。</string>
+    <string name="__arcore_installing">正在安装 ARCore…</string>
+    <string msgid="4600421777120114993" name="abc_action_bar_home_description">"转到主屏幕"</string>
+    <string msgid="1397052879051804371" name="abc_action_bar_home_description_format">"%1$s：%2$s"</string>
+    <string msgid="6623331958280229229" name="abc_action_bar_home_subtitle_description_format">"%1$s - %2$s：%3$s"</string>
+    <string msgid="1594238315039666878" name="abc_action_bar_up_description">"转到上一层级"</string>
+    <string msgid="3588849162933574182" name="abc_action_menu_overflow_description">"更多选项"</string>
+    <string msgid="4076576682505996667" name="abc_action_mode_done">"完成"</string>
+    <string msgid="7468859129482906941" name="abc_activity_chooser_view_see_all">"查看全部"</string>
+    <string msgid="2031811694353399454" name="abc_activitychooserview_choose_application">"选择应用"</string>
+    <string msgid="121134116657445385" name="abc_capital_off">"关闭"</string>
+    <string msgid="3405795526292276155" name="abc_capital_on">"开启"</string>
+    <string msgid="7723749260725869598" name="abc_search_hint">"搜索…"</string>
+    <string msgid="3691816814315814921" name="abc_searchview_description_clear">"清除查询"</string>
+    <string msgid="2550479030709304392" name="abc_searchview_description_query">"搜索查询"</string>
+    <string msgid="8264924765203268293" name="abc_searchview_description_search">"搜索"</string>
+    <string msgid="8928215447528550784" name="abc_searchview_description_submit">"提交查询"</string>
+    <string msgid="893419373245838918" name="abc_searchview_description_voice">"语音搜索"</string>
+    <string msgid="3421042268587513524" name="abc_shareactionprovider_share_with">"分享方式"</string>
+    <string msgid="7165123711973476752" name="abc_shareactionprovider_share_with_application">"通过%s分享"</string>
+    <string msgid="1603543279005712093" name="abc_toolbar_collapse_description">"收起"</string>
+    <string msgid="233061162317617848" name="back_button_content_description">"返回"</string>
+    <string msgid="2401572676578172896" name="cancel_button">"取消"</string>
+    <string msgid="2482357845034618478" name="dialog_button_got_it">"知道了"</string>
+    <string msgid="4505853433204459373" name="dialog_button_open_help_center">"打开帮助中心"</string>
+    <string msgid="4028688231551615655" name="dialog_message_incompatible_phone">"手机必须与 Daydream 兼容。请访问 Daydream 帮助中心了解详情。"</string>
+    <string msgid="3560856374975640601" name="dialog_message_no_cardboard">"获取 Cardboard 应用以配置观看器。"</string>
+    <string msgid="7887077605817014784" name="dialog_title">"配置"</string>
+    <string msgid="4515090705573059650" name="dialog_title_incompatible_phone">"手机不兼容"</string>
+    <string msgid="2594928940370730859" name="dialog_title_vr_core_not_enabled">"需要设置"</string>
+    <string msgid="6322165810291059770" name="dialog_title_vr_core_not_installed">"需要安装"</string>
+    <string msgid="455961049302726493" name="dialog_title_warning">"警告"</string>
+    <string msgid="1966424794507569244" name="dialog_vr_core_not_enabled">"如果不启用 Google VR 服务，此应用可能无法正常运作，请先在手机设置中启用此服务，然后再继续。"</string>
+    <string msgid="7122144659930752678" name="dialog_vr_core_not_installed">"如果不安装 Google VR 服务，此应用可能无法正常运作。请先通过 Play 商店安装此服务，然后再继续。"</string>
+    <string msgid="2382411136909255532" name="exo_controls_fastforward_description">"快进"</string>
+    <string msgid="7044845014191647105" name="exo_controls_next_description">"下一曲"</string>
+    <string msgid="7924816224515798262" name="exo_controls_pause_description">"暂停"</string>
+    <string msgid="2326300949114396072" name="exo_controls_play_description">"播放"</string>
+    <string msgid="4729846277375475426" name="exo_controls_previous_description">"上一曲"</string>
+    <string msgid="8909385102773547833" name="exo_controls_repeat_all_description">"全部重复播放"</string>
+    <string msgid="2273550552389469729" name="exo_controls_repeat_off_description">"不重复播放"</string>
+    <string msgid="475266640141093764" name="exo_controls_repeat_one_description">"重复播放一项"</string>
+    <string msgid="5799450167394904608" name="exo_controls_rewind_description">"快退"</string>
+    <string msgid="1374364424026734323" name="exo_controls_shuffle_description">"随机播放"</string>
+    <string msgid="121453720915069922" name="exo_controls_stop_description">"停止"</string>
+    <string msgid="6145412853379876634" name="go_to_playstore_button">"转到 Play 商店"</string>
+    <string msgid="6878752668266068283" name="go_to_vr_listeners_settings_button">"转到“设置”"</string>
+    <string msgid="5324772199357788720" name="no_browser_text">"找不到可以打开网站的浏览器"</string>
+    <string msgid="2306297166333705530" name="place_your_phone_into_cardboard">"将手机放入 Cardboard 观看器"</string>
+    <string msgid="5433369525545709510" name="place_your_viewer_into_viewer_format">"将手机放入 <ns1:g id="VIEWER_NAME">%s</ns1:g> 观看器"</string>
+    <string msgid="146198913615257606" name="search_menu_title">"搜索"</string>
+    <string msgid="3719682527828378500" name="settings_button_content_description">"设置"</string>
+    <string msgid="20964482303479393" name="setup_button">"设置"</string>
+    <string msgid="2869576371154716097" name="status_bar_notification_info_overflow">"999+"</string>
+    <string msgid="7856245902137004584" name="switch_viewer_action">"切换"</string>
+    <string msgid="816514297101696447" name="switch_viewer_prompt">"要使用其他观看器吗？"</string>
+</resources>

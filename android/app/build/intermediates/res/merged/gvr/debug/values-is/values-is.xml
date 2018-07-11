@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="__arcore_cancel">Hætta við</string>
+    <string name="__arcore_continue">Áfram</string>
+    <string name="__arcore_install_app">Þetta forrit krefst nýjustu útgáfu af ARCore.</string>
+    <string name="__arcore_install_feature">Þessi eiginleiki krefst nýjustu útgáfu af ARCore.</string>
+    <string name="__arcore_installing">Setur upp ARCore…</string>
+</resources>

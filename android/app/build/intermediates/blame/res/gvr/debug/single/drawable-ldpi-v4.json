@@ -1,0 +1,54 @@
+[
+    {
+        "merged": "/Users/manish/workspace/viro/android/app/build/intermediates/res/merged/gvr/debug/drawable-ldpi-v4/exo_controls_repeat_all.png",
+        "source": "/Users/manish/workspace/viro/android/app/build/intermediates/exploded-aar/com.google.android.exoplayer/exoplayer-ui/2.7.1/res/drawable-ldpi-v4/exo_controls_repeat_all.png"
+    },
+    {
+        "merged": "/Users/manish/workspace/viro/android/app/build/intermediates/res/merged/gvr/debug/drawable-ldpi-v4/exo_controls_next.png",
+        "source": "/Users/manish/workspace/viro/android/app/build/intermediates/exploded-aar/com.google.android.exoplayer/exoplayer-ui/2.7.1/res/drawable-ldpi-v4/exo_controls_next.png"
+    },
+    {
+        "merged": "/Users/manish/workspace/viro/android/app/build/intermediates/res/merged/gvr/debug/drawable-ldpi-v4/exo_controls_fastforward.png",
+        "source": "/Users/manish/workspace/viro/android/app/build/intermediates/exploded-aar/com.google.android.exoplayer/exoplayer-ui/2.7.1/res/drawable-ldpi-v4/exo_controls_fastforward.png"
+    },
+    {
+        "merged": "/Users/manish/workspace/viro/android/app/build/intermediates/res/merged/gvr/debug/drawable-ldpi-v4/exo_controls_rewind.png",
+        "source": "/Users/manish/workspace/viro/android/app/build/intermediates/exploded-aar/com.google.android.exoplayer/exoplayer-ui/2.7.1/res/drawable-ldpi-v4/exo_controls_rewind.png"
+    },
+    {
+        "merged": "/Users/manish/workspace/viro/android/app/build/intermediates/res/merged/gvr/debug/drawable-ldpi-v4/exo_controls_play.png",
+        "source": "/Users/manish/workspace/viro/android/app/build/intermediates/exploded-aar/com.google.android.exoplayer/exoplayer-ui/2.7.1/res/drawable-ldpi-v4/exo_controls_play.png"
+    },
+    {
+        "merged": "/Users/manish/workspace/viro/android/app/build/intermediates/res/merged/gvr/debug/drawable-ldpi-v4/exo_controls_fullscreen_enter.png",
+        "source": "/Users/manish/workspace/viro/android/app/build/intermediates/exploded-aar/com.google.android.exoplayer/exoplayer-ui/2.7.1/res/drawable-ldpi-v4/exo_controls_fullscreen_enter.png"
+    },
+    {
+        "merged": "/Users/manish/workspace/viro/android/app/build/intermediates/res/merged/gvr/debug/drawable-ldpi-v4/exo_controls_previous.png",
+        "source": "/Users/manish/workspace/viro/android/app/build/intermediates/exploded-aar/com.google.android.exoplayer/exoplayer-ui/2.7.1/res/drawable-ldpi-v4/exo_controls_previous.png"
+    },
+    {
+        "merged": "/Users/manish/workspace/viro/android/app/build/intermediates/res/merged/gvr/debug/drawable-ldpi-v4/exo_controls_repeat_off.png",
+        "source": "/Users/manish/workspace/viro/android/app/build/intermediates/exploded-aar/com.google.android.exoplayer/exoplayer-ui/2.7.1/res/drawable-ldpi-v4/exo_controls_repeat_off.png"
+    },
+    {
+        "merged": "/Users/manish/workspace/viro/android/app/build/intermediates/res/merged/gvr/debug/drawable-ldpi-v4/exo_controls_shuffle.png",
+        "source": "/Users/manish/workspace/viro/android/app/build/intermediates/exploded-aar/com.google.android.exoplayer/exoplayer-ui/2.7.1/res/drawable-ldpi-v4/exo_controls_shuffle.png"
+    },
+    {
+        "merged": "/Users/manish/workspace/viro/android/app/build/intermediates/res/merged/gvr/debug/drawable-ldpi-v4/exo_edit_mode_logo.png",
+        "source": "/Users/manish/workspace/viro/android/app/build/intermediates/exploded-aar/com.google.android.exoplayer/exoplayer-ui/2.7.1/res/drawable-ldpi-v4/exo_edit_mode_logo.png"
+    },
+    {
+        "merged": "/Users/manish/workspace/viro/android/app/build/intermediates/res/merged/gvr/debug/drawable-ldpi-v4/exo_controls_pause.png",
+        "source": "/Users/manish/workspace/viro/android/app/build/intermediates/exploded-aar/com.google.android.exoplayer/exoplayer-ui/2.7.1/res/drawable-ldpi-v4/exo_controls_pause.png"
+    },
+    {
+        "merged": "/Users/manish/workspace/viro/android/app/build/intermediates/res/merged/gvr/debug/drawable-ldpi-v4/exo_controls_repeat_one.png",
+        "source": "/Users/manish/workspace/viro/android/app/build/intermediates/exploded-aar/com.google.android.exoplayer/exoplayer-ui/2.7.1/res/drawable-ldpi-v4/exo_controls_repeat_one.png"
+    },
+    {
+        "merged": "/Users/manish/workspace/viro/android/app/build/intermediates/res/merged/gvr/debug/drawable-ldpi-v4/exo_controls_fullscreen_exit.png",
+        "source": "/Users/manish/workspace/viro/android/app/build/intermediates/exploded-aar/com.google.android.exoplayer/exoplayer-ui/2.7.1/res/drawable-ldpi-v4/exo_controls_fullscreen_exit.png"
+    }
+]

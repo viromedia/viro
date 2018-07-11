@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding='utf-8' standalone='no'?>
+<resources>
+<!-- blaze-out/k8-opt/genfiles/third_party/arcore/java/com/google/ar/core/res_aar/values-sk/strings.xml -->
+<eat-comment/>
+<string name="__arcore_cancel">Zrušiť</string>
+<string name="__arcore_continue">Pokračovať</string>
+<string name="__arcore_install_app">Táto aplikácia si vyžaduje najnovšiu verziu platformy ARCore.</string>
+<string name="__arcore_install_feature">Táto funkcia si vyžaduje najnovšiu verziu platformy ARCore.</string>
+<string name="__arcore_installing">Inštaluje sa platforma ARCore…</string>
+</resources>

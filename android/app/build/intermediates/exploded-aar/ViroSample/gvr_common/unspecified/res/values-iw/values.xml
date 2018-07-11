@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding='utf-8' standalone='no'?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+<!-- blaze-out/k8-opt/genfiles/vr/gvr/platform/common/android/res/values-iw/strings.xml -->
+<eat-comment/>
+<string name="back_button_content_description" msgid="233061162317617848">"הקודם"</string>
+<string name="cancel_button" msgid="2401572676578172896">"ביטול"</string>
+<string name="dialog_button_got_it" msgid="2482357845034618478">"הבנתי"</string>
+<string name="dialog_button_open_help_center" msgid="4505853433204459373">"פתח את מרכז העזרה"</string>
+<string name="dialog_message_incompatible_phone" msgid="4028688231551615655">"נדרש טלפון שתומך ב-Daydream. מידע נוסף זמין במרכז העזרה של Daydream."</string>
+<string name="dialog_message_no_cardboard" msgid="3560856374975640601">"עליך להוריד את אפליקציית Cardboard כדי להגדיר את מכשיר הצפייה."</string>
+<string name="dialog_title" msgid="7887077605817014784">"הגדרה"</string>
+<string name="dialog_title_incompatible_phone" msgid="4515090705573059650">"טלפון לא תואם"</string>
+<string name="dialog_title_vr_core_not_enabled" msgid="2594928940370730859">"נדרשת הגדרה"</string>
+<string name="dialog_title_vr_core_not_installed" msgid="6322165810291059770">"נדרשת התקנה"</string>
+<string name="dialog_title_warning" msgid="455961049302726493">"אזהרה"</string>
+<string name="dialog_vr_core_not_enabled" msgid="1966424794507569244">"ייתכן שהאפליקציה לא תפעל כהלכה ללא שירותי VR של Google. כדי להמשיך, הפעל אותם בהגדרות הטלפון."</string>
+<string name="dialog_vr_core_not_installed" msgid="7122144659930752678">"ייתכן שהאפליקציה לא תפעל כהלכה ללא שירותי VR של Google. כדי להמשיך, התקן את שירותי VR של Google מחנות Play."</string>
+<string name="go_to_playstore_button" msgid="6145412853379876634">"עבור לחנות Play"</string>
+<string name="go_to_vr_listeners_settings_button" msgid="6878752668266068283">"עבור ל\'הגדרות\'"</string>
+<string name="no_browser_text" msgid="5324772199357788720">"לא נמצא דפדפן שיכול לפתוח את האתר"</string>
+<string name="place_your_phone_into_cardboard" msgid="2306297166333705530">"הנח את הטלפון במכשיר Cardboard שלך"</string>
+<string name="place_your_viewer_into_viewer_format" msgid="5433369525545709510">"הנח את הטלפון במכשיר הצפייה <xliff:g id="VIEWER_NAME">%s</xliff:g>"</string>
+<string name="settings_button_content_description" msgid="3719682527828378500">"הגדרות"</string>
+<string name="setup_button" msgid="20964482303479393">"הגדר"</string>
+<string name="switch_viewer_action" msgid="7856245902137004584">"החלף"</string>
+<string name="switch_viewer_prompt" msgid="816514297101696447">"משתמש במכשיר צפייה שונה?"</string>
+</resources>

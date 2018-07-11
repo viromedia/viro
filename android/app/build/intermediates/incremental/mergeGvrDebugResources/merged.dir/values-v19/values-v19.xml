@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="transition_bottom_bar_height">56dip</dimen>
+</resources>

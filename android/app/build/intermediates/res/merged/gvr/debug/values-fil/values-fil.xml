@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="__arcore_cancel">Kanselahin</string>
+    <string name="__arcore_continue">Magpatuloy</string>
+    <string name="__arcore_install_app">Nangangailangan ng pinakabagong bersyon ng ARCore ang application na ito.</string>
+    <string name="__arcore_install_feature">Nangangailangan ng pinakabagong bersyon ng ARCore ang feature na ito.</string>
+    <string name="__arcore_installing">Ini-install ang ARCore…</string>
+</resources>

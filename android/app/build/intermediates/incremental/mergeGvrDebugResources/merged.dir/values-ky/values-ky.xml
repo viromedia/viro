@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="__arcore_cancel">Жок</string>
+    <string name="__arcore_continue">Улантуу</string>
+    <string name="__arcore_install_app">Бул колдонмого ARCore\'дун эң акыркы версиясы талап кылынат.</string>
+    <string name="__arcore_install_feature">Бул функцияга ARCore\'дун эң акыркы версиясы талап кылынат.</string>
+    <string name="__arcore_installing">ARCore орнотулууда…</string>
+</resources>

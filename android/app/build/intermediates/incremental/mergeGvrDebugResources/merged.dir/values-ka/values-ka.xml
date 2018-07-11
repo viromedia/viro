@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="__arcore_cancel">გაუქმება</string>
+    <string name="__arcore_continue">გაგრძელება</string>
+    <string name="__arcore_install_app">ამ აპლიკაციისთვის საჭიროა ARCore-ის უახლესი ვერსია.</string>
+    <string name="__arcore_install_feature">ამ ფუნქციისთვის საჭიროა ARCore-ის უახლესი ვერსია.</string>
+    <string name="__arcore_installing">ARCore-ის ინსტალაცია…</string>
+</resources>

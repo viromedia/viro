@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="__arcore_cancel">Цуцлах</string>
+    <string name="__arcore_continue">Үргэлжлүүлэх</string>
+    <string name="__arcore_install_app">Энэ апликейшн ARCore-н хамгийн сүүлийн хувилбарыг шаардана.</string>
+    <string name="__arcore_install_feature">Энэ функц ARCore-н хамгийн сүүлийн хувилбарыг шаардана.</string>
+    <string name="__arcore_installing">ARCore суулгаж байна…</string>
+</resources>

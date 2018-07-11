@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding='utf-8' standalone='no'?>
+<resources>
+<!-- blaze-out/k8-opt/genfiles/third_party/arcore/java/com/google/ar/core/res_aar/values-th/strings.xml -->
+<eat-comment/>
+<string name="__arcore_cancel">ยกเลิก</string>
+<string name="__arcore_continue">ต่อไป</string>
+<string name="__arcore_install_app">แอปพลิเคชันนี้ต้องใช้ ARCore เวอร์ชันล่าสุด</string>
+<string name="__arcore_install_feature">ฟีเจอร์นี้ต้องใช้ ARCore เวอร์ชันล่าสุด</string>
+<string name="__arcore_installing">กำลังติดตั้ง ARCore…</string>
+</resources>

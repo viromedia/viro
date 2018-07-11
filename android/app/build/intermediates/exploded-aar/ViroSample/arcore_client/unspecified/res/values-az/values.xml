@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding='utf-8' standalone='no'?>
+<resources>
+<!-- blaze-out/k8-opt/genfiles/third_party/arcore/java/com/google/ar/core/res_aar/values-az/strings.xml -->
+<eat-comment/>
+<string name="__arcore_cancel">Ləğv edin</string>
+<string name="__arcore_continue">Davam edin</string>
+<string name="__arcore_install_app">Bu tətbiq ARCore\'un ən son versiyasını tələb edir.</string>
+<string name="__arcore_install_feature">Bu funksiya ARCore\'un ən son versiyasını tələb edir.</string>
+<string name="__arcore_installing">ARCore quraşdırılır…</string>
+</resources>

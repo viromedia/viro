@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="__arcore_cancel">မလုပ်တော့</string>
+    <string name="__arcore_continue">ဆက်လုပ်ရန်</string>
+    <string name="__arcore_install_app">ဤအပလီကေးရှင်းသည် ARCore နောက်ဆုံးဗားရှင်းကို လိုအပ်ပါသည်။</string>
+    <string name="__arcore_install_feature">ဤဝန်ဆောင်မှုသည် ARCore နောက်ဆုံးဗားရှင်းကို လိုအပ်ပါသည်။</string>
+    <string name="__arcore_installing">ARCore ထည့်သွင်းနေသည်…</string>
+</resources>

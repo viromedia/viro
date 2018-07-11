@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="__arcore_cancel">Bekor qilish</string>
+    <string name="__arcore_continue">Davom etish</string>
+    <string name="__arcore_install_app">Bu ilova ARCorening eng so‘nggi versiyasini o‘rnatishni talab qiladi.</string>
+    <string name="__arcore_install_feature">Bu xususiyat ARCorening eng so‘nggi versiyasini o‘rnatishni talab qiladi.</string>
+    <string name="__arcore_installing">ARCore o‘rnatilmoqda…</string>
+</resources>

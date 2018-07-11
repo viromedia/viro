@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="__arcore_cancel">Avbryt</string>
+    <string name="__arcore_continue">Fortsett</string>
+    <string name="__arcore_install_app">Denne appen krever den nyeste versjonen av ARCore.</string>
+    <string name="__arcore_install_feature">Denne funksjonen krever den nyeste versjonen av ARCore.</string>
+    <string name="__arcore_installing">Installerer ARCore …</string>
+</resources>

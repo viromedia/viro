@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string msgid="4600421777120114993" name="abc_action_bar_home_description">"Navegar para a página inicial"</string>
+    <string msgid="1397052879051804371" name="abc_action_bar_home_description_format">"%1$s, %2$s"</string>
+    <string msgid="6623331958280229229" name="abc_action_bar_home_subtitle_description_format">"%1$s, %2$s, %3$s"</string>
+    <string msgid="1594238315039666878" name="abc_action_bar_up_description">"Navegar para cima"</string>
+    <string msgid="3588849162933574182" name="abc_action_menu_overflow_description">"Mais opções"</string>
+    <string msgid="4076576682505996667" name="abc_action_mode_done">"Concluído"</string>
+    <string msgid="7468859129482906941" name="abc_activity_chooser_view_see_all">"Ver tudo"</string>
+    <string msgid="2031811694353399454" name="abc_activitychooserview_choose_application">"Selecione um app"</string>
+    <string msgid="121134116657445385" name="abc_capital_off">"DESATIVAR"</string>
+    <string msgid="3405795526292276155" name="abc_capital_on">"ATIVAR"</string>
+    <string msgid="7723749260725869598" name="abc_search_hint">"Pesquisar..."</string>
+    <string msgid="3691816814315814921" name="abc_searchview_description_clear">"Limpar consulta"</string>
+    <string msgid="2550479030709304392" name="abc_searchview_description_query">"Consulta de pesquisa"</string>
+    <string msgid="8264924765203268293" name="abc_searchview_description_search">"Pesquisar"</string>
+    <string msgid="8928215447528550784" name="abc_searchview_description_submit">"Enviar consulta"</string>
+    <string msgid="893419373245838918" name="abc_searchview_description_voice">"Pesquisa por voz"</string>
+    <string msgid="3421042268587513524" name="abc_shareactionprovider_share_with">"Compartilhar com"</string>
+    <string msgid="7165123711973476752" name="abc_shareactionprovider_share_with_application">"Compartilhar com %s"</string>
+    <string msgid="1603543279005712093" name="abc_toolbar_collapse_description">"Recolher"</string>
+    <string msgid="2382411136909255532" name="exo_controls_fastforward_description">"Avançar"</string>
+    <string msgid="7044845014191647105" name="exo_controls_next_description">"Próxima faixa"</string>
+    <string msgid="7924816224515798262" name="exo_controls_pause_description">"Pausar"</string>
+    <string msgid="2326300949114396072" name="exo_controls_play_description">"Reproduzir"</string>
+    <string msgid="4729846277375475426" name="exo_controls_previous_description">"Faixa anterior"</string>
+    <string msgid="8909385102773547833" name="exo_controls_repeat_all_description">"Repetir tudo"</string>
+    <string msgid="2273550552389469729" name="exo_controls_repeat_off_description">"Não repetir"</string>
+    <string msgid="475266640141093764" name="exo_controls_repeat_one_description">"Repetir uma"</string>
+    <string msgid="5799450167394904608" name="exo_controls_rewind_description">"Retroceder"</string>
+    <string msgid="1374364424026734323" name="exo_controls_shuffle_description">"Aleatório"</string>
+    <string msgid="121453720915069922" name="exo_controls_stop_description">"Parar"</string>
+    <string msgid="146198913615257606" name="search_menu_title">"Pesquisar"</string>
+    <string msgid="2869576371154716097" name="status_bar_notification_info_overflow">"999+"</string>
+</resources>

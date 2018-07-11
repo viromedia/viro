@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:ns1="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="__arcore_cancel">Avbryt</string>
+    <string name="__arcore_continue">Fortsätt</string>
+    <string name="__arcore_install_app">Den senaste versionen av ARCore krävs för den här appen.</string>
+    <string name="__arcore_install_feature">Den senaste versionen av ARCore krävs för den här funktionen.</string>
+    <string name="__arcore_installing">ARCore installeras …</string>
+    <string msgid="4600421777120114993" name="abc_action_bar_home_description">"Visa startsidan"</string>
+    <string msgid="1397052879051804371" name="abc_action_bar_home_description_format">"%1$s, %2$s"</string>
+    <string msgid="6623331958280229229" name="abc_action_bar_home_subtitle_description_format">"%1$s, %2$s, %3$s"</string>
+    <string msgid="1594238315039666878" name="abc_action_bar_up_description">"Navigera uppåt"</string>
+    <string msgid="3588849162933574182" name="abc_action_menu_overflow_description">"Fler alternativ"</string>
+    <string msgid="4076576682505996667" name="abc_action_mode_done">"Klart"</string>
+    <string msgid="7468859129482906941" name="abc_activity_chooser_view_see_all">"Visa alla"</string>
+    <string msgid="2031811694353399454" name="abc_activitychooserview_choose_application">"Välj en app"</string>
+    <string msgid="121134116657445385" name="abc_capital_off">"AV"</string>
+    <string msgid="3405795526292276155" name="abc_capital_on">"PÅ"</string>
+    <string msgid="7723749260725869598" name="abc_search_hint">"Sök …"</string>
+    <string msgid="3691816814315814921" name="abc_searchview_description_clear">"Ta bort frågan"</string>
+    <string msgid="2550479030709304392" name="abc_searchview_description_query">"Sökfråga"</string>
+    <string msgid="8264924765203268293" name="abc_searchview_description_search">"Sök"</string>
+    <string msgid="8928215447528550784" name="abc_searchview_description_submit">"Skicka fråga"</string>
+    <string msgid="893419373245838918" name="abc_searchview_description_voice">"Röstsökning"</string>
+    <string msgid="3421042268587513524" name="abc_shareactionprovider_share_with">"Dela med"</string>
+    <string msgid="7165123711973476752" name="abc_shareactionprovider_share_with_application">"Dela med %s"</string>
+    <string msgid="1603543279005712093" name="abc_toolbar_collapse_description">"Komprimera"</string>
+    <string msgid="233061162317617848" name="back_button_content_description">"tillbaka"</string>
+    <string msgid="2401572676578172896" name="cancel_button">"Avbryt"</string>
+    <string msgid="2482357845034618478" name="dialog_button_got_it">"OK"</string>
+    <string msgid="4505853433204459373" name="dialog_button_open_help_center">"ÖPPNA HJÄLPCENTER"</string>
+    <string msgid="4028688231551615655" name="dialog_message_incompatible_phone">"Du måste ha en Daydream-klar mobil. Besök hjälpcentret för Daydream om du vill veta mer."</string>
+    <string msgid="3560856374975640601" name="dialog_message_no_cardboard">"Ladda ned Cardboard-appen om du vill konfigurera kikaren."</string>
+    <string msgid="7887077605817014784" name="dialog_title">"Konfigurera"</string>
+    <string msgid="4515090705573059650" name="dialog_title_incompatible_phone">"Mobilen är inte kompatibel"</string>
+    <string msgid="2594928940370730859" name="dialog_title_vr_core_not_enabled">"Konfiguration krävs"</string>
+    <string msgid="6322165810291059770" name="dialog_title_vr_core_not_installed">"Installation krävs"</string>
+    <string msgid="455961049302726493" name="dialog_title_warning">"Varning"</string>
+    <string msgid="1966424794507569244" name="dialog_vr_core_not_enabled">"Appen kanske inte fungerar som den ska när Googles VR-tjänster är inaktiverade. Aktivera tjänsterna under Inställningar på mobilen innan du fortsätter."</string>
+    <string msgid="7122144659930752678" name="dialog_vr_core_not_installed">"Appen kanske inte fungerar som den ska utan Googles VR-tjänster. Besök Play Butik och installera Googles VR-tjänster innan du fortsätter."</string>
+    <string msgid="2382411136909255532" name="exo_controls_fastforward_description">"Snabbspola framåt"</string>
+    <string msgid="7044845014191647105" name="exo_controls_next_description">"Nästa spår"</string>
+    <string msgid="7924816224515798262" name="exo_controls_pause_description">"Pausa"</string>
+    <string msgid="2326300949114396072" name="exo_controls_play_description">"Spela upp"</string>
+    <string msgid="4729846277375475426" name="exo_controls_previous_description">"Föregående spår"</string>
+    <string msgid="8909385102773547833" name="exo_controls_repeat_all_description">"Upprepa alla"</string>
+    <string msgid="2273550552389469729" name="exo_controls_repeat_off_description">"Upprepa inga"</string>
+    <string msgid="475266640141093764" name="exo_controls_repeat_one_description">"Upprepa en"</string>
+    <string msgid="5799450167394904608" name="exo_controls_rewind_description">"Spola tillbaka"</string>
+    <string msgid="1374364424026734323" name="exo_controls_shuffle_description">"Blanda spår"</string>
+    <string msgid="121453720915069922" name="exo_controls_stop_description">"Stoppa"</string>
+    <string msgid="6145412853379876634" name="go_to_playstore_button">"Öppna Play Butik"</string>
+    <string msgid="6878752668266068283" name="go_to_vr_listeners_settings_button">"Öppna Inställningar"</string>
+    <string msgid="5324772199357788720" name="no_browser_text">"Ingen webbläsare kan öppna webbsidan"</string>
+    <string msgid="2306297166333705530" name="place_your_phone_into_cardboard">"Placera mobilen i Cardboard-kikaren"</string>
+    <string msgid="5433369525545709510" name="place_your_viewer_into_viewer_format">"Placera telefonen i din <ns1:g id="VIEWER_NAME">%s</ns1:g>-kikare"</string>
+    <string msgid="146198913615257606" name="search_menu_title">"Sök"</string>
+    <string msgid="3719682527828378500" name="settings_button_content_description">"inställningar"</string>
+    <string msgid="20964482303479393" name="setup_button">"Konfiguration"</string>
+    <string msgid="2869576371154716097" name="status_bar_notification_info_overflow">">999"</string>
+    <string msgid="7856245902137004584" name="switch_viewer_action">"Ändra"</string>
+    <string msgid="816514297101696447" name="switch_viewer_prompt">"Vill du byta kikare?"</string>
+</resources>
