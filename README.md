@@ -35,7 +35,7 @@ Tried the samples through our Testbed app and now want to try deploying sample c
 3. For iOS, in Xcode open `ViroSample.xcworkspace` in `ios/` directory.
     Select the right "Team" for `ViroSample` and `ViroSampleTest` target under `General -> Signing`
     Hit play to build and launch the app on your iOS device
-    
+
 ## Changing Between Samples
 
 1. Open App.js in a text editor.
@@ -51,8 +51,16 @@ Look at our [documentation](http://docs.viromedia.com/).
 
 Join our Slack group [here](https://join.slack.com/t/virodevelopers/shared_invite/enQtMzI3MzgwNDM2NDM5LTBiOTRkMDg0Zjc0ODIyYTAxZDczYzFmODJhMDUxZjVhOTk0NGVhMjNlZTY0ZjkxNjMzZGEyNDNlYzc4ZTkzNzQ).
 
+## Sample Code
 
-## Sample Code Overview
+### [Figment AR (Complete Open Source App)](https://github.com/viromedia/figment-ar)
+A repository containing the entire source code, built using ViroReact and React Native, for Viro Media's award winning Figment AR App. Available on [Google Play](https://play.google.com/store/apps/details?id=com.viro.figment) and [App Store](https://itunes.apple.com/us/app/figment-ar/id1270018902?mt=8).
+
+<a href="https://github.com/viromedia/figment-ar"><img src="screenshots/figment_1.png" width="200"/> <img src="screenshots/figment_2.png" width="200"/> <img src="screenshots/figment_3.png" width="200"/> <img src="screenshots/figment_4.png" width="200"/></a>
+
+#### Download complete source at https://github.com/viromedia/figment-ar
+
+### Sample Code Overview
 
 ### [Hello World](https://github.com/viromedia/viro/tree/master/js/HelloWorld)
 
