@@ -41,6 +41,7 @@ var maxRows = 4
 var testFiles = [
   ["ARScene/Navigator", require("./ARSceneAndNavigatorTest")],
   ["ARDragTest", require("./ARDragTest")],
+  ["ARFBXAnimTest", require("./ARFBXAnimTest")],
   ["ARFBXVersionTest", require("./ARFBXVersionTest")],
   ["ARPlaneSelectorTest", require("./ARPlaneSelectorTest")],
   ["ARPlaneTest", require("./ARPlaneTest")],
@@ -54,7 +55,8 @@ var testFiles = [
   ["ViroPbrTestSurface", require("./ViroPbrTestSurfacesAR")],
   ["ARShadowTest", require("./ARShadowTest")],
   ["ARPolygonPlaneTest", require("./ARPolygonPlaneTest")],
-  ["ARCameraHUDTest", require("./ARCameraHUDTest")]
+  ["ARCameraHUDTest", require("./ARCameraHUDTest")],
+
 ]
 
 var ARReleaseMenu = createReactClass({

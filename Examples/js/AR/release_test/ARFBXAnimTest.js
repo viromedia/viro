@@ -41,7 +41,7 @@ let polarToCartesian = ViroUtils.polarToCartesian;
 
 var setLightValuesFast = true;
 
-var ARFBXVersionTest = createReactClass({
+var ARFBXAnimTest = createReactClass({
   mixins: [TimerMixin],
   getInitialState: function() {
     return {
@@ -71,12 +71,8 @@ var ARFBXVersionTest = createReactClass({
         <ViroARScene onAmbientLightUpdate={this._onAmbientLightUpdate}>
           <ViroAmbientLight color="#ffffff" intensity={this.state.ambientIntensity} color={this.state.ambientColor} />
           <ViroNode position={[0,0,-2]} onDrag={()=>{}} dragType="FixedToWorld">
-            <ViroText position={[1,.33,0]} text={"FBX 2018"}
-            style={styles.instructionText} transformBehaviors={["billboard"]}/>
             <Viro3DObject position={[1,.0,-3]} scale={[.04,.04,.4]} type="VRX" source={require('./res/dragao_2018.vrx')} animation={{name:"01", delay:0, loop:true, run:this.state.animState}} resources={[require('./res/dragao_map.jpg')]}  />
 
-            <ViroText position={[-1,.33,0]} text={"FBX 2014"}
-            style={styles.instructionText} transformBehaviors={["billboard"]}/>
             <Viro3DObject position={[-1,0,0]} scale={[.2,.2,.2]} onClick={this._changeAnimState} type="VRX" source={require('./res/emoji_kiss_anim/emoji_kiss_anim.vrx')} animation={{name:"02", delay:0, loop:true, run:this.state.animState}} resources={[require('./res/PUG_bake_otimizado.jpg')]} />
           </ViroNode>
 
@@ -105,7 +101,7 @@ var ARFBXVersionTest = createReactClass({
     }
   },
   _goToNextTest() {
-    this.props.arSceneNavigator.replace("ARPlaneSelectorTest", {scene:require("./ARPlaneSelectorTest")})
+    this.props.arSceneNavigator.replace("ARPlaneSelectorTest", {scene:require("./ARFBXAnimTest")})
   },
 
   _changeAnimState() {
@@ -138,4 +134,4 @@ ViroMaterials.createMaterials({
   }
 });
 
-module.exports = ARFBXVersionTest;
+module.exports = ARFBXAnimTest;
