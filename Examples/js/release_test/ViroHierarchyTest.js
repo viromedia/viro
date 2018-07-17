@@ -64,15 +64,15 @@ var ViroHierarchyTest = createReactClass({
 
         <ViroNode  position={[0, 0, -50]}>
 
-          <ViroFlexView style={styles.containerVertical} width={70} height={70} materials="redColor" position={[0, 0, 0]}>
+          <ViroFlexView style={styles.containerVertical} width={70} height={70} materials="redColorPlane" position={[0, 0, 0]}>
             <ViroText fontSize={this.state.fontSize} style={newStyle}  text="This is Large" textAlign={"center"} textAlignVertical={"center"}/>
           </ViroFlexView>
 
-          <ViroFlexView style={styles.containerVertical} width={20} height={20} materials="greenColor" position={[-20, 0, 1]}>
+          <ViroFlexView style={styles.containerVertical} width={20} height={20} materials="greenColorPlane" position={[-20, 0, 1]}>
             <ViroText fontSize={this.state.fontSize} style={newStyle}  text="This is Large" textAlign={"center"} textAlignVertical={"center"}/>
           </ViroFlexView>
 
-          <ViroFlexView style={styles.containerVertical} width={20} height={20} materials="blueColor" position={[20, 0, 1]}>
+          <ViroFlexView style={styles.containerVertical} width={20} height={20} materials="blueColorPlane" position={[20, 0, 1]}>
             <ViroText fontSize={this.state.fontSize} style={newStyle}  text="This is Large" textAlign={"center"} textAlignVertical={"center"}/>
           </ViroFlexView>
 
@@ -108,13 +108,13 @@ var styles = StyleSheet.create({
 });
 
 ViroMaterials.createMaterials({
-  redColor: {
+  redColorPlane: {
     diffuseColor: "#ff0000"
   },
-  blueColor: {
+  blueColorPlane: {
     diffuseColor: "#0000ff"
   },
-  greenColor: {
+  greenColorPlane: {
     diffuseColor: "#00ff00"
   },
 });
