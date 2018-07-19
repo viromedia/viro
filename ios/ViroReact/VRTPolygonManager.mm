@@ -13,6 +13,7 @@
 RCT_EXPORT_MODULE()
 
 RCT_EXPORT_VIEW_PROPERTY(vertices, NSArray<NSArray *>)
+RCT_EXPORT_VIEW_PROPERTY(holes, NSArray<NSArray<NSArray *>>)
 RCT_EXPORT_VIEW_PROPERTY(uvCoordinates, NSNumberArray)
 RCT_EXPORT_VIEW_PROPERTY(position, NSNumberArray)
 RCT_EXPORT_VIEW_PROPERTY(rotation, NSNumberArray)
@@ -50,6 +51,7 @@ RCT_EXPORT_VIEW_PROPERTY(arShadowReceiver, BOOL)
 RCT_EXPORT_VIEW_PROPERTY(ignoreEventHandling, BOOL)
 RCT_EXPORT_VIEW_PROPERTY(dragType, NSString)
 RCT_EXPORT_VIEW_PROPERTY(dragPlane, NSDictionary)
+
 - (VRTView *)view
 {
     return [[VRTPolygon alloc] initWithBridge:self.bridge];

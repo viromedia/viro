@@ -20,6 +20,7 @@ public class VRTPolygon extends VRTControl {
     private boolean mGeometryNeedsUpdate = false;
     private boolean mARShadowReceiver = false;
     private List<Vector> mVertices = new ArrayList<>();
+    private List<List<Vector>> mHoles = new ArrayList<>();
 
     public VRTPolygon(ReactContext reactContext) {
         super(reactContext);
@@ -33,8 +34,13 @@ public class VRTPolygon extends VRTControl {
         mGeometryNeedsUpdate = true;
     }
 
-    public void setVertices(List<Vector> coords){
+    public void setVertices(List<Vector> coords) {
         mVertices = coords;
+        mGeometryNeedsUpdate = true;
+    }
+
+    public void setHoles(List<List<Vector>> holes) {
+        mHoles = holes;
         mGeometryNeedsUpdate = true;
     }
 
@@ -55,7 +61,7 @@ public class VRTPolygon extends VRTControl {
         }
 
         if (mNativePolygon == null) {
-            mNativePolygon = new Polygon(mVertices, mU0, mV0, mU1, mV1);
+            mNativePolygon = new Polygon(mVertices, mHoles, mU0, mV0, mU1, mV1);
             setGeometry(mNativePolygon);
         }
 

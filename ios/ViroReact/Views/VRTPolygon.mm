@@ -9,6 +9,23 @@
 #import <React/RCTLog.h>
 #import "VRTPolygon.h"
 #import "VRTUtils.h"
+#import <React/RCTConvert.h>
+
+@implementation RCTConvert (NSArrayNSArrayNSArray)
+
++ (NSArray<NSArray<NSArray<NSNumber *> *> *> *)NSArrayArrayArray:(id)json {
+    if (!json) {
+        RCTLogError(@"Error setting array of holes type, received nil json: %@", json);
+        return nil;
+    }
+    if (![json isKindOfClass:[NSArray class]]) {
+        RCTLogError(@"Error setting array of holes type. Array required, recieved: %@", json);
+        return nil;
+    }
+    return (NSArray *)json;
+}
+
+@end
 
 @implementation VRTPolygon {
     std::shared_ptr<VROPolygon> _surface;
@@ -30,10 +47,14 @@
 
 - (void)setVertices:(NSArray<NSArray<NSNumber *> *> *)vertices {
     if ([vertices count] < 1) {
-        RCTLogError(@"VRTPolygon should contain at least 1 vertex.");
+        RCTLogError(@"VRTPolygon should contain at least 1 vertex");
     }
-
     _vertices = vertices;
+    _surfaceNeedsUpdate = YES;
+}
+
+- (void)setHoles:(NSArray<NSArray<NSArray<NSNumber *> *> *> *)holes {
+    _holes = holes;
     _surfaceNeedsUpdate = YES;
 }
 
@@ -78,8 +99,29 @@
                                               0);
         nativePoints.push_back(nativePoint);
     }
+    
+    std::vector<std::vector<VROVector3f>> holes;
+    for (int h = 0; h < [_holes count]; h++) {
+        std::vector<VROVector3f> hole;
+        NSArray *holeArray = [_holes objectAtIndex:h];
+        
+        for (int i = 0; i < [holeArray count]; i++) {
+            NSArray *pointArray = [holeArray objectAtIndex:i];
+            if (!pointArray || [pointArray count] < 2) {
+                RCTLogError(@"ViroPolygon holes should have at least 2 coordinates");
+                continue;
+            } else if ([pointArray count] > 2) {
+                RCTLogWarn(@"[ViroPolygon] Polygon only supports xy coordinates! But a set of 3 points had been provided for a hole!");
+            }
+            VROVector3f nativePoint = VROVector3f([[pointArray objectAtIndex:0] floatValue],
+                                                  [[pointArray objectAtIndex:1] floatValue],
+                                                  0);
+            hole.push_back(nativePoint);
+        }
+        holes.push_back(hole);
+    }
 
-    _surface = VROPolygon::createPolygon(nativePoints,
+    _surface = VROPolygon::createPolygon(nativePoints, holes,
                                          _uvCoordinateArr[0],
                                          _uvCoordinateArr[1],
                                          _uvCoordinateArr[2],

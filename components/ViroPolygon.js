@@ -36,6 +36,7 @@ var ViroPolygon = createReactClass({
     rotationPivot: PropTypes.arrayOf(PropTypes.number),
     opacity: PropTypes.number,
     vertices: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)).isRequired,
+    holes: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number))),
     uvCoordinates : PropTypes.arrayOf(PropTypes.number),
     materials: PropTypes.oneOfType([
       PropTypes.arrayOf(PropTypes.string),

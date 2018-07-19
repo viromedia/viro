@@ -57,6 +57,33 @@ public class VRTPolygonManager extends VRTNodeManager<VRTPolygon> {
         view.setVertices(vecVertices);
     }
 
+    @ReactProp(name = "holes")
+    public void setHoles(VRTPolygon view, ReadableArray holesArray) {
+        List<List<Vector>> holes = new ArrayList<>();
+        for (int h = 0; h < holesArray.size(); h++) {
+            ReadableArray holeArray = holesArray.getArray(h);
+            if (holeArray == null || holeArray.size() == 0) {
+                continue;
+            }
+
+            List<Vector> hole = new ArrayList<>();
+            for (int i = 0; i < holeArray.size(); i++) {
+                ReadableArray vecArray = holeArray.getArray(i);
+                if (vecArray == null || vecArray.size() < 2) {
+                    throw new IllegalArgumentException("[ViroPolygon] Invalid hole vertex boundary list provided!");
+                }
+                if (vecArray.size() > 2) {
+                    Log.w("Viro","[ViroPolygon] Polygon only supports xy coordinates! " +
+                            "But a set of 3 points had been provided for hole " + h + "!");
+
+                }
+                hole.add(new Vector(vecArray.getDouble(0), vecArray.getDouble(1),0));
+            }
+            holes.add(hole);
+        }
+        view.setHoles(holes);
+    }
+
     @ReactProp(name = "uvCoordinates")
     public void setUVCoordinates(VRTPolygon view, ReadableArray coordinates) {
         float u0 = 0; float v0 = 0; float u1 = 1; float v1 = 1;
