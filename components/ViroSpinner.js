@@ -18,7 +18,6 @@ var createReactClass = require('create-react-class');
 var ViroMaterials = require('./Material/ViroMaterials');
 var ViroAnimations = require('./Animation/ViroAnimations');
 var ViroNode = require('./ViroNode');
-var ViroAnimatedComponent = require('./ViroAnimatedComponent');
 var ViroImage = require('./ViroImage');
 
 // Setup spinner assets
@@ -180,14 +179,12 @@ var ViroSpinner = createReactClass({
             ignoreEventHandling={this.props.ignoreEventHandling}
             onTransformUpdate={this.props.onTransformUpdate} ref={component => {this._component = component}}>
 
-        <ViroAnimatedComponent animation="_ViroSpinner_clockwiseZ" run={true} loop={true} >
-          <ViroImage source={this._getImage1()} materials={this.props.materials} />
-        </ViroAnimatedComponent>
+          <ViroImage source={this._getImage1()} materials={this.props.materials} animation={{name:"_ViroSpinner_clockwiseZ", delay:0, loop:true, run:true}}/>
+
 
         {/* Set the posititon of this one to be .01 forward of the other view to help w/ z-fighting*/}
-        <ViroAnimatedComponent animation="_ViroSpinner_counterClockwiseZ" run={true} loop={true} >
-          <ViroImage position={[0, 0, .01]} source={this._getImage1a()} materials={this.props.materials} />
-        </ViroAnimatedComponent>
+
+        <ViroImage position={[0, 0, .01]} source={this._getImage1a()} materials={this.props.materials} animation={{name:"_ViroSpinner_counterClockwiseZ", delay:0, loop:true, run:true}} />
       </ViroNode>
     );
   },
