@@ -29,7 +29,7 @@ var createReactClass = require('create-react-class');
 /**
  * Used to render a 360 video on the background sphere.
  */
-var Viro360Video = createReactClass({
+var Viro360Video = createReactClass({ 
   propTypes: {
     ...View.propTypes,
 
@@ -44,6 +44,7 @@ var Viro360Video = createReactClass({
       PropTypes.number,
     ]).isRequired,
 
+    rotation: PropTypes.arrayOf(PropTypes.number),
     paused: PropTypes.bool,
     loop: PropTypes.bool,
     muted: PropTypes.bool,
