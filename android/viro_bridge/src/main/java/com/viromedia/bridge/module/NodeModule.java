@@ -26,6 +26,8 @@ import com.viromedia.bridge.component.node.VRTNode;
 
 import com.viro.core.Node;
 
+import static java.lang.Math.toDegrees;
+
 public class NodeModule extends ReactContextBaseJavaModule {
 
     public NodeModule(ReactApplicationContext context) {
@@ -141,9 +143,9 @@ public class NodeModule extends ReactContextBaseJavaModule {
                  writablePosArray.pushDouble(position.z);
 
                  WritableArray writableRotateArray = Arguments.createArray();
-                 writableRotateArray.pushDouble(rotation.x);
-                 writableRotateArray.pushDouble(rotation.y);
-                 writableRotateArray.pushDouble(rotation.z);
+                 writableRotateArray.pushDouble(toDegrees(rotation.x));
+                 writableRotateArray.pushDouble(toDegrees(rotation.y));
+                 writableRotateArray.pushDouble(toDegrees(rotation.z));
 
                  WritableArray writeableScaleArray = Arguments.createArray();
                  writeableScaleArray.pushDouble(scale.x);
