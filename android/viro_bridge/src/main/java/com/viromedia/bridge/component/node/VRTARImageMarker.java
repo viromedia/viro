@@ -66,22 +66,24 @@ public class VRTARImageMarker extends VRTARNode {
                 @Override
                 public void onComplete(String key, ARImageTarget newTarget) {
                     ARDeclarativeImageNode imageNode = (ARDeclarativeImageNode) getNodeJni();
-                    ARImageTarget oldTarget = imageNode.getARImageTarget();
-                    imageNode.setARImageTarget(newTarget);
-                    ARScene arScene = (ARScene) mScene.getNativeScene();
-                    if (arScene != null) {
-                        if (shouldAddToScene) {
-                            // add the node
-                            arScene.addARDeclarativeNode(imageNode);
-                        } else {
-                            // remove old ARImageTarget and update the ARNode
-                            if (oldTarget != null) {
-                                arScene.removeARImageTargetDeclarative(oldTarget);
+                    if (imageNode != null) {
+                        ARImageTarget oldTarget = imageNode.getARImageTarget();
+                        imageNode.setARImageTarget(newTarget);
+                        ARScene arScene = (ARScene) mScene.getNativeScene();
+                        if (arScene != null) {
+                            if (shouldAddToScene) {
+                                // add the node
+                                arScene.addARDeclarativeNode(imageNode);
+                            } else {
+                                // remove old ARImageTarget and update the ARNode
+                                if (oldTarget != null) {
+                                    arScene.removeARImageTargetDeclarative(oldTarget);
+                                }
+                                arScene.updateARDeclarativeNode(imageNode);
                             }
-                            arScene.updateARDeclarativeNode(imageNode);
+                            // always add the ARImageTarget
+                            arScene.addARImageTargetDeclarative(newTarget);
                         }
-                        // always add the ARImageTarget
-                        arScene.addARImageTargetDeclarative(newTarget);
                     }
                 }
 
