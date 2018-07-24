@@ -50,7 +50,7 @@ public:
         z -= rhs.z;
         return *this;
     }
-
+    
     /*
      Find the absolute angle between this vector and the given vector. 
      */
@@ -167,6 +167,13 @@ inline VROVector3f operator*(VROVector3f lhs, const float multiplier) {
     lhs.y *= multiplier;
     lhs.z *= multiplier;
     return lhs; // return the result by value
+}
+
+inline VROVector3f operator*(float multiplier, VROVector3f rhs) {
+    rhs.x *= multiplier;
+    rhs.y *= multiplier;
+    rhs.z *= multiplier;
+    return rhs; // return the result by value
 }
 
 inline VROVector3f operator*(VROVector3f lhs, VROVector3f rhs) {

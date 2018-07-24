@@ -128,9 +128,10 @@ public:
     /*
      Sets both the local position and rotation of this node in terms of world coordinates.
      A computeTransform pass is then performed to update the node's bounding boxes
-     and as well as its child's node transforms recursively.
+     and as well as its child's node transforms recursively. The animated flag should be
+     false in most cases because of the recursive computeTransform pass.
      */
-    void setWorldTransform(VROVector3f finalPosition, VROQuaternion finalRotation);
+    void setWorldTransform(VROVector3f finalPosition, VROQuaternion finalRotation, bool animated = false);
 
     /*
      Update the visibility status of this node, using the camera in the current render
@@ -401,6 +402,14 @@ public:
     }
     
     /*
+     True to stop rendering of this node and all of its children until the
+     model load callbacks are finished. Used internally.
+     */
+    void setHoldRendering(bool hold) {
+        _holdRendering = hold;
+    }
+    
+    /*
      Returns true if this node was found visible during the last call to
      computeVisibility(). If a node is not visible, that means none of its
      children are visible either (we use the umbrella bounding box for
@@ -643,9 +652,9 @@ public:
         return _tag;
     }
     
-    void setHighAccuracyGaze(bool enabled);
-    bool getHighAccuracyGaze() const {
-        return _highAccuracyGaze;
+    void setHighAccuracyEvents(bool enabled);
+    bool getHighAccuracyEvents() const {
+        return _highAccuracyEvents;
     }
 
     void setIsBeingDragged(bool isDragging) {
@@ -875,10 +884,10 @@ private:
     std::weak_ptr<VROEventDelegate> _eventDelegateWeak;
 
     /*
-     True if we want to perform more accurate hit testing against this node's geometry
+     True if we want to perform more accurate event hit testing against this node's geometry
      rather than its bounding box.
      */
-    bool _highAccuracyGaze;
+    bool _highAccuracyEvents;
 
     /*
      Active actions on this node.
@@ -1015,6 +1024,12 @@ private:
      Non-unique tag identifier representing this node. Defaults to kDefaultNodeTag.
      */
     std::string _tag = kDefaultNodeTag;
+    
+    /*
+     Used internally to hold the rendering of a node and all of its children until a model
+     load callback has been invoked.
+     */
+    bool _holdRendering;
 };
 
 #endif /* VRONode_h */

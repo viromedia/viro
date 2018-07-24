@@ -12,7 +12,6 @@
 #include <stdio.h>
 #include <map>
 #include <atomic>
-
 #include "VROGeometry.h"
 #include "VROShapeUtils.h"
 #include "VROVector4f.h"
@@ -20,7 +19,10 @@
 class VROMaterial;
 class VROTexture;
 class VROGlyph;
+class VROGlyphAtlas;
 class VROTypefaceCollection;
+
+static const float kTextPointToWorldScale = 0.01;
 
 enum class VROTextHorizontalAlignment {
     Left,
@@ -53,16 +55,6 @@ class VROTextLayout {
     VROTextVerticalAlignment verticalAlignment;
 };
 
-class VROTextLine {
-public:
-    std::wstring line;
-    float spacingRatio;
-    
-    VROTextLine(std::wstring &line) : line(line), spacingRatio(1) {}
-    VROTextLine(std::wstring &line, float spacingRatio) : line(line), spacingRatio(spacingRatio) {}
-    virtual ~VROTextLine() {}
-};
-
 class VROText : public VROGeometry {
     
 public:
@@ -82,7 +74,7 @@ public:
     static std::shared_ptr<VROText> createText(std::wstring text,
                                                std::string typefaceNames,
                                                int fontSize, VROFontStyle fontStyle, VROFontWeight fontWeight,
-                                               VROVector4f color,
+                                               VROVector4f color, float extrusion,
                                                float width, float height,
                                                VROTextHorizontalAlignment horizontalAlignment, VROTextVerticalAlignment verticalAlignment,
                                                VROLineBreakMode lineBreakMode, VROTextClipMode clipMode, int maxLines,
@@ -96,7 +88,7 @@ public:
     static std::shared_ptr<VROText> createSingleLineText(std::wstring text,
                                                          std::string typefaceNames,
                                                          int fontSize, VROFontStyle fontStyle, VROFontWeight fontWeight,
-                                                         VROVector4f color,
+                                                         VROVector4f color, float extrusion,
                                                          float width, VROTextHorizontalAlignment alignment, VROTextClipMode clipMode,
                                                          std::shared_ptr<VRODriver> driver);
 
@@ -107,7 +99,7 @@ public:
     static std::shared_ptr<VROText> createSingleLineText(std::wstring text,
                                                          std::string typefaceNames,
                                                          int fontSize, VROFontStyle fontStyle, VROFontWeight fontWeight,
-                                                         VROVector4f color,
+                                                         VROVector4f color, float extrusion,
                                                          std::shared_ptr<VRODriver> driver);
     
     /*
@@ -126,7 +118,7 @@ public:
     VROText(std::wstring text,
             std::string typefaceNames,
             int fontSize, VROFontStyle fontStyle, VROFontWeight fontWeight,
-            VROVector4f color,
+            VROVector4f color, float extrusion,
             float width, float height,
             VROTextHorizontalAlignment horizontalAlignment, VROTextVerticalAlignment verticalAlignment,
             VROLineBreakMode lineBreakMode, VROTextClipMode clipMode, int maxLines,
@@ -169,7 +161,9 @@ public:
     void setLineBreakMode(VROLineBreakMode lineBreakMode);
     void setClipMode(VROTextClipMode clipMode);
     void setMaxLines(int maxLines);
-    
+    void setExtrusion(float extrusion);
+    void setMaterials(std::vector<std::shared_ptr<VROMaterial>> materials);
+
 private:
 
     std::wstring _text;
@@ -179,6 +173,7 @@ private:
     VROFontStyle _fontStyle;
     VROFontWeight _fontWeight;
     VROVector4f _color;
+    float _extrusion;
     float _width, _height;
     VROTextHorizontalAlignment _horizontalAlignment;
     VROTextVerticalAlignment _verticalAlignment;
@@ -197,85 +192,79 @@ private:
         _height(height)
     {}
     
-    static void buildText(std::wstring &text,
-                          std::shared_ptr<VROTypefaceCollection> &typefaces,
-                          VROVector4f color,
-                          float width,
-                          float height,
-                          VROTextHorizontalAlignment horizontalAlignment,
-                          VROTextVerticalAlignment verticalAlignment,
-                          VROLineBreakMode lineBreakMode,
-                          VROTextClipMode clipMode,
-                          int maxLines,
-                          std::vector<std::shared_ptr<VROGeometrySource>> &sources,
-                          std::vector<std::shared_ptr<VROGeometryElement>> &elements,
-                          std::vector<std::shared_ptr<VROMaterial>> &materials,
-                          float *outRealizedWidth, float *outRealizedHeight);
+    static void buildBitmapText(std::wstring &text,
+                                std::shared_ptr<VROTypefaceCollection> &typefaces,
+                                VROVector4f color,
+                                float width,
+                                float height,
+                                VROTextHorizontalAlignment horizontalAlignment,
+                                VROTextVerticalAlignment verticalAlignment,
+                                VROLineBreakMode lineBreakMode,
+                                VROTextClipMode clipMode,
+                                int maxLines,
+                                std::vector<std::shared_ptr<VROGeometrySource>> &sources,
+                                std::vector<std::shared_ptr<VROGeometryElement>> &elements,
+                                std::vector<std::shared_ptr<VROMaterial>> &materials,
+                                float *outRealizedWidth, float *outRealizedHeight,
+                                std::shared_ptr<VRODriver> driver);
     
     /*
      Build a standard Viro geometry from the given vertex array and material/indices
      pairs.
      */
-    static void buildGeometry(std::vector<VROShapeVertexLayout> &var,
-                              std::map<uint32_t, std::pair<std::shared_ptr<VROMaterial>, std::vector<int>>> &materialMap,
-                              std::vector<std::shared_ptr<VROGeometrySource>> &sources,
-                              std::vector<std::shared_ptr<VROGeometryElement>> &elements,
-                              std::vector<std::shared_ptr<VROMaterial>> &materials);
+    static void buildBitmapGeometry(std::vector<VROShapeVertexLayout> &var,
+                                    std::map<std::shared_ptr<VROGlyphAtlas>, std::pair<std::shared_ptr<VROMaterial>, std::vector<int>>> &materialMap,
+                                    std::vector<std::shared_ptr<VROGeometrySource>> &sources,
+                                    std::vector<std::shared_ptr<VROGeometryElement>> &elements,
+                                    std::vector<std::shared_ptr<VROMaterial>> &materials);
     
     /*
      Write the geometry for the given glyph (at the given position) into the
-     provided vertex array, and write the associated indices into the indices 
+     provided vertex array, and write the associated indices into the indices
      array as well.
      */
-    static void buildChar(std::shared_ptr<VROGlyph> &glyph,
-                          float x, float y, 
-                          std::vector<VROShapeVertexLayout> &var,
-                          std::vector<int> &indices);
+    static void buildBitmapChar(std::shared_ptr<VROGlyph> &glyph,
+                                float x, float y,
+                                std::vector<VROShapeVertexLayout> &var,
+                                std::vector<int> &indices);
+    
+    static void buildVectorizedText(std::wstring &text,
+                                    std::shared_ptr<VROTypefaceCollection> &typefaces,
+                                    VROVector4f color,
+                                    float extrusion,
+                                    float width,
+                                    float height,
+                                    VROTextHorizontalAlignment horizontalAlignment,
+                                    VROTextVerticalAlignment verticalAlignment,
+                                    VROLineBreakMode lineBreakMode,
+                                    VROTextClipMode clipMode,
+                                    int maxLines,
+                                    const std::vector<std::shared_ptr<VROMaterial>> &existingMaterials,
+                                    std::vector<std::shared_ptr<VROGeometrySource>> &sources,
+                                    std::vector<std::shared_ptr<VROGeometryElement>> &elements,
+                                    std::vector<std::shared_ptr<VROMaterial>> &materials,
+                                    float *outRealizedWidth, float *outRealizedHeight,
+                                    std::shared_ptr<VRODriver> driver);
     
     /*
-     Simple methods for processing the line-break mode. All of the methods below use a 
-     'greedy' algorithm, filling as much space in the current line as possible then moving
-     to the next line. These methods also introduce a newline on hard breaks (i.e. whenever
-     the '\n' character is encountered). In particular, the wrapByNewlines function *only*
-     processes hard breaks; the rest process both hard and soft.
-     
-     These functions also handle clipping. When char/word wrapping is on, we only have to
-     clip text vertically (horizontal edges are implicitly taken care of by the wrapping
-     function). When char/word wrapping is off, we also have to clip text horizontally.
+     Build a standard Viro geometry from the given vertex array and indices.
      */
-    static std::vector<VROTextLine> wrapByWords(std::wstring &text,
-                                                float maxWidth, float maxHeight, int maxLines, float lineHeight,
-                                                VROTextClipMode clipMode,
-                                                std::map<uint32_t, std::shared_ptr<VROGlyph>> &glyphMap);
-    static std::vector<VROTextLine> wrapByChars(std::wstring &text,
-                                                float maxWidth, float maxHeight, int maxLines, float lineHeight,
-                                                VROTextClipMode clipMode,
-                                                std::map<uint32_t, std::shared_ptr<VROGlyph>> &glyphMap);
-    static std::vector<VROTextLine> wrapByNewlines(std::wstring &text,
-                                                   float maxWidth, float maxHeight, int maxLines, float lineHeight,
-                                                   VROTextClipMode clipMode,
-                                                   std::map<uint32_t, std::shared_ptr<VROGlyph>> &glyphMap);
+    static void buildVectorizedGeometry(std::vector<VROShapeVertexLayout> &var,
+                                        std::vector<std::vector<int>> indices,
+                                        std::vector<std::shared_ptr<VROGeometrySource>> &sources,
+                                        std::vector<std::shared_ptr<VROGeometryElement>> &elements);
     
     /*
-     Justification routine. Considerably more complex than the greedy algorithms above. Note that
-     justification is a word-wrapping technique that reduces the 'raggedness' of the text edges;
-     it can be used with left, right, and centered horizontal alignment. To achieve traditional 
-     justified text as seen in newspapers, use it with VROTextHorizontalAlignment::Left.
+     Write the geometry for the given glyph (at the given position) into the
+     provided vertex array, and write the associated indices into the indices
+     array as well.
      */
-    static std::vector<VROTextLine> justify(std::wstring &text,
-                                            float maxWidth, float maxHeight, int maxLines, float lineHeight,
-                                            VROTextClipMode clipMode,
-                                            std::map<uint32_t, std::shared_ptr<VROGlyph>> &glyphMap);
-    
-    /*
-     Helpers for wrapping/clipping.
-     */
-    static std::vector<std::wstring> divideIntoParagraphs(std::wstring &text);
-    static float getLengthOfWord(const std::wstring &word, std::map<uint32_t, std::shared_ptr<VROGlyph>> &glyphMap);
-
-    static bool isAnotherLineAvailable(size_t numLinesNow, float maxHeight, int maxLines,
-                                       float lineHeight, VROTextClipMode clipMode);
-    
+    static void buildVectorizedChar(std::shared_ptr<VROGlyph> &glyph,
+                                    float x, float y, float extrusion,
+                                    std::vector<VROShapeVertexLayout> &var,
+                                    std::vector<int> &frontIndices,
+                                    std::vector<int> &backIndices,
+                                    std::vector<int> &sideIndices);
 
 };
 

@@ -13,6 +13,7 @@
 #include <memory>
 #include <map>
 #include <functional>
+#include <set>
 #include "VROGeometrySource.h"
 #include "VROGeometryElement.h"
 #include "VROMaterial.h"
@@ -27,6 +28,7 @@ class VROSkeleton;
 class VROTaskQueue;
 class VROSkeletalAnimation;
 class VROKeyframeAnimation;
+class VROKeyframeAnimationFrame;
 
 namespace tinygltf {
     class Model;
@@ -37,6 +39,9 @@ namespace tinygltf {
     class Texture;
     class Parameter;
     class Primitive;
+    class Skin;
+    class Animation;
+    class AnimationSampler;
 }
 
 /*
@@ -52,7 +57,7 @@ enum class GLTFType {
     Vec4    = 4,
     Mat2    = 4,
     Mat3    = 9,
-    Mat4    = 10
+    Mat4    = 16
 };
 
 /*
@@ -60,10 +65,10 @@ enum class GLTFType {
  */
 enum class GLTFTypeComponent {
     Byte            = 1,
-    UnsignedByte   = 1,
+    UnsignedByte    = 1,
     Short           = 2,
-    UnsignedShort  = 2,
-    UnsignedInt    = 4,
+    UnsignedShort   = 2,
+    UnsignedInt     = 4,
     Float           = 4
 };
 
@@ -87,6 +92,7 @@ private:
     static bool processScene(const tinygltf::Model &gModel, std::shared_ptr<VRONode> rootNode, const tinygltf::Scene &gScene);
     static bool processNode(const tinygltf::Model &gModel, std::shared_ptr<VRONode> &sceneNode, int gNodeIndex);
     static bool processMesh(const tinygltf::Model &gModel, std::shared_ptr<VRONode> &node, const tinygltf::Mesh &gMesh);
+    static bool processSkin(const tinygltf::Model &gModel, std::shared_ptr<VRONode> &node, int skinIndex);
     static bool processVertexElement(const tinygltf::Model &gModel, const tinygltf::Primitive &gPrimitive,
                                      std::vector<std::shared_ptr<VROGeometryElement>> &element);
     static bool processVertexAttributes(const tinygltf::Model &gModel, std::map<std::string, int> &gAttributes,
@@ -110,12 +116,57 @@ private:
     static VROFilterMode getFilterMode(int mode);
     static VROWrapMode getWrappingMode(int mode);
 
+    // Processing of Animation Data
+    static bool processAnimations(const tinygltf::Model &gModel);
+    static bool processAnimationKeyFrame(const tinygltf::Model &gModel,
+                                         std::map<int, std::map<int, std::map<int, std::vector<int>>>> &gltfAnimatedNodes);
+    static bool processAnimationChannels(const tinygltf::Model &gModel,
+                                         const tinygltf::Animation &anim,
+                                         std::vector<int> targetedChannels,
+                                         std::shared_ptr<VROKeyframeAnimation> &animKeyFrameOut);
+    static bool processRawChannelData(const tinygltf::Model &gModel,
+                                      std::string channelProperty,
+                                      const tinygltf::AnimationSampler &gChannelSampler,
+                                      std::vector<std::unique_ptr<VROKeyframeAnimationFrame>> &framesOut);
+    static void processSkeletalAnimation(const tinygltf::Model &gModel,
+                                         std::vector<std::pair<int,int>> &skeletalAnimToSkinPair);
+    static void processSkeletalTransformsForFrame(int skin,
+                                                  int animation,
+                                                  int keyFrameIndex,
+                                                  int currentJointIndex,
+                                                  std::map<int, VROMatrix4f> &transforms);
+    static bool processSkinner(const tinygltf::Model &gModel);
+    static bool processSkinnerInverseBindData(const tinygltf::Model &gModel,
+                                              const tinygltf::Skin &skin,
+                                              std::shared_ptr<VROSkeleton> &skeleton,
+                                              std::unique_ptr<VROSkinner> &skinnerOut);
+    static void clearCachedData();
+
     /*
      As multiple mesh attributes may point to the same texture or data arrays when loading a
      GTLF model, we cache them here during loadGLTFFromResource(), and clear them out after.
      */
     static std::map<std::string, std::shared_ptr<VROData>> _dataCache;
     static std::map<std::string, std::shared_ptr<VROTexture>> _textureCache;
+
+    /*
+     Cached maps of skinner indexes to skeletal data, including both joints and affected node
+     indexes. Note that in gLTF, a node can only have one skeletal root joint. These caches
+     are cleared out after the parsing of a single gLTF model.
+     */
+    static std::map<int, std::shared_ptr<VROSkeleton>> _skinIndexToSkeleton;
+    static std::map<int, std::map<int,int>> _skinIndexToJointNodeIndex;
+    static std::map<int, std::map<int,std::vector<int>>> _skinIndexToJointChildJoints;
+    static std::map<int, std::unique_ptr<VROSkinner>> _skinMap;
+
+    /*
+     Cached maps of nodeIndexes to it's corresponding animations. These caches are cleared
+     out after the parsing of a single gLTF model. Note that _nodeKeyFrameAnims is of the form:
+     <nodeIndex , <animationIndex, VROKeyframeAnimation>>> _nodeKeyframeAnims.
+     */
+    static std::map<int, std::map<int, std::shared_ptr<VROKeyframeAnimation>>> _nodeKeyFrameAnims;
+    static std::map<int, std::vector<std::shared_ptr<VROSkeletalAnimation>>> _skinSkeletalAnims;
+
 };
 
 #endif /* VROGLTFLoader_h */

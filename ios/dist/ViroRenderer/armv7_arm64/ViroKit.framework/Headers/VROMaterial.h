@@ -10,6 +10,7 @@
 #define VROMaterial_h
 
 #include <memory>
+#include <functional>
 #include "VROMaterialVisual.h"
 #include "VROAnimatable.h"
 #include "VROStringUtil.h"
@@ -73,6 +74,18 @@ public:
      will be automatically hydrated during the render-cycle.
      */
     void prewarm(std::shared_ptr<VRODriver> driver);
+    
+    /*
+     Asynchronously upload the textures used by this material to the GPU, on the rendering
+     thread as time permits. Each time a texture is uploaded, the given callback will be
+     invoked.
+     
+     Returns the number of textures that were queued for upload. If a texture is *already*
+     uploaded, that texture will not be returned in the count, and the callback will not
+     be invoked for that texture.
+     */
+    int hydrateAsync(std::function<void()> callback,
+                     std::shared_ptr<VRODriver> &driver);
     
     /*
      Delete any rendering resources. Invoked prior to destruction, on the
@@ -509,6 +522,7 @@ private:
     VROMaterialSubstrate *_substrate;
     
     void removeOutgoingMaterial();
+    bool isHydrated();
     
 };
 

@@ -109,6 +109,14 @@ public:
     const std::shared_ptr<VROGeometrySource> getBoneWeights() const {
         return _boneWeights;
     }
+
+    /*
+     Get the bindTransforms that have been set on this VROSkinner, with data that
+     corresponds to the order of _boneIndices.
+     */
+    const std::vector<VROMatrix4f> &getBindTransforms() const {
+        return _bindTransforms;
+    }
     
 private:
     

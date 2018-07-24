@@ -63,7 +63,7 @@ private:
                                                    std::vector<tinyobj::material_t> &materials,
                                                    std::string base,
                                                    VROResourceType type,
-                                                   const std::map<std::string, std::string> *resourceMap,
+                                                   std::shared_ptr<std::map<std::string, std::string>> resourceMap,
                                                    std::map<std::string, std::shared_ptr<VROTexture>> &textureCache,
                                                    std::shared_ptr<VROTaskQueue> taskQueue);
 };

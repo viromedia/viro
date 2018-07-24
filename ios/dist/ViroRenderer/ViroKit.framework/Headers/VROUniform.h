@@ -77,14 +77,14 @@ public:
         if (_location == -1) {
             return;
         }
-        glUniform3f(_location, value.x, value.y, value.z);
+        GL( glUniform3f(_location, value.x, value.y, value.z) );
     }
     
     void setVec4(VROVector4f value) {
         if (_location == -1) {
             return;
         }
-        glUniform4f(_location, value.x, value.y, value.z, value.w);
+        GL( glUniform4f(_location, value.x, value.y, value.z, value.w); )
     }
     
     void setMat4(VROMatrix4f value) {
@@ -92,21 +92,21 @@ public:
             return;
         }
         
-        glUniformMatrix4fv(_location, 1, GL_FALSE, value.getArray());
+        GL( glUniformMatrix4fv(_location, 1, GL_FALSE, value.getArray()) );
     }
     
     void setInt(int value) {
         if (_location == -1) {
             return;
         }
-        glUniform1i(_location, value);
+        GL( glUniform1i(_location, value) );
     }
     
     void setFloat(float value) {
         if (_location == -1) {
             return;
         }
-        glUniform1f(_location, value);
+        GL( glUniform1f(_location, value) );
     }
     
 protected:
@@ -130,7 +130,7 @@ public:
         GLint *val = (GLint *) value;
         
         if (*val != _curValue) {
-            glUniform1iv(_location, _arraySize, val);
+            GL( glUniform1iv(_location, _arraySize, val) );
             _curValue = *val;
         }
     }
@@ -153,7 +153,7 @@ public:
     
     void set(const void *value, const VROGeometry *geometry, const VROMaterial *material) {
         //passert (_location != -1);
-        glUniform2iv(_location, _arraySize, (GLint *) value);
+        GL( glUniform2iv(_location, _arraySize, (GLint *) value) );
     }
     
 private:
@@ -169,7 +169,7 @@ public:
     
     void set(const void *value, const VROGeometry *geometry, const VROMaterial *material) {
         passert (_location != -1);
-        glUniform3iv(_location, _arraySize, (GLint *) value);
+        GL( glUniform3iv(_location, _arraySize, (GLint *) value) );
     }
     
 private:
@@ -185,7 +185,7 @@ public:
     
     void set(const void *value, const VROGeometry *geometry, const VROMaterial *material) {
         //passert (_location != -1);
-        glUniform4iv(_location, _arraySize, (GLint *) value);
+        GL( glUniform4iv(_location, _arraySize, (GLint *) value) );
     }
     
 private:
@@ -207,7 +207,7 @@ public:
         GLfloat *val = (GLfloat *) value;
         
         if (_arraySize > 1 || *val != _curValue) {
-            glUniform1f(_location, *val);
+            GL( glUniform1f(_location, *val) );
             _curValue = *val;
         }
     }
@@ -230,7 +230,7 @@ public:
     
     void set(const void *value, const VROGeometry *geometry, const VROMaterial *material) {
         //passert (_location != -1);
-        glUniform2fv(_location, _arraySize, (GLfloat *) value);
+        GL( glUniform2fv(_location, _arraySize, (GLfloat *) value) );
     }
     
 private:
@@ -254,7 +254,7 @@ public:
         
         GLfloat *val = (GLfloat *) value;
         if (_arraySize > 1 || memcmp(val, _curValue, sizeof(GLfloat) * 3) != 0) {
-            glUniform3fv(_location, _arraySize, val);
+            GL( glUniform3fv(_location, _arraySize, val) );
             memcpy(_curValue, val, sizeof(GLfloat) * 3);
         }
     }
@@ -283,7 +283,7 @@ public:
     
     void set(const void *value, const VROGeometry *geometry, const VROMaterial *material) {
         //passert (_location != -1);
-        glUniform4fv(_location, _arraySize, (GLfloat *) value);
+        GL( glUniform4fv(_location, _arraySize, (GLfloat *) value) );
     }
     
 private:
@@ -299,7 +299,7 @@ public:
     
     void set(const void *value, const VROGeometry *geometry, const VROMaterial *material) {
         //passert (_location != -1);
-        glUniformMatrix2fv(_location, 1, GL_FALSE, (GLfloat *) value);
+        GL( glUniformMatrix2fv(_location, 1, GL_FALSE, (GLfloat *) value) );
     }
     
 };
@@ -312,7 +312,7 @@ public:
     
     void set(const void *value, const VROGeometry *geometry, const VROMaterial *material) {
         //passert (_location != -1);
-        glUniformMatrix3fv(_location, 1, GL_FALSE, (GLfloat *) value);
+        GL( glUniformMatrix3fv(_location, 1, GL_FALSE, (GLfloat *) value) );
     }
     
 };
@@ -325,7 +325,7 @@ public:
     
     void set(const void *value, const VROGeometry *geometry, const VROMaterial *material) {
         //passert (_location != -1);
-        glUniformMatrix4fv(_location, 1, GL_FALSE, (GLfloat *) value);
+        GL( glUniformMatrix4fv(_location, 1, GL_FALSE, (GLfloat *) value) );
     }
     
 };

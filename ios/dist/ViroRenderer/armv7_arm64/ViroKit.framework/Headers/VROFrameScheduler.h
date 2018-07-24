@@ -36,6 +36,11 @@ public:
     virtual ~VROFrameScheduler();
     
     /*
+     Return true if the given task is already queued.
+     */
+    bool isTaskQueued(std::string key);
+    
+    /*
      Schedule a new task to be completed in the time-limited 
      queue. The key should uniquely identify the task, and is used
      to de-dupe tasks that are scheduled multiple times.

@@ -44,6 +44,7 @@ enum class VRORendererTestType {
     PhotometricLight,
     RendererSettings,
     ToneMapping,
+    Polygon,
     NumTests,
 };
 
