@@ -49,10 +49,21 @@ var ViroARSceneNavigator = createReactClass({
         scene: PropTypes.func.isRequired,
       }).isRequired,
 
-      // iOS only props! Note: these props may change as the underlying platforms coalesce in features.
+      /**
+       * iOS only props! Note: these props may change as the underlying platforms coalesce in features.
+       */
       worldAlignment:PropTypes.oneOf(['Gravity', 'GravityAndHeading', 'Camera']),
       autofocus : PropTypes.bool,
       videoQuality : PropTypes.oneOf(['High', 'Low']),
+
+      /**
+       * Renderer settings that can be used to enable or disable various
+       * renderer capabilities and algorithms.
+       */
+      hdrEnabled: PropTypes.bool,
+      pbrEnabled: PropTypes.bool,
+      bloomEnabled: PropTypes.bool,
+      shadowsEnabled: PropTypes.bool,
   },
 
   arSceneNavigator: (undefined: ?Object),
@@ -463,7 +474,7 @@ var ViroARSceneNavigator = createReactClass({
     // so remove it.
     delete this.arSceneNavigator.viroAppProps.rootTag;
     delete this.sceneNavigator.viroAppProps.rootTag;
-    
+
     return (
       <VRTARSceneNavigator
         ref={ component => {this._component = component; }}

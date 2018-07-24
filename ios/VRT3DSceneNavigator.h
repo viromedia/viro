@@ -21,6 +21,10 @@
 @property (readwrite, nonatomic) VRTScene *currentScene;
 @property (nonatomic, copy) NSString *apiKey;
 @property (nonatomic, copy, nullable) RCTDirectEventBlock onExitViro;
+@property (nonatomic, readwrite) BOOL hdrEnabled;
+@property (nonatomic, readwrite) BOOL pbrEnabled;
+@property (nonatomic, readwrite) BOOL bloomEnabled;
+@property (nonatomic, readwrite) BOOL shadowsEnabled;
 
 - (instancetype)initWithBridge:(RCTBridge *)bridge;
 - (void)insertReactSubview:(UIView *)subview atIndex:(NSInteger)atIndex;

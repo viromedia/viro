@@ -42,6 +42,26 @@ public class VRTVRSceneNavigatorManager extends VRTViroViewGroupManager<VRTVRSce
         navigator.setVrModeEnabled(vrModeEnabled);
     }
 
+    @ReactProp(name = "hdrEnabled", defaultBoolean = true)
+    public void setHDREnabled(VRTVRSceneNavigator navigator, boolean enabled) {
+        navigator.setHDREnabled(enabled);
+    }
+
+    @ReactProp(name = "pbrEnabled", defaultBoolean = true)
+    public void setPBREnabled(VRTVRSceneNavigator navigator, boolean enabled) {
+        navigator.setPBREnabled(enabled);
+    }
+
+    @ReactProp(name = "bloomEnabled", defaultBoolean = true)
+    public void setBloomEnabled(VRTVRSceneNavigator navigator, boolean enabled) {
+        navigator.setBloomEnabled(enabled);
+    }
+
+    @ReactProp(name = "shadowsEnabled", defaultBoolean = true)
+    public void setShadowsEnabled(VRTVRSceneNavigator navigator, boolean enabled) {
+        navigator.setShadowsEnabled(enabled);
+    }
+
     @ReactProp(name = "debug", defaultBoolean = false)
     public void setDebug(VRTVRSceneNavigator navigator, boolean debug) {
         navigator.setDebug(debug);

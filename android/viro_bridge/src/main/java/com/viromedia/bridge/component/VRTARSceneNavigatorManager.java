@@ -37,4 +37,24 @@ public class VRTARSceneNavigatorManager extends VRTViroViewGroupManager<VRTARSce
     public void setApiKey(VRTARSceneNavigator view, String apiKey) {
         view.setApiKey(apiKey);
     }
+
+    @ReactProp(name = "hdrEnabled", defaultBoolean = true)
+    public void setHDREnabled(VRTARSceneNavigator navigator, boolean enabled) {
+        navigator.setHDREnabled(enabled);
+    }
+
+    @ReactProp(name = "pbrEnabled", defaultBoolean = true)
+    public void setPBREnabled(VRTARSceneNavigator navigator, boolean enabled) {
+        navigator.setPBREnabled(enabled);
+    }
+
+    @ReactProp(name = "bloomEnabled", defaultBoolean = true)
+    public void setBloomEnabled(VRTARSceneNavigator navigator, boolean enabled) {
+        navigator.setBloomEnabled(enabled);
+    }
+
+    @ReactProp(name = "shadowsEnabled", defaultBoolean = true)
+    public void setShadowsEnabled(VRTARSceneNavigator navigator, boolean enabled) {
+        navigator.setShadowsEnabled(enabled);
+    }
 }

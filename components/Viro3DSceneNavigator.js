@@ -31,7 +31,7 @@ var mathRandomOffset = 0;
  */
 var Viro3DSceneNavigator = createReactClass({
   propTypes: {
-  
+
     /**
      * A flag to enable/disable some debug features
      */
@@ -57,6 +57,15 @@ var Viro3DSceneNavigator = createReactClass({
      * the "X" buton).
      */
     onExitViro: PropTypes.func,
+
+    /**
+     * Renderer settings that can be used to enable or disable various
+     * renderer capabilities and algorithms.
+     */
+     hdrEnabled: PropTypes.bool,
+     pbrEnabled: PropTypes.bool,
+     bloomEnabled: PropTypes.bool,
+     shadowsEnabled: PropTypes.bool,
   },
 
   sceneNavigator: (undefined: ?Object),

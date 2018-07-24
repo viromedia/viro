@@ -43,6 +43,11 @@ static NSString *const kVRTInvalidAPIKeyMessage = @"The given API Key is either 
         _bridge = bridge;
         _autofocus = YES;
         _vroVideoQuality = VROVideoQuality::High;
+        
+        _hdrEnabled = YES;
+        _pbrEnabled = YES;
+        _bloomEnabled = YES;
+        _shadowsEnabled = YES;
     }
     return self;
 }
@@ -70,7 +75,6 @@ static NSString *const kVRTInvalidAPIKeyMessage = @"The given API Key is either 
     }
 }
 
-
 - (void)didSetProps:(NSArray<NSString *> *)changedProps {
     // if we haven't created the VROView, then create it now that
     // all the props have been set.
@@ -87,7 +91,13 @@ static NSString *const kVRTInvalidAPIKeyMessage = @"The given API Key is either 
         }
         
         EAGLContext *context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES3];
+        
         VRORendererConfiguration config;
+        config.enableHDR = _hdrEnabled;
+        config.enablePBR = _pbrEnabled;
+        config.enableBloom = _bloomEnabled;
+        config.enableShadows = _shadowsEnabled;
+        
         _vroView = [[VROViewAR alloc] initWithFrame:CGRectMake(0, 0,
                                                                [[UIScreen mainScreen] bounds].size.width,
                                                                [[UIScreen mainScreen] bounds].size.height)
@@ -234,6 +244,34 @@ static NSString *const kVRTInvalidAPIKeyMessage = @"The given API Key is either 
     }
 
     [super removeFromSuperview];
+}
+
+- (void)setHdrEnabled:(BOOL)hdrEnabled {
+    _hdrEnabled = hdrEnabled;
+    if (_vroView) {
+        [_vroView setHDREnabled:hdrEnabled];
+    }
+}
+
+- (void)setPbrEnabled:(BOOL)pbrEnabled {
+    _pbrEnabled = pbrEnabled;
+    if (_vroView) {
+        [_vroView setPBREnabled:pbrEnabled];
+    }
+}
+
+- (void)setBloomEnabled:(BOOL)bloomEnabled {
+    _bloomEnabled = bloomEnabled;
+    if (_vroView) {
+        [_vroView setBloomEnabled:bloomEnabled];
+    }
+}
+
+- (void)setShadowsEnabled:(BOOL)shadowsEnabled {
+    _shadowsEnabled = shadowsEnabled;
+    if (_vroView) {
+        [_vroView setShadowsEnabled:shadowsEnabled];
+    }
 }
 
 #pragma mark RCTInvalidating methods

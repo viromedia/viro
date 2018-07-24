@@ -31,11 +31,14 @@ static NSString *const kVRTInvalidAPIKeyMessage = @"The given API Key is either 
 }
 
 - (instancetype)initWithBridge:(RCTBridge *)bridge {
-  self = [super initWithBridge:bridge];
-  if (self) {
-    
-  }
-  return self;
+    self = [super initWithBridge:bridge];
+    if (self) {
+        _hdrEnabled = YES;
+        _pbrEnabled = YES;
+        _bloomEnabled = YES;
+        _shadowsEnabled = YES;
+    }
+    return self;
 }
 
 /*
@@ -49,37 +52,70 @@ static NSString *const kVRTInvalidAPIKeyMessage = @"The given API Key is either 
  one already exists and the method was a no-op.
  */
 - (BOOL)initVRView {
-  if (_vroView != nil) {
-    return NO;
-  }
-  VRORendererConfiguration config;
-  _gvrController = [[VROViewControllerGVR alloc] initWithConfig:config];
-  _gvrController.forceLandscape = _vrModeEnabled;
-  _vroView = (id<VROView>) _gvrController.view;
-  
-  // Load materials; must be done each time we have a new context (e.g. after
-  // the EGL context is created by the VROViewGVR
-  VRTMaterialManager *materialManager = [self.bridge materialManager];
-  [materialManager reloadMaterials];
-  VROViewGVR *viewCardboard = (VROViewGVR *) _gvrController.view;
-  [viewCardboard setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
-  _vroView.renderDelegate = self;
-  
-  [self setFrame:[UIScreen mainScreen].bounds];
-  [self setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
-  
-  [self addSubview:viewCardboard];
-  self.currentViews = [[NSMutableArray alloc] init];
-  [self.bridge.perfMonitor setView:_vroView];
-  
-  [self validateAPIKey];
-  return YES;
+    if (_vroView != nil) {
+        return NO;
+    }
+    VRORendererConfiguration config;
+    config.enableHDR = _hdrEnabled;
+    config.enablePBR = _pbrEnabled;
+    config.enableBloom = _bloomEnabled;
+    config.enableShadows = _shadowsEnabled;
+    
+    _gvrController = [[VROViewControllerGVR alloc] initWithConfig:config];
+    _gvrController.forceLandscape = _vrModeEnabled;
+    _vroView = (id<VROView>) _gvrController.view;
+    
+    // Load materials; must be done each time we have a new context (e.g. after
+    // the EGL context is created by the VROViewGVR
+    VRTMaterialManager *materialManager = [self.bridge materialManager];
+    [materialManager reloadMaterials];
+    VROViewGVR *viewCardboard = (VROViewGVR *) _gvrController.view;
+    [viewCardboard setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
+    _vroView.renderDelegate = self;
+    
+    [self setFrame:[UIScreen mainScreen].bounds];
+    [self setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
+    
+    [self addSubview:viewCardboard];
+    self.currentViews = [[NSMutableArray alloc] init];
+    [self.bridge.perfMonitor setView:_vroView];
+    
+    [self validateAPIKey];
+    return YES;
 }
 
 - (void)setVrModeEnabled:(BOOL)enabled {
   _vrModeEnabled = enabled;
   [self initVRView];
   [_vroView setVrMode:_vrModeEnabled];
+}
+
+- (void)setHdrEnabled:(BOOL)hdrEnabled {
+    _hdrEnabled = hdrEnabled;
+    if (_vroView) {
+        [_vroView setHDREnabled:hdrEnabled];
+    }
+}
+
+- (void)setPbrEnabled:(BOOL)pbrEnabled {
+    _pbrEnabled = pbrEnabled;
+    if (_vroView) {
+        [_vroView setPBREnabled:pbrEnabled];
+    }
+}
+
+- (void)setBloomEnabled:(BOOL)bloomEnabled {
+    _bloomEnabled = bloomEnabled;
+    if (_vroView) {
+        [_vroView setBloomEnabled:bloomEnabled];
+    }
+}
+
+- (void)setShadowsEnabled:(BOOL)shadowsEnabled {
+    _shadowsEnabled = shadowsEnabled;
+    if (_vroView) {
+        [_vroView setShadowsEnabled:shadowsEnabled];
+    }
 }
 
 - (void)recenterTracking {

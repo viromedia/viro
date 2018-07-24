@@ -13,6 +13,7 @@ import android.widget.FrameLayout;
 import com.facebook.react.bridge.LifecycleEventListener;
 import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
+import com.viro.core.RendererConfiguration;
 import com.viro.core.ViroContext;
 
 import com.viro.core.ViroView;
@@ -147,11 +148,17 @@ public class VRT3DSceneNavigator extends FrameLayout {
 
     private boolean mHasOnExitViroCallback = false;
 
+    /*
+     * Renderer configuration parameters.
+     */
+    private RendererConfiguration mRendererConfig;
+
     public VRT3DSceneNavigator(ReactContext reactContext,
                              ReactViroPackage.ViroPlatform platform) {
         super(reactContext.getBaseContext(), null, -1);
         mPlatform = platform;
         mReactContext = reactContext;
+        mRendererConfig = new RendererConfiguration();
 
         // Create the ViroView
         mViroView = createViroView(reactContext);
@@ -371,5 +378,33 @@ public class VRT3DSceneNavigator extends FrameLayout {
             throw new IllegalStateException("recenterTracking should not be invoked on Daydream devices.");
         }
         mViroView.recenterTracking();
+    }
+
+    public void setHDREnabled(boolean enabled) {
+        mRendererConfig.setHDREnabled(enabled);
+        if (mViroView != null) {
+            mViroView.setHDREnabled(enabled);
+        }
+    }
+
+    public void setPBREnabled(boolean enabled) {
+        mRendererConfig.setPBREnabled(enabled);
+        if (mViroView != null) {
+            mViroView.setPBREnabled(enabled);
+        }
+    }
+
+    public void setBloomEnabled(boolean enabled) {
+        mRendererConfig.setBloomEnabled(enabled);
+        if (mViroView != null) {
+            mViroView.setBloomEnabled(enabled);
+        }
+    }
+
+    public void setShadowsEnabled(boolean enabled) {
+        mRendererConfig.setShadowsEnabled(enabled);
+        if (mViroView != null) {
+            mViroView.setShadowsEnabled(enabled);
+        }
     }
 }

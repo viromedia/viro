@@ -42,6 +42,26 @@ public class VRT3DSceneNavigatorManager extends VRTViroViewGroupManager<VRT3DSce
         navigator.setDebug(debug);
     }
 
+    @ReactProp(name = "hdrEnabled", defaultBoolean = true)
+    public void setHDREnabled(VRT3DSceneNavigator navigator, boolean enabled) {
+        navigator.setHDREnabled(enabled);
+    }
+
+    @ReactProp(name = "pbrEnabled", defaultBoolean = true)
+    public void setPBREnabled(VRT3DSceneNavigator navigator, boolean enabled) {
+        navigator.setPBREnabled(enabled);
+    }
+
+    @ReactProp(name = "bloomEnabled", defaultBoolean = true)
+    public void setBloomEnabled(VRT3DSceneNavigator navigator, boolean enabled) {
+        navigator.setBloomEnabled(enabled);
+    }
+
+    @ReactProp(name = "shadowsEnabled", defaultBoolean = true)
+    public void setShadowsEnabled(VRT3DSceneNavigator navigator, boolean enabled) {
+        navigator.setShadowsEnabled(enabled);
+    }
+
     @ReactProp(name = "currentSceneIndex")
     public void setCurrentSceneIndex(VRT3DSceneNavigator view, int selectedIndex) {
         view.setCurrentSceneIndex(selectedIndex);

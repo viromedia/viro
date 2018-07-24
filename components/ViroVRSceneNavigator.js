@@ -64,6 +64,15 @@ var ViroVRSceneNavigator = createReactClass({
      * the "X" buton).
      */
     onExitViro: PropTypes.func,
+
+    /**
+     * Renderer settings that can be used to enable or disable various
+     * renderer capabilities and algorithms.
+     */
+     hdrEnabled: PropTypes.bool,
+     pbrEnabled: PropTypes.bool,
+     bloomEnabled: PropTypes.bool,
+     shadowsEnabled: PropTypes.bool,
   },
 
   sceneNavigator: (undefined: ?Object),

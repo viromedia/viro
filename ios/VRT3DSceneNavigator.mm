@@ -30,47 +30,56 @@ static NSString *const kVRTInvalidAPIKeyMessage = @"The given API Key is either 
 }
 
 - (instancetype)initWithBridge:(RCTBridge *)bridge {
-  self = [super initWithBridge:bridge];
-  if (self) {
-    VRTMaterialManager *materialManager = [bridge materialManager];
-    [materialManager reloadMaterials];
+    self = [super initWithBridge:bridge];
+    if (self) {
+        VRTMaterialManager *materialManager = [bridge materialManager];
+        [materialManager reloadMaterials];
 
-    [self setFrame:CGRectMake(0, 0,
-                              [[UIScreen mainScreen] bounds].size.width,
-                              [[UIScreen mainScreen] bounds].size.height)];
-    self.currentViews = [[NSMutableArray alloc] init];
-
-  }
-  return self;
+        [self setFrame:CGRectMake(0, 0,
+                                  [[UIScreen mainScreen] bounds].size.width,
+                                  [[UIScreen mainScreen] bounds].size.height)];
+        self.currentViews = [[NSMutableArray alloc] init];
+        
+        _hdrEnabled = YES;
+        _pbrEnabled = YES;
+        _bloomEnabled = YES;
+        _shadowsEnabled = YES;
+    }
+    return self;
 }
 
 - (void)didSetProps:(NSArray<NSString *> *)changedProps {
   // if we haven't created the VROView, then create it now that
   // all the props have been set.
   if (!_vroView) {
-    EAGLContext *context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES3];
-    VRORendererConfiguration config;
-
-    _vroView = [[VROViewScene alloc] initWithFrame:CGRectMake(0, 0,
-                                                              [[UIScreen mainScreen] bounds].size.width,
-                                                              [[UIScreen mainScreen] bounds].size.height)
-                                            config:config context:context] ;
-    VROViewScene *viewScene = (VROViewScene *) _vroView;
-    [viewScene setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
-    _vroView.renderDelegate = self;
-
-    [self addSubview:(UIView *)_vroView];
-
-    [_bridge.perfMonitor setView:_vroView];
-
-    // reset the API key now that _vroView has been created.
-    [self setApiKey:_apiKey];
-
-    // set the scene if it was set before this view was created
-    if (_currentScene) {
-      [_currentScene setView:_vroView];
-      [_vroView setSceneController:[_currentScene sceneController]];
-    }
+      EAGLContext *context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES3];
+    
+      VRORendererConfiguration config;
+      config.enableHDR = _hdrEnabled;
+      config.enablePBR = _pbrEnabled;
+      config.enableBloom = _bloomEnabled;
+      config.enableShadows = _shadowsEnabled;
+    
+      _vroView = [[VROViewScene alloc] initWithFrame:CGRectMake(0, 0,
+                                                                [[UIScreen mainScreen] bounds].size.width,
+                                                                [[UIScreen mainScreen] bounds].size.height)
+                                              config:config context:context] ;
+      VROViewScene *viewScene = (VROViewScene *) _vroView;
+      [viewScene setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
+      _vroView.renderDelegate = self;
+      
+      [self addSubview:(UIView *)_vroView];
+      
+      [_bridge.perfMonitor setView:_vroView];
+      
+      // reset the API key now that _vroView has been created.
+      [self setApiKey:_apiKey];
+      
+      // set the scene if it was set before this view was created
+      if (_currentScene) {
+          [_currentScene setView:_vroView];
+          [_vroView setSceneController:[_currentScene sceneController]];
+      }
   }
 }
 
@@ -228,6 +237,34 @@ static NSString *const kVRTInvalidAPIKeyMessage = @"The given API Key is either 
     }
   }
   return nil;
+}
+
+- (void)setHdrEnabled:(BOOL)hdrEnabled {
+    _hdrEnabled = hdrEnabled;
+    if (_vroView) {
+        [_vroView setHDREnabled:hdrEnabled];
+    }
+}
+
+- (void)setPbrEnabled:(BOOL)pbrEnabled {
+    _pbrEnabled = pbrEnabled;
+    if (_vroView) {
+        [_vroView setPBREnabled:pbrEnabled];
+    }
+}
+
+- (void)setBloomEnabled:(BOOL)bloomEnabled {
+    _bloomEnabled = bloomEnabled;
+    if (_vroView) {
+        [_vroView setBloomEnabled:bloomEnabled];
+    }
+}
+
+- (void)setShadowsEnabled:(BOOL)shadowsEnabled {
+    _shadowsEnabled = shadowsEnabled;
+    if (_vroView) {
+        [_vroView setShadowsEnabled:shadowsEnabled];
+    }
 }
 
 #pragma mark RCTInvalidating methods
