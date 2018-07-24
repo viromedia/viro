@@ -15,6 +15,7 @@
 RCT_EXPORT_MODULE()
 
 RCT_EXPORT_VIEW_PROPERTY(transformBehaviors, NSArray<NSString *>)
+RCT_EXPORT_VIEW_PROPERTY(highAccuracyEvents, BOOL)
 RCT_EXPORT_VIEW_PROPERTY(position, NSNumberArray)
 RCT_EXPORT_VIEW_PROPERTY(width, float)
 RCT_EXPORT_VIEW_PROPERTY(height, float)

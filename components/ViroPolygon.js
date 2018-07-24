@@ -55,6 +55,7 @@ var ViroPolygon = createReactClass({
       PropTypes.arrayOf(PropTypes.string),
       PropTypes.string
     ]),
+    highAccuracyEvents : PropTypes.bool,
     ignoreEventHandling: PropTypes.bool,
     dragType: PropTypes.oneOf(["FixedDistance", "FixedToWorld", "FixedToPlane"]),
     dragPlane: PropTypes.shape({

@@ -60,6 +60,7 @@ var ViroText = createReactClass({
       PropTypes.arrayOf(PropTypes.string),
       PropTypes.string
     ]),
+    highAccuracyEvents : PropTypes.bool,
     lightReceivingBitMask : PropTypes.number,
     shadowCastingBitMask : PropTypes.number,
     ignoreEventHandling: PropTypes.bool,

@@ -74,6 +74,7 @@ var ViroImage = createReactClass({
       PropTypes.arrayOf(PropTypes.string),
       PropTypes.string
     ]),
+    highAccuracyEvents : PropTypes.bool,
     lightReceivingBitMask : PropTypes.number,
     shadowCastingBitMask : PropTypes.number,
     onTransformUpdate: PropTypes.func,
