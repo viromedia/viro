@@ -28,6 +28,7 @@
 @property (nonatomic, assign) VROTextClipMode textClipMode;
 @property (nonatomic, assign) float width;
 @property (nonatomic, assign) float height;
+@property (nonatomic, assign) float extrusionDepth;
 
 @end
 

@@ -7,8 +7,11 @@ import android.graphics.Color;
 
 import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.ReactContext;
+import com.viro.core.Material;
 import com.viro.core.ViroContext;
 import com.viro.core.Text;
+
+import java.util.List;
 
 public class VRTText extends VRTControl {
     static final String DEFAULT_FONT = "Roboto";
@@ -21,6 +24,7 @@ public class VRTText extends VRTControl {
     static final Text.FontWeight DEFAULT_FONT_WEIGHT = Text.FontWeight.Regular;
 
     private Text mNativeText = null;
+    private float mExtrusionDepth = 0;
     private long mColor = DEFAULT_COLOR;
     private int mMaxLines = DEFAULT_MAX_LINES;
     private float mWidth = DEFAULT_WIDTH;
@@ -56,6 +60,11 @@ public class VRTText extends VRTControl {
 
     public void setHeight(float height) {
         mHeight = height;
+        mNeedsUpdate = true;
+    }
+
+    public void setExtrusionDepth(float extrusionDepth) {
+        mExtrusionDepth = extrusionDepth;
         mNeedsUpdate = true;
     }
 
@@ -134,6 +143,7 @@ public class VRTText extends VRTControl {
                 .fontSize(mSize)
                 .fontStyle(mFontStyle)
                 .fontWeight(mFontWeight)
+                .extrusionDepth(mExtrusionDepth)
                 .color(mColor)
                 .width(mWidth).height(mHeight)
                 .horizontalAlignment(getHorizontalAlignmentEnum(mHorizontalAlignment))
@@ -142,8 +152,23 @@ public class VRTText extends VRTControl {
                 .clipMode(getTextClipModeEnum(mTextClipMode))
                 .maxLines(mMaxLines).build();
 
-        // Add geometry
+        // Add geometry, and if the text is 3D apply materials. 2D text never has
+        // materials applied, as each material is generated internally to refer to the correct
+        // bitmap textures.
         getNodeJni().setGeometry(mNativeText);
+        if (mMaterials != null && mMaterials.size() > 0 && mExtrusionDepth > .0001f) {
+            setMaterials(mMaterials);
+        }
+    }
+
+    @Override
+    protected void setMaterials(List<Material> materials) {
+        if (materials != null) {
+            for (Material material : materials) {
+                material.setCullMode(Material.CullMode.NONE);
+            }
+        }
+        super.setMaterials(materials);
     }
 
     @Override

@@ -31,6 +31,7 @@ NSString *const VRTLabelReactTagAttributeName = @"ReactTagAttributeName";
     
     if (self) {
         _boundsCalculated = false;
+        _extrusionDepth = 0;
         _width = 1.0;
         _height = 1.0;
         _ratio = 1.0;
@@ -65,6 +66,11 @@ NSString *const VRTLabelReactTagAttributeName = @"ReactTagAttributeName";
 
 - (void)setColor:(UIColor *)color {
     _color = color;
+    _textNeedsUpdate = YES;
+}
+
+- (void)setExtrusionDepth:(float)extrusionDepth {
+    _extrusionDepth = extrusionDepth;
     _textNeedsUpdate = YES;
 }
 
@@ -138,13 +144,31 @@ NSString *const VRTLabelReactTagAttributeName = @"ReactTagAttributeName";
             colorVector.set(red, green, blue, alpha);
         }
         _vroText = VROText::createText(text, fontFamily, fontSize, self.fontStyle, self.fontWeight,
-                                       colorVector, _width, _height,
+                                       colorVector, self.extrusionDepth, _width, _height,
                                        self.textAlign, self.textAlignVertical,
                                        self.textLineBreakMode, self.textClipMode, (int) self.maxLines, self.driver);
 
         [self node]->setGeometry(_vroText);
+        
+        /*
+         Only apply materials for 3D text (and only if we have any). 2D text never has
+         materials applied, as each material is generated internally to refer to the correct
+         bitmap textures.
+         */
+        if ([self.materials count] > 0 && self.extrusionDepth > .0001) {
+            [self applyMaterials];
+        }
     } else {
         [self node]->setGeometry(nil);
+    }
+}
+
+- (void)applyMaterials {
+    [super applyMaterials];
+    if (_vroText) {
+        for (std::shared_ptr<VROMaterial> material : _vroText->getMaterials()) {
+            material->setCullMode(VROCullMode::None);
+        }
     }
 }
 

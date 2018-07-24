@@ -35,6 +35,7 @@ var ViroText = createReactClass({
     text: PropTypes.string.isRequired,
     rotationPivot: PropTypes.arrayOf(PropTypes.number),
     color: ColorPropType,
+    extrusionDepth: PropTypes.number,
     width: PropTypes.number,
     height: PropTypes.number,
     maxLines: PropTypes.number,
@@ -42,6 +43,10 @@ var ViroText = createReactClass({
     textLineBreakMode: PropTypes.oneOf(['WordWrap','CharWrap','Justify','None']),
     visible: PropTypes.bool,
     style: stylePropType,
+    materials: PropTypes.oneOfType([
+      PropTypes.arrayOf(PropTypes.string),
+      PropTypes.string
+    ]),
     animation: PropTypes.shape({
       interruptible: PropTypes.bool,
       name: PropTypes.string,
@@ -213,6 +218,7 @@ var ViroText = createReactClass({
     checkMisnamedProps("ViroText", this.props);
 
     // Since materials and transformBehaviors can be either a string or an array, convert the string to a 1-element array.
+    let materials = typeof this.props.materials === 'string' ? new Array(this.props.materials) : this.props.materials;
     let transformBehaviors = typeof this.props.transformBehaviors === 'string' ?
         new Array(this.props.transformBehaviors) : this.props.transformBehaviors;
 
@@ -250,6 +256,7 @@ var ViroText = createReactClass({
         onFuseViro={this._onFuse}
         onAnimationStartViro={this._onAnimationStart}
         onAnimationFinishViro={this._onAnimationFinish}
+        materials={materials}
         transformBehaviors={transformBehaviors}
         canCollide={this.props.onCollision != undefined}
         onCollisionViro={this._onCollision}
@@ -265,7 +272,6 @@ var VRTText = requireNativeComponent(
     nativeOnly: {
                 scale:[1,1,1],
                 scalePivot:[0,0,0],
-                materials:[],
                 canHover: true,
                 canClick: true,
                 canTouch: true,

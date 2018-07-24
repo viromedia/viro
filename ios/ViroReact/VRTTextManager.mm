@@ -29,11 +29,13 @@ RCT_EXPORT_VIEW_PROPERTY(maxLines, NSUInteger)
 RCT_EXPORT_VIEW_PROPERTY(visible, BOOL)
 RCT_EXPORT_VIEW_PROPERTY(width, float)
 RCT_EXPORT_VIEW_PROPERTY(height, float)
+RCT_EXPORT_VIEW_PROPERTY(extrusionDepth, float)
 RCT_EXPORT_VIEW_PROPERTY(textAlign, VROTextHorizontalAlignment)
 RCT_EXPORT_VIEW_PROPERTY(textAlignVertical, VROTextVerticalAlignment)
 RCT_EXPORT_VIEW_PROPERTY(textClipMode, VROTextClipMode)
 RCT_EXPORT_VIEW_PROPERTY(textLineBreakMode, VROLineBreakMode)
 RCT_EXPORT_VIEW_PROPERTY(opacity, float)
+RCT_EXPORT_VIEW_PROPERTY(materials, NSArray<NSString *>)
 RCT_EXPORT_VIEW_PROPERTY(transformBehaviors, NSArray<NSString *>)
 RCT_EXPORT_VIEW_PROPERTY(animation, NSDictionary)
 RCT_EXPORT_VIEW_PROPERTY(onAnimationStartViro, RCTDirectEventBlock)
@@ -62,6 +64,7 @@ RCT_EXPORT_VIEW_PROPERTY(shadowCastingBitMask, int)
 RCT_EXPORT_VIEW_PROPERTY(ignoreEventHandling, BOOL)
 RCT_EXPORT_VIEW_PROPERTY(dragType, NSString)
 RCT_EXPORT_VIEW_PROPERTY(dragPlane, NSDictionary)
+
 - (VRTView *)view
 {
     return [[VRTText alloc] initWithBridge:self.bridge];

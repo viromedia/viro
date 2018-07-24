@@ -41,6 +41,9 @@ public class VRTTextManager extends VRTNodeManager<VRTText> {
         text.setHeight(height);
     }
 
+    @ReactProp(name = "extrusionDepth", defaultFloat = 0)
+    public void setExtrusionDepth(VRTText text, float extrusionDepth) { text.setExtrusionDepth(extrusionDepth); }
+
     @ReactProp(name = "text")
     public void setText(VRTText text, String textString) {
         text.setText(textString);
