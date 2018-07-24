@@ -12,6 +12,7 @@ import com.viromedia.bridge.utility.ViroCommands;
 import com.viromedia.bridge.utility.ViroEvents;
 
 import java.util.Map;
+import android.util.Log;
 
 /**
  * Created by vadvani on 3/12/18.
@@ -73,6 +74,9 @@ public class VRTMaterialVideoManager extends VRTViroViewGroupManager<VRTMaterial
             case ViroCommands.SEEK_TO_TIME_INDEX:
                 video.seekToTime((float) args.getDouble(0));
                 break;
+            case ViroCommands.PAUSE_INDEX:
+                video.setPaused(true);
+                break;
             default:
                 throw new IllegalArgumentException("Unsupported command " + commandType
                         + " received by" + getClass().getSimpleName());
@@ -81,7 +85,7 @@ public class VRTMaterialVideoManager extends VRTViroViewGroupManager<VRTMaterial
 
     @Override
     public Map<String,Integer> getCommandsMap() {
-        return MapBuilder.of(ViroCommands.SEEK_TO_TIME_NAME, ViroCommands.SEEK_TO_TIME_INDEX);
+        return MapBuilder.of(ViroCommands.SEEK_TO_TIME_NAME, ViroCommands.SEEK_TO_TIME_INDEX, ViroCommands.PAUSE, ViroCommands.PAUSE_INDEX);
     }
 }
 

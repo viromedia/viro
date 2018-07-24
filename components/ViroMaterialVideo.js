@@ -61,6 +61,15 @@ var ViroMaterialVideo = createReactClass({
     onError: PropTypes.func,
   },
 
+  componentWillUnmount() {
+      // pause the current video texture on Android since java gc will release when it feels like it.
+      if (Platform.OS == 'android') {
+        NativeModules.UIManager.dispatchViewManagerCommand(
+            findNodeHandle(this),
+            NativeModules.UIManager.VRTMaterialVideo.Commands.pause, [ 0 ]);
+      }
+  },
+
   _onBufferStart: function(event: Event) {
     this.props.onBufferStart && this.props.onBufferStart(event);
   },
@@ -87,7 +96,7 @@ var ViroMaterialVideo = createReactClass({
   },
 
   render: function() {
-    
+
 
     // Since materials and transformBehaviors can be either a string or an array, convert the string to a 1-element array.
     //let materials = typeof this.props.materials === 'string' ? new Array(this.props.materials) : this.props.materials;

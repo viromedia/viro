@@ -6,7 +6,6 @@ import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
 import com.viro.core.Material;
 import com.viro.core.VideoTexture;
-import com.viromedia.bridge.component.node.control.VRTVideoSurface;
 import com.viromedia.bridge.module.MaterialManager;
 import com.viromedia.bridge.utility.ViroEvents;
 

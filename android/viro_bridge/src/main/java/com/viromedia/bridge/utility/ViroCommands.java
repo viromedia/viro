@@ -6,4 +6,6 @@ package com.viromedia.bridge.utility;
 public class ViroCommands {
     public static final int SEEK_TO_TIME_INDEX = 0;
     public static final String SEEK_TO_TIME_NAME = "seekToTime";
+    public static final int PAUSE_INDEX = 1;
+    public static final String PAUSE = "pause";
 }
