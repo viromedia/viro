@@ -59,7 +59,7 @@ extern const int k2DPointsPerSpatialUnit;
 @property (nonatomic, assign) BOOL canDrag;
 @property (nonatomic, assign) BOOL canPinch;
 @property (nonatomic, assign) BOOL canRotate;
-@property (nonatomic, assign) BOOL highAccuracyGaze;
+@property (nonatomic, assign) BOOL highAccuracyEvents;
 @property (nonatomic, assign) float timeToFuse;
 @property (nonatomic, copy, nullable) NSString *dragType;
 @property (nonatomic, copy) NSDictionary *dragPlane;

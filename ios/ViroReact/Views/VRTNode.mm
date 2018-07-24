@@ -67,7 +67,7 @@ const double kTransformDelegateDistanceFilter = 0.01;
         _node->setScale({1, 1, 1});
         _visible = YES; // default to visible.
         _opacity = 1.0; //default opacity to 1.0
-        _highAccuracyGaze = NO;
+        _highAccuracyEvents = NO;
         _lightReceivingBitMask = 1;
         _shadowCastingBitMask = 1;
         _shouldIgnoreEventHandling = NO; // default is NO
@@ -539,9 +539,9 @@ const double kTransformDelegateDistanceFilter = 0.01;
 
 #pragma mark - Events
 
-- (void)setHighAccuracyGaze:(BOOL)enabled{
-    _highAccuracyGaze = enabled;
-    [self node]->setHighAccuracyGaze(enabled);
+- (void)setHighAccuracyEvents:(BOOL)enabled{
+    _highAccuracyEvents = enabled;
+    [self node]->setHighAccuracyEvents(enabled);
 }
 
 - (void)onHoverViro:(RCTDirectEventBlock)block {

@@ -72,17 +72,19 @@ var ViroBox = createReactClass({
       PropTypes.func,
     ]),
     /**
-     * Enables high accuracy gaze collision checks for this object.
+     * Enables high accuracy event collision checks for this object.
      * This can be useful for complex 3D objects where the default
      * checking method of bounding boxes do not provide adequate
      * collision detection coverage.
      *
-     * NOTE: Enabling high accuracy gaze collision checks has a high
+     * NOTE: Enabling high accuracy event collision checks has a high
      * performance cost and should be used sparingly / only when
      * necessary.
      *
      * Flag is set to false by default.
      */
+    highAccuracyEvents:PropTypes.bool,
+    /* DEPRECATION WARNING - highAccuracyGaze has been deprecated, please use highAccuracyEvents instead */
     highAccuracyGaze:PropTypes.bool,
     physicsBody: PropTypes.shape({
       type: PropTypes.oneOf(['Dynamic','Kinematic','Static']).isRequired,
@@ -125,7 +127,7 @@ var ViroBox = createReactClass({
     this.props.onClickState && this.props.onClickState(event.nativeEvent.clickState, event.nativeEvent.position, event.nativeEvent.source);
     let CLICKED = 3; // Value representation of Clicked ClickState within EventDelegateJni.
     if (event.nativeEvent.clickState == CLICKED){
-        this._onClick(event)
+      this._onClick(event)
     }
   },
 
@@ -150,8 +152,8 @@ var ViroBox = createReactClass({
   },
 
   _onDrag: function(event: Event) {
-      this.props.onDrag
-        && this.props.onDrag(event.nativeEvent.dragToPos, event.nativeEvent.source);
+    this.props.onDrag
+      && this.props.onDrag(event.nativeEvent.dragToPos, event.nativeEvent.source);
   },
 
   _onFuse: function(event: Event){
@@ -194,8 +196,8 @@ var ViroBox = createReactClass({
 
   _onCollision: function(event: Event){
     if (this.props.onCollision){
-      this.props.onCollision(event.nativeEvent.viroTag, event.nativeEvent.collidedPoint,
-                                                           event.nativeEvent.collidedNormal);
+      this.props.onCollision(event.nativeEvent.viroTag,
+        event.nativeEvent.collidedPoint, event.nativeEvent.collidedNormal);
     }
   },
 
@@ -229,75 +231,82 @@ var ViroBox = createReactClass({
 
     let timeToFuse = undefined;
     if (this.props.onFuse != undefined && typeof this.props.onFuse === 'object'){
-        timeToFuse = this.props.onFuse.timeToFuse;
+      timeToFuse = this.props.onFuse.timeToFuse;
     }
 
     let transformDelegate = this.props.onTransformUpdate != undefined ? this._onNativeTransformUpdate : undefined;
 
+    let highAccuracyEvents = this.props.highAccuracyEvents;
+    if (this.props.highAccuracyEvents == undefined && this.props.highAccuracyGaze != undefined) {
+      console.warn("**DEPRECATION WARNING** highAccuracyGaze has been deprecated/renamed to highAccuracyEvents");
+      highAccuracyEvents = this.props.highAccuracyGaze;
+    }
+
     return (
-        <VRTBox
-            {...this.props}
-            ref={ component => {this._component = component; }}
-            onNativeTransformDelegateViro={transformDelegate}
-            hasTransformDelegate={this.props.onTransformUpdate != undefined}
-            materials={materials}
-            canHover={this.props.onHover != undefined}
-            canClick={this.props.onClick != undefined || this.props.onClickState != undefined}
-            canTouch={this.props.onTouch != undefined}
-            canScroll={this.props.onScroll != undefined}
-            canSwipe={this.props.onSwipe != undefined}
-            canDrag={this.props.onDrag != undefined}
-            canPinch={this.props.onPinch != undefined}
-            canRotate={this.props.onRotate != undefined}
-            canFuse={this.props.onFuse != undefined}
-            onHoverViro={this._onHover}
-            onClickViro={this._onClickState}
-            onTouchViro={this._onTouch}
-            onScrollViro={this._onScroll}
-            onSwipeViro={this._onSwipe}
-            onDragViro={this._onDrag}
-            onPinchViro={this._onPinch}
-            onRotateViro={this._onRotate}
-            onFuseViro={this._onFuse}
-            onAnimationStartViro={this._onAnimationStart}
-            onAnimationFinishViro={this._onAnimationFinish}
-            canCollide={this.props.onCollision != undefined}
-            onCollisionViro={this._onCollision}
-            timeToFuse={timeToFuse}/>
+      <VRTBox
+        {...this.props}
+        ref={ component => {this._component = component; }}
+        highAccuracyEvents={highAccuracyEvents}
+        onNativeTransformDelegateViro={transformDelegate}
+        hasTransformDelegate={this.props.onTransformUpdate != undefined}
+        materials={materials}
+        canHover={this.props.onHover != undefined}
+        canClick={this.props.onClick != undefined || this.props.onClickState != undefined}
+        canTouch={this.props.onTouch != undefined}
+        canScroll={this.props.onScroll != undefined}
+        canSwipe={this.props.onSwipe != undefined}
+        canDrag={this.props.onDrag != undefined}
+        canPinch={this.props.onPinch != undefined}
+        canRotate={this.props.onRotate != undefined}
+        canFuse={this.props.onFuse != undefined}
+        onHoverViro={this._onHover}
+        onClickViro={this._onClickState}
+        onTouchViro={this._onTouch}
+        onScrollViro={this._onScroll}
+        onSwipeViro={this._onSwipe}
+        onDragViro={this._onDrag}
+        onPinchViro={this._onPinch}
+        onRotateViro={this._onRotate}
+        onFuseViro={this._onFuse}
+        onAnimationStartViro={this._onAnimationStart}
+        onAnimationFinishViro={this._onAnimationFinish}
+        canCollide={this.props.onCollision != undefined}
+        onCollisionViro={this._onCollision}
+        timeToFuse={timeToFuse}/>
     );
   }
 });
 
 var VRTBox = requireNativeComponent(
-    'VRTBox', ViroBox, {
-        nativeOnly: {
-            canHover: true,
-            canClick: true,
-            canTouch: true,
-            canScroll: true,
-            canSwipe: true,
-            canDrag: true,
-            canPinch: true,
-            canRotate: true,
-            canFuse: true,
-            onHoverViro:true,
-            onClickViro:true,
-            onTouchViro:true,
-            onScrollViro:true,
-            onSwipeViro:true,
-            onDragViro:true,
-            onPinchViro:true,
-            onRotateViro:true,
-            onFuseViro:true,
-            timeToFuse:true,
-            canCollide:true,
-            onCollisionViro:true,
-            onNativeTransformDelegateViro:true,
-            hasTransformDelegate:true,
-            onAnimationStartViro:true,
-            onAnimationFinishViro:true
-          }
+  'VRTBox', ViroBox, {
+    nativeOnly: {
+      canHover: true,
+      canClick: true,
+      canTouch: true,
+      canScroll: true,
+      canSwipe: true,
+      canDrag: true,
+      canPinch: true,
+      canRotate: true,
+      canFuse: true,
+      onHoverViro:true,
+      onClickViro:true,
+      onTouchViro:true,
+      onScrollViro:true,
+      onSwipeViro:true,
+      onDragViro:true,
+      onPinchViro:true,
+      onRotateViro:true,
+      onFuseViro:true,
+      timeToFuse:true,
+      canCollide:true,
+      onCollisionViro:true,
+      onNativeTransformDelegateViro:true,
+      hasTransformDelegate:true,
+      onAnimationStartViro:true,
+      onAnimationFinishViro:true
     }
+  }
 );
 
 module.exports = ViroBox;

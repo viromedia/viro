@@ -48,11 +48,6 @@ public class VRTBoxManager extends VRTNodeManager<VRTBox> {
         box.setLength(length);
     }
 
-    @ReactProp(name = "highAccuracyGaze", defaultBoolean = VRTNode.DEFAULT_HIGH_ACCURACY_GAZE)
-    public void setHighAccuracyGaze(VRTBox box, boolean highAccuracyGaze) {
-        box.setHighAccuracyGaze(highAccuracyGaze);
-    }
-
     @ReactProp(name = "lightReceivingBitMask", defaultInt = 1)
     public void setLightReceivingBitMask(VRTBox box, int bitMask) {box.setLightReceivingBitMask(bitMask); }
 

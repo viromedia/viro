@@ -235,7 +235,7 @@ public class VRTNode extends VRTComponent {
     protected final static boolean DEFAULT_CAN_TOUCH = false;
     protected final static boolean DEFAULT_CAN_SCROLL = false;
     protected final static boolean DEFAULT_CAN_SWIPE = false;
-    public final static boolean DEFAULT_HIGH_ACCURACY_GAZE = false;
+    public final static boolean DEFAULT_HIGH_ACCURACY_EVENTS = false;
     protected final static boolean DEFAULT_CAN_DRAG = false;
     protected final static boolean DEFAULT_CAN_FUSE = false;
     protected final static boolean DEFAULT_CAN_PINCH = false;
@@ -257,7 +257,7 @@ public class VRTNode extends VRTComponent {
     protected float[] mScalePivot;
     protected float mOpacity = 1.0f;
     protected boolean mVisible = true; // default visible value should be true
-    protected boolean mHighAccuracyGazeEnabled = false;
+    protected boolean mHighAccuracyEventsEnabled = false;
     protected boolean mIgnoreEventHandling = false;
 
     protected int mLightReceivingBitMask = 1;
@@ -753,12 +753,12 @@ public class VRTNode extends VRTComponent {
         mNodeJni.setShadowCastingBitMask(bitMask);
     }
 
-    public void setHighAccuracyGaze(boolean highAccuracyGazeEnabled){
+    public void setHighAccuracyEvents(boolean highAccuracyEventsEnabled){
         if (isTornDown()) {
             return;
         }
-        mHighAccuracyGazeEnabled = highAccuracyGazeEnabled;
-        mNodeJni.setHighAccuracyGaze(highAccuracyGazeEnabled);
+        mHighAccuracyEventsEnabled = highAccuracyEventsEnabled;
+        mNodeJni.setHighAccuracyEvents(highAccuracyEventsEnabled);
     }
 
     protected void setGeometry(Geometry geometry) {

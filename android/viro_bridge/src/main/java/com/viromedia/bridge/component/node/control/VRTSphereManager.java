@@ -53,11 +53,6 @@ public class VRTSphereManager extends VRTNodeManager<VRTSphere> {
         sphere.setRadius(radius);
     }
 
-    @ReactProp(name = "highAccuracyGaze", defaultBoolean = VRTNode.DEFAULT_HIGH_ACCURACY_GAZE)
-    public void setHighAccuracyGaze(VRTSphere sphere, boolean highAccuracyGaze) {
-        sphere.setHighAccuracyGaze(highAccuracyGaze);
-    }
-
     @ReactProp(name = "lightReceivingBitMask", defaultInt = 1)
     public void setLightReceivingBitMask(VRTSphere sphere, int bitMask) {sphere.setLightReceivingBitMask(bitMask); }
 

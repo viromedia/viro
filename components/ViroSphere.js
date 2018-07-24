@@ -77,17 +77,19 @@ var ViroSphere = createReactClass({
     ]),
 
     /**
-     * Enables high accuracy gaze collision checks for this object.
+     * Enables high accuracy event collision checks for this object.
      * This can be useful for complex 3D objects where the default
      * checking method of bounding boxes do not provide adequate
      * collision detection coverage.
      *
-     * NOTE: Enabling high accuracy gaze collision checks has a high
+     * NOTE: Enabling high accuracy event collision checks has a high
      * performance cost and should be used sparingly / only when
      * necessary.
      *
      * Flag is set to false by default.
      */
+    highAccuracyEvents:PropTypes.bool,
+    /* DEPRECATION WARNING - highAccuracyGaze has been deprecated, please use highAccuracyEvents instead */
     highAccuracyGaze:PropTypes.bool,
     onDrag: PropTypes.func,
     onPinch: PropTypes.func,
@@ -226,7 +228,7 @@ var ViroSphere = createReactClass({
     // Since materials and transformBehaviors can be either a string or an array, convert the string to a 1-element array.
     let materials = typeof this.props.materials === 'string' ? new Array(this.props.materials) : this.props.materials;
     let transformBehaviors = typeof this.props.transformBehaviors === 'string' ?
-        new Array(this.props.transformBehaviors) : this.props.transformBehaviors;
+      new Array(this.props.transformBehaviors) : this.props.transformBehaviors;
 
     let timeToFuse = undefined;
     if (this.props.onFuse != undefined && typeof this.props.onFuse === 'object'){
@@ -235,10 +237,17 @@ var ViroSphere = createReactClass({
 
     let transformDelegate = this.props.onTransformUpdate != undefined ? this._onNativeTransformUpdate : undefined;
 
+    let highAccuracyEvents = this.props.highAccuracyEvents;
+    if (this.props.highAccuracyEvents == undefined && this.props.highAccuracyGaze != undefined) {
+      console.warn("**DEPRECATION WARNING** highAccuracyGaze has been deprecated/renamed to highAccuracyEvents");
+      highAccuracyEvents = this.props.highAccuracyGaze;
+    }
+
     return (
       <VRTSphere
         {...this.props}
         ref={ component => {this._component = component; }}
+        highAccuracyEvents={highAccuracyEvents}
         materials={materials}
         transformBehaviors={transformBehaviors}
         canHover={this.props.onHover != undefined}
@@ -275,32 +284,32 @@ var ViroSphere = createReactClass({
 var VRTSphere = requireNativeComponent(
   'VRTSphere', ViroSphere , {
     nativeOnly: {
-            canHover: true,
-            canClick: true,
-            canTouch: true,
-            canScroll: true,
-            canSwipe: true,
-            canDrag: true,
-            canPinch: true,
-            canRotate: true,
-            canFuse: true,
-            onHoverViro:true,
-            onClickViro:true,
-            onTouchViro:true,
-            onScrollViro:true,
-            onSwipeViro:true,
-            onDragViro:true,
-            onPinchViro:true,
-            onRotateViro:true,
-            onFuseViro:true,
-            timeToFuse:true,
-            canCollide:true,
-            onCollisionViro:true,
-            onNativeTransformDelegateViro:true,
-            hasTransformDelegate:true,
-            onAnimationStartViro:true,
-            onAnimationFinishViro:true
-          }
+      canHover: true,
+      canClick: true,
+      canTouch: true,
+      canScroll: true,
+      canSwipe: true,
+      canDrag: true,
+      canPinch: true,
+      canRotate: true,
+      canFuse: true,
+      onHoverViro:true,
+      onClickViro:true,
+      onTouchViro:true,
+      onScrollViro:true,
+      onSwipeViro:true,
+      onDragViro:true,
+      onPinchViro:true,
+      onRotateViro:true,
+      onFuseViro:true,
+      timeToFuse:true,
+      canCollide:true,
+      onCollisionViro:true,
+      onNativeTransformDelegateViro:true,
+      hasTransformDelegate:true,
+      onAnimationStartViro:true,
+      onAnimationFinishViro:true
+    }
   }
 );
 
