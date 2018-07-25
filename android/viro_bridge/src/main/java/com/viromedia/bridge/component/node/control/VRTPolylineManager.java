@@ -13,7 +13,7 @@ import com.viromedia.bridge.utility.ViroEvents;
 
 import java.util.Map;
 
-public class VRTPolylineManager extends VRTNodeManager<VRTPolyline> {
+public class VRTPolylineManager extends VRTControlManager<VRTPolyline> {
 
     public VRTPolylineManager(ReactApplicationContext context) {
         super(context);

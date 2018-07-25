@@ -152,12 +152,6 @@ public abstract class VRTNodeManager<T extends VRTNode> extends VRTViroViewGroup
         view.setIgnoreEventHandling(ignore);
     }
 
-
-    @ReactProp(name = "highAccuracyEvents", defaultBoolean = VRTNode.DEFAULT_HIGH_ACCURACY_EVENTS)
-    public void setHighAccuracyEvents(VRTNode node, boolean highAccuracyEvents) {
-        node.setHighAccuracyEvents(highAccuracyEvents);
-    }
-
     @ReactProp(name = "materials")
     public void setMaterials(VRTNode view, @Nullable ReadableArray materials) {
         // get material manager

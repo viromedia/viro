@@ -13,7 +13,7 @@ import com.viromedia.bridge.component.node.VRTNodeManager;
  * ParticleEmitterManager for building a {@link VRTParticleEmitter}
  * corresponding to the ViroParticleEmitter.js control.
  */
-public class VRTParticleEmitterManager extends VRTNodeManager<VRTParticleEmitter> {
+public class VRTParticleEmitterManager extends VRTControlManager<VRTParticleEmitter> {
 
     public VRTParticleEmitterManager(ReactApplicationContext context) {
         super(context);

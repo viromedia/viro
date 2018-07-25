@@ -41,6 +41,7 @@ var ViroParticleEmitter = createReactClass({
       PropTypes.arrayOf(PropTypes.string),
       PropTypes.string
     ]),
+    highAccuracyEvents:PropTypes.bool,
 
     duration: PropTypes.number,
     delay: PropTypes.number,

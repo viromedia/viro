@@ -14,7 +14,7 @@ import com.viromedia.bridge.utility.ViroEvents;
 import java.util.Map;
 
 
-public class VRTImageManager extends VRTNodeManager<VRTImage> {
+public class VRTImageManager extends VRTControlManager<VRTImage> {
 
     public VRTImageManager(ReactApplicationContext context) {
         super(context);

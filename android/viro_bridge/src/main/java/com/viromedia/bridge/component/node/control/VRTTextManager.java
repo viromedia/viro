@@ -17,7 +17,7 @@ import java.util.Map;
 
 import javax.annotation.Nullable;
 
-public class VRTTextManager extends VRTNodeManager<VRTText> {
+public class VRTTextManager extends VRTControlManager<VRTText> {
     public VRTTextManager(ReactApplicationContext context) {
         super(context);
     }

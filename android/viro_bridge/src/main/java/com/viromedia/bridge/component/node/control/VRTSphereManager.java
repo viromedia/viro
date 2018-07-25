@@ -17,7 +17,7 @@ import java.util.Map;
  * SphereManager for building a {@link VRTSphere}
  * corresponding to the ViroSphere.js control.
  */
-public class VRTSphereManager extends VRTNodeManager<VRTSphere> {
+public class VRTSphereManager extends VRTControlManager<VRTSphere> {
 
     public VRTSphereManager(ReactApplicationContext context){
         super(context);

@@ -13,7 +13,7 @@ import com.viromedia.bridge.utility.ViroEvents;
 
 import java.util.Map;
 
-public class VRTQuadManager extends VRTNodeManager<VRTQuad> {
+public class VRTQuadManager extends VRTControlManager<VRTQuad> {
 
     public VRTQuadManager(ReactApplicationContext context) {
         super(context);

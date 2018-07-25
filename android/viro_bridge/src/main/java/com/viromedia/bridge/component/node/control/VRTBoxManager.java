@@ -17,7 +17,7 @@ import java.util.Map;
  * BoxManager for building a {@link VRTBox}
  * corresponding to the ViroBox.js control.
  */
-public class VRTBoxManager extends VRTNodeManager<VRTBox> {
+public class VRTBoxManager extends VRTControlManager<VRTBox> {
 
     public VRTBoxManager(ReactApplicationContext context) {
         super(context);

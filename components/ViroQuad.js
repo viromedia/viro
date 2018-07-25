@@ -51,6 +51,7 @@ var ViroQuad = createReactClass({
       onFinish: PropTypes.func,
       run: PropTypes.bool,
     }),
+    highAccuracyEvents:PropTypes.bool,
     transformBehaviors: PropTypes.oneOfType([
       PropTypes.arrayOf(PropTypes.string),
       PropTypes.string

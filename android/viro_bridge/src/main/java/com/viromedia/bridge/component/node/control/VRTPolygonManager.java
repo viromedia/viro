@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class VRTPolygonManager extends VRTNodeManager<VRTPolygon> {
+public class VRTPolygonManager extends VRTControlManager<VRTPolygon> {
     public VRTPolygonManager(ReactApplicationContext context) {
         super(context);
     }

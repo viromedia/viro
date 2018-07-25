@@ -21,7 +21,7 @@ import java.util.Map;
  * VideoSurfaceManager for building a {@link VRTVideoSurface}
  * corresponding to the ViroVideo.js control.
  */
-public class VRTVideoSurfaceManager extends VRTNodeManager<VRTVideoSurface> {
+public class VRTVideoSurfaceManager extends VRTControlManager<VRTVideoSurface> {
 
     public VRTVideoSurfaceManager(ReactApplicationContext context) {
         super(context);

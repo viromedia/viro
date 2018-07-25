@@ -23,7 +23,7 @@ import java.util.Map;
  * Object3dManager for building a {@link VRT3DObject}
  * corresponding to Viro3dObject.js control.
  */
-public class VRT3DObjectManager extends VRTNodeManager<VRT3DObject> {
+public class VRT3DObjectManager extends VRTControlManager<VRT3DObject> {
     private static final String URI_KEY = "uri";
 
     public VRT3DObjectManager(ReactApplicationContext context) {
