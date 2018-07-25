@@ -44,6 +44,8 @@ NSString *const VRTLabelReactTagAttributeName = @"ReactTagAttributeName";
         _textLineBreakMode = VROLineBreakMode::WordWrap;
         _textAlign = VROTextHorizontalAlignment::Left;
         _textAlignVertical = VROTextVerticalAlignment::Top;
+        _outerStrokeType = VROTextOuterStroke::None;
+        _outerStrokeWidth = 2;
         _textNeedsUpdate = NO;
     }
     return self;
@@ -72,6 +74,30 @@ NSString *const VRTLabelReactTagAttributeName = @"ReactTagAttributeName";
 - (void)setExtrusionDepth:(float)extrusionDepth {
     _extrusionDepth = extrusionDepth;
     _textNeedsUpdate = YES;
+}
+
+- (void)setOuterStroke:(NSDictionary *)outerStroke {
+    NSString *typeJson = (NSString *) [outerStroke valueForKey:@"type"];
+    if (typeJson == nil) {
+        return;
+    }
+    
+    if ([typeJson caseInsensitiveCompare:@"None"] == NSOrderedSame) {
+        _outerStrokeType = VROTextOuterStroke::None;
+    } else if([typeJson caseInsensitiveCompare:@"Outline"] == NSOrderedSame) {
+        _outerStrokeType = VROTextOuterStroke::Outline;
+    } else if([typeJson caseInsensitiveCompare:@"DropShadow"] == NSOrderedSame) {
+        _outerStrokeType = VROTextOuterStroke::DropShadow;
+    } else {
+        _outerStrokeType = VROTextOuterStroke::None;
+    }
+    
+    _outerStrokeWidth = [[outerStroke valueForKey:@"width"] intValue];
+    
+    UIColor *color = [RCTConvert UIColor:[outerStroke objectForKey:@"color"]];
+    if (color != nil) {
+        _outerStrokeColor = color;
+    }
 }
 
 - (void)setFontFamily:(NSString *)fontFamily {
@@ -136,18 +162,28 @@ NSString *const VRTLabelReactTagAttributeName = @"ReactTagAttributeName";
         NSData *textData = [_text dataUsingEncoding:encoding];
 
         std::wstring text = std::wstring((wchar_t *) [textData bytes], [textData length] / sizeof(wchar_t));
+        
         VROVector4f colorVector(1.0f, 1.0f, 1.0f, 1.0f);
-
         if (self.color != nil) {
             CGFloat red,green,blue, alpha;
             [self.color getRed:&red green:&green blue:&blue alpha:&alpha];
             colorVector.set(red, green, blue, alpha);
         }
-        _vroText = VROText::createText(text, fontFamily, fontSize, self.fontStyle, self.fontWeight,
-                                       colorVector, self.extrusionDepth, _width, _height,
-                                       self.textAlign, self.textAlignVertical,
-                                       self.textLineBreakMode, self.textClipMode, (int) self.maxLines, self.driver);
-
+        
+        VROVector4f outerStrokeColor(1.0f, 1.0f, 1.0f, 1.0f);
+        if (self.outerStrokeColor != nil) {
+            CGFloat red,green,blue, alpha;
+            [self.outerStrokeColor getRed:&red green:&green blue:&blue alpha:&alpha];
+            outerStrokeColor.set(red, green, blue, alpha);
+        }
+        
+        _vroText = std::make_shared<VROText>(text, fontFamily, fontSize, self.fontStyle, self.fontWeight,
+                                             colorVector, self.extrusionDepth,
+                                             self.outerStrokeType, self.outerStrokeWidth, outerStrokeColor,
+                                             _width, _height,
+                                             self.textAlign, self.textAlignVertical,
+                                             self.textLineBreakMode, self.textClipMode, (int) self.maxLines, self.driver);
+        _vroText->update();
         [self node]->setGeometry(_vroText);
         
         /*

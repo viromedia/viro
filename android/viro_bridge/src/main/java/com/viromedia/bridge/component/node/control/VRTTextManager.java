@@ -6,6 +6,7 @@ package com.viromedia.bridge.component.node.control;
 import android.graphics.Color;
 
 import com.facebook.react.bridge.ReactApplicationContext;
+import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.common.MapBuilder;
 import com.facebook.react.uimanager.ThemedReactContext;
 import com.facebook.react.uimanager.annotations.ReactProp;
@@ -76,6 +77,11 @@ public class VRTTextManager extends VRTNodeManager<VRTText> {
     @ReactProp(name = "fontWeight")
     public void setFontWeight(VRTText text, String fontWeight) {
         text.setFontWeight(fontWeight);
+    }
+
+    @ReactProp(name = "outerStroke")
+    public void setOuterStroke(VRTText text, @android.support.annotation.Nullable ReadableMap map) {
+        text.setOuterStroke(map);
     }
 
     @ReactProp(name = "maxLines", defaultInt = VRTText.DEFAULT_MAX_LINES)

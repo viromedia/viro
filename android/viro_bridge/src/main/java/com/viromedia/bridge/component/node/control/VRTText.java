@@ -7,6 +7,7 @@ import android.graphics.Color;
 
 import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.ReactContext;
+import com.facebook.react.bridge.ReadableMap;
 import com.viro.core.Material;
 import com.viro.core.ViroContext;
 import com.viro.core.Text;
@@ -22,6 +23,9 @@ public class VRTText extends VRTControl {
     static final int DEFAULT_FONT_SIZE = 14;
     static final Text.FontStyle DEFAULT_FONT_STYLE = Text.FontStyle.Normal;
     static final Text.FontWeight DEFAULT_FONT_WEIGHT = Text.FontWeight.Regular;
+    static final Text.OuterStroke DEFAULT_OUTER_STROKE = Text.OuterStroke.NONE;
+    static final int DEFAULT_OUTER_STROKE_WIDTH = 2;
+    static final long DEFAULT_OUTER_STROKE_COLOR = Color.DKGRAY;
 
     private Text mNativeText = null;
     private float mExtrusionDepth = 0;
@@ -38,6 +42,9 @@ public class VRTText extends VRTControl {
     private String mVerticalAlignment = "Top";
     private String mTextLineBreakMode = "WordWrap";
     private String mTextClipMode = "ClipToBounds";
+    private Text.OuterStroke mOuterStroke = DEFAULT_OUTER_STROKE;
+    private int mOuterStrokeWidth = DEFAULT_OUTER_STROKE_WIDTH;
+    private long mOuterStrokeColor = DEFAULT_OUTER_STROKE_COLOR;
     private boolean mNeedsUpdate = false;
 
     public VRTText(ReactContext context) {
@@ -126,6 +133,24 @@ public class VRTText extends VRTControl {
         mNeedsUpdate = true;
     }
 
+    public void setOuterStroke(ReadableMap map) {
+        if (map != null && map.hasKey("type")) {
+            mOuterStroke = Text.OuterStroke.valueFromString(map.getString("type"));
+        } else {
+            mOuterStroke = DEFAULT_OUTER_STROKE;
+        }
+        if (map != null && map.hasKey("width")) {
+            mOuterStrokeWidth = map.getInt("width");
+        } else {
+            mOuterStrokeWidth = DEFAULT_OUTER_STROKE_WIDTH;
+        }
+        if (map != null && map.hasKey("color")) {
+            mOuterStrokeColor = (map.getInt("color"));
+        } else {
+            mOuterStrokeColor = DEFAULT_OUTER_STROKE_COLOR;
+        }
+    }
+
     private void updateLabel() {
         if (mViroContext == null || isTornDown() || mText == null) {
             return;
@@ -145,6 +170,7 @@ public class VRTText extends VRTControl {
                 .fontWeight(mFontWeight)
                 .extrusionDepth(mExtrusionDepth)
                 .color(mColor)
+                .outerStroke(mOuterStroke).outerStrokeWidth(mOuterStrokeWidth).outerStrokeColor(mOuterStrokeColor)
                 .width(mWidth).height(mHeight)
                 .horizontalAlignment(getHorizontalAlignmentEnum(mHorizontalAlignment))
                 .verticalAlignment(getVerticalAlignmentEnum(mVerticalAlignment))

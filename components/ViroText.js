@@ -19,6 +19,7 @@ import PropTypes from 'prop-types';
 import { checkMisnamedProps } from './Utilities/ViroProps';
 var StyleSheet = require('react-native/Libraries/StyleSheet/StyleSheet');
 var ColorPropType = require('react-native').ColorPropType;
+var processColor = require('react-native').processColor;
 var StyleSheetPropType = require('react-native/Libraries/StyleSheet/StyleSheetPropType');
 var TextStylePropTypes = require('./Styles/ViroTextPropTypes');
 
@@ -36,6 +37,11 @@ var ViroText = createReactClass({
     rotationPivot: PropTypes.arrayOf(PropTypes.number),
     color: ColorPropType,
     extrusionDepth: PropTypes.number,
+    outerStroke: PropTypes.shape({
+      type: PropTypes.oneOf(['None', 'Outline', 'DropShadow']),
+      width: PropTypes.number,
+      color: ColorPropType
+    }),
     width: PropTypes.number,
     height: PropTypes.number,
     maxLines: PropTypes.number,
@@ -228,6 +234,17 @@ var ViroText = createReactClass({
         timeToFuse = this.props.onFuse.timeToFuse;
     }
 
+    let outerStroke = undefined;
+    if (this.props.outerStroke) {
+      let outerStrokeColor = this.props.outerStroke.color;
+      let processedColor = processColor(outerStrokeColor);
+      outerStroke = {
+        type: this.props.outerStroke.type,
+        width: this.props.outerStroke.width,
+        color: processedColor
+      }
+    }
+
     let transformDelegate = this.props.onTransformUpdate != undefined ? this._onNativeTransformUpdate : undefined;
 
     return (
@@ -259,6 +276,7 @@ var ViroText = createReactClass({
         onAnimationFinishViro={this._onAnimationFinish}
         materials={materials}
         transformBehaviors={transformBehaviors}
+        outerStroke={outerStroke}
         canCollide={this.props.onCollision != undefined}
         onCollisionViro={this._onCollision}
         timeToFuse={timeToFuse}

@@ -29,6 +29,10 @@
 @property (nonatomic, assign) float width;
 @property (nonatomic, assign) float height;
 @property (nonatomic, assign) float extrusionDepth;
+@property (nonatomic, assign) VROTextOuterStroke outerStrokeType;
+@property (nonatomic, assign) int outerStrokeWidth;
+@property (nonatomic, strong) UIColor *outerStrokeColor;
+@property (readwrite, nonatomic) NSDictionary *outerStroke;
 
 @end
 
