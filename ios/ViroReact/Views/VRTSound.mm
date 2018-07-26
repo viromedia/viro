@@ -30,7 +30,7 @@ static NSString *const kWebPrefix = @"http";
     self = [super initWithBridge:bridge];
     if (self) {
         _soundType = soundType;
-        _paused = NO;
+        _paused = YES;
         _muted = NO;
         _loop = NO;
         _volume = 1;
@@ -59,6 +59,10 @@ static NSString *const kWebPrefix = @"http";
 - (void)setLoop:(BOOL)loop {
     _loop = loop;
     if (_sound) {
+        // setLoop turns the sound back on if loop is set to true and the sound is NOT paused. Make sure our pause state in the renderer properly reflects our bridge 'pause' property.
+        if (_paused) {
+            _sound->pause();
+        }
         _sound->setLoop(loop);
     }
 }
@@ -143,7 +147,7 @@ static NSString *const kWebPrefix = @"http";
     if (!self.driver || !_source || !_shouldReset) {
         return;
     }
-    
+
     _shouldReset = NO;
     
     NSString *name = [_source objectForKey:kNameKey];
@@ -197,7 +201,6 @@ static NSString *const kWebPrefix = @"http";
 - (void)setNativeProps {
     if (_sound) {
         [self setPaused:self.paused];
-
         _sound->setVolume(_volume);
         _sound->setMuted(_muted);
         _sound->setLoop(_loop);
@@ -277,7 +280,11 @@ static NSString *const kWebPrefix = @"http";
 - (void)setPaused:(BOOL)paused {
     [super setPaused:paused];
     if (_player) {
-        (paused || ![self shouldAppear]) ? _player->pause() : _player->play();
+        if (paused || ![self shouldAppear])  {
+            _player->pause();
+        } else {
+            _player->play();
+        }
     }
 }
 
@@ -291,6 +298,10 @@ static NSString *const kWebPrefix = @"http";
 - (void)setLoop:(BOOL)loop {
     [super setLoop:loop];
     if (_player) {
+        //setLoop turns the sound back on if loop is set to true and the sound is NOT paused. Make sure our pause state in the renderer properly reflects our bridge 'pause' property.
+        if (self.paused) {
+            _player->pause();
+        }
         _player->setLoop(loop);
     }
 }
@@ -324,11 +335,13 @@ static NSString *const kWebPrefix = @"http";
 
 - (void)setNativeProps {
     if (_player) {
-        _player->setMuted(self.muted);
-        _player->setLoop(self.loop);
         _player->setVolume(self.volume);
+        _player->setMuted(self.muted);
         // re-run the setPaused logic to start/stop playback.
+        // set pause before setting since player->loop() will check internal pause state and play the sound if sound if pause state is false(default).
+
         [self setPaused:self.paused];
+        _player->setLoop(self.loop);
     }
 }
 
@@ -348,6 +361,23 @@ static NSString *const kWebPrefix = @"http";
     if (_player) {
         _player->pause();
     }
+}
+
+- (void)handleAppearanceChange {
+    if ([self shouldAppear]) {
+        if (_player) {
+            if (self.paused) {
+                _player->pause();
+            } else {
+                _player->play();
+            }
+        }
+    } else {
+        if (_player) {
+            _player->pause();
+        }
+    }
+    [super handleAppearanceChange];
 }
 
 @end
