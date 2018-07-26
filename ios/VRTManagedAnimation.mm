@@ -28,6 +28,7 @@ enum class VRTAnimationState {
     self = [super init];
     if (self) {
         self.delay = -1.0f;
+        self.durationOverride = -1.0f;
         self.loop = false;
         self.run = false;
         self.state = VRTAnimationState::Terminated;
@@ -57,15 +58,22 @@ enum class VRTAnimationState {
         self.loop = NO;
         self.run = NO;
         self.delay = -1;
+        self.durationOverride = -1;
         self.interruptible = NO;
     }
     else {
         id delayValue = [dictionary objectForKey:@"delay"];
         if (delayValue != nil) {
             self.delay = [delayValue floatValue];
-        }
-        else {
+        } else {
             self.delay = -1;
+        }
+        
+        id durationValue = [dictionary objectForKey:@"duration"];
+        if (durationValue != nil) {
+            self.durationOverride = [durationValue floatValue];
+        } else {
+            self.durationOverride = -1;
         }
         
         self.loop = [[dictionary objectForKey:@"loop"] boolValue];
@@ -113,8 +121,6 @@ enum class VRTAnimationState {
             [self performSelector:@selector(startAnimation) withObject:self afterDelay:self.delay / 1000.0];
         }
     }
-    
-    
 }
 
 - (void)pauseAnimation {
@@ -154,6 +160,10 @@ enum class VRTAnimationState {
     
     __weak VRTManagedAnimation *weakSelf = self;
     std::shared_ptr<VROExecutableAnimation> animation = _executableAnimation;
+    
+    if (self.durationOverride > -1) {
+        animation->setDuration(self.durationOverride / 1000.0f);
+    }
     animation->execute(node, [weakSelf, animation] {
                              if (weakSelf) {
                                  [weakSelf onAnimationFinish:animation];

@@ -33,6 +33,7 @@ public abstract class VRTManagedAnimation {
     private ExecutableAnimation mExecutableAnimation = null;
     private ExecutableAnimation mPreviousAnimationInterrupted = null; // used to store previous played animation so it can be terminated before destroyed.
     private float mDelayInMilliseconds = 0; // milliseconds
+    private long mOverrideDurationInMilliseconds = -1; // overrides the animation's set duration
     private boolean mLoop = false;
     private boolean mRun = false;
     private boolean mInterruptible = false;
@@ -74,7 +75,7 @@ public abstract class VRTManagedAnimation {
             mExecutableAnimation.destroy();
         }
 
-        if( mPreviousAnimationInterrupted != null) {
+        if (mPreviousAnimationInterrupted != null) {
             mPreviousAnimationInterrupted.terminate(true);
             mPreviousAnimationInterrupted.destroy();
         }
@@ -107,22 +108,25 @@ public abstract class VRTManagedAnimation {
     public void parseFromMap(ReadableMap map) {
         if (map != null && map.hasKey("delay")) {
             setDelay((float) map.getDouble("delay"));
-        }
-        else {
+        } else {
             setDelay(-1);
+        }
+
+        if (map != null && map.hasKey("duration")) {
+            setOverrideDuration(map.getInt("duration"));
+        } else {
+            setOverrideDuration(-1);
         }
 
         if (map != null && map.hasKey("loop")) {
             setLoop(map.getBoolean("loop"));
-        }
-        else {
+        } else {
             setLoop(false);
         }
 
         if (map != null && map.hasKey("run")) {
             setRun(map.getBoolean("run"));
-        }
-        else {
+        } else {
             setRun(false);
         }
 
@@ -142,6 +146,8 @@ public abstract class VRTManagedAnimation {
     public void setDelay(float delay) {
         mDelayInMilliseconds = delay;
     }
+
+    public void setOverrideDuration(long duration) { mOverrideDurationInMilliseconds = duration; }
 
     public void setRun(boolean run) {
         mRun = run;
@@ -171,7 +177,7 @@ public abstract class VRTManagedAnimation {
 
         // Properly destroy a previous animation if it exists. This animation will only be non-null if it was
         // not interrupted.
-        if(mPreviousAnimationInterrupted != null) {
+        if (mPreviousAnimationInterrupted != null) {
             mPreviousAnimationInterrupted.destroy();
             mPreviousAnimationInterrupted = null;
         }
@@ -179,7 +185,7 @@ public abstract class VRTManagedAnimation {
         // Terminate current animation if it allowed to be interrupted. Store current animation
         // in mPreviousAnimationInterrupted so that terminate() can run to completion in renderer thread.
 
-        if(mState == AnimationState.RUNNING && mInterruptible == true) {
+        if (mState == AnimationState.RUNNING && mInterruptible == true) {
             mExecutableAnimation.terminate(!mInterruptible);
             mState = AnimationState.TERMINATED;
             mPreviousAnimationInterrupted = mExecutableAnimation;
@@ -193,9 +199,9 @@ public abstract class VRTManagedAnimation {
         else if (mState == AnimationState.TERMINATED) {
             mState = AnimationState.SCHEDULED;
             // invoke startAnimation() right away if there is no delay provided.
-            if(mDelayInMilliseconds <= 0) {
+            if (mDelayInMilliseconds <= 0) {
                 startAnimation();
-            }else {
+            } else {
                 mMainLoopHandler.postDelayed(mDelayedRunner, (long) mDelayInMilliseconds);
             }
         }
@@ -266,6 +272,9 @@ public abstract class VRTManagedAnimation {
         onStartAnimation();
 
         final WeakReference<VRTManagedAnimation> weakSelf = new WeakReference<>(this);
+        if (mOverrideDurationInMilliseconds > -1) {
+            mExecutableAnimation.setDuration(mOverrideDurationInMilliseconds / 1000.0f);
+        }
         mExecutableAnimation.execute(mNode.getNodeJni(), new ExecutableAnimation.AnimationDelegate() {
             @Override
             public void onFinish(ExecutableAnimation animation) {

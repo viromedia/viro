@@ -16,6 +16,7 @@ class VROExecutableAnimation;
 @interface VRTManagedAnimation : NSObject
 
 @property (nonatomic, assign) float delay;
+@property (nonatomic, assign) float durationOverride;
 @property (nonatomic, assign) BOOL loop;
 @property (nonatomic, assign) BOOL run;
 @property (nonatomic, assign) BOOL interruptible;

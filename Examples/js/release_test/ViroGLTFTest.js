@@ -186,6 +186,7 @@ var Viro3DObjectTest = createReactClass({
                         onLoadEnd={this._loaded("CesiumMan.glb", true)}
                         animation={{name:"animation_0",
                                     delay:0,
+                                    duration:30000,
                                     loop:true,
                                     run:true,
                                     interruptible:true }}

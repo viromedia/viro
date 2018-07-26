@@ -73,6 +73,7 @@ var Viro3DObject = createReactClass({
     animation: PropTypes.shape({
       name: PropTypes.string,
       delay: PropTypes.number,
+      duration: PropTypes.number,
       loop: PropTypes.bool,
       onStart: PropTypes.func,
       onFinish: PropTypes.func,
