@@ -52,7 +52,7 @@ var ViroCameraHUDTest = createReactClass({
 
   getInitialState() {
     return {
-        activeCamera:1,
+        activeCamera:0,
         fov: 60,
     };
   },
@@ -63,6 +63,11 @@ var ViroCameraHUDTest = createReactClass({
      <ReleaseMenu sceneNavigator={this.props.sceneNavigator}/>
      <ViroAmbientLight color="#ffffff"/>
      <ViroOmniLight position={[0, 0, -5]} color="#ffffff" attenuationStartDistance={40} attenuationEndDistance={50}/>
+
+     <ViroCamera
+         position={[0, 0, 1]}
+         rotation={[0, 0, 0]}
+         active={this.state.activeCamera == 0} />
 
      <ViroCamera
          fieldOfView={this.state.fov}
@@ -83,8 +88,8 @@ var ViroCameraHUDTest = createReactClass({
 
 
       <ViroCamera
-          position={[0, 0, -10]}
-          rotation={[0, 180, 0]}
+          position={[0, 0, 1]}
+          rotation={[0, 0, 0]}
           fieldOfView={this.state.fov}
           active={this.state.activeCamera == 2} >
           <ViroBox
@@ -121,7 +126,7 @@ var ViroCameraHUDTest = createReactClass({
   _toggleCamera(){
       var newCamera = this.state.activeCamera + 1;
       if (newCamera > 2) {
-          newCamera = 1;
+          newCamera = 0;
       }
       this.setState({
          activeCamera:newCamera
