@@ -39,7 +39,7 @@ var testARScene = createReactClass({
   mixins: [TimerMixin],
   getInitialState: function() {
     return {
-      useFirstPlane : true,
+      polygonOpacity : 0,
       updateMap : undefined,
       minValue : 0,
       detectType : 0,
@@ -58,10 +58,11 @@ var testARScene = createReactClass({
           onAnchorRemoved={this._onAnchorRemoved} >
 
         <ViroPolygon
+          opacity={this.state.polygonOpacity}
           ref={component=>{this._polySurface = component}}
           rotation={[-90, 0, 0]}
           position={[0,0,0]}
-          vertices={[[0,0], [0,0], [0,0]]}
+          vertices={[[0,0], [1, 0], [0,1]]}
           materials={"blue_plane"}/>
 
         <ViroQuad
@@ -104,6 +105,7 @@ var testARScene = createReactClass({
       return "None"
     }
   },
+
   _onAnchorUpdated(updateMap) {
     var polygonPoint = [];
     for (i = 0; i < updateMap.vertices.length; i ++){
@@ -111,6 +113,12 @@ var testARScene = createReactClass({
       point.push(updateMap.vertices[i][0]);
       point.push(updateMap.vertices[i][2]);
       polygonPoint.push(point);
+    }
+
+    if (!this.state.polygonOpacity){
+      this.setState({
+        polygonOpacity : 1,
+      });
     }
 
     this.debugSurfacesAndPlanes(updateMap);
