@@ -35,17 +35,24 @@ var ViroTextSpecialTest = createReactClass({
 
   getInitialState() {
     return {
+      activeCamera:0,
       fontSize:44,
     }
   },
 
   render: function() {
     return (
-      <ViroScene reticleEnabled={true} onPlatformUpdate={this._platformUpdate} >
+      <ViroScene reticleEnabled={true} onPlatformUpdate={this._platformUpdate} onClick={this._toggleCamera}>
       <ReleaseMenu sceneNavigator={this.props.sceneNavigator}/>
         <ViroSkyBox color="#AA1460" />
-        <ViroImage source={require('./res/poi_dot.png')} position={[-1, 0, 0]} transformBehaviors={["billboard"]} onClick={this._showNext} />
-        <ViroOrbitCamera focalPoint={[0, 0, -4]} active={true} />
+        <ViroImage source={require('./res/poi_dot.png')} position={[-2, -1, 0]} transformBehaviors={["billboard"]} onClick={this._showNext} />
+
+        <ViroCamera
+            position={[0, 0, 1]}
+            rotation={[0, 0, 0]}
+            active={this.state.activeCamera == 0} />
+
+        <ViroOrbitCamera focalPoint={[0, 0, -4]} active={this.state.activeCamera == 1}/>
 
         <ViroNode position={[0, 0, -4]}>
 
@@ -96,6 +103,12 @@ var ViroTextSpecialTest = createReactClass({
                      width={10} height={5} extrusionDepth={8}
                      materials={["whiteMaterialText3D", "blueMaterialText3D", "redMaterialText3D"]}
                      text="人人生而自由,在尊严和权利上一律平等。他们赋 有理性和" />
+
+          <ViroText fontSize={this.state.fontSize}
+                    style={styles.italicFont3D} position={[0, -4, 0]}
+                    width={20} height={5} extrusionDepth={8}
+                    materials={["blueMaterialText3D", "redMaterialText3D", "whiteMaterialText3D"]}
+                    text="Click Background to switch Cameras. " />
        </ViroNode>
 
       </ViroScene>
@@ -105,6 +118,16 @@ var ViroTextSpecialTest = createReactClass({
   _showNext() {
      this.props.sceneNavigator.replace({scene:require('./Viro3DObjectTest')});
   },
+
+    _toggleCamera(){
+        var newCamera = this.state.activeCamera + 1;
+        if (newCamera > 1) {
+            newCamera = 0;
+        }
+        this.setState({
+           activeCamera:newCamera
+        });
+    },
 });
 
 var styles = StyleSheet.create({
