@@ -114,18 +114,26 @@ var testARScene = createReactClass({
   },
   // anchor #1 is at this.anchors[1]... and so on.
   _onSceneAnchorFound(anchor) {
+    console.log("ARPlaneManualTest - anchor found " + anchor.anchorId)
+    if (anchor.type != "plane"){
+      return;
+    }
+
     this.numAnchors++;
     this.anchors[this.numAnchors] = anchor;
     this.setState({
       reloadFlag : !(this.state.reloadFlag)
     })
-    console.log("ARPlaneManualTest - anchor found " + anchor.anchorId);
   },
   _onSceneAnchorUpdated(anchor) {
     console.log("ARPlaneManualTest - anchor updated " + anchor.anchorId);
   },
   _onSceneAnchorRemoved(anchor) {
     console.log("ARPlaneManualTest - anchor removed " + anchor.anchorId);
+
+    if (anchor.type != "plane"){
+      return;
+    }
     for(var i = 1; i <= this.numAnchors; i++) {
       if (this.anchors[i].anchorId == anchor.anchorId) {
         this.anchors[i] = undefined;
