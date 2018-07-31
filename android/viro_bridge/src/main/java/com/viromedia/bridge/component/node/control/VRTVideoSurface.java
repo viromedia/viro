@@ -12,7 +12,7 @@ import com.facebook.react.uimanager.events.RCTEventEmitter;
 import com.viro.core.Material;
 import com.viro.core.Texture;
 import com.viro.core.ViroContext;
-import com.viro.core.Surface;
+import com.viro.core.Quad;
 import com.viro.core.VideoTexture;
 import com.viromedia.bridge.utility.Helper;
 import com.viromedia.bridge.utility.ViroEvents;
@@ -88,7 +88,7 @@ public class VRTVideoSurface extends VRTControl {
     private boolean mMuted = false;
     private float mVolume = 1;
     private String mSource;
-    private Surface mSurface = null;
+    private Quad mQuad = null;
     private VideoTexture mVideoTexture = null;
     private VideoTexture.PlaybackListener mDelegate = null;
     private String mStereoMode;
@@ -100,9 +100,9 @@ public class VRTVideoSurface extends VRTControl {
 
     @Override
     public void onTearDown(){
-        if (mSurface != null) {
-            mSurface.dispose();
-            mSurface = null;
+        if (mQuad != null) {
+            mQuad.dispose();
+            mQuad = null;
         }
         if (mVideoTexture != null){
             mVideoTexture.dispose();
@@ -121,14 +121,14 @@ public class VRTVideoSurface extends VRTControl {
             mVideoTexture = null;
         }
 
-        if (mSurface != null) {
-            mSurface.dispose();
-            mSurface = null;
+        if (mQuad != null) {
+            mQuad.dispose();
+            mQuad = null;
         }
 
         // Create Texture
-        mSurface = new Surface(mWidth, mHeight, 0, 0, 1, 1);
-        getNodeJni().setGeometry(mSurface);
+        mQuad = new Quad(mWidth, mHeight, 0, 0, 1, 1);
+        getNodeJni().setGeometry(mQuad);
         if (mMaterials != null) {
             applyMaterials();
         }
@@ -144,13 +144,13 @@ public class VRTVideoSurface extends VRTControl {
     @Override
     protected void setMaterials(List<Material> materials) {
         super.setMaterials(materials);
-        if (mVideoTexture != null && mSurface != null) {
-            mSurface.setVideoTexture(mVideoTexture);
+        if (mVideoTexture != null && mQuad != null) {
+            mQuad.setVideoTexture(mVideoTexture);
         }
     }
 
     private void loadVideo(){
-        mSurface.setVideoTexture(mVideoTexture);
+        mQuad.setVideoTexture(mVideoTexture);
         setVolume(mVolume);
         setLoop(mLoop);
         setMuted(mMuted);

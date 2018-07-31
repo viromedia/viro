@@ -17,7 +17,7 @@ import com.viro.core.Node;
 import com.viro.core.ParticleEmitter;
 import com.viro.core.Vector;
 import com.viro.core.ViroContext;
-import com.viro.core.Surface;
+import com.viro.core.Quad;
 import com.viro.core.Texture;
 import com.viromedia.bridge.component.node.VRTScene;
 import com.viromedia.bridge.utility.ImageDownloadListener;
@@ -44,7 +44,7 @@ public class VRTParticleEmitter extends VRTControl {
 
     // Native components representing this emitter, and it's particle geometry.
     private ParticleEmitter mNativeEmitter = null;
-    private Surface mNativeSurface = null;
+    private Quad mNativeQuad = null;
 
     // True if the image source, or it's configuration has changed.
     private boolean mImageNeedsUpdate = false;
@@ -84,7 +84,7 @@ public class VRTParticleEmitter extends VRTControl {
         mDefaultVelocity = new ParticleEmitter.ParticleModifierFloatArray(new float[]{-0.5f, 1, 0}, new float[]{0.5f, 1, 0});
         mDefaultAccelerationMod = new ParticleEmitter.ParticleModifierFloatArray(new float[]{0, 0, 0});
         mMainHandler = new Handler(Looper.getMainLooper());
-        mNativeSurface = new Surface(1,1, 0, 0, 1, 1);
+        mNativeQuad = new Quad(1,1, 0, 0, 1, 1);
     }
 
     @Override
@@ -98,9 +98,9 @@ public class VRTParticleEmitter extends VRTControl {
             mNativeEmitter = null;
         }
 
-        if (mNativeSurface != null){
-            mNativeSurface.dispose();
-            mNativeSurface = null;
+        if (mNativeQuad != null){
+            mNativeQuad.dispose();
+            mNativeQuad = null;
         }
 
         if (mImageDownloadListener != null){
@@ -218,7 +218,7 @@ public class VRTParticleEmitter extends VRTControl {
 
         // Create emitter if we haven't yet done so.
         if (mNativeEmitter == null) {
-            mNativeEmitter = new ParticleEmitter(mViroContext, mNativeSurface);
+            mNativeEmitter = new ParticleEmitter(mViroContext, mNativeQuad);
             node.setParticleEmitter(mNativeEmitter);
         }
 
@@ -266,10 +266,10 @@ public class VRTParticleEmitter extends VRTControl {
 
         double width = (mImage != null && mImage.hasKey("width")) ? mImage.getDouble("width") : 1.0;
         double height = (mImage != null && mImage.hasKey("height")) ? mImage.getDouble("height") : 1.0;
-        mNativeSurface.setWidth((float)width);
-        mNativeSurface.setHeight((float)height);
+        mNativeQuad.setWidth((float)width);
+        mNativeQuad.setHeight((float)height);
         if (mLatestTexture != null){
-            mNativeSurface.setImageTexture(mLatestTexture);
+            mNativeQuad.setImageTexture(mLatestTexture);
         }
 
         mImageNeedsUpdate = false;

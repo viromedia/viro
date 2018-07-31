@@ -6,7 +6,6 @@ package com.viromedia.bridge.component.node;
 import android.graphics.Bitmap;
 import android.os.Handler;
 import android.os.Looper;
-import android.view.ViewParent;
 
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.ReactContext;
@@ -23,7 +22,7 @@ import com.viro.core.internal.Image;
 import com.viro.core.Scene;
 import com.viro.core.EventDelegate;
 
-import com.viro.core.Surface;
+import com.viro.core.Quad;
 import com.viro.core.Texture;
 import com.viro.core.Vector;
 import com.viro.core.ViroViewARCore;
@@ -46,7 +45,7 @@ public class VRTARScene extends VRTScene implements ARScene.Listener {
     private static final String AMBIENT_LIGHT_INFO_KEY = "ambientLightInfo";
     private static final String AMBIENT_INTENSITY_KEY = "intensity";
     private static final String AMBIENT_COLOR_KEY = "color";
-    private Surface mPointCloudSurface;
+    private Quad mPointCloudQuad;
     private PointCloudImageDownloadListener mImageDownloadListener;
     private Handler mMainHandler;
 
@@ -75,9 +74,9 @@ public class VRTARScene extends VRTScene implements ARScene.Listener {
         if (pointCloudImage == null) {
             ((ARScene) mNativeScene).resetPointCloudSurface();
 
-            if (mPointCloudSurface != null) {
-                mPointCloudSurface.dispose();
-                mPointCloudSurface = null;
+            if (mPointCloudQuad != null) {
+                mPointCloudQuad.dispose();
+                mPointCloudQuad = null;
             }
 
             return;
@@ -232,16 +231,16 @@ public class VRTARScene extends VRTScene implements ARScene.Listener {
                         return;
                     }
 
-                    if (mPointCloudSurface == null) {
-                        mPointCloudSurface = new Surface(1, 1);
+                    if (mPointCloudQuad == null) {
+                        mPointCloudQuad = new Quad(1, 1);
                     }
 
                     Image image = new Image(result, Texture.Format.RGBA8);
                     Texture texture = new Texture(image, true, false, null);
-                    mPointCloudSurface.setImageTexture(texture);
+                    mPointCloudQuad.setImageTexture(texture);
 
                     if (!isTornDown()) {
-                        ((ARScene) mNativeScene).setPointCloudSurface(mPointCloudSurface);
+                    ((ARScene) mNativeScene).setPointCloudQuad(mPointCloudQuad);
                     }
                 }
             });

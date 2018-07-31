@@ -13,7 +13,7 @@ import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
 import com.viro.core.internal.Image;
 import com.viro.core.Material;
-import com.viro.core.Surface;
+import com.viro.core.Quad;
 import com.viro.core.Texture;
 import com.viromedia.bridge.utility.ImageDownloadListener;
 import com.viromedia.bridge.utility.ImageDownloader;
@@ -29,7 +29,7 @@ public class VRTImage extends VRTControl {
     static final float DEFAULT_WIDTH = 1;
     static final float DEFAULT_HEIGHT = 1;
     private Material mDefaultMaterial;
-    private Surface mNativeSurface;
+    private Quad mNativeQuad;
     private Image mLatestImage;
     private Texture mLatestImageTexture;
     private String mStereoMode;
@@ -122,9 +122,9 @@ public class VRTImage extends VRTControl {
     public void setMaterials(List<Material> materials) {
         // Override materials setting because we want to control which materials are set.
         mMaterials = materials;
-        setMaterialOnSurface();
-        if (mNativeSurface != null && mLatestImageTexture != null) {
-            mNativeSurface.setImageTexture(mLatestImageTexture);
+        setMaterialOnQuad();
+        if (mNativeQuad != null && mLatestImageTexture != null) {
+            mNativeQuad.setImageTexture(mLatestImageTexture);
         }
     }
 
@@ -136,39 +136,39 @@ public class VRTImage extends VRTControl {
         }
 
         resizeImage();
-        updateSurface();
+        updateQuad();
         if (mImageNeedsDownload) {
             updateImage();
             mImageNeedsDownload = false;
         }
     }
 
-    private void updateSurface() {
-        boolean createdNewSurface = false;
-        float imageSurfaceWidth;
-        float imageSurfaceHeight;
+    private void updateQuad() {
+        boolean createdNewQuad = false;
+        float imageQuadWidth;
+        float imageQuadHeight;
         if (mImageClipMode.equalsIgnoreCase("clipToBounds") && mResizeMode.equalsIgnoreCase("scaleToFill")) {
-            imageSurfaceWidth = mWidth;
-            imageSurfaceHeight = mHeight;
+            imageQuadWidth = mWidth;
+            imageQuadHeight = mHeight;
         } else {
-            imageSurfaceWidth = mScaledWidth;
-            imageSurfaceHeight = mScaledHeight;
+            imageQuadWidth = mScaledWidth;
+            imageQuadHeight = mScaledHeight;
         }
-        if (mNativeSurface == null) {
-            mNativeSurface = new Surface(imageSurfaceWidth, imageSurfaceHeight, mU0, mV0, mU1, mV1);
-            createdNewSurface = true;
+        if (mNativeQuad == null) {
+            mNativeQuad = new Quad(imageQuadWidth, imageQuadHeight, mU0, mV0, mU1, mV1);
+            createdNewQuad = true;
         }
         else if (mGeometryNeedsUpdate) {
-            Surface newSurface = new Surface(imageSurfaceWidth, imageSurfaceHeight, mU0, mV0, mU1, mV1, mNativeSurface);
-            mNativeSurface.dispose();
-            mNativeSurface = newSurface;
-            createdNewSurface = true;
+            Quad newQuad = new Quad(imageQuadWidth, imageQuadHeight, mU0, mV0, mU1, mV1, mNativeQuad);
+            mNativeQuad.dispose();
+            mNativeQuad = newQuad;
+            createdNewQuad = true;
         }
 
-        if (createdNewSurface) {
-            getNodeJni().setGeometry(mNativeSurface);
+        if (createdNewQuad) {
+            getNodeJni().setGeometry(mNativeQuad);
             if (mLatestImageTexture != null) {
-                mNativeSurface.setImageTexture(mLatestImageTexture);
+                mNativeQuad.setImageTexture(mLatestImageTexture);
             }
         }
         mGeometryNeedsUpdate = false;
@@ -197,7 +197,7 @@ public class VRTImage extends VRTControl {
 
         // If no source was provided, just set the material
         else {
-            setMaterialOnSurface();
+            setMaterialOnQuad();
         }
     }
 
@@ -217,9 +217,9 @@ public class VRTImage extends VRTControl {
         }
         super.onTearDown();
 
-        if (mNativeSurface != null) {
-            mNativeSurface.dispose();
-            mNativeSurface = null;
+        if (mNativeQuad != null) {
+            mNativeQuad.dispose();
+            mNativeQuad = null;
         }
 
         if (mDefaultMaterial != null) {
@@ -238,21 +238,21 @@ public class VRTImage extends VRTControl {
         }
     }
 
-    private void setMaterialOnSurface() {
-        if (mNativeSurface == null) {
+    private void setMaterialOnQuad() {
+        if (mNativeQuad == null) {
             return;
         }
         if (mMaterials == null || mMaterials.size() == 0) {
             // set default (empty) material
-            mNativeSurface.setMaterial(mDefaultMaterial);
+            mNativeQuad.setMaterial(mDefaultMaterial);
         } else {
             Material nativeMaterial = mMaterials.get(0);
-            mNativeSurface.setMaterial(nativeMaterial);
+            mNativeQuad.setMaterial(nativeMaterial);
         }
     }
 
-    private void setImageOnSurface(Bitmap image) {
-        if (mNativeSurface == null) {
+    private void setImageOnQuad(Bitmap image) {
+        if (mNativeQuad == null) {
             return;
         }
 
@@ -265,7 +265,7 @@ public class VRTImage extends VRTControl {
 
         mLatestImage = new Image(image, mFormat);
         mLatestImageTexture = new Texture(mLatestImage, true, mMipmap, mStereoMode);
-        mNativeSurface.setImageTexture(mLatestImageTexture);
+        mNativeQuad.setImageTexture(mLatestImageTexture);
     }
 
     private void imageDownloadDidStart() {
@@ -358,7 +358,7 @@ public class VRTImage extends VRTControl {
                     if (!isValid()) {
                         return;
                     }
-                    setImageOnSurface(result);
+                    setImageOnQuad(result);
                     downloadSourceImage(mDownloader);
                     mPlaceholderListener = null;
                 }
@@ -402,22 +402,22 @@ public class VRTImage extends VRTControl {
                     mIsImageSet = true;
 
                     // If no width or height property was set, then base these on the
-                    // image's aspect ratio and update the surface
+                    // image's aspect ratio and update the Quad
                     if (!mWidthOrHeightPropSet) {
                         float ratio = (float) mBitmapWidth / (float) mBitmapHeight;
                         mHeight = mWidth / ratio;
                         mGeometryNeedsUpdate = true;
-                        updateSurface();
+                        updateQuad();
                     } else if (mResizeModeSet) {
                         // If width and height props were set, along with resizeMode,
                         // we'll calculate scaled width & height of the image
                         resizeImage();
                         mGeometryNeedsUpdate = true;
-                        updateSurface();
+                        updateQuad();
                     }
 
-                    setMaterialOnSurface();
-                    setImageOnSurface(result);
+                    setMaterialOnQuad();
+                    setImageOnQuad(result);
                     imageDownloadDidFinish();
                     mMainListener = null;
                 }

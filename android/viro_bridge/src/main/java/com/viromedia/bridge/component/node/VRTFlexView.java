@@ -5,7 +5,7 @@ package com.viromedia.bridge.component.node;
 
 import com.viro.core.Geometry;
 import com.viro.core.Material;
-import com.viro.core.Surface;
+import com.viro.core.Quad;
 
 import java.util.List;
 
@@ -23,7 +23,7 @@ public class VRTFlexView extends VRTNode {
     private int mBackgroundColor = Color.TRANSPARENT;
 
     private final Material mDefaultMaterial;
-    private Surface mNativeSurface;
+    private Quad mNativeQuad;
     private Material mNativeColorMaterial;
 
     public VRTFlexView(ReactContext context) {
@@ -80,9 +80,9 @@ public class VRTFlexView extends VRTNode {
         }
         super.onTearDown();
 
-        if (mNativeSurface != null) {
-            mNativeSurface.dispose();
-            mNativeSurface = null;
+        if (mNativeQuad != null) {
+            mNativeQuad.dispose();
+            mNativeQuad = null;
         }
 
         if (mNativeColorMaterial != null) {
@@ -122,21 +122,21 @@ public class VRTFlexView extends VRTNode {
             return;
         }
 
-        if (mNativeSurface != null) {
-            mNativeSurface.dispose();
+        if (mNativeQuad != null) {
+            mNativeQuad.dispose();
         }
 
-        mNativeSurface = new Surface(mWidth, mHeight, 0, 0, 1, 1);
+        mNativeQuad = new Quad(mWidth, mHeight, 0, 0, 1, 1);
         setBackgroundOnSurface();
-        setGeometry(mNativeSurface);
+        setGeometry(mNativeQuad);
     }
 
     /**
-     * Helper function which will set a material on the mNativeSurface or remove material if neither
+     * Helper function which will set a material on the mNativeQuad or remove material if neither
      * color nor materials are given.
      */
     private void setBackgroundOnSurface() {
-        if (isTornDown() || mNativeSurface == null) {
+        if (isTornDown() || mNativeQuad == null) {
             return;
         }
 
@@ -147,17 +147,17 @@ public class VRTFlexView extends VRTNode {
             }
             mNativeColorMaterial = new Material();
             mNativeColorMaterial.setDiffuseColor(mBackgroundColor);
-            mNativeSurface.setMaterial(mNativeColorMaterial);
+            mNativeQuad.setMaterial(mNativeColorMaterial);
         } else if (mMaterials != null && mMaterials.size() > 0) {
             // set the first material on the surface
-            mNativeSurface.setMaterial(mMaterials.get(0));
+            mNativeQuad.setMaterial(mMaterials.get(0));
         } else {
             if (mNativeColorMaterial != null) {
                 mNativeColorMaterial.dispose();
                 mNativeColorMaterial = null;
             }
             // set the default (transparent) material if no color or material is given
-            mNativeSurface.setMaterial(mDefaultMaterial);
+            mNativeQuad.setMaterial(mDefaultMaterial);
         }
     }
 
