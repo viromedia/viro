@@ -33,6 +33,19 @@ public:
      */
     virtual void execute(std::shared_ptr<VRONode> node,
                          std::function<void()> onFinished) = 0;
+
+    /*
+     Override the set duration for this animation, in seconds. This should typically
+     only be done on an animation copy to prevent modifying the original animation's
+     standard duration.
+     */
+    virtual void setDuration(float durationSeconds) = 0;
+
+    /*
+     Returns the duration of this animation, in seconds. If this animation contains
+     multiple sub-animations, this will return the longest animation.
+     */
+    virtual float getDuration() const = 0;
     
     virtual void pause() = 0;
     virtual void resume() = 0;

@@ -15,6 +15,7 @@
 #include <functional>
 #include "VROAnimation.h"
 #include "VROTimingFunction.h"
+#include "VROExecutableAnimation.h"
 
 class VROTransaction {
 
@@ -142,6 +143,15 @@ public:
     void addAnimation(std::shared_ptr<VROAnimation> animation) {
         _animations.push_back(animation);
     }
+    
+    /*
+     Hold a reference to an executable animation. This is used to keep executable
+     animations that trigger a transaction alive so long as the transaction is
+     executing.
+     */
+    void holdExecutableAnimation(std::shared_ptr<VROExecutableAnimation> executableAnimation) {
+        _executableAnimations.push_back(executableAnimation);
+    }
 
     /*
      Process another frame of all animations in this transaction. The
@@ -167,6 +177,7 @@ private:
 
     std::function<void(bool terminate)> _finishCallback;
     std::vector<std::shared_ptr<VROAnimation>> _animations;
+    std::vector<std::shared_ptr<VROExecutableAnimation>> _executableAnimations;
 
 };
 

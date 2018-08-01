@@ -63,6 +63,13 @@ private:
                        std::vector<std::shared_ptr<VROGeometryElement>> &elements);
     std::shared_ptr<VROGeometryElement> buildElement(size_t numCorners);
     void writePolygonCorner(p2t::Point *position, VROByteBuffer &buffer);
+
+    /*
+     Poly2Tri only processes paths with non repeating points, otherwise it would crash
+     the application. Thus, removeDuplicateVertices() is used to sanitize and remove
+     duplicated vertices for a given path.
+     */
+    void removeDuplicateVertices(std::vector<VROVector3f> &path);
 };
 
 #endif /* VROPolygon_h */

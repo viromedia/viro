@@ -89,9 +89,12 @@ public:
      first time, so that future retrievals are faster.
      
      If the variant selector is 0, then we assume this is not a variation sequence.
+     
+     The outlineWidth parameter determines the size of the outline to use. This is
+     only valid for VROGlyphRenderMode::OutlinedBitmap.
      */
     std::shared_ptr<VROGlyph> getGlyph(uint32_t codePoint, uint32_t variantSelector,
-                                       VROGlyphRenderMode renderMode);
+                                       uint32_t outlineWidth, VROGlyphRenderMode renderMode);
     
     /*
      Refresh the texture of all glyph atlases used by this typeface.
@@ -112,10 +115,11 @@ protected:
     
     virtual FT_FaceRec_ *loadFTFace() = 0;
     virtual std::shared_ptr<VROGlyph> loadGlyph(uint32_t charCode, uint32_t variantSelector,
-                                                VROGlyphRenderMode renderMode) = 0;
+                                                uint32_t outlineWidth, VROGlyphRenderMode renderMode) = 0;
     
     std::string _name;
     std::vector<std::shared_ptr<VROGlyphAtlas>> _glyphAtlases;
+    std::map<int, std::vector<std::shared_ptr<VROGlyphAtlas>>> _outlineAtlases;
     
     // TODO VIRO-3239 Move these to VROFont. VROTypeface is essentially a "font family"
     int _size;

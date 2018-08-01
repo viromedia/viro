@@ -18,8 +18,8 @@ enum class VROAnimationChainExecution {
 };
 
 /*
- An animation chain is a list of animation groups that execute
- serially. This follows the composite pattern.
+ An animation chain is a list of animation groups that can execute serially
+ or in parallel. This follows the composite pattern.
  */
 class VROAnimationChain : public VROExecutableAnimation, public std::enable_shared_from_this<VROAnimationChain> {
     
@@ -42,7 +42,10 @@ public:
     void pause();
     void resume();
     void terminate(bool jumpToEnd);
-    
+
+    void setDuration(float durationSeconds);
+    float getDuration() const;
+
     std::string toString() const;
 
 private:

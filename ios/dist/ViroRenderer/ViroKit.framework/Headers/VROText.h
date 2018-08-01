@@ -20,9 +20,16 @@ class VROMaterial;
 class VROTexture;
 class VROGlyph;
 class VROGlyphAtlas;
+class VROGlyphBitmap;
 class VROTypefaceCollection;
 
 static const float kTextPointToWorldScale = 0.01;
+
+enum class VROTextOuterStroke {
+    None,
+    Outline,
+    DropShadow
+};
 
 enum class VROTextHorizontalAlignment {
     Left,
@@ -119,6 +126,7 @@ public:
             std::string typefaceNames,
             int fontSize, VROFontStyle fontStyle, VROFontWeight fontWeight,
             VROVector4f color, float extrusion,
+            VROTextOuterStroke stroke, int strokeWidth, VROVector4f strokeColor,
             float width, float height,
             VROTextHorizontalAlignment horizontalAlignment, VROTextVerticalAlignment verticalAlignment,
             VROLineBreakMode lineBreakMode, VROTextClipMode clipMode, int maxLines,
@@ -162,6 +170,7 @@ public:
     void setClipMode(VROTextClipMode clipMode);
     void setMaxLines(int maxLines);
     void setExtrusion(float extrusion);
+    void setOuterStroke(VROTextOuterStroke stroke, int strokeWidth, VROVector4f strokeColor);
     void setMaterials(std::vector<std::shared_ptr<VROMaterial>> materials);
 
 private:
@@ -180,6 +189,9 @@ private:
     VROLineBreakMode _lineBreakMode;
     VROTextClipMode _clipMode;
     int _maxLines;
+    VROTextOuterStroke _outerStroke;
+    int _outerStrokeWidth;
+    VROVector4f _outerStrokeColor;
     std::weak_ptr<VRODriver> _driver;
 
     std::atomic<float> _realizedWidth, _realizedHeight;
@@ -195,8 +207,8 @@ private:
     static void buildBitmapText(std::wstring &text,
                                 std::shared_ptr<VROTypefaceCollection> &typefaces,
                                 VROVector4f color,
-                                float width,
-                                float height,
+                                VROTextOuterStroke outerStroke, int outerStrokeWidth, VROVector4f outerStrokeColor,
+                                float width, float height,
                                 VROTextHorizontalAlignment horizontalAlignment,
                                 VROTextVerticalAlignment verticalAlignment,
                                 VROLineBreakMode lineBreakMode,
@@ -223,8 +235,9 @@ private:
      provided vertex array, and write the associated indices into the indices
      array as well.
      */
-    static void buildBitmapChar(std::shared_ptr<VROGlyph> &glyph,
+    static void buildBitmapChar(const VROGlyphBitmap &bitmap,
                                 float x, float y,
+                                float offsetX, float offsetY,
                                 std::vector<VROShapeVertexLayout> &var,
                                 std::vector<int> &indices);
     
