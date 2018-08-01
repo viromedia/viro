@@ -33,6 +33,9 @@
 		136B0AEA20AA2FB800391021 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BDD9D8D1E09EBFF00A42870 /* libReact.a */; };
 		1385B2B520CA0A8200C3B6CE /* libViroReact_static_lib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1385B2A120CA098C00C3B6CE /* libViroReact_static_lib.a */; };
 		1385B2DA20CA38E500C3B6CE /* Pods_ViroExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9963AEFBC35CAFD7D48A8D1B /* Pods_ViroExample.framework */; };
+		8A1C312D211240B300F92429 /* libRNDeviceInfo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A1C31272112407500F92429 /* libRNDeviceInfo.a */; };
+		8A1C312E211240BB00F92429 /* libRNDeviceInfo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A1C31272112407500F92429 /* libRNDeviceInfo.a */; };
+		8A1C312F211240C300F92429 /* libRNDeviceInfo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A1C31272112407500F92429 /* libRNDeviceInfo.a */; };
 		8B3C3ADF1F3CDEAB001C03C9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8BE0D4241DF9DCFE0032AB99 /* Assets.xcassets */; };
 		8BDB54AF1DFFEE7300179AEF /* libRCTImage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BDB54AE1DFFEE7300179AEF /* libRCTImage.a */; };
 		8BDB54B11DFFEE7E00179AEF /* libRCTNetwork.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BDB54B01DFFEE7E00179AEF /* libRCTNetwork.a */; };
@@ -90,6 +93,20 @@
 			proxyType = 2;
 			remoteGlobalIDString = 1385B29C20CA091C00C3B6CE;
 			remoteInfo = ViroReact_static_lib;
+		};
+		8A1C31262112407500F92429 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8A1C31062112407400F92429 /* RNDeviceInfo.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = DA5891D81BA9A9FC002B4DB2;
+			remoteInfo = RNDeviceInfo;
+		};
+		8A1C31282112407500F92429 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8A1C31062112407400F92429 /* RNDeviceInfo.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = E72EC1401F7ABB5A0001BC90;
+			remoteInfo = "RNDeviceInfo-tvOS";
 		};
 		8ABC82CC1F54F7CC00217AB8 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -315,6 +332,7 @@
 		46E1A4922C7A9F316A846B33 /* Pods-ViroExample_no_use_frameworks.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ViroExample_no_use_frameworks.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ViroExample_no_use_frameworks/Pods-ViroExample_no_use_frameworks.debug.xcconfig"; sourceTree = "<group>"; };
 		766F9F120676EE2ACDCD4956 /* libPods-ViroExample_no_use_frameworks.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ViroExample_no_use_frameworks.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		777E6F62127F6D7E64915E0D /* Pods-ViroExample_archive.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ViroExample_archive.release.xcconfig"; path = "Pods/Target Support Files/Pods-ViroExample_archive/Pods-ViroExample_archive.release.xcconfig"; sourceTree = "<group>"; };
+		8A1C31062112407400F92429 /* RNDeviceInfo.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNDeviceInfo.xcodeproj; path = "../../node_modules/react-native-device-info/ios/RNDeviceInfo.xcodeproj"; sourceTree = "<group>"; };
 		8A2161D220365D5200D60008 /* ViroKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ViroKit.framework; path = ../../../ios/dist/ViroRenderer/ViroKit.framework; sourceTree = "<group>"; };
 		8BDB54AE1DFFEE7300179AEF /* libRCTImage.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libRCTImage.a; path = "../../node_modules/react-native/Libraries/Image/build/Debug-iphoneos/libRCTImage.a"; sourceTree = "<group>"; };
 		8BDB54B01DFFEE7E00179AEF /* libRCTNetwork.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libRCTNetwork.a; path = "../../node_modules/react-native/Libraries/Network/build/Debug-iphoneos/libRCTNetwork.a"; sourceTree = "<group>"; };
@@ -357,6 +375,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8A1C312D211240B300F92429 /* libRNDeviceInfo.a in Frameworks */,
 				1385B2DA20CA38E500C3B6CE /* Pods_ViroExample.framework in Frameworks */,
 				1331B78020C9A97300D1C5F5 /* libReact.a in Frameworks */,
 				1385B2B520CA0A8200C3B6CE /* libViroReact_static_lib.a in Frameworks */,
@@ -373,6 +392,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8A1C312E211240BB00F92429 /* libRNDeviceInfo.a in Frameworks */,
 				13424D4C20B4269E00C690CC /* libReact.a in Frameworks */,
 				131FF75A20B8977F00A9B39D /* libViroReact_release_tests.a in Frameworks */,
 				13424D4E20B4269E00C690CC /* libRCTImage.a in Frameworks */,
@@ -388,6 +408,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8A1C312F211240C300F92429 /* libRNDeviceInfo.a in Frameworks */,
 				136B0AEA20AA2FB800391021 /* libReact.a in Frameworks */,
 				13424C7120B424DD00C690CC /* libViroReact.a in Frameworks */,
 				8BDB54AF1DFFEE7300179AEF /* libRCTImage.a in Frameworks */,
@@ -429,9 +450,19 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		8A1C31072112407400F92429 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8A1C31272112407500F92429 /* libRNDeviceInfo.a */,
+				8A1C31292112407500F92429 /* libRNDeviceInfo-tvOS.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		8BDD9D601E09E70F00A42870 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				8A1C31062112407400F92429 /* RNDeviceInfo.xcodeproj */,
 				8BDD9D981E09F38900A42870 /* ViroReact.xcodeproj */,
 				8BDD9D871E09EBFF00A42870 /* React.xcodeproj */,
 				8BDD9D901E09EC3E00A42870 /* RCTActionSheet.xcodeproj */,
@@ -622,7 +653,6 @@
 				1331B78F20C9A97300D1C5F5 /* Copy Ngrok Address to Build */,
 				1331B79020C9A97300D1C5F5 /* Run Fabric */,
 				3601AE3592BC6F4BF38B7204 /* [CP] Embed Pods Frameworks */,
-				997EF65726217AF178A7C8C5 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -776,6 +806,10 @@
 					ProjectRef = 8BDD9D871E09EBFF00A42870 /* React.xcodeproj */;
 				},
 				{
+					ProductGroup = 8A1C31072112407400F92429 /* Products */;
+					ProjectRef = 8A1C31062112407400F92429 /* RNDeviceInfo.xcodeproj */;
+				},
+				{
 					ProductGroup = 8BDD9D991E09F38900A42870 /* Products */;
 					ProjectRef = 8BDD9D981E09F38900A42870 /* ViroReact.xcodeproj */;
 				},
@@ -832,6 +866,20 @@
 			fileType = archive.ar;
 			path = libViroReact_static_lib.a;
 			remoteRef = 1385B2A020CA098C00C3B6CE /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		8A1C31272112407500F92429 /* libRNDeviceInfo.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNDeviceInfo.a;
+			remoteRef = 8A1C31262112407500F92429 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		8A1C31292112407500F92429 /* libRNDeviceInfo-tvOS.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libRNDeviceInfo-tvOS.a";
+			remoteRef = 8A1C31282112407500F92429 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		8ABC82CD1F54F7CC00217AB8 /* libthird-party.a */ = {
@@ -1178,7 +1226,11 @@
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/CardboardSDK.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleKitCore.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleKitDialogs.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleKitHUD.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MaterialRobotoFontLoader.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1218,7 +1270,11 @@
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/CardboardSDK.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleKitCore.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleKitDialogs.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleKitHUD.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MaterialRobotoFontLoader.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1320,21 +1376,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ViroExample_archive/Pods-ViroExample_archive-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		997EF65726217AF178A7C8C5 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ViroExample_no_use_frameworks/Pods-ViroExample_no_use_frameworks-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		D57E7E8B81C1F880CA67DF7E /* [CP] Check Pods Manifest.lock */ = {

@@ -27,6 +27,8 @@ import {
   ViroSkyBox,
 } from 'react-viro';
 
+import DeviceInfo from 'react-native-device-info';
+
 var createReactClass = require('create-react-class');
 var ReleaseMenu = require("./ReleaseMenu.js");
 
@@ -86,6 +88,9 @@ var ViroInternationalTextTest = createReactClass({
 });
 
 
+var hindiFontAndroid = DeviceInfo.getBrand() == 'samsung' ? 'SECDevanagari' : 'NotoSansDevanagari'
+var arabicFontAndroid = DeviceInfo.getBrand() == 'samsung' ? 'SECNaskhArabic' : 'NotoNaskhArabic'
+
 var styles = StyleSheet.create({
     chineseFontiOS: {
          fontFamily: 'PingFang HK',
@@ -140,7 +145,7 @@ var styles = StyleSheet.create({
          textAlign: 'center',
     },
     hindiFontAndroid: {
-         fontFamily: 'NotoSansDevanagari',
+         fontFamily: hindiFontAndroid,
          color: '#FFFFFF',
          flex: 1,
          textAlignVertical: 'center',
@@ -155,7 +160,7 @@ var styles = StyleSheet.create({
          textAlign: 'center',
     },
     arabicFontAndroid: {
-         fontFamily: 'NotoNaskhArabic',
+         fontFamily: arabicFontAndroid,
          color: '#FFFFFF',
          flex: 1,
          textAlignVertical: 'center',
