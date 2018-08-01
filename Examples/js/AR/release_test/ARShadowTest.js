@@ -67,8 +67,8 @@ var ARShadowTest = createReactClass({
   },
 
   toggleProperty(num){
-      return () => {
 
+      return () => {
           let that = this;
           if (num == 1){
             this.setState({
@@ -130,7 +130,7 @@ var ARShadowTest = createReactClass({
           } else if (num == 8){
             let shadowBiasCurrent = this.state.shadowBias;
             shadowBiasCurrent = shadowBiasCurrent + 0.01;
-            if (shadowBiasCurrent > 0.5){
+            if (shadowBiasCurrent > 0.155){
               shadowBiasCurrent = 0.005;
             }
             this.setState({
@@ -172,8 +172,7 @@ var ARShadowTest = createReactClass({
     return (
       <ViroARScene ref="scene1">
 
-         {/* Left half of the screen, tests for collision with ray shot in scene */}
-         <ViroNode position={[-3, 4, -6]} transformBehaviors={["billboard"]}>
+         <ViroNode position={[-3, 5, -10]} >
            <ViroText fontSize={35}  style={styles.centeredText} lightReceivingBitMask={0} // 0 to avoid influencing the test
              position={[0, 0, 0]} width={6} height ={2} maxLines={2}
              text={"Toggle Cast Shadow " + this.state.castshadowLights }
@@ -200,7 +199,7 @@ var ARShadowTest = createReactClass({
                   onClick={this.toggleProperty(5)}
             />
             <ViroText fontSize={35}  style={styles.centeredText} lightReceivingBitMask={0}
-                  position={[0, -5, 0]} width={5} height ={2} maxLines={2}
+                  position={[0, -5, 0]} width={6} height ={2} maxLines={2}
                   text={"Toggle Shadow Map Size " + this.state.shadowMapSize}
                   onClick={this.toggleProperty(6)}
             />
@@ -247,7 +246,7 @@ var ARShadowTest = createReactClass({
               castsShadow={this.state.castshadowLights}
               attenuationStartDistance={0.1}
               attenuationEndDistance={22}
-              direction={[0, -1, 0]}
+              direction={[-1, -1, 0]}
               position={[3, 5, 0]}
               color="#00ff00"
               intensity={900}
@@ -257,6 +256,7 @@ var ARShadowTest = createReactClass({
               shadowFarZ={this.state.shadowClippingPlaneStart + 20}
               shadowOpacity={this.state.shadowOpacity}
             />
+
             <ViroDirectionalLight
               castsShadow={this.state.castshadowLights}
               direction={[0, -1, 0]}
@@ -276,25 +276,25 @@ var ARShadowTest = createReactClass({
              shadowCastingBitMask={this.state.boxMask}
              position={[0, 0, 0]}
              scale={[0.5, 0.5, 0.5]}
-             materials={["white"]}/>
+             materials={["red"]}/>
 
           <ViroQuad
               lightReceivingBitMask={this.state.shadowPlaneMask}
               arShadowReceiver={true}
               rotation={[-90, 0, 0]}
-              position={[0, -5, 0]}
+              position={[0, -2.5, 0]}
               scale={[1, 1, 1]}
               width={15}
               height={10} />
 
-          { /* This brightens the surface a bit and lights up the Box */ }
-          <ViroOmniLight
-              intensity={500}
-              influenceBitMask={15}
-              position={[0, -2, 2]}
-              color={"#ffffff"}
-              attenuationStartDistance={50}
-              attenuationEndDistance={50}/>
+              { /* This brightens the surface a bit and lights up the Box */ }
+               <ViroOmniLight
+                   intensity={500}
+                   influenceBitMask={15}
+                   position={[0, -2, 2]}
+                   color={"#ffffff"}
+                   attenuationStartDistance={50}
+                   attenuationEndDistance={50}/>
         </ViroNode>
 
         {/* Release Menu */}
@@ -341,7 +341,7 @@ ViroMaterials.createMaterials({
     lightingModel: "Lambert",
     cullMode: "None",
     shininess: 2.0,
-    diffuseColor: "#ffffff"
+    diffuseColor: "#ff0000"
   },
   red: {
     lightingModel: "Blinn",
