@@ -77,7 +77,11 @@ var ARFBXVersionTest = createReactClass({
 
             <ViroText position={[-1,.33,0]} text={"FBX 2014"}
             style={styles.instructionText} transformBehaviors={["billboard"]}/>
-            <Viro3DObject position={[-1,0,0]} scale={[.2,.2,.2]} onClick={this._changeAnimState} type="VRX" source={require('./res/emoji_kiss_anim/emoji_kiss_anim.vrx')} animation={{name:"02", delay:0, loop:true, run:this.state.animState}} resources={[require('./res/PUG_bake_otimizado.jpg')]} />
+            <Viro3DObject position={[-1,0,0]} scale={[.2,.2,.2]} onClick={this._changeAnimState} type="VRX" source={require('./res/emoji_kiss_anim/emoji_kiss_anim.vrx')}
+              animation={{name:"02", delay:0, loop:true, run:this.state.animState}}
+              resources={[require('./res/emoji_kiss_anim/emoji_kiss_diffuse.png'),
+                          require('./res/emoji_kiss_anim/emoji_kiss_normal.png'),
+                          require('./res/emoji_kiss_anim/emoji_kiss_specular.png')]} />
           </ViroNode>
 
 
