@@ -1,7 +1,7 @@
 {
   "name": "react-viro",
   "main": "index.js",
-  "version": "2.8.0",
+  "version": "2.9.0",
   "license": "Refer to LICENSE file",
   "scripts": {
     "start": "echo 'I dont think you meant to run npm start here.'",
