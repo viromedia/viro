@@ -153,7 +153,7 @@ public class VRTNode extends VRTComponent {
                 Log.i(TAG, "Anchoring node " + node + " [attempt " + mAttempt + "]");
             }
 
-            if (node.isTornDown() || node.getParent() == null) {
+            if (node == null || node.isTornDown() || node.getParent() == null) {
                 return false;
             }
 
