@@ -104,9 +104,9 @@ platform :ios do
                 clean: true,
                 output_directory: "./build",
                 output_name: "ViroExample.ipa") 
-#       pilot(username: "manish@viromedia.com",
-#             ipa: "./build/ViroExample.ipa",
-#             skip_waiting_for_build_processing: true)
+       pilot(username: "manish@viromedia.com",
+             ipa: "./build/ViroExample.ipa",
+             skip_waiting_for_build_processing: true)
     rescue => exception
            on_error(exception)
     end
