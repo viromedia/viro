@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="__arcore_cancel">បោះបង់</string>
-    <string name="__arcore_continue">បន្ត</string>
-    <string name="__arcore_install_app">កម្មវិធី​នេះ​​តម្រូវ​ឲ្យ​មាន​កំណែ​កម្មវិធី​ ARCore ចុងក្រោយ​បំផុត។</string>
-    <string name="__arcore_install_feature">មុខងារ​នេះ​​តម្រូវ​ឲ្យ​មាន​កំណែ​កម្មវិធី​ ARCore ចុងក្រោយ​បំផុត។</string>
-    <string name="__arcore_installing">កំពុង​ដំឡើង ARCore…</string>
-</resources>

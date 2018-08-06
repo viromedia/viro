@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="__arcore_cancel">Չեղարկել</string>
-    <string name="__arcore_continue">Շարունակել</string>
-    <string name="__arcore_install_app">Հավելվածն օգտագործելու համար տեղադրեք ARCore-ի վերջին տարբերակը:</string>
-    <string name="__arcore_install_feature">Այս գործառույթից օգտվելու համար տեղադրեք ARCore-ի վերջին տարբերակը:</string>
-    <string name="__arcore_installing">ARCore-ի տեղադրում…</string>
-</resources>

@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="__arcore_cancel">റദ്ദാക്കൂ</string>
-    <string name="__arcore_continue">തുടരുക</string>
-    <string name="__arcore_install_app">ഈ ആപ്പിന് ARCore-ന്റെ ഏറ്റവും പുതിയ പതിപ്പ് ആവശ്യമാണ്.</string>
-    <string name="__arcore_install_feature">ഈ ഫീച്ചറിന് ARCore-ന്റെ ഏറ്റവും പുതിയ പതിപ്പ് ആവശ്യമാണ്.</string>
-    <string name="__arcore_installing">ARCore ഇൻസ്‌റ്റാൾ ചെയ്യുന്നു…</string>
-</resources>

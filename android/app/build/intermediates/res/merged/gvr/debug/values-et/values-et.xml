@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="__arcore_cancel">Tühista</string>
-    <string name="__arcore_continue">Jätka</string>
-    <string name="__arcore_install_app">See rakendus nõuab ARCore\'i uusimat versiooni.</string>
-    <string name="__arcore_install_feature">See funktsioon nõuab ARCore\'i uusimat versiooni.</string>
-    <string name="__arcore_installing">ARCore\'i installimine …</string>
-</resources>

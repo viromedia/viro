@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="__arcore_cancel">বাতিল করুন</string>
-    <string name="__arcore_continue">এগিয়ে যান</string>
-    <string name="__arcore_install_app">এই অ্যাপ্লিকেশনটি চালানোর জন্য ARCore এর লেটেস্ট ভার্সন প্রয়োজন।</string>
-    <string name="__arcore_install_feature">এই বৈশিষ্ট্যটি ব্যবহার করার জন্য ARCore এর লেটেস্ট ভার্সন প্রয়োজন।</string>
-    <string name="__arcore_installing">ARCore ইনস্টল হচ্ছে…</string>
-</resources>

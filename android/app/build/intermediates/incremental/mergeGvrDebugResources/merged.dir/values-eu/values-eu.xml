@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="__arcore_cancel">Utzi</string>
-    <string name="__arcore_continue">Egin aurrera</string>
-    <string name="__arcore_install_app">Aplikazio honek ARCore aplikazioaren azken bertsioa behar du.</string>
-    <string name="__arcore_install_feature">Eginbide honek ARCore aplikazioaren azken bertsioa behar du.</string>
-    <string name="__arcore_installing">ARCore instalatzen…</string>
-</resources>

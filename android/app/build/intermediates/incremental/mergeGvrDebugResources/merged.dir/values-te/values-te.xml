@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="__arcore_cancel">రద్దు చేయి</string>
-    <string name="__arcore_continue">కొనసాగించు</string>
-    <string name="__arcore_install_app">ఈ అప్లికేషన్‌‍‌కి ARCore తాజా వెర్షన్ అవసరం.</string>
-    <string name="__arcore_install_feature">ఈ లక్షణానికి ARCore తాజా వెర్షన్ అవసరం.</string>
-    <string name="__arcore_installing">ARCoreని ఇన్‌స్టాల్ చేస్తోంది…</string>
-</resources>

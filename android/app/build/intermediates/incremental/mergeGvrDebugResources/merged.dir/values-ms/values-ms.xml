@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="__arcore_cancel">Batal</string>
-    <string name="__arcore_continue">Teruskan</string>
-    <string name="__arcore_install_app">Aplikasi ini memerlukan versi ARCore yang terbaharu.</string>
-    <string name="__arcore_install_feature">Ciri ini memerlukan versi ARCore yang terbaharu.</string>
-    <string name="__arcore_installing">Memasang ARCore…</string>
-</resources>

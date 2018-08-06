@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding='utf-8' standalone='no'?>
-<resources>
-<!-- vr/gvr/platform/common/android/res/values-v19/dimens.xml -->
-<eat-comment/>
-<dimen name="transition_bottom_bar_height">56dip</dimen>
-</resources>

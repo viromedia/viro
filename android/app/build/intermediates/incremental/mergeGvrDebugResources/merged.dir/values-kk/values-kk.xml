@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="__arcore_cancel">Жабу</string>
-    <string name="__arcore_continue">Жалғастыру</string>
-    <string name="__arcore_install_app">Бұл қолданбаны пайдалану үшін, ARCore ең соңғы нұсқасы қажет.</string>
-    <string name="__arcore_install_feature">Бұл функцияны пайдалану үшін, ARCore ең соңғы нұсқасы қажет.</string>
-    <string name="__arcore_installing">ARCore орнатылуда…</string>
-</resources>
