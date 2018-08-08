@@ -26,7 +26,10 @@ import com.viromedia.bridge.utility.Helper;
 import com.viromedia.bridge.utility.ImageDownloader;
 
 import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+import java.util.EnumSet;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -166,6 +169,7 @@ public class MaterialManager extends ReactContextBaseJavaModule {
         Material.CullMode cullMode = Material.CullMode.BACK;
         Material.TransparencyMode transparencyMode= Material.TransparencyMode.A_ONE;
         Material.BlendMode blendMode = Material.BlendMode.ALPHA;
+        EnumSet<Material.ColorWriteMask> colorWriteMask = EnumSet.of(Material.ColorWriteMask.ALL);
         float bloomThreshold = -1.0f;
         boolean writesToDepthBuffer = true;
         boolean readsFromDepthBuffer = true;
@@ -271,6 +275,15 @@ public class MaterialManager extends ReactContextBaseJavaModule {
                     writesToDepthBuffer = materialMap.getBoolean(materialPropertyName);
                 } else if ("readsFromDepthBuffer".equalsIgnoreCase(materialPropertyName)) {
                     readsFromDepthBuffer = materialMap.getBoolean(materialPropertyName);
+                } else if ("colorWriteMask".equalsIgnoreCase(materialPropertyName)) {
+                    ReadableArray colorWriteArray = materialMap.getArray(materialPropertyName);
+                    List<Material.ColorWriteMask> colorWriteList = new ArrayList<Material.ColorWriteMask>();
+                    for (int c = 0; c < colorWriteArray.size(); c++) {
+                        colorWriteList.add(Material.ColorWriteMask.valueFromString(colorWriteArray.getString(c)));
+                    }
+
+                    colorWriteMask = EnumSet.noneOf(Material.ColorWriteMask.class);
+                    colorWriteMask.addAll(colorWriteList);
                 } else if ("cullMode".equalsIgnoreCase(materialPropertyName)) {
                     cullMode = Material.CullMode.valueFromString(materialMap.getString(materialPropertyName));
                 } else if ("diffuseIntensity".equalsIgnoreCase(materialPropertyName)) {
@@ -284,7 +297,7 @@ public class MaterialManager extends ReactContextBaseJavaModule {
         Material nativeMaterial = new Material(lightingModel, diffuseColor, diffuseTexture,
                 diffuseIntensity, specularTexture, shininess, fresnelExponent, normalMap,
                 cullMode, transparencyMode, blendMode, bloomThreshold, writesToDepthBuffer,
-                readsFromDepthBuffer);
+                readsFromDepthBuffer, colorWriteMask);
 
                 nativeMaterial.setName(materialName);
         if (chromaFilteringEnabled) {

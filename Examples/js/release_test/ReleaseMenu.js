@@ -112,49 +112,50 @@ var ReleaseMenu = createReactClass({
                          text={"ViroAnimationTest"}
                          onClick={() => {this.props.sceneNavigator.replace("ViroAnimationTest", {scene:require("./ViroAnimationTest"), passProps:{showMenu:true}})}} />
 
-                   <ViroText style={styles.centeredText}  position={[3,-1, -4]} width={1.5} height ={2}
+                   <ViroText style={styles.centeredText}  position={[3, -1, -4]} width={1.5} height ={2}
                          text={"ViroSoundTest"}
                          onClick={() => {this.props.sceneNavigator.replace("ViroSoundTest", {scene:require("./ViroSoundTest"), passProps:{showMenu:true}})}} />
 
-                   <ViroText style={styles.centeredText}  position={[3,-2, -4]} width={1.5} height={2}
+                   <ViroText style={styles.centeredText}  position={[3, -2, -4]} width={1.5} height={2}
                          text={"ViroLightTest"}
                          onClick={() => {this.props.sceneNavigator.replace("ViroLightTest", {scene:require("./ViroLightTest"), passProps:{showMenu:true}})}} />
 
-                   <ViroText style={styles.centeredText} position={[3,-3, -4]} width={1.5} height={2}
+                   <ViroText style={styles.centeredText} position={[3, -3, -4]} width={1.5} height={2}
                          text={"GroupTestBasicProps"}
                          onClick={() => {this.props.sceneNavigator.replace("GroupTestBasicProps", {scene:require("./GroupTestBasicProps"), passProps:{showMenu:true}})}} />
 
-                   <ViroText style={styles.centeredText} position={[3,-4, -4]} width={1.5} height={2}
+                   <ViroText style={styles.centeredText} position={[3, -4, -4]} width={1.5} height={2}
                          text={"GroupTestBasicAnimation"}
                          onClick={() => {this.props.sceneNavigator.replace("GroupTestBasicAnimation", {scene:require("./GroupTestBasicAnimation"), passProps:{showMenu:true}})}} />
 
-                   <ViroText style={styles.centeredText}  position={[3,-5, -4]} width={1.5} height={2}
+                   <ViroText style={styles.centeredText}  position={[3, -5, -4]} width={1.5} height={2}
                          text={"GroupTestBasicBillboard"}
                          onClick={() => {this.props.sceneNavigator.replace("GroupTestBasicBillboard", {scene:require("./GroupTestBasicBillboard"), passProps:{showMenu:true}})}} />
 
-                   <ViroText style={styles.centeredText}  position={[3,-6, -4]} width={1.5} height={2}
+                   <ViroText style={styles.centeredText}  position={[3, -6, -4]} width={1.5} height={2}
                          text={"GroupTestMaterials"}
                          onClick={() => {this.props.sceneNavigator.replace("GroupTestMaterials", {scene:require("./GroupTestMaterials"), passProps:{showMenu:true}})}} />
 
-                   <ViroText style={styles.centeredText}  position={[3,-7, -4]} width={1.5} height={2}
+                   <ViroText style={styles.centeredText}  position={[3, -7, -4]} width={1.5} height={2}
                          text={"GroupTestBasicEvents"}
                          onClick={() => {this.props.sceneNavigator.replace("GroupTestBasicEvents", {scene:require("./GroupTestBasicEvents"), passProps:{showMenu:true}})}} />
 
-                   <ViroText style={styles.centeredText} position={[3,-8, -4]} width={1.5} height={2}
+                   <ViroText style={styles.centeredText} position={[3, -8, -4]} width={1.5} height={2}
                          text={"GroupTestDragEvents"}
                          onClick={() => {this.props.sceneNavigator.replace("GroupTestDragEvents", {scene:require("./GroupTestDragEvents"), passProps:{showMenu:true}})}} />
-                  <ViroText style={styles.centeredText}  position={[-3, -8, -4]} width={1.5} height={2}
-                        text={"PhysicsGroupTest"}
-                        onClick={() => {this.props.sceneNavigator.replace("PhysicsGroupTest", {scene:require("./PhysicsGroupTest"), passProps:{showMenu:true}})}} />
-                  <ViroText style={styles.centeredText}  position={[0, -8, -4]} width={1.5} height={2}
-                        text={"PhysicsForcesTest"}
-                        onClick={() => {this.props.sceneNavigator.replace("PhysicsForcesTest", {scene:require("./PhysicsForcesTest"), passProps:{showMenu:true}})}} />
-                  <ViroText style={styles.centeredText} position={[-3,-9, -4]} width={1.5} height={2}
-                        text={"PhysicsCollisionTest"}
-                        onClick={() => {this.props.sceneNavigator.replace("PhysicsCollisionTest", {scene:require("./PhysicsCollisionTest"), passProps:{showMenu:true}})}} />
+
+                   <ViroText style={styles.centeredText}  position={[-3, -8, -4]} width={1.5} height={2}
+                         text={"PhysicsGroupTest"}
+                         onClick={() => {this.props.sceneNavigator.replace("PhysicsGroupTest", {scene:require("./PhysicsGroupTest"), passProps:{showMenu:true}})}} />
+                   <ViroText style={styles.centeredText}  position={[0, -8, -4]} width={1.5} height={2}
+                         text={"PhysicsForcesTest"}
+                         onClick={() => {this.props.sceneNavigator.replace("PhysicsForcesTest", {scene:require("./PhysicsForcesTest"), passProps:{showMenu:true}})}} />
+                   <ViroText style={styles.centeredText} position={[-3, -9, -4]} width={1.5} height={2}
+                         text={"PhysicsCollisionTest"}
+                         onClick={() => {this.props.sceneNavigator.replace("PhysicsCollisionTest", {scene:require("./PhysicsCollisionTest"), passProps:{showMenu:true}})}} />
                    <ViroText style={styles.centeredText}  position={[0, -9, -4]} width={1.5} height={2}
-                          text={"PhysicsPropertiesTest"}
-                          onClick={() => {this.props.sceneNavigator.replace("PhysicsPropertiesTest", {scene:require("./PhysicsPropertiesTest"), passProps:{showMenu:true}})}}
+                         text={"PhysicsPropertiesTest"}
+                         onClick={() => {this.props.sceneNavigator.replace("PhysicsPropertiesTest", {scene:require("./PhysicsPropertiesTest"), passProps:{showMenu:true}})}}
                    />
                    <ViroText style={styles.centeredText}  position={[3, -9, -4]} width={1.5} height={2}
                           text={"PhysicsScaleTest"}
@@ -237,6 +238,10 @@ var ReleaseMenu = createReactClass({
                    <ViroText style={styles.centeredText}  position={[6, -12, -4]} width={1.5} height={2}
                           text={"ViroTextSpecialTest"}
                           onClick={() => {this.props.sceneNavigator.replace("ViroTextSpecialTest", {scene:require("./ViroTextSpecialTest"), passProps:{showMenu:true}})}}
+                   />
+                   <ViroText style={styles.centeredText}  position={[6, -13, -4]} width={1.5} height={2}
+                          text={"ViroColorMaskTest"}
+                          onClick={() => {this.props.sceneNavigator.replace("ViroColorMaskTest", {scene:require("./ViroColorMaskTest"), passProps:{showMenu:true}})}}
                    />
 
                 </ViroNode>

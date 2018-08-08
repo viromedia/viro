@@ -77,9 +77,15 @@ public abstract class VRTNodeManager<T extends VRTNode> extends VRTViroViewGroup
     public void setOpacity(VRTNode view, float opacity) {
         view.setOpacity(opacity);
     }
+
     @ReactProp(name = "visible", defaultBoolean = true)
     public void setVisible(VRTNode view, boolean visibility) {
         view.setVisible(visibility);
+    }
+
+    @ReactProp(name = "renderingOrder", defaultInt = 0)
+    public void setRenderingOrder(VRTNode view, int renderingOrder) {
+        view.setRenderingOrder(renderingOrder);
     }
 
     @ReactProp(name = "canHover", defaultBoolean = VRTNode.DEFAULT_CAN_HOVER)

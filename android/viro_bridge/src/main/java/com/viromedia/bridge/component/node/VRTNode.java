@@ -261,6 +261,7 @@ public class VRTNode extends VRTComponent {
     protected float[] mScalePivot;
     protected float mOpacity = 1.0f;
     protected boolean mVisible = true; // default visible value should be true
+    protected int mRenderingOrder = 0;
     protected boolean mHighAccuracyEventsEnabled = false;
     protected boolean mIgnoreEventHandling = false;
 
@@ -739,6 +740,14 @@ public class VRTNode extends VRTComponent {
         }
         mVisible = visible;
         handleAppearanceChange();
+    }
+
+    protected void setRenderingOrder(int renderingOrder) {
+        if (isTornDown()) {
+            return;
+        }
+        mRenderingOrder = renderingOrder;
+        mNodeJni.setRenderingOrder(renderingOrder);
     }
 
     public void setLightReceivingBitMask(int bitMask) {

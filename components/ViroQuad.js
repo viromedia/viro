@@ -67,6 +67,7 @@ var ViroQuad = createReactClass({
     shadowCastingBitMask : PropTypes.number,
     arShadowReceiver: PropTypes.bool,
     onTransformUpdate: PropTypes.func,
+    renderingOrder: PropTypes.number,
     visible: PropTypes.bool,
     style: stylePropType,
 

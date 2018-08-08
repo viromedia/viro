@@ -54,6 +54,7 @@ var ViroSpinner = createReactClass({
       PropTypes.string
     ]),
     onTransformUpdate: PropTypes.func,
+    renderingOrder: PropTypes.number,
     visible: PropTypes.bool,
 
     /**
@@ -164,6 +165,7 @@ var ViroSpinner = createReactClass({
             opacity={this.props.opacity}
             transformBehaviors={transformBehaviors}
             visible={this.props.visible}
+            renderingOrder={this.props.renderingOrder}
             onHover={this.props.onHover}
             onClick={this.props.onClick}
             onClickState={this.props.onClickState}

@@ -22,6 +22,7 @@ var ViroBox = createReactClass({
     rotation: PropTypes.arrayOf(PropTypes.number),
     scalePivot: PropTypes.arrayOf(PropTypes.number),
     rotationPivot: PropTypes.arrayOf(PropTypes.number),
+    renderingOrder: PropTypes.number,
     visible: PropTypes.bool,
     opacity: PropTypes.number,
     width: PropTypes.number,

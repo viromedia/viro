@@ -78,6 +78,7 @@ var ViroImage = createReactClass({
     lightReceivingBitMask : PropTypes.number,
     shadowCastingBitMask : PropTypes.number,
     onTransformUpdate: PropTypes.func,
+    renderingOrder: PropTypes.number,
     visible: PropTypes.bool,
     style: stylePropType,
 

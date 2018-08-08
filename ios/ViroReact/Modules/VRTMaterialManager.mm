@@ -319,6 +319,9 @@ RCT_EXPORT_METHOD(deleteMaterials:(NSArray *)materials) {
             } else if ([@"readsFromDepthBuffer" caseInsensitiveCompare:materialPropertyName] == NSOrderedSame) {
                 NSNumber *booleanVal = material[key];
                 vroMaterial->setReadsFromDepthBuffer([booleanVal boolValue]);
+            } else if ([@"colorWriteMask" caseInsensitiveCompare:materialPropertyName] == NSOrderedSame) {
+                NSArray *writeMask = material[key];
+                vroMaterial->setColorWriteMask([self convertColorMask:writeMask]);
             } else if ([@"diffuseIntensity" caseInsensitiveCompare:materialPropertyName] == NSOrderedSame) {
                 NSNumber *floatVal = material[key];
                 vroMaterial->getDiffuse().setIntensity([floatVal floatValue]);
@@ -451,6 +454,26 @@ RCT_EXPORT_METHOD(deleteMaterials:(NSArray *)materials) {
     else {
         return VROWrapMode::Clamp; // Default
     }
+}
+
+- (VROColorMask)convertColorMask:(NSArray *)maskArray {
+    VROColorMask mask = VROColorMaskNone;
+    for (NSString *maskString : maskArray) {
+        if ([maskString caseInsensitiveCompare:@"Red"] == NSOrderedSame) {
+            mask = (VROColorMask) (mask | VROColorMaskRed);
+        } else if ([maskString caseInsensitiveCompare:@"Green"] == NSOrderedSame) {
+            mask = (VROColorMask) (mask | VROColorMaskGreen);
+        } else if ([maskString caseInsensitiveCompare:@"Blue"] == NSOrderedSame) {
+            mask = (VROColorMask) (mask | VROColorMaskBlue);
+        } else if ([maskString caseInsensitiveCompare:@"Alpha"] == NSOrderedSame) {
+            mask = (VROColorMask) (mask | VROColorMaskAlpha);
+        } else if ([maskString caseInsensitiveCompare:@"All"] == NSOrderedSame) {
+            mask = (VROColorMask) (mask | VROColorMaskAll);
+        } else if ([maskString caseInsensitiveCompare:@"None"] == NSOrderedSame) {
+            mask = (VROColorMask) (mask | VROColorMaskNone);
+        }
+    }
+    return mask;
 }
 
 - (BOOL)isVideoTexture:(NSString *)path {

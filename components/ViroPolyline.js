@@ -24,6 +24,7 @@ var ViroPolyline = createReactClass({
     scale: PropTypes.arrayOf(PropTypes.number),
     closed: PropTypes.bool,
     opacity: PropTypes.number,
+    renderingOrder: PropTypes.number,
     visible: PropTypes.bool,
     animation: PropTypes.shape({
       name: PropTypes.string,

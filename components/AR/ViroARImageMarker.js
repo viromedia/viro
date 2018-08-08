@@ -27,6 +27,7 @@ var ViroARImageMarker = createReactClass({
     target: PropTypes.string,
 
     pauseUpdates: PropTypes.bool,
+    renderingOrder: PropTypes.number,
     visible: PropTypes.bool,
     opacity: PropTypes.number,
     ignoreEventHandling: PropTypes.bool,

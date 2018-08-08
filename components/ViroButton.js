@@ -114,6 +114,7 @@ var BTN_TYPE_CLICKED = 'clicked';
   	  PropTypes.string
   	]),
     onTransformUpdate: PropTypes.func,
+    renderingOrder: PropTypes.number,
   	visible: PropTypes.bool,
   	opacity: PropTypes.number,
   	height: PropTypes.number,
@@ -275,6 +276,7 @@ var BTN_TYPE_CLICKED = 'clicked';
                 opacity={this.props.opacity}
                 transformBehaviors={this.props.transformBehaviors}
                 visible={normalSrcVisible}
+                renderingOrder={this.props.renderingOrder}
                 height={this.props.height}
                 width={this.props.width}
                 materials={this.props.materials} />
@@ -288,6 +290,7 @@ var BTN_TYPE_CLICKED = 'clicked';
                 opacity={this.props.opacity}
                 transformBehaviors={this.props.transformBehaviors}
                 visible={hoverSrcVisible}
+                renderingOrder={this.props.renderingOrder}
                 height={this.props.height}
                 width={this.props.width}
                 materials={this.props.materials} />
@@ -305,6 +308,7 @@ var BTN_TYPE_CLICKED = 'clicked';
                         opacity={this.props.opacity}
                         transformBehaviors={this.props.transformBehaviors}
                         visible={clickSrcVisible}
+                        renderingOrder={this.props.renderingOrder}
                         height={this.props.height}
                         width={this.props.width}
                         materials={this.props.materials} />

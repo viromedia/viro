@@ -50,6 +50,7 @@ var ViroFlexView = createReactClass({
     height: PropTypes.number,
     style: stylePropType,
     backgroundColor: ColorPropType,
+    renderingOrder: PropTypes.number,
     visible: PropTypes.bool,
     materials: PropTypes.oneOfType([
       PropTypes.arrayOf(PropTypes.string),

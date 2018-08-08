@@ -80,6 +80,7 @@ var Viro3DObject = createReactClass({
       run: PropTypes.bool,
       interruptible: PropTypes.bool,
     }),
+    renderingOrder: PropTypes.number,
     visible: PropTypes.bool,
 
     onHover: PropTypes.func,

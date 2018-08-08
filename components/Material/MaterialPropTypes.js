@@ -23,6 +23,7 @@ var MaterialPropTypes = {
   lightingModel: PropTypes.oneOf(['Phong', 'Blinn', 'Lambert', 'Constant', 'PBR']),
   writesToDepthBuffer: PropTypes.bool,
   readsFromDepthBuffer: PropTypes.bool,
+  colorWriteMask: PropTypes.arrayOf(PropTypes.oneOf(['None', 'Red', 'Green', 'Blue', 'Alpha', 'All'])),
   cullMode: PropTypes.oneOf(['None', 'Back', 'Front']),
   blendMode: PropTypes.oneOf(['None', 'Alpha', 'Add', 'Subtract', 'Multiply', 'Screen']),
   diffuseTexture: PropTypes.any,

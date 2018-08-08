@@ -29,6 +29,7 @@ var ViroVideo = createReactClass({
     scalePivot: PropTypes.arrayOf(PropTypes.number),
     rotationPivot: PropTypes.arrayOf(PropTypes.number),
     opacity: PropTypes.number,
+    renderingOrder: PropTypes.number,
     visible: PropTypes.bool,
     materials: PropTypes.oneOfType([
       PropTypes.arrayOf(PropTypes.string),

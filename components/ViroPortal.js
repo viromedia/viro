@@ -43,6 +43,7 @@ var ViroPortal = createReactClass({
       PropTypes.string
     ]),
     onTransformUpdate: PropTypes.func,
+    renderingOrder: PropTypes.number,
     visible: PropTypes.bool,
     opacity: PropTypes.number,
     lightReceivingBitMask : PropTypes.number,

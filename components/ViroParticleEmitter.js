@@ -35,6 +35,7 @@ var ViroParticleEmitter = createReactClass({
     scalePivot: PropTypes.arrayOf(PropTypes.number),
     rotationPivot: PropTypes.arrayOf(PropTypes.number),
     onTransformUpdate: PropTypes.func,
+    renderingOrder: PropTypes.number,
     visible: PropTypes.bool,
     viroTag: PropTypes.string,
     transformBehaviors: PropTypes.oneOfType([

@@ -65,6 +65,7 @@ const double kTransformDelegateDistanceFilter = 0.01;
         _node = [self createVroNode];
         _node->setPosition({0, 0, 0});
         _node->setScale({1, 1, 1});
+        _renderingOrder = 0;
         _visible = YES; // default to visible.
         _opacity = 1.0; //default opacity to 1.0
         _highAccuracyEvents = NO;
@@ -193,6 +194,11 @@ const double kTransformDelegateDistanceFilter = 0.01;
     }
     [self node]->setHidden(![self shouldAppear]);
     [super handleAppearanceChange];
+}
+
+- (void)setRenderingOrder:(int)renderingOrder {
+    _renderingOrder = renderingOrder;
+    [self node]->setRenderingOrder(renderingOrder);
 }
 
 - (void)setVisible:(BOOL)visible {
