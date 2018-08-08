@@ -23,6 +23,7 @@
 @property (nonatomic, copy, nullable) RCTDirectEventBlock onExitViro;
 @property (nonatomic, assign) BOOL autofocus;
 @property (nonatomic, copy) NSString *videoQuality;
+@property (nonatomic, assign) NSInteger numberOfTrackedImages;
 @property (nonatomic, readwrite) BOOL hdrEnabled;
 @property (nonatomic, readwrite) BOOL pbrEnabled;
 @property (nonatomic, readwrite) BOOL bloomEnabled;

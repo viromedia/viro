@@ -43,7 +43,7 @@ static NSString *const kVRTInvalidAPIKeyMessage = @"The given API Key is either 
         _bridge = bridge;
         _autofocus = YES;
         _vroVideoQuality = VROVideoQuality::High;
-        
+        _numberOfTrackedImages = 0; // disable this
         _hdrEnabled = YES;
         _pbrEnabled = YES;
         _bloomEnabled = YES;
@@ -128,6 +128,7 @@ static NSString *const kVRTInvalidAPIKeyMessage = @"The given API Key is either 
         std::shared_ptr<VROARSession> arSession = [viewAR getARSession];
         arSession->setAutofocus(_autofocus);
         arSession->setVideoQuality(_vroVideoQuality);
+        arSession->setNumberOfTrackedImages(_numberOfTrackedImages);
     }
 }
 
@@ -244,6 +245,15 @@ static NSString *const kVRTInvalidAPIKeyMessage = @"The given API Key is either 
     }
 
     [super removeFromSuperview];
+}
+
+- (void)setNumberOfTrackedImages:(NSInteger)numberOfTrackedImages {
+    _numberOfTrackedImages = numberOfTrackedImages;
+    if (_vroView) {
+        VROViewAR *viewAR = (VROViewAR *) _vroView;
+        std::shared_ptr<VROARSession> arSession = [viewAR getARSession];
+        arSession->setNumberOfTrackedImages(numberOfTrackedImages);
+    }
 }
 
 - (void)setHdrEnabled:(BOOL)hdrEnabled {

@@ -38,6 +38,11 @@ public class VRTARSceneNavigatorManager extends VRTViroViewGroupManager<VRTARSce
         view.setApiKey(apiKey);
     }
 
+    @ReactProp(name = "numberOfTrackedImages")
+    public void setNumberOfTrackedImages(VRTARSceneNavigator navigator, int numberOfTrackedImages) {
+        // no-op
+    }
+
     @ReactProp(name = "hdrEnabled", defaultBoolean = true)
     public void setHDREnabled(VRTARSceneNavigator navigator, boolean enabled) {
         navigator.setHDREnabled(enabled);
