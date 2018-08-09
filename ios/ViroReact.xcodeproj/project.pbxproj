@@ -1411,7 +1411,6 @@
 				131E1DFC20B89A560075D8E0 /* Sources */,
 				131E1E6720B89A560075D8E0 /* Frameworks */,
 				131E1E6B20B89A560075D8E0 /* ShellScript */,
-				F7BD104E62AF9B6C49477420 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1434,7 +1433,6 @@
 				1385B23C20CA091C00C3B6CE /* Copy Headers to ios/dist/include */,
 				1385B29620CA091C00C3B6CE /* Copy Files */,
 				1385B29820CA091C00C3B6CE /* Lipo static library */,
-				6453F87D1D84AEA3E992B2EA /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1457,7 +1455,6 @@
 				8BDDA13E1E5BEFD000A42870 /* Copy Headers to ios/dist/include */,
 				8BDDA17F1E5BFB9000A42870 /* Copy Files */,
 				13A6EC6F20B76B5200873F9B /* Lipo static library */,
-				4126E1599F6AAF2C3FE6EC57 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1640,36 +1637,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		4126E1599F6AAF2C3FE6EC57 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ViroReact/Pods-ViroReact-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		6453F87D1D84AEA3E992B2EA /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ViroReact_static_lib/Pods-ViroReact_static_lib-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		8BDD9E1D1E453F9000A42870 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1682,21 +1649,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "$SRCROOT/ngrok_launch.sh";
-		};
-		F7BD104E62AF9B6C49477420 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ViroReact_release_tests/Pods-ViroReact_release_tests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
