@@ -44,8 +44,6 @@ RCT_EXPORT_VIEW_PROPERTY(onAnchorRemovedViro, RCTDirectEventBlock)
 RCT_EXPORT_VIEW_PROPERTY(ignoreEventHandling, BOOL)
 RCT_EXPORT_VIEW_PROPERTY(dragType, NSString)
 RCT_EXPORT_VIEW_PROPERTY(dragPlane, NSDictionary)
-RCT_EXPORT_VIEW_PROPERTY(renderingOrder, int)
-
 - (VRTNodeContainerShadowView *)shadowView
 {
     return [VRTNodeContainerShadowView new];
