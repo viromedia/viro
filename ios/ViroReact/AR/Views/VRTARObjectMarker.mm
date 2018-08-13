@@ -1,15 +1,15 @@
 //
-//  VRTARImageMarker.mm
+//  VRTARObjectMarker.m
 //  ViroReact
 //
-//  Created by Andy Chu on 2/2/18.
+//  Created by Andy Chu on 8/10/18.
 //  Copyright © 2018 Viro Media. All rights reserved.
 //
 
-#import "VRTARImageMarker.h"
+#import "VRTARObjectMarker.h"
 #import "VRTARTrackingTargetsModule.h"
 
-@implementation VRTARImageMarker {
+@implementation VRTARObjectMarker {
     /*
      Whether or not we need to update the underlying VRONode.
      */
@@ -29,8 +29,8 @@
         _shouldUpdate = false;
         _needsAddToScene = true;
         
-        std::shared_ptr<VROARDeclarativeImageNode> imageNode = std::dynamic_pointer_cast<VROARDeclarativeImageNode>([self node]);
-        imageNode->setARNodeDelegate(_arNodeDelegate);
+        std::shared_ptr<VROARDeclarativeObjectNode> objectNode = std::dynamic_pointer_cast<VROARDeclarativeObjectNode>([self node]);
+        objectNode->setARNodeDelegate(_arNodeDelegate);
     }
     return self;
 }
@@ -46,7 +46,7 @@
 
 - (void)parentDidDisappear {
     if ([self scene]) {
-        [self declarativeSession]->removeARNode(std::dynamic_pointer_cast<VROARDeclarativeImageNode>(self.node));
+        [self declarativeSession]->removeARNode(std::dynamic_pointer_cast<VROARDeclarativeObjectNode>(self.node));
     }
     [super parentDidDisappear];
 }
@@ -55,7 +55,7 @@
     [super setScene:scene];
     
     // If the scene is finally set, then just invoke didSetProps again to fetch the target
-    // and add the VROARDeclarativeImageNode to the VROARScene.
+    // and add the VROARDeclarativeObjectNode to the VROARScene.
     [self didSetProps:nil];
 }
 
@@ -69,43 +69,43 @@
 
 - (void)getARTargetShouldAdd:(BOOL)needsAddToScene {
     VRTARTrackingTargetsModule *trackingTargetsModule = [self.bridge moduleForClass:[VRTARTrackingTargetsModule class]];
-    VRTARImageTargetPromise *promise = [trackingTargetsModule getARImageTargetPromise:_target];
+    VRTARObjectTargetPromise *promise = [trackingTargetsModule getARObjectTargetPromise:_target];
     if (promise) {
-        __weak VRTARImageMarker *weakSelf = self;
-        VRTARImageTargetPromiseCompletion completion = ^(NSString *targetName, std::shared_ptr<VROARImageTarget> target) {
+        __weak VRTARObjectMarker *weakSelf = self;
+        VRTARObjectTargetPromiseCompletion completion = ^(NSString *targetName, std::shared_ptr<VROARObjectTarget> target) {
             // the callback should be posted on the main thread.
             dispatch_async(dispatch_get_main_queue(), ^{
-                __strong VRTARImageMarker *strongSelf = weakSelf;
-                // make sure the VRTARImageMarker is still around and the target hasn't changed since we created the block.
+                __strong VRTARObjectMarker *strongSelf = weakSelf;
+                // make sure the VRTARObjectMarker is still around and the target hasn't changed since we created the block.
                 if (strongSelf && [targetName isEqualToString:strongSelf.target] && target) {
-                    std::shared_ptr<VROARDeclarativeImageNode> imageNode = std::dynamic_pointer_cast<VROARDeclarativeImageNode>(strongSelf.node);
-                    std::shared_ptr<VROARImageTarget> oldTarget = imageNode->getImageTarget();
-                    imageNode->setImageTarget(target);
+                    std::shared_ptr<VROARDeclarativeObjectNode> objNode = std::dynamic_pointer_cast<VROARDeclarativeObjectNode>(strongSelf.node);
+                    std::shared_ptr<VROARObjectTarget> oldTarget = objNode->getObjectTarget();
+                    objNode->setObjectTarget(target);
                     std::shared_ptr<VROARScene> arScene = std::dynamic_pointer_cast<VROARScene>(strongSelf.scene);
                     if (arScene) {
                         if (needsAddToScene) {
                             // add the ARNode
-                            [strongSelf declarativeSession]->addARNode(imageNode);
+                            [strongSelf declarativeSession]->addARNode(objNode);
                         } else {
-                            // remove the old ARImageTarget and update the ARNode
-                            [strongSelf declarativeSession]->removeARImageTarget(oldTarget);
-                            [strongSelf declarativeSession]->updateARNode(imageNode);
+                            // remove the old ARObjectTarget and update the ARNode
+                            [strongSelf declarativeSession]->removeARObjectTarget(oldTarget);
+                            [strongSelf declarativeSession]->updateARNode(objNode);
                         }
-                        // always add the new ARImageTarget
-                        [strongSelf declarativeSession]->addARImageTarget(target);
+                        // always add the new ARObjectTarget
+                        [strongSelf declarativeSession]->addARObjectTarget(target);
                     }
                 }
             });
         };
         [promise wait:completion];
     } else {
-        RCTLogError(@"[ViroARImageMarker] Unable to find target with name [%@]. Have you created it?", _target);
+        RCTLogError(@"[ViroARObjectMarker] Unable to find object target with name [%@]. Have you created it?", _target);
     }
 }
 
 
 - (std::shared_ptr<VRONode>)createVroNode {
-    return std::make_shared<VROARDeclarativeImageNode>();
+    return std::make_shared<VROARDeclarativeObjectNode>();
 }
 
 @end

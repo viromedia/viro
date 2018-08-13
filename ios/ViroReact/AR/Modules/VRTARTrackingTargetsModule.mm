@@ -9,7 +9,9 @@
 #import "VRTARTrackingTargetsModule.h"
 #import "VRTUtils.h"
 
-@implementation VRTARTargetPromise {
+#pragma mark - VRTARImageTargetPromise Implementation
+
+@implementation VRTARImageTargetPromise {
     NSString *_key;
     RCTImageSource *_source;
     VROImageOrientation _orientation;
@@ -35,7 +37,7 @@
     return self;
 }
 
-- (void)wait:(VRTARTargetPromiseCompletion)finishBlock {
+- (void)wait:(VRTARImageTargetPromiseCompletion)finishBlock {
     @synchronized (self) {
         if (!_ready) {
             [_waitBlocks addObject:finishBlock];
@@ -59,7 +61,7 @@
                 UIImage *image = [[UIImage alloc] initWithData:data];
                 if (!image) {
                     RCTLogError(@"[VRTARTrackingTargets] Error converting data into image target [%@]", _key);
-                    for (VRTARTargetPromiseCompletion completion in _waitBlocks) {
+                    for (VRTARImageTargetPromiseCompletion completion in _waitBlocks) {
                         completion(_key, nullptr);
                     }
                     return;
@@ -72,7 +74,7 @@
                     _ready = YES;
                 }
 
-                for (VRTARTargetPromiseCompletion completion in _waitBlocks) {
+                for (VRTARImageTargetPromiseCompletion completion in _waitBlocks) {
                     completion(_key, _arTarget);
                 }
 
@@ -80,7 +82,7 @@
                 
             } else {
                 RCTLogError(@"[VRTARTrackingTargets] Error downloading image target source [%@]", _key);
-                for (VRTARTargetPromiseCompletion completion in _waitBlocks) {
+                for (VRTARImageTargetPromiseCompletion completion in _waitBlocks) {
                     completion(_key, nullptr);
                 }
             }
@@ -90,7 +92,123 @@
 
 @end
 
-// VRTARTrackingTargetsModule Implemetation
+#pragma mark - VRTARObjectTargetPromise Implementation
+
+@implementation VRTARObjectTargetPromise {
+    NSString *_key;
+    NSDictionary *_source;
+    std::shared_ptr<VROARObjectTarget> _arTarget;
+    NSMutableArray *_waitBlocks;
+    NSURLSessionDataTask *_downloadTask;
+    BOOL _assetDownloaded;
+}
+
+- (instancetype)initWithKey:(NSString *)key
+                     source:(NSDictionary *)source {
+    self = [super init];
+    if (self) {
+        _key = key;
+        _source = source;
+        _ready = NO;
+        _assetDownloaded = NO;
+        _waitBlocks = [[NSMutableArray alloc] init];
+    }
+    return self;
+}
+
+- (void)dealloc {
+    // if the asset was downloaded, delete it from the filesystem once this target is destroyed!
+    if (_arTarget && _assetDownloaded) {
+        std::shared_ptr<VROARObjectTargetiOS> targetiOS = std::dynamic_pointer_cast<VROARObjectTargetiOS>(_arTarget);
+        if (targetiOS) {
+            NSURL *localFile = targetiOS->getLocalFileUrl();
+            NSFileManager *fileManager = [NSFileManager defaultManager];
+            NSError *error;
+            BOOL success = [fileManager removeItemAtPath:localFile.absoluteString error:&error];
+            if (!success) {
+                NSLog(@"[Viro] - could not delete file %@, err: %@", localFile.absoluteString, [error localizedDescription]);
+            }
+        }
+    }
+}
+
+- (void)wait:(VRTARObjectTargetPromiseCompletion)finishBlock {
+    @synchronized (self) {
+        if (!_ready) {
+            [_waitBlocks addObject:finishBlock];
+        } else {
+            
+            finishBlock(_key, _arTarget);
+        }
+    }
+}
+
+- (void)fetch {
+    if (_arTarget) {
+        return;
+    }
+
+    NSURL *url = [NSURL URLWithString:[_source objectForKey:@"uri"]];
+    NSString *scheme = url.scheme.lowercaseString;
+    
+    if([scheme isEqualToString:@"file"] || [scheme isEqualToString:@"http"] || [scheme isEqualToString:@"https"]) {
+        if (![scheme isEqualToString:@"file"]) {
+            _assetDownloaded = YES;
+            _downloadTask = downloadDataWithURL(url, ^(NSData *data, NSError *error) {
+                _downloadTask = nil;
+                if (!error) {
+                    
+                    // write the data to a local file!
+                    NSString *filename = [NSString stringWithFormat:@"%@-%@", [url lastPathComponent], [[NSProcessInfo processInfo] globallyUniqueString]];
+                    NSArray *localPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+                    NSString *documentsDirectory = [localPaths objectAtIndex:0];
+                    NSString *filePath = [NSString stringWithFormat:@"%@/%@", documentsDirectory, filename];
+                    NSError *error;
+                    BOOL success = [data writeToFile:filePath options:NSDataWritingAtomic error:&error];
+                    if (success) {
+                        // create object target
+                        _arTarget = std::make_shared<VROARObjectTargetiOS>([NSURL URLWithString:filePath]);
+                    } else {
+                        NSLog(@"[Viro] error writing obj to local file %@", [error localizedDescription]);
+                    }
+                    
+                    @synchronized(self) {
+                        _ready = YES;
+                    }
+                    
+                    for (VRTARObjectTargetPromiseCompletion completion in _waitBlocks) {
+                        completion(_key, _arTarget);
+                    }
+                    
+                    _waitBlocks = nil; // release all the blocks!
+                    
+                } else {
+                    RCTLogError(@"[VRTARTrackingTargets] Error downloading object target source [%@]", _key);
+                    for (VRTARObjectTargetPromiseCompletion completion in _waitBlocks) {
+                        completion(_key, nullptr);
+                    }
+                }
+            });
+        } else {
+            _arTarget = std::make_shared<VROARObjectTargetiOS>(url);
+
+            @synchronized(self) {
+                _ready = YES;
+            }
+            
+            for (VRTARObjectTargetPromiseCompletion completion in _waitBlocks) {
+                completion(_key, _arTarget);
+            }
+            
+            _waitBlocks = nil; // release all the blocks!
+        }
+    }
+}
+
+@end
+
+#pragma mark - VRTARTrackingTargetsModule Implemetation
+
 @implementation VRTARTrackingTargetsModule {
     NSMutableDictionary *_targetsDict;
 }
@@ -103,8 +221,22 @@
     return self;
 }
 
-- (VRTARTargetPromise *)getARTargetPromise:(NSString *)name {
-    return _targetsDict[name];
+- (VRTARImageTargetPromise *)getARImageTargetPromise:(NSString *)name {
+    NSObject *obj = _targetsDict[name];
+    if (obj && [obj isKindOfClass:[VRTARImageTargetPromise class]]) {
+        return (VRTARImageTargetPromise *) obj;
+    } else {
+        return nil;
+    }
+}
+
+- (VRTARObjectTargetPromise *)getARObjectTargetPromise:(NSString *)name {
+    NSObject *obj = _targetsDict[name];
+    if (obj && [obj isKindOfClass:[VRTARObjectTargetPromise class]]) {
+        return (VRTARObjectTargetPromise *) obj;
+    } else {
+        return nil;
+    }
 }
 
 #pragma mark RCT_EXPORT_METHODS
@@ -114,33 +246,40 @@ RCT_EXPORT_MODULE()
 RCT_EXPORT_METHOD(createTargets:(NSDictionary *)targets) {
     for (NSString *key in targets) {
         NSDictionary *target = [targets objectForKey:key];
+        
+        NSString *targetType = [target objectForKey:@"type"];
 
-        RCTImageSource *source = [RCTConvert RCTImageSource:[target objectForKey:@"source"]];
+        if (targetType && [targetType caseInsensitiveCompare:@"Object"] == NSOrderedSame) {
+            _targetsDict[key] = [[VRTARObjectTargetPromise alloc] initWithKey:key source:[target objectForKey:@"source"]];
+            [_targetsDict[key] fetch];
+        } else { // Assume the default is an Image target!
+            RCTImageSource *source = [RCTConvert RCTImageSource:[target objectForKey:@"source"]];
 
-        NSNumber *width = [target objectForKey:@"physicalWidth"];
-        float physicalWidth = [width floatValue];
+            NSNumber *width = [target objectForKey:@"physicalWidth"];
+            float physicalWidth = [width floatValue];
 
-        VROImageOrientation orientation = VROImageOrientation::Up; // default orientation!
-        NSString *strOrientation = [target objectForKey:@"orientation"];
-        if (strOrientation) {
-            if ([strOrientation caseInsensitiveCompare:@"Up"] == NSOrderedSame) {
-                orientation = VROImageOrientation::Up;
-            } else if ([strOrientation caseInsensitiveCompare:@"Down"] == NSOrderedSame) {
-                orientation = VROImageOrientation::Down;
-            } else if ([strOrientation caseInsensitiveCompare:@"Left"] == NSOrderedSame) {
-                orientation = VROImageOrientation::Left;
-            } else if ([strOrientation caseInsensitiveCompare:@"Right"] == NSOrderedSame) {
-                orientation = VROImageOrientation::Right;
-            } else {
-                RCTLogError(@"[VRTARTrackingTargets] Unknown orientation [%@] for target [%@]", strOrientation, key);
+            VROImageOrientation orientation = VROImageOrientation::Up; // default orientation!
+            NSString *strOrientation = [target objectForKey:@"orientation"];
+            if (strOrientation) {
+                if ([strOrientation caseInsensitiveCompare:@"Up"] == NSOrderedSame) {
+                    orientation = VROImageOrientation::Up;
+                } else if ([strOrientation caseInsensitiveCompare:@"Down"] == NSOrderedSame) {
+                    orientation = VROImageOrientation::Down;
+                } else if ([strOrientation caseInsensitiveCompare:@"Left"] == NSOrderedSame) {
+                    orientation = VROImageOrientation::Left;
+                } else if ([strOrientation caseInsensitiveCompare:@"Right"] == NSOrderedSame) {
+                    orientation = VROImageOrientation::Right;
+                } else {
+                    RCTLogError(@"[VRTARTrackingTargets] Unknown orientation [%@] for target [%@]", strOrientation, key);
+                }
             }
-        }
 
-        _targetsDict[key] = [[VRTARTargetPromise alloc] initWithKey:key
-                                                             source:source
-                                                        orientation:orientation
-                                                      physicalWidth:physicalWidth];
-        [_targetsDict[key] fetch];
+            _targetsDict[key] = [[VRTARImageTargetPromise alloc] initWithKey:key
+                                                                      source:source
+                                                                 orientation:orientation
+                                                               physicalWidth:physicalWidth];
+            [_targetsDict[key] fetch];
+        }
     }
 }
 

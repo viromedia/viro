@@ -109,7 +109,7 @@ var ARImageMarkerTest = createReactClass({
     })
   },
   _goToNextTest() {
-    this.props.arSceneNavigator.replace("ARSceneAndNavigatorTest", {scene:require("./ARSceneAndNavigatorTest")})
+    this.props.arSceneNavigator.replace("ARObjectMarkerTest", {scene:require("./ARObjectMarkerTest")})
   },
   _toggleTargetTwo() {
     console.log("[ARImageMarkerTest] toggling target two!");

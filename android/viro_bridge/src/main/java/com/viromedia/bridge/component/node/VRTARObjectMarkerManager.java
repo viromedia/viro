@@ -11,30 +11,30 @@ import com.viromedia.bridge.utility.ViroEvents;
 
 import java.util.Map;
 
-public class VRTARImageMarkerManager extends VRTNodeManager<VRTARImageMarker> {
+public class VRTARObjectMarkerManager extends VRTNodeManager<VRTARObjectMarker> {
 
-    public VRTARImageMarkerManager(ReactApplicationContext context) {
+    public VRTARObjectMarkerManager(ReactApplicationContext context) {
         super(context);
     }
 
     @Override
     public String getName() {
-        return "VRTARImageMarker";
+        return "VRTARObjectMarker";
     }
 
     @Override
-    protected VRTARImageMarker createViewInstance(ThemedReactContext reactContext) {
-        return new VRTARImageMarker(reactContext);
+    protected VRTARObjectMarker createViewInstance(ThemedReactContext reactContext) {
+        return new VRTARObjectMarker(reactContext);
     }
 
     @ReactProp(name="pauseUpdates", defaultBoolean = false)
-    public void setPauseUpdates(VRTARImageMarker arImageMarker, boolean pauseUpdates) {
-        arImageMarker.setPauseUpdates(pauseUpdates);
+    public void setPauseUpdates(VRTARObjectMarker arObjectMarker, boolean pauseUpdates) {
+        arObjectMarker.setPauseUpdates(pauseUpdates);
     }
 
     @ReactProp(name="target")
-    public void setTarget(VRTARImageMarker arImageMarker, String targetName) {
-        arImageMarker.setTarget(targetName);
+    public void setTarget(VRTARObjectMarker arObjectMarker, String targetName) {
+        // no-op
     }
 
     @Override
@@ -47,5 +47,4 @@ public class VRTARImageMarkerManager extends VRTNodeManager<VRTARImageMarker> {
 
         return events;
     }
-
 }

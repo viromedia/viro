@@ -235,11 +235,11 @@
 		1385B24520CA091C00C3B6CE /* VRTPolyline.h in Copy Headers to ios/dist/include */ = {isa = PBXBuildFile; fileRef = 8AFC1C351EC1001C0000F7EB /* VRTPolyline.h */; };
 		1385B24620CA091C00C3B6CE /* VRTPortalScene.h in Copy Headers to ios/dist/include */ = {isa = PBXBuildFile; fileRef = 8FEF00631F37ACCC006AE4B1 /* VRTPortalScene.h */; };
 		1385B24720CA091C00C3B6CE /* VRTPortal.h in Copy Headers to ios/dist/include */ = {isa = PBXBuildFile; fileRef = 8FEF00841F37D04F006AE4B1 /* VRTPortal.h */; };
-		1385B24820CA091C00C3B6CE /* BuildFile in Copy Headers to ios/dist/include */ = {isa = PBXBuildFile; };
+		1385B24820CA091C00C3B6CE /* (null) in Copy Headers to ios/dist/include */ = {isa = PBXBuildFile; };
 		1385B24920CA091C00C3B6CE /* VRTPolylineManager.h in Copy Headers to ios/dist/include */ = {isa = PBXBuildFile; fileRef = 8A56302D1EBBFF5F009E71A7 /* VRTPolylineManager.h */; };
 		1385B24A20CA091C00C3B6CE /* VRTPortalSceneManager.h in Copy Headers to ios/dist/include */ = {isa = PBXBuildFile; fileRef = 8FEF00821F37CAEF006AE4B1 /* VRTPortalSceneManager.h */; };
 		1385B24B20CA091C00C3B6CE /* VRTPortalManager.h in Copy Headers to ios/dist/include */ = {isa = PBXBuildFile; fileRef = 8FEF00871F37D0C0006AE4B1 /* VRTPortalManager.h */; };
-		1385B24C20CA091C00C3B6CE /* BuildFile in Copy Headers to ios/dist/include */ = {isa = PBXBuildFile; };
+		1385B24C20CA091C00C3B6CE /* (null) in Copy Headers to ios/dist/include */ = {isa = PBXBuildFile; };
 		1385B24D20CA091C00C3B6CE /* VRTARSceneNavigator.h in Copy Headers to ios/dist/include */ = {isa = PBXBuildFile; fileRef = 8A7743801EEF62F90004C17A /* VRTARSceneNavigator.h */; };
 		1385B24E20CA091C00C3B6CE /* VRTARAnchorNode.h in Copy Headers to ios/dist/include */ = {isa = PBXBuildFile; fileRef = 8AEFA22C1EF34487006851B7 /* VRTARAnchorNode.h */; };
 		1385B24F20CA091C00C3B6CE /* VRTARPlane.h in Copy Headers to ios/dist/include */ = {isa = PBXBuildFile; fileRef = 8AEFA2281EF3197E006851B7 /* VRTARPlane.h */; };
@@ -328,6 +328,12 @@
 		8A130D901E3BC0690050D83B /* VRTSoundManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8A130D8F1E3BC0690050D83B /* VRTSoundManager.mm */; };
 		8A130DAE1E43A8AB0050D83B /* VRTSoundModule.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8A130DAD1E43A8AB0050D83B /* VRTSoundModule.mm */; };
 		8A2161D02036558500D60008 /* ViroKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AFCC4F520056B1000AD8B8D /* ViroKit.framework */; };
+		8A26F6C7211E471B001E7032 /* VRTARObjectMarkerManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8A26F6C6211E471B001E7032 /* VRTARObjectMarkerManager.mm */; };
+		8A26F6CB211E4727001E7032 /* VRTARObjectMarkerManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8A26F6C6211E471B001E7032 /* VRTARObjectMarkerManager.mm */; };
+		8A26F6CC211E4727001E7032 /* VRTARObjectMarkerManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8A26F6C6211E471B001E7032 /* VRTARObjectMarkerManager.mm */; };
+		8A26F6CF211E478B001E7032 /* VRTARObjectMarker.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8A26F6CE211E478B001E7032 /* VRTARObjectMarker.mm */; };
+		8A26F6D0211E47A3001E7032 /* VRTARObjectMarker.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8A26F6CE211E478B001E7032 /* VRTARObjectMarker.mm */; };
+		8A26F6D1211E47A3001E7032 /* VRTARObjectMarker.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8A26F6CE211E478B001E7032 /* VRTARObjectMarker.mm */; };
 		8A2DA3C71F9438A7001FC3BA /* VRTARUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A2DA3C61F9438A7001FC3BA /* VRTARUtils.m */; };
 		8A31CFA41E27047100550CFE /* VRTQuadManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8A31CFA31E27047100550CFE /* VRTQuadManager.mm */; };
 		8A31CFB41E2705EC00550CFE /* VRTQuad.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8A31CFB31E2705EC00550CFE /* VRTQuad.mm */; };
@@ -345,11 +351,11 @@
 		8A5CDE221F68D5470093F43B /* VRTPolyline.h in Copy Headers to ios/dist/include */ = {isa = PBXBuildFile; fileRef = 8AFC1C351EC1001C0000F7EB /* VRTPolyline.h */; };
 		8A5CDE231F68D5470093F43B /* VRTPortalScene.h in Copy Headers to ios/dist/include */ = {isa = PBXBuildFile; fileRef = 8FEF00631F37ACCC006AE4B1 /* VRTPortalScene.h */; };
 		8A5CDE241F68D5470093F43B /* VRTPortal.h in Copy Headers to ios/dist/include */ = {isa = PBXBuildFile; fileRef = 8FEF00841F37D04F006AE4B1 /* VRTPortal.h */; };
-		8A5CDE251F68D5470093F43B /* BuildFile in Copy Headers to ios/dist/include */ = {isa = PBXBuildFile; };
+		8A5CDE251F68D5470093F43B /* (null) in Copy Headers to ios/dist/include */ = {isa = PBXBuildFile; };
 		8A5CDE261F68D5470093F43B /* VRTPolylineManager.h in Copy Headers to ios/dist/include */ = {isa = PBXBuildFile; fileRef = 8A56302D1EBBFF5F009E71A7 /* VRTPolylineManager.h */; };
 		8A5CDE271F68D5470093F43B /* VRTPortalSceneManager.h in Copy Headers to ios/dist/include */ = {isa = PBXBuildFile; fileRef = 8FEF00821F37CAEF006AE4B1 /* VRTPortalSceneManager.h */; };
 		8A5CDE281F68D5470093F43B /* VRTPortalManager.h in Copy Headers to ios/dist/include */ = {isa = PBXBuildFile; fileRef = 8FEF00871F37D0C0006AE4B1 /* VRTPortalManager.h */; };
-		8A5CDE291F68D5470093F43B /* BuildFile in Copy Headers to ios/dist/include */ = {isa = PBXBuildFile; };
+		8A5CDE291F68D5470093F43B /* (null) in Copy Headers to ios/dist/include */ = {isa = PBXBuildFile; };
 		8A5CDE2A1F68D56F0093F43B /* VRTNodeModule.h in Copy Headers to ios/dist/include */ = {isa = PBXBuildFile; fileRef = A50A310C1ECE1E8800DEBE9B /* VRTNodeModule.h */; };
 		8A5CDE2B1F68D56F0093F43B /* VRTSceneModule.h in Copy Headers to ios/dist/include */ = {isa = PBXBuildFile; fileRef = A5E8F0A71ED6B64D00729916 /* VRTSceneModule.h */; };
 		8A5CDE2C1F68D56F0093F43B /* VRTControllerModule.h in Copy Headers to ios/dist/include */ = {isa = PBXBuildFile; fileRef = A533596D1E9E0169005B3EC5 /* VRTControllerModule.h */; };
@@ -510,7 +516,6 @@
 		A5E8F0AC1ED6B64E00729916 /* VRTSceneModule.mm in Sources */ = {isa = PBXBuildFile; fileRef = A5E8F0A81ED6B64D00729916 /* VRTSceneModule.mm */; };
 		A5F6D4011E4B0DFF00655F60 /* VRTController.mm in Sources */ = {isa = PBXBuildFile; fileRef = A5F6D4001E4B0DFF00655F60 /* VRTController.mm */; };
 		A5F6D4051E4B179700655F60 /* VRTControllerManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = A5F6D4041E4B179700655F60 /* VRTControllerManager.mm */; };
-		CE392B919117C20698C0CCD3 /* libPods-ViroReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7927738EE26175BE7394889B /* libPods-ViroReact.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -564,11 +569,11 @@
 				1385B24520CA091C00C3B6CE /* VRTPolyline.h in Copy Headers to ios/dist/include */,
 				1385B24620CA091C00C3B6CE /* VRTPortalScene.h in Copy Headers to ios/dist/include */,
 				1385B24720CA091C00C3B6CE /* VRTPortal.h in Copy Headers to ios/dist/include */,
-				1385B24820CA091C00C3B6CE /* BuildFile in Copy Headers to ios/dist/include */,
+				1385B24820CA091C00C3B6CE /* (null) in Copy Headers to ios/dist/include */,
 				1385B24920CA091C00C3B6CE /* VRTPolylineManager.h in Copy Headers to ios/dist/include */,
 				1385B24A20CA091C00C3B6CE /* VRTPortalSceneManager.h in Copy Headers to ios/dist/include */,
 				1385B24B20CA091C00C3B6CE /* VRTPortalManager.h in Copy Headers to ios/dist/include */,
-				1385B24C20CA091C00C3B6CE /* BuildFile in Copy Headers to ios/dist/include */,
+				1385B24C20CA091C00C3B6CE /* (null) in Copy Headers to ios/dist/include */,
 				1385B24D20CA091C00C3B6CE /* VRTARSceneNavigator.h in Copy Headers to ios/dist/include */,
 				1385B24E20CA091C00C3B6CE /* VRTARAnchorNode.h in Copy Headers to ios/dist/include */,
 				1385B24F20CA091C00C3B6CE /* VRTARPlane.h in Copy Headers to ios/dist/include */,
@@ -674,11 +679,11 @@
 				8A5CDE221F68D5470093F43B /* VRTPolyline.h in Copy Headers to ios/dist/include */,
 				8A5CDE231F68D5470093F43B /* VRTPortalScene.h in Copy Headers to ios/dist/include */,
 				8A5CDE241F68D5470093F43B /* VRTPortal.h in Copy Headers to ios/dist/include */,
-				8A5CDE251F68D5470093F43B /* BuildFile in Copy Headers to ios/dist/include */,
+				8A5CDE251F68D5470093F43B /* (null) in Copy Headers to ios/dist/include */,
 				8A5CDE261F68D5470093F43B /* VRTPolylineManager.h in Copy Headers to ios/dist/include */,
 				8A5CDE271F68D5470093F43B /* VRTPortalSceneManager.h in Copy Headers to ios/dist/include */,
 				8A5CDE281F68D5470093F43B /* VRTPortalManager.h in Copy Headers to ios/dist/include */,
-				8A5CDE291F68D5470093F43B /* BuildFile in Copy Headers to ios/dist/include */,
+				8A5CDE291F68D5470093F43B /* (null) in Copy Headers to ios/dist/include */,
 				8A5CDE171F68D4BD0093F43B /* VRTARSceneNavigator.h in Copy Headers to ios/dist/include */,
 				8A5CDE181F68D4BD0093F43B /* VRTARAnchorNode.h in Copy Headers to ios/dist/include */,
 				8A5CDE191F68D4BD0093F43B /* VRTARPlane.h in Copy Headers to ios/dist/include */,
@@ -816,6 +821,10 @@
 		8A130D8F1E3BC0690050D83B /* VRTSoundManager.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = VRTSoundManager.mm; path = ViroReact/VRTSoundManager.mm; sourceTree = "<group>"; };
 		8A130DAC1E43A8AB0050D83B /* VRTSoundModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VRTSoundModule.h; path = ViroReact/Modules/VRTSoundModule.h; sourceTree = "<group>"; };
 		8A130DAD1E43A8AB0050D83B /* VRTSoundModule.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; name = VRTSoundModule.mm; path = ViroReact/Modules/VRTSoundModule.mm; sourceTree = "<group>"; };
+		8A26F6C5211E471B001E7032 /* VRTARObjectMarkerManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = VRTARObjectMarkerManager.h; path = ViroReact/AR/Managers/VRTARObjectMarkerManager.h; sourceTree = "<group>"; };
+		8A26F6C6211E471B001E7032 /* VRTARObjectMarkerManager.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; name = VRTARObjectMarkerManager.mm; path = ViroReact/AR/Managers/VRTARObjectMarkerManager.mm; sourceTree = "<group>"; };
+		8A26F6CD211E478B001E7032 /* VRTARObjectMarker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = VRTARObjectMarker.h; path = ViroReact/AR/Views/VRTARObjectMarker.h; sourceTree = "<group>"; };
+		8A26F6CE211E478B001E7032 /* VRTARObjectMarker.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; name = VRTARObjectMarker.mm; path = ViroReact/AR/Views/VRTARObjectMarker.mm; sourceTree = "<group>"; };
 		8A2DA3C51F9438A7001FC3BA /* VRTARUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = VRTARUtils.h; path = ViroReact/AR/VRTARUtils.h; sourceTree = "<group>"; };
 		8A2DA3C61F9438A7001FC3BA /* VRTARUtils.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; name = VRTARUtils.m; path = ViroReact/AR/VRTARUtils.m; sourceTree = "<group>"; };
 		8A31CFA21E27047100550CFE /* VRTQuadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VRTQuadManager.h; path = ViroReact/VRTQuadManager.h; sourceTree = "<group>"; };
@@ -1039,7 +1048,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				8A2161D02036558500D60008 /* ViroKit.framework in Frameworks */,
-				CE392B919117C20698C0CCD3 /* libPods-ViroReact.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1081,6 +1089,8 @@
 				8AEFA2231EF3175C006851B7 /* VRTARPlaneManager.mm */,
 				8A0524361EF0A4B900A02361 /* VRTARSceneManager.h */,
 				8A0524371EF0A4B900A02361 /* VRTARSceneManager.mm */,
+				8A26F6C5211E471B001E7032 /* VRTARObjectMarkerManager.h */,
+				8A26F6C6211E471B001E7032 /* VRTARObjectMarkerManager.mm */,
 			);
 			name = Manager;
 			sourceTree = "<group>";
@@ -1094,6 +1104,8 @@
 				8AEFA22D1EF34487006851B7 /* VRTARAnchorNode.mm */,
 				8A04D5192024F7AA00FD5F68 /* VRTARImageMarker.h */,
 				8A04D51A2024F7AA00FD5F68 /* VRTARImageMarker.mm */,
+				8A26F6CD211E478B001E7032 /* VRTARObjectMarker.h */,
+				8A26F6CE211E478B001E7032 /* VRTARObjectMarker.mm */,
 				8AEFA2281EF3197E006851B7 /* VRTARPlane.h */,
 				8AEFA2291EF3197E006851B7 /* VRTARPlane.mm */,
 				8A0524301EF0A49C00A02361 /* VRTARScene.h */,
@@ -1558,7 +1570,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "$SRCROOT/ngrok_launch.sh";
+			shellScript = $SRCROOT/ngrok_launch.sh;
 		};
 		1385B1CB20CA091C00C3B6CE /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1589,7 +1601,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "$SRCROOT/ngrok_launch.sh";
+			shellScript = $SRCROOT/ngrok_launch.sh;
 		};
 		1385B29820CA091C00C3B6CE /* Lipo static library */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1648,7 +1660,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "$SRCROOT/ngrok_launch.sh";
+			shellScript = $SRCROOT/ngrok_launch.sh;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1692,6 +1704,7 @@
 				131E1E1D20B89A560075D8E0 /* VRTPortalSceneManager.mm in Sources */,
 				131E1E1E20B89A560075D8E0 /* VRTParticleEmitter.mm in Sources */,
 				131E1E1F20B89A560075D8E0 /* VRTUIImageWrapper.m in Sources */,
+				8A26F6CB211E4727001E7032 /* VRTARObjectMarkerManager.mm in Sources */,
 				131E1E2020B89A560075D8E0 /* VRTARHitTestUtil.mm in Sources */,
 				131E1E2120B89A560075D8E0 /* VRTSceneShadowView.mm in Sources */,
 				131E1E2220B89A560075D8E0 /* VRTPortalManager.mm in Sources */,
@@ -1750,6 +1763,7 @@
 				131E1E5720B89A560075D8E0 /* VRT360VideoManager.mm in Sources */,
 				131E1E5820B89A560075D8E0 /* VRTAnimationManager.mm in Sources */,
 				131E1E5920B89A560075D8E0 /* VRTUtils.mm in Sources */,
+				8A26F6D0211E47A3001E7032 /* VRTARObjectMarker.mm in Sources */,
 				131E1E5A20B89A560075D8E0 /* VRTController.mm in Sources */,
 				131E1E5B20B89A560075D8E0 /* VRTBox.mm in Sources */,
 				131E1E5C20B89A560075D8E0 /* VRTARPlane.mm in Sources */,
@@ -1805,6 +1819,7 @@
 				1385B1ED20CA091C00C3B6CE /* VRTPortalSceneManager.mm in Sources */,
 				1385B1EE20CA091C00C3B6CE /* VRTParticleEmitter.mm in Sources */,
 				1385B1EF20CA091C00C3B6CE /* VRTUIImageWrapper.m in Sources */,
+				8A26F6CC211E4727001E7032 /* VRTARObjectMarkerManager.mm in Sources */,
 				1385B1F020CA091C00C3B6CE /* VRTARHitTestUtil.mm in Sources */,
 				1385B1F120CA091C00C3B6CE /* VRTSceneShadowView.mm in Sources */,
 				1385B1F220CA091C00C3B6CE /* VRTPortalManager.mm in Sources */,
@@ -1863,6 +1878,7 @@
 				1385B22720CA091C00C3B6CE /* VRT360VideoManager.mm in Sources */,
 				1385B22820CA091C00C3B6CE /* VRTAnimationManager.mm in Sources */,
 				1385B22920CA091C00C3B6CE /* VRTUtils.mm in Sources */,
+				8A26F6D1211E47A3001E7032 /* VRTARObjectMarker.mm in Sources */,
 				1385B22A20CA091C00C3B6CE /* VRTController.mm in Sources */,
 				1385B22B20CA091C00C3B6CE /* VRTBox.mm in Sources */,
 				1385B22C20CA091C00C3B6CE /* VRTARPlane.mm in Sources */,
@@ -1918,6 +1934,7 @@
 				8FEF008D1F38A718006AE4B1 /* VRTPortalSceneManager.mm in Sources */,
 				A5839B4E1F68B3F8009091A7 /* VRTParticleEmitter.mm in Sources */,
 				8BCF287C1E8090A900F0DD62 /* VRTUIImageWrapper.m in Sources */,
+				8A26F6C7211E471B001E7032 /* VRTARObjectMarkerManager.mm in Sources */,
 				8B78C9891F9DE61A00967DF1 /* VRTARHitTestUtil.mm in Sources */,
 				8BE0D50B1DFA3D9B0032AB99 /* VRTSceneShadowView.mm in Sources */,
 				8FEF008C1F38A713006AE4B1 /* VRTPortalManager.mm in Sources */,
@@ -1976,6 +1993,7 @@
 				8BE0D49B1DFA15880032AB99 /* VRT360VideoManager.mm in Sources */,
 				8BE0D5191DFA3DB20032AB99 /* VRTAnimationManager.mm in Sources */,
 				8BE0D4A51DFA15880032AB99 /* VRTUtils.mm in Sources */,
+				8A26F6CF211E478B001E7032 /* VRTARObjectMarker.mm in Sources */,
 				A5F6D4011E4B0DFF00655F60 /* VRTController.mm in Sources */,
 				8BE0D4FA1DFA3D9B0032AB99 /* VRTBox.mm in Sources */,
 				8AEFA22B1EF3197E006851B7 /* VRTARPlane.mm in Sources */,

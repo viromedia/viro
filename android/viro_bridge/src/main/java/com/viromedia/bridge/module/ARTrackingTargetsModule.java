@@ -138,14 +138,19 @@ public class ARTrackingTargetsModule extends ReactContextBaseJavaModule {
             String key = iter.nextKey();
             ReadableMap targetMap = targetsMap.getMap(key);
 
+            if (targetMap.hasKey("type") && targetMap.getString("type").equalsIgnoreCase("Object")) {
+                // don't do anything for "Object" targets now
+                continue;
+            }
+
             if (!targetMap.hasKey("physicalWidth")) {
-                throw new IllegalArgumentException("ARTrackingTargets - target [" + key
+                throw new IllegalArgumentException("ARTrackingTargets - image target [" + key
                         + "] is missing `physicalWidth` prop.");
             }
             float physicalWidth = (float) targetMap.getDouble("physicalWidth");
 
             if (!targetMap.hasKey("orientation")) {
-                throw new IllegalArgumentException("ARTrackingTargets - target [" + key
+                throw new IllegalArgumentException("ARTrackingTargets - image target [" + key
                         + "] is missing `orientation` prop.");
             }
             String orientationValue = targetMap.getString("orientation");

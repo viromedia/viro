@@ -26,6 +26,7 @@ var ARTrackingTargetsPropTypes = {
   ]).isRequired,
   orientation: PropTypes.oneOf(['Up', 'Down', 'Left', 'Right']),
   physicalWidth: PropTypes.number,
+  type : PropTypes.oneOf(['Image', 'Object']), // default is 'Image'
 }
 
 class ViroARTrackingTargets {
@@ -47,12 +48,16 @@ class ViroARTrackingTargets {
   }
 
   static checkForRequiredProps(key, target) {
+    // source is required
     if (target.source == undefined) {
       console.error("ViroTrackingTarget [" + target + "] requires a `source` property");
     }
 
-    if (target.physicalWidth == undefined) {
-      console.error("ViroTrackingTarget [" + target + "] requires a `physicalWidth` property");
+    // physicalWidth is required for Image targets
+    if (!target.type || target.type == 'Image') {
+      if (target.physicalWidth == undefined) {
+        console.error("ViroTrackingTarget [" + target + "] requires a `physicalWidth` property");
+      }
     }
 
   }

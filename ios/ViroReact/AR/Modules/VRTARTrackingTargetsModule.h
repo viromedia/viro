@@ -12,18 +12,20 @@
 #import <React/RCTBridge.h>
 #import <React/RCTImageSource.h>
 
+// ----- VRTARImageTargetPromise -----
+
 /*
- VRTARTargetPromiseCompletion block called with the results of a Promise's fetch with
+ VRTARImageTargetPromiseCompletion block called with the results of a Promise's fetch with
  the NSString key and the associated VROARImageTarget (or nullptr if there's an error).
  */
-typedef void (^ VRTARTargetPromiseCompletion)(NSString *, std::shared_ptr<VROARImageTarget>);
+typedef void (^ VRTARImageTargetPromiseCompletion)(NSString *, std::shared_ptr<VROARImageTarget>);
 
 
 /*
  This class encompasses the logic required for fetching the data and creating a
  VROARImageTarget object that allows execution to continue.
  */
-@interface VRTARTargetPromise : NSObject
+@interface VRTARImageTargetPromise : NSObject
 
 @property (nonatomic, assign) BOOL ready;
 
@@ -33,17 +35,52 @@ typedef void (^ VRTARTargetPromiseCompletion)(NSString *, std::shared_ptr<VROARI
               physicalWidth:(float)physicalWidth;
 
 /*
- This tells the VRTARTargetPromise to fetch the target. The module should automatically
+ This tells the VRTARImageTargetPromise to fetch the target. The module should automatically
  call this after creating the promise.
  */
 - (void)fetch;
 
 /*
- To retrieve the results of this promise, "wait" on it by passing in a VRTARTargetPromiseCompletion
- block which will either be called immediately if the data is available or later after the fetch
- completes.
+ To retrieve the results of this promise, "wait" on it by passing in a completion
+ block which will either be called immediately if the data is available or later
+ after the fetch completes.
  */
-- (void)wait:(VRTARTargetPromiseCompletion)finishBlock;
+- (void)wait:(VRTARImageTargetPromiseCompletion)finishBlock;
+
+@end
+
+// ----- VRTARObjectTargetPromise -----
+
+/*
+ VRTARObjectTargetPromiseCompletion block called with the results of a Promise's fetch with
+ the NSString key and the associated VROARObjectTarget (or nullptr if there's an error).
+ */
+typedef void (^ VRTARObjectTargetPromiseCompletion)(NSString *, std::shared_ptr<VROARObjectTarget>);
+
+
+/*
+ This class encompasses the logic required for fetching the data and creating a
+ VROARObjectTarget object that allows execution to continue.
+ */
+@interface VRTARObjectTargetPromise : NSObject
+
+@property (nonatomic, assign) BOOL ready;
+
+- (instancetype)initWithKey:(NSString *)key
+                     source:(RCTImageSource *)source;
+
+/*
+ This tells the VRTARObjectTargetPromise to fetch the target. The module should automatically
+ call this after creating the promise.
+ */
+- (void)fetch;
+
+/*
+ To retrieve the results of this promise, "wait" on it by passing in a completion
+ block which will either be called immediately if the data is available or later
+ after the fetch completes.
+ */
+- (void)wait:(VRTARObjectTargetPromiseCompletion)finishBlock;
 
 @end
 
@@ -54,9 +91,14 @@ typedef void (^ VRTARTargetPromiseCompletion)(NSString *, std::shared_ptr<VROARI
 @interface VRTARTrackingTargetsModule : NSObject <RCTBridgeModule>
 
 /*
- Returns the VRTARTargetPromise for the given NSString name. Returns nil if nothing is there.
+ Returns the VRTARImageTargetPromise for the given NSString name. Returns nil if nothing is there.
  */
-- (VRTARTargetPromise *)getARTargetPromise:(NSString *)name;
+- (VRTARImageTargetPromise *)getARImageTargetPromise:(NSString *)name;
+
+/*
+ Returns the VRTARObjectTargetPromise for the given NSString name. Returns nil if nothing is there.
+ */
+- (VRTARObjectTargetPromise *)getARObjectTargetPromise:(NSString *)name;
 
 @end
 

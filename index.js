@@ -56,6 +56,7 @@ const ReactViro = {
   get ViroARPlaneSelector() { return require('./components/AR/ViroARPlaneSelector'); },
   get ViroARTrackingTargets() { return require('./components/AR/ViroARTrackingTargets'); },
   get ViroARImageMarker() { return require('./components/AR/ViroARImageMarker'); },
+  get ViroARObjectMarker() { return require('./components/AR/ViroARObjectMarker'); },
   get ViroARCamera() { return require('./components/AR/ViroARCamera'); },
 }
 
