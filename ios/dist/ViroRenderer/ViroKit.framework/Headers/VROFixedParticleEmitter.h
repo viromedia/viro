@@ -43,6 +43,11 @@ public:
         _particleScale = scale;
     }
 
+    void setMaxParticles(int maxParticles) {
+        _maxParticles = maxParticles;
+        resetEmissionCycle(true);
+    }
+
     /*
      Sets a vector of positions representing each particle in world coordinates.
      */

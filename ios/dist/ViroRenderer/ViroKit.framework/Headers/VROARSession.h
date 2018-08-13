@@ -23,6 +23,7 @@ class VROARNode;
 class VRONode;
 class VROARSessionDelegate;
 class VROARImageTarget;
+class VROARObjectTarget;
 enum class VROCameraOrientation; //defined in VROCameraTexture.h
 
 /*
@@ -158,6 +159,12 @@ public:
      Set the provider to use for hosting and resolving cloud anchors.
      */
     virtual void setCloudAnchorProvider(VROCloudAnchorProvider provider) = 0;
+
+    /*
+     Set a number > 0 to enable continuous image tracking (vs static detection).
+     (iOS 12+ only)
+     */
+    virtual void setNumberOfTrackedImages(int numImages) = 0;
     
     /*
      Adds an image target that should be tracked by this session.
@@ -170,7 +177,18 @@ public:
      been found yet, then the given anchor should be nullptr
      */
     virtual void removeARImageTarget(std::shared_ptr<VROARImageTarget> target) = 0;
+
+    /*
+     Adds an object target that should be tracked by this session.
+     */
+    virtual void addARObjectTarget(std::shared_ptr<VROARObjectTarget> target) = 0;
     
+    /*
+     Removes an object target that should no longer be tracked by this session and the
+     corresponding anchor that matched with the target.
+     */
+    virtual void removeARObjectTarget(std::shared_ptr<VROARObjectTarget> target) = 0;
+
     /*
      Add or remove anchors from the session. These methods are used for
      placing anchors that are *not* auto-detected. The AR session will

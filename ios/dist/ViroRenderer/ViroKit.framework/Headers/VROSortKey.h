@@ -55,7 +55,7 @@ public:
     /*
      Manual rendering order setting (set from VRONode) is the highest sorting concern.
      */
-    uint32_t renderingOrder;
+    int32_t renderingOrder;
 
     /*
      The depth of the node in its hierarchy. This is normally set

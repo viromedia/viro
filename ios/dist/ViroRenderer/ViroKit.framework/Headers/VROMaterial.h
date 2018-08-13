@@ -15,6 +15,7 @@
 #include "VROAnimatable.h"
 #include "VROStringUtil.h"
 #include "VROThreadRestricted.h"
+#include "VRODriver.h"
 
 enum class VROFace {
     Front,
@@ -240,6 +241,16 @@ public:
     void setReadsFromDepthBuffer(bool readsFromDepthBuffer) {
         _readsFromDepthBuffer = readsFromDepthBuffer;
         updateSubstrate();
+    }
+    
+    /*
+     Color writes.
+     */
+    VROColorMask getColorWriteMask(VROColorMask colorMask) const {
+        return _colorWriteMask;
+    }
+    void setColorWriteMask(VROColorMask colorMask) {
+        _colorWriteMask = colorMask;
     }
 
     /*
@@ -479,6 +490,14 @@ private:
     bool _writesToDepthBuffer, _readsFromDepthBuffer;
     
     /*
+     Color mask settings. Materials will only write to color channels that are true
+     in this bitfield. If all of these are set to off, then the material will not
+     write color at all. This can be used to write only to the depth buffer to create
+     transparent occlusion surfaces.
+     */
+    VROColorMask _colorWriteMask;
+    
+    /*
      Version of this material that's being animated away. Populated with the current
      values of this material whenever this material is changed.
      */
@@ -534,7 +553,7 @@ private:
      other materials. See VROSortKey for where this falls within the hierarchy of renderinng sort
      concerns.
      */
-    uint32_t _renderingOrder;
+    int _renderingOrder;
     
     /*
      Representation of this material in the underlying graphics hardware.

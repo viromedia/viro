@@ -46,6 +46,15 @@ enum class VROResourceType;
 enum class VROFontStyle;
 enum class VROFontWeight;
 
+enum VROColorMask {
+    VROColorMaskNone  = 0,
+    VROColorMaskRed   = 1,
+    VROColorMaskGreen = 1 << 1,
+    VROColorMaskBlue  = 1 << 2,
+    VROColorMaskAlpha = 1 << 3,
+    VROColorMaskAll   = (1) | (1 << 1) | (1 << 2) | (1 << 3)
+};
+
 /*
  The type of the GPU can be used to modify rendering for compatibility with older
  GPUs, or it can be used to gate access to advanced rendering features that only
@@ -183,7 +192,8 @@ public:
     virtual void setDepthReadingEnabled(bool enabled) = 0;
     virtual void setStencilTestEnabled(bool enabled) = 0;
     virtual void setCullMode(VROCullMode cullMode) = 0;
-    virtual void setColorWritingEnabled(bool enabled) = 0;
+    virtual void setRenderTargetColorWritingMask(VROColorMask mask) = 0;
+    virtual void setMaterialColorWritingMask(VROColorMask mask) = 0;
     virtual void bindShader(std::shared_ptr<VROShaderProgram> program) = 0;
     virtual void unbindShader() = 0;
     
