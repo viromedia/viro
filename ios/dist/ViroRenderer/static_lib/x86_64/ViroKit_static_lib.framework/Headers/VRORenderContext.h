@@ -36,11 +36,9 @@ class VRORenderContext {
     
 public:
     
-    VRORenderContext(std::shared_ptr<VROFrameSynchronizer> synchronizer,
-                     std::shared_ptr<VROFrameScheduler> scheduler) :
+    VRORenderContext(std::shared_ptr<VROFrameSynchronizer> synchronizer) :
         _frame(0),
         _frameSynchronizer(synchronizer),
-        _frameScheduler(scheduler),
         _hdrEnabled(true),
         _pbrEnabled(true) {
         
@@ -144,9 +142,6 @@ public:
     std::shared_ptr<VROFrameSynchronizer> getFrameSynchronizer() const {
         return _frameSynchronizer;
     }
-    std::shared_ptr<VROFrameScheduler> getFrameScheduler() const {
-        return _frameScheduler;
-    }
     
     void setFPS(double fps) {
         _fps = fps;
@@ -228,11 +223,6 @@ private:
      Synchronizer used to add or remove frame listeners.
      */
     std::shared_ptr<VROFrameSynchronizer> _frameSynchronizer;
-    
-    /*
-     Scheduler used for queueing and executing rendering thread tasks.
-     */
-    std::shared_ptr<VROFrameScheduler> _frameScheduler;
     
     /*
      The texture containing shadow maps for all lights. This is a depth texture array.

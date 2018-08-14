@@ -172,6 +172,7 @@ FOUNDATION_EXPORT const unsigned char ViroKitVersionString[];
 #import <ViroKit/VROARScene.h>
 #import <ViroKit/VROARSceneController.h>
 #import <ViroKit/VROARDeclarativeImageNode.h>
+#import <ViroKit/VROARDeclarativeObjectNode.h>
 #import <ViroKit/VROARDeclarativePlane.h>
 #import <ViroKit/VROARDeclarativeNode.h>
 #import <ViroKit/VROARNodeDelegateiOS.h>
@@ -180,6 +181,8 @@ FOUNDATION_EXPORT const unsigned char ViroKitVersionString[];
 #import <ViroKit/VROARDeclarativeSession.h>
 #import <ViroKit/VROARImageTarget.h>
 #import <ViroKit/VROARImageTargetiOS.h>
+#import <ViroKit/VROARObjectTarget.h>
+#import <ViroKit/VROARObjectTargetiOS.h>
 
 // Test
 #import <ViroKit/VRORendererTest.h>

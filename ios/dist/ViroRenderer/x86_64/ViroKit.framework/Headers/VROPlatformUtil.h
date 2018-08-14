@@ -163,6 +163,25 @@ void VROPlatformDispatchAsyncApplication(std::function<void()> fcn);
  */
 void VROPlatformFlushTaskQueues();
 
+#if VRO_PLATFORM_IOS
+
+/*
+ The EAGL context is required by iOS so that we can ensure it is bound during
+ async dispatch calls to the renderer.
+ */
+@class EAGLContext;
+void VROPlatformSetEAGLContext(EAGLContext *context);
+
+#endif
+
+#if VRO_PLATFORM_MACOS
+
+@class NSOpenGLContext;
+@class VROViewScene;
+void VROPlatformSetOpenGLContext(NSOpenGLContext *context, VROViewScene *scene);
+
+#endif
+
 #if VRO_PLATFORM_IOS || VRO_PLATFORM_MACOS
 #import <Foundation/Foundation.h>
 
@@ -217,6 +236,7 @@ void VROPlatformSetTrackingImageView(std::string filepath);
 
 // Create a video sink on the Java side. Returns the Surface.
 jobject VROPlatformCreateVideoSink(int textureId);
+jobject VROPlatformCreateVideoSink(int textureId, int width, int height);
 void VROPlatformDestroyVideoSink(int textureId);
 
 // Get audio properties for this device.
@@ -294,6 +314,38 @@ void VROPlatformCallHostFunction(jobject javaObject,
 }
 
 template<typename... Args>
+void VROPlatformCallHostBoolFunction(jobject javaObject,
+                                 std::string methodName,
+                                 std::string methodSig,
+                                 Args... args) {
+    JNIEnv *env = VROPlatformGetJNIEnv();
+    env->ExceptionClear();
+
+    jclass viroClass = env->GetObjectClass(javaObject);
+    if (viroClass == nullptr) {
+        perr("Unable to find class for making java calls [function %s, method %s]",
+             methodName.c_str(), methodSig.c_str());
+        return;
+    }
+
+    jmethodID method = env->GetMethodID(viroClass, methodName.c_str(), methodSig.c_str());
+    if (method == nullptr) {
+        perr("Unable to find method %s", methodName.c_str());
+        return;
+    }
+
+    env->CallBooleanMethod(javaObject, method, std::forward<Args>(args)...);
+    if (env->ExceptionOccurred()) {
+        perr("Exception occurred when calling %s", methodName.c_str());
+        env->ExceptionDescribe();
+        std::string errorString = "Java exception thrown when calling " + methodName;
+        throw std::runtime_error(errorString.c_str());
+    }
+
+    env->DeleteLocalRef(viroClass);
+}
+
+template<typename... Args>
 jlong VROPlatformCallHostLongFunction(jobject javaObject,
                                       std::string methodName,
                                       std::string methodSig,
@@ -310,15 +362,48 @@ jlong VROPlatformCallHostLongFunction(jobject javaObject,
 
     jmethodID method = env->GetMethodID(viroClass, methodName.c_str(), methodSig.c_str());
     if (method == nullptr) {
-        perr("Unable to find method %s callback.", methodName.c_str());
+        perr("Unable to find method %s", methodName.c_str());
         return 0;
     }
 
     jlong result = env->CallLongMethod(javaObject, method, std::forward<Args>(args)...);
     if (env->ExceptionOccurred()) {
-        perr("Exception occurred when calling %s.", methodName.c_str());
+        perr("Exception occurred when calling %s", methodName.c_str());
         env->ExceptionDescribe();
-        std::string errorString = "A java exception has been thrown when calling " + methodName;
+        std::string errorString = "Java exception thrown when calling " + methodName;
+        throw std::runtime_error(errorString.c_str());
+    }
+
+    env->DeleteLocalRef(viroClass);
+    return result;
+}
+
+template<typename... Args>
+jobject VROPlatformCallHostObjectFunction(jobject javaObject,
+                                          std::string methodName,
+                                          std::string methodSig,
+                                          Args... args) {
+    JNIEnv *env = VROPlatformGetJNIEnv();
+    env->ExceptionClear();
+
+    jclass viroClass = env->GetObjectClass(javaObject);
+    if (viroClass == nullptr) {
+        perr("Unable to find class for making java calls [function %s, method %s]",
+             methodName.c_str(), methodSig.c_str());
+        return 0;
+    }
+
+    jmethodID method = env->GetMethodID(viroClass, methodName.c_str(), methodSig.c_str());
+    if (method == nullptr) {
+        perr("Unable to find method %s with signature [%s]", methodName.c_str(), methodSig.c_str());
+        return 0;
+    }
+
+    jobject result = env->CallObjectMethod(javaObject, method, std::forward<Args>(args)...);
+    if (env->ExceptionOccurred()) {
+        perr("Exception occurred when calling %s", methodName.c_str());
+        env->ExceptionDescribe();
+        std::string errorString = "Java exception thrown when calling " + methodName;
         throw std::runtime_error(errorString.c_str());
     }
 

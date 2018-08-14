@@ -31,6 +31,7 @@ enum class VRORendererTestType {
     ARPlane,
     ARDraggableNode,
     ARImageTracking,
+    ARObjectTracking,
     Portal,
     Shadow,
     ARShadow,
@@ -44,6 +45,7 @@ enum class VRORendererTestType {
     PhotometricLight,
     RendererSettings,
     ToneMapping,
+    Polygon,
     NumTests,
 };
 

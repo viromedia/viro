@@ -48,15 +48,15 @@ public:
          Before attempting to fix, look through the git history of this file (it has been tried
          before).
          */
-        return std::tie(renderingOrder, hierarchyId, hierarchyDepth, transparent, distanceFromCamera, incoming, shader, textures, lights, material, node, elementIndex) <
-               std::tie(r.renderingOrder, r.hierarchyId, r.hierarchyDepth, r.transparent, r.distanceFromCamera, r.incoming, r.shader, r.textures, r.lights, r.material, r.node, r.elementIndex);
+        return std::tie(renderingOrder, hierarchyId, hierarchyDepth, transparent, distanceFromCamera, incoming, materialRenderingOrder, shader, textures, lights, material, node, elementIndex) <
+               std::tie(r.renderingOrder, r.hierarchyId, r.hierarchyDepth, r.transparent, r.distanceFromCamera, r.incoming, r.materialRenderingOrder, r.shader, r.textures, r.lights, r.material, r.node, r.elementIndex);
     }
             
     /*
-     Manual rendering order setting is the highest sorting concern.
+     Manual rendering order setting (set from VRONode) is the highest sorting concern.
      */
-    uint32_t renderingOrder;
-    
+    int32_t renderingOrder;
+
     /*
      The depth of the node in its hierarchy. This is normally set
      to zero. If any of the node's parents is set to hierarchical 
@@ -87,7 +87,7 @@ public:
     bool transparent;
     
     /*
-     Distance fom camera for objects is next (back to front).
+     Distance from camera for objects is next (back to front).
      This value is set to (zFar - distance from the camera).
      
      When sorted, this results in back to front rendering of
@@ -102,6 +102,12 @@ public:
      second (on top), as its alpha moves from 0 to 1.
     */
     bool incoming;
+
+    /*
+     Material rendering order is the last render-order concern; it only involves materials that use
+     the same geometry (meaning all previous values above are the same).
+     */
+    uint32_t materialRenderingOrder;
     
     /*
      State-change minimization concerns.

@@ -28,11 +28,19 @@ public:
         _contentsColor({ 1.0, 1.0, 1.0, 1.0 }),
         _intensity(1.0)
     {}
+
+    VROMaterialVisual(VROMaterial &material, int permissibleContentsMask, VROVector4f color) :
+            _material(material),
+            _permissibleContentsMask(permissibleContentsMask),
+            _contentsColor(color),
+            _intensity(1.0)
+    {}
     
     /*
-     Copy constructor. Texture references are shared.
+     Copy constructor; copy the properties of the given visual, but parent this visual
+     with the the given material.
      */
-    VROMaterialVisual(const VROMaterialVisual &visual);
+    VROMaterialVisual(VROMaterial &material, const VROMaterialVisual &visual);
     
     /*
      Delete any rendering resources. Invoked prior to destruction, on the

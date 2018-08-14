@@ -22,6 +22,13 @@ public:
      */
     VROTriangle(VROVector3f a, VROVector3f b, VROVector3f c);
     virtual ~VROTriangle();
+    
+    /*
+     Get the points of the triangle.
+     */
+    VROVector3f getA() const { return _a; }
+    VROVector3f getB() const { return _b; }
+    VROVector3f getC() const { return _c; }
 
     /*
      Return true if this triangle is degenerate, meaning two of its vertices

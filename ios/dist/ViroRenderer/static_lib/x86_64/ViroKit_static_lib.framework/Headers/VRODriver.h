@@ -29,6 +29,7 @@ class VRORenderTarget;
 class VRORenderContext;
 class VROShaderProgram;
 class VROImagePostProcess;
+class VROFrameScheduler;
 
 enum class VROSoundType;
 enum class VROTextureType;
@@ -44,6 +45,15 @@ enum class VROBlendMode;
 enum class VROResourceType;
 enum class VROFontStyle;
 enum class VROFontWeight;
+
+enum VROColorMask {
+    VROColorMaskNone  = 0,
+    VROColorMaskRed   = 1,
+    VROColorMaskGreen = 1 << 1,
+    VROColorMaskBlue  = 1 << 2,
+    VROColorMaskAlpha = 1 << 3,
+    VROColorMaskAll   = (1) | (1 << 1) | (1 << 2) | (1 << 3)
+};
 
 /*
  The type of the GPU can be used to modify rendering for compatibility with older
@@ -182,7 +192,8 @@ public:
     virtual void setDepthReadingEnabled(bool enabled) = 0;
     virtual void setStencilTestEnabled(bool enabled) = 0;
     virtual void setCullMode(VROCullMode cullMode) = 0;
-    virtual void setColorWritingEnabled(bool enabled) = 0;
+    virtual void setRenderTargetColorWritingMask(VROColorMask mask) = 0;
+    virtual void setMaterialColorWritingMask(VROColorMask mask) = 0;
     virtual void bindShader(std::shared_ptr<VROShaderProgram> program) = 0;
     virtual void unbindShader() = 0;
     
@@ -204,6 +215,25 @@ public:
      and platform. Features like HDR are only enabled in linear space.
      */
     virtual VROColorRenderingMode getColorRenderingMode() = 0;
+    
+    /*
+     Sets a flag indicating whether a software gamma correction pass is currently
+     being used by the choreographer.
+     */
+    virtual void setHasSoftwareGammaPass(bool softwareGamma) = 0;
+    virtual bool hasSoftwareGammaPass() const = 0;
+    
+    /*
+     Returns true if linear rendering is enabled for this device. This only returns true
+     if:
+     
+     1. We have a hardware sRGB buffer, or
+     2. We are using software gamma correction (which requires that HDR is enabled).
+     */
+    bool isLinearRenderingEnabled() {
+        return getColorRenderingMode() == VROColorRenderingMode::Linear ||
+              (getColorRenderingMode() == VROColorRenderingMode::LinearSoftware && hasSoftwareGammaPass());
+    }
     
     /*
      Return true if bloom rendering is enabled. If so, materials that exceed their
@@ -235,6 +265,7 @@ public:
                               std::string ceilingMaterial, std::string floorMaterial) = 0;
     virtual void setBlendingMode(VROBlendMode mode) = 0;
     
+    virtual std::shared_ptr<VROFrameScheduler> getFrameScheduler() = 0;
     virtual void *getGraphicsContext() = 0;
 };
 

@@ -25,6 +25,9 @@
 // Avoiding glBufferSubData seems to increase stability on Adreno devices
 #define VRO_AVOID_BUFFER_SUB_DATA 1
 
+#define pglpush(message,...) ((void)0)
+#define pglpop() ((void)0)
+
 #elif VRO_PLATFORM_IOS
 
 #import <OpenGLES/EAGL.h>
@@ -34,6 +37,18 @@
 #import <OpenGLES/ES3/gl.h>
 #import <OpenGLES/ES3/glext.h>
 #define VRO_AVOID_BUFFER_SUB_DATA 0
+
+#define pglpush(message,...) \
+do { \
+char str[1024]; \
+sprintf(str, #message, ##__VA_ARGS__); \
+glPushGroupMarkerEXT(0, str); \
+} while (0)
+
+#define pglpop() \
+do { \
+glPopGroupMarkerEXT(); \
+} while (0)
 
 #elif VRO_PLATFORM_MACOS
 
@@ -45,12 +60,36 @@
 #define GL_COMPRESSED_SRGB8_ALPHA8_ASTC_4x4_KHR 0xdecafbad
 #define GL_FRAMEBUFFER_INCOMPLETE_DIMENSIONS 0xdecafbad
 
+#define pglpush(message,...) \
+do { \
+char str[1024]; \
+sprintf(str, #message, ##__VA_ARGS__); \
+glPushGroupMarkerEXT(0, str); \
+} while (0)
+
+#define pglpop() \
+do { \
+glPopGroupMarkerEXT(); \
+} while (0)
+
 #elif VRO_PLATFORM_WASM
 
 #include <GLES3/gl3.h>
 #include <GLES2/gl2ext.h>
 #include <GLES3/gl3platform.h>
 #define VRO_AVOID_BUFFER_SUB_DATA 0
+
+#define pglpush(message,...) \
+do { \
+char str[1024]; \
+sprintf(str, #message, ##__VA_ARGS__); \
+\
+} while (0)
+
+#define pglpop() \
+do { \
+\
+} while (0)
 
 #endif
 
@@ -70,7 +109,7 @@ static const char * GlErrorString( GLenum error )
 	}
 }
 
-static void GLCheckErrors( int line )
+static void GLCheckErrors(const char *file, const char *method, int line )
 {
 	for ( int i = 0; i < 10; i++ )
 	{
@@ -79,11 +118,11 @@ static void GLCheckErrors( int line )
 		{
 			break;
 		}
-		pinfo( "GL error on line %d: %s", line, GlErrorString( error ) );
+        pinfo( "GL error [file: %s, method: %s, line: %d]: %s", file, method, line, GlErrorString( error ) );
 	}
 }
 
-#define GL( func )		func; GLCheckErrors( __LINE__ );
+#define GL( func )		func; GLCheckErrors( __FILE__, __func__, __LINE__ );
 
 #else // CHECK_GL_ERRORS
 

@@ -10,9 +10,12 @@
 #define VROMaterial_h
 
 #include <memory>
+#include <functional>
 #include "VROMaterialVisual.h"
 #include "VROAnimatable.h"
 #include "VROStringUtil.h"
+#include "VROThreadRestricted.h"
+#include "VRODriver.h"
 
 enum class VROFace {
     Front,
@@ -61,7 +64,7 @@ class VROShaderModifier;
  visual attributes and their options, which you can then reuse for multiple geometries 
  in a scene.
  */
-class VROMaterial : public VROAnimatable {
+class VROMaterial : public VROAnimatable, public VROThreadRestricted {
     
 public:
     
@@ -73,6 +76,18 @@ public:
      will be automatically hydrated during the render-cycle.
      */
     void prewarm(std::shared_ptr<VRODriver> driver);
+    
+    /*
+     Asynchronously upload the textures used by this material to the GPU, on the rendering
+     thread as time permits. Each time a texture is uploaded, the given callback will be
+     invoked.
+     
+     Returns the number of textures that were queued for upload. If a texture is *already*
+     uploaded, that texture will not be returned in the count, and the callback will not
+     be invoked for that texture.
+     */
+    int hydrateAsync(std::function<void()> callback,
+                     std::shared_ptr<VRODriver> &driver);
     
     /*
      Delete any rendering resources. Invoked prior to destruction, on the
@@ -227,6 +242,16 @@ public:
         _readsFromDepthBuffer = readsFromDepthBuffer;
         updateSubstrate();
     }
+    
+    /*
+     Color writes.
+     */
+    VROColorMask getColorWriteMask(VROColorMask colorMask) const {
+        return _colorWriteMask;
+    }
+    void setColorWriteMask(VROColorMask colorMask) {
+        _colorWriteMask = colorMask;
+    }
 
     /*
      Bloom.
@@ -284,6 +309,18 @@ public:
     void setNeedsToneMapping(bool needsToneMapping);
     bool needsToneMapping() const {
         return _needsToneMapping;
+    }
+
+    /*
+     Material rendering order; this should only be used to fix a rendering order between materials
+     that are part of the same geometry. For cross-geometry rendering order, use
+     VRONode::setRenderingOrder().
+     */
+    int getRenderingOrder() const {
+        return _renderingOrder;
+    }
+    void setRenderingOrder(int renderingOrder) {
+        _renderingOrder = renderingOrder;
     }
 
     /*
@@ -453,6 +490,14 @@ private:
     bool _writesToDepthBuffer, _readsFromDepthBuffer;
     
     /*
+     Color mask settings. Materials will only write to color channels that are true
+     in this bitfield. If all of these are set to off, then the material will not
+     write color at all. This can be used to write only to the depth buffer to create
+     transparent occlusion surfaces.
+     */
+    VROColorMask _colorWriteMask;
+    
+    /*
      Version of this material that's being animated away. Populated with the current
      values of this material whenever this material is changed.
      */
@@ -502,6 +547,13 @@ private:
      Defaults to true.
      */
     bool _needsToneMapping;
+
+    /*
+     The rendering order of this material, which determines when it is rendered in relation to
+     other materials. See VROSortKey for where this falls within the hierarchy of renderinng sort
+     concerns.
+     */
+    int _renderingOrder;
     
     /*
      Representation of this material in the underlying graphics hardware.
@@ -509,6 +561,7 @@ private:
     VROMaterialSubstrate *_substrate;
     
     void removeOutgoingMaterial();
+    bool isHydrated();
     
 };
 

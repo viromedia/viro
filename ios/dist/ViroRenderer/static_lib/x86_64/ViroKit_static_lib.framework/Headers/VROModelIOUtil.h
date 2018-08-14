@@ -44,7 +44,7 @@ public:
      (e.g. specular, normal, etc.).
      */
     static void loadTextureAsync(const std::string &name, const std::string &base, VROResourceType type, bool sRGB,
-                                 const std::map<std::string, std::string> *resourceMap,
+                                 std::shared_ptr<std::map<std::string, std::string>> resourceMap,
                                  std::map<std::string, std::shared_ptr<VROTexture>> &textureCache,
                                  std::function<void(std::shared_ptr<VROTexture> texture)> onFinished);
 
@@ -58,7 +58,8 @@ public:
     
     /*
      Retrieve the given resource asynchronously from the rendering thread. Invoke the given callback
-     on success or failure. The callback will be invoked on the rendering thread.
+     on success or failure. The callback contains the local filepath of the retrieved resource.
+     The callback will be invoked on the rendering thread.
      */
     static void retrieveResourceAsync(std::string resource, VROResourceType type,
                                       std::function<void(std::string, bool)> onSuccess,
@@ -70,13 +71,33 @@ public:
      
      This performs no action on local files.
      */
-    static std::map<std::string, std::string> processResourceMap(const std::map<std::string, std::string> &resourceMap,
-                                                                 VROResourceType type);
+    static std::shared_ptr<std::map<std::string, std::string>> createResourceMap(const std::map<std::string, std::string> &resourceMap, VROResourceType type);
 
     /*
      Recursively hydrate all geometries and textures in that descend from the given node.
      */
     static void hydrateNodes(std::shared_ptr<VRONode> node, std::shared_ptr<VRODriver> &driver);
+    
+    /*
+     Upload all resources used by the given node (and its children) asynchronously on the rendering
+     thread, as time permits each frame. When finished, the provided callback will be invoked.
+     */
+    static void hydrateAsync(std::shared_ptr<VRONode> node, std::function<void()> callback,
+                             std::shared_ptr<VRODriver> &driver);
+    
+private:
+    
+    /*
+     Recursive helper function for async hydration.
+     */
+    static void hydrateAsync(std::shared_ptr<VRONode> node, std::function<void()> callback, int *unhydratedTextureCount,
+                             std::shared_ptr<VRODriver> &driver);
+    
+    /*
+     Helper function for loadTextureAsync. Loads the texture at the given local file path.
+     */
+    static std::shared_ptr<VROTexture> loadLocalTexture(std::string name, std::string path,
+                                                        bool sRGB, bool isTemp);
     
 };
 

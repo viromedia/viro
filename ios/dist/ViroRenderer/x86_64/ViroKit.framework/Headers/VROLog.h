@@ -69,8 +69,6 @@
 
 #elif VRO_PLATFORM_IOS || VRO_PLATFORM_MACOS
 
-#include "VROOpenGL.h" // For pglpush and pglpop implementations
-
 /*
  ANSI colors don't resolve on the iOS debug console, so we
  deactivate them.
@@ -170,8 +168,6 @@
     } while (0)
 
 #define pgllabel(message,...) ((void)0)
-#define pglpush(message,...) ((void)0)
-#define pglpop() ((void)0)
 
 // __android_log_assert():
 // Log an assertion failure and SIGTRAP the process to have a chance
@@ -284,18 +280,6 @@ sprintf(str, #message, ##__VA_ARGS__); \
 glInsertEventMarkerEXT(0, str); \
 } while (0)
 
-#define pglpush(message,...) \
-do { \
-char str[1024]; \
-sprintf(str, #message, ##__VA_ARGS__); \
-glPushGroupMarkerEXT(0, str); \
-} while (0)
-
-#define pglpop() \
-do { \
-glPopGroupMarkerEXT(); \
-} while (0)
-
 #endif
 
 /////////////////////////////////////////////////////////////////////////////////
@@ -381,18 +365,6 @@ printf("Fatal Error: "#message"\n", ##__VA_ARGS__); \
 do { \
 char str[1024]; \
 sprintf(str, #message, ##__VA_ARGS__); \
- \
-} while (0)
-
-#define pglpush(message,...) \
-do { \
-char str[1024]; \
-sprintf(str, #message, ##__VA_ARGS__); \
- \
-} while (0)
-
-#define pglpop() \
-do { \
  \
 } while (0)
 

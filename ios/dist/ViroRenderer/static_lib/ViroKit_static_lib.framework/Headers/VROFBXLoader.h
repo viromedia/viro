@@ -78,20 +78,20 @@ private:
      data is stored in its children.
      */
     static std::shared_ptr<VRONode> loadFBX(viro::Node &node_pb, std::string base, VROResourceType type,
-                                            const std::map<std::string, std::string> *resourceMap,
+                                            std::shared_ptr<std::map<std::string, std::string>> resourceMap,
                                             std::map<std::string, std::shared_ptr<VROTexture>> *textureCache,
                                             std::shared_ptr<VROTaskQueue> taskQueue);
     
     static std::shared_ptr<VRONode> loadFBXNode(const viro::Node &node_pb,
                                                 std::shared_ptr<VROSkeleton> skeleton,
                                                 std::string base, VROResourceType type,
-                                                const std::map<std::string, std::string> *resourceMap,
+                                                std::shared_ptr<std::map<std::string, std::string>> resourceMap,
                                                 std::map<std::string, std::shared_ptr<VROTexture>> &textureCache,
                                                 std::shared_ptr<VROTaskQueue> taskQueue);
     
     static std::shared_ptr<VROGeometry> loadFBXGeometry(const viro::Node_Geometry &geo_pb,
                                                         std::string base, VROResourceType type,
-                                                        const std::map<std::string, std::string> *resourceMap,
+                                                        std::shared_ptr<std::map<std::string, std::string>> resourceMap,
                                                         std::map<std::string, std::shared_ptr<VROTexture>> &textureCache,
                                                         std::shared_ptr<VROTaskQueue> taskQueue);
     

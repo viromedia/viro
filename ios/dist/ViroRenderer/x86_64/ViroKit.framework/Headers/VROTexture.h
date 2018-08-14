@@ -11,6 +11,7 @@
 
 #include <memory>
 #include <vector>
+#include <functional>
 #include "VRODefines.h"
 
 // Constants for ETC2 ripped from NDKr9 headers
@@ -138,6 +139,14 @@ public:
     virtual ~VROTexture();
     
     /*
+     Upload this texture to the GPU asynchronously (on the rendering thread). Invoke
+     the given callback when hydration is complete. No-op if the texture is already
+     hydrated.
+     */
+    void hydrateAsync(std::function<void()> callback,
+                      std::shared_ptr<VRODriver> &driver);
+    
+    /*
      Delete any rendering resources. Invoked prior to destruction, on the
      rendering thread.
      */
@@ -157,12 +166,12 @@ public:
     void prewarm(std::shared_ptr<VRODriver> driver);
     
     /*
-     Get the substrates for this texture, loading them if necessary. If a scheduler is provided,
+     Get the substrates for this texture, loading them if necessary. If a immediate is false,
      then the substrates will be loaded asynchronously via the scheduler; otherwise, the
      substrates will be loaded immediately in a blocking fashion.
      */
     int getNumSubstrates() const;
-    VROTextureSubstrate *getSubstrate(int index, std::shared_ptr<VRODriver> &driver, VROFrameScheduler *scheduler);
+    VROTextureSubstrate *getSubstrate(int index, std::shared_ptr<VRODriver> &driver, bool immediate);
     
     /*
      Textures may have their substrates set externally if they are created and
@@ -176,6 +185,11 @@ public:
     VROStereoMode getStereoMode() const {
         return _stereoMode;
     }
+    
+    /*
+     True if this texture has been uploaded to the GPU.
+     */
+    bool isHydrated() const;
     
     /*
      True if this texture has an alpha channel.
@@ -229,7 +243,10 @@ public:
     int getHeight() const {
         return _height;
     }
-    
+
+protected:
+    int _width, _height;
+
 private:
     
     uint32_t _textureId;
@@ -262,8 +279,7 @@ private:
      source format).
      */
     VROTextureInternalFormat _internalFormat;
-    int _width, _height;
-    
+
     /*
      The mipmap generation mode for this texture. Determines if mipmaps
      are loaded from the source data (pregenerated), generated at runtime,
@@ -297,11 +313,22 @@ private:
      */
     VROWrapMode _wrapS, _wrapT;
     VROFilterMode _minificationFilter, _magnificationFilter, _mipFilter;
+    
+    /*
+     Callbacks invoked when the texture is hydrated.
+     */
+    std::vector<std::function<void()>> _hydrationCallbacks;
 
     /*
      Converts the image(s) into a substrate. May be asynchronously executed.
      */
     void hydrate(std::shared_ptr<VRODriver> &driver);
+    
+    /*
+     Create a task to hydrate the texture.
+     */
+    std::string getHydrationTaskKey() const;
+    std::function<void()> createHydrationTask(std::shared_ptr<VRODriver> &driver);
     
     /*
      Set the number of substrates to be used by this texture.
