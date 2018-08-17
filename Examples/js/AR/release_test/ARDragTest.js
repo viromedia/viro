@@ -17,6 +17,7 @@ import {
 
 import {
   ViroARScene,
+  ViroAmbientLight,
   ViroARPlane,
   ViroMaterials,
   ViroImage,
@@ -41,16 +42,23 @@ var ARDragTest = createReactClass({
   render: function() {
     return (
         <ViroARScene onClick={()=>{this.refs["planeSelector"].reset()}} >
+          <ViroAmbientLight color="#ffffff" />
           <ViroNode position={[0,0,-1]} onDrag={()=>{}} dragType="FixedToWorld">
-            <ViroBox position={[0,.13,0]} scale={[.2,.2,.2]}
+            <ViroBox position={[0,.13,0]} scale={[.2,.2,.2]} materials="blueBox"
                 onRotate={(state, factor)=>{console.log("[DragTest] rotation with factor: " + factor)}}/>
             <ViroImage rotation={[-90,0,0]} scale={[.3,.3,.3]} position={[0,.01,0]}
                 source={require('../res/dark_circle_shadow.png')} materials="doesntWriteToDepthBuffer"/>
           </ViroNode>
 
+          <ViroNode position={[0,0,-1]} onDrag={()=>{}}  dragType="FixedToPlane" dragPlane={{planePoint:[0,0,-1], planeNormal:[0,1,0], maxDistance:200 }}>
+            <ViroBox position={[0,.13,0]} scale={[.2,.2,.2]} materials="redBox" />
+          </ViroNode>
+
           {/* Display the planes using this, tap on scene to bring them back if you
               accidentally tap on them.*/}
-          <ViroARPlaneSelector ref={"planeSelector"}/>
+          <ViroARPlaneSelector ref={"planeSelector"}>
+
+          </ViroARPlaneSelector>
 
           {/* Release Menu */}
           <ViroText position={polarToCartesian([6, -30, 0])} text={"Next test"}
@@ -83,6 +91,11 @@ ViroMaterials.createMaterials({
     shininess: 2.0,
     lightingModel: "Constant",
     diffuseColor: "#0000cc"
+  },
+  redBox: {
+    shininess: 2.0,
+    lightingModel: "Constant",
+    diffuseColor: "#cc0000"
   },
   doesntWriteToDepthBuffer: {
     writesToDepthBuffer: false,
