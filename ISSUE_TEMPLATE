@@ -5,8 +5,8 @@
 
 ## Environment
 Please provide the following information about your environment:
-1. OS: Mac, Windows, Linux
-2. Platform: iOS or Android or both
+1. Development OS: Mac, Windows, Linux
+2. Device OS & Version: What Android OS version (7.0, 8.0, etc.) or iOS version (11.0, 11.2) is your device running on?
 3. Version: ViroReact version and React Native version 
 4. Device(s): What device(s) are you are seeing the issue on (i.e. iPhone X, Samsung Note 8, etc)
 
