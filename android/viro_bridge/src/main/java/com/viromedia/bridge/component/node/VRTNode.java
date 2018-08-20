@@ -44,6 +44,7 @@ import com.viromedia.bridge.component.VRTAnimatedComponent;
 import com.viromedia.bridge.component.VRTComponent;
 import com.viromedia.bridge.component.VRTLight;
 import com.viromedia.bridge.component.VRTManagedAnimation;
+import com.viromedia.bridge.component.node.control.VRTAnimatedImage;
 import com.viromedia.bridge.component.node.control.VRTCamera;
 import com.viromedia.bridge.component.node.control.VRTImage;
 import com.viromedia.bridge.component.node.control.VRTQuad;
@@ -599,6 +600,11 @@ public class VRTNode extends VRTComponent {
         // set the size (either through scale or width/height if the node supports it).
         if (this instanceof VRTImage) {
             VRTImage image = (VRTImage) this;
+            image.setWidth(width3d);
+            image.setHeight(height3d);
+            image.onPropsSet();
+        } else if (this instanceof VRTAnimatedImage) {
+            VRTAnimatedImage image = (VRTAnimatedImage) this;
             image.setWidth(width3d);
             image.setHeight(height3d);
             image.onPropsSet();

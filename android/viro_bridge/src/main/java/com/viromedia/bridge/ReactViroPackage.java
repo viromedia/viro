@@ -29,6 +29,7 @@ import com.viromedia.bridge.component.node.VRTARPlaneManager;
 import com.viromedia.bridge.component.node.VRTARSceneManager;
 import com.viromedia.bridge.component.node.VRTSceneManagerImpl;
 import com.viromedia.bridge.component.node.control.VRT3DObjectManager;
+import com.viromedia.bridge.component.node.control.VRTAnimatedImageManager;
 import com.viromedia.bridge.component.node.control.VRTParticleEmitterManager;
 import com.viromedia.bridge.component.node.control.VRTPolygonManager;
 import com.viromedia.bridge.component.node.control.VRTPolylineManager;
@@ -123,6 +124,7 @@ public class ReactViroPackage implements ReactPackage {
                 new VRTFlexViewManager(reactContext),
                 new VRTAnimatedComponentManager(reactContext),
                 new VRTQuadManager(reactContext),
+                new VRTAnimatedImageManager(reactContext),
                 new VRTPolygonManager(reactContext),
                 new VRTFlexViewManager(reactContext),
                 new VRTDirectionalLightManager(reactContext),

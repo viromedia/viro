@@ -29,12 +29,8 @@ public class VRTImage extends VRTControl {
     static final float DEFAULT_WIDTH = 1;
     static final float DEFAULT_HEIGHT = 1;
     private Material mDefaultMaterial;
-    private Quad mNativeQuad;
     private Image mLatestImage;
-    private Texture mLatestImageTexture;
     private String mStereoMode;
-    private ReadableMap mSourceMap;
-    private ReadableMap mPlaceholderSourceMap;
     private float mWidth = DEFAULT_WIDTH;
     private float mHeight = DEFAULT_HEIGHT;
     private float mScaledWidth = DEFAULT_WIDTH;
@@ -51,15 +47,18 @@ public class VRTImage extends VRTControl {
     private Texture.Format mFormat = Texture.Format.RGBA8;
 
     private boolean mGeometryNeedsUpdate = false;
-    private boolean mIsImageSet = false;
     private boolean mWidthOrHeightPropSet = false;
-    private boolean mImageNeedsDownload = false;
     private boolean mResizeModeSet = false;
-
-    private PlaceholderImageDownloadListener mPlaceholderListener;
     private MainImageDownloadListener mMainListener;
+    private PlaceholderImageDownloadListener mPlaceholderListener;
 
-    private Handler mMainHandler;
+    boolean mImageNeedsDownload = false;
+    Quad mNativeQuad;
+    boolean mIsImageSet = false;
+    Handler mMainHandler;
+    Texture mLatestImageTexture;
+    ReadableMap mPlaceholderSourceMap;
+    ReadableMap mSourceMap;
 
     public VRTImage(ReactContext context) {
         super(context);
@@ -143,7 +142,7 @@ public class VRTImage extends VRTControl {
         }
     }
 
-    private void updateQuad() {
+    void updateQuad() {
         boolean createdNewQuad = false;
         float imageQuadWidth;
         float imageQuadHeight;
@@ -188,7 +187,7 @@ public class VRTImage extends VRTControl {
         }
     }
 
-    private void downloadSourceImage(ImageDownloader downloader) {
+    void downloadSourceImage(ImageDownloader downloader) {
         if (mSourceMap != null) {
             imageDownloadDidStart();
             mMainListener = new MainImageDownloadListener();
@@ -238,7 +237,7 @@ public class VRTImage extends VRTControl {
         }
     }
 
-    private void setMaterialOnQuad() {
+    void setMaterialOnQuad() {
         if (mNativeQuad == null) {
             return;
         }
@@ -251,7 +250,7 @@ public class VRTImage extends VRTControl {
         }
     }
 
-    private void setImageOnQuad(Bitmap image) {
+    void setImageOnQuad(Bitmap image) {
         if (mNativeQuad == null) {
             return;
         }
@@ -268,7 +267,7 @@ public class VRTImage extends VRTControl {
         mNativeQuad.setImageTexture(mLatestImageTexture);
     }
 
-    private void imageDownloadDidStart() {
+    void imageDownloadDidStart() {
         mReactContext.getJSModule(RCTEventEmitter.class).receiveEvent(
                 getId(),
                 ViroEvents.ON_LOAD_START,
@@ -276,7 +275,7 @@ public class VRTImage extends VRTControl {
         );
     }
 
-    private void imageDownloadDidFinish() {
+    void imageDownloadDidFinish() {
         mReactContext.getJSModule(RCTEventEmitter.class).receiveEvent(
                 getId(),
                 ViroEvents.ON_LOAD_END,
@@ -284,7 +283,7 @@ public class VRTImage extends VRTControl {
         );
     }
 
-    private void resizeImage() {
+    void resizeImage() {
         if (!mWidthOrHeightPropSet || !mResizeModeSet || !mIsImageSet) {
             return;
         }
@@ -330,7 +329,7 @@ public class VRTImage extends VRTControl {
     /**
      * This is the ImageDownloadListener for the placeholder image
      */
-    private class PlaceholderImageDownloadListener implements ImageDownloadListener {
+    class PlaceholderImageDownloadListener implements ImageDownloadListener {
         private boolean mIsValid = true;
         private ImageDownloader mDownloader;
 
@@ -374,10 +373,30 @@ public class VRTImage extends VRTControl {
         }
     }
 
+    void updateMainImageDimensions(int height, int width) {
+        mBitmapWidth = width;
+        mBitmapHeight = height;
+
+        // If no width or height property was set, then base these on the
+        // image's aspect ratio and update the Quad
+        if (!mWidthOrHeightPropSet) {
+            float ratio = (float) mBitmapWidth / (float) mBitmapHeight;
+            mHeight = mWidth / ratio;
+            mGeometryNeedsUpdate = true;
+            updateQuad();
+        } else if (mResizeModeSet) {
+            // If width and height props were set, along with resizeMode,
+            // we'll calculate scaled width & height of the image
+            resizeImage();
+            mGeometryNeedsUpdate = true;
+            updateQuad();
+        }
+    }
+
     /**
      * This is the ImageDownloadListener for the main source image
      */
-    private class MainImageDownloadListener implements ImageDownloadListener {
+    class MainImageDownloadListener implements ImageDownloadListener {
         private boolean mIsValid = true;
 
         public void invalidate() {
@@ -397,27 +416,13 @@ public class VRTImage extends VRTControl {
                     if (!isValid()) {
                         return;
                     }
-                    mBitmapWidth = result.getWidth();
-                    mBitmapHeight = result.getHeight();
-                    mIsImageSet = true;
 
-                    // If no width or height property was set, then base these on the
-                    // image's aspect ratio and update the Quad
-                    if (!mWidthOrHeightPropSet) {
-                        float ratio = (float) mBitmapWidth / (float) mBitmapHeight;
-                        mHeight = mWidth / ratio;
-                        mGeometryNeedsUpdate = true;
-                        updateQuad();
-                    } else if (mResizeModeSet) {
-                        // If width and height props were set, along with resizeMode,
-                        // we'll calculate scaled width & height of the image
-                        resizeImage();
-                        mGeometryNeedsUpdate = true;
-                        updateQuad();
-                    }
+                    mIsImageSet = true;
+                    updateMainImageDimensions(result.getWidth(), result.getHeight());
 
                     setMaterialOnQuad();
                     setImageOnQuad(result);
+
                     imageDownloadDidFinish();
                     mMainListener = null;
                 }

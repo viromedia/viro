@@ -18,11 +18,9 @@ static float const kDefaultHeight = 1;
 @implementation VRTImage {
     VRTImageAsyncLoader *_loader;
     VRTPhotoLibraryAsyncLoader *_assetLoader;
-    std::shared_ptr<VROTexture> _texture;
     BOOL _widthOrHeightPropSet;
     BOOL _widthOrHeightChanged;
     BOOL _geometryNeedsUpdate;
-    BOOL _imageNeedsDownload;
     BOOL _resizeModePropSet;
     float _scaledHeight;
     float _scaledWidth;
@@ -127,6 +125,23 @@ static float const kDefaultHeight = 1;
 }
 
 - (void)didSetProps:(NSArray<NSString *> *)changedProps {
+    [self updatePlaceholderProps:changedProps];
+
+    if (_imageNeedsDownload) {
+        // Start loading the image
+        if (_source) {
+            if([_assetLoader canLoadImageURL:_source.request.URL]) {
+                [_assetLoader loadImage:_source];
+            } else {
+                [_loader loadImage:_source];
+            }
+        }
+    }
+
+    _imageNeedsDownload = NO;
+}
+
+- (void)updatePlaceholderProps:(NSArray<NSString *> *)changedProps{
     if (_widthOrHeightChanged || _geometryNeedsUpdate) {
         [self resizeImageDimensions];
         [self updateSurface];
@@ -150,16 +165,6 @@ static float const kDefaultHeight = 1;
                 self.node->getGeometry()->getMaterials().front()->setTransparency(0.0);
             }
         }
-        
-        // Start loading the image
-        if (_source) {
-            if([_assetLoader canLoadImageURL:_source.request.URL]) {
-                [_assetLoader loadImage:_source];
-            } else {
-                [_loader loadImage:_source];
-            }
-        }
-        _imageNeedsDownload = NO;
     }
 }
 
@@ -174,9 +179,6 @@ static float const kDefaultHeight = 1;
 - (void)imageLoaderDidEnd:(VRTImageAsyncLoader *)loader success:(BOOL)success image:(UIImage *)image {
     dispatch_async(dispatch_get_main_queue(), ^{
         if (success && image) {
-            _downloadedImageWidth = image.size.width;
-            _downloadedImageHeight = image.size.height;
-            
             VROStereoMode mode = VROStereoMode::None;
             if (self.stereoMode){
                 mode = VROTextureUtil::getStereoModeForString(std::string([self.stereoMode UTF8String]));
@@ -186,20 +188,7 @@ static float const kDefaultHeight = 1;
                                                     self.mipmap ? VROMipmapMode::Runtime : VROMipmapMode::None,
                                                     std::make_shared<VROImageiOS>(image, self.format),
                                                     mode);
-            
-            // Check if width and height were set as props. If not, recreate the surface using
-            // the aspect ratio of image.
-            if (!_widthOrHeightPropSet){
-                float ratio = image.size.width / image.size.height;
-                _height = _width / ratio;
-                _widthOrHeightChanged = NO;
-                [self updateSurface];
-            } else if (_resizeModePropSet) {
-                // If width and height were set as props, along with resizeMode, we'll calculate scaled width & height of the image
-                [self resizeImageDimensions];
-                [self updateSurface];
-            }
-            
+            [self updateMainImage:image.size.width height:image.size.height];
             [self applyMaterials];
         }
         
@@ -210,6 +199,24 @@ static float const kDefaultHeight = 1;
             self.onErrorViro(@{ @"error": @"Image failed to load" });
         }
     });
+}
+
+- (void)updateMainImage:(float)width height:(float)height {
+    _downloadedImageWidth = width;
+    _downloadedImageHeight = height;
+    
+    // Check if width and height were set as props. If not, recreate the surface using
+    // the aspect ratio of image.
+    if (!_widthOrHeightPropSet){
+        float ratio = width / height;
+        _height = _width / ratio;
+        _widthOrHeightChanged = NO;
+        [self updateSurface];
+    } else if (_resizeModePropSet) {
+        // If width and height were set as props, along with resizeMode, we'll calculate scaled width & height of the image
+        [self resizeImageDimensions];
+        [self updateSurface];
+    }
 }
 
 - (void)resizeImageDimensions {
