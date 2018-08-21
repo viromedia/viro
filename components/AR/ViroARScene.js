@@ -234,6 +234,10 @@ var ViroARScene = createReactClass({
     return await NativeModules.VRTARSceneModule.performARHitTestWithRay(findNodeHandle(this), ray);
   },
 
+  async performARHitTestWithRay(origin, destination) {
+    return await NativeModules.VRTARSceneModule.performARHitTestWithRay(findNodeHandle(this), origin, destination);
+  },
+
   async performARHitTestWithPosition(position) {
     return await NativeModules.VRTARSceneModule.performARHitTestWithPosition(findNodeHandle(this), position);
   },

@@ -78,6 +78,51 @@ public class ARSceneModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
+    public void performARHitTestWithRay(final int viewTag, final ReadableArray origin, final ReadableArray destination,
+                                        final Promise promise) {
+        UIManagerModule uiManager = getReactApplicationContext().getNativeModule(UIManagerModule.class);
+        uiManager.addUIBlock(new UIBlock() {
+            @Override
+            public void execute(NativeViewHierarchyManager nativeViewHierarchyManager) {
+                View sceneView = nativeViewHierarchyManager.resolveView(viewTag);
+                if (sceneView.getParent() == null || !(sceneView.getParent() instanceof VRTARSceneNavigator)) {
+                    throw new IllegalViewOperationException("Invalid view returned when " +
+                            "calling performARHitTestWithRay: expected ViroARSceneNavigator as parent");
+                }
+
+                VRTARSceneNavigator arSceneNavigator = (VRTARSceneNavigator) sceneView.getParent();
+                ViroViewARCore arView = arSceneNavigator.getARView();
+
+                if ((origin.size() != 3) || (destination.size() != 3)) {
+                    promise.resolve(Arguments.createArray());
+                    return;
+                }
+
+                float[] originArray = new float[origin.size()];
+                originArray[0] = (float) origin.getDouble(0);
+                originArray[1] = (float) origin.getDouble(1);
+                originArray[2] = (float) origin.getDouble(2);
+
+                float[] destArray = new float[destination.size()];
+                destArray[0] = (float) destination.getDouble(0);
+                destArray[1] = (float) destination.getDouble(1);
+                destArray[2] = (float) destination.getDouble(2);
+
+                arView.performARHitTestWithRay(new Vector(originArray), new Vector(destArray), new ARHitTestListener() {
+                    @Override
+                    public void onHitTestFinished(ARHitTestResult[] arHitTestResults) {
+                        WritableArray returnArray = Arguments.createArray();
+                        for (ARHitTestResult result : arHitTestResults) {
+                            returnArray.pushMap(ARUtils.mapFromARHitTestResult(result));
+                        }
+                        promise.resolve(returnArray);
+                    }
+                });
+            }
+        });
+    }
+
+    @ReactMethod
     public void performARHitTestWithPosition(final int viewTag, final ReadableArray position,
                                         final Promise promise) {
         UIManagerModule uiManager = getReactApplicationContext().getNativeModule(UIManagerModule.class);

@@ -76,7 +76,7 @@ public class VRT3DSceneNavigatorManager extends VRTViroViewGroupManager<VRT3DSce
     protected void onAfterUpdateTransaction(VRT3DSceneNavigator view) {
         super.onAfterUpdateTransaction(view);
         if (view instanceof VRT3DSceneNavigator) {
-            ((VRT3DSceneNavigator) view).onPropsSet();
+            view.onPropsSet();
         }
     }
 

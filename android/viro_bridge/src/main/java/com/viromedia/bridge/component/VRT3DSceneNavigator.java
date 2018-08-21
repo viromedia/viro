@@ -17,6 +17,7 @@ import com.viro.core.RendererConfiguration;
 import com.viro.core.ViroContext;
 
 import com.viro.core.ViroView;
+import com.viro.core.ViroViewARCore;
 import com.viro.core.ViroViewScene;
 import com.viromedia.bridge.ReactViroPackage;
 import com.viromedia.bridge.component.node.VRTScene;

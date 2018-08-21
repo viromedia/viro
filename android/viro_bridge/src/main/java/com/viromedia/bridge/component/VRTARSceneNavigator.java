@@ -7,7 +7,6 @@ import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import com.facebook.react.bridge.ReactContext;
 import com.viro.core.ViroViewARCore;
@@ -24,6 +23,8 @@ import java.lang.ref.WeakReference;
 public class VRTARSceneNavigator extends VRT3DSceneNavigator {
 
     private DisplayRotationListener mRotationListener;
+    private boolean mAutoFocusEnabled = false;
+    private boolean mNeedsAutoFocusToggle = false;
 
     private static class StartupListenerARCore implements ViroViewARCore.StartupListener {
 
@@ -90,6 +91,17 @@ public class VRTARSceneNavigator extends VRT3DSceneNavigator {
                 new StartupListenerARCore(this));
     }
 
+
+    @Override
+    public void onPropsSet() {
+        if (mNeedsAutoFocusToggle) {
+            if (mViroView != null && mViroView instanceof ViroViewARCore) {
+                ((ViroViewARCore)mViroView).setCameraAutoFocusEnabled(mAutoFocusEnabled);
+                mNeedsAutoFocusToggle = false;
+            }
+        }
+    }
+
     @Override
     public void addView(View child, int index) {
         // This view only accepts ARScene and VrView children!
@@ -115,5 +127,10 @@ public class VRTARSceneNavigator extends VRT3DSceneNavigator {
         if (mRotationListener != null) {
             mRotationListener.disable();
         }
+    }
+
+    public void setAutoFocusEnabled(boolean enabled) {
+        mAutoFocusEnabled = enabled;
+        mNeedsAutoFocusToggle = true;
     }
 }
