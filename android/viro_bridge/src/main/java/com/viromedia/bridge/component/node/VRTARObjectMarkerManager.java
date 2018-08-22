@@ -29,7 +29,7 @@ public class VRTARObjectMarkerManager extends VRTNodeManager<VRTARObjectMarker> 
 
     @ReactProp(name="pauseUpdates", defaultBoolean = false)
     public void setPauseUpdates(VRTARObjectMarker arObjectMarker, boolean pauseUpdates) {
-        arObjectMarker.setPauseUpdates(pauseUpdates);
+        // no-op
     }
 
     @ReactProp(name="target")
