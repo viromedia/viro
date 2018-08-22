@@ -50,15 +50,16 @@ var ARDragTest = createReactClass({
                 source={require('../res/dark_circle_shadow.png')} materials="doesntWriteToDepthBuffer"/>
           </ViroNode>
 
-          <ViroNode position={[0,0,-1]} onDrag={()=>{}}  dragType="FixedToPlane" dragPlane={{planePoint:[0,0,-1], planeNormal:[0,1,0], maxDistance:200 }}>
+          <ViroNode position={[0,0,-1]} onDrag={()=>{}}  dragType="FixedToPlane" dragPlane={{planePoint:[0,-.5,0], planeNormal:[0,1,0], maxDistance:3 }}>
             <ViroBox position={[0,.13,0]} scale={[.2,.2,.2]} materials="redBox" />
           </ViroNode>
 
+          <ViroText position={polarToCartesian([1, 0, 10])} text={"Blue = FixedToWorld, Red = FixedToPlane"}
+            style={styles.instructionText} transformBehaviors={["billboard"]}/>
+
           {/* Display the planes using this, tap on scene to bring them back if you
               accidentally tap on them.*/}
-          <ViroARPlaneSelector ref={"planeSelector"}>
-
-          </ViroARPlaneSelector>
+          <ViroARPlaneSelector ref={"planeSelector"}/>
 
           {/* Release Menu */}
           <ViroText position={polarToCartesian([6, -30, 0])} text={"Next test"}
