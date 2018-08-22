@@ -509,6 +509,12 @@
 		A562D02920298E2C004DA3A5 /* VRTLightingEnvironment.mm in Sources */ = {isa = PBXBuildFile; fileRef = A562D02820298E2C004DA3A5 /* VRTLightingEnvironment.mm */; };
 		A5839B4E1F68B3F8009091A7 /* VRTParticleEmitter.mm in Sources */ = {isa = PBXBuildFile; fileRef = A5839B4D1F68B3F8009091A7 /* VRTParticleEmitter.mm */; };
 		A5839B511F68B40D009091A7 /* VRTParticleEmitterManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = A5839B501F68B40D009091A7 /* VRTParticleEmitterManager.mm */; };
+		A5A1075E212D5492008B2DFB /* VRTAnimatedImageManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = A5A1075D212D5491008B2DFB /* VRTAnimatedImageManager.mm */; };
+		A5A1075F212D5492008B2DFB /* VRTAnimatedImageManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = A5A1075D212D5491008B2DFB /* VRTAnimatedImageManager.mm */; };
+		A5A10760212D5492008B2DFB /* VRTAnimatedImageManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = A5A1075D212D5491008B2DFB /* VRTAnimatedImageManager.mm */; };
+		A5A10763212D54B2008B2DFB /* VRTAnimatedImage.mm in Sources */ = {isa = PBXBuildFile; fileRef = A5A10761212D54B2008B2DFB /* VRTAnimatedImage.mm */; };
+		A5A10764212D54B2008B2DFB /* VRTAnimatedImage.mm in Sources */ = {isa = PBXBuildFile; fileRef = A5A10761212D54B2008B2DFB /* VRTAnimatedImage.mm */; };
+		A5A10765212D54B2008B2DFB /* VRTAnimatedImage.mm in Sources */ = {isa = PBXBuildFile; fileRef = A5A10761212D54B2008B2DFB /* VRTAnimatedImage.mm */; };
 		A5A937AA1E81D1FB00FE0406 /* VRTSceneNavigatorModule.mm in Sources */ = {isa = PBXBuildFile; fileRef = A5A937A81E81D1FB00FE0406 /* VRTSceneNavigatorModule.mm */; };
 		A5B4AEFA2050B44B0006D970 /* VRTPolygon.mm in Sources */ = {isa = PBXBuildFile; fileRef = A5B4AEF72050B44B0006D970 /* VRTPolygon.mm */; };
 		A5B4AEFD2050B4610006D970 /* VRTPolygonManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = A5B4AEFB2050B4600006D970 /* VRTPolygonManager.mm */; };
@@ -1008,6 +1014,10 @@
 		A5839B4D1F68B3F8009091A7 /* VRTParticleEmitter.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = VRTParticleEmitter.mm; path = ViroReact/Views/VRTParticleEmitter.mm; sourceTree = "<group>"; };
 		A5839B4F1F68B40C009091A7 /* VRTParticleEmitterManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VRTParticleEmitterManager.h; path = ViroReact/VRTParticleEmitterManager.h; sourceTree = "<group>"; };
 		A5839B501F68B40D009091A7 /* VRTParticleEmitterManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = VRTParticleEmitterManager.mm; path = ViroReact/VRTParticleEmitterManager.mm; sourceTree = "<group>"; };
+		A5A10759212D5491008B2DFB /* VRTAnimatedImageManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VRTAnimatedImageManager.h; path = ViroReact/VRTAnimatedImageManager.h; sourceTree = "<group>"; };
+		A5A1075D212D5491008B2DFB /* VRTAnimatedImageManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = VRTAnimatedImageManager.mm; path = ViroReact/VRTAnimatedImageManager.mm; sourceTree = "<group>"; };
+		A5A10761212D54B2008B2DFB /* VRTAnimatedImage.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = VRTAnimatedImage.mm; path = ViroReact/Views/VRTAnimatedImage.mm; sourceTree = "<group>"; };
+		A5A10762212D54B2008B2DFB /* VRTAnimatedImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VRTAnimatedImage.h; path = ViroReact/Views/VRTAnimatedImage.h; sourceTree = "<group>"; };
 		A5A937A71E81D1FB00FE0406 /* VRTSceneNavigatorModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VRTSceneNavigatorModule.h; path = ViroReact/Modules/VRTSceneNavigatorModule.h; sourceTree = "<group>"; };
 		A5A937A81E81D1FB00FE0406 /* VRTSceneNavigatorModule.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = VRTSceneNavigatorModule.mm; path = ViroReact/Modules/VRTSceneNavigatorModule.mm; sourceTree = "<group>"; };
 		A5B4AEF72050B44B0006D970 /* VRTPolygon.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = VRTPolygon.mm; path = ViroReact/Views/VRTPolygon.mm; sourceTree = "<group>"; };
@@ -1187,6 +1197,8 @@
 				8BE0D4771DFA15880032AB99 /* VROHUDManager.mm */,
 				8BDD9E191E453F3500A42870 /* VRTBundleURLProvider.h */,
 				A5F6D4031E4B179700655F60 /* VRTControllerManager.h */,
+				A5A10759212D5491008B2DFB /* VRTAnimatedImageManager.h */,
+				A5A1075D212D5491008B2DFB /* VRTAnimatedImageManager.mm */,
 				A5839B4F1F68B40C009091A7 /* VRTParticleEmitterManager.h */,
 				A5839B501F68B40D009091A7 /* VRTParticleEmitterManager.mm */,
 				A5F6D4041E4B179700655F60 /* VRTControllerManager.mm */,
@@ -1289,6 +1301,8 @@
 		8BE0D4B81DFA3D8A0032AB99 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				A5A10762212D54B2008B2DFB /* VRTAnimatedImage.h */,
+				A5A10761212D54B2008B2DFB /* VRTAnimatedImage.mm */,
 				8BD950332058C71100F8BB9E /* VRTMaterialVideo.h */,
 				8BD950342058C71100F8BB9E /* VRTMaterialVideo.mm */,
 				A5B4AEF92050B44B0006D970 /* VRTPolygon.h */,
@@ -1713,6 +1727,7 @@
 				131E1E2520B89A560075D8E0 /* VRT3DObjectManager.mm in Sources */,
 				131E1E2620B89A560075D8E0 /* VRTMaterialManager.mm in Sources */,
 				131E1E2720B89A560075D8E0 /* VRTManagedAnimation.mm in Sources */,
+				A5A1075F212D5492008B2DFB /* VRTAnimatedImageManager.mm in Sources */,
 				131E1E2820B89A560075D8E0 /* VRTPolygon.mm in Sources */,
 				131E1E2920B89A560075D8E0 /* VRTNodeModule.mm in Sources */,
 				131E1E2A20B89A560075D8E0 /* VRTBundleURLProvider.mm in Sources */,
@@ -1745,6 +1760,7 @@
 				131E1E4520B89A560075D8E0 /* VRTSceneManager.mm in Sources */,
 				131E1E4620B89A560075D8E0 /* VRTLight.mm in Sources */,
 				131E1E4720B89A560075D8E0 /* VRTNode.mm in Sources */,
+				A5A10764212D54B2008B2DFB /* VRTAnimatedImage.mm in Sources */,
 				131E1E4820B89A560075D8E0 /* VRTView.mm in Sources */,
 				131E1E4920B89A560075D8E0 /* VRTLog.mm in Sources */,
 				131E1E4A20B89A560075D8E0 /* VRTARScene.mm in Sources */,
@@ -1828,6 +1844,7 @@
 				1385B1F520CA091C00C3B6CE /* VRT3DObjectManager.mm in Sources */,
 				1385B1F620CA091C00C3B6CE /* VRTMaterialManager.mm in Sources */,
 				1385B1F720CA091C00C3B6CE /* VRTManagedAnimation.mm in Sources */,
+				A5A10760212D5492008B2DFB /* VRTAnimatedImageManager.mm in Sources */,
 				1385B1F820CA091C00C3B6CE /* VRTPolygon.mm in Sources */,
 				1385B1F920CA091C00C3B6CE /* VRTNodeModule.mm in Sources */,
 				1385B1FA20CA091C00C3B6CE /* VRTBundleURLProvider.mm in Sources */,
@@ -1860,6 +1877,7 @@
 				1385B21520CA091C00C3B6CE /* VRTSceneManager.mm in Sources */,
 				1385B21620CA091C00C3B6CE /* VRTLight.mm in Sources */,
 				1385B21720CA091C00C3B6CE /* VRTNode.mm in Sources */,
+				A5A10765212D54B2008B2DFB /* VRTAnimatedImage.mm in Sources */,
 				1385B21820CA091C00C3B6CE /* VRTView.mm in Sources */,
 				1385B21920CA091C00C3B6CE /* VRTLog.mm in Sources */,
 				1385B21A20CA091C00C3B6CE /* VRTARScene.mm in Sources */,
@@ -1943,6 +1961,7 @@
 				8BE0D4A71DFA15880032AB99 /* VRT3DObjectManager.mm in Sources */,
 				8BE0D51B1DFA3DB20032AB99 /* VRTMaterialManager.mm in Sources */,
 				8F346B1B1F225559000D16B9 /* VRTManagedAnimation.mm in Sources */,
+				A5A1075E212D5492008B2DFB /* VRTAnimatedImageManager.mm in Sources */,
 				A5B4AEFA2050B44B0006D970 /* VRTPolygon.mm in Sources */,
 				A50A310F1ECE1E8800DEBE9B /* VRTNodeModule.mm in Sources */,
 				8BDD9E1B1E453F3500A42870 /* VRTBundleURLProvider.mm in Sources */,
@@ -1975,6 +1994,7 @@
 				8BE0D4A21DFA15880032AB99 /* VRTSceneManager.mm in Sources */,
 				8BE0D5041DFA3D9B0032AB99 /* VRTLight.mm in Sources */,
 				8BE0D5051DFA3D9B0032AB99 /* VRTNode.mm in Sources */,
+				A5A10763212D54B2008B2DFB /* VRTAnimatedImage.mm in Sources */,
 				8BE0D5111DFA3D9B0032AB99 /* VRTView.mm in Sources */,
 				8BE0D4AB1DFA15880032AB99 /* VRTLog.mm in Sources */,
 				8A0524331EF0A49C00A02361 /* VRTARScene.mm in Sources */,
