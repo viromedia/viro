@@ -187,6 +187,11 @@ var ReleaseMenu = createReactClass({
                           onClick={() => {this.props.sceneNavigator.replace("ViroPivotTest", {scene:require("./ViroPivotTest"), passProps:{showMenu:true}})}}
                    />
 
+                   <ViroText style={styles.centeredText}  position={[3, -12, -4]} width={1.5} height={2}
+                          text={"ViroAnimatedImageTest"}
+                          onClick={() => {this.props.sceneNavigator.replace("ViroAnimatedImageTest", {scene:require("./ViroAnimatedImageTest"), passProps:{showMenu:true}})}}
+                   />
+
                    <ViroText style={styles.centeredText}  position={[0, -12, -4]} width={1.5} height={2}
                           text={"ViroPolylineTest"}
                           onClick={() => {this.props.sceneNavigator.replace("ViroPolylineTest", {scene:require("./ViroPolylineTest"), passProps:{showMenu:true}})}}
