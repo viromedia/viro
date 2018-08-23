@@ -9,6 +9,7 @@ import com.viro.core.Camera;
 import com.viro.core.Node;
 import com.viro.core.Vector;
 import com.viromedia.bridge.component.node.VRTNode;
+import com.viromedia.bridge.utility.Helper;
 
 public class VRTCamera extends VRTNode {
     protected static final float DEFAULT_FOV = 0;
@@ -78,7 +79,7 @@ public class VRTCamera extends VRTNode {
         mNativeCamera.setPosition(new Vector(mPosition));
         mNativeCamera.setRotationType(getRotationType());
         mNativeCamera.setFieldOfView(mFieldOfView);
-
+        mNativeCamera.setRotation(Helper.toRadiansVector(mRotation));
 
     }
 
