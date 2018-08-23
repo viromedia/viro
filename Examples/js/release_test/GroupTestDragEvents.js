@@ -56,7 +56,8 @@ var GroupTestDragEvents = createReactClass({
   getInitialState() {
     return {
         transformFlag: 1,
-        transformBehaviors:["billboard"]
+        transformBehaviors:["billboard"],
+        currentDragType:"FixedDistance"
     };
   },
 onHover(objectTag){return (source, isHovering)  => {
@@ -89,6 +90,9 @@ onDrag(objectTag){return (dragtoPos, source) => {
                 <ReleaseMenu sceneNavigator={this.props.sceneNavigator}/>
 
 
+                <ViroText width={2} height={1} position={[0.8, -1.75, -3.5]}
+                          text={"Toggle DragType" + this.state.currentDragType} onClick={this._toggleDragType} />
+
                 <ViroNode position={[0.8 , 0, -3.5]} >
 
 
@@ -97,6 +101,7 @@ onDrag(objectTag){return (dragtoPos, source) => {
                               position={[-3.2, 2.5, -4.5]}
                               materials={["heart"]}
                               type="OBJ"
+                              dragType={this.state.currentDragType}
                               onDrag={this.onDrag("3dObject")}/>
 
                   <ViroBox
@@ -106,6 +111,7 @@ onDrag(objectTag){return (dragtoPos, source) => {
                       height={1}
                       width={1}
                       length={1}
+                      dragType={this.state.currentDragType}
                       onDrag={this.onDrag("ViroBox")}
                       />
 
@@ -115,6 +121,7 @@ onDrag(objectTag){return (dragtoPos, source) => {
                       source={LocalButtonImage}
                       hoverSource={LocalButtonImage}
                       clickSource={LocalButtonImage}
+                      dragType={this.state.currentDragType}
                       onDrag={this.onDrag("ViroButton")}
                       />
 
@@ -124,6 +131,7 @@ onDrag(objectTag){return (dragtoPos, source) => {
                       materials={["redColor"]}
                       width={3}
                       height={2}
+                      dragType={this.state.currentDragType}
                       onDrag={this.onDrag("ViroFlexView")}/>
                   <ViroImage
                       width={1} height={1}
@@ -131,13 +139,13 @@ onDrag(objectTag){return (dragtoPos, source) => {
                       position={[-2, 0, 0]}
                       scale={[0.5, 0.5, 0.1]}
                       source={{uri: "https://upload.wikimedia.org/wikipedia/commons/7/74/Earth_poster_large.jpg"}}
-
+                      dragType={this.state.currentDragType}
                       onDrag={this.onDrag("ViroImage")}/>
                   <ViroNode
                     position={[-1, 0, 0]}
                     scale={[0.5, 0.5, 0.1]}
                     rotation={[0,0,0]}
-
+                    dragType={this.state.currentDragType}
                       onDrag={this.onDrag("ViroNode")}>
                     <ViroText
                         style={styles.baseTextTwo}
@@ -151,12 +159,14 @@ onDrag(objectTag){return (dragtoPos, source) => {
                       heightSegmentCount={5}
                       radius={1}
                       materials={["redColor"]}
+                      dragType={this.state.currentDragType}
                       onDrag={this.onDrag("ViroSphere")}
                       />
 
                   <ViroSpinner
                       position={[1, 0, 0]}
                       scale={[0.3, 0.3, 0.1]}
+                      dragType={this.state.currentDragType}
                       onDrag={this.onDrag("ViroSpinner")}/>
 
                   <ViroQuad
@@ -165,6 +175,7 @@ onDrag(objectTag){return (dragtoPos, source) => {
                       materials={["redColor"]}
                       width={1}
                       height={1}
+                      dragType={this.state.currentDragType}
                          onDrag={this.onDrag("ViroQuad")}/>
 
                   <ViroText
@@ -172,15 +183,17 @@ onDrag(objectTag){return (dragtoPos, source) => {
                       scale={[0.5 , 0.5, 0.1]}
                       style={styles.baseTextTwo}
                       text="This is a Viro Text"
+                      dragType={this.state.currentDragType}
                          onDrag={this.onDrag("ViroText")}/>
                   <ViroVideo
                       position={[0 , -1,0]}
                       scale={[0.1, 0.1, 0.1]}
                       height={4} width={4}
                       onDrag={this.onDrag("ViroVideo")}
+                      dragType={this.state.currentDragType}
                       source={{"uri":"https://s3-us-west-2.amazonaws.com/viro/Climber1Top.mp4"}} />
-                </ViroNode>
 
+                </ViroNode>
                    <ViroOmniLight
                                      position={[0, 0, 0]}
                                      color={"#ffffff"}
@@ -195,6 +208,12 @@ onDrag(objectTag){return (dragtoPos, source) => {
   _showNext() {
     this.props.sceneNavigator.replace({scene:require('./ViroVideoTest')});
   },
+
+
+    _toggleDragType() {
+      var type = this.state.currentDragType == "FixedDistance" ? "FixedDistanceOrigin" : "FixedDistance";
+      this.setState({currentDragType:type});
+    },
 
   _toggleTransform(){
     var newtransformflag = this.state.transformFlag + 1;

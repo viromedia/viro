@@ -30,7 +30,7 @@ var ViroARObjectMarker = createReactClass({
     visible: PropTypes.bool,
     opacity: PropTypes.number,
     ignoreEventHandling: PropTypes.bool,
-    dragType: PropTypes.oneOf(["FixedDistance", "FixedToWorld", "FixedToPlane"]),
+    dragType: PropTypes.oneOf(["FixedDistance", "FixedDistanceOrigin", "FixedToWorld", "FixedToPlane"]),
     dragPlane: PropTypes.shape({
       planePoint : PropTypes.arrayOf(PropTypes.number),
       planeNormal : PropTypes.arrayOf(PropTypes.number),

@@ -37,7 +37,7 @@ var ViroARScene = createReactClass({
       PropTypes.arrayOf(PropTypes.string),
       PropTypes.string
     ]),
-    dragType: PropTypes.oneOf(["FixedDistance", "FixedToWorld", "FixedToPlane"]),
+    dragType: PropTypes.oneOf(["FixedDistance", "FixedDistanceOrigin", "FixedToWorld", "FixedToPlane"]),
     dragPlane: PropTypes.shape({
       planePoint : PropTypes.arrayOf(PropTypes.number),
       planeNormal : PropTypes.arrayOf(PropTypes.number),
