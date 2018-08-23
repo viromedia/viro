@@ -56,6 +56,13 @@ RCT_EXPORT_METHOD(performARHitTestWithRay:(nonnull NSNumber *)viewTag
     }];
 }
 
+RCT_EXPORT_METHOD(performARHitTestWithWorldPoints:(nonnull NSNumber *)viewTag
+                  ray:(NSArray *)ray
+                  resolver:(RCTPromiseResolveBlock)resolve
+                  rejecter:(RCTPromiseRejectBlock)reject) {
+    // No-op for iOS, used only in Android
+}
+
 RCT_EXPORT_METHOD(performARHitTestWithPosition:(nonnull NSNumber *)viewTag
                   position:(NSArray *)position
                   resolver:(RCTPromiseResolveBlock)resolve
