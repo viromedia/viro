@@ -78,7 +78,7 @@ public class ARSceneModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void performARHitTestWithRay(final int viewTag, final ReadableArray origin, final ReadableArray destination,
+    public void performARHitTestWithWorldPoints(final int viewTag, final ReadableArray origin, final ReadableArray destination,
                                         final Promise promise) {
         UIManagerModule uiManager = getReactApplicationContext().getNativeModule(UIManagerModule.class);
         uiManager.addUIBlock(new UIBlock() {
