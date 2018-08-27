@@ -55,6 +55,11 @@ public class VRTARSceneNavigator extends VRT3DSceneNavigator {
                     }
                 }
             });
+
+            if (navigator.mNeedsAutoFocusToggle) {
+                navigator.setAutoFocusEnabled(navigator.mAutoFocusEnabled);
+                navigator.mNeedsAutoFocusToggle = false;
+            }
         }
 
         @Override
@@ -91,17 +96,6 @@ public class VRTARSceneNavigator extends VRT3DSceneNavigator {
                 new StartupListenerARCore(this));
     }
 
-
-    @Override
-    public void onPropsSet() {
-        if (mNeedsAutoFocusToggle) {
-            if (mViroView != null && mViroView instanceof ViroViewARCore) {
-                ((ViroViewARCore)mViroView).setCameraAutoFocusEnabled(mAutoFocusEnabled);
-                mNeedsAutoFocusToggle = false;
-            }
-        }
-    }
-
     @Override
     public void addView(View child, int index) {
         // This view only accepts ARScene and VrView children!
@@ -131,6 +125,10 @@ public class VRTARSceneNavigator extends VRT3DSceneNavigator {
 
     public void setAutoFocusEnabled(boolean enabled) {
         mAutoFocusEnabled = enabled;
-        mNeedsAutoFocusToggle = true;
+        if (mGLInitialized) {
+            ((ViroViewARCore)mViroView).setCameraAutoFocusEnabled(mAutoFocusEnabled);
+        } else {
+            mNeedsAutoFocusToggle = true;
+        }
     }
 }
