@@ -30,6 +30,7 @@ import com.viromedia.bridge.component.node.VRTARSceneManager;
 import com.viromedia.bridge.component.node.VRTSceneManagerImpl;
 import com.viromedia.bridge.component.node.control.VRT3DObjectManager;
 import com.viromedia.bridge.component.node.control.VRTAnimatedImageManager;
+import com.viromedia.bridge.component.node.control.VRTGeometryManager;
 import com.viromedia.bridge.component.node.control.VRTParticleEmitterManager;
 import com.viromedia.bridge.component.node.control.VRTPolygonManager;
 import com.viromedia.bridge.component.node.control.VRTPolylineManager;
@@ -112,6 +113,7 @@ public class ReactViroPackage implements ReactPackage {
                 new VRTSceneManagerImpl(reactContext),
                 new VRT3DSceneNavigatorManager(reactContext, mViroPlatform),
                 new VRTBoxManager(reactContext),
+                new VRTGeometryManager(reactContext),
                 new VRTVideoSurfaceManager(reactContext),
                 new VRT360VideoManager(reactContext),
                 new VRTNodeManagerImpl(reactContext),
