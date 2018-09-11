@@ -1,22 +1,22 @@
 //
-//  VROBoxManager.m
-//  React
+//  VRTGeometryManager.m
+//  ViroReact
 //
-//  Created by Vik Advani on 12/15/15.
-//  Copyright © 2015 Viro Media. All rights reserved.
+//  Created by Raj Advani on 9/11/18.
+//  Copyright © 2018 Viro Media. All rights reserved.
 //
 
-#import "VRTBoxManager.h"
-#import "VRTBox.h"
+#import "VRTGeometryManager.h"
+#import "VRTGeometry.h"
 
-
-@implementation VRTBoxManager
+@implementation VRTGeometryManager
 
 RCT_EXPORT_MODULE()
 
-RCT_EXPORT_VIEW_PROPERTY(width, float)
-RCT_EXPORT_VIEW_PROPERTY(height, float)
-RCT_EXPORT_VIEW_PROPERTY(length, float)
+RCT_EXPORT_VIEW_PROPERTY(vertices, NSArray<NSArray *>)
+RCT_EXPORT_VIEW_PROPERTY(normals, NSArray<NSArray *>)
+RCT_EXPORT_VIEW_PROPERTY(texcoords, NSArray<NSArray *>)
+RCT_EXPORT_VIEW_PROPERTY(triangleIndices, NSArray<NSArray *>)
 RCT_EXPORT_VIEW_PROPERTY(position, NSNumberArray)
 RCT_EXPORT_VIEW_PROPERTY(scale, NSNumberArray)
 RCT_EXPORT_VIEW_PROPERTY(rotation, NSNumberArray)
@@ -58,7 +58,7 @@ RCT_EXPORT_VIEW_PROPERTY(dragPlane, NSDictionary)
 
 - (VRTView *)view
 {
-    return [[VRTBox alloc] initWithBridge:self.bridge];
+    return [[VRTGeometry alloc] initWithBridge:self.bridge];
 }
 
 @end

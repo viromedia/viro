@@ -10,7 +10,6 @@
 #import <React/RCTBridge.h>
 #import "VRTControl.h"
 
-
 @interface VRTBox : VRTControl
 
 @property (nonatomic, assign) float width;

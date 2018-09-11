@@ -34,6 +34,7 @@ const ReactViro = {
   get ViroUtils() { return require('./components/Utilities/ViroUtils'); },
   get ViroProps() { return require('./components/Utilities/ViroProps'); },
   get ViroText() { return require('./components/ViroText'); },
+  get ViroGeometry() { return require('./components/ViroGeometry'); },
   get ViroSurface() { return require('./components/ViroSurface'); },
   get ViroQuad() { return require('./components/ViroQuad'); },
   get ViroAnimatedImage() { return require('./components/ViroAnimatedImage'); },

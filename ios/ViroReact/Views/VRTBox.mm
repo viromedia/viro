@@ -10,7 +10,6 @@
 #import "VRTBox.h"
 #import "VRTMaterialManager.h"
 
-
 @implementation VRTBox {
     std::shared_ptr<VROBox> _box;
 }
