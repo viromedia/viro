@@ -13,7 +13,7 @@ pipeline {
     stage('node_modules (clean install)') {
       steps {
         sh '''cd Examples
-        rm -rf node_modules ; npm install'''
+        rm -rf node_modules/react-viro ; npm install'''
       }
     }
     stage('viroreact (android)') {
