@@ -98,7 +98,7 @@ export default class ViroExperienceSelector extends Component {
       } else {
         return this._get3DSceneNavigator();
       }
-    } 
+    }
   }
     _getSceneSelectionButtons() {
     return (
@@ -237,7 +237,7 @@ export default class ViroExperienceSelector extends Component {
       } else {
         return "World Alignment? (No effect on Android)"
       }
-      
+
     }
   }
   _getButtonText(buttonNum) {
@@ -261,7 +261,7 @@ export default class ViroExperienceSelector extends Component {
             return "Basic Events";
           case 2:
             return "Drag Events";
-          case 3: 
+          case 3:
             return "Videos";
           case 4:
             return "Sounds";
@@ -281,7 +281,8 @@ export default class ViroExperienceSelector extends Component {
           videoQuality={this.state.videoQualityHigh ? "High" : "Low"}
           autofocus={this.state.autofocus}
           viroAppProps={{ toggleAutofocus : this._toggleAutofocus,
-                          toggleVideoQuality : this._toggleVideoQuality}} />
+                          toggleVideoQuality : this._toggleVideoQuality,
+                          onExitViro:()=>{this.setState({navigatorType : UNSET, vrMode : UNSET})}}} />
 
         <View style={localStyles.exitButtonContainer}>
           <TouchableHighlight style={localStyles.exitButton}

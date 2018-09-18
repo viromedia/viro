@@ -72,6 +72,8 @@ var ARReleaseMenu = createReactClass({
       <ViroARScene>
         <ViroText style={styles.centeredText}  position={[0, 1, -4]} width={1.5} height ={1.5}
           text={"AR Release Test Menu"} />
+        <ViroText style={styles.centeredText}  position={[1.5, 1, -4]} width={1.5} height ={1.5}
+          text={"EXIT Test"} onClick={this._exitTest()}/>
         {this._getText()}
       </ViroARScene>
     );
@@ -92,6 +94,11 @@ var ARReleaseMenu = createReactClass({
   _getOnClick(file) {
     return ()=>{
       this.props.arSceneNavigator.replace(file[0], {scene:file[1]})
+    }
+  },
+  _exitTest(){
+    return ()=>{
+      this.props.arSceneNavigator.viroAppProps.onExitViro();
     }
   }
 });
