@@ -107,10 +107,6 @@ var PhysicsScaleTest = createReactClass({
                   <ViroText fontSize={25}  style={styles.centeredText}
                       position={[2,0, 0]} width={4} height ={2} maxLines={3}
                       text={"Toggle Translation "} onClick={this.togglePhysicsBody(3)}/>
-
-                  <ViroText fontSize={25}  style={styles.centeredText}
-                      position={[0,-1, 0]} width={4} height ={2} maxLines={3}
-                      text={"Toggle Dimensions"} onClick={this.togglePhysicsBody(4)}/>
                 </ViroNode>
 
 
