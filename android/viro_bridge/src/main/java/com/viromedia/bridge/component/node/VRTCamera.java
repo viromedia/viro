@@ -1,7 +1,7 @@
 /**
  * Copyright © 2016 Viro Media. All rights reserved.
  */
-package com.viromedia.bridge.component.node.control;
+package com.viromedia.bridge.component.node;
 
 
 import com.facebook.react.bridge.ReactContext;

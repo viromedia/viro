@@ -1,13 +1,14 @@
 /**
  * Copyright © 2016 Viro Media. All rights reserved.
  */
-package com.viromedia.bridge.component.node.control;
+package com.viromedia.bridge.component.node;
 
 
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.uimanager.ThemedReactContext;
 import com.facebook.react.uimanager.annotations.ReactProp;
+import com.viromedia.bridge.component.node.VRTCamera;
 import com.viromedia.bridge.component.node.VRTNodeManager;
 
 public class VRTCameraManager extends VRTNodeManager<VRTCamera> {

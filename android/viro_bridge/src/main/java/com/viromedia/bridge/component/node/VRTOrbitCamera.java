@@ -1,12 +1,13 @@
 /**
  * Copyright © 2016 Viro Media. All rights reserved.
  */
-package com.viromedia.bridge.component.node.control;
+package com.viromedia.bridge.component.node;
 
 
 import com.facebook.react.bridge.ReactContext;
 import com.viro.core.Camera;
 import com.viro.core.Vector;
+import com.viromedia.bridge.component.node.VRTCamera;
 
 public class VRTOrbitCamera extends VRTCamera {
     private float[] mFocalPoint;

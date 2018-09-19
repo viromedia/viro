@@ -15,7 +15,7 @@ import com.facebook.react.uimanager.NativeViewHierarchyManager;
 import com.facebook.react.uimanager.UIBlock;
 import com.facebook.react.uimanager.UIManagerModule;
 import com.viro.core.internal.CameraCallback;
-import com.viromedia.bridge.component.node.control.VRTCamera;
+import com.viromedia.bridge.component.node.VRTCamera;
 import com.viromedia.bridge.component.node.VRTScene;
 
 public class CameraModule extends ReactContextBaseJavaModule {

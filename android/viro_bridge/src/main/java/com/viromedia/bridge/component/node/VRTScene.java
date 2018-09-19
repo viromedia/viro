@@ -22,7 +22,6 @@ import com.viro.core.Texture;
 import com.viro.core.Vector;
 import com.viro.core.VideoTexture;
 import com.viro.core.Renderer;
-import com.viromedia.bridge.component.node.control.VRTCamera;
 import com.viromedia.bridge.utility.Helper;
 import com.viromedia.bridge.utility.ViroEvents;
 
