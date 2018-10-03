@@ -22,7 +22,7 @@ RCT_EXPORT_MODULE()
 RCT_EXPORT_METHOD(requestExitVr:(nonnull NSNumber *)sceneNavTag) {
   [self.bridge.uiManager addUIBlock:^(__unused RCTUIManager *uiManager, NSDictionary<NSNumber *, UIView *> *viewRegistry) {
     NSLog(@"User Exit VR VRTSceneNav Module RCT_EXPORT_METHOD");
-    
+
     UIView *sceneNavigator = viewRegistry[sceneNavTag];
     
     if (![sceneNavigator isKindOfClass:[VRT3DSceneNavigator class]]) {
@@ -49,6 +49,52 @@ RCT_EXPORT_METHOD(recenterTracking:(nonnull NSNumber *)sceneNavTag) {
       [nav recenterTracking];
     }
   }];
+}
+
+//take 3d position and convert to 2d screen position.
+RCT_EXPORT_METHOD(project:(nonnull NSNumber *)reactTag
+                  position:(NSArray<NSNumber *> *)position
+                  resolve:(RCTPromiseResolveBlock)resolve
+                  reject:(RCTPromiseRejectBlock)reject) {
+    [self.bridge.uiManager addUIBlock:^(__unused RCTUIManager *uiManager, NSDictionary<NSNumber *, UIView *> *viewRegistry) {
+        
+        VROVector3f pos = VROVector3f([[position objectAtIndex:0] floatValue],
+                                      [[position objectAtIndex:1] floatValue],
+                                      [[position objectAtIndex:2] floatValue]);
+
+        VRTView *view = (VRTView *)viewRegistry[reactTag];
+        if (![view isKindOfClass:[VRT3DSceneNavigator class]]) {
+            RCTLogError(@"Invalid view returned from registry, expecting VRTSceneNavigator, got: %@", view);
+        } else {
+            VRT3DSceneNavigator *component = (VRT3DSceneNavigator *)view;
+            VROVector3f projectedPoint = [component projectPoint:pos];
+            resolve(@{
+                      @"screenPosition" : @[@(projectedPoint.x), @(projectedPoint.y)]});
+        }
+    }];
+}
+
+// take 2d screen position and project into 3d
+RCT_EXPORT_METHOD(unproject:(nonnull NSNumber *)reactTag
+                  position:(NSArray<NSNumber *> *)position
+                  resolve:(RCTPromiseResolveBlock)resolve
+                  reject:(RCTPromiseRejectBlock)reject) {
+    [self.bridge.uiManager addUIBlock:^(__unused RCTUIManager *uiManager, NSDictionary<NSNumber *, UIView *> *viewRegistry) {
+        
+        VROVector3f pos = VROVector3f([[position objectAtIndex:0] floatValue],
+                                      [[position objectAtIndex:1] floatValue],
+                                      [[position objectAtIndex:2] floatValue]);
+
+        VRTView *view = (VRTView *)viewRegistry[reactTag];
+        if (![view isKindOfClass:[VRT3DSceneNavigator class]]) {
+            RCTLogError(@"Invalid view returned from registry, expecting VRTSceneNavigator, got: %@", view);
+        } else {
+            VRT3DSceneNavigator *component = (VRT3DSceneNavigator *)view;
+            VROVector3f projectedPoint = [component unprojectPoint:pos];
+            resolve(@{
+                      @"position" : @[@(projectedPoint.x), @(projectedPoint.y), @(projectedPoint.z)]});
+        }
+    }];
 }
 
 @end

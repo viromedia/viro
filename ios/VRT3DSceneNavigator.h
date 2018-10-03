@@ -32,6 +32,8 @@
 - (NSArray *)reactSubviews;
 - (UIView *)reactSuperview;
 - (UIView *)rootVROView;
+- (VROVector3f)unprojectPoint:(VROVector3f)point;
+- (VROVector3f)projectPoint:(VROVector3f)point;
 - (void)invalidate;
 - (void)recenterTracking;
 

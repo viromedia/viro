@@ -17,6 +17,7 @@ import com.viro.core.RendererConfiguration;
 import com.viro.core.ViroContext;
 
 import com.viro.core.ViroView;
+import com.viro.core.Vector;
 import com.viro.core.ViroViewScene;
 import com.viromedia.bridge.ReactViroPackage;
 import com.viromedia.bridge.component.node.VRTScene;
@@ -378,6 +379,37 @@ public class VRT3DSceneNavigator extends FrameLayout {
             throw new IllegalStateException("recenterTracking should not be invoked on Daydream devices.");
         }
         mViroView.recenterTracking();
+    }
+
+
+    /**
+     *  Unproject the given screen coordinates into world coordinates. The given screen coordinate vector must
+     *  contain a Z element in the range [0,1], where 0 is the near clipping plane and 1 the far clipping plane.
+     * @param point x,y,z vector containing screen coordinates. Z is value from 0 to 1 which represents a range from near
+     *              to far clipping plane.
+     * @return a {@link Vector} that represents the 3d world position of the screen coordinate. The depth is determined by
+     *         the input z value, which interpolates the depth between the near and far clipping plane.
+     */
+    public Vector unprojectPoint(Vector point) {
+        if(mViroView == null || mViroView.getRenderer() == null) {
+            throw new IllegalStateException("Unable to invoke unprojectPoint. Renderer is not initalized");
+
+        Vector unprojectPoint = mViroView.getRenderer().unprojectPoint(point.x, point.y, point.z);
+        return unprojectPoint;
+    }
+
+    /**
+     * Project the given world coordinates into screen coordinates.
+     * @param point x,y,x world coord to convert into screen cords.
+     * @return a {@link Vector} whose x and y values represent the screen coordinates.
+     */
+    public Vector projectPoint(Vector point) {
+        if(mViroView == null || mViroView.getRenderer() == null) {
+            throw new IllegalStateException("Unable to invoke unprojectPoint. Renderer is not initalized");
+        }
+
+        Vector projectedPoint = mViroView.getRenderer().projectPoint(point.x, point.y, point.z);
+        return projectedPoint;
     }
 
     public void setHDREnabled(boolean enabled) {

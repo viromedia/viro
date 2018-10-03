@@ -89,6 +89,8 @@ var ViroSceneNavigator = createReactClass({
       replace: this.replace,
       exitViro: this.exitViro,
       recenterTracking: this._recenterTracking,
+      project: this._project,
+      unproject: this._unproject,
     };
   },
 
@@ -385,6 +387,14 @@ var ViroSceneNavigator = createReactClass({
     }
     // Unable to find the given sceneTag, return -1
     return -1;
+  },
+
+  async _project(point) {
+    return await ViroSceneNavigatorModule.project(findNodeHandle(this), position);
+  },
+
+  async _unproject(point) {
+    return await ViroSceneNavigatorModule.unproject(findNodeHandle(this), position);
   },
 
   _recenterTracking() {

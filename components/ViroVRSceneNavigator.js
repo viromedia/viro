@@ -95,6 +95,8 @@ var ViroVRSceneNavigator = createReactClass({
       jump: this.jump,
       replace: this.replace,
       exitViro: this.exitViro,
+      project: this._project,
+      unproject: this._unproject,
       recenterTracking: this._recenterTracking,
     };
   },
@@ -396,6 +398,14 @@ var ViroVRSceneNavigator = createReactClass({
 
   _recenterTracking() {
     ViroSceneNavigatorModule.recenterTracking(findNodeHandle(this));
+  },
+
+  async _project(point) {
+    return await ViroSceneNavigatorModule.project(findNodeHandle(this), position);
+  },
+
+  async _unproject(point) {
+    return await ViroSceneNavigatorModule.unproject(findNodeHandle(this), position);
   },
 
   _renderSceneStackItems: function() {

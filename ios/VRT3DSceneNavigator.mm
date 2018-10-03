@@ -267,6 +267,29 @@ static NSString *const kVRTInvalidAPIKeyMessage = @"The given API Key is either 
     }
 }
 
+/*
+ Unproject the given screen coordinates into world coordinates. The given screen coordinate vector must
+ contain a Z element in the range [0,1], where 0 is the near clipping plane and 1 the far clipping plane.
+ */
+-(VROVector3f) unprojectPoint:(VROVector3f)point {
+    if(_vroView == nil || _vroView.renderer == nil) {
+        RCTLogError(@"Unable to unproject. Renderer not intialized");
+    }
+
+    VROVector3f unprojectedPoint = [_vroView unprojectPoint:point];
+    return unprojectedPoint;
+}
+
+// Project the given world coordinates into screen coordinates.
+-(VROVector3f) projectPoint:(VROVector3f)point {
+    if(_vroView == nil || _vroView.renderer == nil) {
+        RCTLogError(@"Unable to unproject. Renderer not intialized");
+    }
+
+    VROVector3f projectedPoint = [_vroView projectPoint:point];
+    return projectedPoint;
+}
+
 #pragma mark RCTInvalidating methods
 
 - (void)invalidate {

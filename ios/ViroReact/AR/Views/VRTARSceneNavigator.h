@@ -36,6 +36,8 @@
 - (UIView *)reactSuperview;
 - (UIView *)rootVROView;
 - (void)invalidate;
+- (VROVector3f)unprojectPoint:(VROVector3f)point;
+- (VROVector3f)projectPoint:(VROVector3f)point;
 
 - (void)startVideoRecording:(NSString *)fileName
            saveToCameraRoll:(BOOL)saveToCameraRoll

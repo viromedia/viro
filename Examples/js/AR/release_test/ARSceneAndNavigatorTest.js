@@ -41,6 +41,9 @@ let pointCloudDict = {
   maxPoints : 50
 };
 
+var projectPoint = [1, 1, -4];
+var unprojectPoint = [200, 500, .1];
+
 var testARScene = createReactClass({
   mixins: [TimerMixin],
   getInitialState: function() {
@@ -53,7 +56,9 @@ var testARScene = createReactClass({
       displayPointCloud : pointCloudDict,
       pointCloudPoints : 0,
       worldOriginChanged : false,
-      trackingState :""
+      trackingState :"",
+      projectedPoint:[0,0,0],
+      unprojectedPoint:[0,0,0],
     }
   },
   componentDidMount: function() {
@@ -101,6 +106,10 @@ var testARScene = createReactClass({
         onARPointCloudUpdate={this._onARPointCloudUpdate} >
 
         {/* ViroARSceneNavigator tests */}
+        <ViroText position={polarToCartesian([6, 0, 40])} text={"Unproject point(200, 500, .1)==>(" +this.state.unprojectedPoint[0] + "," + this.state.unprojectedPoint[1] + "," + this.state.unprojectedPoint[2] + ")"}
+          style={styles.instructionText} onClick={this._unprojectPoint} transformBehaviors={["billboard"]}/>
+        <ViroText position={polarToCartesian([6, 0, 30])} text={"Projected point(1, 1, -4)==>(" +this.state.projectedPoint[0] + "," + this.state.projectedPoint[1] + "," + this.state.projectedPoint[2] + ")"}
+          style={styles.instructionText} onClick={this._projectPoint} transformBehaviors={["billboard"]}/>
         <ViroText position={polarToCartesian([6, 0, 20])} text={this.state.trackingState}
           style={styles.instructionText} onClick={this._startStopRecording} transformBehaviors={["billboard"]}/>
         <ViroText position={polarToCartesian([6, 0, 10])} text={"Recording? " + (this.state.isRecording ? "Yes" : "No")}
@@ -149,6 +158,23 @@ var testARScene = createReactClass({
       ViroImage.evictFromCache({uri : "file://" + this.state.screenshot});
     }
   },
+
+  _projectPoint() {
+    this.props.arSceneNavigator.project(projectPoint).then((rectDict)=> {
+      this.setState({
+          projectedPoint: rectDict["screenPosition"],
+      });
+    });
+  },
+
+  _unprojectPoint() {
+    this.props.arSceneNavigator.unproject(unprojectPoint).then((rectDict)=> {
+        this.setState({
+            unprojectedPoint: rectDict["position"],
+        });
+    });
+  },
+
   _changeWorldOrigin() {
     this.props.arSceneNavigator.setWorldOrigin({
       position : this.state.worldOriginChanged ? [0, 0, 1] : [0, 0, -1]

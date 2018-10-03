@@ -88,6 +88,8 @@ var Viro3DSceneNavigator = createReactClass({
       replace: this.replace,
       exitViro: this.exitViro,
       recenterTracking: this._recenterTracking,
+      project: this._project,
+      unproject: this._unproject,
     };
   },
 
@@ -401,6 +403,14 @@ var Viro3DSceneNavigator = createReactClass({
           i++;
       }
       return views;
+  },
+
+  async _project(point) {
+    return await Viro3DSceneNavigatorModule.project(findNodeHandle(this), position);
+  },
+
+  async _unproject(point) {
+    return await Viro3DSceneNavigatorModule.unproject(findNodeHandle(this), position);
   },
 
   render: function() {

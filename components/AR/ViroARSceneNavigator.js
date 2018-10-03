@@ -54,7 +54,7 @@ var ViroARSceneNavigator = createReactClass({
        * iOS only props! Note: these props may change as the underlying platforms coalesce in features.
        */
       worldAlignment:PropTypes.oneOf(['Gravity', 'GravityAndHeading', 'Camera']),
-      
+
       videoQuality : PropTypes.oneOf(['High', 'Low']),
       numberOfTrackedImages : PropTypes.number,
 
@@ -90,7 +90,9 @@ var ViroARSceneNavigator = createReactClass({
       stopVideoRecording: this._stopVideoRecording,
       takeScreenshot: this._takeScreenshot,
       resetARSession: this._resetARSession,
-      setWorldOrigin: this._setWorldOrigin
+      setWorldOrigin: this._setWorldOrigin,
+      project: this._project,
+      unproject: this._unproject,
     };
     this.sceneNavigator = {
       push: this.push,
@@ -102,7 +104,9 @@ var ViroARSceneNavigator = createReactClass({
       stopVideoRecording: this._stopVideoRecording,
       takeScreenshot: this._takeScreenshot,
       resetARSession: this._resetARSession,
-      setWorldOrigin: this._setWorldOrigin
+      setWorldOrigin: this._setWorldOrigin,
+      project: this._project,
+      unproject: this._unproject,
     };
   },
   getInitialState: function(): State {
@@ -422,6 +426,15 @@ var ViroARSceneNavigator = createReactClass({
    */
   async _takeScreenshot(fileName, saveToCameraRoll) {
     return await ViroARSceneNavigatorModule.takeScreenshot(findNodeHandle(this), fileName, saveToCameraRoll);
+  },
+
+
+  async _project(point) {
+    return await ViroARSceneNavigatorModule.project(findNodeHandle(this), point);
+  },
+
+  async _unproject(point) {
+    return await ViroARSceneNavigatorModule.unproject(findNodeHandle(this), point);
   },
 
   /*

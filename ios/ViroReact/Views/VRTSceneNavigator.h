@@ -26,6 +26,8 @@
 - (instancetype)initWithBridge:(RCTBridge *)bridge;
 - (void)insertReactSubview:(UIView *)subview atIndex:(NSInteger)atIndex;
 - (void)removeReactSubview:(UIView *)subview;
+- (VROVector3f)unprojectPoint:(VROVector3f)point;
+- (VROVector3f)projectPoint:(VROVector3f)point;
 - (NSArray *)reactSubviews;
 - (UIView *)reactSuperview;
 - (UIView *)rootVROView;
