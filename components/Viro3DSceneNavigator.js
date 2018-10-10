@@ -66,6 +66,7 @@ var Viro3DSceneNavigator = createReactClass({
      pbrEnabled: PropTypes.bool,
      bloomEnabled: PropTypes.bool,
      shadowsEnabled: PropTypes.bool,
+     multisamplingEnabled: PropTypes.bool,
   },
 
   sceneNavigator: (undefined: ?Object),

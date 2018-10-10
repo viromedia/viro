@@ -62,6 +62,11 @@ public class VRT3DSceneNavigatorManager extends VRTViroViewGroupManager<VRT3DSce
         navigator.setShadowsEnabled(enabled);
     }
 
+    @ReactProp(name = "multisamplingEnabled", defaultBoolean = true)
+    public void setMultisamplingEnabled(VRT3DSceneNavigator navigator, boolean enabled) {
+        navigator.setMultisamplingEnabled(enabled);
+    }
+
     @ReactProp(name = "currentSceneIndex")
     public void setCurrentSceneIndex(VRT3DSceneNavigator view, int selectedIndex) {
         view.setCurrentSceneIndex(selectedIndex);

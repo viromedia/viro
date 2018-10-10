@@ -277,6 +277,7 @@ export default class ViroExperienceSelector extends Component {
         <ViroARSceneNavigator
           {...this.state.sharedProps}
           initialScene={{scene: InitialARScene}}
+          multisamplingEnabled={false}
           worldAlignment={this.state.worldAlignment}
           videoQuality={this.state.videoQualityHigh ? "High" : "Low"}
           autofocus={this.state.autofocus}

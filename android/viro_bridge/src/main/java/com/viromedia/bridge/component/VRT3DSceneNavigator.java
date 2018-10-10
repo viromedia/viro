@@ -437,4 +437,8 @@ public class VRT3DSceneNavigator extends FrameLayout {
             mViroView.setShadowsEnabled(enabled);
         }
     }
+
+    public void setMultisamplingEnabled(boolean enabled) {
+        mRendererConfig.setMultisamplingEnabled(enabled);
+    }
 }

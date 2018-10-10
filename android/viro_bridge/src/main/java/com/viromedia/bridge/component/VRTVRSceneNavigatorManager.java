@@ -62,6 +62,11 @@ public class VRTVRSceneNavigatorManager extends VRTViroViewGroupManager<VRTVRSce
         navigator.setShadowsEnabled(enabled);
     }
 
+    @ReactProp(name = "multisamplingEnabled", defaultBoolean = true)
+    public void setMultisamplingEnabled(VRTVRSceneNavigator navigator, boolean enabled) {
+        navigator.setMultisamplingEnabled(enabled);
+    }
+
     @ReactProp(name = "debug", defaultBoolean = false)
     public void setDebug(VRTVRSceneNavigator navigator, boolean debug) {
         navigator.setDebug(debug);

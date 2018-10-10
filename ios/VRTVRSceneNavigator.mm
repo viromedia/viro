@@ -37,6 +37,7 @@ static NSString *const kVRTInvalidAPIKeyMessage = @"The given API Key is either 
         _pbrEnabled = YES;
         _bloomEnabled = YES;
         _shadowsEnabled = YES;
+        _multisamplingEnabled = NO;
     }
     return self;
 }
@@ -60,6 +61,7 @@ static NSString *const kVRTInvalidAPIKeyMessage = @"The given API Key is either 
     config.enablePBR = _pbrEnabled;
     config.enableBloom = _bloomEnabled;
     config.enableShadows = _shadowsEnabled;
+    config.enableMultisampling = _multisamplingEnabled;
     
     _gvrController = [[VROViewControllerGVR alloc] initWithConfig:config];
     _gvrController.forceLandscape = _vrModeEnabled;
@@ -116,6 +118,10 @@ static NSString *const kVRTInvalidAPIKeyMessage = @"The given API Key is either 
     if (_vroView) {
         [_vroView setShadowsEnabled:shadowsEnabled];
     }
+}
+
+- (void)setMultisamplingEnabled:(BOOL)multisamplingEnabled {
+    _multisamplingEnabled = multisamplingEnabled;
 }
 
 - (void)recenterTracking {

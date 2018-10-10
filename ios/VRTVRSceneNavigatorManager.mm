@@ -23,6 +23,7 @@ RCT_EXPORT_VIEW_PROPERTY(hdrEnabled, BOOL)
 RCT_EXPORT_VIEW_PROPERTY(pbrEnabled, BOOL)
 RCT_EXPORT_VIEW_PROPERTY(bloomEnabled, BOOL)
 RCT_EXPORT_VIEW_PROPERTY(shadowsEnabled, BOOL)
+RCT_EXPORT_VIEW_PROPERTY(multisamplingEnabled, BOOL)
 
 - (VRTVRSceneNavigator *)view
 {

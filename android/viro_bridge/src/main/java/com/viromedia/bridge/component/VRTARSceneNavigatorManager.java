@@ -70,4 +70,9 @@ public class VRTARSceneNavigatorManager extends VRTViroViewGroupManager<VRTARSce
     public void setShadowsEnabled(VRTARSceneNavigator navigator, boolean enabled) {
         navigator.setShadowsEnabled(enabled);
     }
+
+    @ReactProp(name = "multisamplingEnabled", defaultBoolean = true)
+    public void setMultisamplingEnabled(VRTARSceneNavigator navigator, boolean enabled) {
+        navigator.setMultisamplingEnabled(enabled);
+    }
 }

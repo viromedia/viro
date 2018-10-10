@@ -66,6 +66,7 @@ var ViroARSceneNavigator = createReactClass({
       pbrEnabled: PropTypes.bool,
       bloomEnabled: PropTypes.bool,
       shadowsEnabled: PropTypes.bool,
+      multisamplingEnabled: PropTypes.bool,
   },
 
   arSceneNavigator: (undefined: ?Object),
