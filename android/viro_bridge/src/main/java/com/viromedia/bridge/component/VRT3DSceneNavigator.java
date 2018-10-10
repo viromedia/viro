@@ -393,9 +393,8 @@ public class VRT3DSceneNavigator extends FrameLayout {
     public Vector unprojectPoint(Vector point) {
         if(mViroView == null || mViroView.getRenderer() == null) {
             throw new IllegalStateException("Unable to invoke unprojectPoint. Renderer is not initalized");
-
-        Vector unprojectPoint = mViroView.getRenderer().unprojectPoint(point.x, point.y, point.z);
-        return unprojectPoint;
+        }
+        return mViroView.getRenderer().unprojectPoint(point.x, point.y, point.z);
     }
 
     /**
@@ -408,8 +407,7 @@ public class VRT3DSceneNavigator extends FrameLayout {
             throw new IllegalStateException("Unable to invoke unprojectPoint. Renderer is not initalized");
         }
 
-        Vector projectedPoint = mViroView.getRenderer().projectPoint(point.x, point.y, point.z);
-        return projectedPoint;
+        return  mViroView.getRenderer().projectPoint(point.x, point.y, point.z);
     }
 
     public void setHDREnabled(boolean enabled) {
