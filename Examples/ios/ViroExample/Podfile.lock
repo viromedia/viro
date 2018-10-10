@@ -1,7 +1,7 @@
 PODS:
-  - AWSCore (2.6.12)
-  - AWSDynamoDB (2.6.12):
-    - AWSCore (= 2.6.12)
+  - AWSCore (2.6.31)
+  - AWSDynamoDB (2.6.31):
+    - AWSCore (= 2.6.31)
   - Crashlytics (3.9.3):
     - Fabric (~> 1.7.2)
   - Fabric (1.7.2)
@@ -43,8 +43,8 @@ EXTERNAL SOURCES:
     :path: "../../../ios/dist/ViroRenderer/static_lib"
 
 SPEC CHECKSUMS:
-  AWSCore: d0d6e4f6831754aaf98058d2306a016ae71510fe
-  AWSDynamoDB: a1626a8e025a12fa71723da8eee0c1ff51da5dc0
+  AWSCore: c7abfb87ef802d1c4b5dd56db64ac8b4a7823ef0
+  AWSDynamoDB: eb3eb7d49b14f1e523afa80373a8ab0fbde935a9
   Crashlytics: dbb07d01876c171c5ccbdf7826410380189e452c
   Fabric: 9cd6a848efcf1b8b07497e0b6a2e7d336353ba15
   GoogleToolboxForMac: 2b2596cbb7186865e98cadf2b1e262d851c2b168
