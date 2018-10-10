@@ -12,6 +12,7 @@
 #include <vector>
 #include "VROARSession.h"
 #include "VROScene.h"
+#include "VROAtomic.h"
 #include "VROARCamera.h"
 
 class VROARAnchor;
@@ -33,8 +34,8 @@ public:
         _displayPointCloud(false),
         _pointCloudSurfaceScale(VROVector3f(.01, .01, 1)),
         _pointCloudMaxPoints(500) {
-            _ambientLightIntensity.store(1000),
-            _ambientLightColor.store({ 1.0, 1.0, 1.0 }),
+            _ambientLightIntensity = 1000;
+            _ambientLightColor = { 1.0, 1.0, 1.0 };
             _pointCloudNode = std::make_shared<VRONode>();
             _pointCloudEmitter = nullptr;
             _detectionTypes = { VROAnchorDetection::PlanesHorizontal }; //default is horizontal
@@ -95,8 +96,12 @@ public:
     /*
      Get the ambient light estimate of the scene.
      */
-    float getAmbientLightIntensity() const { return _ambientLightIntensity.load(); }
-    VROVector3f getAmbientLightColor() const { return _ambientLightColor.load(); }
+    float getAmbientLightIntensity() const {
+        return _ambientLightIntensity;
+    }
+    VROVector3f getAmbientLightColor() const {
+        return _ambientLightColor;
+    }
     
     /*
      Update the ambient light estimate of the scene. Intensity is reported in
@@ -140,8 +145,8 @@ private:
     /*
      Ambient light estimation. The intensity is in lumens and the color is in linear space.
      */
-    std::atomic<float> _ambientLightIntensity;
-    std::atomic<VROVector3f> _ambientLightColor;
+    VROAtomic<float> _ambientLightIntensity;
+    VROAtomic<VROVector3f> _ambientLightColor;
 
     /*
      Tracking states that have been read from AR cameras. Usually, this flips between Unavailable

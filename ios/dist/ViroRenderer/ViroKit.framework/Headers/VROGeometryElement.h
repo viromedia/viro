@@ -43,15 +43,38 @@ public:
         _data(data),
         _bytesPerIndex(bytesPerIndex)
     {}
-    
+
+    // The data, primitive type, primitive count, and bytes per index
+    // must be manually set when using this constructor
+    VROGeometryElement() : _primitiveType(VROGeometryPrimitiveType::Triangle),
+                           _primitiveCount(0),
+                           _data(nullptr),
+                           _bytesPerIndex(sizeof(int))
+    {}
+
+    void setData(std::shared_ptr<VROData> data) {
+        _data = data;
+    }
     std::shared_ptr<VROData> getData() const {
         return _data;
+    }
+
+    void setPrimitiveType(VROGeometryPrimitiveType primitiveType) {
+        _primitiveType = primitiveType;
     }
     VROGeometryPrimitiveType getPrimitiveType() const {
         return _primitiveType;
     }
+
+    void setPrimitiveCount(int primitiveCount) {
+        _primitiveCount = primitiveCount;
+    }
     int getPrimitiveCount() const {
         return _primitiveCount;
+    }
+
+    void setBytesPerIndex(int bytesPerIndex) {
+        _bytesPerIndex = bytesPerIndex;
     }
     int getBytesPerIndex() const {
         return _bytesPerIndex;
@@ -81,13 +104,13 @@ private:
     /*
      The number of triangles, triangle strips, etc.
      */
-    const int _primitiveCount;
+    int _primitiveCount;
     
     /*
      The index data, and the size of each index.
      */
     std::shared_ptr<VROData> _data;
-    const int _bytesPerIndex;
+    int _bytesPerIndex;
     
 };
 

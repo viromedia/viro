@@ -13,6 +13,7 @@
 #include <set>
 #include "VROLog.h"
 #include "VROMatrix4f.h"
+#include "VROARImageDatabase.h"
 
 class VROARAnchor;
 class VROARFrame;
@@ -161,11 +162,31 @@ public:
     virtual void setCloudAnchorProvider(VROCloudAnchorProvider provider) = 0;
 
     /*
+     * Set camera's ArFocusMode as AUTO_FOCUS if enabled is true, else set to FIXED_FOCUS
+     */
+    virtual void setAutofocus(bool enabled) = 0;
+
+    /*
+     * Return true if camera's ArFocusMode is set to AUTO_FOCUS;
+     */
+    virtual bool isCameraAutoFocusEnabled() = 0;
+
+    /*
      Set a number > 0 to enable continuous image tracking (vs static detection).
      (iOS 12+ only)
      */
     virtual void setNumberOfTrackedImages(int numImages) = 0;
-    
+
+    /*
+     Enables the user to load in a pre-defined set of AR Image Targets
+     */
+    virtual void loadARImageDatabase(std::shared_ptr<VROARImageDatabase> arImageDatabase) = 0;
+
+    /*
+     Unloads the most recently loaded ARImageDatabase.
+     */
+    virtual void unloadARImageDatabase() = 0;
+
     /*
      Adds an image target that should be tracked by this session.
      */
@@ -255,12 +276,7 @@ public:
      Sets AR world origin to the given transform.
      */
     virtual void setWorldOrigin(VROMatrix4f relativeTransform) = 0;
-    
-    /*
-     Sets whether or not to enable autofocus.
-     */
-    virtual void setAutofocus(bool enabled) = 0;
-    
+
     /*
      Sets the video quality to use.
      */

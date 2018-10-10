@@ -170,6 +170,7 @@ public:
     
     void setShininess(float shininess);
     float getShininess() const {
+        // Update substrate not needed; pulled directly into uniform in VROMaterialShaderBinding
         return _shininess;
     }
     
@@ -198,12 +199,14 @@ public:
      */
     void setLightingModel(VROLightingModel model) {
         _lightingModel = model;
+        updateSubstrate();
     }
     VROLightingModel getLightingModel() const {
         return _lightingModel;
     }
     
     void setCullMode(VROCullMode cullMode) {
+        // Update substrate not needed; bound in VROMaterial::bindProperties
         _cullMode = cullMode;
     }
     VROCullMode getCullMode() const {
@@ -220,7 +223,8 @@ public:
     VROBlendMode getBlendMode() const {
         return _blendMode;
     }
-    void setBlendMode(VROBlendMode mode){
+    void setBlendMode(VROBlendMode mode) {
+        // Update substrate not needed; bound in VROMaterial::bindProperties
         _blendMode = mode;
     }
 
@@ -250,6 +254,7 @@ public:
         return _colorWriteMask;
     }
     void setColorWriteMask(VROColorMask colorMask) {
+        // Update substrate not needed; bound in VROMaterial::bindProperties
         _colorWriteMask = colorMask;
     }
 

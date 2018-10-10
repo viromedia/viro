@@ -9,7 +9,7 @@
 #define VROInputPresenter_H
 
 #include <memory>
-#include <atomic>
+#include "VROAtomic.h"
 #include "VROEventDelegate.h"
 #include "VRORenderContext.h"
 #include "VROReticle.h"
@@ -73,11 +73,8 @@ public:
     virtual void onMove(int source, std::shared_ptr<VRONode> node,
                         VROVector3f rotation, VROVector3f position, VROVector3f forwardVec) {
         passert_thread(__func__);
+        _lastKnownForward = forwardVec;
 
-#if VRO_PLATFORM_IOS || VRO_PLATFORM_ANDROID
-        _lastKnownForward.store(forwardVec);
-#endif
-        
         std::shared_ptr<VROEventDelegate> delegate = getDelegate();
         if (delegate != nullptr && delegate->isEventEnabled(VROEventDelegate::EventAction::OnMove)){
             delegate->onMove(source, node, rotation, position, forwardVec);
@@ -153,14 +150,12 @@ public:
         _reticleInitialPositionSet = false;
     }
 
-    VROVector3f getLastKnownForward(){
-        return _lastKnownForward.load();
+    VROVector3f getLastKnownForward() {
+        return _lastKnownForward;
     }
 
     void updateLastKnownForward(VROVector3f forward) {
-#if VRO_PLATFORM_IOS || VRO_PLATFORM_ANDROID
-        _lastKnownForward.store(forward);
-#endif
+        _lastKnownForward = forward;
     }
 
 protected:
@@ -216,7 +211,7 @@ private:
 
     std::shared_ptr<VROReticle> _reticle;
     bool _reticleInitialPositionSet;
-    std::atomic<VROVector3f> _lastKnownForward;
+    VROAtomic<VROVector3f> _lastKnownForward;
 
     /*
      Event delegate for triggering calls back to Controller_JNI.

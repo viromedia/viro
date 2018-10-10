@@ -34,6 +34,7 @@ in vec4 tangent;
 in vec4 bone_weights;
 in ivec4 bone_indices;
 
+uniform highp vec3 camera_position;
 uniform mat4 normal_matrix;
 uniform mat4 model_matrix;
 uniform mat4 view_matrix;

@@ -46,7 +46,6 @@ void VROPlatformSetType(VROPlatformType type);
 VROPlatformType VROPlatformGetType();
 
 #pragma mark - String Loading
-
 std::string VROPlatformLoadResourceAsString(std::string resource, std::string type);
 std::string VROPlatformLoadFileAsString(std::string path);
 
@@ -314,10 +313,10 @@ void VROPlatformCallHostFunction(jobject javaObject,
 }
 
 template<typename... Args>
-void VROPlatformCallHostBoolFunction(jobject javaObject,
-                                 std::string methodName,
-                                 std::string methodSig,
-                                 Args... args) {
+VRO_BOOL VROPlatformCallHostBoolFunction(jobject javaObject,
+                                         std::string methodName,
+                                         std::string methodSig,
+                                         Args... args) {
     JNIEnv *env = VROPlatformGetJNIEnv();
     env->ExceptionClear();
 
@@ -325,16 +324,16 @@ void VROPlatformCallHostBoolFunction(jobject javaObject,
     if (viroClass == nullptr) {
         perr("Unable to find class for making java calls [function %s, method %s]",
              methodName.c_str(), methodSig.c_str());
-        return;
+        return false;
     }
 
     jmethodID method = env->GetMethodID(viroClass, methodName.c_str(), methodSig.c_str());
     if (method == nullptr) {
         perr("Unable to find method %s", methodName.c_str());
-        return;
+        return false;
     }
 
-    env->CallBooleanMethod(javaObject, method, std::forward<Args>(args)...);
+    bool result = env->CallBooleanMethod(javaObject, method, std::forward<Args>(args)...);
     if (env->ExceptionOccurred()) {
         perr("Exception occurred when calling %s", methodName.c_str());
         env->ExceptionDescribe();
@@ -343,6 +342,40 @@ void VROPlatformCallHostBoolFunction(jobject javaObject,
     }
 
     env->DeleteLocalRef(viroClass);
+    return result;
+}
+
+template<typename... Args>
+VRO_INT VROPlatformCallHostIntFunction(jobject javaObject,
+                                       std::string methodName,
+                                       std::string methodSig,
+                                       Args... args) {
+    JNIEnv *env = VROPlatformGetJNIEnv();
+    env->ExceptionClear();
+
+    jclass viroClass = env->GetObjectClass(javaObject);
+    if (viroClass == nullptr) {
+        perr("Unable to find class for making java calls [function %s, method %s]",
+             methodName.c_str(), methodSig.c_str());
+        return 0;
+    }
+
+    jmethodID method = env->GetMethodID(viroClass, methodName.c_str(), methodSig.c_str());
+    if (method == nullptr) {
+        perr("Unable to find method %s", methodName.c_str());
+        return 0;
+    }
+
+    jint result = env->CallIntMethod(javaObject, method, std::forward<Args>(args)...);
+    if (env->ExceptionOccurred()) {
+        perr("Exception occurred when calling %s", methodName.c_str());
+        env->ExceptionDescribe();
+        std::string errorString = "Java exception thrown when calling " + methodName;
+        throw std::runtime_error(errorString.c_str());
+    }
+
+    env->DeleteLocalRef(viroClass);
+    return result;
 }
 
 template<typename... Args>
@@ -450,6 +483,14 @@ VRO_LONG VROPlatformCallHostLongFunction(VRO_OBJECT object,
                                          std::string methodSig,
                                          Args... args) {
     return object.call<VRO_LONG>(methodName.c_str(), std::forward<Args>(args)...);
+}
+
+template<typename... Args>
+VRO_BOOL VROPlatformCallHostBoolFunction(VRO_OBJECT object,
+                                         std::string methodName,
+                                         std::string methodSig,
+                                         Args... args) {
+    return object.call<VRO_BOOL>(methodName.c_str(), std::forward<Args>(args)...);
 }
 
 template<typename... Args>

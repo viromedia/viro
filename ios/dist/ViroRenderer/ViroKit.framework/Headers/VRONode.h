@@ -14,10 +14,10 @@
 #include <vector>
 #include <string>
 #include <set>
-#include <atomic>
 #include <algorithm>
 #include <functional>
 #include "optional.hpp"
+#include "VROAtomic.h"
 #include "VROMatrix4f.h"
 #include "VROQuaternion.h"
 #include "VRORenderContext.h"
@@ -47,6 +47,7 @@ class VROTransformDelegate;
 class VROTransaction;
 class VRORenderMetadata;
 class VROParticleEmitter;
+class VROSkeletalAnimationLayer;
 
 extern bool kDebugSortOrder;
 extern int  kDebugSortOrderFrameFrequency;
@@ -64,11 +65,20 @@ enum class VROSilhouetteMode {
 };
 
 enum class VRODragType {
-    FixedDistance,  // Drags objects with a fixed distance to camera/controller/etc.
-    FixedToPlane,   // Drags object along a given plane (point + normal)
-    FixedToWorld,   // Currently available to AR only. Attempts to drag object w.r.t. the real world.
-};
+    // Drags objects with a fixed distance to camera/controller/etc, from the point at which
+    // the user has grabbed the geometry containing this draggable node.
+    FixedDistance,
 
+    // Drags objects with a fixed distance to camera/controller/etc, from the point of this
+    // node's position in world space.
+    FixedDistanceOrigin,
+
+    // Drags object along a given plane (point + normal)
+    FixedToPlane,
+
+    // Currently available to AR only. Attempts to drag object w.r.t. the real world.
+    FixedToWorld,
+};
 
 class VRONode : public VROAnimatable, public VROThreadRestricted {
     
@@ -599,6 +609,20 @@ public:
     std::shared_ptr<VROExecutableAnimation> getAnimation(std::string key, bool recursive);
     
     /*
+     Retrieve all the animations with the given keys as a single, composite executable
+     animation. If multiple animations influence the same bone, the provided weights determine
+     how the animations blend.
+     
+     If recursive is true, this will search subnodes for animations as well.
+     
+     For example, if the animation 'Body' and the animation 'LeftArm' contain torso and left
+     arm animations, both will be returned in a single animation group. If both animations
+     move the left arm, their influences on the left arm will be blended.
+     */
+    std::shared_ptr<VROExecutableAnimation> getLayeredAnimation(std::vector<std::shared_ptr<VROSkeletalAnimationLayer>> layers,
+                                                                bool recursive);
+    
+    /*
      Remove all animations from this node.
      */
     void removeAllAnimations();
@@ -825,22 +849,22 @@ private:
      Properties' pragma above for a more extensive description of why we need these fields.
      The following are computed fields (not directly set by users).
      */
-    std::atomic<VROMatrix4f> _lastWorldTransform;
-    std::atomic<VROVector3f> _lastWorldPosition;
-    std::atomic<VROMatrix4f> _lastWorldRotation;
-    std::atomic<VROBoundingBox> _lastWorldBoundingBox;
-    std::atomic<VROBoundingBox> _lastUmbrellaBoundingBox;
+    VROAtomic<VROMatrix4f> _lastWorldTransform;
+    VROAtomic<VROVector3f> _lastWorldPosition;
+    VROAtomic<VROMatrix4f> _lastWorldRotation;
+    VROAtomic<VROBoundingBox> _lastWorldBoundingBox;
+    VROAtomic<VROBoundingBox> _lastUmbrellaBoundingBox;
     
     /*
      Directly-set application thread properties.
      */
-    std::atomic<VROVector3f> _lastPosition;
-    std::atomic<VROVector3f> _lastScale;
-    std::atomic<VROQuaternion> _lastRotation;
-    std::atomic<VROMatrix4f> _lastScalePivot, _lastScalePivotInverse;
-    std::atomic<VROMatrix4f> _lastRotationPivot, _lastRotationPivotInverse;
-    std::atomic<bool> _lastHasScalePivot;
-    std::atomic<bool> _lastHasRotationPivot;
+    VROAtomic<VROVector3f> _lastPosition;
+    VROAtomic<VROVector3f> _lastScale;
+    VROAtomic<VROQuaternion> _lastRotation;
+    VROAtomic<VROMatrix4f> _lastScalePivot, _lastScalePivotInverse;
+    VROAtomic<VROMatrix4f> _lastRotationPivot, _lastRotationPivotInverse;
+    VROAtomic<bool> _lastHasScalePivot;
+    VROAtomic<bool> _lastHasRotationPivot;
 
     /*
      The transformed bounding box containing this node's geometry. The 
@@ -996,7 +1020,8 @@ private:
      */
     void hitTest(const VROCamera &camera, VROVector3f origin, VROVector3f ray,
                  bool boundsOnly, std::vector<VROHitTestResult> &results);
-    bool hitTestGeometry(VROVector3f origin, VROVector3f ray, VROMatrix4f transform);
+    bool hitTestGeometry(VROVector3f origin, VROVector3f ray,
+                         VROMatrix4f transform, VROVector3f *intPt);
     
     /*
      The light and shadow bit masks. These are logically ANDed with each light's

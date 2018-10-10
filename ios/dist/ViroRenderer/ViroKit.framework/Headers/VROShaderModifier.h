@@ -16,13 +16,13 @@
 #include <memory>
 #include <map>
 #include "VROOpenGL.h"
+#include "VROUniform.h"
 
 class VROUniform;
 class VROGeometry;
 class VROMaterial;
-
-typedef std::function<void(VROUniform *uniform, GLuint location,
-                           const VROGeometry *geometry, const VROMaterial *material)> VROUniformBindingBlock;
+class VROUniformBinder;
+enum class VROShaderProperty;
 
 /*
  The entry point, which signals where in the shader program this modifier will
@@ -231,13 +231,8 @@ public:
      invoked each time a shader containining this modifier is bound. The block
      should set the uniform in the shader via glUniform* methods.
      */
-    void setUniformBinder(std::string uniform, VROUniformBindingBlock bindingBlock);
-    
-    /*
-     Invoke the uniform binder for the given uniform.
-     */
-    void bindUniform(VROUniform *uniform, GLuint location,
-                     const VROGeometry *geometry, const VROMaterial *material);
+    void setUniformBinder(std::string uniform, VROShaderProperty type, VROUniformBindingBlock bindingBlock);
+    VROUniformBinder *getUniformBinder(std::string uniform) { return _uniformBinders[uniform]; }
     
     /*
      Get the pragma directive that corresponds to this modifier's entry point and
@@ -301,8 +296,16 @@ private:
      */
     std::map<std::string, std::string> _replacements;
     
+    /*
+     Indicates where in the shader this uniform's code will be injected.
+     */
     VROShaderEntryPoint _entryPoint;
-    std::map<std::string, VROUniformBindingBlock> _uniformBinders;
+    
+    /*
+     Map of uniform names to the underlying type of the uniform, and the binder
+     that will set said value on the uniform.
+     */
+    std::map<std::string, VROUniformBinder *> _uniformBinders;
     
     /*
      Return true if the given line is a variable declaration, and false

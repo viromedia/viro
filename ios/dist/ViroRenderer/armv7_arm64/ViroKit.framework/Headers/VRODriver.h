@@ -199,9 +199,10 @@ public:
     
     /*
      Bind the given render target, and perform the given operation when unbinding
-     the previous target.
+     the previous target. Returns true if the new target was bound. Returns false
+     if the designated target was *already* bound.
      */
-    virtual void bindRenderTarget(std::shared_ptr<VRORenderTarget> target, VRORenderTargetUnbindOp unbindOp) = 0;
+    virtual bool bindRenderTarget(std::shared_ptr<VRORenderTarget> target, VRORenderTargetUnbindOp unbindOp) = 0;
     virtual void unbindRenderTarget() = 0;
     
     /*

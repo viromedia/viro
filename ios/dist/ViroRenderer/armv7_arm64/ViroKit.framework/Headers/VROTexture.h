@@ -11,6 +11,7 @@
 
 #include <memory>
 #include <vector>
+#include <string>
 #include <functional>
 #include "VRODefines.h"
 
@@ -158,6 +159,14 @@ public:
     uint32_t getTextureId() const {
         return _textureId;
     }
+    
+    /*
+     Set or get a user-provided name.
+     */
+    std::string getName() const { return _name; }
+    void setName(std::string name) {
+        _name = name;
+    }
 
     /*
      Get the texture ready for usage now, in advance of when it's visible. If not invoked,
@@ -251,6 +260,11 @@ private:
     
     uint32_t _textureId;
     const VROTextureType _type;
+    
+    /*
+     User provided name, non-unique.
+     */
+    std::string _name;
     
     /*
      The image is retained until the texture is hydrated, after which the
