@@ -123,7 +123,7 @@ An ARScene that searches for this vertical [marker](https://github.com/viromedia
 
 ### [AR Tracking Business Card Demo - iOS Only](https://github.com/viromedia/viro/tree/master/js/ARBusinessCard)
 <a href="https://github.com/viromedia/viro/tree/master/js/ARBusinessCard">
-<img src="https://raw.githubusercontent.com/viromedia/viro/master/js/ARPosterDemo/viro_black_panther_marker_demo.gif">
+<img src="https://github.com/vnovick/armonster-arkit2-businesscard/raw/master/business_card.gif">
 </a>
 
 An ARScene that tracks this [business card](https://github.com/viromedia/viro/blob/master/js/ARBusinessCard/res/business_card.png) continously using image tracking.
