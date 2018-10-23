@@ -41,9 +41,10 @@ var arScenes = {
   'ARPhysicsSample': require('./js/ARPhysicsSample/BasicPhysicsSample.js'),
   'ARCarDemo' : require('./js/ARCarDemo/ARCarDemo.js'),
   'ARPosterDemo' : require('./js/ARPosterDemo/ARPosterDemo.js'),
+  'BusinessCard' : require('./js/ARBusinessCard/BusinessCard.js'),
 }
 
-var showARScene = false;
+var showARScene = true;
 
 var ViroCodeSamplesSceneNavigator = createReactClass({
   render: function() {
