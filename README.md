@@ -62,12 +62,6 @@ A repository containing the entire source code, built using ViroReact and React 
 
 ### Sample Code Overview
 
-### [Hello World](https://github.com/viromedia/viro/tree/master/js/HelloWorld)
-
-<a href="https://github.com/viromedia/viro/tree/master/js/HelloWorld">
-<img src="https://raw.githubusercontent.com/viromedia/viro/master/js/HelloWorld/helloworld.gif">
-</a>
-
 A scene with a 360 photo that displays "Hello World".
 
 ### [360 Photo Tour](https://github.com/viromedia/viro/tree/master/js/360PhotoTour)
@@ -126,6 +120,13 @@ An ARScene that looks for this [image](https://github.com/viromedia/viro/tree/ma
 </a>
 
 An ARScene that searches for this vertical [marker](https://github.com/viromedia/viro/tree/master/js/ARPosterDemo/res/blackpanther.jpg) and renders Black Panther jumping out of the marker.
+
+### [AR Tracking Business Card Demo - iOS Only](https://github.com/viromedia/viro/tree/master/js/ARBusinessCard)
+<a href="https://github.com/viromedia/viro/tree/master/js/ARBusinessCard">
+<img src="https://raw.githubusercontent.com/viromedia/viro/master/js/ARPosterDemo/viro_black_panther_marker_demo.gif">
+</a>
+
+An ARScene that tracks this [business card](https://github.com/viromedia/viro/blob/master/js/ARBusinessCard/res/business_card.png) continously using image tracking.
 
 ### [AR Full Sample App](https://github.com/viromedia/ViroARSampleApp)
 A complete React Native w/Viro AR Sample App. Demonstrates how to place, drag, and scale objects in the real world while providing 2D UI feedback.
