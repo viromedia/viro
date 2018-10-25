@@ -63,8 +63,17 @@ public class ARUtils {
             point.pushDouble(points[i+3]);
             pointsArray.pushArray(point);
         }
+
+        WritableArray idsArray = Arguments.createArray();
+        long[] ids = pointCloud.getIds();
+        for (int i = 0; i < ids.length; i++) {
+            idsArray.pushInt((int)ids[i]);
+        }
+
+
         WritableMap returnMap = Arguments.createMap();
         returnMap.putArray("points", pointsArray);
+        returnMap.putArray("identifiers", idsArray);
         return returnMap;
     }
 
