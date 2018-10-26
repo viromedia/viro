@@ -855,6 +855,14 @@ public class VRTNode extends VRTComponent {
                 setMaterials(nativeMaterials);
             }
         }
+
+        if (hasPhysicsBody) {
+            if (mPhysicsDelegate != null) {
+                mNodeJni.getPhysicsBody().setCollisionListener(mPhysicsDelegate);
+            } else {
+                mNodeJni.getPhysicsBody().setCollisionListener(null);
+            }
+        }
     }
 
     protected void setTransformBehaviors(String[] transformBehaviors) {
@@ -1274,12 +1282,13 @@ public class VRTNode extends VRTComponent {
 
     private void createPhysicsBody(PhysicsBody.RigidBodyType bodyType, float mass, PhysicsShape shape){
         mNodeJni.initPhysicsBody(bodyType, mass, shape);
-        if (mPhysicsDelegate != null){
-            mNodeJni.getPhysicsBody().setCollisionListener(mPhysicsDelegate);
-        } else {
-            mNodeJni.getPhysicsBody().setCollisionListener(null);
+        if (mViroContext != null) {
+            if (mPhysicsDelegate != null) {
+                mNodeJni.getPhysicsBody().setCollisionListener(mPhysicsDelegate);
+            } else {
+                mNodeJni.getPhysicsBody().setCollisionListener(null);
+            }
         }
-
         hasPhysicsBody = true;
     }
 
