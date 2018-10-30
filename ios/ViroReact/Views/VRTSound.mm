@@ -230,11 +230,10 @@ static NSString *const kWebPrefix = @"http";
     if (self.onFinishViro) {
         self.onFinishViro(@{@"finished": @(true),});
     }
-  // If loop set to true, then seek to 0 and play (incase AVAudioPlayer pauses the video after playing)
-  if (_loop) {
-    _shouldReset = YES;
-    [self resetSound];
-    [self setPaused:NO];
+    // If loop set to true, then seek to 0 and play (incase AVAudioPlayer pauses the video after playing)
+    if (_loop) {
+        [self seekToTime:0];
+        [self setPaused:NO];
     }
 }
 
