@@ -1,7 +1,7 @@
 PODS:
-  - AWSCore (2.6.31)
-  - AWSDynamoDB (2.6.31):
-    - AWSCore (= 2.6.31)
+  - AWSCore (2.6.7)
+  - AWSDynamoDB (2.6.7):
+    - AWSCore (= 2.6.7)
   - Crashlytics (3.9.3):
     - Fabric (~> 1.7.2)
   - Fabric (1.7.2)
@@ -14,7 +14,7 @@ PODS:
     - GoogleToolboxForMac/Logger (= 2.1.0)
     - GTMSessionFetcher/Core (= 1.1.6)
   - ViroKit (1.0):
-    - AWSDynamoDB (~> 2.6.7)
+    - AWSDynamoDB (= 2.6.7)
     - GVRAudioSDK (= 1.120.0)
     - GVRSDK (= 1.120.0)
   - ViroKit_static_lib (1.0)
@@ -43,15 +43,15 @@ EXTERNAL SOURCES:
     :path: "../../../ios/dist/ViroRenderer/static_lib"
 
 SPEC CHECKSUMS:
-  AWSCore: c7abfb87ef802d1c4b5dd56db64ac8b4a7823ef0
-  AWSDynamoDB: eb3eb7d49b14f1e523afa80373a8ab0fbde935a9
+  AWSCore: a5ff5fb202342b922eb9036af9ecc3bc28a032eb
+  AWSDynamoDB: ea3631a84c0c4a19ef4cb4ec32d3348d3ae9d47c
   Crashlytics: dbb07d01876c171c5ccbdf7826410380189e452c
   Fabric: 9cd6a848efcf1b8b07497e0b6a2e7d336353ba15
   GoogleToolboxForMac: 2b2596cbb7186865e98cadf2b1e262d851c2b168
   GTMSessionFetcher: 6aacd0ab48ddf0c3633ab2642d792abfcad1b08a
   GVRAudioSDK: 302f0a8f190d855868ea07f246ce4f9b44c392ae
   GVRSDK: 0cb9d0ce06a84d698e61e3db9509766022dcf815
-  ViroKit: 9631f301ef6a3f56116b23d6aac5d5c2307aa368
+  ViroKit: b59a8004b4a180fe255356b9d0388173dff0fbdf
   ViroKit_static_lib: 17cb5bbb409057a98d2922cef37afb6b132dd630
 
 PODFILE CHECKSUM: a0b05d9788c663378b9d336a25122462ed1127af
