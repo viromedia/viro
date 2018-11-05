@@ -246,6 +246,7 @@ var ViroGeometry = createReactClass({
         {...this.props}
         ref={ component => {this._component = component; }}
         highAccuracyEvents={highAccuracyEvents}
+        transformBehaviors={transformBehaviors}
         onNativeTransformDelegateViro={transformDelegate}
         hasTransformDelegate={this.props.onTransformUpdate != undefined}
         materials={materials}

@@ -194,6 +194,9 @@ var ViroParticleEmitter = createReactClass({
       image.source = resolveAssetSource(image.source);
     }
 
+    let transformBehaviors = typeof this.props.transformBehaviors === 'string' ?
+      new Array(this.props.transformBehaviors) : this.props.transformBehaviors;
+
     let transformDelegate = this.props.onTransformUpdate != undefined ? this._onNativeTransformUpdate : undefined;
 
     // Create native props object.
@@ -202,6 +205,7 @@ var ViroParticleEmitter = createReactClass({
     nativeProps.onNativeTransformDelegateViro = transformDelegate;
     nativeProps.hasTransformDelegate = this.props.onTransformUpdate != undefined;
     nativeProps.image = image;
+    nativeProps.transformBehaviors = transformBehaviors;
 
     // For color modifiers, we'll need to processColor for each color value.
     if (this.props.particleAppearance && this.props.particleAppearance.color){
