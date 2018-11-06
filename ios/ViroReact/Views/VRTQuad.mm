@@ -64,7 +64,7 @@ static float const kDefaultHeight = 1;
     _surfaceNeedsUpdate = YES;
 }
 
-- (void)setARShadowReceiver:(BOOL)arShadowReceiver {
+- (void)setArShadowReceiver:(BOOL)arShadowReceiver {
     _arShadowReceiver = arShadowReceiver;
     [self applyMaterials];
 }
