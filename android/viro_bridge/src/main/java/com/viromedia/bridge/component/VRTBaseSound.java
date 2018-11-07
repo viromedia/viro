@@ -128,8 +128,8 @@ public abstract class VRTBaseSound extends VRTComponent {
         if (mSource.hasKey(NAME)) {
             SoundData data = getSoundDataForName(mSource.getString(NAME));
             if (data == null) {
-                throw new JSApplicationCausedNativeException("Unknown Sound source with name: ["
-                        + mSource.getString(NAME) + "]");
+                onError("Unknown Sound source with name: [" + mSource.getString(NAME) + "]");
+                return;
             }
             mNativeSound = getNativeSound(data);
         } else if (mSource.hasKey(URI)) {
