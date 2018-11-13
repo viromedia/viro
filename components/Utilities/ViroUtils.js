@@ -69,10 +69,10 @@ export function isARSupportedOnDevice(notSupportedCallback, supportedCallback) {
         });
     } else {
         NativeModules.VRTARSceneNavigatorModule.isARSupportedOnDevice((result) =>{
-            if (result == true) {
+            if (result == 'SUPPORTED') {
                 {supportedCallback()}
             } else {
-                {notSupportedCallback()}
+                {notSupportedCallback(result)}
             }
         }); 
     }

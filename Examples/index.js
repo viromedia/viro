@@ -74,8 +74,8 @@ export default class ViroExperienceSelector extends Component {
   _handleARSupported() {
     console.log("AR supported");
   }
-  _handleARNotSupported() {
-    console.log("AR not supported");
+  _handleARNotSupported(result) {
+    console.log("AR not supported: " + result);
   }
   render() {
     if (this.state.navigatorType == UNSET) {

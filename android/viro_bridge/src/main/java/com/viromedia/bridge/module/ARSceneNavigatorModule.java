@@ -282,8 +282,8 @@ public class ARSceneNavigatorModule extends ReactContextBaseJavaModule {
 
     @ReactMethod()
     public void isARSupportedOnDevice(final Callback successCallback) {
-        Boolean compatibility = ViroViewARCore.isDeviceCompatible(getReactApplicationContext());
-        successCallback.invoke(compatibility);
+        ViroViewARCore.ARCoreAvailability availability = ViroViewARCore.isARSupportedOnDevice(getReactApplicationContext());
+        successCallback.invoke(availability.toString());
     }
 
     private void checkPermissionsAndRun(PermissionListener listener, boolean audioAndRecordingPerm){
