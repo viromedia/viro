@@ -8,3 +8,21 @@ ios/ViroCodeSamples.xcworkspace/xcuserdata/
 ios/ViroCodeSamples.xcodeproj/xcuserdata/
 ngrok.log
 package-lock.json
+
+# Gradle
+/android/app/build/
+/android/app/gradle/
+/android/app/gradlew
+/android/app/gradlew.bat
+/android/.idea
+*.gradle/
+
+# Android
+android/.idea
+android/app/.idea
+android/.gradle/
+android/local.properties
+.idea
+android/build/
+android/*.iml
+android/app/*.iml
