@@ -407,11 +407,11 @@ var Viro3DSceneNavigator = createReactClass({
   },
 
   async _project(point) {
-    return await Viro3DSceneNavigatorModule.project(findNodeHandle(this), position);
+    return await Viro3DSceneNavigatorModule.project(findNodeHandle(this), point);
   },
 
   async _unproject(point) {
-    return await Viro3DSceneNavigatorModule.unproject(findNodeHandle(this), position);
+    return await Viro3DSceneNavigatorModule.unproject(findNodeHandle(this), point);
   },
 
   render: function() {

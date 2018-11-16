@@ -402,11 +402,11 @@ var ViroVRSceneNavigator = createReactClass({
   },
 
   async _project(point) {
-    return await ViroSceneNavigatorModule.project(findNodeHandle(this), position);
+    return await ViroSceneNavigatorModule.project(findNodeHandle(this), point);
   },
 
   async _unproject(point) {
-    return await ViroSceneNavigatorModule.unproject(findNodeHandle(this), position);
+    return await ViroSceneNavigatorModule.unproject(findNodeHandle(this), point);
   },
 
   _renderSceneStackItems: function() {
