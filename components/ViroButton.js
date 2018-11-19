@@ -22,7 +22,6 @@ var StyleSheetPropType = require('react-native/Libraries/StyleSheet/StyleSheetPr
 var stylePropType = StyleSheetPropType(ViroPropTypes);
 var ViroNode = require('./ViroNode');
 var ViroImage = require('./ViroImage');
-var ViroAnimatedComponent = require('./ViroAnimatedComponent');
 var ViroAnimations = require('./Animation/ViroAnimations');
 var BTN_TYPE_HOVER = 'hovering';
 var BTN_TYPE_NORMAL = 'normal';
@@ -295,25 +294,24 @@ var BTN_TYPE_CLICKED = 'clicked';
                 width={this.props.width}
                 materials={this.props.materials} />
 
-            <ViroAnimatedComponent
-                animation="clickAnimation"
-                run={clickSrcVisible}
-                onFinish={this._onAnimationFinished}>
+            <ViroImage
+                source={clickSource ? clickSource :
+                        (hoverSource ? hoverSource : this.props.source)}
+                rotation={this.props.rotation}
+                scale={buttonScale}
+                opacity={this.props.opacity}
+                transformBehaviors={this.props.transformBehaviors}
+                visible={clickSrcVisible}
+                renderingOrder={this.props.renderingOrder}
+                height={this.props.height}
+                width={this.props.width}
+                materials={this.props.materials}
+                animation={{
+                  animation:"clickAnimation",
+                  run:clickSrcVisible,
+                  onFinish:this._onAnimationFinished
+                }} />
 
-                    <ViroImage
-                        source={clickSource ? clickSource :
-                                (hoverSource ? hoverSource : this.props.source)}
-                        rotation={this.props.rotation}
-                        scale={buttonScale}
-                        opacity={this.props.opacity}
-                        transformBehaviors={this.props.transformBehaviors}
-                        visible={clickSrcVisible}
-                        renderingOrder={this.props.renderingOrder}
-                        height={this.props.height}
-                        width={this.props.width}
-                        materials={this.props.materials} />
-
-            </ViroAnimatedComponent>
     	</ViroNode>
 
     );
