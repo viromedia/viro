@@ -94,7 +94,6 @@ def enableProguardInReleaseBuilds = false
 android {
     flavorDimensions "platform"
     compileSdkVersion 25
-    buildToolsVersion '26.0.2'
 
     signingConfigs {
         release {
