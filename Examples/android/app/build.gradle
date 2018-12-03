@@ -93,7 +93,7 @@ def enableProguardInReleaseBuilds = false
 
 android {
     flavorDimensions "platform"
-    compileSdkVersion 25
+    compileSdkVersion 26
 
     signingConfigs {
         release {
@@ -107,7 +107,7 @@ android {
     defaultConfig {
         applicationId "com.virosample"
         minSdkVersion 21
-        targetSdkVersion 25
+        targetSdkVersion 26
         versionCode 1
         versionName "1.0"
 
@@ -169,18 +169,18 @@ android {
 }
 
 dependencies {
-    compile project(':react-native-device-info')
-    compile project(':react-native-config')
-    compile fileTree(dir: "libs", include: ["*.jar"])
-    compile 'com.android.support:appcompat-v7:25.0.0'
-    compile "com.facebook.react:react-native:+"  // From node_modules
+    implementation project(':react-native-device-info')
+    implementation project(':react-native-config')
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation 'com.android.support:appcompat-v7:26.1.0'
+    implementation "com.facebook.react:react-native:+"  // From node_modules
 
     // Viro modules
-    compile project(':viro_renderer')
-    compile project(':arcore_client')
-    compile project(path: ':viro_bridge')
-    compile 'com.google.protobuf.nano:protobuf-javanano:3.0.0-alpha-7'
-    compile('com.crashlytics.sdk.android:crashlytics:2.8.0@aar') {
+    implementation project(':viro_renderer')
+    implementation project(':arcore_client')
+    implementation project(path: ':viro_bridge')
+    implementation 'com.google.protobuf.nano:protobuf-javanano:3.0.0-alpha-7'
+    implementation('com.crashlytics.sdk.android:crashlytics:2.8.0@aar') {
         transitive = true;
     }
 }

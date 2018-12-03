@@ -8,11 +8,11 @@
     "test": "jest"
   },
   "jest": {
-    "preset": "jest-react-native"
+    "preset": "react-native"
   },
   "peerDependencies": {
-    "react": "16.3.1",
-    "react-native": "0.55.1"
+    "react": "16.6.1",
+    "react-native": "0.57.7"
   },
   "files": [
     "components",
