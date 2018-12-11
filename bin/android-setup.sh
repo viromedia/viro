@@ -71,12 +71,19 @@ EOF
 echo "Updating Project's build.gradle"
 
 # Replacing the classpath line
-LINE_TO_ADD="        classpath 'com.android.tools.build:gradle:2.2.2'"
+LINE_TO_ADD="        classpath 'com.android.tools.build:gradle:3.2.1'"
 TARGET_FILEPATH=android/build.gradle
 SEARCH_PATTERN=classpath
 LINE_TO_REPLACE=$(grep "$SEARCH_PATTERN" "$TARGET_FILEPATH")
 
 vsed "s/$LINE_TO_REPLACE/$LINE_TO_ADD/g" $TARGET_FILEPATH
+
+# Add google() after jcenter()
+LINE_TO_ADD="        google()"
+SEARCH_PATTERN=jcenter
+LINE_TO_APPEND_AFTER=$(grep "$SEARCH_PATTERN" "$TARGET_FILEPATH")
+
+vsed "s/$LINE_TO_APPEND_AFTER/&"$'\\\n'"$LINE_TO_ADD/" $TARGET_FILEPATH
 
 LINES_TO_ADD=("        maven {"
 "            url 'https:\/\/maven.google.com\/'"
@@ -105,8 +112,20 @@ LINE_TO_REPLACE=$(grep "$SEARCH_PATTERN" "$TARGET_FILEPATH")
 
 vsed "s/$LINE_TO_REPLACE/$LINE_TO_ADD/g" $TARGET_FILEPATH
 
-LINE_TO_ADD="        targetSdkVersion 25"
+LINE_TO_ADD="        targetSdkVersion 28"
 SEARCH_PATTERN="targetSdkVersion"
+LINE_TO_REPLACE=$(grep "$SEARCH_PATTERN" "$TARGET_FILEPATH")
+
+vsed "s/$LINE_TO_REPLACE/$LINE_TO_ADD/g" $TARGET_FILEPATH
+
+LINE_TO_ADD="    compileSdkVersion 28"
+SEARCH_PATTERN="compileSdkVersion"
+LINE_TO_REPLACE=$(grep "$SEARCH_PATTERN" "$TARGET_FILEPATH")
+
+vsed "s/$LINE_TO_REPLACE/$LINE_TO_ADD/g" $TARGET_FILEPATH
+
+LINE_TO_ADD=("    buildToolsVersion '28.0.3'\\n    flavorDimensions \"platform\"")
+SEARCH_PATTERN="buildToolsVersion"
 LINE_TO_REPLACE=$(grep "$SEARCH_PATTERN" "$TARGET_FILEPATH")
 
 vsed "s/$LINE_TO_REPLACE/$LINE_TO_ADD/g" $TARGET_FILEPATH
@@ -125,20 +144,20 @@ LINE_NUMBER=$(grep -n "$SEARCH_PATTERN" "$TARGET_FILEPATH" | cut -d ':' -f 1)
 # delete 2 lines
 vsed -e "$(($LINE_NUMBER+1)),$(($LINE_NUMBER+3))d" $TARGET_FILEPATH
 
-LINES_TO_ADD=("    compile fileTree(dir: 'libs', include: ['*.jar'])"
-"    compile 'com.android.support:appcompat-v7:25.0.0'"
-"    compile 'com.facebook.react:react-native:+'"
-"    compile project(':arcore_client') \/\/ remove this if AR not required"
-"    compile project(':gvr_common')"
-"    compile project(path: ':viro_renderer')"
-"    compile project(path: ':react_viro')"
-"    compile 'com.google.android.exoplayer:exoplayer:2.7.1'"
-"    compile 'com.google.protobuf.nano:protobuf-javanano:3.0.0-alpha-7'"
-"    compile 'com.amazonaws:aws-android-sdk-core:2.2.+'"
-"    compile 'com.amazonaws:aws-android-sdk-ddb:2.2.+'"
-"    compile 'com.amazonaws:aws-android-sdk-ddb-mapper:2.2.+'"
-"    compile 'com.amazonaws:aws-android-sdk-cognito:2.2.+'"
-"    compile 'com.amazonaws:aws-android-sdk-cognitoidentityprovider:2.2.+'")
+LINES_TO_ADD=("    implementation fileTree(dir: 'libs', include: ['*.jar'])"
+"    implementation 'com.android.support:appcompat-v7:28.0.0'"
+"    implementation 'com.facebook.react:react-native:+'"
+"    implementation project(':arcore_client') \/\/ remove this if AR not required"
+"    implementation project(':gvr_common')"
+"    implementation project(path: ':viro_renderer')"
+"    implementation project(path: ':react_viro')"
+"    implementation 'com.google.android.exoplayer:exoplayer:2.7.1'"
+"    implementation 'com.google.protobuf.nano:protobuf-javanano:3.0.0-alpha-7'"
+"    implementation 'com.amazonaws:aws-android-sdk-core:2.7.7'"
+"    implementation 'com.amazonaws:aws-android-sdk-ddb:2.7.7'"
+"    implementation 'com.amazonaws:aws-android-sdk-ddb-mapper:2.7.7'"
+"    implementation 'com.amazonaws:aws-android-sdk-cognito:2.7.7'"
+"    implementation 'com.amazonaws:aws-android-sdk-cognitoidentityprovider:2.7.7'")
 LINE_TO_APPEND_AFTER=$(grep "$SEARCH_PATTERN" "$TARGET_FILEPATH")
 
 INDEX=$((${#LINES_TO_ADD[@]}-1))
@@ -196,6 +215,15 @@ LINE_TO_APPEND_TO=$(echo $LINE_TO_APPEND_TO | sed -e 's/[]\/$*.^|[]/\\&/g')
 
 vsed "s/$LINE_TO_APPEND_TO/&"$'\\\n'"$LINE_TO_ADD/" $TARGET_FILEPATH
 
+# add clearText=true flag for debug react-native
+SEARCH_PATTERN="android:allowBackup="
+LINE_TO_ADD='    android:usesCleartextTraffic="true"'
+LINE_TO_APPEND_TO=$(grep "$SEARCH_PATTERN" "$TARGET_FILEPATH")
+# escape the append to line
+LINE_TO_APPEND_TO=$(echo $LINE_TO_APPEND_TO | sed -e 's/[]\/$*.^|[]/\\&/g')
+
+vsed "s/$LINE_TO_APPEND_TO/&"$'\\\n'"$LINE_TO_ADD/" $TARGET_FILEPATH
+
 # add optional ARCore meta-data tag
 SEARCH_PATTERN="devsupport.DevSettingsActivity"
 LINE_TO_ADD='      <meta-data android:name="com.google.ar.core" android:value="optional" \/>'
@@ -221,7 +249,7 @@ echo "Updating gradle-wrapper.properties"
 
 TARGET_FILEPATH=$(find android -name gradle-wrapper.properties)
 
-vsed "s/gradle-2.4-all/gradle-2.14.1-all/" $TARGET_FILEPATH
+vsed "s/gradle-2.14.1-all/gradle-4.6-all/" $TARGET_FILEPATH
 
 
 
