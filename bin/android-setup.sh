@@ -69,21 +69,20 @@ EOF
 
 
 echo "Updating Project's build.gradle"
+# Deleting ext{...} added since RN 57.7. We don't need them since we manually set those values somewhere else.
+SEARCH_PATTERN="ext {"
+TARGET_FILEPATH=android/build.gradle
+LINE_NUMBER=$(grep -n "$SEARCH_PATTERN" "$TARGET_FILEPATH" | cut -d ':' -f 1)
+
+# delete 6 lines
+vsed -e "$(($LINE_NUMBER)),$(($LINE_NUMBER+6))d" $TARGET_FILEPATH
 
 # Replacing the classpath line
 LINE_TO_ADD="        classpath 'com.android.tools.build:gradle:3.2.1'"
-TARGET_FILEPATH=android/build.gradle
 SEARCH_PATTERN=classpath
 LINE_TO_REPLACE=$(grep "$SEARCH_PATTERN" "$TARGET_FILEPATH")
 
 vsed "s/$LINE_TO_REPLACE/$LINE_TO_ADD/g" $TARGET_FILEPATH
-
-# Add google() after jcenter()
-LINE_TO_ADD="        google()"
-SEARCH_PATTERN=jcenter
-LINE_TO_APPEND_AFTER=$(grep "$SEARCH_PATTERN" "$TARGET_FILEPATH")
-
-vsed "s/$LINE_TO_APPEND_AFTER/&"$'\\\n'"$LINE_TO_ADD/" $TARGET_FILEPATH
 
 LINES_TO_ADD=("        maven {"
 "            url 'https:\/\/maven.google.com\/'"
@@ -98,7 +97,12 @@ do
   INDEX=$(($INDEX-1))
 done
 
+# Replacing the gradleVersion line, with the right gradle version
+LINE_TO_ADD="    gradleVersion = '4.6'"
+SEARCH_PATTERN=gradleVersion
+LINE_TO_REPLACE=$(grep "$SEARCH_PATTERN" "$TARGET_FILEPATH")
 
+vsed "s/$LINE_TO_REPLACE/$LINE_TO_ADD/g" $TARGET_FILEPATH
 
 
 
@@ -124,11 +128,18 @@ LINE_TO_REPLACE=$(grep "$SEARCH_PATTERN" "$TARGET_FILEPATH")
 
 vsed "s/$LINE_TO_REPLACE/$LINE_TO_ADD/g" $TARGET_FILEPATH
 
-LINE_TO_ADD=("    buildToolsVersion '28.0.3'\\n    flavorDimensions \"platform\"")
+LINE_TO_ADD="    flavorDimensions \"platform\""
+SEARCH_PATTERN="buildToolsVersion"
+LINE_TO_APPEND_AFTER=$(grep "$SEARCH_PATTERN" "$TARGET_FILEPATH")
+
+vsed "s/$LINE_TO_APPEND_AFTER/&"$'\\\n'"$LINE_TO_ADD/" $TARGET_FILEPATH
+
+LINE_TO_ADD="    buildToolsVersion '28.0.3'"
 SEARCH_PATTERN="buildToolsVersion"
 LINE_TO_REPLACE=$(grep "$SEARCH_PATTERN" "$TARGET_FILEPATH")
 
 vsed "s/$LINE_TO_REPLACE/$LINE_TO_ADD/g" $TARGET_FILEPATH
+
 
 # Enable multidexing
 LINE_TO_ADD="        multiDexEnabled true"
@@ -217,7 +228,7 @@ vsed "s/$LINE_TO_APPEND_TO/&"$'\\\n'"$LINE_TO_ADD/" $TARGET_FILEPATH
 
 # add clearText=true flag for debug react-native
 SEARCH_PATTERN="android:allowBackup="
-LINE_TO_ADD='    android:usesCleartextTraffic="true"'
+LINE_TO_ADD='      android:usesCleartextTraffic="true"'
 LINE_TO_APPEND_TO=$(grep "$SEARCH_PATTERN" "$TARGET_FILEPATH")
 # escape the append to line
 LINE_TO_APPEND_TO=$(echo $LINE_TO_APPEND_TO | sed -e 's/[]\/$*.^|[]/\\&/g')
@@ -249,7 +260,7 @@ echo "Updating gradle-wrapper.properties"
 
 TARGET_FILEPATH=$(find android -name gradle-wrapper.properties)
 
-vsed "s/gradle-2.14.1-all/gradle-4.6-all/" $TARGET_FILEPATH
+vsed "s/gradle-4.4-all/gradle-4.6-all/" $TARGET_FILEPATH
 
 
 
