@@ -74,16 +74,15 @@ void main() {
     highp vec3 prefilteredColor = vec3(0.0);
     highp float totalWeight = 0.0;
 
-    for(uint i = 0u; i < SAMPLE_COUNT; ++i)
-    {
+    for (uint i = 0u; i < SAMPLE_COUNT; ++i) {
+        
         // generates a sample vector that's biased towards the preferred alignment direction (importance sampling).
         highp vec2 Xi = hammersley_no_bitOps(i, SAMPLE_COUNT);
         highp vec3 H  = importance_sample_ggx(Xi, N, material_roughness);
         highp vec3 L  = normalize(2.0 * dot(V, H) * H - V);
 
         highp float NdotL = max(dot(N, L), 0.0);
-        if(NdotL > 0.0)
-        {
+        if (NdotL > 0.0) {
             // sample from the environment's mip level based on roughness/pdf
             highp float D     = distribution_ggx(N, H, material_roughness);
             highp float nDotH = max(dot(N, H), 0.0);

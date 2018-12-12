@@ -27,5 +27,7 @@ void main() {
 
     highp vec4 _output_color = vec4(_surface_diffuse_color.xyz * _surface_diffuse_intensity, _surface_alpha * _surface_diffuse_color.a);
     
+#pragma fragment_modifier_body
+    
     frag_color = _output_color;
 }

@@ -260,10 +260,9 @@ private:
     std::weak_ptr<VRODriverOpenGL> _driver;
     
     /*
-     Run the given method on all uniforms (those intrinsic to this shader and those attached
-     to modifiers).
+     Loads the the uniforms used by the modifiers.
      */
-    void processUniforms(std::function<void(VROUniform *uniform)> function);
+    void addModifierUniforms();
 
     /*
      Compile and link the shader. Returns true on success.

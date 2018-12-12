@@ -217,7 +217,7 @@ private:
 
     VROVector3f interpolatePoint(VROVector3f &startValue, VROVector3f &endValue, float ratio) {
         VROVector3f final;
-        if (ratio >= 1 ) {
+        if (ratio >= 1) {
             final = endValue;
         } else {
             final = startValue.interpolate(endValue, ratio);

@@ -173,6 +173,7 @@ protected:
         VROQuaternion _originalDraggedNodeRotation;
         VROVector3f _forwardOffset;
         float _draggedDistanceFromController;
+        VROEventDelegate::DragState _dragState;
     };
     
     /*
@@ -195,6 +196,13 @@ protected:
      This function returns the next drag position for drag type FixedToPlane
      */
     VROVector3f getDragPositionFixedToPlane();
+
+    /*
+     Returns the position of the intersection point on the given node's configured fixed
+     plane, based on a rayIntersectPlane test performed from the _lastKnownPosition in
+     the direction of _lastKnownForward.
+     */
+    VROVector3f getPlaneIntersect(std::shared_ptr<VRONode> node);
 
     /*
      Last result that was returned from the hit test.

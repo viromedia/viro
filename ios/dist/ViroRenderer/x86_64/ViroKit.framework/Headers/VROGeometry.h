@@ -13,7 +13,7 @@
 #include <vector>
 #include <string>
 #include <memory>
-#include <atomic>
+#include "VROAtomic.h"
 #include "VRORenderContext.h"
 #include "VRODriver.h"
 #include "VROSortKey.h"
@@ -189,24 +189,33 @@ public:
         _name = name;
     }
     
-    const std::unique_ptr<VROSkinner> &getSkinner() const {
+    const std::shared_ptr<VROSkinner> &getSkinner() const {
         return _skinner;
     }
-    void setSkinner(std::unique_ptr<VROSkinner> skinner) {
-        _skinner = std::move(skinner);
+    void setSkinner(std::shared_ptr<VROSkinner> skinner) {
+        _skinner = skinner;
     }
-    
+
+    /*
+     Remove all other geometry sources for this semantic and replace them with the given source.
+     */
+    void setGeometrySourceForSemantic(VROGeometrySourceSemantic semantic, std::shared_ptr<VROGeometrySource> source);
+
+    /*
+     Get all geometry sources that match the given semantic.
+     */
     std::vector<std::shared_ptr<VROGeometrySource>> getGeometrySourcesForSemantic(VROGeometrySourceSemantic semantic) const;
 
     void setInstancedUBO(std::shared_ptr<VROInstancedUBO> instancedUBO) {
         _instancedUBO = instancedUBO;
     }
-
     const std::shared_ptr<VROInstancedUBO> &getInstancedUBO() const{
         return _instancedUBO;
     }
-protected:
-    
+
+    /*
+     Set the geometry sources and/or elements used by this geometry. Triggers a substrate update.
+     */
     void setSources(std::vector<std::shared_ptr<VROGeometrySource>> sources) {
         _geometrySources = sources;
         updateSubstrate();
@@ -263,7 +272,7 @@ private:
     /*
      Atomic version of the bounding box. Not used by the rendering thread.
      */
-    std::atomic<VROBoundingBox> _lastBounds;
+    VROAtomic<VROBoundingBox> _lastBounds;
 
     /*
      True if the bounding box for this VROGeometry has been computed.
@@ -278,7 +287,7 @@ private:
     /*
      The skinner ties this geometry to a skeleton, enabling skeletal animation.
      */
-    std::unique_ptr<VROSkinner> _skinner;
+    std::shared_ptr<VROSkinner> _skinner;
 
     /*
      If this geometry has no source data installed (_geometrySources and _geometryElements),

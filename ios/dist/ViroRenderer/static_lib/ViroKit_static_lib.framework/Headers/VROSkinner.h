@@ -53,17 +53,21 @@ class VROSkeleton;
  Once we have a vertex in the bind position, bone local space, it can follow the
  animations of the skeleton. To animate, we multiply by the boneTransform. The 
  boneTransform (retrieved via skeleton->getTransform(i) for bone 'i'), transforms
- from the bind position, bone local space to the animated position, bone local
- space.
+ from the bind position, bone local space to the animated position. The coordinate
+ space of the animated position depends on the type of boneTransform used:
  
- Bone space, bind position --> [boneTransform] --> Bone space, animated position
+ [Concatenated bone transform] Bone space, bind position --> [boneTransform] --> Model space, animated position
+ [Local bone transform]        Bone space, bind position --> [boneTransform] --> Parent bone space, animated position
+ [Legacy bone transform]       Bone space, bind position --> [boneTransform] --> Bone space, animated position
  
  3. Return to model space
  
- We have to return to the model space of the geometry with a final transform. These
- transforms are concatenated together by VROSkinner::getModelTransform.
+ If we were using legacy transforms, then we have to return to the model space of the
+ geometry with a final transform:
  
  Bone space, animated position  --> [inverseBindTransform] --> Model space, animated position
+ 
+ All transforms listed above are concatenated together by VROSkinner::getModelTransform.
  
  4. Deform the mesh
 
@@ -79,8 +83,9 @@ public:
     
     /*
      The geometryBindTransform passed in here transforms from the geometry's 
-     original encoded position, in model space, to the bind position in world space.
-     The boneSpaceTransforms move from the bind position in world space, to the bind
+     original encoded position, in model space, to the bind position in model space.
+     
+     The boneSpaceTransforms move from the bind position in model space to the bind
      position in bone local space, for each bone. We use these two parameters to 
      construct the _bindTransforms and _inverseBindTransforms fields, then discard
      them.
@@ -93,9 +98,8 @@ public:
     virtual ~VROSkinner() {}
     
     /*
-     Get the concatenated transform that will transform a vertex tied to the
-     given bone from its original (encoded) position in model space, to its animated
-     position in model space.
+     Get the transform that will transform a vertex tied to the given bone from its original
+     (encoded) position in model space, to its animated position in model space.
      */
     VROMatrix4f getModelTransform(int boneIndex);
     
@@ -116,6 +120,9 @@ public:
      */
     const std::vector<VROMatrix4f> &getBindTransforms() const {
         return _bindTransforms;
+    }
+    const std::vector<VROMatrix4f> &getInverseBindTransforms() const {
+        return _inverseBindTransforms;
     }
     
 private:

@@ -64,7 +64,7 @@ private:
                                                    std::string base,
                                                    VROResourceType type,
                                                    std::shared_ptr<std::map<std::string, std::string>> resourceMap,
-                                                   std::map<std::string, std::shared_ptr<VROTexture>> &textureCache,
+                                                   std::shared_ptr<std::map<std::string, std::shared_ptr<VROTexture>>> textureCache,
                                                    std::shared_ptr<VROTaskQueue> taskQueue);
 };
 

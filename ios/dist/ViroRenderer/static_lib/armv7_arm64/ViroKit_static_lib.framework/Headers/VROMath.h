@@ -90,6 +90,7 @@ void VROMathMultVX(const float *vx, const float *m0, float *d);
 float  VROMathInterpolate(float input, float inMin, float inMax, float outMin, float outMax);
 double VROMathInterpolate_d(double input, double inMin, double inMax, double outMin, double outMax);
 float  VROMathInterpolateKeyFrame(float input, const std::vector<float> &inputs, const std::vector<float> &outputs);
+float  VROMathInterpolateKeyFrameIndex(float input, const std::vector<float> &inputs);
 VROVector3f   VROMathInterpolateKeyFrameVector3f(float input, const std::vector<float> &inputs, const std::vector<VROVector3f> &outputs);
 VROQuaternion VROMathInterpolateKeyFrameQuaternion(float input, const std::vector<float> &inputs, const std::vector<VROQuaternion> &outputs);
 VROMatrix4f   VROMathInterpolateKeyFrameMatrix4f(float input, const std::vector<float> &inputs, const std::vector<VROMatrix4f> &outputs);

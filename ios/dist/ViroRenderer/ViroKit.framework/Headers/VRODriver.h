@@ -138,8 +138,9 @@ enum class VRORenderTargetUnbindOp {
 class VRODriver {
     
 public:
-    
-    virtual ~VRODriver() {}
+
+    VRODriver();
+    virtual ~VRODriver();
     
     /*
      Provides the driver an opportunity to update any sub-components
@@ -188,6 +189,9 @@ public:
      should store a CPU copy of current state to avoid sending unnecessary
      instructions to the GPU.
      */
+    virtual void setActiveTextureUnit(int unit) = 0;
+    virtual void bindTexture(int target, int texture) = 0;
+    virtual void bindTexture(int unit, int target, int texture) = 0;
     virtual void setDepthWritingEnabled(bool enabled) = 0;
     virtual void setDepthReadingEnabled(bool enabled) = 0;
     virtual void setStencilTestEnabled(bool enabled) = 0;
@@ -253,7 +257,7 @@ public:
                                                      VROWrapMode wrapS, VROWrapMode wrapT,
                                                      VROFilterMode minFilter, VROFilterMode magFilter, VROFilterMode mipFilter) = 0;
     virtual std::shared_ptr<VRORenderTarget> newRenderTarget(VRORenderTargetType type, int numAttachments, int numImages,
-                                                             bool enableMipmaps) = 0;
+                                                             bool enableMipmaps, bool needsDepthStencil) = 0;
     virtual std::shared_ptr<VRORenderTarget> getDisplay() = 0;
     virtual std::shared_ptr<VROImagePostProcess> newImagePostProcess(std::shared_ptr<VROShaderProgram> shader) = 0;
     virtual std::shared_ptr<VROVideoTextureCache> newVideoTextureCache() = 0;

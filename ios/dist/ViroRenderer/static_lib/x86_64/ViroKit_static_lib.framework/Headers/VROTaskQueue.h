@@ -11,8 +11,11 @@
 
 #include <stdio.h>
 #include <queue>
+#include <string>
 #include <memory>
 #include <functional>
+
+#define kDebugTaskQueues 0
 
 /*
  Indicate whether tasks should be run sequentially (serially) or concurrently (in parallel).
@@ -28,10 +31,10 @@ enum class VROTaskExecutionOrder {
  we have to wait on a batch of background tasks to complete (e.g., downloading
  textures) before performing some action.
  */
-class VROTaskQueue {
+class VROTaskQueue : public std::enable_shared_from_this<VROTaskQueue> {
 public:
     
-    VROTaskQueue(VROTaskExecutionOrder executionOrder);
+    VROTaskQueue(std::string name, VROTaskExecutionOrder executionOrder);
     virtual ~VROTaskQueue();
     
     /*
@@ -44,8 +47,8 @@ public:
     void addTask(std::function<void()> task);
     
     /*
-     Begin processing all the tasks. Invokes the callback function on the
-     *rendering thread* when all tasks have executed.
+     Begin processing all the tasks. Invokes the onFinished callback function on
+     the *rendering thread* when all tasks have executed.
      
      Must be invoked on the rendering thread.
      */
@@ -57,11 +60,18 @@ public:
      Must be invoked on the rendering thread.
      */
     void onTaskComplete();
+
+    /*
+     Debug method to print the names of task queues that have started but
+     not completed. Requires kDebugTaskQueues.
+     */
+    static void printTaskQueues();
     
 private:
     
     bool _started;
     VROTaskExecutionOrder _executionOrder;
+    std::string _name;
     std::vector<std::function<void()>> _tasks;
     int _numOpenTasks;
     std::function<void()> _onFinished;

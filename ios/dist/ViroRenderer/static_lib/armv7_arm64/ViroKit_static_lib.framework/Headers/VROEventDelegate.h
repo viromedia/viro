@@ -91,6 +91,12 @@ public:
         SwipeRight = 4
     };
 
+    enum DragState {
+        Start = 1,
+        Dragging = 2,
+        End = 3
+    };
+
     /*
      Enum ControllerStatus types describing the availability status of the
      current input controller.

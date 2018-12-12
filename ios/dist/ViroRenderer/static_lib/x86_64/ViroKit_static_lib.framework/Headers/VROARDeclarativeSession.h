@@ -11,6 +11,7 @@
 
 #include "VROARSession.h"
 #include "VROARConstraintMatcher.h"
+#include "VROARImageDatabase.h"
 
 class VROARScene;
 class VROARDeclarativeSessionDelegate;
@@ -44,11 +45,16 @@ public:
     void init();
     void setDelegate(std::shared_ptr<VROARDeclarativeSessionDelegate> delegate);
 
-    // TODO: the following 3 functions are also in VROARImperativeSession
+    // TODO: the following functions are also in VROARImperativeSession
     void setARSession(std::shared_ptr<VROARSession> session);
+        
+    void loadARImageDatabase(std::shared_ptr<VROARImageDatabase> arImageDatabase);
+    void unloadARImageDatabase();
     void addARImageTarget(std::shared_ptr<VROARImageTarget> target);
     void removeARImageTarget(std::shared_ptr<VROARImageTarget> target);
 
+    // only the declarative session has these functions b/c object tracking
+    // not available for Android (ViroCore)
     void addARObjectTarget(std::shared_ptr<VROARObjectTarget> target);
     void removeARObjectTarget(std::shared_ptr<VROARObjectTarget> target);
     
@@ -77,6 +83,7 @@ private:
     std::vector<std::shared_ptr<VROARDeclarativeNode>> _nodes;
     std::vector<std::shared_ptr<VROARImageTarget>> _imageTargets;
     std::vector<std::shared_ptr<VROARObjectTarget>> _objectTargets;
+    std::shared_ptr<VROARImageDatabase> _arImageDatabase;
     
 };
 

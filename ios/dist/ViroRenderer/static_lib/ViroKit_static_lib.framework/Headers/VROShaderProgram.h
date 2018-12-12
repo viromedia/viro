@@ -77,12 +77,10 @@ public:
     virtual ~VROShaderProgram();
 
     /*
-     Get the VROUniform setter given a name or index. The name accessors are much slower
-     as they iterate through each uniform.
+     Get the VROUniform setter given a name. This searches within the shader modifiers as
+     well.
      */
-    int getUniformIndex(const std::string &name);
     VROUniform *getUniform(const std::string &name);
-    VROUniform *getUniform(int index);
 
     /*
      Add a new uniform to this shader. Returns a pointer to the uniform. Note this shader
@@ -260,6 +258,11 @@ private:
      one).
      */
     std::weak_ptr<VRODriverOpenGL> _driver;
+    
+    /*
+     Loads the the uniforms used by the modifiers.
+     */
+    void addModifierUniforms();
 
     /*
      Compile and link the shader. Returns true on success.
@@ -272,11 +275,6 @@ private:
     bool compileShader(GLuint *shader, GLenum type, const char *source);
     bool linkProgram(GLuint prog);
     bool validateProgram(GLuint prog);
-    
-    /*
-     Loads the the uniforms used by the modifiers.
-     */
-    void addModifierUniforms();
 
     /*
      Set the location of each uniform in the uniformMap and each sampler in the samplers

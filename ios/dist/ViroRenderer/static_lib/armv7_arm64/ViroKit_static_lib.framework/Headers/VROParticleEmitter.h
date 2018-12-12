@@ -22,8 +22,8 @@ class VROTexture;
 /*
  Volume describing the area around which particles spawn within / around.
  */
-struct VROParticleSpawnVolume{
-    enum class Shape{
+struct VROParticleSpawnVolume {
+    enum class Shape {
         Box,
         Sphere,
         Point

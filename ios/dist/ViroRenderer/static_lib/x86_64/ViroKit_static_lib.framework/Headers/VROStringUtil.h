@@ -91,7 +91,7 @@ public:
     /*
      Print the given code, with line numbers.
      */
-    static void printCode(std::string &code);
+    static void printCode(const std::string &code);
 
 private:
     

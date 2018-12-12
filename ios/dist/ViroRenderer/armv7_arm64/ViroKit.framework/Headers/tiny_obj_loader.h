@@ -266,8 +266,8 @@ namespace tinyobj {
         virtual ~MaterialReader();
         
         virtual bool operator()(const std::string &matId,
-                                std::vector<material_t> *materials,
-                                std::map<std::string, int> *matMap,
+                                std::shared_ptr<std::vector<material_t>> materials,
+                                std::shared_ptr<std::map<std::string, int>> matMap,
                                 std::string *err) = 0;
     };
     
@@ -280,8 +280,8 @@ namespace tinyobj {
         : m_taskQueue(taskQueue), m_resourceMap(resourceMap) {}
         virtual ~MaterialFileReader() {}
         virtual bool operator()(const std::string &matId,
-                                std::vector<material_t> *materials,
-                                std::map<std::string, int> *matMap,
+                                std::shared_ptr<std::vector<material_t>> materials,
+                                std::shared_ptr<std::map<std::string, int>> matMap,
                                 std::string *err);
         
     private:
@@ -291,8 +291,8 @@ namespace tinyobj {
         std::map<std::string, std::string> *m_resourceMap;
         
         static bool readMaterialFile(std::string filePath, const std::string &matId,
-                                     std::vector<material_t> *materials,
-                                     std::map<std::string, int> *matMap, std::string *err);
+                                     std::shared_ptr<std::vector<material_t>> materials,
+                                     std::shared_ptr<std::map<std::string, int>> matMap, std::string *err);
     };
     
     /// Loads .obj from a file.
@@ -308,34 +308,35 @@ namespace tinyobj {
     /// Viro notes: this is called from any background thread, and will use an internal
     ///             task queue. When complete, the callback will be invoked on the
     ///             rendering thread.
-    void LoadObj(attrib_t *attrib, std::vector<shape_t> *shapes,
-                 std::vector<material_t> *materials, std::string *err,
+    void LoadObj(std::shared_ptr<attrib_t> attrib, std::shared_ptr<std::vector<shape_t>> shapes,
+                 std::shared_ptr<std::vector<material_t>> materials, std::string *err,
                  const char *filename, const char *mtl_basedir,
                  bool baseurl,
                  std::map<std::string, std::string> *resourceMap,
+                 std::shared_ptr<VROTaskQueue> taskQueue,
                  std::function<void(bool)> onFinished,
                  bool triangulate = true);
     
     // Load all the MTL files into the given map, which can then be passed
     // into LoadObj
-    bool LoadMTLFiles(std::vector<material_t> *materials,
-                      std::map<std::string, int> *material_map,
+    bool LoadMTLFiles(std::shared_ptr<std::vector<material_t>> materials,
+                      std::shared_ptr<std::map<std::string, int>> material_map,
                       std::string *err,
-                      std::istream *inStream, MaterialReader *readMatFn);
+                      std::shared_ptr<std::istream> inStream, MaterialReader *readMatFn);
     
     /// Loads object from a std::istream, uses GetMtlIStreamFn to retrieve
     /// std::istream for materials.
     /// Returns true when loading .obj become success.
     /// Returns warning and error message into `err`
-    bool LoadObj(attrib_t *attrib, std::vector<shape_t> *shapes,
-                 const std::map<std::string, int> &material_map,
+    bool LoadObj(std::shared_ptr<attrib_t> attrib, std::shared_ptr<std::vector<shape_t>> shapes,
+                 std::shared_ptr<std::map<std::string, int>> material_map,
                  std::string *err,
-                 std::istream *inStream,
+                 std::shared_ptr<std::istream> inStream,
                  bool triangulate = true);
     
     /// Loads materials into std::map
-    void LoadMtl(std::map<std::string, int> *material_map,
-                 std::vector<material_t> *materials, std::istream *inStream);
+    void LoadMtl(std::shared_ptr<std::map<std::string, int>> material_map,
+                 std::shared_ptr<std::vector<material_t>> materials, std::shared_ptr<std::istream> inStream);
     
 }  // namespace tinyobj
 
@@ -925,8 +926,8 @@ namespace tinyobj {
         }
     }
     
-    void LoadMtl(std::map<std::string, int> *material_map,
-                 std::vector<material_t> *materials, std::istream *inStream) {
+    void LoadMtl(std::shared_ptr<std::map<std::string, int>> material_map,
+                 std::shared_ptr<std::vector<material_t>> materials, std::shared_ptr<std::istream> inStream) {
         // Create a default material anyway.
         material_t material;
         InitMaterial(&material);
@@ -1268,8 +1269,8 @@ namespace tinyobj {
     }
     
     bool MaterialFileReader::operator()(const std::string &matId,
-                                        std::vector<material_t> *materials,
-                                        std::map<std::string, int> *matMap,
+                                        std::shared_ptr<std::vector<material_t>> materials,
+                                        std::shared_ptr<std::map<std::string, int>> matMap,
                                         std::string *err) {
         std::string filepath;
         
@@ -1287,20 +1288,32 @@ namespace tinyobj {
         
         // If the path is a URL, we have to download it to a temporary file
         else if (m_baseurl) {
-            std::shared_ptr<VROTaskQueue> taskQueue = m_taskQueue;
-            VROPlatformDispatchAsyncRenderer([taskQueue, filepath, matId, materials, matMap, err] {
-                taskQueue->addTask([taskQueue, filepath, matId, materials, matMap, err] {
+            std::weak_ptr<VROTaskQueue> taskQueue_w = m_taskQueue;
+            
+            VROPlatformDispatchAsyncRenderer([taskQueue_w, filepath, matId, materials, matMap, err] {
+                std::shared_ptr<VROTaskQueue> taskQueue = taskQueue_w.lock();
+                if (!taskQueue) {
+                    return;
+                }
+                
+                taskQueue->addTask([taskQueue_w, filepath, matId, materials, matMap, err] {
                     VROPlatformDownloadURLToFileAsync(filepath,
-                                                      [taskQueue, matId, materials, matMap, err](std::string path, bool isTemp) {
-                                                          readMaterialFile(path, matId, materials, matMap, err);
-                                                          taskQueue->onTaskComplete();
+                                                      [taskQueue_w, matId, materials, matMap, err](std::string path, bool isTemp) {
+                                                          std::shared_ptr<VROTaskQueue> taskQueue_s = taskQueue_w.lock();
+                                                          if (taskQueue_s) {
+                                                              readMaterialFile(path, matId, materials, matMap, err);
+                                                              taskQueue_s->onTaskComplete();
+                                                          }
                                                           if (isTemp) {
                                                               VROPlatformDeleteFile(path);
                                                           }
                                                       },
-                                                      [taskQueue, matId]() {
+                                                      [taskQueue_w, matId]() {
                                                           pinfo("Material map [%s] not downloaded", matId.c_str());
-                                                          taskQueue->onTaskComplete();
+                                                          std::shared_ptr<VROTaskQueue> taskQueue_s = taskQueue_w.lock();
+                                                          if (taskQueue_s) {
+                                                              taskQueue_s->onTaskComplete();
+                                                          }
                                                       });
                 });
             });
@@ -1309,9 +1322,9 @@ namespace tinyobj {
     }
     
     bool MaterialFileReader::readMaterialFile(std::string filepath, const std::string &matId,
-                                              std::vector<material_t> *materials,
-                                              std::map<std::string, int> *matMap, std::string *err) {
-        std::ifstream matIStream(filepath.c_str());
+                                              std::shared_ptr<std::vector<material_t>> materials,
+                                              std::shared_ptr<std::map<std::string, int>> matMap, std::string *err) {
+        std::shared_ptr<std::ifstream> matIStream = std::make_shared<std::ifstream>(filepath.c_str());
         if (!matIStream) {
             std::stringstream ss;
             ss << "WARN: path to material [" << matId + "] not found" << std::endl;
@@ -1321,14 +1334,15 @@ namespace tinyobj {
             return false;
         }
         
-        LoadMtl(matMap, materials, &matIStream);
+        LoadMtl(matMap, materials, matIStream);
         return true;
     }
     
-    void LoadObj(attrib_t *attrib, std::vector<shape_t> *shapes,
-                 std::vector<material_t> *materials, std::string *err,
+    void LoadObj(std::shared_ptr<attrib_t> attrib, std::shared_ptr<std::vector<shape_t>> shapes,
+                 std::shared_ptr<std::vector<material_t>> materials, std::string *err,
                  const char *filename, const char *mtl_basedir, bool baseurl,
                  std::map<std::string, std::string> *resourceMap,
+                 std::shared_ptr<VROTaskQueue> taskQueue,
                  std::function<void(bool)> onFinished,
                  bool triangulate) {
         attrib->vertices.clear();
@@ -1338,12 +1352,9 @@ namespace tinyobj {
         
         std::stringstream errss;
         
-        std::ifstream *ifs = new std::ifstream(filename);
+        std::shared_ptr<std::ifstream> ifs = std::make_shared<std::ifstream>(filename);
         if (!(*ifs)) {
-            errss << "Cannot open file [" << filename << "]" << std::endl;
-            if (err) {
-                (*err) = errss.str();
-            }
+            pinfo("Failed to open file %s for OBJ", filename);
             VROPlatformDispatchAsyncRenderer([onFinished] {
                 onFinished(false);
             });
@@ -1359,7 +1370,6 @@ namespace tinyobj {
         // task queue after reading the MTL files, so we know the MTL files are
         // fully loaded before running loadOBJ
         MaterialFileReader matFileReader;
-        std::shared_ptr<VROTaskQueue> taskQueue = std::make_shared<VROTaskQueue>(VROTaskExecutionOrder::Serial);
         if (resourceMap != nullptr) {
             matFileReader = MaterialFileReader(resourceMap, taskQueue);
         } else {
@@ -1367,31 +1377,34 @@ namespace tinyobj {
         }
         
         // Read the MTL libs in the file
-        std::map<std::string, int> *material_map = new std::map<std::string, int>();
+        std::shared_ptr<std::map<std::string, int>> material_map = std::make_shared<std::map<std::string, int>>();
         LoadMTLFiles(materials, material_map, err, ifs, &matFileReader);
         pinfo("   MTL files queued for reading");
         // Reset the stream
         ifs->clear( );
         ifs->seekg( 0, std::ios::beg );
-        
+
+        std::weak_ptr<VROTaskQueue> taskQueue_w = taskQueue;
+
         // Read the rest of the OBJ after the MTL is finished. We have to switch
         // over to the rendering thread in order to wait on the task queue
-        VROPlatformDispatchAsyncRenderer([attrib, shapes, material_map, err, ifs, triangulate, onFinished, taskQueue] {
-            pinfo("   Reading MTL files (if any)...");
-            taskQueue->processTasksAsync([attrib, shapes, material_map, err, ifs, triangulate, onFinished] {
-                pinfo("   MTL files read, loading OBJ");
-                bool ret = LoadObj(attrib, shapes, *material_map, err, ifs, triangulate);
-                onFinished(ret);
-                delete (ifs);
-                delete (material_map);
-            });
+        VROPlatformDispatchAsyncRenderer([attrib, shapes, material_map, err, ifs, triangulate, onFinished, taskQueue_w] {
+            std::shared_ptr<VROTaskQueue> taskQueue_s = taskQueue_w.lock();
+            if (taskQueue_s) {
+                pinfo("   Reading MTL files (if any)...");
+                taskQueue_s->processTasksAsync([attrib, shapes, material_map, err, ifs, triangulate, onFinished] {
+                    pinfo("   MTL files read, loading OBJ");
+                    bool ret = LoadObj(attrib, shapes, material_map, err, ifs, triangulate);
+                    onFinished(ret);
+                });
+            }
         });
     }
     
-    bool LoadObj(attrib_t *attrib, std::vector<shape_t> *shapes,
-                 const std::map<std::string, int> &material_map,
+    bool LoadObj(std::shared_ptr<attrib_t> attrib, std::shared_ptr<std::vector<shape_t>> shapes,
+                 std::shared_ptr<std::map<std::string, int>> material_map,
                  std::string *err,
-                 std::istream *inStream,
+                 std::shared_ptr<std::istream> inStream,
                  bool triangulate) {
         std::stringstream errss;
         
@@ -1502,8 +1515,8 @@ namespace tinyobj {
 #endif
                 
                 int newMaterialId = -1;
-                if (material_map.find(namebuf) != material_map.end()) {
-                    newMaterialId = material_map.find(namebuf)->second;
+                if (material_map->find(namebuf) != material_map->end()) {
+                    newMaterialId = material_map->find(namebuf)->second;
                 } else {
                     // { error!! material not found }
                 }
@@ -1657,10 +1670,10 @@ namespace tinyobj {
         return true;
     }
     
-    bool LoadMTLFiles(std::vector<material_t> *materials,
-                      std::map<std::string, int> *material_map,
+    bool LoadMTLFiles(std::shared_ptr<std::vector<material_t>> materials,
+                      std::shared_ptr<std::map<std::string, int>> material_map,
                       std::string *err,
-                      std::istream *inStream, MaterialReader *readMatFn) {
+                      std::shared_ptr<std::istream> inStream, MaterialReader *readMatFn) {
         std::stringstream errss;
         
         std::vector<float> v;

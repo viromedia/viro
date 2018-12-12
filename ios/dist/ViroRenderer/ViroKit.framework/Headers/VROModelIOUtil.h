@@ -45,7 +45,7 @@ public:
      */
     static void loadTextureAsync(const std::string &name, const std::string &base, VROResourceType type, bool sRGB,
                                  std::shared_ptr<std::map<std::string, std::string>> resourceMap,
-                                 std::map<std::string, std::shared_ptr<VROTexture>> &textureCache,
+                                 std::shared_ptr<std::map<std::string, std::shared_ptr<VROTexture>>> textureCache,
                                  std::function<void(std::shared_ptr<VROTexture> texture)> onFinished);
 
     /*

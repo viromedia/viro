@@ -11,6 +11,7 @@
 
 #include <memory>
 #include <vector>
+#include <string>
 #include <functional>
 #include "VRODefines.h"
 
@@ -39,6 +40,7 @@ enum class VROTextureFormat {
     RGB565,
     RGB8,
     RGB9_E5,
+    RGB16F,
 };
 
 // Texture formats for storage on the GPU
@@ -53,6 +55,7 @@ enum class VROTextureInternalFormat {
     RGB565,
     YCBCR,
     RGB9_E5,
+    RGB16F,
     RG8,
 };
 
@@ -158,6 +161,14 @@ public:
     uint32_t getTextureId() const {
         return _textureId;
     }
+    
+    /*
+     Set or get a user-provided name.
+     */
+    std::string getName() const { return _name; }
+    void setName(std::string name) {
+        _name = name;
+    }
 
     /*
      Get the texture ready for usage now, in advance of when it's visible. If not invoked,
@@ -202,15 +213,11 @@ public:
     VROWrapMode getWrapS() const {
         return _wrapS;
     }
-    void setWrapS(VROWrapMode wrapMode) {
-        _wrapS = wrapMode;
-    }
+    void setWrapS(VROWrapMode wrapMode);
     VROWrapMode getWrapT() const {
         return _wrapT;
     }
-    void setWrapT(VROWrapMode wrapMode) {
-        _wrapT = wrapMode;
-    }
+    void setWrapT(VROWrapMode wrapMode);
     
     /*
      Access and set filtering properties.
@@ -251,6 +258,11 @@ private:
     
     uint32_t _textureId;
     const VROTextureType _type;
+    
+    /*
+     User provided name, non-unique.
+     */
+    std::string _name;
     
     /*
      The image is retained until the texture is hydrated, after which the

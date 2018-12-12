@@ -67,9 +67,11 @@ private:
     static std::shared_ptr<VROGeometryElement> buildElement(size_t numCorners);
     static size_t encodeLine(const std::vector<VROVector3f> &path, VROByteBuffer &outBuffer);
     static size_t encodeQuad(VROLineSegment segment, bool beginDegenerate, bool endDegenerate, VROByteBuffer &buffer);
-    static size_t encodeCircularEndcap(VROVector3f center, bool beginDegenerate, bool endDegenerate, VROByteBuffer &buffer);
+    static size_t encodeCircularEndcap(VROVector3f center, VROVector3f direction,
+                                       bool beginDegenerate, bool endDegenerate, VROByteBuffer &buffer);
 
-    static void writeCorner(VROVector3f position, VROVector3f normal, VROByteBuffer &buffer);
-    static std::shared_ptr<VROShaderModifier> createPolylineShaderModifier();
+    static void writeCorner(VROVector3f position, VROVector3f direction, VROByteBuffer &buffer);
+    static void writeEndcapCorner(VROVector3f position, VROVector3f direction, float rotation, VROByteBuffer &buffer);
+    static void createPolylineShaderModifiers();
     
 };

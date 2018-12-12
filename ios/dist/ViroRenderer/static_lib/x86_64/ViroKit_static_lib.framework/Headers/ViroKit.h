@@ -55,6 +55,7 @@ FOUNDATION_EXPORT const unsigned char ViroKitVersionString[];
 #import <ViroKit/VROGeometrySource.h>
 #import <ViroKit/VROMaterial.h>
 #import <ViroKit/VROMaterialVisual.h>
+#import <ViroKit/VROAnimatedTextureOpenGL.h>
 #import <ViroKit/VROTexture.h>
 #import <ViroKit/VROLight.h>
 #import <ViroKit/VROImage.h>

@@ -17,6 +17,7 @@ public:
     bool enableBloom = true;
     bool enableHDR = true;
     bool enablePBR = true;
+    bool enableMultisampling = false;
 };
 
 #endif /* VRORendererConfiguration_h */

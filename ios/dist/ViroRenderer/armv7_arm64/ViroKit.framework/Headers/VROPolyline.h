@@ -72,6 +72,6 @@ private:
 
     static void writeCorner(VROVector3f position, VROVector3f direction, VROByteBuffer &buffer);
     static void writeEndcapCorner(VROVector3f position, VROVector3f direction, float rotation, VROByteBuffer &buffer);
-    static std::shared_ptr<VROShaderModifier> createPolylineShaderModifier();
+    static void createPolylineShaderModifiers();
     
 };

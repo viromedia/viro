@@ -36,6 +36,7 @@
 class VROGeometry;
 class VROLight;
 class VROScene;
+class VROTaskQueue;
 class VROAction;
 class VROTexture;
 class VROPortal;
@@ -743,6 +744,11 @@ public:
                                                     std::shared_ptr<VROPhysicsShape> shape);
     std::shared_ptr<VROPhysicsBody> getPhysicsBody() const;
     void clearPhysicsBody();
+    
+#pragma mark - Task Queues
+    
+    void addTaskQueue(std::shared_ptr<VROTaskQueue> queue);
+    void removeTaskQueue(std::shared_ptr<VROTaskQueue> queue);
 
 protected:
     
@@ -1055,6 +1061,14 @@ private:
      load callback has been invoked.
      */
     bool _holdRendering;
+    
+    /*
+     Task queus used for loading objects into this VRONode. We store these here in order
+     to scope them to the lifetime of the node for which they are performing loading
+     tasks.
+     */
+    std::vector<std::shared_ptr<VROTaskQueue>> _taskQueues;
+    
 };
 
 #endif /* VRONode_h */

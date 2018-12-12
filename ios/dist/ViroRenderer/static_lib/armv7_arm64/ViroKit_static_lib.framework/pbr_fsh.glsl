@@ -95,7 +95,7 @@ highp float compute_attenuation_pbr(const VROLightUniforms light, highp vec3 sur
         
         // Intensity is integrated over the solid angle to get power (luminous flux)
         // For a point light this simplifies to I = phi / (4.0 * PI). We use PI
-        // becuase we don't want spotlight intensity to differ from omni intensity
+        // because we don't want spotlight intensity to differ from omni intensity
         highp float luminous_intensity = light.intensity / PI;
 
         highp float inverse_square_attenuation_radius = 1.0 / (light.attenuation_end_distance * light.attenuation_end_distance);

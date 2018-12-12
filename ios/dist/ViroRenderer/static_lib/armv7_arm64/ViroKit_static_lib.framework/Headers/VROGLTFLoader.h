@@ -139,7 +139,7 @@ private:
     static bool processSkinnerInverseBindData(const tinygltf::Model &gModel,
                                               const tinygltf::Skin &skin,
                                               std::shared_ptr<VROSkeleton> &skeleton,
-                                              std::unique_ptr<VROSkinner> &skinnerOut);
+                                              std::shared_ptr<VROSkinner> &skinnerOut);
     static void clearCachedData();
 
     /*
@@ -157,7 +157,7 @@ private:
     static std::map<int, std::shared_ptr<VROSkeleton>> _skinIndexToSkeleton;
     static std::map<int, std::map<int,int>> _skinIndexToJointNodeIndex;
     static std::map<int, std::map<int,std::vector<int>>> _skinIndexToJointChildJoints;
-    static std::map<int, std::unique_ptr<VROSkinner>> _skinMap;
+    static std::map<int, std::shared_ptr<VROSkinner>> _skinMap;
 
     /*
      Cached maps of nodeIndexes to it's corresponding animations. These caches are cleared

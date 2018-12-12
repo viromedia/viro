@@ -2491,17 +2491,21 @@
 		<data>
 		XGa2vDqX3WbZTZlka4gG3q9UweU=
 		</data>
+		<key>Headers/VROARDeclarativeObjectNode.h</key>
+		<data>
+		xZUaTwupvH4sfUzZOGsvcO7mvrw=
+		</data>
 		<key>Headers/VROARDeclarativePlane.h</key>
 		<data>
-		WxGHNY9wpIQE9gEdzGmaaRFxBDE=
+		w/fupNqkcH5izsQAcG5250uf9jc=
 		</data>
 		<key>Headers/VROARDeclarativeSession.h</key>
 		<data>
-		z0x97k3mPqCSuYEkY5hTKmLx/6Y=
+		MUbodH1BvouZqCxB/EHdMLOKFT0=
 		</data>
 		<key>Headers/VROARFrame.h</key>
 		<data>
-		MsUqfeHMSLcV6go2Q9mtZw9HQYM=
+		4XEUmtIKzmu7DgdY9zQCKbk2tjY=
 		</data>
 		<key>Headers/VROARHitTestResult.h</key>
 		<data>
@@ -2510,6 +2514,10 @@
 		<key>Headers/VROARImageAnchor.h</key>
 		<data>
 		qH2DTn4NUWgbHAZqIARBwrUQrZw=
+		</data>
+		<key>Headers/VROARImageDatabase.h</key>
+		<data>
+		MUjuA76zSYSD4wIGr/GjzUDx0U0=
 		</data>
 		<key>Headers/VROARImageTarget.h</key>
 		<data>
@@ -2527,6 +2535,18 @@
 		<data>
 		Ie6oM2vxHDh53LOQdICaPIW4Lk8=
 		</data>
+		<key>Headers/VROARObjectAnchor.h</key>
+		<data>
+		GVn4s3KO3zXq2xl0sZS2wM1ARS4=
+		</data>
+		<key>Headers/VROARObjectTarget.h</key>
+		<data>
+		bxtpBmyDmRvNppRsQYvUtn3yysY=
+		</data>
+		<key>Headers/VROARObjectTargetiOS.h</key>
+		<data>
+		PstTRbFZjPWJgH+1Dmg0JxAY8pI=
+		</data>
 		<key>Headers/VROARPlaneAnchor.h</key>
 		<data>
 		263SvHOsbBOL+igRo5VN/+X49TM=
@@ -2537,7 +2557,7 @@
 		</data>
 		<key>Headers/VROARScene.h</key>
 		<data>
-		/mRyORdncJ4kMyp4KWpB+tfXF/I=
+		JxiZASvUBFxGLGVhnU6MzXURGr0=
 		</data>
 		<key>Headers/VROARSceneController.h</key>
 		<data>
@@ -2549,7 +2569,7 @@
 		</data>
 		<key>Headers/VROARSession.h</key>
 		<data>
-		H4w6YgrBR7KnC/pctssq8kZ/46g=
+		OuaygqEvHUGaDnN3X2rxd3k3RWs=
 		</data>
 		<key>Headers/VROARShadow.h</key>
 		<data>
@@ -2561,11 +2581,15 @@
 		</data>
 		<key>Headers/VROAllocationTracker.h</key>
 		<data>
-		3EMrWfD9nNKconDuhj6CqMG3Lvk=
+		2Is5bs0mcAq5Nd1va5DjXRGs0f0=
 		</data>
 		<key>Headers/VROAnimatable.h</key>
 		<data>
 		NJbMFvEHOkOKmzKl0xX/zW/+1dM=
+		</data>
+		<key>Headers/VROAnimatedTextureOpenGL.h</key>
+		<data>
+		FN/oVoSeYU7tX/+CBLL+wW2SEg8=
 		</data>
 		<key>Headers/VROAnimation.h</key>
 		<data>
@@ -2573,7 +2597,7 @@
 		</data>
 		<key>Headers/VROAnimationChain.h</key>
 		<data>
-		CagiIG1x5eKmqHTt/cPtKahnvys=
+		ONwmRBL2jrbv/TDBlZEFT2ngomA=
 		</data>
 		<key>Headers/VROAnimationFloat.h</key>
 		<data>
@@ -2581,7 +2605,7 @@
 		</data>
 		<key>Headers/VROAnimationGroup.h</key>
 		<data>
-		/+5B5VAao29WdP71kucWsGguC4A=
+		nj6WLVkAqSMOq9AzbJrQu+IfBFc=
 		</data>
 		<key>Headers/VROAnimationQuaternion.h</key>
 		<data>
@@ -2591,13 +2615,17 @@
 		<data>
 		T6xwpo1gcJwNz0FmjjhBQOUjgvo=
 		</data>
+		<key>Headers/VROAtomic.h</key>
+		<data>
+		mbmaCxyEMm9LpoPL3Fn1hS1TslU=
+		</data>
 		<key>Headers/VROAudioPlayer.h</key>
 		<data>
 		GcXsf6fI00QM0YVmjVBTuPKXB7g=
 		</data>
 		<key>Headers/VROAudioPlayeriOS.h</key>
 		<data>
-		f427Uv+CEA7mqJ1gamzOcYbBIoI=
+		jC6zNiRfa0DC5l6XumXA0GyrKg4=
 		</data>
 		<key>Headers/VROBillboardConstraint.h</key>
 		<data>
@@ -2645,11 +2673,11 @@
 		</data>
 		<key>Headers/VRODriver.h</key>
 		<data>
-		F4CaLWuwWHRiyHUvMNYDJPbDd10=
+		GDrg7hvAn6vq8e3oPyWSqLBMx2U=
 		</data>
 		<key>Headers/VROEventDelegate.h</key>
 		<data>
-		Pmd/k3mniAFcHLnW19sXGp0OVlw=
+		giH43cnGE6WJ7y5eU6CFbpKvXSQ=
 		</data>
 		<key>Headers/VROEventDelegateiOS.h</key>
 		<data>
@@ -2657,11 +2685,11 @@
 		</data>
 		<key>Headers/VROExecutableAnimation.h</key>
 		<data>
-		TWn0eF6YfbtUy1kvTXOtT5stQ+k=
+		yUbolAue507Tnmqf4aTFYcg6qdo=
 		</data>
 		<key>Headers/VROFBXLoader.h</key>
 		<data>
-		qI1gP0m2kdzxkuHY+QCEOxc7JW4=
+		5yJItFj+0ZzgTilsMcYvwS5o740=
 		</data>
 		<key>Headers/VROFieldOfView.h</key>
 		<data>
@@ -2669,7 +2697,7 @@
 		</data>
 		<key>Headers/VROFixedParticleEmitter.h</key>
 		<data>
-		htCXa2ZkznV65aYkKhCEODbWezg=
+		Cxigwd9x4jLSFDH4SiwJWMOKuGA=
 		</data>
 		<key>Headers/VROFrameListener.h</key>
 		<data>
@@ -2677,7 +2705,7 @@
 		</data>
 		<key>Headers/VROFrameScheduler.h</key>
 		<data>
-		LcT5abR0+jecrSdYBFwpG20/lpo=
+		LTtkBcpweDJp0vBkBnesY8sY2X0=
 		</data>
 		<key>Headers/VROFrameSynchronizer.h</key>
 		<data>
@@ -2701,15 +2729,15 @@
 		</data>
 		<key>Headers/VROGLTFLoader.h</key>
 		<data>
-		I1nxudZiOYlaunwJrn7thGQ4hDY=
+		yQ+tdyaMXsImOyTGQDdlLmUbvaA=
 		</data>
 		<key>Headers/VROGeometry.h</key>
 		<data>
-		a67YxTXTNACQkcPH9rSHuX/7jQU=
+		sivgFo/wUhEAX/PL82V7IT/oByI=
 		</data>
 		<key>Headers/VROGeometryElement.h</key>
 		<data>
-		OAQKAs94KSAaA/3vowRDzNHOKW8=
+		CCRbZ6Or2DzPeyS6n7AB277I9Jo=
 		</data>
 		<key>Headers/VROGeometrySource.h</key>
 		<data>
@@ -2745,7 +2773,7 @@
 		</data>
 		<key>Headers/VROInputControllerBase.h</key>
 		<data>
-		7VjumBNcmWtBlsTKOXj8AxakyDE=
+		wr2KlG0fN3QsjMhnpqwoy8ap+n4=
 		</data>
 		<key>Headers/VROInputControllerCardboardiOS.h</key>
 		<data>
@@ -2753,7 +2781,7 @@
 		</data>
 		<key>Headers/VROInputPresenter.h</key>
 		<data>
-		CSLDITXUCmMI3CxcFebNylZynYA=
+		6BuAHHkB5GGy+jUuqF0ExLo5rzY=
 		</data>
 		<key>Headers/VROInputPresenterCardboardiOS.h</key>
 		<data>
@@ -2777,11 +2805,11 @@
 		</data>
 		<key>Headers/VROLog.h</key>
 		<data>
-		D0qI9qvooFKXLSkx4TjcdON0RO8=
+		Awce46o1KN96+4ibNVRV4fxQHuQ=
 		</data>
 		<key>Headers/VROMaterial.h</key>
 		<data>
-		292qcRoR+brWemptm8Zv0py5rfI=
+		OHkFugOU/vRUu0TVIpii9jDHCqU=
 		</data>
 		<key>Headers/VROMaterialAnimation.h</key>
 		<data>
@@ -2793,35 +2821,35 @@
 		</data>
 		<key>Headers/VROMaterialVisual.h</key>
 		<data>
-		ZkbjLSX/zfX+yvJZ9YHfqNC9vt0=
+		tZFS2ETol/6zcva+To4qGtHDMX0=
 		</data>
 		<key>Headers/VROMath.h</key>
 		<data>
-		3sv0n3qJc6MAFvnsL8U7L50p/Kw=
+		DLxmN0W8TY0RyDlOuQ2+3CYDlfk=
 		</data>
 		<key>Headers/VROMatrix4f.h</key>
 		<data>
-		EaiVtlMhxfWG50JJGEbKCHk00zg=
+		S7nkJrOjEpdC/dL0HsYXoopwM0E=
 		</data>
 		<key>Headers/VROModelIOUtil.h</key>
 		<data>
-		Le6p5sS1PydAL3ZY9H/e3oUMbYg=
+		kUEJH2RJvDL+bs+S+AqYsV4qgDU=
 		</data>
 		<key>Headers/VRONode.h</key>
 		<data>
-		iaZPipg9HtP5ziCddrWIrm4j8cM=
+		fu/Ts+imu1wF874ZHQ6LoCb4EvY=
 		</data>
 		<key>Headers/VRONodeCamera.h</key>
 		<data>
-		LFUEGp68bgdfIRGLj0vMYbqAaFY=
+		zrumn67vGzWb0+6fmatzg2iXt4w=
 		</data>
 		<key>Headers/VROOBJLoader.h</key>
 		<data>
-		+PVM2JPMr40IUYhrYvmwEFfD1UA=
+		Xkj1K8ODM5HdkpML4MkDwugCNOg=
 		</data>
 		<key>Headers/VROOpenGL.h</key>
 		<data>
-		itGtTYo6bBzZmk6A4A7qLajbcLc=
+		Si6PGOq3+ozDqexivt8vJQHmFWs=
 		</data>
 		<key>Headers/VROParticle.h</key>
 		<data>
@@ -2829,11 +2857,11 @@
 		</data>
 		<key>Headers/VROParticleEmitter.h</key>
 		<data>
-		JBIJ7WOCTAEGPCiZNS0oAglFuJA=
+		I4yYar5YP2oIw0OLQrgC+vCc9to=
 		</data>
 		<key>Headers/VROParticleModifier.h</key>
 		<data>
-		SPhM2EIQFai7449tUrgC4qT7e3s=
+		dhXsM34C+Gm2n4SdZqTz2gNQYlg=
 		</data>
 		<key>Headers/VROParticleUBO.h</key>
 		<data>
@@ -2877,15 +2905,15 @@
 		</data>
 		<key>Headers/VROPlatformUtil.h</key>
 		<data>
-		kLFz4/FQy+BcWA7QKtU8VRiVG+o=
+		E4CN9ryGmUKVfgsdY9WmR94/vFU=
 		</data>
 		<key>Headers/VROPolygon.h</key>
 		<data>
-		Sa5cKdbshGVwwlrbZVLXBCF3TH0=
+		pi9is39bH37DguNnbvIPO7cNVuQ=
 		</data>
 		<key>Headers/VROPolyline.h</key>
 		<data>
-		ytskeEVkrNsGTV70UsHXlVKh6H4=
+		3wn76KdwlCXtB1nN7NUU5SpSQAg=
 		</data>
 		<key>Headers/VROPortal.h</key>
 		<data>
@@ -2925,7 +2953,7 @@
 		</data>
 		<key>Headers/VRORenderContext.h</key>
 		<data>
-		UR0zOaiZFowcsdd+AwqwX4MR3ws=
+		kofZgJCsNGHDCoU3DJLqG3JZN2g=
 		</data>
 		<key>Headers/VRORenderDelegate.h</key>
 		<data>
@@ -2945,7 +2973,7 @@
 		</data>
 		<key>Headers/VRORendererConfiguration.h</key>
 		<data>
-		Iwl0fB/IU3ARHpoWfPyrPV7RpOk=
+		EgML9HPbvks5iFgn3xEzMwM7Mq8=
 		</data>
 		<key>Headers/VRORendererTest.h</key>
 		<data>
@@ -2953,7 +2981,7 @@
 		</data>
 		<key>Headers/VRORendererTestHarness.h</key>
 		<data>
-		YX9dJ4fmTI9mtvIC4mxJvGgqhcc=
+		u4C9byi3wRACiqfzlpDF4iFRh4M=
 		</data>
 		<key>Headers/VROReticle.h</key>
 		<data>
@@ -2973,19 +3001,23 @@
 		</data>
 		<key>Headers/VROShaderModifier.h</key>
 		<data>
-		dVQOkUf3sIYUZFIMqEdZ9k/aV98=
+		Vf2zfjI5bG5WuTbbJdhGLfN+nFk=
 		</data>
 		<key>Headers/VROShaderProgram.h</key>
 		<data>
-		YBg0cx7rhi6d+xiCEZjYZ9PXBu8=
+		h0gyAaQXM7dvsAh+CrAK62xoPDQ=
 		</data>
 		<key>Headers/VROShapeUtils.h</key>
 		<data>
 		2/QDYNzGfkgUi+xH8KSRVAe3xos=
 		</data>
+		<key>Headers/VROSkeletalAnimationLayer.h</key>
+		<data>
+		DJU1pvPE2V34xy9U+NeCEsEQ6i0=
+		</data>
 		<key>Headers/VROSkinner.h</key>
 		<data>
-		+NivbRJ0ldWngSi5tHegpDVGc/s=
+		FPKzir85TWB4dQRHAov+JWohj6w=
 		</data>
 		<key>Headers/VROSkybox.h</key>
 		<data>
@@ -2993,7 +3025,7 @@
 		</data>
 		<key>Headers/VROSortKey.h</key>
 		<data>
-		a9AP22gYXnfbvSkMXjD5rnfw+hY=
+		RJe8uNrLBmDHR5uHHQ+O3e/YhR4=
 		</data>
 		<key>Headers/VROSound.h</key>
 		<data>
@@ -3037,7 +3069,7 @@
 		</data>
 		<key>Headers/VROStringUtil.h</key>
 		<data>
-		ljzH/5aFTwsKrHNh8rwT0g9/xxQ=
+		dhhhu/cqKGMYuR7vuG7qNo+3B5I=
 		</data>
 		<key>Headers/VROSurface.h</key>
 		<data>
@@ -3045,15 +3077,15 @@
 		</data>
 		<key>Headers/VROTaskQueue.h</key>
 		<data>
-		QPfBDzUr5tLr1MqlsmX7fAGxgqQ=
+		J2hrShIMN4F5Kru4KWYTnoINQ1k=
 		</data>
 		<key>Headers/VROText.h</key>
 		<data>
-		dA+6ZZ5JkHx2UkEoP8B7yKUOxjA=
+		yGsAXMMbyNPyh9Z6RhxN/IlWtWU=
 		</data>
 		<key>Headers/VROTexture.h</key>
 		<data>
-		6vMQCq3M+BN/K+6Ucz7jSgRYlqA=
+		jYfMLvtTYZX5q9mqxNB68GkB+PI=
 		</data>
 		<key>Headers/VROTextureUtil.h</key>
 		<data>
@@ -3105,7 +3137,7 @@
 		</data>
 		<key>Headers/VROTransaction.h</key>
 		<data>
-		0afGnKXiwKt8Pyv4N9hgq6uGfcw=
+		SiU30qFxJWCG1bja0JMifzKwTC8=
 		</data>
 		<key>Headers/VROTransformConstraint.h</key>
 		<data>
@@ -3125,11 +3157,11 @@
 		</data>
 		<key>Headers/VROTriangle.h</key>
 		<data>
-		4zYXSVfl+DmpuhhRNRa9v1oIyd0=
+		u2A9au9gLlUUQ6Qc/8ZZHVYn8c0=
 		</data>
 		<key>Headers/VROTypeface.h</key>
 		<data>
-		j56Qo8YuXmgtS42bR8OtGOK9XUY=
+		3iOrgzB121an8wlfJaYLqdqBClI=
 		</data>
 		<key>Headers/VROTypefaceCollection.h</key>
 		<data>
@@ -3137,11 +3169,11 @@
 		</data>
 		<key>Headers/VROUniform.h</key>
 		<data>
-		CKVMD55TmIXQ81Nhovyhc6eS2PQ=
+		DAevaFzr8KCE5LPnkfSRKmcD0/k=
 		</data>
 		<key>Headers/VROVector3f.h</key>
 		<data>
-		Cjvd5HIUb8bw9FNFooS5C3aNx9U=
+		iLNhnDoKrOftXvAsUylFHzXW4E0=
 		</data>
 		<key>Headers/VROVector4f.h</key>
 		<data>
@@ -3177,7 +3209,7 @@
 		</data>
 		<key>Headers/VROView.h</key>
 		<data>
-		U1WU6JHUVzl5gNQjAnxU8iwX8nQ=
+		lHU4FqPVgGhA9a5cMfz2iJOZQrE=
 		</data>
 		<key>Headers/VROViewAR.h</key>
 		<data>
@@ -3209,7 +3241,1051 @@
 		</data>
 		<key>Headers/ViroKit.h</key>
 		<data>
-		LUky4bLsh2B20/bOCujlcUFxoTM=
+		2V/FFGHXJ2UpoPi1Evi5StJSsAI=
+		</data>
+		<key>Headers/gif_hash.h</key>
+		<data>
+		qcENcGTrBKTrBowPi9IrLkaicV0=
+		</data>
+		<key>Headers/gif_lib.h</key>
+		<data>
+		U/WA0Upe3L3XYwOrejyH6GdDUzw=
+		</data>
+		<key>Headers/gif_lib_private.h</key>
+		<data>
+		ekRtF3isgr3jNRxF3ZCe+5KT8x8=
+		</data>
+		<key>Headers/glm/CMakeLists.txt</key>
+		<data>
+		n20Yv55vtqRTFjekOLv59Hdn5IU=
+		</data>
+		<key>Headers/glm/common.hpp</key>
+		<data>
+		2qvdMhsDiqic28qmBLobTlRKvak=
+		</data>
+		<key>Headers/glm/detail/_features.hpp</key>
+		<data>
+		boKnkaOgEtfkg+m+gKqkzT1YMFY=
+		</data>
+		<key>Headers/glm/detail/_fixes.hpp</key>
+		<data>
+		i57PubyVTmiFJW9Var+eTSyL3mM=
+		</data>
+		<key>Headers/glm/detail/_noise.hpp</key>
+		<data>
+		IyV2PeGpAnO4PmH2ZAD/83msNAw=
+		</data>
+		<key>Headers/glm/detail/_swizzle.hpp</key>
+		<data>
+		BOfPTBFJiWYKRgz/RiqtSCGTsB0=
+		</data>
+		<key>Headers/glm/detail/_swizzle_func.hpp</key>
+		<data>
+		Vjqv92gMvQq9nHacUnLwJmSjKvU=
+		</data>
+		<key>Headers/glm/detail/_vectorize.hpp</key>
+		<data>
+		XQ8eZBnptkN4fO5LKJZLZzxSOM4=
+		</data>
+		<key>Headers/glm/detail/dummy.cpp</key>
+		<data>
+		HQ9y1ceE5EIctfSegOR2qY0/f4E=
+		</data>
+		<key>Headers/glm/detail/func_common.hpp</key>
+		<data>
+		TINZYMtUZmwSUrOEuEKRI/4ayW8=
+		</data>
+		<key>Headers/glm/detail/func_common.inl</key>
+		<data>
+		92Iltl4FELA13m+/94J9f2hYNaM=
+		</data>
+		<key>Headers/glm/detail/func_common_simd.inl</key>
+		<data>
+		WCsNiTRwglLGkF+/3o95YKTD0+Q=
+		</data>
+		<key>Headers/glm/detail/func_exponential.hpp</key>
+		<data>
+		Ht04yt7W4NnImMtSZ2Sml/5CyOc=
+		</data>
+		<key>Headers/glm/detail/func_exponential.inl</key>
+		<data>
+		8uOsYbz5IUQ9GlK5oZEpt+33lx0=
+		</data>
+		<key>Headers/glm/detail/func_exponential_simd.inl</key>
+		<data>
+		T5qdcE38h8v+KYqF9cjDyYszOX0=
+		</data>
+		<key>Headers/glm/detail/func_geometric.hpp</key>
+		<data>
+		n8soh36b09rhVbet+gTLS9ZP60A=
+		</data>
+		<key>Headers/glm/detail/func_geometric.inl</key>
+		<data>
+		TzvsTDiql+1aSb6PMvFXGhm7duI=
+		</data>
+		<key>Headers/glm/detail/func_geometric_simd.inl</key>
+		<data>
+		qETcwF/FqOVp8fkJE5kDVfQjsDo=
+		</data>
+		<key>Headers/glm/detail/func_integer.hpp</key>
+		<data>
+		GDw4tH/J+g66h58TFJdc/03D1g0=
+		</data>
+		<key>Headers/glm/detail/func_integer.inl</key>
+		<data>
+		O4WB/PW0pIRh28IdMmalp5tRJNk=
+		</data>
+		<key>Headers/glm/detail/func_integer_simd.inl</key>
+		<data>
+		QMz4stzTXocnEpeIm0VKPzORhOg=
+		</data>
+		<key>Headers/glm/detail/func_matrix.hpp</key>
+		<data>
+		dDc6gLBStm9yJUwlu/rCIvLtm4o=
+		</data>
+		<key>Headers/glm/detail/func_matrix.inl</key>
+		<data>
+		vzoIsrftv7uQppUhivMXwOs9e74=
+		</data>
+		<key>Headers/glm/detail/func_matrix_simd.inl</key>
+		<data>
+		uB6Wq58LnzCZewwt/7PCejrlyIU=
+		</data>
+		<key>Headers/glm/detail/func_packing.hpp</key>
+		<data>
+		/Ez5jeEmqIr8p0Yd77IihhEO2X4=
+		</data>
+		<key>Headers/glm/detail/func_packing.inl</key>
+		<data>
+		41PP+G10YS07pToRQ8ITEfvZVVY=
+		</data>
+		<key>Headers/glm/detail/func_packing_simd.inl</key>
+		<data>
+		hZ3I83eB6K/Rio+xVvipAWvvBm8=
+		</data>
+		<key>Headers/glm/detail/func_trigonometric.hpp</key>
+		<data>
+		Cq5w3I4nd28Uw3UPbEv1dByBEtw=
+		</data>
+		<key>Headers/glm/detail/func_trigonometric.inl</key>
+		<data>
+		zpKvHgfN6sq4fTvlNWG4pAZEdKg=
+		</data>
+		<key>Headers/glm/detail/func_trigonometric_simd.inl</key>
+		<data>
+		2jmj7l5rSw0yVb/vlWAYkK/YBwk=
+		</data>
+		<key>Headers/glm/detail/func_vector_relational.hpp</key>
+		<data>
+		+p0L3cKGZDTqFWpn88TAl6x1pdo=
+		</data>
+		<key>Headers/glm/detail/func_vector_relational.inl</key>
+		<data>
+		NYsI33GjdZ1uIFOUOb9xVlm/NK8=
+		</data>
+		<key>Headers/glm/detail/func_vector_relational_simd.inl</key>
+		<data>
+		HkynrZIWQGYz8EUgIEYJrRktBqQ=
+		</data>
+		<key>Headers/glm/detail/glm.cpp</key>
+		<data>
+		rPR2dd+Fv77YC4hn9A7qQmb36G8=
+		</data>
+		<key>Headers/glm/detail/precision.hpp</key>
+		<data>
+		QkrWpgwgUrn69kmQfGVyjvk1rNw=
+		</data>
+		<key>Headers/glm/detail/setup.hpp</key>
+		<data>
+		N8dhQIni8ff4tTC9VB5GpJFsJBE=
+		</data>
+		<key>Headers/glm/detail/type_float.hpp</key>
+		<data>
+		T2zNThrL5tzJv82Mr1oLm8bq1c8=
+		</data>
+		<key>Headers/glm/detail/type_gentype.hpp</key>
+		<data>
+		+Yv1tuO8I1ejOnOr2asWGHhiZqA=
+		</data>
+		<key>Headers/glm/detail/type_gentype.inl</key>
+		<data>
+		9WURNRmyyS9joS43AbNz69h7oSc=
+		</data>
+		<key>Headers/glm/detail/type_half.hpp</key>
+		<data>
+		lpThaGHnOquGYgckEqH3lZ5QDHw=
+		</data>
+		<key>Headers/glm/detail/type_half.inl</key>
+		<data>
+		lF/UuVD6z5TUqZ4+9YRFOLLJ898=
+		</data>
+		<key>Headers/glm/detail/type_int.hpp</key>
+		<data>
+		EsLdFZKWPfO4Igk4cAQjpJT3NLY=
+		</data>
+		<key>Headers/glm/detail/type_mat.hpp</key>
+		<data>
+		bGuRqibLhk91ommCa0FUGPSoGrw=
+		</data>
+		<key>Headers/glm/detail/type_mat.inl</key>
+		<data>
+		YYh22fJnZgacFJWUKbX/XoRWMfE=
+		</data>
+		<key>Headers/glm/detail/type_mat2x2.hpp</key>
+		<data>
+		TpeSN3jjEgfcUPV42pm0cGMUkbk=
+		</data>
+		<key>Headers/glm/detail/type_mat2x2.inl</key>
+		<data>
+		27CX+oPpOoYY/PixUy86hYKoTWY=
+		</data>
+		<key>Headers/glm/detail/type_mat2x3.hpp</key>
+		<data>
+		vC4YuPS+u7zUhalDZ2PvgfT92dM=
+		</data>
+		<key>Headers/glm/detail/type_mat2x3.inl</key>
+		<data>
+		dlhHFphUMP4gWP/BH0WD1j7qdQM=
+		</data>
+		<key>Headers/glm/detail/type_mat2x4.hpp</key>
+		<data>
+		tHCeF2ElpYCIMs+SZuk4hqc10lw=
+		</data>
+		<key>Headers/glm/detail/type_mat2x4.inl</key>
+		<data>
+		uj78Nx4VKxxxdII7ahAMSYFzhGs=
+		</data>
+		<key>Headers/glm/detail/type_mat3x2.hpp</key>
+		<data>
+		nYzZA0V8g9DmIbmQeaPftD+dy0w=
+		</data>
+		<key>Headers/glm/detail/type_mat3x2.inl</key>
+		<data>
+		yVx6XFQ61QTADfY4uNcvNrUP2o4=
+		</data>
+		<key>Headers/glm/detail/type_mat3x3.hpp</key>
+		<data>
+		NXCfrnM83lkiqiaHJ6NqMlmNGCg=
+		</data>
+		<key>Headers/glm/detail/type_mat3x3.inl</key>
+		<data>
+		+CReYrRXLuve8oIxPvFkDmyw1v4=
+		</data>
+		<key>Headers/glm/detail/type_mat3x4.hpp</key>
+		<data>
+		OIpkT7UR64LRR2OmXI6o5/oVhNU=
+		</data>
+		<key>Headers/glm/detail/type_mat3x4.inl</key>
+		<data>
+		bPmPoYYsYFfXTGEhQNBz2nMSli4=
+		</data>
+		<key>Headers/glm/detail/type_mat4x2.hpp</key>
+		<data>
+		/1ELQFYHwr4EEkuUcGecdNYSJ2o=
+		</data>
+		<key>Headers/glm/detail/type_mat4x2.inl</key>
+		<data>
+		24xrMcuSzKL2ojb1p6FE89ghLhI=
+		</data>
+		<key>Headers/glm/detail/type_mat4x3.hpp</key>
+		<data>
+		s3dxr7DcpbMEo1mEgDQuqbPJD40=
+		</data>
+		<key>Headers/glm/detail/type_mat4x3.inl</key>
+		<data>
+		oyCcv7BNGzG+ZMhS/FYmaPadjF8=
+		</data>
+		<key>Headers/glm/detail/type_mat4x4.hpp</key>
+		<data>
+		nEuruftHTigtDRqjNhPpaF/noYo=
+		</data>
+		<key>Headers/glm/detail/type_mat4x4.inl</key>
+		<data>
+		LyJwFyg6sAC4xjlSOK8aJCf+Du8=
+		</data>
+		<key>Headers/glm/detail/type_mat4x4_simd.inl</key>
+		<data>
+		FtUTa0k+7BpyQAwDGBZGtSOa8lI=
+		</data>
+		<key>Headers/glm/detail/type_vec.hpp</key>
+		<data>
+		rPSWy5Msv9P1vSogWTTrffgWM9I=
+		</data>
+		<key>Headers/glm/detail/type_vec.inl</key>
+		<data>
+		trRK6qh5PoGx1c1E+xDewhOQzlw=
+		</data>
+		<key>Headers/glm/detail/type_vec1.hpp</key>
+		<data>
+		j7SSCq7qlAfIFkM+E1OVfstCx+k=
+		</data>
+		<key>Headers/glm/detail/type_vec1.inl</key>
+		<data>
+		KTX/8gyRAuffK8+tacEPOtDtjYw=
+		</data>
+		<key>Headers/glm/detail/type_vec2.hpp</key>
+		<data>
+		323GbVfGWpElo/Fq4lpgHaQ9EEQ=
+		</data>
+		<key>Headers/glm/detail/type_vec2.inl</key>
+		<data>
+		Uk1ZuqeRD71VnvO3M+WPJnIuQPc=
+		</data>
+		<key>Headers/glm/detail/type_vec3.hpp</key>
+		<data>
+		8pEmWIYQM7KC0NIsw9A6YYE+FJU=
+		</data>
+		<key>Headers/glm/detail/type_vec3.inl</key>
+		<data>
+		q0I+OaFqb6C1Tk5GTP+jz0t/q2g=
+		</data>
+		<key>Headers/glm/detail/type_vec4.hpp</key>
+		<data>
+		3r4L3t6iFR/HNaVkbs1xygqg0JY=
+		</data>
+		<key>Headers/glm/detail/type_vec4.inl</key>
+		<data>
+		QftYgwdLMv4jjGt6wcWuv3EPX50=
+		</data>
+		<key>Headers/glm/detail/type_vec4_simd.inl</key>
+		<data>
+		64g9QybhHhHeYeX95pcKjPndjHc=
+		</data>
+		<key>Headers/glm/exponential.hpp</key>
+		<data>
+		CoZi/mwDoaj8Yn1axlpYZXYFPEo=
+		</data>
+		<key>Headers/glm/ext.hpp</key>
+		<data>
+		3Zvr4S/+3Jbk5xuFN2YAqJ07w/c=
+		</data>
+		<key>Headers/glm/fwd.hpp</key>
+		<data>
+		6Diza5adx7dxjJ6q8SVJ71vsrEE=
+		</data>
+		<key>Headers/glm/geometric.hpp</key>
+		<data>
+		RWF9oFlYaId1FZX9fPQ1h7FFDtY=
+		</data>
+		<key>Headers/glm/glm.hpp</key>
+		<data>
+		8q5sn+8Ixc/VAkRoVz1aVGfnjM4=
+		</data>
+		<key>Headers/glm/gtc/bitfield.hpp</key>
+		<data>
+		/sTDwY3z1mL13Nbw0rg+X4CV04s=
+		</data>
+		<key>Headers/glm/gtc/bitfield.inl</key>
+		<data>
+		CY+0u7qODCQCgk9qfv9ulTBT0Xc=
+		</data>
+		<key>Headers/glm/gtc/color_encoding.inl</key>
+		<data>
+		sh6TIGwKSTWf/071dRicOMwpDKk=
+		</data>
+		<key>Headers/glm/gtc/color_space.hpp</key>
+		<data>
+		CfgMmgRrhKepAWJ6ddXxaOsbg/U=
+		</data>
+		<key>Headers/glm/gtc/color_space.inl</key>
+		<data>
+		Jwb2rIZbvZXJSJOvjtqaJuEFalE=
+		</data>
+		<key>Headers/glm/gtc/constants.hpp</key>
+		<data>
+		6a1Fh+XpXqhoe58jQHjru6SbR2I=
+		</data>
+		<key>Headers/glm/gtc/constants.inl</key>
+		<data>
+		JQHQsT0TuRWEx5b1yPG3BSX4+bs=
+		</data>
+		<key>Headers/glm/gtc/epsilon.hpp</key>
+		<data>
+		kHBQMSjfe37KPVsfoVu0sn7R8k8=
+		</data>
+		<key>Headers/glm/gtc/epsilon.inl</key>
+		<data>
+		W2BbmZTuJ3Lvk8lZV7nrxFQnExI=
+		</data>
+		<key>Headers/glm/gtc/functions.hpp</key>
+		<data>
+		8cCOrqDITwYLyV50flmLcte2MMo=
+		</data>
+		<key>Headers/glm/gtc/functions.inl</key>
+		<data>
+		tknaoQBONIz/tFETSPGID7eBEpQ=
+		</data>
+		<key>Headers/glm/gtc/integer.hpp</key>
+		<data>
+		kYH9BwmwVt56UAx2Mt6su+Bd5O4=
+		</data>
+		<key>Headers/glm/gtc/integer.inl</key>
+		<data>
+		LTwyG1AML9+31n+vadL/la6M5Rg=
+		</data>
+		<key>Headers/glm/gtc/matrix_access.hpp</key>
+		<data>
+		vktUkQGtslUUMZtvgQP4PI0/+1s=
+		</data>
+		<key>Headers/glm/gtc/matrix_access.inl</key>
+		<data>
+		yjsD08wtxk8MmlIcdw/bZVLCaTw=
+		</data>
+		<key>Headers/glm/gtc/matrix_integer.hpp</key>
+		<data>
+		Y79LAgkDRizb3QBaKab2YLkjuDM=
+		</data>
+		<key>Headers/glm/gtc/matrix_inverse.hpp</key>
+		<data>
+		xaYJHIeY6zIlIDMivTK4sKnnL5s=
+		</data>
+		<key>Headers/glm/gtc/matrix_inverse.inl</key>
+		<data>
+		FTHJXuoUbnsqcG+cxFHejh1ma9Q=
+		</data>
+		<key>Headers/glm/gtc/matrix_transform.hpp</key>
+		<data>
+		fZfpUTM4S1W4WKRxjqeyDrvG66Q=
+		</data>
+		<key>Headers/glm/gtc/matrix_transform.inl</key>
+		<data>
+		BkWwIMixxL6DEn80IID3ObYvFIE=
+		</data>
+		<key>Headers/glm/gtc/noise.hpp</key>
+		<data>
+		/vM+k2sNisK8unEwXORcVPUVQHQ=
+		</data>
+		<key>Headers/glm/gtc/noise.inl</key>
+		<data>
+		sAj8tQ+5swpgcCZXrcrtbHO/CDM=
+		</data>
+		<key>Headers/glm/gtc/packing.hpp</key>
+		<data>
+		rk0JcDILSgt5BNNlDZ40Nr8NEjI=
+		</data>
+		<key>Headers/glm/gtc/packing.inl</key>
+		<data>
+		dTNU7VjrjdUFwhsEW6+aDx5My7c=
+		</data>
+		<key>Headers/glm/gtc/quaternion.hpp</key>
+		<data>
+		z3v53nWbvJ3omg7toz0unrqz9KM=
+		</data>
+		<key>Headers/glm/gtc/quaternion.inl</key>
+		<data>
+		JZzj77yTFHod5QtkYIZuCICKneg=
+		</data>
+		<key>Headers/glm/gtc/quaternion_simd.inl</key>
+		<data>
+		xQL9miNmQL4lJkqOxSUjNzS5m+4=
+		</data>
+		<key>Headers/glm/gtc/random.hpp</key>
+		<data>
+		5a4svIlOJF3Q/osffPQQ5Ct8lCI=
+		</data>
+		<key>Headers/glm/gtc/random.inl</key>
+		<data>
+		I294peBC4wwwbdr3Zvug9oR1Lb4=
+		</data>
+		<key>Headers/glm/gtc/reciprocal.hpp</key>
+		<data>
+		BusgdIdDoYAPZ85IZlOsR+TLnL8=
+		</data>
+		<key>Headers/glm/gtc/reciprocal.inl</key>
+		<data>
+		IXz8lH5H9NfhqTPtJ2t15RE8b4E=
+		</data>
+		<key>Headers/glm/gtc/round.hpp</key>
+		<data>
+		4lpF3YsztoOo5ldBhyjPGXLmEwA=
+		</data>
+		<key>Headers/glm/gtc/round.inl</key>
+		<data>
+		DaOeuGFGhUo26TwmCc4yrUyoCck=
+		</data>
+		<key>Headers/glm/gtc/type_aligned.hpp</key>
+		<data>
+		3OkmM8plgZhG8zjTGFVM0EGKU2o=
+		</data>
+		<key>Headers/glm/gtc/type_precision.hpp</key>
+		<data>
+		EUX62/anW42C6xNEh0ARTbqPUpk=
+		</data>
+		<key>Headers/glm/gtc/type_precision.inl</key>
+		<data>
+		yirF9vl9G0CLpcekjDCcSeCLpcI=
+		</data>
+		<key>Headers/glm/gtc/type_ptr.hpp</key>
+		<data>
+		r7cY6NEYwh4cfo1BN/R2oGEuxtQ=
+		</data>
+		<key>Headers/glm/gtc/type_ptr.inl</key>
+		<data>
+		gaW7ksVRvfLaunm7RmNGQvvi39Q=
+		</data>
+		<key>Headers/glm/gtc/ulp.hpp</key>
+		<data>
+		P+CcBb+RZVlHYWzZXEdXYa1nDNs=
+		</data>
+		<key>Headers/glm/gtc/ulp.inl</key>
+		<data>
+		N+qR5Irm8nHCc7TENmWrak7hNWQ=
+		</data>
+		<key>Headers/glm/gtc/vec1.hpp</key>
+		<data>
+		hSqWdaq1f4knfdjOynH7zB0DOaI=
+		</data>
+		<key>Headers/glm/gtc/vec1.inl</key>
+		<data>
+		QAmFACA1VCnp8m8IWr5+s5gY1Uw=
+		</data>
+		<key>Headers/glm/gtx/associated_min_max.hpp</key>
+		<data>
+		fXyC+rBYs1efJt4HGfYh3+C4eNQ=
+		</data>
+		<key>Headers/glm/gtx/associated_min_max.inl</key>
+		<data>
+		f6rCzL1oWBiqUjaNl5JdJha20Ms=
+		</data>
+		<key>Headers/glm/gtx/bit.hpp</key>
+		<data>
+		dfiRXENxUE6VSHXbhn9DUutK+Pc=
+		</data>
+		<key>Headers/glm/gtx/bit.inl</key>
+		<data>
+		IuI4Ss+vUsLdErJFSMfVLmV9TKI=
+		</data>
+		<key>Headers/glm/gtx/closest_point.hpp</key>
+		<data>
+		KEgJ0RRE5bxpymxx5cp09lHSabw=
+		</data>
+		<key>Headers/glm/gtx/closest_point.inl</key>
+		<data>
+		5Y9snOJiiI5Epy382UZ5q3lMOFY=
+		</data>
+		<key>Headers/glm/gtx/color_space.hpp</key>
+		<data>
+		qrFFxuvk6QwlZeXe4OwZnNUl/aY=
+		</data>
+		<key>Headers/glm/gtx/color_space.inl</key>
+		<data>
+		WOsjxhfzDD2rqiBCqt/93IgZANk=
+		</data>
+		<key>Headers/glm/gtx/color_space_YCoCg.hpp</key>
+		<data>
+		udc09heQw9HmhUYZDcTxgJ8RGS8=
+		</data>
+		<key>Headers/glm/gtx/color_space_YCoCg.inl</key>
+		<data>
+		3JWx755YLHhsnzWLUul2NMmXTRk=
+		</data>
+		<key>Headers/glm/gtx/common.hpp</key>
+		<data>
+		vZeuhWgYuJVdsjdsCLhXoXzE95M=
+		</data>
+		<key>Headers/glm/gtx/common.inl</key>
+		<data>
+		JMNqcF5p2Pkrp4gosOGaGM8873E=
+		</data>
+		<key>Headers/glm/gtx/compatibility.hpp</key>
+		<data>
+		1TIwDooCa2geTsWxW9ZCZVdkOCY=
+		</data>
+		<key>Headers/glm/gtx/compatibility.inl</key>
+		<data>
+		ejprKQSpqeCTrkmZzouV8/wtfOo=
+		</data>
+		<key>Headers/glm/gtx/component_wise.hpp</key>
+		<data>
+		HpZs++RvZegufVgCN803ND3YI/0=
+		</data>
+		<key>Headers/glm/gtx/component_wise.inl</key>
+		<data>
+		ehXstCKd3MoBmk2otrfU8Pgw+e4=
+		</data>
+		<key>Headers/glm/gtx/dual_quaternion.hpp</key>
+		<data>
+		ueeMd6b0omyoQ0AECSUIMvFImsg=
+		</data>
+		<key>Headers/glm/gtx/dual_quaternion.inl</key>
+		<data>
+		+vsn2hVXsT1l9uJ4IS3tcneHtVk=
+		</data>
+		<key>Headers/glm/gtx/euler_angles.hpp</key>
+		<data>
+		qgQEO35jBwOO9BClChxtkENp2tg=
+		</data>
+		<key>Headers/glm/gtx/euler_angles.inl</key>
+		<data>
+		HqlzU90pWML/eEZ3tya/+0N7WKI=
+		</data>
+		<key>Headers/glm/gtx/extend.hpp</key>
+		<data>
+		UH0Cne9I7PssdQXJuw5kFcGY/EY=
+		</data>
+		<key>Headers/glm/gtx/extend.inl</key>
+		<data>
+		jiys5NYozDzkWgo9zf8A52kDAOs=
+		</data>
+		<key>Headers/glm/gtx/extended_min_max.hpp</key>
+		<data>
+		ZWIJ3Gt98uO4bG21+ae1o7xJwiM=
+		</data>
+		<key>Headers/glm/gtx/extended_min_max.inl</key>
+		<data>
+		X+9dcVrvmYObhgL5UIRyXHmkahs=
+		</data>
+		<key>Headers/glm/gtx/fast_exponential.hpp</key>
+		<data>
+		oWQTS2KeH7FXsz75DcsS9Is8wbE=
+		</data>
+		<key>Headers/glm/gtx/fast_exponential.inl</key>
+		<data>
+		zAKp27LXgDv+PK1Ff+8NeGaO3Tk=
+		</data>
+		<key>Headers/glm/gtx/fast_square_root.hpp</key>
+		<data>
+		zhAeELXlkQytrka1/Flc2GR31n4=
+		</data>
+		<key>Headers/glm/gtx/fast_square_root.inl</key>
+		<data>
+		ht4ntJ9/YC+yeSyJutZqXC9PfNw=
+		</data>
+		<key>Headers/glm/gtx/fast_trigonometry.hpp</key>
+		<data>
+		MX3uAMWO5BGmLGj6Jl6KmzkEhI0=
+		</data>
+		<key>Headers/glm/gtx/fast_trigonometry.inl</key>
+		<data>
+		uGqVX5rffHcf/A6ryOR54PqMd/E=
+		</data>
+		<key>Headers/glm/gtx/float_notmalize.inl</key>
+		<data>
+		GgdHSAwnJBRHB/ZpTapn+7P0lek=
+		</data>
+		<key>Headers/glm/gtx/gradient_paint.hpp</key>
+		<data>
+		wtbtdLG6yjZItrGf6KkRAOBiROI=
+		</data>
+		<key>Headers/glm/gtx/gradient_paint.inl</key>
+		<data>
+		Mv/w5ejSj0XxW/bu7WLEKHGeOQc=
+		</data>
+		<key>Headers/glm/gtx/handed_coordinate_space.hpp</key>
+		<data>
+		M18zhR4RiGZGe3A7mmbrG9v2CAo=
+		</data>
+		<key>Headers/glm/gtx/handed_coordinate_space.inl</key>
+		<data>
+		lq1qQkBfyLf2Ch4diK2tFIbtfHI=
+		</data>
+		<key>Headers/glm/gtx/hash.hpp</key>
+		<data>
+		hxKaysy2gDbgmTF/SMVP4OnOL0M=
+		</data>
+		<key>Headers/glm/gtx/hash.inl</key>
+		<data>
+		CtcaQduC3D2ZQpgEOLigZA37kQk=
+		</data>
+		<key>Headers/glm/gtx/integer.hpp</key>
+		<data>
+		jlOoigwzJf1iD7HDkQxKIlt7uv4=
+		</data>
+		<key>Headers/glm/gtx/integer.inl</key>
+		<data>
+		FOIxUJFmOw3w/BjSHOhP04cFOXE=
+		</data>
+		<key>Headers/glm/gtx/intersect.hpp</key>
+		<data>
+		Ok9EVEgdEcSV9ZsKtTi5r80/UhY=
+		</data>
+		<key>Headers/glm/gtx/intersect.inl</key>
+		<data>
+		hwVHIzWk3X4LfB5E1CO/RiH1fRg=
+		</data>
+		<key>Headers/glm/gtx/io.hpp</key>
+		<data>
+		POGjOqibKARARlEQoncx9iiaH2g=
+		</data>
+		<key>Headers/glm/gtx/io.inl</key>
+		<data>
+		SZdKH9vDNjJsslXSwcGS4L0FXD4=
+		</data>
+		<key>Headers/glm/gtx/log_base.hpp</key>
+		<data>
+		1G2KBd/xuNZuES4cbbJ3J6YwgI8=
+		</data>
+		<key>Headers/glm/gtx/log_base.inl</key>
+		<data>
+		sky9cHbjAYuUmlDdRfAbY/Zmvec=
+		</data>
+		<key>Headers/glm/gtx/matrix_cross_product.hpp</key>
+		<data>
+		Ir1sbY7YppTTfgJqBmknmN2j79k=
+		</data>
+		<key>Headers/glm/gtx/matrix_cross_product.inl</key>
+		<data>
+		M4oz2YXoUkNCumIcE0+RE6FeqgY=
+		</data>
+		<key>Headers/glm/gtx/matrix_decompose.hpp</key>
+		<data>
+		v9mvMoM58y+TPYwogHaudad7ZtM=
+		</data>
+		<key>Headers/glm/gtx/matrix_decompose.inl</key>
+		<data>
+		aHB6hnMAPmiGachCP/cdcChuxuE=
+		</data>
+		<key>Headers/glm/gtx/matrix_interpolation.hpp</key>
+		<data>
+		BgLkiBSgfj0izCGEuqByMlIygnU=
+		</data>
+		<key>Headers/glm/gtx/matrix_interpolation.inl</key>
+		<data>
+		gZSfjc9ngpf9zEo1gy77FGASRNs=
+		</data>
+		<key>Headers/glm/gtx/matrix_major_storage.hpp</key>
+		<data>
+		uW/XAqQWz2HC29JXlQJL68EQ7cU=
+		</data>
+		<key>Headers/glm/gtx/matrix_major_storage.inl</key>
+		<data>
+		EFIcj6V9sXg8nt9jENtXRLDzfF4=
+		</data>
+		<key>Headers/glm/gtx/matrix_operation.hpp</key>
+		<data>
+		CrDAKJocOr//E4aBRY43XyLi0zU=
+		</data>
+		<key>Headers/glm/gtx/matrix_operation.inl</key>
+		<data>
+		v2S8y7e7qkzx0kHf850Zr37osng=
+		</data>
+		<key>Headers/glm/gtx/matrix_query.hpp</key>
+		<data>
+		30wR3HPMNGSnbuXlcJW/230DPgo=
+		</data>
+		<key>Headers/glm/gtx/matrix_query.inl</key>
+		<data>
+		GWQe+SbMr6o94y1Qp6r/q7lbgD0=
+		</data>
+		<key>Headers/glm/gtx/matrix_transform_2d.hpp</key>
+		<data>
+		nsU/ILl+fo95F4xz5KR3J/hbwpo=
+		</data>
+		<key>Headers/glm/gtx/matrix_transform_2d.inl</key>
+		<data>
+		YeGiJWtFphgiyGNUa1G6YLbs+mc=
+		</data>
+		<key>Headers/glm/gtx/mixed_product.hpp</key>
+		<data>
+		M/XYv02ZXsjEtQ2Rx6KBo4L+lcE=
+		</data>
+		<key>Headers/glm/gtx/mixed_product.inl</key>
+		<data>
+		TH2N19CK10bPUu/wPcNYFXWUn64=
+		</data>
+		<key>Headers/glm/gtx/norm.hpp</key>
+		<data>
+		n9sVefwuYHcFoGEj2aiGXOs1saA=
+		</data>
+		<key>Headers/glm/gtx/norm.inl</key>
+		<data>
+		e9cPgtVCNCSVJyyi1EbWdJ5WfvY=
+		</data>
+		<key>Headers/glm/gtx/normal.hpp</key>
+		<data>
+		CflEIoPEARWKsDQDSw0V5ngfCeE=
+		</data>
+		<key>Headers/glm/gtx/normal.inl</key>
+		<data>
+		hVxdXx/Tc9FKWt0Oa/xMfpIaJSw=
+		</data>
+		<key>Headers/glm/gtx/normalize_dot.hpp</key>
+		<data>
+		emorQs7BvvdW2905FyVFAqyeYRE=
+		</data>
+		<key>Headers/glm/gtx/normalize_dot.inl</key>
+		<data>
+		gA8xTv1vwOPxmhr2r224Otm9vXo=
+		</data>
+		<key>Headers/glm/gtx/number_precision.hpp</key>
+		<data>
+		GCd3+jyzd3sHyjt3s1kZmHtxwgE=
+		</data>
+		<key>Headers/glm/gtx/number_precision.inl</key>
+		<data>
+		myZq9u38lOrVN8nPh5PSQhICq1U=
+		</data>
+		<key>Headers/glm/gtx/optimum_pow.hpp</key>
+		<data>
+		HIkq5BnzSBWmPCNocbYgzJxxpaM=
+		</data>
+		<key>Headers/glm/gtx/optimum_pow.inl</key>
+		<data>
+		jlJFCh0lKOnNhWnwFR2Z7MiKPYU=
+		</data>
+		<key>Headers/glm/gtx/orthonormalize.hpp</key>
+		<data>
+		6KyQ2NzZx623TUnbtIUroN/KCso=
+		</data>
+		<key>Headers/glm/gtx/orthonormalize.inl</key>
+		<data>
+		7j1ej1HNTRAUGAYYctDLddwJiE0=
+		</data>
+		<key>Headers/glm/gtx/perpendicular.hpp</key>
+		<data>
+		9KhfopHUla5v7ZYvy37dpx2RzgA=
+		</data>
+		<key>Headers/glm/gtx/perpendicular.inl</key>
+		<data>
+		7cUFH+WJ/H+iDpo//zHelg8c4Hs=
+		</data>
+		<key>Headers/glm/gtx/polar_coordinates.hpp</key>
+		<data>
+		ZlZHtQ/C+gr5tmAivvAU9Vujhn4=
+		</data>
+		<key>Headers/glm/gtx/polar_coordinates.inl</key>
+		<data>
+		+kz4c45AJXBgyemiY+uuOJh2vik=
+		</data>
+		<key>Headers/glm/gtx/projection.hpp</key>
+		<data>
+		gJgG22czGn9NeDloInV9Mygatgo=
+		</data>
+		<key>Headers/glm/gtx/projection.inl</key>
+		<data>
+		FBMSVTcQrTwDIOI1SOAQsd5LBlc=
+		</data>
+		<key>Headers/glm/gtx/quaternion.hpp</key>
+		<data>
+		NWjN9XAmdulxigJEmYtGO8b+JBw=
+		</data>
+		<key>Headers/glm/gtx/quaternion.inl</key>
+		<data>
+		vGKtSiP3+LdgG4O1yYD1JVfaFlw=
+		</data>
+		<key>Headers/glm/gtx/range.hpp</key>
+		<data>
+		Zl0hrJ1KeAfVFHKT7640NUg+nxQ=
+		</data>
+		<key>Headers/glm/gtx/raw_data.hpp</key>
+		<data>
+		iBjGzMypC5767CwUg0BNpadciYE=
+		</data>
+		<key>Headers/glm/gtx/raw_data.inl</key>
+		<data>
+		c00Sdgx/YFN4DSyjViwRHZV/JHk=
+		</data>
+		<key>Headers/glm/gtx/rotate_normalized_axis.hpp</key>
+		<data>
+		cjU2ELoh1h2LBaYvAahxV7ct2Cw=
+		</data>
+		<key>Headers/glm/gtx/rotate_normalized_axis.inl</key>
+		<data>
+		x+PR6wRDkkInzYZ9fKo1OaGtkcw=
+		</data>
+		<key>Headers/glm/gtx/rotate_vector.hpp</key>
+		<data>
+		9gedrVn2wqM7gGRx4T4Eb/m3Vpw=
+		</data>
+		<key>Headers/glm/gtx/rotate_vector.inl</key>
+		<data>
+		5ZTE5Sm8aA8kVJp+D4rohbrP/YA=
+		</data>
+		<key>Headers/glm/gtx/scalar_multiplication.hpp</key>
+		<data>
+		v5pgAw+mMJg8skJOi7gWHwbvrxE=
+		</data>
+		<key>Headers/glm/gtx/scalar_relational.hpp</key>
+		<data>
+		lw6f8a1VmQ2AtXaK8Hk9y7Es3UI=
+		</data>
+		<key>Headers/glm/gtx/scalar_relational.inl</key>
+		<data>
+		tDMJdcj/RLgleUH+cW5FPjtwO9M=
+		</data>
+		<key>Headers/glm/gtx/spline.hpp</key>
+		<data>
+		WiwQiWYW0tbvShAorGAVdO4k5Is=
+		</data>
+		<key>Headers/glm/gtx/spline.inl</key>
+		<data>
+		XmoSjwhtH+lAkc3RY21ofmC9Lr0=
+		</data>
+		<key>Headers/glm/gtx/std_based_type.hpp</key>
+		<data>
+		5sCJcgPHPhLEDGF2vWg4fHIxbHI=
+		</data>
+		<key>Headers/glm/gtx/std_based_type.inl</key>
+		<data>
+		XtvEUckGVylbc7hT/8d0QbL00U8=
+		</data>
+		<key>Headers/glm/gtx/string_cast.hpp</key>
+		<data>
+		zMRud/tkllrbPXntAJKQ5ZEjfWY=
+		</data>
+		<key>Headers/glm/gtx/string_cast.inl</key>
+		<data>
+		76jKk939fviLeBi1p3ulp8dvQrE=
+		</data>
+		<key>Headers/glm/gtx/transform.hpp</key>
+		<data>
+		3yOJsigU+JG/wd22ulu/Tg3/Q90=
+		</data>
+		<key>Headers/glm/gtx/transform.inl</key>
+		<data>
+		yJenP/AMZhWIVJEm7GtUjgsuvL4=
+		</data>
+		<key>Headers/glm/gtx/transform2.hpp</key>
+		<data>
+		umV11DsLL3VudNDtEw3IviN8+xU=
+		</data>
+		<key>Headers/glm/gtx/transform2.inl</key>
+		<data>
+		rlHZ2qpOAqw6TCPfvUwicVfe9Cc=
+		</data>
+		<key>Headers/glm/gtx/type_aligned.hpp</key>
+		<data>
+		jOhhu6dl0AqoZ1ZZ9i66ETcDZPY=
+		</data>
+		<key>Headers/glm/gtx/type_aligned.inl</key>
+		<data>
+		JHWxhKeBZW0IFSHlgCnbHimbWcM=
+		</data>
+		<key>Headers/glm/gtx/type_trait.hpp</key>
+		<data>
+		Ev6v2+PAWoHTL2KE+3GXAVLLwVw=
+		</data>
+		<key>Headers/glm/gtx/type_trait.inl</key>
+		<data>
+		2jmj7l5rSw0yVb/vlWAYkK/YBwk=
+		</data>
+		<key>Headers/glm/gtx/vector_angle.hpp</key>
+		<data>
+		Vn5Fqne9tIVK32lDkq66JGI64qI=
+		</data>
+		<key>Headers/glm/gtx/vector_angle.inl</key>
+		<data>
+		VnUNEmPWcQdiv6bU8B11HZyL52w=
+		</data>
+		<key>Headers/glm/gtx/vector_query.hpp</key>
+		<data>
+		9vQ+ZTb+HuNfpl2TS/NuTdp5ycA=
+		</data>
+		<key>Headers/glm/gtx/vector_query.inl</key>
+		<data>
+		sfLoWdnHWcg0esc89sKqQ4MRHwo=
+		</data>
+		<key>Headers/glm/gtx/wrap.hpp</key>
+		<data>
+		ulX2YAxOMba2lCVF0lksYjRfDQ4=
+		</data>
+		<key>Headers/glm/gtx/wrap.inl</key>
+		<data>
+		YGjSzCZQNZ/2yKpjIm4hkAVtI+E=
+		</data>
+		<key>Headers/glm/integer.hpp</key>
+		<data>
+		fDUnCCzJIx1l3yE1rwYtTkbCxXk=
+		</data>
+		<key>Headers/glm/mat2x2.hpp</key>
+		<data>
+		VPqsUnW5yfl/cn1558XBF/Jy6Uk=
+		</data>
+		<key>Headers/glm/mat2x3.hpp</key>
+		<data>
+		tEOY1llVWdSg1kS0HmEhF+qCxxs=
+		</data>
+		<key>Headers/glm/mat2x4.hpp</key>
+		<data>
+		1veqeHRUcEc/f0VL6tNwrmW/9Jk=
+		</data>
+		<key>Headers/glm/mat3x2.hpp</key>
+		<data>
+		/OWwmt+9x7QUpFimhlrRtTf56q0=
+		</data>
+		<key>Headers/glm/mat3x3.hpp</key>
+		<data>
+		EwHZXOjtRcVMuaMKtk4YBalojqE=
+		</data>
+		<key>Headers/glm/mat3x4.hpp</key>
+		<data>
+		rYLB9qQk65Z8AyT78zXu+QSM7uc=
+		</data>
+		<key>Headers/glm/mat4x2.hpp</key>
+		<data>
+		Vv7qWsJDlkuxaMYHGIBp0sxZMdE=
+		</data>
+		<key>Headers/glm/mat4x3.hpp</key>
+		<data>
+		h1VI6eIqG+eM6Ip0A0NXDu8KPIA=
+		</data>
+		<key>Headers/glm/mat4x4.hpp</key>
+		<data>
+		jQ9PkMH0wZBlxl0jL/HH46q6F6g=
+		</data>
+		<key>Headers/glm/matrix.hpp</key>
+		<data>
+		14dmzuV17eugK+wBnDv1OqFUxZ8=
+		</data>
+		<key>Headers/glm/packing.hpp</key>
+		<data>
+		P+OXApK0uqXE9vUq0i8fUUxEKBc=
+		</data>
+		<key>Headers/glm/simd/exponential.h</key>
+		<data>
+		F3tx9nE/BWdIelpucJSEnABoBQg=
+		</data>
+		<key>Headers/glm/simd/geometric.h</key>
+		<data>
+		U8IIoN4/8kZAlao9cCKXP48TClU=
+		</data>
+		<key>Headers/glm/simd/integer.h</key>
+		<data>
+		UmnLqAfyVtvghyqrZ13cKg8CyJc=
+		</data>
+		<key>Headers/glm/simd/matrix.h</key>
+		<data>
+		StIz2kdymrXmvYRaidEdTWyDKPk=
+		</data>
+		<key>Headers/glm/simd/packing.h</key>
+		<data>
+		qUPv99nQlr0Er9KaVAuf34m7MJs=
+		</data>
+		<key>Headers/glm/simd/platform.h</key>
+		<data>
+		WjtIzCx/SUt3uaAQNSPbCD+Ym4w=
+		</data>
+		<key>Headers/glm/simd/simd_common.h</key>
+		<data>
+		BxoF5Xb/NroKyHIl1Z3+m8IGwMg=
+		</data>
+		<key>Headers/glm/simd/trigonometric.h</key>
+		<data>
+		kiz0CT2hfqdycbkdAJxEqOE5QVs=
+		</data>
+		<key>Headers/glm/simd/vector_relational.h</key>
+		<data>
+		2k6Ue2ZX+qRJedZ9u3Eul7uXh4M=
+		</data>
+		<key>Headers/glm/trigonometric.hpp</key>
+		<data>
+		H1eg8NlU5vJJgAXf8pUeV88wxzs=
+		</data>
+		<key>Headers/glm/vec2.hpp</key>
+		<data>
+		Ipt5byZRjgjjs9OI/4fjEAoeR/E=
+		</data>
+		<key>Headers/glm/vec3.hpp</key>
+		<data>
+		UV0kbsFCQEN3ghGdifqEvwyZDsg=
+		</data>
+		<key>Headers/glm/vec4.hpp</key>
+		<data>
+		GNvK9a9nBLg0IXXSJXL+0M5sdWo=
+		</data>
+		<key>Headers/glm/vector_relational.hpp</key>
+		<data>
+		rXzVsX60oVfg+Br04yQrBydDS5g=
 		</data>
 		<key>Headers/optional.hpp</key>
 		<data>
@@ -3217,11 +4293,11 @@
 		</data>
 		<key>Headers/tiny_obj_loader.h</key>
 		<data>
-		Gu14cLpwdAs3N141WLzjhG1P8jg=
+		vENbui8U565vm3DfvxJpJr9JHUY=
 		</data>
 		<key>Info.plist</key>
 		<data>
-		NxfI367MOCJ7SXJrqmY/dcbDCUI=
+		zopi5aCRF8FFLxG23tHQOp/RWYU=
 		</data>
 		<key>MaterialRobotoFontLoader.bundle/Roboto-Black.ttf</key>
 		<data>
@@ -3273,7 +4349,7 @@
 		</data>
 		<key>VROPolygon.h</key>
 		<data>
-		Sa5cKdbshGVwwlrbZVLXBCF3TH0=
+		pi9is39bH37DguNnbvIPO7cNVuQ=
 		</data>
 		<key>blank.png</key>
 		<data>
@@ -3293,7 +4369,7 @@
 		</data>
 		<key>constant_fsh_adreno.glsl</key>
 		<data>
-		1Tf4vTk4ttaRtdB7f1wBSAuJ3ZA=
+		M2SAm1EYv7iCbH2gqhqMDIsUTAw=
 		</data>
 		<key>constant_functions_fsh.glsl</key>
 		<data>
@@ -3305,11 +4381,11 @@
 		</data>
 		<key>constant_q_fsh.glsl</key>
 		<data>
-		P/DxICi1F9OnaVfofFRELMfjJfw=
+		yDSyPYWuz11IWGshsx2VSnVucRc=
 		</data>
 		<key>constant_q_fsh_adreno.glsl</key>
 		<data>
-		7lJeE/schuGEYzeWF5GzBjaMv8Q=
+		6ii+kdfSMTfDI6Re4kPJWLs13rk=
 		</data>
 		<key>equirect_to_cube_fsh.glsl</key>
 		<data>
@@ -3329,7 +4405,7 @@
 		</data>
 		<key>irradiance_convolution_fsh.glsl</key>
 		<data>
-		No5HQrIgg6xENAN3MW21os0czy4=
+		ceHkEHQadzQPAy+4kjbiXwN4d9s=
 		</data>
 		<key>irradiance_convolution_vsh.glsl</key>
 		<data>
@@ -3349,7 +4425,7 @@
 		</data>
 		<key>pbr_fsh.glsl</key>
 		<data>
-		p4wyjbdz4hxlX/9Ze1eSnWyIimY=
+		znDgKelsHVvLZvafFw/PZNNuMNc=
 		</data>
 		<key>point_cloud.png</key>
 		<data>
@@ -3357,7 +4433,7 @@
 		</data>
 		<key>prefilter_convolution_fsh.glsl</key>
 		<data>
-		YOTL71kRCZPk8rsje//kih3KWts=
+		Sn+PPelr34qFl5Yiqptt7VKqU8g=
 		</data>
 		<key>prefilter_convolution_vsh.glsl</key>
 		<data>
@@ -3373,11 +4449,11 @@
 		</data>
 		<key>standard_vsh.glsl</key>
 		<data>
-		OmGLd5ceejgTlfOvqlXuYhTxJ/0=
+		sMCY9AoMVWif8LjXFtWxW+Xfij4=
 		</data>
 		<key>standard_vsh_adreno.glsl</key>
 		<data>
-		4H3jstcLNxTn3+dHFUAMRqgEfBo=
+		qpHLuYbreJ2L9jlTL1f9m2rTlBg=
 		</data>
 		<key>surface_functions_fsh.glsl</key>
 		<data>
@@ -7797,37 +8873,48 @@
 			zwyYC6Um5Kn91Jj72CZFafDMwaQ4+uAaWXmXQ+vdiSg=
 			</data>
 		</dict>
+		<key>Headers/VROARDeclarativeObjectNode.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			xZUaTwupvH4sfUzZOGsvcO7mvrw=
+			</data>
+			<key>hash2</key>
+			<data>
+			BcpqQg0RhEl9VLGMYDorRgI90E6f7A2ZcpH1FzJg72M=
+			</data>
+		</dict>
 		<key>Headers/VROARDeclarativePlane.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			WxGHNY9wpIQE9gEdzGmaaRFxBDE=
+			w/fupNqkcH5izsQAcG5250uf9jc=
 			</data>
 			<key>hash2</key>
 			<data>
-			c+dqH39MKFZ3OncPERm5xnqXOolAbkMGa5+7qBU5YSU=
+			2M5sO2Cc+RyMGGuORBlk6IJ+FXvfYgGfRIaOil04L5g=
 			</data>
 		</dict>
 		<key>Headers/VROARDeclarativeSession.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			z0x97k3mPqCSuYEkY5hTKmLx/6Y=
+			MUbodH1BvouZqCxB/EHdMLOKFT0=
 			</data>
 			<key>hash2</key>
 			<data>
-			A2pB2dETe05oE1DzagbHEHpfD14g8oWTRqdHaKkAKCI=
+			8xcdt6nw4tEqYnMbpwFLK8fW/cGhYCzpdZjSlULPlYA=
 			</data>
 		</dict>
 		<key>Headers/VROARFrame.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			MsUqfeHMSLcV6go2Q9mtZw9HQYM=
+			4XEUmtIKzmu7DgdY9zQCKbk2tjY=
 			</data>
 			<key>hash2</key>
 			<data>
-			Ntet1e+QvUOxWacKVg+WgG8Q5gKi/wX1PpgdN//nPCQ=
+			TbxUvl3+i2CQ/PpIW3IXhLIYLrOXUTGuGBi7ONwGzsg=
 			</data>
 		</dict>
 		<key>Headers/VROARHitTestResult.h</key>
@@ -7850,6 +8937,17 @@
 			<key>hash2</key>
 			<data>
 			VqR9rpeQuXTCT7GcrPxiSe9MDLevbF4ydrsZXBkKQOI=
+			</data>
+		</dict>
+		<key>Headers/VROARImageDatabase.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			MUjuA76zSYSD4wIGr/GjzUDx0U0=
+			</data>
+			<key>hash2</key>
+			<data>
+			Rnos4x5SkiIJjXkzDSacy/czdp7DRubIm87GVdIrKMw=
 			</data>
 		</dict>
 		<key>Headers/VROARImageTarget.h</key>
@@ -7896,6 +8994,39 @@
 			E9A+hne/pGuq8+5yUuC3B4/CUuF3otzqMMWPn2KwhNY=
 			</data>
 		</dict>
+		<key>Headers/VROARObjectAnchor.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			GVn4s3KO3zXq2xl0sZS2wM1ARS4=
+			</data>
+			<key>hash2</key>
+			<data>
+			BOm3a9XklIFKQuYfkOSFbm4y+6k8e/cBe9izHZIQ2/Y=
+			</data>
+		</dict>
+		<key>Headers/VROARObjectTarget.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			bxtpBmyDmRvNppRsQYvUtn3yysY=
+			</data>
+			<key>hash2</key>
+			<data>
+			esbjhEl/55YhPgoh2eUSFTaW+UiRw/dpTNlq+ssQCxA=
+			</data>
+		</dict>
+		<key>Headers/VROARObjectTargetiOS.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			PstTRbFZjPWJgH+1Dmg0JxAY8pI=
+			</data>
+			<key>hash2</key>
+			<data>
+			FFhBkZfnC7/zrKovgTWXpaocuCSWbbyIiQk0Xy/XPpU=
+			</data>
+		</dict>
 		<key>Headers/VROARPlaneAnchor.h</key>
 		<dict>
 			<key>hash</key>
@@ -7922,11 +9053,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			/mRyORdncJ4kMyp4KWpB+tfXF/I=
+			JxiZASvUBFxGLGVhnU6MzXURGr0=
 			</data>
 			<key>hash2</key>
 			<data>
-			q2OvJCyTH9eYMRd0788oO0y4QeR8/5n3lsx6YGhrEh8=
+			HCbP+tXDuAcNE10OtwmHK5gNnqwZF10Lr3v5eB30X7A=
 			</data>
 		</dict>
 		<key>Headers/VROARSceneController.h</key>
@@ -7955,11 +9086,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			H4w6YgrBR7KnC/pctssq8kZ/46g=
+			OuaygqEvHUGaDnN3X2rxd3k3RWs=
 			</data>
 			<key>hash2</key>
 			<data>
-			/Szyq3xsB+fgeOJ14KblhJBD4Y+fw1I91upMM86jf7M=
+			MYlSKbezoDOGbTvTJdxxzEGDn/kXyN+dcfo5gbxMmRA=
 			</data>
 		</dict>
 		<key>Headers/VROARShadow.h</key>
@@ -7988,11 +9119,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			3EMrWfD9nNKconDuhj6CqMG3Lvk=
+			2Is5bs0mcAq5Nd1va5DjXRGs0f0=
 			</data>
 			<key>hash2</key>
 			<data>
-			xB6b0esPqOcAgDT4/i7pKt6YE/pqP35NftxyYx7PGHA=
+			bpaCBjiYJJvLKBfkSQ5ZVYR7VbdYOzKv1MPnpRgHWaM=
 			</data>
 		</dict>
 		<key>Headers/VROAnimatable.h</key>
@@ -8004,6 +9135,17 @@
 			<key>hash2</key>
 			<data>
 			i3e/D5CmISY1IYQGRa5c0NG96C0mrmsyAny9Ee+Tt98=
+			</data>
+		</dict>
+		<key>Headers/VROAnimatedTextureOpenGL.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			FN/oVoSeYU7tX/+CBLL+wW2SEg8=
+			</data>
+			<key>hash2</key>
+			<data>
+			NzM5KR9Zr8AdyOH/nFjiIkUqmiPcENT1VKD1Tw3eTdo=
 			</data>
 		</dict>
 		<key>Headers/VROAnimation.h</key>
@@ -8021,11 +9163,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			CagiIG1x5eKmqHTt/cPtKahnvys=
+			ONwmRBL2jrbv/TDBlZEFT2ngomA=
 			</data>
 			<key>hash2</key>
 			<data>
-			x9IVLWFUNiF3ge8M1q9fIeXjtgkqR5kGnTWSTTdivgg=
+			lgB2aj+rQym/V5e/iz9kkQ1KxDGNYx2SRgB2b9hztO0=
 			</data>
 		</dict>
 		<key>Headers/VROAnimationFloat.h</key>
@@ -8043,11 +9185,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			/+5B5VAao29WdP71kucWsGguC4A=
+			nj6WLVkAqSMOq9AzbJrQu+IfBFc=
 			</data>
 			<key>hash2</key>
 			<data>
-			1ilPtEpQDo+wOf2JeRnf8ZRYKLzyDi2BvB/lXfcBRpA=
+			JiaD6x9DBHNWHKw7oACKTQ1rVpYHGyXLXWRxRBk75x0=
 			</data>
 		</dict>
 		<key>Headers/VROAnimationQuaternion.h</key>
@@ -8072,6 +9214,17 @@
 			nAGinQSBFt2B1/m9L8+J8TucIjV+71Og/zBBjO0Jg48=
 			</data>
 		</dict>
+		<key>Headers/VROAtomic.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			mbmaCxyEMm9LpoPL3Fn1hS1TslU=
+			</data>
+			<key>hash2</key>
+			<data>
+			x9hvh+1PShbNDS7LjXZudM5oiL5d/dJXVZ2JzrwwXPQ=
+			</data>
+		</dict>
 		<key>Headers/VROAudioPlayer.h</key>
 		<dict>
 			<key>hash</key>
@@ -8087,11 +9240,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			f427Uv+CEA7mqJ1gamzOcYbBIoI=
+			jC6zNiRfa0DC5l6XumXA0GyrKg4=
 			</data>
 			<key>hash2</key>
 			<data>
-			ZXehbkoI1lPhvWED/aDMBqWkXsjdFxUj4R7nnylUZA8=
+			ruqCMXQAHMKfuEZ6m27WUJ5rgL9WYGy065Qdf5zANcg=
 			</data>
 		</dict>
 		<key>Headers/VROBillboardConstraint.h</key>
@@ -8219,22 +9372,22 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			F4CaLWuwWHRiyHUvMNYDJPbDd10=
+			GDrg7hvAn6vq8e3oPyWSqLBMx2U=
 			</data>
 			<key>hash2</key>
 			<data>
-			ypaZ7rmXAx5yQ0jabEOhpD3IbglzHPZtF7IXlD/LrsE=
+			HuK6yE5g1Iiif9re8dzRUDbnRKUn/rtw9QW/7t+YaPk=
 			</data>
 		</dict>
 		<key>Headers/VROEventDelegate.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			Pmd/k3mniAFcHLnW19sXGp0OVlw=
+			giH43cnGE6WJ7y5eU6CFbpKvXSQ=
 			</data>
 			<key>hash2</key>
 			<data>
-			UdS7CCRMLhpppFCx6lxL/2Ezabc0zLwbs6q4x9vXPDM=
+			5VNegXqYTdxAVHO9+VA2ZTMhH5GhU7Tepx7i5OpKb8k=
 			</data>
 		</dict>
 		<key>Headers/VROEventDelegateiOS.h</key>
@@ -8252,22 +9405,22 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			TWn0eF6YfbtUy1kvTXOtT5stQ+k=
+			yUbolAue507Tnmqf4aTFYcg6qdo=
 			</data>
 			<key>hash2</key>
 			<data>
-			gM3tM9EjuIvVa34ePX9dU6YVn/vfGKX0CLz2+k/ebe8=
+			vGMVOMNPmNaHXA9Qfd3/LE1ntYl8ryASfBQZE2u4T+c=
 			</data>
 		</dict>
 		<key>Headers/VROFBXLoader.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			qI1gP0m2kdzxkuHY+QCEOxc7JW4=
+			5yJItFj+0ZzgTilsMcYvwS5o740=
 			</data>
 			<key>hash2</key>
 			<data>
-			SLVLlZCsnNu0D8Gh99z+Cf6qg7PKJ0yPdqDH5j719Ls=
+			O6ROnTeV59n2l8HFIOufjw5taXlUGPfKPDxfsM09yNs=
 			</data>
 		</dict>
 		<key>Headers/VROFieldOfView.h</key>
@@ -8285,11 +9438,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			htCXa2ZkznV65aYkKhCEODbWezg=
+			Cxigwd9x4jLSFDH4SiwJWMOKuGA=
 			</data>
 			<key>hash2</key>
 			<data>
-			yIrG13SNyee1qpY323AWP/xJ0z76/fOBPzd4jV+JCf0=
+			qo+ppN21S6jpvUhpOHWoiCNiBHpSn1lzGtp/6pHLg0M=
 			</data>
 		</dict>
 		<key>Headers/VROFrameListener.h</key>
@@ -8307,11 +9460,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			LcT5abR0+jecrSdYBFwpG20/lpo=
+			LTtkBcpweDJp0vBkBnesY8sY2X0=
 			</data>
 			<key>hash2</key>
 			<data>
-			/+w8BivemSo/gNdPmlYuVuc7fNDSFoGsjKBEYCyAunI=
+			Gr7eHLQzMuNEFS3kwti3jPCh3L8PIaDB1u//PbvZnGs=
 			</data>
 		</dict>
 		<key>Headers/VROFrameSynchronizer.h</key>
@@ -8373,33 +9526,33 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			I1nxudZiOYlaunwJrn7thGQ4hDY=
+			yQ+tdyaMXsImOyTGQDdlLmUbvaA=
 			</data>
 			<key>hash2</key>
 			<data>
-			eGCHrmdkF82nvoa2FhUBTn9PXeeRmi1h6TYwzDph54k=
+			3Un6Yx5230iD4EwNbHCs8/9+StyNJo+kSLftMBCHSHw=
 			</data>
 		</dict>
 		<key>Headers/VROGeometry.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			a67YxTXTNACQkcPH9rSHuX/7jQU=
+			sivgFo/wUhEAX/PL82V7IT/oByI=
 			</data>
 			<key>hash2</key>
 			<data>
-			FdjxYtoIt64lMGdP5bGHg9wULxac9lGkZ2Dq8QSPh7g=
+			xhAhEKwwDkmaDL8xW12g9BI7lh858csrLABoVBWYWds=
 			</data>
 		</dict>
 		<key>Headers/VROGeometryElement.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			OAQKAs94KSAaA/3vowRDzNHOKW8=
+			CCRbZ6Or2DzPeyS6n7AB277I9Jo=
 			</data>
 			<key>hash2</key>
 			<data>
-			V58ctEcfzJumth8Yr2AGbM7sD1t1hI+hMeIEP4lOC0g=
+			Hg3J6N5NDi8iZBCBCZt/jtKTc3Slw8lh38ZlRMU0TCM=
 			</data>
 		</dict>
 		<key>Headers/VROGeometrySource.h</key>
@@ -8494,11 +9647,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			7VjumBNcmWtBlsTKOXj8AxakyDE=
+			wr2KlG0fN3QsjMhnpqwoy8ap+n4=
 			</data>
 			<key>hash2</key>
 			<data>
-			ARB+jNn/dvt/6A58cAUTdeAf4cPZhIrVyW41SjWbPu4=
+			1kViYsyoO+6oFgZZf3xpa0LPeEDX070R7Lf2Q0FgmvE=
 			</data>
 		</dict>
 		<key>Headers/VROInputControllerCardboardiOS.h</key>
@@ -8516,11 +9669,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			CSLDITXUCmMI3CxcFebNylZynYA=
+			6BuAHHkB5GGy+jUuqF0ExLo5rzY=
 			</data>
 			<key>hash2</key>
 			<data>
-			rtymBM9UjzxDaiqB7SxhuAfiIveGwuZP+DShVNVCltw=
+			1Hm1GvNYJTwIczH3mOeKu3TB2n5TIsk+zvlhjItcyMk=
 			</data>
 		</dict>
 		<key>Headers/VROInputPresenterCardboardiOS.h</key>
@@ -8582,22 +9735,22 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			D0qI9qvooFKXLSkx4TjcdON0RO8=
+			Awce46o1KN96+4ibNVRV4fxQHuQ=
 			</data>
 			<key>hash2</key>
 			<data>
-			9iZcJTwlXYcnUIlE1+dFHZQW+o3ibsalNRm19UiFQT4=
+			P6Gp8TxU6HCmSrt+GHw7d6nbipNllMeWP0dOfVl/y5Q=
 			</data>
 		</dict>
 		<key>Headers/VROMaterial.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			292qcRoR+brWemptm8Zv0py5rfI=
+			OHkFugOU/vRUu0TVIpii9jDHCqU=
 			</data>
 			<key>hash2</key>
 			<data>
-			CEl+2DNO+kDEnhWxNJNMeU+DJqaXriYcW1VF1heXqM0=
+			fUAxB90cVJtQQVD/6gJgqGPvUSH69e9/XAKSxJyAVTs=
 			</data>
 		</dict>
 		<key>Headers/VROMaterialAnimation.h</key>
@@ -8626,88 +9779,88 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			ZkbjLSX/zfX+yvJZ9YHfqNC9vt0=
+			tZFS2ETol/6zcva+To4qGtHDMX0=
 			</data>
 			<key>hash2</key>
 			<data>
-			G/Uj18EOo1O001ua3Qx6hsvKsF2uix2PcN+1YP8Coxs=
+			IFdKS3ntRylueKIqHzkbqznGxILkWK4QuA7dmIoNgoM=
 			</data>
 		</dict>
 		<key>Headers/VROMath.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			3sv0n3qJc6MAFvnsL8U7L50p/Kw=
+			DLxmN0W8TY0RyDlOuQ2+3CYDlfk=
 			</data>
 			<key>hash2</key>
 			<data>
-			klzY0tOZY1w0jkrSfZN4ktNtlNNulNsA04DMKjBNlKs=
+			odYELLKJvrUqn3Td8TCWnwWkh+L+EDr34F/evTQcQ0M=
 			</data>
 		</dict>
 		<key>Headers/VROMatrix4f.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			EaiVtlMhxfWG50JJGEbKCHk00zg=
+			S7nkJrOjEpdC/dL0HsYXoopwM0E=
 			</data>
 			<key>hash2</key>
 			<data>
-			+H5d87SU1s2jL/KdxBS+/FAid1UENNFuxVF6qMFwi8I=
+			WaHS3EDVQbwPT8MubyaW8HEXqXT/xyGUcBloSPWF6T8=
 			</data>
 		</dict>
 		<key>Headers/VROModelIOUtil.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			Le6p5sS1PydAL3ZY9H/e3oUMbYg=
+			kUEJH2RJvDL+bs+S+AqYsV4qgDU=
 			</data>
 			<key>hash2</key>
 			<data>
-			JE82d1nB+dQmLh1WMHgL2ZvfIP45CvOlXvWtbI9/iOM=
+			eWh/VXqq5kWPE+7AAbuZI53rScoVENnHLkAAGvFJan8=
 			</data>
 		</dict>
 		<key>Headers/VRONode.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			iaZPipg9HtP5ziCddrWIrm4j8cM=
+			fu/Ts+imu1wF874ZHQ6LoCb4EvY=
 			</data>
 			<key>hash2</key>
 			<data>
-			OPGoMC4TD8d5YZV3ta2fvc7PqpqIbqLWUV2S5OE8HPM=
+			ZR6AUwyvRPXZTAH/6PJh0HP3FiZakmeM7rOdk5rtVlA=
 			</data>
 		</dict>
 		<key>Headers/VRONodeCamera.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			LFUEGp68bgdfIRGLj0vMYbqAaFY=
+			zrumn67vGzWb0+6fmatzg2iXt4w=
 			</data>
 			<key>hash2</key>
 			<data>
-			8H3p3W1/XdzqfNEjZjME8sw3J8TuyrmQPIX+H0O6h0Y=
+			RyhnZ7JOGcdAaDOnyPT8mpnpy0y4iJw35WdTHbT7K5o=
 			</data>
 		</dict>
 		<key>Headers/VROOBJLoader.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			+PVM2JPMr40IUYhrYvmwEFfD1UA=
+			Xkj1K8ODM5HdkpML4MkDwugCNOg=
 			</data>
 			<key>hash2</key>
 			<data>
-			D5RRpCeDJ2ppVypFdYjRHwD2Y22KhAPxZzRLIL5p/Rs=
+			4B+JX0ptWdJp3nqARki45L5gKHCIxu1hZ2Z5TYKy2Oo=
 			</data>
 		</dict>
 		<key>Headers/VROOpenGL.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			itGtTYo6bBzZmk6A4A7qLajbcLc=
+			Si6PGOq3+ozDqexivt8vJQHmFWs=
 			</data>
 			<key>hash2</key>
 			<data>
-			OpCq1Y42nmDdZ5mV4NkYxSAIoJnGpw0MmiSd6S7dNAQ=
+			szji5AvvmH2KM8LwF3Zfv5aIKYlgaEdnZg8KdyXGbdM=
 			</data>
 		</dict>
 		<key>Headers/VROParticle.h</key>
@@ -8725,22 +9878,22 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			JBIJ7WOCTAEGPCiZNS0oAglFuJA=
+			I4yYar5YP2oIw0OLQrgC+vCc9to=
 			</data>
 			<key>hash2</key>
 			<data>
-			eJoQG77X7uGGLWE4NiPNSjjXGM4B/3J5rXqLxULyEos=
+			/oyj/zyd+RiJ6RaYtQffmkdXv+4pEUrEJIocM+JSpjc=
 			</data>
 		</dict>
 		<key>Headers/VROParticleModifier.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			SPhM2EIQFai7449tUrgC4qT7e3s=
+			dhXsM34C+Gm2n4SdZqTz2gNQYlg=
 			</data>
 			<key>hash2</key>
 			<data>
-			CJqOdHt5EuRFiv0pnW5ZRgK+hDuMz9dcPm8L3TQfqTA=
+			Z98ipyveSDZQiU36bU0R2pa7fkwlSZKjV1coByEBk5w=
 			</data>
 		</dict>
 		<key>Headers/VROParticleUBO.h</key>
@@ -8857,33 +10010,33 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			kLFz4/FQy+BcWA7QKtU8VRiVG+o=
+			E4CN9ryGmUKVfgsdY9WmR94/vFU=
 			</data>
 			<key>hash2</key>
 			<data>
-			9g0SYpb1+WANF2BR0tAe/ZtDai4SXrzfIzWOfnGRPUI=
+			3oTa8lWfxzat4BT3XpjEAAZibfqyWlAG5MmJjV8LWv0=
 			</data>
 		</dict>
 		<key>Headers/VROPolygon.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			Sa5cKdbshGVwwlrbZVLXBCF3TH0=
+			pi9is39bH37DguNnbvIPO7cNVuQ=
 			</data>
 			<key>hash2</key>
 			<data>
-			bLrun5+tPbgW4IAq+QM+2wKm9vWM/uIcpkUlOjzshsA=
+			tdT9DPTQa3dHEzNKRHQHBtNO6XJtem4IAo/wJ3yfPI0=
 			</data>
 		</dict>
 		<key>Headers/VROPolyline.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			ytskeEVkrNsGTV70UsHXlVKh6H4=
+			3wn76KdwlCXtB1nN7NUU5SpSQAg=
 			</data>
 			<key>hash2</key>
 			<data>
-			iBIcdFQMQhT8Ly36HhDpYCOdrXBT/SDgIxPCnWlRhQc=
+			zFwaMIVNdqJnu+c30exjVbCn1X1tD/b+aswBGoQXtHw=
 			</data>
 		</dict>
 		<key>Headers/VROPortal.h</key>
@@ -8989,11 +10142,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			UR0zOaiZFowcsdd+AwqwX4MR3ws=
+			kofZgJCsNGHDCoU3DJLqG3JZN2g=
 			</data>
 			<key>hash2</key>
 			<data>
-			5FWnCHvq309LEn7ioOYmJNqSTfHZ5DX8xnm0Iirk1QE=
+			IyLSmKLne5qulHvFXc1HDgr3ui8jAfJ3rEoCCOHH3Wo=
 			</data>
 		</dict>
 		<key>Headers/VRORenderDelegate.h</key>
@@ -9044,11 +10197,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			Iwl0fB/IU3ARHpoWfPyrPV7RpOk=
+			EgML9HPbvks5iFgn3xEzMwM7Mq8=
 			</data>
 			<key>hash2</key>
 			<data>
-			cTNsMm+5IqBnPjrWJrs3t6xzbs/a6uXgW/pPA2khQeQ=
+			RCmzCYbj3CyicJYRtxV+UvLdr26phwFZkajkvDoSlxw=
 			</data>
 		</dict>
 		<key>Headers/VRORendererTest.h</key>
@@ -9066,11 +10219,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			YX9dJ4fmTI9mtvIC4mxJvGgqhcc=
+			u4C9byi3wRACiqfzlpDF4iFRh4M=
 			</data>
 			<key>hash2</key>
 			<data>
-			JE73Zo7FgJkXv96Sh8jMZIp8PEsSW2epUhHsJCcJ0LE=
+			MaOoFL5Q9w7O77BzX5ShcP9xcRpOWTCbi6aplVdF8xo=
 			</data>
 		</dict>
 		<key>Headers/VROReticle.h</key>
@@ -9121,22 +10274,22 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			dVQOkUf3sIYUZFIMqEdZ9k/aV98=
+			Vf2zfjI5bG5WuTbbJdhGLfN+nFk=
 			</data>
 			<key>hash2</key>
 			<data>
-			O0RXVtc1uVkLjnsOqJMUvBxpN5uzJpXUOK51s+gM4MQ=
+			SBop7rYuRrLx/h830q2EcX+OteNBbbZAXyHie0J87cI=
 			</data>
 		</dict>
 		<key>Headers/VROShaderProgram.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			YBg0cx7rhi6d+xiCEZjYZ9PXBu8=
+			h0gyAaQXM7dvsAh+CrAK62xoPDQ=
 			</data>
 			<key>hash2</key>
 			<data>
-			LgIX6d0NQikVaiobhQOGcaSJ0EJIbrj97nCWTYV8JDE=
+			4z9Pw8BanA7O5NfpbGZan3bRb9yvozbxjmaj/cXdlKM=
 			</data>
 		</dict>
 		<key>Headers/VROShapeUtils.h</key>
@@ -9150,15 +10303,26 @@
 			iw2RUeHlrzXfZ9Fx0t4zvwaXBZAvNLdiU6Ciwr8u6Cc=
 			</data>
 		</dict>
+		<key>Headers/VROSkeletalAnimationLayer.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			DJU1pvPE2V34xy9U+NeCEsEQ6i0=
+			</data>
+			<key>hash2</key>
+			<data>
+			XCyp4NtaPp/w6bXejAaqXjW0YO2zhdSs8pgf9od5nGA=
+			</data>
+		</dict>
 		<key>Headers/VROSkinner.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			+NivbRJ0ldWngSi5tHegpDVGc/s=
+			FPKzir85TWB4dQRHAov+JWohj6w=
 			</data>
 			<key>hash2</key>
 			<data>
-			+wvOmx3byvD88snlIYsKVrBNacTGAYaPTMVgTkQXcUo=
+			jzB9UZ8Wy8qSqZ6Kk8Uc9vFRKkpbq17FpIqExzIvy/g=
 			</data>
 		</dict>
 		<key>Headers/VROSkybox.h</key>
@@ -9176,11 +10340,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			a9AP22gYXnfbvSkMXjD5rnfw+hY=
+			RJe8uNrLBmDHR5uHHQ+O3e/YhR4=
 			</data>
 			<key>hash2</key>
 			<data>
-			ZC+waeL/SUWe30vlIPx5D6ENhQ5kTvLJx2Ny0XFtqvI=
+			hFDS4JJ1naoCkrSkj9WbYqt/UJb1xPo0XKIgpysdTh4=
 			</data>
 		</dict>
 		<key>Headers/VROSound.h</key>
@@ -9297,11 +10461,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			ljzH/5aFTwsKrHNh8rwT0g9/xxQ=
+			dhhhu/cqKGMYuR7vuG7qNo+3B5I=
 			</data>
 			<key>hash2</key>
 			<data>
-			gLnu5HDW3lPxICnczE973Jx7NTky6eIXrUTSovR0PfE=
+			VXiZlQfNzc4QQMGrP51F6LPLFxMuRIoK7v5JNDFk2eU=
 			</data>
 		</dict>
 		<key>Headers/VROSurface.h</key>
@@ -9319,33 +10483,33 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			QPfBDzUr5tLr1MqlsmX7fAGxgqQ=
+			J2hrShIMN4F5Kru4KWYTnoINQ1k=
 			</data>
 			<key>hash2</key>
 			<data>
-			3Ueg6WldD9pwvJ1Yv/dHt7QluZveV6AAY3gU0S6YlVI=
+			0rmvgvW0eRPmnRzgWp3cyM4WHf85BPhZQf8okaUyxPs=
 			</data>
 		</dict>
 		<key>Headers/VROText.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			dA+6ZZ5JkHx2UkEoP8B7yKUOxjA=
+			yGsAXMMbyNPyh9Z6RhxN/IlWtWU=
 			</data>
 			<key>hash2</key>
 			<data>
-			9fDd+dY3ullTshS+W6vptTeHEFl25UNr4BjluSau2VA=
+			ehiuXtpRxDE8JShiYXPpZLkY9mzdyOCPmJvCTee9v0g=
 			</data>
 		</dict>
 		<key>Headers/VROTexture.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			6vMQCq3M+BN/K+6Ucz7jSgRYlqA=
+			jYfMLvtTYZX5q9mqxNB68GkB+PI=
 			</data>
 			<key>hash2</key>
 			<data>
-			PNptK8O6v67QztrJdQyXvfS2be+ynzqqOUoyF/FbX9o=
+			XlYKU+gLDLhheXnVd9D5xQQtFQMl6G/ag3IFGPymFRI=
 			</data>
 		</dict>
 		<key>Headers/VROTextureUtil.h</key>
@@ -9484,11 +10648,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			0afGnKXiwKt8Pyv4N9hgq6uGfcw=
+			SiU30qFxJWCG1bja0JMifzKwTC8=
 			</data>
 			<key>hash2</key>
 			<data>
-			28PAvMQAMYioYXDgLyy5nHplERRXjBwrmWnuy6FUraY=
+			QG2bY9CrhBr05rm/I06L4g8dOr8riJmiRNF0SAMPKqo=
 			</data>
 		</dict>
 		<key>Headers/VROTransformConstraint.h</key>
@@ -9539,22 +10703,22 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			4zYXSVfl+DmpuhhRNRa9v1oIyd0=
+			u2A9au9gLlUUQ6Qc/8ZZHVYn8c0=
 			</data>
 			<key>hash2</key>
 			<data>
-			EjUhIhFOnZWfBGxWhF7S8XV6RIhuDj+MhnngkGkx3Hg=
+			DsBdg8nL4rx9FscPvSeGE8TthS3xXnT68NxKjNkSNmM=
 			</data>
 		</dict>
 		<key>Headers/VROTypeface.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			j56Qo8YuXmgtS42bR8OtGOK9XUY=
+			3iOrgzB121an8wlfJaYLqdqBClI=
 			</data>
 			<key>hash2</key>
 			<data>
-			NVZGAW7pNvXEjm1fg698R8PtQzsEgVpNgauAcIQoe70=
+			5/fQSy7El3L8S3fQ/ueHrSg73KAGs/XRfMO8s5s2Ui4=
 			</data>
 		</dict>
 		<key>Headers/VROTypefaceCollection.h</key>
@@ -9572,22 +10736,22 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			CKVMD55TmIXQ81Nhovyhc6eS2PQ=
+			DAevaFzr8KCE5LPnkfSRKmcD0/k=
 			</data>
 			<key>hash2</key>
 			<data>
-			fD+KelGygHyL59jHRdXlQ1W4+1uo05vjMfclrskCTRA=
+			6bTTBdBnqZ8eVsOmVOcyGdmWax3Ech+xKJIKgEd7Hkk=
 			</data>
 		</dict>
 		<key>Headers/VROVector3f.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			Cjvd5HIUb8bw9FNFooS5C3aNx9U=
+			iLNhnDoKrOftXvAsUylFHzXW4E0=
 			</data>
 			<key>hash2</key>
 			<data>
-			hvInhgDkA8c5wmNXsdoLjH9kUmzcGHB0wPnVgyjm0Do=
+			FMZZ+tndDGBTnQgYRSOdS2tR1piDND31HPJE9zgTpYU=
 			</data>
 		</dict>
 		<key>Headers/VROVector4f.h</key>
@@ -9682,11 +10846,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			U1WU6JHUVzl5gNQjAnxU8iwX8nQ=
+			lHU4FqPVgGhA9a5cMfz2iJOZQrE=
 			</data>
 			<key>hash2</key>
 			<data>
-			hrUkegCgeXVfLXB5xud5p38Vg/56E8DoF3mZYEfETeQ=
+			ePBt52KpH1c/yjyVml/zopP0PEP7Nnn5lfJYcOGmwyw=
 			</data>
 		</dict>
 		<key>Headers/VROViewAR.h</key>
@@ -9770,11 +10934,2882 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			LUky4bLsh2B20/bOCujlcUFxoTM=
+			2V/FFGHXJ2UpoPi1Evi5StJSsAI=
 			</data>
 			<key>hash2</key>
 			<data>
-			PBhHZdNJAO7mVRTkWoW439KddBEhbeY1ckIXQFdw+Jg=
+			Xzfq7ERRYlTkPRBsMDQeWyOM8NdA22CfFQbMNHWBBPQ=
+			</data>
+		</dict>
+		<key>Headers/gif_hash.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			qcENcGTrBKTrBowPi9IrLkaicV0=
+			</data>
+			<key>hash2</key>
+			<data>
+			7sme50nL9j4b/G2i/x9AnqCBggAKz2HyTgWbNA34t74=
+			</data>
+		</dict>
+		<key>Headers/gif_lib.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			U/WA0Upe3L3XYwOrejyH6GdDUzw=
+			</data>
+			<key>hash2</key>
+			<data>
+			BMILochEWl4wH2mcoRAEAzqw8ikQrEFtYp4gh0kAOWU=
+			</data>
+		</dict>
+		<key>Headers/gif_lib_private.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			ekRtF3isgr3jNRxF3ZCe+5KT8x8=
+			</data>
+			<key>hash2</key>
+			<data>
+			sDU+EuXhNql66bJR+3L+FIyr8kgi2DPttO+ooZ9IwM0=
+			</data>
+		</dict>
+		<key>Headers/glm/CMakeLists.txt</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			n20Yv55vtqRTFjekOLv59Hdn5IU=
+			</data>
+			<key>hash2</key>
+			<data>
+			jcel1LXHLoBNYeNaQZYe8nfUDxsFcWVphyMDQtuVkT4=
+			</data>
+		</dict>
+		<key>Headers/glm/common.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			2qvdMhsDiqic28qmBLobTlRKvak=
+			</data>
+			<key>hash2</key>
+			<data>
+			aaGg6ZZky9FqT4oaTtcwpmcO+REEn1VXOVYvPKg6y8E=
+			</data>
+		</dict>
+		<key>Headers/glm/detail/_features.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			boKnkaOgEtfkg+m+gKqkzT1YMFY=
+			</data>
+			<key>hash2</key>
+			<data>
+			8I+hJJV581ysixQZOWiwypWe/JBUlha0sBzuUw26w1k=
+			</data>
+		</dict>
+		<key>Headers/glm/detail/_fixes.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			i57PubyVTmiFJW9Var+eTSyL3mM=
+			</data>
+			<key>hash2</key>
+			<data>
+			OgRIKwj0hLSpjwRMDkQ3ntaDqBym3RZ6aw6Sw6FFYkg=
+			</data>
+		</dict>
+		<key>Headers/glm/detail/_noise.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			IyV2PeGpAnO4PmH2ZAD/83msNAw=
+			</data>
+			<key>hash2</key>
+			<data>
+			XeC9soxXNcczP/4OyB8aXZu1TLDyTF0M76MdRXTCpww=
+			</data>
+		</dict>
+		<key>Headers/glm/detail/_swizzle.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			BOfPTBFJiWYKRgz/RiqtSCGTsB0=
+			</data>
+			<key>hash2</key>
+			<data>
+			HzaY1FOTnyeSIoN/gtMxuXtsYsihQ+63yuC9afqFTms=
+			</data>
+		</dict>
+		<key>Headers/glm/detail/_swizzle_func.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			Vjqv92gMvQq9nHacUnLwJmSjKvU=
+			</data>
+			<key>hash2</key>
+			<data>
+			Zu/Jk90NDFClu2jEKfC2db1z7DpHpXohzavS/1u7qqw=
+			</data>
+		</dict>
+		<key>Headers/glm/detail/_vectorize.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			XQ8eZBnptkN4fO5LKJZLZzxSOM4=
+			</data>
+			<key>hash2</key>
+			<data>
+			UPsB2TXUy931RRuz6G1wxlnRX01pApkXCU5FFhO9wWU=
+			</data>
+		</dict>
+		<key>Headers/glm/detail/dummy.cpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			HQ9y1ceE5EIctfSegOR2qY0/f4E=
+			</data>
+			<key>hash2</key>
+			<data>
+			yw0aP4tqMgks80v8BinGjkHKpkF+y+cI1JN4J0m3eik=
+			</data>
+		</dict>
+		<key>Headers/glm/detail/func_common.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			TINZYMtUZmwSUrOEuEKRI/4ayW8=
+			</data>
+			<key>hash2</key>
+			<data>
+			jLlpb76QTkDAuq+ItQvFcqPa9ffrhUZlQ3d74vqpVsc=
+			</data>
+		</dict>
+		<key>Headers/glm/detail/func_common.inl</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			92Iltl4FELA13m+/94J9f2hYNaM=
+			</data>
+			<key>hash2</key>
+			<data>
+			ZdULiZOpcg2sT8p1rl+fSVz6IB1ANgJRag0h8MlqtMQ=
+			</data>
+		</dict>
+		<key>Headers/glm/detail/func_common_simd.inl</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			WCsNiTRwglLGkF+/3o95YKTD0+Q=
+			</data>
+			<key>hash2</key>
+			<data>
+			mJEFmJbqaf26yfbbD0D2BlxtIy6sS5rGiYTTwS+TtG0=
+			</data>
+		</dict>
+		<key>Headers/glm/detail/func_exponential.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			Ht04yt7W4NnImMtSZ2Sml/5CyOc=
+			</data>
+			<key>hash2</key>
+			<data>
+			uYIyHNqhR7vBQaheMr1pJxdNQIYBBu7L75VhrjKpxZc=
+			</data>
+		</dict>
+		<key>Headers/glm/detail/func_exponential.inl</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			8uOsYbz5IUQ9GlK5oZEpt+33lx0=
+			</data>
+			<key>hash2</key>
+			<data>
+			9Dj2HEom+Jpiyg8STMM+p/jLYxFHO7ZGw+LMS1kxInc=
+			</data>
+		</dict>
+		<key>Headers/glm/detail/func_exponential_simd.inl</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			T5qdcE38h8v+KYqF9cjDyYszOX0=
+			</data>
+			<key>hash2</key>
+			<data>
+			QfpqjJta9P0wzUv+Rc5OZ603TfKpPs3CMKhB7/N+R48=
+			</data>
+		</dict>
+		<key>Headers/glm/detail/func_geometric.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			n8soh36b09rhVbet+gTLS9ZP60A=
+			</data>
+			<key>hash2</key>
+			<data>
+			dceTdhhvOhuyf3c3W7db6z9dstWkenW9vCwfTVcDJwk=
+			</data>
+		</dict>
+		<key>Headers/glm/detail/func_geometric.inl</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			TzvsTDiql+1aSb6PMvFXGhm7duI=
+			</data>
+			<key>hash2</key>
+			<data>
+			o7r1rtprfsujFNLsCRYCi40TIpkUliL2WEsnLxvQ8Ts=
+			</data>
+		</dict>
+		<key>Headers/glm/detail/func_geometric_simd.inl</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			qETcwF/FqOVp8fkJE5kDVfQjsDo=
+			</data>
+			<key>hash2</key>
+			<data>
+			O86IHSK42TCQx4ZSjmmJKgz5+xsN5gYtVEaFsf2zf7k=
+			</data>
+		</dict>
+		<key>Headers/glm/detail/func_integer.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			GDw4tH/J+g66h58TFJdc/03D1g0=
+			</data>
+			<key>hash2</key>
+			<data>
+			zNmbmQ2Yg0Qn0ksGKUr0bttzMmnaKt/5ZDEhlCVulo4=
+			</data>
+		</dict>
+		<key>Headers/glm/detail/func_integer.inl</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			O4WB/PW0pIRh28IdMmalp5tRJNk=
+			</data>
+			<key>hash2</key>
+			<data>
+			VUSnGQd5gc9g75tKZPA3y7uvSeTZq+uhJf1hmnng7o8=
+			</data>
+		</dict>
+		<key>Headers/glm/detail/func_integer_simd.inl</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			QMz4stzTXocnEpeIm0VKPzORhOg=
+			</data>
+			<key>hash2</key>
+			<data>
+			l8HxrN+NdZHuLvl3Pa5BGY0UG2cC/dKVAxiwpeeKYMQ=
+			</data>
+		</dict>
+		<key>Headers/glm/detail/func_matrix.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			dDc6gLBStm9yJUwlu/rCIvLtm4o=
+			</data>
+			<key>hash2</key>
+			<data>
+			d98KN/kh9pu7HIjTlhg7Y735s/7MWePU7rn5vR1KnYI=
+			</data>
+		</dict>
+		<key>Headers/glm/detail/func_matrix.inl</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			vzoIsrftv7uQppUhivMXwOs9e74=
+			</data>
+			<key>hash2</key>
+			<data>
+			y2nNa3udwiWPoavNReY9gwy02iCKk6A1v4IQVpd/8Og=
+			</data>
+		</dict>
+		<key>Headers/glm/detail/func_matrix_simd.inl</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			uB6Wq58LnzCZewwt/7PCejrlyIU=
+			</data>
+			<key>hash2</key>
+			<data>
+			yTjRfsNODyrLKJ+JcDm7EQ8YfiJ3K0O1x2vtzYZPMvo=
+			</data>
+		</dict>
+		<key>Headers/glm/detail/func_packing.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			/Ez5jeEmqIr8p0Yd77IihhEO2X4=
+			</data>
+			<key>hash2</key>
+			<data>
+			NFWej+a1RgVKrq8RKh05lfgq7ArDZW1O7RLCJKx12zs=
+			</data>
+		</dict>
+		<key>Headers/glm/detail/func_packing.inl</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			41PP+G10YS07pToRQ8ITEfvZVVY=
+			</data>
+			<key>hash2</key>
+			<data>
+			NnnFgpeqaojUfn2JZyMbE4kfNWtL3mi/6j8nIuNOq9A=
+			</data>
+		</dict>
+		<key>Headers/glm/detail/func_packing_simd.inl</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			hZ3I83eB6K/Rio+xVvipAWvvBm8=
+			</data>
+			<key>hash2</key>
+			<data>
+			5OfaQC/Eyqb4kWQWMft5e2IMJ9QOrCOcPDYNoFWp8bc=
+			</data>
+		</dict>
+		<key>Headers/glm/detail/func_trigonometric.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			Cq5w3I4nd28Uw3UPbEv1dByBEtw=
+			</data>
+			<key>hash2</key>
+			<data>
+			vOO+yltC/6VHcE0SR88a5aKUM37tNM4apfgavNFeCjw=
+			</data>
+		</dict>
+		<key>Headers/glm/detail/func_trigonometric.inl</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			zpKvHgfN6sq4fTvlNWG4pAZEdKg=
+			</data>
+			<key>hash2</key>
+			<data>
+			ZPWPkr/ZZGtTD/lzZEiOBIMkesYbBAd4lsH2+c7ghPk=
+			</data>
+		</dict>
+		<key>Headers/glm/detail/func_trigonometric_simd.inl</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			2jmj7l5rSw0yVb/vlWAYkK/YBwk=
+			</data>
+			<key>hash2</key>
+			<data>
+			47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=
+			</data>
+		</dict>
+		<key>Headers/glm/detail/func_vector_relational.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			+p0L3cKGZDTqFWpn88TAl6x1pdo=
+			</data>
+			<key>hash2</key>
+			<data>
+			AXvK6G6PFXoowYAkTdaWT4Qm2wZWYiRk0oy/MlUlIGI=
+			</data>
+		</dict>
+		<key>Headers/glm/detail/func_vector_relational.inl</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			NYsI33GjdZ1uIFOUOb9xVlm/NK8=
+			</data>
+			<key>hash2</key>
+			<data>
+			NSOJ4CPY7ALGSw8hqDUhJ490sQ9EIgzhXZfatmXSXz4=
+			</data>
+		</dict>
+		<key>Headers/glm/detail/func_vector_relational_simd.inl</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			HkynrZIWQGYz8EUgIEYJrRktBqQ=
+			</data>
+			<key>hash2</key>
+			<data>
+			hoxP5lp0AS80GE0sYuX78UpKtbqFJqVO+TxdzHoHtdY=
+			</data>
+		</dict>
+		<key>Headers/glm/detail/glm.cpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			rPR2dd+Fv77YC4hn9A7qQmb36G8=
+			</data>
+			<key>hash2</key>
+			<data>
+			JOtXHgwb95EzQWIhpF2tXyB/XonYwGjrCoh02sF66uY=
+			</data>
+		</dict>
+		<key>Headers/glm/detail/precision.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			QkrWpgwgUrn69kmQfGVyjvk1rNw=
+			</data>
+			<key>hash2</key>
+			<data>
+			2vX+bd6x46m5onjQ8pD6ckT6583GGw9zp1ULZ+Y6KDA=
+			</data>
+		</dict>
+		<key>Headers/glm/detail/setup.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			N8dhQIni8ff4tTC9VB5GpJFsJBE=
+			</data>
+			<key>hash2</key>
+			<data>
+			gtU65zeLEFAs9vz1nwtQ25OSdDnhTTBGlW6vpThuTMU=
+			</data>
+		</dict>
+		<key>Headers/glm/detail/type_float.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			T2zNThrL5tzJv82Mr1oLm8bq1c8=
+			</data>
+			<key>hash2</key>
+			<data>
+			DA5UnumLl2ke+ad7cdLYuJrfl9PBUEbKfJ4QDIZgfZE=
+			</data>
+		</dict>
+		<key>Headers/glm/detail/type_gentype.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			+Yv1tuO8I1ejOnOr2asWGHhiZqA=
+			</data>
+			<key>hash2</key>
+			<data>
+			NN428Mil1V41nkm0GG7gkO0BsD/UM3lA7T79r4BQzDU=
+			</data>
+		</dict>
+		<key>Headers/glm/detail/type_gentype.inl</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			9WURNRmyyS9joS43AbNz69h7oSc=
+			</data>
+			<key>hash2</key>
+			<data>
+			I6hiO5E+nBXX+60VSuRCQJDruouOxQvVUatVZoybdKk=
+			</data>
+		</dict>
+		<key>Headers/glm/detail/type_half.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			lpThaGHnOquGYgckEqH3lZ5QDHw=
+			</data>
+			<key>hash2</key>
+			<data>
+			ycZNSxiDs22fEqhiPrAy9ujnFszMj6xWuLddUinxxEk=
+			</data>
+		</dict>
+		<key>Headers/glm/detail/type_half.inl</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			lF/UuVD6z5TUqZ4+9YRFOLLJ898=
+			</data>
+			<key>hash2</key>
+			<data>
+			f1LhZslUmNpgVo98UkcHY3vhoVyp6oy2kLMqYtG7D1Q=
+			</data>
+		</dict>
+		<key>Headers/glm/detail/type_int.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			EsLdFZKWPfO4Igk4cAQjpJT3NLY=
+			</data>
+			<key>hash2</key>
+			<data>
+			jdfk9gWWBH5pNneDUD+zL7AIObvMyBjMV6h2BDtn80c=
+			</data>
+		</dict>
+		<key>Headers/glm/detail/type_mat.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			bGuRqibLhk91ommCa0FUGPSoGrw=
+			</data>
+			<key>hash2</key>
+			<data>
+			vAbfWJv+nTMinllHWcEuJxF0ERc5YSPh5zPDJhvSSCM=
+			</data>
+		</dict>
+		<key>Headers/glm/detail/type_mat.inl</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			YYh22fJnZgacFJWUKbX/XoRWMfE=
+			</data>
+			<key>hash2</key>
+			<data>
+			6pWmeDjMuP/jtW/e5TecFICPp7kajDZseBvDhHOMftY=
+			</data>
+		</dict>
+		<key>Headers/glm/detail/type_mat2x2.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			TpeSN3jjEgfcUPV42pm0cGMUkbk=
+			</data>
+			<key>hash2</key>
+			<data>
+			YFncYre2vf2hUgbMYy7IN/o5nPYXtvGuojlKTye3MoE=
+			</data>
+		</dict>
+		<key>Headers/glm/detail/type_mat2x2.inl</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			27CX+oPpOoYY/PixUy86hYKoTWY=
+			</data>
+			<key>hash2</key>
+			<data>
+			3nWGsp/o115C7jlRwecZ/JSoAIE1Jn+GfqRxcXLiZz8=
+			</data>
+		</dict>
+		<key>Headers/glm/detail/type_mat2x3.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			vC4YuPS+u7zUhalDZ2PvgfT92dM=
+			</data>
+			<key>hash2</key>
+			<data>
+			XbLTQv8ymc/oYWml9uyBNEE1qIL0Qsh9EX4ME+G9M4c=
+			</data>
+		</dict>
+		<key>Headers/glm/detail/type_mat2x3.inl</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			dlhHFphUMP4gWP/BH0WD1j7qdQM=
+			</data>
+			<key>hash2</key>
+			<data>
+			mrS7UBHhaBgpD2y/krehdU1sipHzNjthzXnX4e3M6bE=
+			</data>
+		</dict>
+		<key>Headers/glm/detail/type_mat2x4.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			tHCeF2ElpYCIMs+SZuk4hqc10lw=
+			</data>
+			<key>hash2</key>
+			<data>
+			GvSipz0n/Ms89WOmtrBbw4tp9DpfGKxqyZ7KQIjtGk8=
+			</data>
+		</dict>
+		<key>Headers/glm/detail/type_mat2x4.inl</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			uj78Nx4VKxxxdII7ahAMSYFzhGs=
+			</data>
+			<key>hash2</key>
+			<data>
+			Xm/IPMRN5eaHReYGZlutJDDoIXT8TtUj2mhFqjx7GLQ=
+			</data>
+		</dict>
+		<key>Headers/glm/detail/type_mat3x2.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			nYzZA0V8g9DmIbmQeaPftD+dy0w=
+			</data>
+			<key>hash2</key>
+			<data>
+			0mZOaD6wFPz6Q70KwSUozXEhcV357x2uIiv7CbUMB70=
+			</data>
+		</dict>
+		<key>Headers/glm/detail/type_mat3x2.inl</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			yVx6XFQ61QTADfY4uNcvNrUP2o4=
+			</data>
+			<key>hash2</key>
+			<data>
+			l10NCU+aOiS/oHBkIfCutDQpJkBoYqZea5c4cLqYgvk=
+			</data>
+		</dict>
+		<key>Headers/glm/detail/type_mat3x3.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			NXCfrnM83lkiqiaHJ6NqMlmNGCg=
+			</data>
+			<key>hash2</key>
+			<data>
+			x+TBMAGDj2sUU703eVwn4+OJq3h3V6/hHJsJOyTALVs=
+			</data>
+		</dict>
+		<key>Headers/glm/detail/type_mat3x3.inl</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			+CReYrRXLuve8oIxPvFkDmyw1v4=
+			</data>
+			<key>hash2</key>
+			<data>
+			lZQVWpk2+cENAlaDtIOBX9w9WDskBhwqmFSQ/bzRidU=
+			</data>
+		</dict>
+		<key>Headers/glm/detail/type_mat3x4.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			OIpkT7UR64LRR2OmXI6o5/oVhNU=
+			</data>
+			<key>hash2</key>
+			<data>
+			YVezCdgK1kafo8rbiNGQdzazH8cUtBLv+XGPD8qrssA=
+			</data>
+		</dict>
+		<key>Headers/glm/detail/type_mat3x4.inl</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			bPmPoYYsYFfXTGEhQNBz2nMSli4=
+			</data>
+			<key>hash2</key>
+			<data>
+			nRuRchwYQJEUO8i9xrgIhmpqGmEivOuFQawo1anMExg=
+			</data>
+		</dict>
+		<key>Headers/glm/detail/type_mat4x2.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			/1ELQFYHwr4EEkuUcGecdNYSJ2o=
+			</data>
+			<key>hash2</key>
+			<data>
+			etifzOvXBaPsXF9+4iSPIa9l9CJoEEU0ps068Y7po1g=
+			</data>
+		</dict>
+		<key>Headers/glm/detail/type_mat4x2.inl</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			24xrMcuSzKL2ojb1p6FE89ghLhI=
+			</data>
+			<key>hash2</key>
+			<data>
+			qzZZSqB3lBZenNiPT2thyVLQOFD4CtS9/mrKYdT70c0=
+			</data>
+		</dict>
+		<key>Headers/glm/detail/type_mat4x3.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			s3dxr7DcpbMEo1mEgDQuqbPJD40=
+			</data>
+			<key>hash2</key>
+			<data>
+			khBp0aPXRP9xBl5Vpt4d4TtaKTj3l9h0QhbAe9OoolQ=
+			</data>
+		</dict>
+		<key>Headers/glm/detail/type_mat4x3.inl</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			oyCcv7BNGzG+ZMhS/FYmaPadjF8=
+			</data>
+			<key>hash2</key>
+			<data>
+			i0ZzzU1Mm7d/4wAA0P9Sk69xSkRfBjUrsWl4c7nGzmc=
+			</data>
+		</dict>
+		<key>Headers/glm/detail/type_mat4x4.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			nEuruftHTigtDRqjNhPpaF/noYo=
+			</data>
+			<key>hash2</key>
+			<data>
+			Mj3N/daJEUBUOhb+hYKg3Lt7PKVbkkSsVO6DDKH5FqQ=
+			</data>
+		</dict>
+		<key>Headers/glm/detail/type_mat4x4.inl</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			LyJwFyg6sAC4xjlSOK8aJCf+Du8=
+			</data>
+			<key>hash2</key>
+			<data>
+			kyymHEBN5D0fbZ6C3gj8NUd7WO1MQXq3r8x2/1sn93w=
+			</data>
+		</dict>
+		<key>Headers/glm/detail/type_mat4x4_simd.inl</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			FtUTa0k+7BpyQAwDGBZGtSOa8lI=
+			</data>
+			<key>hash2</key>
+			<data>
+			H78SQuMqXS4B0SnYqVhxGWAv/IvpwXz0UqiewhGcohc=
+			</data>
+		</dict>
+		<key>Headers/glm/detail/type_vec.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			rPSWy5Msv9P1vSogWTTrffgWM9I=
+			</data>
+			<key>hash2</key>
+			<data>
+			TFnS3lrm0syO9tg791iiq0Q6vu0ARG1bKJs1s+nwUIU=
+			</data>
+		</dict>
+		<key>Headers/glm/detail/type_vec.inl</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			trRK6qh5PoGx1c1E+xDewhOQzlw=
+			</data>
+			<key>hash2</key>
+			<data>
+			773VAeNKHfI2PWR5dMSHZGjtAPgNyZRUxI4Qtw5nK4o=
+			</data>
+		</dict>
+		<key>Headers/glm/detail/type_vec1.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			j7SSCq7qlAfIFkM+E1OVfstCx+k=
+			</data>
+			<key>hash2</key>
+			<data>
+			T7x8TJeGIcBwR3NTlfZVfSRYeTlaXca70Uq8RYxb1Rg=
+			</data>
+		</dict>
+		<key>Headers/glm/detail/type_vec1.inl</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			KTX/8gyRAuffK8+tacEPOtDtjYw=
+			</data>
+			<key>hash2</key>
+			<data>
+			pzlvivGp2GmY1TteBUS9ymmMzDGuuXZZF3u14yQsrOE=
+			</data>
+		</dict>
+		<key>Headers/glm/detail/type_vec2.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			323GbVfGWpElo/Fq4lpgHaQ9EEQ=
+			</data>
+			<key>hash2</key>
+			<data>
+			UIo4jdyxT8b/TZ9UYkwB3+ACiZSxmCfimuZxFLRap7M=
+			</data>
+		</dict>
+		<key>Headers/glm/detail/type_vec2.inl</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			Uk1ZuqeRD71VnvO3M+WPJnIuQPc=
+			</data>
+			<key>hash2</key>
+			<data>
+			HngADwdA6/8+35Ev0culFlBLkG4+1XhMYEq0lg6f/lI=
+			</data>
+		</dict>
+		<key>Headers/glm/detail/type_vec3.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			8pEmWIYQM7KC0NIsw9A6YYE+FJU=
+			</data>
+			<key>hash2</key>
+			<data>
+			kT7CrnO25y/7NvkyVF9skmUVwmkC8wh1gFAnicXn5Fc=
+			</data>
+		</dict>
+		<key>Headers/glm/detail/type_vec3.inl</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			q0I+OaFqb6C1Tk5GTP+jz0t/q2g=
+			</data>
+			<key>hash2</key>
+			<data>
+			YhfjOnWZsc+hPAd6jyljBF/TVHynYhJqyey+2mKEBcQ=
+			</data>
+		</dict>
+		<key>Headers/glm/detail/type_vec4.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			3r4L3t6iFR/HNaVkbs1xygqg0JY=
+			</data>
+			<key>hash2</key>
+			<data>
+			HrHJAZ8pRPlGEHfAx+ISrKGS993eDE6uaxcT48f+Y34=
+			</data>
+		</dict>
+		<key>Headers/glm/detail/type_vec4.inl</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			QftYgwdLMv4jjGt6wcWuv3EPX50=
+			</data>
+			<key>hash2</key>
+			<data>
+			L0EG2kxcPDiFAwmtrTbygOv0+npQ01xhcMbxDrwuD+U=
+			</data>
+		</dict>
+		<key>Headers/glm/detail/type_vec4_simd.inl</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			64g9QybhHhHeYeX95pcKjPndjHc=
+			</data>
+			<key>hash2</key>
+			<data>
+			Ycn9nbn9Ss2R/DfMxvRVKSmUnK6cRqDY1Xg4is4rTHI=
+			</data>
+		</dict>
+		<key>Headers/glm/exponential.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			CoZi/mwDoaj8Yn1axlpYZXYFPEo=
+			</data>
+			<key>hash2</key>
+			<data>
+			CahedJXGY8Iogb3dL93M2evzvMR1Ki5VYCYSZsRC85I=
+			</data>
+		</dict>
+		<key>Headers/glm/ext.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			3Zvr4S/+3Jbk5xuFN2YAqJ07w/c=
+			</data>
+			<key>hash2</key>
+			<data>
+			YuhQEB9FR6jgio02uFAedqQ9lx8ABrhBPxnktR5qK3A=
+			</data>
+		</dict>
+		<key>Headers/glm/fwd.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			6Diza5adx7dxjJ6q8SVJ71vsrEE=
+			</data>
+			<key>hash2</key>
+			<data>
+			76YmDTcxxDYkYT+egmba7qKF1jBiVE+Y1y9wJRaGPDQ=
+			</data>
+		</dict>
+		<key>Headers/glm/geometric.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			RWF9oFlYaId1FZX9fPQ1h7FFDtY=
+			</data>
+			<key>hash2</key>
+			<data>
+			L1pr3Smv5Zq9h0Kx54xCQTvrUax3aOYmlCNWtoXCHSQ=
+			</data>
+		</dict>
+		<key>Headers/glm/glm.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			8q5sn+8Ixc/VAkRoVz1aVGfnjM4=
+			</data>
+			<key>hash2</key>
+			<data>
+			HDfe15ZTQLn/waQutSKEPW3CyHYtUa6BBB6JIlYh1Ko=
+			</data>
+		</dict>
+		<key>Headers/glm/gtc/bitfield.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			/sTDwY3z1mL13Nbw0rg+X4CV04s=
+			</data>
+			<key>hash2</key>
+			<data>
+			p8tIZyd41JoWTSLuuGAooNNOpGhei4ny+RCaHndL06s=
+			</data>
+		</dict>
+		<key>Headers/glm/gtc/bitfield.inl</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			CY+0u7qODCQCgk9qfv9ulTBT0Xc=
+			</data>
+			<key>hash2</key>
+			<data>
+			aWeFX3GcT70QPEacG5fxXq98VbS3yxovE5f8I4fL4SQ=
+			</data>
+		</dict>
+		<key>Headers/glm/gtc/color_encoding.inl</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			sh6TIGwKSTWf/071dRicOMwpDKk=
+			</data>
+			<key>hash2</key>
+			<data>
+			ss3lvljruWCf24KYxoUjUQltn6FPafEF9dKQ13S4XQM=
+			</data>
+		</dict>
+		<key>Headers/glm/gtc/color_space.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			CfgMmgRrhKepAWJ6ddXxaOsbg/U=
+			</data>
+			<key>hash2</key>
+			<data>
+			PJFJ64fhtAOwNJ8S5u1sBVWW0Ub7zrgXVyV0BPCVDpk=
+			</data>
+		</dict>
+		<key>Headers/glm/gtc/color_space.inl</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			Jwb2rIZbvZXJSJOvjtqaJuEFalE=
+			</data>
+			<key>hash2</key>
+			<data>
+			x4G6LbABzFo9Ri+HOpgzVu9T8qyl3+oQIEY/LjfyEoA=
+			</data>
+		</dict>
+		<key>Headers/glm/gtc/constants.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			6a1Fh+XpXqhoe58jQHjru6SbR2I=
+			</data>
+			<key>hash2</key>
+			<data>
+			/CJvikQtfu2MTKCUPd21k4+gD06nygo0MPOan/KcyKU=
+			</data>
+		</dict>
+		<key>Headers/glm/gtc/constants.inl</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			JQHQsT0TuRWEx5b1yPG3BSX4+bs=
+			</data>
+			<key>hash2</key>
+			<data>
+			vd8A7Q4VpvAIi1XdUitgTPvugMcyXW/F9OIJ9Kg1AhU=
+			</data>
+		</dict>
+		<key>Headers/glm/gtc/epsilon.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			kHBQMSjfe37KPVsfoVu0sn7R8k8=
+			</data>
+			<key>hash2</key>
+			<data>
+			4eHdRczzzx9qWscFgLv1se9idI1Ju5OqhbmDnrIBf3I=
+			</data>
+		</dict>
+		<key>Headers/glm/gtc/epsilon.inl</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			W2BbmZTuJ3Lvk8lZV7nrxFQnExI=
+			</data>
+			<key>hash2</key>
+			<data>
+			0G2ysduuRCO16e1J3FNZkiSK+i3rVRZZzFVurcuz1ac=
+			</data>
+		</dict>
+		<key>Headers/glm/gtc/functions.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			8cCOrqDITwYLyV50flmLcte2MMo=
+			</data>
+			<key>hash2</key>
+			<data>
+			g0mGWtjjWFsskvevg2cEpvdYt/TxSZOdaKSSSHPveQ8=
+			</data>
+		</dict>
+		<key>Headers/glm/gtc/functions.inl</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			tknaoQBONIz/tFETSPGID7eBEpQ=
+			</data>
+			<key>hash2</key>
+			<data>
+			fLJdVODgogg07JqTicRXOqb/WvhQESKNkvUUAqDWX2c=
+			</data>
+		</dict>
+		<key>Headers/glm/gtc/integer.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			kYH9BwmwVt56UAx2Mt6su+Bd5O4=
+			</data>
+			<key>hash2</key>
+			<data>
+			7VNyMWQDAbUgftf/kR9A+rp38XRVWIWwUU6ATwR95YU=
+			</data>
+		</dict>
+		<key>Headers/glm/gtc/integer.inl</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			LTwyG1AML9+31n+vadL/la6M5Rg=
+			</data>
+			<key>hash2</key>
+			<data>
+			BfUoddYlZ/Q+AfShiXrl1+nX89+L944bfdyQhvjucSU=
+			</data>
+		</dict>
+		<key>Headers/glm/gtc/matrix_access.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			vktUkQGtslUUMZtvgQP4PI0/+1s=
+			</data>
+			<key>hash2</key>
+			<data>
+			DEoZUMLxrURXHqXDjc3UGa3uA83XhCv8vj0OyX2zNOc=
+			</data>
+		</dict>
+		<key>Headers/glm/gtc/matrix_access.inl</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			yjsD08wtxk8MmlIcdw/bZVLCaTw=
+			</data>
+			<key>hash2</key>
+			<data>
+			i0Dg/ODAos3lcVML0d0gbYZ6S7wqVd8GmpmF8pywGp0=
+			</data>
+		</dict>
+		<key>Headers/glm/gtc/matrix_integer.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			Y79LAgkDRizb3QBaKab2YLkjuDM=
+			</data>
+			<key>hash2</key>
+			<data>
+			2biVbDBA5hKDVje0JtgSI1jqDgviC4X7c/mB9PHlrkI=
+			</data>
+		</dict>
+		<key>Headers/glm/gtc/matrix_inverse.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			xaYJHIeY6zIlIDMivTK4sKnnL5s=
+			</data>
+			<key>hash2</key>
+			<data>
+			YjEBGTsMvjN9udibJNDIQ0XQZrQCo5shyN/BnWZvPwE=
+			</data>
+		</dict>
+		<key>Headers/glm/gtc/matrix_inverse.inl</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			FTHJXuoUbnsqcG+cxFHejh1ma9Q=
+			</data>
+			<key>hash2</key>
+			<data>
+			YGVrPYa8WjChCpEizGgJ6GF3lAlPHWCr/juojRe2udM=
+			</data>
+		</dict>
+		<key>Headers/glm/gtc/matrix_transform.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			fZfpUTM4S1W4WKRxjqeyDrvG66Q=
+			</data>
+			<key>hash2</key>
+			<data>
+			RZghO7L3AZcZj56yMffst4+Tp8C4/zwg7MHV6y0BS2g=
+			</data>
+		</dict>
+		<key>Headers/glm/gtc/matrix_transform.inl</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			BkWwIMixxL6DEn80IID3ObYvFIE=
+			</data>
+			<key>hash2</key>
+			<data>
+			cKhUNmpwQti1gYnIsUWaty/Edzn42vTGUMFXrMokbAw=
+			</data>
+		</dict>
+		<key>Headers/glm/gtc/noise.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			/vM+k2sNisK8unEwXORcVPUVQHQ=
+			</data>
+			<key>hash2</key>
+			<data>
+			R2YA2u1qcyUkGJ2Y3YkzV9nANYm/Y+DR57/Nag58mKg=
+			</data>
+		</dict>
+		<key>Headers/glm/gtc/noise.inl</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			sAj8tQ+5swpgcCZXrcrtbHO/CDM=
+			</data>
+			<key>hash2</key>
+			<data>
+			TeOr6y3rkm5rpTmFWTlAnwqAKnyNUw2C6NBqlNHOX+g=
+			</data>
+		</dict>
+		<key>Headers/glm/gtc/packing.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			rk0JcDILSgt5BNNlDZ40Nr8NEjI=
+			</data>
+			<key>hash2</key>
+			<data>
+			YnqN2S9WHOP2nfxX+s0EvDpIh8BRmqEClDe+96VUft0=
+			</data>
+		</dict>
+		<key>Headers/glm/gtc/packing.inl</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			dTNU7VjrjdUFwhsEW6+aDx5My7c=
+			</data>
+			<key>hash2</key>
+			<data>
+			P8pvyrxqyOvDsJIq2saUCPB02USe/JUuYCkg7yksmNo=
+			</data>
+		</dict>
+		<key>Headers/glm/gtc/quaternion.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			z3v53nWbvJ3omg7toz0unrqz9KM=
+			</data>
+			<key>hash2</key>
+			<data>
+			bRG65Idw1jgiloIRR8SHqnc9LuKon2e8nucT2cz3zyA=
+			</data>
+		</dict>
+		<key>Headers/glm/gtc/quaternion.inl</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			JZzj77yTFHod5QtkYIZuCICKneg=
+			</data>
+			<key>hash2</key>
+			<data>
+			XcqbTg5+jbjKiNnxoVmJYYY2WbNVAmqCV9LBvwyKXpQ=
+			</data>
+		</dict>
+		<key>Headers/glm/gtc/quaternion_simd.inl</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			xQL9miNmQL4lJkqOxSUjNzS5m+4=
+			</data>
+			<key>hash2</key>
+			<data>
+			to6RW7MRu7ujReKuHE1oUgTE2E1x+ojuEv85iOs/Nno=
+			</data>
+		</dict>
+		<key>Headers/glm/gtc/random.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			5a4svIlOJF3Q/osffPQQ5Ct8lCI=
+			</data>
+			<key>hash2</key>
+			<data>
+			6678TXheLUfSPeVjwMS55G08Y9xbneHfm47LhzPzaNM=
+			</data>
+		</dict>
+		<key>Headers/glm/gtc/random.inl</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			I294peBC4wwwbdr3Zvug9oR1Lb4=
+			</data>
+			<key>hash2</key>
+			<data>
+			MgB/HxefMm4Z/CT7RkHAvpW5oNZnB3fvQB1TGTMrtmA=
+			</data>
+		</dict>
+		<key>Headers/glm/gtc/reciprocal.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			BusgdIdDoYAPZ85IZlOsR+TLnL8=
+			</data>
+			<key>hash2</key>
+			<data>
+			uah1BDAdbnWQNWo/sk+Djm9fdfaRhbnkF+U5L48DCGg=
+			</data>
+		</dict>
+		<key>Headers/glm/gtc/reciprocal.inl</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			IXz8lH5H9NfhqTPtJ2t15RE8b4E=
+			</data>
+			<key>hash2</key>
+			<data>
+			xuUGPryxDopsnJtCQrq1UDVdV9wXaiwr3kQuF1jmB8A=
+			</data>
+		</dict>
+		<key>Headers/glm/gtc/round.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			4lpF3YsztoOo5ldBhyjPGXLmEwA=
+			</data>
+			<key>hash2</key>
+			<data>
+			G5ee8utukEI+669TU7DR8PhOg2fqHdzqTuHwpAKQLYI=
+			</data>
+		</dict>
+		<key>Headers/glm/gtc/round.inl</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			DaOeuGFGhUo26TwmCc4yrUyoCck=
+			</data>
+			<key>hash2</key>
+			<data>
+			y/uN7rDI+UkSPWNj/w/21RyjvGtyPj+abwOIavhOLzw=
+			</data>
+		</dict>
+		<key>Headers/glm/gtc/type_aligned.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			3OkmM8plgZhG8zjTGFVM0EGKU2o=
+			</data>
+			<key>hash2</key>
+			<data>
+			IVADy0z35itovY3j6hU1LXcLOu0z/1zeNvLLByfQyV4=
+			</data>
+		</dict>
+		<key>Headers/glm/gtc/type_precision.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			EUX62/anW42C6xNEh0ARTbqPUpk=
+			</data>
+			<key>hash2</key>
+			<data>
+			07HkVMc8ZsELRKW/9cSeQVhkcYNgbmbhG60gB2r0Qqg=
+			</data>
+		</dict>
+		<key>Headers/glm/gtc/type_precision.inl</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			yirF9vl9G0CLpcekjDCcSeCLpcI=
+			</data>
+			<key>hash2</key>
+			<data>
+			rvFGSAIzQ7VyvwMxpyz52GdE5DkJN+O5Dh8+p6YHq5s=
+			</data>
+		</dict>
+		<key>Headers/glm/gtc/type_ptr.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			r7cY6NEYwh4cfo1BN/R2oGEuxtQ=
+			</data>
+			<key>hash2</key>
+			<data>
+			XNrHXvhJdmzEBXJX3R1yWis9zMTt4Eo+aoWyyU8nRpE=
+			</data>
+		</dict>
+		<key>Headers/glm/gtc/type_ptr.inl</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			gaW7ksVRvfLaunm7RmNGQvvi39Q=
+			</data>
+			<key>hash2</key>
+			<data>
+			YBxgte4+jQxrufa3R+q8dtPEI/BErwK9D+tRF+2TtTY=
+			</data>
+		</dict>
+		<key>Headers/glm/gtc/ulp.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			P+CcBb+RZVlHYWzZXEdXYa1nDNs=
+			</data>
+			<key>hash2</key>
+			<data>
+			ZMLl9P8CudL8SuFZZAmcQresdECYt1nldM6OsGXkuF0=
+			</data>
+		</dict>
+		<key>Headers/glm/gtc/ulp.inl</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			N+qR5Irm8nHCc7TENmWrak7hNWQ=
+			</data>
+			<key>hash2</key>
+			<data>
+			jvF+zR0KCB8Q00YuNgVM+N8J8rwu/QgK//bwgMOlgoM=
+			</data>
+		</dict>
+		<key>Headers/glm/gtc/vec1.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			hSqWdaq1f4knfdjOynH7zB0DOaI=
+			</data>
+			<key>hash2</key>
+			<data>
+			MfKoUCdkK8zNeTCukHFuJZvw4nvJly5F49WaPOI5zeY=
+			</data>
+		</dict>
+		<key>Headers/glm/gtc/vec1.inl</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			QAmFACA1VCnp8m8IWr5+s5gY1Uw=
+			</data>
+			<key>hash2</key>
+			<data>
+			NSt1MZRuErEiq7mBv2NP8po/p4nRzFW8rtb/dRadrx8=
+			</data>
+		</dict>
+		<key>Headers/glm/gtx/associated_min_max.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			fXyC+rBYs1efJt4HGfYh3+C4eNQ=
+			</data>
+			<key>hash2</key>
+			<data>
+			F4EdHi3+unDEOKG/751TQxr7h1dstpffvpvwZHDxnLI=
+			</data>
+		</dict>
+		<key>Headers/glm/gtx/associated_min_max.inl</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			f6rCzL1oWBiqUjaNl5JdJha20Ms=
+			</data>
+			<key>hash2</key>
+			<data>
+			lQ506Hcq/8RlnsqZWLE78dH3nZKZ7viVI2LKaNUmiSM=
+			</data>
+		</dict>
+		<key>Headers/glm/gtx/bit.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			dfiRXENxUE6VSHXbhn9DUutK+Pc=
+			</data>
+			<key>hash2</key>
+			<data>
+			kpkvbFOmDmFzK14UlH0kmgjaO562VXYLcmQtlMUByIk=
+			</data>
+		</dict>
+		<key>Headers/glm/gtx/bit.inl</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			IuI4Ss+vUsLdErJFSMfVLmV9TKI=
+			</data>
+			<key>hash2</key>
+			<data>
+			F/dsc+6iNdnrsoYXfLf1CXLez0CLOuQSYBHuXdCuaYg=
+			</data>
+		</dict>
+		<key>Headers/glm/gtx/closest_point.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			KEgJ0RRE5bxpymxx5cp09lHSabw=
+			</data>
+			<key>hash2</key>
+			<data>
+			+R8OT4yNfdAzjyProCK4JWbZRwynI07Hi0E1CIf2AI0=
+			</data>
+		</dict>
+		<key>Headers/glm/gtx/closest_point.inl</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			5Y9snOJiiI5Epy382UZ5q3lMOFY=
+			</data>
+			<key>hash2</key>
+			<data>
+			NxpDxPhAEm1c/xXYISknUrgw/6V1sNpqhysnRwsn8yU=
+			</data>
+		</dict>
+		<key>Headers/glm/gtx/color_space.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			qrFFxuvk6QwlZeXe4OwZnNUl/aY=
+			</data>
+			<key>hash2</key>
+			<data>
+			luoS6dN0jrRclUWFyHdS1usPHwdXGCWgeiIbE3kIigs=
+			</data>
+		</dict>
+		<key>Headers/glm/gtx/color_space.inl</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			WOsjxhfzDD2rqiBCqt/93IgZANk=
+			</data>
+			<key>hash2</key>
+			<data>
+			/5aJtwodJk5zMT9abzs8s1EaKujWkyi9UIaPtySk6Dw=
+			</data>
+		</dict>
+		<key>Headers/glm/gtx/color_space_YCoCg.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			udc09heQw9HmhUYZDcTxgJ8RGS8=
+			</data>
+			<key>hash2</key>
+			<data>
+			xCgWqfHmAL3G25kKfrVa4ICAzXaFKAo6gbm9TB37Up4=
+			</data>
+		</dict>
+		<key>Headers/glm/gtx/color_space_YCoCg.inl</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			3JWx755YLHhsnzWLUul2NMmXTRk=
+			</data>
+			<key>hash2</key>
+			<data>
+			OGTjGtTFG5hjubRG+IHPJXUOHV3r77vDrmt+P/2piUw=
+			</data>
+		</dict>
+		<key>Headers/glm/gtx/common.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			vZeuhWgYuJVdsjdsCLhXoXzE95M=
+			</data>
+			<key>hash2</key>
+			<data>
+			gYhE5UrAv4s45hrbFIajRtRkQ+t/exWHAIEF7pGB1bk=
+			</data>
+		</dict>
+		<key>Headers/glm/gtx/common.inl</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			JMNqcF5p2Pkrp4gosOGaGM8873E=
+			</data>
+			<key>hash2</key>
+			<data>
+			11xDM/Qg/rldMJQPCjuH3cAIOzaxHh3Wwm5MdrzJCd4=
+			</data>
+		</dict>
+		<key>Headers/glm/gtx/compatibility.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			1TIwDooCa2geTsWxW9ZCZVdkOCY=
+			</data>
+			<key>hash2</key>
+			<data>
+			2DgS752nsJI7ujkqGJq0DFJfKkLCznzfzElDJ3u42Kk=
+			</data>
+		</dict>
+		<key>Headers/glm/gtx/compatibility.inl</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			ejprKQSpqeCTrkmZzouV8/wtfOo=
+			</data>
+			<key>hash2</key>
+			<data>
+			dFT2uJk9KB/sRvnhH7luABwbypQx6zrSgGrlXfxAnKk=
+			</data>
+		</dict>
+		<key>Headers/glm/gtx/component_wise.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			HpZs++RvZegufVgCN803ND3YI/0=
+			</data>
+			<key>hash2</key>
+			<data>
+			l2rhP8G1+inj3SR9mz52fuojnOe11Dw41YkXOxqkpjc=
+			</data>
+		</dict>
+		<key>Headers/glm/gtx/component_wise.inl</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			ehXstCKd3MoBmk2otrfU8Pgw+e4=
+			</data>
+			<key>hash2</key>
+			<data>
+			Sf8/f0LANB3lnwYMtndA9HIZUlxyMgzw9aZ9bT7VlY8=
+			</data>
+		</dict>
+		<key>Headers/glm/gtx/dual_quaternion.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			ueeMd6b0omyoQ0AECSUIMvFImsg=
+			</data>
+			<key>hash2</key>
+			<data>
+			Vts3gt4VERWsEdf7wwGPRjJUGx/eLkL/WkvltGAL2q8=
+			</data>
+		</dict>
+		<key>Headers/glm/gtx/dual_quaternion.inl</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			+vsn2hVXsT1l9uJ4IS3tcneHtVk=
+			</data>
+			<key>hash2</key>
+			<data>
+			5L/vfrh4YvMKfDHxlnv7P5OmqqUjjIR2bqPJHcFAjGc=
+			</data>
+		</dict>
+		<key>Headers/glm/gtx/euler_angles.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			qgQEO35jBwOO9BClChxtkENp2tg=
+			</data>
+			<key>hash2</key>
+			<data>
+			g8H18vwtzE19mfkwtqop4JZ3300RSKfYY4nqjCqaXdA=
+			</data>
+		</dict>
+		<key>Headers/glm/gtx/euler_angles.inl</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			HqlzU90pWML/eEZ3tya/+0N7WKI=
+			</data>
+			<key>hash2</key>
+			<data>
+			gvQNVCCw6rScBh90mys2CtTSpfokIVQoZUT7O6ak40g=
+			</data>
+		</dict>
+		<key>Headers/glm/gtx/extend.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			UH0Cne9I7PssdQXJuw5kFcGY/EY=
+			</data>
+			<key>hash2</key>
+			<data>
+			mg69PHJBQOOKnBi8Udb7XRIIpifqLmJILQMrWBs17Cc=
+			</data>
+		</dict>
+		<key>Headers/glm/gtx/extend.inl</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			jiys5NYozDzkWgo9zf8A52kDAOs=
+			</data>
+			<key>hash2</key>
+			<data>
+			xaRB1UlfP+4ADY+uioG1kyrjyeV3YCckzz//5c3KaaQ=
+			</data>
+		</dict>
+		<key>Headers/glm/gtx/extended_min_max.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			ZWIJ3Gt98uO4bG21+ae1o7xJwiM=
+			</data>
+			<key>hash2</key>
+			<data>
+			GNU30m+t1f4aI1ULP/+TyGCYtAkSVE5s7DCOVkmB0Ys=
+			</data>
+		</dict>
+		<key>Headers/glm/gtx/extended_min_max.inl</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			X+9dcVrvmYObhgL5UIRyXHmkahs=
+			</data>
+			<key>hash2</key>
+			<data>
+			pmkOzcHbvGelglbCyvdGaDhTw769UybbW36MgRGb4Kc=
+			</data>
+		</dict>
+		<key>Headers/glm/gtx/fast_exponential.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			oWQTS2KeH7FXsz75DcsS9Is8wbE=
+			</data>
+			<key>hash2</key>
+			<data>
+			ESzsQ4UEyBcbBgVkaLwYAHMixYJFGF0U/ijX5kerc3g=
+			</data>
+		</dict>
+		<key>Headers/glm/gtx/fast_exponential.inl</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			zAKp27LXgDv+PK1Ff+8NeGaO3Tk=
+			</data>
+			<key>hash2</key>
+			<data>
+			rPfJ70VWkkowRQPhMsXXkPHJEV73uzwCiIuo+pzme6E=
+			</data>
+		</dict>
+		<key>Headers/glm/gtx/fast_square_root.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			zhAeELXlkQytrka1/Flc2GR31n4=
+			</data>
+			<key>hash2</key>
+			<data>
+			xqWmUrHMWqYT25k1cPZheRIpY1bzQPmAQPSmggPArJw=
+			</data>
+		</dict>
+		<key>Headers/glm/gtx/fast_square_root.inl</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			ht4ntJ9/YC+yeSyJutZqXC9PfNw=
+			</data>
+			<key>hash2</key>
+			<data>
+			0f9EFhHHa6vRaV/nJhtRBUpMvF0sJmrAlfyoI0qEO1A=
+			</data>
+		</dict>
+		<key>Headers/glm/gtx/fast_trigonometry.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			MX3uAMWO5BGmLGj6Jl6KmzkEhI0=
+			</data>
+			<key>hash2</key>
+			<data>
+			H3k+rb6NqCp5ygmwBB9KQDeajLhStjsa8r0+/P8I7eM=
+			</data>
+		</dict>
+		<key>Headers/glm/gtx/fast_trigonometry.inl</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			uGqVX5rffHcf/A6ryOR54PqMd/E=
+			</data>
+			<key>hash2</key>
+			<data>
+			0q4yNwJN1ZhwwI9cIfLlMHrBciRtks6XiW7ABHFUgbI=
+			</data>
+		</dict>
+		<key>Headers/glm/gtx/float_notmalize.inl</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			GgdHSAwnJBRHB/ZpTapn+7P0lek=
+			</data>
+			<key>hash2</key>
+			<data>
+			oksX57bh89J0Y801nimRRLi/c4q2CVgUGqtHDysihC0=
+			</data>
+		</dict>
+		<key>Headers/glm/gtx/gradient_paint.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			wtbtdLG6yjZItrGf6KkRAOBiROI=
+			</data>
+			<key>hash2</key>
+			<data>
+			fdqhlW5k/V51jlDN8ZI0CqBCSfAjpMLopT54tpimGlY=
+			</data>
+		</dict>
+		<key>Headers/glm/gtx/gradient_paint.inl</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			Mv/w5ejSj0XxW/bu7WLEKHGeOQc=
+			</data>
+			<key>hash2</key>
+			<data>
+			tRB0LEHnNSDyMQL31Oa33KLXHuOzP49ch8NI8qjH/Rc=
+			</data>
+		</dict>
+		<key>Headers/glm/gtx/handed_coordinate_space.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			M18zhR4RiGZGe3A7mmbrG9v2CAo=
+			</data>
+			<key>hash2</key>
+			<data>
+			y1tIzMNtX+fy0MeNw2TGP0pSgDOlpTbulCksp24RixU=
+			</data>
+		</dict>
+		<key>Headers/glm/gtx/handed_coordinate_space.inl</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			lq1qQkBfyLf2Ch4diK2tFIbtfHI=
+			</data>
+			<key>hash2</key>
+			<data>
+			oHRo8/JcKmz82sU/B70wVXUkNj+Tg25JiYGnsVe1VhU=
+			</data>
+		</dict>
+		<key>Headers/glm/gtx/hash.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			hxKaysy2gDbgmTF/SMVP4OnOL0M=
+			</data>
+			<key>hash2</key>
+			<data>
+			Kow8opO904FCGiYTkiDm7FnM2QF0Xme6Rx+n1sKLHFY=
+			</data>
+		</dict>
+		<key>Headers/glm/gtx/hash.inl</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			CtcaQduC3D2ZQpgEOLigZA37kQk=
+			</data>
+			<key>hash2</key>
+			<data>
+			PrzR43u5Pa7itBg5He7E3XgfAt+pR7VvC9kswBcEfQo=
+			</data>
+		</dict>
+		<key>Headers/glm/gtx/integer.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			jlOoigwzJf1iD7HDkQxKIlt7uv4=
+			</data>
+			<key>hash2</key>
+			<data>
+			GosBp3LMPG9Z42YpT5F+PJ4YdEP2d6LskupFSnGf17g=
+			</data>
+		</dict>
+		<key>Headers/glm/gtx/integer.inl</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			FOIxUJFmOw3w/BjSHOhP04cFOXE=
+			</data>
+			<key>hash2</key>
+			<data>
+			LYtMvT8bebnbmuYIcLBq4xRsDKXtJr2ZohGKIsU+p5A=
+			</data>
+		</dict>
+		<key>Headers/glm/gtx/intersect.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			Ok9EVEgdEcSV9ZsKtTi5r80/UhY=
+			</data>
+			<key>hash2</key>
+			<data>
+			XcMgO86JCboF2OWLy+v10NAvDypNG96YA4l5sFboTAs=
+			</data>
+		</dict>
+		<key>Headers/glm/gtx/intersect.inl</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			hwVHIzWk3X4LfB5E1CO/RiH1fRg=
+			</data>
+			<key>hash2</key>
+			<data>
+			eX8dxZ4PHAkDN7d77ssV9RvLHKKYMekV5fz1ciNrY5U=
+			</data>
+		</dict>
+		<key>Headers/glm/gtx/io.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			POGjOqibKARARlEQoncx9iiaH2g=
+			</data>
+			<key>hash2</key>
+			<data>
+			6gLFiDBHktRJVnTz+Rr/lKKtqECAEoCBawEsJBRBIuQ=
+			</data>
+		</dict>
+		<key>Headers/glm/gtx/io.inl</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			SZdKH9vDNjJsslXSwcGS4L0FXD4=
+			</data>
+			<key>hash2</key>
+			<data>
+			haiD/3vxianaFB0F3sBUAr2KkyXudRCV+jKfoauzc5s=
+			</data>
+		</dict>
+		<key>Headers/glm/gtx/log_base.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			1G2KBd/xuNZuES4cbbJ3J6YwgI8=
+			</data>
+			<key>hash2</key>
+			<data>
+			HzlWULsPojK35sRCiks1hCwOboFM7eA+Z2a//7nroPs=
+			</data>
+		</dict>
+		<key>Headers/glm/gtx/log_base.inl</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			sky9cHbjAYuUmlDdRfAbY/Zmvec=
+			</data>
+			<key>hash2</key>
+			<data>
+			XnS8ztuOFmGIl74OwqCKKnEPvlRnjDgcctkIenpBSyY=
+			</data>
+		</dict>
+		<key>Headers/glm/gtx/matrix_cross_product.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			Ir1sbY7YppTTfgJqBmknmN2j79k=
+			</data>
+			<key>hash2</key>
+			<data>
+			TQNN96ZivCliX7oqZrsN/otuspKH5D1HNuHgEb7PGeg=
+			</data>
+		</dict>
+		<key>Headers/glm/gtx/matrix_cross_product.inl</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			M4oz2YXoUkNCumIcE0+RE6FeqgY=
+			</data>
+			<key>hash2</key>
+			<data>
+			T1YbqxmjyP4Qo+AWxdKGnQv5XLSbqFpPy4SQv5u5uoc=
+			</data>
+		</dict>
+		<key>Headers/glm/gtx/matrix_decompose.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			v9mvMoM58y+TPYwogHaudad7ZtM=
+			</data>
+			<key>hash2</key>
+			<data>
+			prw6oafDP5CUcDE1TnWfwY2y1zRc2PpgpVwW3XhCFp8=
+			</data>
+		</dict>
+		<key>Headers/glm/gtx/matrix_decompose.inl</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			aHB6hnMAPmiGachCP/cdcChuxuE=
+			</data>
+			<key>hash2</key>
+			<data>
+			55rY3E1qG5Q/5bT/brcmv4NfvdkcRaNP8GW4o21etoo=
+			</data>
+		</dict>
+		<key>Headers/glm/gtx/matrix_interpolation.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			BgLkiBSgfj0izCGEuqByMlIygnU=
+			</data>
+			<key>hash2</key>
+			<data>
+			RSFMEcFTDwStMxTUXQHZWkDVxD44L+y2qM+ptkM/pRo=
+			</data>
+		</dict>
+		<key>Headers/glm/gtx/matrix_interpolation.inl</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			gZSfjc9ngpf9zEo1gy77FGASRNs=
+			</data>
+			<key>hash2</key>
+			<data>
+			CbIx14hfgLknuHNEJuty9VyvhigiO1HcMalyrsOSMpw=
+			</data>
+		</dict>
+		<key>Headers/glm/gtx/matrix_major_storage.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			uW/XAqQWz2HC29JXlQJL68EQ7cU=
+			</data>
+			<key>hash2</key>
+			<data>
+			iQQUlPv6SZ1B7QX/8RiNC3ELzPGr22p8i0umNSlyt48=
+			</data>
+		</dict>
+		<key>Headers/glm/gtx/matrix_major_storage.inl</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			EFIcj6V9sXg8nt9jENtXRLDzfF4=
+			</data>
+			<key>hash2</key>
+			<data>
+			anK0H5spjFhtr7tC/D7YdY41XTRKIPUtdlThQintXh4=
+			</data>
+		</dict>
+		<key>Headers/glm/gtx/matrix_operation.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			CrDAKJocOr//E4aBRY43XyLi0zU=
+			</data>
+			<key>hash2</key>
+			<data>
+			v5jbyMZTYXWRIVH9yV5Tjz42UFHZeCpntAx/0b89Abk=
+			</data>
+		</dict>
+		<key>Headers/glm/gtx/matrix_operation.inl</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			v2S8y7e7qkzx0kHf850Zr37osng=
+			</data>
+			<key>hash2</key>
+			<data>
+			2P6vDMG6VVM+9t+VDySlfOxIeUzhXg8nWMY30ulbFbI=
+			</data>
+		</dict>
+		<key>Headers/glm/gtx/matrix_query.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			30wR3HPMNGSnbuXlcJW/230DPgo=
+			</data>
+			<key>hash2</key>
+			<data>
+			HvMwvURAbCmCtoVEtrJRopbooKfck/jcDiSceXzK4sU=
+			</data>
+		</dict>
+		<key>Headers/glm/gtx/matrix_query.inl</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			GWQe+SbMr6o94y1Qp6r/q7lbgD0=
+			</data>
+			<key>hash2</key>
+			<data>
+			FpRbVORyGBnRBL1htyqmeDuVktUJ7Wy8CGwUVfMGaXQ=
+			</data>
+		</dict>
+		<key>Headers/glm/gtx/matrix_transform_2d.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			nsU/ILl+fo95F4xz5KR3J/hbwpo=
+			</data>
+			<key>hash2</key>
+			<data>
+			ScvjehaIA3G96z2q4yOh9J2W6Jhh2TXHdqxI1KmouyM=
+			</data>
+		</dict>
+		<key>Headers/glm/gtx/matrix_transform_2d.inl</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			YeGiJWtFphgiyGNUa1G6YLbs+mc=
+			</data>
+			<key>hash2</key>
+			<data>
+			5pieu0JDUXb+JAI04vu10pZBYZQKGDDJJA18Y3Vkj64=
+			</data>
+		</dict>
+		<key>Headers/glm/gtx/mixed_product.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			M/XYv02ZXsjEtQ2Rx6KBo4L+lcE=
+			</data>
+			<key>hash2</key>
+			<data>
+			R6uXEzwa/Haf4nQhTFPhAjWjqZopWiW15wScGh9/PDw=
+			</data>
+		</dict>
+		<key>Headers/glm/gtx/mixed_product.inl</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			TH2N19CK10bPUu/wPcNYFXWUn64=
+			</data>
+			<key>hash2</key>
+			<data>
+			Lvm9rwQoZiCncPVTG0enmqbZVSo/tiiLAyT5Y/nikic=
+			</data>
+		</dict>
+		<key>Headers/glm/gtx/norm.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			n9sVefwuYHcFoGEj2aiGXOs1saA=
+			</data>
+			<key>hash2</key>
+			<data>
+			YAMtM3JNiIX1/NmwtWQNgNrQsMqOrzEeoxi4jz0NBk8=
+			</data>
+		</dict>
+		<key>Headers/glm/gtx/norm.inl</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			e9cPgtVCNCSVJyyi1EbWdJ5WfvY=
+			</data>
+			<key>hash2</key>
+			<data>
+			7ouOTMtQoJKSPFxj8D0NjIp0wkLzfBPp+ATn2FzdkQo=
+			</data>
+		</dict>
+		<key>Headers/glm/gtx/normal.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			CflEIoPEARWKsDQDSw0V5ngfCeE=
+			</data>
+			<key>hash2</key>
+			<data>
+			way3g/stLqvbMVlkCy9YkLKdb57toN+Yb7o+jsOAVVs=
+			</data>
+		</dict>
+		<key>Headers/glm/gtx/normal.inl</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			hVxdXx/Tc9FKWt0Oa/xMfpIaJSw=
+			</data>
+			<key>hash2</key>
+			<data>
+			c0ARjrOrEm01A0+u/rfz+l8efP0izne4KDP99PCt1SU=
+			</data>
+		</dict>
+		<key>Headers/glm/gtx/normalize_dot.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			emorQs7BvvdW2905FyVFAqyeYRE=
+			</data>
+			<key>hash2</key>
+			<data>
+			AiHCOLEeIjk5+mZ+tOqeANpD/fT205Iyt1gP02FZWsE=
+			</data>
+		</dict>
+		<key>Headers/glm/gtx/normalize_dot.inl</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			gA8xTv1vwOPxmhr2r224Otm9vXo=
+			</data>
+			<key>hash2</key>
+			<data>
+			+HvMgVhlvNfMIniK9IB096Xza9Iz95So6O+fSZ+Q+mY=
+			</data>
+		</dict>
+		<key>Headers/glm/gtx/number_precision.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			GCd3+jyzd3sHyjt3s1kZmHtxwgE=
+			</data>
+			<key>hash2</key>
+			<data>
+			v9SHpGz4nf2QrwQ7xreVeUgZ2N1aPrnl30u1IpBLhf8=
+			</data>
+		</dict>
+		<key>Headers/glm/gtx/number_precision.inl</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			myZq9u38lOrVN8nPh5PSQhICq1U=
+			</data>
+			<key>hash2</key>
+			<data>
+			BTJtIBo3iUPAHDNZHtCLVc0NgEW8wMB+U3bnS8quEag=
+			</data>
+		</dict>
+		<key>Headers/glm/gtx/optimum_pow.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			HIkq5BnzSBWmPCNocbYgzJxxpaM=
+			</data>
+			<key>hash2</key>
+			<data>
+			WxX7WIGaCCGiDISWis4JIJWNnwcT8CrtDOmn8uwfcJg=
+			</data>
+		</dict>
+		<key>Headers/glm/gtx/optimum_pow.inl</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			jlJFCh0lKOnNhWnwFR2Z7MiKPYU=
+			</data>
+			<key>hash2</key>
+			<data>
+			F755Fcw2rvbktxej/YzqbOAD5VD64hUVtYDfcyTA+SY=
+			</data>
+		</dict>
+		<key>Headers/glm/gtx/orthonormalize.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			6KyQ2NzZx623TUnbtIUroN/KCso=
+			</data>
+			<key>hash2</key>
+			<data>
+			zz4EQvnfEle3Sjnsx55uO/rxAzld1uiYHPSz7juYDAE=
+			</data>
+		</dict>
+		<key>Headers/glm/gtx/orthonormalize.inl</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			7j1ej1HNTRAUGAYYctDLddwJiE0=
+			</data>
+			<key>hash2</key>
+			<data>
+			g8Wui0sNk8tctiAQq7116QUzPnLBLnDJbKdEKjfW6Us=
+			</data>
+		</dict>
+		<key>Headers/glm/gtx/perpendicular.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			9KhfopHUla5v7ZYvy37dpx2RzgA=
+			</data>
+			<key>hash2</key>
+			<data>
+			2sQ/ZfMGJ3Y15tH2y8QpKMItimRGI8q3AvtGXgept9Y=
+			</data>
+		</dict>
+		<key>Headers/glm/gtx/perpendicular.inl</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			7cUFH+WJ/H+iDpo//zHelg8c4Hs=
+			</data>
+			<key>hash2</key>
+			<data>
+			g5rojxl8YEGd4zBG1Zl5+/LsMIwRgEYkFyW7x40Ptl4=
+			</data>
+		</dict>
+		<key>Headers/glm/gtx/polar_coordinates.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			ZlZHtQ/C+gr5tmAivvAU9Vujhn4=
+			</data>
+			<key>hash2</key>
+			<data>
+			jD0AaErl6gvO2+i7DkdmiASdoADtgpKaZgB/t29TmOc=
+			</data>
+		</dict>
+		<key>Headers/glm/gtx/polar_coordinates.inl</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			+kz4c45AJXBgyemiY+uuOJh2vik=
+			</data>
+			<key>hash2</key>
+			<data>
+			xfMW3yQWP2yJtJ/9fs8/JcvrA0YQY5Ov/ytIO6VAYno=
+			</data>
+		</dict>
+		<key>Headers/glm/gtx/projection.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			gJgG22czGn9NeDloInV9Mygatgo=
+			</data>
+			<key>hash2</key>
+			<data>
+			3v1uxmSF7sTdeId/ZVrVorTYXoSEd1yhiaV64bQQs1I=
+			</data>
+		</dict>
+		<key>Headers/glm/gtx/projection.inl</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			FBMSVTcQrTwDIOI1SOAQsd5LBlc=
+			</data>
+			<key>hash2</key>
+			<data>
+			RBxstxpvwumI2IkN1knu3u71n/83zuhAyqXZe5xg394=
+			</data>
+		</dict>
+		<key>Headers/glm/gtx/quaternion.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			NWjN9XAmdulxigJEmYtGO8b+JBw=
+			</data>
+			<key>hash2</key>
+			<data>
+			WlnfeDL4Y1xJjtGAD2Ktk7KQBb0JEpTQilK+tBkOt9s=
+			</data>
+		</dict>
+		<key>Headers/glm/gtx/quaternion.inl</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			vGKtSiP3+LdgG4O1yYD1JVfaFlw=
+			</data>
+			<key>hash2</key>
+			<data>
+			lHJuBZwstB7XTKkIaeeaBQBVjWp9VauKXQZR6XHsUvk=
+			</data>
+		</dict>
+		<key>Headers/glm/gtx/range.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			Zl0hrJ1KeAfVFHKT7640NUg+nxQ=
+			</data>
+			<key>hash2</key>
+			<data>
+			D0/gl/yj8Kp2HiBgbLRGxpR6mbsm50w3FCA7Cp5RO6s=
+			</data>
+		</dict>
+		<key>Headers/glm/gtx/raw_data.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			iBjGzMypC5767CwUg0BNpadciYE=
+			</data>
+			<key>hash2</key>
+			<data>
+			6FZUCFi9u/7R2zGUlZab17NjpFuY68ILQGJnV2PjPRA=
+			</data>
+		</dict>
+		<key>Headers/glm/gtx/raw_data.inl</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			c00Sdgx/YFN4DSyjViwRHZV/JHk=
+			</data>
+			<key>hash2</key>
+			<data>
+			ZZBeyGVjBtGO+J531d5rmykYuK/4GpfFJpJlXBlAFvU=
+			</data>
+		</dict>
+		<key>Headers/glm/gtx/rotate_normalized_axis.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			cjU2ELoh1h2LBaYvAahxV7ct2Cw=
+			</data>
+			<key>hash2</key>
+			<data>
+			mHkn/wCLaZhQB+UGF9dsvy4OCbxMrWz7ptqxpR0ljZ4=
+			</data>
+		</dict>
+		<key>Headers/glm/gtx/rotate_normalized_axis.inl</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			x+PR6wRDkkInzYZ9fKo1OaGtkcw=
+			</data>
+			<key>hash2</key>
+			<data>
+			kf9AMoQ1zKugXlYrWO+PVO7qTMkpIq7RNkb5tXmiOqE=
+			</data>
+		</dict>
+		<key>Headers/glm/gtx/rotate_vector.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			9gedrVn2wqM7gGRx4T4Eb/m3Vpw=
+			</data>
+			<key>hash2</key>
+			<data>
+			88gNwkY+XXTpSODmTIsGDHdnh+0A56cum4fBsvy9+LQ=
+			</data>
+		</dict>
+		<key>Headers/glm/gtx/rotate_vector.inl</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			5ZTE5Sm8aA8kVJp+D4rohbrP/YA=
+			</data>
+			<key>hash2</key>
+			<data>
+			b3GU0KIPocVIQtGT2PcpgIwu7h/EKYCGVj9rWIpGwAs=
+			</data>
+		</dict>
+		<key>Headers/glm/gtx/scalar_multiplication.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			v5pgAw+mMJg8skJOi7gWHwbvrxE=
+			</data>
+			<key>hash2</key>
+			<data>
+			YohYA3omGtD2QK3nh140GAuhI7bL1lDfnwhnmphmrb0=
+			</data>
+		</dict>
+		<key>Headers/glm/gtx/scalar_relational.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			lw6f8a1VmQ2AtXaK8Hk9y7Es3UI=
+			</data>
+			<key>hash2</key>
+			<data>
+			iNK3nU9YGOADgGmw0gBrVc01IWg7+9JeFND4CW3NBFk=
+			</data>
+		</dict>
+		<key>Headers/glm/gtx/scalar_relational.inl</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			tDMJdcj/RLgleUH+cW5FPjtwO9M=
+			</data>
+			<key>hash2</key>
+			<data>
+			LluHLbnCfoxEWsho0D8IP0lT0xxsQ9Q4uP2HZERhZlg=
+			</data>
+		</dict>
+		<key>Headers/glm/gtx/spline.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			WiwQiWYW0tbvShAorGAVdO4k5Is=
+			</data>
+			<key>hash2</key>
+			<data>
+			hWH3NTqiFc2WJ/T0HaWN9hxYxaEqAPVasY3uIJ/mNWE=
+			</data>
+		</dict>
+		<key>Headers/glm/gtx/spline.inl</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			XmoSjwhtH+lAkc3RY21ofmC9Lr0=
+			</data>
+			<key>hash2</key>
+			<data>
+			k14kF7MB93s+1QQUa+NIJH9ZBJRrfrVSxrww/tD/YBU=
+			</data>
+		</dict>
+		<key>Headers/glm/gtx/std_based_type.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			5sCJcgPHPhLEDGF2vWg4fHIxbHI=
+			</data>
+			<key>hash2</key>
+			<data>
+			XKD7oQCRxOSCgfcsHx3N3IKoAx5P4gukYdR5rUSIgnk=
+			</data>
+		</dict>
+		<key>Headers/glm/gtx/std_based_type.inl</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			XtvEUckGVylbc7hT/8d0QbL00U8=
+			</data>
+			<key>hash2</key>
+			<data>
+			0AT9sB/weH2rEiVlBQHfpvutzSSi8UIuZ1XgRoes1kA=
+			</data>
+		</dict>
+		<key>Headers/glm/gtx/string_cast.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			zMRud/tkllrbPXntAJKQ5ZEjfWY=
+			</data>
+			<key>hash2</key>
+			<data>
+			qluCwa4UJu8+HbBS5jct4CBbgWqCyhVxYE9WXfjEpVw=
+			</data>
+		</dict>
+		<key>Headers/glm/gtx/string_cast.inl</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			76jKk939fviLeBi1p3ulp8dvQrE=
+			</data>
+			<key>hash2</key>
+			<data>
+			xWw6jr5XSYVDWG0E/zzaPaJcwjUdfHgfVLR7c/KWnyg=
+			</data>
+		</dict>
+		<key>Headers/glm/gtx/transform.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			3yOJsigU+JG/wd22ulu/Tg3/Q90=
+			</data>
+			<key>hash2</key>
+			<data>
+			Q8YLncVuZMam9e9vRHz0RSX7lXRNMVkMYEmp/15+n7Q=
+			</data>
+		</dict>
+		<key>Headers/glm/gtx/transform.inl</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			yJenP/AMZhWIVJEm7GtUjgsuvL4=
+			</data>
+			<key>hash2</key>
+			<data>
+			rgwiS9rSPyJKIgmkxeLmEyGBJw+96mMeFg0VEGiD3ec=
+			</data>
+		</dict>
+		<key>Headers/glm/gtx/transform2.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			umV11DsLL3VudNDtEw3IviN8+xU=
+			</data>
+			<key>hash2</key>
+			<data>
+			L1ILyXaAbQhLCDuoFJEOiKrphBbeoG8O4b2jF0m7g9k=
+			</data>
+		</dict>
+		<key>Headers/glm/gtx/transform2.inl</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			rlHZ2qpOAqw6TCPfvUwicVfe9Cc=
+			</data>
+			<key>hash2</key>
+			<data>
+			Ix187nzfHNCKDAu9aXOLFu+tUqNlUmZtJhrYT5t8Z50=
+			</data>
+		</dict>
+		<key>Headers/glm/gtx/type_aligned.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			jOhhu6dl0AqoZ1ZZ9i66ETcDZPY=
+			</data>
+			<key>hash2</key>
+			<data>
+			p8r1s9zpTsOTMWKSB317pyRPHXS0hHTM2mMvbEDMKuY=
+			</data>
+		</dict>
+		<key>Headers/glm/gtx/type_aligned.inl</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			JHWxhKeBZW0IFSHlgCnbHimbWcM=
+			</data>
+			<key>hash2</key>
+			<data>
+			5n34INMwklu9hVz1jQhv0wS8z9O/TcfWUSiiLe11kNw=
+			</data>
+		</dict>
+		<key>Headers/glm/gtx/type_trait.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			Ev6v2+PAWoHTL2KE+3GXAVLLwVw=
+			</data>
+			<key>hash2</key>
+			<data>
+			BB8+9A9ZH9gXR/u4ZpYI+0IstzWrrkEm1OE/bsJYUwc=
+			</data>
+		</dict>
+		<key>Headers/glm/gtx/type_trait.inl</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			2jmj7l5rSw0yVb/vlWAYkK/YBwk=
+			</data>
+			<key>hash2</key>
+			<data>
+			47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=
+			</data>
+		</dict>
+		<key>Headers/glm/gtx/vector_angle.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			Vn5Fqne9tIVK32lDkq66JGI64qI=
+			</data>
+			<key>hash2</key>
+			<data>
+			A+f+8spx5XFXfN9j+Xl5az210tHck421x2c1mCLxRtQ=
+			</data>
+		</dict>
+		<key>Headers/glm/gtx/vector_angle.inl</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			VnUNEmPWcQdiv6bU8B11HZyL52w=
+			</data>
+			<key>hash2</key>
+			<data>
+			6kX/bLRQWtGqnf7+OEBa5eMOvWWN9p/mb3KbAbyuKHQ=
+			</data>
+		</dict>
+		<key>Headers/glm/gtx/vector_query.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			9vQ+ZTb+HuNfpl2TS/NuTdp5ycA=
+			</data>
+			<key>hash2</key>
+			<data>
+			9/ULDnOqies9ihAz7Uv0IQjAiSa8TK/Vk+WKihyjHm8=
+			</data>
+		</dict>
+		<key>Headers/glm/gtx/vector_query.inl</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			sfLoWdnHWcg0esc89sKqQ4MRHwo=
+			</data>
+			<key>hash2</key>
+			<data>
+			335taNPfa5OQsxIv+39meg7s+zEfLFxddm9UXEb9chs=
+			</data>
+		</dict>
+		<key>Headers/glm/gtx/wrap.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			ulX2YAxOMba2lCVF0lksYjRfDQ4=
+			</data>
+			<key>hash2</key>
+			<data>
+			C6ysGGq91cZqtWm4zNPVoyOnUghrPjH5MUI1v3gdKtA=
+			</data>
+		</dict>
+		<key>Headers/glm/gtx/wrap.inl</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			YGjSzCZQNZ/2yKpjIm4hkAVtI+E=
+			</data>
+			<key>hash2</key>
+			<data>
+			xzWR9KvEjvmi0+GfAHhPBV5M4FtmhmdKoANagQaUDyU=
+			</data>
+		</dict>
+		<key>Headers/glm/integer.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			fDUnCCzJIx1l3yE1rwYtTkbCxXk=
+			</data>
+			<key>hash2</key>
+			<data>
+			jhtzy4Iwkrm9ZuU8Sywsj2twDbxBL0B00T9fRxVFLLc=
+			</data>
+		</dict>
+		<key>Headers/glm/mat2x2.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			VPqsUnW5yfl/cn1558XBF/Jy6Uk=
+			</data>
+			<key>hash2</key>
+			<data>
+			L87yGk/M/Kwp0Z404G7Efc3oJ/3DnyVWVPgoPOm9S1k=
+			</data>
+		</dict>
+		<key>Headers/glm/mat2x3.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			tEOY1llVWdSg1kS0HmEhF+qCxxs=
+			</data>
+			<key>hash2</key>
+			<data>
+			4e9YpP3pzvIJS8+DpSg0Ql4aoB5nd5sh2iBeU8KzyTU=
+			</data>
+		</dict>
+		<key>Headers/glm/mat2x4.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			1veqeHRUcEc/f0VL6tNwrmW/9Jk=
+			</data>
+			<key>hash2</key>
+			<data>
+			hrKbRMQB23VKwx+QPed5pjxVmjUnIvvMsZDsI9GbGVk=
+			</data>
+		</dict>
+		<key>Headers/glm/mat3x2.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			/OWwmt+9x7QUpFimhlrRtTf56q0=
+			</data>
+			<key>hash2</key>
+			<data>
+			jOcjmpQ/bweGoJ19PD/G4Of4+BoJfVhBId5G/U0uVgE=
+			</data>
+		</dict>
+		<key>Headers/glm/mat3x3.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			EwHZXOjtRcVMuaMKtk4YBalojqE=
+			</data>
+			<key>hash2</key>
+			<data>
+			5X9thUnLdBAg0YGUyS38AbSZaAkOUoYYX9sI+4svfZg=
+			</data>
+		</dict>
+		<key>Headers/glm/mat3x4.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			rYLB9qQk65Z8AyT78zXu+QSM7uc=
+			</data>
+			<key>hash2</key>
+			<data>
+			bVGky2Yt1h93ZKQHarcqwSOyiGsiO9qPbAbsO+BG7vQ=
+			</data>
+		</dict>
+		<key>Headers/glm/mat4x2.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			Vv7qWsJDlkuxaMYHGIBp0sxZMdE=
+			</data>
+			<key>hash2</key>
+			<data>
+			A/Ws5JTbaOVTxNufpMCF+BnmvzkpgiW3dpMatQT60y0=
+			</data>
+		</dict>
+		<key>Headers/glm/mat4x3.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			h1VI6eIqG+eM6Ip0A0NXDu8KPIA=
+			</data>
+			<key>hash2</key>
+			<data>
+			xADe4gcwkovTkOozrkLqepa/cBfayp3+jTGQ6NdyKbA=
+			</data>
+		</dict>
+		<key>Headers/glm/mat4x4.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			jQ9PkMH0wZBlxl0jL/HH46q6F6g=
+			</data>
+			<key>hash2</key>
+			<data>
+			FgBdGuTamigxCy3IAl+mUcG+52tZOnifTxOZCLgo32E=
+			</data>
+		</dict>
+		<key>Headers/glm/matrix.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			14dmzuV17eugK+wBnDv1OqFUxZ8=
+			</data>
+			<key>hash2</key>
+			<data>
+			jvbM01ZeSciYxFz5xf3M91K0WU7Y809bBScPVFFGeOU=
+			</data>
+		</dict>
+		<key>Headers/glm/packing.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			P+OXApK0uqXE9vUq0i8fUUxEKBc=
+			</data>
+			<key>hash2</key>
+			<data>
+			dYpTvFKmX/Bte5xOmMyuadHB2xFnVvw85ei7NtaCr9k=
+			</data>
+		</dict>
+		<key>Headers/glm/simd/exponential.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			F3tx9nE/BWdIelpucJSEnABoBQg=
+			</data>
+			<key>hash2</key>
+			<data>
+			mzaKbux00hLIA+oHFl1J7+Hmu+eeSb9BsOZsQukQIoU=
+			</data>
+		</dict>
+		<key>Headers/glm/simd/geometric.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			U8IIoN4/8kZAlao9cCKXP48TClU=
+			</data>
+			<key>hash2</key>
+			<data>
+			ajCZ0nNnh7E2zgXDh81g7gv0f18GsGncQtXT6wNc2dw=
+			</data>
+		</dict>
+		<key>Headers/glm/simd/integer.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			UmnLqAfyVtvghyqrZ13cKg8CyJc=
+			</data>
+			<key>hash2</key>
+			<data>
+			hnEdCzTS3FmYma4LK3TaY2BhE+DQZPTAHDPSerMlB+M=
+			</data>
+		</dict>
+		<key>Headers/glm/simd/matrix.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			StIz2kdymrXmvYRaidEdTWyDKPk=
+			</data>
+			<key>hash2</key>
+			<data>
+			3JLZRN4ocLZbiVsc6+yq2324saOGpQ4byfndEAovhlE=
+			</data>
+		</dict>
+		<key>Headers/glm/simd/packing.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			qUPv99nQlr0Er9KaVAuf34m7MJs=
+			</data>
+			<key>hash2</key>
+			<data>
+			C3JEXVYoTWs1g8fVvqG7m87ny8IcYT9mHwPfVs31SKA=
+			</data>
+		</dict>
+		<key>Headers/glm/simd/platform.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			WjtIzCx/SUt3uaAQNSPbCD+Ym4w=
+			</data>
+			<key>hash2</key>
+			<data>
+			kPxUL+7xGU98yjixxONMbc1881Hrlwoz8iucvkNbXZE=
+			</data>
+		</dict>
+		<key>Headers/glm/simd/simd_common.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			BxoF5Xb/NroKyHIl1Z3+m8IGwMg=
+			</data>
+			<key>hash2</key>
+			<data>
+			3gxSUS7Y/UKosIFEIljcocZ0VLw3Fw4osonniPcmeDQ=
+			</data>
+		</dict>
+		<key>Headers/glm/simd/trigonometric.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			kiz0CT2hfqdycbkdAJxEqOE5QVs=
+			</data>
+			<key>hash2</key>
+			<data>
+			DIlURpIdDgijAoyPMMQW2fgCwXj6YQ03c1dzrTAwWXQ=
+			</data>
+		</dict>
+		<key>Headers/glm/simd/vector_relational.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			2k6Ue2ZX+qRJedZ9u3Eul7uXh4M=
+			</data>
+			<key>hash2</key>
+			<data>
+			j25ystNtNFJyFS/JVYCGWVOxt41uxtVKFMg2mMjn7jw=
+			</data>
+		</dict>
+		<key>Headers/glm/trigonometric.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			H1eg8NlU5vJJgAXf8pUeV88wxzs=
+			</data>
+			<key>hash2</key>
+			<data>
+			CQfQca57BZ4T/LFZT4Q7jYwX9ADsdneyxDuegbrat3Q=
+			</data>
+		</dict>
+		<key>Headers/glm/vec2.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			Ipt5byZRjgjjs9OI/4fjEAoeR/E=
+			</data>
+			<key>hash2</key>
+			<data>
+			9PFxVFGr1gsqSs5dTNY3lVY6sxNVJHQIOiuo7B01olY=
+			</data>
+		</dict>
+		<key>Headers/glm/vec3.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			UV0kbsFCQEN3ghGdifqEvwyZDsg=
+			</data>
+			<key>hash2</key>
+			<data>
+			wOV0JaApm66YQqJ/qsyvvtmqo3+YqCbiLLEEPNfYaxI=
+			</data>
+		</dict>
+		<key>Headers/glm/vec4.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			GNvK9a9nBLg0IXXSJXL+0M5sdWo=
+			</data>
+			<key>hash2</key>
+			<data>
+			bku7NjeacDi6AR78OfVxgxi1mCPq86GceJGIjICzxM4=
+			</data>
+		</dict>
+		<key>Headers/glm/vector_relational.hpp</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			rXzVsX60oVfg+Br04yQrBydDS5g=
+			</data>
+			<key>hash2</key>
+			<data>
+			qyXzbD4KZkK6SZzmLVPLTAFmXlKSx1JKMpjQPvhzXpM=
 			</data>
 		</dict>
 		<key>Headers/optional.hpp</key>
@@ -9792,11 +13827,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			Gu14cLpwdAs3N141WLzjhG1P8jg=
+			vENbui8U565vm3DfvxJpJr9JHUY=
 			</data>
 			<key>hash2</key>
 			<data>
-			FMCX/sG+R7kvyxzyoPhxz147lt1LgNuzF5+0zfvmU5o=
+			m0uQPrGwmjTQ3lLtBeLUuWH3wOsNxzG76RjBu+rtrLw=
 			</data>
 		</dict>
 		<key>MaterialRobotoFontLoader.bundle/Roboto-Black.ttf</key>
@@ -9935,11 +13970,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			Sa5cKdbshGVwwlrbZVLXBCF3TH0=
+			pi9is39bH37DguNnbvIPO7cNVuQ=
 			</data>
 			<key>hash2</key>
 			<data>
-			bLrun5+tPbgW4IAq+QM+2wKm9vWM/uIcpkUlOjzshsA=
+			tdT9DPTQa3dHEzNKRHQHBtNO6XJtem4IAo/wJ3yfPI0=
 			</data>
 		</dict>
 		<key>blank.png</key>
@@ -9990,11 +14025,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			1Tf4vTk4ttaRtdB7f1wBSAuJ3ZA=
+			M2SAm1EYv7iCbH2gqhqMDIsUTAw=
 			</data>
 			<key>hash2</key>
 			<data>
-			yGdQ7kxEm8TLb/6+luqfCVRZybLd8Sf3rJmR5AjYK+Y=
+			PPqJTL76Bo3LQI41MAbrarqO9CG11aYgEUv5vV+cRfU=
 			</data>
 		</dict>
 		<key>constant_functions_fsh.glsl</key>
@@ -10023,22 +14058,22 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			P/DxICi1F9OnaVfofFRELMfjJfw=
+			yDSyPYWuz11IWGshsx2VSnVucRc=
 			</data>
 			<key>hash2</key>
 			<data>
-			C2t9vKI2c86OiKCKNEzX2lHEnPKIEk79JD5kPb2HVGQ=
+			h7ukWOBnKbvE5WrW0Air66Qi1Ikbz3Er32fdSLMzghk=
 			</data>
 		</dict>
 		<key>constant_q_fsh_adreno.glsl</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			7lJeE/schuGEYzeWF5GzBjaMv8Q=
+			6ii+kdfSMTfDI6Re4kPJWLs13rk=
 			</data>
 			<key>hash2</key>
 			<data>
-			76819zNKPaKIdNPkwc4QUO2+M4V5kWwGKGehwA4pgMc=
+			RWeelFQDVr1obzCcb1PCX8ocbiKgQCoipsjfrsDP+HE=
 			</data>
 		</dict>
 		<key>equirect_to_cube_fsh.glsl</key>
@@ -10089,11 +14124,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			No5HQrIgg6xENAN3MW21os0czy4=
+			ceHkEHQadzQPAy+4kjbiXwN4d9s=
 			</data>
 			<key>hash2</key>
 			<data>
-			/F1hkth4YfzXK/Ckq7j110CFwgMLL98vWeOSZPQxvns=
+			7AcpDOT8qQ17KWpiLf0+c6WTCjSFKce9zbe+XXbooq8=
 			</data>
 		</dict>
 		<key>irradiance_convolution_vsh.glsl</key>
@@ -10144,11 +14179,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			p4wyjbdz4hxlX/9Ze1eSnWyIimY=
+			znDgKelsHVvLZvafFw/PZNNuMNc=
 			</data>
 			<key>hash2</key>
 			<data>
-			UGYVoBMY5evKqUhLVPQ26x3/w1GqyMzgDJBCIFyQbdI=
+			CrJLO2jXU1KGFMoWesbohAGqUNJwPpKJkoYK3e3WXnk=
 			</data>
 		</dict>
 		<key>point_cloud.png</key>
@@ -10166,11 +14201,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			YOTL71kRCZPk8rsje//kih3KWts=
+			Sn+PPelr34qFl5Yiqptt7VKqU8g=
 			</data>
 			<key>hash2</key>
 			<data>
-			kyxWl3mF2BxH701n6EsK9fsGI57WmaCL4yy+TvWSGHo=
+			SUmssZ1AdBBvBVK9JB/XH0AECiHgMd09ocNeOI9F6AU=
 			</data>
 		</dict>
 		<key>prefilter_convolution_vsh.glsl</key>
@@ -10210,22 +14245,22 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			OmGLd5ceejgTlfOvqlXuYhTxJ/0=
+			sMCY9AoMVWif8LjXFtWxW+Xfij4=
 			</data>
 			<key>hash2</key>
 			<data>
-			X4DrHYw1s7Bxb5JY0q0bRJB0e1LvsaLK/C+Sdu0YsQU=
+			f3AcNS8EuDZRx7FHAySETmsKxhKYjE6w0UoNJGaM0gU=
 			</data>
 		</dict>
 		<key>standard_vsh_adreno.glsl</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			4H3jstcLNxTn3+dHFUAMRqgEfBo=
+			qpHLuYbreJ2L9jlTL1f9m2rTlBg=
 			</data>
 			<key>hash2</key>
 			<data>
-			mhgTo+/a6LpV23AaDyU/zDngNDtXN8IaDfGCi+BQRwQ=
+			Wts49ImsuX8ORx9EEEVN/q7a9cPfliwxBjWBypdOLqU=
 			</data>
 		</dict>
 		<key>surface_functions_fsh.glsl</key>

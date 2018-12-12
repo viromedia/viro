@@ -79,11 +79,7 @@ private:
      Update the underlying iOS player with the various properties set on this
      player (e.g. muted, loop, volume, etc.)
      */
-    void updatePlayerProperties();
-
-    void doFadeThenPause();
-    void doFadeThenStop();
-    
+    void updatePlayerProperties();    
 };
 
 #endif /* VROAudioPlayeriOS_h */

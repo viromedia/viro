@@ -52,6 +52,12 @@ public:
     virtual std::vector<std::shared_ptr<VROARHitTestResult>> hitTest(int x, int y, std::set<VROARHitTestResultType> types) = 0;
 
     /*
+     Perform a hit test along the ray from origin to destination, in world coordinates
+     */
+    virtual std::vector<std::shared_ptr<VROARHitTestResult>> hitTestRay(VROVector3f *origin,
+                                                                     VROVector3f *destination ,
+                                                                     std::set<VROARHitTestResultType> types) = 0;
+    /*
      Returns the affine transform to move from viewport space to camera
      image space. Camera image space is the texture coordinate space of
      the camera's image, ranging from (0,0) at the upper left to (1,1) on

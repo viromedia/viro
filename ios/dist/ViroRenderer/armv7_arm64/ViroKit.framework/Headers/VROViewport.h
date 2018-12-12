@@ -22,11 +22,11 @@ class VROViewport {
 public:
     
     VROViewport() :
-        _x(0), _y(0), _width(0), _height(0), _contentScaleFactor(3)
+        _x(0), _y(0), _width(0), _height(0), _contentScaleFactor(2)
     {}
 
     VROViewport(int x, int y, int width, int height) :
-        _x(x), _y(y), _width(width), _height(height), _contentScaleFactor(3)
+        _x(x), _y(y), _width(width), _height(height), _contentScaleFactor(2)
     {}
  
     int getX() const { return _x; }

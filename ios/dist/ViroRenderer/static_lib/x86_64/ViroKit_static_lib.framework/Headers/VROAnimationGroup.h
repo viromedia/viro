@@ -47,10 +47,10 @@ public:
     
     void execute(std::shared_ptr<VRONode> node,
                  std::function<void()> onFinished);
-    
     void pause();
     void resume();
     void terminate(bool jumpToEnd);
+    void preload() {}
 
     void setDuration(float durationSeconds);
     float getDuration() const;

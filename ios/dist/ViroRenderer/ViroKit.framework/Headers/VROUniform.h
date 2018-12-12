@@ -393,18 +393,20 @@ private:
 class VROUniformBinder {
 public:
     VROUniformBinder(const std::string &name, VROShaderProperty type, VROUniformBindingBlock bindingBlock) :
+        _name(name),
+        _type(type),
         _bindingBlock(bindingBlock) {
-        _uniform = VROUniform::newUniformForType(name, type, 1);
     }
     virtual ~VROUniformBinder() {
-        delete (_uniform);
     }
     
-    VROUniform *getUniform() { return _uniform; }
-    void setForMaterial(const void *value, const VROGeometry *geometry, const VROMaterial *material);
+    std::string getName() const { return _name; }
+    VROShaderProperty getType() const { return _type; }
+    void setForMaterial(VROUniform *uniform, const VROGeometry *geometry, const VROMaterial *material);
     
 private:
-    VROUniform *_uniform;
+    std::string _name;
+    VROShaderProperty _type;
     VROUniformBindingBlock _bindingBlock;
     
 };

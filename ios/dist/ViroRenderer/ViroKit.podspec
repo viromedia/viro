@@ -12,5 +12,5 @@ Pod::Spec.new do |s|
 
   s.dependency 'GVRSDK', '1.120.0'
   s.dependency 'GVRAudioSDK', '1.120.0'
-  s.dependency 'AWSDynamoDB', '~> 2.6.7'
+  s.dependency 'AWSDynamoDB', '2.6.7'
 end

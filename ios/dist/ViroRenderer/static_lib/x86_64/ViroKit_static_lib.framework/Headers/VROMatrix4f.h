@@ -19,6 +19,8 @@ class VROVector3f;
 class VROVector4f;
 class VROQuaternion;
 
+static float kMatrixEqualityEpsilon = 0.001;
+
 class VROMatrix4f {
 public:
     
@@ -30,12 +32,29 @@ public:
     float const &operator[](int index) const {
         return _mtx[index];
     }
+    bool operator==(const VROMatrix4f& r) const {
+        for (int i = 0; i < 16; i++) {
+            if (fabs(_mtx[i] - r._mtx[i]) > kMatrixEqualityEpsilon) {
+                return false;
+            }
+        }
+        return true;
+    }
+    bool operator!=(const VROMatrix4f& r) const {
+        for (int i = 0; i < 16; i++) {
+            if (fabs(_mtx[i] - r._mtx[i]) > kMatrixEqualityEpsilon) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     VROMatrix4f() noexcept;
     VROMatrix4f(const float *matrix);
     VROMatrix4f(const glm::mat4x4 mat);
 
     void toIdentity();
+    bool isIdentity() const;
     void copy(const VROMatrix4f &copy);
 
     /*

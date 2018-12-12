@@ -53,6 +53,9 @@ typedef void (^VROViewValidApiKeyBlock)(BOOL);
 - (BOOL)setPBREnabled:(BOOL)enabled;
 - (BOOL)setBloomEnabled:(BOOL)enabled;
 
+- (VROVector3f)unprojectPoint:(VROVector3f)point;
+- (VROVector3f)projectPoint:(VROVector3f)point;
+
 - (NSString *)getPlatform;
 - (NSString *)getHeadset;
 - (NSString *)getController;

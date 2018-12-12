@@ -40,6 +40,7 @@ enum class VROTextureFormat {
     RGB565,
     RGB8,
     RGB9_E5,
+    RGB16F,
 };
 
 // Texture formats for storage on the GPU
@@ -54,6 +55,7 @@ enum class VROTextureInternalFormat {
     RGB565,
     YCBCR,
     RGB9_E5,
+    RGB16F,
     RG8,
 };
 
@@ -211,15 +213,11 @@ public:
     VROWrapMode getWrapS() const {
         return _wrapS;
     }
-    void setWrapS(VROWrapMode wrapMode) {
-        _wrapS = wrapMode;
-    }
+    void setWrapS(VROWrapMode wrapMode);
     VROWrapMode getWrapT() const {
         return _wrapT;
     }
-    void setWrapT(VROWrapMode wrapMode) {
-        _wrapT = wrapMode;
-    }
+    void setWrapT(VROWrapMode wrapMode);
     
     /*
      Access and set filtering properties.
