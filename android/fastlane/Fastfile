@@ -72,7 +72,6 @@ platform :android do
      viroreact_filename=sh("basename /var/tmp/build_intermediates/s3_artifacts/react-viro-*.tgz| tr -d '\n'")
      gvr_test_filename="app-gvr-release.apk"
      ovr_test_filename="app-ovr-release.apk"
-     testbed_filename="viro-media-testbed.apk"
      git_log_filename="git_log.txt"
      sh("aws s3 sync . s3://viro-builds/#{timestamp}/")
      s3_base_url="s3://viro-builds/#{timestamp}"
@@ -119,11 +118,6 @@ platform :android do
               {
                  title: "ViroReact OVR Release Test",
                  value: "URL #{url_ovr_apk}",
-                 short: false
-              },
-              {
-                 title: "Android TestBed App",
-                 value: "URL #{url_testbed_apk}",
                  short: false
               },
               {              
