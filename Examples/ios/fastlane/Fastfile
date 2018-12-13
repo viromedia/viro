@@ -45,7 +45,7 @@ platform :ios do
         sh("cp -r /var/tmp/build_intermediates/react_viro_kit/ViroRenderer/ ../../ios/dist/ViroRenderer/")
 
         Dir.chdir("ViroExample/") do
-          sh("rm -rf Pods ; pod install")
+          sh("pod install")
         end
          
 

@@ -37,22 +37,11 @@ pipeline {
         cp react-viro-*.tgz /var/tmp/build_intermediates/s3_artifacts/'''
       }
     }
-    stage('release_tests (iOS)') {
-      steps {
-        sh '''cd Examples/ios
-fastlane jenkins_release_tests'''
-      }
-    }
     stage('release_tests(android)(gvr+ovr)') {
       steps {
         sh '''cd Examples/android/
         fastlane gvr_release_test
         fastlane ovr_release_test'''
-      }
-    }
-    stage('start viro-media-app') {
-      steps {
-        build(job: 'viro-media-app/master', propagate: true, wait: true)
       }
     }
     stage('upload_to_s3_slack ') {

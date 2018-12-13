@@ -81,7 +81,6 @@ platform :android do
      url_tgz = sh("aws s3 presign #{s3_base_url}/#{viroreact_filename} --expires-in 86400")
      url_gvr_apk = sh("aws s3 presign #{s3_base_url}/#{gvr_test_filename} --expires-in 86400")
      url_ovr_apk = sh("aws s3 presign #{s3_base_url}/#{ovr_test_filename} --expires-in 86400")
-     url_testbed_apk = sh("aws s3 presign #{s3_base_url}/#{testbed_filename} --expires-in 86400")
      url_gitlog = sh("aws s3 presign #{s3_base_url}/#{git_log_filename} --expires-in 86400")
      #slack wouldnt hyperlink for https urls
      replace="http"
@@ -89,7 +88,6 @@ platform :android do
      url_tgz=url_tgz.sub(/https/, 'http')
      url_gvr_apk=url_gvr_apk.sub(/https/, 'http')
      url_ovr_apk=url_ovr_apk.sub(/https/, 'http')
-     url_testbed_apk=url_testbed_apk.sub(/https/, 'http')
      url_gitlog=url_gitlog.sub(/https/, 'http')
      git_log_contents=sh("cat #{git_log_filename}")
      slack(
