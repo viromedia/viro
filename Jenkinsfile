@@ -5,9 +5,7 @@ pipeline {
       steps {
         sh '''cd android
         fastlane save_git_log
-        fastlane gradle_clean_bridge
-        cd ../ios
-        fastlane install_pods'''
+        fastlane gradle_clean_bridge'''
       }
     }
     stage('node_modules (clean install)') {
