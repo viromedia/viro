@@ -56,6 +56,7 @@ var testFiles = [
   ["ARShadowTest", require("./ARShadowTest")],
   ["ARPolygonPlaneTest", require("./ARPolygonPlaneTest")],
   ["ARCameraHUDTest", require("./ARCameraHUDTest")],
+  ["ARImageTrackingTest", require("./ARImageTrackingTest")],
 
 ]
 
