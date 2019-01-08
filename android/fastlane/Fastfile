@@ -20,7 +20,7 @@ default_platform :android
 platform :android do
   before_all do
     BUILD_INTERMEDIATES = "/var/tmp/build_intermediates/"
-    GIT_REPO_BRANCH = "react-viro/master"
+    GIT_BRANCH = git_branch
     S3_BASE_URL = "https://s3-us-west-2.amazonaws.com/viro-builds/"
   end
 
@@ -30,7 +30,7 @@ platform :android do
            success: false,
            default_payloads: [], #Pass an empty array to suppress all the default payloads.
            payload: {
-            "Git Repository:" =>  "react-viro/master",
+            "Git Repository:" =>  "react-viro/#{GIT_BRANCH}",
             "Fastlane Lane:" => ENV["FASTLANE_LANE_NAME"],
             "Detailed Logs:" => "<https://virobuilds.ngrok.io/blue/organizations/jenkins/react-viro/activity/|react-viro Pipeline>",
             "Exception:" => "```#{exception}```"
@@ -42,7 +42,7 @@ platform :android do
   lane :save_git_log do
     begin
       sh("echo \"\n\nreact-viro/master\n\" >> #{BUILD_INTERMEDIATES}s3_artifacts/git_log.txt")
-      sh("git log master --no-walk >> #{BUILD_INTERMEDIATES}s3_artifacts/git_log.txt")
+      sh("git log #{GIT_BRANCH} --no-walk >> #{BUILD_INTERMEDIATES}s3_artifacts/git_log.txt")
     rescue => exception
            on_error(exception)
     end
