@@ -41,7 +41,7 @@ platform :android do
 
   lane :save_git_log do
     begin
-      sh("echo \"\n\nreact-viro/master\n\" >> #{BUILD_INTERMEDIATES}s3_artifacts/git_log.txt")
+      sh("echo \"\n\nreact-viro/#{GIT_BRANCH}\n\" >> #{BUILD_INTERMEDIATES}s3_artifacts/git_log.txt")
       sh("git log #{GIT_BRANCH} --no-walk >> #{BUILD_INTERMEDIATES}s3_artifacts/git_log.txt")
     rescue => exception
            on_error(exception)
