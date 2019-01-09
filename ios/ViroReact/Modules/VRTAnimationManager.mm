@@ -65,6 +65,10 @@ RCT_EXPORT_METHOD(setJSAnimations:(NSDictionary *)animationsDict)
     return kv == _parsedAnimations.end() ? nullptr : kv->second;
 }
 
++ (BOOL)requiresMainQueueSetup {
+  return NO;
+}
+
 /*
  Parses the animations from self.animations into VROExecutableAnimations, stored
  in _parsedAnimations.

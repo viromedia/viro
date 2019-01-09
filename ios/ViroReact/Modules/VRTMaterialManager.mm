@@ -142,6 +142,10 @@ RCT_EXPORT_METHOD(deleteMaterials:(NSArray *)materials) {
     return self;
 }
 
++ (BOOL)requiresMainQueueSetup {
+  return NO;
+}
+
 // Reload all materials; typically used when EGL context switches
 - (void)reloadMaterials {
     _eglContextLoaded = YES;

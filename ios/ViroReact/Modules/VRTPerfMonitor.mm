@@ -31,6 +31,10 @@ RCT_EXPORT_MODULE()
     return [super init];
 }
 
++ (BOOL)requiresMainQueueSetup {
+  return NO;
+}
+
 - (void)setBridge:(RCTBridge *)bridge
 {
     _bridge = bridge;

@@ -221,6 +221,10 @@
     return self;
 }
 
++ (BOOL)requiresMainQueueSetup {
+  return NO;
+}
+
 - (VRTARImageTargetPromise *)getARImageTargetPromise:(NSString *)name {
     NSObject *obj = _targetsDict[name];
     if (obj && [obj isKindOfClass:[VRTARImageTargetPromise class]]) {
