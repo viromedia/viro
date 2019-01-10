@@ -94,13 +94,14 @@ def enableSeparateBuildPerCPUArchitecture = false
 def enableProguardInReleaseBuilds = false
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.1"
+    compileSdkVersion 28
+    buildToolsVersion "28.0.3"
+    flavorDimensions "platform"
 
     defaultConfig {
         applicationId "com.virosample"
         minSdkVersion 23
-        targetSdkVersion 25
+        targetSdkVersion 28
         multiDexEnabled true
         versionCode 1
         versionName "1.0"
@@ -153,20 +154,20 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:25.0.0'
-    compile 'com.facebook.react:react-native:+'
-    compile project(':arcore_client') // remove this if AR not required
-    compile project(':gvr_common')
-    compile project(path: ':viro_renderer')
-    compile project(path: ':react_viro')
-    compile 'com.google.android.exoplayer:exoplayer:2.7.1'
-    compile 'com.google.protobuf.nano:protobuf-javanano:3.0.0-alpha-7'
-    compile 'com.amazonaws:aws-android-sdk-core:2.2.+'
-    compile 'com.amazonaws:aws-android-sdk-ddb:2.2.+'
-    compile 'com.amazonaws:aws-android-sdk-ddb-mapper:2.2.+'
-    compile 'com.amazonaws:aws-android-sdk-cognito:2.2.+'
-    compile 'com.amazonaws:aws-android-sdk-cognitoidentityprovider:2.2.+'
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation 'com.facebook.react:react-native:+'
+    implementation project(':arcore_client') // remove this if AR not required
+    implementation project(':gvr_common')
+    implementation project(path: ':viro_renderer')
+    implementation project(path: ':react_viro')
+    implementation 'com.google.android.exoplayer:exoplayer:2.7.1'
+    implementation 'com.google.protobuf.nano:protobuf-javanano:3.0.0-alpha-7'
+    implementation 'com.amazonaws:aws-android-sdk-core:2.7.7'
+    implementation 'com.amazonaws:aws-android-sdk-ddb:2.7.7'
+    implementation 'com.amazonaws:aws-android-sdk-ddb-mapper:2.7.7'
+    implementation 'com.amazonaws:aws-android-sdk-cognito:2.7.7'
+    implementation 'com.amazonaws:aws-android-sdk-cognitoidentityprovider:2.7.7'
 }
 
 // Run this once to be able to run the application with BUCK
