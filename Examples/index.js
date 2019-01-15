@@ -30,7 +30,7 @@ import {
 import renderIf from './js/release_test/renderIf';
 
 var InitialVRScene = require('./js/release_test/ViroSkyBoxTest');
-var InitialARScene = require('./js/AR/release_test/ARSceneAndNavigatorTest');
+var InitialARScene = require('./js/AR/release_test/ARImageTrackingTest');
 
 var UNSET = "UNSET";
 var VR_NAVIGATOR_TYPE = "VR";
@@ -55,6 +55,7 @@ export default class ViroExperienceSelector extends Component {
       autofocus : true,
       videoQualityHigh : true,
       initial3DScene : UNSET,
+      numberOfTrackedImages: 0,
     }
     this._getSelectionButtons = this._getSelectionButtons.bind(this);
     this._getARNavigator = this._getARNavigator.bind(this);
@@ -63,6 +64,7 @@ export default class ViroExperienceSelector extends Component {
     this._getButtonPress = this._getButtonPress.bind(this);
     this._toggleAutofocus = this._toggleAutofocus.bind(this);
     this._toggleVideoQuality = this._toggleVideoQuality.bind(this);
+    this._toggleNumberOfTrackedImages = this._toggleNumberOfTrackedImages.bind(this);
     this._handleARSupported = this._handleARSupported.bind(this);
     this._handleARNotSupported = this._handleARNotSupported.bind(this);
     this._getInitialSelectionButtons = this._getInitialSelectionButtons.bind(this);
@@ -278,11 +280,13 @@ export default class ViroExperienceSelector extends Component {
           {...this.state.sharedProps}
           initialScene={{scene: InitialARScene}}
           multisamplingEnabled={false}
+          numberOfTrackedImages={this.state.numberOfTrackedImages}
           worldAlignment={this.state.worldAlignment}
           videoQuality={this.state.videoQualityHigh ? "High" : "Low"}
           autofocus={this.state.autofocus}
           viroAppProps={{ toggleAutofocus : this._toggleAutofocus,
                           toggleVideoQuality : this._toggleVideoQuality,
+                          toggleNumberOfTrackedImages: this._toggleNumberOfTrackedImages,
                           onExitViro:()=>{this.setState({navigatorType : UNSET, vrMode : UNSET})}}} />
 
         <View style={localStyles.exitButtonContainer}>
@@ -372,6 +376,12 @@ export default class ViroExperienceSelector extends Component {
         navigatorType : navigatorType
       })
     }
+  }
+
+  _toggleNumberOfTrackedImages() {
+    this.setState({
+      numberOfTrackedImages: this.state.numberOfTrackedImages == 0 ? 1: 0,
+    });
   }
 
   _toggleAutofocus() {
