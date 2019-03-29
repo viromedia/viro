@@ -39,8 +39,6 @@ import {
   Viro3DObject,
 } from 'react-viro';
 
-import TimerMixin from 'react-timer-mixin';
-
 var createReactClass = require('create-react-class');
 
 let polarToCartesian = ViroUtils.polarToCartesian;
@@ -48,8 +46,6 @@ var ReleaseMenu = require("./ReleaseMenu.js");
 
 
 var Viro3DObjectTest = createReactClass({
-  mixins: [TimerMixin],
-
   getInitialState() {
     return {
       runAnimation1:false,

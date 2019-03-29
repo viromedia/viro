@@ -16,8 +16,8 @@
  * the props that we don't support.
  */
 
-var ShadowPropTypesIOS = require('react-native/Libraries/Components/View/ShadowPropTypesIOS');
-var LayoutPropTypes = require('react-native/Libraries/StyleSheet/LayoutPropTypes');
+var ShadowPropTypesIOS = require('react-native/Libraries/DeprecatedPropTypes/DeprecatedShadowPropTypesIOS');
+var LayoutPropTypes = require('react-native/Libraries/DeprecatedPropTypes/DeprecatedLayoutPropTypes');
 /**
  * Warning: Some of these properties may not be supported in all releases.
  */

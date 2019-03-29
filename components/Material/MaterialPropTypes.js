@@ -15,7 +15,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 var CubeMapPropType = require('./CubeMapPropType');
-var ColorPropType = require('react-native').ColorPropType;
+var ColorPropType = require('react-native/Libraries/DeprecatedPropTypes/DeprecatedColorPropType');
 
 var MaterialPropTypes = {
   shininess: PropTypes.number,

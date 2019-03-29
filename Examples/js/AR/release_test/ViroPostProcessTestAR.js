@@ -25,8 +25,6 @@ import {
   ViroText,
 } from 'react-viro';
 
-import TimerMixin from 'react-timer-mixin';
-
 var createReactClass = require('create-react-class');
 
 var postEffectTests = [
@@ -59,7 +57,6 @@ var postEffectTestsTag = [
   ["None"], // this should be the last one!
 ];
 var ViroPostProcesTest = createReactClass({
-  mixins: [TimerMixin],
   getInitialState() {
     return {
       postProcessEffect:[],

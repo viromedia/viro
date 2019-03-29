@@ -32,8 +32,6 @@ import {
   ViroAmbientLight,
 } from 'react-viro';
 
-import TimerMixin from 'react-timer-mixin';
-
 var createReactClass = require('create-react-class');
 
 let polarToCartesian = ViroUtils.polarToCartesian;
@@ -41,7 +39,6 @@ let polarToCartesian = ViroUtils.polarToCartesian;
 var count = 0;
 
 var ARHitTestCamera = createReactClass({
-  mixins: [TimerMixin],
   getInitialState: function() {
     return {
       surfaceSize : [0,0,0],

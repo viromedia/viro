@@ -15,7 +15,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-var ColorPropType = require('react-native').ColorPropType;
+var ColorPropType = require('react-native/Libraries/DeprecatedPropTypes/DeprecatedColorPropType');
 var ViroStylePropTypes = require('./ViroPropTypes');
 
 var ViroTextStylePropTypes =  Object.assign(Object.create(ViroStylePropTypes), {

@@ -29,8 +29,6 @@ import {
   ViroUtils
 } from 'react-viro';
 
-import TimerMixin from 'react-timer-mixin';
-
 var createReactClass = require('create-react-class');
 
 let polarToCartesian = ViroUtils.polarToCartesian;
@@ -45,7 +43,6 @@ var projectPoint = [1, 1, -4];
 var unprojectPoint = [200, 500, .1];
 
 var testARScene = createReactClass({
-  mixins: [TimerMixin],
   getInitialState: function() {
     return {
       isRecording : false,

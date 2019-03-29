@@ -20,7 +20,7 @@ import { checkMisnamedProps } from './Utilities/ViroProps';
 var StyleSheet = require('react-native/Libraries/StyleSheet/StyleSheet');
 var ColorPropType = require('react-native').ColorPropType;
 var processColor = require('react-native').processColor;
-var StyleSheetPropType = require('react-native/Libraries/StyleSheet/StyleSheetPropType');
+var StyleSheetPropType = require('react-native/Libraries/DeprecatedPropTypes/DeprecatedStyleSheetPropType');
 var TextStylePropTypes = require('./Styles/ViroTextPropTypes');
 
 var stylePropType = StyleSheetPropType(TextStylePropTypes);

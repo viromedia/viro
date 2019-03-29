@@ -40,7 +40,6 @@ import {
   ViroLightingEnvironment,
 } from 'react-viro';
 
-import TimerMixin from 'react-timer-mixin';
 
 var createReactClass = require('create-react-class');
 
@@ -49,7 +48,6 @@ var ReleaseMenu = require("./ReleaseMenu.js");
 
 
 var Viro3DObjectTest = createReactClass({
-  mixins: [TimerMixin],
 
   getInitialState() {
     return {

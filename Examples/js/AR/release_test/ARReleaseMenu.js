@@ -31,7 +31,6 @@ import {
   ViroQuad
 } from 'react-viro';
 
-import TimerMixin from 'react-timer-mixin';
 var createReactClass = require('create-react-class');
 let polarToCartesian = ViroUtils.polarToCartesian;
 
@@ -61,7 +60,6 @@ var testFiles = [
 ]
 
 var ARReleaseMenu = createReactClass({
-  mixins: [TimerMixin],
   getInitialState: function() {
     return {
       surfaceSize : [0,0,0],

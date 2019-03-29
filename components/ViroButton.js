@@ -18,7 +18,7 @@ import { checkMisnamedProps } from './Utilities/ViroProps';
 
 var ViroPropTypes = require('./Styles/ViroPropTypes');
 var createReactClass = require('create-react-class');
-var StyleSheetPropType = require('react-native/Libraries/StyleSheet/StyleSheetPropType');
+var StyleSheetPropType = require('react-native/Libraries/DeprecatedPropTypes/DeprecatedStyleSheetPropType');
 var stylePropType = StyleSheetPropType(ViroPropTypes);
 var ViroNode = require('./ViroNode');
 var ViroImage = require('./ViroImage');

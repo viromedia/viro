@@ -25,9 +25,9 @@ var createReactClass = require('create-react-class');
 import PropTypes from 'prop-types';
 var StyleSheet = require('react-native/Libraries/StyleSheet/StyleSheet');
 var ViroPropTypes = require('./Styles/ViroPropTypes');
-var ColorPropType = require('react-native/Libraries/StyleSheet/ColorPropType');
+var ColorPropType = require('react-native/Libraries/DeprecatedPropTypes/DeprecatedColorPropType');
 
-var StyleSheetPropType = require('react-native/Libraries/StyleSheet/StyleSheetPropType');
+var StyleSheetPropType = require('react-native/Libraries/DeprecatedPropTypes/DeprecatedStyleSheetPropType');
 var ViroFlexViewPropTypes =  Object.assign(Object.create(ViroPropTypes), {
   backgroundColor: ColorPropType,
 });

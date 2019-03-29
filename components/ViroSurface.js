@@ -20,7 +20,7 @@ import { checkMisnamedProps } from './Utilities/ViroProps';
 var StyleSheet = require('react-native/Libraries/StyleSheet/StyleSheet');
 
 var ViroPropTypes = require('./Styles/ViroPropTypes');
-var StyleSheetPropType = require('react-native/Libraries/StyleSheet/StyleSheetPropType');
+var StyleSheetPropType = require('react-native/Libraries/DeprecatedPropTypes/DeprecatedStyleSheetPropType');
 var stylePropType = StyleSheetPropType(ViroPropTypes);
 
 /**

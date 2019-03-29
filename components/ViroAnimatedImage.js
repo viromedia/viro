@@ -8,7 +8,7 @@
  */
  'use strict';
 
-import { requireNativeComponent, View, Platform, findNodeHandle } from 'react-native';
+import { requireNativeComponent, View, Platform, ViewPropTypes, findNodeHandle } from 'react-native';
 import resolveAssetSource from "react-native/Libraries/Image/resolveAssetSource";
 import React from 'react';
 import { checkMisnamedProps } from './Utilities/ViroProps';
@@ -19,7 +19,7 @@ import PropTypes from 'prop-types';
 var StyleSheet = require('react-native/Libraries/StyleSheet/StyleSheet');
 
 var ViroPropTypes = require('./Styles/ViroPropTypes');
-var StyleSheetPropType = require('react-native/Libraries/StyleSheet/StyleSheetPropType');
+var StyleSheetPropType = require('react-native/Libraries/DeprecatedPropTypes/DeprecatedStyleSheetPropType');
 var stylePropType = StyleSheetPropType(ViroPropTypes);
 
 var ViroAnimatedImage = createReactClass({
