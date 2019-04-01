@@ -3,6 +3,8 @@
  */
 package com.viromedia.bridge.module;
 
+import android.util.Log;
+
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
@@ -10,6 +12,7 @@ import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.ReadableMapKeySetIterator;
 import com.facebook.react.bridge.ReadableType;
+import com.facebook.react.module.annotations.ReactModule;
 import com.viro.core.internal.AnimationChain;
 import com.viro.core.internal.AnimationGroup;
 import com.viro.core.internal.ExecutableAnimation;
@@ -20,7 +23,7 @@ import com.viromedia.bridge.utility.ViroLog;
 
 import java.util.HashMap;
 
-
+@ReactModule(name = "VRTAnimationManager")
 public class AnimationManager extends ReactContextBaseJavaModule {
 
     private static final String TAG = ViroLog.getTag(AnimationManager.class);
@@ -61,6 +64,7 @@ public class AnimationManager extends ReactContextBaseJavaModule {
 
     public AnimationManager(ReactApplicationContext context) {
         super(context);
+        Log.e("Manish", "AnimationManager constructor");
         sParsedAnimations = new HashMap<>();
     }
 

@@ -14,10 +14,12 @@ import com.facebook.react.bridge.WritableArray;
 import com.facebook.react.uimanager.NativeViewHierarchyManager;
 import com.facebook.react.uimanager.UIBlock;
 import com.facebook.react.uimanager.UIManagerModule;
+import com.facebook.react.module.annotations.ReactModule;
 import com.viro.core.internal.CameraCallback;
 import com.viromedia.bridge.component.node.VRTCamera;
 import com.viromedia.bridge.component.node.VRTScene;
 
+@ReactModule(name = "VRTCameraModule")
 public class CameraModule extends ReactContextBaseJavaModule {
 
     public CameraModule(ReactApplicationContext context) {

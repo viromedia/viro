@@ -17,6 +17,7 @@ import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.ReadableMapKeySetIterator;
 import com.facebook.react.bridge.ReadableType;
+import com.facebook.react.module.annotations.ReactModule;
 import com.viro.core.VideoTexture;
 import com.viro.core.internal.Image;
 import com.viro.core.Material;
@@ -32,7 +33,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
+@ReactModule(name = "VRTMaterialManager")
 public class MaterialManager extends ReactContextBaseJavaModule {
 
     // TODO: figure out a good place to load the libraries.

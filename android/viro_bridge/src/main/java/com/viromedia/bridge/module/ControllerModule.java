@@ -13,9 +13,11 @@ import com.facebook.react.bridge.WritableArray;
 import com.facebook.react.uimanager.NativeViewHierarchyManager;
 import com.facebook.react.uimanager.UIBlock;
 import com.facebook.react.uimanager.UIManagerModule;
+import com.facebook.react.module.annotations.ReactModule;
 import com.viro.core.Controller;
 import com.viromedia.bridge.component.VRTController;
 
+@ReactModule(name = "VRTControllerModule")
 public class ControllerModule extends ReactContextBaseJavaModule {
 
     public ControllerModule(ReactApplicationContext context) {

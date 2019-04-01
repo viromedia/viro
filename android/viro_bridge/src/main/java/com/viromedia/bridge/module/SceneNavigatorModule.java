@@ -16,9 +16,11 @@ import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.uimanager.NativeViewHierarchyManager;
 import com.facebook.react.uimanager.UIBlock;
 import com.facebook.react.uimanager.UIManagerModule;
+import com.facebook.react.module.annotations.ReactModule;
 import com.viro.core.Vector;
 import com.viromedia.bridge.component.VRTVRSceneNavigator;
 
+@ReactModule(name = "VRTSceneNavigatorModule")
 public class SceneNavigatorModule extends ReactContextBaseJavaModule {
 
     public SceneNavigatorModule(ReactApplicationContext context) {

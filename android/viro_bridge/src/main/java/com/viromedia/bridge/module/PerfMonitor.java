@@ -10,10 +10,12 @@ import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.devsupport.interfaces.DevOptionHandler;
 import com.facebook.react.devsupport.interfaces.DevSupportManager;
+import com.facebook.react.module.annotations.ReactModule;
 import com.viro.core.ViroView;
 
 import java.lang.ref.WeakReference;
 
+@ReactModule(name = "VRTPerfMonitor")
 public class PerfMonitor extends ReactContextBaseJavaModule {
 
     private static class PerfOptionHandler implements DevOptionHandler {

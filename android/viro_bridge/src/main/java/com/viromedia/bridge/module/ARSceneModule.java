@@ -17,6 +17,7 @@ import com.facebook.react.uimanager.IllegalViewOperationException;
 import com.facebook.react.uimanager.NativeViewHierarchyManager;
 import com.facebook.react.uimanager.UIBlock;
 import com.facebook.react.uimanager.UIManagerModule;
+import com.facebook.react.module.annotations.ReactModule;
 import com.viro.core.ARHitTestListener;
 import com.viro.core.ARHitTestResult;
 import com.viro.core.Renderer;
@@ -26,6 +27,7 @@ import com.viromedia.bridge.component.VRTARSceneNavigator;
 import com.viromedia.bridge.utility.ARUtils;
 
 
+@ReactModule(name = "VRTARSceneModule")
 public class ARSceneModule extends ReactContextBaseJavaModule {
 
     public ARSceneModule(ReactApplicationContext context) {

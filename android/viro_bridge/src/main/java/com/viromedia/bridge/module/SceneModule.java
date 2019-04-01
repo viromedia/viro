@@ -15,6 +15,7 @@ import com.facebook.react.uimanager.IllegalViewOperationException;
 import com.facebook.react.uimanager.NativeViewHierarchyManager;
 import com.facebook.react.uimanager.UIBlock;
 import com.facebook.react.uimanager.UIManagerModule;
+import com.facebook.react.module.annotations.ReactModule;
 import com.viro.core.Node;
 import com.viro.core.PhysicsBody;
 import com.viro.core.PhysicsShape;
@@ -26,6 +27,7 @@ import com.viro.core.Scene;
 import com.viromedia.bridge.component.node.VRTScene;
 import com.viromedia.bridge.utility.Helper;
 
+@ReactModule(name = "VRTSceneModule")
 public class SceneModule extends ReactContextBaseJavaModule {
 
     public SceneModule(ReactApplicationContext context) {

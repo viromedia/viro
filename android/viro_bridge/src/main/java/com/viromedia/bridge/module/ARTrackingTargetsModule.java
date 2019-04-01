@@ -13,6 +13,7 @@ import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.ReadableMapKeySetIterator;
+import com.facebook.react.module.annotations.ReactModule;
 import com.viro.core.ARImageTarget;
 import com.viromedia.bridge.utility.ImageDownloadListener;
 import com.viromedia.bridge.utility.ImageDownloader;
@@ -20,6 +21,7 @@ import com.viromedia.bridge.utility.ImageDownloader;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+@ReactModule(name = "VRTARTrackingTargetsModule")
 public class ARTrackingTargetsModule extends ReactContextBaseJavaModule {
 
     public interface ARTargetPromiseListener {

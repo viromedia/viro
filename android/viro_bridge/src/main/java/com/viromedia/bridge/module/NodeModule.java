@@ -18,6 +18,7 @@ import com.facebook.react.uimanager.IllegalViewOperationException;
 import com.facebook.react.uimanager.NativeViewHierarchyManager;
 import com.facebook.react.uimanager.UIBlock;
 import com.facebook.react.uimanager.UIManagerModule;
+import com.facebook.react.module.annotations.ReactModule;
 import com.viro.core.BoundingBox;
 import com.viro.core.Matrix;
 import com.viro.core.Quaternion;
@@ -28,6 +29,7 @@ import com.viro.core.Node;
 
 import static java.lang.Math.toDegrees;
 
+@ReactModule(name = "VRTNodeModule")
 public class NodeModule extends ReactContextBaseJavaModule {
 
     public NodeModule(ReactApplicationContext context) {

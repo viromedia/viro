@@ -3,6 +3,8 @@
  */
 package com.viromedia.bridge;
 
+import android.util.Log;
+
 import com.facebook.react.ReactPackage;
 import com.facebook.react.bridge.NativeModule;
 import com.facebook.react.bridge.ReactApplicationContext;
@@ -87,6 +89,7 @@ public class ReactViroPackage implements ReactPackage {
 
     @Override
     public List<NativeModule> createNativeModules(ReactApplicationContext reactContext) {
+        Log.e("Manish", "createNativeModules");
         return Arrays.<NativeModule>asList(
                 new MaterialManager(reactContext),
                 new AnimationManager(reactContext),
