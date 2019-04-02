@@ -61,7 +61,7 @@ var testARScene = createReactClass({
   componentDidMount: function() {
     this._ambientIntensity = 0;
     this._ambientColor = "#FFFFFF";
-    this.setInterval(
+    setInterval(
       ()=>{
         this.setState({
           ambientLightText : "Intensity: " + this._ambientIntensity + "\nColor: " + this._ambientColor

@@ -53,7 +53,7 @@ var ARFBXVersionTest = createReactClass({
     this._ambientColor = 6500;
     if (!setLightValuesFast) {
       // Only set the intensity and temp twice a second!
-      this.setInterval(
+      setInterval(
         ()=>{
           this.setState({
             ambientIntensity : this._ambientIntensity,
