@@ -16,6 +16,13 @@ buildscript {
 }
 
 allprojects {
+    // Workaround for https://issuetracker.google.com/117900475
+    // Remove when upgrading to AGP 3.4 or higher.
+    configurations.matching { it.name == '_internal_aapt2_binary' }.all { config ->
+        config.resolutionStrategy.eachDependency { details ->
+            details.useVersion("3.5.0-alpha03-5252756")
+        }
+    }
     repositories {
         mavenLocal()
         jcenter()
