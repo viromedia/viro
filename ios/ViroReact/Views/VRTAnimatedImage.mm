@@ -31,6 +31,11 @@ static float const kDefaultHeight = 1;
     }
 }
 
+- (void)handleAppearanceChange {
+    [self setPaused:self.paused];
+    [super handleAppearanceChange];
+}
+
 - (void)setLoop:(BOOL)loop {
     _loop = loop;
     if (self.texture) {
