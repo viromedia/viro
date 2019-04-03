@@ -41,7 +41,11 @@ enum class VROImageClipMode {
 @property (nonatomic, copy) RCTDirectEventBlock onLoadEndViro;
 @property (nonatomic, copy) RCTDirectEventBlock onErrorViro;
 @property (nonatomic, copy, nullable) NSString *stereoMode;
+@property (readwrite, nonatomic) std::shared_ptr<VROTexture> texture;
+@property (nonatomic, assign) bool imageNeedsDownload;
 
+- (void)updatePlaceholderProps:(NSArray<NSString *> *)changedProps;
+- (void)updateMainImage:(float)width height:(float)height;
 @end
 
 @interface RCTConvert (VRTImage)

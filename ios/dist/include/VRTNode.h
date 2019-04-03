@@ -44,6 +44,7 @@ extern const int k2DPointsPerSpatialUnit;
 @property (nonatomic, copy, nullable) NSArray<NSNumber *> *scalePivot;
 @property (nonatomic, assign) float opacity;
 @property (nonatomic, copy, nullable) NSArray<NSString *> *transformBehaviors;
+@property (nonatomic, assign) int renderingOrder;
 @property (nonatomic, assign) BOOL visible;
 
 // Event properties

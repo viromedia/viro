@@ -23,10 +23,12 @@
 @property (nonatomic, copy, nullable) RCTDirectEventBlock onExitViro;
 @property (nonatomic, assign) BOOL autofocus;
 @property (nonatomic, copy) NSString *videoQuality;
+@property (nonatomic, assign) NSInteger numberOfTrackedImages;
 @property (nonatomic, readwrite) BOOL hdrEnabled;
 @property (nonatomic, readwrite) BOOL pbrEnabled;
 @property (nonatomic, readwrite) BOOL bloomEnabled;
 @property (nonatomic, readwrite) BOOL shadowsEnabled;
+@property (nonatomic, readwrite) BOOL multisamplingEnabled;
 
 - (instancetype)initWithBridge:(RCTBridge *)bridge;
 - (void)insertReactSubview:(UIView *)subview atIndex:(NSInteger)atIndex;
@@ -35,6 +37,8 @@
 - (UIView *)reactSuperview;
 - (UIView *)rootVROView;
 - (void)invalidate;
+- (VROVector3f)unprojectPoint:(VROVector3f)point;
+- (VROVector3f)projectPoint:(VROVector3f)point;
 
 - (void)startVideoRecording:(NSString *)fileName
            saveToCameraRoll:(BOOL)saveToCameraRoll

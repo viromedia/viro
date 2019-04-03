@@ -92,6 +92,12 @@ public:
     static void setAnimationDuration(float durationSeconds);
     static float getAnimationDuration();
 
+
+    /*
+     Set the time offset in seconds that we start the animation from. Default is 0.
+     */
+    static void setAnimationTimeOffset(float timeOffset);
+
     /*
      Set the time in seconds that we wait before the animation starts (after
      the animation is committed).
@@ -103,6 +109,18 @@ public:
      In effect - reset _time to beginning of animation onFinish if _loop is set.
      */
     static void setAnimationLoop(bool loop);
+
+    /*
+     * Set the speed at which the animation runs. The default value is 1.0, which runs the animation at normal speed.
+     * A value of 0.0 freezes the animation; a value of 2.0 will run the animation at double speed.
+     */
+    static void setAnimationSpeed(float speed);
+
+     /*
+      * Set the playback speed of the animation, as per setAnimationSpeed(float). Unlike setAnimationSpeed(float),
+      * this method enables the change of animation playback speed in realtime, while the animation is playing..
+      */
+    static void setAnimationSpeed(std::shared_ptr<VROTransaction> transaction, float speed);
 
     /*
      Set a callback to invoke when the active transaction completes (after duration
@@ -168,9 +186,12 @@ private:
 
     double _t;
     double _durationSeconds;
+    double _speed;
     double _startTimeSeconds;
+    double _offsetTimeSeconds;
     double _delayTimeSeconds;
     double _processedTimeWhenPaused;
+    double _currentSpeedModulatedTime;
     bool _paused;
     bool _loop;
     std::unique_ptr<VROTimingFunction> _timingFunction;

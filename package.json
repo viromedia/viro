@@ -1,7 +1,7 @@
 {
   "name": "react-viro",
   "main": "index.js",
-  "version": "2.13.0",
+  "version": "2.14.0",
   "license": "Refer to LICENSE file",
   "scripts": {
     "start": "echo 'I dont think you meant to run npm start here.'",
@@ -12,7 +12,7 @@
   },
   "peerDependencies": {
     "react": "16.8.3",
-    "react-native": "0.59.2"
+    "react-native": "0.59.3"
   },
   "files": [
     "components",
