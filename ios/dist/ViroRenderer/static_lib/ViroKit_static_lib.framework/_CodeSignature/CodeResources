@@ -2597,7 +2597,7 @@
 		</data>
 		<key>Headers/VROAnimationChain.h</key>
 		<data>
-		ONwmRBL2jrbv/TDBlZEFT2ngomA=
+		DQBdOCGWfkiiKxWF3KGgw5k6W8Q=
 		</data>
 		<key>Headers/VROAnimationFloat.h</key>
 		<data>
@@ -2605,7 +2605,7 @@
 		</data>
 		<key>Headers/VROAnimationGroup.h</key>
 		<data>
-		nj6WLVkAqSMOq9AzbJrQu+IfBFc=
+		Bo4rUaAwpSOJhMlwSFMyalelLaw=
 		</data>
 		<key>Headers/VROAnimationQuaternion.h</key>
 		<data>
@@ -2685,7 +2685,7 @@
 		</data>
 		<key>Headers/VROExecutableAnimation.h</key>
 		<data>
-		yUbolAue507Tnmqf4aTFYcg6qdo=
+		gMgza/J8swnY+05cBTzC+QOtSUU=
 		</data>
 		<key>Headers/VROFBXLoader.h</key>
 		<data>
@@ -3137,7 +3137,7 @@
 		</data>
 		<key>Headers/VROTransaction.h</key>
 		<data>
-		SiU30qFxJWCG1bja0JMifzKwTC8=
+		+NLo4jkpLrqpgLc6xXji0o2nGeo=
 		</data>
 		<key>Headers/VROTransformConstraint.h</key>
 		<data>
@@ -4297,7 +4297,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		VO/bHf+xkELMl9FNWsb2tx2+Kno=
+		3/wNyCkqhUWdF9vPxyoEj+8prBU=
 		</data>
 		<key>MaterialRobotoFontLoader.bundle/Roboto-Black.ttf</key>
 		<data>
@@ -9167,11 +9167,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			ONwmRBL2jrbv/TDBlZEFT2ngomA=
+			DQBdOCGWfkiiKxWF3KGgw5k6W8Q=
 			</data>
 			<key>hash2</key>
 			<data>
-			lgB2aj+rQym/V5e/iz9kkQ1KxDGNYx2SRgB2b9hztO0=
+			NLINdk8TqZEKWOYiFY539lBjExlk4yUJdHsZneEQSHY=
 			</data>
 		</dict>
 		<key>Headers/VROAnimationFloat.h</key>
@@ -9189,11 +9189,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			nj6WLVkAqSMOq9AzbJrQu+IfBFc=
+			Bo4rUaAwpSOJhMlwSFMyalelLaw=
 			</data>
 			<key>hash2</key>
 			<data>
-			JiaD6x9DBHNWHKw7oACKTQ1rVpYHGyXLXWRxRBk75x0=
+			p9KF53D4u5Fl1g4cUapCp7ZzP8DcZDPS7gSYSWYi4q0=
 			</data>
 		</dict>
 		<key>Headers/VROAnimationQuaternion.h</key>
@@ -9409,11 +9409,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			yUbolAue507Tnmqf4aTFYcg6qdo=
+			gMgza/J8swnY+05cBTzC+QOtSUU=
 			</data>
 			<key>hash2</key>
 			<data>
-			vGMVOMNPmNaHXA9Qfd3/LE1ntYl8ryASfBQZE2u4T+c=
+			jmXYRk6pzVjDvbhshNFe6xlbxJFCxj9O3EXQ1o/5xO4=
 			</data>
 		</dict>
 		<key>Headers/VROFBXLoader.h</key>
@@ -10652,11 +10652,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			SiU30qFxJWCG1bja0JMifzKwTC8=
+			+NLo4jkpLrqpgLc6xXji0o2nGeo=
 			</data>
 			<key>hash2</key>
 			<data>
-			QG2bY9CrhBr05rm/I06L4g8dOr8riJmiRNF0SAMPKqo=
+			5O4ZbzodnZbwUPwmgd2o1Xa2IMOGzregdKTISwDfNFE=
 			</data>
 		</dict>
 		<key>Headers/VROTransformConstraint.h</key>

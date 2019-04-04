@@ -46,6 +46,11 @@ public:
     
     void setDuration(float durationSeconds);
     float getDuration() const;
+
+    void setTimeOffset(float timeOffset);
+    float getTimeOffset() const;
+
+    void setSpeed(float speed);
     
     const std::vector<std::shared_ptr<VROExecutableAnimation>> &getAnimations() const {
         return _animations;

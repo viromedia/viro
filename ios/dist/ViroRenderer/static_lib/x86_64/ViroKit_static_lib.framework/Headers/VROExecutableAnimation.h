@@ -16,9 +16,13 @@ class VRONode;
 class VROTransaction;
 
 class VROExecutableAnimation {
-    
+
 public:
-    VROExecutableAnimation() {}
+    VROExecutableAnimation() {
+       _timeOffset = 0;
+       _speed = 1.0f;
+    }
+
     virtual ~VROExecutableAnimation() {}
     
     /*
@@ -47,6 +51,22 @@ public:
      */
     virtual void setDuration(float durationSeconds) = 0;
 
+    virtual void setTimeOffset(float timeOffset) {
+        _timeOffset = timeOffset;
+    }
+
+    float getTimeOffset() const {
+        return _timeOffset;
+    }
+
+    virtual void setSpeed(float speed) {
+        _speed = speed;
+    }
+
+    float getSpeed() const {
+        return _speed;
+    }
+
     /*
      Returns the duration of this animation, in seconds. If this animation contains
      multiple sub-animations, this will return the longest animation.
@@ -58,6 +78,10 @@ public:
     virtual void terminate(bool jumpToEnd) = 0;
     
     virtual std::string toString() const = 0;
+
+protected:
+    float _timeOffset;
+    float _speed;
 };
 
 #endif /* VROExecutableAnimation_h */

@@ -52,6 +52,7 @@ public:
     void terminate(bool jumpToEnd);
     void preload() {}
 
+    void setSpeed(float speed);
     void setDuration(float durationSeconds);
     float getDuration() const;
 
