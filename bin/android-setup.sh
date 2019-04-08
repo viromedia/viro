@@ -78,7 +78,7 @@ LINE_NUMBER=$(grep -n "$SEARCH_PATTERN" "$TARGET_FILEPATH" | cut -d ':' -f 1)
 vsed -e "$(($LINE_NUMBER)),$(($LINE_NUMBER+6))d" $TARGET_FILEPATH
 
 # Replacing the classpath line
-LINE_TO_ADD="        classpath 'com.android.tools.build:gradle:3.2.1'"
+LINE_TO_ADD="        classpath 'com.android.tools.build:gradle:3.3.0'"
 SEARCH_PATTERN=classpath
 LINE_TO_REPLACE=$(grep "$SEARCH_PATTERN" "$TARGET_FILEPATH")
 
@@ -88,6 +88,23 @@ LINES_TO_ADD=("        maven {"
 "            url 'https:\/\/maven.google.com\/'"
 "        }")
 SEARCH_PATTERN="mavenLocal"
+LINE_TO_APPEND_AFTER=$(grep "$SEARCH_PATTERN" "$TARGET_FILEPATH")
+LINE_TO_APPEND_AFTER=$(echo $LINE_TO_APPEND_AFTER | sed -e 's/[]\/$*.^|[]/\\&/g')
+INDEX=$((${#LINES_TO_ADD[@]}-1))
+while [ $INDEX -ge 0 ];
+do
+  vsed "s/$LINE_TO_APPEND_AFTER/&"$'\\\n'"${LINES_TO_ADD[$INDEX]}/" $TARGET_FILEPATH
+  INDEX=$(($INDEX-1))
+done
+
+LINES_TO_ADD=("    // Workaround for https://issuetracker.google.com/117900475"
+"    // Remove when upgrading to AGP 3.4 or higher."
+"    configurations.matching { it.name == '_internal_aapt2_binary' }.all { config ->"
+"        config.resolutionStrategy.eachDependency { details ->"
+"            details.useVersion(\"3.5.0-alpha03-5252756\")"
+"        }"
+"    }")
+SEARCH_PATTERN="allprojects {"
 LINE_TO_APPEND_AFTER=$(grep "$SEARCH_PATTERN" "$TARGET_FILEPATH")
 LINE_TO_APPEND_AFTER=$(echo $LINE_TO_APPEND_AFTER | sed -e 's/[]\/$*.^|[]/\\&/g')
 INDEX=$((${#LINES_TO_ADD[@]}-1))
@@ -129,7 +146,7 @@ LINE_TO_REPLACE=$(grep "$SEARCH_PATTERN" "$TARGET_FILEPATH")
 vsed "s/$LINE_TO_REPLACE/$LINE_TO_ADD/g" $TARGET_FILEPATH
 
 LINE_TO_ADD="    flavorDimensions \"platform\""
-SEARCH_PATTERN="buildToolsVersion"
+SEARCH_PATTERN="compileSdkVersion"
 LINE_TO_APPEND_AFTER=$(grep "$SEARCH_PATTERN" "$TARGET_FILEPATH")
 
 vsed "s/$LINE_TO_APPEND_AFTER/&"$'\\\n'"$LINE_TO_ADD/" $TARGET_FILEPATH
@@ -218,7 +235,7 @@ LINE_TO_APPEND_TO=$(echo $LINE_TO_APPEND_TO | sed -e 's/[]\/$*.^|[]/\\&/g')
 vsed "s/$LINE_TO_APPEND_TO/&"$'\\\n'"$LINE_TO_ADD/" $TARGET_FILEPATH
 
 # add camera permissions for AR
-SEARCH_PATTERN="permission.SYSTEM_ALERT_WINDOW"
+SEARCH_PATTERN="permission.INTERNET"
 LINE_TO_ADD='    <uses-permission android:name="android.permission.CAMERA" \/>'
 LINE_TO_APPEND_TO=$(grep "$SEARCH_PATTERN" "$TARGET_FILEPATH")
 # escape the append to line
@@ -270,4 +287,3 @@ TARGET_FILEPATH=$(find android -name strings.xml)
 
 # deleting 2nd line in file
 vsed '2d' $TARGET_FILEPATH
-
