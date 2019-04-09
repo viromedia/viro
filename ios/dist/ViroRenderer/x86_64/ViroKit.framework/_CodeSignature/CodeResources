@@ -2597,7 +2597,7 @@
 		</data>
 		<key>Headers/VROAnimationChain.h</key>
 		<data>
-		ONwmRBL2jrbv/TDBlZEFT2ngomA=
+		DQBdOCGWfkiiKxWF3KGgw5k6W8Q=
 		</data>
 		<key>Headers/VROAnimationFloat.h</key>
 		<data>
@@ -2605,7 +2605,7 @@
 		</data>
 		<key>Headers/VROAnimationGroup.h</key>
 		<data>
-		nj6WLVkAqSMOq9AzbJrQu+IfBFc=
+		Bo4rUaAwpSOJhMlwSFMyalelLaw=
 		</data>
 		<key>Headers/VROAnimationQuaternion.h</key>
 		<data>
@@ -2685,7 +2685,7 @@
 		</data>
 		<key>Headers/VROExecutableAnimation.h</key>
 		<data>
-		yUbolAue507Tnmqf4aTFYcg6qdo=
+		gMgza/J8swnY+05cBTzC+QOtSUU=
 		</data>
 		<key>Headers/VROFBXLoader.h</key>
 		<data>
@@ -3137,7 +3137,7 @@
 		</data>
 		<key>Headers/VROTransaction.h</key>
 		<data>
-		SiU30qFxJWCG1bja0JMifzKwTC8=
+		+NLo4jkpLrqpgLc6xXji0o2nGeo=
 		</data>
 		<key>Headers/VROTransformConstraint.h</key>
 		<data>
@@ -4297,7 +4297,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		lNRh+lYU1XpoWcjC9gHKG4TyNEc=
+		XDOqzqFe1wpjxKuL4e/GhBgtMS8=
 		</data>
 		<key>MaterialRobotoFontLoader.bundle/Roboto-Black.ttf</key>
 		<data>
@@ -4418,30 +4418,6 @@
 		<key>lighting_general_functions_fsh.glsl</key>
 		<data>
 		TDdj7gFYX496o9Wai/r17qhysBQ=
-		</data>
-		<key>model_cpm.mlmodelc/coremldata.bin</key>
-		<data>
-		H2fl0r4yIDLTn74+IZiMyb404Ac=
-		</data>
-		<key>model_cpm.mlmodelc/model.espresso.net</key>
-		<data>
-		Dop7Bo4OTlhptHiiWdC3Tg2wjiM=
-		</data>
-		<key>model_cpm.mlmodelc/model.espresso.shape</key>
-		<data>
-		/RNK6lU7Xaq076o5HTdtSVpLYBw=
-		</data>
-		<key>model_cpm.mlmodelc/model.espresso.weights</key>
-		<data>
-		T0qNFx3IZF7+Z48PGoGJVQ3DRLU=
-		</data>
-		<key>model_cpm.mlmodelc/model/coremldata.bin</key>
-		<data>
-		pN6rfXrnBu4l40VE2DQiIgfwRqw=
-		</data>
-		<key>model_cpm.mlmodelc/neural_network_optionals/coremldata.bin</key>
-		<data>
-		4SnyfFEDvFzES83woV4WDURQZv8=
 		</data>
 		<key>particles_fsh.glsl</key>
 		<data>
@@ -9191,11 +9167,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			ONwmRBL2jrbv/TDBlZEFT2ngomA=
+			DQBdOCGWfkiiKxWF3KGgw5k6W8Q=
 			</data>
 			<key>hash2</key>
 			<data>
-			lgB2aj+rQym/V5e/iz9kkQ1KxDGNYx2SRgB2b9hztO0=
+			NLINdk8TqZEKWOYiFY539lBjExlk4yUJdHsZneEQSHY=
 			</data>
 		</dict>
 		<key>Headers/VROAnimationFloat.h</key>
@@ -9213,11 +9189,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			nj6WLVkAqSMOq9AzbJrQu+IfBFc=
+			Bo4rUaAwpSOJhMlwSFMyalelLaw=
 			</data>
 			<key>hash2</key>
 			<data>
-			JiaD6x9DBHNWHKw7oACKTQ1rVpYHGyXLXWRxRBk75x0=
+			p9KF53D4u5Fl1g4cUapCp7ZzP8DcZDPS7gSYSWYi4q0=
 			</data>
 		</dict>
 		<key>Headers/VROAnimationQuaternion.h</key>
@@ -9433,11 +9409,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			yUbolAue507Tnmqf4aTFYcg6qdo=
+			gMgza/J8swnY+05cBTzC+QOtSUU=
 			</data>
 			<key>hash2</key>
 			<data>
-			vGMVOMNPmNaHXA9Qfd3/LE1ntYl8ryASfBQZE2u4T+c=
+			jmXYRk6pzVjDvbhshNFe6xlbxJFCxj9O3EXQ1o/5xO4=
 			</data>
 		</dict>
 		<key>Headers/VROFBXLoader.h</key>
@@ -10676,11 +10652,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			SiU30qFxJWCG1bja0JMifzKwTC8=
+			+NLo4jkpLrqpgLc6xXji0o2nGeo=
 			</data>
 			<key>hash2</key>
 			<data>
-			QG2bY9CrhBr05rm/I06L4g8dOr8riJmiRNF0SAMPKqo=
+			5O4ZbzodnZbwUPwmgd2o1Xa2IMOGzregdKTISwDfNFE=
 			</data>
 		</dict>
 		<key>Headers/VROTransformConstraint.h</key>
@@ -14190,72 +14166,6 @@
 			<key>hash2</key>
 			<data>
 			oOvJhrEhq6lYFxAFyURorbp0Da1DdSGhspHqhWZsIlQ=
-			</data>
-		</dict>
-		<key>model_cpm.mlmodelc/coremldata.bin</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			H2fl0r4yIDLTn74+IZiMyb404Ac=
-			</data>
-			<key>hash2</key>
-			<data>
-			+NGwKMq/Mf0l2RMAQ70DcisZyNbZ0DMK9lf4TYfTVz4=
-			</data>
-		</dict>
-		<key>model_cpm.mlmodelc/model.espresso.net</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			Dop7Bo4OTlhptHiiWdC3Tg2wjiM=
-			</data>
-			<key>hash2</key>
-			<data>
-			BcC025xFkXtd8jn0NspyB5sbOUZdU/ezyYTxj8wo+ZY=
-			</data>
-		</dict>
-		<key>model_cpm.mlmodelc/model.espresso.shape</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			/RNK6lU7Xaq076o5HTdtSVpLYBw=
-			</data>
-			<key>hash2</key>
-			<data>
-			HHpTNbSm7VdMSUQXnMhv1XfUeDEGjRUPfjiBdtnGu9c=
-			</data>
-		</dict>
-		<key>model_cpm.mlmodelc/model.espresso.weights</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			T0qNFx3IZF7+Z48PGoGJVQ3DRLU=
-			</data>
-			<key>hash2</key>
-			<data>
-			ObL0KuO6ov3j1+kqKzht1bI0eUm18t2MTQLQXLVqVXA=
-			</data>
-		</dict>
-		<key>model_cpm.mlmodelc/model/coremldata.bin</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			pN6rfXrnBu4l40VE2DQiIgfwRqw=
-			</data>
-			<key>hash2</key>
-			<data>
-			MpLOw6LtV+H5NI7grZsU3gyjBKscwtGnwvZ/HAR8lD4=
-			</data>
-		</dict>
-		<key>model_cpm.mlmodelc/neural_network_optionals/coremldata.bin</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			4SnyfFEDvFzES83woV4WDURQZv8=
-			</data>
-			<key>hash2</key>
-			<data>
-			N0cI//dxndWXnsh11WzSKG9tPPfsMXo7JWMqqyjsN7s=
 			</data>
 		</dict>
 		<key>particles_fsh.glsl</key>

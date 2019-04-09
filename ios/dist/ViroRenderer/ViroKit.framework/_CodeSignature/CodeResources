@@ -4297,7 +4297,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		TKQIxNnwKJGkR38XZ1667PMmZZE=
+		XDOqzqFe1wpjxKuL4e/GhBgtMS8=
 		</data>
 		<key>MaterialRobotoFontLoader.bundle/Roboto-Black.ttf</key>
 		<data>
@@ -4390,10 +4390,6 @@
 		<key>constant_q_fsh_adreno.glsl</key>
 		<data>
 		6ii+kdfSMTfDI6Re4kPJWLs13rk=
-		</data>
-		<key>default.metallib</key>
-		<data>
-		rZLoP9j16r0F4tqPBrfTZIDAITQ=
 		</data>
 		<key>equirect_to_cube_fsh.glsl</key>
 		<data>
@@ -14093,17 +14089,6 @@
 			<key>hash2</key>
 			<data>
 			RWeelFQDVr1obzCcb1PCX8ocbiKgQCoipsjfrsDP+HE=
-			</data>
-		</dict>
-		<key>default.metallib</key>
-		<dict>
-			<key>hash</key>
-			<data>
-			rZLoP9j16r0F4tqPBrfTZIDAITQ=
-			</data>
-			<key>hash2</key>
-			<data>
-			4WLWU6Xox6GMymt37fR3AsH2iGSKr/POJuGoCveOHp0=
 			</data>
 		</dict>
 		<key>equirect_to_cube_fsh.glsl</key>
