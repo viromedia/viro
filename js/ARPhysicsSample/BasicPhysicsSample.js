@@ -19,7 +19,7 @@ import {
   ViroAmbientLight,
   ViroLightingEnvironment
 } from 'react-viro';
-var TimerMixin = require('react-timer-mixin');
+
 var createReactClass = require('create-react-class');
 var CONTROLLER_PUSH = 1;
 var CONTROLLER_GRIP = 2;
@@ -152,14 +152,14 @@ var BasicARPhysicsSample = createReactClass({
     }
   },
 
-  _resetScene(){
+  _resetScene() {
     // Reset the ball to it's default position.
-    TimerMixin.setTimeout(() => {
+    setTimeout(() => {
         this.ball.setNativeProps({"physicsBody":null});
         this.ball.setNativeProps({"position":[0, 1, -0.3]});
         this.floorSurface.setNativeProps({materials:["ground"]});
 
-        TimerMixin.setTimeout(() => {
+        setTimeout(() => {
             this.ball.setNativeProps({"physicsBody":this.ballProperties});
         }, 500);
     }, 500);

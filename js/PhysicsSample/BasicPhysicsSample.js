@@ -39,7 +39,6 @@ var BasicPhysicsSample = createReactClass({
 
     let that = this;
     setTimeout(
-
       () => {
         that.disEngageBoosters()},
       4000
