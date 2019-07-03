@@ -80,7 +80,7 @@ public class VRTTextManager extends VRTControlManager<VRTText> {
     }
 
     @ReactProp(name = "outerStroke")
-    public void setOuterStroke(VRTText text, @android.support.annotation.Nullable ReadableMap map) {
+    public void setOuterStroke(VRTText text, @androidx.annotation.Nullable ReadableMap map) {
         text.setOuterStroke(map);
     }
 

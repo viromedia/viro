@@ -149,7 +149,7 @@ public abstract class VRTNodeManager<T extends VRTNode> extends VRTViroViewGroup
     }
 
     @ReactProp(name = "animation")
-    public void setAnimation(VRTNode view, @android.support.annotation.Nullable ReadableMap map) {
+    public void setAnimation(VRTNode view, @androidx.annotation.Nullable ReadableMap map) {
         view.setAnimation(map);
     }
 

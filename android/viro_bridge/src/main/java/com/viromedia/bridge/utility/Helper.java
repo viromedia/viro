@@ -2,7 +2,7 @@ package com.viromedia.bridge.utility;
 
 import android.content.Context;
 import android.net.Uri;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 import com.facebook.react.bridge.ReadableArray;
 import com.viro.core.Vector;

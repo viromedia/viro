@@ -7,7 +7,7 @@ package com.viromedia.bridge.utility;
 import android.content.Context;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.support.annotation.UiThread;
+import androidx.annotation.UiThread;
 import android.util.Log;
 import com.facebook.react.bridge.ReadableMap;
 import com.viro.core.Texture;

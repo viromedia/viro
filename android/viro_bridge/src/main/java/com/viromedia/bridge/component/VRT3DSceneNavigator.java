@@ -6,7 +6,7 @@ package com.viromedia.bridge.component;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Looper;
-import android.support.v4.content.LocalBroadcastManager;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import android.view.View;
 import android.widget.FrameLayout;
 
