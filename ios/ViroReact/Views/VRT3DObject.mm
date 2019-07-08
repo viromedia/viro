@@ -55,12 +55,14 @@
     NSURL *_url;
     std::shared_ptr<VROMaterial> _objMaterial;
     BOOL _sourceChanged;
-    
+    BOOL _modelLoaded;
+
 }
 
 - (instancetype)initWithBridge:(RCTBridge *)bridge  {
     self = [super initWithBridge:bridge];
     _sourceChanged = NO;
+    _modelLoaded = NO;
     self.nodeAnimation = [[VRT3DObjectAnimation alloc] init];
     self.nodeAnimation.animationManager = [bridge animationManager];
     self.nodeAnimation.node = self.node;
@@ -76,6 +78,30 @@
 - (void)setSource:(NSDictionary *)source {
     _source = source;
     _sourceChanged = YES;
+}
+
+- (void)setMorphTargets:(NSArray *)morphTargets {
+    _morphTargets = morphTargets;
+    if (!_modelLoaded){
+        return;
+    }
+    
+    for (NSDictionary *target in morphTargets) {
+        // Grab the target key and values
+        NSObject *targetObject = [target objectForKey:@"target"];
+        if (targetObject == NULL){
+            RCTLogWarn(@"Incorrectly configured Morph Targets.");
+            return;
+        }
+        NSString *key = (NSString *) targetObject;
+        float value = [[target objectForKey:@"weight"] floatValue];
+        std::string targetStr = std::string([key UTF8String]);
+        
+        std::set<std::shared_ptr<VROMorpher>> morphers = self.node->getMorphers(true);
+        for (auto morph : morphers) {
+            morph->setWeightForTarget(targetStr, value);
+        }
+    }
 }
 
 - (void)updateAnimation {
@@ -140,17 +166,20 @@
     for (std::shared_ptr<VRONode> child : self.node->getChildNodes()) {
         child->removeFromParentNode();
     }
+    _modelLoaded = NO;
     __weak VRT3DObject *weakSelf = self;
     std::function<void(std::shared_ptr<VRONode> node, bool success)> onFinish =
     [weakSelf](std::shared_ptr<VRONode> node, bool success) {
-        if (success) {
-            if (weakSelf && weakSelf.materials) {
-                [weakSelf applyMaterials];
+        VRT3DObject *strongSelf = weakSelf;
+        if (success && strongSelf) {
+            strongSelf->_modelLoaded = YES;
+            [strongSelf setMorphTargets:strongSelf->_morphTargets];
+            
+            if (strongSelf.materials) {
+                [strongSelf applyMaterials];
             }
-
-            if (weakSelf) {
-                [weakSelf updateAnimation];
-            }
+            
+            [weakSelf updateAnimation];
         }
 
         /*

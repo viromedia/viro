@@ -40,6 +40,7 @@ class VROTaskQueue;
 class VROAction;
 class VROTexture;
 class VROPortal;
+class VROMorpher;
 class VRONodeCamera;
 class VROHitTestResult;
 class VROConstraint;
@@ -632,7 +633,13 @@ public:
      Triggered when the animation running this animatable node completes.
      */
     void onAnimationFinished();
-    
+
+    /*
+     Returns a set of VROMorphers containing all morph targets that are associated with this node.
+     If recursive is true, we will search down the node hierarchy as well.
+     */
+    std::set<std::shared_ptr<VROMorpher>> getMorphers(bool recursive);
+
 #pragma mark - Events
     
     std::vector<VROHitTestResult> hitTest(const VROCamera &camera, VROVector3f origin, VROVector3f ray,

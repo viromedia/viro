@@ -21,11 +21,14 @@ import com.facebook.react.uimanager.UIManagerModule;
 import com.facebook.react.module.annotations.ReactModule;
 import com.viro.core.BoundingBox;
 import com.viro.core.Matrix;
+import com.viro.core.Object3D;
 import com.viro.core.Quaternion;
 import com.viro.core.Vector;
 import com.viromedia.bridge.component.node.VRTNode;
 
 import com.viro.core.Node;
+import com.viromedia.bridge.component.node.control.VRT3DObject;
+import java.util.Set;
 
 import static java.lang.Math.toDegrees;
 
@@ -187,6 +190,30 @@ public class NodeModule extends ReactContextBaseJavaModule {
                 boundingBoxMap.putDouble("minZ", box.minZ);
                 boundingBoxMap.putDouble("maxZ", box.maxZ);
                 returnMap.putMap("boundingBox", boundingBoxMap);
+                promise.resolve(returnMap);
+            }
+        });
+    }
+
+    @ReactMethod
+    public void getMorphTargets(final int viewTag, final Promise promise) {
+        UIManagerModule uiManager = getReactApplicationContext().getNativeModule(UIManagerModule.class);
+        uiManager.addUIBlock(new UIBlock() {
+            @Override
+            public void execute(NativeViewHierarchyManager nativeViewHierarchyManager) {
+                View viroView = nativeViewHierarchyManager.resolveView(viewTag);
+                VRT3DObject nodeView = (VRT3DObject) viroView;
+                if (!(viroView instanceof VRT3DObject)) {
+                    throw new IllegalViewOperationException("Invalid view, expected VRT3DObject!");
+                }
+                Object3D node = (Object3D)nodeView.getNodeJni();
+                Set<String> keys = node.getMorphTargetKeys();
+                WritableMap returnMap = Arguments.createMap();
+                WritableArray targets = Arguments.createArray();
+                for (String key : keys) {
+                    targets.pushString(key);
+                }
+                returnMap.putArray("targets", targets);
                 promise.resolve(returnMap);
             }
         });

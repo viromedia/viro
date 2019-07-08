@@ -143,7 +143,10 @@ var Viro3DObject = createReactClass({
       ]),
       torque: PropTypes.arrayOf(PropTypes.number)
     }),
-
+    morphTargets:PropTypes.arrayOf(PropTypes.shape({
+                 target: PropTypes.string,
+                 weight: PropTypes.number
+    })),
     viroTag: PropTypes.string,
     onCollision: PropTypes.func,
   },
@@ -258,7 +261,9 @@ var Viro3DObject = createReactClass({
   async getBoundingBoxAsync() {
     return await NativeModules.VRTNodeModule.getBoundingBox(findNodeHandle(this));
   },
-
+  async getMorphTargets() {
+      return await NativeModules.VRTNodeModule.getMorphTargets(findNodeHandle(this));
+  },
   render: function() {
 
     checkMisnamedProps("Viro3DObject", this.props);

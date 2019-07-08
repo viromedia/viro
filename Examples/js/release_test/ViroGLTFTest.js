@@ -255,7 +255,74 @@ var Viro3DObjectTest = createReactClass({
                        />
       </ViroNode>
       ));
-    } else if (modelSet == 8){
+    } else if (modelSet == 8) {
+      views.push((
+      <ViroNode  position={[0, -0.75, -1.75]} >
+       <Viro3DObject
+                    ref={(obj)=>{this.gLTFCube = obj}}
+                    source={require('./res/gltf/AnimatedMorphCube.glb')}
+                    position={[-2.5, -0.3, -3.5]}
+                    scale={[1, 1, 1]}
+                    rotation={[0, 45, 0]}
+                    morphTargets={[
+                      {target:"thin", weight:1.0}
+                    ]}
+                    animation={{name:"Square",
+                                delay:8000,
+                                duration:6000,
+                                loop:true,
+                                run:true,
+                                interruptible:true }}
+                    type="GLB"
+                    onError={this._loaded("AnimatedMorphCube", false)}
+                    onLoadEnd={ ()=>{
+                      this.setState({output:this.state.output + " AnimatedMorphCube"});
+                      this.gLTFCube.getMorphTargets().then((ret)=>{
+                        var targets = "Found Box Target:  ";
+                        var i = 0;
+                        for (i = 0; i < ret.targets.length; i ++){
+                          targets = targets + ret.targets[i]+ (i != ret.targets.length -1 ? ", " : "");
+                        }
+
+                       this.gLTFCubeText.setNativeProps({text:targets});
+                    });
+                  }}
+          />
+        <ViroText ref={(obj)=>{this.gLTFCubeText = obj}} position={[-2.5, 0.8, -3.5]} text={"Box Targets: <Target 1>, <Target 1>, <Target 1>"} style={{textAlign: 'center'}} width={5} fontSize={20} fontFamily={'Arial'}/>
+
+          <Viro3DObject
+                       ref={(obj)=>{this.gLTFSphere = obj}}
+                       source={require('./res/gltf/AnimatedMorphSphere.glb')}
+                       position={[2.5, -0.3, -3.5]}
+                       scale={[1, 1, 1]}
+                       rotation={[0, 45, 0]}
+                       animation={{name:"Globe",
+                                   delay:8000,
+                                   duration:6000,
+                                   loop:true,
+                                   run:true,
+                                   interruptible:true }}
+                       type="GLB"
+                       onError={this._loaded("AnimatedMorphSphere", false)}
+                       onLoadEnd={ ()=>{
+                         this.setState({output:this.state.output + " AnimatedMorphSphere"});
+                         this.gLTFSphere.getMorphTargets().then((ret)=>{
+                           var targets = "Found Sphere Targets:  ";
+                           var i = 0;
+                           for (i = 0; i < ret.targets.length; i ++){
+                             targets = targets + ret.targets[i]+ (i != ret.targets.length -1 ? ", " : "");
+                           }
+
+                          this.gLTFSphereText.setNativeProps({text:targets});
+                       });
+                     }}
+             />
+           <ViroText ref={(obj)=>{this.gLTFSphereText = obj}} position={[2.5, 0.8, -3.5]} text={"Sphere Targets: <Target 1>, <Target 1>, <Target 1>"} style={{textAlign: 'center'}} width={5} fontSize={20} fontFamily={'Arial'}/>
+
+
+     </ViroNode>
+      ));
+    } else if (modelSet == 9){
       views.push((
       <ViroNode  position={[0, -0.5, -1.75]} >
         <Viro3DObject source={require('./res/gltf/BoomBox.glb')}
@@ -284,7 +351,7 @@ var Viro3DObjectTest = createReactClass({
                        />
       </ViroNode>
         ));
-    } else if (modelSet == 9){
+    } else if (modelSet == 10){
       views.push((
       <ViroNode  position={[0, -0.5, -1.75]} >
         <Viro3DObject source={require('./res/gltf/BadVersion.gltf')}
@@ -314,7 +381,7 @@ var Viro3DObjectTest = createReactClass({
 
   _onSceneClick(){
     var modelSet = this.state.modelSet + 1;
-    if (modelSet > 9){
+    if (modelSet > 10){
       modelSet = -1;
     }
 
@@ -328,8 +395,10 @@ var Viro3DObjectTest = createReactClass({
     } else if (modelSet == 5 || modelSet == 6 || modelSet == 7){
       title = "GTLF with PBR textures:";
     } else if (modelSet == 8){
-      title = "Very reflective pbr textures:";
+      title = "Morph Target Model:";
     } else if (modelSet == 9){
+      title = "Very reflective pbr textures:";
+    } else if (modelSet == 10){
       title = "Test Invalid Models \n(Should fail gracefully)";
     }
     this.setState({modelSet:modelSet, title:title, output:"->"});

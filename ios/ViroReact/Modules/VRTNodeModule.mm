@@ -8,6 +8,7 @@
 #import <React/RCTUIManager.h>
 #import "VRTNodeModule.h"
 #import "VRTNode.h"
+#import "VRT3DObject.h"
 #import <React/RCTUIManagerUtils.h>
 @implementation VRTNodeModule
 
@@ -160,6 +161,37 @@ RCT_EXPORT_METHOD(getBoundingBox:(nonnull NSNumber *)viewTag
                           @"maxZ" : @(boundingBox.getMaxZ())
                           }
                   });
+    }];
+}
+
+RCT_EXPORT_METHOD(getMorphTargets:(nonnull NSNumber *)viewTag
+                  resolve:(RCTPromiseResolveBlock)resolve
+                  reject:(RCTPromiseRejectBlock)reject) {
+    [self.bridge.uiManager addUIBlock:^(__unused RCTUIManager *uiManager, NSDictionary<NSNumber *, UIView *> *viewRegistry) {
+        UIView *nodeView = viewRegistry[viewTag];
+        
+        if (![nodeView isKindOfClass:[VRT3DObject class]]) {
+            RCTLogError(@"Invalid view, expected VRT3DObject, got [%@]", nodeView);
+            return;
+        }
+        
+        VRTNode *node = (VRT3DObject *) nodeView;
+        std::shared_ptr<VRONode> vroNode = [node node];
+        std::set<std::shared_ptr<VROMorpher>> morphers = vroNode->getMorphers(true);
+        std::set<std::string> keys;
+        for (auto morph : morphers) {
+            for (auto key : morph->getMorphTargetKeys()) {
+                keys.insert(key);
+            }
+        }
+        
+        NSMutableArray *returnArray = [[NSMutableArray alloc] initWithCapacity:keys.size()];
+        for (auto key : keys) {
+            NSString* result = [NSString stringWithUTF8String:key.c_str()];
+            [returnArray addObject:result];
+        }
+        
+        resolve(@{@"targets" : returnArray});
     }];
 }
 

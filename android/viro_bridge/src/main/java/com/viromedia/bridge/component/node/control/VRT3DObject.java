@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import android.util.Log;
+import android.util.Pair;
 
 public class VRT3DObject extends VRTControl {
     private static final String TAG = ViroLog.getTag(VRT3DObject.class);
@@ -62,6 +63,7 @@ public class VRT3DObject extends VRTControl {
     }
 
     private Uri mSource;
+    private List<Pair<String, Float>> mMorphTargets;
     private List<String> mResources = null;
     protected boolean mObjLoaded = false;
     private boolean mSourceChanged = false;
@@ -113,6 +115,24 @@ public class VRT3DObject extends VRTControl {
 
     public void setResources(List<String> resources) {
         mResources = resources;
+    }
+
+    public void setMorphTargets(List<Pair<String, Float>> targets) {
+        mMorphTargets = targets;
+        if (!mObjLoaded || mMorphTargets == null) {
+            return;
+        }
+
+        Object3D model = getObject3D();
+        Set<String> keys = model.getMorphTargetKeys();
+        for (Pair<String, Float> target : targets) {
+            if (!keys.contains(target.first)) {
+                ViroLog.warn(TAG, "Unknown MorphTarget: " + target.first + "found!");
+                continue;
+            }
+
+            model.setMorphTargetWeight(target.first, target.second);
+        }
     }
 
     @Override
@@ -172,6 +192,7 @@ public class VRT3DObject extends VRTControl {
                 object.setShadowCastingBitMask(mShadowCastingBitMask);
                 object.setIgnoreEventHandling(mIgnoreEventHandling);
 
+                vrt3DObject.setMorphTargets(mMorphTargets);
                 vrt3DObject.updateAnimation();
                 vrt3DObject.loadDidEnd();
             }

@@ -3,6 +3,7 @@
  */
 package com.viromedia.bridge.component.node.control;
 
+import android.util.Pair;
 import androidx.annotation.Nullable;
 
 import com.facebook.react.bridge.ReactApplicationContext;
@@ -63,6 +64,26 @@ public class VRT3DObjectManager extends VRTControlManager<VRT3DObject> {
             }
         }
         object3d.setResources(resourceList);
+    }
+
+    @ReactProp(name = "morphTargets")
+    public void setMorphTargets(VRT3DObject object3d, @Nullable ReadableArray targets) {
+        if (targets == null || targets.size() <=0) {
+            return;
+        }
+
+        List<Pair<String, Float>> targetList = new ArrayList<>();
+        for (int i = 0; i < targets.size(); i++) {
+            ReadableMap resourceMap = targets.getMap(i);
+            if (!resourceMap.hasKey("target") || !resourceMap.hasKey("weight")) {
+                throw new IllegalArgumentException("Received invalid morph target map.");
+            }
+
+            String key = resourceMap.getString("target");
+            Float weight = new Float(resourceMap.getDouble("weight"));
+            targetList.add(new Pair<String, Float>(key, weight));
+        }
+        object3d.setMorphTargets(targetList);
     }
 
     @ReactProp(name = "type")
