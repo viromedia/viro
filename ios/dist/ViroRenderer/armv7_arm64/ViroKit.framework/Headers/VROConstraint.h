@@ -17,14 +17,20 @@ class VROMatrix4f;
 class VROQuaternion;
 class VROVector3f;
 class VRORenderContext;
+enum class VROConstraintType {
+    Billboard,
+    Bone
+};
 
 class VROConstraint {
-    
 public:
     
     virtual VROMatrix4f getTransform(const VRORenderContext &context,
                                      VROMatrix4f transform) = 0;
-    
+
+    virtual VROConstraintType getConstraintType() {
+        return VROConstraintType::Billboard;
+    }
 };
 
 #endif /* VROConstraint_h */

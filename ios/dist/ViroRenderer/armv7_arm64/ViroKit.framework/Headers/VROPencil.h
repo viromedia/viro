@@ -26,7 +26,9 @@ class VROMaterial;
  */
 class VROPencil {
 public:
-    VROPencil(){}
+    VROPencil() {
+        _brushThickness = 0.05f;
+    }
     virtual ~VROPencil();
 
     /*
@@ -45,8 +47,16 @@ public:
      */
     void clear();
 
+    /*
+     Sets the thickness of the polyline for this VROPencil during a debug draw.
+     */
+    void setBrushThickness(float thickness) {
+        _brushThickness = thickness;
+    }
+
 private:
     std::vector<std::vector<VROVector3f>> _paths;
+    float _brushThickness;
 };
 
 #endif

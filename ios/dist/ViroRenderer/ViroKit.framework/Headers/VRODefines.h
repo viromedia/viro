@@ -44,4 +44,7 @@
 
 #define VRO_METAL 0
 
+// True if building for Posemoji
+#define VRO_POSEMOJI 1
+
 #endif /* VRODefines_h */

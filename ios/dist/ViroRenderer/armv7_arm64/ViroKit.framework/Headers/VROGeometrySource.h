@@ -26,6 +26,13 @@ enum class VROGeometrySourceSemantic {
     EdgeCrease,
     BoneWeights,
     BoneIndices,
+    Morph_0,
+    Morph_1,
+    Morph_2,
+    Morph_3,
+    Morph_4,
+    Morph_5,
+    Morph_6,
     Invalid
 };
 
@@ -74,6 +81,9 @@ public:
     VROGeometrySourceSemantic getSemantic() const {
         return _semantic;
     }
+    void setSemantic(VROGeometrySourceSemantic semantic) {
+        _semantic = semantic;
+    }
     int getVertexCount() const {
         return _vertexCount;
     }
@@ -103,7 +113,7 @@ public:
      Read through all the vertices in this data source and invoke the provided
      callback for each.
      */
-    void processVertices(std::function<void(int index, VROVector3f vertex)> function) const;
+    void processVertices(std::function<void(int index, VROVector4f vertex)> function) const;
     
     /*
      Read through all vertices in this data source and modify them.

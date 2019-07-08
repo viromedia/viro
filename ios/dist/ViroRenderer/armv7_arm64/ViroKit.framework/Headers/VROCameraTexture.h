@@ -1,13 +1,13 @@
 //
-//  VROCameraTexture.hpp
+//  VROCameraTexture.h
 //  ViroRenderer
 //
 //  Created by Raj Advani on 3/22/17.
 //  Copyright © 2017 Viro Media. All rights reserved.
 //
 
-#ifndef VROCameraTexture_hpp
-#define VROCameraTexture_hpp
+#ifndef VROCameraTexture_h
+#define VROCameraTexture_h
 
 #include "VROTexture.h"
 #include <memory>
@@ -64,6 +64,12 @@ public:
      */
     virtual VROVector3f getImageSize() const = 0;
     
+    /*
+     Get the camera intrinsics that correspond to the last image displayed on this
+     texture.
+     */
+    virtual std::vector<float> getCameraIntrinsics() const = 0;
+    
 };
 
-#endif /* VROCameraTexture_hpp */
+#endif /* VROCameraTexture_h */

@@ -49,7 +49,7 @@ RCT_EXPORT_METHOD(stopVideoRecording:(nonnull NSNumber *)reactTag
             RCTLogError(@"Invalid view returned from registry, expecting VRTARSceneNavigator, got: %@", view);
         } else {
             VRTARSceneNavigator *component = (VRTARSceneNavigator *)view;
-            [component stopVideoRecordingWithHandler:^(BOOL success, NSURL *url, NSInteger errorCode) {
+            [component stopVideoRecordingWithHandler:^(BOOL success, NSURL *url,  NSURL *gifPath, NSInteger errorCode) {
                 NSMutableDictionary *toReturn = [NSMutableDictionary new];
                 [toReturn setObject:@(success) forKey:kVRTRecordingKeySuccess];
                 if (url) [toReturn setObject:[url path] forKey:kVRTRecordingKeyUrl];
@@ -73,7 +73,7 @@ RCT_EXPORT_METHOD(takeScreenshot:(nonnull NSNumber *)reactTag
             VRTARSceneNavigator *component = (VRTARSceneNavigator *)view;
             [component takeScreenshot:fileName
                      saveToCameraRoll:saveToCameraRoll
-                    completionHandler:^(BOOL success, NSURL *url, NSInteger errorCode) {
+                    completionHandler:^(BOOL success, NSURL *url,  NSURL *gifPath, NSInteger errorCode) {
                 NSMutableDictionary *toReturn = [NSMutableDictionary new];
                 [toReturn setObject:@(success) forKey:kVRTRecordingKeySuccess];
                 if (url) [toReturn setObject:[url path] forKey:kVRTRecordingKeyUrl];

@@ -130,7 +130,7 @@ private:
         }
 
         std::sort(values.begin(), values.end());
-        for (int i = 0; i < values.size() - 1; i ++) {
+        for (int i = 0; i < values.size() - 1; i++) {
             if (values[i].endFactor > values[i + 1].startFactor
                 || (values[i].startFactor > values[i].endFactor)) {
                 perror("Attempted to set an invalid set of interpolated points for the Particle Emitter!");
@@ -161,7 +161,7 @@ private:
     VROVector3f getFinalValue(VROVector3f initialValue, double currentFactor) {
         VROVector3f start;
         VROVector3f end;
-        for (int i = 0; i < _modifierInterval.size(); i ++) {
+        for (int i = 0; i < _modifierInterval.size(); i++) {
 
             // Determine if this VROModifierInterval contains a startFactor and endFactor interval
             // that applies to the current deltaFactor.

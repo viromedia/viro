@@ -20,6 +20,7 @@
 #include "VROModelIOUtil.h"
 #include "VROByteBuffer.h"
 
+class VROMorpher;
 class VRONode;
 class VROTexture;
 class VROGeometry;
@@ -51,25 +52,25 @@ namespace tinygltf {
  GLTFTypeComponent components.
  */
 enum class GLTFType {
-    Scalar  = 1,
-    Vec2    = 2,
-    Vec3    = 3,
-    Vec4    = 4,
-    Mat2    = 4,
-    Mat3    = 9,
-    Mat4    = 16
+    Scalar,
+    Vec2,
+    Vec3,
+    Vec4,
+    Mat2,
+    Mat3,
+    Mat4
 };
 
 /*
  Enum representing the byte size of a single GLTFTypeComponent contained within a GLTFType.
  */
 enum class GLTFTypeComponent {
-    Byte            = 1,
-    UnsignedByte    = 1,
-    Short           = 2,
-    UnsignedShort   = 2,
-    UnsignedInt     = 4,
-    Float           = 4
+    Byte,
+    UnsignedByte,
+    Short,
+    UnsignedShort,
+    UnsignedInt,
+    Float
 };
 
 /*
@@ -98,6 +99,23 @@ private:
     static bool processVertexAttributes(const tinygltf::Model &gModel, std::map<std::string, int> &gAttributes,
                                         std::vector<std::shared_ptr<VROGeometrySource>> &sources,
                                         size_t geoElementIndex);
+    static void processTangent(std::vector<std::shared_ptr<VROGeometryElement>> &elements,
+                               std::vector<std::shared_ptr<VROGeometrySource>> &sources, size_t geoElementIndex);
+    static void regenerateTangent(std::vector<VROVector3f> &posArray,
+                                  std::vector<VROVector3f> &normArray,
+                                  std::vector<VROVector3f> &texCoordArray,
+                                  std::vector<int> &elementIndicesArray,
+                                  std::vector<VROVector4f> &generatedTangents);
+    static bool processMorphTargets(const tinygltf::Model &gModel,
+                                    const tinygltf::Mesh &gMesh,
+                                    const tinygltf::Primitive &gPrimitive,
+                                    std::shared_ptr<VROMaterial> &material,
+                                    std::vector<std::shared_ptr<VROGeometrySource>> &sources,
+                                    std::vector<std::shared_ptr<VROGeometryElement>> &elements,
+                                    std::map<int, std::shared_ptr<VROMorpher>> &morphers);
+    static std::string getMorphTargetName(const tinygltf::Model &gModel,
+                                          const tinygltf::Primitive &gPrimtive, int targetIndex);
+
     static void injectGLTF(std::shared_ptr<VRONode> gltfNode, std::shared_ptr<VRONode> rootNode,
                            std::shared_ptr<VRODriver> driver, std::function<void(std::shared_ptr<VRONode> node, bool success)> onFinish);
 
@@ -126,6 +144,7 @@ private:
                                          std::shared_ptr<VROKeyframeAnimation> &animKeyFrameOut);
     static bool processRawChannelData(const tinygltf::Model &gModel,
                                       std::string channelProperty,
+                                      int channelTarget,
                                       const tinygltf::AnimationSampler &gChannelSampler,
                                       std::vector<std::unique_ptr<VROKeyframeAnimationFrame>> &framesOut);
     static void processSkeletalAnimation(const tinygltf::Model &gModel,
@@ -138,8 +157,7 @@ private:
     static bool processSkinner(const tinygltf::Model &gModel);
     static bool processSkinnerInverseBindData(const tinygltf::Model &gModel,
                                               const tinygltf::Skin &skin,
-                                              std::shared_ptr<VROSkeleton> &skeleton,
-                                              std::shared_ptr<VROSkinner> &skinnerOut);
+                                              std::vector<VROMatrix4f> &invBindTransformsOut);
     static void clearCachedData();
 
     /*

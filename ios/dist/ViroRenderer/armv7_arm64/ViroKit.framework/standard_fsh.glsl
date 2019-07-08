@@ -8,7 +8,9 @@ uniform highp float material_diffuse_intensity;
 uniform lowp float material_alpha;
 uniform lowp float material_shininess;
 uniform highp float material_roughness;
+uniform highp float material_roughness_intensity;
 uniform highp float material_metalness;
+uniform highp float material_metalness_intensity;
 uniform highp float material_ao;
 
 #pragma surface_modifier_uniforms
@@ -29,7 +31,9 @@ void main() {
     _surface.specular_color = vec3(0.0, 0.0, 0.0);
     _surface.specular_texcoord = v_texcoord;
     _surface.roughness = max(material_roughness, 0.04); // Clamp to avoid potential divide by 0
+    _surface.roughness_intensity = material_roughness_intensity;
     _surface.metalness = material_metalness;
+    _surface.metalness_intensity = material_metalness_intensity;
     _surface.ao = material_ao;
     _surface.alpha = material_alpha;
     _surface.normal = normalize(v_tbn[2]);

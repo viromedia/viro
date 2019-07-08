@@ -77,7 +77,7 @@ private:
      Load the FBX subgraph for the given file. The top-level node returned here is a dummy; all the
      data is stored in its children.
      */
-    static std::shared_ptr<VRONode> loadFBX(viro::Node &node_pb, std::string base, VROResourceType type,
+    static std::shared_ptr<VRONode> loadFBX(viro::Node &node_pb, std::shared_ptr<VRONode> node, std::string base, VROResourceType type,
                                             std::shared_ptr<std::map<std::string, std::string>> resourceMap,
                                             std::shared_ptr<std::map<std::string, std::shared_ptr<VROTexture>>> textureCache,
                                             std::shared_ptr<VROTaskQueue> taskQueue);

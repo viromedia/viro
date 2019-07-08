@@ -14,17 +14,48 @@
 
 class VROARSessionDelegate;
 class VRORendererConfiguration;
+class VROViewport;
+enum class VROCameraPosition;
+
+@protocol VRODebugDrawDelegate
+@required
+- (void)drawRect;
+@end
+
+@interface VROGlassView : UIView
+@property (readwrite, nonatomic, assign) NSObject<VRODebugDrawDelegate> *debugDrawDelegate;
+- (id)initWithFrame:(CGRect)frame delegate:(NSObject<VRODebugDrawDelegate> *)delegate;
+@end
 
 @interface VROViewAR : GLKView <VROView, UIGestureRecognizerDelegate>
 
 @property (readwrite, nonatomic) BOOL suspended;
+@property (readwrite, nonatomic) VROViewRecorder *viewRecorder;
+
+/*
+ The camera used for AR (front or back).
+ */
+@property (readonly, nonatomic) VROCameraPosition cameraPosition;
 
 - (instancetype)initWithFrame:(CGRect)frame
                        config:(VRORendererConfiguration)config
                       context:(EAGLContext *)context
                worldAlignment:(VROWorldAlignment)worldAlignment;
 
+- (instancetype)initWithFrame:(CGRect)frame
+                       config:(VRORendererConfiguration)config
+                      context:(EAGLContext *)context
+               worldAlignment:(VROWorldAlignment)worldAlignment
+                 trackingType:(VROTrackingType)trackingType;
+
 - (void)setARSessionDelegate:(std::shared_ptr<VROARSessionDelegate>)delegate;
+
+/*
+ Manually overrides renderer's viewport parameters with a different width and
+ height, instead of using the dimensions of the underlying GLView. Note that
+ this only affects dimenions used for the rendering pipeline.
+ */
+- (void)setRenderedFrameViewPort:(VROViewport)viewport;
 
 /*
  Should be invoked before this object gets deallocated, to clean up GL
@@ -59,5 +90,10 @@ class VRORendererConfiguration;
  Returns true if AR is supported by this device.
  */
 + (BOOL)isARSupported;
+
+/*
+ Set a view for drawing debug information using CoreGraphics.
+ */
+- (void)setDebugDrawDelegate:(NSObject<VRODebugDrawDelegate> *)debugDrawDelegate;
 
 @end

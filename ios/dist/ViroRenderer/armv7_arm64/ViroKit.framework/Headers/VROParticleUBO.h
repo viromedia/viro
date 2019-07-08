@@ -9,6 +9,7 @@
 #define VROParticleUBO_h
 
 #include "VROInstancedUBO.h"
+#include "VROAtomic.h"
 
 static const int kMaxParticlesPerUBO = 180;
 static const int kMaxFloatsPerTransform = 16;
@@ -84,8 +85,14 @@ private:
      The driver that created this UBO.
      */
     std::weak_ptr<VRODriver> _driver;
+    
+    /*
+     The particles and the bounding box after the last update. Note that the bounding
+     box is atomic becuase it may be accessed from the application thread (see VRONode's
+     application properties).
+     */
     std::vector<VROParticle> _lastKnownParticles;
-    VROBoundingBox _lastKnownBoundingBox;
+    VROAtomic<VROBoundingBox> _lastKnownBoundingBox;
 };
 
 #endif /* VROParticleUBO_h */

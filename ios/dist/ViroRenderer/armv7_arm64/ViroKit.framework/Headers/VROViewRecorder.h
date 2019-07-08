@@ -20,7 +20,7 @@ class VRORenderTarget;
 @class VROViewRecorder;
 
 typedef void (^VROViewRecordingErrorBlock)(NSInteger errorCode);
-typedef void (^VROViewWriteMediaFinishBlock)(BOOL success, NSURL *filePath, NSInteger errorCode);
+typedef void (^VROViewWriteMediaFinishBlock)(BOOL success, NSURL *filePath, NSURL *gifPath, NSInteger errorCode);
 
 static NSInteger const kVROViewErrorNone = -1;
 static NSInteger const kVROViewErrorUnknown = 0;
@@ -29,12 +29,16 @@ static NSInteger const kVROViewErrorInitialization = 2;
 static NSInteger const kVROViewErrorWriteToFile = 3;
 static NSInteger const kVROViewErrorAlreadyRunning = 4;
 static NSInteger const kVROViewErrorAlreadyStopped = 5;
+static NSInteger const kVROViewErrorWriteGifToFile = 6;
+static NSInteger const kVROViewErrorAudioFailure = 7;
 
 static NSString *const kVROViewTempMediaDirectory = @"viro_media";
 static NSString *const kVROViewAudioSuffix = @".m4a";
 static NSString *const kVROViewImageSuffix = @".png";
 static NSString *const kVROViewTempVideoSuffix = @"-temp.mp4";
 static NSString *const kVROViewVideoSuffix = @".mp4";
+static NSString *const kVROViewGifSuffix = @".gif";
+
 
 class VROViewRecorderRTTDelegate : public VRORenderToTextureDelegate {
 public:
@@ -67,10 +71,33 @@ private:
 - (void)startVideoRecording:(NSString *)fileName
            saveToCameraRoll:(BOOL)saveToCamera
                  errorBlock:(VROViewRecordingErrorBlock)errorBlock;
+
+- (void)startVideoRecording:(NSString *)fileName
+              withWatermark:(UIImage *)watermarkImage
+                  withFrame:(CGRect)watermarkFrame
+           saveToCameraRoll:(BOOL)saveToCamera
+                 errorBlock:(VROViewRecordingErrorBlock)errorBlock;
+
+- (void)startVideoRecording:(NSString *)fileName
+                    gifFile:(NSString *)gifFile
+              withWatermark:(UIImage *)watermarkImage
+                  withFrame:(CGRect)watermarkFrame
+           saveToCameraRoll:(BOOL)saveToCamera
+                 errorBlock:(VROViewRecordingErrorBlock)errorBlock;
+
 - (void)stopVideoRecordingWithHandler:(VROViewWriteMediaFinishBlock)completionHandler;
+- (void)stopVideoRecordingWithHandler:(VROViewWriteMediaFinishBlock)completionHandler mergeAudioTrack:(NSURL *)audioPath;
+
 - (void)takeScreenshot:(NSString *)fileName
       saveToCameraRoll:(BOOL)saveToCamera
  withCompletionHandler:(VROViewWriteMediaFinishBlock)completionHandler;
 - (void)lockPixelBuffer;
+- (void)setUseMicrophone:(BOOL)useMicrophone;
 
+/*
+ Manually overrides video recording parameters with a different width and
+ height, instead of using the dimensions of the underlying GLView.
+ */
+- (void)setRecorderWidth:(int)width
+                  height:(int)height;
 @end

@@ -30,7 +30,14 @@ enum class VROShaderMask {
     Norm = 4,
     Tangent = 8,
     BoneIndex = 16,
-    BoneWeight = 32
+    BoneWeight = 32,
+    Morph_0 = 64,
+    Morph_1 = 128,
+    Morph_2 = 256,
+    Morph_3 = 512,
+    Morph_4 = 1024,
+    Morph_5 = 2048,
+    Morph_6 = 4096,
 };
 
 class VROShaderModifier;

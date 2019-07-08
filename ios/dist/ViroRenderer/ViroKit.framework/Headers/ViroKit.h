@@ -74,6 +74,11 @@ FOUNDATION_EXPORT const unsigned char ViroKitVersionString[];
 #import <ViroKit/VROParticle.h>
 #import <ViroKit/VROParticleModifier.h>
 
+// PostProcess
+#import <ViroKit/VROChoreographer.h>
+#import <ViroKit/VRORenderPass.h>
+#import <ViroKit/VROGaussianBlurRenderPass.h>
+
 // Animation
 #import <ViroKit/VROAnimation.h>
 #import <ViroKit/VROAnimatable.h>
@@ -145,6 +150,7 @@ FOUNDATION_EXPORT const unsigned char ViroKitVersionString[];
 #import <ViroKit/VROInputControllerBase.h>
 #import <ViroKit/VROInputControllerCardboardiOS.h>
 #import <ViroKit/VROInputPresenterCardboardiOS.h>
+#import <ViroKit/VROBodyTrackerController.h>
 
 // Util
 #import <ViroKit/VROTime.h>
@@ -155,6 +161,7 @@ FOUNDATION_EXPORT const unsigned char ViroKitVersionString[];
 #import <ViroKit/VROGeometryUtil.h>
 #import <ViroKit/VROTextureUtil.h>
 #import <ViroKit/VROTaskQueue.h>
+#import <ViroKit/VRODeviceUtil.h>
 
 // Physics
 #import <ViroKit/VROPhysicsShape.h>
@@ -166,7 +173,10 @@ FOUNDATION_EXPORT const unsigned char ViroKitVersionString[];
 // AR
 #import <ViroKit/VROViewAR.h>
 #import <ViroKit/VROARSession.h>
+#import <ViroKit/VROARSessioniOS.h>
 #import <ViroKit/VROARFrame.h>
+#import <ViroKit/VROARFrameiOS.h>
+#import <ViroKit/VROARFrameInertial.h>
 #import <ViroKit/VROARCamera.h>
 #import <ViroKit/VROARAnchor.h>
 #import <ViroKit/VROARPlaneAnchor.h>
@@ -189,6 +199,14 @@ FOUNDATION_EXPORT const unsigned char ViroKitVersionString[];
 // Test
 #import <ViroKit/VRORendererTest.h>
 #import <ViroKit/VRORendererTestHarness.h>
+
+// Body Tracking
+#import <ViroKit/VROBodyPlayeriOS.h>
+#import <ViroKit/VROBodyTrackeriOS.h>
+#import <ViroKit/VROBodyTrackerYolo.h>
+#import <ViroKit/VROBodyAnimData.h>
+#import <ViroKit/VROPoseFilter.h>
+#import <ViroKit/VROPoseFilterEuro.h>
 
 // OpenCV
 //#import <ViroKit/VROOpenCV.h>

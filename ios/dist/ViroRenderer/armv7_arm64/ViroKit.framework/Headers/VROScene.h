@@ -63,7 +63,12 @@ public:
      the scene.
      */
     void applyConstraints(const VRORenderContext &context);
-    
+
+    /*
+     Applies a rig constraint computation pass to all applicable sub nodes.
+     */
+    void computeIKRig(const VRORenderContext &context);
+
     /*
      Notifies the root node that the render properties have settled and
      that it should sync them now with their corresponding atomics.
