@@ -89,6 +89,7 @@ public class VRT360Video extends VRTNode {
         }
     }
 
+    private boolean mNeedsVideoTextureReset = false;
     private String mSource;
     private boolean mPaused = false;
     private boolean mLoop = false;
@@ -149,6 +150,16 @@ public class VRT360Video extends VRTNode {
     }
 
     @Override
+    public void onPropsSet() {
+        super.onPropsSet();
+        if(mNeedsVideoTextureReset) {
+            resetVideo();
+        }
+        mNeedsVideoTextureReset = false;
+    }
+
+
+    @Override
     public void setScene(VRTScene scene){
         super.setScene(scene);
         updateVideoTexture();
@@ -168,11 +179,12 @@ public class VRT360Video extends VRTNode {
 
     public void setStereoMode(String mode){
         mStereoMode = mode;
+        mNeedsVideoTextureReset = true;
     }
 
     public void setSource(String source) {
         mSource = Helper.parseUri(source, getContext()).toString();
-        resetVideo();
+        mNeedsVideoTextureReset = true;
     }
 
     public void setPaused(boolean paused) {

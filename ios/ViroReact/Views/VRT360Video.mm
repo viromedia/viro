@@ -16,6 +16,7 @@
     std::shared_ptr<VROVideoTexture> _videoTexture;
     std::shared_ptr<VROVideoDelegateiOS> _videoDelegate;
     BOOL _sphereTextureAddedToScene;
+    BOOL _needsVideoTextureReset;
     NSString *_stereoMode;
 }
 
@@ -29,10 +30,18 @@
         _loop = NO;
         _volume = 1;
         _paused = NO;
+        _needsVideoTextureReset = NO;
         _videoDelegate = std::make_shared<VROVideoDelegateiOS>(self);
     }
     
     return self;
+}
+
+- (void)didSetProps:(NSArray<NSString *> *)changedProps {
+    if (_needsVideoTextureReset) {
+        [self updateSceneWithSphereTexture];
+    }
+    _needsVideoTextureReset = NO;
 }
 
 - (void)setPaused:(BOOL)paused {
@@ -78,11 +87,12 @@
 - (void)setSource:(NSDictionary *)source {
     _source = source;
     _sphereTextureAddedToScene = NO;
-    [self updateSceneWithSphereTexture];
+    _needsVideoTextureReset = YES;
 }
 
 - (void)setStereoMode:(NSString *)mode;{
     _stereoMode = mode;
+    _needsVideoTextureReset = YES;
 }
 
 - (void)setRotation:(NSArray<NSNumber *> *)rotation {
