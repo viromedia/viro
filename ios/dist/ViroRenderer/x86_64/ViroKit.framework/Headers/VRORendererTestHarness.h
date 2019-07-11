@@ -28,6 +28,7 @@ enum class VRORendererTestType {
     Stereoscopic,
     FBX,
     GLTF,
+    InverseKinematics,
     ARPlane,
     ARDraggableNode,
     ARImageTracking,
@@ -46,7 +47,10 @@ enum class VRORendererTestType {
     RendererSettings,
     ToneMapping,
     Polygon,
-    BodyTracker, 
+    BodyTracker,
+    ObjectRecognition,
+    BodyRecognition,
+    BodyMesher,
     NumTests,
 };
 

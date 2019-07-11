@@ -36,6 +36,8 @@ enum class VROGeometrySourceSemantic {
     Invalid
 };
 
+class VROVertexBuffer;
+
 /*
  Specifies per-vertex data for the set of vertices forming the surface of a three-dimensional 
  object, or geometry. Used together with VROGeometryElement objects to define custom VROGeometry objects
@@ -45,6 +47,11 @@ class VROGeometrySource {
     
 public:
     
+    /*
+     Geometry sources can be built either with VBO data or with raw CPU data. Using the former
+     allows the same data to be shared across different geometries, while using
+     the latter siloes the data to only this geometry.
+     */
     VROGeometrySource(std::shared_ptr<VROData> data,
                       VROGeometrySourceSemantic semantic,
                       int vertexCount,
@@ -75,9 +82,41 @@ public:
         _dataStride(templateSource->getDataStride())
     {}
     
-    std::shared_ptr<VROData> getData() const {
-        return _data;
+    VROGeometrySource(std::shared_ptr<VROVertexBuffer> vbo,
+                      VROGeometrySourceSemantic semantic,
+                      int vertexCount,
+                      bool floatComponents,
+                      int componentsPerVertex,
+                      int bytesPerComponent,
+                      int dataOffset,
+                      int dataStride) :
+        _vbo(vbo),
+        _semantic(semantic),
+        _vertexCount(vertexCount),
+        _floatComponents(floatComponents),
+        _componentsPerVertex(componentsPerVertex),
+        _bytesPerComponent(bytesPerComponent),
+        _dataOffset(dataOffset),
+        _dataStride(dataStride)
+    {}
+    
+    VROGeometrySource(std::shared_ptr<VROVertexBuffer> vbo,
+                      std::shared_ptr<VROGeometrySource> templateSource) :
+        _vbo(vbo),
+        _semantic(templateSource->getSemantic()),
+        _vertexCount(templateSource->getVertexCount()),
+        _floatComponents(templateSource->isFloatComponents()),
+        _componentsPerVertex(templateSource->getComponentsPerVertex()),
+        _bytesPerComponent(templateSource->getBytesPerComponent()),
+        _dataOffset(templateSource->getDataOffset()),
+        _dataStride(templateSource->getDataStride())
+    {}
+    
+    std::shared_ptr<VROVertexBuffer> getVertexBuffer() const {
+        return _vbo;
     }
+    std::shared_ptr<VROData> getData() const;
+    
     VROGeometrySourceSemantic getSemantic() const {
         return _semantic;
     }
@@ -130,8 +169,11 @@ public:
 private:
     
     /*
-     The interleaved raw vertex data.
+     The interleaved raw vertex data. This is either in the form of a VBO, or as CPU-based data.
+     Using the former allows the same data to be shared across different geometries, while using
+     the latter siloes the data to only this geometry.
      */
+    std::shared_ptr<VROVertexBuffer> _vbo;
     std::shared_ptr<VROData> _data;
     
     /*

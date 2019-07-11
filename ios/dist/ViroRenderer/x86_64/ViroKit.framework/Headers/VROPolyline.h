@@ -16,11 +16,23 @@ class VROByteBuffer;
 class VROLineSegment;
 class VROShaderModifier;
 
+/*
+ The style used to join segments. Round uses more triangles but generally looks better
+ for all shapes. Bevel means corners are clipped off, and is used for performance
+ reasons.
+ */
+enum class VROPolylineJoinStyle {
+    Round,
+    Bevel,
+};
+
 class VROPolyline : public VROGeometry {
     
 public:
-    static std::shared_ptr<VROPolyline> createPolyline(std::vector<std::vector<VROVector3f>> &path, float thickness);
-    static std::shared_ptr<VROPolyline> createPolyline(std::vector<VROVector3f> &path, float thickness);
+    static std::shared_ptr<VROPolyline> createPolyline(std::vector<std::vector<VROVector3f>> &path, float thickness,
+                                                       VROPolylineJoinStyle joinStyle = VROPolylineJoinStyle::Round);
+    static std::shared_ptr<VROPolyline> createPolyline(std::vector<VROVector3f> &path, float thickness,
+                                                       VROPolylineJoinStyle joinStyle = VROPolylineJoinStyle::Round);
     
     VROPolyline();
     virtual ~VROPolyline() {}
@@ -31,6 +43,15 @@ public:
     void setThickness(float thickness);
     float getThickness() const {
         return _thickness;
+    }
+    
+    /*
+     Set the join style, which determines how segments in the polyline are connected
+     together.
+     */
+    void setJoinStyle(VROPolylineJoinStyle joinStyle);
+    VROPolylineJoinStyle getJoinStyle() const {
+        return _joinStyle;
     }
     
     /*
@@ -50,22 +71,32 @@ public:
 private:
     
     float _thickness;
+    std::vector<std::vector<VROVector3f>> _paths;
+    VROPolylineJoinStyle _joinStyle;
     
-    VROPolyline(std::vector<std::shared_ptr<VROGeometrySource>> sources,
-                std::vector<std::shared_ptr<VROGeometryElement>> elements,
-                float thickness) :
-        VROGeometry(sources, elements),
-        _thickness(thickness)
-    {}
+    VROPolyline(std::vector<std::vector<VROVector3f>> paths, float thickness, VROPolylineJoinStyle joinStyle);
     
+    /*
+     Update the underlying geometry using the latest instance variables.
+     */
+    void update();
+    
+    /*
+     Return true if there are no paths in this polyline.
+     */
     bool isEmpty() const;
+    
+    /*
+     Get the last point in the polyline.
+     */
     VROVector3f getLastPoint() const;
     
     static void buildGeometry(std::vector<std::vector<VROVector3f>> &paths,
+                              VROPolylineJoinStyle joinStyle,
                               std::vector<std::shared_ptr<VROGeometrySource>> &sources,
                               std::vector<std::shared_ptr<VROGeometryElement>> &elements);
     static std::shared_ptr<VROGeometryElement> buildElement(size_t numCorners);
-    static size_t encodeLine(const std::vector<VROVector3f> &path, VROByteBuffer &outBuffer);
+    static size_t encodeLine(const std::vector<VROVector3f> &path, VROPolylineJoinStyle joinStyle, VROByteBuffer &outBuffer);
     static size_t encodeQuad(VROLineSegment segment, bool beginDegenerate, bool endDegenerate, VROByteBuffer &buffer);
     static size_t encodeCircularEndcap(VROVector3f center, VROVector3f direction,
                                        bool beginDegenerate, bool endDegenerate, VROByteBuffer &buffer);

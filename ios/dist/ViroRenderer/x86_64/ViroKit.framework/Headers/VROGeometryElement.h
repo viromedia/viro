@@ -37,11 +37,13 @@ public:
     VROGeometryElement(std::shared_ptr<VROData> data,
                        VROGeometryPrimitiveType primitiveType,
                        int primitiveCount,
-                       int bytesPerIndex) :
+                       int bytesPerIndex,
+                       bool isSigned = true) :
         _primitiveType(primitiveType),
         _primitiveCount(primitiveCount),
         _data(data),
-        _bytesPerIndex(bytesPerIndex)
+        _bytesPerIndex(bytesPerIndex),
+        _signed(isSigned)
     {}
 
     // The data, primitive type, primitive count, and bytes per index
@@ -107,10 +109,11 @@ private:
     int _primitiveCount;
     
     /*
-     The index data, and the size of each index.
+     The index data, size of each index, and whether the data is signed.
      */
     std::shared_ptr<VROData> _data;
     int _bytesPerIndex;
+    bool _signed;
     
 };
 

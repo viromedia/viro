@@ -8,7 +8,9 @@ struct VROSurface {
     highp vec2 specular_texcoord;
     
     highp float roughness;
+    highp float roughness_intensity;
     highp float metalness;
+    highp float metalness_intensity;
     highp float ao;
     
     lowp float alpha;

@@ -80,24 +80,28 @@ private:
     static std::shared_ptr<VRONode> loadFBX(viro::Node &node_pb, std::shared_ptr<VRONode> node, std::string base, VROResourceType type,
                                             std::shared_ptr<std::map<std::string, std::string>> resourceMap,
                                             std::shared_ptr<std::map<std::string, std::shared_ptr<VROTexture>>> textureCache,
-                                            std::shared_ptr<VROTaskQueue> taskQueue);
+                                            std::shared_ptr<VROTaskQueue> taskQueue,
+                                            std::shared_ptr<VRODriver> driver);
     
     static std::shared_ptr<VRONode> loadFBXNode(const viro::Node &node_pb,
                                                 std::shared_ptr<VROSkeleton> skeleton,
                                                 std::string base, VROResourceType type,
                                                 std::shared_ptr<std::map<std::string, std::string>> resourceMap,
                                                 std::shared_ptr<std::map<std::string, std::shared_ptr<VROTexture>>> textureCache,
-                                                std::shared_ptr<VROTaskQueue> taskQueue);
+                                                std::shared_ptr<VROTaskQueue> taskQueue,
+                                                std::shared_ptr<VRODriver> driver);
     
     static std::shared_ptr<VROGeometry> loadFBXGeometry(const viro::Node_Geometry &geo_pb,
                                                         std::string base, VROResourceType type,
                                                         std::shared_ptr<std::map<std::string, std::string>> resourceMap,
                                                         std::shared_ptr<std::map<std::string, std::shared_ptr<VROTexture>>> textureCache,
-                                                        std::shared_ptr<VROTaskQueue> taskQueue);
+                                                        std::shared_ptr<VROTaskQueue> taskQueue,
+                                                        std::shared_ptr<VRODriver> driver);
     
     static std::shared_ptr<VROSkeleton> loadFBXSkeleton(const viro::Node_Skeleton &skeleton_pb);
     static std::shared_ptr<VROSkinner> loadFBXSkinner(const viro::Node_Geometry_Skin &skin_pb,
-                                                      std::shared_ptr<VROSkeleton> skeleton);
+                                                      std::shared_ptr<VROSkeleton> skeleton,
+                                                      std::shared_ptr<VRODriver> driver);
     static std::shared_ptr<VROSkeletalAnimation> loadFBXSkeletalAnimation(const viro::Node_SkeletalAnimation &animation_pb,
                                                                           std::shared_ptr<VROSkinner> skinner);
     static std::shared_ptr<VROKeyframeAnimation> loadFBXKeyframeAnimation(const viro::Node_KeyframeAnimation &animation_pb);

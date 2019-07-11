@@ -38,7 +38,6 @@ public:
      */
     void setup();
     void setDelegate(std::shared_ptr<VROSoundDelegateInternal> delegate);
-    
     void setLoop(bool loop);
     void play();
     void pause();
@@ -46,6 +45,14 @@ public:
     void setMuted(bool muted);
     void seekToTime(float seconds);
   
+    /*
+     Calls Specific to AVAudioPlayer
+     */
+    void play(double atTime);
+    void setLoop(bool loop, int numberOfLoops);
+    double getAudioDuration();
+    double getDeviceCurrentTime();
+
 #pragma mark VROSoundDataDelegate Implementation
     
     void dataIsReady();
@@ -68,6 +75,7 @@ private:
     bool _paused;
     bool _loop;
     bool _isLocal;
+    int _numberOfLoops;
     
     /*
      Source audio.
