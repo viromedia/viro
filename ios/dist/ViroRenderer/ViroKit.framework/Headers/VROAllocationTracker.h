@@ -54,6 +54,7 @@ enum class VROAllocationBucket {
     RenderTargets,
     VBO,
     TaskQueues,
+    Anchors,
     NUM_BUCKETS
 };
 

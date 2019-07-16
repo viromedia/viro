@@ -8,65 +8,29 @@ Make sure you have the latest version of the Xcode command line tools installed:
 xcode-select --install
 ```
 
-## Choose your installation method:
-
-<table width="100%" >
-<tr>
-<th width="33%"><a href="http://brew.sh">Homebrew</a></th>
-<th width="33%">Installer Script</th>
-<th width="33%">RubyGems</th>
-</tr>
-<tr>
-<td width="33%" align="center">macOS</td>
-<td width="33%" align="center">macOS</td>
-<td width="33%" align="center">macOS or Linux with Ruby 2.0.0 or above</td>
-</tr>
-<tr>
-<td width="33%"><code>brew cask install fastlane</code></td>
-<td width="33%"><a href="https://download.fastlane.tools">Download the zip file</a>. Then double click on the <code>install</code> script (or run it in a terminal window).</td>
-<td width="33%"><code>sudo gem install fastlane -NV</code></td>
-</tr>
-</table>
+Install _fastlane_ using
+```
+[sudo] gem install fastlane -NV
+```
+or alternatively using `brew cask install fastlane`
 
 # Available Actions
 ## Android
-### android release_renderer_react_lib
-```
-fastlane android release_renderer_react_lib
-```
-Build react library version ViroRenderer - viro_renderer-release.aar
-
-And copy it to ../../../react-viro/android/viro_renderer/
-### android release_renderer_rendererTest
-```
-fastlane android release_renderer_rendererTest
-```
-Build all artifacts for rendererTest (ovr, gvr, arcore, scene)
-### android release_renderer_releaseTest
-```
-fastlane android release_renderer_releaseTest
-```
-Build all artifacts for releaseTest (ovr, gvr, arcore, scene)
-### android release_renderer_memoryTest
-```
-fastlane android release_renderer_memoryTest
-```
-Build all artifacts for memoryLeakTest (ovr, gvr, arcore, scene)
-### android release_renderer
-```
-fastlane android release_renderer
-```
-Build all artifacts for ViroRenderer (ovr, gvr, arcore, scene)
-### android run_releasetest
-```
-fastlane android run_releasetest
-```
-
 ### android renderer_aar
 ```
 fastlane android renderer_aar
 ```
 Build renderer
+### android examples_gradle_clean
+```
+fastlane android examples_gradle_clean
+```
+
+### android npm_pack
+```
+fastlane android npm_pack
+```
+
 ### android gvr_release_test
 ```
 fastlane android gvr_release_test
