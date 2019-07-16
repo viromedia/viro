@@ -13,6 +13,7 @@
 #include <vector>
 #include <string>
 #include <memory>
+#include <map>
 #include "VROAtomic.h"
 #include "VRORenderContext.h"
 #include "VRODriver.h"
@@ -27,6 +28,7 @@ class VROLight;
 class VROSortKey;
 class VROMaterial;
 class VROTexture;
+class VROMorpher;
 class VROGeometryElement;
 class VROGeometrySource;
 class VROGeometrySubstrate;
@@ -206,6 +208,21 @@ public:
      */
     std::vector<std::shared_ptr<VROGeometrySource>> getGeometrySourcesForSemantic(VROGeometrySourceSemantic semantic) const;
 
+    /*
+     Returns a map of element indices to each element's corresponding VROMorpher, if present.
+     */
+    std::map<int, std::shared_ptr<VROMorpher>> getMorphers() {
+        return _elementsToMorphers;
+    }
+
+    /*
+     Set a map associating each element's index with its corresponding VROMorpher.
+     Not every element is required to have a morpher.
+     */
+    void setMorphers(std::map<int, std::shared_ptr<VROMorpher>> morphers) {
+        _elementsToMorphers = morphers;
+    }
+
     void setInstancedUBO(std::shared_ptr<VROInstancedUBO> instancedUBO) {
         _instancedUBO = instancedUBO;
     }
@@ -306,6 +323,12 @@ private:
      instancedUBO.
      */
     std::shared_ptr<VROInstancedUBO> _instancedUBO;
+
+    /*
+     Map of each element's index to its corresponding VROMorpher. Elements are not required to
+     have morphers; elements without a morpher will not be present in this map.
+     */
+    std::map<int, std::shared_ptr<VROMorpher>> _elementsToMorphers;
 };
 
 #endif /* VROGeometry_h */

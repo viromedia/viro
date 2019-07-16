@@ -81,7 +81,12 @@ public:
     void setRun(bool emit) {
         _requestRun = emit;
     }
-
+  
+    void setPause(bool pause);
+  
+    bool isPaused() {
+      return _paused;
+    }
     void setDuration(double duration) {
         _duration = duration;
     }
@@ -251,6 +256,10 @@ private:
     bool _run;
 
     /*
+     * True to pause the particles at their last computed transform
+     */
+    bool _paused;
+    /*
      The length of time in milliseconds this emitter is emitting particles.
      */
     double _duration;
@@ -307,6 +316,11 @@ private:
      */
     double _emitterDelayStartTime = -1;
 
+    /*
+     * Time at which we paused the emitter, used for re-setting particle spawn times when we unpause the emitter
+     */
+    double _emitterPauseStartTime = -1;
+    double _emitterTotalPausedTime = -1;
     /*
      Length of delay time left before emitting particles. This is reset to _emitterDelayDuration
      but is manipulated / subtracted to track remaining delay time as the emitter is paused/resumed.

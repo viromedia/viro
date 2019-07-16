@@ -20,7 +20,9 @@
 #include "VROModelIOUtil.h"
 #include "VROByteBuffer.h"
 
+class VROMorpher;
 class VRONode;
+class VROVertexBuffer;
 class VROTexture;
 class VROGeometry;
 class VROSkinner;
@@ -42,6 +44,8 @@ namespace tinygltf {
     class Skin;
     class Animation;
     class AnimationSampler;
+    class Buffer;
+    class BufferView;
 }
 
 /*
@@ -51,25 +55,25 @@ namespace tinygltf {
  GLTFTypeComponent components.
  */
 enum class GLTFType {
-    Scalar  = 1,
-    Vec2    = 2,
-    Vec3    = 3,
-    Vec4    = 4,
-    Mat2    = 4,
-    Mat3    = 9,
-    Mat4    = 16
+    Scalar,
+    Vec2,
+    Vec3,
+    Vec4,
+    Mat2,
+    Mat3,
+    Mat4
 };
 
 /*
  Enum representing the byte size of a single GLTFTypeComponent contained within a GLTFType.
  */
 enum class GLTFTypeComponent {
-    Byte            = 1,
-    UnsignedByte    = 1,
-    Short           = 2,
-    UnsignedShort   = 2,
-    UnsignedInt     = 4,
-    Float           = 4
+    Byte,
+    UnsignedByte,
+    Short,
+    UnsignedShort,
+    UnsignedInt,
+    Float
 };
 
 /*
@@ -89,17 +93,51 @@ public:
 
 private:
     // Functions for processing basic components required for constructing a 3D Model in Viro.
-    static bool processScene(const tinygltf::Model &gModel, std::shared_ptr<VRONode> rootNode, const tinygltf::Scene &gScene);
-    static bool processNode(const tinygltf::Model &gModel, std::shared_ptr<VRONode> &sceneNode, int gNodeIndex);
-    static bool processMesh(const tinygltf::Model &gModel, std::shared_ptr<VRONode> &node, const tinygltf::Mesh &gMesh);
+    static bool processScene(const tinygltf::Model &gModel, std::shared_ptr<VRONode> rootNode, const tinygltf::Scene &gScene,
+                             std::shared_ptr<VRODriver> driver);
+    static bool processNode(const tinygltf::Model &gModel, std::shared_ptr<VRONode> &sceneNode, int gNodeIndex,
+                            std::shared_ptr<VRODriver> driver);
+    static bool processMesh(const tinygltf::Model &gModel, std::shared_ptr<VRONode> &node, const tinygltf::Mesh &gMesh,
+                            std::shared_ptr<VRODriver> driver);
     static bool processSkin(const tinygltf::Model &gModel, std::shared_ptr<VRONode> &node, int skinIndex);
     static bool processVertexElement(const tinygltf::Model &gModel, const tinygltf::Primitive &gPrimitive,
                                      std::vector<std::shared_ptr<VROGeometryElement>> &element);
     static bool processVertexAttributes(const tinygltf::Model &gModel, std::map<std::string, int> &gAttributes,
                                         std::vector<std::shared_ptr<VROGeometrySource>> &sources,
-                                        size_t geoElementIndex);
+                                        size_t geoElementIndex,
+                                        std::shared_ptr<VRODriver> driver);
+    static void processTangent(std::vector<std::shared_ptr<VROGeometryElement>> &elements,
+                               std::vector<std::shared_ptr<VROGeometrySource>> &sources, size_t geoElementIndex);
+    static void regenerateTangent(std::vector<VROVector3f> &posArray,
+                                  std::vector<VROVector3f> &normArray,
+                                  std::vector<VROVector3f> &texCoordArray,
+                                  std::vector<int> &elementIndicesArray,
+                                  std::vector<VROVector4f> &generatedTangents);
+    static bool processMorphTargets(const tinygltf::Model &gModel,
+                                    const tinygltf::Mesh &gMesh,
+                                    const tinygltf::Primitive &gPrimitive,
+                                    std::shared_ptr<VROMaterial> &material,
+                                    std::vector<std::shared_ptr<VROGeometrySource>> &sources,
+                                    std::vector<std::shared_ptr<VROGeometryElement>> &elements,
+                                    std::map<int, std::shared_ptr<VROMorpher>> &morphers,
+                                    std::shared_ptr<VRODriver> driver);
+    static std::string getMorphTargetName(const tinygltf::Model &gModel,
+                                          const tinygltf::Primitive &gPrimtive, int targetIndex);
+
     static void injectGLTF(std::shared_ptr<VRONode> gltfNode, std::shared_ptr<VRONode> rootNode,
                            std::shared_ptr<VRODriver> driver, std::function<void(std::shared_ptr<VRONode> node, bool success)> onFinish);
+    
+    static std::shared_ptr<VROGeometrySource> buildGeometrySource(VROGeometrySourceSemantic attributeType,
+                                                                  GLTFType gType,
+                                                                  GLTFTypeComponent gTypeComponent,
+                                                                  const tinygltf::Accessor &gAttributeAccesor,
+                                                                  const tinygltf::BufferView &gIndiceBufferView,
+                                                                  std::shared_ptr<VROVertexBuffer> vbo);
+    static std::shared_ptr<VROGeometrySource> buildBoneWeightSource(GLTFType gType,
+                                                                    GLTFTypeComponent gTypeComponent,
+                                                                    const tinygltf::Accessor &gAttributeAccesor,
+                                                                    const tinygltf::BufferView &gIndiceBufferView,
+                                                                    const tinygltf::Buffer &gbuffer);
 
     // Processing of GTLF Materials and Textures into VROMaterials and VROTextures
     static std::shared_ptr<VROMaterial> getMaterial(const tinygltf::Model &gModel, const tinygltf::Material &gMat);
@@ -126,6 +164,7 @@ private:
                                          std::shared_ptr<VROKeyframeAnimation> &animKeyFrameOut);
     static bool processRawChannelData(const tinygltf::Model &gModel,
                                       std::string channelProperty,
+                                      int channelTarget,
                                       const tinygltf::AnimationSampler &gChannelSampler,
                                       std::vector<std::unique_ptr<VROKeyframeAnimationFrame>> &framesOut);
     static void processSkeletalAnimation(const tinygltf::Model &gModel,
@@ -138,15 +177,14 @@ private:
     static bool processSkinner(const tinygltf::Model &gModel);
     static bool processSkinnerInverseBindData(const tinygltf::Model &gModel,
                                               const tinygltf::Skin &skin,
-                                              std::shared_ptr<VROSkeleton> &skeleton,
-                                              std::shared_ptr<VROSkinner> &skinnerOut);
+                                              std::vector<VROMatrix4f> &invBindTransformsOut);
     static void clearCachedData();
 
     /*
      As multiple mesh attributes may point to the same texture or data arrays when loading a
      GTLF model, we cache them here during loadGLTFFromResource(), and clear them out after.
      */
-    static std::map<std::string, std::shared_ptr<VROData>> _dataCache;
+    static std::map<std::string, std::shared_ptr<VROVertexBuffer>> _dataCache;
     static std::map<std::string, std::shared_ptr<VROTexture>> _textureCache;
 
     /*

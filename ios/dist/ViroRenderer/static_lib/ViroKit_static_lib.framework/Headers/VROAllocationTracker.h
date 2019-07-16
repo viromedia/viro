@@ -52,7 +52,9 @@ enum class VROAllocationBucket {
     Glyphs,
     GlyphAtlases,
     RenderTargets,
+    VBO,
     TaskQueues,
+    Anchors,
     NUM_BUCKETS
 };
 

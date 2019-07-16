@@ -20,13 +20,21 @@ class VRORenderMetadata {
 public:
     
     VRORenderMetadata() :
-        _requiresBloomPass(false) {}
-    
+            _requiresBloomPass(false),
+            _postProcessMaskPass(false) {}
+
     void setRequiresBloomPass(bool requiresBloomPass) {
         _requiresBloomPass = requiresBloomPass;
     }
     bool requiresBloomPass() const {
         return _requiresBloomPass;
+    }
+
+    void setRequiresPostProcessMaskPass(bool requiresPostProcessMaskPass) {
+        _postProcessMaskPass = requiresPostProcessMaskPass;
+    }
+    bool requiresPostProcessMaskPass() const {
+        return _postProcessMaskPass;
     }
     
 private:
@@ -36,6 +44,12 @@ private:
      we therefore require a Gaussian blur / accumulation (Bloom) pass.
      */
     bool _requiresBloomPass;
+
+    /*
+     True to indicate that a material has a post process mask, and therefore
+     to enable post-processing mask pass.
+     */
+    bool _postProcessMaskPass;
     
 };
 #endif /* VRORenderMetadata_h */

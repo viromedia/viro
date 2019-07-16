@@ -25,15 +25,18 @@ class VRONode;
 class VROARSessionDelegate;
 class VROARImageTarget;
 class VROARObjectTarget;
+class VROVisionModel;
 enum class VROCameraOrientation; //defined in VROCameraTexture.h
 
 /*
- Determines if the AR session tracks orientation only, or
- tracks position and orientation.
+ Determines if the AR session tracks nothinng, tracks orientation only, or
+ tracks both orientation and position.
  */
 enum class VROTrackingType {
-    DOF3,
-    DOF6
+    PrerecordedVideo,   // Tracks nothing, uses pre-recorded video as camera
+    Front,              // Tracks orientation, using front-facing camera
+    DOF3,               // Tracks orientation, using back-facing camera
+    DOF6                // Tracks orientation and position, using back-facing camera
 };
 
 /*
@@ -98,6 +101,12 @@ public:
     VROTrackingType getTrackingType() const {
         return _trackingType;
     }
+    
+    /*
+     Change the tracking type used by the AR session. Note this may
+     restart the AR session, causing all objects to lose tracking.
+     */
+    virtual void setTrackingType(VROTrackingType trackingType) = 0;
 
     VROWorldAlignment getWorldAlignment() const {
         return _worldAlignment;
@@ -282,9 +291,18 @@ public:
      */
     virtual void setVideoQuality(VROVideoQuality quality) = 0;
     
-private:
+    /*
+     Set an underlying computer vision model to receive the camera image
+     each frame.
+     */
+    virtual void setVisionModel(std::shared_ptr<VROVisionModel> visionModel) = 0;
+    
+protected:
     
     VROTrackingType _trackingType;
+
+private:
+    
     VROWorldAlignment _worldAlignment;
     VROImageTrackingImpl _imageTrackingImpl;
     std::shared_ptr<VROScene> _scene;

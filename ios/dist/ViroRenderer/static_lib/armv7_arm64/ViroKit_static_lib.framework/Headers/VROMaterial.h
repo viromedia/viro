@@ -277,6 +277,16 @@ public:
     }
 
     /*
+     Post Processing Mask.
+     */
+    void setPostProcessMask(bool mask) {
+        _postProcessMask = mask;
+    }
+    bool getPostProcessMask() const {
+        return _postProcessMask;
+    }
+
+    /*
      Shadows.
      */
     void setReceivesShadows(bool receivesShadows) {
@@ -518,6 +528,11 @@ private:
      glow. If less than 0, bloom will be disabled. Defaults to -1.
      */
     float _bloomThreshold;
+
+    /*
+     True if this material is to be used for the creation of a post processing mask.
+     */
+    bool _postProcessMask;
 
     /*
      True if this material receives shadows. Defaults to true.

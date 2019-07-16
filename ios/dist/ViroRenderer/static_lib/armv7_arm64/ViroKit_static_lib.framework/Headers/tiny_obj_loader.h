@@ -1350,8 +1350,6 @@ namespace tinyobj {
         attrib->texcoords.clear();
         shapes->clear();
         
-        std::stringstream errss;
-        
         std::shared_ptr<std::ifstream> ifs = std::make_shared<std::ifstream>(filename);
         if (!(*ifs)) {
             pinfo("Failed to open file %s for OBJ", filename);
@@ -1406,7 +1404,6 @@ namespace tinyobj {
                  std::string *err,
                  std::shared_ptr<std::istream> inStream,
                  bool triangulate) {
-        std::stringstream errss;
         
         std::vector<float> v;
         std::vector<float> vn;
@@ -1659,10 +1656,6 @@ namespace tinyobj {
         }
         faceGroup.clear();  // for safety
         
-        if (err) {
-            (*err) += errss.str();
-        }
-        
         attrib->vertices.swap(v);
         attrib->normals.swap(vn);
         attrib->texcoords.swap(vt);
@@ -1674,7 +1667,6 @@ namespace tinyobj {
                       std::shared_ptr<std::map<std::string, int>> material_map,
                       std::string *err,
                       std::shared_ptr<std::istream> inStream, MaterialReader *readMatFn) {
-        std::stringstream errss;
         
         std::vector<float> v;
         std::vector<float> vn;
@@ -1753,9 +1745,6 @@ namespace tinyobj {
             // Ignore unknown command.
         }
         
-        if (err) {
-            (*err) += errss.str();
-        }
         return true;
     }
 }  // namespace tinyobj

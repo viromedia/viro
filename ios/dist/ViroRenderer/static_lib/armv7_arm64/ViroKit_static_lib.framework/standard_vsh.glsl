@@ -33,6 +33,13 @@ in vec2 texcoord;
 in vec4 tangent;
 in vec4 bone_weights;
 in ivec4 bone_indices;
+in vec3 morph_0;
+in vec3 morph_1;
+in vec3 morph_2;
+in vec3 morph_3;
+in vec3 morph_4;
+in vec3 morph_5;
+in vec3 morph_6;
 
 uniform highp vec3 camera_position;
 uniform mat4 normal_matrix;

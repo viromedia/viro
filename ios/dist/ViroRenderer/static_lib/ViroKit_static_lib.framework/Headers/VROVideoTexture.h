@@ -67,6 +67,10 @@ public:
         _delegate = delegate;
     }
     
+    virtual void setHighFidelityUpdates(bool highFidelityUpdates) {
+        _highFidelityUpdates = highFidelityUpdates;
+    }
+    
 protected:
   
     std::weak_ptr<VROVideoDelegateInternal> _delegate;
@@ -83,27 +87,31 @@ protected:
         /*
          Reduce the amount of JNI Calls to getCurrentTimeInSeconds() to
          a per-second basis - the lowest unit of time currently used by
-         video players. Thus, _lastVideoTimeGetAttempt is used to filter
-         the amount of calls made.
+         video players  unless highFidelityUpdates is set to true. Thus,
+         _lastVideoTimeGetAttempt is used to filter the amount of calls made.
          */
-        double currentRenderTime = floor(VROTimeCurrentSeconds());
-        if (_lastVideoTimeGetAttempt == currentRenderTime) {
+        if (!_highFidelityUpdates) {
+            double currentRenderTime = floor(VROTimeCurrentSeconds());
+            if (_lastVideoTimeGetAttempt == currentRenderTime) {
+                return;
+            }
+            _lastVideoTimeGetAttempt = currentRenderTime;
+        }
+
+        float duration = getVideoDurationInSeconds();
+        if (isnan(duration)) {
             return;
         }
-        _lastVideoTimeGetAttempt = currentRenderTime;
 
-        /*
-         Only notify delegates if the last known CurrentVideoTime returned
-         from the AVPlayer has changed. Also, we're doing it by integer seconds
-         */
-        int currentVideoTimeInSeconds = getCurrentTimeInSeconds();
-        if (_lastCurrentVideoTimeInSeconds != currentVideoTimeInSeconds) {
-            // if a video just starts, then getVideoDurationInSeconds returns NaN, do nothing in this case.
-            float duration = getVideoDurationInSeconds();
-            if (!isnan(duration)) {
+        float currentVideoTimeInSeconds = getCurrentTimeInSeconds();
+        if (!_highFidelityUpdates) {
+            if (_lastCurrentVideoTimeInSeconds != (int) currentVideoTimeInSeconds) {
+                // if a video just starts, then getVideoDurationInSeconds returns NaN, do nothing in this case.
                 delegate->onVideoUpdatedTime(currentVideoTimeInSeconds, duration);
                 _lastCurrentVideoTimeInSeconds = currentVideoTimeInSeconds;
             }
+        } else {
+            delegate->onVideoUpdatedTime(currentVideoTimeInSeconds, duration);
         }
     }
 
@@ -119,6 +127,8 @@ private:
      Last known current video time that was retrieved from the player.
      */
     int _lastCurrentVideoTimeInSeconds = -1;
+    
+    bool _highFidelityUpdates = false;
     
 };
 

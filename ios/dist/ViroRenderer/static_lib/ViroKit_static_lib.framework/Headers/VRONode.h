@@ -40,6 +40,7 @@ class VROTaskQueue;
 class VROAction;
 class VROTexture;
 class VROPortal;
+class VROMorpher;
 class VRONodeCamera;
 class VROHitTestResult;
 class VROConstraint;
@@ -49,6 +50,8 @@ class VROTransaction;
 class VRORenderMetadata;
 class VROParticleEmitter;
 class VROSkeletalAnimationLayer;
+class VROSkinner;
+class VROIKRig;
 
 extern bool kDebugSortOrder;
 extern int  kDebugSortOrderFrameFrequency;
@@ -235,7 +238,20 @@ public:
     std::shared_ptr<VROGeometry> getGeometry() const {
         return _geometry;
     }
-    
+
+    void setIKRig(std::shared_ptr<VROIKRig> rig) {
+        _IKRig = rig;
+    }
+    std::shared_ptr<VROIKRig> getIKRig() {
+        return _IKRig;
+    }
+
+    /*
+     Called during a render pass to perform a full IK calculation on the rig
+     attached to this node.
+     */
+    void computeIKRig();
+
 #pragma mark - Camera
     
     void setCamera(std::shared_ptr<VRONodeCamera> camera) {
@@ -330,7 +346,7 @@ public:
     
 #pragma mark - Application Thread Properties
 
-    // Viro platforms in general properties on the main thread and dispatch those setters
+    // Viro platforms (e.g. ViroCore) in general set properties on the main thread and dispatch those setters
     // to the rendering thread. This maintains thread-safety (and speed) because we don't
     // interfere with the ongoing render cycle when setting variables. However, it's common that
     // the user wants to set something on the application thread and then immediately invoke some
@@ -363,14 +379,28 @@ public:
     /*
      Must be invoked for this node and its children (all the way down the scene graph) whenever
      atomic position, scale, scale pivot, rotation, or rotation pivot are set. Computes _lastWorldTransform,
-     _lastWorldPosition, _lastWorldRotation, _lastWorldBoundingBox, and _lastUmbrellaBoundingBox,
-     on this node only. Requires the latest data from this node's parent to make the computations.
+     _lastWorldPosition, _lastWorldRotation, and _lastWorldBoundingBox, on this node only. Requires the
+     latest data from this node's parent to make the computations.
 
      This does not recurse down the scene graph on its own because we do not have access to an
      application thread copy of the scene graph. ViroCore does have such a copy in Java-land, so it
      handles the recursive invocation of this method.
      */
     void computeTransformsAtomic(VROMatrix4f parentTransform, VROMatrix4f parentRotation);
+    
+    /*
+     Helper function used to update the _lastUmbrellaBoundingBox of the given node with the world
+     bounds of _this_ node; that is, the bounds of this node will be union-ed with the bounds of the
+     given node. Note that if isSet is false, then instead of performing a union, we will directly set
+     the bounds of the parentNodeBeingUpdated to this node's world bounds. Return true if the
+     parentNodeBeingUpdated bounds have been set after this call.
+     */
+    bool computeAtomicUmbrellaBounds(std::shared_ptr<VRONode> parentNodeBeingUpdated, bool isSet);
+    
+    /*
+     Set the _lastUmbrellaBoundingBox to an empty box around the node's position.
+     */
+    void setEmptyAtomicUmbrellaBounds();
     
     /*
      Recursively sync the application thread properties with the latest values from the rendering
@@ -545,7 +575,13 @@ public:
     std::shared_ptr<VROScene> getScene() const {
         return _scene.lock();
     }
-    
+
+    /*
+     Returns a vec of skinners associated with this node. If recurse is true, we also
+     examine recursively down the subtree and return any found skinners as well.
+     */
+    void getSkinner(std::vector<std::shared_ptr<VROSkinner>> &skinnerOut, bool recurse);
+
     /*
      Set the parent scene of this node. Internal use only.
      */
@@ -632,7 +668,13 @@ public:
      Triggered when the animation running this animatable node completes.
      */
     void onAnimationFinished();
-    
+
+    /*
+     Returns a set of VROMorphers containing all morph targets that are associated with this node.
+     If recursive is true, we will search down the node hierarchy as well.
+     */
+    std::set<std::shared_ptr<VROMorpher>> getMorphers(bool recursive);
+
 #pragma mark - Events
     
     std::vector<VROHitTestResult> hitTest(const VROCamera &camera, VROVector3f origin, VROVector3f ray,
@@ -769,7 +811,13 @@ protected:
      The geometry in the node. Null means the node has no geometry.
      */
     std::shared_ptr<VROGeometry> _geometry;
-    
+
+    /*
+     The inverse kinematic rig associated with this node, set when this node is
+     considered the root node joint of the rig.
+     */
+    std::shared_ptr<VROIKRig> _IKRig;
+
     /*
      True if this node was found visible during the last call to computeVisibility().
      */
@@ -860,6 +908,12 @@ private:
     VROAtomic<VROMatrix4f> _lastWorldRotation;
     VROAtomic<VROBoundingBox> _lastWorldBoundingBox;
     VROAtomic<VROBoundingBox> _lastUmbrellaBoundingBox;
+    
+    /*
+     Temporary variable used while computing the umbrella bounding box on the application
+     thread.
+     */
+    VROAtomic<bool> _hasWorldBoundingBox;
     
     /*
      Directly-set application thread properties.
@@ -991,7 +1045,8 @@ private:
     /*
      Recursively expand the given bounding box by this node's _worldBoundingBox.
      */
-    void computeUmbrellaBounds(VROBoundingBox *bounds) const;
+    void computeUmbrellaBounds();
+    bool computeUmbrellaBounds(VROBoundingBox *bounds, bool isSet) const;
     
     /*
      Compute the transform for this node, taking into the account the parent's transform.
