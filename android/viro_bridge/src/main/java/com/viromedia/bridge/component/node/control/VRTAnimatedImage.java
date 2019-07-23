@@ -56,6 +56,12 @@ public class VRTAnimatedImage extends VRTImage {
     }
 
     @Override
+    protected void handleAppearanceChange() {
+        setPaused(mPaused);
+        super.handleAppearanceChange();
+    }
+
+    @Override
     public void onPropsSet() {
         // Because props are set from the bottom of the scene tree up, if props are set on this
         // node, then we know its the top-most changed element.
