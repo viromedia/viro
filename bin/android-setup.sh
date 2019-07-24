@@ -97,8 +97,8 @@ do
   INDEX=$(($INDEX-1))
 done
 
-LINES_TO_ADD=("    // Workaround for https://issuetracker.google.com/117900475"
-"    // Remove when upgrading to AGP 3.4 or higher."
+LINES_TO_ADD=("    \/\/ Workaround for https:\/\/issuetracker.google.com\/117900475"
+"    \/\/ Remove when upgrading to AGP 3.4 or higher."
 "    configurations.matching { it.name == '_internal_aapt2_binary' }.all { config ->"
 "        config.resolutionStrategy.eachDependency { details ->"
 "            details.useVersion(\"3.5.0-alpha03-5252756\")"
@@ -113,14 +113,6 @@ do
   vsed "s/$LINE_TO_APPEND_AFTER/&"$'\\\n'"${LINES_TO_ADD[$INDEX]}/" $TARGET_FILEPATH
   INDEX=$(($INDEX-1))
 done
-
-# Replacing the gradleVersion line, with the right gradle version
-LINE_TO_ADD="    gradleVersion = '4.6'"
-SEARCH_PATTERN=gradleVersion
-LINE_TO_REPLACE=$(grep "$SEARCH_PATTERN" "$TARGET_FILEPATH")
-
-vsed "s/$LINE_TO_REPLACE/$LINE_TO_ADD/g" $TARGET_FILEPATH
-
 
 
 echo "Updating App's build.gradle"
@@ -152,10 +144,11 @@ LINE_TO_APPEND_AFTER=$(grep "$SEARCH_PATTERN" "$TARGET_FILEPATH")
 vsed "s/$LINE_TO_APPEND_AFTER/&"$'\\\n'"$LINE_TO_ADD/" $TARGET_FILEPATH
 
 LINE_TO_ADD="    buildToolsVersion '28.0.3'"
-SEARCH_PATTERN="buildToolsVersion"
-LINE_TO_REPLACE=$(grep "$SEARCH_PATTERN" "$TARGET_FILEPATH")
+SEARCH_PATTERN="compileSdkVersion"
+LINE_TO_APPEND_AFTER=$(grep "$SEARCH_PATTERN" "$TARGET_FILEPATH")
 
-vsed "s/$LINE_TO_REPLACE/$LINE_TO_ADD/g" $TARGET_FILEPATH
+vsed "s/$LINE_TO_APPEND_AFTER/&"$'\\\n'"$LINE_TO_ADD/" $TARGET_FILEPATH
+
 
 
 # Enable multidexing
