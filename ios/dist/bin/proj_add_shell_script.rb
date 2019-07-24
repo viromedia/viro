@@ -6,6 +6,9 @@ main_target = project.targets.first
 phase = main_target.new_shell_script_build_phase("Execute Ngrok")
 phase.shell_script = "$SRCROOT/ngrok_launch.sh"
 
+project.build_configurations.each do |config|
+  config.build_settings['ARCHS'] = '$(ARCHS_STANDARD_64_BIT)'
+end
 
 phaseTwo = main_target.new_shell_script_build_phase("Copy ngrok endpoint")
 phaseTwo.shell_script = "DEST=$CONFIGURATION_BUILD_DIR/$UNLOCALIZED_RESOURCES_FOLDER_PATH\nendpointfile=\"ngrokendpoint.txt\"\nif [[ -e \"$SRCROOT/$endpointfile\" ]]; then\necho \"Ngrok endpoint file found, copying over...\"\ncp \"$SRCROOT/$endpointfile\" \"$DEST/$endpointfile\"\nbreak;\nfi"
