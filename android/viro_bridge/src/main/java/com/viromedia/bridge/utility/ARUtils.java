@@ -8,6 +8,7 @@ import com.facebook.react.bridge.WritableArray;
 import com.facebook.react.bridge.WritableMap;
 import com.viro.core.ARAnchor;
 import com.viro.core.ARHitTestResult;
+import com.viro.core.ARImageAnchor;
 import com.viro.core.ARPlaneAnchor;
 import com.viro.core.ARPointCloud;
 import com.viro.core.Vector;
@@ -35,6 +36,9 @@ public class ARUtils {
                 polygonPointsArray.pushArray(arrayFromVector(point));
             }
             returnMap.putArray("vertices", polygonPointsArray);
+        } else if (anchor.getType() == ARAnchor.Type.IMAGE) {
+            ARImageAnchor imageAnchor = (ARImageAnchor)anchor;
+            returnMap.putString("trackingMethod", imageAnchor.getTrackingMethod().getStringValue());
         }
         return returnMap;
     }

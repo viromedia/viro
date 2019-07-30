@@ -149,7 +149,7 @@ RCT_EXPORT_METHOD(getBoundingBox:(nonnull NSNumber *)viewTag
         
         VRTNode *node = (VRTNode *) nodeView;
         std::shared_ptr<VRONode> vroNode = [node node];
-        VROBoundingBox boundingBox = vroNode->getLastUmbrellaBoundingBox();
+        VROBoundingBox boundingBox = vroNode->getUmbrellaBoundingBox();
         
         resolve(@{
                   @"boundingBox" : @{
