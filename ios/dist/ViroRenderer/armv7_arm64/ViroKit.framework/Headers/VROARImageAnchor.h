@@ -12,20 +12,36 @@
 #include "VROARAnchor.h"
 #include "VROARImageTarget.h"
 
+enum class VROARImageTrackingMethod {
+    NotTracking = 0x1,
+    Tracking = 0x10,
+    LastKnownPose = 0x11,
+};
+
 class VROARImageAnchor : public VROARAnchor {
     
 public:
     
-    VROARImageAnchor(std::shared_ptr<VROARImageTarget> imageTarget) :
-        _imageTarget(imageTarget) {}
+    VROARImageAnchor(std::shared_ptr<VROARImageTarget> imageTarget, VROARImageTrackingMethod trackingMethod) :
+        _imageTarget(imageTarget),
+        _trackingMethod(trackingMethod) {}
     virtual ~VROARImageAnchor() {}
     
     std::shared_ptr<VROARImageTarget> getImageTarget() {
         return _imageTarget;
     }
+
+    void setTrackingMethod(VROARImageTrackingMethod trackingMethod) {
+        _trackingMethod = trackingMethod;
+    }
+
+    VROARImageTrackingMethod getTrackingMethod() {
+        return _trackingMethod;
+    }
     
 private:
     std::shared_ptr<VROARImageTarget> _imageTarget;
+    VROARImageTrackingMethod _trackingMethod;
     
 };
 

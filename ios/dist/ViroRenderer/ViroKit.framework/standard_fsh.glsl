@@ -30,7 +30,7 @@ void main() {
     _surface.shininess = material_shininess;
     _surface.specular_color = vec3(0.0, 0.0, 0.0);
     _surface.specular_texcoord = v_texcoord;
-    _surface.roughness = max(material_roughness, 0.04); // Clamp to avoid potential divide by 0
+    _surface.roughness = max(material_roughness, 0.06); // Clamp to avoid potential divide by 0 (0.06 is min required for iPhone 7)
     _surface.roughness_intensity = material_roughness_intensity;
     _surface.metalness = material_metalness;
     _surface.metalness_intensity = material_metalness_intensity;
