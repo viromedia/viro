@@ -206,7 +206,7 @@ FlatListItemSeparator = () => {
       //if (this.state.initial3DScene == UNSET) {
       //  return this._getInitialSelectionButtons();
       // } else {
-      //  return this._get3DSceneNavigator();
+      return this._get3DSceneNavigator();
       // }
     }
   }
