@@ -72,12 +72,12 @@ public abstract class VRTManagedAnimation {
     public void onTearDown() {
         if (mExecutableAnimation != null) {
             mExecutableAnimation.terminate(true);
-            mExecutableAnimation.destroy();
+            mExecutableAnimation.dispose();
         }
 
         if (mPreviousAnimationInterrupted != null) {
             mPreviousAnimationInterrupted.terminate(true);
-            mPreviousAnimationInterrupted.destroy();
+            mPreviousAnimationInterrupted.dispose();
         }
     }
 
@@ -99,7 +99,7 @@ public abstract class VRTManagedAnimation {
     private void handleLoadAnimation() {
         ExecutableAnimation animation = loadAnimation();
         if (mExecutableAnimation != null) {
-            mExecutableAnimation.destroy();
+            mExecutableAnimation.dispose();
         }
 
         mExecutableAnimation = animation;
@@ -178,7 +178,7 @@ public abstract class VRTManagedAnimation {
         // Properly destroy a previous animation if it exists. This animation will only be non-null if it was
         // not interrupted.
         if (mPreviousAnimationInterrupted != null) {
-            mPreviousAnimationInterrupted.destroy();
+            mPreviousAnimationInterrupted.dispose();
             mPreviousAnimationInterrupted = null;
         }
 
