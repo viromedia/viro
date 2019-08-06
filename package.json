@@ -10,7 +10,7 @@
   "dependencies": {
     "react": "16.8.3",
     "react-native": "0.59.3",
-    "react-viro": "2.15.0"
+    "react-viro": "2.16.0"
   },
   "devDependencies": {
     "babel-jest": "23.6.0",
