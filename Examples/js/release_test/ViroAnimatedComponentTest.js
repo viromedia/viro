@@ -89,7 +89,7 @@ var ViroAnimatedComponentTest = createReactClass({
         widthSegmentCount={20}
         radius={.5}
         position={[-1, 0, -3]}
-        materials={["sphere1"]}
+        materials={["sphere1Animated"]}
         facesOutward={false}
         />
       </ViroAnimatedComponent>
@@ -243,7 +243,7 @@ var styles = StyleSheet.create({
 
 ViroMaterials.createMaterials({
 
-   sphere1: {
+   sphere1Animated: {
      shininess : 2.0,
      lightingModel: "Blinn",
      diffuseTexture: require('./res/360_waikiki.jpg'),
