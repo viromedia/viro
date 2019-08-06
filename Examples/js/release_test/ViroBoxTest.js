@@ -54,7 +54,7 @@ var ViroBoxTest = createReactClass({
       runAnimation4:false,
       toggleWHL:1,
       usingMaterialArray:false,
-      currentMaterials:["box1"],
+      currentMaterials:["box1Box"],
     };
   },
 
@@ -140,7 +140,7 @@ var ViroBoxTest = createReactClass({
   },
 
   _toggleMaterials() {
-    var newMat = !this.state.usingMaterialArray ? ["box2", "box2", "box2", "box1", "box1", "box1"] : ["box1"];
+    var newMat = !this.state.usingMaterialArray ? ["box2", "box2", "box2", "box1Box", "box1Box", "box1Box"] : ["box1Box"];
     var newUsingMaterialArray = !this.state.usingMaterialArray;
     this.setState({
         currentMaterials: newMat,
@@ -211,7 +211,7 @@ var styles = StyleSheet.create({
 });
 
 ViroMaterials.createMaterials({
-   box1: {
+   box1Box: {
      bloomThreshold : 0.5,
      shininess : 2.0,
      lightingModel: "Blinn",
