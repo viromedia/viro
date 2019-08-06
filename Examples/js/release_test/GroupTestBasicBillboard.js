@@ -59,6 +59,23 @@ var GroupTestBasicBillboard = createReactClass({
     };
   },
 
+  componentWillMount() {
+    console.log("componentWillMount ran!");
+    ViroAnimations.registerAnimations({
+        testLoopRotate:{properties:{rotateZ:"+45"}, duration:2000, easing:"EaseInEaseOut"},
+
+        moveRight:{properties:{positionX:"+=9.5"}, duration: 2000, easing:"Linear", delay:2000},
+        moveLeft:{properties:{positionX:" -=9.5"}, duration: 2000, easing:"Linear"},
+        moveUp:{properties:{positionY:"+=9.5"}, duration: 2000, easing:"Linear", delay:2000},
+        moveDown:{properties:{positionY:"-=9.5"}, duration: 2000, easing:"Linear"},
+        moveBack:{properties:{positionY:"-=9.5", positionZ:"-=9.5"}, duration: 2000, easing:"Linear", delay:2000},
+        moveForth:{properties:{positionY:"+=9.5", positionZ:"+=9.5"}, duration: 2000, easing:"Linear"},
+        testLoopMove:[
+            ["moveRight", "moveLeft", "moveUp", "moveDown", "moveBack", "moveForth"]
+        ],
+    });
+  },
+
   render: function() {
     var newTransformBehaviors;
     var transformText;
@@ -258,19 +275,7 @@ ViroMaterials.createMaterials({
 
 
 
-ViroAnimations.registerAnimations({
-    testLoopRotate:{properties:{rotateZ:"+45"}, duration:2000, easing:"EaseInEaseOut"},
 
-    moveRight:{properties:{positionX:"+=9.5"}, duration: 2000, easing:"Linear", delay:2000},
-    moveLeft:{properties:{positionX:" -=9.5"}, duration: 2000, easing:"Linear"},
-    moveUp:{properties:{positionY:"+=9.5"}, duration: 2000, easing:"Linear", delay:2000},
-    moveDown:{properties:{positionY:"-=9.5"}, duration: 2000, easing:"Linear"},
-    moveBack:{properties:{positionY:"-=9.5", positionZ:"-=9.5"}, duration: 2000, easing:"Linear", delay:2000},
-    moveForth:{properties:{positionY:"+=9.5", positionZ:"+=9.5"}, duration: 2000, easing:"Linear"},
-    testLoopMove:[
-        ["moveRight", "moveLeft", "moveUp", "moveDown", "moveBack", "moveForth"]
-    ],
-});
 
 
 

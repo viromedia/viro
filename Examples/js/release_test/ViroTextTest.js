@@ -101,43 +101,43 @@ var ViroTextTest = createReactClass({
 
         <ViroNode  position={[0,0,-6]}>
 
-        <ViroFlexView style={styles.containerVertical} width={2} height={0.8} materials="redColor" position={[-4,2,0]} onClick={this._toggleFontSize}>
+        <ViroFlexView style={styles.containerVertical} width={2} height={0.8} materials="redColorText" position={[-4,2,0]} onClick={this._toggleFontSize}>
           <ViroText fontSize={this.state.fontSize} style={newStyle}  text={ "Toggle Font Size: " + this.state.fontSize} />
         </ViroFlexView>
 
-        <ViroFlexView style={styles.containerVertical} width={2} height={0.8} materials="redColor" position={[-4,1,0]} onClick={this._toggleColor}>
+        <ViroFlexView style={styles.containerVertical} width={2} height={0.8} materials="redColorText" position={[-4,1,0]} onClick={this._toggleColor}>
           <ViroText fontSize={this.state.fontSize} style={newStyle}  text="Toogle Font Color!" />
         </ViroFlexView>
 
-        <ViroFlexView style={styles.containerVertical} width={2} height={0.8} materials="redColor" position={[-4,0,0]} onClick={this._toggleTextValue}>
+        <ViroFlexView style={styles.containerVertical} width={2} height={0.8} materials="redColorText" position={[-4,0,0]} onClick={this._toggleTextValue}>
           <ViroText fontSize={this.state.fontSize} style={newStyle}  text="Toggle text value" />
         </ViroFlexView>
 
-        <ViroFlexView style={styles.containerVertical} width={2} height={0.8} materials="redColor" position={[-1, 2, 0]}>
+        <ViroFlexView style={styles.containerVertical} width={2} height={0.8} materials="redColorText" position={[-1, 2, 0]}>
           <ViroText fontSize={this.state.fontSize} style={newStyle}  text="Vertical Céntéréd Text Top!" textAlignVertical={"top"}/>
         </ViroFlexView>
 
-        <ViroFlexView style={styles.containerVertical} width={2} height={0.8} materials="redColor" position={[-1, 1, 0]}>
+        <ViroFlexView style={styles.containerVertical} width={2} height={0.8} materials="redColorText" position={[-1, 1, 0]}>
           <ViroText fontSize={this.state.fontSize} style={newStyle}  text="Vertical Céntéréd Text Center!" textAlignVertical={"center"}/>
         </ViroFlexView>
 
-        <ViroFlexView style={styles.containerVertical} width={2} height={0.8} materials="redColor" position={[-1, 0, 0]}>
+        <ViroFlexView style={styles.containerVertical} width={2} height={0.8} materials="redColorText" position={[-1, 0, 0]}>
           <ViroText fontSize={this.state.fontSize} style={newStyle}  text="Vertical Céntéréd Text Bottom!" textAlignVertical={"bottom"}/>
         </ViroFlexView>
 
-        <ViroFlexView style={styles.containerVertical} width={2} height={0.8} materials="redColor" position={[2, 2, 0]}>
+        <ViroFlexView style={styles.containerVertical} width={2} height={0.8} materials="redColorText" position={[2, 2, 0]}>
           <ViroText fontSize={this.state.fontSize} style={newStyle} width={2} height={0.8} text="Horizontal Céntéréd Text Left!"  textAlign={"left"}/>
         </ViroFlexView>
 
-        <ViroFlexView style={styles.containerVertical} width={2} height={0.8} materials="redColor" position={[2, 1, 0]}>
+        <ViroFlexView style={styles.containerVertical} width={2} height={0.8} materials="redColorText" position={[2, 1, 0]}>
           <ViroText fontSize={this.state.fontSize} style={newStyle} width={2} height={0.8} text="Horizontal Céntéréd Text Center!" textAlign={"center"}/>
         </ViroFlexView>
 
-        <ViroFlexView style={styles.containerVertical} width={2} height={0.8} materials="redColor" position={[2, 0, 0]}>
+        <ViroFlexView style={styles.containerVertical} width={2} height={0.8} materials="redColorText" position={[2, 0, 0]}>
           <ViroText fontSize={this.state.fontSize} style={newStyle} width={2} height={0.8} text="Horizontal Céntéréd Text Right!" textAlign={"right"}/>
         </ViroFlexView>
 
-        <ViroFlexView style={styles.containerVertical}  width={2} height={1}  materials="redColor"position={[-4,-1, 0]}>
+        <ViroFlexView style={styles.containerVertical}  width={2} height={1}  materials="redColorText" position={[-4,-1, 0]}>
             <ViroText fontSize={this.state.fontSize} style={newStyle}  text={"TEXT IN FLEX BOX TEST: This text is supposed to be larger than the flex box? " + this.state.longText}/>
         </ViroFlexView>
 
@@ -242,7 +242,7 @@ var styles = StyleSheet.create({
 });
 
 ViroMaterials.createMaterials({
-  redColor: {
+  redColorText: {
     diffuseColor: "#ff0000"
   },
   cardpetite: {

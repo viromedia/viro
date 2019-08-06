@@ -71,7 +71,7 @@ var ViroPolylineTest = createReactClass({
         <ViroOrbitCamera focalPoint={[0, -.25, -2]} active={this.state.orbit}/>
         <ReleaseMenu sceneNavigator={this.props.sceneNavigator}/>
         <ViroPolyline position={[0,0,-2]} points={this._getPoints()} closed={this.state.closed} thickness={this.state.thickness}
-          materials={this.state.materials ? "white" : "red"} onClick={()=>{this.setState({orbit : !this.state.orbit})}}/>
+          materials={this.state.materials ? "whitePolyline" : "redPolyline"} onClick={()=>{this.setState({orbit : !this.state.orbit})}}/>
         {this._getTestControls()}
       </ViroScene>
     );
@@ -85,7 +85,7 @@ var ViroPolylineTest = createReactClass({
                   onClick={this._nextPoints}/>
 
         <ViroText style={styles.baseTextTwo}  position={[0, -.5, 0]} width={2} height ={2}
-                  text={"Toggle Material : " + (this.state.materials ? " white" : "red")} textLineBreakMode='Justify'
+                  text={"Toggle Material : " + (this.state.materials ? " whitePolyline" : "redPolyline")} textLineBreakMode='Justify'
                   onClick={this._toggleMaterial}/>
 
         <ViroText style={styles.baseTextTwo}  position={[0, -1, 0]} width={2} height ={2}
@@ -151,10 +151,10 @@ var styles = StyleSheet.create({
 });
 
 ViroMaterials.createMaterials({
-  white: {
+  whitePolyline: {
     diffuseColor: "#ffffff",
   },
-  red: {
+  redPolyline: {
     diffuseColor: "#ff0000",
   },
 });
