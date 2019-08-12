@@ -26,4 +26,3 @@
 //
 
 static NSString *const kVRTOnExitViro = @"OnExitViro";
-static NSString *const kVRTApiKeyIsInvalid = @"ViroApiKeyIsInvalid";

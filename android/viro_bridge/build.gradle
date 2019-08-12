@@ -31,10 +31,5 @@ dependencies {
     implementation project(':viro_renderer')
     implementation 'com.google.android.exoplayer:exoplayer:2.7.1'
     implementation 'com.google.protobuf.nano:protobuf-javanano:3.0.0-alpha-7'
-    implementation 'com.amazonaws:aws-android-sdk-core:2.7.7'
-    implementation 'com.amazonaws:aws-android-sdk-ddb:2.7.7'
-    implementation 'com.amazonaws:aws-android-sdk-ddb-mapper:2.7.7'
-    implementation 'com.amazonaws:aws-android-sdk-cognito:2.7.7'
-    implementation 'com.amazonaws:aws-android-sdk-cognitoidentityprovider:2.7.7'
     implementation fileTree(include: ['*.jar'], dir: 'libs')
 }

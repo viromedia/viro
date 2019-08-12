@@ -1,9 +1,5 @@
 apply plugin: "com.android.application"
-apply plugin: 'io.fabric'
 
-repositories {
-    maven { url 'https://maven.fabric.io/public' }
-}
 apply from: project(':react-native-config').projectDir.getPath() + "/dotenv.gradle"
 
 import com.android.build.OutputFile
@@ -180,9 +176,6 @@ dependencies {
     implementation project(':arcore_client')
     implementation project(path: ':viro_bridge')
     implementation 'com.google.protobuf.nano:protobuf-javanano:3.0.0-alpha-7'
-    implementation('com.crashlytics.sdk.android:crashlytics:2.8.0@aar') {
-        transitive = true;
-    }
 }
 
 // Run this once to be able to run the application with BUCK

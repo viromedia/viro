@@ -303,17 +303,6 @@ public class VRT3DSceneNavigator extends FrameLayout {
         mViroView.setDebug(debug);
     }
 
-    public void setApiKey(String apiKey) {
-
-        if (apiKey == null || apiKey.trim().isEmpty()) {
-            throw new IllegalArgumentException("The given API Key is either missing or invalid!" +
-                    " If you have not signed up for accessing Viro Media platform, please do so " +
-                    "at www.viromedia.com.");
-        }
-
-        mViroView.validateAPIKey(apiKey.trim());
-    }
-
     private void notifyScenePlatformInformation() {
         for (VRTScene scene: mSceneArray) {
             scene.setPlatformInformation(mViroView.getPlatform(), mViroView.getHeadset(),

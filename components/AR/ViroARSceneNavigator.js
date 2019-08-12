@@ -36,8 +36,6 @@ var ViroARSceneNavigator = createReactClass({
 
       ...View.propTypes,
 
-      apiKey: PropTypes.string.isRequired,
-
       /**
        * ViroARSceneNavigator uses "scene" objects like the following to
        * describe a scene.

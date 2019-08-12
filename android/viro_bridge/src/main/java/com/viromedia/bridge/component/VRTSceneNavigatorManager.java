@@ -70,11 +70,6 @@ public class VRTSceneNavigatorManager extends VRTViroViewGroupManager<VRTVRScene
         view.setCurrentSceneIndex(selectedIndex);
     }
 
-    @ReactProp(name = "apiKey")
-    public void setApiKey(VRTVRSceneNavigator view, String apiKey) {
-        view.setApiKey(apiKey);
-    }
-
     @Override
     protected void onAfterUpdateTransaction(VRTVRSceneNavigator view) {
         super.onAfterUpdateTransaction(view);

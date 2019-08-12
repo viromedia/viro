@@ -52,11 +52,6 @@ public class VRTARSceneNavigatorManager extends VRTViroViewGroupManager<VRTARSce
         view.setCurrentSceneIndex(selectedIndex);
     }
 
-    @ReactProp(name = "apiKey")
-    public void setApiKey(VRTARSceneNavigator view, String apiKey) {
-        view.setApiKey(apiKey);
-    }
-
     @ReactProp(name = "numberOfTrackedImages")
     public void setNumberOfTrackedImages(VRTARSceneNavigator navigator, int numberOfTrackedImages) {
         // no-op

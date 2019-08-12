@@ -38,8 +38,6 @@
 #import "VRTMaterialManager.h"
 #import "VRTMaterialVideo.h"
 
-static NSString *const kVRTInvalidAPIKeyMessage = @"The given API Key is either missing or invalid! If you have not signed up for accessing Viro Media platform, please do so at www.viromedia.com. Otherwise, contact info@viromedia.com if you have a valid key and are encountering this error.";
-
 /**
  VRTSceneNavigator manages the various scenes that a Viro App can navigate between.
  **/
@@ -47,7 +45,6 @@ static NSString *const kVRTInvalidAPIKeyMessage = @"The given API Key is either 
 @implementation VRTSceneNavigator {
     id <VROView> _vroView;
     VROViewControllerGVR *_gvrController;
-    NSString *_apiKey;
 }
 
 - (instancetype)initWithBridge:(RCTBridge *)bridge {
@@ -92,7 +89,6 @@ static NSString *const kVRTInvalidAPIKeyMessage = @"The given API Key is either 
     self.currentViews = [[NSMutableArray alloc] init];
     [self.bridge.perfMonitor setView:_vroView];
     
-    [self validateAPIKey];
     return YES;
 }
 
@@ -204,26 +200,6 @@ static NSString *const kVRTInvalidAPIKeyMessage = @"The given API Key is either 
             [self applyMaterialsToSceneChildren:childView];
         }
     }
-}
-
-- (void)validateAPIKey {
-    // Only validate if we have an API key and our view has been created
-    if (!_apiKey || !_vroView) {
-        return;
-    }
-    VROViewValidApiKeyBlock completionBlock = ^(BOOL valid) {
-        if (!valid) {
-            RCTLogError(kVRTInvalidAPIKeyMessage);
-            // fire off a notification to let the user know that the API key is invalid.
-            [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:kVRTApiKeyIsInvalid object:nil]];
-        }
-    };
-    [_vroView validateApiKey:_apiKey withCompletionBlock:completionBlock];
-}
-
-- (void)setApiKey:(NSString *)apiKey {
-    _apiKey = apiKey;
-    [self validateAPIKey];
 }
 
 - (void)removeFromSuperview {

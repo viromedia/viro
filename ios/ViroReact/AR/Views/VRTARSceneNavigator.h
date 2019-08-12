@@ -37,7 +37,6 @@
 @property (nonatomic, assign) NSInteger currentSceneIndex;
 @property (nonatomic, readwrite, strong) NSMutableArray<VRTScene *> *currentViews;
 @property (readwrite, nonatomic) VRTScene *currentScene;
-@property (nonatomic, copy) NSString *apiKey;
 @property (nonatomic, copy) NSString *worldAlignment;
 @property (nonatomic, copy, nullable) RCTDirectEventBlock onExitViro;
 @property (nonatomic, assign) BOOL autofocus;
