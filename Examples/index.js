@@ -18,6 +18,7 @@ import {
   TouchableHighlight,
   NativeModules,
   SectionList,
+  SafeAreaView
 } from 'react-native';
 
 import {
@@ -212,7 +213,7 @@ FlatListItemSeparator = () => {
   }
     _getSceneSelectionButtons() {
     return (
-      <View style={localStyles.outer} >
+      <SafeAreaView style={localStyles.outer} >
           <SectionList
             ItemSeparatorComponent={this.FlatListItemSeparator}
             sections={[
@@ -236,12 +237,12 @@ FlatListItemSeparator = () => {
             )}
             keyExtractor={(item, index) => index}
           />
-      </View>
+      </SafeAreaView>
     );
   }
   _getInitialSelectionButtons() {
     return (
-      <View style={localStyles.outer} >
+      <SafeAreaView style={localStyles.outer} >
         <View style={localStyles.inner} >
 
           <Text style={localStyles.titleText}>
@@ -284,7 +285,7 @@ FlatListItemSeparator = () => {
             </Text>
           </TouchableHighlight>
         </View>
-      </View>
+      </SafeAreaView>
     );
   }
   _getSelectionButtons() {
