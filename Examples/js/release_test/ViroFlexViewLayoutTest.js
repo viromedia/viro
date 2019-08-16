@@ -43,7 +43,9 @@
    ViroSpinner,
  } from 'react-viro';
 
- let polarToCartesian = ViroUtils.polarToCartesian;
+var ReleaseMenu = require("./ReleaseMenu.js");
+
+let polarToCartesian = ViroUtils.polarToCartesian;
 
 var createReactClass = require('create-react-class');
 
@@ -60,8 +62,9 @@ var createReactClass = require('create-react-class');
    render: function() {
      return (
       <ViroScene>
+        <ReleaseMenu sceneNavigator={this.props.sceneNavigator}/>
         {this._chooseFlexLayout()}
-        <ViroText style={styles.baseTextTwo}  position={[-4,0, -3]} width={2} height={2}
+        <ViroText style={styles.baseTextTwo}  position={[0,-3, -3]} width={2} height={2}
                  text={"Change flexbox Layout"}
                  onClick={this._toggleFlexboxLayout}/>
       </ViroScene>
@@ -81,13 +84,13 @@ var createReactClass = require('create-react-class');
   },
   _chooseFlexLayout() {
       if(this.state.flexViewLayout==1) {
-          return this._flexLayoutTwo();
+          return this._flexLayoutFour();
       } else if(this.state.flexViewLayout==2) {
-          return this._flexLayoutTwo();
+          return this._flexLayoutOne();
       } else if(this.state.flexViewLayout==3) {
           return this._flexLayoutThree();
-      } else if(this.state.flexLayout==4) {
-          return this._flexLayoutOne();
+      } else if(this.state.flexViewLayout==4) {
+          return this._flexLayoutTwo();
       }
 },
   _flexLayoutOne() {
