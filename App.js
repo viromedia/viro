@@ -70,4 +70,7 @@ var ViroCodeSamplesSceneNavigator = createReactClass({
   }
 });
 
+// Uncomment the below line to use the ARDrivingCar Demo. Don't forget to set the apiKey variable in ARDrivingCar.js
+// ViroCodeSamplesSceneNavigator = require('./js/ARDrivingCarDemo/ARDrivingCar');
+
 module.exports = ViroCodeSamplesSceneNavigator;
