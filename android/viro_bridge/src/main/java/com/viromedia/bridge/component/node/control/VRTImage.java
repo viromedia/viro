@@ -373,7 +373,7 @@ public class VRTImage extends VRTControl {
         }
     }
 
-    void updateMainImageDimensions(int height, int width) {
+    void updateMainImageDimensions(int width, int height) {
         mBitmapWidth = width;
         mBitmapHeight = height;
 
