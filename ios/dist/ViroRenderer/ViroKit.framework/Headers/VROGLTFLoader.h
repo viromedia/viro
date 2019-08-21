@@ -169,7 +169,8 @@ private:
                                       std::vector<std::unique_ptr<VROKeyframeAnimationFrame>> &framesOut);
     static bool processSkeletalAnimation(const tinygltf::Model &gModel,
                                          std::map<int, std::pair<int, std::vector<int>>> &skeletalAnimToSkinToNodeMap);
-    static bool processSkeletalTransformsForFrame(int skin,
+    static bool processSkeletalTransformsForFrame(const tinygltf::Model &gModel,
+                                                  int skin,
                                                   int animation,
                                                   int subAnimPropertyIndex,
                                                   int keyFrameIndex,
@@ -207,6 +208,10 @@ private:
     static std::map<int, std::map<int, std::vector<std::shared_ptr<VROKeyframeAnimation>>>> _nodeKeyFrameAnims;
     static std::map<int, std::vector<std::shared_ptr<VROSkeletalAnimation>>> _skinSkeletalAnims;
 
+    /*
+     Returns the local transform of the node index retried from the gltf model.
+     */
+    static VROMatrix4f getTransformOfNode(const tinygltf::Model &gModel, int nodeIndex);
 };
 
 #endif /* VROGLTFLoader_h */

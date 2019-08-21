@@ -293,7 +293,15 @@ public:
     VROQuaternion  getLastLocalRotation() const;
     VROMatrix4f    getLastScalePivot() const;
     VROMatrix4f    getLastRotationPivot() const;
-    VROBoundingBox getLastUmbrellaBoundingBox() const;
+    VROBoundingBox getLastWorldUmbrellaBoundingBox() const;
+    VROBoundingBox getLastLocalUmbrellaBoundingBox() const;
+    VROBoundingBox getLastLocalBoundingBox() const;
+    
+    /*
+     The atomic geometry bounding box is set on the application thread as soon as a
+     geometry is set for this Node.
+     */
+    void setLastGeometryBoundingBox(VROBoundingBox bounds);
     
     /*
      Set the rotation, position, or scale. Animatable.
@@ -389,18 +397,13 @@ public:
     void computeTransformsAtomic(VROMatrix4f parentTransform, VROMatrix4f parentRotation);
     
     /*
-     Helper function used to update the _lastUmbrellaBoundingBox of the given node with the world
+     Helper functions used to update the _lastWorldUmbrellaBoundingBox of the given node with the world
      bounds of _this_ node; that is, the bounds of this node will be union-ed with the bounds of the
-     given node. Note that if isSet is false, then instead of performing a union, we will directly set
-     the bounds of the parentNodeBeingUpdated to this node's world bounds. Return true if the
-     parentNodeBeingUpdated bounds have been set after this call.
+     given node. Return the transform needed for the next recursion.
      */
-    bool computeAtomicUmbrellaBounds(std::shared_ptr<VRONode> parentNodeBeingUpdated, bool isSet);
-    
-    /*
-     Set the _lastUmbrellaBoundingBox to an empty box around the node's position.
-     */
-    void setEmptyAtomicUmbrellaBounds();
+    void startComputeAtomicUmbrellaBounds();
+    VROMatrix4f computeAtomicUmbrellaBounds(std::shared_ptr<VRONode> parentNodeBeingUpdated, VROMatrix4f transform);
+    void endComputeAtomicUmbrellaBounds();
     
     /*
      Recursively sync the application thread properties with the latest values from the rendering
@@ -888,7 +891,11 @@ private:
      computedLights are the lights that influence this node, based on distance from
      the light and light attenuation, unrelated to the scene graph (e.g. the lights
      in _computedLights may belong to any node in the scene).
+     
+     localTransform only takes into the account the transformations of _this_
+     node.
      */
+    VROMatrix4f _localTransform;
     VROMatrix4f _worldTransform;
     VROMatrix4f _worldInverseTransposeTransform;
     VROMatrix4f _worldRotation;
@@ -903,17 +910,21 @@ private:
      Properties' pragma above for a more extensive description of why we need these fields.
      The following are computed fields (not directly set by users).
      */
+    VROAtomic<VROMatrix4f> _lastLocalTransform;
     VROAtomic<VROMatrix4f> _lastWorldTransform;
     VROAtomic<VROVector3f> _lastWorldPosition;
     VROAtomic<VROMatrix4f> _lastWorldRotation;
-    VROAtomic<VROBoundingBox> _lastWorldBoundingBox;
-    VROAtomic<VROBoundingBox> _lastUmbrellaBoundingBox;
     
     /*
-     Temporary variable used while computing the umbrella bounding box on the application
-     thread.
+     Bounding boxes are either defined in world or local coordinates, and encapsulate
+     either _this_ node only, or this node and all children (umbrella).
      */
-    VROAtomic<bool> _hasWorldBoundingBox;
+    VROAtomic<VROBoundingBox> _lastWorldBoundingBox;
+    VROAtomic<VROBoundingBox> _lastLocalBoundingBox;
+    VROAtomic<VROBoundingBox> _lastGeometryBoundingBox;
+    VROAtomic<VROBoundingBox> _lastLocalUmbrellaBoundingBox;
+    VROAtomic<VROBoundingBox> _lastWorldUmbrellaBoundingBox;
+    bool _lastUmbrellaBoundsSet;
     
     /*
      Directly-set application thread properties.
@@ -927,12 +938,17 @@ private:
     VROAtomic<bool> _lastHasRotationPivot;
 
     /*
-     The transformed bounding box containing this node's geometry. The 
-     _umbrellaBoundingBox encompasses not only this geometry, but the geometries
-     of all this node's children.
+     The bounding box containing this node's geometry, in both local and world
+     coordinates. The umbrella variant encompasses not only this geometry, but the
+     geometries of all this node's children. The geometry bounding box is the
+     bounding box for the geometry without any transforms applied, while the local
+     bounding box is the bounding box with local transforms applied.
      */
-    VROBoundingBox _worldBoundingBox;
-    VROBoundingBox _umbrellaBoundingBox;
+    VROBoundingBox _geometryBoundingBox; // No transforms
+    VROBoundingBox _localBoundingBox;    // Local transforms
+    VROBoundingBox _worldBoundingBox;    // World transforms
+    VROBoundingBox _localUmbrellaBoundingBox;
+    VROBoundingBox _worldUmbrellaBoundingBox;
     VROFrustumBoxIntersectionMetadata _umbrellaBoxMetadata;
     
     /*
@@ -1046,7 +1062,7 @@ private:
      Recursively expand the given bounding box by this node's _worldBoundingBox.
      */
     void computeUmbrellaBounds();
-    bool computeUmbrellaBounds(VROBoundingBox *bounds, bool isSet) const;
+    bool computeUmbrellaBounds(VROBoundingBox *localBounds, VROBoundingBox *worldBounds, VROMatrix4f transform, bool isSet) const;
     
     /*
      Compute the transform for this node, taking into the account the parent's transform.

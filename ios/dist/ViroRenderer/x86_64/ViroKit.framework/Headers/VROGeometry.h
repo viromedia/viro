@@ -164,8 +164,16 @@ public:
         return _geometryElements;
     }
     
+    /*
+     Get the bounding box of this Geometry, computing it from the geometry sources
+     if it has not yet been accessed.
+     */
     const VROBoundingBox &getBoundingBox();
-    VROBoundingBox getLastBoundingBox() const;
+    
+    /*
+     Force a recomputation of the bounding box the next time getBoundingBox() is
+     invoked.
+     */
     void updateBoundingBox();
 
     VROVector3f getCenter();
@@ -285,11 +293,6 @@ private:
      The bounding box of this geometry.
      */
     VROBoundingBox _bounds;
-
-    /*
-     Atomic version of the bounding box. Not used by the rendering thread.
-     */
-    VROAtomic<VROBoundingBox> _lastBounds;
 
     /*
      True if the bounding box for this VROGeometry has been computed.

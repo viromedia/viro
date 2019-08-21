@@ -135,11 +135,8 @@ public:
     std::shared_ptr<VRONode> getSkinnerNode() {
         return _skinnerNodeWeak.lock();
     }
+    
 private:
-    /*
-     The geometry being animated, with coordinates in model space.
-     */
-    std::shared_ptr<VROGeometry> _geometry;
     
     /*
      The skeleton that drives the animation. The skeleton is *also* in model space.

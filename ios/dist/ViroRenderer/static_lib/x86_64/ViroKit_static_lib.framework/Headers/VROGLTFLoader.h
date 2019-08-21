@@ -167,10 +167,12 @@ private:
                                       int channelTarget,
                                       const tinygltf::AnimationSampler &gChannelSampler,
                                       std::vector<std::unique_ptr<VROKeyframeAnimationFrame>> &framesOut);
-    static void processSkeletalAnimation(const tinygltf::Model &gModel,
-                                         std::vector<std::pair<int,int>> &skeletalAnimToSkinPair);
-    static void processSkeletalTransformsForFrame(int skin,
+    static bool processSkeletalAnimation(const tinygltf::Model &gModel,
+                                         std::map<int, std::pair<int, std::vector<int>>> &skeletalAnimToSkinToNodeMap);
+    static bool processSkeletalTransformsForFrame(const tinygltf::Model &gModel,
+                                                  int skin,
                                                   int animation,
+                                                  int subAnimPropertyIndex,
                                                   int keyFrameIndex,
                                                   int currentJointIndex,
                                                   std::map<int, VROMatrix4f> &transforms);
@@ -196,15 +198,20 @@ private:
     static std::map<int, std::map<int,int>> _skinIndexToJointNodeIndex;
     static std::map<int, std::map<int,std::vector<int>>> _skinIndexToJointChildJoints;
     static std::map<int, std::shared_ptr<VROSkinner>> _skinMap;
+    static std::map<int, int> _skinIndexToSkeletonRootJoint;
 
     /*
      Cached maps of nodeIndexes to it's corresponding animations. These caches are cleared
      out after the parsing of a single gLTF model. Note that _nodeKeyFrameAnims is of the form:
      <nodeIndex , <animationIndex, VROKeyframeAnimation>>> _nodeKeyframeAnims.
      */
-    static std::map<int, std::map<int, std::shared_ptr<VROKeyframeAnimation>>> _nodeKeyFrameAnims;
+    static std::map<int, std::map<int, std::vector<std::shared_ptr<VROKeyframeAnimation>>>> _nodeKeyFrameAnims;
     static std::map<int, std::vector<std::shared_ptr<VROSkeletalAnimation>>> _skinSkeletalAnims;
 
+    /*
+     Returns the local transform of the node index retried from the gltf model.
+     */
+    static VROMatrix4f getTransformOfNode(const tinygltf::Model &gModel, int nodeIndex);
 };
 
 #endif /* VROGLTFLoader_h */
