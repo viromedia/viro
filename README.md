@@ -116,7 +116,7 @@ An ARScene that looks for this [image](https://github.com/viromedia/viro/tree/ma
 ### [AR Driving Car Demo](https://github.com/viromedia/viro/tree/master/js/ARDrivingCarDemo)
 
 <a href="https://github.com/viromedia/viro/tree/master/js/ARDrivingCarDemo">
-<img src="https://raw.githubusercontent.com/viromedia/viro/master/js/ARCarDemo/ARDrivingCarDemo.gif">
+<img src="https://raw.githubusercontent.com/viromedia/viro/master/js/ARDrivingCarDemo/ARDrivingCarDemo.gif">
 </a>
 
 An ARScene that lets the user place a car on a surface and drive it around the world. See instructions in the project directory to enable the demo.
