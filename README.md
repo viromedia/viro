@@ -3,7 +3,7 @@ Viro React is a platform for developers to rapidly build augmented reality (AR) 
 
 This project contains various sample Viro projects.
 
-[Sign up](https://viromedia.com/signup) for an API key. The platform is free to use with no limits on distribution.
+The platform is free to use with no limits on distribution.
 
 To report bugs/issues with Viro platform, please file new issues on this repository.
 
@@ -11,7 +11,7 @@ To report bugs/issues with Viro platform, please file new issues on this reposit
 
 1. Follow directions on our [Quick start guide](https://docs.viromedia.com/docs/quick-start) to setup dependencies for trying these sample projects with the Viro Media App.
 2. Clone the repo into your workspace with git: `git clone https://github.com/viromedia/viro.git`.
-3. Edit App.js, depending on your test device, and replace "API_KEY_HERE" with the key emailed to you with signup.
+3. Go into the code-samples directory.
 4. Run `npm install` from the root of this project.
 5. Run `npm start` from the root of this project.
 6. Open the Viro Media App, slide out the left panel and select "Enter Testbed".
@@ -56,7 +56,7 @@ Join our Slack group [here](https://join.slack.com/t/virodevelopers/shared_invit
 ### [Figment AR (Complete Open Source App)](https://github.com/viromedia/figment-ar)
 A repository containing the entire source code, built using ViroReact and React Native, for Viro Media's award winning Figment AR App. Available on [Google Play](https://play.google.com/store/apps/details?id=com.viro.figment) and [App Store](https://itunes.apple.com/us/app/figment-ar/id1270018902?mt=8).
 
-<a href="https://github.com/viromedia/figment-ar"><img src="screenshots/figment_1.png" width="200"/> <img src="screenshots/figment_2.png" width="200"/> <img src="screenshots/figment_3.png" width="200"/> <img src="screenshots/figment_4.png" width="200"/></a>
+<a href="https://github.com/viromedia/figment-ar"><img src="code-samples/screenshots/figment_1.png" width="200"/> <img src="code-samples/screenshots/figment_2.png" width="200"/> <img src="code-samples/screenshots/figment_3.png" width="200"/> <img src="code-samples/screenshots/figment_4.png" width="200"/></a>
 
 #### Download complete source at https://github.com/viromedia/figment-ar
 
@@ -64,83 +64,83 @@ A repository containing the entire source code, built using ViroReact and React 
 
 A scene with a 360 photo that displays "Hello World".
 
-### [360 Photo Tour](https://github.com/viromedia/viro/tree/master/js/360PhotoTour)
+### [360 Photo Tour](https://github.com/viromedia/viro/tree/master/code-samples/js/360PhotoTour)
 
-<a href="https://github.com/viromedia/viro/tree/master/js/HelloWorld">
-<img src="https://raw.githubusercontent.com/viromedia/viro/master/js/360PhotoTour/360_photo_tour.gif">
+<a href="https://github.com/viromedia/viro/tree/master/code-samples/js/HelloWorld">
+<img src="https://raw.githubusercontent.com/viromedia/viro/master/code-samples/js/360PhotoTour/360_photo_tour.gif">
 </a>
 
 360 photo tour example that shows you how to display a 360 photo with clickable hot spots.
 
-### [Human Body](https://github.com/viromedia/viro/tree/master/js/HumanBody)
+### [Human Body](https://github.com/viromedia/viro/tree/master/code-samples/js/HumanBody)
 
-<a href="https://github.com/viromedia/viro/tree/master/js/HumanBody">
-<img src="https://raw.githubusercontent.com/viromedia/viro/master/js/HumanBody/heart_demo.gif">
+<a href="https://github.com/viromedia/viro/tree/master/code-samples/js/HumanBody">
+<img src="https://raw.githubusercontent.com/viromedia/viro/master/code-samples/js/HumanBody/heart_demo.gif">
 </a>
 
 This example showcases 3d objects. Orbit around a 3d Heart to see it from different angles!
 
-### [VR MediaPlayer](https://github.com/viromedia/viro/tree/master/js/ViroMediaPlayer)
+### [VR MediaPlayer](https://github.com/viromedia/viro/tree/master/code-samples/js/ViroMediaPlayer)
 
-<a href="https://github.com/viromedia/viro/tree/master/js/ViroMediaPlayer">
-<img src="https://raw.githubusercontent.com/viromedia/viro/master/js/ViroMediaPlayer/movie_theater.gif">
+<a href="https://github.com/viromedia/viro/tree/master/code-samples/js/ViroMediaPlayer">
+<img src="https://raw.githubusercontent.com/viromedia/viro/master/code-samples/js/ViroMediaPlayer/movie_theater.gif">
 </a>
 
 Learn how to display and play 2d and 360 video with interactive play controls that can play, pause and stop.
 
-### [Product Showcase](https://github.com/viromedia/viro/tree/master/js/ProductShowcase)
+### [Product Showcase](https://github.com/viromedia/viro/tree/master/code-samples/js/ProductShowcase)
 
-<a href="https://github.com/viromedia/viro/tree/master/js/ProductShowcase">
-<img src="https://raw.githubusercontent.com/viromedia/viro/master/js/ProductShowcase/product_showcase.gif">
+<a href="https://github.com/viromedia/viro/tree/master/code-samples/js/ProductShowcase">
+<img src="https://raw.githubusercontent.com/viromedia/viro/master/code-samples/js/ProductShowcase/product_showcase.gif">
 </a>
 
 Learn how to display and play 2d and 360 video with interactive play controls that can play, pause and stop.
 A demonstration on how to do an interactive shopping app for TV's. Uses flexbox for UI and 3d objects with animations.
 
-### [AR Sample](https://github.com/viromedia/viro/tree/master/js/ARSample)
+### [AR Sample](https://github.com/viromedia/viro/tree/master/code-samples/js/ARSample)
 
-<a href="https://github.com/viromedia/viro/tree/master/js/ARSample">
-<img src="https://raw.githubusercontent.com/viromedia/viro/master/js/ARSample/ar_sample.gif">
+<a href="https://github.com/viromedia/viro/tree/master/code-samples/js/ARSample">
+<img src="https://raw.githubusercontent.com/viromedia/viro/master/code-samples/js/ARSample/ar_sample.gif">
 </a>
 
 A scene with objects, text and animation displayed on ARKit planes detected in the scene.
 
-### [AR Car Marker Demo](https://github.com/viromedia/viro/tree/master/js/ARCarDemo)
+### [AR Car Marker Demo](https://github.com/viromedia/viro/tree/master/code-samples/js/ARCarDemo)
 
-<a href="https://github.com/viromedia/viro/tree/master/js/ARCarDemo">
-<img src="https://raw.githubusercontent.com/viromedia/viro/master/js/ARCarDemo/viro_car_marker_demo.gif">
+<a href="https://github.com/viromedia/viro/tree/master/code-samples/js/ARCarDemo">
+<img src="https://raw.githubusercontent.com/viromedia/viro/master/code-samples/js/ARCarDemo/viro_car_marker_demo.gif">
 </a>
 
-An ARScene that looks for this [image](https://github.com/viromedia/viro/tree/master/js/ARCarDemo/res/logo.png) and adds a model of a car with the ability to change its colors.
+An ARScene that looks for this [image](https://github.com/viromedia/viro/tree/master/code-samples/js/ARCarDemo/res/logo.png) and adds a model of a car with the ability to change its colors.
 
 ### [AR Driving Car Demo](https://github.com/viromedia/viro/tree/master/js/ARDrivingCarDemo)
 
 <a href="https://github.com/viromedia/viro/tree/master/js/ARDrivingCarDemo">
-<img src="https://raw.githubusercontent.com/viromedia/viro/master/js/ARDrivingCarDemo/ARDrivingCarDemo.gif">
+<img src="https://raw.githubusercontent.com/viromedia/viro/master/code-samples/js/ARDrivingCarDemo/ARDrivingCarDemo.gif">
 </a>
 
 An ARScene that lets the user place a car on a surface and drive it around the world. See instructions in the project directory to enable the demo.
 
-### [AR Poster Demo](https://github.com/viromedia/viro/tree/master/js/ARPosterDemo)
+### [AR Poster Demo](https://github.com/viromedia/viro/tree/master/code-samples/js/ARPosterDemo)
 
-<a href="https://github.com/viromedia/viro/tree/master/js/ARPosterDemo">
-<img src="https://raw.githubusercontent.com/viromedia/viro/master/js/ARPosterDemo/viro_black_panther_marker_demo.gif">
+<a href="https://github.com/viromedia/viro/tree/master/code-samples/js/ARPosterDemo">
+<img src="https://raw.githubusercontent.com/viromedia/viro/master/code-samples/js/ARPosterDemo/viro_black_panther_marker_demo.gif">
 </a>
 
-An ARScene that searches for this vertical [marker](https://github.com/viromedia/viro/tree/master/js/ARPosterDemo/res/blackpanther.jpg) and renders Black Panther jumping out of the marker.
+An ARScene that searches for this vertical [marker](https://github.com/viromedia/viro/tree/master/code-samples/js/ARPosterDemo/res/blackpanther.jpg) and renders Black Panther jumping out of the marker.
 
-### [AR Tracking Business Card Demo - iOS Only](https://github.com/viromedia/viro/tree/master/js/ARBusinessCard)
-<a href="https://github.com/viromedia/viro/tree/master/js/ARBusinessCard">
+### [AR Tracking Business Card Demo - iOS Only](https://github.com/viromedia/viro/tree/master/code-samples/js/ARBusinessCard)
+<a href="https://github.com/viromedia/viro/tree/master/code-samples/js/ARBusinessCard">
 <img src="https://github.com/vnovick/armonster-arkit2-businesscard/raw/master/business_card.gif">
 </a>
 
-An ARScene that tracks this [business card](https://github.com/viromedia/viro/blob/master/js/ARBusinessCard/res/business_card.png) continously using image tracking.
+An ARScene that tracks this [business card](https://github.com/viromedia/viro/blob/master/code-samples/js/ARBusinessCard/res/business_card.png) continously using image tracking.
 
 ### [AR Full Sample App](https://github.com/viromedia/ViroARSampleApp)
 A complete React Native w/Viro AR Sample App. Demonstrates how to place, drag, and scale objects in the real world while providing 2D UI feedback.
 
 <a href="https://github.com/viromedia/ViroARSampleApp">
-<img src="https://raw.githubusercontent.com/viromedia/viro/master/js/ViroARSampleApp/ar_sample_app.gif">
+<img src="https://raw.githubusercontent.com/viromedia/viro/master/code-samples/js/ViroARSampleApp/ar_sample_app.gif">
 </a>
 
 ## Tutorials
