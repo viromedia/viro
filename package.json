@@ -2,7 +2,7 @@
   "name": "react-viro",
   "main": "index.js",
   "version": "2.17.0",
-  "license": "Refer to LICENSE file",
+  "license": "MIT",
   "scripts": {
     "start": "echo 'I dont think you meant to run npm start here.'",
     "test": "jest"
