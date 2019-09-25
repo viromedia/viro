@@ -1,0 +1,13 @@
+target 'ViroExample' do
+  use_frameworks!
+  pod 'ViroKit', :path => '../../../ios/dist/ViroRenderer'
+end
+
+target 'ViroExample_archive' do
+  use_frameworks!
+  pod 'ViroKit', :path => '../../../ios/dist/ViroRenderer'
+end
+
+target 'ViroExample_no_use_frameworks' do
+  pod 'ViroKit_static_lib', :path => '../../../ios/dist/ViroRenderer/static_lib'
+end

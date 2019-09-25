@@ -1,0 +1,2 @@
+ios/Pods/GVRSDK/Libraries/libGVRSDK.a filter=lfs diff=lfs merge=lfs -text
+Examples/ios/ViroExample/Pods/GVRSDK/Libraries/libGVRSDK.a filter=lfs diff=lfs merge=lfs -text

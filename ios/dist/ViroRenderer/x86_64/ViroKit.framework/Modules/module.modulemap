@@ -1,0 +1,6 @@
+framework module ViroKit {
+  umbrella header "ViroKit.h"
+
+  export *
+  module * { export * }
+}

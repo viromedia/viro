@@ -1,0 +1,113 @@
+# Customize this file, documentation can be found here:
+# https://docs.fastlane.tools/actions/
+# All available actions: https://docs.fastlane.tools/actions
+# can also be listed using the `fastlane actions` command
+
+# Change the syntax highlighting to Ruby
+# All lines starting with a # are ignored when running `fastlane`
+
+# If you want to automatically update fastlane if a new version is available:
+# update_fastlane
+
+# This is the minimum version number required.
+# Update this, if you use features of a newer version
+fastlane_version "2.66.2"
+
+default_platform :android
+
+platform :android do
+  before_all do
+    BUILD_INTERMEDIATES = "/var/tmp/build_intermediates/"
+    GIT_REPO_BRANCH = "react-viro/master"
+  end
+
+    def on_error(exception)
+       slack(
+           message: ":thunder_cloud_and_rain: Build Pipeline failed!",
+           success: false,
+           default_payloads: [], #Pass an empty array to suppress all the default payloads.
+           payload: {
+            "Git Repository:" =>  "react-viro/master",
+            "Fastlane Lane:" => ENV["FASTLANE_LANE_NAME"],
+            "Detailed Logs:" => "<https://virobuilds.ngrok.io/blue/organizations/jenkins/react-viro/activity/|ViroRenderer Pipeline>",
+            "Exception:" => "```#{exception}```"
+           },
+           use_webhook_configured_username_and_icon: true
+       )
+  end
+
+  desc "Build renderer"
+  lane :renderer_aar do
+    Dir.chdir("../../../../ViroRenderer/android/") do
+      sh("fastlane release_renderer_react_lib")
+    end
+    changelog_from_git_commits(commits_count: 5,
+                   pretty: "- (%ae) %s",
+                   date_format: "short",
+                   merge_commit_filtering: "exclude_merges")
+  end 
+  
+  lane :examples_gradle_clean do
+    Dir.chdir("../") do
+      sh("rm -rf node_modules ; npm install")
+    end
+  end
+  lane :npm_pack do
+    Dir.chdir("../../../") do
+      begin
+        sh("rm -rf react-viro-*.tgz")
+        sh("npm pack")
+        sh("cp react-viro-*.tgz #{BUILD_INTERMEDIATES}s3_artifacts/")
+      rescue => exception
+           on_error(exception)
+      end
+   end
+  end
+
+  desc "Build GVR release tests"
+  lane :gvr_release_test do
+    begin
+      gradle(task: "assembleGvrRelease")
+      sh("cp ../app/build/outputs/apk/gvr/release/app-gvr-release.apk #{BUILD_INTERMEDIATES}s3_artifacts/app-gvr-release.apk")
+    rescue => exception
+           on_error(exception)
+    end
+  end
+
+  desc "Build OVR release tests"
+  lane :ovr_release_test do
+    begin
+      gradle(task: "assembleOvrRelease")
+      sh("cp ../app/build/outputs/apk/ovr/release/app-ovr-release.apk #{BUILD_INTERMEDIATES}s3_artifacts/app-ovr-release.apk")
+    end
+  end
+
+  desc "Build GVR & OVR release tests"
+  lane :release_test do
+    renderer_aar
+    gradle(task: "assembleRelease")
+  end
+
+  # You can define as many lanes as you want
+
+  after_all do |lane|
+    # This block is called, only if the executed lane was successful
+
+    # slack(
+    #   message: "Successfully deployed new App Update."
+    # )
+  end
+
+  error do |lane, exception|
+    # slack(
+    #   message: exception.message,
+    #   success: false
+    # )
+  end
+end
+
+# More information about multiple platforms in fastlane: https://docs.fastlane.tools/advanced/#control-configuration-by-lane-and-by-platform
+# All available actions: https://docs.fastlane.tools/actions
+
+# fastlane reports which actions are used. No personal data is recorded.
+# Learn more at https://docs.fastlane.tools/#metrics

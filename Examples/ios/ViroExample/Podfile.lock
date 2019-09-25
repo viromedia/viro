@@ -1,0 +1,42 @@
+PODS:
+  - GoogleToolboxForMac/Defines (2.1.0)
+  - GoogleToolboxForMac/Logger (2.1.0):
+    - GoogleToolboxForMac/Defines (= 2.1.0)
+  - GTMSessionFetcher/Core (1.1.6)
+  - GVRAudioSDK (1.120.0)
+  - GVRSDK (1.120.0):
+    - GoogleToolboxForMac/Logger (= 2.1.0)
+    - GTMSessionFetcher/Core (= 1.1.6)
+  - ViroKit (1.0):
+    - GVRAudioSDK (= 1.120.0)
+    - GVRSDK (= 1.120.0)
+  - ViroKit_static_lib (1.0)
+
+DEPENDENCIES:
+  - ViroKit (from `../../../ios/dist/ViroRenderer`)
+  - ViroKit_static_lib (from `../../../ios/dist/ViroRenderer/static_lib`)
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - GoogleToolboxForMac
+    - GTMSessionFetcher
+    - GVRAudioSDK
+    - GVRSDK
+
+EXTERNAL SOURCES:
+  ViroKit:
+    :path: "../../../ios/dist/ViroRenderer"
+  ViroKit_static_lib:
+    :path: "../../../ios/dist/ViroRenderer/static_lib"
+
+SPEC CHECKSUMS:
+  GoogleToolboxForMac: 2b2596cbb7186865e98cadf2b1e262d851c2b168
+  GTMSessionFetcher: 6aacd0ab48ddf0c3633ab2642d792abfcad1b08a
+  GVRAudioSDK: 302f0a8f190d855868ea07f246ce4f9b44c392ae
+  GVRSDK: 0cb9d0ce06a84d698e61e3db9509766022dcf815
+  ViroKit: b829680e06f79e6c8584ee8e559a73ca25e22b0d
+  ViroKit_static_lib: 17cb5bbb409057a98d2922cef37afb6b132dd630
+
+PODFILE CHECKSUM: e20c05dd4be03b21cb7be1498d983113486e3890
+
+COCOAPODS: 1.5.3

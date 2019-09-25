@@ -1,0 +1,77 @@
+# Gradle
+/android/app/build/
+/android/app/gradle/
+/android/app/gradlew
+/android/app/gradlew.bat
+/android/.idea
+*.gradle/
+
+Examples/android/app/build/
+Examples/android/app/gradle/
+Examples/android/app/gradlew
+Examples/android/app/gradlew.bat
+Examples/android/app/.idea
+*.iml
+
+# Android
+android/.idea
+Examples/android/app/.idea
+Examples/android/.gradle
+Examples/android/local.properties
+.idea
+
+#iOS
+ios/Pods/Pods.xcodeproj/xcuserdata/
+ios/Pods/
+ios/ViroReact.xcodeproj/xcuserdata/
+ios/ViroReact.xcworkspace/xcuserdata/
+Examples/ios/ViroExample.xcworkspace/xcuserdata/
+Examples/ios/ViroExample/Pods/Pods.xcodeproj/xcuserdata/
+Examples/ios/ViroExample/ViroExample.xcodeproj/xcuserdata/
+Examples/ios/ViroExample/ViroExample.xcworkspace/xcuserdata/
+Examples/ios/ViroExample/ViroExample.xcworkspace/xcshareddata/
+Examples/ios/ViroExample/Pods/
+ios/ngrokendpoint.txt
+ios/ViroRenderer/ViroKit.framework/_CodeSignature/
+
+# Figment Android
+Figment/android/.idea
+Figment/android/.gradle
+Figment/android/local.properties
+Figment/android/app/build/
+Figment/android/app/gradle/
+Figment/android/app/gradlew
+Figment/android/app/gradlew.bat
+Figment/android/app/.idea
+
+# Figment iOS
+Figment/ios/Figment.xcworkspace/xcuserdata/
+Figment/ios/Figment.xcodeproj/xcuserdata/
+Figment/ios/Figment.xcworkspace/xcshareddata/
+Figment/ios/Pods/
+Figment/ios/Podfile.lock
+Figment/ios/ngrokendpoint.txt
+
+
+# Node
+Examples/node_modules
+Figment/node_modules
+npm-debug.log
+Examples/package-lock.json
+Examples/yarn.lock
+
+*.DS_Store
+*local.properties
+*build/
+react-viro*.tgz
+
+
+# Fastlane
+ios/fastlane/report.xml
+ios/fastlane/README.md
+android/fastlane/report.xml
+android/fastlane/README.md
+Examples/ios/fastlane/report.xml
+Examples/ios/fastlane/README.md
+Examples/android/fastlane/README.md
+Examples/android/fastlane/report.xml

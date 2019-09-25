@@ -1,0 +1,12 @@
+rootProject.name = 'ViroSample'
+include ':react-native-device-info'
+project(':react-native-device-info').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-device-info/android')
+include ':react-native-config'
+project(':react-native-config').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-config/android')
+
+include ':app', ':gvr_common', ':viro_renderer', ':viro_bridge', ':arcore_client'
+
+project(':arcore_client').projectDir = new File('../../android/arcore_client')
+project(':gvr_common').projectDir = new File('../../android/gvr_common')
+project(':viro_renderer').projectDir = new File('../../android/viro_renderer')
+project(':viro_bridge').projectDir = new File('../../android/viro_bridge')

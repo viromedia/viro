@@ -1,0 +1,2 @@
+configurations.maybeCreate("default")
+artifacts.add("default", file('../../../android/viro_bridge/build/outputs/aar/viro_bridge-debug.aar'))

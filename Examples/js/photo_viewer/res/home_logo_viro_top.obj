@@ -1,0 +1,20 @@
+# This file uses centimeters as units for non-parametric coordinates.
+
+mtllib home_logo_viro.mtl
+g default
+v 0.779037 -0.296486 0.001236
+v -0.779037 -0.296486 0.001236
+v 0.779037 0.307001 0.001236
+v -0.779037 0.307001 0.001236
+vt 0.000808 0.006477
+vt 0.996961 0.006477
+vt 0.996963 0.987868
+vt 0.000810 0.987868
+vn 0.000000 0.000000 1.000000
+vn 0.000000 0.000000 1.000000
+vn 0.000000 0.000000 1.000000
+vn 0.000000 0.000000 1.000000
+s off
+g polySurface31 polySurface15
+usemtl lambert14SG
+f 2/1/1 1/2/2 3/3/3 4/4/4

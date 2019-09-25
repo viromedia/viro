@@ -1,0 +1,123 @@
+# Customize this file, documentation can be found here:
+# https://docs.fastlane.tools/actions/
+# All available actions: https://docs.fastlane.tools/actions
+# can also be listed using the `fastlane actions` command
+
+# Change the syntax highlighting to Ruby
+# All lines starting with a # are ignored when running `fastlane`
+
+# If you want to automatically update fastlane if a new version is available:
+# update_fastlane
+
+# This is the minimum version number required.
+# Update this, if you use features of a newer version
+fastlane_version "2.66.2"
+
+default_platform :ios
+platform :ios do
+  before_all do
+    BUILD_INTERMEDIATES = "/var/tmp/build_intermediates/"
+    # ENV["SLACK_URL"] = "https://hooks.slack.com/services/..."
+    # cocoapods
+    # carthage
+  end
+
+    def on_error(exception)
+       slack(
+           message: ":thunder_cloud_and_rain: Build Pipeline failed!",
+           success: false,
+           default_payloads: [], #Pass an empty array to suppress all the default payloads.
+           payload: {
+            "Git Repository:" =>  "react-viro/master",
+            "Fastlane Lane:" => ENV["FASTLANE_LANE_NAME"],
+            "Detailed Logs:" => "<https://virobuilds.ngrok.io/blue/organizations/jenkins/react-viro/activity/|react-viro Pipeline>",
+            "Exception:" => "```#{exception}```"
+           },
+           use_webhook_configured_username_and_icon: true
+       )
+  end
+
+  desc "Build react, ViroReact frameworks"
+  lane :release_react_viro_lib do
+    begin
+      
+      Dir.chdir("../") do
+        sh("cp -r /var/tmp/build_intermediates/react_viro_kit/ViroRenderer/ ../../ios/dist/ViroRenderer/")
+         # build React scheme -iphoneSimulator
+         sh("xcodebuild -workspace ViroExample/ViroExample.xcworkspace/ -scheme React -configuration Release -sdk iphonesimulator -arch x86_64| xcpretty -c")
+         # build ViroReact scheme -iphoneSimulator
+         sh("xcodebuild -workspace ViroExample/ViroExample.xcworkspace/ -scheme ViroReact -configuration Release -sdk iphonesimulator -arch x86_64| xcpretty -c")
+         # build React scheme -iphoneOS
+         sh("xcodebuild -workspace ViroExample/ViroExample.xcworkspace/ -scheme React -configuration Release -sdk iphoneos| xcpretty -c")
+         # build ViroReact scheme -iphoneOS
+         sh("xcodebuild -workspace ViroExample/ViroExample.xcworkspace/ -scheme ViroReact -configuration Release -sdk iphoneos| xcpretty -c")
+
+       end
+     rescue => exception
+           on_error(exception)
+    end
+  end
+
+  lane :release_react_viro_static_lib do
+    begin
+      
+      Dir.chdir("../") do
+         
+         # build ViroReact_static_lib scheme -iphoneSimulator
+         sh("xcodebuild -workspace ViroExample/ViroExample.xcworkspace/ -scheme ViroReact_static_lib -configuration Release -sdk iphonesimulator -arch x86_64| xcpretty -c")
+         # build ViroReact scheme -iphoneOS
+         sh("xcodebuild -workspace ViroExample/ViroExample.xcworkspace/ -scheme ViroReact_static_lib -configuration Release -sdk iphoneos| xcpretty -c")
+
+       end
+     rescue => exception
+           on_error(exception)
+    end
+  end
+
+  lane :release_react_viro_lib_clean do
+    Dir.chdir("../") do
+      # clean all schemes
+         sh("xcodebuild -workspace ViroExample/ViroExample.xcworkspace/ -scheme React -configuration Release clean | xcpretty -c")
+         sh("xcodebuild -workspace ViroExample/ViroExample.xcworkspace/ -scheme ViroReact -configuration Release clean | xcpretty -c")
+         sh("xcodebuild -workspace ViroExample/ViroExample.xcworkspace/ -scheme ViroReact_static_lib -configuration Release clean | xcpretty -c")
+         sh("xcodebuild -workspace ViroExample/ViroExample.xcworkspace/ -scheme ViroExample -configuration Release clean | xcpretty -c")
+    end
+  end
+
+  lane :jenkins_release_tests do
+    begin
+      increment_build_number(
+        build_number: latest_testflight_build_number + 1,
+        xcodeproj: "./ViroExample/ViroExample.xcodeproj"
+      )
+      cert
+      sigh(force: true)
+      gym(scheme: "ViroExample_archive",
+                workspace: "./ViroExample/ViroExample.xcworkspace",
+                configuration: "Release",
+                clean: true,
+                output_directory: "./build",
+                output_name: "ViroExample.ipa") 
+       pilot(username: "manish@viromedia.com",
+             ipa: "./build/ViroExample.ipa",
+             skip_waiting_for_build_processing: true)
+    rescue => exception
+           on_error(exception)
+    end
+  end
+
+  lane :jenkins_upload_release_tests_testflight do
+    begin
+       pilot(username: "manish@viromedia.com",
+          ipa: "./build/ViroExample.ipa",
+          skip_waiting_for_build_processing: true)
+    rescue => exception
+           on_error(exception)
+    end
+  end
+end
+# More information about multiple platforms in fastlane: https://docs.fastlane.tools/advanced/#control-configuration-by-lane-and-by-platform
+# All available actions: https://docs.fastlane.tools/actions
+
+# fastlane reports which actions are used. No personal data is recorded.
+# Learn more at https://docs.fastlane.tools/#metrics

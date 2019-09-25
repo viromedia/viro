@@ -1,0 +1,4 @@
+configurations.maybeCreate("default")
+artifacts.add("default", file('viro_renderer-release.aar'))
+
+
