@@ -36,12 +36,65 @@ Tried the samples through our Testbed app and now want to try deploying sample c
     Select the right "Team" for `ViroSample` and `ViroSampleTest` target under `General -> Signing`
     Hit play to build and launch the app on your iOS device
 
-## Changing Between Samples
+### Changing Between Samples
 
 1. Open App.js in a text editor.
 2. For AR, set showARScene=true at line 44.
 3. For VR, Modify line 61: `scene: scenes['360 Photo Tour'],` to a scene defined in the `scenes` dictionary on line 30.
 3. Reload/restart the application.
+
+## Instructions for building the Viro React platform:
+
+### Building iOS Viro React:
+
+1. Follow directions on our [Quick start guide](https://docs.viromedia.com/docs/quick-start) to setup dependencies.
+2. Clone the repo into your workspace with git: `git clone https://github.com/viromedia/viro.git`.
+3. Build our iOS renderer using build instructions outlined in our [Virocore](https://github.com/viromedia/virocore/blob/master/README.md) repo.
+4. Verify you see new files created in `ios/dist` folder.
+5. Install pods in `ios/` folder:
+   ```
+   cd ios
+   pod install
+   ```
+6. Install node_modules in test folder:
+   ```
+   cd test
+   npm install
+   ```
+7. Install pods in the `ViroExample` folder:
+   ```
+   cd test/ios/ViroExample
+   pod install
+   ```
+8. Open `ViroExample.xcworkspace` in Xcode. (Make sure you open the .xcworkpace file, and **not*** the .xcodeproj file!)
+9. Select Product->Scheme. If you don't see a `React` scheme, hit `Manage Schemes...`. In the dialog box, add `React` scheme.
+10. Go through build configuration (Debug vs Release) for schemes `React`, `ViroReact` and `ViroExample` and ensure they are all either Release or Debug, depending on what you are trying to build.
+11. That's it! Now build React scheme for `Generic iOS Device`, followed by ViroReact scheme for the same target.
+Note:
+    ```
+    11.a If you want the ability to run on Simulator, 
+         change target to any of the `iOS Simulator` targets instead of `Generic iOS Device`. 
+    11.b If in your own app project setup, you prefer to include Viro React as a static library 
+         rather than relying on `use_frameworks!` - build scheme `ViroReact_static_lib` 
+         instead of `ViroReact` as mentioned above in step #11. 
+    ```
+12. You should see a new file `libViroReact.a` at `ios/dist/lib/libViroReact.a`.
+13. To run Viro React tests, run `ViroExample` scheme on your plugged in iOS device.
+
+### Building Android Viro React:
+1. Under the viro directory, run `./prepareRelease.sh`.
+2. Your android bridge should now be built under release.
+3. You should see a new file created at android/react_viro/react_viro-release.aar
+4. To build android release tests:
+   ```
+   $ cd test/android
+   $ ./gradlew assembleGvrRelease
+   ```
+5. Install app-gvr-release.apk from `test/android/app/build/output/gvr/app-gvr-release.apk` onto your plugged in Android device.
+
+
+### Bundling and using built iOS and Android into a single npm tar package:
+1. The `./prepareRelease.sh` you ran above builds android react bridge and bundles both iOS and Android bridge into a `react-viro-*.tgz` file. * for current version from `package.json` file.
 
 ## More information
 
