@@ -6,18 +6,18 @@
 /android/.idea
 *.gradle/
 
-Examples/android/app/build/
-Examples/android/app/gradle/
-Examples/android/app/gradlew
-Examples/android/app/gradlew.bat
-Examples/android/app/.idea
+test/android/app/build/
+test/android/app/gradle/
+test/android/app/gradlew
+test/android/app/gradlew.bat
+test/android/app/.idea
 *.iml
 
 # Android
 android/.idea
-Examples/android/app/.idea
-Examples/android/.gradle
-Examples/android/local.properties
+test/android/app/.idea
+test/android/.gradle
+test/android/local.properties
 .idea
 
 #iOS
@@ -25,12 +25,12 @@ ios/Pods/Pods.xcodeproj/xcuserdata/
 ios/Pods/
 ios/ViroReact.xcodeproj/xcuserdata/
 ios/ViroReact.xcworkspace/xcuserdata/
-Examples/ios/ViroExample.xcworkspace/xcuserdata/
-Examples/ios/ViroExample/Pods/Pods.xcodeproj/xcuserdata/
-Examples/ios/ViroExample/ViroExample.xcodeproj/xcuserdata/
-Examples/ios/ViroExample/ViroExample.xcworkspace/xcuserdata/
-Examples/ios/ViroExample/ViroExample.xcworkspace/xcshareddata/
-Examples/ios/ViroExample/Pods/
+test/ios/ViroExample.xcworkspace/xcuserdata/
+test/ios/ViroExample/Pods/Pods.xcodeproj/xcuserdata/
+test/ios/ViroExample/ViroExample.xcodeproj/xcuserdata/
+test/ios/ViroExample/ViroExample.xcworkspace/xcuserdata/
+test/ios/ViroExample/ViroExample.xcworkspace/xcshareddata/
+test/ios/ViroExample/Pods/
 ios/ngrokendpoint.txt
 ios/ViroRenderer/ViroKit.framework/_CodeSignature/
 
@@ -54,11 +54,11 @@ Figment/ios/ngrokendpoint.txt
 
 
 # Node
-Examples/node_modules
+test/node_modules
 Figment/node_modules
 npm-debug.log
-Examples/package-lock.json
-Examples/yarn.lock
+test/package-lock.json
+test/yarn.lock
 
 *.DS_Store
 *local.properties
@@ -71,7 +71,7 @@ ios/fastlane/report.xml
 ios/fastlane/README.md
 android/fastlane/report.xml
 android/fastlane/README.md
-Examples/ios/fastlane/report.xml
-Examples/ios/fastlane/README.md
-Examples/android/fastlane/README.md
-Examples/android/fastlane/report.xml
+test/ios/fastlane/report.xml
+test/ios/fastlane/README.md
+test/android/fastlane/README.md
+test/android/fastlane/report.xml

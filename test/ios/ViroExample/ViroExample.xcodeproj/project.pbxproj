@@ -1203,7 +1203,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Fabric/run\" ***REMOVED*** 612ac0e8e7b883f1e327833bf5978d6cf57e42522375633c7b597364120b7015";
+			shellScript = "\"${PODS_ROOT}/Fabric/run\" REMOVED 612ac0e8e7b883f1e327833bf5978d6cf57e42522375633c7b597364120b7015";
 		};
 		13424D5820B4269E00C690CC /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1244,7 +1244,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Fabric/run\" ***REMOVED*** 612ac0e8e7b883f1e327833bf5978d6cf57e42522375633c7b597364120b7015";
+			shellScript = "\"${PODS_ROOT}/Fabric/run\" REMOVED 612ac0e8e7b883f1e327833bf5978d6cf57e42522375633c7b597364120b7015";
 		};
 		150FDA19F6DC04FB771C0368 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1502,7 +1502,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 13;
-				DEVELOPMENT_TEAM = ***REMOVED***;
+				DEVELOPMENT_TEAM = YOUR_TEAM_ID;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SRCROOT)/../../../ios/dist/ViroRenderer/**",
@@ -1533,7 +1533,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 13;
-				DEVELOPMENT_TEAM = ***REMOVED***;
+				DEVELOPMENT_TEAM = YOUR_TEAM_ID;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SRCROOT)/../../../ios/dist/ViroRenderer/**",
@@ -1565,7 +1565,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 13;
-				DEVELOPMENT_TEAM = ***REMOVED***;
+				DEVELOPMENT_TEAM = YOUR_TEAM_ID;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SRCROOT)/../../../ios/dist/ViroRenderer/**",
@@ -1596,7 +1596,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 13;
-				DEVELOPMENT_TEAM = ***REMOVED***;
+				DEVELOPMENT_TEAM = YOUR_TEAM_ID;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SRCROOT)/../../../ios/dist/ViroRenderer/**",
@@ -1716,7 +1716,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 13;
-				DEVELOPMENT_TEAM = ***REMOVED***;
+				DEVELOPMENT_TEAM = YOUR_TEAM_ID;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SRCROOT)/../../../ios/dist/ViroRenderer/**",
@@ -1747,7 +1747,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 13;
-				DEVELOPMENT_TEAM = ***REMOVED***;
+				DEVELOPMENT_TEAM = YOUR_TEAM_ID;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SRCROOT)/../../../ios/dist/ViroRenderer/**",
@@ -1800,7 +1800,7 @@
 		8BE0D4491DF9DCFE0032AB99 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				DEVELOPMENT_TEAM = ***REMOVED***;
+				DEVELOPMENT_TEAM = YOUR_TEAM_ID;
 				INFOPLIST_FILE = ViroExampleUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = viro.ViroExampleUITests;
@@ -1812,7 +1812,7 @@
 		8BE0D44A1DF9DCFE0032AB99 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				DEVELOPMENT_TEAM = ***REMOVED***;
+				DEVELOPMENT_TEAM = YOUR_TEAM_ID;
 				INFOPLIST_FILE = ViroExampleUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = viro.ViroExampleUITests;
