@@ -18,6 +18,8 @@ To report bugs/issues with Viro platform, please file new issues on this reposit
 7. Type the entire ngrok URL output (xxxxxx.ngrok.io) at the top of the terminal into the text field and hit 'GO'
 8. You should now be in the application! Enjoy!
 
+To rebuild the testbed app from source, please refere to the testbed repo [here](https://github.com/viromedia/viro-media-app/tree/master).
+
 ## Instructions for running sample code as a stand alone project (with no Testbed app):
 Tried the samples through our Testbed app and now want to try deploying sample code to your device as standalone apps? These quick steps below should get you started:
 1. Follow steps 1 - 4 from above (instructions for using with Testbed app)
