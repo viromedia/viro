@@ -54,15 +54,13 @@ Figment/ios/ngrokendpoint.txt
 
 
 # Node
-test/node_modules
-Figment/node_modules
+node_modules
 npm-debug.log
-test/package-lock.json
-test/yarn.lock
+yarn.lock
 
-*.DS_Store
-*local.properties
-*build/
+.DS_Store
+local.properties
+build/
 react-viro*.tgz
 
 
