@@ -7,6 +7,8 @@ The platform is free to use with no limits on distribution.
 
 To report bugs/issues with Viro platform, please file new issues on this repository.
 
+![Viro Bridge CI Pipeline](https://github.com/dthian/viro/workflows/Viro%20Bridge%20CI%20Pipeline/badge.svg)
+
 ## Instructions for running sample projects using Testbed app:
 
 1. Follow directions on our [Quick start guide](https://docs.viromedia.com/docs/quick-start) to setup dependencies for trying these sample projects with the Viro Media App.
@@ -45,7 +47,20 @@ Tried the samples through our Testbed app and now want to try deploying sample c
 3. For VR, Modify line 61: `scene: scenes['360 Photo Tour'],` to a scene defined in the `scenes` dictionary on line 30.
 3. Reload/restart the application.
 
-## Instructions for building the Viro React platform:
+## Instructions for using a pre-built Viro React platform from Mainline:
+You can also try the latest mainline build containing bleeding edge features and fixes. Please keep in mind that mainline builds may not be as stable as release builds. To do so, simply:
+
+1. Go to the [Viro Ations Workflows](https://github.com/viromedia/viro/actions) for this project.
+2. You should see a list of "Viro Bridge CI Pipeline" workflows.
+3. Click on the latest successfully built workflow pipeline (should be a checkmark next to it).
+4. Download the latest built ViroReact.tgz artiface.
+4. Clone this repo into your workspace with git: `git clone https://github.com/viromedia/viro.git`.
+5. Go into the code-samples directory.
+6. Run `npm install` from the root of this project. 
+7. Remove the ViroReact framework that was pulled down from the npm install (you are going to use the pre-built one).
+8. npm install ../path/to/your/downloadedArtifact.tgz
+
+## Instructions for manually building the Viro React platform:
 
 ### Building iOS Viro React:
 
