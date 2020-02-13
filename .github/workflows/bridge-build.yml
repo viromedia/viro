@@ -1,0 +1,52 @@
+name: Viro Bridge CI Pipeline
+on: [push]
+jobs:
+  bridge_build:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v1
+
+      # Setup dependencies for React Native
+      # Note, brew and node are already installed on github workflows.
+      - name: Setup Watchman 
+        run: brew install watchman 
+      - name: ViroReact Pods Install
+        run: pod install
+        working-directory: ./ios
+      - name: ViroReact Npm Install
+        run: npm install
+        working-directory: ./test  
+      - name: ViroExample Pods Install
+        working-directory: ./test/ios/ViroExample  
+        run: npm install
+        
+      - name: xcodebuild React IOS framework
+        working-directory: ./test/ios
+        run: |
+          xcodebuild \
+            -workspace ViroExample/ViroExample.xcworkspace/ \
+            -scheme React \
+            -sdk iphoneos \
+            -configuration Debug \
+            -UseModernBuildSystem=NO   
+
+      - name: xcodebuild ViroReact IOS framework
+        working-directory: ./test/ios
+        run: |
+          xcodebuild \
+            -workspace ViroExample/ViroExample.xcworkspace/ \
+            -scheme ViroReact \
+            -sdk iphoneos \
+            -configuration Debug \
+            -UseModernBuildSystem=NO             
+
+      # Prepare Release scripts should also run our gradle builds
+      # required for Android RN Frameworks.
+      - name: Prepare Release
+        run: ./prepare_release.sh
+  
+      - name: Upload tgz Artifact
+        uses: actions/upload-artifact@v1
+        with: 
+          name: react-viro-2.17.0.tgz
+          path: ./react-viro-2.17.0.tgz
