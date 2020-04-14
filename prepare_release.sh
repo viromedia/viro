@@ -17,7 +17,7 @@ echo '== Checking for build artifacts =='
 if [ ! -f android/viro_bridge/build/outputs/aar/viro_bridge-release.aar ]
 then
     echo "Unable to find viro-bridge release output!";
-    exit
+    #exit
 fi
 
 echo '== Copying build artifacts to the lib directory =='

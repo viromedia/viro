@@ -3,14 +3,13 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "prestart": "./node_modules/react-viro/bin/run_ngrok.sh",
-    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "start": "node node_modules\\react-native\\local-cli\\cli.js start",
     "test": "jest"
   },
   "dependencies": {
-    "react": "16.8.3",
-    "react-native": "0.59.3",
-    "react-viro": "2.16.0"
+    "react": "^16.9.0",
+    "react-native": "^0.61.5",
+    "react-viro": "2.17.0"
   },
   "devDependencies": {
     "babel-jest": "23.6.0",
