@@ -11,5 +11,5 @@ Pod::Spec.new do |s|
   s.platform            = :ios, '9.3'
 
   s.dependency 'GVRSDK', '1.170.0'
-  s.dependency 'GVRAudioSDK', '1.170.0'
+  s.dependency 'GVRAudioSDK', '1.140.0'
 end
