@@ -281,8 +281,6 @@ public:
     virtual std::shared_ptr<VRORenderTarget> getDisplay() = 0;
     virtual std::shared_ptr<VROImagePostProcess> newImagePostProcess(std::shared_ptr<VROShaderProgram> shader) = 0;
     virtual std::shared_ptr<VROVideoTextureCache> newVideoTextureCache() = 0;
-    virtual std::shared_ptr<VROSound> newSound(std::shared_ptr<VROSoundData> data, VROSoundType type) = 0;
-    virtual std::shared_ptr<VROSound> newSound(std::string resource, VROResourceType resourceType, VROSoundType type) = 0;
     virtual std::shared_ptr<VROAudioPlayer> newAudioPlayer(std::shared_ptr<VROSoundData> data) = 0;
     virtual std::shared_ptr<VROAudioPlayer> newAudioPlayer(std::string path, bool isLocal) = 0;
     virtual std::shared_ptr<VROTypefaceCollection> newTypefaceCollection(std::string typefaces, int size, VROFontStyle style, VROFontWeight weight) = 0;
