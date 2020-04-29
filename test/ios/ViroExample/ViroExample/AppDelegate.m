@@ -7,9 +7,9 @@
 //
 
 #import "AppDelegate.h"
-#include "RCTBundleURLProvider.h"
+#include <React/RCTBundleURLProvider.h>
 #include "VRTBundleURLProvider.h"
-#include "RCTRootView.h"
+#include <React/RCTRootView.h>
 
 @interface AppDelegate ()
 
