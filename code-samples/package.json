@@ -3,19 +3,23 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "node node_modules\\react-native\\local-cli\\cli.js start",
+    "start": "react-native start",
     "test": "jest"
   },
   "dependencies": {
-    "react": "^16.9.0",
-    "react-native": "^0.61.5",
-    "react-viro": "2.17.0"
+    "react": "~16.9.0",
+    "react-native": "~0.61.5",
+    "react-viro": "file:../"
   },
   "devDependencies": {
-    "babel-jest": "23.6.0",
-    "jest": "23.6.0",
-    "metro-react-native-babel-preset": "0.51.1",
-    "react-test-renderer": "16.6.1"
+    "@babel/core": "^7.8.4",
+    "@babel/runtime": "^7.8.4",
+    "@react-native-community/eslint-config": "^1.0.0",
+    "babel-jest": "^25.1.0",
+    "eslint": "^6.5.1",
+    "jest": "^25.1.0",
+    "metro-react-native-babel-preset": "^0.59.0",
+    "react-test-renderer": "16.13.1"
   },
   "jest": {
     "preset": "react-native"
