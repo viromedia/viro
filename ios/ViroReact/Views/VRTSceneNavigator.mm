@@ -44,7 +44,7 @@
 
 @implementation VRTSceneNavigator {
     id <VROView> _vroView;
-    VROViewControllerGVR *_gvrController;
+//    VROViewControllerGVR *_gvrController;
 }
 
 - (instancetype)initWithBridge:(RCTBridge *)bridge {
@@ -69,23 +69,23 @@
     if (_vroView != nil) {
         return NO;
     }
-    VRORendererConfiguration config;
-    _gvrController = [[VROViewControllerGVR alloc] initWithConfig:config];
-    _gvrController.forceLandscape = _vrModeEnabled;
-    _vroView = (id<VROView>) _gvrController.view;
+//    VRORendererConfiguration config;
+//    _gvrController = [[VROViewControllerGVR alloc] initWithConfig:config];
+//    _gvrController.forceLandscape = _vrModeEnabled;
+//    _vroView = (id<VROView>) _gvrController.view;
     
     // Load materials; must be done each time we have a new context (e.g. after
     // the EGL context is created by the VROViewGVR
     VRTMaterialManager *materialManager = [self.bridge materialManager];
     [materialManager reloadMaterials];
-    VROViewGVR *viewCardboard = (VROViewGVR *) _gvrController.view;
-    [viewCardboard setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
+//    VROViewGVR *viewCardboard = (VROViewGVR *) _gvrController.view;
+//    [viewCardboard setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
     _vroView.renderDelegate = self;
     
     [self setFrame:[UIScreen mainScreen].bounds];
     [self setAutoresizingMask:UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight];
     
-    [self addSubview:viewCardboard];
+//    [self addSubview:viewCardboard];
     self.currentViews = [[NSMutableArray alloc] init];
     [self.bridge.perfMonitor setView:_vroView];
     
@@ -100,8 +100,8 @@
 
 - (void)recenterTracking {
     [self initVRView];
-    VROViewGVR *cardboardView = _vroView;
-    [cardboardView recenterTracking];
+//    VROViewGVR *cardboardView = _vroView;
+//    [cardboardView recenterTracking];
 }
 
 - (UIView *)rootVROView {
@@ -124,7 +124,7 @@
     
     if (self.currentSceneIndex == atIndex) {
         [self setSceneView:sceneView];
-        [(VROViewGVR *)_vroView setPaused:NO];
+//        [(VROViewGVR *)_vroView setPaused:NO];
     }
     [super insertReactSubview:subview atIndex:atIndex];
 }

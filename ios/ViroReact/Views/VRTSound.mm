@@ -195,21 +195,21 @@ static NSString *const kWebPrefix = @"http";
 }
 
 - (void)createSoundWithPath:(NSString *)path resourceType:(VROResourceType)resourceType {
-    if (_sound) {
-        _sound->pause();
-    }
-    
-    _sound = self.driver->newSound(std::string([path UTF8String]), resourceType, self.soundType);
-    _sound->setDelegate(std::make_shared<VROSoundDelegateiOS>(self));
+//    if (_sound) {
+//        _sound->pause();
+//    }
+//
+//    _sound = self.driver->newSound(std::string([path UTF8String]), resourceType, self.soundType);
+//    _sound->setDelegate(std::make_shared<VROSoundDelegateiOS>(self));
 }
 
 - (void)createSoundWithData:(std::shared_ptr<VROSoundData>)data local:(BOOL)local {
-    if (_sound) {
-        _sound->pause();
-    }
-    
-    _sound = self.driver->newSound(data, self.soundType);
-    _sound->setDelegate(std::make_shared<VROSoundDelegateiOS>(self));
+//    if (_sound) {
+//        _sound->pause();
+//    }
+//    
+//    _sound = self.driver->newSound(data, self.soundType);
+//    _sound->setDelegate(std::make_shared<VROSoundDelegateiOS>(self));
 }
 
 - (std::shared_ptr<VROSoundData>)getDataForName:(NSString *)name {
