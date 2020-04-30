@@ -32,7 +32,7 @@
 
 @class ARReferenceImage;
 
-class VROARImageTargetiOS : public VROARImageTarget {
+class API_AVAILABLE(ios(11.3)) VROARImageTargetiOS : public VROARImageTarget {
 public:
     VROARImageTargetiOS(UIImage *sourceImage, VROImageOrientation orientation, float physicalWidth);
     virtual ~VROARImageTargetiOS();

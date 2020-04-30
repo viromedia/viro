@@ -49,8 +49,6 @@ enum class VRORendererTestType {
     InverseKinematics,
     ARPlane,
     ARDraggableNode,
-    ARImageTracking,
-    ARObjectTracking,
     Portal,
     Shadow,
     ARShadow,
