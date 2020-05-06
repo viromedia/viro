@@ -1,3 +1,6 @@
+# Disclaimer on using Mendix/Viro
+This is a fork for internal testing and compliments the requirements of the Mendix Platform. Mendix offers no support or assurance on the features provided. Use on your own risk.
+
 # Viro React
 Viro React is a platform for developers to rapidly build augmented reality (AR) and virtual reality (VR) experiences. Developers write in React Native, and Viro runs their code natively across all mobile VR (including Google Daydream, Samsung Gear VR, and Google Cardboard for iOS and Android) and AR (iOS ARKit and Android ARCore) platforms. [More info here](http://docs.viromedia.com/).
 
