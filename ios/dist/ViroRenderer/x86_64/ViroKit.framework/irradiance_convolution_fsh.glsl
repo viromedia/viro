@@ -16,7 +16,7 @@ void main() {
     
     // This value controls how much we sample the cubemap for convolution.
     // Using 0.05 is too low, causes GPU hang errors on iOS (IOAF code 5)
-    highp float sample_delta = 0.075;
+    highp float sample_delta = 0.125;
     highp float sample_count = 0.0f;
     
     highp vec2 seed = vec2(v_world_position.xy);

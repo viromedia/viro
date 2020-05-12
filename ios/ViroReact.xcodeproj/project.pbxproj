@@ -12,7 +12,6 @@
 		131E1DFF20B89A560075D8E0 /* VRTSceneModule.mm in Sources */ = {isa = PBXBuildFile; fileRef = A5E8F0A81ED6B64D00729916 /* VRTSceneModule.mm */; };
 		131E1E0020B89A560075D8E0 /* VRTCameraManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8BE0D4871DFA15880032AB99 /* VRTCameraManager.mm */; };
 		131E1E0120B89A560075D8E0 /* VRTLightManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8BE0D4791DFA15880032AB99 /* VRTLightManager.mm */; };
-		131E1E0220B89A560075D8E0 /* VRTSceneNavigator.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8BE0D4E41DFA3D9B0032AB99 /* VRTSceneNavigator.mm */; };
 		131E1E0320B89A560075D8E0 /* VRTAnimatedComponent.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8BE0D4C01DFA3D9B0032AB99 /* VRTAnimatedComponent.mm */; };
 		131E1E0420B89A560075D8E0 /* VRTPolygonManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = A5B4AEFB2050B4600006D970 /* VRTPolygonManager.mm */; };
 		131E1E0520B89A560075D8E0 /* VRTARSceneNavigatorManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8A744F591EEF655F00ECDBC4 /* VRTARSceneNavigatorManager.mm */; };
@@ -22,7 +21,6 @@
 		131E1E0920B89A560075D8E0 /* VRTImageManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8BE0D48C1DFA15880032AB99 /* VRTImageManager.mm */; };
 		131E1E0A20B89A560075D8E0 /* VRTAnimatedComponentManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8BE0D46E1DFA15880032AB99 /* VRTAnimatedComponentManager.mm */; };
 		131E1E0B20B89A560075D8E0 /* VRTARImageMarker.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8A04D51A2024F7AA00FD5F68 /* VRTARImageMarker.mm */; };
-		131E1E0C20B89A560075D8E0 /* VRTVRSceneNavigator.mm in Sources */ = {isa = PBXBuildFile; fileRef = 133FE28D206EE4FD00FB6F34 /* VRTVRSceneNavigator.mm */; };
 		131E1E0D20B89A560075D8E0 /* VRTARSceneManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8A0524371EF0A4B900A02361 /* VRTARSceneManager.mm */; };
 		131E1E0E20B89A560075D8E0 /* VRTARPlaneManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8AEFA2231EF3175C006851B7 /* VRTARPlaneManager.mm */; };
 		131E1E0F20B89A560075D8E0 /* VRTSphere.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8BE0D4EE1DFA3D9B0032AB99 /* VRTSphere.mm */; };
@@ -75,7 +73,6 @@
 		131E1E3E20B89A560075D8E0 /* VRTFlexViewManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8BE0D48A1DFA15880032AB99 /* VRTFlexViewManager.mm */; };
 		131E1E3F20B89A560075D8E0 /* VRTImageAsyncLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BE0D5201DFA3DEA0032AB99 /* VRTImageAsyncLoader.m */; };
 		131E1E4020B89A560075D8E0 /* VRTCameraModule.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8FD1D4B81E3A484000EE2859 /* VRTCameraModule.mm */; };
-		131E1E4120B89A560075D8E0 /* VRTVRSceneNavigatorManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 133FE28A206EE35300FB6F34 /* VRTVRSceneNavigatorManager.mm */; };
 		131E1E4220B89A560075D8E0 /* VRT360Video.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8BE0D4BE1DFA3D9B0032AB99 /* VRT360Video.mm */; };
 		131E1E4320B89A560075D8E0 /* VRTARUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A2DA3C61F9438A7001FC3BA /* VRTARUtils.m */; };
 		131E1E4420B89A560075D8E0 /* VRTScene.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8BE0D4E21DFA3D9B0032AB99 /* VRTScene.mm */; };
@@ -105,25 +102,20 @@
 		131E1E5C20B89A560075D8E0 /* VRTARPlane.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8AEFA2291EF3197E006851B7 /* VRTARPlane.mm */; };
 		131E1E5D20B89A560075D8E0 /* VRTSoundModule.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8A130DAD1E43A8AB0050D83B /* VRTSoundModule.mm */; };
 		131E1E5E20B89A560075D8E0 /* VRTARSceneModule.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8A35BA241F3BAA48002B069E /* VRTARSceneModule.mm */; };
-		131E1E5F20B89A560075D8E0 /* VRTSceneNavigatorManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8BE0D47D1DFA15880032AB99 /* VRTSceneNavigatorManager.mm */; };
 		131E1E6020B89A560075D8E0 /* VRTLabelShadowView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8BE0D4D61DFA3D9B0032AB99 /* VRTLabelShadowView.mm */; };
 		131E1E6120B89A560075D8E0 /* VRTFlexView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8BE0D4CC1DFA3D9B0032AB99 /* VRTFlexView.mm */; };
-		131E1E6220B89A560075D8E0 /* VRTSceneNavigatorModule.mm in Sources */ = {isa = PBXBuildFile; fileRef = A5A937A81E81D1FB00FE0406 /* VRTSceneNavigatorModule.mm */; };
 		131E1E6320B89A560075D8E0 /* VRT360Image.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8BE0D4BC1DFA3D9B0032AB99 /* VRT360Image.mm */; };
 		131E1E6420B89A560075D8E0 /* VRTARAnchorNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8AEFA22D1EF34487006851B7 /* VRTARAnchorNode.mm */; };
 		131E1E6520B89A560075D8E0 /* VRT3DSceneNavigatorManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13F63032205762CB00A74EFC /* VRT3DSceneNavigatorManager.mm */; };
 		131E1E6620B89A560075D8E0 /* VRTControl.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8BE0D4CA1DFA3D9B0032AB99 /* VRTControl.mm */; };
 		131E1E6820B89A560075D8E0 /* ViroKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AFCC4F520056B1000AD8B8D /* ViroKit.framework */; };
 		13244E7420CF3FC800DF612B /* libViroReact_static_lib.a in Copy Files */ = {isa = PBXBuildFile; fileRef = 1385B29C20CA091C00C3B6CE /* libViroReact_static_lib.a */; };
-		133FE28B206EE35300FB6F34 /* VRTVRSceneNavigatorManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 133FE28A206EE35300FB6F34 /* VRTVRSceneNavigatorManager.mm */; };
-		133FE28E206EE4FD00FB6F34 /* VRTVRSceneNavigator.mm in Sources */ = {isa = PBXBuildFile; fileRef = 133FE28D206EE4FD00FB6F34 /* VRTVRSceneNavigator.mm */; };
 		137E9D821F50E8C1008238E5 /* VRTPhotoLibraryAsyncLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 137E9D801F50E8C0008238E5 /* VRTPhotoLibraryAsyncLoader.m */; };
 		1385B1CD20CA091C00C3B6CE /* VRTPortalScene.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8FEF00641F37ACCC006AE4B1 /* VRTPortalScene.mm */; };
 		1385B1CE20CA091C00C3B6CE /* VRTCameraManager.h in Sources */ = {isa = PBXBuildFile; fileRef = 8BE0D4861DFA15880032AB99 /* VRTCameraManager.h */; };
 		1385B1CF20CA091C00C3B6CE /* VRTSceneModule.mm in Sources */ = {isa = PBXBuildFile; fileRef = A5E8F0A81ED6B64D00729916 /* VRTSceneModule.mm */; };
 		1385B1D020CA091C00C3B6CE /* VRTCameraManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8BE0D4871DFA15880032AB99 /* VRTCameraManager.mm */; };
 		1385B1D120CA091C00C3B6CE /* VRTLightManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8BE0D4791DFA15880032AB99 /* VRTLightManager.mm */; };
-		1385B1D220CA091C00C3B6CE /* VRTSceneNavigator.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8BE0D4E41DFA3D9B0032AB99 /* VRTSceneNavigator.mm */; };
 		1385B1D320CA091C00C3B6CE /* VRTAnimatedComponent.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8BE0D4C01DFA3D9B0032AB99 /* VRTAnimatedComponent.mm */; };
 		1385B1D420CA091C00C3B6CE /* VRTPolygonManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = A5B4AEFB2050B4600006D970 /* VRTPolygonManager.mm */; };
 		1385B1D520CA091C00C3B6CE /* VRTARSceneNavigatorManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8A744F591EEF655F00ECDBC4 /* VRTARSceneNavigatorManager.mm */; };
@@ -133,7 +125,6 @@
 		1385B1D920CA091C00C3B6CE /* VRTImageManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8BE0D48C1DFA15880032AB99 /* VRTImageManager.mm */; };
 		1385B1DA20CA091C00C3B6CE /* VRTAnimatedComponentManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8BE0D46E1DFA15880032AB99 /* VRTAnimatedComponentManager.mm */; };
 		1385B1DB20CA091C00C3B6CE /* VRTARImageMarker.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8A04D51A2024F7AA00FD5F68 /* VRTARImageMarker.mm */; };
-		1385B1DC20CA091C00C3B6CE /* VRTVRSceneNavigator.mm in Sources */ = {isa = PBXBuildFile; fileRef = 133FE28D206EE4FD00FB6F34 /* VRTVRSceneNavigator.mm */; };
 		1385B1DD20CA091C00C3B6CE /* VRTARSceneManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8A0524371EF0A4B900A02361 /* VRTARSceneManager.mm */; };
 		1385B1DE20CA091C00C3B6CE /* VRTARPlaneManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8AEFA2231EF3175C006851B7 /* VRTARPlaneManager.mm */; };
 		1385B1DF20CA091C00C3B6CE /* VRTSphere.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8BE0D4EE1DFA3D9B0032AB99 /* VRTSphere.mm */; };
@@ -186,7 +177,6 @@
 		1385B20E20CA091C00C3B6CE /* VRTFlexViewManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8BE0D48A1DFA15880032AB99 /* VRTFlexViewManager.mm */; };
 		1385B20F20CA091C00C3B6CE /* VRTImageAsyncLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BE0D5201DFA3DEA0032AB99 /* VRTImageAsyncLoader.m */; };
 		1385B21020CA091C00C3B6CE /* VRTCameraModule.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8FD1D4B81E3A484000EE2859 /* VRTCameraModule.mm */; };
-		1385B21120CA091C00C3B6CE /* VRTVRSceneNavigatorManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 133FE28A206EE35300FB6F34 /* VRTVRSceneNavigatorManager.mm */; };
 		1385B21220CA091C00C3B6CE /* VRT360Video.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8BE0D4BE1DFA3D9B0032AB99 /* VRT360Video.mm */; };
 		1385B21320CA091C00C3B6CE /* VRTARUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A2DA3C61F9438A7001FC3BA /* VRTARUtils.m */; };
 		1385B21420CA091C00C3B6CE /* VRTScene.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8BE0D4E21DFA3D9B0032AB99 /* VRTScene.mm */; };
@@ -216,10 +206,8 @@
 		1385B22C20CA091C00C3B6CE /* VRTARPlane.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8AEFA2291EF3197E006851B7 /* VRTARPlane.mm */; };
 		1385B22D20CA091C00C3B6CE /* VRTSoundModule.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8A130DAD1E43A8AB0050D83B /* VRTSoundModule.mm */; };
 		1385B22E20CA091C00C3B6CE /* VRTARSceneModule.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8A35BA241F3BAA48002B069E /* VRTARSceneModule.mm */; };
-		1385B22F20CA091C00C3B6CE /* VRTSceneNavigatorManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8BE0D47D1DFA15880032AB99 /* VRTSceneNavigatorManager.mm */; };
 		1385B23020CA091C00C3B6CE /* VRTLabelShadowView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8BE0D4D61DFA3D9B0032AB99 /* VRTLabelShadowView.mm */; };
 		1385B23120CA091C00C3B6CE /* VRTFlexView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8BE0D4CC1DFA3D9B0032AB99 /* VRTFlexView.mm */; };
-		1385B23220CA091C00C3B6CE /* VRTSceneNavigatorModule.mm in Sources */ = {isa = PBXBuildFile; fileRef = A5A937A81E81D1FB00FE0406 /* VRTSceneNavigatorModule.mm */; };
 		1385B23320CA091C00C3B6CE /* VRT360Image.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8BE0D4BC1DFA3D9B0032AB99 /* VRT360Image.mm */; };
 		1385B23420CA091C00C3B6CE /* VRTARAnchorNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8AEFA22D1EF34487006851B7 /* VRTARAnchorNode.mm */; };
 		1385B23520CA091C00C3B6CE /* VRT3DSceneNavigatorManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13F63032205762CB00A74EFC /* VRT3DSceneNavigatorManager.mm */; };
@@ -230,7 +218,6 @@
 		1385B24020CA091C00C3B6CE /* VRTNodeModule.h in Copy Headers to ios/dist/include */ = {isa = PBXBuildFile; fileRef = A50A310C1ECE1E8800DEBE9B /* VRTNodeModule.h */; };
 		1385B24120CA091C00C3B6CE /* VRTSceneModule.h in Copy Headers to ios/dist/include */ = {isa = PBXBuildFile; fileRef = A5E8F0A71ED6B64D00729916 /* VRTSceneModule.h */; };
 		1385B24220CA091C00C3B6CE /* VRTControllerModule.h in Copy Headers to ios/dist/include */ = {isa = PBXBuildFile; fileRef = A533596D1E9E0169005B3EC5 /* VRTControllerModule.h */; };
-		1385B24320CA091C00C3B6CE /* VRTSceneNavigatorModule.h in Copy Headers to ios/dist/include */ = {isa = PBXBuildFile; fileRef = A5A937A71E81D1FB00FE0406 /* VRTSceneNavigatorModule.h */; };
 		1385B24420CA091C00C3B6CE /* VRTPerfMonitor.h in Copy Headers to ios/dist/include */ = {isa = PBXBuildFile; fileRef = 8F705DE41E8B3754008BE8F8 /* VRTPerfMonitor.h */; };
 		1385B24520CA091C00C3B6CE /* VRTPolyline.h in Copy Headers to ios/dist/include */ = {isa = PBXBuildFile; fileRef = 8AFC1C351EC1001C0000F7EB /* VRTPolyline.h */; };
 		1385B24620CA091C00C3B6CE /* VRTPortalScene.h in Copy Headers to ios/dist/include */ = {isa = PBXBuildFile; fileRef = 8FEF00631F37ACCC006AE4B1 /* VRTPortalScene.h */; };
@@ -276,7 +263,6 @@
 		1385B26E20CA091C00C3B6CE /* VRTNodeContainerShadowView.h in Copy Headers to ios/dist/include */ = {isa = PBXBuildFile; fileRef = 8BE0D4DD1DFA3D9B0032AB99 /* VRTNodeContainerShadowView.h */; };
 		1385B26F20CA091C00C3B6CE /* VRTOrbitCamera.h in Copy Headers to ios/dist/include */ = {isa = PBXBuildFile; fileRef = 8BE0D4DF1DFA3D9B0032AB99 /* VRTOrbitCamera.h */; };
 		1385B27020CA091C00C3B6CE /* VRTScene.h in Copy Headers to ios/dist/include */ = {isa = PBXBuildFile; fileRef = 8BE0D4E11DFA3D9B0032AB99 /* VRTScene.h */; };
-		1385B27120CA091C00C3B6CE /* VRTSceneNavigator.h in Copy Headers to ios/dist/include */ = {isa = PBXBuildFile; fileRef = 8BE0D4E31DFA3D9B0032AB99 /* VRTSceneNavigator.h */; };
 		1385B27220CA091C00C3B6CE /* VRTSceneShadowView.h in Copy Headers to ios/dist/include */ = {isa = PBXBuildFile; fileRef = 8BE0D4E51DFA3D9B0032AB99 /* VRTSceneShadowView.h */; };
 		1385B27320CA091C00C3B6CE /* VRTShadowFlexView.h in Copy Headers to ios/dist/include */ = {isa = PBXBuildFile; fileRef = 8BE0D4E71DFA3D9B0032AB99 /* VRTShadowFlexView.h */; };
 		1385B27420CA091C00C3B6CE /* VRTShadowView.h in Copy Headers to ios/dist/include */ = {isa = PBXBuildFile; fileRef = 8BE0D4E91DFA3D9B0032AB99 /* VRTShadowView.h */; };
@@ -304,7 +290,6 @@
 		1385B28A20CA091C00C3B6CE /* VRTNotifications.h in Copy Headers to ios/dist/include */ = {isa = PBXBuildFile; fileRef = 8BE0D48F1DFA15880032AB99 /* VRTNotifications.h */; };
 		1385B28B20CA091C00C3B6CE /* VRTOrbitCameraManager.h in Copy Headers to ios/dist/include */ = {isa = PBXBuildFile; fileRef = 8BE0D4901DFA15880032AB99 /* VRTOrbitCameraManager.h */; };
 		1385B28C20CA091C00C3B6CE /* VRTSceneManager.h in Copy Headers to ios/dist/include */ = {isa = PBXBuildFile; fileRef = 8BE0D47A1DFA15880032AB99 /* VRTSceneManager.h */; };
-		1385B28D20CA091C00C3B6CE /* VRTSceneNavigatorManager.h in Copy Headers to ios/dist/include */ = {isa = PBXBuildFile; fileRef = 8BE0D47C1DFA15880032AB99 /* VRTSceneNavigatorManager.h */; };
 		1385B28E20CA091C00C3B6CE /* VRTSkyboxManager.h in Copy Headers to ios/dist/include */ = {isa = PBXBuildFile; fileRef = 8BE0D4931DFA15880032AB99 /* VRTSkyboxManager.h */; };
 		1385B28F20CA091C00C3B6CE /* VRTSoundManager.h in Copy Headers to ios/dist/include */ = {isa = PBXBuildFile; fileRef = 8A130D8E1E3BC0690050D83B /* VRTSoundManager.h */; };
 		1385B29020CA091C00C3B6CE /* VRTSphereManager.h in Copy Headers to ios/dist/include */ = {isa = PBXBuildFile; fileRef = 8BE0D4951DFA15880032AB99 /* VRTSphereManager.h */; };
@@ -359,7 +344,6 @@
 		8A5CDE2A1F68D56F0093F43B /* VRTNodeModule.h in Copy Headers to ios/dist/include */ = {isa = PBXBuildFile; fileRef = A50A310C1ECE1E8800DEBE9B /* VRTNodeModule.h */; };
 		8A5CDE2B1F68D56F0093F43B /* VRTSceneModule.h in Copy Headers to ios/dist/include */ = {isa = PBXBuildFile; fileRef = A5E8F0A71ED6B64D00729916 /* VRTSceneModule.h */; };
 		8A5CDE2C1F68D56F0093F43B /* VRTControllerModule.h in Copy Headers to ios/dist/include */ = {isa = PBXBuildFile; fileRef = A533596D1E9E0169005B3EC5 /* VRTControllerModule.h */; };
-		8A5CDE2D1F68D56F0093F43B /* VRTSceneNavigatorModule.h in Copy Headers to ios/dist/include */ = {isa = PBXBuildFile; fileRef = A5A937A71E81D1FB00FE0406 /* VRTSceneNavigatorModule.h */; };
 		8A5CDE2E1F68D56F0093F43B /* VRTPerfMonitor.h in Copy Headers to ios/dist/include */ = {isa = PBXBuildFile; fileRef = 8F705DE41E8B3754008BE8F8 /* VRTPerfMonitor.h */; };
 		8A744F5D1EEF655F00ECDBC4 /* VRTARSceneNavigatorManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8A744F591EEF655F00ECDBC4 /* VRTARSceneNavigatorManager.mm */; };
 		8A7743831EEF62F90004C17A /* VRTARSceneNavigator.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8A7743811EEF62F90004C17A /* VRTARSceneNavigator.mm */; };
@@ -403,7 +387,6 @@
 		8BDDA1571E5BF02E00A42870 /* VRTNodeContainerShadowView.h in Copy Headers to ios/dist/include */ = {isa = PBXBuildFile; fileRef = 8BE0D4DD1DFA3D9B0032AB99 /* VRTNodeContainerShadowView.h */; };
 		8BDDA1581E5BF02E00A42870 /* VRTOrbitCamera.h in Copy Headers to ios/dist/include */ = {isa = PBXBuildFile; fileRef = 8BE0D4DF1DFA3D9B0032AB99 /* VRTOrbitCamera.h */; };
 		8BDDA1591E5BF02E00A42870 /* VRTScene.h in Copy Headers to ios/dist/include */ = {isa = PBXBuildFile; fileRef = 8BE0D4E11DFA3D9B0032AB99 /* VRTScene.h */; };
-		8BDDA15A1E5BF02E00A42870 /* VRTSceneNavigator.h in Copy Headers to ios/dist/include */ = {isa = PBXBuildFile; fileRef = 8BE0D4E31DFA3D9B0032AB99 /* VRTSceneNavigator.h */; };
 		8BDDA15B1E5BF02E00A42870 /* VRTSceneShadowView.h in Copy Headers to ios/dist/include */ = {isa = PBXBuildFile; fileRef = 8BE0D4E51DFA3D9B0032AB99 /* VRTSceneShadowView.h */; };
 		8BDDA15C1E5BF02E00A42870 /* VRTShadowFlexView.h in Copy Headers to ios/dist/include */ = {isa = PBXBuildFile; fileRef = 8BE0D4E71DFA3D9B0032AB99 /* VRTShadowFlexView.h */; };
 		8BDDA15D1E5BF02E00A42870 /* VRTShadowView.h in Copy Headers to ios/dist/include */ = {isa = PBXBuildFile; fileRef = 8BE0D4E91DFA3D9B0032AB99 /* VRTShadowView.h */; };
@@ -431,7 +414,6 @@
 		8BDDA1731E5BF02E00A42870 /* VRTNotifications.h in Copy Headers to ios/dist/include */ = {isa = PBXBuildFile; fileRef = 8BE0D48F1DFA15880032AB99 /* VRTNotifications.h */; };
 		8BDDA1741E5BF02E00A42870 /* VRTOrbitCameraManager.h in Copy Headers to ios/dist/include */ = {isa = PBXBuildFile; fileRef = 8BE0D4901DFA15880032AB99 /* VRTOrbitCameraManager.h */; };
 		8BDDA1751E5BF02E00A42870 /* VRTSceneManager.h in Copy Headers to ios/dist/include */ = {isa = PBXBuildFile; fileRef = 8BE0D47A1DFA15880032AB99 /* VRTSceneManager.h */; };
-		8BDDA1761E5BF02E00A42870 /* VRTSceneNavigatorManager.h in Copy Headers to ios/dist/include */ = {isa = PBXBuildFile; fileRef = 8BE0D47C1DFA15880032AB99 /* VRTSceneNavigatorManager.h */; };
 		8BDDA1771E5BF02E00A42870 /* VRTSkyboxManager.h in Copy Headers to ios/dist/include */ = {isa = PBXBuildFile; fileRef = 8BE0D4931DFA15880032AB99 /* VRTSkyboxManager.h */; };
 		8BDDA1781E5BF02E00A42870 /* VRTSoundManager.h in Copy Headers to ios/dist/include */ = {isa = PBXBuildFile; fileRef = 8A130D8E1E3BC0690050D83B /* VRTSoundManager.h */; };
 		8BDDA1791E5BF02E00A42870 /* VRTSphereManager.h in Copy Headers to ios/dist/include */ = {isa = PBXBuildFile; fileRef = 8BE0D4951DFA15880032AB99 /* VRTSphereManager.h */; };
@@ -449,7 +431,6 @@
 		8BE0D4A01DFA15880032AB99 /* VROHUDManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8BE0D4771DFA15880032AB99 /* VROHUDManager.mm */; };
 		8BE0D4A11DFA15880032AB99 /* VRTLightManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8BE0D4791DFA15880032AB99 /* VRTLightManager.mm */; };
 		8BE0D4A21DFA15880032AB99 /* VRTSceneManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8BE0D47B1DFA15880032AB99 /* VRTSceneManager.mm */; };
-		8BE0D4A31DFA15880032AB99 /* VRTSceneNavigatorManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8BE0D47D1DFA15880032AB99 /* VRTSceneNavigatorManager.mm */; };
 		8BE0D4A41DFA15880032AB99 /* VRTTextManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8BE0D47F1DFA15880032AB99 /* VRTTextManager.mm */; };
 		8BE0D4A51DFA15880032AB99 /* VRTUtils.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8BE0D4811DFA15880032AB99 /* VRTUtils.mm */; };
 		8BE0D4A61DFA15880032AB99 /* VRTVideoSurfaceManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8BE0D4831DFA15880032AB99 /* VRTVideoSurfaceManager.mm */; };
@@ -480,7 +461,6 @@
 		8BE0D5071DFA3D9B0032AB99 /* VRTNodeContainerShadowView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8BE0D4DE1DFA3D9B0032AB99 /* VRTNodeContainerShadowView.mm */; };
 		8BE0D5081DFA3D9B0032AB99 /* VRTOrbitCamera.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8BE0D4E01DFA3D9B0032AB99 /* VRTOrbitCamera.mm */; };
 		8BE0D5091DFA3D9B0032AB99 /* VRTScene.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8BE0D4E21DFA3D9B0032AB99 /* VRTScene.mm */; };
-		8BE0D50A1DFA3D9B0032AB99 /* VRTSceneNavigator.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8BE0D4E41DFA3D9B0032AB99 /* VRTSceneNavigator.mm */; };
 		8BE0D50B1DFA3D9B0032AB99 /* VRTSceneShadowView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8BE0D4E61DFA3D9B0032AB99 /* VRTSceneShadowView.mm */; };
 		8BE0D50C1DFA3D9B0032AB99 /* VRTShadowFlexView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8BE0D4E81DFA3D9B0032AB99 /* VRTShadowFlexView.mm */; };
 		8BE0D50D1DFA3D9B0032AB99 /* VRTShadowView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8BE0D4EA1DFA3D9B0032AB99 /* VRTShadowView.mm */; };
@@ -518,7 +498,6 @@
 		A5A10763212D54B2008B2DFB /* VRTAnimatedImage.mm in Sources */ = {isa = PBXBuildFile; fileRef = A5A10761212D54B2008B2DFB /* VRTAnimatedImage.mm */; };
 		A5A10764212D54B2008B2DFB /* VRTAnimatedImage.mm in Sources */ = {isa = PBXBuildFile; fileRef = A5A10761212D54B2008B2DFB /* VRTAnimatedImage.mm */; };
 		A5A10765212D54B2008B2DFB /* VRTAnimatedImage.mm in Sources */ = {isa = PBXBuildFile; fileRef = A5A10761212D54B2008B2DFB /* VRTAnimatedImage.mm */; };
-		A5A937AA1E81D1FB00FE0406 /* VRTSceneNavigatorModule.mm in Sources */ = {isa = PBXBuildFile; fileRef = A5A937A81E81D1FB00FE0406 /* VRTSceneNavigatorModule.mm */; };
 		A5B4AEFA2050B44B0006D970 /* VRTPolygon.mm in Sources */ = {isa = PBXBuildFile; fileRef = A5B4AEF72050B44B0006D970 /* VRTPolygon.mm */; };
 		A5B4AEFD2050B4610006D970 /* VRTPolygonManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = A5B4AEFB2050B4600006D970 /* VRTPolygonManager.mm */; };
 		A5B4AF002050B4FC0006D970 /* VRTPolygonManager.h in Copy Headers to ios/dist/include */ = {isa = PBXBuildFile; fileRef = A5B4AEFF2050B4F00006D970 /* VRTPolygonManager.h */; };
@@ -573,7 +552,6 @@
 				1385B24020CA091C00C3B6CE /* VRTNodeModule.h in Copy Headers to ios/dist/include */,
 				1385B24120CA091C00C3B6CE /* VRTSceneModule.h in Copy Headers to ios/dist/include */,
 				1385B24220CA091C00C3B6CE /* VRTControllerModule.h in Copy Headers to ios/dist/include */,
-				1385B24320CA091C00C3B6CE /* VRTSceneNavigatorModule.h in Copy Headers to ios/dist/include */,
 				1385B24420CA091C00C3B6CE /* VRTPerfMonitor.h in Copy Headers to ios/dist/include */,
 				1385B24520CA091C00C3B6CE /* VRTPolyline.h in Copy Headers to ios/dist/include */,
 				1385B24620CA091C00C3B6CE /* VRTPortalScene.h in Copy Headers to ios/dist/include */,
@@ -619,7 +597,6 @@
 				1385B26E20CA091C00C3B6CE /* VRTNodeContainerShadowView.h in Copy Headers to ios/dist/include */,
 				1385B26F20CA091C00C3B6CE /* VRTOrbitCamera.h in Copy Headers to ios/dist/include */,
 				1385B27020CA091C00C3B6CE /* VRTScene.h in Copy Headers to ios/dist/include */,
-				1385B27120CA091C00C3B6CE /* VRTSceneNavigator.h in Copy Headers to ios/dist/include */,
 				1385B27220CA091C00C3B6CE /* VRTSceneShadowView.h in Copy Headers to ios/dist/include */,
 				1385B27320CA091C00C3B6CE /* VRTShadowFlexView.h in Copy Headers to ios/dist/include */,
 				1385B27420CA091C00C3B6CE /* VRTShadowView.h in Copy Headers to ios/dist/include */,
@@ -647,7 +624,6 @@
 				1385B28A20CA091C00C3B6CE /* VRTNotifications.h in Copy Headers to ios/dist/include */,
 				1385B28B20CA091C00C3B6CE /* VRTOrbitCameraManager.h in Copy Headers to ios/dist/include */,
 				1385B28C20CA091C00C3B6CE /* VRTSceneManager.h in Copy Headers to ios/dist/include */,
-				1385B28D20CA091C00C3B6CE /* VRTSceneNavigatorManager.h in Copy Headers to ios/dist/include */,
 				1385B28E20CA091C00C3B6CE /* VRTSkyboxManager.h in Copy Headers to ios/dist/include */,
 				1385B28F20CA091C00C3B6CE /* VRTSoundManager.h in Copy Headers to ios/dist/include */,
 				1385B29020CA091C00C3B6CE /* VRTSphereManager.h in Copy Headers to ios/dist/include */,
@@ -683,7 +659,6 @@
 				8A5CDE2A1F68D56F0093F43B /* VRTNodeModule.h in Copy Headers to ios/dist/include */,
 				8A5CDE2B1F68D56F0093F43B /* VRTSceneModule.h in Copy Headers to ios/dist/include */,
 				8A5CDE2C1F68D56F0093F43B /* VRTControllerModule.h in Copy Headers to ios/dist/include */,
-				8A5CDE2D1F68D56F0093F43B /* VRTSceneNavigatorModule.h in Copy Headers to ios/dist/include */,
 				8A5CDE2E1F68D56F0093F43B /* VRTPerfMonitor.h in Copy Headers to ios/dist/include */,
 				8A5CDE221F68D5470093F43B /* VRTPolyline.h in Copy Headers to ios/dist/include */,
 				8A5CDE231F68D5470093F43B /* VRTPortalScene.h in Copy Headers to ios/dist/include */,
@@ -729,7 +704,6 @@
 				8BDDA1571E5BF02E00A42870 /* VRTNodeContainerShadowView.h in Copy Headers to ios/dist/include */,
 				8BDDA1581E5BF02E00A42870 /* VRTOrbitCamera.h in Copy Headers to ios/dist/include */,
 				8BDDA1591E5BF02E00A42870 /* VRTScene.h in Copy Headers to ios/dist/include */,
-				8BDDA15A1E5BF02E00A42870 /* VRTSceneNavigator.h in Copy Headers to ios/dist/include */,
 				8BDDA15B1E5BF02E00A42870 /* VRTSceneShadowView.h in Copy Headers to ios/dist/include */,
 				8BDDA15C1E5BF02E00A42870 /* VRTShadowFlexView.h in Copy Headers to ios/dist/include */,
 				8BDDA15D1E5BF02E00A42870 /* VRTShadowView.h in Copy Headers to ios/dist/include */,
@@ -757,7 +731,6 @@
 				8BDDA1731E5BF02E00A42870 /* VRTNotifications.h in Copy Headers to ios/dist/include */,
 				8BDDA1741E5BF02E00A42870 /* VRTOrbitCameraManager.h in Copy Headers to ios/dist/include */,
 				8BDDA1751E5BF02E00A42870 /* VRTSceneManager.h in Copy Headers to ios/dist/include */,
-				8BDDA1761E5BF02E00A42870 /* VRTSceneNavigatorManager.h in Copy Headers to ios/dist/include */,
 				8BDDA1771E5BF02E00A42870 /* VRTSkyboxManager.h in Copy Headers to ios/dist/include */,
 				8BDDA1781E5BF02E00A42870 /* VRTSoundManager.h in Copy Headers to ios/dist/include */,
 				8BDDA1791E5BF02E00A42870 /* VRTSphereManager.h in Copy Headers to ios/dist/include */,
@@ -794,10 +767,6 @@
 
 /* Begin PBXFileReference section */
 		131E1ECD20B89A560075D8E0 /* libViroReact_release_tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libViroReact_release_tests.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		133FE284206EE2FC00FB6F34 /* VRTVRSceneNavigatorManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VRTVRSceneNavigatorManager.h; sourceTree = "<group>"; };
-		133FE28A206EE35300FB6F34 /* VRTVRSceneNavigatorManager.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = VRTVRSceneNavigatorManager.mm; sourceTree = "<group>"; };
-		133FE28C206EE4A500FB6F34 /* VRTVRSceneNavigator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VRTVRSceneNavigator.h; sourceTree = "<group>"; };
-		133FE28D206EE4FD00FB6F34 /* VRTVRSceneNavigator.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = VRTVRSceneNavigator.mm; sourceTree = "<group>"; };
 		137E9D7D1F50E8C0008238E5 /* VRTPhotoLibraryAsyncLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VRTPhotoLibraryAsyncLoader.h; path = ViroReact/Utility/VRTPhotoLibraryAsyncLoader.h; sourceTree = "<group>"; };
 		137E9D801F50E8C0008238E5 /* VRTPhotoLibraryAsyncLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VRTPhotoLibraryAsyncLoader.m; path = ViroReact/Utility/VRTPhotoLibraryAsyncLoader.m; sourceTree = "<group>"; };
 		1385B29C20CA091C00C3B6CE /* libViroReact_static_lib.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libViroReact_static_lib.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -894,8 +863,6 @@
 		8BE0D4791DFA15880032AB99 /* VRTLightManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = VRTLightManager.mm; path = ViroReact/VRTLightManager.mm; sourceTree = "<group>"; };
 		8BE0D47A1DFA15880032AB99 /* VRTSceneManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VRTSceneManager.h; path = ViroReact/VRTSceneManager.h; sourceTree = "<group>"; };
 		8BE0D47B1DFA15880032AB99 /* VRTSceneManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = VRTSceneManager.mm; path = ViroReact/VRTSceneManager.mm; sourceTree = "<group>"; };
-		8BE0D47C1DFA15880032AB99 /* VRTSceneNavigatorManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VRTSceneNavigatorManager.h; path = ViroReact/VRTSceneNavigatorManager.h; sourceTree = "<group>"; };
-		8BE0D47D1DFA15880032AB99 /* VRTSceneNavigatorManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = VRTSceneNavigatorManager.mm; path = ViroReact/VRTSceneNavigatorManager.mm; sourceTree = "<group>"; };
 		8BE0D47E1DFA15880032AB99 /* VRTTextManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VRTTextManager.h; path = ViroReact/VRTTextManager.h; sourceTree = "<group>"; };
 		8BE0D47F1DFA15880032AB99 /* VRTTextManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; name = VRTTextManager.mm; path = ViroReact/VRTTextManager.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		8BE0D4801DFA15880032AB99 /* VRTUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VRTUtils.h; path = ViroReact/VRTUtils.h; sourceTree = "<group>"; };
@@ -959,8 +926,6 @@
 		8BE0D4E01DFA3D9B0032AB99 /* VRTOrbitCamera.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = VRTOrbitCamera.mm; path = ViroReact/Views/VRTOrbitCamera.mm; sourceTree = "<group>"; };
 		8BE0D4E11DFA3D9B0032AB99 /* VRTScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VRTScene.h; path = ViroReact/Views/VRTScene.h; sourceTree = "<group>"; };
 		8BE0D4E21DFA3D9B0032AB99 /* VRTScene.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = VRTScene.mm; path = ViroReact/Views/VRTScene.mm; sourceTree = "<group>"; };
-		8BE0D4E31DFA3D9B0032AB99 /* VRTSceneNavigator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VRTSceneNavigator.h; path = ViroReact/Views/VRTSceneNavigator.h; sourceTree = "<group>"; };
-		8BE0D4E41DFA3D9B0032AB99 /* VRTSceneNavigator.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = VRTSceneNavigator.mm; path = ViroReact/Views/VRTSceneNavigator.mm; sourceTree = "<group>"; };
 		8BE0D4E51DFA3D9B0032AB99 /* VRTSceneShadowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VRTSceneShadowView.h; path = ViroReact/Views/VRTSceneShadowView.h; sourceTree = "<group>"; };
 		8BE0D4E61DFA3D9B0032AB99 /* VRTSceneShadowView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = VRTSceneShadowView.mm; path = ViroReact/Views/VRTSceneShadowView.mm; sourceTree = "<group>"; };
 		8BE0D4E71DFA3D9B0032AB99 /* VRTShadowFlexView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VRTShadowFlexView.h; path = ViroReact/Views/VRTShadowFlexView.h; sourceTree = "<group>"; };
@@ -1025,8 +990,6 @@
 		A5A1075D212D5491008B2DFB /* VRTAnimatedImageManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = VRTAnimatedImageManager.mm; path = ViroReact/VRTAnimatedImageManager.mm; sourceTree = "<group>"; };
 		A5A10761212D54B2008B2DFB /* VRTAnimatedImage.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = VRTAnimatedImage.mm; path = ViroReact/Views/VRTAnimatedImage.mm; sourceTree = "<group>"; };
 		A5A10762212D54B2008B2DFB /* VRTAnimatedImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VRTAnimatedImage.h; path = ViroReact/Views/VRTAnimatedImage.h; sourceTree = "<group>"; };
-		A5A937A71E81D1FB00FE0406 /* VRTSceneNavigatorModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VRTSceneNavigatorModule.h; path = ViroReact/Modules/VRTSceneNavigatorModule.h; sourceTree = "<group>"; };
-		A5A937A81E81D1FB00FE0406 /* VRTSceneNavigatorModule.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = VRTSceneNavigatorModule.mm; path = ViroReact/Modules/VRTSceneNavigatorModule.mm; sourceTree = "<group>"; };
 		A5B4AEF72050B44B0006D970 /* VRTPolygon.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = VRTPolygon.mm; path = ViroReact/Views/VRTPolygon.mm; sourceTree = "<group>"; };
 		A5B4AEF92050B44B0006D970 /* VRTPolygon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VRTPolygon.h; path = ViroReact/Views/VRTPolygon.h; sourceTree = "<group>"; };
 		A5B4AEFB2050B4600006D970 /* VRTPolygonManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = VRTPolygonManager.mm; path = ViroReact/VRTPolygonManager.mm; sourceTree = "<group>"; };
@@ -1246,10 +1209,6 @@
 				8FEF00861F37D0C0006AE4B1 /* VRTPortalManager.mm */,
 				8BE0D47A1DFA15880032AB99 /* VRTSceneManager.h */,
 				8BE0D47B1DFA15880032AB99 /* VRTSceneManager.mm */,
-				8BE0D47C1DFA15880032AB99 /* VRTSceneNavigatorManager.h */,
-				8BE0D47D1DFA15880032AB99 /* VRTSceneNavigatorManager.mm */,
-				133FE284206EE2FC00FB6F34 /* VRTVRSceneNavigatorManager.h */,
-				133FE28A206EE35300FB6F34 /* VRTVRSceneNavigatorManager.mm */,
 				13F63031205762AE00A74EFC /* VRT3DSceneNavigatorManager.h */,
 				13F63032205762CB00A74EFC /* VRT3DSceneNavigatorManager.mm */,
 				8BE0D4931DFA15880032AB99 /* VRTSkyboxManager.h */,
@@ -1290,8 +1249,6 @@
 				A5E8F0A81ED6B64D00729916 /* VRTSceneModule.mm */,
 				A533596D1E9E0169005B3EC5 /* VRTControllerModule.h */,
 				A533596E1E9E0169005B3EC5 /* VRTControllerModule.mm */,
-				A5A937A71E81D1FB00FE0406 /* VRTSceneNavigatorModule.h */,
-				A5A937A81E81D1FB00FE0406 /* VRTSceneNavigatorModule.mm */,
 				8BE0D5131DFA3DB20032AB99 /* VRTAnimationManager.h */,
 				8BE0D5141DFA3DB20032AB99 /* VRTAnimationManager.mm */,
 				8FD1D4BB1E3A486500EE2859 /* VRTCameraModule.h */,
@@ -1369,10 +1326,6 @@
 				8FEF00851F37D04F006AE4B1 /* VRTPortal.mm */,
 				8BE0D4E11DFA3D9B0032AB99 /* VRTScene.h */,
 				8BE0D4E21DFA3D9B0032AB99 /* VRTScene.mm */,
-				8BE0D4E31DFA3D9B0032AB99 /* VRTSceneNavigator.h */,
-				8BE0D4E41DFA3D9B0032AB99 /* VRTSceneNavigator.mm */,
-				133FE28C206EE4A500FB6F34 /* VRTVRSceneNavigator.h */,
-				133FE28D206EE4FD00FB6F34 /* VRTVRSceneNavigator.mm */,
 				13F630342057642500A74EFC /* VRT3DSceneNavigator.h */,
 				13F630352057644D00A74EFC /* VRT3DSceneNavigator.mm */,
 				8BE0D4E51DFA3D9B0032AB99 /* VRTSceneShadowView.h */,
@@ -1701,7 +1654,6 @@
 				131E1DFF20B89A560075D8E0 /* VRTSceneModule.mm in Sources */,
 				131E1E0020B89A560075D8E0 /* VRTCameraManager.mm in Sources */,
 				131E1E0120B89A560075D8E0 /* VRTLightManager.mm in Sources */,
-				131E1E0220B89A560075D8E0 /* VRTSceneNavigator.mm in Sources */,
 				131E1E0320B89A560075D8E0 /* VRTAnimatedComponent.mm in Sources */,
 				131E1E0420B89A560075D8E0 /* VRTPolygonManager.mm in Sources */,
 				131E1E0520B89A560075D8E0 /* VRTARSceneNavigatorManager.mm in Sources */,
@@ -1711,7 +1663,6 @@
 				131E1E0920B89A560075D8E0 /* VRTImageManager.mm in Sources */,
 				131E1E0A20B89A560075D8E0 /* VRTAnimatedComponentManager.mm in Sources */,
 				131E1E0B20B89A560075D8E0 /* VRTARImageMarker.mm in Sources */,
-				131E1E0C20B89A560075D8E0 /* VRTVRSceneNavigator.mm in Sources */,
 				131E1E0D20B89A560075D8E0 /* VRTARSceneManager.mm in Sources */,
 				131E1E0E20B89A560075D8E0 /* VRTARPlaneManager.mm in Sources */,
 				131E1E0F20B89A560075D8E0 /* VRTSphere.mm in Sources */,
@@ -1766,7 +1717,6 @@
 				131E1E3E20B89A560075D8E0 /* VRTFlexViewManager.mm in Sources */,
 				131E1E3F20B89A560075D8E0 /* VRTImageAsyncLoader.m in Sources */,
 				131E1E4020B89A560075D8E0 /* VRTCameraModule.mm in Sources */,
-				131E1E4120B89A560075D8E0 /* VRTVRSceneNavigatorManager.mm in Sources */,
 				131E1E4220B89A560075D8E0 /* VRT360Video.mm in Sources */,
 				131E1E4320B89A560075D8E0 /* VRTARUtils.m in Sources */,
 				131E1E4420B89A560075D8E0 /* VRTScene.mm in Sources */,
@@ -1798,10 +1748,8 @@
 				131E1E5C20B89A560075D8E0 /* VRTARPlane.mm in Sources */,
 				131E1E5D20B89A560075D8E0 /* VRTSoundModule.mm in Sources */,
 				131E1E5E20B89A560075D8E0 /* VRTARSceneModule.mm in Sources */,
-				131E1E5F20B89A560075D8E0 /* VRTSceneNavigatorManager.mm in Sources */,
 				131E1E6020B89A560075D8E0 /* VRTLabelShadowView.mm in Sources */,
 				131E1E6120B89A560075D8E0 /* VRTFlexView.mm in Sources */,
-				131E1E6220B89A560075D8E0 /* VRTSceneNavigatorModule.mm in Sources */,
 				131E1E6320B89A560075D8E0 /* VRT360Image.mm in Sources */,
 				131E1E6420B89A560075D8E0 /* VRTARAnchorNode.mm in Sources */,
 				131E1E6520B89A560075D8E0 /* VRT3DSceneNavigatorManager.mm in Sources */,
@@ -1818,7 +1766,6 @@
 				1385B1CF20CA091C00C3B6CE /* VRTSceneModule.mm in Sources */,
 				1385B1D020CA091C00C3B6CE /* VRTCameraManager.mm in Sources */,
 				1385B1D120CA091C00C3B6CE /* VRTLightManager.mm in Sources */,
-				1385B1D220CA091C00C3B6CE /* VRTSceneNavigator.mm in Sources */,
 				1385B1D320CA091C00C3B6CE /* VRTAnimatedComponent.mm in Sources */,
 				1385B1D420CA091C00C3B6CE /* VRTPolygonManager.mm in Sources */,
 				1385B1D520CA091C00C3B6CE /* VRTARSceneNavigatorManager.mm in Sources */,
@@ -1828,7 +1775,6 @@
 				1385B1D920CA091C00C3B6CE /* VRTImageManager.mm in Sources */,
 				1385B1DA20CA091C00C3B6CE /* VRTAnimatedComponentManager.mm in Sources */,
 				1385B1DB20CA091C00C3B6CE /* VRTARImageMarker.mm in Sources */,
-				1385B1DC20CA091C00C3B6CE /* VRTVRSceneNavigator.mm in Sources */,
 				1385B1DD20CA091C00C3B6CE /* VRTARSceneManager.mm in Sources */,
 				1385B1DE20CA091C00C3B6CE /* VRTARPlaneManager.mm in Sources */,
 				1385B1DF20CA091C00C3B6CE /* VRTSphere.mm in Sources */,
@@ -1883,7 +1829,6 @@
 				1385B20E20CA091C00C3B6CE /* VRTFlexViewManager.mm in Sources */,
 				1385B20F20CA091C00C3B6CE /* VRTImageAsyncLoader.m in Sources */,
 				1385B21020CA091C00C3B6CE /* VRTCameraModule.mm in Sources */,
-				1385B21120CA091C00C3B6CE /* VRTVRSceneNavigatorManager.mm in Sources */,
 				1385B21220CA091C00C3B6CE /* VRT360Video.mm in Sources */,
 				1385B21320CA091C00C3B6CE /* VRTARUtils.m in Sources */,
 				1385B21420CA091C00C3B6CE /* VRTScene.mm in Sources */,
@@ -1915,10 +1860,8 @@
 				1385B22C20CA091C00C3B6CE /* VRTARPlane.mm in Sources */,
 				1385B22D20CA091C00C3B6CE /* VRTSoundModule.mm in Sources */,
 				1385B22E20CA091C00C3B6CE /* VRTARSceneModule.mm in Sources */,
-				1385B22F20CA091C00C3B6CE /* VRTSceneNavigatorManager.mm in Sources */,
 				1385B23020CA091C00C3B6CE /* VRTLabelShadowView.mm in Sources */,
 				1385B23120CA091C00C3B6CE /* VRTFlexView.mm in Sources */,
-				1385B23220CA091C00C3B6CE /* VRTSceneNavigatorModule.mm in Sources */,
 				1385B23320CA091C00C3B6CE /* VRT360Image.mm in Sources */,
 				1385B23420CA091C00C3B6CE /* VRTARAnchorNode.mm in Sources */,
 				1385B23520CA091C00C3B6CE /* VRT3DSceneNavigatorManager.mm in Sources */,
@@ -1935,7 +1878,6 @@
 				A5E8F0AC1ED6B64E00729916 /* VRTSceneModule.mm in Sources */,
 				8BDD9DD81E2EDC5200A42870 /* VRTCameraManager.mm in Sources */,
 				8BE0D4A11DFA15880032AB99 /* VRTLightManager.mm in Sources */,
-				8BE0D50A1DFA3D9B0032AB99 /* VRTSceneNavigator.mm in Sources */,
 				8BE0D4F81DFA3D9B0032AB99 /* VRTAnimatedComponent.mm in Sources */,
 				A5B4AEFD2050B4610006D970 /* VRTPolygonManager.mm in Sources */,
 				8A744F5D1EEF655F00ECDBC4 /* VRTARSceneNavigatorManager.mm in Sources */,
@@ -1945,7 +1887,6 @@
 				8BE0D4AA1DFA15880032AB99 /* VRTImageManager.mm in Sources */,
 				8BE0D49C1DFA15880032AB99 /* VRTAnimatedComponentManager.mm in Sources */,
 				8A04D51B2024F7AA00FD5F68 /* VRTARImageMarker.mm in Sources */,
-				133FE28E206EE4FD00FB6F34 /* VRTVRSceneNavigator.mm in Sources */,
 				8A0524391EF0A4B900A02361 /* VRTARSceneManager.mm in Sources */,
 				8AEFA2251EF3175C006851B7 /* VRTARPlaneManager.mm in Sources */,
 				8BE0D50F1DFA3D9B0032AB99 /* VRTSphere.mm in Sources */,
@@ -2002,7 +1943,6 @@
 				8BE0D4A91DFA15880032AB99 /* VRTFlexViewManager.mm in Sources */,
 				8BE0D5251DFA3DEA0032AB99 /* VRTImageAsyncLoader.m in Sources */,
 				8FD1D4B91E3A484000EE2859 /* VRTCameraModule.mm in Sources */,
-				133FE28B206EE35300FB6F34 /* VRTVRSceneNavigatorManager.mm in Sources */,
 				8BE0D4F71DFA3D9B0032AB99 /* VRT360Video.mm in Sources */,
 				8A2DA3C71F9438A7001FC3BA /* VRTARUtils.m in Sources */,
 				8BE0D5091DFA3D9B0032AB99 /* VRTScene.mm in Sources */,
@@ -2034,10 +1974,8 @@
 				8AEFA22B1EF3197E006851B7 /* VRTARPlane.mm in Sources */,
 				8A130DAE1E43A8AB0050D83B /* VRTSoundModule.mm in Sources */,
 				8A35BA261F3BAA48002B069E /* VRTARSceneModule.mm in Sources */,
-				8BE0D4A31DFA15880032AB99 /* VRTSceneNavigatorManager.mm in Sources */,
 				8BE0D5031DFA3D9B0032AB99 /* VRTLabelShadowView.mm in Sources */,
 				8BE0D4FE1DFA3D9B0032AB99 /* VRTFlexView.mm in Sources */,
-				A5A937AA1E81D1FB00FE0406 /* VRTSceneNavigatorModule.mm in Sources */,
 				8BE0D4F61DFA3D9B0032AB99 /* VRT360Image.mm in Sources */,
 				8AEFA22F1EF34487006851B7 /* VRTARAnchorNode.mm in Sources */,
 				13F63033205762CB00A74EFC /* VRT3DSceneNavigatorManager.mm in Sources */,

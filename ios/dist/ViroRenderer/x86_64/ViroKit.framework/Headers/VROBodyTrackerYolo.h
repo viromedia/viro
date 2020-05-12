@@ -38,7 +38,7 @@
 
 class VRODriver;
 
-class VROBodyTrackerYolo : public VROBodyTracker {
+class API_AVAILABLE(ios(11.0)) VROBodyTrackerYolo : public VROBodyTracker {
     
 public:
     
