@@ -50,8 +50,6 @@ RCT_EXPORT_METHOD(preloadSounds:(NSDictionary *)soundDict
         }
         std::string cKeyString = std::string([((NSString *) key) UTF8String]);
         std::string cPathString = std::string([((NSString *) path) UTF8String]);
-        std::shared_ptr<VROSoundDataGVR> data = VROSoundDataGVR::create(cPathString, VROResourceType::URL);
-        _preloadedSounds[cKeyString] = data;
         
         if (resolve) {
             // Create a finish preloading callback with the promise for notifying Javascript with.
@@ -69,7 +67,6 @@ RCT_EXPORT_METHOD(preloadSounds:(NSDictionary *)soundDict
             // Store a strong reference to the sound delegate callback for the given sound key.
             std::shared_ptr<VROSoundDataDelegateiOS> callback = std::make_shared<VROSoundDataDelegateiOS>(onFinish);
             _preloadCallbacks[cKeyString] = callback;
-            data->setDelegate(callback);
         }
     }
 }

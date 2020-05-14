@@ -54,7 +54,7 @@ enum class VROCropAndScaleOption {
     Viro_RegionOfInterest,     // Use dynamic cropping through CoreML's region of interest, and aspect-fit (fit long edge)
 };
 
-class VROVisionEngineDelegate {
+class API_AVAILABLE(ios(11.0)) VROVisionEngineDelegate {
 public:
     
     /*
@@ -75,7 +75,7 @@ public:
 /*
  Interfaces CoreML models with AR frames.
  */
-class VROVisionEngine : public std::enable_shared_from_this<VROVisionEngine> {
+class API_AVAILABLE(ios(11.0)) VROVisionEngine : public std::enable_shared_from_this<VROVisionEngine> {
 public:
     
     VROVisionEngine(MLModel *model, int imageSize, VROCameraPosition position,

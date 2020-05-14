@@ -4,15 +4,15 @@
   "private": true,
   "scripts": {
     "prestart": "./node_modules/react-viro/bin/run_ngrok.sh",
-    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "start": "react-native start",
     "postinstall": "./setup_react_viro.js",
     "test": "jest"
   },
   "dependencies": {
-    "react": "16.8.3",
-    "react-native": "0.59.9",
+    "react": "16.9.0",
+    "react-native": "0.61.2",
     "react-native-config": "0.11.7",
-    "react-native-device-info": "1.3.0",
+    "react-native-device-info": "5.5.6",
     "react-redux": "^5.0.5",
     "react-viro": "../",
     "redux": "^3.7.2"
@@ -21,9 +21,13 @@
     "preset": "react-native"
   },
   "devDependencies": {
-    "babel-jest": "^24.8.0",
-    "jest": "^24.8.0",
-    "metro-react-native-babel-preset": "^0.54.1",
-    "react-test-renderer": "16.8.3"
+    "@babel/core": "^7.8.4",
+    "@babel/runtime": "^7.8.4",
+    "@react-native-community/eslint-config": "^1.0.0",
+    "babel-jest": "^25.1.0",
+    "eslint": "^6.5.1",
+    "jest": "^25.1.0",
+    "metro-react-native-babel-preset": "^0.59.0",
+    "react-test-renderer": "16.13.1"
   }
 }

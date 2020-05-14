@@ -30,10 +30,6 @@
 #include <memory>
 #include "VROARSession.h"
 
-#if ENABLE_OPENCV
-#include <opencv2/core/mat.hpp>
-#endif /* ENABLE_OPENCV */
-
 /*
  The orientation of the given target image.
  */
@@ -76,25 +72,10 @@ public:
         return _physicalWidth;
     }
 
-#if ENABLE_OPENCV
-    cv::Mat getTargetMat() {
-        return _targetMat;
-    }
-
-    void setTargetMat(cv::Mat targetMat) {
-        _targetMat = targetMat;
-    }
-#endif /* ENABLE_OPENCV */
-
 private:
     std::weak_ptr<VROARAnchor> _anchor;
     VROImageOrientation _orientation;
     float _physicalWidth;
-
-
-#if ENABLE_OPENCV
-    cv::Mat _targetMat;
-#endif /* ENABLE_OPENCV */
 };
 
 #endif /* VROARImageTarget_h */
