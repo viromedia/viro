@@ -204,6 +204,12 @@ public class VRTMaterialVideo extends VRTComponent implements MaterialManager.Ma
     }
 
     @Override
+    protected void handleAppearanceChange() {
+        setPaused(mPaused);
+        super.handleAppearanceChange();
+    }
+
+    @Override
     public void onTearDown() {
         super.onTearDown();
         if (mVideoTexture != null) {
