@@ -26,6 +26,7 @@
     "LICENSE"
   ],
   "dependencies": {
+    "create-react-class": "^15.7.0",
     "prop-types": "^15.5.10",
     "react": "17.0.1",
     "react-native": "0.63.3"
