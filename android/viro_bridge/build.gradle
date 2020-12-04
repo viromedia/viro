@@ -26,8 +26,8 @@ dependencies {
     implementation 'com.android.support:appcompat-v7:28.0.0'
     testImplementation 'junit:junit:4.12'
     implementation 'com.facebook.react:react-native:+'
-    implementation project(':arcore_client')
     implementation project(':viro_renderer')
+    implementation 'com.google.ar:core:1.10.0'
     implementation 'com.google.vr:sdk-common:1.180.0'
     implementation 'com.google.android.exoplayer:exoplayer:2.7.1'
     implementation 'com.google.protobuf.nano:protobuf-javanano:3.0.0-alpha-7'

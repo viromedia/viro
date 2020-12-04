@@ -1,1 +1,1 @@
-include ':viro_bridge', ':viro_renderer', ':arcore_client'
+include ':viro_bridge', ':viro_renderer'
