@@ -14,17 +14,6 @@
     "react": "17.0.1",
     "react-native": "0.63.3"
   },
-  "files": [
-    "components",
-    "android/react_viro",
-    "android/viro_renderer",
-    "android/gvr_common",
-    "android/arcore_client",
-    "ios/",
-    "bin",
-    "react-native.config.js",
-    "LICENSE"
-  ],
   "dependencies": {
     "create-react-class": "^15.7.0",
     "prop-types": "^15.5.10",
