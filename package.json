@@ -23,6 +23,7 @@
     "ios/dist",
     "ios/ViroReact.podspec",
     "bin",
+    "react-native.config.js",
     "LICENSE"
   ],
   "dependencies": {
