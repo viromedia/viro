@@ -26,9 +26,9 @@ import android.graphics.Color;
 import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.ReadableMap;
-import com.viro.core.Material;
-import com.viro.core.ViroContext;
-import com.viro.core.Text;
+import com.mendix.viro.core.Material;
+import com.mendix.viro.core.ViroContext;
+import com.mendix.viro.core.Text;
 
 import java.util.List;
 

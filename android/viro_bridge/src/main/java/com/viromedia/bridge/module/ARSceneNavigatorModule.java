@@ -46,10 +46,10 @@ import com.facebook.react.uimanager.NativeViewHierarchyManager;
 import com.facebook.react.uimanager.UIBlock;
 import com.facebook.react.uimanager.UIManagerModule;
 import com.facebook.react.module.annotations.ReactModule;
-import com.viro.core.Vector;
-import com.viro.core.ViroMediaRecorder;
-import com.viro.core.ViroMediaRecorder.Error;
-import com.viro.core.ViroViewARCore;
+import com.mendix.viro.core.Vector;
+import com.mendix.viro.core.ViroMediaRecorder;
+import com.mendix.viro.core.ViroMediaRecorder.Error;
+import com.mendix.viro.core.ViroViewARCore;
 import com.viromedia.bridge.component.VRTARSceneNavigator;
 
 @ReactModule(name = "VRTARSceneNavigatorModule")

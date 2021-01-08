@@ -27,7 +27,7 @@ import android.os.AsyncTask;
 import androidx.annotation.UiThread;
 import android.util.Log;
 import com.facebook.react.bridge.ReadableMap;
-import com.viro.core.Texture;
+import com.mendix.viro.core.Texture;
 
 /**
  * Helper class for downloading HDR image data into a {@link Texture} object.

@@ -29,7 +29,7 @@ import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.devsupport.interfaces.DevOptionHandler;
 import com.facebook.react.devsupport.interfaces.DevSupportManager;
 import com.facebook.react.module.annotations.ReactModule;
-import com.viro.core.ViroView;
+import com.mendix.viro.core.ViroView;
 
 import java.lang.ref.WeakReference;
 

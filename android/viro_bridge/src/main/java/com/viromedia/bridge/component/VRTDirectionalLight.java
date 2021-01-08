@@ -23,9 +23,9 @@ package com.viromedia.bridge.component;
 
 import android.content.Context;
 
-import com.viro.core.DirectionalLight;
-import com.viro.core.Node;
-import com.viro.core.Vector;
+import com.mendix.viro.core.DirectionalLight;
+import com.mendix.viro.core.Node;
+import com.mendix.viro.core.Vector;
 
 public class VRTDirectionalLight extends VRTLight {
 

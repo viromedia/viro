@@ -35,7 +35,7 @@ import com.facebook.react.uimanager.NativeViewHierarchyManager;
 import com.facebook.react.uimanager.UIBlock;
 import com.facebook.react.uimanager.UIManagerModule;
 import com.facebook.react.module.annotations.ReactModule;
-import com.viro.core.Vector;
+import com.mendix.viro.core.Vector;
 import com.viromedia.bridge.component.VRTVRSceneNavigator;
 
 @ReactModule(name = "VRTSceneNavigatorModule")

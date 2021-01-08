@@ -22,9 +22,9 @@
 package com.viromedia.bridge.component.node.control;
 
 import com.facebook.react.bridge.ReactContext;
-import com.viro.core.Material;
-import com.viro.core.Polygon;
-import com.viro.core.Vector;
+import com.mendix.viro.core.Material;
+import com.mendix.viro.core.Polygon;
+import com.mendix.viro.core.Vector;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;

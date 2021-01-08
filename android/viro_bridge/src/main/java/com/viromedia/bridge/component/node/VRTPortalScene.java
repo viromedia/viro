@@ -25,9 +25,9 @@ import android.view.View;
 
 import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
-import com.viro.core.Node;
-import com.viro.core.Portal;
-import com.viro.core.PortalScene;
+import com.mendix.viro.core.Node;
+import com.mendix.viro.core.Portal;
+import com.mendix.viro.core.PortalScene;
 import com.viromedia.bridge.utility.ViroEvents;
 
 import java.lang.ref.WeakReference;

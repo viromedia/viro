@@ -22,7 +22,7 @@
 package com.viromedia.bridge.component.node.control;
 
 import com.facebook.react.bridge.ReactContext;
-import com.viro.core.Sphere;
+import com.mendix.viro.core.Sphere;
 
 public class VRTSphere extends VRTControl {
     protected static final int DEFAULT_WIDTH_SEGMENT = 20;

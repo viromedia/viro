@@ -31,12 +31,12 @@ import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.ReadableMapKeySetIterator;
 import com.facebook.react.bridge.ReadableType;
 import com.facebook.react.module.annotations.ReactModule;
-import com.viro.core.internal.AnimationChain;
-import com.viro.core.internal.AnimationGroup;
-import com.viro.core.internal.ExecutableAnimation;
-import com.viro.core.internal.ExecutableAnimation.ExecutionType;
-import com.viro.core.internal.LazyMaterial;
-import com.viro.core.Material;
+import com.mendix.viro.core.internal.AnimationChain;
+import com.mendix.viro.core.internal.AnimationGroup;
+import com.mendix.viro.core.internal.ExecutableAnimation;
+import com.mendix.viro.core.internal.ExecutableAnimation.ExecutionType;
+import com.mendix.viro.core.internal.LazyMaterial;
+import com.mendix.viro.core.Material;
 import com.viromedia.bridge.utility.ViroLog;
 
 import java.util.HashMap;

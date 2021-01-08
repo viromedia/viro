@@ -25,9 +25,9 @@ import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
-import com.viro.core.ARAnchor;
-import com.viro.core.internal.ARDeclarativeNode;
-import com.viro.core.ARNode;
+import com.mendix.viro.core.ARAnchor;
+import com.mendix.viro.core.internal.ARDeclarativeNode;
+import com.mendix.viro.core.ARNode;
 import com.viromedia.bridge.utility.ARUtils;
 import com.viromedia.bridge.utility.ViroEvents;
 

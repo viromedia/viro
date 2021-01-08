@@ -32,7 +32,7 @@ import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.ReadableMapKeySetIterator;
 import com.facebook.react.module.annotations.ReactModule;
-import com.viro.core.ARImageTarget;
+import com.mendix.viro.core.ARImageTarget;
 import com.viromedia.bridge.utility.ImageDownloadListener;
 import com.viromedia.bridge.utility.ImageDownloader;
 

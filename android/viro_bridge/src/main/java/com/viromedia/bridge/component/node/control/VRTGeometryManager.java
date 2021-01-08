@@ -27,7 +27,7 @@ import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.uimanager.ThemedReactContext;
 import com.facebook.react.uimanager.annotations.ReactProp;
-import com.viro.core.Vector;
+import com.mendix.viro.core.Vector;
 
 import java.util.ArrayList;
 import java.util.List;

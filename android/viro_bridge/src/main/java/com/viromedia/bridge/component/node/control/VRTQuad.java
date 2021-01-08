@@ -23,8 +23,8 @@ package com.viromedia.bridge.component.node.control;
 
 
 import com.facebook.react.bridge.ReactContext;
-import com.viro.core.Material;
-import com.viro.core.Quad;
+import com.mendix.viro.core.Material;
+import com.mendix.viro.core.Quad;
 
 import java.util.Arrays;
 import java.util.List;

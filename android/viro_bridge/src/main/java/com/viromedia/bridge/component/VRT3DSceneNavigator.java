@@ -31,12 +31,12 @@ import android.widget.FrameLayout;
 import com.facebook.react.bridge.LifecycleEventListener;
 import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
-import com.viro.core.RendererConfiguration;
-import com.viro.core.ViroContext;
+import com.mendix.viro.core.RendererConfiguration;
+import com.mendix.viro.core.ViroContext;
 
-import com.viro.core.ViroView;
-import com.viro.core.Vector;
-import com.viro.core.ViroViewScene;
+import com.mendix.viro.core.ViroView;
+import com.mendix.viro.core.Vector;
+import com.mendix.viro.core.ViroViewScene;
 import com.viromedia.bridge.ReactViroPackage;
 import com.viromedia.bridge.component.node.VRTScene;
 import com.viromedia.bridge.module.MaterialManager;

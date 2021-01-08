@@ -25,9 +25,9 @@ import android.os.Handler;
 import android.os.Looper;
 
 import com.facebook.react.bridge.ReactContext;
-import com.viro.core.ViroViewGVR;
-import com.viro.core.ViroViewOVR;
-import com.viro.core.ViroView;
+import com.mendix.viro.core.ViroViewGVR;
+import com.mendix.viro.core.ViroViewOVR;
+import com.mendix.viro.core.ViroView;
 import com.viromedia.bridge.ReactViroPackage;
 import com.viromedia.bridge.utility.ViroLog;
 

@@ -1,1 +1,1 @@
-include ':viro_bridge', ':viro_renderer'
+include ':viro_bridge', ':viroreact'

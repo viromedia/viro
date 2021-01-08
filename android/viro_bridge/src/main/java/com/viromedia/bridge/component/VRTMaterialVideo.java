@@ -25,8 +25,8 @@ import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
-import com.viro.core.Material;
-import com.viro.core.VideoTexture;
+import com.mendix.viro.core.Material;
+import com.mendix.viro.core.VideoTexture;
 import com.viromedia.bridge.module.MaterialManager;
 import com.viromedia.bridge.utility.ViroEvents;
 

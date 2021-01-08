@@ -24,11 +24,11 @@ package com.viromedia.bridge.component.node;
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.WritableMap;
-import com.viro.core.ARAnchor;
-import com.viro.core.ARPlaneAnchor;
-import com.viro.core.internal.ARDeclarativeNode;
-import com.viro.core.internal.ARDeclarativePlane;
-import com.viro.core.Node;
+import com.mendix.viro.core.ARAnchor;
+import com.mendix.viro.core.ARPlaneAnchor;
+import com.mendix.viro.core.internal.ARDeclarativeNode;
+import com.mendix.viro.core.internal.ARDeclarativePlane;
+import com.mendix.viro.core.Node;
 
 public class VRTARPlane extends VRTARNode {
 

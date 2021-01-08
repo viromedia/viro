@@ -22,10 +22,10 @@
 package com.viromedia.bridge.component.node;
 
 import com.facebook.react.bridge.ReactContext;
-import com.viro.core.ARImageTarget;
-import com.viro.core.ARScene;
-import com.viro.core.Node;
-import com.viro.core.internal.ARDeclarativeImageNode;
+import com.mendix.viro.core.ARImageTarget;
+import com.mendix.viro.core.ARScene;
+import com.mendix.viro.core.Node;
+import com.mendix.viro.core.internal.ARDeclarativeImageNode;
 import com.viromedia.bridge.module.ARTrackingTargetsModule;
 
 public class VRTARImageMarker extends VRTARNode {

@@ -27,8 +27,8 @@ import android.util.Log;
 import android.view.View;
 
 import com.facebook.react.bridge.ReactContext;
-import com.viro.core.ViroViewARCore;
-import com.viro.core.ViroView;
+import com.mendix.viro.core.ViroViewARCore;
+import com.mendix.viro.core.ViroView;
 import com.viromedia.bridge.ReactViroPackage;
 import com.viromedia.bridge.component.node.VRTARScene;
 import com.viromedia.bridge.utility.DisplayRotationListener;

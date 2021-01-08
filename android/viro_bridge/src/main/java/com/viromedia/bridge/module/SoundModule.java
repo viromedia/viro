@@ -32,7 +32,7 @@ import com.facebook.react.bridge.ReadableMapKeySetIterator;
 import com.facebook.react.bridge.ReadableType;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.module.annotations.ReactModule;
-import com.viro.core.SoundData;
+import com.mendix.viro.core.SoundData;
 import java.util.HashMap;
 
 @ReactModule(name = "VRTSoundModule")

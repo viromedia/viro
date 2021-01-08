@@ -26,10 +26,10 @@ import android.net.Uri;
 
 import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
-import com.viro.core.internal.BaseSound;
-import com.viro.core.SoundData;
-import com.viro.core.SoundField;
-import com.viro.core.Vector;
+import com.mendix.viro.core.internal.BaseSound;
+import com.mendix.viro.core.SoundData;
+import com.mendix.viro.core.SoundField;
+import com.mendix.viro.core.Vector;
 import com.viromedia.bridge.utility.Helper;
 import com.viromedia.bridge.utility.ViroEvents;
 

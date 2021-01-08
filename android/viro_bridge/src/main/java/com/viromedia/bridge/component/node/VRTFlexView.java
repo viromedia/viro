@@ -21,9 +21,9 @@
 
 package com.viromedia.bridge.component.node;
 
-import com.viro.core.Geometry;
-import com.viro.core.Material;
-import com.viro.core.Quad;
+import com.mendix.viro.core.Geometry;
+import com.mendix.viro.core.Material;
+import com.mendix.viro.core.Quad;
 
 import java.util.List;
 

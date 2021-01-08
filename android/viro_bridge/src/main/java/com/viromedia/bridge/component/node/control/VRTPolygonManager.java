@@ -27,7 +27,7 @@ import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.common.MapBuilder;
 import com.facebook.react.uimanager.ThemedReactContext;
 import com.facebook.react.uimanager.annotations.ReactProp;
-import com.viro.core.Vector;
+import com.mendix.viro.core.Vector;
 import com.viromedia.bridge.component.node.VRTNodeManager;
 import com.viromedia.bridge.utility.ViroEvents;
 import java.util.ArrayList;

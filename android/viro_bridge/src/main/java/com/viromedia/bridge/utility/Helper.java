@@ -26,7 +26,7 @@ import android.net.Uri;
 import androidx.annotation.Nullable;
 
 import com.facebook.react.bridge.ReadableArray;
-import com.viro.core.Vector;
+import com.mendix.viro.core.Vector;
 
 /**
  * Class containing few common helper methods.

@@ -37,14 +37,14 @@ import com.facebook.react.uimanager.NativeViewHierarchyManager;
 import com.facebook.react.uimanager.UIBlock;
 import com.facebook.react.uimanager.UIManagerModule;
 import com.facebook.react.module.annotations.ReactModule;
-import com.viro.core.BoundingBox;
-import com.viro.core.Matrix;
-import com.viro.core.Object3D;
-import com.viro.core.Quaternion;
-import com.viro.core.Vector;
+import com.mendix.viro.core.BoundingBox;
+import com.mendix.viro.core.Matrix;
+import com.mendix.viro.core.Object3D;
+import com.mendix.viro.core.Quaternion;
+import com.mendix.viro.core.Vector;
 import com.viromedia.bridge.component.node.VRTNode;
 
-import com.viro.core.Node;
+import com.mendix.viro.core.Node;
 import com.viromedia.bridge.component.node.control.VRT3DObject;
 import java.util.Set;
 

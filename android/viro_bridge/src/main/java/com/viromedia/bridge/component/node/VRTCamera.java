@@ -23,9 +23,9 @@ package com.viromedia.bridge.component.node;
 
 
 import com.facebook.react.bridge.ReactContext;
-import com.viro.core.Camera;
-import com.viro.core.Node;
-import com.viro.core.Vector;
+import com.mendix.viro.core.Camera;
+import com.mendix.viro.core.Node;
+import com.mendix.viro.core.Vector;
 import com.viromedia.bridge.component.node.VRTNode;
 import com.viromedia.bridge.utility.Helper;
 

@@ -23,7 +23,7 @@ package com.viromedia.bridge.component;
 
 import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.ReadableMap;
-import com.viro.core.ViroContext;
+import com.mendix.viro.core.ViroContext;
 import com.viromedia.bridge.component.node.VRTNode;
 
 /**

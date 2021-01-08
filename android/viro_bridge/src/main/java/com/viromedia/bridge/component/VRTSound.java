@@ -26,9 +26,9 @@ import android.net.Uri;
 
 import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
-import com.viro.core.internal.BaseSound;
-import com.viro.core.SoundData;
-import com.viro.core.Sound;
+import com.mendix.viro.core.internal.BaseSound;
+import com.mendix.viro.core.SoundData;
+import com.mendix.viro.core.Sound;
 import com.viromedia.bridge.utility.ViroEvents;
 
 public class VRTSound extends VRTBaseSound implements Sound.PlaybackListener {

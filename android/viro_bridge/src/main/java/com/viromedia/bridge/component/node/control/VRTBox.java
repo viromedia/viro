@@ -23,7 +23,7 @@ package com.viromedia.bridge.component.node.control;
 
 
 import com.facebook.react.bridge.ReactContext;
-import com.viro.core.Box;
+import com.mendix.viro.core.Box;
 
 public class VRTBox extends VRTControl {
     private Box mNativeBox;

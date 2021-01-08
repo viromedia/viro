@@ -27,11 +27,11 @@ import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
-import com.viro.core.Material;
-import com.viro.core.Texture;
-import com.viro.core.ViroContext;
-import com.viro.core.Quad;
-import com.viro.core.VideoTexture;
+import com.mendix.viro.core.Material;
+import com.mendix.viro.core.Texture;
+import com.mendix.viro.core.ViroContext;
+import com.mendix.viro.core.Quad;
+import com.mendix.viro.core.VideoTexture;
 import com.viromedia.bridge.utility.Helper;
 import com.viromedia.bridge.utility.ViroEvents;
 

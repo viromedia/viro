@@ -24,12 +24,12 @@ package com.viromedia.bridge.utility;
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.WritableArray;
 import com.facebook.react.bridge.WritableMap;
-import com.viro.core.ARAnchor;
-import com.viro.core.ARHitTestResult;
-import com.viro.core.ARImageAnchor;
-import com.viro.core.ARPlaneAnchor;
-import com.viro.core.ARPointCloud;
-import com.viro.core.Vector;
+import com.mendix.viro.core.ARAnchor;
+import com.mendix.viro.core.ARHitTestResult;
+import com.mendix.viro.core.ARImageAnchor;
+import com.mendix.viro.core.ARPlaneAnchor;
+import com.mendix.viro.core.ARPointCloud;
+import com.mendix.viro.core.Vector;
 
 public class ARUtils {
 

@@ -30,7 +30,7 @@ import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.uimanager.events.RCTEventEmitter;
 import com.facebook.react.views.view.ReactViewGroup;
-import com.viro.core.ViroContext;
+import com.mendix.viro.core.ViroContext;
 import com.viromedia.bridge.component.node.VRTScene;
 import com.viromedia.bridge.utility.ViroEvents;
 

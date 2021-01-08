@@ -24,9 +24,9 @@ package com.viromedia.bridge.component;
 import android.util.Log;
 
 import com.facebook.react.bridge.ReactContext;
-import com.viro.core.Controller;
-import com.viro.core.EventDelegate;
-import com.viro.core.ViroContext;
+import com.mendix.viro.core.Controller;
+import com.mendix.viro.core.EventDelegate;
+import com.mendix.viro.core.ViroContext;
 import com.viromedia.bridge.utility.ComponentEventDelegate;
 
 public class VRTController extends VRTComponent {

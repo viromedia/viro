@@ -33,7 +33,7 @@ import com.facebook.react.uimanager.NativeViewHierarchyManager;
 import com.facebook.react.uimanager.UIBlock;
 import com.facebook.react.uimanager.UIManagerModule;
 import com.facebook.react.module.annotations.ReactModule;
-import com.viro.core.internal.CameraCallback;
+import com.mendix.viro.core.internal.CameraCallback;
 import com.viromedia.bridge.component.node.VRTCamera;
 import com.viromedia.bridge.component.node.VRTScene;
 

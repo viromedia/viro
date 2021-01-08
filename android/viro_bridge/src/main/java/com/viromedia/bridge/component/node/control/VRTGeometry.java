@@ -24,9 +24,9 @@ package com.viromedia.bridge.component.node.control;
 import android.util.Log;
 
 import com.facebook.react.bridge.ReactContext;
-import com.viro.core.Geometry;
-import com.viro.core.Submesh;
-import com.viro.core.Vector;
+import com.mendix.viro.core.Geometry;
+import com.mendix.viro.core.Submesh;
+import com.mendix.viro.core.Vector;
 
 import java.util.ArrayList;
 import java.util.List;

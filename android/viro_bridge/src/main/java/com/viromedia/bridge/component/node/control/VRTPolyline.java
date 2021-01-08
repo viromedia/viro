@@ -24,7 +24,7 @@ package com.viromedia.bridge.component.node.control;
 
 import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.ReadableArray;
-import com.viro.core.Polyline;
+import com.mendix.viro.core.Polyline;
 
 public class VRTPolyline extends VRTControl {
     private Polyline mNativeLine;
