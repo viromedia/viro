@@ -1,6 +1,6 @@
 # This file uses centimeters as units for non-parametric coordinates.
 
-mtllib object_car_2.mtl
+mtllib object_car.mtl
 g default
 v 1.029775 0.020907 -1.192865
 v 1.029775 0.059468 -1.426152
