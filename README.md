@@ -1,7 +1,7 @@
 :information_source: | Active development for Viro is now occurring at the [Viro Community](https://github.com/ViroCommunity) fork. We encourage all Viro developers to follow and get the latest updates at [ViroCommunity/viro](https://github.com/ViroCommunity/viro)
 :---: | :---
 
-# Viro React
+# Viro React 
 Viro React is a platform for developers to rapidly build augmented reality (AR) and virtual reality (VR) experiences. Developers write in React Native, and Viro runs their code natively across all mobile VR (including Google Daydream, Samsung Gear VR, and Google Cardboard for iOS and Android) and AR (iOS ARKit and Android ARCore) platforms. [More info here](http://docs.viromedia.com/).
 
 This project contains the full source code for Viro React, and various sample Viro projects.
