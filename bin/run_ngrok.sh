@@ -31,7 +31,7 @@ fi
 #loop a few times until we get a ngrok response
 numtries=0
 
-# Wait for a bit till until ngrok is responding.
+# Wait for a bit until ngrok is responding.
 while true; do
   STATUSCODE=$(curl --silent --output /dev/null --write-out "%{http_code}" http://localhost:4040/api/tunnels)
 
